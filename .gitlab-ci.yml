@@ -24,6 +24,8 @@ after_script:
   - echo "Ended by ${GITLAB_USER_LOGIN} at $(date +%Y-%m-%d'-'%H-%M-%S)"
 
 build image:
+  environment:
+    name: "test-cluster"
   stage: building
   image:
     name: gcr.io/kaniko-project/executor:v1.3.0-debug # Must run in own image
