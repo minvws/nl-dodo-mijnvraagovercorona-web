@@ -31,12 +31,9 @@ build image:
     name: gcr.io/kaniko-project/executor:v1.3.0-debug # Must run in own image
     entrypoint: [""]
   script:
-    - echo "DOCKER_AUTH_CONFIG -- ${DOCKER_AUTH_CONFIG}"
-    - echo "Username ${CD_USERNAME}, Password ${CD_PASSWORD}"
-    - echo $DOCKER_AUTH_CONFIG > /kaniko/.docker/config.json
-    #- echo "{\"auths\":{
-      #\"${CD_HARBOR_REGISTRY}\":{\"username\":\"${CD_USERNAME}\",\"password\":\"${CD_PASSWORD}\"}
-      #}}" > /kaniko/.docker/config.json # Harbor credentials for pushing
+    - echo "${DOCKER_AUTH_CONFIG}" > /kaniko/.docker/config.json
+    - cat /kaniko/.docker/config.json
+    - echo "{\"auths\":{\"${CD_HARBOR_REGISTRY}\":{\"username\":\"${CD_USERNAME}\",\"password\":\"${CD_PASSWORD}\"}}}" # Harbor credentials for pushing
     - cat ./Dockerfile |
       sed "s~node:14~harbor.diensten.test.overheid.standaardplatform.rijksapps.nl/vws-reis/node:14~g"
       > Dockerfile_derived # Adjust FROM to prevent Docker rate limiting; assuming adjusted image to be present in Harbor; ref. sp-demo/housekeeping
