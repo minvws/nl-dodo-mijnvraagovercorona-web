@@ -1,0 +1,41 @@
+#
+# GitLab build pipeline
+#
+
+variables:
+  CD_NAMESPACE_BHR: vws-reis-bhr
+  CD_HARBOR_REGISTRY: harbor.diensten.test.overheid.standaardplatform.rijksapps.nl
+
+stages:
+  - building
+
+# CI_* variables are defined in GitLab group settings, see build log for actual values
+before_script:
+  - echo "Started by ${GITLAB_USER_LOGIN} at $(date +%Y-%m-%d'-'%H-%M-%S)"
+  - unset ${HISTFILE} # Disable shell cache for security purposes
+  - CD_USERNAME=$(kubectl get secret -n ${CD_NAMESPACE_BHR} sa-user-secret -o jsonpath={.data.username} | base64 --decode)
+  - CD_PASSWORD=$(kubectl get secret -n ${CD_NAMESPACE_BHR} sa-user-secret -o jsonpath={.data.password} | base64 --decode)
+  - echo CI_REGISTRY_TEST ${CI_REGISTRY_TEST} # See build log: harbor.diensten.test.overheid.standaardplatform.rijksapps.nl
+  - source ./env/gitlab.sh # Load build context
+  - docker login ${CD_HARBOR_REGISTRY} -u ${CD_USERNAME} -p ${CD_PASSWORD}
+
+after_script:
+  - echo "Ended by ${GITLAB_USER_LOGIN} at $(date +%Y-%m-%d'-'%H-%M-%S)"
+
+build image:
+  stage: building
+  image:
+    name: gcr.io/kaniko-project/executor:v1.3.0-debug # Must run in own image
+    entrypoint: [""]
+  script:
+    - echo "{\"auths\":{
+      \"${CD_HARBOR_REGISTRY}\":{\"username\":\"${CD_USERNAME}\",\"password\":\"${CD_PASSWORD}\"}
+      }}" > /kaniko/.docker/config.json # Harbor credentials for pushing
+    - cat ./Dockerfile |
+      sed "s~node:14~harbor.diensten.test.overheid.standaardplatform.rijksapps.nl/vws-reis/node:14~g"
+      > Dockerfile_derived # Adjust FROM to prevent Docker rate limiting; assuming adjusted image to be present in Harbor; ref. sp-demo/housekeeping
+    - /kaniko/executor
+      --context ${CI_PROJECT_DIR}
+      --dockerfile ./Dockerfile_derived
+      --destination ${CD_HARBOR_REGISTRY}/vws-reis/the-app:0.0
+      --cache=true # Build and push to Harbor
