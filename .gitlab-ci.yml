@@ -31,6 +31,8 @@ build image:
     name: gcr.io/kaniko-project/executor:v1.3.0-debug # Must run in own image
     entrypoint: [""]
   script:
+    - echo "DOCKER_AUTH_CONFIG: ${DOCKER_AUTH_CONFIG}"
+    - echo "Username ${CD_USERNAME}, Password ${CD_PASSWORD}"
     - echo $DOCKER_AUTH_CONFIG > /kaniko/.docker/config.json
     #- echo "{\"auths\":{
       #\"${CD_HARBOR_REGISTRY}\":{\"username\":\"${CD_USERNAME}\",\"password\":\"${CD_PASSWORD}\"}
