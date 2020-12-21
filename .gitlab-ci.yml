@@ -13,9 +13,9 @@ stages:
 before_script:
   - echo "Started by ${GITLAB_USER_LOGIN} at $(date +%Y-%m-%d'-'%H-%M-%S)"
   - unset ${HISTFILE} # Disable shell cache for security purposes
-  - wget --no-check-certificate -q https://storage.googleapis.com/kubernetes-release/release/v1.18.0/bin/linux/amd64/kubectl -O /usr/local/bin/kubectl && chmod +x /usr/local/bin/kubectl
-  - CD_USERNAME=$(kubectl get secret -n ${CD_NAMESPACE_BHR} sa-user-secret -o jsonpath={.data.username} | base64 -d)
-  - CD_PASSWORD=$(kubectl get secret -n ${CD_NAMESPACE_BHR} sa-user-secret -o jsonpath={.data.password} | base64 -d)
+  - wget --no-check-certificate -q https://storage.googleapis.com/kubernetes-release/release/v1.18.0/bin/linux/amd64/kubectl && chmod +x ./kubectl
+  - CD_USERNAME=$(./kubectl get secret -n ${CD_NAMESPACE_BHR} sa-user-secret -o jsonpath={.data.username} | base64 -d)
+  - CD_PASSWORD=$(./kubectl get secret -n ${CD_NAMESPACE_BHR} sa-user-secret -o jsonpath={.data.password} | base64 -d)
   - echo CI_REGISTRY_TEST ${CI_REGISTRY_TEST} # See build log: harbor.diensten.test.overheid.standaardplatform.rijksapps.nl
   - source ./env/gitlab.sh # Load build context
   - docker login ${CD_HARBOR_REGISTRY} -u ${CD_USERNAME} -p ${CD_PASSWORD}
