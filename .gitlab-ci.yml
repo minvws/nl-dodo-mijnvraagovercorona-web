@@ -46,5 +46,4 @@ build image:
       --context ${CI_PROJECT_DIR}
       --dockerfile ./Dockerfile_derived
       --destination ${CD_HARBOR_REGISTRY}/vws-reis/the-app:0.0
-      --cache=true
-      --verbosity debug
+    #  --cache=true
