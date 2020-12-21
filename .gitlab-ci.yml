@@ -41,8 +41,10 @@ build image:
     - echo "CI_PROJECT_DIR ${CI_PROJECT_DIR}"
     - pwd
     - "echo ${CD_HARBOR_REGISTRY}/vws-reis/the-app:0.0"
+    # Build and push to Harbor
     - /kaniko/executor
       --context ${CI_PROJECT_DIR}
       --dockerfile ./Dockerfile_derived
       --destination ${CD_HARBOR_REGISTRY}/vws-reis/the-app:0.0
-      --cache=true # Build and push to Harbor
+      --cache=true
+      --verbosity debug
