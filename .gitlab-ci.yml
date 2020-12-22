@@ -37,8 +37,13 @@ build image:
     - cat ./Dockerfile |
       sed "s~node:14~harbor.diensten.test.overheid.standaardplatform.rijksapps.nl/vws-reis/node:14~g"
       > Dockerfile_derived # Adjust FROM to prevent Docker rate limiting; assuming adjusted image to be present in Harbor; ref. sp-demo/housekeeping
+    - cat Dockerfile_derived
+    - echo "CI_PROJECT_DIR ${CI_PROJECT_DIR}"
+    - pwd
+    - "echo ${CD_HARBOR_REGISTRY}/vws-reis/the-app:0.0"
+    # Build and push to Harbor
     - /kaniko/executor
       --context ${CI_PROJECT_DIR}
       --dockerfile ./Dockerfile_derived
       --destination ${CD_HARBOR_REGISTRY}/vws-reis/the-app:0.0
-      --cache=true # Build and push to Harbor
+    #  --cache=true
