@@ -1,8 +1,14 @@
 /** @jsx jsx */
-import * as React from 'react';
+import { jsx } from 'theme-ui';
+import LandingHeader from '../components/LandingHeader';
 
-import { jsx } from '@emotion/core';
 
-const Home = () => <h1>Home</h1>;
+const Home = () => {
+    return (
+        <>
+            <LandingHeader />
+        </>
+    );
+}
 
 export default Home;

@@ -1,12 +1,13 @@
 /** @jsx jsx */
-import * as React from 'react';
+import React from 'react';
 
 import App from 'next/app';
 import Head from 'next/head';
 
 import { jsx, ThemeProvider } from 'theme-ui';
 
-// import theme from '../utilities/styling/theme';
+import theme from '../utilities/styling/theme';
+import '../styles/global.css';
 
 class TravelCheckApp extends App {
 	render() {
@@ -22,9 +23,9 @@ class TravelCheckApp extends App {
 
 					<title>Travel Check Development</title>
 				</Head>
-				{/* <ThemeProvider theme={theme}> */}
-				<Component {...pageProps} />
-				{/* </ThemeProvider> */}
+				<ThemeProvider theme={theme}>
+					<Component {...pageProps} />
+				</ThemeProvider>
 			</>
 		);
 	}
