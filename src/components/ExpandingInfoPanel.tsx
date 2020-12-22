@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from 'react';
-import { Container, Text, jsx } from 'theme-ui';
+import { Container, Text, Image, jsx } from 'theme-ui';
 
 type InfoPanelProps = {
     title: string
@@ -16,14 +16,7 @@ const ExpandingInfoPanel = ({title}: InfoPanelProps) => {
             margin: '1em'
         }}>
         <Text>
-            <span
-                sx={{
-                    textDecoration: 'none',
-                    fontSize: '1.4em',
-                    paddingRight: '0.6em',
-                    fontWeight: 600
-                }}
-            >⌄</span>
+            <Image src="/icons/Button Arrow.svg" />
             <span sx={{
                 textDecoration: 'underline',
                 fontWeight: 400

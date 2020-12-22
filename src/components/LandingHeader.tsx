@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import React from 'react';
+import Link from 'next/link';
 import { Heading, Image, Container, Button, jsx } from 'theme-ui';
 
 const LandingHeader = () => {
@@ -17,7 +18,7 @@ const LandingHeader = () => {
                     margin: '-1em'
                 }} >
             <Image
-                src='images/ro-crop.svg' />
+                src='/icons/RO logo.svg' />
             </Container>
 
             <Heading as='h5'>
@@ -30,13 +31,16 @@ const LandingHeader = () => {
             Doe de check voor corona-richtlijnen en tips voor je thuisquarantaine.
             </Heading>
             <Container>
-                <Button
+            <Link href='/advice'>
+            <Button
                     sx={{
                         width: '100%',
                         padding: '0.8em',
                         marginTop: '1em',
                         fontSize: '1.2em'
                     }}>Doe de check</Button>
+
+            </Link>
             </Container>
         </header>
     );
