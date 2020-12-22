@@ -21,9 +21,10 @@ export default {
             fontFamily: 'RoSans'
         }
     },
-    styles: {
-        h1: {
-            variant: 'text.heading'
+    buttons: {
+        primary: {
+            color: '#fff',
+            bg: 'buttonBackground'
         }
     }
 }

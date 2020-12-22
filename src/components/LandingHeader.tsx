@@ -1,22 +1,45 @@
 /** @jsx jsx */
 import React from 'react';
-import { jsx } from 'theme-ui';
+import { Heading, Image, Container, Button, jsx } from 'theme-ui';
 
 const LandingHeader = () => {
     return (
         <header
-            sx={{
-                backgroundColor: 'headerBackground',
-                fontFamily: 'heading',
-                color: 'headerText'
-            }}>
-            <h5>Reis tot 15 maart 2021 alleen noodzakelijk</h5>
-            <h1>Wat als je toch naar het buitenland gaat?</h1>
-            <h2 sx={{fontWeight: 'normal'}}>Doe de check voor corona-richtlijnen en tips voor je thuisquarantaine.</h2>
-            <button>Doe de check</button>
+        sx={{
+            backgroundColor: 'headerBackground',
+            fontFamily: 'heading',
+            color: 'headerText',
+            padding: '1em'
+        }}>
+            <Container
+                sx={{
+                    width: '100%',
+                    margin: '-1em'
+                }} >
+            <Image
+                src='images/ro-crop.svg' />
+            </Container>
 
+            <Heading as='h5'>
+            Reis tot 15 maart 2021 alleen noodzakelijk
+            </Heading>
+            <Heading as='h1'>
+            Wat als je toch naar het buitenland gaat?
+            </Heading>
+            <Heading as='h2' sx={{fontWeight: '200'}}>
+            Doe de check voor corona-richtlijnen en tips voor je thuisquarantaine.
+            </Heading>
+            <Container>
+                <Button
+                    sx={{
+                        width: '100%',
+                        padding: '0.8em',
+                        marginTop: '1em',
+                        fontSize: '1.2em'
+                    }}>Doe de check</Button>
+            </Container>
         </header>
-    )
+    );
 };
 
 export default LandingHeader;
