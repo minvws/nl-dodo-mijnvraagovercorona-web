@@ -4,7 +4,13 @@ import Link from 'next/link';
 import { Heading, Image, Container, Button, jsx } from 'theme-ui';
 import RoHeaderLogo from '../components/RoHeaderLogo';
 
-const LandingHeader = () => {
+type LandingHeaderProps = {
+    message: string,
+    secondaryMessage?: string,
+    children?: React.ReactNode
+}
+
+const LandingHeader = (props: LandingHeaderProps) => {
     return (
         <header
             sx={{
@@ -13,54 +19,33 @@ const LandingHeader = () => {
                 color: 'header',
                 padding: '1em'
             }}>
-            <RoHeaderLogo align='center' />
-            <Container
-                sx={{
-                    paddingTop: '24px'
-                }}>
+            <RoHeaderLogo align='center'/>
+            <Container>
                 <Image
                     sx={{
                         float: 'right',
-                        marginTop: '-115px',
+                        marginTop: '-90px',
                         marginRight: '-1em'
                     }}
                     src='/images/Koffer_MobielRetina.svg' />
-                <Heading as='h4'
-                         sx={{
-                             width: '50%'
-                         }}>
-                    Reis tot 15 maart 2021 alleen noodzakelijk
-                </Heading>
+                { props.secondaryMessage &&
+                  <Heading as='h4'
+                           sx={{
+                               paddingTop: '24px',
+                               width: '50%'
+                           }}>
+                      {props.secondaryMessage}
+                  </Heading>
+                }
+
                 <Heading as='h1'
                          sx={{
                              fontSize: 36,
                              paddingTop: '24px'
                          }}>
-                    Wat als je toch naar het buitenland gaat?
+                    { props.message }
                 </Heading>
-                <Heading
-                    as='h2'
-                    sx={{
-                        fontWeight: 200,
-                        paddingTop: '24px'
-                    }}>
-                    Doe de check voor corona-richtlijnen en tips voor je thuisquarantaine.
-                </Heading>
-            </Container>
-            <Container>
-                <Link href='/advice'>
-                    <Button
-                        sx={{
-                            width: '100%',
-                            padding: '0.8em',
-                            marginTop: '1em',
-                            fontSize: '1.2em',
-                            fontFamily: 'body',
-                            fontWieght: 'bold',
-                            backgroundColor: 'button'
-                        }}>Doe de check</Button>
-
-                </Link>
+                { props.children }
             </Container>
         </header>
     );
