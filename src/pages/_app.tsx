@@ -8,6 +8,7 @@ import { jsx, ThemeProvider } from 'theme-ui';
 
 import theme from '../utilities/styling/theme';
 import '../styles/global.css';
+import '../styles/components/PeriodSelect.css';
 
 class TravelCheckApp extends App {
 	render() {

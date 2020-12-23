@@ -4,8 +4,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import AdviceHeader from '../../../components/advice/AdviceHeader';
 import ExpandingInfoPanel from '../../../components/ExpandingInfoPanel';
-import DayPicker, { DateUtils } from 'react-day-picker';
-import 'react-day-picker/lib/style.css';
+import PeriodSelect from '../../../components/PeriodSelect';
 
 const Period = () => {
     const router = useRouter();
@@ -19,19 +18,14 @@ const Period = () => {
                 <ExpandingInfoPanel title="Waarom vragen we dit?"   />
             </AdviceHeader>
             <Container>
-                <h5>{country}</h5>
-                <DayPicker
-                    numberOfMonths={2}
-                />
-
+                <PeriodSelect city={country} country={country} />
                 <Link
                     href={`${country}/2020-12-02_2020-12-22`}>
-                <Button
-                    sx={{
-                        width: '100%',
-                        padding: '0.8em',
-                        marginTop: '1em',
-                        fontSize: '1.2em'
+                    <Button sx={{
+                            width: '100%',
+                            padding: '0.8em',
+                            marginTop: '1em',
+                            fontSize: '1.2em'
                     }}>Toon het resultaat</Button>
                 </Link>
             </Container>

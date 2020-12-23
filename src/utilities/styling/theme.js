@@ -13,7 +13,8 @@ export default {
         button: '#CA005D',
         hoverSecondary: '#931e55',
         structureBackground: '#f0d5e2',
-        backgroundSecondary: '#f4b843'
+        backgroundSecondary: '#f4b843',
+        roHighlight: '#21416F'
 
         /*background: '#fff',
         headerBackground: '#f0f7fb',
