@@ -59,7 +59,6 @@ const LandingHeader = () => {
                             fontWieght: 'bold',
                             backgroundColor: 'button'
                         }}>Doe de check</Button>
-
                 </Link>
             </Container>
         </header>
