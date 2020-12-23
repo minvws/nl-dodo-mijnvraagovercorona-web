@@ -13,7 +13,7 @@ const LandingHeader = () => {
                 color: 'header',
                 padding: '1em'
             }}>
-            <RoHeaderLogo />
+            <RoHeaderLogo><></></RoHeaderLogo>
             <Container
                 sx={{
                     paddingTop: '24px'

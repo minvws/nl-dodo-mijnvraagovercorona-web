@@ -20,8 +20,7 @@ const ExpandingInfoPanel = ({title}: InfoPanelProps) => {
                 <span sx={{
                           textDecoration: 'underline',
                           fontWeight: 400,
-                          paddingLeft: '0.8em',
-                          fontWeight: 500
+                          paddingLeft: '0.8em'
                       }}>
                     {title}
                 </span>
