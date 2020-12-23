@@ -9,19 +9,23 @@ type InfoPanelProps = {
 const ExpandingInfoPanel = ({title}: InfoPanelProps) => {
     return (
         <Container
-        sx={{
-            fontSize: '1.1em',
-            fontFamily: 'body',
-            color: 'headerText',
-            margin: '1em'
-        }}>
-        <Text>
-            <Image src="/icons/Button Arrow.svg" />
-            <span sx={{
-                textDecoration: 'underline',
-                fontWeight: 400
-            }}>{title}</span>
-        </Text>
+            sx={{
+                fontSize: '1.1em',
+                fontFamily: 'body',
+                color: 'header',
+                paddingTop: '1em'
+            }}>
+            <Text>
+                <Image src="/icons/Anker arrow.svg" />
+                <span sx={{
+                          textDecoration: 'underline',
+                          fontWeight: 400,
+                          paddingLeft: '0.8em',
+                          fontWeight: 500
+                      }}>
+                    {title}
+                </span>
+            </Text>
         </Container>
     );
 }

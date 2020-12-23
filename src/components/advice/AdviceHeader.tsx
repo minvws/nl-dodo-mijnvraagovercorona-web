@@ -2,6 +2,7 @@
 import React from 'react';
 import { Heading, Container, Image, jsx } from 'theme-ui';
 import ExpandingInfoPanel from '../ExpandingInfoPanel';
+import RoHeaderLogo from '../RoHeaderLogo';
 
 type HeaderProps = {
     header: string,
@@ -16,18 +17,22 @@ const AdviceHeader = (props: HeaderProps) => {
             sx={{
                 backgroundColor: 'headerBackground',
                 fontFamily: 'heading',
-                color: 'headerText',
+                color: 'header',
                 padding: '1em'
             }}>
-        <Container>
-            <Image src='/icons/RO logo.svg' />
-        </Container>
-        <Heading as='h3'>{props.header}</Heading>
-        { props.children }
-        { props.questionStage &&
-          <p>{props.questionStage}/{props.totalStages}</p>
-        }
-
+            <RoHeaderLogo align='right'>
+                { props.questionStage &&
+                  <p>{props.questionStage}/{props.totalStages}</p>
+                }
+            </RoHeaderLogo>
+            <Heading
+                as='h2'
+                sx={{
+                    width: '60%',
+                    fontSize: 29
+                }}>
+            {props.header}</Heading>
+            { props.children }
         </header>
     );
 };

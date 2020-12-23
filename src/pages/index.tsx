@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui';
+import { Container, jsx } from 'theme-ui';
 import LandingHeader from '../components/LandingHeader';
 import ExpandingInfoPanel from '../components/ExpandingInfoPanel';
 
@@ -7,6 +7,10 @@ const Home = () => {
     return (
         <>
             <LandingHeader />
+            <Container
+                sx={{
+                    margin: '1em'
+                }}>
             <ExpandingInfoPanel
                 title="Je privacy is altijd beschermd" />
             <ExpandingInfoPanel
@@ -15,6 +19,7 @@ const Home = () => {
                 title="Actuele informatie over je bestemming en thuiskomst" />
             <ExpandingInfoPanel
                 title="We helpen je met je thuisquarantaine" />
+            </Container>
         </>
     );
 }
