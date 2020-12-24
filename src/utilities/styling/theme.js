@@ -14,8 +14,9 @@ export default {
         hoverSecondary: '#931e55',
         structureBackground: '#f0d5e2',
         backgroundSecondary: '#f4b843',
-        roHighlight: '#21416F'
-
+        roHighlight: '#21416F',
+        internalLink: '#3D7AA3',
+        inputBorder: '#CECECE'
         /*background: '#fff',
         headerBackground: '#f0f7fb',
         footerBackground: '#2e6895',
@@ -36,6 +37,9 @@ export default {
         },
         h1: {
             fontSize: 40
+        },
+        li: {
+            listStyleImage: 'url("/icons/Polygon 6.svg")'
         }
     }
 }

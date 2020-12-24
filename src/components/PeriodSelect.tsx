@@ -5,8 +5,9 @@ import DayPicker, { DateUtils } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 
 type PeriodSelectProps = {
-    city: string,
-    country: string
+    city?: string,
+    country?: string,
+    onUpdate: (from: Date, to: Date) => void
 }
 
 type PeriodSelectState = {
@@ -27,11 +28,17 @@ class PeriodSelect extends React.Component<PeriodSelectProps, PeriodSelectState>
     }
 
     handleDayClick(day: any) {
-
+        if (!this.state.from) {
+            this.setState( { from: day } );
+        } else {
+            this.setState( { to: day } );
+            this.props.onUpdate(this.state.from, day);
+        }
         if (this.state.to)  {
             const range = DateUtils.addDayToRange(day, {...this.state});
             this.setState(range);
         }
+
     }
 
     render() {
@@ -46,14 +53,27 @@ class PeriodSelect extends React.Component<PeriodSelectProps, PeriodSelectState>
                     sx={{
                         backgroundColor: 'roHighlight',
                         textAlign: 'center',
-                        color: 'white'
-                    }}
-                >
-                    <h4><em>{this.props.city}</em>, {this.props.country}</h4>
+                        color: 'white',
+                        paddingTop: '0.1em'
+                    }}>
+                    <h3
+                        sx={{}}
+                    >
+                        <span>{this.props.city}</span>,{' '}
+                        <span sx={{fontWeight: 'normal'}}>{this.props.country}</span>
+                    </h3>
                     <h5>{rangeMessage}</h5>
                 </Container>
                 <Container>
                     <DayPicker
+                        sx={{
+                            width: '100%',
+                            padding: '1em',
+                            '.DayPicker-Month': {
+                                width: '100%'
+                            }
+                        }}
+                        firstDayOfWeek={1}
                         className="Selectable"
                         fixedWeeks={true}
                         showOutsideDays={true}

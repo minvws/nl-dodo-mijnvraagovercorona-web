@@ -1,23 +1,39 @@
 /** @jsx jsx */
 import { useRouter } from 'next/router';
 import { jsx, Container, Button } from 'theme-ui';
-import AdviceHeader from '../../../../components/advice/AdviceHeader';
+import LandingHeader from '../../../../components/LandingHeader';
 
 const AdviceResult = () => {
     const router = useRouter();
     const { country, dateRange } = router.query;
+    const [fromDate, toDate] = dateRange ? dateRange[0].split('_') : ['', ''];
+    const travelInPast = Date.now() > Date.parse(fromDate);
+
     return (
         <>
-            <AdviceHeader
-                header="Je was in een hoogrisicogebied"
-            >
-                <ul>
+            <LandingHeader
+                message={travelInPast ? "Je was in een hoogrisicogebied"
+                       : "Je gaat naar een hoogrisicogebied" }>
+                <ul sx={{
+                    fontFamily: 'body',
+                    listStyleImage: 'url("/icons/Polygon 6.svg")',
+                    marginLeft: '-1em',
+                    paddingTop: '1em',
+                    lineSpacing: '2em'
+                }}>
                     <li>Het aantal besmettingen op jouw bestemming was <strong>hoog</strong>.</li>
                     <li>Er is een verhoogd risico dat <strong>besmet</strong> bent geraakt.</li>
                     <li>Het dringend advies is om <strong>10 dagen in thuisquarantain te gaan</strong>.</li>
                 </ul>
-            </AdviceHeader>
-            <div>{country}, {dateRange}</div>
+            </LandingHeader>
+            <Container
+                sx={{
+                    padding: '1em',
+                    color: 'header'
+                }}>
+            <h2>Jouw reisschema</h2>
+            <div>{country}, {fromDate} : {toDate} </div>
+            </Container>
         </>
     );
 }

@@ -15,6 +15,7 @@ const RoHeaderLogo = (props: RoHeaderLogoProps) => {
                       marginTop: '-1em'
                   } : {
                       textAlign: "right",
+                      paddingRight: '1em',
                       marginTop: '-1em'
                   };
     return (
