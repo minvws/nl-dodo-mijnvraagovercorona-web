@@ -2,7 +2,7 @@
 import { Container, Input, jsx } from 'theme-ui';
 import AdviceHeader from '../../components/advice/AdviceHeader';
 import DestinationSearch from '../../components/advice/DestinationSearch';
-import ExpandingInfoPanel from '../../components/ExpandingInfoPanel';
+import InternalLink from '../../components/content/InternalLink';
 
 const Destination = () => {
     return (
@@ -11,14 +11,12 @@ const Destination = () => {
                 header="Wat is of was je bestemming?"
                 questionStage={1}
                 totalStages={2}>
-                <ExpandingInfoPanel title="Waarom vragen we dit?" />
+                <InternalLink
+                    href="">
+                    Waarom vragen we dit?
+                </InternalLink>
             </AdviceHeader>
-            <Container
-                sx={{
-                    padding: '1em'
-                }}>
-                <DestinationSearch />
-            </Container>
+            <DestinationSearch />
         </>
     );
 }
