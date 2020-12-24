@@ -6,6 +6,7 @@ import ListElement from '../components/content/ListElement';
 import AnchorLink from '../components/content/AnchorLink';
 import InternalLink from '../components/content/InternalLink';
 import Panel from '../components/content/Panel';
+import Footer from '../components/content/Footer';
 
 const Home = () => {
     return (
@@ -111,6 +112,8 @@ const Home = () => {
                 </p>
 
             </Container>
+
+            <Footer/>
         </>
     );
 }
