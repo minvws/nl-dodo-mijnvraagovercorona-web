@@ -2,12 +2,18 @@
 import { useRouter } from 'next/router';
 import { jsx, Container, Button } from 'theme-ui';
 import LandingHeader from '../../../../components/LandingHeader';
+import TravelPlan from '../../../../components/TravelPlan';
+
+const parseDateRange = (rangeStr: (string | string[])): Date[] => {
+    const input = Array.isArray(rangeStr) ? rangeStr[0] : rangeStr;
+    return input.split('_').map(Date.parse).map(timestamp => new Date(timestamp));
+}
 
 const AdviceResult = () => {
     const router = useRouter();
     const { country, dateRange } = router.query;
-    const [fromDate, toDate] = dateRange ? dateRange[0].split('_') : ['', ''];
-    const travelInPast = Date.now() > Date.parse(fromDate);
+    const [fromDate, toDate] = parseDateRange(dateRange);
+    const travelInPast = Date.now() > fromDate.getTime();
 
     return (
         <>
@@ -31,8 +37,8 @@ const AdviceResult = () => {
                     padding: '1em',
                     color: 'header'
                 }}>
-            <h2>Jouw reisschema</h2>
-            <div>{country}, {fromDate} : {toDate} </div>
+                <h2>Jouw reisschema</h2>
+                <TravelPlan destination={country} fromDate={fromDate} toDate={toDate} />
             </Container>
         </>
     );
