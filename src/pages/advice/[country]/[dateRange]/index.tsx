@@ -4,7 +4,10 @@ import { jsx, Container, Button } from 'theme-ui';
 import LandingHeader from '../../../../components/LandingHeader';
 import TravelPlan from '../../../../components/TravelPlan';
 
-const parseDateRange = (rangeStr: (string | string[])): Date[] => {
+const parseDateRange = (rangeStr: (string | string[] | undefined)): Date[] => {
+    if (!rangeStr) {
+        return [new Date(), new Date()];
+    }
     const input = Array.isArray(rangeStr) ? rangeStr[0] : rangeStr;
     return input.split('_').map(Date.parse).map(timestamp => new Date(timestamp));
 }
@@ -38,7 +41,7 @@ const AdviceResult = () => {
                     color: 'header'
                 }}>
                 <h2>Jouw reisschema</h2>
-                <TravelPlan destination={country} fromDate={fromDate} toDate={toDate} />
+                <TravelPlan destination={country as string} fromDate={fromDate} toDate={toDate} />
             </Container>
         </>
     );
