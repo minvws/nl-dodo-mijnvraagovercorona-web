@@ -1,4 +1,5 @@
 /** @jsx jsx */
+import { GetServerSideProps } from 'next';
 import { jsx, Container, Button, Link, Image } from 'theme-ui';
 import LandingHeader from '../../../../components/LandingHeader';
 import TravelPlan from '../../../../components/TravelPlan';
@@ -69,8 +70,13 @@ const AdviceResult = ({ destination, dateRange }: AdviceProps) => {
     );
 }
 
-export async function getServerSideProps(context: any) {
-    return { props: context.params };
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    return {
+        props: {
+            destination: context?.params?.destination as string,
+            dateRange: context?.params?.dateRange as string
+        }
+    };
 };
 
 export default AdviceResult;
