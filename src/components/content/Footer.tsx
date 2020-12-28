@@ -2,21 +2,43 @@
 import { jsx } from 'theme-ui';
 import Link from 'next/link';
 
-type FooterProps = {
-    href: string,
-    children: React.ReactNode
-}
-
-const Footer = (props: any) => {
+const Footer = () => {
     return (
         <footer
             sx={{
-                      background: 'roHighlight',
-                      color: 'white',
-                      fontSize: 1,
-                      variant: 'styles.footer',
+                backgroundColor: 'footerBackground',
+                paddingTop: '2em',
+                paddingLeft: '1em',
+                paddingBottom: '2em',
+                color: 'white',
+                fontSize: 1,
+                variant: 'styles.footer',
+                h3: {
+                    marginTop: '2em',
+                    fontSize: '14pt'
+                },
+                a: {
+                    color: 'white',
+                    textDecoration: 'none',
+                    fontWeight: 'regular',
+                    fontSize: '14pt'
+                },
+                ul: {
+                    listStylePosition: 'inside',
+                    paddingLeft: 0,
+                },
+                li: {
+                    paddingBottom: '1.3em',
+                    listStyleImage: 'url("/icons/Link Arrow white.svg")',
+                    ':before': {
+                        content: '""',
+                        display: 'inline-block',
+                        width: '0.5em'
+                    }
+
+                }
             }}>
-            <em>Over deze check</em>
+            <h3>Over deze check</h3>
             <ul>
                 <li>
                     <Link href="#">
@@ -55,7 +77,7 @@ const Footer = (props: any) => {
                 </li>
             </ul>
 
-            <em>Meer informatie?</em>
+            <h3>Meer informatie?</h3>
             <ul>
                 <li>
                     <Link href="#">

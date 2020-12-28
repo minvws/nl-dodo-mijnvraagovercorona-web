@@ -7,6 +7,7 @@ import AnchorLink from '../components/content/AnchorLink';
 import InternalLink from '../components/content/InternalLink';
 import Panel from '../components/content/Panel';
 import Footer from '../components/content/Footer';
+import { AnchorLinkItem, SafetyInfoItem, InternalLinkItem } from '../components/content/ListItems';
 
 const Home = () => {
     return (
@@ -17,8 +18,10 @@ const Home = () => {
                 <Heading
                     as='h2'
                     sx={{
-                        fontWeight: 200,
-                        paddingTop: '24px'
+                        paddingTop: '0.6em',
+                        fontSize: '19pt',
+                        fontWeight: 'lighter',
+                        width: '80%'
                     }}>
                     Doe de check voor corona-richtlijnen en tips voor je thuisquarantaine.
                 </Heading>
@@ -27,7 +30,8 @@ const Home = () => {
                         sx={{
                             width: '100%',
                             padding: '0.8em',
-                            marginTop: '1em',
+                            marginTop: '1.2em',
+                            marginBottom: '1em',
                             fontSize: '1.2em',
                             fontFamily: 'body',
                             fontWeight: 'bold',
@@ -35,50 +39,82 @@ const Home = () => {
                         }}>Doe de check</Button>
                 </Link>
             </LandingHeader>
-            <AnchorLink anchor="privacy">
-                Je privacy is altijd beschermd
-            </AnchorLink>
-            <AnchorLink anchor="snel">
-                Binnen 2 minuten resultaat
-            </AnchorLink>
-            <AnchorLink anchor="actueel">
-                Actuele infomatie over je bestemming en thuiskomst
-            </AnchorLink>
-            <AnchorLink anchor="thuis-quarantaine">
-                We helpen je met je thuisquarantaine
-            </AnchorLink>
+
+            <Container sx={{
+                marginTop: '2em',
+                marginBottom: '1em',
+                paddingLeft: '1em'
+            }}>
+                <AnchorLinkItem href="privacy">
+                    Je privacy is altijd beschermd
+                </AnchorLinkItem>
+                <AnchorLinkItem href="snel">
+                    Binnen 2 minuten resultaat
+                </AnchorLinkItem>
+                <AnchorLinkItem href="actueel">Actuele infomatie over je bestemming en thuiskomst
+                </AnchorLinkItem>
+                <AnchorLinkItem href="thuis-quarantaine">
+                    We helpen je met je thuisquarantaine
+                </AnchorLinkItem>
+            </Container>
 
             <Panel>
-                <h3>Zo gaan we om met jouw gegevens:</h3>
-                <ListElement symbolFile="Privacy Protection.svg">
-                    Niemand weet wie je bent. Het invullen is volledig anoniem.
-                </ListElement>
-                <ListElement symbolFile="Privacy Protection.svg">
-                    We slaan geen reisgegevens op.
-                </ListElement>
-                <ListElement symbolFile="Privacy Protection.svg">
-                    We houden alleen bij welke ondedelen je bezoekt, zodat we deze website kunnen verbeteren.
-                </ListElement>
+                <h3 sx={{
+                    fontSize: '20pt',
+                    color: 'secondaryHeader'
+                }}>Zo gaan we om met jouw gegevens:</h3>
+                <Container>
+                    <SafetyInfoItem>
+                        Niemand weet wie je bent. Het invullen is volledig anoniem.
+                    </SafetyInfoItem>
+                    <SafetyInfoItem>
+                        We slaan geen reisgegevens op.
+                    </SafetyInfoItem>
+                    <SafetyInfoItem>
+                        We houden alleen bij welke ondedelen je bezoekt, zodat we deze website kunnen verbeteren.
+                    </SafetyInfoItem>
+                </Container>
 
-                <InternalLink href="/">
-                    Meer informatie
-                </InternalLink>
+                <Container sx={{
+                    paddingLeft: '3em',
+                    paddingBottom: '0.5em'
+                }}>
+                    <InternalLinkItem href="/">
+                        Meer informatie
+                    </InternalLinkItem>
+                </Container>
             </Panel>
             <Container
                 sx={{
-                    padding: '1em',
-                    p: { color: 'header' },
-                    h3: { color: 'header' },
-                    h6: { color: 'header' },
-
+                    paddingTop: '3em',
+                    margin: '1em',
+                    p: {
+                        color: 'header',
+                        fontSize: '15pt',
+                        marginBottom: '2em',
+                        marginRight: '1.3em'
+                    },
+                    h3: {
+                        color: 'header',
+                        margin: '0.1em 0',
+                        fontSize: '20pt'
+                    },
+                    h6: {
+                        color: 'header',
+                        fontSize: '12pt',
+                        margin: '1.4em 0 0.5em 0'
+                    },
                     div: {
                         textAlign: 'center'
+                    },
+                    img: {
+                        marginLeft: '-2.2em'
                     }
                 }}>
-                <div>
+                <Container>
                     <Image src="/images/Illustratie_Neem het virus niet meeRetina.svg" />
-                </div>
-                <h6>Waarom is dit belangrijk</h6>
+                </Container>
+                <h6>Waarom is dit belangrijk?</h6>
                 <h3>Neem uit het buitenland het virus niet mee naar huis</h3>
                 <p>
                     Wanneer je besmet raakt in het buitenland, kun je thuis anderen besmetten. Dit kan ook een andere variant zijn van het virus. Deze check helpt je de juiste keuzes te maken voor, tijdens en na je reis.
@@ -99,7 +135,7 @@ const Home = () => {
                 <h6>Het resultaat</h6>
                 <h3>We vertellen je precies hoe het zit</h3>
                 <p>
-                    Na de check weet je welke richtlijnen bekend zijn voor je reisbestemming en wat je moet doen als je thuiskomt.
+                    Na de check weet je welke richtlijnen bekend zijn voor je reisbestemming, wat je moet regelen voor je terugreis en thuiskomst.
                 </p>
 
                 <div>
@@ -108,7 +144,7 @@ const Home = () => {
                 <h6>Het resultaat</h6>
                 <h3>We helpen je op weg</h3>
                 <p>
-                    Ben je tijdens je reis in een gebied geweest met eenoranje reisadvies? Vaak moet je dan na terugkomst 10 dagen in thuisquarantaine. We helpen je met tips om deze periode goed door te komen.
+                    Ben je tijdens je reis in een gebied geweest met een oranje reisadvies? Vaak heb je voor je terugreis een negaieve testuitslag en verklaring nodig en moet je bij thuiskomst 10 dagen in thuisquarantaine. We helpen je met informatie en tips om alles goed te regelen.
                 </p>
 
             </Container>

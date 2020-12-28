@@ -1,15 +1,14 @@
 /** @jsx jsx */
 import React, {useState} from 'react';
 import { jsx, Container, Button } from 'theme-ui';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
 import AdviceHeader from '../../../components/advice/AdviceHeader';
 import InternalLink from '../../../components/content/InternalLink';
 import PeriodSelect from '../../../components/PeriodSelect';
+import { formatPeriod, parseDestination } from '../../../utilities/pathUtils';
 
-const Period = () => {
-    const router = useRouter();
-    const { country } = router.query;
+const Period = (props: any) => {
+    const [country, city] = parseDestination(props.destination as string);
 
     const [fromDate, setFromDate] = useState<Date>();
     const [toDate, setToDate] = useState<Date>();
@@ -19,19 +18,7 @@ const Period = () => {
         setToDate(to);
     };
 
-    const resultLink = () => {
-        const from = fromDate;
-        const to = toDate;
-        if (from != null && to != null) {
-            const fromFormatted = from ? from.toISOString().substr(0, 10) : '';
-            const toFormatted = to ? to.toISOString().substr(0, 10) : '';
-
-            return `${country}/${fromFormatted}_${toFormatted}`;
-        }
-        return '';
-    }
-
-    const getCountry = (): string => "" + country;
+    const resultLink = () => `${props.destination}/${formatPeriod(fromDate as Date, toDate as Date)}`;
 
     return (
         <>
@@ -44,7 +31,7 @@ const Period = () => {
                 </InternalLink>
             </AdviceHeader>
             <Container>
-            <PeriodSelect city={getCountry()} country={getCountry()}
+            <PeriodSelect city={city} country={country}
                               onUpdate={updateDate}/>
               <Container sx={{padding: '1em'}}>
                 { (country && fromDate && toDate) &&
@@ -63,6 +50,10 @@ const Period = () => {
             </Container>
         </>
     )
+};
+
+export async function getServerSideProps(context: any) {
+    return { props: context.params };
 };
 
 export default Period;

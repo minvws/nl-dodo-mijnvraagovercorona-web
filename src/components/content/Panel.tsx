@@ -13,7 +13,8 @@ const Panel = (props: PanelProps) => {
                 borderRadius: '5px',
                 boxShadow: '1px 1px 3px 3px #eee',
                 margin: '1em',
-                padding: '1em'
+                paddingLeft: '1.5em',
+                paddingTop: '0.2em'
             }}>
         { props.children }
         </Box>

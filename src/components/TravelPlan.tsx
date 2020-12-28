@@ -1,19 +1,52 @@
 /** @jsx jsx */
 import React from 'react'
-import { Container, Flex, jsx } from 'theme-ui';
+import { Container, Flex, Box, Heading, jsx } from 'theme-ui';
+import TravelAdvicePanel from './content/TravelAdvicePanel';
 
 type TravelPlanProps = {
-    destination: string,
+    country: string,
+    city?: string,
     fromDate: Date,
     toDate: Date
 }
 
-const TravelPlan = (props: TravelPlanProps) => {
-    const formatDate = (date: Date) => {
-        const monthNames = ['jan', 'feb', 'mar', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec' ];
-        return `${date.getDate()} ${monthNames[date.getMonth()]}`;
-    }
+type AgendaEntryProps = {
+    title: string,
+    subHeading?: string,
+    date: Date,
+    children?: React.ReactNode
+};
 
+const formatDate = (date: Date) => {
+    return date.toLocaleDateString('nl-NL', { month: 'short', day: 'numeric' }).slice(0, -1);
+}
+
+const AgendaEntry = (props: AgendaEntryProps) => {
+
+
+    return (
+        <>
+            <h3 sx={{
+            }}>{props.title}</h3>
+            <h4 sx={{
+                paddingTop: '1em',
+                float: 'right',
+                fontSize: '14pt',
+                textAlign: 'right',
+                marginRight: '1em',
+                marginTop: '-2em'
+            }}>{formatDate(props.date)}</h4>
+            {props.subHeading && <h4 sx={{
+                fontWeight: 'normal',
+                fontSize: '14pt',
+                marginTop: 0
+            }}>{props.subHeading}</h4>}
+            {props.children}
+        </>
+    )
+}
+
+const TravelPlan = (props: TravelPlanProps) => {
     const addDays = (date: Date, days: number): Date => {
         const millis = 1000 * 60 * 60 * 24 * days;
 
@@ -28,9 +61,9 @@ const TravelPlan = (props: TravelPlanProps) => {
                 marginRight: '1em',
                 paddingLeft: '1.8em',
                 h3: {
-                    marginBottom: '0px',
+                    marginBottom: 0,
                     '::before': {
-                        marginLeft: 'calc(-2em - 1px)',
+                        marginLeft: 'calc(-2em - 2px)',
                         marginRight: '2px',
                         marginTop: '1px',
                         paddingRight: '1em',
@@ -41,24 +74,33 @@ const TravelPlan = (props: TravelPlanProps) => {
                         height: '1em',
                         width: '1em'
                     }
-                },
-                h4: {
-                    marginTop: '0',
-                    fontWeight: 'lighter',
-                    fontSize: '29'
                 }
             }}>
 
-            <h3>Vertrek</h3>
-            <h4>{props.destination}</h4>
-            <p>{ formatDate(props.fromDate) }</p>
+        <AgendaEntry
+            title="Vertrek"
+            subHeading={props.city ? `${props.city}, ${props.country}`: props.country}
+            date={props.fromDate}>
+            <TravelAdvicePanel title="Oranje reisadvies"
+                               subHeading="Totale reisduur">
+                Meer informatie
+            </TravelAdvicePanel>
+            <TravelAdvicePanel title="Laat je testen"
+                               subHeading="max 72u voor vertrek">
+                Je mag alleen terugreizen met een negatieve testuitslag en verklaring.
+                Meer informatie
+            </TravelAdvicePanel>
+        </AgendaEntry>
 
-            <h3>Thuiskomst</h3>
-            <h4>Start 10 dagen thuisquaranataine</h4>
-            <p>{ formatDate(props.toDate) }</p>
+        <AgendaEntry
+            title="Thuiskomst"
+            subHeading="Start 10 dagen thuisquarantaine"
+            date={props.toDate} />
 
-            <h3>Einde thuisquarantaine</h3>
-            <p>{ formatDate(addDays(props.toDate, 10)) }</p>
+        <AgendaEntry
+            title="Einde thuisquarantaine"
+            date={addDays(props.toDate, 10)} />
+
         </Container>
     )
 }

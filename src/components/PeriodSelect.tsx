@@ -1,12 +1,12 @@
 /** @jsx jsx */
 import React, { useState } from 'react';
-import { jsx, Container } from 'theme-ui';
+import { jsx, Link, Image, Container } from 'theme-ui';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 
 type PeriodSelectProps = {
     city?: string,
-    country?: string,
+    country: string,
     onUpdate: (from: Date, to: Date) => void
 }
 
@@ -56,13 +56,31 @@ class PeriodSelect extends React.Component<PeriodSelectProps, PeriodSelectState>
                         color: 'white',
                         paddingTop: '0.1em'
                     }}>
-                    <h3
-                        sx={{}}
-                    >
-                        <span>{this.props.city}</span>,{' '}
+                    <Link href="/advice" sx={{
+                        position: 'absolute',
+                        left: '1em',
+                        marginTop: '1em',
+                        color: 'white'
+                    }}>
+                        <Image src="/icons/Back Arrow Big.svg" />
+                    </Link>
+                    <h3 sx={{
+                        fontSize: '15pt',
+                        paddingTop: 0,
+                        marginTop: '0.5em',
+                        marginBottom: '0.4em'
+                    }}>
+                        { this.props.city &&
+                          <span>{this.props.city}, </span>}
                         <span sx={{fontWeight: 'normal'}}>{this.props.country}</span>
                     </h3>
-                    <h5>{rangeMessage}</h5>
+                    <h5 sx={{
+                        fontSize: '14pt',
+                        fontWeight: 'normal',
+                        marginTop: '0.1em',
+                        paddingTop: 0,
+                        paddingBottom: '0.9em'
+                    }}>{rangeMessage}</h5>
                 </Container>
                 <Container>
                     <DayPicker
@@ -73,6 +91,7 @@ class PeriodSelect extends React.Component<PeriodSelectProps, PeriodSelectState>
                                 width: '100%'
                             }
                         }}
+                        locale="nl"
                         firstDayOfWeek={1}
                         className="Selectable"
                         fixedWeeks={true}

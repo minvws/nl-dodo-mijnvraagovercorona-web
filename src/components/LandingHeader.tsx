@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 import Link from 'next/link';
-import { Heading, Image, Container, Button, jsx } from 'theme-ui';
+import { Heading, Container, jsx } from 'theme-ui';
 import RoHeaderLogo from '../components/RoHeaderLogo';
 
 type LandingHeaderProps = {
@@ -17,17 +17,13 @@ const LandingHeader = (props: LandingHeaderProps) => {
                 backgroundColor: 'headerBackground',
                 fontFamily: 'header',
                 color: 'header',
-                padding: '1em'
+                padding: '1em',
+                backgroundImage: 'url("/images/Koffer_MobielRetina.svg")',
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'right top'
             }}>
             <RoHeaderLogo align='center'/>
             <Container>
-                <Image
-                    sx={{
-                        float: 'right',
-                        marginTop: '-90px',
-                        marginRight: '-1em'
-                    }}
-                    src='/images/Koffer_MobielRetina.svg' />
                 { props.secondaryMessage &&
                   <Heading as='h4'
                            sx={{
@@ -41,7 +37,8 @@ const LandingHeader = (props: LandingHeaderProps) => {
                 <Heading as='h1'
                          sx={{
                              fontSize: 36,
-                             paddingTop: '24px'
+                             paddingTop: '24px',
+                             width: '80%'
                          }}>
                     { props.message }
                 </Heading>

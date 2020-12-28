@@ -9,16 +9,14 @@ type AnchorLinkProps = {
 
 const AnchorLink = (props: AnchorLinkProps) => {
     return (
-        <a
-            href={`#${props.anchor}`}
+        <div
             sx={{
                 display: 'block',
-                paddingLeft: '1em',
                 paddingTop: '1em',
                 fontSize: 20,
                 color: 'internalLink',
                 '::before': {
-                    display: 'block',
+                    display: 'inline-block',
                     content: '""',
                     backgroundImage: 'url("/icons/Anker arrow.svg")',
                     backgroundSize: '0.7em 0.7em',
@@ -26,11 +24,14 @@ const AnchorLink = (props: AnchorLinkProps) => {
                     height: '0.7em',
                     width: '0.7em',
                     marginTop: '0.3em',
-                    marginRight: '0.5em'
+                    marginRight: '1.5em',
+                    marginLeft: '1em'
                 }
             }}>
-            { props.children }
-        </a>
+            <a href={`#${props.anchor}`}>
+                { props.children }
+            </a>
+        </div>
     );
 };
 
