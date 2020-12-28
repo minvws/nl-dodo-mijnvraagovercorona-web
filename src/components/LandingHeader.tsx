@@ -7,10 +7,13 @@ import RoHeaderLogo from '../components/RoHeaderLogo';
 type LandingHeaderProps = {
     message: string,
     secondaryMessage?: string,
+    backgroundImage?: string,
     children?: React.ReactNode
 }
 
 const LandingHeader = (props: LandingHeaderProps) => {
+    const bgImg = 'url(' + (props.backgroundImage || "/images/Koffer_MobielRetina.svg") + ')';
+    console.info(bgImg)
     return (
         <header
             sx={{
@@ -18,7 +21,7 @@ const LandingHeader = (props: LandingHeaderProps) => {
                 fontFamily: 'header',
                 color: 'header',
                 padding: '1em',
-                backgroundImage: 'url("/images/Koffer_MobielRetina.svg")',
+                backgroundImage: bgImg,
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'right top'
             }}>

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Container, Input, jsx } from 'theme-ui';
+import { jsx, Container, Link } from 'theme-ui';
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@reach/disclosure";
 import LandingHeader from '../../components/LandingHeader';
 import ExpansionPanel from '../../components/ExpansionPanel';
@@ -8,9 +8,27 @@ import Footer from '../../components/content/Footer';
 const FAQ = () => {
     return (
         <>
-            <LandingHeader
-                message="Wat als je toch naar het buitenland gaat?"
-                secondaryMessage="Reis tot 15 maart 2021 alleen noodzakelijk">
+            <LandingHeader message="Veelgestelde vragen" backgroundImage="/images/Illustratie_Desktop_Veelgestelde_vragenRetina.svg">
+                <Link href="/advice" sx={{
+                    position: 'absolute',
+                    top: '20px',
+                    textDecoration: 'none',
+                    fontFamily: 'body',
+                    verticalAlign: 'top',
+                    '::before': {
+                        display: 'block',
+                        content: '""',
+                        backgroundImage: `url("/icons/Refresh.svg")`,
+                        backgroundRepeat: 'no-repeat',
+                        backgroundSize: '1.5em 1.5em',
+                        float: 'left',
+                        height: '1.5em',
+                        width: '1.5em',
+                        paddingRight: '0.5em'
+                    }
+                }}>
+                    naar resultaat
+                </Link>
             </LandingHeader>
 
             <Container>
@@ -28,13 +46,16 @@ const FAQ = () => {
                         <li>Gegevens instituut of laboratorium dat de test afnam.</li>
                     </ul>
                     Meer informatie kan je hier vinden:
-                        <a href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/inreizen-doorreizen-nederland-en-het-eu-inreisverbod/reizigers-van-binnen-de-eu-schengen">
-                            https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/inreizen-doorreizen-nederland-en-het-eu-inreisverbod/reizigers-van-binnen-de-eu-schengen
-                        </a>
+                    <a href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/inreizen-doorreizen-nederland-en-het-eu-inreisverbod/reizigers-van-binnen-de-eu-schengen">
+                        https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/inreizen-doorreizen-nederland-en-het-eu-inreisverbod/reizigers-van-binnen-de-eu-schengen
+                    </a>
                 </ExpansionPanel>
                 <hr/>
                 <ExpansionPanel phrase="Hoe kom ik aan een (negatieve) testuitslag en een negatieve testverklaring?">
-                    Je kan een test laten afnemen bij een gevalideerd testcentrum (bv. laboratorium, arts, gezondheidsdienst, etc) op je reisbestemming. Let erop dat de test voldoet aan de eisen die Nederland stelt hieraan. Zie hiervoor de andere veelgestelde vraag. De negatieve testverklaring is verplicht wanneer je van buiten de EU/Schengen gebied afreist naar Nederland. Meer informatie hierover kan je hier vinden: https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/inreizen-doorreizen-nederland-en-het-eu-inreisverbod/reizigers-van-buiten-de-eu-schengen
+                    Je kan een test laten afnemen bij een gevalideerd testcentrum (bv. laboratorium, arts, gezondheidsdienst, etc) op je reisbestemming. Let erop dat de test voldoet aan de eisen die Nederland stelt hieraan. Zie hiervoor de andere veelgestelde vraag. De negatieve testverklaring is verplicht wanneer je van buiten de EU/Schengen gebied afreist naar Nederland. Meer informatie hierover kan je hier vinden:
+                    <a href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/inreizen-doorreizen-nederland-en-het-eu-inreisverbod/reizigers-van-buiten-de-eu-schengen">
+                        https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/inreizen-doorreizen-nederland-en-het-eu-inreisverbod/reizigers-van-buiten-de-eu-schengen
+                    </a>
                 </ExpansionPanel>
                 <hr/>
                 <ExpansionPanel phrase="Wat houdt thuisquarantaine in?">
