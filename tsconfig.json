@@ -12,7 +12,8 @@
 		"forceConsistentCasingInFileNames": true,
 		"lib": ["dom", "ESNext"],
 		"skipLibCheck": true,
-		"resolveJsonModule": true
+		"resolveJsonModule": true,
+		"baseUrl": "src"
 	},
 	"include": ["src"],
 	"exclude": ["node_modules"]

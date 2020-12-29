@@ -31,7 +31,7 @@ const FAQ = () => {
                 </Link>
             </LandingHeader>
 
-            <Container>
+            <Container sx={{padding: '1em'}}>
                 <ExpansionPanel phrase="Waarom heb ik een negatieve testuitslag en negatieve testverklaring nodig?">
                     Dit is één van de Nederlandse maatregelen om de import en verspreiding van het coronavirus tegen te gaan. Je kan hier meer lezen: <a href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/inreizen-doorreizen-nederland-en-het-eu-inreisverbod/negatieve-covid-19-testverklaring">https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/inreizen-doorreizen-nederland-en-het-eu-inreisverbod/negatieve-covid-19-testverklaring</a>
                 </ExpansionPanel>
