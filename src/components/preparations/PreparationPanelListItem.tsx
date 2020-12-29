@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui';
+import { jsx, Container } from 'theme-ui';
 
 type PreparationPanelListItemProps = {
     text: string,
@@ -10,9 +10,7 @@ const PreparationPanelListItem = (props: PreparationPanelListItemProps) => {
     return (
         <li>
             <span>{props.text}</span>
-            {(props.subtext)}
-                <span>{props.subtext}</span>
-            {}}
+            <p>{props.subtext}</p>
         </li>
     );
 }

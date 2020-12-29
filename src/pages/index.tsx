@@ -112,7 +112,7 @@ const Home = () => {
                     }
                 }}>
                 <Container>
-                    <Image src="/images/Illustratie_Neem het virus niet meeRetina.svg" />
+                    <Image src="/images/Illustratie_Neem_het_virus_niet_meeRetina.svg" />
                 </Container>
                 <h6>Waarom is dit belangrijk?</h6>
                 <h3>Neem uit het buitenland het virus niet mee naar huis</h3>
@@ -121,7 +121,7 @@ const Home = () => {
                 </p>
 
                 <div>
-                    <Image src="/images/Illustratie_De situatie op bestemmingRetina.svg" />
+                    <Image src="/images/Illustratie_De_situatie_op_bestemmingRetina.svg" />
                 </div>
                 <h6>Hoe werkt het?</h6>
                 <h3>Ontdek de situatie op je bestemming</h3>
@@ -130,7 +130,7 @@ const Home = () => {
                 </p>
 
                 <div>
-                    <Image src="/images/Illustratie_Mobiel_We vertellen je hoe het zitRetina.svg" />
+                    <Image src="/images/Illustratie_Mobiel_We_vertellen_je_hoe_het_zitRetina.svg" />
                 </div>
                 <h6>Het resultaat</h6>
                 <h3>We vertellen je precies hoe het zit</h3>
@@ -139,7 +139,7 @@ const Home = () => {
                 </p>
 
                 <div>
-                    <Image src="/images/Illustratie_We helpen je op wegRetina.svg" />
+                    <Image src="/images/Illustratie_We_helpen_je_op_wegRetina.svg" />
                 </div>
                 <h6>Het resultaat</h6>
                 <h3>We helpen je op weg</h3>

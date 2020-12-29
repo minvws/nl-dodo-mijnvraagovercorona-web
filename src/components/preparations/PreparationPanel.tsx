@@ -10,7 +10,7 @@ type PreparationPanelProps = {
 const PreparationPanel = (props: PreparationPanelProps) => {
     return (
         <Container>
-            <Image src="{props.image}" />
+            <Image src={props.image} />
             <h2>{props.text}</h2>
             <Container>
                 {props.children}
