@@ -3,8 +3,8 @@ import { GetServerSideProps } from 'next';
 import { jsx, Container, Button, Link, Image, Divider } from 'theme-ui';
 import LandingHeader from '../../../../components/LandingHeader';
 import TravelPlan from '../../../../components/TravelPlan/TravelPlan';
+import FAQTop5 from '../../../../components/faq/Top5';
 import Footer from '../../../../components/content/Footer';
-import ExpansionPanel from 'components/ExpansionPanel';
 import { parseDestination, parsePeriod } from '../../../../utilities/pathUtils';
 
 type AdviceProps = {
@@ -76,17 +76,9 @@ const AdviceResult = ({ destination, dateRange }: AdviceProps) => {
                 <TravelPlan country={country} city={city} fromDate={fromDate} toDate={toDate} />
 
                 <h2>Veelgestelde vragen</h2>
-                <Divider />
-                <ExpansionPanel text="Wat houdt thuisquarantaine in?" />
-                <Divider />
-                <ExpansionPanel text="Wie moeten allemaal in thuisquarantaine?" />
-                <Divider />
-                <ExpansionPanel text="Kan ik de 10 dagen thuisquarantaine inkorten?" />
-                <Divider />
-                <ExpansionPanel text="Nederland is ook oranje, waarom moet ik dan in thuisquarantaine?" />
-                <Divider />
-                <ExpansionPanel text="Ik heb nergens last van, waarom moet ik in thuisquarantaine?" />
-                <Divider />
+                <FAQTop5 />
+                <hr/>
+                <Link href="/faq">Bekijk alle 10 veelgestelde vragen</Link>
             </Container>
             <Footer />
         </>
