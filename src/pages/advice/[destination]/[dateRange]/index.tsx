@@ -4,6 +4,7 @@ import { jsx, Container, Button, Link, Image, Divider } from 'theme-ui';
 import LandingHeader from '../../../../components/LandingHeader';
 import TravelPlan from '../../../../components/TravelPlan/TravelPlan';
 import FAQTop5 from '../../../../components/faq/Top5';
+import HandleDataWidget from '../../../../components/content/HandleDataWidget';
 import Footer from '../../../../components/content/Footer';
 import { parseDestination, parsePeriod } from '../../../../utilities/pathUtils';
 
@@ -79,7 +80,12 @@ const AdviceResult = ({ destination, dateRange }: AdviceProps) => {
                 <FAQTop5 />
                 <hr/>
                 <Link href="/faq">Bekijk alle 10 veelgestelde vragen</Link>
+
+                <h2>Zo kom je de thuisquarantaine goed door</h2>
             </Container>
+
+            <HandleDataWidget />
+
             <Footer />
         </>
     );

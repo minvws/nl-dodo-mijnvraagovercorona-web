@@ -6,6 +6,7 @@ import ListElement from '../components/content/ListElement';
 import AnchorLink from '../components/content/AnchorLink';
 import InternalLink from '../components/content/InternalLink';
 import Panel from '../components/content/Panel';
+import HandleDataWidget from '../components/content/HandleDataWidget';
 import Footer from '../components/content/Footer';
 import { AnchorLinkItem, SafetyInfoItem, InternalLinkItem } from '../components/content/ListItems';
 
@@ -58,32 +59,8 @@ const Home = () => {
                 </AnchorLinkItem>
             </Container>
 
-            <Panel>
-                <h3 sx={{
-                    fontSize: '20pt',
-                    color: 'secondaryHeader'
-                }}>Zo gaan we om met jouw gegevens:</h3>
-                <Container>
-                    <SafetyInfoItem>
-                        Niemand weet wie je bent. Het invullen is volledig anoniem.
-                    </SafetyInfoItem>
-                    <SafetyInfoItem>
-                        We slaan geen reisgegevens op.
-                    </SafetyInfoItem>
-                    <SafetyInfoItem>
-                        We houden alleen bij welke ondedelen je bezoekt, zodat we deze website kunnen verbeteren.
-                    </SafetyInfoItem>
-                </Container>
+            <HandleDataWidget />
 
-                <Container sx={{
-                    paddingLeft: '3em',
-                    paddingBottom: '0.5em'
-                }}>
-                    <InternalLinkItem href="/">
-                        Meer informatie
-                    </InternalLinkItem>
-                </Container>
-            </Panel>
             <Container
                 sx={{
                     paddingTop: '3em',
