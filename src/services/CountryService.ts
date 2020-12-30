@@ -1,4 +1,4 @@
-import { cities } from '../utilities/locationData';
+import { cities, euCountries, schengenCountries } from '../utilities/locationData';
 
 const MAX_SEARCH_RESULTS = 10;
 
@@ -12,12 +12,21 @@ export enum ColorCode {
 export interface Country {
     name: string,
     isEuropeanUnion: boolean,
+    isSchengen: boolean,
     colorCode: ColorCode,
 }
 
 export interface Destination {
     city: string,
     country: Country,
+}
+
+const isEuCountry = (countryName) => {
+    return euCountries.indexOf(countryName) >= 0;
+}
+
+const isSchengenCountry = (countryName) => {
+    return schengenCountries.indexOf(countryName) >= 0;
 }
 
 export function searchCities(query: String): Destination[] {
@@ -33,11 +42,14 @@ export function searchCities(query: String): Destination[] {
 
     return startMatching
         .map(key => {
+            const cityName = cities[key].length > 0 ? key : "";
+            const countryName = cities[key].length > 0 ? cities[key] : key;
            return {
-               city: key,
+               city: cityName,
                country: {
-                   name: cities[key],
-                   isEuropeanUnion: false,
+                   name: countryName,
+                   isEuropeanUnion: isEuCountry(countryName),
+                   isSchengen: isSchengenCountry(countryName),
                    colorCode: ColorCode.Orange
                }
            };

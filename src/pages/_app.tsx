@@ -4,7 +4,7 @@ import React from 'react';
 import App from 'next/app';
 import Head from 'next/head';
 
-import { jsx, ThemeProvider } from 'theme-ui';
+import { jsx, ThemeProvider, Container } from 'theme-ui';
 
 import theme from '../utilities/styling/theme';
 import '../styles/global.css';
@@ -25,7 +25,11 @@ class TravelCheckApp extends App {
 					<title>Travel Check Development</title>
 				</Head>
 				<ThemeProvider theme={theme}>
-					<Component {...pageProps} />
+					<Container sx={{
+						width: ['100%', '980px']
+					}}>
+						<Component {...pageProps} />
+					</Container>
 				</ThemeProvider>
 			</>
 		);

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Heading, Button, Container, Image, jsx } from 'theme-ui';
+import { Heading, Button, Container, Image, Alert, jsx } from 'theme-ui';
 import Link from 'next/link';
 import LandingHeader from '../components/LandingHeader';
 import ListElement from '../components/content/ListElement';
@@ -12,6 +12,16 @@ import { AnchorLinkItem, SafetyInfoItem, InternalLinkItem } from '../components/
 const Home = () => {
     return (
         <>
+            <Alert sx={{
+                backgroundColor: 'button',
+                borderRadius: 0,
+                fontSize: '11pt',
+                backgroundImage: 'url("/icons/Union.svg")',
+                backgroundRepeat: 'no-repeat',
+                marginRight: 0
+            }}>
+                Deze site is nog in de testfase. Deel je ervaring met de knop 'feedback'
+            </Alert>
             <LandingHeader
                 message="Wat als je toch naar het buitenland gaat?"
                 secondaryMessage="Reis tot 15 maart 2021 alleen noodzakelijk">

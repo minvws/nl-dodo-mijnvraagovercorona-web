@@ -22,7 +22,9 @@ const DestinationSearch = () => {
     };
 
     const renderDestinationOption = (dest: Destination) => {
-        const key = `${dest.city}, ${dest.country.name}`;
+        const key = dest.city.length > 0 ?
+                                       `${dest.city}, ${dest.country.name}`
+                                       : dest.country.name;
         return (
             <ComboboxOption key={key} value={key}
                             sx={{ p: { padding: 0} }}>
