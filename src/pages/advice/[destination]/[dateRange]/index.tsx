@@ -4,6 +4,8 @@ import { jsx, Container, Button, Link, Image, Divider } from 'theme-ui';
 import LandingHeader from '../../../../components/LandingHeader';
 import TravelPlan from '../../../../components/TravelPlan/TravelPlan';
 import FAQTop5 from '../../../../components/faq/Top5';
+import Panel from '../../../../components/content/Panel';
+import { SafetyInfoItem, InternalLinkItem } from '../../../../components/content/ListItems';
 import HandleDataWidget from '../../../../components/content/HandleDataWidget';
 import Footer from '../../../../components/content/Footer';
 import { parseDestination, parsePeriod } from '../../../../utilities/pathUtils';
@@ -67,6 +69,7 @@ const AdviceResult = ({ destination, dateRange }: AdviceProps) => {
                     }
                 </ul>
             </LandingHeader>
+
             <Container
                 sx={{
                     padding: '1em',
@@ -82,6 +85,18 @@ const AdviceResult = ({ destination, dateRange }: AdviceProps) => {
                 <Link href="/faq">Bekijk alle 10 veelgestelde vragen</Link>
 
                 <h2>Zo kom je de thuisquarantaine goed door</h2>
+                <Panel>
+                    <Image src="/images/Banner_we_helpen_jeRetina.svg" />
+                    <h3 sx={{ color: 'secondaryHeader' }}>
+                        Wat moet ik regelen voor mijn thuisquarantaine?
+                    </h3>
+                    <Container sx={{
+                        paddingLeft: '3em',
+                        paddingBottom: '0.5em'
+                    }}>
+                        <InternalLinkItem href="/preparations">Meer uitleg</InternalLinkItem>
+                    </Container>
+                </Panel>
             </Container>
 
             <HandleDataWidget />
