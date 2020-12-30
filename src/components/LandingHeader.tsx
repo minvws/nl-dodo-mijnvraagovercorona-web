@@ -13,7 +13,6 @@ type LandingHeaderProps = {
 
 const LandingHeader = (props: LandingHeaderProps) => {
     const bgImg = 'url(' + (props.backgroundImage || "/images/Koffer_MobielRetina.svg") + ')';
-    console.info(bgImg)
     return (
         <header
             sx={{

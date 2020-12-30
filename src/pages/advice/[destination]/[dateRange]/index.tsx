@@ -3,8 +3,11 @@ import { GetServerSideProps } from 'next';
 import { jsx, Container, Button, Link, Image, Divider } from 'theme-ui';
 import LandingHeader from '../../../../components/LandingHeader';
 import TravelPlan from '../../../../components/TravelPlan/TravelPlan';
+import FAQTop5 from '../../../../components/faq/Top5';
+import Panel from '../../../../components/content/Panel';
+import { SafetyInfoItem, InternalLinkItem } from '../../../../components/content/ListItems';
+import HandleDataWidget from '../../../../components/content/HandleDataWidget';
 import Footer from '../../../../components/content/Footer';
-import ExpansionPanel from 'components/ExpansionPanel';
 import { parseDestination, parsePeriod } from '../../../../utilities/pathUtils';
 
 type AdviceProps = {
@@ -66,6 +69,7 @@ const AdviceResult = ({ destination, dateRange }: AdviceProps) => {
                     }
                 </ul>
             </LandingHeader>
+
             <Container
                 sx={{
                     padding: '1em',
@@ -76,18 +80,27 @@ const AdviceResult = ({ destination, dateRange }: AdviceProps) => {
                 <TravelPlan country={country} city={city} fromDate={fromDate} toDate={toDate} />
 
                 <h2>Veelgestelde vragen</h2>
-                <Divider />
-                <ExpansionPanel phrase="Wat houdt thuisquarantaine in?" />
-                <Divider />
-                <ExpansionPanel phrase="Wie moeten allemaal in thuisquarantaine?" />
-                <Divider />
-                <ExpansionPanel phrase="Kan ik de 10 dagen thuisquarantaine inkorten?" />
-                <Divider />
-                <ExpansionPanel phrase="Nederland is ook oranje, waarom moet ik dan in thuisquarantaine?" />
-                <Divider />
-                <ExpansionPanel phrase="Ik heb nergens last van, waarom moet ik in thuisquarantaine?" />
-                <Divider />
+                <FAQTop5 />
+                <hr/>
+                <Link href="/faq">Bekijk alle 10 veelgestelde vragen</Link>
+
+                <h2>Zo kom je de thuisquarantaine goed door</h2>
+                <Panel>
+                    <Image src="/images/Banner_we_helpen_jeRetina.svg" />
+                    <h3 sx={{ color: 'secondaryHeader' }}>
+                        Wat moet ik regelen voor mijn thuisquarantaine?
+                    </h3>
+                    <Container sx={{
+                        paddingLeft: '3em',
+                        paddingBottom: '0.5em'
+                    }}>
+                        <InternalLinkItem href="/preparations">Meer uitleg</InternalLinkItem>
+                    </Container>
+                </Panel>
             </Container>
+
+            <HandleDataWidget />
+
             <Footer />
         </>
     );

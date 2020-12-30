@@ -3,8 +3,8 @@ import { Container, jsx } from 'theme-ui';
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@reach/disclosure";
 
 type ExpansionPanelProps = {
-    phrase: string,
-    children?: React.ReactNode
+    text: string,
+    children: React.ReactNode
 };
 
 const ExpansionPanel = (props: ExpansionPanelProps) => {
@@ -25,7 +25,7 @@ const ExpansionPanel = (props: ExpansionPanelProps) => {
                     backgroundRepeat: 'no-repeat',
                     backgroundPositionX: 'right',
                     backgroundPositionY: 'center'
-                }}>{props.phrase}</DisclosureButton>
+                }}>{props.text}</DisclosureButton>
                 <DisclosurePanel>
                     {props.children}
                 </DisclosurePanel>
