@@ -42,7 +42,8 @@ const ProgressMarker = (props: ProgressMarkerProps) => {
                         padding: '0.5em',
                         textAlign: 'center',
                         marginRight: '1.4em'
-                    }}>{stageNumber}</li>
+                    }}
+                    key={stageNumber}>{stageNumber}</li>
                 )
             })}
         </ul>

@@ -21,11 +21,11 @@ export interface Destination {
     country: Country,
 }
 
-const isEuCountry = (countryName) => {
+const isEuCountry = (countryName: string) => {
     return euCountries.indexOf(countryName) >= 0;
 }
 
-const isSchengenCountry = (countryName) => {
+const isSchengenCountry = (countryName: string) => {
     return schengenCountries.indexOf(countryName) >= 0;
 }
 

@@ -1,9 +1,9 @@
-import { euCountries, ColorCode } from '../utilities/locationData';
+import { euCountries } from '../utilities/locationData';
 
 
-class Country {
+type Country =  {
     name: string;
-    colorCode: ColorCode;
+    //colorCode: ColorCode;
     isEuropeanUnion: boolean;
     isSchengen: boolean;
 };
@@ -14,8 +14,8 @@ type DateRange = {
 };
 
 class Advice {
-    destination: Country;
-    dateRange: DateRange;
+    //destination: Country;
+    //dateRange: DateRange;
 
     constructor(countryName: string, dateFrom: Date, dateTo: Date) {
 
