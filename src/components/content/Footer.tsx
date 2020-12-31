@@ -47,39 +47,19 @@ const Footer = () => {
                 <h3>Over deze check</h3>
                 <ul>
                     <li>
-                        <Link href="#">
-                            <a>Privacy</a>
-                        </Link>
+                        <Link href="/privacy"><a>Privacy</a></Link>
                     </li>
                     <li>
-                        <Link href="#">
-                            <a>Cookies</a>
-                        </Link>
+                        <Link href="/cookies"><a>Cookies</a></Link>
                     </li>
                     <li>
-                        <Link href="#">
-                            <a>Copyright</a>
-                        </Link>
+                        <Link href="/copyright"><a>Copyright</a></Link>
                     </li>
                     <li>
-                        <Link href="#">
-                            <a>Colofon</a>
-                        </Link>
+                        <Link href="/toegankelijkheid"><a>Toegankelijkheid</a></Link>
                     </li>
                     <li>
-                        <Link href="#">
-                            <a>Toegankelijkheid</a>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href="#">
-                            <a>Open data</a>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href="#">
-                            <a>Kwetsbaarheid melden</a>
-                        </Link>
+                        <Link href="/kwetsbaarheid"><a>Kwetsbaarheid melden</a></Link>
                     </li>
                 </ul>
                 </div>
@@ -88,9 +68,7 @@ const Footer = () => {
                 <h3>Meer informatie?</h3>
                 <ul>
                     <li>
-                        <Link href="#">
-                            <a>Kijk op rijksoverheid.nl</a>
-                        </Link>
+                        <Link href="https://www.rijksoverheid.nl"><a>Kijk op rijksoverheid.nl</a></Link>
                     </li>
                 </ul>
                 </div>
