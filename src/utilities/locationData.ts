@@ -196,7 +196,15 @@ export const countries = [
   "Zuid-Korea",
   "Zuid-Soedan",
   "Zweden",
-  "Zwitserland"
+  "Zwitserland",
+
+  // antilles
+  "Aruba",
+  "Bonaire",
+  "Saba",
+  "St Eustacius",
+  "St Maarten",
+  "Curaçao"
 ];
 
 export const coronaMelderCountries = [
