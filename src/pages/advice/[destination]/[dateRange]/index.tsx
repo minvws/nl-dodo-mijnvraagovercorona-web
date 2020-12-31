@@ -73,7 +73,8 @@ const AdviceResult = ({ destination, dateRange }: AdviceProps) => {
                     color: 'header'
                 }}>
                 <h2>Jouw reisschema</h2>
-                <TravelPlan advice={advice} />
+                <TravelPlan advice={advice}
+                            fromDate={fromDate} />
 
                 <h2>Veelgestelde vragen</h2>
                 <FAQTop5 />
@@ -95,8 +96,6 @@ const AdviceResult = ({ destination, dateRange }: AdviceProps) => {
                 </Panel>
                 <HandleDataWidget />
             </BodyContainer>
-
-
 
             <Footer />
         </>

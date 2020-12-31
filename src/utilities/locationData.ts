@@ -199,6 +199,16 @@ export const countries = [
   "Zwitserland"
 ];
 
+export const coronaMelderCountries = [
+  "Duitsland",
+  "Italië",
+  "Ierland",
+  "Spanje",
+  "Letland",
+  "Kroatië",
+  "Denemarken"
+];
+
 export const euCountries = [
   "België",
   "Bulgarije",

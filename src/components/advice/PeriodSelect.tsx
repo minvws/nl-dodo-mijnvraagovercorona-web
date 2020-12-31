@@ -26,7 +26,10 @@ const PeriodSelect = (props: PeriodSelectProps) => {
         if (!range.from) {
             setRange({from: day})
         } else {
-            if (day.getTime() > range.from.getTime()) {
+            if (day.toLocaleDateString() === range.from.toLocaleDateString()) {
+                // unset the range
+                setRange({});
+            } else if (day.getTime() > range.from.getTime()) {
                 setRange({from: range.from, to: day});
 
                 props.onUpdate(range.from, day);

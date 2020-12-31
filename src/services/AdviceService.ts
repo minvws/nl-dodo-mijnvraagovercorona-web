@@ -1,5 +1,6 @@
-import { rules, Rule } from 'utilities/businessRules';
+import { rules, Rule, RuleNote } from 'utilities/businessRules';
 import { addDays, formatShortDate } from 'utilities/dateUtils';
+import { coronaMelderCountries } from 'utilities/locationData';
 
 const injectDynamicValues = (rule: Rule,
                              countryName: string,
@@ -21,6 +22,30 @@ const injectDynamicValues = (rule: Rule,
     }
 
     return JSON.parse(serialized);
+};
+
+type ConditionParams = {
+    countryName: string
+}
+
+const conditionsPass = (note: RuleNote, params: ConditionParams) => {
+    if (!note.conditions) {
+        return true;
+    }
+
+    const conditionFunctions = new Map([
+        ['coronaMelderCountry', (params: ConditionParams) => coronaMelderCountries.includes(params.countryName)]
+    ]);
+
+    for (let condition of note.conditions) {
+        if (conditionFunctions.has(condition)) {
+            if (!conditionFunctions.get(condition)?.apply(this, [params])) {
+                return false;
+            }
+        }
+    }
+
+    return true;
 }
 
 export const getAdvice = (countryName: string,
@@ -39,5 +64,17 @@ export const getAdvice = (countryName: string,
         throw new Error("No matching rule config found for " + countryName);
     }
 
-    return injectDynamicValues(firstMatch, countryName, dateFrom, dateTo, destination);
+    const interpolated = injectDynamicValues(firstMatch, countryName, dateFrom, dateTo, destination);
+
+    // filter out notes not matching all conditions
+    interpolated.travelScheme.forEach(travelStage => {
+        if (travelStage.notes) {
+            const filteredNotes = travelStage.notes.filter(note => {
+                return conditionsPass(note, { countryName: countryName});
+            });
+            travelStage.notes = filteredNotes;
+        }
+    });
+
+    return interpolated;
 };

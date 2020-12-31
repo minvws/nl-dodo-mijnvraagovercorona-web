@@ -62,6 +62,7 @@ const orangeCountries = {
 }
 
 export interface RuleNote {
+    conditions?: string[],
     title: string,
     time?: string,
     subTitle?: string,
@@ -112,6 +113,7 @@ export const rules: RuleBook = {
                             linkHref: ""
                         },
                         {
+                            conditions: ["coronaMelderCountry"],
                             title: "Wist je dat de CoronaMelder ook werkt in $$country",
                             link: "Meer informatie",
                             linkType: "external",
@@ -145,7 +147,6 @@ export const rules: RuleBook = {
                     title: "Thuiskomst",
                     date: "$$toDate"
                 }
-
             ]
         },
         {
@@ -169,6 +170,7 @@ export const rules: RuleBook = {
                             linkHref: ""
                         },
                         {
+                            conditions: ["coronaMelderCountry"],
                             title: "Wist je dat de CoronaMelder ook werkt in $$country",
                             link: "Meer informatie",
                             linkType: "external",
@@ -223,6 +225,7 @@ export const rules: RuleBook = {
                             linkHref: ""
                         },
                         {
+                            conditions: ["coronaMelderCountry"],
                             title: "Wist je dat de CoronaMelder ook werkt in $$country",
                             link: "Meer informatie",
                             linkType: "external",
@@ -271,6 +274,7 @@ export const rules: RuleBook = {
                             linkHref: ""
                         },
                         {
+                            conditions: ["coronaMelderCountry"],
                             title: "Wist je dat de CoronaMelder ook werkt in $$country",
                             link: "Meer informatie",
                             linkType: "external",
