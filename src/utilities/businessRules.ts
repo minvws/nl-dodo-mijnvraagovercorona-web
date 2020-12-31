@@ -37,7 +37,7 @@ const orangeCountries = {
         "Verenigd Koninkrijk",
         "Zweden",
         "Zwitserland",
-        "Curacao"
+        "Curaçao"
     ],
     b: [
         "Finland",

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import { Container, Flex, Image, Input, jsx } from 'theme-ui';
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption, ComboboxOptionText } from '@reach/combobox';
 import Link from 'next/link';
@@ -42,6 +42,13 @@ const DestinationSearch = () => {
         router.push(location);
     }
 
+    const handleSubmit = (event: any) => {
+        if (event.key === 'Enter' && searchResults.length > 0) {
+            const dest = searchResults[0];
+            handleSelect(`${dest.city}, ${dest.country.name}`);
+        }
+    }
+
     return (
       <Container sx={{marginTop: '4em'}}>
         <Flex
@@ -64,6 +71,7 @@ const DestinationSearch = () => {
                 fontSize:'1.1em',
                 border: 'none'
               }}
+              onKeyPress={handleSubmit}
               onChange={handleChange}
               selectOnClick={true}
               placeholder='Bijvoorbeeld "Antwerpen"'/>
