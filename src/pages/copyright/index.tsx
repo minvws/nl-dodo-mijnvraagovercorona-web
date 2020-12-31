@@ -16,7 +16,7 @@ const Cookies = () => {
                 </p>
                 <p>
                     <h3>Auteursrechten</h3>
-                    De redactie van deze website heeft in alle zorgvuldigheid rekening gehouden met de auteursrechten op de gepubliceerde beelden. Is dat naar uw mening bij een beeld niet of niet correct gebeurd? Neem dan contact op via XXX
+                    De redactie van deze website heeft in alle zorgvuldigheid rekening gehouden met de auteursrechten op de gepubliceerde beelden. Is dat naar uw mening bij een beeld niet of niet correct gebeurd? Neem dan contact op via reizentijdenscorona@minvws.nl
                 </p>
             </Container>
         </SimpleContent>

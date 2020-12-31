@@ -24,7 +24,7 @@ const Cookies = () => {
                 </p>
                 <p>
                     <h4>Problemen met toegankelijkheid melden</h4>
-                    Heeft u vragen of opmerkingen? Dan kunt u contact opnemen via XXX.
+                    Heeft u vragen of opmerkingen? Dan kunt u contact opnemen via reizentijdenscorona@minvws.nl.
                 </p>
             </Container>
         </SimpleContent>
