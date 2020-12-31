@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui';
+import { jsx, Link } from 'theme-ui';
 import ExpansionPanel from '../ExpansionPanel';
 
 const FAQTop5 = () => {
@@ -14,7 +14,8 @@ const FAQTop5 = () => {
             </ExpansionPanel>
             <hr/>
             <ExpansionPanel text="Waarom heb ik een negatieve testuitslag en negatieve testverklaring nodig?">
-                Dit is één van de Nederlandse maatregelen om de import en verspreiding van het coronavirus tegen te gaan. Je kan hier meer lezen: <a href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/inreizen-doorreizen-nederland-en-het-eu-inreisverbod/negatieve-covid-19-testverklaring">https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/inreizen-doorreizen-nederland-en-het-eu-inreisverbod/negatieve-covid-19-testverklaring</a>
+                Dit is één van de Nederlandse maatregelen om de import en verspreiding van het coronavirus tegen te gaan.
+                Je kan <Link href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/inreizen-doorreizen-nederland-en-het-eu-inreisverbod/negatieve-covid-19-testverklaring">hier</Link> meer lezen
             </ExpansionPanel>
             <hr/>
             <ExpansionPanel text="Kan ik de 10 dagen thuisquarantaine inkorten?">
@@ -30,10 +31,7 @@ const FAQTop5 = () => {
                     <li>Datum en tijd van afname van de test: De test is maximaal 72 uur oud bij aankomst in Nederland;</li>
                     <li>Gegevens instituut of laboratorium dat de test afnam.</li>
                 </ul>
-                Meer informatie kan je hier vinden:
-                <a href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/inreizen-doorreizen-nederland-en-het-eu-inreisverbod/reizigers-van-binnen-de-eu-schengen">
-                    https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/inreizen-doorreizen-nederland-en-het-eu-inreisverbod/reizigers-van-binnen-de-eu-schengen
-                </a>
+                Meer informatie kan je <Link href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/inreizen-doorreizen-nederland-en-het-eu-inreisverbod/reizigers-van-binnen-de-eu-schengen">hier</Link> vinden
             </ExpansionPanel>
         </>
     );

@@ -44,10 +44,8 @@ const FAQ = () => {
                 <FAQTop5 />
                 <hr/>
                 <ExpansionPanel text="Hoe kom ik aan een (negatieve) testuitslag en een negatieve testverklaring?">
-                    Je kan een test laten afnemen bij een gevalideerd testcentrum (bv. laboratorium, arts, gezondheidsdienst, etc) op je reisbestemming. Let erop dat de test voldoet aan de eisen die Nederland stelt hieraan. Zie hiervoor de andere veelgestelde vraag. De negatieve testverklaring is verplicht wanneer je van buiten de EU/Schengen gebied afreist naar Nederland. Meer informatie hierover kan je hier vinden:
-                    <a href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/inreizen-doorreizen-nederland-en-het-eu-inreisverbod/reizigers-van-buiten-de-eu-schengen">
-                        https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/inreizen-doorreizen-nederland-en-het-eu-inreisverbod/reizigers-van-buiten-de-eu-schengen
-                    </a>
+                    Je kan een test laten afnemen bij een gevalideerd testcentrum (bv. laboratorium, arts, gezondheidsdienst, etc) op je reisbestemming. Let erop dat de test voldoet aan de eisen die Nederland stelt hieraan. Zie hiervoor de andere veelgestelde vraag. De negatieve testverklaring is verplicht wanneer je van buiten de EU/Schengen gebied afreist naar Nederland.
+                    Meer informatie hierover kan je <Link href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/inreizen-doorreizen-nederland-en-het-eu-inreisverbod/reizigers-van-buiten-de-eu-schengen">hier</Link> vinden
                 </ExpansionPanel>
                 <hr/>
                 <ExpansionPanel text="Ik heb nergens last van, waarom moet ik in thuisquarantaine?">

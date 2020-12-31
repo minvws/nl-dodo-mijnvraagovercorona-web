@@ -13,7 +13,7 @@ const Privacy = () => {
                 </p>
                 <p>
                     Reizentijdenscorona.nl gebruikt cookies voor webstatistieken om te begrijpen hoe bezoekers de website gebruiken.
-                    Lees hier meer (link naar ‘cookies’ in de footer)
+                    Lees <Link href="/cookies">hier</Link> meer
                 </p>
             </Container>
         </SimpleContent>

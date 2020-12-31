@@ -36,7 +36,7 @@ const PreparationsPage = () => {
 
                 <PreparationPanel
                     text="Heb je genoeg eten en drinken in huis voor 10 dagen?"
-                    image="/images/Illustratie_De_situatie_op_bestemmingRetina.svg"
+                    image="/images/Illustratie_Eten_en_drinkenRetina.svg"
                 >
                     <ul>
                         <PreparationPanelListItem
