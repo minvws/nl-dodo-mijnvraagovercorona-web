@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { Container, Input, jsx } from 'theme-ui';
-import AdviceHeader from '../../components/advice/AdviceHeader';
+import AdviceHeader from 'components/advice/AdviceHeader';
+import BodyContainer from 'components/BodyContainer';
 import DestinationSearch from '../../components/advice/DestinationSearch';
 import InternalLink from '../../components/content/InternalLink';
 
@@ -16,7 +17,9 @@ const Destination = () => {
                     Waarom vragen we dit?
                 </InternalLink>
             </AdviceHeader>
-            <DestinationSearch />
+            <BodyContainer>
+                <DestinationSearch />
+            </BodyContainer>
         </>
     );
 }

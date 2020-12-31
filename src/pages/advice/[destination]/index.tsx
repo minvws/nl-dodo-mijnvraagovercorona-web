@@ -2,10 +2,11 @@
 import React, {useState} from 'react';
 import { jsx, Container, Button } from 'theme-ui';
 import Link from 'next/link';
-import AdviceHeader from '../../../components/advice/AdviceHeader';
-import InternalLink from '../../../components/content/InternalLink';
-import PeriodSelect from '../../../components/PeriodSelect';
-import { formatPeriod, parseDestination } from '../../../utilities/pathUtils';
+import AdviceHeader from 'components/advice/AdviceHeader';
+import InternalLink from 'components/content/InternalLink';
+import PeriodSelect from 'components/advice/PeriodSelect';
+import BodyContainer from 'components/BodyContainer';
+import { formatPeriod, parseDestination } from 'utilities/pathUtils';
 
 const Period = (props: any) => {
     const [country, city] = parseDestination(props.destination as string);
@@ -13,7 +14,7 @@ const Period = (props: any) => {
     const [fromDate, setFromDate] = useState<Date>();
     const [toDate, setToDate] = useState<Date>();
 
-    const updateDate = (from: Date, to: Date) => {
+    const updateDate = (from: Date, to?: Date) => {
         setFromDate(from);
         setToDate(to);
     };
@@ -30,14 +31,15 @@ const Period = (props: any) => {
                     Waarom vragen we dit?
                 </InternalLink>
             </AdviceHeader>
-            <Container>
+            <BodyContainer>
             <PeriodSelect city={city} country={country}
                               onUpdate={updateDate}/>
               <Container sx={{padding: '1em'}}>
-                { (country && fromDate && toDate) &&
+                { (fromDate && toDate && country) &&
                   <Link href={resultLink()}>
                       <Button sx={{
-                           width: '100%',
+                          width: ['100%', '25%'],
+                          float: 'right',
                            padding: '0.8em',
                            fontSize: '1.2em',
                            fontFamily: 'body',
@@ -47,7 +49,7 @@ const Period = (props: any) => {
                   </Link>
                 }
                </Container>
-            </Container>
+            </BodyContainer>
         </>
     )
 };

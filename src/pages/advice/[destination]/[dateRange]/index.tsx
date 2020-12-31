@@ -2,6 +2,7 @@
 import { GetServerSideProps } from 'next';
 import { jsx, Container, Button, Link, Image, Divider } from 'theme-ui';
 import ContentPageHeader from 'components/ContentPageHeader';
+import BodyContainer from 'components/BodyContainer';
 import TravelPlan from 'components/TravelPlan/TravelPlan';
 import FAQTop5 from 'components/faq/Top5';
 import Panel from 'components/content/Panel';
@@ -65,7 +66,7 @@ const AdviceResult = ({ destination, dateRange }: AdviceProps) => {
                 </ul>
             </ContentPageHeader>
 
-            <Container
+            <BodyContainer
                 sx={{
                     padding: '1em',
                     marginTop: '1em',
@@ -92,9 +93,10 @@ const AdviceResult = ({ destination, dateRange }: AdviceProps) => {
                         <InternalLinkItem href="/preparations">Meer uitleg</InternalLinkItem>
                     </Container>
                 </Panel>
-            </Container>
+                <HandleDataWidget />
+            </BodyContainer>
 
-            <HandleDataWidget />
+
 
             <Footer />
         </>

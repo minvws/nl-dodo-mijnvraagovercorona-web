@@ -1,8 +1,9 @@
 /** @jsx jsx */
 import React from 'react';
-import { Heading, Container, Image, jsx } from 'theme-ui';
+import { Container, jsx } from 'theme-ui';
 import RoHeaderLogo from '../RoHeaderLogo';
 import ProgressMarker from './ProgressMarker';
+import { useDesktopQuery } from 'hooks/useDesktopQuery';
 
 type HeaderProps = {
     header: string,
@@ -12,6 +13,8 @@ type HeaderProps = {
 };
 
 const AdviceHeader = (props: HeaderProps) => {
+    const isDesktop = useDesktopQuery();
+
     return (
         <header
             sx={{
@@ -21,16 +24,19 @@ const AdviceHeader = (props: HeaderProps) => {
                 padding: '1em',
                 paddingBottom: '2em'
             }}>
-            <RoHeaderLogo align='right'/>
-            <ProgressMarker stage={props.questionStage} totalStages={props.totalStages} />
-            <Heading
-                as='h2'
-                sx={{
+            <RoHeaderLogo align={isDesktop ? 'center' :'right'}/>
+            <Container sx={{
+                width: ['100%', '1040px']
+            }}>
+
+                <ProgressMarker stage={props.questionStage} totalStages={props.totalStages} />
+                <h2 sx={{
                     width: '65%',
                     fontSize: '20pt'
                 }}>
-            {props.header}</Heading>
-            { props.children }
+                    {props.header}</h2>
+                    { props.children }
+            </Container>
         </header>
     );
 };

@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from 'react';
-import { Image, Container, ThemeUICSSObject, jsx } from 'theme-ui';
+import { Image, Link, Container, ThemeUICSSObject, jsx } from 'theme-ui';
 
 type RoHeaderLogoProps = {
     align?: string,
@@ -21,9 +21,11 @@ const RoHeaderLogo = (props: RoHeaderLogoProps) => {
     return (
         <Container
             sx={containerStyle}>
-            <Image
-                src='/icons/RO logo.svg' />
-            {props.children}
+            <Link href="/">
+                <Image
+                    src='/icons/RO logo.svg' />
+                {props.children}
+            </Link>
         </Container>
     );
 };
