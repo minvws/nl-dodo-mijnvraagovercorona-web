@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { GetServerSideProps } from 'next';
-import { jsx, Container, Button, Link, Image, Divider } from 'theme-ui';
+import { jsx, Container, Button, Link, Image, Divider, Box } from 'theme-ui';
 import ContentPageHeader from 'components/ContentPageHeader';
 import BodyContainer from 'components/BodyContainer';
 import TravelPlan from 'components/TravelPlan/TravelPlan';
@@ -81,8 +81,15 @@ const AdviceResult = ({ destination, dateRange }: AdviceProps) => {
                 <Link href="/faq">Bekijk alle 10 veelgestelde vragen</Link>
 
                 <h2>Zo kom je de thuisquarantaine goed door</h2>
-                <Panel>
-                    <Image src="/images/Banner_we_helpen_jeRetina.svg" />
+                <Box sx={{
+                        borderRadius: '5px',
+                        boxShadow: '1px 1px 3px 3px #eee',
+                        paddingBottom: '0.5em',
+                        margin: 'componentSpacing',
+                        marginBottom: '10px'
+                }}>
+                    <Image src="/images/Banner_we_helpen_jeRetina.svg"
+                        sx={{ float: 'left' }} />
                     <h3 sx={{ color: 'secondaryHeader' }}>
                         Wat moet ik regelen voor mijn thuisquarantaine?
                     </h3>
@@ -92,11 +99,10 @@ const AdviceResult = ({ destination, dateRange }: AdviceProps) => {
                     }}>
                         <InternalLinkItem href="/preparations">Meer uitleg</InternalLinkItem>
                     </Container>
-                </Panel>
+                </Box>
+
                 <HandleDataWidget />
             </BodyContainer>
-
-
 
             <Footer />
         </>
