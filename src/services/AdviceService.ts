@@ -2,8 +2,9 @@ import { rules, Rule } from 'utilities/businessRules';
 import { addDays, formatShortDate } from 'utilities/dateUtils';
 
 const injectDynamicValues = (rule: Rule,
-                             countryName: string, destination: string,
-                             fromDate: Date, toDate: Date): Rule => {
+                             countryName: string,
+                             fromDate: Date, toDate: Date,
+                             destination?: string,): Rule => {
     let serialized = JSON.stringify(rule);
 
     const replacements = new Map([
@@ -22,8 +23,9 @@ const injectDynamicValues = (rule: Rule,
     return JSON.parse(serialized);
 }
 
-export const getAdvice = (countryName: string, destination: string,
-                          dateFrom: Date, dateTo: Date): Rule => {
+export const getAdvice = (countryName: string,
+                          dateFrom: Date, dateTo: Date,
+                          destination?: string,): Rule => {
 
     const ruleSection = Date.now() < dateFrom.getTime() ?
         rules.beforeTravel : rules.afterTravel
@@ -37,5 +39,5 @@ export const getAdvice = (countryName: string, destination: string,
         throw new Error("No matching rule config found for " + countryName);
     }
 
-    return injectDynamicValues(firstMatch, countryName, destination, dateFrom, dateTo);
+    return injectDynamicValues(firstMatch, countryName, dateFrom, dateTo, destination);
 };

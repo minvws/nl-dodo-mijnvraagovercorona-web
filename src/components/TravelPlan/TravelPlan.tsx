@@ -5,14 +5,14 @@ import TravelAdvicePanel from './TravelAdvicePanel';
 import TravelPlanStage from './TravelPlanStage';
 import TravelInformationLink from './TravelInformationLink';
 import ReminderCalendarInvite from './ReminderCalendarInvite';
-import { Rule } from 'utilities/businessRules';
+import { Rule, TravelSchemeEntry } from 'utilities/businessRules';
 
 type TravelPlanProps = {
     advice: Rule
 }
 
 const TravelPlan = ({advice}: TravelPlanProps) => {
-    const renderTravelPlanStage = (travelSchemeEntry) => {
+    const renderTravelPlanStage = (travelSchemeEntry: TravelSchemeEntry) => {
         return (
             <TravelPlanStage
                 title={travelSchemeEntry.title}

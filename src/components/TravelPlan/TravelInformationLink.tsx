@@ -3,7 +3,7 @@ import React from 'react';
 import { jsx } from 'theme-ui';
 
 type TravelInformationLinkProps = {
-    href: string,
+    href?: string,
     text: string,
     symbolFile?: string
 }

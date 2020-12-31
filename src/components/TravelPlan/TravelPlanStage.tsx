@@ -5,7 +5,7 @@ import { jsx } from 'theme-ui';
 type TravelPlanStageProps = {
     title: string,
     subHeading?: string,
-    date: string,
+    date?: string,
     children?: React.ReactNode
 };
 

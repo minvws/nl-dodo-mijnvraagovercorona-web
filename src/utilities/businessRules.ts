@@ -1,4 +1,6 @@
-import { countries as allCountries } from './locationData';
+import { countries } from './locationData';
+
+let allCountries = [...countries];
 
 const orangeCountries = {
     a: [
@@ -88,8 +90,8 @@ export interface RuleBook {
 };
 
 export const rules: RuleBook = {
-    beforeTravel: {
-        a: {
+    beforeTravel: [
+        {
             countries: orangeCountries.a,
             headerWarning: "Je gaat naar een hoogrisicogebied",
             adviceMessages: [
@@ -146,7 +148,7 @@ export const rules: RuleBook = {
 
             ]
         },
-        b: {
+        {
             countries: orangeCountries.b,
             headerWarning: "Je gaat naar een risicogebied",
             adviceMessages: [
@@ -202,7 +204,7 @@ export const rules: RuleBook = {
                 }
             ]
         },
-        c: {
+        {
             countries: orangeCountries.c,
             headerWarning: "Je gaat naar een laagrisicogebied",
             adviceMessages: [
@@ -248,7 +250,7 @@ export const rules: RuleBook = {
                 }
             ]
         },
-        d: {
+        {
             countries: allCountries,
             headerWarning: "Je gaat naar een hoogrisicogebied",
             adviceMessages: [
@@ -323,9 +325,9 @@ export const rules: RuleBook = {
                 }
             ]
         }
-    },
-    afterTravel: {
-        a: {
+    ],
+    afterTravel: [
+        {
             countries: orangeCountries.a,
             headerWarning: "Je was in een hoogrisicogebied",
             adviceMessages: [
@@ -381,7 +383,7 @@ export const rules: RuleBook = {
                 }
             ]
         },
-        b: {
+        {
             countries: orangeCountries.b,
             headerWarning: "Je was in een risicogebied",
             adviceMessages: [
@@ -419,7 +421,7 @@ export const rules: RuleBook = {
                 }
             ]
         },
-        c: {
+        {
             countries: orangeCountries.c,
             headerWarning: "Je was in een laagrisicogebied",
             adviceMessages: [
@@ -446,7 +448,7 @@ export const rules: RuleBook = {
                 }
             ]
         },
-        d: {
+        {
             countries: allCountries,
             headerWarning: "Je was in een hoogrisicogebied",
             adviceMessages: [
@@ -502,5 +504,5 @@ export const rules: RuleBook = {
                 }
             ]
         }
-    }
+    ]
 }

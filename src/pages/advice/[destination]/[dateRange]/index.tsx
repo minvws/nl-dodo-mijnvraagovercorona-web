@@ -19,7 +19,7 @@ type AdviceProps = {
 const AdviceResult = ({ destination, dateRange }: AdviceProps) => {
     const [fromDate, toDate] = parsePeriod(dateRange as string);
     const [country, city] = parseDestination(destination as string);
-    const advice = getAdvice(country, city, fromDate, toDate);
+    const advice = getAdvice(country, fromDate, toDate, city);
 
     return (
         <>

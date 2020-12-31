@@ -19,13 +19,14 @@ const ContentPageHeader = (props: ContentPageProps) => {
         backgroundColor: 'headerBackground',
         fontFamily: 'header',
         color: 'header',
-        padding: 'standard'
+        padding: 'standard',
+        backgroundImage: 'none',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'right top'
     };
     if (!isDesktop) {
         const bgImg = `url("${props.backgroundImage || "/images/Koffer_MobielRetina.svg"}")`;
         headerStyles.backgroundImage = bgImg;
-        headerStyles.backgroundRepeat = 'no-repeat';
-        headerStyles.backgroundPosition = 'right top';
     }
     return (
         <header
