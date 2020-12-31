@@ -94,7 +94,7 @@ export const rules: RuleBook = {
     beforeTravel: [
         {
             countries: orangeCountries.a,
-            headerWarning: "Je gaat naar een hoogrisicogebied",
+            headerWarning: "Je gaat naar een hoog risicogebied",
             adviceMessages: [
                 "Tot 15 maart niet reizen. Maak alleen echt noodzakelijke reizen. Daar vallen vakanties bijvoorbeeld niet onder.",
                 "Voor je terugreis naar Nederland heb je een negatieve testuitslag nodig.",
@@ -136,7 +136,7 @@ export const rules: RuleBook = {
                         {
                             title: "Laat je testen",
                             time: "max 72u voor vertrek",
-                            subTitle: "Je mag alleen terugreizen met een negatieve uitslag",
+                            subTitle: "Je mag alleen terugreizen met een negatieve testuitslag",
                             link: "Meer informatie",
                             linkType: "external",
                             linkHref: ""

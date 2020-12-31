@@ -8,7 +8,7 @@ import Footer from '../../components/content/Footer';
 const PreparationsPage = () => {
     return (
         <>
-            <ContentPageHeader message="Wat moet je regelen vor het thuisblijven?" backgroundImage="/images/Banner_we_helpen_jeRetina.svg">
+            <ContentPageHeader message="Wat moet je regelen voor het thuisblijven?" backgroundImage="/images/Banner_we_helpen_jeRetina.svg">
                 <Link href="/advice" sx={{
                     position: 'absolute',
                     top: '20px',
@@ -32,7 +32,7 @@ const PreparationsPage = () => {
             </ContentPageHeader>
 
             <Container>
-                <span>Bewaar deze pagina bij je favorieten zodad je hem later nog eens kunt bekijken</span>
+                <span>Bewaar deze pagina bij je favorieten zodat je hem later nog eens kunt bekijken</span>
 
                 <PreparationPanel
                     text="Heb je genoeg eten en drinken in huis voor 10 dagen?"
@@ -43,12 +43,12 @@ const PreparationsPage = () => {
                             text="Vraag familie, vrienden of buren om boodschappen voor je te doen"
                         />
                         <PreparationPanelListItem
-                            text="Bestel je broodscheppen online"
-                            subtext="Bijna alle supermarketen bezorgen broodscheppen. Ook kun je in sommige regio's rechtstreeks bij de boer bestellen."
+                            text="Bestel je boodschappen online"
+                            subtext="Bijna alle supermarketen bezorgen boodschappen. Ook kun je in sommige regio's rechtstreeks bij de boer bestellen."
                         />
                         <PreparationPanelListItem
                             text="Bestel dierenvoeding online"
-                            subtext="Bijna alle supermarketen verkopen basisproducten voor huisdieren. En de meeste dierspeciaalzaken hebben een online shop."
+                            subtext="Bijna alle supermarkten verkopen basisproducten voor huisdieren. En de meeste dierspeciaalzaken hebben een online shop."
                         />
                     </ul>
                 </PreparationPanel>
@@ -58,7 +58,7 @@ const PreparationsPage = () => {
                 >
                     <ul>
                         <PreparationPanelListItem
-                            text="Overleg meet je baas"
+                            text="Overleg met je baas"
                             subtext="Kijk of je werk (tijdelijk) anders in kunt richten zodat je thuis kunt werken. Kun je tijdelijk met een collega ruilen?"
                         />
                         <PreparationPanelListItem
