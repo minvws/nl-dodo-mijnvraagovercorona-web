@@ -1,24 +1,41 @@
-import { euCountries } from '../utilities/locationData';
+import { rules, Rule } from 'utilities/businessRules';
+import { addDays, formatShortDate } from 'utilities/dateUtils';
 
+const injectDynamicValues = (rule: Rule,
+                             countryName: string, destination: string,
+                             fromDate: Date, toDate: Date): Rule => {
+    let serialized = JSON.stringify(rule);
 
-type Country =  {
-    name: string;
-    //colorCode: ColorCode;
-    isEuropeanUnion: boolean;
-    isSchengen: boolean;
-};
+    const replacements = new Map([
+        [/\$\$today/g, formatShortDate(new Date())],
+        [/\$\$fromDate/g, formatShortDate(fromDate)],
+        [/\$\$toDate/g, formatShortDate(toDate)],
+        [/\$\$country/g, countryName],
+        [/\$\$destination/g, destination || ''],
+        [/\$\$quarantineEndDate/g, formatShortDate(addDays(toDate, 10))]
+    ]);
 
-type DateRange = {
-    from: Date,
-    to: Date
-};
-
-class Advice {
-    //destination: Country;
-    //dateRange: DateRange;
-
-    constructor(countryName: string, dateFrom: Date, dateTo: Date) {
-
+    for (let [pattern, replacement] of replacements.entries()) {
+        serialized = serialized.replace(pattern, replacement);
     }
 
+    return JSON.parse(serialized);
+}
+
+export const getAdvice = (countryName: string, destination: string,
+                          dateFrom: Date, dateTo: Date): Rule => {
+
+    const ruleSection = Date.now() < dateFrom.getTime() ?
+        rules.beforeTravel : rules.afterTravel
+
+    const firstMatch = Object.values(ruleSection)
+        .find(ruleConfig => {
+            return ruleConfig.countries
+                && ruleConfig.countries.includes(countryName)
+        });
+    if (!firstMatch) {
+        throw new Error("No matching rule config found for " + countryName);
+    }
+
+    return injectDynamicValues(firstMatch, countryName, destination, dateFrom, dateTo);
 };

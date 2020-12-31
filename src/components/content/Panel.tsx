@@ -12,7 +12,7 @@ const Panel = (props: PanelProps) => {
             sx={{
                 borderRadius: '5px',
                 boxShadow: '1px 1px 3px 3px #eee',
-                margin: '1em',
+                margin: 'componentSpacing',
                 paddingLeft: '1.5em',
                 paddingTop: '0.2em'
             }}>

@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from 'react';
-import { Container, jsx } from 'theme-ui';
+import { Box, Container, jsx } from 'theme-ui';
 
 const withIcon = (WrappedComponent: React.ComponentType,
                   symbolFile: string,
@@ -8,7 +8,7 @@ const withIcon = (WrappedComponent: React.ComponentType,
                   verticalShift: string = '0.4em') => {
     return (props: any) => {
         return (
-            <Container sx= {{
+            <Box sx= {{
                 padding: '0 1em',
                 '::before': {
                     display: 'block',
@@ -23,7 +23,7 @@ const withIcon = (WrappedComponent: React.ComponentType,
                 }
             }}>
                 <WrappedComponent {...props} />
-            </Container>
+            </Box>
         );
     }
 };
@@ -42,7 +42,8 @@ const AnchorLink = (props: LinkProps) => {
                lineHeight: '1.3em',
                paddingBottom: '0.8em',
                fontSize: '14pt',
-               fontWeight: 'bold'
+               fontWeight: 'bold',
+               flex: '1 1 0'
            }}>
             { props.children }
         </a>

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui';
+import { jsx, Container } from 'theme-ui';
 import Link from 'next/link';
 
 const Footer = () => {
@@ -38,53 +38,63 @@ const Footer = () => {
 
                 }
             }}>
-            <h3>Over deze check</h3>
-            <ul>
-                <li>
-                    <Link href="#">
-                        <a>Privacy</a>
-                    </Link>
-                </li>
-                <li>
-                    <Link href="#">
-                        <a>Cookies</a>
-                    </Link>
-                </li>
-                <li>
-                    <Link href="#">
-                        <a>Copyright</a>
-                    </Link>
-                </li>
-                <li>
-                    <Link href="#">
-                        <a>Colofon</a>
-                    </Link>
-                </li>
-                <li>
-                    <Link href="#">
-                        <a>Toegankelijkheid</a>
-                    </Link>
-                </li>
-                <li>
-                    <Link href="#">
-                        <a>Open data</a>
-                    </Link>
-                </li>
-                <li>
-                    <Link href="#">
-                        <a>Kwetsbaarheid melden</a>
-                    </Link>
-                </li>
-            </ul>
+            <Container sx={{
+                width: ['100%', '1024px'],
+                display: 'grid',
+                gridTemplateColumns: ['1fr', '1fr 1fr']
+            }}>
+                <div>
+                <h3>Over deze check</h3>
+                <ul>
+                    <li>
+                        <Link href="#">
+                            <a>Privacy</a>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href="#">
+                            <a>Cookies</a>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href="#">
+                            <a>Copyright</a>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href="#">
+                            <a>Colofon</a>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href="#">
+                            <a>Toegankelijkheid</a>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href="#">
+                            <a>Open data</a>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href="#">
+                            <a>Kwetsbaarheid melden</a>
+                        </Link>
+                    </li>
+                </ul>
+                </div>
 
-            <h3>Meer informatie?</h3>
-            <ul>
-                <li>
-                    <Link href="#">
-                        <a>Kijk op rijksoverheid.nl</a>
-                    </Link>
-                </li>
-            </ul>
+                <div>
+                <h3>Meer informatie?</h3>
+                <ul>
+                    <li>
+                        <Link href="#">
+                            <a>Kijk op rijksoverheid.nl</a>
+                        </Link>
+                    </li>
+                </ul>
+                </div>
+            </Container>
         </footer>
     )
 }

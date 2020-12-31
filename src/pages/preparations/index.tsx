@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, Container, Link, Image } from 'theme-ui';
-import LandingHeader from '../../components/LandingHeader';
+import ContentPageHeader from '../../components/ContentPageHeader';
 import PreparationPanel from '../../components/preparations/PreparationPanel';
 import PreparationPanelListItem from '../../components/preparations/PreparationPanelListItem';
 import Footer from '../../components/content/Footer';
@@ -8,7 +8,7 @@ import Footer from '../../components/content/Footer';
 const PreparationsPage = () => {
     return (
         <>
-            <LandingHeader message="Wat moet je regelen vor het thuisblijven?" backgroundImage="/images/Banner_we_helpen_jeRetina.svg">
+            <ContentPageHeader message="Wat moet je regelen vor het thuisblijven?" backgroundImage="/images/Banner_we_helpen_jeRetina.svg">
                 <Link href="/advice" sx={{
                     position: 'absolute',
                     top: '20px',
@@ -29,7 +29,7 @@ const PreparationsPage = () => {
                 }}>
                     naar resultaat
                 </Link>
-            </LandingHeader>
+            </ContentPageHeader>
 
             <Container>
                 <span>Bewaar deze pagina bij je favorieten zodad je hem later nog eens kunt bekijken</span>

@@ -1,14 +1,15 @@
 /** @jsx jsx */
 import { GetServerSideProps } from 'next';
 import { jsx, Container, Button, Link, Image, Divider } from 'theme-ui';
-import LandingHeader from '../../../../components/LandingHeader';
-import TravelPlan from '../../../../components/TravelPlan/TravelPlan';
-import FAQTop5 from '../../../../components/faq/Top5';
-import Panel from '../../../../components/content/Panel';
-import { SafetyInfoItem, InternalLinkItem } from '../../../../components/content/ListItems';
-import HandleDataWidget from '../../../../components/content/HandleDataWidget';
-import Footer from '../../../../components/content/Footer';
-import { parseDestination, parsePeriod } from '../../../../utilities/pathUtils';
+import ContentPageHeader from 'components/ContentPageHeader';
+import TravelPlan from 'components/TravelPlan/TravelPlan';
+import FAQTop5 from 'components/faq/Top5';
+import Panel from 'components/content/Panel';
+import { SafetyInfoItem, InternalLinkItem } from 'components/content/ListItems';
+import HandleDataWidget from 'components/content/HandleDataWidget';
+import Footer from 'components/content/Footer';
+import { parseDestination, parsePeriod } from 'utilities/pathUtils';
+import { getAdvice } from 'services/AdviceService';
 
 type AdviceProps = {
     destination: string,
@@ -18,13 +19,12 @@ type AdviceProps = {
 const AdviceResult = ({ destination, dateRange }: AdviceProps) => {
     const [fromDate, toDate] = parsePeriod(dateRange as string);
     const [country, city] = parseDestination(destination as string);
-    const travelInPast = Date.now() > fromDate.getTime();
+    const advice = getAdvice(country, city, fromDate, toDate);
 
     return (
         <>
-            <LandingHeader
-                message={travelInPast ? "Je was in een hoogrisicogebied"
-                       : "Je gaat naar een hoogrisicogebied" }>
+            <ContentPageHeader
+                message={advice.headerWarning}>
                 <Link href="/advice" sx={{
                     position: 'absolute',
                     top: '20px',
@@ -55,20 +55,15 @@ const AdviceResult = ({ destination, dateRange }: AdviceProps) => {
                         paddingTop: '1em'
                     }
                 }}>
-                    {travelInPast && <>
-                        <li>Er is een verhoogd risico dat je <strong>besmet</strong> bent geraakt.</li>
-                        <li>Reis je terug per vliegtuig of boot? Dan heb je een <strong>negatieve testuitslag en verklaring</strong> nodig.</li>
-                        <li>Het dringend advies is om <strong>10 dagen in thuisquarantain te gaan</strong>.</li>
-                    </>
-                    }
-                    {!travelInPast && <>
-                        <li>Tot 15 maart <strong>niet reizen</strong>. Maak alleen echt noodzakelike reizen. Daar vallen vakanties bijvoorbeeld nietonder.</li>
-                        <li>Reis je terug per vliegtuig of boot? Dan heb je een <strong>negatieve testuitslag en verklaring</strong> nodig.</li>
-                        <li>Bereid je goed voor om <strong>10 dagen in thuisquarantaine te gaan</strong> na je reis. De situatie kan tijdens je reis veranderen.</li>
-                    </>
+                    {
+                        advice.adviceMessages.map((message, i) => {
+                            return (
+                                <li key={i}>{message}</li>
+                            );
+                        })
                     }
                 </ul>
-            </LandingHeader>
+            </ContentPageHeader>
 
             <Container
                 sx={{
@@ -77,7 +72,7 @@ const AdviceResult = ({ destination, dateRange }: AdviceProps) => {
                     color: 'header'
                 }}>
                 <h2>Jouw reisschema</h2>
-                <TravelPlan country={country} city={city} fromDate={fromDate} toDate={toDate} />
+                <TravelPlan advice={advice} />
 
                 <h2>Veelgestelde vragen</h2>
                 <FAQTop5 />

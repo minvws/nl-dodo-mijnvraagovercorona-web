@@ -1,31 +1,39 @@
 /** @jsx jsx */
 import React from 'react';
 import Link from 'next/link';
-import { Heading, Container, jsx } from 'theme-ui';
+import { Heading, Container, jsx} from 'theme-ui';
+import { useDesktopQuery } from 'hooks/useDesktopQuery';
 import RoHeaderLogo from '../components/RoHeaderLogo';
 
-type LandingHeaderProps = {
+type ContentPageProps = {
     message: string,
     secondaryMessage?: string,
     backgroundImage?: string,
     children?: React.ReactNode
 }
 
-const LandingHeader = (props: LandingHeaderProps) => {
-    const bgImg = 'url(' + (props.backgroundImage || "/images/Koffer_MobielRetina.svg") + ')';
+const ContentPageHeader = (props: ContentPageProps) => {
+    const isDesktop = useDesktopQuery();
+
+    let headerStyles = {
+        backgroundColor: 'headerBackground',
+        fontFamily: 'header',
+        color: 'header',
+        padding: 'standard'
+    };
+    if (!isDesktop) {
+        const bgImg = `url("${props.backgroundImage || "/images/Koffer_MobielRetina.svg"}")`;
+        headerStyles.backgroundImage = bgImg;
+        headerStyles.backgroundRepeat = 'no-repeat';
+        headerStyles.backgroundPosition = 'right top';
+    }
     return (
         <header
-            sx={{
-                backgroundColor: 'headerBackground',
-                fontFamily: 'header',
-                color: 'header',
-                padding: '1em',
-                backgroundImage: bgImg,
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'right top'
-            }}>
+            sx={headerStyles}>
             <RoHeaderLogo align='center'/>
-            <Container>
+            <Container sx={{
+                width: ['100%', '1040px']
+            }}>
                 { props.secondaryMessage &&
                   <Heading as='h4'
                            sx={{
@@ -50,4 +58,4 @@ const LandingHeader = (props: LandingHeaderProps) => {
     );
 };
 
-export default LandingHeader;
+export default ContentPageHeader;

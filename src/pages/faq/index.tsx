@@ -2,14 +2,14 @@
 import { jsx, Container, Link } from 'theme-ui';
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@reach/disclosure";
 import FAQTop5 from '../../components/faq/Top5'
-import LandingHeader from '../../components/LandingHeader';
+import ContentPageHeader from '../../components/ContentPageHeader';
 import ExpansionPanel from '../../components/ExpansionPanel';
 import Footer from '../../components/content/Footer';
 
 const FAQ = () => {
     return (
         <>
-            <LandingHeader message="Veelgestelde vragen" backgroundImage="/images/Illustratie_Mobiel_We_vertellen_je_hoe_het_zitRetina.svg">
+            <ContentPageHeader message="Veelgestelde vragen" backgroundImage="/images/Illustratie_Mobiel_Veelgestelde_vragenRetina.svg">
                 <Link href="/advice" sx={{
                     position: 'absolute',
                     top: '20px',
@@ -30,9 +30,17 @@ const FAQ = () => {
                 }}>
                     naar resultaat
                 </Link>
-            </LandingHeader>
+                <div sx={{
+                    marginBottom: '3em'
+                }}></div>
+            </ContentPageHeader>
 
-            <Container>
+            <Container sx={{
+                width: ['100%', '1024px'],
+                padding: ['standard', 0],
+                marginTop: '2em'
+
+                }}>
                 <FAQTop5 />
                 <hr/>
                 <ExpansionPanel text="Hoe kom ik aan een (negatieve) testuitslag en een negatieve testverklaring?">

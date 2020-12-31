@@ -2,16 +2,13 @@ const SEGMENT_SEPARATOR = '~';
 const DESTINATION_SEPARATOR = '_';
 
 export function formatDestination(destination: string): string {
-    if (destination.indexOf(',') < 0 || destination.length < 3) {
-        throw new Error("Destination is incorrectly formatted");
-    }
-
-    const [city, country] = destination.split(',');
-
     const encodeSegment = (input: string) => encodeURIComponent(input.trim().replace(/\s/g, DESTINATION_SEPARATOR));
-    //const encodeSegment = (input: string) => encodeURIComponent(input.trim());
+    if (destination.indexOf(',') > 0) {
+        const [city, country] = destination.split(',');
 
-    return `${encodeSegment(city)}${SEGMENT_SEPARATOR}${encodeSegment(country)}`;
+        return `${encodeSegment(city)}${SEGMENT_SEPARATOR}${encodeSegment(country)}`;
+    }
+    return encodeSegment(destination);
 }
 
 export function parseDestination(pathFormatted: string): [string, string?] {

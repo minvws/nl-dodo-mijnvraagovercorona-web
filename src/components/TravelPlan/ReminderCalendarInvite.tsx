@@ -41,7 +41,8 @@ const ReminderCalendarInvite = (props: ReminderCalendarInviteProps) => {
                 backgroundImage: 'url("/icons/Calendar.svg")',
                 backgroundRepeat: 'no-repeat',
                 backgroundPositionY: 'center',
-                backgroundPositionX: '1em'
+                backgroundPositionX: '1em',
+                cursor: 'pointer',
             }} onClick={downloadCalendarInvite}>
                 <h4 sx={{
                     fontSize: '15pt',

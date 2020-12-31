@@ -20,6 +20,13 @@ export default {
         inputBorder: '#CECECE'
     },
     breakpoints: ['1024px', '1280px', '1440px'],
+    sizes: {
+        bodyContainer: ['100%', '1024px']
+    },
+    space: {
+        standard: '1em',
+        componentSpacing: ['1em', 0]
+    },
     fonts: {
         body: 'RoSans, sans-serif',
         heading: 'RoSans, sans-serif'
