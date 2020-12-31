@@ -4,13 +4,15 @@ import { jsx, Container, Button, Link, Image, Divider, Box } from 'theme-ui';
 import ContentPageHeader from 'components/ContentPageHeader';
 import BodyContainer from 'components/BodyContainer';
 import TravelPlan from 'components/TravelPlan/TravelPlan';
+import ReminderCalendarInvite from 'components/TravelPlan/ReminderCalendarInvite';
 import FAQTop5 from 'components/faq/Top5';
 import Panel from 'components/content/Panel';
 import { SafetyInfoItem, InternalLinkItem } from 'components/content/ListItems';
 import HandleDataWidget from 'components/content/HandleDataWidget';
 import Footer from 'components/content/Footer';
 import { parseDestination, parsePeriod } from 'utilities/pathUtils';
-import { getAdvice } from 'services/AdviceService';
+import { getAdvice, Advice } from 'services/AdviceService';
+import { addDays } from 'utilities/dateUtils';
 
 type AdviceProps = {
     destination: string,
@@ -20,7 +22,7 @@ type AdviceProps = {
 const AdviceResult = ({ destination, dateRange }: AdviceProps) => {
     const [fromDate, toDate] = parsePeriod(dateRange as string);
     const [country, city] = parseDestination(destination as string);
-    const advice = getAdvice(country, fromDate, toDate, city);
+    const advice: Advice = getAdvice(country, fromDate, toDate, city);
 
     return (
         <>
@@ -73,34 +75,42 @@ const AdviceResult = ({ destination, dateRange }: AdviceProps) => {
                     color: 'header'
                 }}>
                 <h2>Jouw reisschema</h2>
-                <TravelPlan advice={advice}
-                            fromDate={fromDate} />
+                <TravelPlan advice={advice} />
 
                 <h2>Veelgestelde vragen</h2>
                 <FAQTop5 />
                 <hr/>
                 <Link href="/faq">Bekijk alle 10 veelgestelde vragen</Link>
 
-                <h2>Zo kom je de thuisquarantaine goed door</h2>
-                <Box sx={{
-                        borderRadius: '5px',
-                        boxShadow: '1px 1px 3px 3px #eee',
-                        paddingBottom: '0.5em',
-                        margin: 'componentSpacing',
-                        marginBottom: '10px'
-                }}>
-                    <Image src="/images/Banner_we_helpen_jeRetina.svg"
-                        sx={{ float: 'left' }} />
-                    <h3 sx={{ color: 'secondaryHeader' }}>
-                        Wat moet ik regelen voor mijn thuisquarantaine?
-                    </h3>
-                    <Container sx={{
-                        paddingLeft: '3em',
-                        paddingBottom: '0.5em'
-                    }}>
-                        <InternalLinkItem href="/preparations">Meer uitleg</InternalLinkItem>
-                    </Container>
-                </Box>
+
+                { advice.quarantineInvite &&
+                  <>
+                  <h2>Zo kom je de thuisquarantaine goed door</h2>
+                  <Box sx={{
+                      borderRadius: '5px',
+                      boxShadow: '1px 1px 3px 3px #eee',
+                      paddingBottom: '0.5em',
+                      margin: 'componentSpacing',
+                      marginBottom: '10px'
+                  }}>
+                      <Image src="/images/Banner_we_helpen_jeRetina.svg"
+                             sx={{ float: 'left' }} />
+                      <h3 sx={{ color: 'secondaryHeader' }}>
+                          Wat moet ik regelen voor mijn thuisquarantaine?
+                      </h3>
+                      <Container sx={{
+                          paddingLeft: '3em',
+                          paddingBottom: '0.5em'
+                      }}>
+                          <InternalLinkItem href="/preparations">Meer uitleg</InternalLinkItem>
+                      </Container>
+                  </Box>
+                  <ReminderCalendarInvite message="Zet je thuisquarantaine in je agenda"
+                                          fromDate={addDays(advice.quarantineInvite, -10)}
+                                          toDate={new Date(advice.quarantineInvite)} />
+                  </>
+                }
+
 
                 <HandleDataWidget />
             </BodyContainer>

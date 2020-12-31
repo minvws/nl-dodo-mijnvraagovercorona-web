@@ -4,24 +4,51 @@ import { Container, jsx  } from 'theme-ui';
 import { generateCalendarInvite } from 'utilities/dateUtils';
 
 type ReminderCalendarInviteProps = {
-    date: Date
+    date?: Date | string,
+    fromDate?: Date | string,
+    toDate?: Date | string,
+    message: string
 }
 
+const parseDate = (input: Date | string | undefined): Date | undefined => {
+    if (input instanceof Date) {
+        return input;
+    }
+    return input ? new Date(Date.parse(input)) : undefined;
+};
+
 const ReminderCalendarInvite = (props: ReminderCalendarInviteProps) => {
+    const date = parseDate(props.date);
+    const fromDate = parseDate(props.fromDate);
+    const toDate = parseDate(props.toDate);
 
     const downloadCalendarInvite = () => {
+        let textContent = '';
+        if (date) {
+            textContent = generateCalendarInvite(props.message, date);
+        } else if (fromDate && toDate) {
+            textContent = generateCalendarInvite(props.message, fromDate, toDate);
+        }
         // seems like a hacky technique - look at this again
+
         const element = document.createElement('a');
-        const file = new Blob([generateCalendarInvite(props.date)],
+        const file = new Blob([textContent],
                               {type: 'text/plain;charset=utf-8'});
         element.href = URL.createObjectURL(file);
-        element.download = 'herinnering.ics';
+        element.download = `${props.message}.ics`;
         document.body.appendChild(element);
         element.click();
         document.body.removeChild(element);
     }
 
-    const formattedDate = props.date.toLocaleDateString('nl-NL', {day: 'numeric', month: 'long', year: 'numeric'});
+    let dateStr = '';
+    if (date) {
+        dateStr = date.toLocaleDateString('nl-NL', {day: 'numeric', month: 'long', year: 'numeric'});
+    } else if (fromDate && toDate) {
+        const startSegment = fromDate.toLocaleDateString('nl-NL', {day: 'numeric', month: 'long'});
+        const endSegment = toDate.toLocaleDateString('nl-NL', {day: 'numeric', month: 'long', year: 'numeric'});
+        dateStr = `${startSegment} t/m ${endSegment}`;
+    }
 
     return (
 
@@ -49,11 +76,11 @@ const ReminderCalendarInvite = (props: ReminderCalendarInviteProps) => {
                     width: '80%',
                     margin: 0
                 }}>
-                    Zet 'Check opnieuw invullen' in je agenda
+                    {props.message}
                 </h4>
                 <p sx={{
                     margin: 0
-                }}>{ formattedDate }</p>
+                }}>{ dateStr }</p>
             </div>
         </Container>
     );

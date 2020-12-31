@@ -80,6 +80,7 @@ export interface TravelSchemeEntry {
 
 export interface Rule {
     countries: string[],
+    quarantineRequired?: boolean,
     headerWarning: string,
     adviceMessages: string[],
     travelScheme: TravelSchemeEntry[]
@@ -127,7 +128,7 @@ export const rules: RuleBook = {
                     subTitle: "$$destination",
                     notes: [
                         {
-                            title: "Code oranje",
+                            title: "Code $$colorCode",
                             time: "nu",
                             link: "Uitgebreid reisadvies",
                             linkType: "external",
@@ -184,7 +185,7 @@ export const rules: RuleBook = {
                     subTitle: "$$destination",
                     notes: [
                         {
-                            title: "Code oranje",
+                            title: "Code $$colorCode",
                             time: "nu",
                             link: "Uitgebreid reisadvies",
                             linkType: "external",
@@ -239,7 +240,7 @@ export const rules: RuleBook = {
                     subTitle: "$$destination",
                     notes: [
                         {
-                            title: "Code oranje",
+                            title: "Code $$colorCode",
                             time: "nu",
                             link: "Uitgebreid reisadvies",
                             linkType: "external",
@@ -255,6 +256,7 @@ export const rules: RuleBook = {
         },
         {
             countries: allCountries,
+            quarantineRequired: true,
             headerWarning: "Je gaat naar een hoogrisicogebied",
             adviceMessages: [
                 "Tot 15 maart niet reizen. Maak alleen echt noodzakelijke reizen. Daar vallen vakanties bijvoorbeeld niet onder.",
@@ -288,7 +290,7 @@ export const rules: RuleBook = {
                     subTitle: "$$destination",
                     notes: [
                         {
-                            title: "Code oranje",
+                            title: "Code $$colorCode",
                             time: "nu",
                             link: "Uitgebreid reisadvies",
                             linkType: "external",
@@ -333,6 +335,7 @@ export const rules: RuleBook = {
     afterTravel: [
         {
             countries: orangeCountries.a,
+            quarantineRequired: true,
             headerWarning: "Je was in een hoogrisicogebied",
             adviceMessages: [
                 "Er is een verhoogd risico dat je besmet bent geraakt.",
@@ -346,13 +349,14 @@ export const rules: RuleBook = {
                     subTitle: "$$destination",
                     notes: [
                         {
-                            title: "Oranje reisadvies",
+                            title: "$$colorCode reisadvies",
                             time: "Totale reisduur",
                             link: "Meer informatie",
                             linkType: "external",
                             linkHref: ""
                         },
                         {
+                            conditions: ["arrivalInFuture"],
                             title: "Laat je testen",
                             time: "max 72u voor vertrek",
                             subTitle: "Je mag alleen terugreizen met een negatieve testuitslag",
@@ -403,13 +407,14 @@ export const rules: RuleBook = {
                     subTitle: "$$destination",
                     notes: [
                         {
-                            title: "Oranje reisadvies",
+                            title: "$$colorCode reisadvies",
                             time: "Totale reisduur",
                             link: "Meer informatie",
                             linkType: "external",
                             linkHref: ""
                         },
                         {
+                            conditions: ["arrivalInFuture"],
                             title: "Laat je testen",
                             time: "max 72u voor vertrek",
                             subTitle: "Je mag alleen terugreizen met een negatieve testuitslag",
@@ -438,7 +443,7 @@ export const rules: RuleBook = {
                     subTitle: "$$destination",
                     notes: [
                         {
-                            title: "Oranje reisadvies",
+                            title: "$$colorCode reisadvies",
                             time: "Totale reisduur",
                             link: "Meer informatie",
                             linkType: "external",
@@ -454,6 +459,7 @@ export const rules: RuleBook = {
         },
         {
             countries: allCountries,
+            quarantineRequired: true,
             headerWarning: "Je was in een hoogrisicogebied",
             adviceMessages: [
                 "Er is een verhoogd risico dat je besmet bent geraakt.",
@@ -467,13 +473,14 @@ export const rules: RuleBook = {
                     subTitle: "$$destination",
                     notes: [
                         {
-                            title: "Oranje reisadvies",
+                            title: "$$colorCode reisadvies",
                             time: "Totale reisduur",
                             link: "Meer informatie",
                             linkType: "external",
                             linkHref: ""
                         },
                         {
+                            conditions: ["arrivalInFuture"],
                             title: "Laat je testen",
                             time: "max 72u voor vertrek",
                             subTitle: "Je mag alleen terugreizen met een negatieve testuitslag",

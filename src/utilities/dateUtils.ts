@@ -1,7 +1,7 @@
 export const addDays = (date: Date, days: number): Date => {
     const millis = 1000 * 60 * 60 * 24 * days;
 
-    return new Date(date.getTime() + millis);
+    return new Date(parseDate(date).getTime() + millis);
 };
 
 export const formatShortDate = (date: Date): string => {
@@ -9,12 +9,24 @@ export const formatShortDate = (date: Date): string => {
         .slice(0, -1);
 };
 
-// based on https://tools.ietf.org/html/rfc5545
-export const generateCalendarInvite = (date: Date): string => {
-    const createTimeStamp = (d: Date) => d.toISOString().replace(/[^0-9TZ]/g, '');
+export const parseDate = (input: Date | string): Date => {
+    if (input instanceof Date) {
+        return input;
+    }
+    return new Date(Date.parse(input as string));
+}
 
-    const beginTimeStamp = createTimeStamp(date);
-    const endTimeStamp = createTimeStamp(new Date(date.getTime() + (30 * 60 * 1000)));
+
+// based on https://tools.ietf.org/html/rfc5545
+export const generateCalendarInvite = (message: string, date: Date, endDate?: Date): string => {
+    const createTimeStamp = (d: Date) => d.toISOString().replace(/[^0-9TZ]/g, '').substr(0, 15);
+
+    const beginTimeStamp = createTimeStamp(parseDate(date));
+    let endTimeStamp = createTimeStamp(new Date(parseDate(date).getTime() + (30 * 60 * 1000)));
+    if (endDate) {
+        endTimeStamp = createTimeStamp(parseDate(endDate));
+    }
+
     return `BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//hacksw/handcal//NONSGML v1.0//EN
@@ -23,7 +35,7 @@ UID:${beginTimeStamp}@rijksoverheid.nl
 DTSTAMP:${createTimeStamp(new Date())}
 DTSTART:${beginTimeStamp}
 DTEND:${endTimeStamp}
-SUMMARY:Check opnieuw invullen
+SUMMARY:${message}
 END:VEVENT
 END:VCALENDAR`;
 }

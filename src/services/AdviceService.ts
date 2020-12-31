@@ -1,20 +1,31 @@
-import { rules, Rule, RuleNote } from 'utilities/businessRules';
+import { rules, Rule, RuleNote, TravelSchemeEntry } from 'utilities/businessRules';
 import { addDays, formatShortDate } from 'utilities/dateUtils';
 import { coronaMelderCountries } from 'utilities/locationData';
 
-const injectDynamicValues = (rule: Rule,
-                             countryName: string,
-                             fromDate: Date, toDate: Date,
-                             destination?: string,): Rule => {
-    let serialized = JSON.stringify(rule);
+export type Advice = {
+    countryName: string,
+    destination?: string,
+    colorCode: string,
+    fromDate: Date,
+    toDate: Date,
+    headerWarning: string,
+    adviceMessages: string[],
+    travelScheme: TravelSchemeEntry[],
+    checkReminderInvite?: Date,
+    quarantineInvite?: Date
+};
+
+const injectDynamicValues = (advice: Advice): Advice => {
+    let serialized = JSON.stringify(advice);
 
     const replacements = new Map([
         [/\$\$today/g, formatShortDate(new Date())],
-        [/\$\$fromDate/g, formatShortDate(fromDate)],
-        [/\$\$toDate/g, formatShortDate(toDate)],
-        [/\$\$country/g, countryName],
-        [/\$\$destination/g, destination || ''],
-        [/\$\$quarantineEndDate/g, formatShortDate(addDays(toDate, 10))]
+        [/\$\$fromDate/g, formatShortDate(advice.fromDate)],
+        [/\$\$toDate/g, formatShortDate(advice.toDate)],
+        [/\$\$country/g, advice.countryName],
+        [/\$\$destination/g, advice.destination || ''],
+        [/\$\$quarantineEndDate/g, formatShortDate(addDays(advice.toDate, 10))],
+        [/\$\$colorCode/g, advice.colorCode]
     ]);
 
     for (let [pattern, replacement] of replacements.entries()) {
@@ -25,7 +36,8 @@ const injectDynamicValues = (rule: Rule,
 };
 
 type ConditionParams = {
-    countryName: string
+    countryName: string,
+    toDate: Date,
 }
 
 const conditionsPass = (note: RuleNote, params: ConditionParams) => {
@@ -34,7 +46,8 @@ const conditionsPass = (note: RuleNote, params: ConditionParams) => {
     }
 
     const conditionFunctions = new Map([
-        ['coronaMelderCountry', (params: ConditionParams) => coronaMelderCountries.includes(params.countryName)]
+        ['coronaMelderCountry', (params: ConditionParams) => coronaMelderCountries.includes(params.countryName)],
+        ['arrivalInFuture', (params: ConditionParams) => Date.now() > params.toDate.getTime()]
     ]);
 
     for (let condition of note.conditions) {
@@ -48,10 +61,7 @@ const conditionsPass = (note: RuleNote, params: ConditionParams) => {
     return true;
 }
 
-export const getAdvice = (countryName: string,
-                          dateFrom: Date, dateTo: Date,
-                          destination?: string,): Rule => {
-
+export const getRule = (countryName: string,dateFrom: Date): Rule => {
     const ruleSection = Date.now() < dateFrom.getTime() ?
         rules.beforeTravel : rules.afterTravel
 
@@ -64,17 +74,46 @@ export const getAdvice = (countryName: string,
         throw new Error("No matching rule config found for " + countryName);
     }
 
-    const interpolated = injectDynamicValues(firstMatch, countryName, dateFrom, dateTo, destination);
+    return firstMatch;
+};
+
+export const getAdvice = (countryName: string,
+                          dateFrom: Date, dateTo: Date,
+                          destination?: string): Advice => {
+    const rule = getRule(countryName, dateFrom);
 
     // filter out notes not matching all conditions
-    interpolated.travelScheme.forEach(travelStage => {
+    rule.travelScheme.forEach(travelStage => {
         if (travelStage.notes) {
             const filteredNotes = travelStage.notes.filter(note => {
-                return conditionsPass(note, { countryName: countryName});
+                return conditionsPass(note, {
+                    countryName: countryName, toDate: dateTo});
             });
             travelStage.notes = filteredNotes;
         }
     });
 
-    return interpolated;
-};
+    const oneWeekBeforeDeparture = addDays(dateFrom, -7);
+
+    const checkReminderInvite = oneWeekBeforeDeparture.getTime() > Date.now() ?
+        oneWeekBeforeDeparture : undefined;
+
+    const quarantineEnd = addDays(dateTo, 10);
+    const quarantineInvite = (rule.quarantineRequired && Date.now() < quarantineEnd.getTime())
+        ? quarantineEnd : undefined;
+
+    console.log(dateTo);
+    const advice = {
+        countryName: countryName,
+        destination: destination,
+        colorCode: 'Oranje',
+        fromDate: dateFrom,
+        toDate: dateTo,
+        headerWarning: rule.headerWarning,
+        adviceMessages: rule.adviceMessages,
+        travelScheme: rule.travelScheme,
+        checkReminderInvite: checkReminderInvite,
+        quarantineInvite: quarantineInvite
+    };
+    return injectDynamicValues(advice);
+}

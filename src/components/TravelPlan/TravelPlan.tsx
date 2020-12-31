@@ -5,14 +5,14 @@ import TravelAdvicePanel from './TravelAdvicePanel';
 import TravelPlanStage from './TravelPlanStage';
 import TravelInformationLink from './TravelInformationLink';
 import ReminderCalendarInvite from './ReminderCalendarInvite';
-import { Rule, TravelSchemeEntry } from 'utilities/businessRules';
+import { TravelSchemeEntry } from 'utilities/businessRules';
+import { Advice } from 'services/AdviceService';
 
 type TravelPlanProps = {
-    advice: Rule,
-    fromDate: Date
+    advice: Advice
 }
 
-const TravelPlan = ({advice, fromDate}: TravelPlanProps) => {
+const TravelPlan = ({advice}: TravelPlanProps) => {
     const renderTravelPlanStage = (travelSchemeEntry: TravelSchemeEntry) => {
         return (
             <TravelPlanStage
@@ -59,20 +59,22 @@ const TravelPlan = ({advice, fromDate}: TravelPlanProps) => {
                 { advice.travelScheme.map(renderTravelPlanStage) }
             </Container>
             {
-                (fromDate.getTime() > Date.now()) &&
+                advice.checkReminderInvite &&
                 <>
-                <ReminderCalendarInvite date={fromDate} />
-                <Container sx={{
-                    paddingLeft: '2em',
-                    backgroundImage: 'url("/icons/Union.svg")',
-                    backgroundRepeat: 'no-repeat'
-                }}>
-                    <p sx={{
-                        lineHeight: '1.4em'
+                    <ReminderCalendarInvite
+                        message="Zet 'Check opnieuw invullen' in je agenda"
+                        date={advice.checkReminderInvite} />
+                    <Container sx={{
+                        paddingLeft: '2em',
+                        backgroundImage: 'url("/icons/Union.svg")',
+                        backgroundRepeat: 'no-repeat'
                     }}>
-                        De situatie kan veranderen. Doe daarom voor vertrek de check nog een keer.
-                    </p>
-                </Container>
+                        <p sx={{
+                            lineHeight: '1.4em'
+                        }}>
+                            De situatie kan veranderen. Doe daarom voor vertrek de check nog een keer.
+                        </p>
+                    </Container>
                 </>
             }
 
