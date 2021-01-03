@@ -7,14 +7,18 @@ const StartCheckButton = () => {
         <Link href='/advice'>
             <Button
                 sx={{
-                    width: ['100%', '25%'],
-                    padding: '0.8em',
-                    marginTop: '1.2em',
-                    marginBottom: '1em',
-                    fontSize: '1.2em',
-                    fontFamily: 'body',
-                    fontWeight: 'bold',
-                    backgroundColor: 'button'
+                    paddingRight: ['auto', 'buttonPadding'],
+                    paddingLeft: ['auto', 'buttonPadding'],
+                    borderRadius: '5px',
+                    minWidth: ['100%', '0'],
+                    height: 'buttonHeight',
+                    fontSize: ['buttonMobile', 'button'],
+                    lineHeight: ['buttonMobile','button'],
+                    fontFamily: 'heading',
+                    backgroundColor: 'button',
+                    ':hover': {
+                        backgroundColor: 'buttonHover'
+                    }
                 }}>Doe de check</Button>
         </Link>
     );

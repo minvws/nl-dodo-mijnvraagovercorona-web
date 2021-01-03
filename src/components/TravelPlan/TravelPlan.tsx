@@ -18,7 +18,8 @@ const TravelPlan = ({advice}: TravelPlanProps) => {
             <TravelPlanStage
                 title={travelSchemeEntry.title}
                 subHeading={travelSchemeEntry.subTitle}
-                date={travelSchemeEntry.date}>
+                date={travelSchemeEntry.date}
+                key={travelSchemeEntry.title}>
 
                 {travelSchemeEntry.notes && travelSchemeEntry.notes.map(note => {
                     return (

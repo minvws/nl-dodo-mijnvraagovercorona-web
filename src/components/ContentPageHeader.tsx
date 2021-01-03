@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 import Link from 'next/link';
-import { Heading, Container, jsx} from 'theme-ui';
+import { Styled, Heading, Container, jsx} from 'theme-ui';
 import { useDesktopQuery } from 'hooks/useDesktopQuery';
 import RoHeaderLogo from '../components/RoHeaderLogo';
 
@@ -17,12 +17,12 @@ const ContentPageHeader = (props: ContentPageProps) => {
 
     let headerStyles = {
         backgroundColor: 'headerBackground',
-        fontFamily: 'header',
         color: 'header',
-        padding: 'standard',
         backgroundImage: 'none',
         backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'right top'
+        backgroundPosition: 'right top',
+        paddingBottom: ['38px', '39px'],
+        paddingRight: ['auto', '300px', '400px']
     };
     if (!isDesktop) {
         const bgImg = `url("${props.backgroundImage || "/images/Koffer_MobielRetina.svg"}")`;
@@ -33,26 +33,31 @@ const ContentPageHeader = (props: ContentPageProps) => {
             sx={headerStyles}>
             <RoHeaderLogo align='center'/>
             <Container sx={{
-                width: ['100%', '1040px']
+                width: ['100%', 'bodyContainer'],
+                paddingLeft: ['mobilePadding', 0],
+                paddingRight: ['mobilePadding', 0],
+                paddingTop: [0]
             }}>
                 { props.secondaryMessage &&
-                  <Heading as='h4'
-                           sx={{
-                               paddingTop: '24px',
-                               width: '50%'
-                           }}>
+                  <p sx={{
+                      fontSize: 'chapeau',
+                      fontFamily: 'heading',
+                      fontWeight: 'bold',
+                      marginTop: ['26px', '42px'],
+                      maxWidth: '55%'
+                  }}>
                       {props.secondaryMessage}
-                  </Heading>
+                  </p>
                 }
 
-                <Heading as='h1'
-                         sx={{
-                             fontSize: 36,
-                             paddingTop: '24px',
-                             width: '80%'
-                         }}>
+                <Styled.h1
+                    sx={{
+                        marginTop: ['18px', '25px'],
+                        marginBottom: ['14px', '16px'],
+                        width: ['80%', '60%']
+                    }}>
                     { props.message }
-                </Heading>
+                </Styled.h1>
                 { props.children }
             </Container>
         </header>

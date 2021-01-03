@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from 'react';
-import { Box, Container, jsx } from 'theme-ui';
+import { Styled, Box, Container, jsx } from 'theme-ui';
 
 const withIcon = (WrappedComponent: React.ComponentType,
                   symbolFile: string,
@@ -33,9 +33,16 @@ type LinkProps = {
     children?: React.ReactNode,
 };
 
+const baseStyles = {
+    display: 'inline-block',
+    fontSize: ['linkMobile', 'link'],
+    lineHeight: ['linkMobile', 'link'],
+
+}
+
 const AnchorLink = (props: LinkProps) => {
     return (
-        <a href={`#${props.href}`}
+        <Styled.a href={`#${props.href}`}
            sx={{
                display: 'inline-block',
                paddingLeft: '0.5em',
@@ -46,7 +53,7 @@ const AnchorLink = (props: LinkProps) => {
                flex: '1 1 0'
            }}>
             { props.children }
-        </a>
+        </Styled.a>
     );
 };
 

@@ -23,6 +23,8 @@ const RoHeaderLogo = (props: RoHeaderLogoProps) => {
             sx={containerStyle}>
             <Link href="/">
                 <Image
+                    width="67px"
+                    height="100px"
                     src='/icons/RO logo.svg' />
                 {props.children}
             </Link>

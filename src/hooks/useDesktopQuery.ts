@@ -1,4 +1,4 @@
-// the useUITheme hook kept failing the type checker
+// the useUITheme hook kept
 import theme from 'utilities/styling/theme';
 import { useMediaQuery } from 'react-responsive';
 

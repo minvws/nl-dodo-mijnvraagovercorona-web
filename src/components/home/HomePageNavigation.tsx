@@ -1,34 +1,42 @@
 /** @jsx jsx */
 import React from 'react';
-import { jsx } from 'theme-ui';
-import { AnchorLinkItem } from 'components/content/ListItems';
+import { Container, jsx } from 'theme-ui';
+import { AnchorLink } from 'components/Links';
 
 const HomePageNavigation = () => {
     return (
-        <nav sx={{
-            marginTop: '2em',
-            marginBottom: '1em',
-            paddingLeft: ['1em', 0],
-            width: '100%'
+        <Container sx={{
+            paddingLeft: ['mobilePadding', 0],
+            paddingBottom: '10px',
+            marginBottom: 0,
+            marginTop: '37px',
+            paddingRight: ['auto', 'sidePanel']
         }}>
-            <div sx={{
+            <nav sx={{
                 display: 'grid',
                 gridTemplateColumns: ['1fr', '1fr 1fr 1fr 1fr'], // todo: replace this with repeat()
-                paddingLeft: [0, '2em']
+                paddingLeft: [0, 'mobilePadding', 0],
+                paddingBottom: '23px',
+                columnGap: '29px',
+                rowGap: '22px',
+                maxWidth: ['100%', '898px'],
+                margin: '0 auto',
+                borderBottom: ['none', '1px solid #AEC1D1']
             }}>
-                <AnchorLinkItem href="privacy">
-                    Je privacy is altijd beschermd
-                </AnchorLinkItem>
-                <AnchorLinkItem href="snel">
+                <AnchorLink href="#privacy">
+                    Je privacy is altjd beschermd
+                </AnchorLink>
+                <AnchorLink href="#snel">
                     Binnen 2 minuten resultaat
-                </AnchorLinkItem>
-                <AnchorLinkItem href="actueel">Actuele infomatie over je bestemming en thuiskomst
-                </AnchorLinkItem>
-                <AnchorLinkItem href="thuis-quarantaine">
+                </AnchorLink>
+                <AnchorLink href="#actueel">
+                    Actuele infomatie over je bestemming en thuiskomst
+                </AnchorLink>
+                <AnchorLink href="#thuis-quarantaine">
                     We helpen je met je thuisquarantaine
-                </AnchorLinkItem>
-            </div>
-        </nav>
+                </AnchorLink>
+            </nav>
+        </Container>
     )
 };
 

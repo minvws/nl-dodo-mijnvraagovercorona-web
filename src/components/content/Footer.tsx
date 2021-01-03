@@ -1,78 +1,81 @@
 /** @jsx jsx */
 import { jsx, Container } from 'theme-ui';
-import Link from 'next/link';
+import { InternalLink } from 'components/Links';
+import BodyContainer from 'components/BodyContainer';
 
 const Footer = () => {
     return (
         <footer
             sx={{
                 backgroundColor: 'footerBackground',
-                paddingTop: '2em',
-                paddingLeft: '1em',
-                paddingBottom: '2em',
                 color: 'white',
-                fontSize: 1,
-                variant: 'styles.footer',
+                fontSize: 'bodyMobile',
                 h3: {
-                    marginTop: '2em',
-                    fontSize: '14pt'
+                    marginBottom: 0,
+                    paddingBottom: '1px',
                 },
                 a: {
                     color: 'white',
                     textDecoration: 'none',
                     fontWeight: 'regular',
-                    fontSize: '14pt'
                 },
                 ul: {
                     listStylePosition: 'inside',
                     paddingLeft: 0,
+                    marginBottom: 0,
+                    marginTop: 0
                 },
                 li: {
-                    paddingBottom: '1.3em',
                     listStyleImage: 'url("/icons/Link Arrow white.svg")',
                     ':before': {
                         content: '""',
                         display: 'inline-block',
-                        width: '0.5em'
-                    }
-
+                    },
+                    paddingTop: '16px'
                 }
             }}>
-            <Container sx={{
-                width: ['100%', '1024px'],
-                display: 'grid',
-                gridTemplateColumns: ['1fr', '1fr 1fr']
-            }}>
-                <div>
-                <h3>Over deze check</h3>
-                <ul>
-                    <li>
-                        <Link href="/privacy"><a>Privacy</a></Link>
-                    </li>
-                    <li>
-                        <Link href="/cookies"><a>Cookies</a></Link>
-                    </li>
-                    <li>
-                        <Link href="/copyright"><a>Copyright</a></Link>
-                    </li>
-                    <li>
-                        <Link href="/toegankelijkheid"><a>Toegankelijkheid</a></Link>
-                    </li>
-                    <li>
-                        <Link href="/kwetsbaarheid"><a>Kwetsbaarheid melden</a></Link>
-                    </li>
-                </ul>
-                </div>
 
-                <div>
-                <h3>Meer informatie?</h3>
-                <ul>
-                    <li>
-                        <Link href="https://www.rijksoverheid.nl"><a>Kijk op rijksoverheid.nl</a></Link>
-                    </li>
-                </ul>
-                </div>
-            </Container>
+            <BodyContainer>
+                <Container sx={{
+                    paddingTop: '45px',
+                    paddingBottom: '68px',
+                    display: 'grid',
+                    gridTemplateColumns: ['1fr', '1fr 1fr']
+                }}>
+                    <div>
+                        <h3>Over deze check</h3>
+                        <ul>
+                            <li>
+                                <a href="/privacy">Privacy</a>
+                            </li>
+                            <li>
+                                <a href="/cookies">Cookies</a>
+                            </li>
+                            <li>
+                                <a href="/copyright">Copyright</a>
+                            </li>
+                            <li>
+                                <a href="/toegankelijkheid">Toegankelijkheid</a>
+                            </li>
+                            <li>
+                                <a href="/kwetsbaarheid">Kwetsbaarheid melden</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div sx={{
+                        marginTop: ['41px', 0]
+                    }}>
+                        <h3>Meer informatie?</h3>
+                        <ul>
+                            <li>
+                                <a href="https://www.rijksoverheid.nl">Kijk op rijksoverheid.nl</a>
+                            </li>
+                        </ul>
+                    </div>
+                </Container>
+            </BodyContainer>
+
         </footer>
     )
 }

@@ -9,10 +9,13 @@ type BodyContainerProps = {
 const BodyContainer = (props: BodyContainerProps) => {
     return (
         <Container sx={{
-            width: ['100%', '1024px'],
-            padding: ['1em', 0]
+            paddingRight: ['auto', '300px', '400px']
         }}>
-          { props.children }
+            <Container sx={{
+                width: 'bodyContainer'
+            }}>
+                { props.children }
+            </Container>
         </Container>
     )
 };
