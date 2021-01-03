@@ -8,16 +8,13 @@ type RoHeaderLogoProps = {
 };
 
 const RoHeaderLogo = (props: RoHeaderLogoProps) => {
-    const containerStyle: ThemeUICSSObject
-    = (props.align && props.align === 'center') ?
-                  {
-                      textAlign: "center",
-                      marginTop: '-1em'
-                  } : {
-                      textAlign: "right",
-                      paddingRight: '1em',
-                      marginTop: '-1em'
-                  };
+    const containerStyle: ThemeUICSSObject = (props.align && props.align === 'center')
+                         ? {
+                             textAlign: "center"
+                         } : {
+                             textAlign: "right",
+                             paddingRight: '1em'
+                         };
     return (
         <Container
             sx={containerStyle}>

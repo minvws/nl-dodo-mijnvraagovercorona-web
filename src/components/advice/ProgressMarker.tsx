@@ -12,9 +12,11 @@ const ProgressMarker = (props: ProgressMarkerProps) => {
     return (
         <ul sx={{
             position: 'absolute',
-            top: '10px',
+            top: ['25px', '150px'],
+            paddingTop: 0,
+            marginTop: 0,
             paddingLeft: 0,
-            fontSize: '12pt',
+            fontSize: '16px',
             fontWeight: 'bold'
         }}>
 
@@ -37,11 +39,11 @@ const ProgressMarker = (props: ProgressMarkerProps) => {
                         backgroundColor: background,
                         color: isCurrentStage ? 'white' : 'header',
                         borderRadius: '50%',
-                        width: '2.1em',
-                        height: '2.1em',
-                        padding: '0.5em',
+                        width: '35px',
+                        height: '34px',
+                        padding: '8px',
                         textAlign: 'center',
-                        marginRight: '1.4em'
+                        marginRight: '25px'
                     }}
                     key={stageNumber}>{stageNumber}</li>
                 )

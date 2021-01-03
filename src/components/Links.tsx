@@ -33,8 +33,9 @@ const InternalLinkSymbol = {
 };
 
 type LinkProps = {
-    href: string,
+    href?: string,
     text?: string,
+    onClick?: (event: any) => void,
     children?: React.ReactNode
 };
 
@@ -70,6 +71,7 @@ const linkWithIcon = (symbol: Symbol) => {
                     },
                     ...symbol.style
                 }}
+                   onClick={props.onClick}
                    href={props.href}>
                     {props.text}
                     {props.children}

@@ -50,56 +50,57 @@ const DestinationSearch = () => {
     }
 
     return (
-      <Container sx={{marginTop: '4em'}}>
-        <Flex
-          sx={{
-            marginTop: '6em',
-            border: '1px solid',
-            borderColor: 'inputBorder',
-            borderRadius: '10px',
-            margin: '1em',
-            padding: '0.5em 1em'
-          }}>
-          <Image src='/icons/Search.svg' />
-          <Combobox
-              sx={{ width: '100%' }}
-              onSelect={handleSelect}>
-            <ComboboxInput
-              sx={{
-                width: '100%',
-                padding: '0.5em',
-                fontSize:'1.1em',
-                border: 'none'
-              }}
-              onKeyPress={handleSubmit}
-              onChange={handleChange}
-              selectOnClick={true}
-              placeholder='Bijvoorbeeld "Antwerpen"'/>
-            <ComboboxPopover
-              sx={{
-                border: 'none',
-                marginTop: '1em',
-                  marginLeft: '-1em',
-                  paddingLeft: '1em',
-                  paddingBottom: '0',
-                fontSize: 20,
-                a: {
-                  textDecoration: 'none',
-                  color: 'black'
-                },
-                  li: {
-                      paddingBottom: 0,
-                      marginBottom: 0,
-                      paddingTop: 0
-                  }
-              }}>
-              <ComboboxList>
-                { searchResults.map(renderDestinationOption) }
-              </ComboboxList>
-            </ComboboxPopover>
-          </Combobox>
-        </Flex>
-      </Container>
+        <Container sx={{marginTop: '4em'}}>
+            <Flex
+                sx={{
+                    marginTop: '6em',
+                    border: '1px solid',
+                    borderColor: 'inputBorder',
+                    borderRadius: '10px',
+                    margin: '1em',
+                    padding: '0.5em 1em'
+                }}>
+                <Image src='/icons/Search.svg' />
+                <Combobox
+                    sx={{ width: '100%' }}
+                    onSelect={handleSelect}>
+                    <ComboboxInput
+                        sx={{
+                            width: '100%',
+                            padding: '0.5em',
+                            fontSize:'1.1em',
+                            border: 'none'
+                        }}
+                        onKeyPress={handleSubmit}
+                        onChange={handleChange}
+                        selectOnClick={true}
+                        placeholder='Bijvoorbeeld "Antwerpen"'/>
+                    <ComboboxPopover
+                        sx={{
+                            border: 'none',
+                            //marginTop: '1em',
+                            //marginLeft: '-1em',
+                            //paddingLeft: '1em',
+                            paddingBottom: '0',
+                            fontSize: 20,
+                            backgroundColor: ['white', '#EFF7F9'],
+                            a: {
+                                textDecoration: 'none',
+                                color: 'black'
+                            },
+                            li: {
+                                paddingBottom: 0,
+                                marginBottom: 0,
+                                paddingTop: 0
+                            }
+                        }}>
+                        <ComboboxList>
+                            { searchResults.map(renderDestinationOption) }
+                        </ComboboxList>
+                    </ComboboxPopover>
+                </Combobox>
+            </Flex>
+        </Container>
     );
 }
 

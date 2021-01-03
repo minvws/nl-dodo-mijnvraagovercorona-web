@@ -1,12 +1,27 @@
 /** @jsx jsx */
-import { jsx, Container } from 'theme-ui';
+import { jsx, Container, ThemeUICSSObject } from 'theme-ui';
 import { InternalLink } from 'components/Links';
 import BodyContainer from 'components/BodyContainer';
 
-const Footer = () => {
+type FooterProps = {
+    onlyDesktop?: boolean,
+    pushToBottom?: boolean
+}
+
+const Footer = ({ onlyDesktop = false, pushToBottom = false }: FooterProps) => {
+    const mobileDisplay = onlyDesktop ? 'none' : 'inherit';
+    const absolutePositioning: ThemeUICSSObject = pushToBottom
+                              ? {
+                                  position: 'absolute',
+                                  width: '100%',
+                                  zIndex: '-1',
+                                  bottom: 0
+                              } : {};
     return (
         <footer
             sx={{
+                ...absolutePositioning,
+                display: [mobileDisplay, 'inherit'],
                 backgroundColor: 'footerBackground',
                 color: 'white',
                 fontSize: 'bodyMobile',
@@ -32,7 +47,9 @@ const Footer = () => {
                         display: 'inline-block',
                     },
                     paddingTop: '16px'
-                }
+                },
+                paddingLeft: ['mobilePadding', 0],
+                paddingRight: ['mobilePadding', 0]
             }}>
 
             <BodyContainer>

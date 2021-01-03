@@ -1,8 +1,9 @@
 /** @jsx jsx */
 import React from 'react';
-import { Container, jsx } from 'theme-ui';
+import { Container,  ThemeUICSSObject, jsx } from 'theme-ui';
 
 type BodyContainerProps = {
+    sx?: ThemeUICSSObject,
     children: React.ReactNode
 };
 
@@ -12,7 +13,8 @@ const BodyContainer = (props: BodyContainerProps) => {
             paddingRight: ['auto', '300px', '400px']
         }}>
             <Container sx={{
-                width: 'bodyContainer'
+                width: 'bodyContainer',
+                ...props.sx
             }}>
                 { props.children }
             </Container>

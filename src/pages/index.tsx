@@ -15,13 +15,11 @@ const Home = () => {
     return (
         <>
             <Alert sx={{
-                paddingBottom: '5px',
-                margin: 0,
                 backgroundColor: 'button',
                 borderRadius: 0,
                 fontSize: '14px'
             }}>
-                <p sx={{marginTop: '-3px'}}>Deze site is nog in de testfase. Deel je ervaring met de knop 'feedback'</p>
+                <p sx={{margin: 0}}>Deze site is nog in de testfase. Deel je ervaring met de knop 'feedback'</p>
             </Alert>
             <ContentPageHeader
                 message="Wat als je toch naar het buitenland gaat?"

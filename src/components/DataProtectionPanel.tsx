@@ -3,9 +3,15 @@ import React from 'react';
 import { jsx, Container, Box } from 'theme-ui';
 import { InternalLink } from 'components/Links';
 
-const DataProtectionPanel = () => {
+type DataProtectionPanelProps = {
+    onlyDesktop?: boolean
+};
+
+const DataProtectionPanel = ({ onlyDesktop = false }: DataProtectionPanelProps) => {
+    const mobileDisplay = onlyDesktop ? 'none' : 'inherit';
     return (
         <Box sx={{
+            display: [mobileDisplay, 'inherit'],
             backgroundColor: ['white', 'sidePanel'],
             position: ['relative', 'fixed'],
             height: ['auto', '100%'],

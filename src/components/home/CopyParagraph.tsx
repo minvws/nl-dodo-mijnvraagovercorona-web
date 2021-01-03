@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Image, Container, jsx } from 'theme-ui';
 import { useDesktopQuery } from 'hooks/useDesktopQuery';
 
@@ -12,13 +12,19 @@ type CopyParagraphProps = {
 
 const CopyParagraph = (props: CopyParagraphProps) => {
     const isDesktop = useDesktopQuery();
-    //let gridTemplateColumns = ['1fr', '1.2fr 0.8fr']
-    let imageOrder = isDesktop ? 2 : 1;
-    let contentOrder = isDesktop ? 1 : 2;
-    if (props.imageAlignment === 'left') {
-        //gridTemplateColumns = ['1fr', '0.8fr 1.2fr'];
-        imageOrder = 1;
-        contentOrder = 2;
+
+    const imageOrder = () => {
+        if (props.imageAlignment === 'right' && isDesktop) {
+            return 2;
+        }
+        return 1;
+    }
+
+    const contentOrder = () => {
+        if (props.imageAlignment === 'right' && isDesktop) {
+            return 1;
+        }
+        return 2;
     }
 
     return (
@@ -26,12 +32,15 @@ const CopyParagraph = (props: CopyParagraphProps) => {
             display: 'grid',
             columnGap: '29px',
             gridTemplateColumns: ['1fr', '1fr 1fr'],
-            marginBottom: '60px'
+            marginBottom: '60px',
+            paddingLeft: ['mobilePadding', 0],
+            paddingRight: ['mobilePadding', 0]
         }}>
+
             <div sx={{
                 display: 'flex',
                 justifyContent: 'center',
-                order: imageOrder
+                order: imageOrder()
             }}>
                 {props.imageUrl &&
                  <Image
@@ -39,7 +48,7 @@ const CopyParagraph = (props: CopyParagraphProps) => {
                 }
             </div>
             <div sx={{
-                order: contentOrder,
+                order: contentOrder(),
                 width: ['100%', '433px'],
                 h4: {
                     fontWeight: 'bold',
