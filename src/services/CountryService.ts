@@ -21,7 +21,8 @@ export interface Destination {
     country: Country,
 }
 
-const isEuCountry = (countryName: string) => euCountries.includes(countryName);
+const isEuCountry = (countryName: string) =>  euCountries.includes(countryName);
+
 const isSchengenCountry = (countryName: string) => schengenCountries.includes(countryName);
 
 export const searchCities = (query: String): Destination[] => {
@@ -40,7 +41,7 @@ export const searchCities = (query: String): Destination[] => {
                     isEuropeanUnion: isEuCountry(countryName),
                     isSchengen: isSchengenCountry(countryName),
                     colorCode: ColorCode.Orange
-                }
-            };
+               }
+           };
         });
 }
