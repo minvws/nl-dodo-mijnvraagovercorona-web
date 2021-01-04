@@ -47,7 +47,7 @@ const conditionsPass = (note: RuleNote, params: ConditionParams) => {
 
     const conditionFunctions = new Map([
         ['coronaMelderCountry', (params: ConditionParams) => coronaMelderCountries.includes(params.countryName)],
-        ['arrivalInFuture', (params: ConditionParams) => Date.now() > params.toDate.getTime()]
+        ['arrivalInFuture', (params: ConditionParams) => Date.now() < params.toDate.getTime()]
     ]);
 
     for (let condition of note.conditions) {

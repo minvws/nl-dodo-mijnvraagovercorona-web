@@ -11,7 +11,7 @@ const orangeCountries = {
         "Denemarken",
         "Duitsland",
         "Estland",
-        "Finland",
+        // "Finland",
         "Frankrijk",
         "Griekenland",
         "Hongarije",
@@ -24,7 +24,7 @@ const orangeCountries = {
         "Luxemburg",
         "Malta",
         "Monaco",
-        "Noorwegen",
+        //"Noorwegen",
         "Oostenrijk",
         "Polen",
         "Portugal",
@@ -59,6 +59,7 @@ const orangeCountries = {
         "Zuid-Korea",
         "Thailand",
     ]
+    // d: every other country
 }
 
 export interface RuleNote {
@@ -414,7 +415,7 @@ export const rules: RuleBook = {
                             linkHref: ""
                         },
                         {
-                            conditions: ["arrivalInFuture"],
+                            //conditions: ["arrivalInFuture"],
                             title: "Laat je testen",
                             time: "max 72u voor vertrek",
                             subTitle: "Je mag alleen terugreizen met een negatieve testuitslag",

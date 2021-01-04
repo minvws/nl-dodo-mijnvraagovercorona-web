@@ -30,15 +30,9 @@ const isSchengenCountry = (countryName: string) => {
 }
 
 export function searchCities(query: String): Destination[] {
-    // 1. find matches where city name starts with query
     const startMatching = Object.keys(cities)
         .filter(city => city.toLowerCase().startsWith(query.toLowerCase()))
         .slice(0, MAX_SEARCH_RESULTS + 1);
-
-    // 2. find
-    // TODO
-
-    // 3. map to Destination objects
 
     return startMatching
         .map(key => {

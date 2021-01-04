@@ -7,7 +7,6 @@ import TravelPlan from 'components/TravelPlan/TravelPlan';
 import TestBooking from 'components/results/TestBooking';
 import ReminderCalendarInvite from 'components/TravelPlan/ReminderCalendarInvite';
 import FaqList from 'components/faq/FaqList';
-import FAQTop5 from 'components/faq/Top5';
 import Panel from 'components/content/Panel';
 import { SafetyInfoItem, InternalLinkItem } from 'components/content/ListItems';
 import DataProtectionPanel from 'components/DataProtectionPanel'

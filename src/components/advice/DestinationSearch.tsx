@@ -21,10 +21,14 @@ const DestinationSearch = () => {
         }
     };
 
+    const getDestinationName = (dest: Destination) => {
+        return dest.city.length > 0
+                                ? `${dest.city}, ${dest.country.name}`
+                                : dest.country.name;
+    }
+
     const renderDestinationOption = (dest: Destination) => {
-        const key = dest.city.length > 0 ?
-                                       `${dest.city}, ${dest.country.name}`
-                                       : dest.country.name;
+        const key = getDestinationName(dest);
         return (
             <ComboboxOption key={key} value={key}
                             sx={{ p: { padding: 0} }}>
@@ -44,8 +48,7 @@ const DestinationSearch = () => {
 
     const handleSubmit = (event: any) => {
         if (event.key === 'Enter' && searchResults.length > 0) {
-            const dest = searchResults[0];
-            handleSelect(`${dest.city}, ${dest.country.name}`);
+            handleSelect(getDestinationName(searchResults[0]));
         }
     }
 
