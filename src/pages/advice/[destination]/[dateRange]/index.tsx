@@ -11,9 +11,11 @@ import Panel from 'components/structure/Panel';
 import DataProtectionPanel from 'components/DataProtectionPanel'
 import Footer from 'components/structure/Footer';
 import { InternalLink } from 'components/Links';
-import { parseDestination, parsePeriod } from 'utilities/pathUtils';
+import { parsePeriod } from 'utilities/pathUtils';
 import { getAdvice, Advice } from 'services/AdviceService';
 import { addDays } from 'utilities/dateUtils';
+import { useRouter } from 'next/router';
+import { useDestination } from 'hooks/use-destination';
 
 type AdviceProps = {
     destination: string,
@@ -22,8 +24,15 @@ type AdviceProps = {
 
 const AdviceResult = ({ destination, dateRange }: AdviceProps) => {
     const [fromDate, toDate] = parsePeriod(dateRange as string);
-    const [country, city] = parseDestination(destination as string);
-    const advice: Advice = getAdvice(country, fromDate, toDate, city);
+    const country = useDestination(destination as string);
+    // @TODO: Fix empty string.
+    const advice: Advice = getAdvice(country?.fullName || '', fromDate, toDate);
+    const router = useRouter();
+
+    if (!country) {
+      router.push('/advice');
+      return null;
+    }
 
     return (
         <>

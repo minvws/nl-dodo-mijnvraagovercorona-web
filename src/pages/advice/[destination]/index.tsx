@@ -8,10 +8,15 @@ import PeriodSelect from 'components/advice/PeriodSelect';
 import DataProtectionPanel from 'components/DataProtectionPanel';
 import BodyContainer from 'components/structure/BodyContainer';
 import Footer from 'components/structure/Footer';
-import { formatPeriod, parseDestination } from 'utilities/pathUtils';
+import { formatPeriod } from 'utilities/pathUtils';
+import { useDestination } from 'hooks/use-destination';
+import { useRouter } from 'next/router';
+import { countries } from 'config/countries';
+import { isBrowser } from 'utilities/is-browser';
 
 const Period = (props: any) => {
-    const [country, city] = parseDestination(props.destination as string);
+    const country = useDestination(props.destination as string);
+    const router = useRouter()
 
     const [fromDate, setFromDate] = useState<Date>();
     const [toDate, setToDate] = useState<Date>();
@@ -22,6 +27,11 @@ const Period = (props: any) => {
     };
 
     const resultLink = () => `${props.destination}/${formatPeriod(fromDate as Date, toDate as Date)}`;
+
+    if (!country) {
+      if (isBrowser()) router.push('/advice');
+      return null;
+    }
 
     return (
         <>
@@ -34,7 +44,7 @@ const Period = (props: any) => {
                 </InternalLink>
             </AdviceHeader>
 
-            <PeriodSelect city={city} country={country}
+            <PeriodSelect country={country?.fullName}
                 onUpdate={updateDate}/>
             <BodyContainer>
         { (fromDate && toDate && country) &&
@@ -66,8 +76,27 @@ const Period = (props: any) => {
     )
 };
 
-export async function getServerSideProps(context: any) {
-    return { props: context.params };
+
+export interface AdviceDestinationStaticProps {
+  params: {
+    destination: string;
+  };
+}
+
+export const getStaticProps = async ({ params }: AdviceDestinationStaticProps) => {
+
+  return {
+    props: {
+      destination: params.destination,
+    },
+  };
 };
+
+
+export const getStaticPaths = () => ({
+  paths: countries.map((country) => ({ params: { destination: country.slug } })),
+  fallback: true,
+})
+
 
 export default Period;

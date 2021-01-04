@@ -1,66 +1,5 @@
-import { countries } from './locationData';
+import { countries } from "config/countries"
 
-let allCountries = [...countries];
-
-const orangeCountries = {
-    a: [
-        "Andorra",
-        "Belgie",
-        "Bulgarije",
-        "Cyprus",
-        "Denemarken",
-        "Duitsland",
-        "Estland",
-        // "Finland",
-        "Frankrijk",
-        "Griekenland",
-        "Hongarije",
-        "Italie",
-        "Ierland",
-        "Kroatie",
-        "Letland",
-        "Liechtenstein",
-        "Litouwen",
-        "Luxemburg",
-        "Malta",
-        "Monaco",
-        //"Noorwegen",
-        "Oostenrijk",
-        "Polen",
-        "Portugal",
-        "Roemenie",
-        "San Marino",
-        "Slovenie",
-        "Slowakije",
-        "Spanje",
-        "Tsjechie",
-        "Verenigd Koninkrijk",
-        "Zweden",
-        "Zwitserland",
-        "Curaçao"
-    ],
-    b: [
-        "Finland",
-        "IJsland",
-        "Noorwegen",
-        "Aruba",
-        "Bonaire",
-        "Saba",
-        "St Eustacius",
-        "St Maarten"
-    ],
-    c: [
-        "Australië",
-        "China",
-        "Japan",
-        "Nieuw-Zeeland",
-        "Rwanda",
-        "Singapore",
-        "Zuid-Korea",
-        "Thailand",
-    ]
-    // d: every other country
-}
 
 export interface RuleNote {
     conditions?: string[],
@@ -92,10 +31,15 @@ export interface RuleBook {
     afterTravel: Rule[]
 };
 
+const allCountries = countries.map(c => c.fullName);
+const highRiskCountries = countries.filter(c => c.riskLevel === 'high').map(c => c.fullName);
+const mediumRiskCountries = countries.filter(c => c.riskLevel === 'medium').map(c => c.fullName);
+const lowRiskCountries = countries.filter(c => c.riskLevel === 'low').map(c => c.fullName);
+
 export const rules: RuleBook = {
     beforeTravel: [
         {
-            countries: orangeCountries.a,
+            countries: highRiskCountries,
             headerWarning: "Je gaat naar een hoog risicogebied",
             adviceMessages: [
                 "Tot 15 maart niet reizen. Maak alleen echt noodzakelijke reizen. Daar vallen vakanties bijvoorbeeld niet onder.",
@@ -152,7 +96,7 @@ export const rules: RuleBook = {
             ]
         },
         {
-            countries: orangeCountries.b,
+            countries: mediumRiskCountries,
             headerWarning: "Je gaat naar een risicogebied",
             adviceMessages: [
                 "Tot 15 maart niet reizen. Maak alleen echt noodzakelijke reizen. Daar vallen vakanties bijvoorbeeld niet onder.",
@@ -209,7 +153,7 @@ export const rules: RuleBook = {
             ]
         },
         {
-            countries: orangeCountries.c,
+            countries: lowRiskCountries,
             headerWarning: "Je gaat naar een laagrisicogebied",
             adviceMessages: [
                 "Tot 15 maart niet reizen. Maak alleen echt noodzakelijke reizen. Daar vallen vakanties bijvoorbeeld niet onder."
@@ -335,7 +279,7 @@ export const rules: RuleBook = {
     ],
     afterTravel: [
         {
-            countries: orangeCountries.a,
+            countries: highRiskCountries,
             quarantineRequired: true,
             headerWarning: "Je was in een hoogrisicogebied",
             adviceMessages: [
@@ -393,7 +337,7 @@ export const rules: RuleBook = {
             ]
         },
         {
-            countries: orangeCountries.b,
+            countries: mediumRiskCountries,
             headerWarning: "Je was in een risicogebied",
             adviceMessages: [
 
@@ -432,7 +376,7 @@ export const rules: RuleBook = {
             ]
         },
         {
-            countries: orangeCountries.c,
+            countries: lowRiskCountries,
             headerWarning: "Je was in een laagrisicogebied",
             adviceMessages: [
                 "Er is een laag risico dat je besmet bent geraakt."
