@@ -4,12 +4,15 @@ import { jsx, Container, Button, Link, Image, Divider, Box } from 'theme-ui';
 import ContentPageHeader from 'components/ContentPageHeader';
 import BodyContainer from 'components/BodyContainer';
 import TravelPlan from 'components/TravelPlan/TravelPlan';
+import TestBooking from 'components/results/TestBooking';
 import ReminderCalendarInvite from 'components/TravelPlan/ReminderCalendarInvite';
+import FaqList from 'components/faq/FaqList';
 import FAQTop5 from 'components/faq/Top5';
 import Panel from 'components/content/Panel';
 import { SafetyInfoItem, InternalLinkItem } from 'components/content/ListItems';
-import HandleDataWidget from 'components/content/HandleDataWidget';
+import DataProtectionPanel from 'components/DataProtectionPanel'
 import Footer from 'components/content/Footer';
+import { InternalLink } from 'components/Links';
 import { parseDestination, parsePeriod } from 'utilities/pathUtils';
 import { getAdvice, Advice } from 'services/AdviceService';
 import { addDays } from 'utilities/dateUtils';
@@ -49,13 +52,13 @@ const AdviceResult = ({ destination, dateRange }: AdviceProps) => {
                     opnieuw
                 </Link>
                 <ul sx={{
+                    paddingLeft: '17px',
+                    marginBottom: 0,
                     fontFamily: 'body',
+                    fontSize: ['19px', '20px'],
                     listStyleImage: 'url("/icons/Polygon 6.svg")',
-                    marginLeft: '-1em',
-                    lineSpacing: '2em',
-                    fontSize: '14pt',
-                    li: {
-                        paddingTop: '1em'
+                    'li:not(:last-child)': {
+                        marginBottom: '16px'
                     }
                 }}>
                     {
@@ -68,53 +71,67 @@ const AdviceResult = ({ destination, dateRange }: AdviceProps) => {
                 </ul>
             </ContentPageHeader>
 
-            <BodyContainer
-                sx={{
-                    padding: '1em',
-                    marginTop: '1em',
-                    color: 'header'
-                }}>
-                <h2>Jouw reisschema</h2>
-                <TravelPlan advice={advice} />
+        <BodyContainer>
+        <Container sx={{
+            paddingLeft: ['mobilePadding', 0],
+            paddingRight: ['mobilePadding', 0]
+        }}>
+        <h2 sx={{
+            paddingTop: ['36px', '44px'],
+            color: 'header',
+            fontSize: ['h2Mobile', 'h2']
+        }}>Jouw reisschema</h2>
+        <TravelPlan advice={advice} />
+        <TestBooking />
 
-                <h2>Veelgestelde vragen</h2>
-                <FAQTop5 />
-                <hr/>
-                <Link href="/faq">Bekijk alle 10 veelgestelde vragen</Link>
+        <h2 sx={{
+                    paddingTop: ['36px', '44px'],
+                    color: 'header',
+                    fontSize: ['h2Mobile', 'h2']
+                }}>Veelgestelde vragen</h2>
+        <FaqList limit={5} />
+
+        <InternalLink href="/faq">
+            Bekijk alle 10 veelgestelde vragen</InternalLink>
 
 
-                { advice.quarantineInvite &&
-                  <>
-                  <h2>Zo kom je de thuisquarantaine goed door</h2>
-                  <Box sx={{
-                      borderRadius: '5px',
-                      boxShadow: '1px 1px 3px 3px #eee',
-                      paddingBottom: '0.5em',
-                      margin: 'componentSpacing',
-                      marginBottom: '10px'
+        { advice.quarantineInvite &&
+          <>
+              <h2 sx={{
+                  paddingTop: ['36px', '44px'],
+                  color: 'header',
+                  fontSize: ['h2Mobile', 'h2']
+              }}>Zo kom je de thuisquarantaine goed door</h2>
+              <Box sx={{
+                  borderRadius: '11px',
+                  boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.2)',
+                  marginBottom: '10px',
+                  paddingTop: '11px',
+                  paddingBottom: '13px',
+                  paddingLeft: '115px',
+                  backgroundImage: 'url("/images/Banner_we_helpen_jeRetina.svg")',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundPositionX: '-10px',
+              }}>
+                  <h3 sx={{
+                      color: 'secondaryHeader',
+                      fontSize: ['bodyMobile', 'body'],
+                      lineHeight: ['bodyMobile', 'body']
                   }}>
-                      <Image src="/images/Banner_we_helpen_jeRetina.svg"
-                             sx={{ float: 'left' }} />
-                      <h3 sx={{ color: 'secondaryHeader' }}>
-                          Wat moet ik regelen voor mijn thuisquarantaine?
-                      </h3>
-                      <Container sx={{
-                          paddingLeft: '3em',
-                          paddingBottom: '0.5em'
-                      }}>
-                          <InternalLinkItem href="/preparations">Meer uitleg</InternalLinkItem>
-                      </Container>
-                  </Box>
-                  <ReminderCalendarInvite message="Zet je thuisquarantaine in je agenda"
-                                          fromDate={addDays(advice.quarantineInvite, -10)}
-                                          toDate={new Date(advice.quarantineInvite)} />
-                  </>
-                }
+                      Wat moet ik regelen voor mijn thuisquarantaine?
+                  </h3>
+                  <InternalLink href="/preparations">Meer uitleg</InternalLink>
+              </Box>
+              <ReminderCalendarInvite message="Zet je thuisquarantaine in je agenda"
+                                      fromDate={addDays(advice.quarantineInvite, -10)}
+                                      toDate={new Date(advice.quarantineInvite)} />
+              <div sx={{ marginBottom: '65px' }} />
+          </>
+        }
+        </Container>
+        <DataProtectionPanel />
 
-
-                <HandleDataWidget />
             </BodyContainer>
-
             <Footer />
         </>
     );

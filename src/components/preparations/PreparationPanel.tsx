@@ -1,5 +1,6 @@
 /** @jsx jsx */
-import { jsx, Container, Image } from 'theme-ui';
+import { jsx, Styled} from 'theme-ui';
+import CopyParagraph from 'components/home/CopyParagraph';
 
 type PreparationPanelProps = {
     text: string,
@@ -9,13 +10,12 @@ type PreparationPanelProps = {
 
 const PreparationPanel = (props: PreparationPanelProps) => {
     return (
-        <Container>
-            <Image src={props.image} />
-            <h2>{props.text}</h2>
-            <Container>
-                {props.children}
-            </Container>
-        </Container>
+
+        <CopyParagraph imageUrl={props.image}>
+            <Styled.h2>{props.text}</Styled.h2>
+            { props.children }
+        </CopyParagraph>
+
     );
 }
 

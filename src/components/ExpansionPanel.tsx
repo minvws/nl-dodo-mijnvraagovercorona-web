@@ -9,25 +9,32 @@ type ExpansionPanelProps = {
 
 const ExpansionPanel = (props: ExpansionPanelProps) => {
     return (
-        <Container sx={{paddingTop: '0.5em', paddingBottom: '0.5em'}}>
+        <Container>
             <Disclosure>
                 <DisclosureButton sx={{
+                    textAlign: 'left',
+                    paddingLeft: 0,
+                    paddingBottom: '15px',
+                    paddingTop: '17px',
                     background: 'none',
                     border: 'none',
                     fontFamily: 'body',
-                    fontSize: '14pt',
-                    paddingLeft: 0,
-                    paddingRight: '1.9em',
-                    lineHeight: '1.8e',
-                    textAlign: 'left',
+                    fontSize: ['bodyMobile', 'body'],
+                    lineHeight: ['bodyMobile', 'body'],
                     width: '100%',
                     backgroundImage: 'url("/icons/FAQ Arrow.svg")',
                     backgroundRepeat: 'no-repeat',
                     backgroundPositionX: 'right',
-                    backgroundPositionY: 'center'
+                    backgroundPositionY: 'center',
+                    borderBottom: '1px solid #AEC1D1'
                 }}>{props.text}</DisclosureButton>
                 <DisclosurePanel>
-                    {props.children}
+                    <div sx={{
+                        fontSize: ['bodyMobile', 'body'],
+                        lineHeight: ['bodyMobile', 'body'],
+                    }}>
+                        {props.children}
+                    </div>
                 </DisclosurePanel>
             </Disclosure>
         </Container>

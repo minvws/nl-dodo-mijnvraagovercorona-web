@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import React, { useState } from 'react';
-import { Container, Flex, Image, Input, jsx } from 'theme-ui';
+import React, { useEffect, useState } from 'react';
+import { Flex, Container, Input, jsx } from 'theme-ui';
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption, ComboboxOptionText } from '@reach/combobox';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -50,56 +50,64 @@ const DestinationSearch = () => {
     }
 
     return (
-        <Container sx={{marginTop: '4em'}}>
-            <Flex
+        <Container>
+            <Combobox
                 sx={{
-                    marginTop: '6em',
-                    border: '1px solid',
-                    borderColor: 'inputBorder',
-                    borderRadius: '10px',
-                    margin: '1em',
-                    padding: '0.5em 1em'
-                }}>
-                <Image src='/icons/Search.svg' />
-                <Combobox
-                    sx={{ width: '100%' }}
-                    onSelect={handleSelect}>
-                    <ComboboxInput
-                        sx={{
-                            width: '100%',
-                            padding: '0.5em',
-                            fontSize:'1.1em',
-                            border: 'none'
-                        }}
-                        onKeyPress={handleSubmit}
-                        onChange={handleChange}
-                        selectOnClick={true}
-                        placeholder='Bijvoorbeeld "Antwerpen"'/>
-                    <ComboboxPopover
-                        sx={{
-                            border: 'none',
-                            //marginTop: '1em',
-                            //marginLeft: '-1em',
-                            //paddingLeft: '1em',
-                            paddingBottom: '0',
-                            fontSize: 20,
-                            backgroundColor: ['white', '#EFF7F9'],
-                            a: {
-                                textDecoration: 'none',
-                                color: 'black'
-                            },
-                            li: {
-                                paddingBottom: 0,
-                                marginBottom: 0,
-                                paddingTop: 0
-                            }
-                        }}>
-                        <ComboboxList>
-                            { searchResults.map(renderDestinationOption) }
-                        </ComboboxList>
-                    </ComboboxPopover>
-                </Combobox>
-            </Flex>
+                    width: '100%',
+                    paddingLeft: ['mobilePadding', 0],
+                    paddingRight: ['mobilePadding', 0]
+                }}
+                onSelect={handleSelect}>
+                <ComboboxInput
+                    sx={{
+                        border: '1px solid',
+                        borderColor: 'inputBorder',
+                        borderRadius: '5px',
+                        width: '100%',
+                        height: '55px',
+                        paddingLeft: '56px',
+                        fontSize: '20px',
+
+                        backgroundImage: 'url("/icons/Search.svg")',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundPositionY: '15px',
+                        backgroundPositionX: '17px',
+                        color: 'black'
+                    }}
+
+                    onKeyPress={handleSubmit}
+                    onChange={handleChange}
+                    selectOnClick={true}
+                    placeholder='Bijvoorbeeld "Antwerpen"'/>
+                <ComboboxPopover
+                    sx={{
+                        maxHeight: ['auto', '295px'],
+                        border: 'none',
+                        overflow: 'hidden',
+                        borderBottomLeftRadius: '5px',
+                        borderBottomRightRadius: '5px',
+                        paddingLeft: '50px',
+                        paddingBottom: '0',
+                        fontSize: 20,
+                        backgroundColor: ['white', '#EFF7F9'],
+                        a: {
+                            textDecoration: 'none',
+                            color: 'black'
+                        },
+                        li: {
+                            paddingBottom: 0,
+                            marginBottom: 0,
+                            paddingTop: 0
+                        }
+                    }}>
+                    <ComboboxList sx={{
+
+                    }}>
+                        { searchResults.map(renderDestinationOption) }
+                    </ComboboxList>
+                </ComboboxPopover>
+            </Combobox>
+
         </Container>
     );
 }

@@ -38,13 +38,13 @@ const TravelPlan = ({advice}: TravelPlanProps) => {
             <Container
                 sx={{
                     borderLeft: '2px solid #f0d5e2',
-                    marginLeft: '1em',
-                    marginRight: '1em',
                     paddingLeft: '1.8em',
+
                     h3: {
+                        color: 'header',
                         marginBottom: 0,
                         '::before': {
-                            marginLeft: 'calc(-2em - 2px)',
+                            marginLeft: '-39px',
                             marginRight: '2px',
                             marginTop: '1px',
                             paddingRight: '1em',

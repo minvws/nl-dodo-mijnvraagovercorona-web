@@ -23,6 +23,8 @@ const AdviceHeader = (props: HeaderProps) => {
                 fontFamily: 'heading',
                 color: 'header',
                 paddingBottom: ['31px', '29px'],
+                paddingLeft: ['mobilePadding', 0],
+                paddingRight: ['mobilePadding', 0]
             }}>
             <BodyContainer>
                 <RoHeaderLogo align={isDesktop ? 'center' :'right'} />

@@ -4,6 +4,7 @@ import { jsx, Link, Image, Container } from 'theme-ui';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import { useDesktopQuery } from 'hooks/useDesktopQuery';
 import { formatShortDate } from 'utilities/dateUtils';
+import BodyContainer from 'components/BodyContainer';
 import 'react-day-picker/lib/style.css';
 
 type PeriodSelectProps = {
@@ -54,7 +55,8 @@ const PeriodSelect = (props: PeriodSelectProps) => {
                     backgroundColor: 'roHighlight',
                     textAlign: 'center',
                     color: 'white',
-                    paddingTop: '0.1em'
+                    paddingTop: '0.1em',
+                    paddingRight: [0, '300px', '400px']
                 }}>
                 <Link href="/advice" sx={{
                     position: 'absolute',
@@ -82,11 +84,10 @@ const PeriodSelect = (props: PeriodSelectProps) => {
                     paddingBottom: '0.9em'
                 }}>{rangeMessage}</h5>
             </Container>
-            <Container>
+            <BodyContainer>
                 <DayPicker
                     sx={{
                         width: '100%',
-                        padding: '1em',
                         '.DayPicker-Month': {
                             width: isDesktop ? '45%' : '100%'
                         }
@@ -101,7 +102,7 @@ const PeriodSelect = (props: PeriodSelectProps) => {
                     modifiers={modifiers}
                     onDayClick={handleDayClick}
                 />
-            </Container>
+            </BodyContainer>
         </>
     )
 }

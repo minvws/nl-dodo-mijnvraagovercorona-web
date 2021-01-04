@@ -36,7 +36,8 @@ type LinkProps = {
     href?: string,
     text?: string,
     onClick?: (event: any) => void,
-    children?: React.ReactNode
+    children?: React.ReactNode,
+    sx?: ThemeUICSSObject
 };
 
 const linkWithIcon = (symbol: Symbol) => {
@@ -69,7 +70,8 @@ const linkWithIcon = (symbol: Symbol) => {
                     ':hover': {
                         color: 'linkHover'
                     },
-                    ...symbol.style
+                    ...symbol.style,
+                    ...props.sx
                 }}
                    onClick={props.onClick}
                    href={props.href}>

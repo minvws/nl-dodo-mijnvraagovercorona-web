@@ -23,7 +23,6 @@ const Destination = () => {
     const closeDialog = () => setShowDialog(false);
 
     return (
-
         <>
             <AdviceHeader
                 header="Wat is of was je bestemming?"
@@ -74,13 +73,15 @@ const Destination = () => {
             </AdviceHeader>
             <BodyContainer>
                 <div sx={{
+                    paddingTop: ['71px', '73px'],
+                    marginBottom: ['auto', '405px'],
                     minHeight: '30vh' // need a better solution here
                 }}>
                     <DestinationSearch />
                 </div>
             </BodyContainer>
             <DataProtectionPanel onlyDesktop={true} />
-            <Footer onlyDesktop={true} pushToBottom={!showDialog} />
+            <Footer onlyDesktop={true} />
         </>
     );
 }

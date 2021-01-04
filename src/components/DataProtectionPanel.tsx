@@ -2,6 +2,7 @@
 import React from 'react';
 import { jsx, Container, Box } from 'theme-ui';
 import { InternalLink } from 'components/Links';
+import PrivacyList from 'components/PrivacyList';
 
 type DataProtectionPanelProps = {
     onlyDesktop?: boolean
@@ -40,28 +41,7 @@ const DataProtectionPanel = ({ onlyDesktop = false }: DataProtectionPanelProps) 
                     paddingBottom: '23px',
                     margin: 0
                 }}>Zo gaan we om met jouw gegevens:</h3>
-                <ul sx={{
-                    fontSize: ['bodyMobile', 'body'],
-                    listStyle: 'none',
-                    lineHeight: ['bodyMobile', 'body'],
-                    padding: 0,
-                    li: {
-                        '::before': {
-                            position: 'absolute',
-                            left: ['37px', '50px'],
-                            marginTop: '5px',
-                            content: '""',
-                            backgroundImage: 'url("/icons/Privacy Protection.svg")',
-                            backgroundSize: '36px 36px',
-                            float: 'left',
-                            height: '36px',
-                            width: '36px',
-                            paddingRight: '-36px',
-                        },
-                        paddingLeft: '47px',
-                        paddingBottom: '22px'
-                    }
-                }}>
+                <PrivacyList>
                     <li>
                         Niemand weet wie je bent. Het invullen is volledig anoniem.
                     </li>
@@ -71,7 +51,7 @@ const DataProtectionPanel = ({ onlyDesktop = false }: DataProtectionPanelProps) 
                     <li>
                         We houden alleen bij welke ondedelen je bezoekt, zodat we deze website kunnen verbeteren.
                     </li>
-                </ul>
+                </PrivacyList>
 
                 <Container sx={{
                     paddingBottom: '21px',

@@ -3,9 +3,11 @@ import React, {useState} from 'react';
 import { jsx, Container, Button } from 'theme-ui';
 import Link from 'next/link';
 import AdviceHeader from 'components/advice/AdviceHeader';
-import InternalLink from 'components/content/InternalLink';
+import { InternalLink } from 'components/Links';
 import PeriodSelect from 'components/advice/PeriodSelect';
+import DataProtectionPanel from 'components/DataProtectionPanel';
 import BodyContainer from 'components/BodyContainer';
+import Footer from 'components/content/Footer';
 import { formatPeriod, parseDestination } from 'utilities/pathUtils';
 
 const Period = (props: any) => {
@@ -31,25 +33,35 @@ const Period = (props: any) => {
                     Waarom vragen we dit?
                 </InternalLink>
             </AdviceHeader>
-            <BodyContainer>
+
             <PeriodSelect city={city} country={country}
-                              onUpdate={updateDate}/>
-              <Container sx={{padding: '1em'}}>
-                { (fromDate && toDate && country) &&
-                  <Link href={resultLink()}>
-                      <Button sx={{
-                          width: ['100%', '25%'],
-                          float: 'right',
-                           padding: '0.8em',
-                           fontSize: '1.2em',
-                           fontFamily: 'body',
-                           fontWeight: 'bold',
-                           backgroundColor: 'button'
-                           }}>Toon het resultaat</Button>
-                  </Link>
-                }
-               </Container>
+                onUpdate={updateDate}/>
+            <BodyContainer>
+        { (fromDate && toDate && country) &&
+          <div sx={{
+              textAlign: 'right',
+              paddingRight: 'mobilePadding',
+              paddingTop: ['auto', '51px'],
+              paddingBottom: ['auto', '63px']
+          }}>
+                <Link href={resultLink()}>
+                    <Button sx={{
+                        width: ['100%', 'auto'],
+                        paddingLeft: ['auto', 'buttonPadding'],
+                        paddingRight: ['auto', 'buttonPadding'],
+                        paddingTop: ['16px', '15px'],
+                        paddingBottom: ['16px', '15px'],
+                        fontSize: ['buttonMobile', 'button'],
+                        fontFamily: 'body',
+                        fontWeight: 'bold',
+                        backgroundColor: 'button'
+                    }}>Toon het resultaat</Button>
+                </Link>
+            </div>
+        }
             </BodyContainer>
+            <DataProtectionPanel onlyDesktop={true} />
+            <Footer onlyDesktop={true} />
         </>
     )
 };

@@ -30,7 +30,7 @@ const ProgressMarker = (props: ProgressMarkerProps) => {
                     background = 'button';
                 }
                 if (isPastStage) {
-                    background = 'gray';
+                    background = '#AEC1D1';
                 }
 
                 return (
@@ -45,7 +45,7 @@ const ProgressMarker = (props: ProgressMarkerProps) => {
                         textAlign: 'center',
                         marginRight: '25px'
                     }}
-                    key={stageNumber}>{stageNumber}</li>
+                        key={stageNumber}>{stageNumber}</li>
                 )
             })}
         </ul>
