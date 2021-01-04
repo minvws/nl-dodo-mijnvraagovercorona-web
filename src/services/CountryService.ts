@@ -22,7 +22,7 @@ export interface Destination {
 }
 
 const isEuCountry = (countryName: string) => euCountries.includes(countryName);
-const isSchengenCountry = (countryName: string) => = schengenCountries.includes(countryName);
+const isSchengenCountry = (countryName: string) => schengenCountries.includes(countryName);
 
 export const searchCities = (query: String): Destination[] => {
     const startMatching = Object.keys(cities)
