@@ -25,14 +25,14 @@ type AdviceProps = {
 const AdviceResult = ({ destination, dateRange }: AdviceProps) => {
     const [fromDate, toDate] = parsePeriod(dateRange as string);
     const country = useDestination(destination as string);
-    // @TODO: Fix empty string.
-    const advice: Advice = getAdvice(country?.fullName || '', fromDate, toDate);
     const router = useRouter();
 
     if (!country) {
       router.push('/advice');
       return null;
     }
+    
+    const advice: Advice = getAdvice(country, fromDate, toDate);
 
     return (
         <>
