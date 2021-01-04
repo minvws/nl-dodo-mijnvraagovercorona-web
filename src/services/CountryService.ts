@@ -21,15 +21,10 @@ export interface Destination {
     country: Country,
 }
 
-const isEuCountry = (countryName: string) => {
-    return euCountries.indexOf(countryName) >= 0;
-}
+const isEuCountry = (countryName: string) => euCountries.includes(countryName);
+const isSchengenCountry = (countryName: string) => = schengenCountries.includes(countryName);
 
-const isSchengenCountry = (countryName: string) => {
-    return schengenCountries.indexOf(countryName) >= 0;
-}
-
-export function searchCities(query: String): Destination[] {
+export const searchCities = (query: String): Destination[] => {
     const startMatching = Object.keys(cities)
         .filter(city => city.toLowerCase().startsWith(query.toLowerCase()))
         .slice(0, MAX_SEARCH_RESULTS + 1);
@@ -38,14 +33,14 @@ export function searchCities(query: String): Destination[] {
         .map(key => {
             const cityName = cities[key].length > 0 ? key : "";
             const countryName = cities[key].length > 0 ? cities[key] : key;
-           return {
-               city: cityName,
-               country: {
-                   name: countryName,
-                   isEuropeanUnion: isEuCountry(countryName),
-                   isSchengen: isSchengenCountry(countryName),
-                   colorCode: ColorCode.Orange
-               }
-           };
+            return {
+                city: cityName,
+                country: {
+                    name: countryName,
+                    isEuropeanUnion: isEuCountry(countryName),
+                    isSchengen: isSchengenCountry(countryName),
+                    colorCode: ColorCode.Orange
+                }
+            };
         });
 }

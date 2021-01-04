@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import React from 'react';
 import { jsx } from 'theme-ui';
-import RoHeaderLogo from '../RoHeaderLogo';
+import RoHeaderLogo from 'components/structure/RoHeaderLogo';
 import ProgressMarker from './ProgressMarker';
-import BodyContainer from 'components/BodyContainer';
+import BodyContainer from 'components/structure/BodyContainer';
 import { useDesktopQuery } from 'hooks/useDesktopQuery';
 
 type HeaderProps = {

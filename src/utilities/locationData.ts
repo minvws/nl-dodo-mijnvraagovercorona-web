@@ -276,11 +276,6 @@ export const schengenCountries = [
   "Zwitserland"
 ];
 
-type City = {
-  name: string,
-  country: string
-};
-
 export const cities: { [key: string]: string } = {
   'Afghanistan': "",
   'Albanië': "",

@@ -2,10 +2,10 @@
 import { jsx, Container, Link } from 'theme-ui';
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@reach/disclosure";
 import FaqList from 'components/faq/FaqList';
-import BodyContainer from 'components/BodyContainer';
-import ContentPageHeader from 'components/ContentPageHeader';
+import BodyContainer from 'components/structure/BodyContainer';
+import ContentPageHeader from 'components/structure/ContentPageHeader';
 import DataProtectionPanel from 'components/DataProtectionPanel';
-import Footer from 'components/content/Footer';
+import Footer from 'components/structure/Footer';
 
 const FAQ = () => {
     return (

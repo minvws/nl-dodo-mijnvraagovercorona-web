@@ -4,8 +4,8 @@ import { Flex, Container, Input, jsx } from 'theme-ui';
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption, ComboboxOptionText } from '@reach/combobox';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Destination, searchCities } from '../../services/CountryService';
-import { formatDestination } from '../../utilities/pathUtils';
+import { Destination, searchCities } from 'services/CountryService';
+import { formatDestination } from 'utilities/pathUtils';
 import '@reach/combobox/styles.css';
 
 const DestinationSearch = () => {

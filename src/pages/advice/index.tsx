@@ -6,13 +6,10 @@ import { InternalLink } from 'components/Links';
 import { Dialog, DialogOverlay, DialogContent } from "@reach/dialog";
 import VisuallyHidden from '@reach/visually-hidden';
 import "@reach/dialog/styles.css";
-
-
-import BodyContainer from 'components/BodyContainer';
-import DestinationSearch from '../../components/advice/DestinationSearch';
-
+import BodyContainer from 'components/structure/BodyContainer';
+import DestinationSearch from 'components/advice/DestinationSearch';
 import DataProtectionPanel from 'components/DataProtectionPanel';
-import Footer from 'components/content/Footer';
+import Footer from 'components/structure/Footer';
 
 const Destination = () => {
     const [showDialog, setShowDialog] = useState(false);

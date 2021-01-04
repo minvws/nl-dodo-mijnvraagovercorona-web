@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, Styled } from 'theme-ui';
-import ContentPage from 'components/ContentPage';
+import ContentPage from 'components/structure/ContentPage';
 
 const Cookies = () => {
     return (

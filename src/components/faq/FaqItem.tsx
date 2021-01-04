@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 import { jsx } from 'theme-ui';
-import ExpansionPanel from 'components/ExpansionPanel';
+import ExpansionPanel from 'components/structure/ExpansionPanel';
 
 type FaqItemProps = {
     title: string,

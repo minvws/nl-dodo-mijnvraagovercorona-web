@@ -1,11 +1,11 @@
 /** @jsx jsx */
 import { Styled, jsx, Container, Link, Image } from 'theme-ui';
-import ContentPageHeader from '../../components/ContentPageHeader';
-import PreparationPanel from '../../components/preparations/PreparationPanel';
-import PreparationPanelListItem from '../../components/preparations/PreparationPanelListItem';
-import BodyContainer from 'components/BodyContainer';
+import ContentPageHeader from 'components/structure/ContentPageHeader';
+import PreparationPanel from 'components/preparations/PreparationPanel';
+import PreparationPanelListItem from 'components/preparations/PreparationPanelListItem';
+import BodyContainer from 'components/structure/BodyContainer';
 import DataProtectionPanel from 'components/DataProtectionPanel';
-import Footer from 'components/content/Footer';
+import Footer from 'components/structure/Footer';
 
 const PreparationsPage = () => {
     return (

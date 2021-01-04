@@ -4,7 +4,7 @@ import { jsx, Link, Image, Container } from 'theme-ui';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import { useDesktopQuery } from 'hooks/useDesktopQuery';
 import { formatShortDate } from 'utilities/dateUtils';
-import BodyContainer from 'components/BodyContainer';
+import BodyContainer from 'components/structure/BodyContainer';
 import 'react-day-picker/lib/style.css';
 
 type PeriodSelectProps = {

@@ -1,10 +1,10 @@
 /** @jsx jsx */
 import React from 'react';
 import { Container, jsx } from 'theme-ui';
-import ContentPageHeader from 'components/ContentPageHeader';
-import BodyContainer from 'components/BodyContainer';
+import ContentPageHeader from 'components/structure/ContentPageHeader';
+import BodyContainer from 'components/structure/BodyContainer';
 import DataProtectionPanel from 'components/DataProtectionPanel'
-import Footer from 'components/content/Footer';
+import Footer from 'components/structure/Footer';
 
 type ContentPageProps = {
     title: string,

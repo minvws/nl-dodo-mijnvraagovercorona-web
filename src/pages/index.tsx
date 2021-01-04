@@ -1,12 +1,12 @@
 /** @jsx jsx */
 import { Styled, Container, Alert, jsx } from 'theme-ui';
-import ContentPageHeader from 'components/ContentPageHeader';
+import ContentPageHeader from 'components/structure/ContentPageHeader';
 import StartCheckButton from 'components/home/StartCheckButton';
 import HomePageNavigation from 'components/home/HomePageNavigation';
-import BodyContainer from 'components/BodyContainer';
+import BodyContainer from 'components/structure/BodyContainer';
 import CopySection from 'components/home/CopySection';
 import DataProtectionPanel from 'components/DataProtectionPanel';
-import Footer from '../components/content/Footer';
+import Footer from '../components/structure/Footer';
 import { useDesktopQuery } from 'hooks/useDesktopQuery';
 
 const Home = () => {

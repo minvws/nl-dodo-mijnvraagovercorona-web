@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx, Container, ThemeUICSSObject } from 'theme-ui';
 import { InternalLink } from 'components/Links';
-import BodyContainer from 'components/BodyContainer';
+import BodyContainer from 'components/structure/BodyContainer';
 
 type FooterProps = {
     onlyDesktop?: boolean,

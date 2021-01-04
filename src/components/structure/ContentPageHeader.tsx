@@ -3,7 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Styled, Heading, Container, jsx} from 'theme-ui';
 import { useDesktopQuery } from 'hooks/useDesktopQuery';
-import RoHeaderLogo from '../components/RoHeaderLogo';
+import RoHeaderLogo from 'components/structure/RoHeaderLogo';
 
 type ContentPageProps = {
     message: string,

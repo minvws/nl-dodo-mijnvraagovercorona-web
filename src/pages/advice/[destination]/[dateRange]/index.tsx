@@ -1,16 +1,15 @@
 /** @jsx jsx */
 import { GetServerSideProps } from 'next';
 import { jsx, Container, Button, Link, Image, Divider, Box } from 'theme-ui';
-import ContentPageHeader from 'components/ContentPageHeader';
-import BodyContainer from 'components/BodyContainer';
+import ContentPageHeader from 'components/structure/ContentPageHeader';
+import BodyContainer from 'components/structure/BodyContainer';
 import TravelPlan from 'components/TravelPlan/TravelPlan';
 import TestBooking from 'components/results/TestBooking';
 import ReminderCalendarInvite from 'components/TravelPlan/ReminderCalendarInvite';
 import FaqList from 'components/faq/FaqList';
-import Panel from 'components/content/Panel';
-import { SafetyInfoItem, InternalLinkItem } from 'components/content/ListItems';
+import Panel from 'components/structure/Panel';
 import DataProtectionPanel from 'components/DataProtectionPanel'
-import Footer from 'components/content/Footer';
+import Footer from 'components/structure/Footer';
 import { InternalLink } from 'components/Links';
 import { parseDestination, parsePeriod } from 'utilities/pathUtils';
 import { getAdvice, Advice } from 'services/AdviceService';

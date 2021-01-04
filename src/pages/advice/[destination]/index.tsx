@@ -6,8 +6,8 @@ import AdviceHeader from 'components/advice/AdviceHeader';
 import { InternalLink } from 'components/Links';
 import PeriodSelect from 'components/advice/PeriodSelect';
 import DataProtectionPanel from 'components/DataProtectionPanel';
-import BodyContainer from 'components/BodyContainer';
-import Footer from 'components/content/Footer';
+import BodyContainer from 'components/structure/BodyContainer';
+import Footer from 'components/structure/Footer';
 import { formatPeriod, parseDestination } from 'utilities/pathUtils';
 
 const Period = (props: any) => {
