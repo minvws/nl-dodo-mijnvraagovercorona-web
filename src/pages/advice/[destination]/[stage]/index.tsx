@@ -17,7 +17,7 @@ import { getAdvice, Advice } from 'services/AdviceService';
 import { addDays } from 'utilities/dateUtils';
 import { useRouter } from 'next/router';
 import { useDestination } from 'hooks/use-destination';
-import { countries } from 'config/countries';
+import { countries, RiskLevel } from 'config/countries';
 
 type AdviceProps = {
 	destination: string;
@@ -89,16 +89,21 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 
 	const showPreperation = stage === 'voor-vertrek';
 	const showCoronamelderApp =
-		country?.riskLevel === 'high' || country?.riskLevel === 'medium';
+		country?.riskLevel === RiskLevel.A_RISICOVOL ||
+		country?.riskLevel === RiskLevel.B_RISICOVOL_INREISBEPERKINGEN;
 
 	const showDeparture = stage === 'voor-vertrek' || stage === 'tijdens-je-reis';
 
 	const showNegativeTestResult =
-		country?.riskLevel === 'high' || country?.riskLevel === 'medium';
-	const showNegativeTestDeclaration = country?.riskLevel === 'unknown';
+		country?.riskLevel === RiskLevel.A_RISICOVOL ||
+		country?.riskLevel === RiskLevel.B_RISICOVOL_INREISBEPERKINGEN;
+
+	const showNegativeTestDeclaration =
+		country?.riskLevel === RiskLevel.D_EU_INREISVERBOD;
 
 	const showQuarantaine =
-		country?.riskLevel === 'high' || country?.riskLevel === 'unknown';
+		country?.riskLevel === RiskLevel.A_RISICOVOL ||
+		country?.riskLevel === RiskLevel.D_EU_INREISVERBOD;
 
 	const showCheckAgain = stage === 'voor-vertrek'; // And if departure is further then a week away
 
