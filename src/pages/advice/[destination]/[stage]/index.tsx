@@ -4,7 +4,6 @@ import { jsx, Container, Button, Link, Image, Divider, Box } from 'theme-ui';
 
 import ContentPageHeader from 'components/structure/ContentPageHeader';
 import BodyContainer from 'components/structure/BodyContainer';
-import TravelPlan from 'components/TravelPlan/TravelPlan';
 import TestBooking from 'components/results/TestBooking';
 import ReminderCalendarInvite from 'components/TravelPlan/ReminderCalendarInvite';
 import FaqList from 'components/faq/FaqList';
