@@ -27,7 +27,8 @@ const faqs: Array<[string, any]> = [
 	[
 		'Waarom heb ik een negatieve testuitslag en negatieve testverklaring nodig?',
 		<p>
-			Je kan{' '}
+			Dit is een van de Nederlandse maatregelen om de import en verspreiding van
+			het coronavirus tegen te gaan. Je kan{' '}
 			<a href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/inreizen-doorreizen-nederland-en-het-eu-inreisverbod/negatieve-covid-19-testverklaring">
 				hier
 			</a>{' '}

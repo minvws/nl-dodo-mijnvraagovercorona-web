@@ -34,77 +34,14 @@ type AdviceProps = {
 	stage: Stage;
 };
 
-const t = {
-	headerWarning: 'Je gaat naar een hoog risicogebied',
-	adviceMessages: [
-		'Tot 15 maart niet reizen. Maak alleen echt noodzakelijke reizen. Daar vallen vakanties bijvoorbeeld niet onder.',
-		'Voor je terugreis naar Nederland heb je een negatieve testuitslag nodig.',
-		'Bereid je goed voor om 10 dagen in thuisquarantaine te gaan na je reis. De situatie kan tijdens je reis veranderen.',
-	],
-	travelScheme: [
-		{
-			title: 'Voorbereiding',
-			date: '', // today
-			subTitle: 'Laat je niet verrassen',
-			notes: [
-				{
-					title:
-						'Blijf op de hoogte van de laatste ontwikkelingen op je bestemming',
-					link: 'Download de reisapp',
-					linkType: 'external',
-					linkHref: '',
-				},
-				{
-					conditions: ['coronaMelderCountry'],
-					title: 'Wist je dat de CoronaMelder ook werkt in $$country',
-					link: 'Meer informatie',
-					linkType: 'external',
-					linkHref: '',
-				},
-			],
-		},
-		{
-			title: 'Vertrek',
-			date: '', // van
-			subTitle: '', // destination
-			notes: [
-				{
-					title: 'Code $$colorCode',
-					time: 'nu',
-					link: 'Uitgebreid reisadvies',
-					linkType: 'external',
-					linkHref: '',
-				},
-				{
-					title: 'Laat je testen',
-					time: 'max 72u voor vertrek',
-					subTitle: 'Je mag alleen terugreizen met een negatieve testuitslag',
-					link: 'Meer informatie',
-					linkType: 'external',
-					linkHref: '',
-				},
-			],
-		},
-		{
-			title: 'Thuiskomst',
-			date: '', // tot
-		},
-	],
-};
-
 // @TODO: Hopefully we can do this in an easier way.
 const getPageTitle = (stage: Stage, color: Color) => {
-	let momentInTimeText = '';
-	if (stage === 'voor-vertrek') momentInTimeText = 'gaat naar';
-	if (stage === 'tijdens-je-reis') momentInTimeText = 'bent in';
-	if (stage === 'na-thuiskomst') momentInTimeText = 'ging naar';
-
 	let riskLevelTekst = '';
 	if (color === 'yellow') riskLevelTekst = 'laag ';
 	if (color === 'orange') riskLevelTekst = '';
 	if (color === 'red') riskLevelTekst = 'hoog ';
 
-	return `Je ${momentInTimeText} een ${riskLevelTekst} risicogebied`;
+	return `Je bestemming heeft een ${riskLevelTekst} corona risico`;
 };
 
 const AdviceResult = ({ destination, stage }: AdviceProps) => {
