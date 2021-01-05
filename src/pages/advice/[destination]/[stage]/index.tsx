@@ -424,7 +424,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 						Bekijk alle 10 veelgestelde vragen
 					</InternalLink>
 
-					{/* {t.quarantineInvite && (
+					{showQuarantaine && toDate && (
 						<>
 							<h2
 								sx={{
@@ -462,12 +462,12 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 							</Box>
 							<ReminderCalendarInvite
 								message="Zet je thuisquarantaine in je agenda"
-								fromDate={addDays(t.quarantineInvite, -10)}
-								toDate={new Date(t.quarantineInvite)}
+								fromDate={toDate}
+								toDate={addDays(toDate, 10)}
 							/>
 							<div sx={{ marginBottom: '65px' }} />
 						</>
-					)} */}
+					)}
 				</Container>
 				<DataProtectionPanel />
 			</BodyContainer>
