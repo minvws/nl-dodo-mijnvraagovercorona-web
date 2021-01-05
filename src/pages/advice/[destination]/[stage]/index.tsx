@@ -1,8 +1,6 @@
 /** @jsx jsx */
 import { GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next';
 import { jsx, Container, Button, Link, Image, Divider, Box } from 'theme-ui';
-import addWeeks from 'date-fns/add_weeks'
-import isAfter from 'date-fns/is_after'
 
 import ContentPageHeader from 'components/structure/ContentPageHeader';
 import BodyContainer from 'components/structure/BodyContainer';
@@ -16,7 +14,7 @@ import Footer from 'components/structure/Footer';
 import { InternalLink } from 'components/Links';
 import { parsePeriod } from 'utilities/pathUtils';
 import { getAdvice, Advice } from 'services/AdviceService';
-import { addDays } from 'utilities/dateUtils';
+import { parseDate, isMoreThanWeekBeforeDeparture } from 'utilities/dateUtils';
 import { useRouter } from 'next/router';
 import { useDestination } from 'hooks/use-destination';
 import { countries, RiskLevel } from 'config/countries';
@@ -90,12 +88,14 @@ const t = {
 	],
 };
 
-const getPageTitle = (stage: Stage, risk: string) => {}
+const getPageTitle = (stage: Stage, risk: string) => {};
 
 const AdviceResult = ({ destination, stage }: AdviceProps) => {
 	const router = useRouter();
 	const country = useDestination(destination as string);
 	const { from, to } = router.query;
+	const fromDate: Date | undefined = from ? parseDate(from) : undefined;
+	const toDate: Date | undefined = to ? parseDate(to) : undefined;
 
 	const showPreperation = stage === 'voor-vertrek';
 	const showCoronamelderApp = country?.coronaMelderCountry;
@@ -113,7 +113,8 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 		country?.riskLevel === RiskLevel.A_RISICOVOL ||
 		country?.riskLevel === RiskLevel.D_EU_INREISVERBOD;
 
-	const showCheckAgain = stage === 'voor-vertrek'; // And if departure is further then a week away
+	const showCheckAgain =
+		stage === 'voor-vertrek' && isMoreThanWeekBeforeDeparture(fromDate); // And if departure is further then a week away
 
 	const showContactWithSymptoms = stage === 'na-thuiskomst';
 
