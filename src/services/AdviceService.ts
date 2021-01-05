@@ -1,6 +1,6 @@
+import { Country } from 'config/countries';
 import { rules, Rule, RuleNote, TravelSchemeEntry } from 'utilities/businessRules';
 import { addDays, formatShortDate } from 'utilities/dateUtils';
-import { coronaMelderCountries } from 'utilities/locationData';
 
 export type Advice = {
     countryName: string,
@@ -36,7 +36,7 @@ const injectDynamicValues = (advice: Advice): Advice => {
 };
 
 type ConditionParams = {
-    countryName: string,
+    country: Country,
     toDate: Date,
 }
 
@@ -46,7 +46,7 @@ const conditionsPass = (note: RuleNote, params: ConditionParams) => {
     }
 
     const conditionFunctions = new Map([
-        ['coronaMelderCountry', (params: ConditionParams) => coronaMelderCountries.includes(params.countryName)],
+        ['coronaMelderCountry', (params: ConditionParams) => params.country.coronaMelderCountry],
         ['arrivalInFuture', (params: ConditionParams) => Date.now() < params.toDate.getTime()]
     ]);
 
@@ -61,33 +61,33 @@ const conditionsPass = (note: RuleNote, params: ConditionParams) => {
     return true;
 }
 
-export const getRule = (countryName: string,dateFrom: Date): Rule => {
+export const getRule = (country: Country,dateFrom: Date): Rule => {
     const ruleSection = Date.now() < dateFrom.getTime() ?
         rules.beforeTravel : rules.afterTravel
 
     const firstMatch = Object.values(ruleSection)
         .find(ruleConfig => {
             return ruleConfig.countries
-                && ruleConfig.countries.includes(countryName)
+                && ruleConfig.countries.includes(country.fullName)
         });
     if (!firstMatch) {
-        throw new Error("No matching rule config found for " + countryName);
+        throw new Error("No matching rule config found for " + country.fullName);
     }
 
     return firstMatch;
 };
 
-export const getAdvice = (countryName: string,
+export const getAdvice = (country: Country,
                           dateFrom: Date, dateTo: Date,
                           destination?: string): Advice => {
-    const rule = getRule(countryName, dateFrom);
+    const rule = getRule(country, dateFrom);
 
     // filter out notes not matching all conditions
     rule.travelScheme.forEach(travelStage => {
         if (travelStage.notes) {
             const filteredNotes = travelStage.notes.filter(note => {
                 return conditionsPass(note, {
-                    countryName: countryName, toDate: dateTo});
+                    country, toDate: dateTo});
             });
             travelStage.notes = filteredNotes;
         }
@@ -102,9 +102,9 @@ export const getAdvice = (countryName: string,
     const quarantineInvite = (rule.quarantineRequired && Date.now() < quarantineEnd.getTime())
         ? quarantineEnd : undefined;
 
-    console.log(dateTo);
+
     const advice = {
-        countryName: countryName,
+        countryName: country.fullName,
         destination: destination,
         colorCode: 'Oranje',
         fromDate: dateFrom,
