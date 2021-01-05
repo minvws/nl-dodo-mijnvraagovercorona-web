@@ -14,7 +14,11 @@ import Footer from 'components/structure/Footer';
 import { InternalLink } from 'components/Links';
 import { parsePeriod } from 'utilities/pathUtils';
 import { getAdvice, Advice } from 'services/AdviceService';
-import { parseDate, isMoreThanWeekBeforeDeparture } from 'utilities/dateUtils';
+import {
+	parseDate,
+	isMoreThanWeekBeforeDeparture,
+	addDays,
+} from 'utilities/dateUtils';
 import { useRouter } from 'next/router';
 import { useDestination } from 'hooks/use-destination';
 import { countries, RiskLevel } from 'config/countries';
@@ -350,8 +354,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 						<>
 							<ReminderCalendarInvite
 								message="Zet 'Check opnieuw invullen' in je agenda"
-								// @TODO: Dynamic date, 10 days before departure.
-								date={new Date()}
+								date={addDays(new Date(`${from}`), -7)}
 							/>
 							<Container
 								sx={{
