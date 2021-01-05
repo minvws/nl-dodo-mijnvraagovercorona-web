@@ -1,9 +1,10 @@
 import subWeeks from 'date-fns/sub_weeks';
-import addDays from 'date-fns/add_days';
+import addDaysDateFns from 'date-fns/add_days';
 import isAfter from 'date-fns/is_after';
 import isBefore from 'date-fns/is_before';
 
-export const addDays = (date: Date, days: number): Date => addDays(date, days);
+export const addDays = (date: Date, days: number): Date =>
+	addDaysDateFns(date, days);
 
 export const isMoreThanWeekBeforeDeparture = (date?: Date): boolean =>
 	date !== undefined && isBefore(new Date(), subWeeks(date, 1));
