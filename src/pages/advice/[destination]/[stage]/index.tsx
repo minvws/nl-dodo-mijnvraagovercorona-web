@@ -115,6 +115,8 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 	const showCoronamelderApp = country?.coronaMelderCountry;
 
 	const showDeparture = stage === 'voor-vertrek' || stage === 'tijdens-je-reis';
+	const duringOrAfter =
+		stage === 'tijdens-je-reis' || stage === 'na-thuiskomst';
 
 	const showNegativeTestResult =
 		country?.riskLevel === RiskLevel.A_RISICOVOL ||
@@ -202,18 +204,56 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 						},
 					}}
 				>
-					<li>
-						Tot 15 maart [DATE DYNAMISCH] niet reizen. Maak alleen echt
-						noodzakelijke reizen. Daar vallen vakanties bijvoorbeeld niet onder.
-					</li>
-					<li>
-						Voor je terugreis naar Nederland heb je een negatieve testuitslag
-						nodig.
-					</li>
-					<li>
-						Bereid je goed voor om 10 dagen in thuisquarantaine te gaan na je
-						reis. De situatie kan tijdens je reis veranderen.
-					</li>
+					{/* RISK LEVEL */}
+					{!duringOrAfter ? (
+						<li>
+							Tot 15 maart <strong>niet reizen</strong>. Maak alleen echt
+							noodzakelijke reizen. Daar vallen vakanties bijvoorbeeld niet
+							onder.
+						</li>
+					) : (
+						<li>
+							Er is een {color === 'yellow' ? 'laag' : 'verhoogd'} risico dat je{' '}
+							<strong>besmet</strong> bent geraakt
+						</li>
+					)}
+
+					{/* NEGATIVE TEST RESULT / DECLARATION */}
+					{showNegativeTestResult && (
+						<li>
+							Voor je terugreis naar Nederland heb je een{' '}
+							<strong>negatieve testuitslag</strong> nodig.
+						</li>
+					)}
+					{showNegativeTestDeclaration && (
+						<li>
+							Voor je terugreis naar Nederland heb je een{' '}
+							<strong>negatieve testuitslag</strong> en{' '}
+							<strong>verklaring</strong>
+							nodig.
+						</li>
+					)}
+
+					{/* QUARANTAINE */}
+					{!showQuarantaine && (
+						<li>
+							Je hoeft <strong>niet 10 dagen in thuisquarantaine</strong> na je
+							reis. Deze situatie kan tijdens je reis veranderen.
+						</li>
+					)}
+					{showQuarantaine && showPreperation && (
+						<li>
+							Bereid je goed voor om{' '}
+							<strong>10 dagen in thuisquarantaine te gaan</strong> na je reis.
+							De situatie kan tijdens je reis veranderen.
+						</li>
+					)}
+					{showQuarantaine && duringOrAfter && (
+						<li>
+							Het dringende advies is om{' '}
+							<strong>10 dagen in thuisquarantaine te gaan.</strong>
+						</li>
+					)}
 				</ul>
 			</ContentPageHeader>
 
