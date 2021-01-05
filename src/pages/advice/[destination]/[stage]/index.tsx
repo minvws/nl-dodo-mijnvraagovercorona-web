@@ -1,6 +1,8 @@
 /** @jsx jsx */
 import { GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next';
 import { jsx, Container, Button, Link, Image, Divider, Box } from 'theme-ui';
+import addWeeks from 'date-fns/add_weeks'
+import isAfter from 'date-fns/is_after'
 
 import ContentPageHeader from 'components/structure/ContentPageHeader';
 import BodyContainer from 'components/structure/BodyContainer';
@@ -18,10 +20,16 @@ import { addDays } from 'utilities/dateUtils';
 import { useRouter } from 'next/router';
 import { useDestination } from 'hooks/use-destination';
 import { countries, RiskLevel } from 'config/countries';
+import TravelPlanStage from 'components/TravelPlan/TravelPlanStage';
+import TravelAdvicePanel from 'components/TravelPlan/TravelAdvicePanel';
+import TravelInformationLink from 'components/TravelPlan/TravelInformationLink';
+import advice from 'pages/advice';
+
+type Stage = 'voor-vertrek' | 'tijdens-je-reis' | 'na-thuiskomst';
 
 type AdviceProps = {
 	destination: string;
-	stage: 'voor-vertrek' | 'tijdens-je-reis' | 'na-thuiskomst';
+	stage: Stage;
 };
 
 const t = {
@@ -82,15 +90,15 @@ const t = {
 	],
 };
 
+const getPageTitle = (stage: Stage, risk: string) => {}
+
 const AdviceResult = ({ destination, stage }: AdviceProps) => {
 	const router = useRouter();
 	const country = useDestination(destination as string);
-	const { van, tot } = router.query;
+	const { from, to } = router.query;
 
 	const showPreperation = stage === 'voor-vertrek';
-	const showCoronamelderApp =
-		country?.riskLevel === RiskLevel.A_RISICOVOL ||
-		country?.riskLevel === RiskLevel.B_RISICOVOL_INREISBEPERKINGEN;
+	const showCoronamelderApp = country?.coronaMelderCountry;
 
 	const showDeparture = stage === 'voor-vertrek' || stage === 'tijdens-je-reis';
 
@@ -107,7 +115,15 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 
 	const showCheckAgain = stage === 'voor-vertrek'; // And if departure is further then a week away
 
-	const showSymptoms = stage === 'na-thuiskomst';
+	const showContactWithSymptoms = stage === 'na-thuiskomst';
+
+	const isHighRisk =
+		country?.riskLevel === RiskLevel.A_RISICOVOL ||
+		country?.riskLevel === RiskLevel.D_EU_INREISVERBOD;
+
+	const isRisk = country?.riskLevel === RiskLevel.B_RISICOVOL_INREISBEPERKINGEN;
+
+	const isLowRisk = country?.riskLevel === RiskLevel.C_VEILIGE_LIJST;
 
 	/**
 	 *
@@ -135,7 +151,13 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 
 	return (
 		<>
-			<ContentPageHeader message={t.headerWarning}>
+			<ContentPageHeader
+				message={`
+        ${stage === 'voor-vertrek' ? 'Je gaat naar een hoog risicogebied' : ''}
+        ${stage === 'tijdens-je-reis' ? 'Je bent in een hoog risicogebied' : ''}
+        ${stage === 'na-thuiskomst' ? 'Je ging naar een hoog risicogebied' : ''}
+        `}
+			>
 				<Link
 					href="/advice"
 					sx={{
@@ -171,9 +193,18 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 						},
 					}}
 				>
-					{t.adviceMessages.map((message) => (
-						<li key={message}>{message}</li>
-					))}
+					<li>
+						Tot 15 maart [DATE DYNAMISCH] niet reizen. Maak alleen echt
+						noodzakelijke reizen. Daar vallen vakanties bijvoorbeeld niet onder.
+					</li>
+					<li>
+						Voor je terugreis naar Nederland heb je een negatieve testuitslag
+						nodig.
+					</li>
+					<li>
+						Bereid je goed voor om 10 dagen in thuisquarantaine te gaan na je
+						reis. De situatie kan tijdens je reis veranderen.
+					</li>
 				</ul>
 			</ContentPageHeader>
 
@@ -193,7 +224,97 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 					>
 						Jouw reisschema
 					</h2>
-					<TravelPlan advice={t} />
+
+					<Container
+						sx={{
+							borderLeft: '2px solid #f0d5e2',
+							paddingLeft: '1.8em',
+
+							h3: {
+								color: 'header',
+								marginBottom: 0,
+								'::before': {
+									marginLeft: '-39px',
+									marginRight: '2px',
+									marginTop: '1px',
+									paddingRight: '1em',
+									display: 'inline-block',
+									fill: 'gray',
+									content:
+										'url(\'data:image/svg+xml;charset=utf-8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle fill="rgb(240,213,226)" cx="50" cy="50" r="50"/></svg>\')',
+									float: 'left',
+									height: '1em',
+									width: '1em',
+								},
+							},
+						}}
+					>
+						{stage === 'voor-vertrek' && (
+							<TravelPlanStage
+								title="Voorbereiding"
+								subHeading="Laat je niet verrassen"
+								date="Vandaag"
+							>
+								<TravelAdvicePanel title="Blijf op de hoogte van de laatste ontwikkelingen op je bestemming">
+									<TravelInformationLink href="" text="Download de reisapp" />
+								</TravelAdvicePanel>
+								<TravelAdvicePanel
+									title={`Wist je dat de CoronaMelder ook werkt in ${country?.fullName}`}
+								>
+									<TravelInformationLink href="" text="Meer informatie" />
+								</TravelAdvicePanel>
+							</TravelPlanStage>
+						)}
+
+						<TravelPlanStage
+							title="Vertrek"
+							subHeading={country?.fullName}
+							date={`${from}`}
+						>
+							<TravelAdvicePanel title="Code oranje">
+								<TravelInformationLink href="" text="Uitgebreid reisadvies" />
+							</TravelAdvicePanel>
+						</TravelPlanStage>
+
+						<TravelPlanStage
+							title="Thuiskomst"
+							subHeading="Start 10 dagen thuisquarantaine"
+							date={`${to}`}
+						>
+							<TravelAdvicePanel title="Tot en met dag 6">
+								<TravelInformationLink href="" text="Incubatietijd virus" />
+							</TravelAdvicePanel>
+							<TravelAdvicePanel title="Tot en met dag 10">
+								<TravelInformationLink href="" text="Mogelijke klachten" />
+							</TravelAdvicePanel>
+						</TravelPlanStage>
+					</Container>
+
+					{advice.checkReminderInvite && (
+						<>
+							<ReminderCalendarInvite
+								message="Zet 'Check opnieuw invullen' in je agenda"
+								date={advice.checkReminderInvite}
+							/>
+							<Container
+								sx={{
+									paddingLeft: '2em',
+									backgroundImage: 'url("/icons/Union.svg")',
+									backgroundRepeat: 'no-repeat',
+								}}
+							>
+								<p
+									sx={{
+										lineHeight: '1.4em',
+									}}
+								>
+									De situatie kan veranderen. Doe daarom voor vertrek de check
+									nog een keer.
+								</p>
+							</Container>
+						</>
+					)}
+
 					<TestBooking />
 
 					<h2
