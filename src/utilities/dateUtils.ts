@@ -1,7 +1,9 @@
-import subWeeks from 'date-fns/sub_weeks';
-import addDaysDateFns from 'date-fns/add_days';
-import isAfter from 'date-fns/is_after';
-import isBefore from 'date-fns/is_before';
+import {
+	subWeeks,
+	addDays as addDaysDateFns,
+	isAfter,
+	isBefore,
+} from 'date-fns';
 
 export const addDays = (date: Date, days: number): Date =>
 	addDaysDateFns(date, days);
