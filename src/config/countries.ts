@@ -639,14 +639,14 @@ export const countries: Country[] = [
 		schengenCountry: false,
 		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
-  // @TODO: Finland heeft verschillen per regio.
+	// @TODO: Finland heeft verschillen per regio.
 	{
 		fullName: 'Finland',
 		slug: CountrySlugs.finland,
 		coronaMelderCountry: false,
 		euCountry: true,
 		schengenCountry: true,
-		riskLevel: RiskLevel.B_RISICOVOL_INREISBEPERKINGEN,
+		riskLevel: RiskLevel.A_RISICOVOL,
 	},
 	{
 		fullName: 'Frankrijk',
@@ -774,7 +774,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: true,
-		riskLevel: RiskLevel.B_RISICOVOL_INREISBEPERKINGEN,
+		riskLevel: RiskLevel.C_VEILIGE_LIJST,
 	},
 	{
 		fullName: 'India',
@@ -1232,14 +1232,14 @@ export const countries: Country[] = [
 		schengenCountry: false,
 		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
-  // @TODO: Noorwegen heeft afwijkingen per stad
+	// @TODO: Noorwegen heeft afwijkingen per stad
 	{
 		fullName: 'Noorwegen',
 		slug: CountrySlugs.noorwegen,
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: true,
-		riskLevel: RiskLevel.B_RISICOVOL_INREISBEPERKINGEN,
+		riskLevel: RiskLevel.A_RISICOVOL,
 	},
 	{
 		fullName: 'Oeganda',
@@ -1817,7 +1817,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: RiskLevel.B_RISICOVOL_INREISBEPERKINGEN,
+		riskLevel: RiskLevel.C_VEILIGE_LIJST,
 	},
 	{
 		fullName: 'Bonaire',
@@ -1825,7 +1825,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: RiskLevel.B_RISICOVOL_INREISBEPERKINGEN,
+		riskLevel: RiskLevel.C_VEILIGE_LIJST,
 	},
 	{
 		fullName: 'Saba',
@@ -1833,7 +1833,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: RiskLevel.B_RISICOVOL_INREISBEPERKINGEN,
+		riskLevel: RiskLevel.C_VEILIGE_LIJST,
 	},
 	{
 		fullName: 'St Eustacius',
@@ -1841,7 +1841,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: RiskLevel.B_RISICOVOL_INREISBEPERKINGEN,
+		riskLevel: RiskLevel.C_VEILIGE_LIJST,
 	},
 	{
 		fullName: 'St Maarten',
@@ -1849,7 +1849,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: RiskLevel.B_RISICOVOL_INREISBEPERKINGEN,
+		riskLevel: RiskLevel.C_VEILIGE_LIJST,
 	},
 	{
 		fullName: 'Curaçao',
