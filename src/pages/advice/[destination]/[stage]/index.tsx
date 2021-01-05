@@ -340,11 +340,12 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 						</TravelPlanStage>
 					</Container>
 
-					{advice.checkReminderInvite && (
+					{showPreperation && (
 						<>
 							<ReminderCalendarInvite
 								message="Zet 'Check opnieuw invullen' in je agenda"
-								date={advice.checkReminderInvite}
+								// @TODO: Dynamic date, 10 days before departure.
+								date={new Date()}
 							/>
 							<Container
 								sx={{
