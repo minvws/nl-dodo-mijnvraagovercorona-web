@@ -327,7 +327,10 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 							subHeading={country?.fullName}
 							date={fromDate}
 						>
-							<TravelAdvicePanel title="Code oranje" subHeading="nu">
+							<TravelAdvicePanel
+								title="Code oranje"
+								subHeading={duringOrAfter ? 'Totale reisduur' : 'Nu'}
+							>
 								<TravelInformationLink href="" text="Uitgebreid reisadvies" />
 							</TravelAdvicePanel>
 							{showNegativeTestResult && (
