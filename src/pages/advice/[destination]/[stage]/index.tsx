@@ -423,50 +423,47 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 						Bekijk alle 10 veelgestelde vragen
 					</InternalLink>
 
+					<h2
+						sx={{
+							paddingTop: ['36px', '44px'],
+							color: 'header',
+							fontSize: ['h2Mobile', 'h2'],
+						}}
+					>
+						Zo kom je de thuisquarantaine goed door
+					</h2>
+					<Box
+						sx={{
+							borderRadius: '11px',
+							boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.2)',
+							marginBottom: '10px',
+							paddingTop: '11px',
+							paddingBottom: '13px',
+							paddingLeft: '115px',
+							backgroundImage: 'url("/images/Banner_we_helpen_jeRetina.svg")',
+							backgroundRepeat: 'no-repeat',
+							backgroundPositionX: '-10px',
+						}}
+					>
+						<h3
+							sx={{
+								color: 'secondaryHeader',
+								fontSize: ['bodyMobile', 'body'],
+								lineHeight: ['bodyMobile', 'body'],
+							}}
+						>
+							Wat moet ik regelen voor mijn thuisquarantaine?
+						</h3>
+						<InternalLink href="/preparations">Meer uitleg</InternalLink>
+					</Box>
 					{showQuarantaine && toDate && (
-						<>
-							<h2
-								sx={{
-									paddingTop: ['36px', '44px'],
-									color: 'header',
-									fontSize: ['h2Mobile', 'h2'],
-								}}
-							>
-								Zo kom je de thuisquarantaine goed door
-							</h2>
-							<Box
-								sx={{
-									borderRadius: '11px',
-									boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.2)',
-									marginBottom: '10px',
-									paddingTop: '11px',
-									paddingBottom: '13px',
-									paddingLeft: '115px',
-									backgroundImage:
-										'url("/images/Banner_we_helpen_jeRetina.svg")',
-									backgroundRepeat: 'no-repeat',
-									backgroundPositionX: '-10px',
-								}}
-							>
-								<h3
-									sx={{
-										color: 'secondaryHeader',
-										fontSize: ['bodyMobile', 'body'],
-										lineHeight: ['bodyMobile', 'body'],
-									}}
-								>
-									Wat moet ik regelen voor mijn thuisquarantaine?
-								</h3>
-								<InternalLink href="/preparations">Meer uitleg</InternalLink>
-							</Box>
-							<ReminderCalendarInvite
-								message="Zet je thuisquarantaine in je agenda"
-								fromDate={toDate}
-								toDate={addDays(toDate, 10)}
-							/>
-							<div sx={{ marginBottom: '65px' }} />
-						</>
+						<ReminderCalendarInvite
+							message="Zet je thuisquarantaine in je agenda"
+							fromDate={toDate}
+							toDate={addDays(toDate, 10)}
+						/>
 					)}
+					<div sx={{ marginBottom: '65px' }} />
 				</Container>
 				<DataProtectionPanel />
 			</BodyContainer>
