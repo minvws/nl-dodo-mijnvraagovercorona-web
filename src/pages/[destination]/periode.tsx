@@ -51,19 +51,21 @@ const Period = (props: any) => {
 		return 'na-thuiskomst';
 	};
 
-	/**
-	 * TODO:
-	 * * Change result to include before, during and after
-	 * * change period to query params
-	 */
-	const resultLink = () =>
-		`${props.destination}/${calculateStage({
+	const resultLink = () => {
+		const stage = calculateStage({
 			fromDate,
 			toDate,
-		})}?van=${formatDate(fromDate)}&tot=${formatDate(toDate)}`;
+		});
+		const { destination } = props;
+
+		return {
+			pathname: `/${destination}/${stage}`,
+			query: { van: formatDate(fromDate), tot: formatDate(toDate) },
+		};
+	};
 
 	if (!country) {
-		if (isBrowser()) router.push('/advice');
+		if (isBrowser()) router.push('/bestemming');
 		return null;
 	}
 

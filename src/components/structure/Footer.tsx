@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { jsx, Container, ThemeUICSSObject } from 'theme-ui';
-import { InternalLink } from 'components/Links';
-import BodyContainer from 'components/structure/BodyContainer';
 import Link from 'next/link';
+
+import BodyContainer from 'components/structure/BodyContainer';
 
 type FooterProps = {
 	onlyDesktop?: boolean;
@@ -67,29 +67,19 @@ const Footer = ({ onlyDesktop = false, pushToBottom = false }: FooterProps) => {
 						<h3>Over deze check</h3>
 						<ul>
 							<li>
-								<Link href="/privacy">
-									<a>Privacy</a>
-								</Link>
+								<Link href="/privacy">Privacy</Link>
 							</li>
 							<li>
-								<Link href="/cookies">
-									<a>Cookies</a>
-								</Link>
+								<Link href="/cookies">Cookies</Link>
 							</li>
 							<li>
-								<Link href="/copyright">
-									<a>Copyright</a>
-								</Link>
+								<Link href="/copyright">Copyright</Link>
 							</li>
 							<li>
-								<Link href="/toegankelijkheid">
-									<a>Toegankelijkheid</a>
-								</Link>
+								<Link href="/toegankelijkheid">Toegankelijkheid</Link>
 							</li>
 							<li>
-								<Link href="/kwetsbaarheid">
-									<a>Kwetsbaarheid melden</a>
-								</Link>
+								<Link href="/kwetsbaarheid-melden">Kwetsbaarheid melden</Link>
 							</li>
 						</ul>
 					</div>

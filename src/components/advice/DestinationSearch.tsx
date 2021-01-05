@@ -32,7 +32,7 @@ const DestinationSearch = () => {
 	const handleSelect = (destinationName: string) => {
 		// @TODO: Handle invalid destination names which return in null being returned
 		// from the slug.
-		const location = `/advice/${getCountrySlug(destinationName)}`;
+		const location = `/${getCountrySlug(destinationName)}/periode`;
 
 		router.push(location);
 	};

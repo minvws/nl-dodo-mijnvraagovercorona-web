@@ -7,12 +7,9 @@ import BodyContainer from 'components/structure/BodyContainer';
 import TestBooking from 'components/results/TestBooking';
 import ReminderCalendarInvite from 'components/TravelPlan/ReminderCalendarInvite';
 import FaqList from 'components/faq/FaqList';
-import Panel from 'components/structure/Panel';
 import DataProtectionPanel from 'components/DataProtectionPanel';
 import Footer from 'components/structure/Footer';
 import { InternalLink } from 'components/Links';
-import { parsePeriod } from 'utilities/pathUtils';
-import { getAdvice, Advice } from 'services/AdviceService';
 import {
 	parseDate,
 	isMoreThanWeekBeforeDeparture,
@@ -24,7 +21,6 @@ import { countries, RiskLevel } from 'config/countries';
 import TravelPlanStage from 'components/TravelPlan/TravelPlanStage';
 import TravelAdvicePanel from 'components/TravelPlan/TravelAdvicePanel';
 import TravelInformationLink from 'components/TravelPlan/TravelInformationLink';
-import advice from 'pages/advice';
 
 type Stage = 'voor-vertrek' | 'tijdens-je-reis' | 'na-thuiskomst';
 type Color = 'yellow' | 'orange' | 'red';
@@ -83,35 +79,11 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 		color = 'yellow';
 	}
 
-	/**
-	 *
-	 * Preparation (Befpre)
-	 * - Download Travel App
-	 * - Coronamelder App (A, B)
-	 *
-	 * Departure (Before, During)
-	 * - Color code based travel advice
-	 * - Negative test result (A / D / B)
-	 * - Negative test declaration (D)
-	 *
-	 * Home
-	 * - Start Q (A, D)
-	 * - Day 5 Q (A, D)
-	 *
-	 * End Home Q (A, D)
-	 *
-	 * Calender Check again (Before & If longer then 1 week from departure)
-	 *
-	 * Calendar for period of Home Q (A, D)
-	 *
-	 * Corona Symptoms (After)
-	 */
-
 	return (
 		<>
 			<ContentPageHeader message={getPageTitle(color)}>
 				<Link
-					href="/advice"
+					href="/bestemming"
 					sx={{
 						position: 'absolute',
 						top: '30px',
@@ -391,7 +363,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 						>
 							Wat moet ik regelen voor mijn thuisquarantaine?
 						</h3>
-						<InternalLink href="/preparations">Meer uitleg</InternalLink>
+						<InternalLink href="/voorbereiding">Meer uitleg</InternalLink>
 					</Box>
 					{showQuarantaine && toDate && (
 						<ReminderCalendarInvite
