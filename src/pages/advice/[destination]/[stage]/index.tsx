@@ -372,7 +372,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 						</>
 					)}
 
-					<TestBooking />
+					{showContactWithSymptoms && <TestBooking />}
 
 					<h2
 						sx={{
