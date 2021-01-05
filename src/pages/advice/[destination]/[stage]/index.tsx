@@ -338,6 +338,12 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 								<TravelInformationLink href="" text="Mogelijke klachten" />
 							</TravelAdvicePanel>
 						</TravelPlanStage>
+						{showQuarantaine && (
+							<TravelPlanStage
+								title="Einde thuisquarantaine"
+								date={`DATE TOEVOEGEN`}
+							/>
+						)}
 					</Container>
 
 					{showSecondCheckCalenderInvite && (
