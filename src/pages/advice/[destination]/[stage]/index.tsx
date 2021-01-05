@@ -35,7 +35,7 @@ type AdviceProps = {
 };
 
 // @TODO: Hopefully we can do this in an easier way.
-const getPageTitle = (stage: Stage, color: Color) => {
+const getPageTitle = (color: Color) => {
 	let riskLevelTekst = '';
 	if (color === 'yellow') riskLevelTekst = 'laag ';
 	if (color === 'orange') riskLevelTekst = '';
@@ -109,7 +109,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 
 	return (
 		<>
-			<ContentPageHeader message={getPageTitle(stage, color)}>
+			<ContentPageHeader message={getPageTitle(color)}>
 				<Link
 					href="/advice"
 					sx={{
