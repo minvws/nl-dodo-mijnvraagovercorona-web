@@ -43,6 +43,16 @@ class TravelCheckDocument extends Document {
 					<Global styles={defaults} /> */}
 					<Main />
 					<NextScript />
+
+					<script src="/piwik.js"></script>
+					<noscript>
+						<iframe
+							src="//statistiek.rijksoverheid.nl/containers/872e79b4-a648-4c3e-b890-d787b38802eb/noscript.html"
+							height="0"
+							width="0"
+							style={{ border: '0', display: 'none', visibility: 'hidden' }}
+						></iframe>
+					</noscript>
 				</body>
 			</Html>
 		);
