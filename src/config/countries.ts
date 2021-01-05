@@ -206,18 +206,20 @@ export enum CountrySlugs {
 	curacao = 'curacao',
 }
 
+export enum RiskLevel {
+	A_RISICOVOL,
+	B_RISICOVOL_INREISBEPERKINGEN,
+	C_VEILIGE_LIJST,
+	D_EU_INREISVERBOD,
+}
+
 export interface Country {
 	fullName: string;
 	slug: CountrySlugs;
 	coronaMelderCountry: boolean;
 	euCountry: boolean;
 	schengenCountry: boolean;
-	// @TODO:
-	// - Remove unknown level, these were group d in old code. Looking at the code I think these
-	//    would all default to 'high'.
-	// - Validate all levels, I have for example the feeling that group a should be
-	//    low risk instead of the high it was.
-	riskLevel: 'high' | 'medium' | 'low' | 'unknown';
+	riskLevel: RiskLevel;
 }
 
 export const countries: Country[] = [
@@ -227,7 +229,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Albanië',
@@ -235,7 +237,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Algerije',
@@ -243,7 +245,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Andorra',
@@ -251,7 +253,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'high',
+		riskLevel: RiskLevel.A_RISICOVOL,
 	},
 	{
 		fullName: 'Angola',
@@ -259,7 +261,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Antigua en Barbuda',
@@ -267,7 +269,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Argentinië',
@@ -275,7 +277,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Armenië',
@@ -283,7 +285,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Australië',
@@ -291,7 +293,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'low',
+		riskLevel: RiskLevel.C_VEILIGE_LIJST,
 	},
 	{
 		fullName: 'Azerbeidzjan',
@@ -299,7 +301,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: "Bahama's",
@@ -307,7 +309,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Bahrein',
@@ -315,7 +317,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Bangladesh',
@@ -323,7 +325,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Barbados',
@@ -331,7 +333,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'België',
@@ -339,7 +341,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: true,
 		schengenCountry: true,
-		riskLevel: 'high',
+		riskLevel: RiskLevel.A_RISICOVOL,
 	},
 	{
 		fullName: 'Belize',
@@ -347,7 +349,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Benin',
@@ -355,7 +357,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Bhutan',
@@ -363,7 +365,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Bolivia',
@@ -371,7 +373,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Bosnië - Herzegovina',
@@ -379,7 +381,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Botswana',
@@ -387,7 +389,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Brazilië',
@@ -395,7 +397,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Brunei',
@@ -403,7 +405,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Bulgarije',
@@ -411,7 +413,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: true,
 		schengenCountry: false,
-		riskLevel: 'high',
+		riskLevel: RiskLevel.A_RISICOVOL,
 	},
 	{
 		fullName: 'Burkina Faso',
@@ -419,7 +421,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Burundi',
@@ -427,7 +429,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Cambodja',
@@ -435,7 +437,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Canada',
@@ -443,7 +445,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Centraal-Afrikaanse Republiek',
@@ -451,7 +453,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Chili',
@@ -459,7 +461,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'China',
@@ -467,7 +469,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'low',
+		riskLevel: RiskLevel.C_VEILIGE_LIJST,
 	},
 	{
 		fullName: 'Colombia',
@@ -475,7 +477,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Comoren',
@@ -483,7 +485,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Congo-Brazzaville',
@@ -491,7 +493,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Congo (Democratische Republiek)',
@@ -499,7 +501,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Costa Rica',
@@ -507,7 +509,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Cuba',
@@ -515,7 +517,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Cyprus',
@@ -523,7 +525,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: true,
 		schengenCountry: false,
-		riskLevel: 'high',
+		riskLevel: RiskLevel.A_RISICOVOL,
 	},
 	{
 		fullName: 'Denemarken',
@@ -531,7 +533,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: true,
 		euCountry: true,
 		schengenCountry: true,
-		riskLevel: 'high',
+		riskLevel: RiskLevel.A_RISICOVOL,
 	},
 	{
 		fullName: 'Djibouti',
@@ -539,7 +541,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Dominica',
@@ -547,7 +549,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Dominicaanse Republiek',
@@ -555,7 +557,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Duitsland',
@@ -563,7 +565,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: true,
 		euCountry: true,
 		schengenCountry: true,
-		riskLevel: 'high',
+		riskLevel: RiskLevel.A_RISICOVOL,
 	},
 	{
 		fullName: 'Ecuador',
@@ -571,7 +573,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Egypte',
@@ -579,7 +581,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'El Salvador',
@@ -587,7 +589,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Equatoriaal-Guinea',
@@ -595,7 +597,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Eritrea',
@@ -603,7 +605,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Estland',
@@ -611,7 +613,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: true,
 		schengenCountry: true,
-		riskLevel: 'high',
+		riskLevel: RiskLevel.A_RISICOVOL,
 	},
 	{
 		fullName: 'Ethiopië',
@@ -619,7 +621,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Fiji',
@@ -627,7 +629,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Filipijnen',
@@ -635,15 +637,16 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
+  // @TODO: Finland heeft verschillen per regio.
 	{
 		fullName: 'Finland',
 		slug: CountrySlugs.finland,
 		coronaMelderCountry: false,
 		euCountry: true,
 		schengenCountry: true,
-		riskLevel: 'medium',
+		riskLevel: RiskLevel.B_RISICOVOL_INREISBEPERKINGEN,
 	},
 	{
 		fullName: 'Frankrijk',
@@ -651,7 +654,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: true,
 		schengenCountry: true,
-		riskLevel: 'high',
+		riskLevel: RiskLevel.A_RISICOVOL,
 	},
 	{
 		fullName: 'Gabon',
@@ -659,7 +662,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Gambia',
@@ -667,7 +670,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Georgië',
@@ -675,7 +678,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Ghana',
@@ -683,7 +686,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Grenada',
@@ -691,7 +694,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Griekenland',
@@ -699,7 +702,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: true,
 		schengenCountry: true,
-		riskLevel: 'high',
+		riskLevel: RiskLevel.A_RISICOVOL,
 	},
 	{
 		fullName: 'Guatemala',
@@ -707,7 +710,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Guinee',
@@ -715,7 +718,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Guinee-Bissau',
@@ -723,7 +726,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Guyana',
@@ -731,7 +734,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Haïti',
@@ -739,7 +742,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Honduras',
@@ -747,7 +750,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Hongarije',
@@ -755,7 +758,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: true,
 		schengenCountry: true,
-		riskLevel: 'high',
+		riskLevel: RiskLevel.A_RISICOVOL,
 	},
 	{
 		fullName: 'Ierland',
@@ -763,7 +766,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: true,
 		euCountry: true,
 		schengenCountry: false,
-		riskLevel: 'high',
+		riskLevel: RiskLevel.A_RISICOVOL,
 	},
 	{
 		fullName: 'IJsland',
@@ -771,7 +774,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: true,
-		riskLevel: 'medium',
+		riskLevel: RiskLevel.B_RISICOVOL_INREISBEPERKINGEN,
 	},
 	{
 		fullName: 'India',
@@ -779,7 +782,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Indonesië',
@@ -787,7 +790,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Irak',
@@ -795,7 +798,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Iran',
@@ -803,7 +806,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Israël',
@@ -811,7 +814,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Italië',
@@ -819,7 +822,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: true,
 		euCountry: true,
 		schengenCountry: true,
-		riskLevel: 'high',
+		riskLevel: RiskLevel.A_RISICOVOL,
 	},
 	{
 		fullName: 'Ivoorkust',
@@ -827,7 +830,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Jamaica',
@@ -835,7 +838,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Japan',
@@ -843,7 +846,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'low',
+		riskLevel: RiskLevel.C_VEILIGE_LIJST,
 	},
 	{
 		fullName: 'Jemen',
@@ -851,7 +854,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Jordanië',
@@ -859,7 +862,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Kaapverdië',
@@ -867,7 +870,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Kameroen',
@@ -875,7 +878,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Kazachstan',
@@ -883,7 +886,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Kenia',
@@ -891,7 +894,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Kirgizië',
@@ -899,7 +902,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Kiribati',
@@ -907,7 +910,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Koeweit',
@@ -915,7 +918,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Kosovo',
@@ -923,7 +926,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Kroatië',
@@ -931,7 +934,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: true,
 		euCountry: true,
 		schengenCountry: false,
-		riskLevel: 'high',
+		riskLevel: RiskLevel.A_RISICOVOL,
 	},
 	{
 		fullName: 'Laos',
@@ -939,7 +942,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Lesotho',
@@ -947,7 +950,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Letland',
@@ -955,7 +958,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: true,
 		euCountry: true,
 		schengenCountry: true,
-		riskLevel: 'high',
+		riskLevel: RiskLevel.A_RISICOVOL,
 	},
 	{
 		fullName: 'Libanon',
@@ -963,7 +966,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Liberia',
@@ -971,7 +974,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Libië',
@@ -979,7 +982,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Liechtenstein',
@@ -987,7 +990,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: true,
-		riskLevel: 'high',
+		riskLevel: RiskLevel.A_RISICOVOL,
 	},
 	{
 		fullName: 'Litouwen',
@@ -995,7 +998,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: true,
 		schengenCountry: true,
-		riskLevel: 'high',
+		riskLevel: RiskLevel.A_RISICOVOL,
 	},
 	{
 		fullName: 'Luxemburg',
@@ -1003,7 +1006,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: true,
 		schengenCountry: true,
-		riskLevel: 'high',
+		riskLevel: RiskLevel.A_RISICOVOL,
 	},
 	{
 		fullName: 'Madagaskar',
@@ -1011,7 +1014,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Malawi',
@@ -1019,7 +1022,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Maldiven',
@@ -1027,7 +1030,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Maleisië',
@@ -1035,7 +1038,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Mali',
@@ -1043,7 +1046,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Malta',
@@ -1051,7 +1054,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: true,
 		schengenCountry: true,
-		riskLevel: 'high',
+		riskLevel: RiskLevel.A_RISICOVOL,
 	},
 	{
 		fullName: 'Marokko',
@@ -1059,7 +1062,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Marshalleilanden',
@@ -1067,7 +1070,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Mauritanië',
@@ -1075,7 +1078,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Mauritius',
@@ -1083,7 +1086,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Mexico',
@@ -1091,7 +1094,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Micronesië',
@@ -1099,7 +1102,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Moldavië',
@@ -1107,7 +1110,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Monaco',
@@ -1115,7 +1118,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'high',
+		riskLevel: RiskLevel.A_RISICOVOL,
 	},
 	{
 		fullName: 'Mongolië',
@@ -1123,7 +1126,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Montenegro',
@@ -1131,7 +1134,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Mozambique',
@@ -1139,7 +1142,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Myanmar',
@@ -1147,7 +1150,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Namibië',
@@ -1155,7 +1158,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Nauru',
@@ -1163,7 +1166,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Nederland',
@@ -1171,7 +1174,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: true,
 		schengenCountry: true,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Nepal',
@@ -1179,7 +1182,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Nicaragua',
@@ -1187,7 +1190,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Nieuw-Zeeland',
@@ -1195,7 +1198,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'low',
+		riskLevel: RiskLevel.C_VEILIGE_LIJST,
 	},
 	{
 		fullName: 'Niger',
@@ -1203,7 +1206,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Nigeria',
@@ -1211,7 +1214,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Noord-Korea',
@@ -1219,7 +1222,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Noord-Macedonië',
@@ -1227,15 +1230,16 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
+  // @TODO: Noorwegen heeft afwijkingen per stad
 	{
 		fullName: 'Noorwegen',
 		slug: CountrySlugs.noorwegen,
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: true,
-		riskLevel: 'medium',
+		riskLevel: RiskLevel.B_RISICOVOL_INREISBEPERKINGEN,
 	},
 	{
 		fullName: 'Oeganda',
@@ -1243,7 +1247,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Oekraïne',
@@ -1251,7 +1255,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Oezbekistan',
@@ -1259,7 +1263,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Oman',
@@ -1267,7 +1271,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Oostenrijk',
@@ -1275,7 +1279,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: true,
 		schengenCountry: true,
-		riskLevel: 'high',
+		riskLevel: RiskLevel.A_RISICOVOL,
 	},
 	{
 		fullName: 'Oost-Timor',
@@ -1283,7 +1287,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Pakistan',
@@ -1291,7 +1295,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Palau',
@@ -1299,7 +1303,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Palestina',
@@ -1307,7 +1311,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Panama',
@@ -1315,7 +1319,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Papoea-Nieuw-Guinea',
@@ -1323,7 +1327,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Paraguay',
@@ -1331,7 +1335,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Peru',
@@ -1339,7 +1343,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Polen',
@@ -1347,7 +1351,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: true,
 		schengenCountry: true,
-		riskLevel: 'high',
+		riskLevel: RiskLevel.A_RISICOVOL,
 	},
 	{
 		fullName: 'Portugal',
@@ -1355,7 +1359,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: true,
 		schengenCountry: true,
-		riskLevel: 'high',
+		riskLevel: RiskLevel.A_RISICOVOL,
 	},
 	{
 		fullName: 'Qatar',
@@ -1363,7 +1367,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Roemenië',
@@ -1371,7 +1375,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: true,
 		schengenCountry: false,
-		riskLevel: 'high',
+		riskLevel: RiskLevel.A_RISICOVOL,
 	},
 	{
 		fullName: 'Rusland',
@@ -1379,7 +1383,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Rwanda',
@@ -1387,7 +1391,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'low',
+		riskLevel: RiskLevel.C_VEILIGE_LIJST,
 	},
 	{
 		fullName: 'Saint Kitts en Nevis',
@@ -1395,7 +1399,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Saint Lucia',
@@ -1403,7 +1407,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Saint Vincent en de Grenadines',
@@ -1411,7 +1415,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Salomonseilanden',
@@ -1419,7 +1423,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Samoa',
@@ -1427,7 +1431,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'San Marino',
@@ -1435,7 +1439,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'high',
+		riskLevel: RiskLevel.A_RISICOVOL,
 	},
 	{
 		fullName: 'Sao Tomé en Principe',
@@ -1443,7 +1447,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Saoedi-Arabië',
@@ -1451,7 +1455,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Senegal',
@@ -1459,7 +1463,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Servië',
@@ -1467,7 +1471,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Seychellen',
@@ -1475,7 +1479,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Sierra Leone',
@@ -1483,7 +1487,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Singapore',
@@ -1491,7 +1495,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'low',
+		riskLevel: RiskLevel.C_VEILIGE_LIJST,
 	},
 	{
 		fullName: 'Slovenië',
@@ -1499,7 +1503,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: true,
 		schengenCountry: true,
-		riskLevel: 'high',
+		riskLevel: RiskLevel.A_RISICOVOL,
 	},
 	{
 		fullName: 'Slowakije',
@@ -1507,7 +1511,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: true,
 		schengenCountry: true,
-		riskLevel: 'high',
+		riskLevel: RiskLevel.A_RISICOVOL,
 	},
 	{
 		fullName: 'Soedan',
@@ -1515,7 +1519,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Somalië',
@@ -1523,7 +1527,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Spanje',
@@ -1531,7 +1535,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: true,
 		euCountry: true,
 		schengenCountry: true,
-		riskLevel: 'high',
+		riskLevel: RiskLevel.A_RISICOVOL,
 	},
 	{
 		fullName: 'Sri Lanka',
@@ -1539,7 +1543,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Suriname',
@@ -1547,7 +1551,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Swaziland',
@@ -1555,7 +1559,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Syrië',
@@ -1563,7 +1567,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Tadzjikistan',
@@ -1571,7 +1575,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Taiwan',
@@ -1579,7 +1583,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Tanzania',
@@ -1587,7 +1591,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Thailand',
@@ -1595,7 +1599,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'low',
+		riskLevel: RiskLevel.C_VEILIGE_LIJST,
 	},
 	{
 		fullName: 'Togo',
@@ -1603,7 +1607,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Tonga',
@@ -1611,7 +1615,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Trinidad en Tobago',
@@ -1619,7 +1623,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Tsjaad',
@@ -1627,7 +1631,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Tsjechië',
@@ -1635,7 +1639,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: true,
 		schengenCountry: true,
-		riskLevel: 'high',
+		riskLevel: RiskLevel.A_RISICOVOL,
 	},
 	{
 		fullName: 'Tunesië',
@@ -1643,7 +1647,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Turkije',
@@ -1651,7 +1655,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Turkmenistan',
@@ -1659,7 +1663,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Tuvalu',
@@ -1667,7 +1671,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Uruguay',
@@ -1675,7 +1679,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Vanuatu',
@@ -1683,7 +1687,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Vaticaanstad',
@@ -1691,7 +1695,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Venezuela',
@@ -1699,7 +1703,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Verenigd Koninkrijk',
@@ -1707,7 +1711,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'high',
+		riskLevel: RiskLevel.A_RISICOVOL,
 	},
 	{
 		fullName: 'Verenigde Arabische Emiraten',
@@ -1715,7 +1719,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Verenigde Staten',
@@ -1723,7 +1727,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Vietnam',
@@ -1731,7 +1735,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Westelijke Sahara',
@@ -1739,7 +1743,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Wit-Rusland',
@@ -1747,7 +1751,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Zambia',
@@ -1755,7 +1759,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Zimbabwe',
@@ -1763,7 +1767,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Zuid-Afrika',
@@ -1771,7 +1775,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Zuid-Korea',
@@ -1779,7 +1783,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'low',
+		riskLevel: RiskLevel.C_VEILIGE_LIJST,
 	},
 	{
 		fullName: 'Zuid-Soedan',
@@ -1787,7 +1791,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'unknown',
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
 		fullName: 'Zweden',
@@ -1795,7 +1799,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: true,
 		schengenCountry: true,
-		riskLevel: 'high',
+		riskLevel: RiskLevel.A_RISICOVOL,
 	},
 	{
 		fullName: 'Zwitserland',
@@ -1803,7 +1807,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: true,
-		riskLevel: 'high',
+		riskLevel: RiskLevel.A_RISICOVOL,
 	},
 
 	// antilles
@@ -1813,7 +1817,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'medium',
+		riskLevel: RiskLevel.B_RISICOVOL_INREISBEPERKINGEN,
 	},
 	{
 		fullName: 'Bonaire',
@@ -1821,7 +1825,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'medium',
+		riskLevel: RiskLevel.B_RISICOVOL_INREISBEPERKINGEN,
 	},
 	{
 		fullName: 'Saba',
@@ -1829,7 +1833,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'medium',
+		riskLevel: RiskLevel.B_RISICOVOL_INREISBEPERKINGEN,
 	},
 	{
 		fullName: 'St Eustacius',
@@ -1837,7 +1841,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'medium',
+		riskLevel: RiskLevel.B_RISICOVOL_INREISBEPERKINGEN,
 	},
 	{
 		fullName: 'St Maarten',
@@ -1845,7 +1849,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'medium',
+		riskLevel: RiskLevel.B_RISICOVOL_INREISBEPERKINGEN,
 	},
 	{
 		fullName: 'Curaçao',
@@ -1853,7 +1857,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: 'high',
+		riskLevel: RiskLevel.A_RISICOVOL,
 	},
 ];
 

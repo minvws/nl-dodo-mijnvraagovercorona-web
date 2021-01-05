@@ -1,4 +1,4 @@
-import { countries } from "config/countries"
+import { countries, RiskLevel } from "config/countries"
 
 
 export interface RuleNote {
@@ -32,14 +32,14 @@ export interface RuleBook {
 };
 
 const allCountries = countries.map(c => c.fullName);
-const highRiskCountries = countries.filter(c => c.riskLevel === 'high').map(c => c.fullName);
-const mediumRiskCountries = countries.filter(c => c.riskLevel === 'medium').map(c => c.fullName);
-const lowRiskCountries = countries.filter(c => c.riskLevel === 'low').map(c => c.fullName);
+const levelACountries = countries.filter(c => c.riskLevel === RiskLevel.A_RISICOVOL).map(c => c.fullName);
+const levelBCountries = countries.filter(c => c.riskLevel === RiskLevel.B_RISICOVOL_INREISBEPERKINGEN).map(c => c.fullName);
+const levelCCountries = countries.filter(c => c.riskLevel === RiskLevel.C_VEILIGE_LIJST).map(c => c.fullName);
 
 export const rules: RuleBook = {
     beforeTravel: [
         {
-            countries: highRiskCountries,
+            countries: levelACountries,
             headerWarning: "Je gaat naar een hoog risicogebied",
             adviceMessages: [
                 "Tot 15 maart niet reizen. Maak alleen echt noodzakelijke reizen. Daar vallen vakanties bijvoorbeeld niet onder.",
@@ -96,7 +96,7 @@ export const rules: RuleBook = {
             ]
         },
         {
-            countries: mediumRiskCountries,
+            countries: levelBCountries,
             headerWarning: "Je gaat naar een risicogebied",
             adviceMessages: [
                 "Tot 15 maart niet reizen. Maak alleen echt noodzakelijke reizen. Daar vallen vakanties bijvoorbeeld niet onder.",
@@ -153,7 +153,7 @@ export const rules: RuleBook = {
             ]
         },
         {
-            countries: lowRiskCountries,
+            countries: levelCCountries,
             headerWarning: "Je gaat naar een laagrisicogebied",
             adviceMessages: [
                 "Tot 15 maart niet reizen. Maak alleen echt noodzakelijke reizen. Daar vallen vakanties bijvoorbeeld niet onder."
@@ -279,7 +279,7 @@ export const rules: RuleBook = {
     ],
     afterTravel: [
         {
-            countries: highRiskCountries,
+            countries: levelACountries,
             quarantineRequired: true,
             headerWarning: "Je was in een hoogrisicogebied",
             adviceMessages: [
@@ -337,7 +337,7 @@ export const rules: RuleBook = {
             ]
         },
         {
-            countries: mediumRiskCountries,
+            countries: levelBCountries,
             headerWarning: "Je was in een risicogebied",
             adviceMessages: [
 
@@ -376,7 +376,7 @@ export const rules: RuleBook = {
             ]
         },
         {
-            countries: lowRiskCountries,
+            countries: levelCCountries,
             headerWarning: "Je was in een laagrisicogebied",
             adviceMessages: [
                 "Er is een laag risico dat je besmet bent geraakt."
