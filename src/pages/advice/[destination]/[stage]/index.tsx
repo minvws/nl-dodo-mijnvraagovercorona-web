@@ -24,6 +24,7 @@ import TravelInformationLink from 'components/TravelPlan/TravelInformationLink';
 import advice from 'pages/advice';
 
 type Stage = 'voor-vertrek' | 'tijdens-je-reis' | 'na-thuiskomst';
+type Color = 'yellow' | 'orange' | 'red';
 
 type AdviceProps = {
 	destination: string;
@@ -88,7 +89,20 @@ const t = {
 	],
 };
 
-const getPageTitle = (stage: Stage, risk: string) => {};
+// @TODO: Hopefully we can do this in an easier way.
+const getPageTitle = (stage: Stage, color: Color) => {
+	let momentInTimeText = '';
+	if (stage === 'voor-vertrek') momentInTimeText = 'gaat naar';
+	if (stage === 'tijdens-je-reis') momentInTimeText = 'bent in';
+	if (stage === 'na-thuiskomst') momentInTimeText = 'ging naar';
+
+	let riskLevelTekst = '';
+	if (color === 'yellow') riskLevelTekst = 'laag ';
+	if (color === 'orange') riskLevelTekst = '';
+	if (color === 'red') riskLevelTekst = 'hoog ';
+
+	return `Je ${momentInTimeText} een ${riskLevelTekst} risicogebied`;
+};
 
 const AdviceResult = ({ destination, stage }: AdviceProps) => {
 	const router = useRouter();
@@ -101,6 +115,8 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 	const showCoronamelderApp = country?.coronaMelderCountry;
 
 	const showDeparture = stage === 'voor-vertrek' || stage === 'tijdens-je-reis';
+	const duringOrAfter =
+		stage === 'tijdens-je-reis' || stage === 'na-thuiskomst';
 
 	const showNegativeTestResult =
 		country?.riskLevel === RiskLevel.A_RISICOVOL ||
@@ -118,47 +134,42 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 
 	const showContactWithSymptoms = stage === 'na-thuiskomst';
 
-	const isHighRisk =
-		country?.riskLevel === RiskLevel.A_RISICOVOL ||
-		country?.riskLevel === RiskLevel.D_EU_INREISVERBOD;
-
-	const isRisk = country?.riskLevel === RiskLevel.B_RISICOVOL_INREISBEPERKINGEN;
-
-	const isLowRisk = country?.riskLevel === RiskLevel.C_VEILIGE_LIJST;
+	// @TODO: Do this in a different place where it makes sense.
+	let color: Color = 'red';
+	if (country?.riskLevel === RiskLevel.B_RISICOVOL_INREISBEPERKINGEN) {
+		color = 'orange';
+	}
+	if (country?.riskLevel === RiskLevel.C_VEILIGE_LIJST) {
+		color = 'yellow';
+	}
 
 	/**
 	 *
 	 * Preparation (Befpre)
 	 * - Download Travel App
-	 * - Coronamelder App (High, Medium)
+	 * - Coronamelder App (A, B)
 	 *
 	 * Departure (Before, During)
 	 * - Color code based travel advice
-	 * - Negative test result (High, Medium)
-	 * - Negative test declaration (Unknown)
+	 * - Negative test result (A / D / B)
+	 * - Negative test declaration (D)
 	 *
 	 * Home
-	 * - Start Q (High, Unknown)
-	 * - Day 5 Q (High, Unknown)
+	 * - Start Q (A, D)
+	 * - Day 5 Q (A, D)
 	 *
-	 * End Home Q (High, Unknown)
+	 * End Home Q (A, D)
 	 *
 	 * Calender Check again (Before & If longer then 1 week from departure)
 	 *
-	 * Calendar for period of Home Q (High, Unknown)
+	 * Calendar for period of Home Q (A, D)
 	 *
 	 * Corona Symptoms (After)
 	 */
 
 	return (
 		<>
-			<ContentPageHeader
-				message={`
-        ${stage === 'voor-vertrek' ? 'Je gaat naar een hoog risicogebied' : ''}
-        ${stage === 'tijdens-je-reis' ? 'Je bent in een hoog risicogebied' : ''}
-        ${stage === 'na-thuiskomst' ? 'Je ging naar een hoog risicogebied' : ''}
-        `}
-			>
+			<ContentPageHeader message={getPageTitle(stage, color)}>
 				<Link
 					href="/advice"
 					sx={{
@@ -194,18 +205,56 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 						},
 					}}
 				>
-					<li>
-						Tot 15 maart [DATE DYNAMISCH] niet reizen. Maak alleen echt
-						noodzakelijke reizen. Daar vallen vakanties bijvoorbeeld niet onder.
-					</li>
-					<li>
-						Voor je terugreis naar Nederland heb je een negatieve testuitslag
-						nodig.
-					</li>
-					<li>
-						Bereid je goed voor om 10 dagen in thuisquarantaine te gaan na je
-						reis. De situatie kan tijdens je reis veranderen.
-					</li>
+					{/* RISK LEVEL */}
+					{!duringOrAfter ? (
+						<li>
+							Tot 15 maart <strong>niet reizen</strong>. Maak alleen echt
+							noodzakelijke reizen. Daar vallen vakanties bijvoorbeeld niet
+							onder.
+						</li>
+					) : (
+						<li>
+							Er is een {color === 'yellow' ? 'laag' : 'verhoogd'} risico dat je{' '}
+							<strong>besmet</strong> bent geraakt
+						</li>
+					)}
+
+					{/* NEGATIVE TEST RESULT / DECLARATION */}
+					{showNegativeTestResult && (
+						<li>
+							Voor je terugreis naar Nederland heb je een{' '}
+							<strong>negatieve testuitslag</strong> nodig.
+						</li>
+					)}
+					{showNegativeTestDeclaration && (
+						<li>
+							Voor je terugreis naar Nederland heb je een{' '}
+							<strong>negatieve testuitslag</strong> en{' '}
+							<strong>verklaring</strong>
+							nodig.
+						</li>
+					)}
+
+					{/* QUARANTAINE */}
+					{!showQuarantaine && (
+						<li>
+							Je hoeft <strong>niet 10 dagen in thuisquarantaine</strong> na je
+							reis. Deze situatie kan tijdens je reis veranderen.
+						</li>
+					)}
+					{showQuarantaine && showPreperation && (
+						<li>
+							Bereid je goed voor om{' '}
+							<strong>10 dagen in thuisquarantaine te gaan</strong> na je reis.
+							De situatie kan tijdens je reis veranderen.
+						</li>
+					)}
+					{showQuarantaine && duringOrAfter && (
+						<li>
+							Het dringende advies is om{' '}
+							<strong>10 dagen in thuisquarantaine te gaan.</strong>
+						</li>
+					)}
 				</ul>
 			</ContentPageHeader>
 
