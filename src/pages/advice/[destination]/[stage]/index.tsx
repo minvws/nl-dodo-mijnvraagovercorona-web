@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next';
 import { jsx, Container, Button, Link, Image, Divider, Box } from 'theme-ui';
-import addWeeks from 'date-fns/add_weeks'
-import isAfter from 'date-fns/is_after'
+import addWeeks from 'date-fns/add_weeks';
+import isAfter from 'date-fns/is_after';
 
 import ContentPageHeader from 'components/structure/ContentPageHeader';
 import BodyContainer from 'components/structure/BodyContainer';
@@ -26,6 +26,7 @@ import TravelInformationLink from 'components/TravelPlan/TravelInformationLink';
 import advice from 'pages/advice';
 
 type Stage = 'voor-vertrek' | 'tijdens-je-reis' | 'na-thuiskomst';
+type Color = 'yellow' | 'orange' | 'red';
 
 type AdviceProps = {
 	destination: string;
@@ -90,7 +91,20 @@ const t = {
 	],
 };
 
-const getPageTitle = (stage: Stage, risk: string) => {}
+// @TODO: Hopefully we can do this in an easier way.
+const getPageTitle = (stage: Stage, color: Color) => {
+	let momentInTimeText = '';
+	if (stage === 'voor-vertrek') momentInTimeText = 'gaat naar';
+	if (stage === 'tijdens-je-reis') momentInTimeText = 'bent in';
+	if (stage === 'na-thuiskomst') momentInTimeText = 'ging naar';
+
+	let riskLevelTekst = '';
+	if (color === 'yellow') riskLevelTekst = 'laag ';
+	if (color === 'orange') riskLevelTekst = '';
+	if (color === 'red') riskLevelTekst = 'hoog ';
+
+	return `Je ${momentInTimeText} een ${riskLevelTekst} risicogebied`;
+};
 
 const AdviceResult = ({ destination, stage }: AdviceProps) => {
 	const router = useRouter();
@@ -117,47 +131,42 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 
 	const showContactWithSymptoms = stage === 'na-thuiskomst';
 
-	const isHighRisk =
-		country?.riskLevel === RiskLevel.A_RISICOVOL ||
-		country?.riskLevel === RiskLevel.D_EU_INREISVERBOD;
-
-	const isRisk = country?.riskLevel === RiskLevel.B_RISICOVOL_INREISBEPERKINGEN;
-
-	const isLowRisk = country?.riskLevel === RiskLevel.C_VEILIGE_LIJST;
+	// @TODO: Do this in a different place where it makes sense.
+	let color: Color = 'red';
+	if (country?.riskLevel === RiskLevel.B_RISICOVOL_INREISBEPERKINGEN) {
+		color = 'orange';
+	}
+	if (country?.riskLevel === RiskLevel.C_VEILIGE_LIJST) {
+		color = 'yellow';
+	}
 
 	/**
 	 *
 	 * Preparation (Befpre)
 	 * - Download Travel App
-	 * - Coronamelder App (High, Medium)
+	 * - Coronamelder App (A, B)
 	 *
 	 * Departure (Before, During)
 	 * - Color code based travel advice
-	 * - Negative test result (High, Medium)
-	 * - Negative test declaration (Unknown)
+	 * - Negative test result (A / D / B)
+	 * - Negative test declaration (D)
 	 *
 	 * Home
-	 * - Start Q (High, Unknown)
-	 * - Day 5 Q (High, Unknown)
+	 * - Start Q (A, D)
+	 * - Day 5 Q (A, D)
 	 *
-	 * End Home Q (High, Unknown)
+	 * End Home Q (A, D)
 	 *
 	 * Calender Check again (Before & If longer then 1 week from departure)
 	 *
-	 * Calendar for period of Home Q (High, Unknown)
+	 * Calendar for period of Home Q (A, D)
 	 *
 	 * Corona Symptoms (After)
 	 */
 
 	return (
 		<>
-			<ContentPageHeader
-				message={`
-        ${stage === 'voor-vertrek' ? 'Je gaat naar een hoog risicogebied' : ''}
-        ${stage === 'tijdens-je-reis' ? 'Je bent in een hoog risicogebied' : ''}
-        ${stage === 'na-thuiskomst' ? 'Je ging naar een hoog risicogebied' : ''}
-        `}
-			>
+			<ContentPageHeader message={getPageTitle(stage, color)}>
 				<Link
 					href="/advice"
 					sx={{
