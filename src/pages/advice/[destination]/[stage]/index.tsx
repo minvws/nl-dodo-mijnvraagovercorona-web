@@ -312,11 +312,13 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 								<TravelAdvicePanel title="Blijf op de hoogte van de laatste ontwikkelingen op je bestemming">
 									<TravelInformationLink href="" text="Download de reisapp" />
 								</TravelAdvicePanel>
-								<TravelAdvicePanel
-									title={`Wist je dat de CoronaMelder ook werkt in ${country?.fullName}`}
-								>
-									<TravelInformationLink href="" text="Meer informatie" />
-								</TravelAdvicePanel>
+								{showCoronamelderApp && (
+									<TravelAdvicePanel
+										title={`Wist je dat de CoronaMelder ook werkt in ${country?.fullName}`}
+									>
+										<TravelInformationLink href="" text="Meer informatie" />
+									</TravelAdvicePanel>
+								)}
 							</TravelPlanStage>
 						)}
 
@@ -325,27 +327,54 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 							subHeading={country?.fullName}
 							date={fromDate}
 						>
-							<TravelAdvicePanel title="Code oranje">
+							<TravelAdvicePanel title="Code oranje" subHeading="nu">
 								<TravelInformationLink href="" text="Uitgebreid reisadvies" />
 							</TravelAdvicePanel>
+							{showNegativeTestResult && (
+								<TravelAdvicePanel
+									title="Laat je testen"
+									subHeading="Max 72u voor vertrek"
+								>
+									Je mag alleen terugreizen met een negatieve testuitslag
+									<br />
+									<TravelInformationLink href="" text="Meer informatie" />
+								</TravelAdvicePanel>
+							)}
+							{showNegativeTestDeclaration && (
+								<TravelAdvicePanel
+									title="Laat je testen"
+									subHeading="Max 72u voor vertrek"
+								>
+									Je mag alleen terugreizen met een negatieve testuitslag en
+									testverklaring
+									<br />
+									<TravelInformationLink href="" text="Meer informatie" />
+								</TravelAdvicePanel>
+							)}
 						</TravelPlanStage>
 
 						<TravelPlanStage
 							title="Thuiskomst"
-							subHeading="Start 10 dagen thuisquarantaine"
+							subHeading={
+								showQuarantaine ? 'Start 10 dagen thuisquarantaine' : undefined
+							}
 							date={toDate}
 						>
-							<TravelAdvicePanel title="Tot en met dag 6">
-								<TravelInformationLink href="" text="Incubatietijd virus" />
-							</TravelAdvicePanel>
-							<TravelAdvicePanel title="Tot en met dag 10">
-								<TravelInformationLink href="" text="Mogelijke klachten" />
-							</TravelAdvicePanel>
+							{showQuarantaine && (
+								<>
+									<TravelAdvicePanel title="Tot en met dag 6">
+										<TravelInformationLink href="" text="Incubatietijd virus" />
+									</TravelAdvicePanel>
+									<TravelAdvicePanel title="Tot en met dag 10">
+										<TravelInformationLink href="" text="Mogelijke klachten" />
+									</TravelAdvicePanel>
+								</>
+							)}
 						</TravelPlanStage>
 						{showQuarantaine && (
 							<TravelPlanStage
 								title="Einde thuisquarantaine"
-								date={toDate ? addDays(toDate, 10) : ''}
+								date={toDate && addDays(toDate, 10)}
 							/>
 						)}
 					</Container>
