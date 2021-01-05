@@ -2,6 +2,7 @@
 import { GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next';
 import { jsx, Container, Button, Link, Image, Divider, Box } from 'theme-ui';
 
+import MetaTags from 'components/meta/MetaTags';
 import ContentPageHeader from 'components/structure/ContentPageHeader';
 import BodyContainer from 'components/structure/BodyContainer';
 import TestBooking from 'components/results/TestBooking';
@@ -81,6 +82,12 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 
 	return (
 		<>
+			<MetaTags
+				title="Advies en actuele situatie bestemming | Quarantaine Reischeck | Reizentijdenscorona.nl"
+				description="Advies op basis van actuele informatie over bestemming."
+				url={`/${destination}/${stage}`}
+			/>
+
 			<ContentPageHeader message={getPageTitle(color)}>
 				<Link
 					href="/bestemming"

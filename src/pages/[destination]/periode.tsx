@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { jsx, Container, Button } from 'theme-ui';
 import Link from 'next/link';
 
+import MetaTags from 'components/meta/MetaTags';
 import AdviceHeader from 'components/advice/AdviceHeader';
 import { InternalLink } from 'components/Links';
 import PeriodSelect from 'components/advice/PeriodSelect';
@@ -71,6 +72,12 @@ const Period = (props: any) => {
 
 	return (
 		<>
+			<MetaTags
+				title="Planning | Quarantaine Reischeck | Reizentijdenscorona.nl"
+				description="Actuele informatie over bestemming en maatregelen."
+				url={`/${props.destination}/periode`}
+			/>
+
 			<AdviceHeader
 				header="In welke periode ben of was je daar?"
 				questionStage={2}

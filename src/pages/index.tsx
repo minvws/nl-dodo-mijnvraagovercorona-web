@@ -1,5 +1,7 @@
 /** @jsx jsx */
-import { Styled, Container, Alert, jsx } from 'theme-ui';
+import { jsx } from 'theme-ui';
+
+import MetaTags from 'components/meta/MetaTags';
 import ContentPageHeader from 'components/structure/ContentPageHeader';
 import StartCheckButton from 'components/home/StartCheckButton';
 import HomePageNavigation from 'components/home/HomePageNavigation';
@@ -14,6 +16,12 @@ const Home = () => {
 
 	return (
 		<>
+			<MetaTags
+				title="Quarantaine Reischeck COVID-19 | Reizentijdenscorona.nl"
+				description="De check voor corona-richtlijnen en tips voor je thuis quarantaine."
+				url="/"
+			/>
+
 			<ContentPageHeader
 				message="Wat als je toch naar het buitenland gaat?"
 				secondaryMessage="Reis tot 15 maart 2021 alleen noodzakelijk"

@@ -1,10 +1,7 @@
 /** @jsx jsx */
 import { jsx, Container, Link } from 'theme-ui';
-import {
-	Disclosure,
-	DisclosureButton,
-	DisclosurePanel,
-} from '@reach/disclosure';
+
+import MetaTags from 'components/meta/MetaTags';
 import FaqList from 'components/faq/FaqList';
 import BodyContainer from 'components/structure/BodyContainer';
 import ContentPageHeader from 'components/structure/ContentPageHeader';
@@ -14,6 +11,11 @@ import Footer from 'components/structure/Footer';
 const FAQ = () => {
 	return (
 		<>
+			<MetaTags
+				title="Veelgestelde vragen | Quarantaine Reischeck | Reizentijdenscorona.nl"
+				description="Overzicht van veelgestelde vragen over quarantaine en reizen."
+				url="/faq"
+			/>
 			<ContentPageHeader
 				message="Veelgestelde vragen"
 				backgroundImage="/images/Illustratie_Mobiel_Veelgestelde_vragenRetina.svg"

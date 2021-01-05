@@ -17,8 +17,6 @@ const TravelCheckApp = ({ Component, pageProps }: AppProps) => {
 					name="viewport"
 					content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes"
 				/>
-
-				<title>Travel Check Development</title>
 			</Head>
 			<ThemeProvider theme={theme}>
 				<Alert

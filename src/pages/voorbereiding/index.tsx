@@ -1,5 +1,7 @@
 /** @jsx jsx */
 import { jsx, Container } from 'theme-ui';
+
+import MetaTags from 'components/meta/MetaTags';
 import ContentPageHeader from 'components/structure/ContentPageHeader';
 import PreparationPanel from 'components/preparations/PreparationPanel';
 import PreparationPanelListItem from 'components/preparations/PreparationPanelListItem';
@@ -10,6 +12,12 @@ import Footer from 'components/structure/Footer';
 const PreparationsPage = () => {
 	return (
 		<>
+			<MetaTags
+				title="Online hulpmiddel | Quarantaine Reischeck | Reizentijdenscorona.nl"
+				description="Online hulpmiddel met checklist voor reizigers."
+				url="/voorbereiding"
+			/>
+
 			<ContentPageHeader
 				message="Wat moet je regelen voor het thuisblijven?"
 				backgroundImage="/images/Banner_we_helpen_jeRetina.svg"

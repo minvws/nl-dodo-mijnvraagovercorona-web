@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { jsx } from 'theme-ui';
 
+import MetaTags from 'components/meta/MetaTags';
 import AdviceHeader from 'components/advice/AdviceHeader';
 import { InternalLink } from 'components/Links';
 import { DialogOverlay, DialogContent } from '@reach/dialog';
@@ -22,6 +23,11 @@ const Destination = () => {
 
 	return (
 		<>
+			<MetaTags
+				title="Bestemming | Quarantaine Reischeck | Reizentijdenscorona.nl"
+				description="Actuele informatie over bestemming en maatregelen."
+				url="/faq"
+			/>
 			<AdviceHeader
 				header="Wat is of was je bestemming?"
 				questionStage={1}
