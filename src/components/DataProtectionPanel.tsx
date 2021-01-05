@@ -49,7 +49,7 @@ const DataProtectionPanel = ({ onlyDesktop = false }: DataProtectionPanelProps) 
                         We slaan geen reisgegevens op.
                     </li>
                     <li>
-                        We houden alleen bij welke ondedelen je bezoekt, zodat we deze website kunnen verbeteren.
+                        We houden alleen bij welke onderdelen bezocht worden, zodat we deze website kunnen verbeteren.
                     </li>
                 </PrivacyList>
 

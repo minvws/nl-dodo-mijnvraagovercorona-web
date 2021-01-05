@@ -114,7 +114,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 					href="/advice"
 					sx={{
 						position: 'absolute',
-						top: '20px',
+						top: '30px',
 						textDecoration: 'none',
 						fontFamily: 'body',
 						verticalAlign: 'top',

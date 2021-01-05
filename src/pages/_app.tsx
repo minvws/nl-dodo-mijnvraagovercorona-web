@@ -4,7 +4,7 @@ import React from 'react';
 import App from 'next/app';
 import Head from 'next/head';
 
-import { jsx, ThemeProvider } from 'theme-ui';
+import { Alert, jsx, ThemeProvider } from 'theme-ui';
 
 import theme from '../utilities/styling/theme';
 import '../styles/global.css';
@@ -25,6 +25,15 @@ class TravelCheckApp extends App {
 					<title>Travel Check Development</title>
 				</Head>
 				<ThemeProvider theme={theme}>
+					<Alert
+						sx={{
+							backgroundColor: 'button',
+							borderRadius: 0,
+							fontSize: '14px',
+						}}
+					>
+						<p sx={{ margin: 0 }}>Deze site is nog in de testfase.</p>
+					</Alert>
 					<Component {...pageProps} />
 				</ThemeProvider>
 			</>
