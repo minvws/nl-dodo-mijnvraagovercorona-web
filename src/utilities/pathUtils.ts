@@ -9,6 +9,9 @@ export function formatPeriod(fromDate: Date, toDate: Date): string {
 	return `${fromStr}${SEGMENT_SEPARATOR}${toStr}`;
 }
 
+export const formatDate = (date?: Date): string | undefined =>
+	date?.toISOString().substr(0, 10);
+
 export function parsePeriod(periodStr: string): [Date, Date] {
 	if (periodStr.indexOf(SEGMENT_SEPARATOR) < 0 || periodStr.length < 21) {
 		throw new Error('Date range is invalid');
