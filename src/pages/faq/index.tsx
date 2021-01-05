@@ -16,6 +16,7 @@ const FAQ = () => {
 				description="Overzicht van veelgestelde vragen over quarantaine en reizen."
 				url="/faq"
 			/>
+
 			<ContentPageHeader
 				message="Veelgestelde vragen"
 				backgroundImage="/images/Illustratie_Mobiel_Veelgestelde_vragenRetina.svg"

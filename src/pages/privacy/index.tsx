@@ -9,8 +9,8 @@ const Privacy = () => {
 	return (
 		<>
 			<MetaTags
-				title="Quarantaine Reischeck | Reizentijdenscorona.nl"
-				description=""
+				title="Privacy | Quarantaine Reischeck | Reizentijdenscorona.nl"
+				description="Wilt u meer informatie over het privacybeleid van de Rijksoverheid, kijk dan op www.rijksoverheid.nl/privacy."
 				url="/privacy"
 			/>
 

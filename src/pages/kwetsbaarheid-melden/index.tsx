@@ -8,8 +8,8 @@ const Cookies = () => {
 	return (
 		<>
 			<MetaTags
-				title="Quarantaine Reischeck | Reizentijdenscorona.nl"
-				description=""
+				title="Kwetsbaarheid melden | Quarantaine Reischeck | Reizentijdenscorona.nl "
+				description="Ontdekt u een zwakke plek of kwetsbaarheid op deze website, meld dit dan aan het Nationaal Cyber Security Centrum (NCSC). Het maken van zo'n melding heet Coordinated Vulnerability Disclosure (CVD). Wij bekijken samen met het NCSC het probleem en lossen dit zo snel mogelijk op."
 				url="/kwetsbaarheid-melden"
 			/>
 			<ContentPage title="Kwetsbaarheid melden">

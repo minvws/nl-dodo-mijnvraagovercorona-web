@@ -8,8 +8,8 @@ const Cookies = () => {
 	return (
 		<>
 			<MetaTags
-				title="Quarantaine Reischeck | Reizentijdenscorona.nl"
-				description=""
+				title="Copyright | Quarantaine Reischeck | Reizentijdenscorona.nl"
+				description="Tenzij anders vermeld is op de inhoud van deze website de Creative Commons zero verklaring (CC0) van toepassing. Dit houdt in dat hergebruik van de inhoud van deze site is toegestaan, tenzij bij een bepaald onderdeel (bijvoorbeeld een document) staat aangegeven dat op dat onderdeel een auteursrechtelijke beperking van toepassing is."
 				url="/copyright"
 			/>
 			<ContentPage title="Copyright">

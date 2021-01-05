@@ -8,8 +8,8 @@ const Cookies = () => {
 	return (
 		<>
 			<MetaTags
-				title="Quarantaine Reischeck | Reizentijdenscorona.nl"
-				description=""
+				title="Cookies | Quarantaine Reischeck | Reizentijdenscorona.nl"
+				description="Algemene Verordening Gegevensbescherming. Reizentijdenscorona.nl gebruikt cookies voor statistieken om te begrijpen hoe bezoekers de website gebruiken. Deze informatie helpt de website te verbeteren, bijvoorbeeld door informatie te  verduidelijken of het gebruikersgemak te vergroten."
 				url="/cookies"
 			/>
 
