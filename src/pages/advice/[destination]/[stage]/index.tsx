@@ -111,9 +111,9 @@ const getPageTitle = (stage: Stage, color: Color) => {
 const AdviceResult = ({ destination, stage }: AdviceProps) => {
 	const router = useRouter();
 	const country = useDestination(destination as string);
-	const { from, to } = router.query;
-	const fromDate: Date | undefined = from ? parseDate(from) : undefined;
-	const toDate: Date | undefined = to ? parseDate(to) : undefined;
+	const { van, tot } = router.query;
+	const fromDate: Date | undefined = van ? parseDate(van) : undefined;
+	const toDate: Date | undefined = tot ? parseDate(tot) : undefined;
 
 	const showPreperation = stage === 'voor-vertrek';
 	const showCoronamelderApp = country?.coronaMelderCountry;
@@ -307,7 +307,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 							<TravelPlanStage
 								title="Voorbereiding"
 								subHeading="Laat je niet verrassen"
-								date="Vandaag"
+								date={new Date()}
 							>
 								<TravelAdvicePanel title="Blijf op de hoogte van de laatste ontwikkelingen op je bestemming">
 									<TravelInformationLink href="" text="Download de reisapp" />
@@ -323,7 +323,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 						<TravelPlanStage
 							title="Vertrek"
 							subHeading={country?.fullName}
-							date={`${from}`}
+							date={fromDate}
 						>
 							<TravelAdvicePanel title="Code oranje">
 								<TravelInformationLink href="" text="Uitgebreid reisadvies" />
@@ -333,7 +333,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 						<TravelPlanStage
 							title="Thuiskomst"
 							subHeading="Start 10 dagen thuisquarantaine"
-							date={`${to}`}
+							date={toDate}
 						>
 							<TravelAdvicePanel title="Tot en met dag 6">
 								<TravelInformationLink href="" text="Incubatietijd virus" />
@@ -345,16 +345,16 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 						{showQuarantaine && (
 							<TravelPlanStage
 								title="Einde thuisquarantaine"
-								date={`DATE TOEVOEGEN`}
+								date={toDate ? addDays(toDate, 10) : ''}
 							/>
 						)}
 					</Container>
 
-					{showSecondCheckCalenderInvite && (
+					{showSecondCheckCalenderInvite && fromDate && (
 						<>
 							<ReminderCalendarInvite
 								message="Zet 'Check opnieuw invullen' in je agenda"
-								date={addDays(new Date(`${from}`), -7)}
+								date={addDays(new Date(fromDate), -7)}
 							/>
 							<Container
 								sx={{

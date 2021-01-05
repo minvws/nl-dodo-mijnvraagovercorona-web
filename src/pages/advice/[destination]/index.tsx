@@ -60,7 +60,7 @@ const Period = (props: any) => {
 		`${props.destination}/${calculateStage({
 			fromDate,
 			toDate,
-		})}?from=${formatDate(fromDate)}&to=${formatDate(toDate)}`;
+		})}?van=${formatDate(fromDate)}&tot=${formatDate(toDate)}`;
 
 	if (!country) {
 		if (isBrowser()) router.push('/advice');

@@ -2,10 +2,12 @@
 import React from 'react';
 import { jsx } from 'theme-ui';
 
+import { formatShortDate } from '../../utilities/dateUtils';
+
 type TravelPlanStageProps = {
 	title: string;
 	subHeading?: string;
-	date?: string;
+	date?: Date;
 	children?: React.ReactNode;
 };
 
@@ -35,7 +37,7 @@ const TravelPlanStage = (props: TravelPlanStageProps) => {
 						marginTop: '-2em',
 					}}
 				>
-					{props.date}
+					{formatShortDate(props.date)}
 				</h4>
 				{props.subHeading && (
 					<h4
