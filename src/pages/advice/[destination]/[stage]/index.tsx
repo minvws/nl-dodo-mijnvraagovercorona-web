@@ -129,8 +129,8 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 		country?.riskLevel === RiskLevel.A_RISICOVOL ||
 		country?.riskLevel === RiskLevel.D_EU_INREISVERBOD;
 
-	const showCheckAgain =
-		stage === 'voor-vertrek' && isMoreThanWeekBeforeDeparture(fromDate); // And if departure is further then a week away
+	const showSecondCheckCalenderInvite =
+		stage === 'voor-vertrek' && isMoreThanWeekBeforeDeparture(fromDate);
 
 	const showContactWithSymptoms = stage === 'na-thuiskomst';
 
@@ -340,7 +340,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 						</TravelPlanStage>
 					</Container>
 
-					{showPreperation && (
+					{showSecondCheckCalenderInvite && (
 						<>
 							<ReminderCalendarInvite
 								message="Zet 'Check opnieuw invullen' in je agenda"
