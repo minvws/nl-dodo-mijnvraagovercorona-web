@@ -188,7 +188,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 							paddingLeft: '1.8em',
 
 							h3: {
-								color: 'header',
+								color: 'smallText',
 								marginBottom: 0,
 								'::before': {
 									marginLeft: '-39px',
