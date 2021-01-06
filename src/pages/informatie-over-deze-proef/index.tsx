@@ -9,7 +9,7 @@ const Cookies = () => {
 		<>
 			<MetaTags
 				title="Meer informatie | Quarantaine Reischeck | Reizentijdenscorona.nl"
-				description=""
+				description="Meer informatie? Kijk op www.rijksoverheid.nl"
 				url="/informatie-over-deze-proef"
 			/>
 			<ContentPage title="Informatie over deze proef">
