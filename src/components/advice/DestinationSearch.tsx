@@ -79,13 +79,19 @@ const DestinationSearch = () => {
 							width: '100%',
 							height: '55px',
 							paddingLeft: '56px',
-							fontSize: '20px',
+							fontSize: ['bodyMobile', 'body'],
+							lineHeight: ['bodyMobile', 'body'],
+							fontFamily: 'body',
 
 							backgroundImage: 'url("/icons/Search.svg")',
 							backgroundRepeat: 'no-repeat',
 							backgroundPositionY: '15px',
 							backgroundPositionX: '17px',
 							color: 'black',
+
+							'&::placeholder': {
+								color: 'detailText',
+							},
 						}}
 						onKeyPress={handleKeyPress}
 						onChange={handleChange}
