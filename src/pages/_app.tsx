@@ -27,6 +27,7 @@ const TravelCheckApp = ({ Component, pageProps }: AppProps) => {
 						backgroundColor: 'button',
 						borderRadius: 0,
 						fontSize: '14px',
+						padding: '4px',
 					}}
 				>
 					<p sx={{ margin: 0 }}>Deze site is nog in de testfase.</p>

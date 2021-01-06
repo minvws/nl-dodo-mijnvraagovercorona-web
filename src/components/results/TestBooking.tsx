@@ -41,7 +41,7 @@ const TestBooking = () => {
 								fontSize: ['bodyMobile', 'body'],
 								fontWeight: 'bold',
 								width: '70%',
-								color: 'header',
+								color: 'link',
 							}}
 						>
 							Heb je klachten? Maak direct een afspraak op de website van de GGD
