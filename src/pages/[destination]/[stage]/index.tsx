@@ -106,7 +106,9 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 						paddingLeft: '17px',
 						marginBottom: 0,
 						fontFamily: 'body',
-						fontSize: ['19px', '20px'],
+						color: 'text',
+						fontSize: ['bodyMobile', 'body'],
+						lineHeight: ['bodyMobile', 'body'],
 						listStyleImage: 'url("/icons/Polygon 6.svg")',
 						'li:not(:last-child)': {
 							marginBottom: '16px',

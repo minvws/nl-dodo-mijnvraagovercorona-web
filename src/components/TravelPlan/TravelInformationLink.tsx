@@ -29,6 +29,8 @@ const TravelInformationLink = (props: TravelInformationLinkProps) => {
 					marginLeft: '0.3em',
 					backgroundPositionY: '0.1em',
 					backgroundRepeat: 'no-repeat',
+					fontSize: ['chapeau'],
+					lineHeight: ['chapeau'],
 				},
 			}}
 		>

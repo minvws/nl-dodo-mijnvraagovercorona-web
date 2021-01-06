@@ -35,6 +35,7 @@ const TravelPlanStage = (props: TravelPlanStageProps) => {
 						textAlign: 'right',
 						marginRight: '1em',
 						marginTop: '-2em',
+            color: 'text'
 					}}
 				>
 					{formatShortDate(props.date)}
@@ -46,6 +47,7 @@ const TravelPlanStage = (props: TravelPlanStageProps) => {
 							fontSize: ['bodyMobile', 'body'],
 							marginTop: 0,
 							marginBottom: '9px',
+              color: 'text'
 						}}
 					>
 						{props.subHeading}

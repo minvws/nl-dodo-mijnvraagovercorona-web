@@ -43,14 +43,21 @@ const Destination = () => {
 					sx={{
 						background: 'rgba(1, 104, 155, 0.7)',
 						paddingRight: [0, '300px', '400px'],
-						paddingTop: '67px',
+						paddingTop: [0, '67px'],
+						p: {
+							fontSize: ['bodyMobile', 'body'],
+							lineHeight: ['bodyMobile', 'body'],
+						},
 					}}
 				>
 					<DialogContent
 						sx={{
-							width: '434px',
-							borderRadius: '20px',
+							width: '100%',
+							maxWidth: '434px',
+							height: ['100%', 'auto'],
+							borderRadius: [0, '20px'],
 							color: 'header',
+							marginTop: ['auto', '168px'],
 						}}
 					>
 						<button

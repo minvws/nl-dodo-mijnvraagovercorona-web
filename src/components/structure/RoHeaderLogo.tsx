@@ -19,8 +19,8 @@ const RoHeaderLogo = (props: RoHeaderLogoProps) => {
 			  };
 	return (
 		<Container sx={containerStyle}>
-			<Link href="/">
-				<Image width="67px" height="100px" src="/icons/RO logo.svg" />
+			<Link href="/" sx={{ img: { width: ['54px', '68px'], height: 'auto' } }}>
+				<Image src="/icons/RO logo.svg" />
 				{props.children}
 			</Link>
 		</Container>
