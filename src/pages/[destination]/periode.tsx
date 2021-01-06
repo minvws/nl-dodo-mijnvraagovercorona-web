@@ -159,7 +159,7 @@ const Period = ({ destination }: { destination: string }) => {
 						</button>
 						<h2>Waarom vragen we je naar je reisperiode?</h2>
 						<p>
-							Het is het mogelijk dat een regio van kleur verandert tijdens je
+							Het is mogelijk dat een land van kleur verandert tijdens je
 							verblijf.
 						</p>
 						<p>
