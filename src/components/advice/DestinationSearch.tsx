@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { Container, jsx } from 'theme-ui';
 import {
 	Combobox,
@@ -46,85 +46,95 @@ const DestinationSearch = () => {
 		router.push(location);
 	};
 
-	const handleSubmit = (event: any) => {
+	const handleKeyPress = (event: any) => {
 		if (event.key === 'Enter' && searchResults.length > 0) {
+			handleSelect(getDestinationName(searchResults[0]));
+		}
+	};
+
+	const handleSubmit = (event: FormEvent) => {
+		event.preventDefault();
+
+		if (searchResults.length > 0) {
 			handleSelect(getDestinationName(searchResults[0]));
 		}
 	};
 
 	return (
 		<Container>
-			<Combobox
-				sx={{
-					width: '100%',
-					paddingLeft: ['mobilePadding', 0],
-					paddingRight: ['mobilePadding', 0],
-				}}
-				onSelect={handleSelect}
-			>
-				<ComboboxInput
+			<form onSubmit={handleSubmit}>
+				<Combobox
 					sx={{
-						border: '1px solid',
-						borderColor: 'inputBorder',
-						borderRadius: '5px',
 						width: '100%',
-						height: '55px',
-						paddingLeft: '56px',
-						fontSize: '20px',
-
-						backgroundImage: 'url("/icons/Search.svg")',
-						backgroundRepeat: 'no-repeat',
-						backgroundPositionY: '15px',
-						backgroundPositionX: '17px',
-						color: 'black',
+						paddingLeft: ['mobilePadding', 0],
+						paddingRight: ['mobilePadding', 0],
 					}}
-					onKeyPress={handleSubmit}
-					onChange={handleChange}
-					selectOnClick={true}
-					placeholder='Bijvoorbeeld "Frankrijk"'
-				/>
-				<ComboboxPopover
-					sx={{
-						maxHeight: ['auto', '295px'],
-						border: 'none',
-						overflow: 'hidden',
-						borderBottomLeftRadius: '5px',
-						borderBottomRightRadius: '5px',
-						paddingLeft: '50px',
-						paddingBottom: '0',
-						fontSize: 20,
-						backgroundColor: ['white', '#EFF7F9'],
-						a: {
-							textDecoration: 'none',
-							color: 'black',
-						},
-						li: {
-							paddingBottom: 0,
-							marginBottom: 0,
-							paddingTop: 0,
-						},
-					}}
+					onSelect={handleSelect}
 				>
-					<ComboboxList sx={{}}>
-						{searchResults.length ? (
-							searchResults.map((country) => (
-								<ComboboxOption
-									key={country.fullName}
-									value={country.fullName}
-									sx={{ p: { padding: 0 } }}
-								>
-									<p>{country.fullName}</p>
-								</ComboboxOption>
-							))
-						) : (
-							<p>
-								Er zijn geen landen gevonden die voldoen aan de zoekterm "
-								{country}".
-							</p>
-						)}
-					</ComboboxList>
-				</ComboboxPopover>
-			</Combobox>
+					<ComboboxInput
+						sx={{
+							border: '1px solid',
+							borderColor: 'inputBorder',
+							borderRadius: '5px',
+							width: '100%',
+							height: '55px',
+							paddingLeft: '56px',
+							fontSize: '20px',
+
+							backgroundImage: 'url("/icons/Search.svg")',
+							backgroundRepeat: 'no-repeat',
+							backgroundPositionY: '15px',
+							backgroundPositionX: '17px',
+							color: 'black',
+						}}
+						onKeyPress={handleKeyPress}
+						onChange={handleChange}
+						selectOnClick={true}
+						placeholder='Bijvoorbeeld "Frankrijk"'
+					/>
+					<ComboboxPopover
+						sx={{
+							maxHeight: ['auto', '295px'],
+							border: 'none',
+							overflow: 'hidden',
+							borderBottomLeftRadius: '5px',
+							borderBottomRightRadius: '5px',
+							paddingLeft: '50px',
+							paddingBottom: '0',
+							fontSize: 20,
+							backgroundColor: ['white', '#EFF7F9'],
+							a: {
+								textDecoration: 'none',
+								color: 'black',
+							},
+							li: {
+								paddingBottom: 0,
+								marginBottom: 0,
+								paddingTop: 0,
+							},
+						}}
+					>
+						<ComboboxList sx={{}}>
+							{searchResults.length ? (
+								searchResults.map((country) => (
+									<ComboboxOption
+										key={country.fullName}
+										value={country.fullName}
+										sx={{ p: { padding: 0 } }}
+									>
+										<p>{country.fullName}</p>
+									</ComboboxOption>
+								))
+							) : (
+								<p>
+									Er zijn geen landen gevonden die voldoen aan de zoekterm "
+									{country}".
+								</p>
+							)}
+						</ComboboxList>
+					</ComboboxPopover>
+				</Combobox>
+			</form>
 		</Container>
 	);
 };
