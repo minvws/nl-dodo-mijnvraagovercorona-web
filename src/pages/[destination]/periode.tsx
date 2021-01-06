@@ -89,7 +89,7 @@ const Period = ({ destination }: { destination: string }) => {
 		}
 	}, [fromDate, toDate, destination]);
 
-	const updateDate = (from: Date, to?: Date) => {
+	const updateDate = ({ from, to }: { from?: Date; to?: Date }) => {
 		setFromDate(from);
 		setToDate(to);
 	};
@@ -170,7 +170,7 @@ const Period = ({ destination }: { destination: string }) => {
 				</DialogOverlay>
 			</AdviceHeader>
 
-			<PeriodSelect country={country?.fullName} onUpdate={updateDate} />
+			<PeriodSelect country={country?.fullName} updatePage={updateDate} />
 			<BodyContainer>
 				{fromDate && toDate && country && (
 					<div

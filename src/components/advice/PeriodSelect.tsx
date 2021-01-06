@@ -5,52 +5,50 @@ import DayPicker, { DateUtils } from 'react-day-picker';
 import { useDesktopQuery } from 'hooks/useDesktopQuery';
 import { formatShortDate } from 'utilities/dateUtils';
 import BodyContainer from 'components/structure/BodyContainer';
+
 import 'react-day-picker/lib/style.css';
 
-type PeriodSelectProps = {
-	city?: string;
-	country: string;
-	onUpdate: (from: Date, to?: Date) => void;
-};
-
 type Range = {
-	from?: Date;
+	from: Date;
 	to?: Date;
 };
 
-const PeriodSelect = (props: PeriodSelectProps) => {
-	const isDesktop = useDesktopQuery();
+type PeriodSelectProps = {
+	country: string;
+	updatePage: ({ from, to }: Range) => void;
+};
 
-	const [range, setRange] = useState<Range>({});
+const generateMessage = ({ from, to }: Range) =>
+	!from
+		? 'Kies een datum'
+		: !to
+		? `${formatShortDate(from)} tot ...`
+		: `${formatShortDate(from)} tot ${formatShortDate(to)}`;
+
+const PeriodSelect = ({ country, updatePage }: PeriodSelectProps) => {
+	const isDesktop = useDesktopQuery();
+	const [range, setRange] = useState<Range | undefined>();
+	const [message, setMessage] = useState<string>('');
 
 	const handleDayClick = (day: any) => {
-		if (!range.from) {
-			setRange({ from: day });
-		} else {
-			if (day.toLocaleDateString() === range.from.toLocaleDateString()) {
-				// unset the range
-				setRange({});
-			} else if (day.getTime() > range.from.getTime()) {
-				setRange({ from: range.from, to: day });
+		// @ts-ignore An error where addDayToRange only excepts a completed range
+		const nextRange = DateUtils.addDayToRange(day, range);
 
-				props.onUpdate(range.from, day);
-			} else {
-				setRange({ from: day, to: range.from });
-				props.onUpdate(day, range.from);
-			}
-		}
+		setRange(nextRange);
 	};
 
-	const modifiers =
-		range.from && range.to
-			? { start: range.from, end: range.to }
-			: { start: range.from, end: range.from };
+	React.useEffect(() => {
+		if (range) {
+			updatePage(range);
+			setMessage(generateMessage(range));
+		}
+	}, [range]);
 
-	const rangeMessage = !range.from
-		? 'Kies een datum'
-		: !range.to
-		? formatShortDate(range.from) + ' tot ...'
-		: formatShortDate(range.from) + ' tot ' + formatShortDate(range.to);
+	const selectedDays: any = range?.from
+		? range?.to
+			? [range.from, { from: range.from, to: range.to }]
+			: [range.from, { from: range.from }]
+		: undefined;
 
 	return (
 		<>
@@ -82,8 +80,7 @@ const PeriodSelect = (props: PeriodSelectProps) => {
 						marginBottom: '0.4em',
 					}}
 				>
-					{props.city && <span>{props.city}, </span>}
-					<span sx={{ fontWeight: 'normal' }}>{props.country}</span>
+					<span sx={{ fontWeight: 'normal' }}>{country}</span>
 				</h3>
 				<h5
 					sx={{
@@ -94,25 +91,77 @@ const PeriodSelect = (props: PeriodSelectProps) => {
 						paddingBottom: '0.9em',
 					}}
 				>
-					{rangeMessage}
+					{message}
 				</h5>
 			</Container>
 			<BodyContainer>
 				<DayPicker
 					sx={{
 						width: '100%',
-						'.DayPicker-Month': {
-							width: isDesktop ? '45%' : '100%',
+						fontSize: ['18px', '16px'],
+
+						'.DayPicker-Months': {
+							flexDirection: 'row',
+						},
+
+						'.DayPicker-Caption > div': {
+							color: '#CA005D',
+							fontWeight: 'bold',
+							fontSize: '16px',
+						},
+
+						'.DayPicker-Weekday': {
+							color: '#01689B',
+							fontSize: '15px',
+							fontWeight: 'bold',
+						},
+
+						'.DayPicker-Day': {
+							padding: '0.75em',
+						},
+
+						'.DayPicker-Day--outside': {
+							color: 'black',
+							opacity: '.25',
+						},
+
+						'.DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside)': {
+							backgroundColor: '#D11C6A',
+							fontWeight: 'normal',
+						},
+
+						'.DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside)': {
+							backgroundColor: '#F6D4E3 !important',
+							color: 'black',
+							fontWeight: 'bold',
 						},
 					}}
-					locale="nl"
+					months={[
+						'Januari',
+						'Februari',
+						'Maart',
+						'April',
+						'Mei',
+						'Juni',
+						'Juli',
+						'Augustus',
+						'September',
+						'Oktober',
+						'November',
+						'December',
+					]}
+					weekdaysShort={['Z', 'M', 'D', 'W', 'D', 'V', 'Z']}
 					firstDayOfWeek={1}
 					className="Selectable"
 					fixedWeeks={true}
 					showOutsideDays={true}
 					numberOfMonths={isDesktop ? 2 : 1}
-					selectedDays={[range.from, range.to]}
-					modifiers={modifiers}
+					selectedDays={selectedDays}
+					modifiers={
+						range?.from && range?.to
+							? { start: range.from, end: range.to }
+							: { start: range?.from }
+					}
 					onDayClick={handleDayClick}
 				/>
 			</BodyContainer>

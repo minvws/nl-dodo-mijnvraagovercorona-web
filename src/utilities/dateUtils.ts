@@ -10,7 +10,7 @@ export const formatShortDate = (date?: Date): string =>
 	date
 		? date
 				.toLocaleDateString('nl-NL', { month: 'short', day: 'numeric' })
-				.slice(0, -1)
+				.replace('.', '')
 		: '';
 
 export const parseDate = (input: Date | string | string[]): Date => {
