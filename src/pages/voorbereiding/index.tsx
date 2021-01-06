@@ -101,7 +101,7 @@ const PreparationsPage = () => {
 							<PreparationPanelListItem text="Vraag familie, vrienden of buren om boodschappen voor je te doen" />
 							<PreparationPanelListItem
 								text="Bestel je boodschappen online"
-								subtext="Bijna alle supermarketen bezorgen boodschappen. Ook kun je in sommige regio's rechtstreeks bij de boer bestellen."
+								subtext="Bijna alle supermarkten bezorgen boodschappen. Ook kun je in sommige regio's rechtstreeks bij de boer bestellen."
 							/>
 							<PreparationPanelListItem
 								text="Bestel dierenvoeding online"
@@ -134,8 +134,9 @@ const PreparationsPage = () => {
 						image="/images/Illustratie_Is_alles_geregeld_voor_kinderenRetina.svg"
 					>
 						<p>
-							Kinderen t/m 12 jaar mogen niet naar de opvang, school en bso. Ook
-							mogen ze niet deelnemen aan binnenactiviteiten, waaronder sport.
+							Op dit moment mogen ook kinderen t/m 12 jaar niet naar school, de
+							opvang en bso. Ook mogen ze niet deelnemen aan binnenactiviteiten,
+							waaronder sport.
 						</p>
 						<ul>
 							<PreparationPanelListItem
