@@ -5,7 +5,7 @@
 	"scripts": {
 		"dev": "next dev",
 		"test": "jest",
-		"build": "next build",
+		"build": "next build && next export",
 		"start": "NODE_ENV=production next start",
 		"type-check": "tsc",
 		"storybook": "start-storybook -s ./public -p 9000",

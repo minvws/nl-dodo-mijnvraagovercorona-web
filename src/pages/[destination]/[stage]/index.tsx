@@ -440,7 +440,7 @@ export const getStaticPaths = () => ({
 		},
 		[],
 	),
-	fallback: true,
+	fallback: false,
 });
 
 export default AdviceResult;

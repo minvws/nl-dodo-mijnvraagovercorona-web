@@ -143,7 +143,7 @@ export const getStaticPaths = () => ({
 	paths: countries.map((country) => ({
 		params: { destination: country.slug },
 	})),
-	fallback: true,
+	fallback: false,
 });
 
 export default Period;
