@@ -1,5 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
+import Link from 'next/link';
+
 import { ThemeUICSSObject, Box, jsx } from 'theme-ui';
 import theme from 'utilities/styling/theme';
 
@@ -33,14 +35,31 @@ const InternalLinkSymbol = {
 };
 
 type LinkProps = {
-	href?: string;
+	href: string;
+	internal?: boolean;
 	text?: string;
 	onClick?: (event: any) => void;
 	children?: React.ReactNode;
 	sx?: ThemeUICSSObject;
 };
 
-const linkWithIcon = (symbol: Symbol) => {
+const LinkWrapper = ({
+	internal,
+	href,
+	children,
+}: {
+	internal?: boolean;
+	href: string;
+	children: React.ReactNode;
+}) => (internal ? <Link href={href}>{children}</Link> : children);
+
+const linkWithIcon = ({
+	symbol,
+	internal,
+}: {
+	symbol: Symbol;
+	internal?: boolean;
+}) => {
 	const baseIconStyles: ThemeUICSSObject = {
 		display: 'inline-block',
 		content: '""',
@@ -60,30 +79,35 @@ const linkWithIcon = (symbol: Symbol) => {
 	return (props: LinkProps) => {
 		return (
 			<Box sx={containerStyles}>
-				<a
-					sx={{
-						fontSize: ['linkMobile', 'link'],
-						fontWeight: 'bold',
-						lineHeight: ['linkMobile', 'link'],
-						paddingLeft: `calc(${symbol.width} + 14px)`,
-						display: 'inline-block',
-						color: 'link',
-						':hover': {
-							color: 'linkHover',
-						},
-						...symbol.style,
-						...props.sx,
-					}}
-					onClick={props.onClick}
-					href={props.href}
-				>
-					{props.text}
-					{props.children}
-				</a>
+				<LinkWrapper internal={internal} href={props.href}>
+					<a
+						sx={{
+							fontSize: ['linkMobile', 'link'],
+							fontWeight: 'bold',
+							lineHeight: ['linkMobile', 'link'],
+							paddingLeft: `calc(${symbol.width} + 14px)`,
+							display: 'inline-block',
+							color: 'link',
+							':hover': {
+								color: 'linkHover',
+							},
+							...symbol.style,
+							...props.sx,
+						}}
+						onClick={props.onClick}
+						href={props.href}
+					>
+						{props.text}
+						{props.children}
+					</a>
+				</LinkWrapper>
 			</Box>
 		);
 	};
 };
 
-export const AnchorLink = linkWithIcon(AnchorSymbol);
-export const InternalLink = linkWithIcon(InternalLinkSymbol);
+export const AnchorLink = linkWithIcon({ symbol: AnchorSymbol });
+export const InternalLink = linkWithIcon({
+	symbol: InternalLinkSymbol,
+	internal: true,
+});

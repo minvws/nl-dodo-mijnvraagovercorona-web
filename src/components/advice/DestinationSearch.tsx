@@ -9,14 +9,18 @@ import {
 	ComboboxOption,
 } from '@reach/combobox';
 import { useRouter } from 'next/router';
+
 import { searchCities } from 'services/CountryService';
 import { getCountrySlug } from 'utilities/pathUtils';
 import '@reach/combobox/styles.css';
 import { Country } from 'config/countries';
+import AdviceContext from 'components/advice/AdviceContext';
 
 const DestinationSearch = () => {
 	const [searchResults, setSearchResults] = useState<Country[]>([]);
 	const [country, setCountry] = useState<string>();
+	const { setDestination } = React.useContext(AdviceContext);
+
 	const router = useRouter();
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,6 +42,7 @@ const DestinationSearch = () => {
 		// from the slug.
 		const location = `/${getCountrySlug(destinationName)}/periode`;
 
+		if (setDestination) setDestination(destinationName);
 		router.push(location);
 	};
 

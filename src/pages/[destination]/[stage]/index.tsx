@@ -1,6 +1,15 @@
 /** @jsx jsx */
 import { GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next';
-import { jsx, Container, Button, Link, Image, Divider, Box } from 'theme-ui';
+import Link from 'next/link';
+import {
+	jsx,
+	Container,
+	Button,
+	Link as ThemeLink,
+	Image,
+	Divider,
+	Box,
+} from 'theme-ui';
 
 import MetaTags from 'components/meta/MetaTags';
 import ContentPageHeader from 'components/structure/ContentPageHeader';
@@ -89,28 +98,29 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 			/>
 
 			<ContentPageHeader message={getPageTitle(color)}>
-				<Link
-					href="/bestemming"
-					sx={{
-						position: 'absolute',
-						top: '30px',
-						textDecoration: 'none',
-						fontFamily: 'body',
-						verticalAlign: 'top',
-						'::before': {
-							display: 'block',
-							content: '""',
-							backgroundImage: `url("/icons/Refresh.svg")`,
-							backgroundRepeat: 'no-repeat',
-							backgroundSize: '1.5em 1.5em',
-							float: 'left',
-							height: '1.5em',
-							width: '1.5em',
-							paddingRight: '0.5em',
-						},
-					}}
-				>
-					opnieuw
+				<Link href="/bestemming" passHref>
+					<ThemeLink
+						sx={{
+							position: 'absolute',
+							top: '30px',
+							textDecoration: 'none',
+							fontFamily: 'body',
+							verticalAlign: 'top',
+							'::before': {
+								display: 'block',
+								content: '""',
+								backgroundImage: `url("/icons/Refresh.svg")`,
+								backgroundRepeat: 'no-repeat',
+								backgroundSize: '1.5em 1.5em',
+								float: 'left',
+								height: '1.5em',
+								width: '1.5em',
+								paddingRight: '0.5em',
+							},
+						}}
+					>
+						opnieuw
+					</ThemeLink>
 				</Link>
 				<ul
 					sx={{
@@ -149,8 +159,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 						<li>
 							Voor je terugreis naar Nederland heb je een{' '}
 							<strong>negatieve testuitslag</strong> en{' '}
-							<strong>verklaring</strong>
-							nodig.
+							<strong>verklaring</strong> nodig.
 						</li>
 					)}
 

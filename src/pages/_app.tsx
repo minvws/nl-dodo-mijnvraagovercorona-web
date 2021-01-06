@@ -4,9 +4,12 @@ import Head from 'next/head';
 
 import { Alert, jsx, ThemeProvider } from 'theme-ui';
 
-import theme from '../utilities/styling/theme';
-import '../styles/global.css';
-import '../styles/components/PeriodSelect.css';
+import { AdviceProvider } from 'components/advice/AdviceContext';
+
+import theme from 'utilities/styling/theme';
+import 'styles/global.css';
+import 'styles/components/PeriodSelect.css';
+
 import { AppProps } from 'next/dist/next-server/lib/router/router';
 
 const TravelCheckApp = ({ Component, pageProps }: AppProps) => {
@@ -28,7 +31,9 @@ const TravelCheckApp = ({ Component, pageProps }: AppProps) => {
 				>
 					<p sx={{ margin: 0 }}>Deze site is nog in de testfase.</p>
 				</Alert>
-				<Component {...pageProps} />
+				<AdviceProvider>
+					<Component {...pageProps} />
+				</AdviceProvider>
 			</ThemeProvider>
 		</>
 	);

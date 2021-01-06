@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { jsx, Container, Button } from 'theme-ui';
 import Link from 'next/link';
 
@@ -15,54 +15,73 @@ import { useDestination } from 'hooks/use-destination';
 import { useRouter } from 'next/router';
 import { countries } from 'config/countries';
 import { isBrowser } from 'utilities/is-browser';
+import AdviceContext from 'components/advice/AdviceContext';
 
-const Period = (props: any) => {
-	const country = useDestination(props.destination as string);
+const calculateStage = ({
+	fromDate,
+	toDate,
+}: {
+	fromDate?: Date;
+	toDate?: Date;
+}): 'voor-vertrek' | 'tijdens-je-reis' | 'na-thuiskomst' => {
+	if (!fromDate || !toDate) {
+		return 'voor-vertrek';
+	}
+
+	const now = new Date().getTime();
+	const from = fromDate.getTime();
+	const to = toDate.getTime();
+
+	if (now < from) {
+		return 'voor-vertrek';
+	}
+	if (now < to) {
+		return 'tijdens-je-reis';
+	}
+	return 'na-thuiskomst';
+};
+
+const generateResultLink = ({
+	fromDate,
+	toDate,
+	destination,
+	stage,
+}: {
+	fromDate: Date;
+	toDate: Date;
+	destination: string;
+	stage: string;
+}) => ({
+	pathname: `/${destination}/${stage}`,
+	query: { van: formatDate(fromDate), tot: formatDate(toDate) },
+});
+
+const Period = ({ destination }: { destination: string }) => {
+	const country = useDestination(destination as string);
+	const { setFrom, setTo, setStage } = React.useContext(AdviceContext);
 	const router = useRouter();
 
 	const [fromDate, setFromDate] = useState<Date>();
 	const [toDate, setToDate] = useState<Date>();
+	const [resultLink, setResultLink] = useState<Object | string>('');
+
+	useEffect(() => {
+		if (fromDate && toDate) {
+			const stage = calculateStage({ fromDate, toDate });
+
+			setResultLink(
+				generateResultLink({ fromDate, toDate, destination, stage }),
+			);
+
+			if (setFrom) setFrom(formatDate(fromDate));
+			if (setTo) setTo(formatDate(toDate));
+			if (setStage) setStage(stage);
+		}
+	}, [fromDate, toDate, destination]);
 
 	const updateDate = (from: Date, to?: Date) => {
 		setFromDate(from);
 		setToDate(to);
-	};
-
-	const calculateStage = ({
-		fromDate,
-		toDate,
-	}: {
-		fromDate?: Date;
-		toDate?: Date;
-	}): 'voor-vertrek' | 'tijdens-je-reis' | 'na-thuiskomst' => {
-		if (!fromDate || !toDate) {
-			return 'voor-vertrek';
-		}
-
-		const now = new Date().getTime();
-		const from = fromDate.getTime();
-		const to = toDate.getTime();
-
-		if (now < from) {
-			return 'voor-vertrek';
-		}
-		if (now < to) {
-			return 'tijdens-je-reis';
-		}
-		return 'na-thuiskomst';
-	};
-
-	const resultLink = () => {
-		const stage = calculateStage({
-			fromDate,
-			toDate,
-		});
-		const { destination } = props;
-
-		return {
-			pathname: `/${destination}/${stage}`,
-			query: { van: formatDate(fromDate), tot: formatDate(toDate) },
-		};
 	};
 
 	if (!country) {
@@ -75,7 +94,7 @@ const Period = (props: any) => {
 			<MetaTags
 				title="Planning | Quarantaine Reischeck | Reizentijdenscorona.nl"
 				description="Actuele informatie over bestemming en maatregelen."
-				url={`/${props.destination}/periode`}
+				url={`/${destination}/periode`}
 			/>
 
 			<AdviceHeader
@@ -97,7 +116,7 @@ const Period = (props: any) => {
 							paddingBottom: ['auto', '63px'],
 						}}
 					>
-						<Link href={resultLink()}>
+						<Link href={resultLink}>
 							<Button
 								sx={{
 									width: ['100%', 'auto'],
