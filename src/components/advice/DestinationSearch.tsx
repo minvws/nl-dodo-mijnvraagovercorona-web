@@ -42,7 +42,7 @@ const DestinationSearch = () => {
 		// from the slug.
 		const location = `/${getCountrySlug(destinationName)}/periode`;
 
-		if (setDestination) setDestination(destinationName);
+		if (setDestination) setDestination(getCountrySlug(destinationName));
 		router.push(location);
 	};
 

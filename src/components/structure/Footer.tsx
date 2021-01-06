@@ -97,7 +97,11 @@ const Footer = ({ onlyDesktop = false, pushToBottom = false }: FooterProps) => {
 						<h3>Meer informatie?</h3>
 						<ul>
 							<li>
-								<a href="https://www.rijksoverheid.nl">
+								<a
+									href="https://www.rijksoverheid.nl"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
 									Kijk op rijksoverheid.nl
 								</a>
 							</li>
