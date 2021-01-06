@@ -1,4 +1,7 @@
 /** @jsx jsx */
+import React from 'react';
+import Link from 'next/link';
+
 import { jsx, Container } from 'theme-ui';
 
 import MetaTags from 'components/meta/MetaTags';
@@ -8,8 +11,28 @@ import PreparationPanelListItem from 'components/preparations/PreparationPanelLi
 import BodyContainer from 'components/structure/BodyContainer';
 import DataProtectionPanel from 'components/DataProtectionPanel';
 import Footer from 'components/structure/Footer';
+import { RetryLink } from 'components/Links';
+
+import AdviceContext from 'components/advice/AdviceContext';
+
+const generateResultLink = ({
+	from,
+	to,
+	destination,
+	stage,
+}: {
+	from?: string;
+	to?: string;
+	destination?: string;
+	stage?: string;
+}) => ({
+	pathname: `/${destination}/${stage}`,
+	query: { van: from, tot: to },
+});
 
 const PreparationsPage = () => {
+	const { from, to, stage, destination } = React.useContext(AdviceContext);
+
 	return (
 		<>
 			<MetaTags
@@ -21,7 +44,26 @@ const PreparationsPage = () => {
 			<ContentPageHeader
 				message="Wat moet je regelen voor het thuisblijven?"
 				backgroundImage="/images/Banner_we_helpen_jeRetina.svg"
-			/>
+			>
+				{stage && destination && (
+					<Link
+						href={generateResultLink({
+							from,
+							to,
+							stage,
+							destination,
+						})}
+						passHref
+					>
+						<RetryLink>naar resultaat</RetryLink>
+					</Link>
+				)}
+				<div
+					sx={{
+						marginBottom: '3em',
+					}}
+				></div>
+			</ContentPageHeader>
 
 			<BodyContainer>
 				<Container

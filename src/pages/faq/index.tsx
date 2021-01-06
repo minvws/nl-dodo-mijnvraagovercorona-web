@@ -2,7 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 
-import { jsx, Container, Link as ThemeLink } from 'theme-ui';
+import { jsx, Container } from 'theme-ui';
 
 import MetaTags from 'components/meta/MetaTags';
 import FaqList from 'components/faq/FaqList';
@@ -53,9 +53,7 @@ const FAQ = () => {
 						})}
 						passHref
 					>
-						<RetryLink>
-							naar resultaat
-						</RetryLink>
+						<RetryLink>naar resultaat</RetryLink>
 					</Link>
 				)}
 				<div

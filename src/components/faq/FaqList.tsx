@@ -62,7 +62,7 @@ const faqs: Array<[string, any]> = [
 				<li>Testresultaat: moet negatief (of niet gedetecteerd) zijn;</li>
 				<li>Voor- en achternaam: overeenkomstig met het paspoort;</li>
 				<li>
-					Datum en tijd van afname van de test: De test is maximaal 72 uur oud
+					Datum en tijd van afname van de test: de test is maximaal 72 uur oud
 					bij aankomst in Nederland;
 				</li>
 				<li>Gegevens instituut of laboratorium dat de test afnam.</li>
