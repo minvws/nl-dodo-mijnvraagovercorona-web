@@ -302,9 +302,10 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 						>
 							{showQuarantaine && (
 								<>
-									<TravelAdvicePanel title="Tot en met dag 6">
+									{/* Te complex bevonden https://fabrique.mydonedone.com/issuetracker/projects/82352/issues/45 */}
+									{/* <TravelAdvicePanel title="Tot en met dag 6">
 										<TravelInformationLink href="" text="Incubatietijd virus" />
-									</TravelAdvicePanel>
+									</TravelAdvicePanel> */}
 									<TravelAdvicePanel title="Tot en met dag 10">
 										<TravelInformationLink href="" text="Mogelijke klachten" />
 									</TravelAdvicePanel>

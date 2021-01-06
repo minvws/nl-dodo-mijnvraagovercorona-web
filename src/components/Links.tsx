@@ -51,7 +51,7 @@ const LinkWrapper = ({
 	internal?: boolean;
 	href: string;
 	children: React.ReactNode;
-}) => (internal ? <Link href={href}>{children}</Link> : children);
+}) => (internal ? <Link href={href}>{children}</Link> : <>{children}</>);
 
 const linkWithIcon = ({
 	symbol,
