@@ -19,7 +19,7 @@ const TravelAdvicePanel = (props: TravelAdvicePanelProps) => {
 			<div
 				sx={{
 					color: 'black',
-					border: '1px solid black',
+					border: '1px solid #CA005D',
 					borderRadius: '10px',
 					marginRight: '1em',
 					paddingLeft: '0.5em',

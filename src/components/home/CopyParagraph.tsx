@@ -8,6 +8,7 @@ type CopyParagraphProps = {
 	imageAltText?: string;
 	children?: React.ReactNode;
 	imageAlignment?: 'left' | 'right';
+	id?: string;
 };
 
 const CopyParagraph = (props: CopyParagraphProps) => {
@@ -29,6 +30,7 @@ const CopyParagraph = (props: CopyParagraphProps) => {
 
 	return (
 		<Container
+			id={props.id}
 			sx={{
 				display: 'grid',
 				columnGap: '29px',

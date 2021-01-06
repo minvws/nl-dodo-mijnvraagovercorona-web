@@ -11,6 +11,7 @@ import ContentPageHeader from 'components/structure/ContentPageHeader';
 import DataProtectionPanel from 'components/DataProtectionPanel';
 import Footer from 'components/structure/Footer';
 import AdviceContext from 'components/advice/AdviceContext';
+import { RetryLink } from 'components/Links';
 
 const generateResultLink = ({
 	from,
@@ -52,28 +53,9 @@ const FAQ = () => {
 						})}
 						passHref
 					>
-						<ThemeLink
-							sx={{
-								position: 'absolute',
-								top: '20px',
-								textDecoration: 'none',
-								fontFamily: 'body',
-								verticalAlign: 'top',
-								'::before': {
-									display: 'block',
-									content: '""',
-									backgroundImage: `url("/icons/Refresh.svg")`,
-									backgroundRepeat: 'no-repeat',
-									backgroundSize: '1.5em 1.5em',
-									float: 'left',
-									height: '1.5em',
-									width: '1.5em',
-									paddingRight: '0.5em',
-								},
-							}}
-						>
+						<RetryLink>
 							naar resultaat
-						</ThemeLink>
+						</RetryLink>
 					</Link>
 				)}
 				<div

@@ -28,7 +28,7 @@ const Home = () => {
 			>
 				<h2
 					sx={{
-						fontWeight: 'lighter',
+						fontWeight: 'light',
 						width: ['80%', '549px'],
 						fontSize: '26px',
 						marginTop: 0,

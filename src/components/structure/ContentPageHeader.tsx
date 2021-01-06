@@ -33,7 +33,7 @@ const ContentPageHeader = (props: ContentPageProps) => {
             sx={headerStyles}>
             <RoHeaderLogo align='center'/>
             <Container sx={{
-                width: ['100%', 'bodyContainer'],
+                maxWidth: 'maxWidthBody',
                 paddingLeft: ['mobilePadding', 0],
                 paddingRight: ['mobilePadding', 0],
                 paddingTop: [0]
@@ -44,7 +44,8 @@ const ContentPageHeader = (props: ContentPageProps) => {
                       fontFamily: 'heading',
                       fontWeight: 'bold',
                       marginTop: ['26px', '42px'],
-                      maxWidth: '55%'
+                      maxWidth: '55%',
+                      color: 'smallText'
                   }}>
                       {props.secondaryMessage}
                   </p>

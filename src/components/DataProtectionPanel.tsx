@@ -11,7 +11,7 @@ type DataProtectionPanelProps = {
 const DataProtectionPanel = ({ onlyDesktop = false }: DataProtectionPanelProps) => {
     const mobileDisplay = onlyDesktop ? 'none' : 'inherit';
     return (
-        <Box sx={{
+        <Box id="privacy" sx={{
             display: [mobileDisplay, 'inherit'],
             backgroundColor: ['white', 'sidePanel'],
             position: ['relative', 'fixed'],
