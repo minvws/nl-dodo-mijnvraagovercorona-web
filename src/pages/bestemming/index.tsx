@@ -29,7 +29,7 @@ const Destination = () => {
 				url="/faq"
 			/>
 			<AdviceHeader
-				header="Wat is of was je bestemming?"
+				header="Welk land is of was je bestemming?"
 				questionStage={1}
 				totalStages={2}
 			>

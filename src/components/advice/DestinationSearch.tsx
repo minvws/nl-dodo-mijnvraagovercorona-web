@@ -16,10 +16,14 @@ import { Country } from 'config/countries';
 
 const DestinationSearch = () => {
 	const [searchResults, setSearchResults] = useState<Country[]>([]);
+	const [country, setCountry] = useState<string>();
 	const router = useRouter();
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		const value = event.target.value;
+		const { value } = event.target;
+
+		setCountry(value);
+
 		if (value === '') {
 			setSearchResults([]);
 		} else {
@@ -97,15 +101,22 @@ const DestinationSearch = () => {
 					}}
 				>
 					<ComboboxList sx={{}}>
-						{searchResults.map((country) => (
-							<ComboboxOption
-								key={country.fullName}
-								value={country.fullName}
-								sx={{ p: { padding: 0 } }}
-							>
-								<p>{country.fullName}</p>
-							</ComboboxOption>
-						))}
+						{searchResults.length ? (
+							searchResults.map((country) => (
+								<ComboboxOption
+									key={country.fullName}
+									value={country.fullName}
+									sx={{ p: { padding: 0 } }}
+								>
+									<p>{country.fullName}</p>
+								</ComboboxOption>
+							))
+						) : (
+							<p>
+								Er zijn geen landen gevonden die voldoen aan de zoekterm "
+								{country}".
+							</p>
+						)}
 					</ComboboxList>
 				</ComboboxPopover>
 			</Combobox>
