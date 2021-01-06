@@ -118,7 +118,6 @@ export enum CountrySlugs {
 	myanmar = 'myanmar',
 	namibie = 'namibie',
 	nauru = 'nauru',
-	nederland = 'nederland',
 	nepal = 'nepal',
 	nicaragua = 'nicaragua',
 	nieuwZeeland = 'nieuw-zeeland',
@@ -1166,14 +1165,6 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: RiskLevel.D_EU_INREISVERBOD,
-	},
-	{
-		fullName: 'Nederland',
-		slug: CountrySlugs.nederland,
-		coronaMelderCountry: false,
-		euCountry: true,
-		schengenCountry: true,
 		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
