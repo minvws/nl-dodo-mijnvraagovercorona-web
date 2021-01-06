@@ -262,6 +262,13 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 								title="Code oranje"
 								subHeading={duringOrAfter ? 'Totale reisduur' : 'Nu'}
 							>
+								{country?.riskLevel === RiskLevel.D_EU_INREISVERBOD && (
+									<>
+										Naast het coronarisico gelden er mogelijk nog andere
+										veiligheidsrisico’s in {country?.fullName}
+										<br />
+									</>
+								)}
 								<TravelInformationLink
 									href={`https://www.nederlandwereldwijd.nl/landen/${country?.slug}/reizen/reisadvies`}
 									text="Uitgebreid reisadvies"
