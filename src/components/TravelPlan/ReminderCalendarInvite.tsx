@@ -24,24 +24,24 @@ const ReminderCalendarInvite = (props: ReminderCalendarInviteProps) => {
 	const fromDate = parseDate(props.fromDate);
 	const toDate = parseDate(props.toDate);
 
-	const downloadLink = useMemo(() => {
-		let textContent = '';
-		if (date) {
-			textContent = generateCalendarInvite(
-				props.inviteTitle,
-				props.inviteText,
-				date,
-			);
-		} else if (fromDate && toDate) {
-			textContent = generateCalendarInvite(
-				props.inviteTitle,
-				props.inviteText,
-				fromDate,
-				toDate,
-			);
-		}
-		return `data:text/calendar;charset=utf8,${textContent}`;
-	}, [props.inviteTitle, props.inviteText, fromDate, toDate]);
+	// const downloadLink = useMemo(() => {
+	// 	let textContent = '';
+	// 	if (date) {
+	// 		textContent = generateCalendarInvite(
+	// 			props.inviteTitle,
+	// 			props.inviteText,
+	// 			date,
+	// 		);
+	// 	} else if (fromDate && toDate) {
+	// 		textContent = generateCalendarInvite(
+	// 			props.inviteTitle,
+	// 			props.inviteText,
+	// 			fromDate,
+	// 			toDate,
+	// 		);
+	// 	}
+	// 	return `data:text/calendar;charset=utf8,${textContent}`;
+	// }, [props.inviteTitle, props.inviteText, fromDate, toDate]);
 
 	let dateStr = '';
 	if (date) {
@@ -63,28 +63,13 @@ const ReminderCalendarInvite = (props: ReminderCalendarInviteProps) => {
 		dateStr = `${startSegment} t/m ${endSegment}`;
 	}
 
-	// If this is an iOS device and NOT the safari browser, we don't render
-	// anything for now. This due the fact that ics links do not work in these
-	// browsers.
-	if (
-		/(iPad|iPhone|iPod)/gi.test(navigator.userAgent) &&
-		(/CriOS/.test(navigator.userAgent) ||
-			/FxiOS/.test(navigator.userAgent) ||
-			/OPiOS/.test(navigator.userAgent))
-	) {
-		return null;
-	}
-
 	return (
 		<Container
 			sx={{
 				marginTop: '2em',
-				backgroundImage: `url("/icons/Button Arrow.svg")`,
-				backgroundRepeat: 'no-repeat',
-				backgroundPosition: 'right 1em top 50%',
 			}}
 		>
-			<a
+			<span
 				sx={{
 					backgroundColor: 'transparent',
 					border: '1px solid',
@@ -99,13 +84,13 @@ const ReminderCalendarInvite = (props: ReminderCalendarInviteProps) => {
 					backgroundRepeat: 'no-repeat',
 					backgroundPositionY: 'center',
 					backgroundPositionX: '1em',
-					cursor: 'pointer',
+					// cursor: 'pointer',
 					display: 'block',
 					width: '100%',
 					textAlign: 'left',
 				}}
-				download={`${props.inviteTitle}.ics`}
-				href={downloadLink}
+				// download={`${props.inviteTitle}.ics`}
+				// href={downloadLink}
 			>
 				<span
 					sx={{
@@ -127,7 +112,7 @@ const ReminderCalendarInvite = (props: ReminderCalendarInviteProps) => {
 				>
 					{dateStr}
 				</span>
-			</a>
+			</span>
 		</Container>
 	);
 };
