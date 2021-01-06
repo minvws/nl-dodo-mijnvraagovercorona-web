@@ -1713,6 +1713,14 @@ export const countries: Country[] = [
 		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 	},
 	{
+		fullName: 'Dubai',
+		slug: CountrySlugs.verenigdeArabischeEmiraten,
+		coronaMelderCountry: false,
+		euCountry: false,
+		schengenCountry: false,
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
+	},
+	{
 		fullName: 'Verenigde Staten van Amerika',
 		slug: CountrySlugs.verenigdeStatenVanAmerika,
 		coronaMelderCountry: false,
