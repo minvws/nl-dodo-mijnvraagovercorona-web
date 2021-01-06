@@ -225,13 +225,20 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 								date={new Date()}
 							>
 								<TravelAdvicePanel title="Blijf op de hoogte van de laatste ontwikkelingen op je bestemming">
-									<TravelInformationLink href="" text="Download de reisapp" />
+									<TravelInformationLink
+										href="https://www.nederlandwereldwijd.nl/documenten/vragen-en-antwoorden/reis-app-buitenlandse-zaken"
+										text="Download de reisapp"
+									/>
 								</TravelAdvicePanel>
 								{showCoronamelderApp && (
 									<TravelAdvicePanel
 										title={`Wist je dat de CoronaMelder ook werkt in ${country?.fullName}`}
 									>
-										<TravelInformationLink href="" text="Meer informatie" />
+										<TravelInformationLink
+											href="https://www.coronamelder.nl/nl/faq/13-gebruik-app-uit-ander-land/
+"
+											text="Meer informatie"
+										/>
 									</TravelAdvicePanel>
 								)}
 							</TravelPlanStage>
@@ -246,7 +253,10 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 								title="Code oranje"
 								subHeading={duringOrAfter ? 'Totale reisduur' : 'Nu'}
 							>
-								<TravelInformationLink href="" text="Uitgebreid reisadvies" />
+								<TravelInformationLink
+									href={`https://www.nederlandwereldwijd.nl/landen/${country?.slug}/reizen/reisadvies`}
+									text="Uitgebreid reisadvies"
+								/>
 							</TravelAdvicePanel>
 							{showNegativeTestResult && (
 								<TravelAdvicePanel
@@ -255,7 +265,10 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 								>
 									Je mag alleen terugreizen met een negatieve testuitslag
 									<br />
-									<TravelInformationLink href="" text="Meer informatie" />
+									<TravelInformationLink
+										href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/negatieve-covid-19-testuitslag-aankomst-nederland"
+										text="Meer informatie"
+									/>
 								</TravelAdvicePanel>
 							)}
 							{showNegativeTestDeclaration && (

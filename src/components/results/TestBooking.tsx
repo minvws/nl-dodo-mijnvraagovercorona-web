@@ -7,7 +7,7 @@ const TestBooking = () => {
 	return (
 		<>
 			<a
-				href=""
+				href="https://coronatest.nl/ik-wil-me-laten-testen/een-online-afspraak-maken"
 				target="_blank"
 				rel="noopener noreferrer"
 				sx={{ textDecoration: 'none' }}
