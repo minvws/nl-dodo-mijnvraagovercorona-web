@@ -145,6 +145,16 @@ const faqs: Array<[string, any]> = [
 			thuisquarantaine.
 		</p>,
 	],
+	[
+		'Wat moet ik doen als ik positief test op mijn reisbestemming vlak voor vertrek naar Nederland?',
+		<p>
+			Als je een positieve testuitslag hebt, mag je niet terugreizen naar
+			Nederland. Blijf in het land waar je verblijft tot de klachten over zijn.
+			Volg de adviezen van de lokale gezondheidsdiensten op. Pas als je geen
+			klachten meer hebt en negatief bent getest op corona, mag je naar
+			Nederland reizen.
+		</p>,
+	],
 ];
 
 const FaqList = ({ limit = faqs.length }: FaqListProps) => {
