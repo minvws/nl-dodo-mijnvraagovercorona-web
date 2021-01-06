@@ -268,13 +268,9 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 								title="Code oranje"
 								subHeading={duringOrAfter ? 'Totale reisduur' : 'Nu'}
 							>
-								{country?.riskLevel === RiskLevel.D_EU_INREISVERBOD && (
-									<>
-										Naast het coronarisico gelden er mogelijk nog
-										veiligheidsrisico's of beperkingen in {country?.fullName}
-										<br />
-									</>
-								)}
+								Naast het coronarisico gelden er mogelijk inreisbeperkingen of
+								veiligheidsrisico's in {country?.fullName}.
+								<br />
 								<TravelInformationLink
 									href={`https://www.nederlandwereldwijd.nl/landen/${country?.slug}/reizen/reisadvies`}
 									text="Uitgebreid reisadvies"
@@ -315,7 +311,6 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 						>
 							{showQuarantaine && (
 								<>
-									{/* Te complex bevonden https://fabrique.mydonedone.com/issuetracker/projects/82352/issues/45 */}
 									{/* <TravelAdvicePanel title="Tot en met dag 6">
 										<TravelInformationLink href="" text="Incubatietijd virus" />
 									</TravelAdvicePanel> */}

@@ -80,8 +80,9 @@ const Destination = () => {
 						</button>
 						<h2>Waarom vragen we je naar je bestemming?</h2>
 						<p>
-							Vaak wordt per regio bepaald hoe veilig het er is. Zo kunnen de
-							steden code oranje hebben en landelijke regio's code geel.
+							Op dit moment bieden wij enkel landelijk advies. Binnenkort
+							adviseren we ook op stedelijk en regionaal niveau op deze website.
+							Zie voor het uitgebreide reisadvies jouw reisschema.
 						</p>
 					</DialogContent>
 				</DialogOverlay>

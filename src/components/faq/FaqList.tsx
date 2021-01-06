@@ -30,7 +30,7 @@ const faqs: Array<[string, any]> = [
 			Dit is een van de Nederlandse maatregelen om de import en verspreiding van
 			het coronavirus tegen te gaan. Je kan{' '}
 			<a
-				href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/inreizen-doorreizen-nederland-en-het-eu-inreisverbod/negatieve-covid-19-testverklaring"
+				href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/negatieve-covid-19-testuitslag-aankomst-nederland"
 				target="_blank"
 				rel="noopener noreferrer"
 			>
@@ -70,7 +70,7 @@ const faqs: Array<[string, any]> = [
 			<p>
 				Meer informatie kan je{' '}
 				<a
-					href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/inreizen-doorreizen-nederland-en-het-eu-inreisverbod/reizigers-van-binnen-de-eu-schengen"
+					href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/negatieve-covid-19-testuitslag-aankomst-nederland"
 					target="_blank"
 					rel="noopener noreferrer"
 				>
@@ -94,7 +94,7 @@ const faqs: Array<[string, any]> = [
 			<p>
 				Meer informatie hierover kan je{' '}
 				<a
-					href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/inreizen-doorreizen-nederland-en-het-eu-inreisverbod/reizigers-van-buiten-de-eu-schengen"
+					href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/negatieve-covid-19-testuitslag-aankomst-nederland"
 					target="_blank"
 					rel="noopener noreferrer"
 				>
