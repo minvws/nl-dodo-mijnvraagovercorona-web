@@ -2,7 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 
-import { jsx, Container } from 'theme-ui';
+import { jsx, Container, Link as ThemeLink } from 'theme-ui';
 
 import MetaTags from 'components/meta/MetaTags';
 import FaqList from 'components/faq/FaqList';
@@ -11,7 +11,6 @@ import ContentPageHeader from 'components/structure/ContentPageHeader';
 import DataProtectionPanel from 'components/DataProtectionPanel';
 import Footer from 'components/structure/Footer';
 import AdviceContext from 'components/advice/AdviceContext';
-import { RetryLink } from 'components/Links';
 
 const generateResultLink = ({
 	from,
@@ -53,7 +52,32 @@ const FAQ = () => {
 						})}
 						passHref
 					>
-						<RetryLink>naar resultaat</RetryLink>
+						<ThemeLink
+							sx={{
+								position: 'absolute',
+								top: '30px',
+								textDecoration: 'none',
+								fontFamily: 'body',
+								verticalAlign: 'top',
+								color: 'copyHeading',
+								fontWeight: 700,
+								display: 'flex',
+								justifyContent: 'center',
+								alignItems: 'center',
+								'::before': {
+									display: 'block',
+									content: '""',
+									backgroundImage: `url("/icons/Refresh.svg")`,
+									backgroundRepeat: 'no-repeat',
+									backgroundSize: '1.5em 1.5em',
+									height: '1.5em',
+									width: '1.5em',
+									paddingRight: '0.5em',
+								},
+							}}
+						>
+							naar resultaat
+						</ThemeLink>
 					</Link>
 				)}
 				<div

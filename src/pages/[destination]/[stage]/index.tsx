@@ -19,7 +19,7 @@ import ReminderCalendarInvite from 'components/TravelPlan/ReminderCalendarInvite
 import FaqList from 'components/faq/FaqList';
 import DataProtectionPanel from 'components/DataProtectionPanel';
 import Footer from 'components/structure/Footer';
-import { InternalLink, RetryLink } from 'components/Links';
+import { InternalLink } from 'components/Links';
 import {
 	parseDate,
 	isMoreThanWeekBeforeDeparture,
@@ -99,7 +99,32 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 
 			<ContentPageHeader message={getPageTitle(color)}>
 				<Link href="/bestemming" passHref>
-					<RetryLink>opnieuw</RetryLink>
+					<ThemeLink
+						sx={{
+							position: 'absolute',
+							top: '30px',
+							textDecoration: 'none',
+							fontFamily: 'body',
+							verticalAlign: 'top',
+							color: 'copyHeading',
+							fontWeight: 700,
+							display: 'flex',
+							justifyContent: 'center',
+							alignItems: 'center',
+							'::before': {
+								display: 'block',
+								content: '""',
+								backgroundImage: `url("/icons/Refresh.svg")`,
+								backgroundRepeat: 'no-repeat',
+								backgroundSize: '1.5em 1.5em',
+								height: '1.5em',
+								width: '1.5em',
+								paddingRight: '0.5em',
+							},
+						}}
+					>
+						opnieuw
+					</ThemeLink>
 				</Link>
 				<ul
 					sx={{
