@@ -2,17 +2,15 @@
 import { GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next';
 import { jsx, Container, Button, Link, Image, Divider, Box } from 'theme-ui';
 
+import MetaTags from 'components/meta/MetaTags';
 import ContentPageHeader from 'components/structure/ContentPageHeader';
 import BodyContainer from 'components/structure/BodyContainer';
 import TestBooking from 'components/results/TestBooking';
 import ReminderCalendarInvite from 'components/TravelPlan/ReminderCalendarInvite';
 import FaqList from 'components/faq/FaqList';
-import Panel from 'components/structure/Panel';
 import DataProtectionPanel from 'components/DataProtectionPanel';
 import Footer from 'components/structure/Footer';
 import { InternalLink } from 'components/Links';
-import { parsePeriod } from 'utilities/pathUtils';
-import { getAdvice, Advice } from 'services/AdviceService';
 import {
 	parseDate,
 	isMoreThanWeekBeforeDeparture,
@@ -24,7 +22,6 @@ import { countries, RiskLevel } from 'config/countries';
 import TravelPlanStage from 'components/TravelPlan/TravelPlanStage';
 import TravelAdvicePanel from 'components/TravelPlan/TravelAdvicePanel';
 import TravelInformationLink from 'components/TravelPlan/TravelInformationLink';
-import advice from 'pages/advice';
 
 type Stage = 'voor-vertrek' | 'tijdens-je-reis' | 'na-thuiskomst';
 type Color = 'yellow' | 'orange' | 'red';
@@ -83,35 +80,17 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 		color = 'yellow';
 	}
 
-	/**
-	 *
-	 * Preparation (Befpre)
-	 * - Download Travel App
-	 * - Coronamelder App (A, B)
-	 *
-	 * Departure (Before, During)
-	 * - Color code based travel advice
-	 * - Negative test result (A / D / B)
-	 * - Negative test declaration (D)
-	 *
-	 * Home
-	 * - Start Q (A, D)
-	 * - Day 5 Q (A, D)
-	 *
-	 * End Home Q (A, D)
-	 *
-	 * Calender Check again (Before & If longer then 1 week from departure)
-	 *
-	 * Calendar for period of Home Q (A, D)
-	 *
-	 * Corona Symptoms (After)
-	 */
-
 	return (
 		<>
+			<MetaTags
+				title="Advies en actuele situatie bestemming | Quarantaine Reischeck | Reizentijdenscorona.nl"
+				description="Advies op basis van actuele informatie over bestemming."
+				url={`/${destination}/${stage}`}
+			/>
+
 			<ContentPageHeader message={getPageTitle(color)}>
 				<Link
-					href="/advice"
+					href="/bestemming"
 					sx={{
 						position: 'absolute',
 						top: '30px',
@@ -246,13 +225,20 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 								date={new Date()}
 							>
 								<TravelAdvicePanel title="Blijf op de hoogte van de laatste ontwikkelingen op je bestemming">
-									<TravelInformationLink href="" text="Download de reisapp" />
+									<TravelInformationLink
+										href="https://www.nederlandwereldwijd.nl/documenten/vragen-en-antwoorden/reis-app-buitenlandse-zaken"
+										text="Download de reisapp"
+									/>
 								</TravelAdvicePanel>
 								{showCoronamelderApp && (
 									<TravelAdvicePanel
 										title={`Wist je dat de CoronaMelder ook werkt in ${country?.fullName}`}
 									>
-										<TravelInformationLink href="" text="Meer informatie" />
+										<TravelInformationLink
+											href="https://www.coronamelder.nl/nl/faq/13-gebruik-app-uit-ander-land/
+"
+											text="Meer informatie"
+										/>
 									</TravelAdvicePanel>
 								)}
 							</TravelPlanStage>
@@ -267,7 +253,10 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 								title="Code oranje"
 								subHeading={duringOrAfter ? 'Totale reisduur' : 'Nu'}
 							>
-								<TravelInformationLink href="" text="Uitgebreid reisadvies" />
+								<TravelInformationLink
+									href={`https://www.nederlandwereldwijd.nl/landen/${country?.slug}/reizen/reisadvies`}
+									text="Uitgebreid reisadvies"
+								/>
 							</TravelAdvicePanel>
 							{showNegativeTestResult && (
 								<TravelAdvicePanel
@@ -276,7 +265,10 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 								>
 									Je mag alleen terugreizen met een negatieve testuitslag
 									<br />
-									<TravelInformationLink href="" text="Meer informatie" />
+									<TravelInformationLink
+										href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/negatieve-covid-19-testuitslag-aankomst-nederland"
+										text="Meer informatie"
+									/>
 								</TravelAdvicePanel>
 							)}
 							{showNegativeTestDeclaration && (
@@ -321,7 +313,9 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 					{showSecondCheckCalenderInvite && fromDate && (
 						<>
 							<ReminderCalendarInvite
-								message="Zet 'Check opnieuw invullen' in je agenda"
+								title="Zet 'Check opnieuw invullen' in je agenda"
+								inviteTitle="Reischeck invullen"
+								inviteText="Je bent van plan bijna op reis te gaan. De situatie kan veranderd zijn. Doe daarom nog een keer de check op www.reizentijdenscorona.nl"
 								date={addDays(new Date(fromDate), -7)}
 							/>
 							<Container
@@ -391,11 +385,13 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 						>
 							Wat moet ik regelen voor mijn thuisquarantaine?
 						</h3>
-						<InternalLink href="/preparations">Meer uitleg</InternalLink>
+						<InternalLink href="/voorbereiding">Meer uitleg</InternalLink>
 					</Box>
 					{showQuarantaine && toDate && (
 						<ReminderCalendarInvite
-							message="Zet je thuisquarantaine in je agenda"
+							title="Zet je thuisquarantaine in je agenda"
+							inviteTitle="Thuisquarantaine"
+							inviteText="Krijg je (lichte) klachten? Neem dan direct contact op met de GGD. Kijk voor tips over je thuisquarantaine op https://www.reizentijdenscorona.nl/voorbereiding"
 							fromDate={toDate}
 							toDate={addDays(toDate, 10)}
 						/>
@@ -444,7 +440,7 @@ export const getStaticPaths = () => ({
 		},
 		[],
 	),
-	fallback: true,
+	fallback: false,
 });
 
 export default AdviceResult;

@@ -33,16 +33,23 @@ class TravelCheckDocument extends Document {
 						href="/favicon-16x16.png"
 					/>
 					<link rel="manifest" href="/site.webmanifest" />
-					<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
-					<meta name="msapplication-TileColor" content="#da532c" />
+					<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#154273" />
+					<meta name="msapplication-TileColor" content="#154273" />
 					<meta name="theme-color" content="#ffffff" />
 				</Head>
 				<body>
-					{/* <Global styles={reset} />
-					<Global styles={fonts} />
-					<Global styles={defaults} /> */}
 					<Main />
 					<NextScript />
+
+					<script src="/piwik.js"></script>
+					<noscript>
+						<iframe
+							src="//statistiek.rijksoverheid.nl/containers/872e79b4-a648-4c3e-b890-d787b38802eb/noscript.html"
+							height="0"
+							width="0"
+							style={{ border: '0', display: 'none', visibility: 'hidden' }}
+						></iframe>
+					</noscript>
 				</body>
 			</Html>
 		);

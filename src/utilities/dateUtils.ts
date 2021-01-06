@@ -23,6 +23,7 @@ export const parseDate = (input: Date | string | string[]): Date => {
 // based on https://tools.ietf.org/html/rfc5545
 export const generateCalendarInvite = (
 	message: string,
+	longText: string,
 	date: Date,
 	endDate?: Date,
 ): string => {
@@ -40,15 +41,20 @@ export const generateCalendarInvite = (
 		endTimeStamp = createTimeStamp(parseDate(endDate));
 	}
 
-	return `BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//hacksw/handcal//NONSGML v1.0//EN
-BEGIN:VEVENT
-UID:${beginTimeStamp}@rijksoverheid.nl
-DTSTAMP:${createTimeStamp(new Date())}
-DTSTART:${beginTimeStamp}
-DTEND:${endTimeStamp}
-SUMMARY:${message}
-END:VEVENT
-END:VCALENDAR`;
+	return encodeURI(
+		[
+			'BEGIN:VCALENDAR',
+			'VERSION:2.0',
+			'BEGIN:VEVENT',
+			`UID:${beginTimeStamp}@rijksoverheid.nl`,
+			`DTSTAMP:${createTimeStamp(new Date())}`,
+			`DTSTART:${beginTimeStamp}`,
+			`DTEND:${endTimeStamp}`,
+			`SUMMARY:${message}`,
+			`DESCRIPTION:${longText}`,
+			'END:VEVENT',
+			'END:VCALENDAR',
+			// Used as array notation and joined later only because of readability.
+		].join('\n'),
+	);
 };

@@ -29,7 +29,11 @@ const faqs: Array<[string, any]> = [
 		<p>
 			Dit is een van de Nederlandse maatregelen om de import en verspreiding van
 			het coronavirus tegen te gaan. Je kan{' '}
-			<a href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/inreizen-doorreizen-nederland-en-het-eu-inreisverbod/negatieve-covid-19-testverklaring">
+			<a
+				href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/inreizen-doorreizen-nederland-en-het-eu-inreisverbod/negatieve-covid-19-testverklaring"
+				target="_blank"
+				rel="noopener noreferrer"
+			>
 				hier
 			</a>{' '}
 			meer lezen
@@ -65,7 +69,11 @@ const faqs: Array<[string, any]> = [
 			</ul>
 			<p>
 				Meer informatie kan je{' '}
-				<a href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/inreizen-doorreizen-nederland-en-het-eu-inreisverbod/reizigers-van-binnen-de-eu-schengen">
+				<a
+					href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/inreizen-doorreizen-nederland-en-het-eu-inreisverbod/reizigers-van-binnen-de-eu-schengen"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
 					hier
 				</a>{' '}
 				vinden
@@ -85,7 +93,11 @@ const faqs: Array<[string, any]> = [
 			</p>
 			<p>
 				Meer informatie hierover kan je{' '}
-				<a href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/inreizen-doorreizen-nederland-en-het-eu-inreisverbod/reizigers-van-buiten-de-eu-schengen">
+				<a
+					href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/inreizen-doorreizen-nederland-en-het-eu-inreisverbod/reizigers-van-buiten-de-eu-schengen"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
 					hier
 				</a>{' '}
 				vinden

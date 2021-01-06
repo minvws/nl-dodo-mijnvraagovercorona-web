@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { jsx, Container, Button } from 'theme-ui';
 import Link from 'next/link';
 
+import MetaTags from 'components/meta/MetaTags';
 import AdviceHeader from 'components/advice/AdviceHeader';
 import { InternalLink } from 'components/Links';
 import PeriodSelect from 'components/advice/PeriodSelect';
@@ -51,24 +52,32 @@ const Period = (props: any) => {
 		return 'na-thuiskomst';
 	};
 
-	/**
-	 * TODO:
-	 * * Change result to include before, during and after
-	 * * change period to query params
-	 */
-	const resultLink = () =>
-		`${props.destination}/${calculateStage({
+	const resultLink = () => {
+		const stage = calculateStage({
 			fromDate,
 			toDate,
-		})}?van=${formatDate(fromDate)}&tot=${formatDate(toDate)}`;
+		});
+		const { destination } = props;
+
+		return {
+			pathname: `/${destination}/${stage}`,
+			query: { van: formatDate(fromDate), tot: formatDate(toDate) },
+		};
+	};
 
 	if (!country) {
-		if (isBrowser()) router.push('/advice');
+		if (isBrowser()) router.push('/bestemming');
 		return null;
 	}
 
 	return (
 		<>
+			<MetaTags
+				title="Planning | Quarantaine Reischeck | Reizentijdenscorona.nl"
+				description="Actuele informatie over bestemming en maatregelen."
+				url={`/${props.destination}/periode`}
+			/>
+
 			<AdviceHeader
 				header="In welke periode ben of was je daar?"
 				questionStage={2}
@@ -134,7 +143,7 @@ export const getStaticPaths = () => ({
 	paths: countries.map((country) => ({
 		params: { destination: country.slug },
 	})),
-	fallback: true,
+	fallback: false,
 });
 
 export default Period;
