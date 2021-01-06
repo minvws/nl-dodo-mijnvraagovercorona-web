@@ -111,6 +111,7 @@ const Period = ({ destination }: { destination: string }) => {
 					<div
 						sx={{
 							textAlign: 'right',
+              paddingLeft: 'mobilePadding',
 							paddingRight: 'mobilePadding',
 							paddingTop: ['auto', '51px'],
 							paddingBottom: ['auto', '63px'],
