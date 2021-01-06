@@ -149,8 +149,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 						<li>
 							Voor je terugreis naar Nederland heb je een{' '}
 							<strong>negatieve testuitslag</strong> en{' '}
-							<strong>verklaring</strong>
-							nodig.
+							<strong>verklaring</strong> nodig.
 						</li>
 					)}
 
