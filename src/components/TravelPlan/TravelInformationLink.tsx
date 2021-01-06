@@ -18,6 +18,7 @@ const TravelInformationLink = (props: TravelInformationLinkProps) => {
 			target="_blank"
 			rel="noopener noreferrer"
 			sx={{
+				color: 'text',
 				'::after': {
 					display: 'inline-block',
 					content: '""',
