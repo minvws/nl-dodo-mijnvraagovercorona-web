@@ -22,7 +22,11 @@ const Privacy = () => {
 				>
 					Wilt u meer informatie over het privacybeleid van de Rijksoverheid,
 					kijk dan op{' '}
-					<a href="https://www.rijksoverheid.nl/privacy">
+					<a
+						href="https://www.rijksoverheid.nl/privacy"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
 						www.rijksoverheid.nl/privacy
 					</a>
 					.

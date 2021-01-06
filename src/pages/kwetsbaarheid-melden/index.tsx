@@ -22,7 +22,11 @@ const Cookies = () => {
 				</Styled.p>
 				<Styled.p sx={{ paddingBottom: '80px' }}>
 					Een melding doorgeven kan via{' '}
-					<a href="https://www.ncsc.nl/contact/kwetsbaarheid-melden">
+					<a
+						href="https://www.ncsc.nl/contact/kwetsbaarheid-melden"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
 						www.ncsc.nl/contact/kwetsbaarheid-melden
 					</a>
 				</Styled.p>

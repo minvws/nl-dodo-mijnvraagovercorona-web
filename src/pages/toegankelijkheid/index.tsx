@@ -55,7 +55,11 @@ const Cookies = () => {
 				<Styled.h3>Problemen met toegankelijkheid melden</Styled.h3>
 				<Styled.p sx={{ marginBottom: '80px' }}>
 					Heeft u vragen of opmerkingen? Dan kunt u contact opnemen via{' '}
-					<a href="mailto:reizentijdenscorona@minvws.nl">
+					<a
+						href="mailto:reizentijdenscorona@minvws.nl"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
 						reizentijdenscorona@minvws.nl
 					</a>
 					.

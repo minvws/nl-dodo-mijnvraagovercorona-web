@@ -15,6 +15,8 @@ const TravelInformationLink = (props: TravelInformationLinkProps) => {
 	return (
 		<a
 			href={props.href}
+			target="_blank"
+			rel="noopener noreferrer"
 			sx={{
 				'::after': {
 					display: 'inline-block',
