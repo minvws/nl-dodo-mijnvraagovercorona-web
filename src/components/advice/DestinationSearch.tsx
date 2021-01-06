@@ -18,7 +18,7 @@ import AdviceContext from 'components/advice/AdviceContext';
 
 const DestinationSearch = () => {
 	const [searchResults, setSearchResults] = useState<Country[]>([]);
-	const [country, setCountry] = useState<string>();
+	const [userInput, setUserInput] = useState<string>('');
 	const { setDestination } = React.useContext(AdviceContext);
 
 	const router = useRouter();
@@ -26,7 +26,7 @@ const DestinationSearch = () => {
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const { value } = event.target;
 
-		setCountry(value);
+		setUserInput(value);
 
 		if (value === '') {
 			setSearchResults([]);
@@ -122,13 +122,20 @@ const DestinationSearch = () => {
 										value={country.fullName}
 										sx={{ p: { padding: 0 } }}
 									>
-										<p>{country.fullName}</p>
+										<p
+											dangerouslySetInnerHTML={{
+												__html: country.fullName.replace(
+													new RegExp(userInput, 'gi'),
+													'<strong>$&</strong>',
+												),
+											}}
+										/>
 									</ComboboxOption>
 								))
 							) : (
 								<p>
 									Er zijn geen landen gevonden die voldoen aan de zoekterm "
-									{country}".
+									{userInput}".
 								</p>
 							)}
 						</ComboboxList>
