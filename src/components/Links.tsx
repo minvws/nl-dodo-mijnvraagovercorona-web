@@ -2,7 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 
-import { ThemeUICSSObject, Box, jsx } from 'theme-ui';
+import { ThemeUICSSObject, Box, jsx, Link as ThemeLink } from 'theme-ui';
 import theme from 'utilities/styling/theme';
 
 interface Symbol {
@@ -111,3 +111,32 @@ export const InternalLink = linkWithIcon({
 	symbol: InternalLinkSymbol,
 	internal: true,
 });
+
+export const RetryLink: React.FC = ({ children }) => (
+	<ThemeLink
+		sx={{
+			position: 'absolute',
+			top: '30px',
+			textDecoration: 'none',
+			fontFamily: 'body',
+			verticalAlign: 'top',
+			color: 'copyHeading',
+			fontWeight: 700,
+			display: 'flex',
+			justifyContent: 'center',
+			alignItems: 'center',
+			'::before': {
+				display: 'block',
+				content: '""',
+				backgroundImage: `url("/icons/Refresh.svg")`,
+				backgroundRepeat: 'no-repeat',
+				backgroundSize: '1.5em 1.5em',
+				height: '1.5em',
+				width: '1.5em',
+				paddingRight: '0.5em',
+			},
+		}}
+	>
+		{children}
+	</ThemeLink>
+);
