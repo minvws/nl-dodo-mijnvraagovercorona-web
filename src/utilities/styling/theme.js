@@ -33,7 +33,7 @@ export default {
     },
     breakpoints: ['1024px', '1280px', '1440px'],
     sizes: {
-        bodyContainer: ['100%', '665px'],
+        maxWidthBody: ['665px'],
         buttonHeight: '55px'
     },
     space: {

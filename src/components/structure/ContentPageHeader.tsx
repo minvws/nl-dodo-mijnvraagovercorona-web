@@ -33,7 +33,7 @@ const ContentPageHeader = (props: ContentPageProps) => {
             sx={headerStyles}>
             <RoHeaderLogo align='center'/>
             <Container sx={{
-                width: ['100%', 'bodyContainer'],
+                maxWidth: 'maxWidthBody',
                 paddingLeft: ['mobilePadding', 0],
                 paddingRight: ['mobilePadding', 0],
                 paddingTop: [0]
