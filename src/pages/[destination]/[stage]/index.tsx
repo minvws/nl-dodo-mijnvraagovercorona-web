@@ -243,8 +243,8 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 							>
 								{country?.riskLevel === RiskLevel.D_EU_INREISVERBOD && (
 									<>
-										Naast het coronarisico gelden er mogelijk nog andere
-										veiligheidsrisico’s in {country?.fullName}
+										Naast het coronarisico gelden er mogelijk nog
+										veiligheidsrisico's of beperkingen in {country?.fullName}
 										<br />
 									</>
 								)}
