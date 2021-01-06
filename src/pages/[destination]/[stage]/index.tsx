@@ -313,7 +313,9 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 					{showSecondCheckCalenderInvite && fromDate && (
 						<>
 							<ReminderCalendarInvite
-								message="Zet 'Check opnieuw invullen' in je agenda"
+								title="Zet 'Check opnieuw invullen' in je agenda"
+								inviteTitle="Reischeck invullen"
+								inviteText="Je bent van plan bijna op reis te gaan. De situatie kan veranderd zijn. Doe daarom nog een keer de check op www.reizentijdenscorona.nl"
 								date={addDays(new Date(fromDate), -7)}
 							/>
 							<Container
@@ -387,7 +389,9 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 					</Box>
 					{showQuarantaine && toDate && (
 						<ReminderCalendarInvite
-							message="Zet je thuisquarantaine in je agenda"
+							title="Zet je thuisquarantaine in je agenda"
+							inviteTitle="Thuisquarantaine"
+							inviteText="Krijg je (lichte) klachten? Neem dan direct contact op met de GGD. Kijk voor tips over je thuisquarantaine op https://www.reizentijdenscorona.nl/voorbereiding"
 							fromDate={toDate}
 							toDate={addDays(toDate, 10)}
 						/>
