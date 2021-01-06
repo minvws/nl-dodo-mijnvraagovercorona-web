@@ -24,7 +24,7 @@ const HomePageNavigation = () => {
                 borderBottom: ['none', '1px solid #AEC1D1']
             }}>
                 <AnchorLink href="#privacy">
-                    Je privacy is altjd beschermd
+                    Je privacy is altijd beschermd
                 </AnchorLink>
                 <AnchorLink href="#snel">
                     Binnen 2 minuten resultaat

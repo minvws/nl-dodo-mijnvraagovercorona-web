@@ -44,7 +44,8 @@ const ContentPageHeader = (props: ContentPageProps) => {
                       fontFamily: 'heading',
                       fontWeight: 'bold',
                       marginTop: ['26px', '42px'],
-                      maxWidth: '55%'
+                      maxWidth: '55%',
+                      color: 'smallText'
                   }}>
                       {props.secondaryMessage}
                   </p>

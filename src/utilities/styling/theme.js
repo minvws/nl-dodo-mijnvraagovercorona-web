@@ -14,7 +14,7 @@ export default {
         hoverSecondary: '#931e55',
         structureBackground: '#f0d5e2',
         backgroundSecondary: '#f4b843',
-        footerBackground: '#2e6895',
+        footerBackground: '#0e6999',
         roHighlight: '#21416F',
         internalLink: '#3D7AA3',
         inputBorder: '#CECECE',
@@ -33,6 +33,7 @@ export default {
     },
     breakpoints: ['1024px', '1280px', '1440px'],
     sizes: {
+        container: '100%',
         maxWidthBody: ['665px'],
         buttonHeight: '55px'
     },
@@ -67,6 +68,10 @@ export default {
         body: '20px',
         bodyMobile: '19px',
         smallText: '16px',
+        footerText: '19px'
+    },
+    fontWeights: {
+      light: 400
     },
     lineHeights: {
         button: '28px',

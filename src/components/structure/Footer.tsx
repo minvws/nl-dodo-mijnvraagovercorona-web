@@ -26,10 +26,11 @@ const Footer = ({ onlyDesktop = false, pushToBottom = false }: FooterProps) => {
 				display: [mobileDisplay, 'inherit'],
 				backgroundColor: 'footerBackground',
 				color: 'white',
-				fontSize: 'bodyMobile',
+				fontSize: 'footerText',
 				h3: {
 					marginBottom: 0,
 					paddingBottom: '1px',
+					fontSize: 'footerText',
 				},
 				a: {
 					color: 'white',
