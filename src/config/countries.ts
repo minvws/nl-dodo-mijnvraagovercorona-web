@@ -186,7 +186,7 @@ export enum CountrySlugs {
 	vaticaanstad = 'vaticaanstad',
 	venezuela = 'venezuela',
 	verenigdKoninkrijk = 'verenigd-koninkrijk',
-	verenigdeArabischeEmiraten = 'verenigde-arabische-amiraten',
+	verenigdeArabischeEmiraten = 'verenigde-arabische-emiraten',
 	verenigdeStatenVanAmerika = 'verenigde-staten-van-amerika',
 	vietnam = 'vietnam',
 	westelijkeSahara = 'westelijke-sahara',
