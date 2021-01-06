@@ -157,11 +157,14 @@ const Period = ({ destination }: { destination: string }) => {
 						>
 							<VisuallyHidden>Close</VisuallyHidden>
 						</button>
-						<h2>Waarom vragen we je naar je bestemming?</h2>
+						<h2>Waarom vragen we je naar je reisperiode?</h2>
 						<p>
-							Het is mogelijk dat een land van kleur verandert tijdens je
-							verblijf. Daarnaast bieden we je andere informatie als je op reis
-							gaat, dan wanneer je net terug bent.
+							Het is het mogelijk dat een regio van kleur verandert tijdens je
+							verblijf.
+						</p>
+						<p>
+							Daarnaast bieden we je andere informatie als je op reis gaat, dan
+							wanneer je net terug bent.
 						</p>
 					</DialogContent>
 				</DialogOverlay>
