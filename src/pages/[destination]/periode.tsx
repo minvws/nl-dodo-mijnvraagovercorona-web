@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { jsx, Container, Button } from 'theme-ui';
 import Link from 'next/link';
 import VisuallyHidden from '@reach/visually-hidden';
@@ -62,6 +62,7 @@ const Period = ({ destination }: { destination: string }) => {
 	const country = useDestination(destination as string);
 	const { setFrom, setTo, setStage } = React.useContext(AdviceContext);
 	const router = useRouter();
+	const submitButtonRef = useRef<HTMLButtonElement>(null);
 
 	const [fromDate, setFromDate] = useState<Date>();
 	const [toDate, setToDate] = useState<Date>();
@@ -86,6 +87,22 @@ const Period = ({ destination }: { destination: string }) => {
 			if (setStage) setStage(stage);
 		}
 	}, [fromDate, toDate, destination]);
+
+	/**
+	 * On smaller screen devices scroll submit button into view after
+	 * start and end date are selected.
+	 */
+	useEffect(() => {
+		if (
+			fromDate &&
+			toDate &&
+			submitButtonRef.current &&
+			window.innerWidth < 800 &&
+			typeof submitButtonRef.current.scrollIntoView === 'function'
+		) {
+			submitButtonRef.current.scrollIntoView();
+		}
+	}, [fromDate, toDate]);
 
 	const updateDate = ({ from, to }: { from?: Date; to?: Date }) => {
 		setFromDate(from);
@@ -143,6 +160,7 @@ const Period = ({ destination }: { destination: string }) => {
 					>
 						<Link href={resultLink}>
 							<Button
+								ref={submitButtonRef}
 								sx={{
 									width: ['100%', 'auto'],
 									paddingLeft: ['auto', 'buttonPadding'],
