@@ -1,4 +1,5 @@
 export default {
+  useCustomProperties: false,
 	colors: {
 		text: '#000000',
 		header: '#21426F',
