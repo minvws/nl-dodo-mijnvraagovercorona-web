@@ -95,6 +95,9 @@ export default {
 			a: {
 				color: 'copyHeading',
 			},
+			button: {
+				cursor: 'pointer',
+			},
 		},
 		h1: {
 			fontFamily: 'heading',
