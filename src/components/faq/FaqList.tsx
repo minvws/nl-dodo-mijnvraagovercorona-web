@@ -15,7 +15,7 @@ const faqs: Array<[string, any]> = [
 			Thuisquarantaine betekent dat je thuisblijft en geen bezoek ontvangt. Dit
 			doe je als je risico hebt gelopen om met corona besmet te zijn. Door in
 			thuisquarantaine te gaan voorkom je dat het coronavirus zich verder
-			verspreidt. Lees hier{' '}
+			verspreidt. Lees{' '}
 			<Link href="/voorbereiding">
 				<a
 					sx={{
