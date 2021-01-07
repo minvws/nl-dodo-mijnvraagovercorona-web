@@ -137,7 +137,7 @@ const Period = ({ destination }: { destination: string }) => {
 							textAlign: 'right',
 							paddingLeft: 'mobilePadding',
 							paddingRight: 'mobilePadding',
-							paddingTop: ['auto', '51px'],
+							paddingTop: ['auto', '18px'],
 							paddingBottom: ['auto', '63px'],
 						}}
 					>
