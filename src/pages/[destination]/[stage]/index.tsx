@@ -314,9 +314,13 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 						>
 							{showQuarantaine && (
 								<>
-									{/* <TravelAdvicePanel title="Tot en met dag 6">
-										<TravelInformationLink href="" text="Incubatietijd virus" />
-									</TravelAdvicePanel> */}
+									<TravelAdvicePanel title="Bereid jezelf goed voor">
+										<TravelInformationLink
+											href="/voorbereiding"
+											text="Wat moet ik regelen?"
+											internal
+										/>
+									</TravelAdvicePanel>
 									<TravelAdvicePanel title="Tot en met dag 10">
 										<DialogLink
 											href=""
