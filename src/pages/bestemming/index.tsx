@@ -41,9 +41,10 @@ const Destination = () => {
 					closeDialog={() => setShowDialog(false)}
 				>
 					<p>
-						Op dit moment bieden wij enkel landelijk advies. Binnenkort
-						adviseren we ook op stedelijk en regionaal niveau op deze website.
-						Zie voor het uitgebreide reisadvies jouw reisschema.
+						Door deze informatie kunnen we je specifiek advies geven, afgestemd
+						op jouw bestemming. Op dit moment bieden wij enkel landelijk advies.
+						Binnenkort adviseren we ook op stedelijk en regionaal niveau op deze
+						website. Zie voor het uitgebreide reisadvies jouw reisschema.
 					</p>
 				</Dialog>
 			</AdviceHeader>
