@@ -32,8 +32,6 @@ const generateResultLink = ({
 const PreparationsPage = () => {
 	const { from, to, stage, destination } = React.useContext(AdviceContext);
 
-	console.log({ from, to, stage, destination });
-
 	return (
 		<>
 			<MetaTags

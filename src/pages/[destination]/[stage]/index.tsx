@@ -315,11 +315,17 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 							{showQuarantaine && (
 								<>
 									<TravelAdvicePanel title="Bereid jezelf goed voor">
-										<TravelInformationLink
-											href="/voorbereiding"
-											text="Wat moet ik regelen?"
-											internal
-										/>
+										<Link href="/voorbereiding">
+											<a
+												sx={{
+													color: 'text',
+													textDecoration: 'underline',
+													cursor: 'pointer',
+												}}
+											>
+												Wat moet ik regelen?
+											</a>
+										</Link>
 									</TravelAdvicePanel>
 									<TravelAdvicePanel title="Tot en met dag 10">
 										<DialogLink
