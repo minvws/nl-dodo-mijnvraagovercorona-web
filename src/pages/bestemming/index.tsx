@@ -5,13 +5,13 @@ import { jsx } from 'theme-ui';
 import MetaTags from 'components/meta/MetaTags';
 import AdviceHeader from 'components/advice/AdviceHeader';
 import { InternalLink } from 'components/Links';
-import { DialogOverlay, DialogContent } from '@reach/dialog';
 import VisuallyHidden from '@reach/visually-hidden';
 import '@reach/dialog/styles.css';
 import BodyContainer from 'components/structure/BodyContainer';
 import DestinationSearch from 'components/advice/DestinationSearch';
 import DataProtectionPanel from 'components/DataProtectionPanel';
 import Footer from 'components/structure/Footer';
+import { Dialog } from 'components/dialog';
 
 const Destination = () => {
 	const [showDialog, setShowDialog] = useState(false);
@@ -19,7 +19,6 @@ const Destination = () => {
 		event.preventDefault();
 		setShowDialog(true);
 	};
-	const closeDialog = () => setShowDialog(false);
 
 	return (
 		<>
@@ -36,56 +35,18 @@ const Destination = () => {
 				<InternalLink href="" onClick={openDialog}>
 					Waarom vragen we dit?
 				</InternalLink>
-				<DialogOverlay
-					aria-label="Waarom we vragen je naar je bestemming?"
-					isOpen={showDialog}
-					onDismiss={closeDialog}
-					sx={{
-						background: 'rgba(1, 104, 155, 0.7)',
-						paddingRight: [0, '300px', '400px'],
-						paddingTop: [0, '67px'],
-						p: {
-							fontSize: ['bodyMobile', 'body'],
-							lineHeight: ['bodyMobile', 'body'],
-						},
-					}}
+				<Dialog
+					title="Waarom vragen we je naar je bestemming?"
+					isVisible={showDialog}
+					closeDialog={() => setShowDialog(false)}
 				>
-					<DialogContent
-						sx={{
-							width: '100%',
-							maxWidth: '434px',
-							height: ['100%', 'auto'],
-							borderRadius: [0, '20px'],
-							color: 'header',
-							marginTop: ['auto', '168px'],
-						}}
-					>
-						<button
-							className="close-button"
-							onClick={closeDialog}
-							sx={{
-								background: 'url("/icons/Close.svg")',
-								backgroundRepeat: 'no-repeat',
-								backgroundSize: '18px 18px',
-								backgroundPosition: 'right top',
-								border: 'none',
-								float: 'right',
-								height: '18px',
-								width: '18px',
-								marginTop: '-12px',
-								marginRight: '-15px',
-							}}
-						>
-							<VisuallyHidden>Close</VisuallyHidden>
-						</button>
-						<h2>Waarom vragen we je naar je bestemming?</h2>
-						<p>
-							Op dit moment bieden wij enkel landelijk advies. Binnenkort
-							adviseren we ook op stedelijk en regionaal niveau op deze website.
-							Zie voor het uitgebreide reisadvies jouw reisschema.
-						</p>
-					</DialogContent>
-				</DialogOverlay>
+					<p>
+						Door deze informatie kunnen we je specifiek advies geven, afgestemd
+						op jouw bestemming. Op dit moment bieden wij enkel landelijk advies.
+						Binnenkort adviseren we ook op stedelijk en regionaal niveau op deze
+						website. Zie voor het uitgebreide reisadvies jouw reisschema.
+					</p>
+				</Dialog>
 			</AdviceHeader>
 			<BodyContainer>
 				<div

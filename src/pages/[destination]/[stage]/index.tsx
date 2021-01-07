@@ -19,7 +19,7 @@ import ReminderCalendarInvite from 'components/TravelPlan/ReminderCalendarInvite
 import FaqList from 'components/faq/FaqList';
 import DataProtectionPanel from 'components/DataProtectionPanel';
 import Footer from 'components/structure/Footer';
-import { InternalLink } from 'components/Links';
+import { DialogLink, InternalLink } from 'components/Links';
 import {
 	parseDate,
 	isMoreThanWeekBeforeDeparture,
@@ -31,6 +31,8 @@ import { countries, RiskLevel } from 'config/countries';
 import TravelPlanStage from 'components/TravelPlan/TravelPlanStage';
 import TravelAdvicePanel from 'components/TravelPlan/TravelAdvicePanel';
 import TravelInformationLink from 'components/TravelPlan/TravelInformationLink';
+import { Dialog } from 'components/dialog';
+import { useState } from 'react';
 
 type Stage = 'voor-vertrek' | 'tijdens-je-reis' | 'na-thuiskomst';
 type Color = 'yellow' | 'orange' | 'red';
@@ -56,6 +58,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 	const { van, tot } = router.query;
 	const fromDate: Date | undefined = van ? parseDate(van) : undefined;
 	const toDate: Date | undefined = tot ? parseDate(tot) : undefined;
+	const [showDialog, setShowDialog] = useState(false);
 
 	const showPreperation = stage === 'voor-vertrek';
 	const showCoronamelderApp = country?.coronaMelderCountry;
@@ -311,11 +314,42 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 						>
 							{showQuarantaine && (
 								<>
-									{/* <TravelAdvicePanel title="Tot en met dag 6">
-										<TravelInformationLink href="" text="Incubatietijd virus" />
-									</TravelAdvicePanel> */}
+									<TravelAdvicePanel title="Bereid jezelf goed voor">
+										<Link href="/voorbereiding">
+											<a
+												sx={{
+													color: 'text',
+													textDecoration: 'underline',
+													cursor: 'pointer',
+												}}
+											>
+												Wat moet ik regelen?
+											</a>
+										</Link>
+									</TravelAdvicePanel>
 									<TravelAdvicePanel title="Tot en met dag 10">
-										<TravelInformationLink href="" text="Mogelijke klachten" />
+										<DialogLink
+											href=""
+											onClick={(ev) => {
+												ev.preventDefault();
+												setShowDialog(true);
+											}}
+										>
+											Mogelijke klachten
+										</DialogLink>
+										<Dialog
+											title="Tot en met dag 10 - Mogelijke klachten"
+											isVisible={showDialog}
+											closeDialog={() => setShowDialog(false)}
+										>
+											<p>
+												Uit het bron- en contactonderzoek van de GGD blijkt dat
+												bij 99% van de contacten die klachten krijgt, dit
+												gebeurt binnen 10 dagen na het laatste contact met
+												iemand met besmet is met het virus.
+											</p>
+											<p>Krijg je klachten? Laat je dan testen bij de GGD.</p>
+										</Dialog>
 									</TravelAdvicePanel>
 								</>
 							)}

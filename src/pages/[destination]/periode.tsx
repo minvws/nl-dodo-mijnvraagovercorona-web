@@ -2,9 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { jsx, Container, Button } from 'theme-ui';
 import Link from 'next/link';
-import { DialogOverlay, DialogContent } from '@reach/dialog';
 import VisuallyHidden from '@reach/visually-hidden';
-import '@reach/dialog/styles.css';
 
 import MetaTags from 'components/meta/MetaTags';
 import AdviceHeader from 'components/advice/AdviceHeader';
@@ -19,6 +17,7 @@ import { useRouter } from 'next/router';
 import { countries } from 'config/countries';
 import { isBrowser } from 'utilities/is-browser';
 import AdviceContext from 'components/advice/AdviceContext';
+import { Dialog } from 'components/dialog';
 
 const calculateStage = ({
 	fromDate,
@@ -73,7 +72,6 @@ const Period = ({ destination }: { destination: string }) => {
 		event.preventDefault();
 		setShowDialog(true);
 	};
-	const closeDialog = () => setShowDialog(false);
 
 	useEffect(() => {
 		if (fromDate && toDate) {
@@ -115,59 +113,20 @@ const Period = ({ destination }: { destination: string }) => {
 				<InternalLink href="" onClick={openDialog}>
 					Waarom vragen we dit?
 				</InternalLink>
-				<DialogOverlay
-					aria-label="Waarom we vragen je naar je bestemming?"
-					isOpen={showDialog}
-					onDismiss={closeDialog}
-					sx={{
-						background: 'rgba(1, 104, 155, 0.7)',
-						paddingRight: [0, '300px', '400px'],
-						paddingTop: [0, '67px'],
-						p: {
-							fontSize: ['bodyMobile', 'body'],
-							lineHeight: ['bodyMobile', 'body'],
-						},
-					}}
+				<Dialog
+					title="Waarom vragen we je naar je reisperiode?"
+					isVisible={showDialog}
+					closeDialog={() => setShowDialog(false)}
 				>
-					<DialogContent
-						sx={{
-							width: '100%',
-							maxWidth: '434px',
-							height: ['100%', 'auto'],
-							borderRadius: [0, '20px'],
-							color: 'header',
-							marginTop: ['auto', '168px'],
-						}}
-					>
-						<button
-							className="close-button"
-							onClick={closeDialog}
-							sx={{
-								background: 'url("/icons/Close.svg")',
-								backgroundRepeat: 'no-repeat',
-								backgroundSize: '18px 18px',
-								backgroundPosition: 'right top',
-								border: 'none',
-								float: 'right',
-								height: '18px',
-								width: '18px',
-								marginTop: '-12px',
-								marginRight: '-15px',
-							}}
-						>
-							<VisuallyHidden>Close</VisuallyHidden>
-						</button>
-						<h2>Waarom vragen we je naar je reisperiode?</h2>
-						<p>
-							Het is mogelijk dat een land van kleur verandert tijdens je
-							verblijf.
-						</p>
-						<p>
-							Daarnaast bieden we je andere informatie als je op reis gaat, dan
-							wanneer je net terug bent.
-						</p>
-					</DialogContent>
-				</DialogOverlay>
+					<p>
+						Het is mogelijk dat een land van kleur verandert tijdens je
+						verblijf.
+					</p>
+					<p>
+						Daarnaast bieden we je andere informatie als je op reis gaat, dan
+						wanneer je net terug bent.
+					</p>
+				</Dialog>
 			</AdviceHeader>
 
 			<PeriodSelect country={country?.fullName} updatePage={updateDate} />
@@ -178,7 +137,7 @@ const Period = ({ destination }: { destination: string }) => {
 							textAlign: 'right',
 							paddingLeft: 'mobilePadding',
 							paddingRight: 'mobilePadding',
-							paddingTop: ['auto', '51px'],
+							paddingTop: ['auto', '18px'],
 							paddingBottom: ['auto', '63px'],
 						}}
 					>

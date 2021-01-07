@@ -2,6 +2,7 @@
 import React from 'react';
 import { jsx } from 'theme-ui';
 import FaqItem from 'components/faq/FaqItem';
+import Link from 'next/link';
 
 type FaqListProps = {
 	limit?: number;
@@ -14,7 +15,19 @@ const faqs: Array<[string, any]> = [
 			Thuisquarantaine betekent dat je thuisblijft en geen bezoek ontvangt. Dit
 			doe je als je risico hebt gelopen om met corona besmet te zijn. Door in
 			thuisquarantaine te gaan voorkom je dat het coronavirus zich verder
-			verspreidt.
+			verspreidt. Lees hier{' '}
+			<Link href="/voorbereiding">
+				<a
+					sx={{
+						color: 'text',
+						textDecoration: 'underline',
+						cursor: 'pointer',
+					}}
+				>
+					hier
+				</a>
+			</Link>{' '}
+			meer wat je moet regelen voor je thuisquarantaine
 		</p>,
 	],
 	[

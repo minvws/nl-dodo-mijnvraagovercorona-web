@@ -46,6 +46,22 @@ const Home = () => {
 			<BodyContainer>
 				<DataProtectionPanel />
 				<CopySection />
+
+				<a
+					href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/coronavirus-beeld-en-video/communicatiemiddelen-campagne"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					<img
+						sx={{
+							width: '360px',
+							maxWidth: '80%',
+							margin: '20px auto 40px auto',
+							display: 'block',
+						}}
+						src="/images/logo-alleen-samen.svg"
+					/>
+				</a>
 			</BodyContainer>
 
 			<Footer />

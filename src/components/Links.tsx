@@ -34,6 +34,24 @@ const InternalLinkSymbol = {
 	},
 };
 
+const DialogSymbol = {
+	iconFile: '/icons/Question.svg',
+	width: '16px',
+	height: '16px',
+	position: 'right',
+	verticalShift: '2px',
+	style: {
+		paddingLeft: 0,
+		color: 'text',
+		fontSize: 'chapeau',
+		lineHeight: 'chapeau',
+		fontWeight: '500',
+		':hover,:focus': {
+			color: 'text',
+		},
+	},
+};
+
 type LinkProps = {
 	href: string;
 	internal?: boolean;
@@ -111,6 +129,8 @@ export const InternalLink = linkWithIcon({
 	symbol: InternalLinkSymbol,
 	internal: true,
 });
+// @TODO: I'd rather see this as a button instead of a link
+export const DialogLink = linkWithIcon({ symbol: DialogSymbol });
 
 export const RetryLink: React.FC = ({ children }) => (
 	<ThemeLink
