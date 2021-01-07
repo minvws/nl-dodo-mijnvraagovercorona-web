@@ -14,9 +14,9 @@ const Cookies = () => {
 			/>
 
 			<ContentPage title="Cookies">
-				<Styled.h3 sx={{ paddingTop: '63px' }}>
+				<Styled.h2 sx={{ paddingTop: '63px' }}>
 					Algemene Verordening Gegevensbescherming
-				</Styled.h3>
+				</Styled.h2>
 				<Styled.p>
 					Reizentijdenscorona.nl gebruikt cookies voor statistieken om te
 					begrijpen hoe bezoekers de website gebruiken. Deze informatie helpt de
@@ -59,7 +59,7 @@ const Cookies = () => {
 					Wij verstrekken geen persoonsgegevens aan derden, tenzij dat
 					noodzakelijk is om aangifte te doen van strafbare feiten.
 				</Styled.p>
-				<Styled.h3>Telecomwet – cookies voor webstatistieken</Styled.h3>
+				<Styled.h2>Telecomwet – cookies voor webstatistieken</Styled.h2>
 				<Styled.p sx={{ paddingBottom: '80px' }}>
 					In algemene zin is het zo dat websites bezoekers toestemming moeten
 					vragen voor het plaatsen van cookies. De cookiewet maakt een

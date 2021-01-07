@@ -20,7 +20,7 @@ const Cookies = () => {
 					bepaald onderdeel (bijvoorbeeld een document) staat aangegeven dat op
 					dat onderdeel een auteursrechtelijke beperking van toepassing is.
 				</Styled.p>
-				<Styled.h3>Uitzondering voor beeld</Styled.h3>
+				<Styled.h2>Uitzondering voor beeld</Styled.h2>
 				<Styled.p>
 					Op foto's, video's, infographics en alle andere vormen van beeld is de
 					CC0-verklaring niet van toepassing. Het is dus niet toegestaan om
@@ -31,7 +31,7 @@ const Cookies = () => {
 					indruk gewekt mag worden dat de Rijksoverheid zonder meer de strekking
 					van het afgeleide werk onderschrijft.
 				</Styled.p>
-				<Styled.h3>Auteursrechten</Styled.h3>
+				<Styled.h2>Auteursrechten</Styled.h2>
 				<Styled.p sx={{ paddingBottom: '80px' }}>
 					De redactie van deze website heeft in alle zorgvuldigheid rekening
 					gehouden met de auteursrechten op de gepubliceerde beelden. Is dat

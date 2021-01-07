@@ -56,7 +56,7 @@ const CopyParagraph = (props: CopyParagraphProps) => {
 					h4: {
 						fontWeight: 'bold',
 						fontSize: 'smallText',
-						lineHeight: 'smallText',
+						lineHeight: ['smallTextMobile', 'smallText'],
 						color: 'smallText',
 						marginBottom: '5px',
 					},
@@ -69,13 +69,19 @@ const CopyParagraph = (props: CopyParagraphProps) => {
 						lineHeight: ['h2Mobile', 'h2'],
 						color: 'copyHeading',
 					},
-					// p: {
-					// 	fontWeight: 'normal',
-					// 	margin: 0,
-					// 	fontSize: ['bodyMobile', 'body'],
-					// 	lineHeight: ['bodyMobile', 'body'],
-					// 	color: 'copyBody',
-					// },
+					// @TODO:
+					// Needed to add this large class to make sure
+					// only the paragraphs on the homepage receive this styling.
+					// The voorbereiding page also uses this component, but needs small text,
+					// We don't have the time right now to fix this properly, but we should
+					// split this into different components or a prop.
+					'p.large': {
+						fontWeight: 'normal',
+						margin: 0,
+						fontSize: ['bodyMobile', 'body'],
+						lineHeight: ['bodyMobile', 'body'],
+						color: 'copyBody',
+					},
 				}}
 			>
 				{props.children}

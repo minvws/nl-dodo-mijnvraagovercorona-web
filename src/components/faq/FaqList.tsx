@@ -174,6 +174,7 @@ const FaqList = ({ limit = faqs.length }: FaqListProps) => {
 	return (
 		<div
 			sx={{
+				marginTop: '35px',
 				paddingBottom: '20px',
 			}}
 		>
