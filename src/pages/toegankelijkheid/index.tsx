@@ -29,7 +29,7 @@ const Cookies = () => {
 					veranderen, verwachten wij deze verklaring pas over enkele maanden te
 					kunnen publiceren.
 				</Styled.p>
-				<Styled.h3>Garanderen toegankelijkheid</Styled.h3>
+				<Styled.h2>Garanderen toegankelijkheid</Styled.h2>
 				<Styled.p>
 					Wij garanderen een goede toegankelijkheid door de volgende maatregelen
 					binnen onze processen:
@@ -52,7 +52,7 @@ const Cookies = () => {
 						</li>
 					</ul>
 				</Styled.p>
-				<Styled.h3>Problemen met toegankelijkheid melden</Styled.h3>
+				<Styled.h2>Problemen met toegankelijkheid melden</Styled.h2>
 				<Styled.p sx={{ marginBottom: '80px' }}>
 					Heeft u vragen of opmerkingen? Dan kunt u contact opnemen via{' '}
 					<a

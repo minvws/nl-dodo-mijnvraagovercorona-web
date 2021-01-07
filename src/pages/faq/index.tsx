@@ -80,11 +80,6 @@ const FAQ = () => {
 						</ThemeLink>
 					</Link>
 				)}
-				<div
-					sx={{
-						marginBottom: '3em',
-					}}
-				></div>
 			</ContentPageHeader>
 
 			<BodyContainer>
