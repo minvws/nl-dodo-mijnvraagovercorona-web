@@ -24,6 +24,8 @@ after_script:
 build test image:
   environment:
     name: "test-cluster"
+  only:
+    - main
   stage: building
   image:
     name: gcr.io/kaniko-project/executor:v1.3.0-debug # Must run in own image
@@ -50,7 +52,7 @@ add production label:
   environment:
     name: test-cluster
   only:
-    - master
+    - main
   when: manual
   script:
     # Put sp_production label (id=1) on image in Harbor
