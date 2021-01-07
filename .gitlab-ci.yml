@@ -46,15 +46,3 @@ build test image:
       --dockerfile ./Dockerfile_derived
       --destination ${CD_HARBOR_REGISTRY}/vws-reis/${CD_APP_NAME}:${CD_APP_TAG}
     #  --cache=true
-
-add production label:
-  stage: labeling
-  environment:
-    name: test-cluster
-  only:
-    - main
-  when: manual
-  script:
-    # Put sp_production label (id=1) on image in Harbor
-    - "CONTENT_HEADER='Content-Type: application/json'"
-    - curl -v -u "${CI_REGISTRY_TEST_USERNAME}:${CI_REGISTRY_TEST_PASSWORD}" -H ${CONTENT_HEADER} https://${CD_HARBOR_REGISTRY}/api/repositories/${CD_APP_NAME}/tags/${CD_TAG}/labels -d '{"id":1}'
