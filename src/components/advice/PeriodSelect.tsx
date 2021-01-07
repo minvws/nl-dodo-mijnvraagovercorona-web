@@ -120,6 +120,12 @@ const PeriodSelect = ({ country, updatePage }: PeriodSelectProps) => {
 							padding: '0.75em',
 						},
 
+						'.DayPicker-Day--today:not(.DayPicker-Day--selected)': {
+							color: '#0E6999',
+							backgroundColor: '#EEF7FB',
+							borderRadius: '50% !important',
+						},
+
 						'.DayPicker-Day--outside': {
 							color: 'black',
 							opacity: '.25',
