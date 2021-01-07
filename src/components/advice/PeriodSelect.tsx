@@ -87,6 +87,7 @@ const PeriodSelect = ({ country, updatePage }: PeriodSelectProps) => {
 						fontSize: '14pt',
 						fontWeight: 'normal',
 						marginTop: '0.1em',
+						marginBottom: [0, '20px'],
 						paddingTop: 0,
 						paddingBottom: '0.9em',
 					}}
@@ -104,6 +105,10 @@ const PeriodSelect = ({ country, updatePage }: PeriodSelectProps) => {
 							flexDirection: 'row',
 						},
 
+						'.DayPicker-wrapper': {
+							paddingBottom: 0,
+						},
+
 						'.DayPicker-Caption > div': {
 							color: '#CA005D',
 							fontWeight: 'bold',
@@ -114,6 +119,10 @@ const PeriodSelect = ({ country, updatePage }: PeriodSelectProps) => {
 							color: '#01689B',
 							fontSize: '15px',
 							fontWeight: 'bold',
+						},
+
+						'.DayPicker-Month': {
+							marginTop: ['10px'],
 						},
 
 						'.DayPicker-Day': {
