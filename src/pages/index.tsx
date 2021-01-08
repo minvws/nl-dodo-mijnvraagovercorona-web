@@ -18,7 +18,7 @@ const Home = () => {
 		<>
 			<MetaTags
 				title="Quarantaine Reischeck COVID-19 | Reizentijdenscorona.nl"
-				description="De check voor corona-richtlijnen en tips voor je thuis quarantaine."
+				description="De check voor corona-richtlijnen en tips voor je thuisquarantaine."
 				url="/"
 			/>
 
