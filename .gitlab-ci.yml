@@ -4,7 +4,7 @@
 
 variables:
   CD_APP_NAME: the-app
-  CD_APP_TAG: "0.0"
+  CD_APP_TAG: "0.1"
   CD_NAMESPACE_BHR: vws-reis-bhr
   CD_HARBOR_REGISTRY: harbor.diensten.test.overheid.standaardplatform.rijksapps.nl
   CD_TAG: latest
