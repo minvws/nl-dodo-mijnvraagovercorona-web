@@ -63,6 +63,7 @@ export const Dialog: React.FC<DialogProps> = ({
 						width: '18px',
 						marginTop: '-12px',
 						marginRight: '-15px',
+						padding: 0,
 						outline: 'none',
 					}}
 				>
