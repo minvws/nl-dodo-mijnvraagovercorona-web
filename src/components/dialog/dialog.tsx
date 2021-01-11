@@ -32,8 +32,8 @@ export const Dialog: React.FC<DialogProps> = ({
 				},
 				'.close-button': {
 					position: 'absolute',
-					right: 50,
-					top: 40,
+					right: 20,
+					top: 20,
 					background: 'transparent',
 					'&:focus': {
 						path: {
@@ -59,10 +59,9 @@ export const Dialog: React.FC<DialogProps> = ({
 					onClick={closeDialog}
 					sx={{
 						border: 'none',
-						height: '18px',
-						width: '18px',
-						marginTop: '-12px',
-						marginRight: '-15px',
+						width: '44px',
+						height: '44px',
+						padding: 0,
 						outline: 'none',
 					}}
 				>

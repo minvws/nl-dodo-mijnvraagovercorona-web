@@ -33,6 +33,7 @@ import TravelAdvicePanel from 'components/TravelPlan/TravelAdvicePanel';
 import TravelInformationLink from 'components/TravelPlan/TravelInformationLink';
 import { Dialog } from 'components/dialog';
 import { useState } from 'react';
+import { isAfter } from 'date-fns';
 
 type Stage = 'voor-vertrek' | 'tijdens-je-reis' | 'na-thuiskomst';
 type Color = 'yellow' | 'orange' | 'red';
@@ -45,11 +46,9 @@ type AdviceProps = {
 // @TODO: Hopefully we can do this in an easier way.
 const getPageTitle = (color: Color) => {
 	let riskLevelTekst = '';
-	if (color === 'yellow') riskLevelTekst = 'laag ';
-	if (color === 'orange') riskLevelTekst = '';
 	if (color === 'red') riskLevelTekst = 'hoog ';
 
-	return `Je bestemming heeft een ${riskLevelTekst} corona risico`;
+	return `Je bestemming heeft een ${riskLevelTekst}coronarisico`;
 };
 
 const AdviceResult = ({ destination, stage }: AdviceProps) => {
@@ -145,11 +144,18 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 				>
 					{/* RISK LEVEL */}
 					{!duringOrAfter ? (
-						<li>
-							Tot 15 maart <strong>niet reizen</strong>. Maak alleen echt
-							noodzakelijke reizen. Daar vallen vakanties bijvoorbeeld niet
-							onder.
-						</li>
+						isAfter(fromDate as Date, new Date(2021, 2, 15)) ? (
+							<li>
+								Het is <strong>onzeker</strong> of reizen na 15 maart mogelijk
+								is. Houd de berichtgeving van de overheid in de gaten.
+							</li>
+						) : (
+							<li>
+								Tot 15 maart <strong>niet reizen</strong>. Maak alleen echt
+								noodzakelijke reizen. Daar vallen vakanties bijvoorbeeld niet
+								onder.
+							</li>
+						)
 					) : (
 						<li>
 							Er is een {color === 'yellow' ? 'laag' : 'verhoogd'} risico dat je{' '}
@@ -250,7 +256,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 								</TravelAdvicePanel>
 								{showCoronamelderApp && (
 									<TravelAdvicePanel
-										title={`Wist je dat de CoronaMelder ook werkt in ${country?.fullName}`}
+										title={`Wist je dat de CoronaMelder ook werkt in ${country?.fullName}?`}
 									>
 										<TravelInformationLink
 											href="https://www.coronamelder.nl/nl/faq/13-gebruik-app-uit-ander-land/
@@ -346,7 +352,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 												Uit het bron- en contactonderzoek van de GGD blijkt dat
 												bij 99% van de contacten die klachten krijgt, dit
 												gebeurt binnen 10 dagen na het laatste contact met
-												iemand met besmet is met het virus.
+												iemand die besmet is met het virus.
 											</p>
 											<p>Krijg je klachten? Laat je dan testen bij de GGD.</p>
 										</Dialog>

@@ -1705,6 +1705,14 @@ export const countries: Country[] = [
 		riskLevel: RiskLevel.A_RISICOVOL,
 	},
 	{
+		fullName: 'Engeland',
+		slug: CountrySlugs.verenigdKoninkrijk,
+		coronaMelderCountry: false,
+		euCountry: false,
+		schengenCountry: false,
+		riskLevel: RiskLevel.A_RISICOVOL,
+	},
+	{
 		fullName: 'Verenigde Arabische Emiraten',
 		slug: CountrySlugs.verenigdeArabischeEmiraten,
 		coronaMelderCountry: false,
@@ -1856,7 +1864,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: RiskLevel.A_RISICOVOL,
+		riskLevel: RiskLevel.C_VEILIGE_LIJST,
 	},
 ];
 
