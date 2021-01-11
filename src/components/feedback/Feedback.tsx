@@ -16,11 +16,11 @@ const Feedback = () => (
 			Waar zou je nog meer mee geholpen zijn?
 		</h2>
 		<Styled.p>
-			Help deze website beter te maken. Vermeld geen persoonsgegevens. Deze
-			worden direct verwijderd.
+			Help deze website beter te maken. Deel je mening anoniem in een paar
+			vragen.
 		</Styled.p>
 		<ButtonPrimary href="https://valsplat.typeform.com/to/hlgYe4qs" external>
-			Laat het ons weten
+			Deel je mening
 		</ButtonPrimary>
 	</>
 );
