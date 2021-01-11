@@ -2,7 +2,7 @@
 import React from 'react';
 import { jsx, Styled } from 'theme-ui';
 
-import PrimaryButton from '../button/PrimaryButton';
+import { ButtonPrimary } from 'components/button';
 
 const Feedback = () => (
 	<>
@@ -19,9 +19,9 @@ const Feedback = () => (
 			Help deze website beter te maken. Vermeld geen persoonsgegevens. Deze
 			worden direct verwijderd.
 		</Styled.p>
-		<PrimaryButton href="https://valsplat.typeform.com/to/hlgYe4qs" external>
+		<ButtonPrimary href="https://valsplat.typeform.com/to/hlgYe4qs" external>
 			Laat het ons weten
-		</PrimaryButton>
+		</ButtonPrimary>
 	</>
 );
 

@@ -1,8 +1,10 @@
 import React from 'react';
-import PrimaryButton from '../button/PrimaryButton';
+import { ButtonPrimary } from '../button';
 
 const StartCheckButton = () => (
-	<PrimaryButton href="/bestemming">Doe de check</PrimaryButton>
+	<ButtonPrimary href="/bestemming" external={false}>
+		Doe de check
+	</ButtonPrimary>
 );
 
 export default StartCheckButton;

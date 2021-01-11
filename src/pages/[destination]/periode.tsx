@@ -18,6 +18,7 @@ import { countries } from 'config/countries';
 import { isBrowser } from 'utilities/is-browser';
 import AdviceContext from 'components/advice/AdviceContext';
 import { Dialog } from 'components/dialog';
+import { ButtonPrimary } from 'components/button';
 
 const calculateStage = ({
 	fromDate,
@@ -158,24 +159,7 @@ const Period = ({ destination }: { destination: string }) => {
 							paddingBottom: ['auto', '63px'],
 						}}
 					>
-						<Link href={resultLink}>
-							<Button
-								ref={submitButtonRef}
-								sx={{
-									width: ['100%', 'auto'],
-									paddingLeft: ['auto', 'buttonPadding'],
-									paddingRight: ['auto', 'buttonPadding'],
-									paddingTop: ['16px', '15px'],
-									paddingBottom: ['16px', '15px'],
-									fontSize: ['buttonMobile', 'button'],
-									fontFamily: 'body',
-									fontWeight: 'bold',
-									backgroundColor: 'button',
-								}}
-							>
-								Toon het resultaat
-							</Button>
-						</Link>
+						<ButtonPrimary href={resultLink}>Toon het resultaat</ButtonPrimary>
 					</div>
 				)}
 			</BodyContainer>
