@@ -1856,7 +1856,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: RiskLevel.A_RISICOVOL,
+		riskLevel: RiskLevel.C_VEILIGE_LIJST,
 	},
 ];
 
