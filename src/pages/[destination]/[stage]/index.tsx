@@ -45,8 +45,6 @@ type AdviceProps = {
 // @TODO: Hopefully we can do this in an easier way.
 const getPageTitle = (color: Color) => {
 	let riskLevelTekst = '';
-	if (color === 'yellow') riskLevelTekst = 'laag ';
-	if (color === 'orange') riskLevelTekst = '';
 	if (color === 'red') riskLevelTekst = 'hoog ';
 
 	return `Je bestemming heeft een ${riskLevelTekst} corona risico`;
