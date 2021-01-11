@@ -32,6 +32,7 @@ import TravelPlanStage from 'components/TravelPlan/TravelPlanStage';
 import TravelAdvicePanel from 'components/TravelPlan/TravelAdvicePanel';
 import TravelInformationLink from 'components/TravelPlan/TravelInformationLink';
 import { Dialog } from 'components/dialog';
+import { NavLink } from 'components/nav-link';
 import { useState } from 'react';
 import { isAfter } from 'date-fns';
 
@@ -100,34 +101,9 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 			/>
 
 			<ContentPageHeader message={getPageTitle(color)}>
-				<Link href="/bestemming" passHref>
-					<ThemeLink
-						sx={{
-							position: 'absolute',
-							top: '30px',
-							textDecoration: 'none',
-							fontFamily: 'body',
-							verticalAlign: 'top',
-							color: 'copyHeading',
-							fontWeight: 700,
-							display: 'flex',
-							justifyContent: 'center',
-							alignItems: 'center',
-							'::before': {
-								display: 'block',
-								content: '""',
-								backgroundImage: `url("/icons/Refresh.svg")`,
-								backgroundRepeat: 'no-repeat',
-								backgroundSize: '1.5em 1.5em',
-								height: '1.5em',
-								width: '1.5em',
-								paddingRight: '0.5em',
-							},
-						}}
-					>
-						opnieuw
-					</ThemeLink>
-				</Link>
+				<NavLink href="/bestemming" icon="refresh">
+					opnieuw
+				</NavLink>
 				<ul
 					sx={{
 						paddingLeft: '17px',
