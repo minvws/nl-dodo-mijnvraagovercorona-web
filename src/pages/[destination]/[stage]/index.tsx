@@ -346,7 +346,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 												Uit het bron- en contactonderzoek van de GGD blijkt dat
 												bij 99% van de contacten die klachten krijgt, dit
 												gebeurt binnen 10 dagen na het laatste contact met
-												iemand met besmet is met het virus.
+												iemand die besmet is met het virus.
 											</p>
 											<p>Krijg je klachten? Laat je dan testen bij de GGD.</p>
 										</Dialog>
