@@ -47,7 +47,7 @@ const getPageTitle = (color: Color) => {
 	let riskLevelTekst = '';
 	if (color === 'red') riskLevelTekst = 'hoog ';
 
-	return `Je bestemming heeft een ${riskLevelTekst} corona risico`;
+	return `Je bestemming heeft een ${riskLevelTekst}corona risico`;
 };
 
 const AdviceResult = ({ destination, stage }: AdviceProps) => {
