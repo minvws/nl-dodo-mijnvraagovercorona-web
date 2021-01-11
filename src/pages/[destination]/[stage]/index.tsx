@@ -33,6 +33,7 @@ import TravelAdvicePanel from 'components/TravelPlan/TravelAdvicePanel';
 import TravelInformationLink from 'components/TravelPlan/TravelInformationLink';
 import { Dialog } from 'components/dialog';
 import { useState } from 'react';
+import { isAfter } from 'date-fns';
 
 type Stage = 'voor-vertrek' | 'tijdens-je-reis' | 'na-thuiskomst';
 type Color = 'yellow' | 'orange' | 'red';
@@ -145,11 +146,18 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 				>
 					{/* RISK LEVEL */}
 					{!duringOrAfter ? (
-						<li>
-							Tot 15 maart <strong>niet reizen</strong>. Maak alleen echt
-							noodzakelijke reizen. Daar vallen vakanties bijvoorbeeld niet
-							onder.
-						</li>
+						isAfter(fromDate as Date, new Date(2021, 2, 15)) ? (
+							<li>
+								Het is <strong>onzeker</strong> of reizen na 15 maart mogelijk
+								is. Houd de berichtgeving van de overheid in de gaten.
+							</li>
+						) : (
+							<li>
+								Tot 15 maart <strong>niet reizen</strong>. Maak alleen echt
+								noodzakelijke reizen. Daar vallen vakanties bijvoorbeeld niet
+								onder.
+							</li>
+						)
 					) : (
 						<li>
 							Er is een {color === 'yellow' ? 'laag' : 'verhoogd'} risico dat je{' '}
