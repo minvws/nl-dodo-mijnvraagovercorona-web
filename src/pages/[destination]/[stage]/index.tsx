@@ -250,7 +250,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 								</TravelAdvicePanel>
 								{showCoronamelderApp && (
 									<TravelAdvicePanel
-										title={`Wist je dat de CoronaMelder ook werkt in ${country?.fullName}`}
+										title={`Wist je dat de CoronaMelder ook werkt in ${country?.fullName}?`}
 									>
 										<TravelInformationLink
 											href="https://www.coronamelder.nl/nl/faq/13-gebruik-app-uit-ander-land/
