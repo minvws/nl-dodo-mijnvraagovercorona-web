@@ -96,7 +96,7 @@ const ReminderCalendarInvite = (props: ReminderCalendarInviteProps) => {
 					sx={{
 						display: 'block',
 						fontSize: '19px',
-						color: '#0E6999',
+						color: 'link',
 						fontWeight: 'bold',
 						width: '80%',
 						margin: '3px 0',

@@ -11,7 +11,8 @@ const BodyContainer = (props: BodyContainerProps) => {
 	return (
 		<Container
 			sx={{
-				paddingRight: ['auto', '300px', '400px'],
+				paddingRight: ['auto', '420px', '400px'],
+				paddingLeft: ['mobilePadding', 'auto'],
 			}}
 		>
 			<Container

@@ -22,7 +22,7 @@ const DataProtectionPanel = ({
 				height: ['auto', '100%'],
 				top: [0],
 				right: [0],
-				maxWidth: ['100%', '300px', '400px'],
+				maxWidth: ['100%', '400px'],
 				padding: ['mobilePadding', '30px'],
 				backgroundImage: ['none', 'url("/images/Koffer_DesktopRetina.svg")'],
 				backgroundRepeat: 'no-repeat',
