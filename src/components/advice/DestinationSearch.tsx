@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React, { FormEvent, useState } from 'react';
-import { Container, jsx } from 'theme-ui';
+import { Container, Flex, jsx } from 'theme-ui';
 import {
 	Combobox,
 	ComboboxInput,
@@ -15,6 +15,7 @@ import { getCountrySlug } from 'utilities/pathUtils';
 import '@reach/combobox/styles.css';
 import { Country } from 'config/countries';
 import AdviceContext from 'components/advice/AdviceContext';
+import { ButtonStyledAsSubmit } from 'components/button/ButtonStyled';
 
 const DestinationSearch = () => {
 	const [searchResults, setSearchResults] = useState<Country[]>([]);
@@ -25,8 +26,6 @@ const DestinationSearch = () => {
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const { value } = event.target;
-
-		setUserInput(value);
 
 		if (value === '') {
 			setSearchResults([]);
@@ -46,15 +45,21 @@ const DestinationSearch = () => {
 		router.push(location);
 	};
 
-	const handleKeyPress = (event: any) => {
-		if (event.key === 'Enter' && searchResults.length > 0) {
-			handleSelect(getDestinationName(searchResults[0]));
-		}
-	};
-
 	const handleSubmit = (event: FormEvent) => {
 		event.preventDefault();
 
+		const match = searchResults.find(
+			(results) => results.fullName === userInput,
+		);
+
+		// If there is a match on the full name, use this value.
+		if (match) {
+			handleSelect(getDestinationName(match));
+			return;
+		}
+
+		// If there is no full match but there are suggestions available,
+		// pick the first one.
 		if (searchResults.length > 0) {
 			handleSelect(getDestinationName(searchResults[0]));
 		}
@@ -62,14 +67,14 @@ const DestinationSearch = () => {
 
 	return (
 		<Container>
-			<form onSubmit={handleSubmit}>
+			<form onSubmit={handleSubmit} method="POST">
 				<Combobox
 					sx={{
 						width: '100%',
 						paddingLeft: ['mobilePadding', 0],
 						paddingRight: ['mobilePadding', 0],
 					}}
-					onSelect={handleSelect}
+					onSelect={(country) => setUserInput(country)}
 				>
 					<ComboboxInput
 						sx={{
@@ -93,7 +98,6 @@ const DestinationSearch = () => {
 								color: 'detailText',
 							},
 						}}
-						onKeyPress={handleKeyPress}
 						onChange={handleChange}
 						selectOnClick={true}
 						placeholder='Bijvoorbeeld "Frankrijk"'
@@ -146,6 +150,18 @@ const DestinationSearch = () => {
 							)}
 						</ComboboxList>
 					</ComboboxPopover>
+					{userInput && (
+						<Flex
+							sx={{
+								button: {
+									marginTop: ['12px', '28px'],
+									marginLeft: 'auto',
+								},
+							}}
+						>
+							<ButtonStyledAsSubmit>Naar vraag 2</ButtonStyledAsSubmit>
+						</Flex>
+					)}
 				</Combobox>
 			</form>
 		</Container>

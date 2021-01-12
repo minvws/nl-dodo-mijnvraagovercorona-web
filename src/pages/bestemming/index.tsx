@@ -52,8 +52,7 @@ const Destination = () => {
 				<div
 					sx={{
 						paddingTop: ['71px', '73px'],
-						marginBottom: ['auto', '405px'],
-						minHeight: '30vh', // need a better solution here
+						marginBottom: '80px',
 					}}
 				>
 					<DestinationSearch />

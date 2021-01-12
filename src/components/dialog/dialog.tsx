@@ -29,6 +29,7 @@ export const Dialog: React.FC<DialogProps> = ({
 				p: {
 					fontSize: ['bodyMobile', 'body'],
 					lineHeight: ['bodyMobile', 'body'],
+					color: 'text',
 				},
 				'.close-button': {
 					position: 'absolute',

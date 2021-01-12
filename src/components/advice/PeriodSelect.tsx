@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React, { useState } from 'react';
-import { jsx, Link, Image, Container } from 'theme-ui';
+import { jsx, Link, Image, Container, Box } from 'theme-ui';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import { useDesktopQuery } from 'hooks/useDesktopQuery';
 import { formatShortDate } from 'utilities/dateUtils';
@@ -61,43 +61,53 @@ const PeriodSelect = ({ country, updatePage }: PeriodSelectProps) => {
 					paddingRight: [0, '300px', '400px'],
 				}}
 			>
-				<Link
-					href="/bestemming"
+				<Box
 					sx={{
-						position: 'absolute',
-						left: '1em',
-						marginTop: '1em',
-						color: 'white',
+						maxWidth: 'maxWidthBody',
+						margin: '0 auto',
+						position: 'relative',
+						padding: '14px 0',
 					}}
 				>
-					<Image src="/icons/Back Arrow Big.svg" />
-				</Link>
-				<h3
-					sx={{
-						fontSize: '15pt',
-						paddingTop: 0,
-						marginTop: '0.5em',
-						marginBottom: '0.4em',
-					}}
-				>
-					<span sx={{ fontWeight: 'normal' }}>{country}</span>
-				</h3>
-				<h5
-					sx={{
-						fontSize: '14pt',
-						fontWeight: 'normal',
-						marginTop: '0.1em',
-						marginBottom: [0, '20px'],
-						paddingTop: 0,
-						paddingBottom: '0.9em',
-					}}
-				>
-					{message}
-				</h5>
+					<Link
+						href="/bestemming"
+						sx={{
+							position: 'absolute',
+							left: 0,
+							top: '50%',
+							transform: 'translateY(-50%)',
+							color: 'white',
+						}}
+					>
+						<Image src="/icons/Back Arrow Big.svg" />
+					</Link>
+					<h3
+						sx={{
+							fontSize: '15pt',
+							paddingTop: 0,
+							marginTop: 0,
+							marginBottom: '0.4em',
+						}}
+					>
+						<span sx={{ fontWeight: 'normal' }}>{country}</span>
+					</h3>
+					<h5
+						sx={{
+							fontSize: '14pt',
+							fontWeight: 'normal',
+							marginTop: '0.1em',
+							marginBottom: 0,
+							paddingTop: 0,
+						}}
+					>
+						{message}
+					</h5>
+				</Box>
 			</Container>
 			<BodyContainer>
 				<DayPicker
 					sx={{
+						padding: [0, '70px 0 30px 0'],
 						width: '100%',
 						fontSize: ['18px', '16px'],
 

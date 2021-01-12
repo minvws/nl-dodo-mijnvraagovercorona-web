@@ -28,6 +28,7 @@ const DataProtectionPanel = ({
 				backgroundRepeat: 'no-repeat',
 				backgroundPosition: 'right -60px bottom 20px',
 				backgroundSize: ['auto', '339px', '439px'],
+				alignItems: 'flex-start',
 			}}
 		>
 			<Box
@@ -46,7 +47,7 @@ const DataProtectionPanel = ({
 						fontSize: ['h2Mobile', 'h2'],
 						color: 'secondaryHeader',
 						paddingLeft: '4px',
-						paddingBottom: '23px',
+						paddingBottom: '8px',
 						margin: 0,
 					}}
 				>

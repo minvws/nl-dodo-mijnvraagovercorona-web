@@ -53,6 +53,7 @@ const Footer = ({ onlyDesktop = false, pushToBottom = false }: FooterProps) => {
 				},
 				paddingLeft: ['mobilePadding', 0],
 				paddingRight: ['mobilePadding', 0],
+				marginTop: 'auto',
 			}}
 		>
 			<BodyContainer>

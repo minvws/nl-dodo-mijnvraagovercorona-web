@@ -10,7 +10,7 @@ export default {
 		disabledCalendar: '#BFBFBF',
 		stepElement: '#AEC1D1',
 		background: '#FFFFFF',
-		headerBackground: '#EEF7FB',
+		headerBackground: '#EFF7F9',
 
 		hoverSecondary: '#931e55',
 		structureBackground: '#f0d5e2',
