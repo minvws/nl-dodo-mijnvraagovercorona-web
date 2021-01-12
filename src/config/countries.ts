@@ -337,7 +337,7 @@ export const countries: Country[] = [
 	{
 		fullName: 'België',
 		slug: CountrySlugs.belgie,
-		coronaMelderCountry: false,
+		coronaMelderCountry: true,
 		euCountry: true,
 		schengenCountry: true,
 		riskLevel: RiskLevel.A_RISICOVOL,
@@ -642,7 +642,7 @@ export const countries: Country[] = [
 	{
 		fullName: 'Finland',
 		slug: CountrySlugs.finland,
-		coronaMelderCountry: false,
+		coronaMelderCountry: true,
 		euCountry: true,
 		schengenCountry: true,
 		riskLevel: RiskLevel.A_RISICOVOL,
