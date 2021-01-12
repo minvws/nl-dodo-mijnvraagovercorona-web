@@ -399,9 +399,9 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 					>
 						Veelgestelde vragen
 					</h2>
-					<FaqList limit={5} riskLevel={country?.riskLevel} />
+					<FaqList limit={5} country={country} />
 
-					<InternalLink href="/faq">
+					<InternalLink href={`/${country?.slug}/faq`}>
 						Bekijk alle 10 veelgestelde vragen
 					</InternalLink>
 

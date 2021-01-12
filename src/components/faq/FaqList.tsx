@@ -4,17 +4,18 @@ import { jsx } from 'theme-ui';
 import FaqItem from 'components/faq/FaqItem';
 import Link from 'next/link';
 
-import { RiskLevel } from 'config/countries';
+import { Country, RiskLevel } from 'config/countries';
 
 interface FaqListProps {
 	limit?: number;
-	riskLevel?: RiskLevel;
+	country: Country | null;
 }
 
-const getFaqs = ({ limit, riskLevel }: FaqListProps) => {
+const getFaqs = ({ limit, country }: FaqListProps) => {
 	const showNegativeTestDeclaration =
-		riskLevel === RiskLevel.C_VEILIGE_LIJST ||
-		riskLevel === RiskLevel.D_EU_INREISVERBOD;
+		country?.riskLevel === RiskLevel?.C_VEILIGE_LIJST ||
+		country?.riskLevel === RiskLevel?.D_EU_INREISVERBOD;
+
 	const faqs: Array<[string, React.ReactNode]> = [
 		[
 			'Wat houdt thuisquarantaine in?',
@@ -85,16 +86,22 @@ const getFaqs = ({ limit, riskLevel }: FaqListProps) => {
 			</p>,
 		],
 		[
-			'Wat valt niet onder een noodzakelijke reis?',
+			'Wat valt onder een noodzakelijke reis?',
 			<p>
-				Vakantiereizen, familiebezoek of op vakantie naar een tweede huis zijn
-				geen noodzakelijke reizen. Ook het fysiek bezoeken van een organisatie
-				in het buitenland is in veel gevallen niet noodzakelijk.
+				Blijf in Nederland tot en met half maart en boek geen reizen.
+				Uitzonderingen worden gemaakt voor werk in het buitenland met grote
+				economische belangen en een (aanstaand) sterfgeval in de naaste
+				omgeving. Vakantiereizen, familiebezoek of op vakantie naar een tweede
+				huis zijn geen noodzakelijke reizen. Ook het fysiek bezoeken van een
+				organisatie in het buitenland is in veel gevallen niet noodzakelijk.
 			</p>,
 		],
 		[
 			'Wie moeten allemaal in thuisquarantaine?',
-			<p>Iedereen die in een gebied is geweest met een oranje reisadvies.</p>,
+			<p>
+				Iedereen die in een gebied is geweest met een oranje reisadvies, waarbij
+				geldt dat je bij thuiskomst in thuisquarantaine moet.
+			</p>,
 		],
 		[
 			'Welke eisen worden gesteld aan de negatieve testuitslag?',
@@ -202,14 +209,14 @@ const getFaqs = ({ limit, riskLevel }: FaqListProps) => {
 	return limit !== undefined ? faqs.slice(0, limit) : faqs;
 };
 
-const FaqList = ({ limit, riskLevel }: FaqListProps) => (
+const FaqList = ({ limit, country }: FaqListProps) => (
 	<div
 		sx={{
 			marginTop: '35px',
 			paddingBottom: '20px',
 		}}
 	>
-		{getFaqs({ limit, riskLevel }).map(([title, content]) => (
+		{getFaqs({ limit, country }).map(([title, content]) => (
 			<FaqItem key={title} title={title}>
 				{content}
 			</FaqItem>
