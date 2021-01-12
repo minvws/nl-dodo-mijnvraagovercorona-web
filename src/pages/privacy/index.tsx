@@ -31,14 +31,21 @@ const Privacy = () => {
 					</a>
 					.
 				</Styled.p>
+				<Styled.p>
+					Reizentijdenscorona.nl gebruikt cookies voor webstatistieken om te
+					begrijpen hoe bezoekers de website gebruiken. Lees{' '}
+					<Link href="/cookies">hier</Link> meer.
+				</Styled.p>
 				<Styled.p
 					sx={{
 						marginBottom: '80px',
 					}}
 				>
-					Reizentijdenscorona.nl gebruikt cookies voor webstatistieken om te
-					begrijpen hoe bezoekers de website gebruiken. Lees{' '}
-					<Link href="/cookies">hier</Link> meer
+					Omdat onze website nog in de testfase zit, bieden wij u de
+					mogelijkheid ons te vertellen wat u van de website vindt. Bij het
+					beantwoorden van een aantal korte vragen worden geen persoonsgegevens
+					gevraagd, opgeslagen of verwerkt. Uw antwoorden worden alleen gebruikt
+					om onze website te verbeteren.
 				</Styled.p>
 			</ContentPage>
 		</>

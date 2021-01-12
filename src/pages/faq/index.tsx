@@ -11,6 +11,7 @@ import ContentPageHeader from 'components/structure/ContentPageHeader';
 import DataProtectionPanel from 'components/DataProtectionPanel';
 import Footer from 'components/structure/Footer';
 import AdviceContext from 'components/advice/AdviceContext';
+import Feedback from 'components/feedback/Feedback';
 
 const generateResultLink = ({
 	from,
@@ -87,9 +88,11 @@ const FAQ = () => {
 					sx={{
 						paddingLeft: ['mobilePadding', 0],
 						paddingRight: ['mobilePadding', 0],
+						paddingBottom: '80px',
 					}}
 				>
 					<FaqList />
+					<Feedback />
 				</Container>
 			</BodyContainer>
 			<DataProtectionPanel onlyDesktop={true} />

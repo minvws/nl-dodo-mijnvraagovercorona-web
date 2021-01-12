@@ -1,15 +1,10 @@
 /** @jsx jsx */
-import { GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next';
+import { useState } from 'react';
 import Link from 'next/link';
-import {
-	jsx,
-	Container,
-	Button,
-	Link as ThemeLink,
-	Image,
-	Divider,
-	Box,
-} from 'theme-ui';
+import { useRouter } from 'next/router';
+import { isAfter } from 'date-fns';
+
+import { jsx, Container, Link as ThemeLink, Box } from 'theme-ui';
 
 import MetaTags from 'components/meta/MetaTags';
 import ContentPageHeader from 'components/structure/ContentPageHeader';
@@ -25,7 +20,6 @@ import {
 	isMoreThanWeekBeforeDeparture,
 	addDays,
 } from 'utilities/dateUtils';
-import { useRouter } from 'next/router';
 import { useDestination } from 'hooks/use-destination';
 import { countries, RiskLevel } from 'config/countries';
 import TravelPlanStage from 'components/TravelPlan/TravelPlanStage';
@@ -33,8 +27,7 @@ import TravelAdvicePanel from 'components/TravelPlan/TravelAdvicePanel';
 import TravelInformationLink from 'components/TravelPlan/TravelInformationLink';
 import { Dialog } from 'components/dialog';
 import { NavLink } from 'components/nav-link';
-import { useState } from 'react';
-import { isAfter } from 'date-fns';
+import Feedback from 'components/feedback/Feedback';
 
 type Stage = 'voor-vertrek' | 'tijdens-je-reis' | 'na-thuiskomst';
 type Color = 'yellow' | 'orange' | 'red';
@@ -430,6 +423,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 							toDate={addDays(toDate, 10)}
 						/>
 					)}
+					<Feedback />
 					<div sx={{ marginBottom: '65px' }} />
 				</Container>
 				<DataProtectionPanel />
