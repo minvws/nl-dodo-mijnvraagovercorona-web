@@ -3,6 +3,9 @@ import React from 'react';
 
 import { jsx, Container } from 'theme-ui';
 
+import { countries } from 'config/countries';
+
+import { useDestination } from 'hooks/use-destination';
 import MetaTags from 'components/meta/MetaTags';
 import FaqList from 'components/faq/FaqList';
 import BodyContainer from 'components/structure/BodyContainer';
@@ -28,8 +31,13 @@ const generateResultLink = ({
 	query: { van: from, tot: to },
 });
 
-const FAQ = () => {
-	const { from, to, stage, destination } = React.useContext(AdviceContext);
+interface FAQProps {
+	destination: string;
+}
+
+const FAQ = ({ destination }: FAQProps) => {
+	const { from, to, stage } = React.useContext(AdviceContext);
+	const country = useDestination(destination as string);
 
 	return (
 		<>
@@ -66,7 +74,7 @@ const FAQ = () => {
 						paddingBottom: '80px',
 					}}
 				>
-					<FaqList />
+					<FaqList country={country} />
 					<Feedback />
 				</Container>
 			</BodyContainer>
@@ -75,5 +83,26 @@ const FAQ = () => {
 		</>
 	);
 };
+
+export interface FAQStaticProps {
+	params: {
+		destination: string;
+	};
+}
+
+export const getStaticProps = async ({ params }: FAQStaticProps) => {
+	return {
+		props: {
+			destination: params.destination,
+		},
+	};
+};
+
+export const getStaticPaths = () => ({
+	paths: countries.map((country) => ({
+		params: { destination: country.slug },
+	})),
+	fallback: false,
+});
 
 export default FAQ;
