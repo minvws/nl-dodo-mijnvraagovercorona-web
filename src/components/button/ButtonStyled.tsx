@@ -34,7 +34,7 @@ export const ButtonStyled = ({ children }: ButtonStyledProps) => (
 // @TODO: This file should contain only 1 exported styledButton.
 // Using the as prop we can change the html element, which should automatically
 // update the typings. This should work, but somehow gives typing errors..
-// 
+// @see: https://reizentijdenscorona.atlassian.net/browse/RTC-77
 export const ButtonStyledAsSubmit = ({ children }: ButtonStyledProps) => (
 	<ThemeUiButton sx={buttonStyles} type="submit" as="button">
 		{children}
