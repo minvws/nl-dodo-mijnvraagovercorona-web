@@ -1,10 +1,10 @@
 /** @jsx jsx */
-import { useState } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { isAfter } from 'date-fns';
 
-import { jsx, Container, Link as ThemeLink, Box } from 'theme-ui';
+import { jsx, Container, Box } from 'theme-ui';
 
 import MetaTags from 'components/meta/MetaTags';
 import ContentPageHeader from 'components/structure/ContentPageHeader';
@@ -26,7 +26,9 @@ import TravelPlanStage from 'components/TravelPlan/TravelPlanStage';
 import TravelAdvicePanel from 'components/TravelPlan/TravelAdvicePanel';
 import TravelInformationLink from 'components/TravelPlan/TravelInformationLink';
 import { Dialog } from 'components/dialog';
+import { NavLink } from 'components/nav-link';
 import Feedback from 'components/feedback/Feedback';
+import AdviceContext from 'components/advice/AdviceContext';
 
 type Stage = 'voor-vertrek' | 'tijdens-je-reis' | 'na-thuiskomst';
 type Color = 'yellow' | 'orange' | 'red';
@@ -45,6 +47,9 @@ const getPageTitle = (color: Color) => {
 };
 
 const AdviceResult = ({ destination, stage }: AdviceProps) => {
+	const { setFrom, setTo, setStage, setDestination } = useContext(
+		AdviceContext,
+	);
 	const router = useRouter();
 	const country = useDestination(destination as string);
 	const { van, tot } = router.query;
@@ -84,6 +89,17 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 		color = 'yellow';
 	}
 
+	/**
+	 * Update the AdviceContext so when landing on a results page and skipping the period and destination pages
+	 * will allow users to navigate back to the results page
+	 */
+	useEffect(() => {
+		if (setFrom && van) setFrom(van);
+		if (setTo && tot) setTo(tot);
+		if (setStage && stage) setStage(stage);
+		if (setDestination && destination) setDestination(destination);
+	}, [destination, van, tot, stage]);
+
 	return (
 		<>
 			<MetaTags
@@ -93,34 +109,9 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 			/>
 
 			<ContentPageHeader message={getPageTitle(color)}>
-				<Link href="/bestemming" passHref>
-					<ThemeLink
-						sx={{
-							position: 'absolute',
-							top: '30px',
-							textDecoration: 'none',
-							fontFamily: 'body',
-							verticalAlign: 'top',
-							color: 'copyHeading',
-							fontWeight: 700,
-							display: 'flex',
-							justifyContent: 'center',
-							alignItems: 'center',
-							'::before': {
-								display: 'block',
-								content: '""',
-								backgroundImage: `url("/icons/Refresh.svg")`,
-								backgroundRepeat: 'no-repeat',
-								backgroundSize: '1.5em 1.5em',
-								height: '1.5em',
-								width: '1.5em',
-								paddingRight: '0.5em',
-							},
-						}}
-					>
-						opnieuw
-					</ThemeLink>
-				</Link>
+				<NavLink href="/" icon="refresh">
+					opnieuw
+				</NavLink>
 				<ul
 					sx={{
 						paddingLeft: '17px',
@@ -399,9 +390,9 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 					>
 						Veelgestelde vragen
 					</h2>
-					<FaqList limit={5} />
+					<FaqList limit={5} country={country} />
 
-					<InternalLink href="/faq">
+					<InternalLink href={`/${country?.slug}/faq`}>
 						Bekijk alle 10 veelgestelde vragen
 					</InternalLink>
 

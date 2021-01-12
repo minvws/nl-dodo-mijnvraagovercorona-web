@@ -25,7 +25,7 @@ const Destination = () => {
 			<MetaTags
 				title="Bestemming | Quarantaine Reischeck | Reizentijdenscorona.nl"
 				description="Actuele informatie over bestemming en maatregelen."
-				url="/faq"
+				url="/bestemming"
 			/>
 			<AdviceHeader
 				header="Welk land is of was je bestemming?"

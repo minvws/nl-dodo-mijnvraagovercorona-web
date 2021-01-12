@@ -1,9 +1,11 @@
 /** @jsx jsx */
 import React from 'react';
-import Link from 'next/link';
 
-import { jsx, Container, Link as ThemeLink } from 'theme-ui';
+import { jsx, Container } from 'theme-ui';
 
+import { countries } from 'config/countries';
+
+import { useDestination } from 'hooks/use-destination';
 import MetaTags from 'components/meta/MetaTags';
 import FaqList from 'components/faq/FaqList';
 import BodyContainer from 'components/structure/BodyContainer';
@@ -12,6 +14,7 @@ import DataProtectionPanel from 'components/DataProtectionPanel';
 import Footer from 'components/structure/Footer';
 import AdviceContext from 'components/advice/AdviceContext';
 import Feedback from 'components/feedback/Feedback';
+import { NavLink } from 'components/nav-link';
 
 const generateResultLink = ({
 	from,
@@ -28,8 +31,13 @@ const generateResultLink = ({
 	query: { van: from, tot: to },
 });
 
-const FAQ = () => {
-	const { from, to, stage, destination } = React.useContext(AdviceContext);
+interface FAQProps {
+	destination: string;
+}
+
+const FAQ = ({ destination }: FAQProps) => {
+	const { from, to, stage } = React.useContext(AdviceContext);
+	const country = useDestination(destination as string);
 
 	return (
 		<>
@@ -44,42 +52,17 @@ const FAQ = () => {
 				backgroundImage="/images/Illustratie_Mobiel_Veelgestelde_vragenRetina.svg"
 			>
 				{stage && destination && (
-					<Link
+					<NavLink
 						href={generateResultLink({
 							from,
 							to,
 							stage,
 							destination,
 						})}
-						passHref
+						icon="back"
 					>
-						<ThemeLink
-							sx={{
-								position: 'absolute',
-								top: '30px',
-								textDecoration: 'none',
-								fontFamily: 'body',
-								verticalAlign: 'top',
-								color: 'copyHeading',
-								fontWeight: 700,
-								display: 'flex',
-								justifyContent: 'center',
-								alignItems: 'center',
-								'::before': {
-									display: 'block',
-									content: '""',
-									backgroundImage: `url("/icons/Refresh.svg")`,
-									backgroundRepeat: 'no-repeat',
-									backgroundSize: '1.5em 1.5em',
-									height: '1.5em',
-									width: '1.5em',
-									paddingRight: '0.5em',
-								},
-							}}
-						>
-							naar resultaat
-						</ThemeLink>
-					</Link>
+						naar resultaat
+					</NavLink>
 				)}
 			</ContentPageHeader>
 
@@ -91,7 +74,7 @@ const FAQ = () => {
 						paddingBottom: '80px',
 					}}
 				>
-					<FaqList />
+					<FaqList country={country} />
 					<Feedback />
 				</Container>
 			</BodyContainer>
@@ -100,5 +83,26 @@ const FAQ = () => {
 		</>
 	);
 };
+
+export interface FAQStaticProps {
+	params: {
+		destination: string;
+	};
+}
+
+export const getStaticProps = async ({ params }: FAQStaticProps) => {
+	return {
+		props: {
+			destination: params.destination,
+		},
+	};
+};
+
+export const getStaticPaths = () => ({
+	paths: countries.map((country) => ({
+		params: { destination: country.slug },
+	})),
+	fallback: false,
+});
 
 export default FAQ;

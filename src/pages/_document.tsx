@@ -4,9 +4,6 @@ import * as React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 
 import { jsx } from 'theme-ui';
-// import { Global } from '@emotion/core';
-
-// import { defaults, fonts, reset } from '../utilities/styling/global';
 
 class TravelCheckDocument extends Document {
 	render() {
