@@ -1,4 +1,6 @@
 /** @jsx jsx */
+import { InternalLink } from 'components/Links';
+import Link from 'next/link';
 import React from 'react';
 import { jsx } from 'theme-ui';
 
@@ -13,7 +15,7 @@ const ProgressMarker = (props: ProgressMarkerProps) => {
 		<ul
 			sx={{
 				position: 'absolute',
-				top: ['25px', '150px'],
+				top: ['45px', '150px'],
 				paddingTop: 0,
 				marginTop: 0,
 				paddingLeft: 0,
@@ -59,10 +61,21 @@ const ProgressMarker = (props: ProgressMarkerProps) => {
 								transform: 'translateY(-2px)',
 								position: 'absolute',
 							},
+							a: {
+								color: isCurrentStage ? 'white' : 'header',
+							},
 						}}
 						key={stageNumber}
 					>
-						{stageNumber}
+						{stageNumber === 1 ? (
+							<Link href="/bestemming">
+								<a sx={{ textDecoration: 'none', cursor: 'pointer' }}>
+									{stageNumber}
+								</a>
+							</Link>
+						) : (
+							<>{stageNumber}</>
+						)}
 					</li>
 				);
 			})}
