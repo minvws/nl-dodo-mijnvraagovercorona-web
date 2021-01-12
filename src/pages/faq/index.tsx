@@ -1,8 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
-import Link from 'next/link';
 
-import { jsx, Container, Link as ThemeLink } from 'theme-ui';
+import { jsx, Container } from 'theme-ui';
 
 import MetaTags from 'components/meta/MetaTags';
 import FaqList from 'components/faq/FaqList';
@@ -12,6 +11,7 @@ import DataProtectionPanel from 'components/DataProtectionPanel';
 import Footer from 'components/structure/Footer';
 import AdviceContext from 'components/advice/AdviceContext';
 import Feedback from 'components/feedback/Feedback';
+import { NavLink } from 'components/nav-link';
 
 const generateResultLink = ({
 	from,
@@ -44,42 +44,17 @@ const FAQ = () => {
 				backgroundImage="/images/Illustratie_Mobiel_Veelgestelde_vragenRetina.svg"
 			>
 				{stage && destination && (
-					<Link
+					<NavLink
 						href={generateResultLink({
 							from,
 							to,
 							stage,
 							destination,
 						})}
-						passHref
+						icon="back"
 					>
-						<ThemeLink
-							sx={{
-								position: 'absolute',
-								top: '30px',
-								textDecoration: 'none',
-								fontFamily: 'body',
-								verticalAlign: 'top',
-								color: 'copyHeading',
-								fontWeight: 700,
-								display: 'flex',
-								justifyContent: 'center',
-								alignItems: 'center',
-								'::before': {
-									display: 'block',
-									content: '""',
-									backgroundImage: `url("/icons/Refresh.svg")`,
-									backgroundRepeat: 'no-repeat',
-									backgroundSize: '1.5em 1.5em',
-									height: '1.5em',
-									width: '1.5em',
-									paddingRight: '0.5em',
-								},
-							}}
-						>
-							naar resultaat
-						</ThemeLink>
-					</Link>
+						naar resultaat
+					</NavLink>
 				)}
 			</ContentPageHeader>
 

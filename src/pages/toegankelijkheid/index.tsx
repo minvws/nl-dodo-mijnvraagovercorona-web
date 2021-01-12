@@ -33,25 +33,24 @@ const Cookies = () => {
 				<Styled.p>
 					Wij garanderen een goede toegankelijkheid door de volgende maatregelen
 					binnen onze processen:
-					<br />
-					<ul>
-						<li>
-							Toegankelijkheid ‘by design’: toegankelijkheid is vanaf de start
-							onderdeel van alle stappen in het ontwerp-, bouw en redactionele
-							proces van onze website.
-						</li>
-						<li>
-							Onderzoek: onafhankelijke deskundigen toetsen regelmatig
-							(onderdelen van) de website op toegankelijkheid. Zowel voor de
-							functioneel-technische onderdelen als de redactionele aspecten.
-							Gevonden knelpunten lossen wij duurzaam op.
-						</li>
-						<li>
-							Kennis medewerkers: onze medewerkers houden hun kennis over
-							toegankelijkheid op peil en passen dit toe waar nodig.
-						</li>
-					</ul>
 				</Styled.p>
+				<Styled.ul>
+					<li>
+						Toegankelijkheid ‘by design’: toegankelijkheid is vanaf de start
+						onderdeel van alle stappen in het ontwerp-, bouw en redactionele
+						proces van onze website.
+					</li>
+					<li>
+						Onderzoek: onafhankelijke deskundigen toetsen regelmatig (onderdelen
+						van) de website op toegankelijkheid. Zowel voor de
+						functioneel-technische onderdelen als de redactionele aspecten.
+						Gevonden knelpunten lossen wij duurzaam op.
+					</li>
+					<li>
+						Kennis medewerkers: onze medewerkers houden hun kennis over
+						toegankelijkheid op peil en passen dit toe waar nodig.
+					</li>
+				</Styled.ul>
 				<Styled.h2>Problemen met toegankelijkheid melden</Styled.h2>
 				<Styled.p sx={{ marginBottom: '80px' }}>
 					Heeft u vragen of opmerkingen? Dan kunt u contact opnemen via{' '}

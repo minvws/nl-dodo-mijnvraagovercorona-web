@@ -37,17 +37,15 @@ const Cookies = () => {
 					te gooien. Dit gebeurt in een tijdelijk geheugen, voordat de
 					IP-adressen in Piwik worden opgeslagen.
 				</Styled.p>
-				<Styled.p>
-					Wij verzamelen de volgende gegevens in Piwik:
-					<ul>
-						<li>
-							gebruikte apparatuur en software (apparaten, browsers,
-							besturingssysteem)
-						</li>
-						<li>gebruikte links om op onze website te komen</li>
-						<li>gebruikte links binnen de website</li>
-					</ul>
-				</Styled.p>
+				<Styled.p>Wij verzamelen de volgende gegevens in Piwik:</Styled.p>
+				<Styled.ul>
+					<li>
+						gebruikte apparatuur en software (apparaten, browsers,
+						besturingssysteem)
+					</li>
+					<li>gebruikte links om op onze website te komen</li>
+					<li>gebruikte links binnen de website</li>
+				</Styled.ul>
 				<Styled.p>
 					Deze gegevens haalt Piwik uit de logfiles van de webserver. Deze
 					logfiles blijven 31 dagen in de database van Piwik staan. Daarna

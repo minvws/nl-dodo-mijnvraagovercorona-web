@@ -3,14 +3,46 @@ import React from 'react';
 import Link from 'next/link';
 import { jsx, Link as ThemeLink } from 'theme-ui';
 
-interface NavLinkProps {
-	href: string;
+type NavLinkProps = NavLinkWithHrefProps & NavLinkWithOnClickProps;
+
+interface NavLinkWithHrefProps {
+	href?: Object | string;
 	icon: 'refresh' | 'back';
 	children: React.ReactNode;
 }
 
-export const NavLink: React.FC<NavLinkProps> = ({ href, icon, children }) => (
-	<Link href={href} passHref>
+interface NavLinkWithOnClickProps {
+	onClick?: React.MouseEventHandler<HTMLSpanElement>;
+	icon: 'refresh' | 'back';
+	children: React.ReactNode;
+}
+
+const LinkWrapper: React.FC<{
+	href?: Object | string;
+	onClick?: React.MouseEventHandler<HTMLSpanElement>;
+}> = ({ href, onClick, children }) =>
+	href ? (
+		<Link href={href} passHref>
+			{children}
+		</Link>
+	) : (
+		<span
+			onClick={onClick}
+			sx={{
+				cursor: 'pointer',
+			}}
+		>
+			{children}
+		</span>
+	);
+
+export const NavLink: React.FC<NavLinkProps> = ({
+	href,
+	onClick,
+	icon,
+	children,
+}) => (
+	<LinkWrapper href={href} onClick={onClick}>
 		<ThemeLink
 			sx={{
 				position: 'absolute',
@@ -49,5 +81,5 @@ export const NavLink: React.FC<NavLinkProps> = ({ href, icon, children }) => (
 		>
 			{children}
 		</ThemeLink>
-	</Link>
+	</LinkWrapper>
 );
