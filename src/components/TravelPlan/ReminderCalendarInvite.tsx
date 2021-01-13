@@ -22,6 +22,14 @@ type MultiDayProps = ReminderCalendarInviteProps & {
 
 const ReminderCalendarInvite = (props: SingleDayProps | MultiDayProps) => {
 	const [showDialog, setShowDialog] = useState(false);
+	const dateText =
+		'singleDay' in props ? (
+			<>{formatLongDate(props.singleDay)}</>
+		) : (
+			<>
+				{formatLongDate(props.fromDate)} t/m {formatLongDate(props.toDate)}
+			</>
+		);
 
 	const invites = useMemo(() => {
 		const startDate = 'singleDay' in props ? props.singleDay : props.fromDate;
@@ -85,14 +93,7 @@ const ReminderCalendarInvite = (props: SingleDayProps | MultiDayProps) => {
 							margin: 0,
 						}}
 					>
-						{'singleDay' in props ? (
-							<>{formatLongDate(props.singleDay)}</>
-						) : (
-							<>
-								{formatLongDate(props.fromDate)} t/m{' '}
-								{formatLongDate(props.toDate)}
-							</>
-						)}
+						{dateText}
 					</span>
 				</MenuButton>
 				<MenuList
@@ -163,14 +164,15 @@ const ReminderCalendarInvite = (props: SingleDayProps | MultiDayProps) => {
 				</MenuList>
 			</Menu>
 			<Dialog
-				title="Thuisquarantaine in agenda"
+				title={props.title}
 				isVisible={showDialog}
 				closeDialog={() => setShowDialog(false)}
 			>
 				<p>
-					Heb je een andere (digitale) agenda? Zet je thuisquarantaine er dan
-					zelf in.
+					Heb je een andere (digitale) agenda? Zet je herinnering er dan zelf
+					in.
 				</p>
+				<p>{dateText}</p>
 			</Dialog>
 		</Container>
 	);
