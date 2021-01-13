@@ -130,12 +130,12 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 					{!duringOrAfter ? (
 						isAfter(fromDate as Date, new Date(2021, 2, 15)) ? (
 							<li>
-								Het is <strong>onzeker</strong> of reizen na 15 maart mogelijk
+								Het is <strong>onzeker</strong> of reizen na 31 maart mogelijk
 								is. Houd de berichtgeving van de overheid in de gaten.
 							</li>
 						) : (
 							<li>
-								Tot 15 maart <strong>niet reizen</strong>. Maak alleen echt
+								Tot 31 maart <strong>niet reizen</strong>. Maak alleen echt
 								noodzakelijke reizen. Daar vallen vakanties bijvoorbeeld niet
 								onder.
 							</li>
