@@ -1,10 +1,14 @@
 /** @jsx jsx */
 import React from 'react';
+import { useRouter } from 'next/router';
+
 import { Container, jsx } from 'theme-ui';
+
 import ContentPageHeader from 'components/structure/ContentPageHeader';
 import BodyContainer from 'components/structure/BodyContainer';
 import DataProtectionPanel from 'components/DataProtectionPanel';
 import Footer from 'components/structure/Footer';
+import { NavLink } from 'components/nav-link';
 
 type ContentPageProps = {
 	title: string;
@@ -13,12 +17,18 @@ type ContentPageProps = {
 };
 
 const ContentPage = (props: ContentPageProps) => {
+	const router = useRouter();
+
 	return (
 		<>
 			<ContentPageHeader
 				message={props.title}
 				backgroundImage={props.titleImage}
-			/>
+			>
+				<NavLink onClick={() => router.back()} icon="back">
+					terug
+				</NavLink>
+			</ContentPageHeader>
 
 			<BodyContainer>
 				<Container

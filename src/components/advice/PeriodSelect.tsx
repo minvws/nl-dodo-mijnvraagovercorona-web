@@ -1,12 +1,14 @@
 /** @jsx jsx */
 import React, { useState } from 'react';
 import { jsx, Link, Image, Container, Box } from 'theme-ui';
-import DayPicker, { DateUtils } from 'react-day-picker';
+import DayPicker, { DateUtils, NavbarElementProps } from 'react-day-picker';
 import { useDesktopQuery } from 'hooks/useDesktopQuery';
 import { formatShortDate } from 'utilities/dateUtils';
 import BodyContainer from 'components/structure/BodyContainer';
 
 import 'react-day-picker/lib/style.css';
+import { ScreenreaderOnly } from 'components/ScreenreaderOnly';
+import { Chevron } from 'components/icons/Chevron';
 
 type Range = {
 	from: Date;
@@ -16,6 +18,63 @@ type Range = {
 type PeriodSelectProps = {
 	country: string;
 	updatePage: ({ from, to }: Range) => void;
+};
+
+const Navbar = ({
+	nextMonth,
+	previousMonth,
+	onPreviousClick,
+	onNextClick,
+	localeUtils,
+}: NavbarElementProps) => {
+	const months = localeUtils.getMonths();
+	const prev = months[previousMonth.getMonth()];
+	const next = months[nextMonth.getMonth()];
+
+	return (
+		<div
+			sx={{
+				position: 'absolute',
+				width: '100%',
+				display: 'flex',
+				justifyContent: 'space-between',
+				top: 8,
+				left: 0,
+				svg: { width: ['16px', '10px'] },
+				path: { fill: 'smallText' },
+				button: {
+					border: 'none',
+					backgroundColor: 'transparent',
+					// This makes sure that if a user quickly taps the button,
+					// the mobile browsers won't see this as a "double tap to zoom".
+					touchAction: 'manipulation',
+				},
+			}}
+		>
+			<button
+				sx={{
+					paddingLeft: 10,
+					paddingRight: 0,
+					svg: { transform: 'rotate(180deg)' },
+				}}
+				onClick={() => onPreviousClick()}
+			>
+				<span aria-hidden>
+					<Chevron />
+				</span>
+				<ScreenreaderOnly>{prev}</ScreenreaderOnly>
+			</button>
+			<button
+				sx={{ paddingRight: 10, paddingLeft: 0 }}
+				onClick={() => onNextClick()}
+			>
+				<ScreenreaderOnly>{next}</ScreenreaderOnly>
+				<span aria-hidden>
+					<Chevron />
+				</span>
+			</button>
+		</div>
+	);
 };
 
 const generateMessage = ({ from, to }: Range) =>
@@ -106,6 +165,7 @@ const PeriodSelect = ({ country, updatePage }: PeriodSelectProps) => {
 			</Container>
 			<BodyContainer>
 				<DayPicker
+					navbarElement={Navbar}
 					sx={{
 						padding: [0, '70px 0 30px 0'],
 						width: '100%',
@@ -123,6 +183,7 @@ const PeriodSelect = ({ country, updatePage }: PeriodSelectProps) => {
 							color: '#CA005D',
 							fontWeight: 'bold',
 							fontSize: '16px',
+							textAlign: ['center', 'left'],
 						},
 
 						'.DayPicker-Weekday': {

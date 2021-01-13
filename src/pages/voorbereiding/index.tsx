@@ -1,8 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
-import Link from 'next/link';
 
-import { jsx, Container, Link as ThemeLink } from 'theme-ui';
+import { jsx, Container } from 'theme-ui';
 
 import MetaTags from 'components/meta/MetaTags';
 import ContentPageHeader from 'components/structure/ContentPageHeader';
@@ -11,6 +10,7 @@ import PreparationPanelListItem from 'components/preparations/PreparationPanelLi
 import BodyContainer from 'components/structure/BodyContainer';
 import DataProtectionPanel from 'components/DataProtectionPanel';
 import Footer from 'components/structure/Footer';
+import { NavLink } from 'components/nav-link';
 
 import AdviceContext from 'components/advice/AdviceContext';
 
@@ -45,42 +45,17 @@ const PreparationsPage = () => {
 				backgroundImage="/images/Banner_we_helpen_jeRetina.svg"
 			>
 				{stage && destination && (
-					<Link
+					<NavLink
 						href={generateResultLink({
 							from,
 							to,
 							stage,
 							destination,
 						})}
-						passHref
+						icon="back"
 					>
-						<ThemeLink
-							sx={{
-								position: 'absolute',
-								top: '30px',
-								textDecoration: 'none',
-								fontFamily: 'body',
-								verticalAlign: 'top',
-								color: 'copyHeading',
-								fontWeight: 700,
-								display: 'flex',
-								justifyContent: 'center',
-								alignItems: 'center',
-								'::before': {
-									display: 'block',
-									content: '""',
-									backgroundImage: `url("/icons/Refresh.svg")`,
-									backgroundRepeat: 'no-repeat',
-									backgroundSize: '1.5em 1.5em',
-									height: '1.5em',
-									width: '1.5em',
-									paddingRight: '0.5em',
-								},
-							}}
-						>
-							naar resultaat
-						</ThemeLink>
-					</Link>
+						naar resultaat
+					</NavLink>
 				)}
 			</ContentPageHeader>
 

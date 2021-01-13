@@ -1,8 +1,6 @@
 /** @jsx jsx */
 import React, { useEffect, useRef, useState } from 'react';
-import { jsx, Container, Button } from 'theme-ui';
-import Link from 'next/link';
-import VisuallyHidden from '@reach/visually-hidden';
+import { jsx } from 'theme-ui';
 
 import MetaTags from 'components/meta/MetaTags';
 import AdviceHeader from 'components/advice/AdviceHeader';

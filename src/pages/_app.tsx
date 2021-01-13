@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React from 'react';
+import React, { useEffect } from 'react';
 import Head from 'next/head';
 
 import { Alert, jsx, ThemeProvider, Flex } from 'theme-ui';
@@ -10,9 +10,17 @@ import theme from 'utilities/styling/theme';
 import 'styles/global.css';
 import 'styles/components/PeriodSelect.css';
 
-import { AppProps } from 'next/dist/next-server/lib/router/router';
+import Router, { AppProps } from 'next/dist/next-server/lib/router/router';
+import { trackPageview } from 'utilities/piwik';
 
 const TravelCheckApp = ({ Component, pageProps }: AppProps) => {
+	useEffect(() => {
+		Router.events.on('routeChangeComplete', trackPageview);
+		return () => {
+			Router.events.off('routeChangeComplete', trackPageview);
+		};
+	}, []);
+
 	return (
 		<>
 			<Head>

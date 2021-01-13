@@ -117,5 +117,8 @@ export default {
 		p: {
 			fontSize: '14pt',
 		},
+		ul: {
+			fontSize: '14pt',
+		},
 	},
 };
