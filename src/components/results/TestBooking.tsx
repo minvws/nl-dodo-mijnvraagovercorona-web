@@ -10,7 +10,11 @@ const TestBooking = () => {
 				href="https://coronatest.nl/ik-wil-me-laten-testen/een-online-afspraak-maken"
 				target="_blank"
 				rel="noopener noreferrer"
-				sx={{ textDecoration: 'none' }}
+				sx={{
+					textDecoration: 'none',
+					marginTop: ['10px', '60px'],
+					display: 'block',
+				}}
 			>
 				<Container
 					sx={{

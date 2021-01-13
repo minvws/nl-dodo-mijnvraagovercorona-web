@@ -153,8 +153,7 @@ const Period = ({ destination }: { destination: string }) => {
 							textAlign: 'right',
 							paddingLeft: 'mobilePadding',
 							paddingRight: 'mobilePadding',
-							paddingTop: ['auto', '18px'],
-							paddingBottom: ['auto', '63px'],
+							paddingBottom: '120px',
 						}}
 					>
 						<ButtonPrimary href={resultLink}>Toon het resultaat</ButtonPrimary>

@@ -31,9 +31,9 @@ const Home = () => {
 						fontWeight: 'light',
 						width: ['80%', '549px'],
 						fontSize: '26px',
+						lineHeight: ['30px', '36px'],
 						marginTop: 0,
-						marginBottom: ['28px', '23px'],
-						letterSpacint: '0.00265em',
+						marginBottom: ['18px'],
 					}}
 				>
 					Doe de check voor corona-richtlijnen en tips voor je thuisquarantaine.

@@ -353,7 +353,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 					</Container>
 
 					{showSecondCheckCalenderInvite && fromDate && (
-						<>
+						<Box sx={{ marginTop: ['10px', '60px'] }}>
 							<ReminderCalendarInvite
 								title="Zet 'Check opnieuw invullen' in je agenda"
 								inviteTitle="Reischeck invullen"
@@ -363,8 +363,12 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 							<Container
 								sx={{
 									paddingLeft: '2em',
+									paddingTop: '2px',
+									paddingBottom: '2px',
 									backgroundImage: 'url("/icons/Union.svg")',
 									backgroundRepeat: 'no-repeat',
+									backgroundPosition: '0 12px',
+									backgroundSize: '30px 30px',
 								}}
 							>
 								<p
@@ -376,7 +380,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 									nog een keer.
 								</p>
 							</Container>
-						</>
+						</Box>
 					)}
 
 					{showContactWithSymptoms && <TestBooking />}

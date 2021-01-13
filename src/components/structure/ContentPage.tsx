@@ -35,6 +35,10 @@ const ContentPage = (props: ContentPageProps) => {
 					sx={{
 						paddingLeft: ['mobilePadding', 0],
 						paddingRight: ['mobilePadding', 0],
+						p: {
+							fontSize: ['bodyMobile', 'body'],
+							lineHeight: ['bodyMobile', 'body'],
+						},
 					}}
 				>
 					{props.children}

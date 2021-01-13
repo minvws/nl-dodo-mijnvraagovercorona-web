@@ -21,8 +21,9 @@ const ContentPageHeader = (props: ContentPageProps) => {
 		backgroundImage: 'none',
 		backgroundRepeat: 'no-repeat',
 		backgroundPosition: 'right top',
-		paddingBottom: ['33px', '31px'],
-		paddingRight: ['auto', '300px', '400px'],
+		paddingBottom: '28px',
+		paddingRight: ['auto', '420px'],
+		paddingLeft: ['mobilePadding', 'mobilePadding', 0],
 	};
 	if (!isDesktop) {
 		const bgImg = `url("${

@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
-import { Button, jsx } from 'theme-ui';
+import { Button as ThemeUiButton, jsx } from 'theme-ui';
+import styled from '@emotion/styled';
 
 interface ButtonStyledProps {
 	children: React.ReactNode;
@@ -8,25 +9,34 @@ interface ButtonStyledProps {
 	href?: string;
 }
 
-export const ButtonStyled = ({ children }: ButtonStyledProps) => (
-	<Button
-		sx={{
-			paddingRight: ['auto', 'buttonPadding'],
-			paddingLeft: ['auto', 'buttonPadding'],
-			borderRadius: '5px',
-			minWidth: ['100%', '0'],
-			height: 'buttonHeight',
-			fontSize: ['buttonMobile', 'button'],
-			lineHeight: '51px',
-			fontFamily: 'heading',
-			backgroundColor: 'button',
+const buttonStyles = {
+	paddingRight: ['auto', 'buttonPadding'],
+	paddingLeft: ['auto', 'buttonPadding'],
+	borderRadius: '5px',
+	minWidth: ['100%', '0'],
+	height: 'buttonHeight',
+	fontSize: ['buttonMobile', 'button'],
+	lineHeight: '51px',
+	fontFamily: 'heading',
+	backgroundColor: 'button',
 
-			':hover': {
-				backgroundColor: 'buttonHover',
-			},
-		}}
-		as="span"
-	>
+	':hover': {
+		backgroundColor: 'buttonHover',
+	},
+};
+
+export const ButtonStyled = ({ children }: ButtonStyledProps) => (
+	<ThemeUiButton sx={buttonStyles} as="span">
 		{children}
-	</Button>
+	</ThemeUiButton>
+);
+
+// @TODO: This file should contain only 1 exported styledButton.
+// Using the as prop we can change the html element, which should automatically
+// update the typings. This should work, but somehow gives typing errors..
+// @see: https://reizentijdenscorona.atlassian.net/browse/RTC-77
+export const ButtonStyledAsSubmit = ({ children }: ButtonStyledProps) => (
+	<ThemeUiButton sx={buttonStyles} type="submit" as="button">
+		{children}
+	</ThemeUiButton>
 );
