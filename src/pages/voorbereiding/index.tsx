@@ -64,11 +64,18 @@ const PreparationsPage = () => {
 					sx={{
 						paddingLeft: ['paddingMobile', 0],
 						paddingRight: ['paddingMobile', 0],
+						li: {
+							paddingBottom: 0,
+						},
+						h2: {
+							marginTop: 0,
+						},
 					}}
 				>
 					<p
 						sx={{
 							marginTop: '65px',
+							marginBottom: '65px',
 							fontSize: 'smallText',
 							color: '#6A6A6A',
 							'::before': {

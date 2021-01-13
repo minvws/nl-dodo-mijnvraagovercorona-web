@@ -13,7 +13,7 @@ const Cookies = () => {
 				url="/copyright"
 			/>
 			<ContentPage title="Copyright">
-				<Styled.p sx={{ paddingTop: '63px' }}>
+				<Styled.p sx={{ paddingTop: '50px' }}>
 					Tenzij anders vermeld is op de inhoud van deze website de Creative
 					Commons zero verklaring (CC0) van toepassing. Dit houdt in dat
 					hergebruik van de inhoud van deze site is toegestaan, tenzij bij een

@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import Head from 'next/head';
 
-import { Alert, jsx, ThemeProvider } from 'theme-ui';
+import { Alert, jsx, ThemeProvider, Flex } from 'theme-ui';
 
 import { AdviceProvider } from 'components/advice/AdviceContext';
 
@@ -30,18 +30,20 @@ const TravelCheckApp = ({ Component, pageProps }: AppProps) => {
 				/>
 			</Head>
 			<ThemeProvider theme={theme}>
-				<Alert
-					sx={{
-						backgroundColor: 'button',
-						borderRadius: 0,
-						fontSize: '14px',
-						padding: '4px',
-					}}
-				>
-					<p sx={{ margin: 0 }}>Deze site is nog in de testfase.</p>
-				</Alert>
 				<AdviceProvider>
-					<Component {...pageProps} />
+					<Flex sx={{ flexDirection: 'column', minHeight: '100vh' }}>
+						<Alert
+							sx={{
+								backgroundColor: 'button',
+								borderRadius: 0,
+								fontSize: '14px',
+								padding: '4px',
+							}}
+						>
+							<p sx={{ margin: 0 }}>Deze site is nog in de testfase.</p>
+						</Alert>
+						<Component {...pageProps} />
+					</Flex>
 				</AdviceProvider>
 			</ThemeProvider>
 		</>

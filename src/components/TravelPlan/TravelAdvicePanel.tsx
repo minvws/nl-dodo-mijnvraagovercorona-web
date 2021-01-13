@@ -21,7 +21,6 @@ const TravelAdvicePanel = (props: TravelAdvicePanelProps) => {
 					color: 'black',
 					border: '1px solid #CA005D',
 					borderRadius: '10px',
-					marginRight: '1em',
 					paddingLeft: '0.5em',
 					paddingRight: '0.5em',
 				}}
