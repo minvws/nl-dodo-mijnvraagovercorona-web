@@ -40,7 +40,10 @@ const TravelCheckApp = ({ Component, pageProps }: AppProps) => {
 								padding: '4px',
 							}}
 						>
-							<p sx={{ margin: 0 }}>Deze site is nog in de testfase.</p>
+							<p sx={{ margin: 0 }}>
+								Deze site is nog in de testfase. Help ons verder via de knop
+								‘deel je mening’.
+							</p>
 						</Alert>
 						<Component {...pageProps} />
 					</Flex>
