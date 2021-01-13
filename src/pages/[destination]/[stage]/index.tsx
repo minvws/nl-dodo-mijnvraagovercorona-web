@@ -2,7 +2,7 @@
 import { useState, useContext, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { isAfter } from 'date-fns';
+import { endOfDay, isAfter, startOfDay } from 'date-fns';
 
 import { jsx, Container, Box } from 'theme-ui';
 
@@ -358,7 +358,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 								title="Zet 'Check opnieuw invullen' in je agenda"
 								inviteTitle="Reischeck invullen"
 								inviteText="Je bent van plan bijna op reis te gaan. De situatie kan veranderd zijn. Doe daarom nog een keer de check op www.reizentijdenscorona.nl"
-								date={addDays(new Date(fromDate), -7)}
+								singleDay={startOfDay(addDays(new Date(fromDate), -7))}
 							/>
 							<Container
 								sx={{
@@ -438,8 +438,8 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 							title="Zet je thuisquarantaine in je agenda"
 							inviteTitle="Thuisquarantaine"
 							inviteText="Krijg je (lichte) klachten? Neem dan direct contact op met de GGD. Kijk voor tips over je thuisquarantaine op https://www.reizentijdenscorona.nl/voorbereiding"
-							fromDate={toDate}
-							toDate={addDays(toDate, 10)}
+							fromDate={startOfDay(toDate)}
+							toDate={endOfDay(addDays(toDate, 10))}
 						/>
 					)}
 					<Feedback />
