@@ -128,16 +128,16 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 				>
 					{/* RISK LEVEL */}
 					{!duringOrAfter ? (
-						isAfter(fromDate as Date, new Date(2021, 2, 15)) ? (
+						isAfter(fromDate as Date, new Date(2021, 3, 1)) ? (
 							<li>
-								Het is <strong>onzeker</strong> of reizen na 15 maart mogelijk
+								Het is <strong>onzeker</strong> of reizen na 31 maart mogelijk
 								is. Houd de berichtgeving van de overheid in de gaten.
 							</li>
 						) : (
 							<li>
-								Tot 15 maart <strong>niet reizen</strong>. Maak alleen echt
-								noodzakelijke reizen. Daar vallen vakanties bijvoorbeeld niet
-								onder.
+								Tot en met 31 maart <strong>niet reizen</strong>. Maak alleen
+								echt noodzakelijke reizen. Daar vallen vakanties bijvoorbeeld
+								niet onder.
 							</li>
 						)
 					) : (

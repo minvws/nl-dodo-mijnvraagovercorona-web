@@ -88,7 +88,7 @@ const getFaqs = ({ limit, country }: FaqListProps) => {
 		[
 			'Wat valt onder een noodzakelijke reis?',
 			<p>
-				Blijf in Nederland tot en met half maart en boek geen reizen.
+				Blijf in Nederland tot en met 31 maart en boek geen reizen.
 				Uitzonderingen worden gemaakt voor werk in het buitenland met grote
 				economische belangen en een (aanstaand) sterfgeval in de naaste
 				omgeving. Vakantiereizen, familiebezoek of op vakantie naar een tweede
