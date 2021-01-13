@@ -1,11 +1,12 @@
 /** @jsx jsx */
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Container, jsx } from 'theme-ui';
 import { getAllCalendarInvites } from 'utilities/calendar-invite';
 import { MenuButton, MenuItem, MenuList, Menu } from '@reach/menu-button';
 import '@reach/menu-button/styles.css';
 import { endOfDay, format } from 'date-fns';
 import { formatLongDate } from 'utilities/dateUtils';
+import { Dialog } from 'components/dialog';
 
 interface ReminderCalendarInviteProps {
 	title: string;
@@ -20,6 +21,8 @@ type MultiDayProps = ReminderCalendarInviteProps & {
 };
 
 const ReminderCalendarInvite = (props: SingleDayProps | MultiDayProps) => {
+	const [showDialog, setShowDialog] = useState(false);
+
 	const invites = useMemo(() => {
 		const startDate = 'singleDay' in props ? props.singleDay : props.fromDate;
 		const endDate =
@@ -156,9 +159,19 @@ const ReminderCalendarInvite = (props: SingleDayProps | MultiDayProps) => {
 					>
 						Outlook.com <span>(online)</span>
 					</MenuItem>
-					<MenuItem onSelect={() => alert('jihaaoooee')}>Overig</MenuItem>
+					<MenuItem onSelect={() => setShowDialog(true)}>Overig</MenuItem>
 				</MenuList>
 			</Menu>
+			<Dialog
+				title="Thuisquarantaine in agenda"
+				isVisible={showDialog}
+				closeDialog={() => setShowDialog(false)}
+			>
+				<p>
+					Heb je een andere (digitale) agenda? Zet je thuisquarantaine er dan
+					zelf in.
+				</p>
+			</Dialog>
 		</Container>
 	);
 };
