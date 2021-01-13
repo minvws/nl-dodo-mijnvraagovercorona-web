@@ -52,7 +52,7 @@ const getFaqs = ({ limit, country }: FaqListProps) => {
 						Dit is een van de Nederlandse maatregelen om de import en
 						verspreiding van het coronavirus tegen te gaan. Je kan{' '}
 						<a
-							href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/negatieve-covid-19-testuitslag-aankomst-nederland"
+							href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/negatieve-covid-19-testuitslag-aankomst-nederland/negatieve-testuitslag-buiten-eu-en-schengen"
 							target="_blank"
 							rel="noopener noreferrer"
 						>
@@ -152,7 +152,7 @@ const getFaqs = ({ limit, country }: FaqListProps) => {
 						<p>
 							Meer informatie hierover kan je{' '}
 							<a
-								href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/negatieve-covid-19-testuitslag-aankomst-nederland"
+								href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/negatieve-covid-19-testuitslag-aankomst-nederland/negatieve-testuitslag-buiten-eu-en-schengen"
 								target="_blank"
 								rel="noopener noreferrer"
 							>
