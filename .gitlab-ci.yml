@@ -4,12 +4,14 @@
 
 variables:
   CD_APP_NAME: the-app
-  CD_APP_TAG: "0.0"
+  CD_APP_TAG: "0.1"
   CD_NAMESPACE_BHR: vws-reis-bhr
   CD_HARBOR_REGISTRY: harbor.diensten.test.overheid.standaardplatform.rijksapps.nl
+  CD_TAG: latest
 
 stages:
   - building
+  - labeling
 
 # CI_* variables are defined in GitLab group settings, see build log for actual values
 before_script:
@@ -19,9 +21,11 @@ before_script:
 after_script:
   - echo "Ended by ${GITLAB_USER_LOGIN} at $(date +%Y-%m-%d'-'%H-%M-%S)"
 
-build image:
+build test image:
   environment:
     name: "test-cluster"
+  only:
+    - main
   stage: building
   image:
     name: gcr.io/kaniko-project/executor:v1.3.0-debug # Must run in own image
