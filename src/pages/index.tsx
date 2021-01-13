@@ -60,6 +60,7 @@ const Home = () => {
 							display: 'block',
 						}}
 						src="/images/logo-alleen-samen.svg"
+						alt="Alleen samen krijgen we corona onder controle. Ga naar de campagnewebsite."
 					/>
 				</a>
 			</BodyContainer>
