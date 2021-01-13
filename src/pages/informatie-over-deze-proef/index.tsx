@@ -28,9 +28,9 @@ const Cookies = () => {
 					terugkerende reizigers. Slechts 27% van hen houdt zich aan de geldende
 					quarantaine maatregelen. Die houden op dit moment in dat elke reiziger
 					na aankomst uit vrijwel elk land 10 dagen in quarantaine moet gaan.
-					Ook nu het reizen zeer beperkt is en in ieder geval tot 15 maart 2021
-					alleen in noodzakelijke gevallen plaatsvindt is het van het grootste
-					belang dat men deze richtlijn opvolgt.
+					Ook nu het reizen zeer beperkt is en in ieder geval tot en met 31
+					maart 2021 alleen in noodzakelijke gevallen plaatsvindt is het van het
+					grootste belang dat men deze richtlijn opvolgt.
 				</Styled.p>
 				<Styled.p>
 					Met behulp van een praktische, digitale checklist kunnen reizigers

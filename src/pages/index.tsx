@@ -24,7 +24,7 @@ const Home = () => {
 
 			<ContentPageHeader
 				message="Wat als je toch naar het buitenland moet?"
-				secondaryMessage="Reis tot 15 maart 2021 alleen noodzakelijk"
+				secondaryMessage="Ga niet op reis en boek geen reizen t/m 31 maart"
 			>
 				<h2
 					sx={{

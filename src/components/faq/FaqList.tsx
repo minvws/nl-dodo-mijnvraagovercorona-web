@@ -52,7 +52,7 @@ const getFaqs = ({ limit, country }: FaqListProps) => {
 						Dit is een van de Nederlandse maatregelen om de import en
 						verspreiding van het coronavirus tegen te gaan. Je kan{' '}
 						<a
-							href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/negatieve-covid-19-testuitslag-aankomst-nederland"
+							href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/negatieve-covid-19-testuitslag-aankomst-nederland/negatieve-testuitslag-buiten-eu-en-schengen"
 							target="_blank"
 							rel="noopener noreferrer"
 						>
@@ -88,7 +88,7 @@ const getFaqs = ({ limit, country }: FaqListProps) => {
 		[
 			'Wat valt onder een noodzakelijke reis?',
 			<p>
-				Blijf in Nederland tot en met half maart en boek geen reizen.
+				Blijf in Nederland tot en met 31 maart en boek geen reizen.
 				Uitzonderingen worden gemaakt voor werk in het buitenland met grote
 				economische belangen en een (aanstaand) sterfgeval in de naaste
 				omgeving. Vakantiereizen, familiebezoek of op vakantie naar een tweede
@@ -152,7 +152,7 @@ const getFaqs = ({ limit, country }: FaqListProps) => {
 						<p>
 							Meer informatie hierover kan je{' '}
 							<a
-								href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/negatieve-covid-19-testuitslag-aankomst-nederland"
+								href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/negatieve-covid-19-testuitslag-aankomst-nederland/negatieve-testuitslag-buiten-eu-en-schengen"
 								target="_blank"
 								rel="noopener noreferrer"
 							>
