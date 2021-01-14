@@ -31,10 +31,15 @@ variables:
       --dockerfile ./Dockerfile_derived
       --destination ${CD_HARBOR_REGISTRY}/vws-reis/${CD_APP_NAME}:${CD_APP_TAG}
       --destination ${CD_HARBOR_REGISTRY}/vws-reis/${CD_APP_NAME}:${CD_TAG}
-      --cache=true
+      # --cache=true
+
+.deploy-image: &deploy-image
+  stage: deploy
+  trigger: vws/reis/nl-covid19-travel-during-corona-deploy
 
 stages:
   - build
+  - deploy
 
 # CI_* variables are defined in GitLab group settings, see build log for actual values
 before_script:
@@ -56,11 +61,26 @@ build image staging:
   variables:
     CD_TAG: staging
   only:
-    - dev
+    - staging
 
 build image production:
   <<: *build-image
   variables:
     CD_TAG: production
   only:
+    - production
+
+deploy image latest:
+  <<: *deploy-image
+  only:
     - dev
+
+deploy image staging:
+  <<: *deploy-image
+  only:
+    - staging
+
+deploy image production:
+  <<: *deploy-image
+  only:
+    - production
