@@ -49,7 +49,7 @@ build image latest:
     name: gcr.io/kaniko-project/executor:v1.3.0-debug
     entrypoint: ['']
   script:
-    - <<:*build-image
+    - <<: *build-image
 
 build image staging:
   variables:
@@ -63,7 +63,7 @@ build image staging:
     name: gcr.io/kaniko-project/executor:v1.3.0-debug
     entrypoint: ['']
   script:
-    - <<:*build-image
+    - <<: *build-image
 
 build image production:
   variables:
@@ -77,4 +77,4 @@ build image production:
     name: gcr.io/kaniko-project/executor:v1.3.0-debug
     entrypoint: ['']
   script:
-    - <<:*build-image
+    - <<: *build-image
