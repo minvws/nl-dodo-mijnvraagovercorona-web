@@ -3,7 +3,6 @@ import React from 'react';
 import Link from 'next/link';
 
 import { ThemeUICSSObject, Box, jsx, Link as ThemeLink } from 'theme-ui';
-import theme from 'utilities/styling/theme';
 
 interface Symbol {
 	iconFile: string;
@@ -14,7 +13,7 @@ interface Symbol {
 	style?: any;
 }
 
-const AnchorSymbol = {
+const anchorSymbol = {
 	iconFile: '/icons/Anker arrow.svg',
 	width: '13px',
 	height: '8px',
@@ -22,7 +21,7 @@ const AnchorSymbol = {
 	verticalShift: '12px',
 };
 
-const InternalLinkSymbol = {
+const internalLinkSymbol = {
 	iconFile: '/icons/Link Arrow.svg',
 	width: '7px',
 	height: '12px',
@@ -34,7 +33,7 @@ const InternalLinkSymbol = {
 	},
 };
 
-const DialogSymbol = {
+const dialogSymbol = {
 	iconFile: '/icons/Question.svg',
 	width: '16px',
 	height: '16px',
@@ -61,6 +60,11 @@ type LinkProps = {
 	sx?: ThemeUICSSObject;
 };
 
+type LinkBaseProps = LinkProps & {
+	symbol: Symbol;
+	ref?: React.RefObject<HTMLAnchorElement>;
+};
+
 const LinkWrapper = ({
 	internal,
 	href,
@@ -71,66 +75,70 @@ const LinkWrapper = ({
 	children: React.ReactNode;
 }) => (internal ? <Link href={href}>{children}</Link> : <>{children}</>);
 
-const linkWithIcon = ({
-	symbol,
-	internal,
-}: {
-	symbol: Symbol;
-	internal?: boolean;
-}) => {
+const LinkBase = React.forwardRef((props: LinkBaseProps, ref) => {
 	const baseIconStyles: ThemeUICSSObject = {
 		display: 'inline-block',
 		content: '""',
-		backgroundImage: `url("${symbol.iconFile}")`,
-		backgroundSize: `${symbol.width} ${symbol.height}`,
-		height: symbol.height,
-		width: symbol.width,
+		backgroundImage: `url("${props.symbol.iconFile}")`,
+		backgroundSize: `${props.symbol.width} ${props.symbol.height}`,
+		height: props.symbol.height,
+		width: props.symbol.width,
 		backgroundRepeat: 'no-repeat',
 		position: 'absolute',
-		marginTop: symbol.verticalShift,
+		marginTop: props.symbol.verticalShift,
 	};
 
 	const containerStyles: ThemeUICSSObject =
-		symbol.position === 'left'
+		props.symbol.position === 'left'
 			? { '::before': baseIconStyles }
 			: { '::after': baseIconStyles };
-	return (props: LinkProps) => {
-		return (
-			<Box sx={containerStyles}>
-				<LinkWrapper internal={internal} href={props.href}>
-					<a
-						sx={{
-							fontSize: ['linkMobile', 'link'],
-							fontWeight: 'bold',
-							lineHeight: ['linkMobile', 'link'],
-							paddingLeft: `calc(${symbol.width} + 14px)`,
-							display: 'inline-block',
-							color: 'link',
-							':hover': {
-								color: 'linkHover',
-							},
-							...symbol.style,
-							...props.sx,
-						}}
-						onClick={props.onClick}
-						href={props.href}
-					>
-						{props.text}
-						{props.children}
-					</a>
-				</LinkWrapper>
-			</Box>
-		);
-	};
-};
 
-export const AnchorLink = linkWithIcon({ symbol: AnchorSymbol });
-export const InternalLink = linkWithIcon({
-	symbol: InternalLinkSymbol,
-	internal: true,
+	/**
+	 * I need lessons in Typescript 🙈
+	 */
+	const optionalRef: any = ref ? { ref } : {};
+
+	return (
+		<Box sx={containerStyles}>
+			<LinkWrapper internal={props.internal} href={props.href}>
+				<a
+					sx={{
+						fontSize: ['linkMobile', 'link'],
+						fontWeight: 'bold',
+						lineHeight: ['linkMobile', 'link'],
+						paddingLeft: `calc(${props.symbol.width} + 14px)`,
+						display: 'inline-block',
+						color: 'link',
+						':hover': {
+							color: 'linkHover',
+						},
+						...props.symbol.style,
+						...props.sx,
+					}}
+					onClick={props.onClick}
+					href={props.href}
+					{...optionalRef}
+				>
+					{props.text}
+					{props.children}
+				</a>
+			</LinkWrapper>
+		</Box>
+	);
 });
+
+export const AnchorLink = (props: LinkProps) => (
+	<LinkBase {...props} symbol={anchorSymbol} />
+);
+
+export const InternalLink = React.forwardRef((props: LinkProps, ref) => (
+	<LinkBase {...props} ref={ref} symbol={internalLinkSymbol} internal />
+));
+
 // @TODO: I'd rather see this as a button instead of a link
-export const DialogLink = linkWithIcon({ symbol: DialogSymbol });
+export const DialogLink = (props: LinkProps) => (
+	<LinkBase {...props} symbol={dialogSymbol} />
+);
 
 export const RetryLink: React.FC = ({ children }) => (
 	<ThemeLink

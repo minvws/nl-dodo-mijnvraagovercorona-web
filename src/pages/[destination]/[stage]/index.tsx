@@ -29,6 +29,7 @@ import { Dialog } from 'components/dialog';
 import { NavLink } from 'components/nav-link';
 import Feedback from 'components/feedback/Feedback';
 import AdviceContext from 'components/advice/AdviceContext';
+import { QuarantaineCard } from 'components/quarantaine-card';
 
 type Stage = 'voor-vertrek' | 'tijdens-je-reis' | 'na-thuiskomst';
 type Color = 'yellow' | 'orange' | 'red';
@@ -394,30 +395,8 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 					>
 						Zo kom je de thuisquarantaine goed door
 					</h2>
-					<Box
-						sx={{
-							borderRadius: '11px',
-							boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.2)',
-							marginBottom: '10px',
-							paddingTop: '11px',
-							paddingBottom: '13px',
-							paddingLeft: '115px',
-							backgroundImage: 'url("/images/Banner_we_helpen_jeRetina.svg")',
-							backgroundRepeat: 'no-repeat',
-							backgroundPositionX: '-10px',
-						}}
-					>
-						<h3
-							sx={{
-								color: 'secondaryHeader',
-								fontSize: ['bodyMobile', 'body'],
-								lineHeight: ['bodyMobile', 'body'],
-							}}
-						>
-							Wat moet ik regelen voor mijn thuisquarantaine?
-						</h3>
-						<InternalLink href="/voorbereiding">Meer uitleg</InternalLink>
-					</Box>
+
+					<QuarantaineCard />
 
 					{showQuarantaine && toDate && (
 						<ReminderCalendarInvite

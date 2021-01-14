@@ -1,0 +1,1 @@
+export { QuarantaineCard } from './QuarantaineCard';
