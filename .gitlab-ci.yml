@@ -3,8 +3,8 @@
 #
 
 variables:
-  CD_APP_NAME: the-app
-  CD_APP_TAG: "0.2"
+  CD_APP_NAME: travel-during-corona-website
+  CD_APP_TAG: '0.2'
   CD_NAMESPACE_BHR: vws-reis-bhr
   CD_HARBOR_REGISTRY: harbor.diensten.test.overheid.standaardplatform.rijksapps.nl
   CD_TAG: latest
@@ -22,13 +22,13 @@ after_script:
 
 build image:
   environment:
-    name: "test-cluster"
+    name: 'test-cluster'
   only:
     - main
   stage: build
   image:
     name: gcr.io/kaniko-project/executor:v1.3.0-debug # Must run in own image
-    entrypoint: [""]
+    entrypoint: ['']
   script:
     - echo "${DOCKER_AUTH_CONFIG}" > /kaniko/.docker/config.json
     - cat /kaniko/.docker/config.json
@@ -38,7 +38,7 @@ build image:
     - cat Dockerfile_derived
     - echo "CI_PROJECT_DIR ${CI_PROJECT_DIR}"
     - pwd
-    - "echo ${CD_HARBOR_REGISTRY}/vws-reis/${CD_APP_NAME}:${CD_APP_TAG}"
+    - 'echo ${CD_HARBOR_REGISTRY}/vws-reis/${CD_APP_NAME}:${CD_APP_TAG}'
     # Build and push to Harbor
     - /kaniko/executor
       --context ${CI_PROJECT_DIR}
