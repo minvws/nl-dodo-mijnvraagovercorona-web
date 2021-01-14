@@ -144,7 +144,6 @@ const Period = ({ destination }: { destination: string }) => {
 					</p>
 				</Dialog>
 			</AdviceHeader>
-
 			<PeriodSelect country={country?.fullName} updatePage={updateDate} />
 			<BodyContainer>
 				{fromDate && toDate && country && (

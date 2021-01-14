@@ -138,7 +138,10 @@ const PeriodSelect = ({ country, updatePage }: PeriodSelectProps) => {
 							color: 'white',
 						}}
 					>
-						<Image src="/icons/Back Arrow Big.svg" />
+						<Image
+							src="/icons/Back Arrow Big.svg"
+							alt="Terug naar invoer bestemming"
+						/>
 					</Link>
 					<h3
 						sx={{

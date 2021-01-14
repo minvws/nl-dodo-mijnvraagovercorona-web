@@ -13,8 +13,9 @@ const HomePageNavigation = () => {
 				marginTop: '37px',
 				paddingRight: ['auto', 'sidePanel'],
 			}}
+			as="nav"
 		>
-			<nav
+			<div
 				sx={{
 					display: 'grid',
 					gridTemplateColumns: ['1fr', '1fr 1fr 1fr'], // todo: replace this with repeat()
@@ -39,7 +40,7 @@ const HomePageNavigation = () => {
 				<AnchorLink href="#thuis-quarantaine">
 					We helpen je met je thuisquarantaine
 				</AnchorLink>
-			</nav>
+			</div>
 		</Container>
 	);
 };

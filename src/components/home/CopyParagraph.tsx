@@ -47,7 +47,7 @@ const CopyParagraph = (props: CopyParagraphProps) => {
 					order: imageOrder(),
 				}}
 			>
-				{props.imageUrl && <Image src={props.imageUrl} />}
+				{props.imageUrl && <Image src={props.imageUrl} alt="" />}
 			</div>
 			<div
 				sx={{

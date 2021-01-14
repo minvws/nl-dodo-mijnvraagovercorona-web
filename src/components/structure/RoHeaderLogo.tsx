@@ -23,7 +23,10 @@ const RoHeaderLogo = (props: RoHeaderLogoProps) => {
 		<Container sx={containerStyle}>
 			<Link href="/" passHref>
 				<a sx={{ img: { width: ['54px', '68px'], height: 'auto' } }}>
-					<Image src="/icons/RO logo.svg" />
+					<Image
+						src="/icons/RO logo.svg"
+						alt="Logo Rijksoverheid - Naar de homepage van Rieizentijdenscorona.nl"
+					/>
 					{props.children}
 				</a>
 			</Link>
