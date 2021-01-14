@@ -392,21 +392,6 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 							fontSize: ['h2Mobile', 'h2'],
 						}}
 					>
-						Veelgestelde vragen
-					</h2>
-					<FaqList limit={5} country={country} />
-
-					<InternalLink href={`/${country?.slug}/faq`}>
-						Bekijk alle 10 veelgestelde vragen
-					</InternalLink>
-
-					<h2
-						sx={{
-							paddingTop: ['36px', '44px'],
-							color: 'header',
-							fontSize: ['h2Mobile', 'h2'],
-						}}
-					>
 						Zo kom je de thuisquarantaine goed door
 					</h2>
 					<Box
@@ -433,6 +418,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 						</h3>
 						<InternalLink href="/voorbereiding">Meer uitleg</InternalLink>
 					</Box>
+
 					{showQuarantaine && toDate && (
 						<ReminderCalendarInvite
 							title="Zet je thuisquarantaine in je agenda"
@@ -442,6 +428,22 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 							toDate={addDays(toDate, 10)}
 						/>
 					)}
+
+					<h2
+						sx={{
+							paddingTop: ['36px', '44px'],
+							color: 'header',
+							fontSize: ['h2Mobile', 'h2'],
+						}}
+					>
+						Veelgestelde vragen
+					</h2>
+					<FaqList limit={5} country={country} />
+
+					<InternalLink href={`/${country?.slug}/faq`}>
+						Bekijk alle 10 veelgestelde vragen
+					</InternalLink>
+
 					<Feedback />
 					<div sx={{ marginBottom: '65px' }} />
 				</Container>
