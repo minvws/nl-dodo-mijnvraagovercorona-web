@@ -1,5 +1,4 @@
-import { format, formatISO } from 'date-fns';
-import { parseDate } from './dateUtils';
+import { format } from 'date-fns';
 
 // Maybe this can be done in a nicer way, but I didn't find any date method that would work
 // with this format 😅

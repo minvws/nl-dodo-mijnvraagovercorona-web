@@ -31,7 +31,7 @@ const ReminderCalendarInvite = (props: SingleDayProps | MultiDayProps) => {
 			</>
 		);
 
-	const invites = useMemo(() => {
+	const inviteUrls = useMemo(() => {
 		const startDate = 'singleDay' in props ? props.singleDay : props.fromDate;
 		const endDate =
 			'singleDay' in props ? endOfDay(props.singleDay) : props.toDate;
@@ -121,7 +121,7 @@ const ReminderCalendarInvite = (props: SingleDayProps | MultiDayProps) => {
 					<MenuItem
 						onSelect={() => {}}
 						as="a"
-						href={invites.ics}
+						href={inviteUrls.ics}
 						target="_blank"
 						download={`${props.title}.ics`}
 					>
@@ -130,7 +130,7 @@ const ReminderCalendarInvite = (props: SingleDayProps | MultiDayProps) => {
 					<MenuItem
 						onSelect={() => {}}
 						as="a"
-						href={invites.google}
+						href={inviteUrls.google}
 						target="_blank"
 					>
 						Google <span>(online)</span>
@@ -138,24 +138,24 @@ const ReminderCalendarInvite = (props: SingleDayProps | MultiDayProps) => {
 					<MenuItem
 						onSelect={() => {}}
 						as="a"
-						href={invites.office365}
+						href={inviteUrls.office365}
 						target="_blank"
-						download={`${props.title}.ics`}
 					>
 						Office 365 <span>(online)</span>
 					</MenuItem>
 					<MenuItem
 						onSelect={() => {}}
 						as="a"
-						href={invites.ics}
+						href={inviteUrls.ics}
 						target="_blank"
+						download={`${props.title}.ics`}
 					>
 						Outlook
 					</MenuItem>
 					<MenuItem
 						onSelect={() => {}}
 						as="a"
-						href={invites.live}
+						href={inviteUrls.live}
 						target="_blank"
 					>
 						Outlook.com <span>(online)</span>
