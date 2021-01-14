@@ -13,6 +13,13 @@ export const formatShortDate = (date?: Date): string =>
 				.replace('.', '')
 		: '';
 
+export const formatLongDate = (date: Date) =>
+	date.toLocaleDateString('nl-nL', {
+		day: 'numeric',
+		month: 'long',
+		year: 'numeric',
+	});
+
 export const parseDate = (input: Date | string | string[]): Date => {
 	if (input instanceof Date) {
 		return input;

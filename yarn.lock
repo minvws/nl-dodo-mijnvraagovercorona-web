@@ -1741,6 +1741,18 @@
     "@reach/utils" "0.12.1"
     tslib "^2.0.0"
 
+"@reach/menu-button@^0.12.1":
+  version "0.12.1"
+  resolved "https://registry.yarnpkg.com/@reach/menu-button/-/menu-button-0.12.1.tgz#73976bd101431c67351a811f2fbf76ddefbecf53"
+  integrity sha512-hsq3TGBLutU7u+Gwhff6KJeanbabdODtfSTi947DaoJ/HHZVOjYUldNEBNeO3DeBE/bOv2TjYe3D4rw11m25Tg==
+  dependencies:
+    "@reach/auto-id" "0.12.1"
+    "@reach/descendants" "0.12.1"
+    "@reach/popover" "0.12.1"
+    "@reach/utils" "0.12.1"
+    prop-types "^15.7.2"
+    tslib "^2.0.0"
+
 "@reach/observe-rect@1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@reach/observe-rect/-/observe-rect-1.2.0.tgz#d7a6013b8aafcc64c778a0ccb83355a11204d3b2"

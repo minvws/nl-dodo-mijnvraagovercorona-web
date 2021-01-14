@@ -2,7 +2,7 @@
 import { useState, useContext, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { isAfter } from 'date-fns';
+import { endOfDay, isAfter, startOfDay } from 'date-fns';
 
 import { jsx, Container, Box } from 'theme-ui';
 
@@ -357,9 +357,11 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 						<Box sx={{ marginTop: ['10px', '60px'] }}>
 							<ReminderCalendarInvite
 								title="Zet 'Check opnieuw invullen' in je agenda"
+								modalTitle="Reischeck opnieuw inullen in agenda"
+								modalBody="Heb je een andere (digitale) agenda? Zet je reminder om de reischeck opnieuw in te vullen er dan zelf in."
 								inviteTitle="Reischeck invullen"
 								inviteText="Je bent van plan bijna op reis te gaan. De situatie kan veranderd zijn. Doe daarom nog een keer de check op www.reizentijdenscorona.nl"
-								date={addDays(new Date(fromDate), -7)}
+								singleDay={startOfDay(addDays(new Date(fromDate), -7))}
 							/>
 							<Container
 								sx={{
@@ -401,10 +403,12 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 					{showQuarantaine && toDate && (
 						<ReminderCalendarInvite
 							title="Zet je thuisquarantaine in je agenda"
+							modalTitle="Thuisquarantaine in agenda"
+							modalBody="Heb je een andere (digitale) agenda? Zet je thuisquarantaine er dan zelf in."
 							inviteTitle="Thuisquarantaine"
 							inviteText="Krijg je (lichte) klachten? Neem dan direct contact op met de GGD. Kijk voor tips over je thuisquarantaine op https://www.reizentijdenscorona.nl/voorbereiding"
-							fromDate={toDate}
-							toDate={addDays(toDate, 10)}
+							fromDate={startOfDay(toDate)}
+							toDate={endOfDay(addDays(toDate, 10))}
 						/>
 					)}
 

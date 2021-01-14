@@ -53,6 +53,9 @@ export const Dialog: React.FC<DialogProps> = ({
 					color: 'header',
 					marginTop: ['auto', '168px'],
 					position: 'relative',
+					h2: {
+						paddingRight: '20px',
+					},
 				}}
 			>
 				<button

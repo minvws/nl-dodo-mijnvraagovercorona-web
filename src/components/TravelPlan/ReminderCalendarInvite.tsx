@@ -1,118 +1,210 @@
 /** @jsx jsx */
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Container, jsx } from 'theme-ui';
-import { generateCalendarInvite } from 'utilities/dateUtils';
+import { getAllCalendarInvites } from 'utilities/calendar-invite';
+import { MenuButton, MenuItem, MenuList, Menu } from '@reach/menu-button';
+import '@reach/menu-button/styles.css';
+import { endOfDay, format } from 'date-fns';
+import { formatLongDate } from 'utilities/dateUtils';
+import { Dialog } from 'components/dialog';
 
-type ReminderCalendarInviteProps = {
-	date?: Date | string;
-	fromDate?: Date | string;
-	toDate?: Date | string;
+interface ReminderCalendarInviteProps {
 	title: string;
+	modalTitle: string;
+	modalBody: string;
 	inviteTitle: string;
 	inviteText: string;
+}
+
+type SingleDayProps = ReminderCalendarInviteProps & { singleDay: Date };
+type MultiDayProps = ReminderCalendarInviteProps & {
+	fromDate: Date;
+	toDate: Date;
 };
 
-const parseDate = (input: Date | string | undefined): Date | undefined => {
-	if (input instanceof Date) {
-		return input;
-	}
-	return input ? new Date(Date.parse(input)) : undefined;
-};
+interface CalenderInviteMenuItemProps {
+	onSelect?: () => void;
+	href?: string;
+	download?: string;
+	icon: string;
+}
 
-const ReminderCalendarInvite = (props: ReminderCalendarInviteProps) => {
-	const date = parseDate(props.date);
-	const fromDate = parseDate(props.fromDate);
-	const toDate = parseDate(props.toDate);
+const CalenderInviteMenuItem: React.FC<CalenderInviteMenuItemProps> = ({
+	onSelect = () => {},
+	icon,
+	href,
+	download,
+	children,
+}) => (
+	<MenuItem
+		onSelect={onSelect}
+		as="a"
+		download={download}
+		{...(href
+			? {
+					href,
+					target: '_blank',
+					rel: 'noopener noreferrer',
+			  }
+			: {})}
+		sx={{
+			padding: '10px 24px',
+			display: 'flex',
+			alignItems: 'center',
 
-	// const downloadLink = useMemo(() => {
-	// 	let textContent = '';
-	// 	if (date) {
-	// 		textContent = generateCalendarInvite(
-	// 			props.inviteTitle,
-	// 			props.inviteText,
-	// 			date,
-	// 		);
-	// 	} else if (fromDate && toDate) {
-	// 		textContent = generateCalendarInvite(
-	// 			props.inviteTitle,
-	// 			props.inviteText,
-	// 			fromDate,
-	// 			toDate,
-	// 		);
-	// 	}
-	// 	return `data:text/calendar;charset=utf8,${textContent}`;
-	// }, [props.inviteTitle, props.inviteText, fromDate, toDate]);
+			':hover,:focus': {
+				backgroundColor: '#f0f0f0',
+				color: 'text',
+			},
+		}}
+	>
+		<span sx={{ width: '40px' }}>
+			<img src={icon} alt="" />
+		</span>
+		<span
+			sx={{
+				color: '#0E6999',
+			}}
+		>
+			{children}
+		</span>
+	</MenuItem>
+);
 
-	let dateStr = '';
-	if (date) {
-		dateStr = date.toLocaleDateString('nl-NL', {
-			day: 'numeric',
-			month: 'long',
-			year: 'numeric',
+const ReminderCalendarInvite = (props: SingleDayProps | MultiDayProps) => {
+	const [showDialog, setShowDialog] = useState(false);
+	const dateText =
+		'singleDay' in props ? (
+			<>{formatLongDate(props.singleDay)}</>
+		) : (
+			<>
+				{formatLongDate(props.fromDate)} t/m {formatLongDate(props.toDate)}
+			</>
+		);
+
+	const inviteUrls = useMemo(() => {
+		const startDate = 'singleDay' in props ? props.singleDay : props.fromDate;
+		const endDate =
+			'singleDay' in props ? endOfDay(props.singleDay) : props.toDate;
+
+		return getAllCalendarInvites({
+			title: props.inviteTitle,
+			description: props.inviteText,
+			startDate,
+			endDate,
 		});
-	} else if (fromDate && toDate) {
-		const startSegment = fromDate.toLocaleDateString('nl-NL', {
-			day: 'numeric',
-			month: 'long',
-		});
-		const endSegment = toDate.toLocaleDateString('nl-NL', {
-			day: 'numeric',
-			month: 'long',
-			year: 'numeric',
-		});
-		dateStr = `${startSegment} t/m ${endSegment}`;
-	}
+	}, [props]);
 
 	return (
 		<Container
 			sx={{
 				marginTop: '2em',
+				backgroundImage: `url("/icons/Button Arrow.svg")`,
+				backgroundRepeat: 'no-repeat',
+				backgroundPosition: 'right 1em top 50%',
 			}}
 		>
-			<span
-				sx={{
-					backgroundColor: 'transparent',
-					border: '1px solid',
-					borderColor: 'header',
-					color: '#000',
-					textDecoration: 'none',
-					borderRadius: '8px',
-					paddingLeft: '4.5em',
-					paddingTop: '0.7em',
-					paddingBottom: '0.7em',
-					backgroundImage: 'url("/icons/Calendar.svg")',
-					backgroundRepeat: 'no-repeat',
-					backgroundPositionY: 'center',
-					backgroundPositionX: '1em',
-					// cursor: 'pointer',
-					display: 'block',
-					width: '100%',
-					textAlign: 'left',
-				}}
-				// download={`${props.inviteTitle}.ics`}
-				// href={downloadLink}
-			>
-				<span
+			<Menu>
+				<MenuButton
 					sx={{
+						backgroundColor: 'transparent',
+						border: '1px solid',
+						borderColor: 'header',
+						color: '#000',
+						textDecoration: 'none',
+						borderRadius: '8px',
+						paddingLeft: '70px',
+						paddingTop: '0.7em',
+						paddingBottom: '0.7em',
+						backgroundImage: 'url("/icons/Calendar.svg")',
+						backgroundRepeat: 'no-repeat',
+						backgroundPositionY: 'center',
+						backgroundPositionX: '1em',
+						cursor: 'pointer',
 						display: 'block',
-						fontSize: '19px',
-						color: 'link',
+						width: '100%',
+						textAlign: 'left',
+					}}
+				>
+					<span
+						sx={{
+							display: 'block',
+							fontSize: '19px',
+							color: 'link',
+							fontWeight: 'bold',
+							width: '80%',
+							margin: '3px 0',
+						}}
+					>
+						{props.title}
+					</span>
+					<span
+						sx={{
+							display: 'block',
+							margin: 0,
+						}}
+					>
+						{dateText}
+					</span>
+				</MenuButton>
+				<MenuList
+					sx={{
+						boxShadow: '0px 4px 20px 4px rgba(0, 0, 0, 0.3)',
+						borderRadius: '11px',
+						border: 'none',
+						fontSize: '16px',
 						fontWeight: 'bold',
-						width: '80%',
-						margin: '3px 0',
 					}}
 				>
-					{props.title}
-				</span>
-				<span
-					sx={{
-						display: 'block',
-						margin: 0,
-					}}
-				>
-					{dateStr}
-				</span>
-			</span>
+					<CalenderInviteMenuItem
+						href={inviteUrls.ics}
+						download={`${props.modalTitle}.ics`}
+						icon="/icons/apple.svg"
+					>
+						Apple
+					</CalenderInviteMenuItem>
+					<CalenderInviteMenuItem
+						href={inviteUrls.google}
+						download={`${props.modalTitle}.ics`}
+						icon="/icons/google.svg"
+					>
+						Google (online)
+					</CalenderInviteMenuItem>
+					<CalenderInviteMenuItem
+						href={inviteUrls.office365}
+						icon="/icons/office-365.svg"
+					>
+						Office (online)
+					</CalenderInviteMenuItem>
+					<CalenderInviteMenuItem
+						href={inviteUrls.ics}
+						download={`${props.modalTitle}.ics`}
+						icon="/icons/outlook.svg"
+					>
+						Outlook
+					</CalenderInviteMenuItem>
+					<CalenderInviteMenuItem
+						href={inviteUrls.live}
+						icon="/icons/outlook-online.svg"
+					>
+						Outlook.com (online)
+					</CalenderInviteMenuItem>
+					<CalenderInviteMenuItem
+						onSelect={() => setShowDialog(true)}
+						icon="/icons/other-calendar.svg"
+					>
+						Een andere agenda
+					</CalenderInviteMenuItem>
+				</MenuList>
+			</Menu>
+			<Dialog
+				title={props.modalTitle}
+				isVisible={showDialog}
+				closeDialog={() => setShowDialog(false)}
+			>
+				<p>{props.modalBody}</p>
+				<p>{dateText}</p>
+			</Dialog>
 		</Container>
 	);
 };
