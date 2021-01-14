@@ -203,7 +203,9 @@ const ReminderCalendarInvite = (props: SingleDayProps | MultiDayProps) => {
 				closeDialog={() => setShowDialog(false)}
 			>
 				<p>{props.modalBody}</p>
-				<p>{dateText}</p>
+				<p>
+					{props.inviteTitle}: {dateText}
+				</p>
 			</Dialog>
 		</Container>
 	);

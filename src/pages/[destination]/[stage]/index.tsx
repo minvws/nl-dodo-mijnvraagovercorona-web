@@ -357,7 +357,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 						<Box sx={{ marginTop: ['10px', '60px'] }}>
 							<ReminderCalendarInvite
 								title="Zet 'Check opnieuw invullen' in je agenda"
-								modalTitle="Reischeck opnieuw inullen in agenda"
+								modalTitle="Reischeck opnieuw invullen in agenda"
 								modalBody="Heb je een andere (digitale) agenda? Zet je reminder om de reischeck opnieuw in te vullen er dan zelf in."
 								inviteTitle="Reischeck invullen"
 								inviteText="Je bent van plan bijna op reis te gaan. De situatie kan veranderd zijn. Doe daarom nog een keer de check op www.reizentijdenscorona.nl"
