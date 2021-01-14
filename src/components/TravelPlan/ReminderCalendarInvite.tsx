@@ -10,6 +10,8 @@ import { Dialog } from 'components/dialog';
 
 interface ReminderCalendarInviteProps {
 	title: string;
+	modalTitle: string;
+	modalBody: string;
 	inviteTitle: string;
 	inviteText: string;
 }
@@ -19,6 +21,55 @@ type MultiDayProps = ReminderCalendarInviteProps & {
 	fromDate: Date;
 	toDate: Date;
 };
+
+interface CalenderInviteMenuItemProps {
+	onSelect?: () => void;
+	href?: string;
+	download?: string;
+	icon: string;
+}
+
+const CalenderInviteMenuItem: React.FC<CalenderInviteMenuItemProps> = ({
+	onSelect = () => {},
+	icon,
+	href,
+	download,
+	children,
+}) => (
+	<MenuItem
+		onSelect={onSelect}
+		as="a"
+		download={download}
+		{...(href
+			? {
+					href,
+					target: '_blank',
+					rel: 'noopener noreferrer',
+			  }
+			: {})}
+		sx={{
+			padding: '10px 24px',
+			display: 'flex',
+			alignItems: 'center',
+
+			':hover,:focus': {
+				backgroundColor: '#f0f0f0',
+				color: 'text',
+			},
+		}}
+	>
+		<span sx={{ width: '40px' }}>
+			<img src={icon} alt="" />
+		</span>
+		<span
+			sx={{
+				color: '#0E6999',
+			}}
+		>
+			{children}
+		</span>
+	</MenuItem>
+);
 
 const ReminderCalendarInvite = (props: SingleDayProps | MultiDayProps) => {
 	const [showDialog, setShowDialog] = useState(false);
@@ -103,75 +154,55 @@ const ReminderCalendarInvite = (props: SingleDayProps | MultiDayProps) => {
 						border: 'none',
 						fontSize: '16px',
 						fontWeight: 'bold',
-						span: {
-							fontWeight: 'normal',
-							fontStyle: 'italic',
-							color: 'inputBorder',
-							fontSize: '12px',
-						},
-						'[data-reach-menu-item]': {
-							padding: '10px 24px',
-							':hover,:focus': {
-								backgroundColor: '#f0f0f0',
-								color: 'text',
-							},
-						},
 					}}
 				>
-					<MenuItem
-						onSelect={() => {}}
-						as="a"
+					<CalenderInviteMenuItem
 						href={inviteUrls.ics}
-						target="_blank"
-						download={`${props.title}.ics`}
+						download={`${props.modalTitle}.ics`}
+						icon="/icons/apple.svg"
 					>
 						Apple
-					</MenuItem>
-					<MenuItem
-						onSelect={() => {}}
-						as="a"
+					</CalenderInviteMenuItem>
+					<CalenderInviteMenuItem
 						href={inviteUrls.google}
-						target="_blank"
+						download={`${props.modalTitle}.ics`}
+						icon="/icons/google.svg"
 					>
-						Google <span>(online)</span>
-					</MenuItem>
-					<MenuItem
-						onSelect={() => {}}
-						as="a"
+						Google (online)
+					</CalenderInviteMenuItem>
+					<CalenderInviteMenuItem
 						href={inviteUrls.office365}
-						target="_blank"
+						icon="/icons/office-365.svg"
 					>
-						Office 365 <span>(online)</span>
-					</MenuItem>
-					<MenuItem
-						onSelect={() => {}}
-						as="a"
+						Office (online)
+					</CalenderInviteMenuItem>
+					<CalenderInviteMenuItem
 						href={inviteUrls.ics}
-						target="_blank"
-						download={`${props.title}.ics`}
+						download={`${props.modalTitle}.ics`}
+						icon="/icons/outlook.svg"
 					>
 						Outlook
-					</MenuItem>
-					<MenuItem
-						onSelect={() => {}}
-						as="a"
+					</CalenderInviteMenuItem>
+					<CalenderInviteMenuItem
 						href={inviteUrls.live}
-						target="_blank"
+						icon="/icons/outlook-online.svg"
 					>
-						Outlook.com <span>(online)</span>
-					</MenuItem>
-					<MenuItem onSelect={() => setShowDialog(true)}>Overig</MenuItem>
+						Outlook.com (online)
+					</CalenderInviteMenuItem>
+					<CalenderInviteMenuItem
+						onSelect={() => setShowDialog(true)}
+						icon="/icons/other-calendar.svg"
+					>
+						Een andere agenda
+					</CalenderInviteMenuItem>
 				</MenuList>
 			</Menu>
 			<Dialog
-				title={props.title}
+				title={props.modalTitle}
 				isVisible={showDialog}
 				closeDialog={() => setShowDialog(false)}
 			>
-				<p>
-					Heb je een andere (digitale) agenda? Zet je herinnering er dan zelf
-					in.
-				</p>
+				<p>{props.modalBody}</p>
 				<p>{dateText}</p>
 			</Dialog>
 		</Container>
