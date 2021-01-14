@@ -44,4 +44,5 @@ build image:
       --context ${CI_PROJECT_DIR}
       --dockerfile ./Dockerfile_derived
       --destination ${CD_HARBOR_REGISTRY}/vws-reis/${CD_APP_NAME}:${CD_APP_TAG}
-    #  --cache=true
+      --destination ${CD_HARBOR_REGISTRY}/vws-reis/${CD_APP_NAME}:${CD_TAG}
+      --cache=true
