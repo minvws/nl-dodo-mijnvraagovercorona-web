@@ -7,7 +7,24 @@ variables:
   CD_APP_TAG: '0.2'
   CD_NAMESPACE_BHR: vws-reis-bhr
   CD_HARBOR_REGISTRY: harbor.diensten.test.overheid.standaardplatform.rijksapps.nl
-  CD_TAG: latest
+
+.build-image: &build-image
+  - echo "${DOCKER_AUTH_CONFIG}" > /kaniko/.docker/config.json
+  - cat /kaniko/.docker/config.json
+  - cat ./Dockerfile |
+    sed "s~node:14~harbor.diensten.test.overheid.standaardplatform.rijksapps.nl/vws-reis/node:14~g"
+    > Dockerfile_derived # Adjust FROM to prevent Docker rate limiting; assuming adjusted image to be present in Harbor; ref. sp-demo/housekeeping
+  - cat Dockerfile_derived
+  - echo "CI_PROJECT_DIR ${CI_PROJECT_DIR}"
+  - pwd
+  - 'echo ${CD_HARBOR_REGISTRY}/vws-reis/${CD_APP_NAME}:${CD_APP_TAG}'
+  # Build and push to Harbor
+  - /kaniko/executor
+    --context ${CI_PROJECT_DIR}
+    --dockerfile ./Dockerfile_derived
+    --destination ${CD_HARBOR_REGISTRY}/vws-reis/${CD_APP_NAME}:${CD_APP_TAG}
+    --destination ${CD_HARBOR_REGISTRY}/vws-reis/${CD_APP_NAME}:${CD_TAG}
+    --cache=true
 
 stages:
   - build
@@ -20,29 +37,44 @@ before_script:
 after_script:
   - echo "Ended by ${GITLAB_USER_LOGIN} at $(date +%Y-%m-%d'-'%H-%M-%S)"
 
-build image:
+build image latest:
+  variables:
+    CD_TAG: latest
+  environment:
+    name: 'test-cluster'
+  only:
+    - dev
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:v1.3.0-debug
+    entrypoint: ['']
+  script:
+    - <<:*build-image
+
+build image staging:
+  variables:
+    CD_TAG: staging
+  environment:
+    name: 'test-cluster'
+  only:
+    - staging
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:v1.3.0-debug
+    entrypoint: ['']
+  script:
+    - <<:*build-image
+
+build image production:
+  variables:
+    CD_TAG: production
   environment:
     name: 'test-cluster'
   only:
     - main
   stage: build
   image:
-    name: gcr.io/kaniko-project/executor:v1.3.0-debug # Must run in own image
+    name: gcr.io/kaniko-project/executor:v1.3.0-debug
     entrypoint: ['']
   script:
-    - echo "${DOCKER_AUTH_CONFIG}" > /kaniko/.docker/config.json
-    - cat /kaniko/.docker/config.json
-    - cat ./Dockerfile |
-      sed "s~node:14~harbor.diensten.test.overheid.standaardplatform.rijksapps.nl/vws-reis/node:14~g"
-      > Dockerfile_derived # Adjust FROM to prevent Docker rate limiting; assuming adjusted image to be present in Harbor; ref. sp-demo/housekeeping
-    - cat Dockerfile_derived
-    - echo "CI_PROJECT_DIR ${CI_PROJECT_DIR}"
-    - pwd
-    - 'echo ${CD_HARBOR_REGISTRY}/vws-reis/${CD_APP_NAME}:${CD_APP_TAG}'
-    # Build and push to Harbor
-    - /kaniko/executor
-      --context ${CI_PROJECT_DIR}
-      --dockerfile ./Dockerfile_derived
-      --destination ${CD_HARBOR_REGISTRY}/vws-reis/${CD_APP_NAME}:${CD_APP_TAG}
-      --destination ${CD_HARBOR_REGISTRY}/vws-reis/${CD_APP_NAME}:${CD_TAG}
-      --cache=true
+    - <<:*build-image
