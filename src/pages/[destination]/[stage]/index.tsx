@@ -360,7 +360,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 								modalTitle="Reischeck opnieuw invullen in agenda"
 								modalBody="Heb je een andere (digitale) agenda? Zet je reminder om de reischeck opnieuw in te vullen er dan zelf in."
 								inviteTitle="Reischeck invullen"
-								inviteText="Je bent van plan bijna op reis te gaan. De situatie kan veranderd zijn. Doe daarom nog een keer de reischeck op www.reizentijdenscorona.nl"
+								inviteText="Je bent van plan bijna op reis te gaan. De situatie kan veranderd zijn. Doe daarom nog een keer de reischeck op https://www.reizentijdenscorona.nl."
 								singleDay={startOfDay(addDays(new Date(fromDate), -7))}
 							/>
 							<Container
@@ -406,7 +406,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 							modalTitle="Thuisquarantaine in agenda"
 							modalBody="Heb je een andere (digitale) agenda? Zet je thuisquarantaine er dan zelf in."
 							inviteTitle="Thuisquarantaine"
-							inviteText="Krijg je (lichte) klachten? Neem dan direct contact op met de GGD. Kijk voor tips over je thuisquarantaine op https://www.reizentijdenscorona.nl/voorbereiding"
+							inviteText="Krijg je (lichte) klachten? Maak direct een testafspraak op https://coranatest.nl of bel de GGD op 0800-1202. Kijk voor tips over je thuisquarantaine op https://reizentijdenscorona.nl/voorbereiding."
 							fromDate={startOfDay(toDate)}
 							toDate={endOfDay(addDays(toDate, 10))}
 						/>

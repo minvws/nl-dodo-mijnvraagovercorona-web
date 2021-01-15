@@ -41,8 +41,8 @@ const TravelCheckApp = ({ Component, pageProps }: AppProps) => {
 							}}
 						>
 							<p sx={{ margin: 0 }}>
-								Deze site is nog in de testfase. Help ons verder via de knop
-								‘deel je mening’.
+								Deze site is nog in de testfase. Help ons via de knop ‘deel je
+								mening’.
 							</p>
 						</Alert>
 						<Component {...pageProps} />
