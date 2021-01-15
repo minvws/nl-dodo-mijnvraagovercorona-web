@@ -11,6 +11,7 @@ import BodyContainer from 'components/structure/BodyContainer';
 import DataProtectionPanel from 'components/DataProtectionPanel';
 import Footer from 'components/structure/Footer';
 import { NavLink } from 'components/nav-link';
+import Feedback from 'components/feedback/Feedback';
 
 import AdviceContext from 'components/advice/AdviceContext';
 
@@ -246,6 +247,8 @@ const PreparationsPage = () => {
 							<PreparationPanelListItem text="Regel een hondenuitlaatservice" />
 						</ul>
 					</PreparationPanel>
+					<Feedback />
+					<div sx={{ marginBottom: '65px' }} />
 				</Container>
 			</BodyContainer>
 			<DataProtectionPanel onlyDesktop={true} />
