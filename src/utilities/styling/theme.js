@@ -1,5 +1,5 @@
 export default {
-  useCustomProperties: false,
+	useCustomProperties: false,
 	colors: {
 		text: '#000000',
 		header: '#21426F',
@@ -37,6 +37,7 @@ export default {
 		container: '100%',
 		maxWidthBody: ['665px'],
 		buttonHeight: '55px',
+		widgetMaxWidth: '430px',
 	},
 	space: {
 		mobilePadding: '17px',

@@ -1,65 +1,32 @@
 /** @jsx jsx */
-import React from 'react';
-import { Link, Container, jsx } from 'theme-ui';
-import PrivacyList from 'components/PrivacyList';
+import { CallToAction } from 'components/call-to-action/call-to-action';
+import { AppointmentIcon } from 'components/icons/Appointment';
+import { NewTabIcon } from 'components/icons/NewTab';
+import { TestAppointmentIcon } from 'components/icons/TestAppointment';
+import ReminderCalendarInvite from 'components/TravelPlan/ReminderCalendarInvite';
+import { differenceInDays, isBefore } from 'date-fns';
+import { jsx } from 'theme-ui';
+import { addDays, formatLongDate } from 'utilities/dateUtils';
 
-const TestBooking = () => {
+const CallGGD = ({ quarantaineDay }: { quarantaineDay: number }) => {
 	return (
 		<>
-			<a
-				href="https://coronatest.nl/ik-wil-me-laten-testen/een-online-afspraak-maken"
-				target="_blank"
-				rel="noopener noreferrer"
-				sx={{
-					textDecoration: 'none',
-					marginTop: ['10px', '60px'],
-					display: 'block',
-				}}
-			>
-				<Container
-					sx={{
-						marginTop: '2em',
-						backgroundImage: `url("/icons/Button Arrow.svg")`,
-						backgroundRepeat: 'no-repeat',
-						backgroundPosition: 'right 1em top 50%',
-					}}
-				>
-					<div
-						sx={{
-							border: '1px solid #0E6999',
-							borderColor: 'header',
-							borderRadius: '11px',
-							paddingLeft: '4.5em',
-							paddingTop: '0.7em',
-							paddingBottom: '0.7em',
-							backgroundImage: 'url("/icons/Test.svg")',
-							backgroundRepeat: 'no-repeat',
-							backgroundPositionY: 'center',
-							backgroundPositionX: '1em',
-							cursor: 'pointer',
-						}}
-					>
-						<p
-							sx={{
-								marginLeft: '14px',
-								fontSize: ['bodyMobile', 'body'],
-								fontWeight: 'bold',
-								width: '70%',
-								color: 'link',
-							}}
-						>
-							Heb je klachten? Maak direct een afspraak op de website van de GGD
-						</p>
-					</div>
-				</Container>
-			</a>
 			<p
 				sx={{
 					fontSize: ['bodyMobile', 'body'],
 				}}
 			>
-				Of bel <strong>0800-1202</strong>. Houd je burgerservicenummer (BSN) bij
-				de hand.
+				{quarantaineDay < 4 ? (
+					<>
+						Het kan al wel telefonisch via <strong>0800-1202</strong>. Houd je
+						burgerservicenummer (BSN) bij de hand.
+					</>
+				) : (
+					<>
+						Of bel <strong>0800-1202</strong>. Houd je burgerservicenummer (BSN)
+						bij de hand.
+					</>
+				)}
 			</p>
 			<p
 				sx={{
@@ -80,6 +47,115 @@ const TestBooking = () => {
 				We delen geen gegevens met de GGD
 			</p>
 		</>
+	);
+};
+
+interface MakeOnlineAppointmentProps extends TestBookingProps {
+	quarantaineDay: number;
+	isDuringTravel: boolean;
+}
+
+const MakeOnlineAppointment = ({
+	toDate,
+	quarantaineDay,
+	isDuringTravel,
+}: MakeOnlineAppointmentProps) => {
+	const appointmentPossible = quarantaineDay > 3;
+
+	return (
+		<div
+			sx={{
+				position: 'relative',
+				maxWidth: 'widgetMaxWidth',
+			}}
+		>
+			{!appointmentPossible && (
+				<p
+					sx={{
+						position: 'absolute',
+						left: 0,
+						top: 0,
+						right: 0,
+						bottom: 0,
+						backgroundColor: 'rgba(255, 255, 255, 0.95)',
+						margin: '1px',
+						borderRadius: '11px',
+						padding: '0 24px',
+						textAlign: 'center',
+						fontSize: 'chapeau',
+						lineHeight: 'chapeau',
+						display: 'flex',
+						flexDirection: 'column',
+						justifyContent: 'center',
+						alignItems: 'center',
+						color: '#545454',
+					}}
+				>
+					<strong>
+						Je kunt nog geen {!isDuringTravel && 'online '} afspraak maken
+					</strong>
+					{isDuringTravel &&
+						'Dit kan telefonisch op dag 1 van je thuisquarantaine of online vanaf dag 4.'}
+					{!isDuringTravel && 'Dit kan op dag 4 van je thuisquarantaine.'}
+				</p>
+			)}
+			<a
+				href="https://coronatest.nl/ik-wil-me-laten-testen/een-online-afspraak-maken"
+				target="_blank"
+				rel="noopener noreferrer"
+				sx={{
+					textDecoration: 'none',
+					display: 'block',
+				}}
+			>
+				<CallToAction icon={TestAppointmentIcon}>
+					<p>
+						Maak direct een afspraak op de website van de GGD
+						<NewTabIcon sx={{ marginLeft: 10 }} />
+					</p>
+				</CallToAction>
+			</a>
+		</div>
+	);
+};
+
+interface TestBookingProps {
+	toDate: Date;
+}
+
+const TestBooking = ({ toDate }: TestBookingProps) => {
+	const isDuringTravel = isBefore(new Date(), toDate);
+	// We add 1 to the difference of days since 0 days difference is your return date, which is day 1.
+	// That makes for example 9 days AFTER your return date day 10.
+	const quarantaineDay = differenceInDays(new Date(), toDate) + 1;
+
+	// Don't show this block if user is home for over 10 days.
+	if (quarantaineDay > 10) return null;
+
+	return (
+		<div sx={{ maxWidth: 'widgetMaxWidth', marginTop: ['10px', '60px'] }}>
+			<h2 sx={{ color: 'header', fontSize: ['h2Mobile', 'h2'] }}>
+				Laat je testen op dag 5 van je thuisquarantaine
+			</h2>
+			<MakeOnlineAppointment
+				toDate={toDate}
+				quarantaineDay={quarantaineDay}
+				isDuringTravel={isDuringTravel}
+			/>
+			{!isDuringTravel && <CallGGD quarantaineDay={quarantaineDay} />}
+			{isDuringTravel && (
+				<ReminderCalendarInvite
+					title="Zet 'Afspraak maken coronatest' in je agenda"
+					modalTitle="Afspraak maken coronatest in agenda"
+					modalBody="Heb je een andere (digitale) agenda? Zet je reminder om een afspraak voor de coronatest te maken er dan zelf in."
+					inviteTitle="Afspraak maken coronatest"
+					inviteText={`Bel de GGD op telefoonnummer 0800-1202 voor het maken van een testafspraak op ${formatLongDate(
+						addDays(toDate, 4),
+					)}. Houd je BSN nummer bij de hand.`}
+					singleDay={toDate}
+				/>
+			)}
+		</div>
 	);
 };
 
