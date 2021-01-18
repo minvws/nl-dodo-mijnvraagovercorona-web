@@ -13,6 +13,7 @@ import Footer from 'components/structure/Footer';
 import { NavLink } from 'components/nav-link';
 
 import AdviceContext from 'components/advice/AdviceContext';
+import { ImageAlleenSamen } from 'components/image-alleen-samen';
 
 const generateResultLink = ({
 	from,
@@ -93,7 +94,6 @@ const PreparationsPage = () => {
 						Bewaar deze pagina bij je favorieten zodat je hem later nog eens
 						kunt bekijken
 					</p>
-
 					<PreparationPanel
 						image="/images/Illustratie_Eten_en_drinkenRetina.svg"
 						text="Heb je genoeg eten en drinken in huis voor 10 dagen?"
@@ -110,7 +110,6 @@ const PreparationsPage = () => {
 							/>
 						</ul>
 					</PreparationPanel>
-
 					<PreparationPanel
 						image="/images/Illustratie_ThuiswerkenRetina.svg"
 						text="Kun je 10 dagen thuiswerken?"
@@ -246,6 +245,7 @@ const PreparationsPage = () => {
 							<PreparationPanelListItem text="Regel een hondenuitlaatservice" />
 						</ul>
 					</PreparationPanel>
+					<ImageAlleenSamen />
 				</Container>
 			</BodyContainer>
 			<DataProtectionPanel onlyDesktop={true} />

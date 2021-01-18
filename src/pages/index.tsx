@@ -8,7 +8,9 @@ import HomePageNavigation from 'components/home/HomePageNavigation';
 import BodyContainer from 'components/structure/BodyContainer';
 import CopySection from 'components/home/CopySection';
 import DataProtectionPanel from 'components/DataProtectionPanel';
-import Footer from '../components/structure/Footer';
+import Footer from 'components/structure/Footer';
+import { ImageAlleenSamen } from 'components/image-alleen-samen';
+
 import { useDesktopQuery } from 'hooks/useDesktopQuery';
 
 const Home = () => {
@@ -47,22 +49,7 @@ const Home = () => {
 				<DataProtectionPanel />
 				<CopySection />
 
-				<a
-					href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/coronavirus-beeld-en-video/communicatiemiddelen-campagne"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					<img
-						sx={{
-							width: '360px',
-							maxWidth: '80%',
-							margin: '20px auto 40px auto',
-							display: 'block',
-						}}
-						src="/images/logo-alleen-samen.svg"
-						alt="Alleen samen krijgen we corona onder controle. Ga naar de campagnewebsite."
-					/>
-				</a>
+				<ImageAlleenSamen />
 			</BodyContainer>
 
 			<Footer />
