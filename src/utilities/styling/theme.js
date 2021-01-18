@@ -37,7 +37,7 @@ export default {
 		container: '100%',
 		maxWidthBody: ['665px'],
 		buttonHeight: '55px',
-		widgetMaxWidth: '430px',
+		widgetMaxWidth: '450px',
 	},
 	space: {
 		mobilePadding: '17px',

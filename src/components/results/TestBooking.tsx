@@ -5,7 +5,7 @@ import { NewTabIcon } from 'components/icons/NewTab';
 import { TestAppointmentIcon } from 'components/icons/TestAppointment';
 import ReminderCalendarInvite from 'components/TravelPlan/ReminderCalendarInvite';
 import { differenceInDays, isBefore } from 'date-fns';
-import { jsx } from 'theme-ui';
+import { jsx, SxProps } from 'theme-ui';
 import { addDays, formatLongDate } from 'utilities/dateUtils';
 
 const CallGGD = ({ quarantaineDay }: { quarantaineDay: number }) => {
@@ -49,6 +49,25 @@ const CallGGD = ({ quarantaineDay }: { quarantaineDay: number }) => {
 		</>
 	);
 };
+
+const CtaToGGDWebsite: React.FC = ({ children }) => (
+	<a
+		href="https://coronatest.nl/ik-wil-me-laten-testen/een-online-afspraak-maken"
+		target="_blank"
+		rel="noopener noreferrer"
+		sx={{
+			textDecoration: 'none',
+			display: 'block',
+		}}
+	>
+		<CallToAction icon={TestAppointmentIcon}>
+			<p>
+				{children}
+				<NewTabIcon sx={{ marginLeft: 10 }} />
+			</p>
+		</CallToAction>
+	</a>
+);
 
 interface MakeOnlineAppointmentProps extends TestBookingProps {
 	quarantaineDay: number;
@@ -99,22 +118,10 @@ const MakeOnlineAppointment = ({
 					{!isDuringTravel && 'Dit kan op dag 4 van je thuisquarantaine.'}
 				</p>
 			)}
-			<a
-				href="https://coronatest.nl/ik-wil-me-laten-testen/een-online-afspraak-maken"
-				target="_blank"
-				rel="noopener noreferrer"
-				sx={{
-					textDecoration: 'none',
-					display: 'block',
-				}}
-			>
-				<CallToAction icon={TestAppointmentIcon}>
-					<p>
-						Maak direct een afspraak op de website van de GGD
-						<NewTabIcon sx={{ marginLeft: 10 }} />
-					</p>
-				</CallToAction>
-			</a>
+			<CtaToGGDWebsite>
+				{quarantaineDay > 5 && 'Heb je klachten? '}
+				Maak direct een afspraak op de website van de GGD
+			</CtaToGGDWebsite>
 		</div>
 	);
 };
@@ -129,20 +136,20 @@ const TestBooking = ({ toDate }: TestBookingProps) => {
 	// That makes for example 9 days AFTER your return date day 10.
 	const quarantaineDay = differenceInDays(new Date(), toDate) + 1;
 
-	// Don't show this block if user is home for over 10 days.
-	if (quarantaineDay > 10) return null;
-
 	return (
 		<div sx={{ maxWidth: 'widgetMaxWidth', marginTop: ['10px', '60px'] }}>
-			<h2 sx={{ color: 'header', fontSize: ['h2Mobile', 'h2'] }}>
-				Laat je testen op dag 5 van je thuisquarantaine
-			</h2>
+			{quarantaineDay <= 5 && (
+				<h2 sx={{ color: 'header', fontSize: ['h2Mobile', 'h2'] }}>
+					Laat je testen op dag 5 van je thuisquarantaine
+				</h2>
+			)}
 			<MakeOnlineAppointment
 				toDate={toDate}
 				quarantaineDay={quarantaineDay}
 				isDuringTravel={isDuringTravel}
 			/>
-			{!isDuringTravel && <CallGGD quarantaineDay={quarantaineDay} />}
+
+			<CallGGD quarantaineDay={quarantaineDay} />
 			{isDuringTravel && (
 				<ReminderCalendarInvite
 					title="Zet 'Afspraak maken coronatest' in je agenda"
