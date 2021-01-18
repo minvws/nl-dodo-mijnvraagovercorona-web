@@ -14,19 +14,19 @@ interface FaqListProps {
 }
 
 const faqs: {
-	before: {
+	'voor-vertrek': {
 		[key: string]: () => [string, React.ReactNode];
 	};
-	during: {
+	'tijdens-je-reis': {
 		[key: string]: (
 			showNegativeTestDeclaration?: boolean,
 		) => [string, React.ReactNode];
 	};
-	after: {
+	'na-thuiskomst': {
 		[key: string]: () => [string, React.ReactNode];
 	};
 } = {
-	before: {
+	'voor-vertrek': {
 		whatNecessary: () => [
 			'Wat valt onder een noodzakelijke reis?',
 			<p>
@@ -85,7 +85,7 @@ const faqs: {
 			</p>,
 		],
 	},
-	during: {
+	'tijdens-je-reis': {
 		whyNegativeTest: (showNegativeTestDeclaration: boolean | undefined) =>
 			showNegativeTestDeclaration
 				? [
@@ -193,11 +193,13 @@ const faqs: {
 				Blijf in uw accommodatie en vermijd contact met anderen. Neem ook
 				contact op met de GGD in uw woonplaats in Nederland en volg de
 				maatregelen of adviezen van de lokale gezondheidsautoriteiten. Mogelijk
-				moeten ook uw huisgenoten en/of reisgenoten in quarantaine.
+				moeten ook uw huisgenoten en/of reisgenoten in quarantaine. Wanneer je
+				geen klachten meer hebt en negatief test op corona, mag je terug naar
+				Nederland reizen.
 			</p>,
 		],
 	},
-	after: {
+	'na-thuiskomst': {
 		whyTenDays: () => [
 			'Waarom moet ik 10 dagen in thuisquarantaine?',
 			<p>
@@ -280,16 +282,18 @@ const faqs: {
 	},
 };
 
+const isNegativeTestDeclarationNeeded = (country: Country | null) =>
+	country?.riskLevel === RiskLevel?.C_VEILIGE_LIJST ||
+	country?.riskLevel === RiskLevel?.D_EU_INREISVERBOD;
+
 const FaqList = ({
 	stage,
 	country,
 }: {
-	stage: 'before' | 'during' | 'after';
+	stage: 'voor-vertrek' | 'tijdens-je-reis' | 'na-thuiskomst';
 	country: Country | null;
 }) => {
-	const showNegativeTestDeclaration =
-		country?.riskLevel === RiskLevel?.C_VEILIGE_LIJST ||
-		country?.riskLevel === RiskLevel?.D_EU_INREISVERBOD;
+	const showNegativeTestDeclaration = isNegativeTestDeclarationNeeded(country);
 
 	return (
 		<>
@@ -317,19 +321,41 @@ const FaqListContainer = ({ children }: { children: React.ReactNode }) => (
 	</div>
 );
 
-export const FaqListShort = () => {
-	const shortListFaqs = [
-		faqs.after.negativeTestQuarantaine(),
-		faqs.before.whyQuarantine(),
-		faqs.after.myFamily(),
-		faqs.after.testAgain(),
-		faqs.after.testEarlier(),
-		faqs.after.whatToDoPositiveTest(),
-	];
+export const FaqListShort = ({
+	country,
+	stage,
+}: {
+	country: Country | null;
+	stage: 'voor-vertrek' | 'tijdens-je-reis' | 'na-thuiskomst';
+}) => {
+	const showNegativeTestDeclaration = isNegativeTestDeclarationNeeded(country);
+	const shortListFaqs = {
+		'voor-vertrek': [
+			faqs['voor-vertrek'].whatNecessary(),
+			faqs['voor-vertrek'].whyRisk(),
+			faqs['voor-vertrek'].whyQuarantine(),
+			faqs['voor-vertrek'].whatIsQuarantine(),
+			faqs['tijdens-je-reis'].whyNegativeTest(showNegativeTestDeclaration),
+		],
+		'tijdens-je-reis': [
+			faqs['tijdens-je-reis'].whyNegativeTest(showNegativeTestDeclaration),
+			faqs['tijdens-je-reis'].whichRequirements(),
+			faqs['tijdens-je-reis'].howToGetTestresult(showNegativeTestDeclaration),
+			faqs['tijdens-je-reis'].whatToDoPositive(),
+			faqs['voor-vertrek'].whyQuarantine(),
+		],
+		'na-thuiskomst': [
+			faqs['na-thuiskomst'].whyTenDays(),
+			faqs['na-thuiskomst'].negativeTestQuarantaine(),
+			faqs['na-thuiskomst'].canQuarantaineBeShortened(),
+			faqs['na-thuiskomst'].testEarlier(),
+			faqs['na-thuiskomst'].whatToDoPositiveTest(),
+		],
+	};
 
 	return (
 		<FaqListContainer>
-			{shortListFaqs.map(([title, children]) => (
+			{shortListFaqs[stage].map(([title, children]) => (
 				<FaqItem title={title} key={title}>
 					{children}
 				</FaqItem>
@@ -343,14 +369,14 @@ export const FaqListComplete = ({ country }: FaqListProps) => (
 		<h3 sx={{ color: '#CA005D', marginTop: '36px', marginBottom: '0' }}>
 			Voorbereiding
 		</h3>
-		<FaqList stage="before" country={country} />
+		<FaqList stage="voor-vertrek" country={country} />
 		<h3 sx={{ color: '#CA005D', marginTop: '36px', marginBottom: '0' }}>
 			Tijdens de reis
 		</h3>
-		<FaqList stage="during" country={country} />
+		<FaqList stage="tijdens-je-reis" country={country} />
 		<h3 sx={{ color: '#CA005D', marginTop: '36px', marginBottom: '0' }}>
 			Thuiskomst
 		</h3>
-		<FaqList stage="after" country={country} />
+		<FaqList stage="na-thuiskomst" country={country} />
 	</FaqListContainer>
 );

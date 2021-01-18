@@ -403,7 +403,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 					>
 						Veelgestelde vragen
 					</h2>
-					<FaqListShort />
+					<FaqListShort country={country} stage={stage} />
 
 					<InternalLink href={`/${country?.slug}/faq`}>
 						Bekijk alle 10 veelgestelde vragen
