@@ -18,28 +18,52 @@ const TravelPlanStage = (props: TravelPlanStageProps) => {
 				sx={{
 					marginBottom: '1em',
 					color: 'header',
+					position: 'relative',
+					// Make step title lowercase if it is prepended with a date.
+					'span + h3': {
+						textTransform: 'lowercase',
+					},
+					'::before': {
+						content: '""',
+						display: 'block',
+						width: 22,
+						height: 22,
+						borderRadius: 22,
+						backgroundColor: '#F6D4E3',
+						position: 'absolute',
+						left: -40,
+						top: 0,
+					},
 				}}
 			>
+				{props.date && (
+					<span
+						sx={{
+							fontSize: ['bodyMobile', 'body'],
+							textAlign: 'right',
+							marginRight: '8px',
+							color: 'text',
+							display: 'inline-block',
+							color: 'smallText',
+							fontWeight: 700,
+							lineHeight: 1,
+						}}
+					>
+						{formatShortDate(props.date)}:
+					</span>
+				)}
 				<h3
 					sx={{
+						display: 'inline-block',
 						fontSize: ['bodyMobile', 'body'],
+						color: 'text',
+						marginBottom: 0,
+						marginTop: 0,
+						lineHeight: 1,
 					}}
 				>
 					{props.title}
 				</h3>
-				<h4
-					sx={{
-						paddingTop: '1em',
-						float: 'right',
-						fontSize: ['bodyMobile', 'body'],
-						textAlign: 'right',
-						marginRight: '1em',
-						marginTop: '-2em',
-            color: 'text'
-					}}
-				>
-					{formatShortDate(props.date)}
-				</h4>
 				{props.subHeading && (
 					<h4
 						sx={{
@@ -47,7 +71,7 @@ const TravelPlanStage = (props: TravelPlanStageProps) => {
 							fontSize: ['bodyMobile', 'body'],
 							marginTop: 0,
 							marginBottom: '9px',
-              color: 'text'
+							color: 'text',
 						}}
 					>
 						{props.subHeading}
