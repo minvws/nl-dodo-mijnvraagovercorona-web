@@ -28,11 +28,6 @@ const HomePageNavigation = () => {
 					borderBottom: ['none', '1px solid #AEC1D1'],
 				}}
 			>
-				<span sx={{ display: ['block', 'none'] }}>
-					<AnchorLink href="#privacy">
-						Je privacy is altijd beschermd
-					</AnchorLink>
-				</span>
 				<AnchorLink href="#snel">Binnen 2 minuten resultaat</AnchorLink>
 				<AnchorLink href="#actueel">
 					Actuele infomatie over je bestemming en thuiskomst
@@ -40,6 +35,11 @@ const HomePageNavigation = () => {
 				<AnchorLink href="#thuis-quarantaine">
 					We helpen je met je thuisquarantaine
 				</AnchorLink>
+				<span sx={{ display: ['block', 'none'] }}>
+					<AnchorLink href="#privacy">
+						Je privacy is altijd beschermd
+					</AnchorLink>
+				</span>
 			</div>
 		</Container>
 	);

@@ -69,11 +69,6 @@ const Footer = ({ onlyDesktop = false, pushToBottom = false }: FooterProps) => {
 						<h3>Over deze check</h3>
 						<ul>
 							<li>
-								<Link href="/informatie-over-deze-proef">
-									Informatie over deze proef
-								</Link>
-							</li>
-							<li>
 								<Link href="/privacy">Privacy</Link>
 							</li>
 							<li>
