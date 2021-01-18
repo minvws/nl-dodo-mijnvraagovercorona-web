@@ -15,6 +15,7 @@ import Footer from 'components/structure/Footer';
 import AdviceContext from 'components/advice/AdviceContext';
 import Feedback from 'components/feedback/Feedback';
 import { NavLink } from 'components/nav-link';
+import { ImageAlleenSamen } from 'components/image-alleen-samen';
 
 const generateResultLink = ({
 	from,
@@ -76,6 +77,7 @@ const FAQ = ({ destination }: FAQProps) => {
 				>
 					<FaqList country={country} />
 					<Feedback />
+					<ImageAlleenSamen />
 				</Container>
 			</BodyContainer>
 			<DataProtectionPanel onlyDesktop={true} />

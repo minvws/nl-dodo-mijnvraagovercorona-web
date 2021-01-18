@@ -1,14 +1,13 @@
 /** @jsx jsx */
 import React from 'react';
-import { jsx, Styled } from 'theme-ui';
+import { Box, jsx, Styled } from 'theme-ui';
 
 import { ButtonPrimary } from 'components/button';
 
 const Feedback = () => (
-	<>
+	<Box sx={{ paddingY: ['36px', '44px'] }}>
 		<h2
 			sx={{
-				paddingTop: ['36px', '44px'],
 				color: 'header',
 				fontSize: ['h2Mobile', 'h2'],
 			}}
@@ -22,7 +21,7 @@ const Feedback = () => (
 		<ButtonPrimary href="https://valsplat.typeform.com/to/hlgYe4qs" external>
 			Deel je mening
 		</ButtonPrimary>
-	</>
+	</Box>
 );
 
 export default Feedback;

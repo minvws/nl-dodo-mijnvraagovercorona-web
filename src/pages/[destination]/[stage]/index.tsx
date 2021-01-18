@@ -30,6 +30,7 @@ import { NavLink } from 'components/nav-link';
 import Feedback from 'components/feedback/Feedback';
 import AdviceContext from 'components/advice/AdviceContext';
 import { QuarantaineCard } from 'components/quarantaine-card';
+import { ImageAlleenSamen } from 'components/image-alleen-samen';
 
 type Stage = 'voor-vertrek' | 'tijdens-je-reis' | 'na-thuiskomst';
 type Color = 'yellow' | 'orange' | 'red';
@@ -428,9 +429,9 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 					</InternalLink>
 
 					<Feedback />
-					<div sx={{ marginBottom: '65px' }} />
 				</Container>
 				<DataProtectionPanel />
+				<ImageAlleenSamen />
 			</BodyContainer>
 			<Footer />
 		</>
