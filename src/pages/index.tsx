@@ -44,8 +44,8 @@ const Home = () => {
 			<HomePageNavigation />
 
 			<BodyContainer>
-				<DataProtectionPanel />
 				<CopySection />
+				<DataProtectionPanel />
 
 				<a
 					href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/coronavirus-beeld-en-video/communicatiemiddelen-campagne"
