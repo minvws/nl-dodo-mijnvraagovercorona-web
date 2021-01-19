@@ -93,7 +93,7 @@ const PreparationsPage = () => {
 						}}
 					>
 						Bewaar deze pagina bij je favorieten zodat je hem later nog eens
-						kunt bekijken
+						kunt bekijken.
 					</p>
 					<PreparationPanel
 						image="/images/Illustratie_Eten_en_drinkenRetina.svg"

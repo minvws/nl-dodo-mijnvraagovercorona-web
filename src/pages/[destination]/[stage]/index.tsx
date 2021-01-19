@@ -146,7 +146,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 					) : (
 						<li>
 							Er is een {color === 'yellow' ? 'laag' : 'verhoogd'} risico dat je{' '}
-							<strong>besmet</strong> bent geraakt
+							<strong>besmet</strong> bent geraakt.
 						</li>
 					)}
 
