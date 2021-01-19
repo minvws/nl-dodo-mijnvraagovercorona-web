@@ -92,7 +92,6 @@ const PeriodSelect = ({ country, updatePage }: PeriodSelectProps) => {
 	const handleDayClick = (day: any) => {
 		// @ts-ignore An error where addDayToRange only excepts a completed range
 		const nextRange = DateUtils.addDayToRange(day, range);
-
 		setRange(nextRange);
 	};
 

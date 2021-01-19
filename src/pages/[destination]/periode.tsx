@@ -61,7 +61,7 @@ const Period = ({ destination }: { destination: string }) => {
 	const country = useDestination(destination as string);
 	const { setFrom, setTo, setStage } = React.useContext(AdviceContext);
 	const router = useRouter();
-	const submitButtonRef = useRef<HTMLButtonElement>(null);
+	const submitRef = useRef<HTMLDivElement>(null);
 
 	const [fromDate, setFromDate] = useState<Date>();
 	const [toDate, setToDate] = useState<Date>();
@@ -95,11 +95,11 @@ const Period = ({ destination }: { destination: string }) => {
 		if (
 			fromDate &&
 			toDate &&
-			submitButtonRef.current &&
+			submitRef.current &&
 			window.innerWidth < 800 &&
-			typeof submitButtonRef.current.scrollIntoView === 'function'
+			typeof submitRef.current.scrollIntoView === 'function'
 		) {
-			submitButtonRef.current.scrollIntoView();
+			submitRef.current.scrollIntoView();
 		}
 	}, [fromDate, toDate]);
 
@@ -154,6 +154,7 @@ const Period = ({ destination }: { destination: string }) => {
 							paddingRight: 'mobilePadding',
 							paddingBottom: '120px',
 						}}
+						ref={submitRef}
 					>
 						<ButtonPrimary href={resultLink}>Toon het resultaat</ButtonPrimary>
 					</div>
