@@ -179,7 +179,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 					)}
 					{showQuarantaine && duringOrAfter && (
 						<li>
-							Ga <strong>10 dagen in thuisquarantaine.</strong>
+							Ga <strong>10 dagen in thuisquarantaine</strong>.
 						</li>
 					)}
 				</ul>
