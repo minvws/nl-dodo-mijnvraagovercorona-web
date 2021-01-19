@@ -46,8 +46,8 @@ const Home = () => {
 			<HomePageNavigation />
 
 			<BodyContainer>
-				<DataProtectionPanel />
 				<CopySection />
+				<DataProtectionPanel />
 
 				<ImageAlleenSamen />
 			</BodyContainer>
