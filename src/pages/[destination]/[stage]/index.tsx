@@ -30,6 +30,7 @@ import { NavLink } from 'components/nav-link';
 import Feedback from 'components/feedback/Feedback';
 import AdviceContext from 'components/advice/AdviceContext';
 import { QuarantaineCard } from 'components/quarantaine-card';
+import { ImageAlleenSamen } from 'components/image-alleen-samen';
 
 type Stage = 'voor-vertrek' | 'tijdens-je-reis' | 'na-thuiskomst';
 type Color = 'yellow' | 'orange' | 'red';
@@ -79,7 +80,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 	const showSecondCheckCalenderInvite =
 		stage === 'voor-vertrek' && isMoreThanWeekBeforeDeparture(fromDate);
 
-	const showContactWithSymptoms = stage === 'na-thuiskomst';
+	const showContactWithSymptoms = duringOrAfter;
 
 	// @TODO: Do this in a different place where it makes sense.
 	let color: Color = 'red';
@@ -368,7 +369,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 						</Box>
 					)}
 
-					{showContactWithSymptoms && <TestBooking />}
+					{showContactWithSymptoms && toDate && <TestBooking toDate={toDate} />}
 
 					<h2
 						sx={{
@@ -410,9 +411,9 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 					</InternalLink>
 
 					<Feedback />
-					<div sx={{ marginBottom: '65px' }} />
 				</Container>
 				<DataProtectionPanel />
+				<ImageAlleenSamen />
 			</BodyContainer>
 			<Footer />
 		</>

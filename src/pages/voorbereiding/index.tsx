@@ -14,6 +14,7 @@ import { NavLink } from 'components/nav-link';
 import Feedback from 'components/feedback/Feedback';
 
 import AdviceContext from 'components/advice/AdviceContext';
+import { ImageAlleenSamen } from 'components/image-alleen-samen';
 
 const generateResultLink = ({
 	from,
@@ -94,7 +95,6 @@ const PreparationsPage = () => {
 						Bewaar deze pagina bij je favorieten zodat je hem later nog eens
 						kunt bekijken
 					</p>
-
 					<PreparationPanel
 						image="/images/Illustratie_Eten_en_drinkenRetina.svg"
 						text="Heb je genoeg eten en drinken in huis voor 10 dagen?"
@@ -111,7 +111,6 @@ const PreparationsPage = () => {
 							/>
 						</ul>
 					</PreparationPanel>
-
 					<PreparationPanel
 						image="/images/Illustratie_ThuiswerkenRetina.svg"
 						text="Kun je 10 dagen thuiswerken?"
@@ -249,6 +248,7 @@ const PreparationsPage = () => {
 					</PreparationPanel>
 					<Feedback />
 					<div sx={{ marginBottom: '65px' }} />
+					<ImageAlleenSamen />
 				</Container>
 			</BodyContainer>
 			<DataProtectionPanel onlyDesktop={true} />
