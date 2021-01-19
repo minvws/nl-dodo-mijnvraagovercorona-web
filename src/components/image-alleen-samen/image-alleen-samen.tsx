@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import Image from 'next/image';
 import { jsx } from 'theme-ui';
 
 export const ImageAlleenSamen = () => (
@@ -14,11 +13,9 @@ export const ImageAlleenSamen = () => (
 			display: 'block',
 		}}
 	>
-		<Image
+		<img
 			src="/images/logo-alleen-samen.svg"
 			alt="Alleen samen krijgen we corona onder controle. Ga naar de campagnewebsite."
-			width="360"
-			height="90"
 		/>
 	</a>
 );
