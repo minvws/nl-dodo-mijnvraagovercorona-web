@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import Head from 'next/head';
 
-import { jsx, ThemeProvider } from 'theme-ui';
+import { jsx, Box, ThemeProvider } from 'theme-ui';
 
 import { AdviceProvider } from 'components/advice/AdviceContext';
 
@@ -31,7 +31,15 @@ const TravelCheckApp = ({ Component, pageProps }: AppProps) => {
 			</Head>
 			<ThemeProvider theme={theme}>
 				<AdviceProvider>
-					<Component {...pageProps} />
+					<Box
+						sx={{
+							minHeight: '100vh',
+							display: 'flex',
+							flexDirection: 'column',
+						}}
+					>
+						<Component {...pageProps} />
+					</Box>
 				</AdviceProvider>
 			</ThemeProvider>
 		</>
