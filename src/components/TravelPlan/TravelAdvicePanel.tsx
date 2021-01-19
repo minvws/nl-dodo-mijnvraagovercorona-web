@@ -27,16 +27,16 @@ const TravelAdvicePanel = (props: TravelAdvicePanelProps) => {
 			>
 				<div
 					sx={{
-						display: 'block',
+						display: 'flex',
 						paddingTop: '0.5em',
-						paddingBottom: '0.1em',
+						justifyContent: 'space-between',
+						flexDirection: ['column', 'row'],
 					}}
 				>
 					<h4
 						sx={{
 							margin: 0,
 							padding: 0,
-							float: 'left',
 						}}
 					>
 						{props.title}
@@ -48,7 +48,6 @@ const TravelAdvicePanel = (props: TravelAdvicePanelProps) => {
 							padding: 0,
 							fontSize: '12pt',
 							fontWeight: 'normal',
-							float: 'right',
 						}}
 					>
 						{props.subHeading}
@@ -56,7 +55,7 @@ const TravelAdvicePanel = (props: TravelAdvicePanelProps) => {
 				</div>
 				<Container
 					sx={{
-						marginTop: '1em',
+						marginTop: '2px',
 						paddingTop: '0.2em',
 						paddingBottom: '0.5em',
 					}}

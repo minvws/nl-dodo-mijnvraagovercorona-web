@@ -31,6 +31,7 @@ import Feedback from 'components/feedback/Feedback';
 import AdviceContext from 'components/advice/AdviceContext';
 import { QuarantaineCard } from 'components/quarantaine-card';
 import { ImageAlleenSamen } from 'components/image-alleen-samen';
+import ExpansionPanel from 'components/structure/ExpansionPanel';
 
 type Stage = 'voor-vertrek' | 'tijdens-je-reis' | 'na-thuiskomst';
 type Color = 'yellow' | 'orange' | 'red';
@@ -299,17 +300,89 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 										Meer informatie
 									</DialogLink>
 									<Dialog
-										title="Tot en met dag 10 - Mogelijke klachten"
+										title="Mogelijk klachten"
 										isVisible={showDialog}
 										closeDialog={() => setShowDialog(false)}
 									>
-										<p>
-											Uit het bron- en contactonderzoek van de GGD blijkt dat
-											bij 99% van de contacten die klachten krijgt, dit gebeurt
-											binnen 10 dagen na het laatste contact met iemand die
-											besmet is met het virus.
-										</p>
-										<p>Krijg je klachten? Laat je dan testen bij de GGD.</p>
+										<div
+											sx={{
+												h4: {
+													color: 'smallText',
+													fontSize: ['bodyMobile', 'body'],
+													lineHeight: ['bodyMobile', 'body'],
+													marginTop: '32px',
+													marginBottom: '12px',
+												},
+												'h4 + p': {
+													marginTop: '12px',
+												},
+											}}
+										>
+											<span
+												sx={{
+													fontSize: '24px',
+													marginTop: '-20px',
+													display: 'block',
+												}}
+											>
+												Tot en met dag 10
+											</span>
+											<h4>Dag 1 tot en met 5</h4>
+											<p>
+												Als je besmet raakt met het coronavirus duurt het
+												meestal 5 dagen voordat je klachten krijgt. Daarom kan
+												je onbewust het coronavirus hebben en anderen besmetten.
+												Blijf daarom thuis.
+											</p>
+											<ExpansionPanel text="Wat als ik klachten heb?">
+												<p>
+													Maak een testafspraak bij de GGD als je klachten hebt.
+													Dit kan via{' '}
+													<a
+														href="https://www.coronatest.nl"
+														target="_blank"
+														rel="noopener noreferrer"
+													>
+														coronatest.nl
+													</a>{' '}
+													of bel naar 0800-1202. Houd je BSN bij je hand.
+												</p>
+											</ExpansionPanel>
+											<ExpansionPanel text="Ik heb geen klachten op dag 5. Kan ik eerder uit quarantaine?">
+												<p>
+													Je kunt je vanaf dag 5 laten testen, ook al je geen
+													klachten hebt. Als de testuitslag negatief is, mag je
+													uit quarantaine. Krijg je na een negatieve testuitslag
+													toch klachten, laat je dan opnieuw testen. Eerder dan
+													de 5e dag testen heeft geen zin. Het kan zijn dat je
+													dan te vroeg test om het virus aan te kunnen tonen.
+												</p>
+											</ExpansionPanel>
+											<h4>Dag 5 tot en met 10</h4>
+											<p>
+												Niet iedereen krijgt binnen de eerste 5 dagen klachten.
+												Na dag 5 kan je nog steeds onbewust het coronavirus
+												hebben en anderen besmetten. Blijf daarom thuis. Uit het
+												bron- en contactonderzoek van de GGD blijkt dat bij 99%
+												van de contacten die klachten krijgt, dit gebeurt binnen
+												10 dagen na het laatste contact met iemand die besmet is
+												met het virus.
+											</p>
+											<ExpansionPanel text="Wat als ik klachten krijg?">
+												<p>
+													Maak een testafspraak bij de GGD als je klachten hebt.
+													Dit kan via{' '}
+													<a
+														href="https://www.coronatest.nl"
+														target="_blank"
+														rel="noopener noreferrer"
+													>
+														coronatest.nl
+													</a>{' '}
+													of bel naar 0800-1202. Houd je BSN bij je hand.
+												</p>
+											</ExpansionPanel>
+										</div>
 									</Dialog>
 								</TravelAdvicePanel>
 							)}
