@@ -42,7 +42,6 @@ const TravelPlanStage = (props: TravelPlanStageProps) => {
 							fontSize: ['bodyMobile', 'body'],
 							textAlign: 'right',
 							marginRight: '8px',
-							color: 'text',
 							display: 'inline-block',
 							color: 'smallText',
 							fontWeight: 700,

@@ -9,6 +9,7 @@ import BodyContainer from 'components/structure/BodyContainer';
 import DataProtectionPanel from 'components/DataProtectionPanel';
 import Footer from 'components/structure/Footer';
 import { NavLink } from 'components/nav-link';
+import { ImageAlleenSamen } from 'components/image-alleen-samen';
 
 type ContentPageProps = {
 	title: string;
@@ -43,6 +44,7 @@ const ContentPage = (props: ContentPageProps) => {
 				>
 					{props.children}
 				</Container>
+				<ImageAlleenSamen />
 			</BodyContainer>
 			<DataProtectionPanel onlyDesktop={true} />
 			<Footer />
