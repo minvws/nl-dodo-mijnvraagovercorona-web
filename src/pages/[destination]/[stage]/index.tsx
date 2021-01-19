@@ -393,7 +393,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 					<FaqListShort country={country} stage={stage} />
 
 					<InternalLink href={`/${country?.slug}/faq`}>
-						Bekijk alle 10 veelgestelde vragen
+						Bekijk alle veelgestelde vragen
 					</InternalLink>
 
 					<Feedback />
