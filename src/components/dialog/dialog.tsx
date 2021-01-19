@@ -23,7 +23,9 @@ export const Dialog: React.FC<DialogProps> = ({
 			isOpen={isVisible}
 			onDismiss={closeDialog}
 			sx={{
-				background: 'rgba(1, 104, 155, 0.7)',
+				// White background color on mobile is needed because otherwise overflowing
+				// content would have a blue background.
+				background: ['white', 'rgba(1, 104, 155, 0.7)'],
 				paddingRight: [0, '300px', '400px'],
 				paddingTop: [0, '67px'],
 				p: {
@@ -46,6 +48,7 @@ export const Dialog: React.FC<DialogProps> = ({
 		>
 			<DialogContent
 				sx={{
+					backgroundColor: 'white',
 					width: '100%',
 					maxWidth: '434px',
 					height: ['100%', 'auto'],
