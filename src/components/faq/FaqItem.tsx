@@ -4,16 +4,10 @@ import { jsx } from 'theme-ui';
 import ExpansionPanel from 'components/structure/ExpansionPanel';
 
 type FaqItemProps = {
-    title: string,
-    children: React.ReactNode
-}
-
-const FaqItem = ({ title, children }: FaqItemProps) => {
-    return (
-        <ExpansionPanel text={title}>
-            { children }
-        </ExpansionPanel>
-    );
+	title: string;
+	children: React.ReactNode;
 };
 
-export default FaqItem;
+export const FaqItem = ({ title, children }: FaqItemProps) => (
+	<ExpansionPanel text={title}>{children}</ExpansionPanel>
+);

@@ -7,7 +7,7 @@ import { countries } from 'config/countries';
 
 import { useDestination } from 'hooks/use-destination';
 import MetaTags from 'components/meta/MetaTags';
-import FaqList from 'components/faq/FaqList';
+import { FaqListComplete } from 'components/faq/FaqList';
 import BodyContainer from 'components/structure/BodyContainer';
 import ContentPageHeader from 'components/structure/ContentPageHeader';
 import DataProtectionPanel from 'components/DataProtectionPanel';
@@ -75,7 +75,7 @@ const FAQ = ({ destination }: FAQProps) => {
 						paddingBottom: '80px',
 					}}
 				>
-					<FaqList country={country} />
+					<FaqListComplete country={country} />
 					<Feedback />
 					<ImageAlleenSamen />
 				</Container>

@@ -11,7 +11,7 @@ import ContentPageHeader from 'components/structure/ContentPageHeader';
 import BodyContainer from 'components/structure/BodyContainer';
 import TestBooking from 'components/results/TestBooking';
 import ReminderCalendarInvite from 'components/TravelPlan/ReminderCalendarInvite';
-import FaqList from 'components/faq/FaqList';
+import { FaqListShort } from 'components/faq/FaqList';
 import DataProtectionPanel from 'components/DataProtectionPanel';
 import Footer from 'components/structure/Footer';
 import { DialogLink, InternalLink } from 'components/Links';
@@ -463,10 +463,10 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 					>
 						Veelgestelde vragen
 					</h2>
-					<FaqList limit={5} country={country} />
+					<FaqListShort country={country} stage={stage} />
 
 					<InternalLink href={`/${country?.slug}/faq`}>
-						Bekijk alle 10 veelgestelde vragen
+						Bekijk alle veelgestelde vragen
 					</InternalLink>
 
 					<Feedback />
