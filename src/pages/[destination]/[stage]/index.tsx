@@ -173,15 +173,13 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 					)}
 					{showQuarantaine && showPreperation && (
 						<li>
-							Bereid je goed voor om{' '}
-							<strong>10 dagen in thuisquarantaine te gaan</strong> na je reis.
-							De situatie kan tijdens je reis veranderen.
+							Je gaat na je reis <strong>10 dagen in thuisquarantaine</strong>.
+							Bereid je goed voor. De situatie kan tijdens je reis veranderen.
 						</li>
 					)}
 					{showQuarantaine && duringOrAfter && (
 						<li>
-							Het dringende advies is om{' '}
-							<strong>10 dagen in thuisquarantaine te gaan.</strong>
+							Ga <strong>10 dagen in thuisquarantaine.</strong>
 						</li>
 					)}
 				</ul>
@@ -287,45 +285,33 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 							date={toDate}
 						>
 							{showQuarantaine && (
-								<>
-									<TravelAdvicePanel title="Bereid jezelf goed voor">
-										<Link href="/voorbereiding">
-											<a
-												sx={{
-													color: 'text',
-													textDecoration: 'underline',
-													cursor: 'pointer',
-												}}
-											>
-												Wat moet ik regelen?
-											</a>
-										</Link>
-									</TravelAdvicePanel>
-									<TravelAdvicePanel title="Tot en met dag 10">
-										<DialogLink
-											href=""
-											onClick={(ev) => {
-												ev.preventDefault();
-												setShowDialog(true);
-											}}
-										>
-											Mogelijke klachten
-										</DialogLink>
-										<Dialog
-											title="Tot en met dag 10 - Mogelijke klachten"
-											isVisible={showDialog}
-											closeDialog={() => setShowDialog(false)}
-										>
-											<p>
-												Uit het bron- en contactonderzoek van de GGD blijkt dat
-												bij 99% van de contacten die klachten krijgt, dit
-												gebeurt binnen 10 dagen na het laatste contact met
-												iemand die besmet is met het virus.
-											</p>
-											<p>Krijg je klachten? Laat je dan testen bij de GGD.</p>
-										</Dialog>
-									</TravelAdvicePanel>
-								</>
+								<TravelAdvicePanel
+									title="Mogelijk klachten"
+									subHeading="Tot en met dag 10"
+								>
+									<DialogLink
+										href=""
+										onClick={(ev) => {
+											ev.preventDefault();
+											setShowDialog(true);
+										}}
+									>
+										Meer informatie
+									</DialogLink>
+									<Dialog
+										title="Tot en met dag 10 - Mogelijke klachten"
+										isVisible={showDialog}
+										closeDialog={() => setShowDialog(false)}
+									>
+										<p>
+											Uit het bron- en contactonderzoek van de GGD blijkt dat
+											bij 99% van de contacten die klachten krijgt, dit gebeurt
+											binnen 10 dagen na het laatste contact met iemand die
+											besmet is met het virus.
+										</p>
+										<p>Krijg je klachten? Laat je dan testen bij de GGD.</p>
+									</Dialog>
+								</TravelAdvicePanel>
 							)}
 						</TravelPlanStage>
 						{showQuarantaine && (

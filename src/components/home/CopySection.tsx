@@ -19,8 +19,9 @@ const CopySection = () => {
 				<h3>Neem uit het buitenland het virus niet mee naar huis</h3>
 				<p className="large">
 					Wanneer je besmet raakt in het buitenland, kun je thuis anderen
-					besmetten. Dit kan ook een andere variant zijn van het virus. Deze
-					check helpt je de juiste keuzes te maken voor, tijdens en na je reis.
+					besmetten. Met misschien wel een andere, nog besmettelijkere, variant
+					van het virus. Deze check helpt je de juiste keuzes te maken voor,
+					tijdens en na je reis.
 				</p>
 			</CopyParagraph>
 			<CopyParagraph
