@@ -28,6 +28,7 @@
 		"dotenv": "^8.2.0",
 		"enzyme": "^3.11.0",
 		"enzyme-adapter-react-16": "^1.15.5",
+		"fuse.js": "^6.4.6",
 		"next": "^10.0.3",
 		"react": "^16.14.0",
 		"react-day-picker": "^7.4.8",

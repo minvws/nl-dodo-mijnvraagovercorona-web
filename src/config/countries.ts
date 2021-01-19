@@ -219,6 +219,7 @@ export interface Country {
 	euCountry: boolean;
 	schengenCountry: boolean;
 	riskLevel: RiskLevel;
+	synonyms?: string[];
 }
 
 export const countries: Country[] = [
@@ -1703,14 +1704,7 @@ export const countries: Country[] = [
 		euCountry: false,
 		schengenCountry: false,
 		riskLevel: RiskLevel.A_RISICOVOL,
-	},
-	{
-		fullName: 'Engeland',
-		slug: CountrySlugs.verenigdKoninkrijk,
-		coronaMelderCountry: false,
-		euCountry: false,
-		schengenCountry: false,
-		riskLevel: RiskLevel.A_RISICOVOL,
+		synonyms: ['Engeland'],
 	},
 	{
 		fullName: 'Verenigde Arabische Emiraten',
@@ -1719,14 +1713,7 @@ export const countries: Country[] = [
 		euCountry: false,
 		schengenCountry: false,
 		riskLevel: RiskLevel.D_EU_INREISVERBOD,
-	},
-	{
-		fullName: 'Dubai',
-		slug: CountrySlugs.verenigdeArabischeEmiraten,
-		coronaMelderCountry: false,
-		euCountry: false,
-		schengenCountry: false,
-		riskLevel: RiskLevel.D_EU_INREISVERBOD,
+		synonyms: ['Dubai'],
 	},
 	{
 		fullName: 'Verenigde Staten van Amerika',
@@ -1735,6 +1722,7 @@ export const countries: Country[] = [
 		euCountry: false,
 		schengenCountry: false,
 		riskLevel: RiskLevel.D_EU_INREISVERBOD,
+		synonyms: ['Amerika'],
 	},
 	{
 		fullName: 'Vietnam',

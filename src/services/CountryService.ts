@@ -1,16 +1,28 @@
 import { countries, Country } from 'config/countries';
+import Fuse from 'fuse.js';
 
 const MAX_SEARCH_RESULTS = 10;
 
-export const searchCities = (query: string): Country[] => {
-	const primaryMatches = countries.filter((country) =>
-		country.fullName.toLowerCase().startsWith(query.toLowerCase()),
-	);
-	const secondaryMatches = countries.filter(
-		(country) =>
-			!primaryMatches.includes(country) &&
-			country.fullName.toLowerCase().includes(query.toLowerCase()),
-	);
+const fuseSearchInstance = new Fuse(countries, {
+	includeScore: true,
+	shouldSort: true,
+	keys: ['fullName', 'synonyms'],
+	threshold: 0.2,
+	distance: 100,
+	includeMatches: true,
+});
 
-	return [...primaryMatches, ...secondaryMatches].slice(0, MAX_SEARCH_RESULTS);
+export interface CountryMatches extends Country {
+	matchedOn?: string;
+}
+
+export const searchCities = (query: string): CountryMatches[] => {
+	const results = fuseSearchInstance.search(query);
+
+	return results
+		.map((result) => ({
+			...result.item,
+			matchedOn: result?.matches?.[0].value,
+		}))
+		.slice(0, MAX_SEARCH_RESULTS);
 };
