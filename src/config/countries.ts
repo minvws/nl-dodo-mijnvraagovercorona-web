@@ -1704,7 +1704,7 @@ export const countries: Country[] = [
 		euCountry: false,
 		schengenCountry: false,
 		riskLevel: RiskLevel.A_RISICOVOL,
-		synonyms: ['Engeland'],
+		synonyms: ['Engeland', 'Schotland', 'Wales', 'Noord-Ierland'],
 	},
 	{
 		fullName: 'Verenigde Arabische Emiraten',
@@ -1713,7 +1713,16 @@ export const countries: Country[] = [
 		euCountry: false,
 		schengenCountry: false,
 		riskLevel: RiskLevel.D_EU_INREISVERBOD,
-		synonyms: ['Dubai'],
+		synonyms: [
+			'Dubai',
+			'Abu Dhabi',
+			'Ajman',
+			'Fujairah',
+			'Sharjah',
+			'Shariqah',
+			'Ras al-Khaimah',
+			'Umm al-Qaywayn',
+		],
 	},
 	{
 		fullName: 'Verenigde Staten van Amerika',
