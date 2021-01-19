@@ -10,15 +10,14 @@ import {
 } from '@reach/combobox';
 import { useRouter } from 'next/router';
 
-import { searchCities } from 'services/CountryService';
+import { CountryMatches, searchCities } from 'services/CountryService';
 import { getCountrySlug } from 'utilities/pathUtils';
 import '@reach/combobox/styles.css';
-import { Country } from 'config/countries';
 import AdviceContext from 'components/advice/AdviceContext';
 import { ButtonStyledAsSubmit } from 'components/button/ButtonStyled';
 
 const DestinationSearch = () => {
-	const [searchResults, setSearchResults] = useState<Country[]>([]);
+	const [searchResults, setSearchResults] = useState<CountryMatches[]>([]);
 	const [userInput, setUserInput] = useState<string>('');
 	const { setDestination } = React.useContext(AdviceContext);
 
@@ -26,6 +25,7 @@ const DestinationSearch = () => {
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const { value } = event.target;
+		setUserInput(value);
 
 		if (value === '') {
 			setSearchResults([]);
@@ -34,7 +34,7 @@ const DestinationSearch = () => {
 		}
 	};
 
-	const getDestinationName = (dest: Country) => dest.fullName;
+	const getDestinationName = (dest: CountryMatches) => dest.fullName;
 
 	const handleSelect = (destinationName: string) => {
 		// @TODO: Handle invalid destination names which return in null being returned
@@ -133,11 +133,17 @@ const DestinationSearch = () => {
 										sx={{ p: { padding: 0 } }}
 									>
 										<p
+											sx={{ span: { fontSize: 16, fontWeight: 'bold' } }}
 											dangerouslySetInnerHTML={{
-												__html: country.fullName.replace(
-													new RegExp(userInput, 'gi'),
-													'<strong>$&</strong>',
-												),
+												__html:
+													country.fullName.replace(
+														new RegExp(userInput, 'gi'),
+														'<strong>$&</strong>',
+													) +
+													// If country is matched on a synonym, show the matching synonym
+													(country.matchedOn !== country.fullName
+														? ` <span>(${country.matchedOn})</span>`
+														: ''),
 											}}
 										/>
 									</ComboboxOption>

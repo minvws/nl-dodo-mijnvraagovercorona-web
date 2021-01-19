@@ -140,7 +140,7 @@ const TestBooking = ({ toDate }: TestBookingProps) => {
 		<div sx={{ maxWidth: 'widgetMaxWidth', marginTop: ['10px', '60px'] }}>
 			{quarantaineDay <= 5 && (
 				<h2 sx={{ color: 'header', fontSize: ['h2Mobile', 'h2'] }}>
-					Laat je testen op dag 5 van je thuisquarantaine
+					Verkort je thuisquarantaine door je te laten testen op dag 5
 				</h2>
 			)}
 			<MakeOnlineAppointment
@@ -149,7 +149,7 @@ const TestBooking = ({ toDate }: TestBookingProps) => {
 				isDuringTravel={isDuringTravel}
 			/>
 
-			<CallGGD quarantaineDay={quarantaineDay} />
+			{quarantaineDay > 0 && <CallGGD quarantaineDay={quarantaineDay} />}
 			{isDuringTravel && (
 				<ReminderCalendarInvite
 					title="Zet 'Afspraak maken coronatest' in je agenda"

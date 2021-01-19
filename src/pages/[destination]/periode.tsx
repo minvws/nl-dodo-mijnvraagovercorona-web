@@ -135,7 +135,7 @@ const Period = ({ destination }: { destination: string }) => {
 					closeDialog={() => setShowDialog(false)}
 				>
 					<p>
-						Het is mogelijk dat een land van kleur verandert tijdens je
+						Het is mogelijk dat een land van kleurcode verandert tijdens je
 						verblijf.
 					</p>
 					<p>
