@@ -21,7 +21,7 @@ const Home = () => {
 			/>
 
 			<ContentPageHeader
-				message="Wat als je buitenlandse reis noodzakelijk is?"
+				message="Toch noodzakelijk naar het buitenland?"
 				secondaryMessage="Ga niet op reis en boek geen reizen t/m 31 maart"
 			>
 				<h2
