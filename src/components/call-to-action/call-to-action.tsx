@@ -20,7 +20,7 @@ export const CallToAction: React.FC<CallToActionProps> = ({
 				borderColor: 'footerBackground',
 				borderRadius: '11px',
 				padding: '14px',
-				paddingRight: '34px',
+				paddingRight: '60px',
 				display: 'flex',
 				alignItems: 'center',
 				justifyContent: 'flex-start',
@@ -32,6 +32,7 @@ export const CallToAction: React.FC<CallToActionProps> = ({
 				},
 				p: {
 					fontSize: ['bodyMobile', 'body'],
+					fontFamily: 'heading',
 					fontWeight: 'bold',
 					color: 'link',
 					margin: 0,
