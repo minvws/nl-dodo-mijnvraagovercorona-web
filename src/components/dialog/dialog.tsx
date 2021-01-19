@@ -27,7 +27,6 @@ export const Dialog: React.FC<DialogProps> = ({
 				// content would have a blue background.
 				background: ['white', 'rgba(1, 104, 155, 0.7)'],
 				paddingRight: [0, '300px', '400px'],
-				paddingTop: [0, '67px'],
 				p: {
 					fontSize: ['bodyMobile', 'body'],
 					lineHeight: ['bodyMobile', 'body'],
@@ -36,7 +35,7 @@ export const Dialog: React.FC<DialogProps> = ({
 				'.close-button': {
 					position: 'absolute',
 					right: 20,
-					top: 20,
+					top: [-10, 20],
 					background: 'transparent',
 					'&:focus': {
 						path: {
@@ -53,8 +52,9 @@ export const Dialog: React.FC<DialogProps> = ({
 					maxWidth: '434px',
 					height: ['100%', 'auto'],
 					borderRadius: [0, '20px'],
+					margin: ['20px auto', '10vh auto'],
+					padding: ['10px 32px', '32px'],
 					color: 'header',
-					marginTop: ['auto', '168px'],
 					position: 'relative',
 					h2: {
 						paddingRight: '20px',
