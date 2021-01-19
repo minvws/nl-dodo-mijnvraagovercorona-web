@@ -19,11 +19,11 @@ const HomePageNavigation = () => {
 				sx={{
 					display: 'grid',
 					gridTemplateColumns: ['1fr', '1fr 1fr 1fr'], // todo: replace this with repeat()
-					paddingLeft: [0, 'mobilePadding', 0],
+					paddingX: ['17px'],
 					paddingBottom: '23px',
 					columnGap: '29px',
 					rowGap: '22px',
-					maxWidth: ['maxWidthBody', '898px'],
+					maxWidth: ['maxWidthBody', '665px'],
 					margin: '0 auto',
 					borderBottom: ['none', '1px solid #AEC1D1'],
 				}}
