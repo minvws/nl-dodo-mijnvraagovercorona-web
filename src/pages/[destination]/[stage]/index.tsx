@@ -80,7 +80,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 	const showSecondCheckCalenderInvite =
 		stage === 'voor-vertrek' && isMoreThanWeekBeforeDeparture(fromDate);
 
-	const showContactWithSymptoms = stage === 'na-thuiskomst';
+	const showContactWithSymptoms = duringOrAfter;
 
 	// @TODO: Do this in a different place where it makes sense.
 	let color: Color = 'red';
@@ -369,7 +369,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 						</Box>
 					)}
 
-					{showContactWithSymptoms && <TestBooking />}
+					{showContactWithSymptoms && toDate && <TestBooking toDate={toDate} />}
 
 					<h2
 						sx={{

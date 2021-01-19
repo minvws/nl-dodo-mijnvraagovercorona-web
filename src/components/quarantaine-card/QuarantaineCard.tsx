@@ -29,6 +29,7 @@ export const QuarantaineCard = () => {
 				backgroundRepeat: 'no-repeat',
 				backgroundPositionX: '-10px',
 				cursor: 'pointer',
+				maxWidth: 'widgetMaxWidth',
 			}}
 			onClick={handleClick}
 		>

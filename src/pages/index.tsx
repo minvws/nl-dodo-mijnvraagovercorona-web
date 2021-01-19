@@ -8,14 +8,10 @@ import HomePageNavigation from 'components/home/HomePageNavigation';
 import BodyContainer from 'components/structure/BodyContainer';
 import CopySection from 'components/home/CopySection';
 import DataProtectionPanel from 'components/DataProtectionPanel';
-import Footer from 'components/structure/Footer';
 import { ImageAlleenSamen } from 'components/image-alleen-samen';
-
-import { useDesktopQuery } from 'hooks/useDesktopQuery';
+import Footer from '../components/structure/Footer';
 
 const Home = () => {
-	const isDesktop = useDesktopQuery();
-
 	return (
 		<>
 			<MetaTags
@@ -25,7 +21,7 @@ const Home = () => {
 			/>
 
 			<ContentPageHeader
-				message="Wat als je toch naar het buitenland moet?"
+				message="Wat als je buitenlandse reis noodzakelijk is?"
 				secondaryMessage="Ga niet op reis en boek geen reizen t/m 31 maart"
 			>
 				<h2
