@@ -7,6 +7,8 @@ import '@reach/menu-button/styles.css';
 import { endOfDay, format } from 'date-fns';
 import { formatLongDate } from 'utilities/dateUtils';
 import { Dialog } from 'components/dialog';
+import { CallToAction } from 'components/call-to-action/call-to-action';
+import { AppointmentIcon } from 'components/icons/Appointment';
 
 interface ReminderCalendarInviteProps {
 	title: string;
@@ -98,54 +100,17 @@ const ReminderCalendarInvite = (props: SingleDayProps | MultiDayProps) => {
 	return (
 		<Container
 			sx={{
-				marginTop: '2em',
-				backgroundImage: `url("/icons/Button Arrow.svg")`,
-				backgroundRepeat: 'no-repeat',
-				backgroundPosition: 'right 1em top 50%',
+				marginTop: '24px',
 			}}
 		>
 			<Menu>
 				<MenuButton
-					sx={{
-						backgroundColor: 'transparent',
-						border: '1px solid',
-						borderColor: 'header',
-						color: '#000',
-						textDecoration: 'none',
-						borderRadius: '8px',
-						paddingLeft: '70px',
-						paddingTop: '0.7em',
-						paddingBottom: '0.7em',
-						backgroundImage: 'url("/icons/Calendar.svg")',
-						backgroundRepeat: 'no-repeat',
-						backgroundPositionY: 'center',
-						backgroundPositionX: '1em',
-						cursor: 'pointer',
-						display: 'block',
-						width: '100%',
-						textAlign: 'left',
-					}}
+					sx={{ border: 'none', background: 'transparent', padding: 0 }}
 				>
-					<span
-						sx={{
-							display: 'block',
-							fontSize: '19px',
-							color: 'link',
-							fontWeight: 'bold',
-							width: '80%',
-							margin: '3px 0',
-						}}
-					>
-						{props.title}
-					</span>
-					<span
-						sx={{
-							display: 'block',
-							margin: 0,
-						}}
-					>
-						{dateText}
-					</span>
+					<CallToAction icon={AppointmentIcon}>
+						<p>{props.title}</p>
+						<span sx={{ display: 'block', marginTop: '6px' }}>{dateText}</span>
+					</CallToAction>
 				</MenuButton>
 				<MenuList
 					sx={{
