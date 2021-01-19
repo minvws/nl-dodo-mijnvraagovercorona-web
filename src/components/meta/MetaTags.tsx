@@ -14,6 +14,7 @@ const MetaTags = ({ title, description, url }: Props) => (
 		<meta name="description" content={description} />
 
 		<meta property="og:type" content="website" />
+		<meta property="og:locale" content="nl_NL" />
 		<meta
 			property="og:url"
 			content={`https://www.reizentijdenscorona.nl${url}`}
