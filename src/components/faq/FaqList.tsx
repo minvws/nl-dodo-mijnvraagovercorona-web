@@ -40,7 +40,11 @@ const faqs: {
 		],
 		whyRisk: () => [
 			'Waarom is reizen naar het buitenland zo’n groot risico?',
-			<p>TEKST NOG TE BEPALEN ISM COMMUNICATIE</p>,
+			<p>
+				Wanneer je besmet raakt in het buitenland, kun je thuis anderen
+				besmetten. Ook met een andere, besmettelijkere variant van het virus. Ga
+				niet op reis, blijf in Nederland en boek geen reizen.
+			</p>,
 		],
 		whyQuarantine: () => [
 			'Waarom moet ik na mijn reis in thuisquarantaine?',
@@ -75,7 +79,9 @@ const faqs: {
 		],
 		rulesVacination: () => [
 			'Gelden er andere regels als je al gevaccineerd bent?',
-			<p>TEKST NOG TE BEPALEN ISM COMMUNICATIE</p>,
+			<p>
+				Nee, ook als je gevaccineerd bent ga je in thuisquarantaine na je reis.
+			</p>,
 		],
 		whoQuarantine: () => [
 			'Wie moeten allemaal in thuisquarantaine?',
@@ -100,7 +106,7 @@ const faqs: {
 							>
 								hier
 							</a>{' '}
-							meer lezen
+							meer lezen.
 						</p>,
 				  ]
 				: [
@@ -115,7 +121,7 @@ const faqs: {
 							>
 								hier
 							</a>{' '}
-							meer lezen
+							meer lezen.
 						</p>,
 				  ],
 		whichRequirements: () => [
@@ -148,7 +154,7 @@ const faqs: {
 					>
 						hier
 					</a>{' '}
-					vinden
+					vinden.
 				</p>
 			</>,
 		],
@@ -206,10 +212,10 @@ const faqs: {
 				Het kan 10 dagen duren voordat je klachten krijgt nadat je besmet bent
 				met corona. Daarom is het belangrijk 10 dagen in thuisquarantaine te
 				gaan. Na 10 dagen is de kans dat je nog coronaklachten krijgt erg klein.
-				Je kan je thuisquarantaine inkorten door op dag 5 na thuiskomst een
-				testafspraak in te plannen. Als de testuitslag negatief is, kan je je
-				thuisquarantaine beëindigen. Is de testuitslag positief? Blijf dan thuis
-				en volg het advies van de GGD op.
+				Je kan je thuisquarantaine verkorten door op dag 5 na thuiskomst een
+				testafspraak in te plannen. Als de testuitslag negatief is, mag je uit
+				quarantaine. Is de testuitslag positief? Blijf dan thuis en volg het
+				advies van de GGD op.
 			</p>,
 		],
 		negativeTestQuarantaine: () => [
@@ -218,18 +224,19 @@ const faqs: {
 				Ja. Testen is echt een momentopname. Het kan tot 10 dagen duren voordat
 				je klachten krijgt. Het kan dus zijn dat je te vroeg bent getest in het
 				buitenland. Daarom moet je bij terugkomst alsnog 10 dagen in
-				thuisquarantaine. Je kan je thuisquarantaine inkorten door op dag 5 na
+				thuisquarantaine. Je kan je thuisquarantaine verkorten door op dag 5 na
 				thuiskomst een testafspraak in te plannen. Als de testuitslag negatief
-				is, kan je je thuisquarantaine beëindigen. Is de testuitslag positief?
-				Blijf dan thuis en volg het advies van de GGD op.{' '}
+				is, mag je uit quarantaine. Is de testuitslag positief? Blijf dan thuis
+				en volg het advies van de GGD op.
 			</p>,
 		],
 		canQuarantaineBeShortened: () => [
 			'Kan ik de 10 dagen thuisquarantaine inkorten?',
 			<p>
-				Ja, dat kan. Maak een testafspraak op dag 5. Als de testuitslag negatief
-				is, kan je je thuisquarantaine beëindigen. Is de testuitslag positief?
-				Blijf dan thuis en volg het advies van de GGD op.{' '}
+				Ja, dat kan. Je kan je thuisquarantaine verkorten door op dag 5 na
+				thuiskomst een testafspraak in te plannen. Als de testuitslag negatief
+				is, mag je uit quarantaine. Is de testuitslag positief? Blijf dan thuis
+				en volg het advies van de GGD op.
 			</p>,
 		],
 		protectOthers: () => [
@@ -253,10 +260,10 @@ const faqs: {
 				Ja. Testen is echt een momentopname. Het kan tot 10 dagen duren voordat
 				je klachten krijgt. Het kan dus zijn dat je te vroeg bent getest in het
 				buitenland. Daarom moet je bij terugkomst alsnog 10 dagen in
-				thuisquarantaine. Je kan je thuisquarantaine inkorten door op dag 5 na
+				thuisquarantaine. Je kan je thuisquarantaine verkorten door op dag 5 na
 				thuiskomst een testafspraak in te plannen. Als de testuitslag negatief
-				is, kan je je thuisquarantaine beëindigen. Is de testuitslag positief?
-				Blijf dan thuis en volg het advies van de GGD op.
+				is, mag je uit quarantaine. Is de testuitslag positief? Blijf dan thuis
+				en volg het advies van de GGD op.
 			</p>,
 		],
 		testEarlier: () => [
@@ -266,17 +273,7 @@ const faqs: {
 				zijn dat je te vroeg test om het virus aan te kunnen tonen in de neus-
 				en keelholte. De meeste mensen die ziek worden krijgen binnen zeven
 				dagen klachten. Twee dagen daarvoor kan een PCR-test het virus al
-				aantonen.{' '}
-			</p>,
-		],
-		/** TODO: Link toevoegen */
-		whatToDoPositiveTest: () => [
-			'Wat moet ik doen als de testuitslag positief is?',
-			<p>
-				Volg de adviezen van de GGD op. Je gaat in isolatie. Je blijft thuis en
-				vermijdt contact met huisgenoten, zodat je het virus niet verder
-				verspreidt. Lees hier meer over wat je moet doen als je in isolatie gaat
-				omdat je COVID-19 hebt.
+				aantonen.
 			</p>,
 		],
 	},
@@ -349,7 +346,7 @@ export const FaqListShort = ({
 			faqs['na-thuiskomst'].negativeTestQuarantaine(),
 			faqs['na-thuiskomst'].canQuarantaineBeShortened(),
 			faqs['na-thuiskomst'].testEarlier(),
-			faqs['na-thuiskomst'].whatToDoPositiveTest(),
+			faqs['voor-vertrek'].rulesVacination(),
 		],
 	};
 
