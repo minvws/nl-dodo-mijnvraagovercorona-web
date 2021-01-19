@@ -350,7 +350,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 											</ExpansionPanel>
 											<ExpansionPanel text="Ik heb geen klachten op dag 5. Kan ik eerder uit quarantaine?">
 												<p>
-													Je kunt je vanaf dag 5 laten testen, ook al je geen
+													Je kunt je vanaf dag 5 laten testen, ook als je geen
 													klachten hebt. Als de testuitslag negatief is, mag je
 													uit quarantaine. Krijg je na een negatieve testuitslag
 													toch klachten, laat je dan opnieuw testen. Eerder dan

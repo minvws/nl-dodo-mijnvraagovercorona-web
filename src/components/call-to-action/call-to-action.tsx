@@ -27,12 +27,12 @@ export const CallToAction: React.FC<CallToActionProps> = ({
 				textAlign: 'left',
 				maxWidth: 'widgetMaxWidth',
 				transition: 'background-position 300ms ease-in-out',
+				fontFamily: 'heading',
 				':hover, :focus': {
 					backgroundPosition: 'right 8px top 50%',
 				},
 				p: {
 					fontSize: ['bodyMobile', 'body'],
-					fontFamily: 'heading',
 					fontWeight: 'bold',
 					color: 'link',
 					margin: 0,

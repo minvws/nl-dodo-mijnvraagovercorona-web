@@ -109,7 +109,7 @@ const ReminderCalendarInvite = (props: SingleDayProps | MultiDayProps) => {
 				>
 					<CallToAction icon={AppointmentIcon}>
 						<p>{props.title}</p>
-						<span sx={{ display: 'block', marginTop: '6px' }}>{dateText}</span>
+						<span sx={{ display: 'block' }}>{dateText}</span>
 					</CallToAction>
 				</MenuButton>
 				<MenuList
