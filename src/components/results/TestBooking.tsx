@@ -149,7 +149,7 @@ const TestBooking = ({ toDate }: TestBookingProps) => {
 				isDuringTravel={isDuringTravel}
 			/>
 
-			<CallGGD quarantaineDay={quarantaineDay} />
+			{quarantaineDay > 0 && <CallGGD quarantaineDay={quarantaineDay} />}
 			{isDuringTravel && (
 				<ReminderCalendarInvite
 					title="Zet 'Afspraak maken coronatest' in je agenda"
