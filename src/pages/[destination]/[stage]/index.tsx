@@ -207,6 +207,8 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 						sx={{
 							borderLeft: '2px solid #f0d5e2',
 							paddingLeft: '1.8em',
+							maxWidth: 'widgetMaxWidth',
+							margin: 0,
 						}}
 					>
 						{stage === 'voor-vertrek' && (

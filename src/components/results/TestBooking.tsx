@@ -1,11 +1,10 @@
 /** @jsx jsx */
 import { CallToAction } from 'components/call-to-action/call-to-action';
-import { AppointmentIcon } from 'components/icons/Appointment';
 import { NewTabIcon } from 'components/icons/NewTab';
 import { TestAppointmentIcon } from 'components/icons/TestAppointment';
 import ReminderCalendarInvite from 'components/TravelPlan/ReminderCalendarInvite';
-import { differenceInDays, isBefore } from 'date-fns';
-import { jsx, SxProps } from 'theme-ui';
+import { differenceInDays, isBefore, isAfter } from 'date-fns';
+import { jsx } from 'theme-ui';
 import { addDays, formatLongDate } from 'utilities/dateUtils';
 
 const CallGGD = ({ quarantaineDay }: { quarantaineDay: number }) => {
@@ -132,9 +131,13 @@ interface TestBookingProps {
 
 const TestBooking = ({ toDate }: TestBookingProps) => {
 	const isDuringTravel = isBefore(new Date(), toDate);
+	const isAfterTravel = isAfter(new Date(), toDate);
 	// We add 1 to the difference of days since 0 days difference is your return date, which is day 1.
 	// That makes for example 9 days AFTER your return date day 10.
-	const quarantaineDay = differenceInDays(new Date(), toDate) + 1;
+	// Returns -1 as quarantaineDay if user has NOT yet returned.
+	const quarantaineDay = isAfterTravel
+		? differenceInDays(new Date(), toDate) + 1
+		: -1;
 
 	return (
 		<div sx={{ maxWidth: 'widgetMaxWidth', marginTop: ['10px', '60px'] }}>
