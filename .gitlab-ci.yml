@@ -76,9 +76,7 @@ deploy image latest:
     CD_APP_TAG: $CI_COMMIT_SHORT_SHA
     CD_ENVIRONMENT: development
   stage: deploy
-  trigger:
-    project: vws/reis/nl-covid19-travel-during-corona-deploy
-    branch: development
+  trigger: vws/reis/nl-covid19-travel-during-corona-deploy
   rules:
     - if: '$CI_COMMIT_TAG =~ /^development/'
       when: on_success
@@ -89,9 +87,7 @@ deploy image staging:
     CD_APP_TAG: $CI_COMMIT_SHORT_SHA
     CD_ENVIRONMENT: staging
   stage: deploy
-  trigger:
-    project: vws/reis/nl-covid19-travel-during-corona-deploy
-    branch: staging
+  trigger: vws/reis/nl-covid19-travel-during-corona-deploy
   rules:
     - if: '$CI_COMMIT_TAG =~ /^staging/'
       when: on_success
@@ -102,9 +98,7 @@ deploy image production:
     CD_APP_TAG: $CI_COMMIT_SHORT_SHA
     CD_ENVIRONMENT: production
   stage: deploy
-  trigger:
-    project: vws/reis/nl-covid19-travel-during-corona-deploy
-    branch: production
+  trigger: vws/reis/nl-covid19-travel-during-corona-deploy
   rules:
     - if: '$CI_COMMIT_TAG =~ /^production/'
       when: manual
