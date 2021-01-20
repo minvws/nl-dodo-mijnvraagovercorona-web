@@ -63,7 +63,7 @@ const NoAdvice = () => (
 					paddingRight: ['mobilePadding', 0],
 				}}
 			>
-				<TestBooking toDate={subDays(new Date(), 11)} />
+				<TestBooking toDate={subDays(new Date(), 11)} quarantaine={false} />
 				<Feedback />
 			</Container>
 			<DataProtectionPanel />
