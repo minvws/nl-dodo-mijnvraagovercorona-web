@@ -430,7 +430,9 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 						</Box>
 					)}
 
-					{showContactWithSymptoms && toDate && <TestBooking toDate={toDate} />}
+					{showContactWithSymptoms && toDate && (
+						<TestBooking toDate={toDate} quarantaine={showQuarantaine} />
+					)}
 
 					<h2
 						sx={{
