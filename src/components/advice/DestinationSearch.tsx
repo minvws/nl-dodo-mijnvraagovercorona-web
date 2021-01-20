@@ -104,24 +104,14 @@ const DestinationSearch = () => {
 					/>
 					<ComboboxPopover
 						sx={{
-							maxHeight: ['auto', '295px'],
+							maxHeight: 'auto',
 							border: 'none',
 							overflow: 'hidden',
 							borderBottomLeftRadius: '5px',
 							borderBottomRightRadius: '5px',
-							paddingLeft: '50px',
-							paddingBottom: '0',
-							fontSize: 20,
+							padding: '0',
+							fontSize: '20px',
 							backgroundColor: ['white', '#EFF7F9'],
-							a: {
-								textDecoration: 'none',
-								color: 'black',
-							},
-							li: {
-								paddingBottom: 0,
-								marginBottom: 0,
-								paddingTop: 0,
-							},
 						}}
 					>
 						<ComboboxList sx={{}}>
@@ -130,17 +120,35 @@ const DestinationSearch = () => {
 									<ComboboxOption
 										key={country.fullName}
 										value={country.fullName}
-										sx={{ p: { padding: 0 } }}
+										sx={{
+											padding: 0,
+
+											':hover': {
+												backgroundColor: '#EFF7F9',
+												color: '#01689B',
+											},
+
+											'&[aria-selected="true"], &[aria-selected="true"]:hover': {
+												backgroundColor: '#154273',
+												color: 'white',
+											},
+
+											p: { padding: 0 },
+										}}
 									>
-										<p
-											sx={{ span: { fontSize: 16, fontWeight: 'bold' } }}
+										<div
+											sx={{
+												padding: '16px',
+
+												span: { fontSize: 16, fontWeight: 'bold' },
+											}}
 											dangerouslySetInnerHTML={{
 												__html:
 													country.fullName.replace(
 														new RegExp(userInput, 'gi'),
 														'<strong>$&</strong>',
 													) +
-													// If country is matched on a synonym, show the matching synonym
+													/* If country is matched on a synonym, show the matching synonym */
 													(country.matchedOn !== country.fullName
 														? ` <span>(${country.matchedOn})</span>`
 														: ''),
@@ -149,7 +157,12 @@ const DestinationSearch = () => {
 									</ComboboxOption>
 								))
 							) : (
-								<p>
+								<p
+									sx={{
+										padding: '16px',
+										margin: '0',
+									}}
+								>
 									Er zijn geen landen gevonden die voldoen aan de zoekterm "
 									{userInput}".
 								</p>
