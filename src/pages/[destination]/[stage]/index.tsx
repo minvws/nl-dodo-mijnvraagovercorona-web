@@ -1,19 +1,14 @@
 /** @jsx jsx */
 import { useState, useContext, useEffect } from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { endOfDay, isAfter, startOfDay } from 'date-fns';
 
 import { jsx, Container, Box } from 'theme-ui';
 
 import MetaTags from 'components/meta/MetaTags';
-import ContentPageHeader from 'components/structure/ContentPageHeader';
-import BodyContainer from 'components/structure/BodyContainer';
 import TestBooking from 'components/results/TestBooking';
 import ReminderCalendarInvite from 'components/TravelPlan/ReminderCalendarInvite';
 import { FaqListShort } from 'components/faq/FaqList';
-import DataProtectionPanel from 'components/DataProtectionPanel';
-import Footer from 'components/structure/Footer';
 import { DialogLink, InternalLink } from 'components/Links';
 import {
 	parseDate,
@@ -26,12 +21,11 @@ import TravelPlanStage from 'components/TravelPlan/TravelPlanStage';
 import TravelAdvicePanel from 'components/TravelPlan/TravelAdvicePanel';
 import TravelInformationLink from 'components/TravelPlan/TravelInformationLink';
 import { Dialog } from 'components/dialog';
-import { NavLink } from 'components/nav-link';
 import Feedback from 'components/feedback/Feedback';
 import AdviceContext from 'components/advice/AdviceContext';
 import { QuarantaineCard } from 'components/quarantaine-card';
-import { ImageAlleenSamen } from 'components/image-alleen-samen';
 import ExpansionPanel from 'components/structure/ExpansionPanel';
+import { Content, Hero, Page } from 'components/structure/Page';
 
 type Stage = 'voor-vertrek' | 'tijdens-je-reis' | 'na-thuiskomst';
 type Color = 'yellow' | 'orange' | 'red';
@@ -111,93 +105,85 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 				url={`/${destination}/${stage}`}
 			/>
 
-			<ContentPageHeader message={getPageTitle(color)}>
-				<NavLink href="/" icon="refresh">
-					opnieuw
-				</NavLink>
-				<ul
-					sx={{
-						paddingLeft: '17px',
-						marginBottom: 0,
-						fontFamily: 'body',
-						color: 'text',
-						fontSize: ['bodyMobile', 'body'],
-						lineHeight: ['bodyMobile', 'body'],
-						listStyleImage: 'url("/icons/Polygon 6.svg")',
-						'li:not(:last-child)': {
-							marginBottom: '16px',
-						},
-					}}
-				>
-					{/* RISK LEVEL */}
-					{!duringOrAfter ? (
-						isAfter(fromDate as Date, new Date(2021, 3, 1)) ? (
-							<li>
-								Het is <strong>onzeker</strong> of reizen na 31 maart mogelijk
-								is. Houd de berichtgeving van de overheid in de gaten.
-							</li>
+			<Page title={getPageTitle(color)} showBackLink="retry">
+				<Hero>
+					<ul
+						sx={{
+							paddingLeft: '17px',
+							marginBottom: 0,
+							fontFamily: 'body',
+							color: 'text',
+							fontSize: ['bodyMobile', 'body'],
+							lineHeight: ['bodyMobile', 'body'],
+							listStyleImage: 'url("/icons/Polygon 6.svg")',
+							'li:not(:last-child)': {
+								marginBottom: '16px',
+							},
+						}}
+					>
+						{/* RISK LEVEL */}
+						{!duringOrAfter ? (
+							isAfter(fromDate as Date, new Date(2021, 3, 1)) ? (
+								<li>
+									Het is <strong>onzeker</strong> of reizen na 31 maart mogelijk
+									is. Houd de berichtgeving van de overheid in de gaten.
+								</li>
+							) : (
+								<li>
+									Tot en met 31 maart <strong>niet reizen</strong>. Maak alleen
+									echt noodzakelijke reizen. Daar vallen vakanties bijvoorbeeld
+									niet onder.
+								</li>
+							)
 						) : (
 							<li>
-								Tot en met 31 maart <strong>niet reizen</strong>. Maak alleen
-								echt noodzakelijke reizen. Daar vallen vakanties bijvoorbeeld
-								niet onder.
+								Er is een {color === 'yellow' ? 'laag' : 'verhoogd'} risico dat
+								je <strong>besmet</strong> bent geraakt.
 							</li>
-						)
-					) : (
-						<li>
-							Er is een {color === 'yellow' ? 'laag' : 'verhoogd'} risico dat je{' '}
-							<strong>besmet</strong> bent geraakt.
-						</li>
-					)}
+						)}
 
-					{/* NEGATIVE TEST RESULT / DECLARATION */}
-					{showNegativeTestResult && (
-						<li>
-							Voor je terugreis naar Nederland heb je een{' '}
-							<strong>negatieve testuitslag</strong> nodig.
-						</li>
-					)}
-					{showNegativeTestDeclaration && (
-						<li>
-							Voor je terugreis naar Nederland heb je een{' '}
-							<strong>negatieve testuitslag</strong> en{' '}
-							<strong>verklaring</strong> nodig.
-						</li>
-					)}
+						{/* NEGATIVE TEST RESULT / DECLARATION */}
+						{showNegativeTestResult && (
+							<li>
+								Voor je terugreis naar Nederland heb je een{' '}
+								<strong>negatieve testuitslag</strong> nodig.
+							</li>
+						)}
+						{showNegativeTestDeclaration && (
+							<li>
+								Voor je terugreis naar Nederland heb je een{' '}
+								<strong>negatieve testuitslag</strong> en{' '}
+								<strong>verklaring</strong> nodig.
+							</li>
+						)}
 
-					{/* QUARANTAINE */}
-					{!showQuarantaine && (
-						<li>
-							Je hoeft <strong>niet 10 dagen in thuisquarantaine</strong> na je
-							reis. Deze situatie kan tijdens je reis veranderen.
-						</li>
-					)}
-					{showQuarantaine && showPreperation && (
-						<li>
-							Je gaat na je reis <strong>10 dagen in thuisquarantaine</strong>.
-							Bereid je goed voor. De situatie kan tijdens je reis veranderen.
-						</li>
-					)}
-					{showQuarantaine && duringOrAfter && (
-						<li>
-							Ga <strong>10 dagen in thuisquarantaine</strong>.
-						</li>
-					)}
-				</ul>
-			</ContentPageHeader>
-
-			<BodyContainer>
-				<Container
-					sx={{
-						paddingLeft: ['mobilePadding', 0],
-						paddingRight: ['mobilePadding', 0],
-					}}
-				>
+						{/* QUARANTAINE */}
+						{!showQuarantaine && (
+							<li>
+								Je hoeft <strong>niet 10 dagen in thuisquarantaine</strong> na
+								je reis. Deze situatie kan tijdens je reis veranderen.
+							</li>
+						)}
+						{showQuarantaine && showPreperation && (
+							<li>
+								Je gaat na je reis <strong>10 dagen in thuisquarantaine</strong>
+								. Bereid je goed voor. De situatie kan tijdens je reis
+								veranderen.
+							</li>
+						)}
+						{showQuarantaine && duringOrAfter && (
+							<li>
+								Ga <strong>10 dagen in thuisquarantaine</strong>.
+							</li>
+						)}
+					</ul>
+				</Hero>
+				<Content>
 					<h2
 						sx={{
-							paddingTop: ['36px', '44px'],
 							color: 'header',
 							fontSize: ['h2Mobile', 'h2'],
+							marginTop: 0,
 						}}
 					>
 						Jouw reisschema
@@ -472,11 +458,8 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 					</InternalLink>
 
 					<Feedback />
-				</Container>
-				<DataProtectionPanel />
-				<ImageAlleenSamen />
-			</BodyContainer>
-			<Footer />
+				</Content>
+			</Page>
 		</>
 	);
 };

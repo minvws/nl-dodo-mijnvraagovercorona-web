@@ -3,12 +3,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { jsx } from 'theme-ui';
 
 import MetaTags from 'components/meta/MetaTags';
-import AdviceHeader from 'components/advice/AdviceHeader';
 import { InternalLink } from 'components/Links';
 import PeriodSelect from 'components/advice/PeriodSelect';
-import DataProtectionPanel from 'components/DataProtectionPanel';
-import BodyContainer from 'components/structure/BodyContainer';
-import Footer from 'components/structure/Footer';
 import { formatDate } from 'utilities/pathUtils';
 import { useDestination } from 'hooks/use-destination';
 import { useRouter } from 'next/router';
@@ -17,6 +13,9 @@ import { isBrowser } from 'utilities/is-browser';
 import AdviceContext from 'components/advice/AdviceContext';
 import { Dialog } from 'components/dialog';
 import { ButtonPrimary } from 'components/button';
+import { Content, Hero, Page } from 'components/structure/Page';
+import ProgressMarker from 'components/advice/ProgressMarker';
+import { alignLogoRightOnMobileStyles } from 'components/structure/RoHeaderLogo';
 
 const calculateStage = ({
 	fromDate,
@@ -121,47 +120,50 @@ const Period = ({ destination }: { destination: string }) => {
 				url={`/${destination}/periode`}
 			/>
 
-			<AdviceHeader
-				header="In welke periode ben of was je daar?"
-				questionStage={2}
-				totalStages={2}
+			<Page
+				title="In welke periode ben of was je daar?"
+				cleanPageOnMobile
+				sx={alignLogoRightOnMobileStyles}
 			>
-				<InternalLink href="" onClick={openDialog}>
-					Waarom vragen we dit?
-				</InternalLink>
-				<Dialog
-					title="Waarom vragen we je naar je reisperiode?"
-					isVisible={showDialog}
-					closeDialog={() => setShowDialog(false)}
-				>
-					<p>
-						Het is mogelijk dat een land van kleurcode verandert tijdens je
-						verblijf.
-					</p>
-					<p>
-						Daarnaast bieden we je andere informatie als je op reis gaat, dan
-						wanneer je net terug bent.
-					</p>
-				</Dialog>
-			</AdviceHeader>
-			<PeriodSelect country={country?.fullName} updatePage={updateDate} />
-			<BodyContainer>
-				{fromDate && toDate && country && (
-					<div
-						sx={{
-							textAlign: 'right',
-							paddingLeft: 'mobilePadding',
-							paddingRight: 'mobilePadding',
-							paddingBottom: '120px',
-						}}
-						ref={submitRef}
+				<Hero>
+					<ProgressMarker stage={2} totalStages={2} />
+					<InternalLink href="" onClick={openDialog}>
+						Waarom vragen we dit?
+					</InternalLink>
+					<Dialog
+						title="Waarom vragen we je naar je reisperiode?"
+						isVisible={showDialog}
+						closeDialog={() => setShowDialog(false)}
 					>
-						<ButtonPrimary href={resultLink}>Toon het resultaat</ButtonPrimary>
-					</div>
-				)}
-			</BodyContainer>
-			<DataProtectionPanel onlyDesktop={true} />
-			<Footer onlyDesktop={true} />
+						<p>
+							Het is mogelijk dat een land van kleurcode verandert tijdens je
+							verblijf.
+						</p>
+						<p>
+							Daarnaast bieden we je andere informatie als je op reis gaat, dan
+							wanneer je net terug bent.
+						</p>
+					</Dialog>
+				</Hero>
+				<PeriodSelect country={country?.fullName} updatePage={updateDate} />
+				<Content>
+					{fromDate && toDate && country && (
+						<div
+							sx={{
+								textAlign: 'right',
+								paddingLeft: 'mobilePadding',
+								paddingRight: 'mobilePadding',
+								paddingBottom: '120px',
+							}}
+							ref={submitRef}
+						>
+							<ButtonPrimary href={resultLink}>
+								Toon het resultaat
+							</ButtonPrimary>
+						</div>
+					)}
+				</Content>
+			</Page>
 		</>
 	);
 };

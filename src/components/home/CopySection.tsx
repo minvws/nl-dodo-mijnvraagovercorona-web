@@ -1,16 +1,10 @@
 /** @jsx jsx */
-import React from 'react';
-import { Styled, Container, jsx } from 'theme-ui';
+import { Container, jsx } from 'theme-ui';
 import CopyParagraph from './CopyParagraph';
 
 const CopySection = () => {
 	return (
-		<Container
-			sx={{
-				paddingTop: ['70px', '40px'],
-				paddingBottom: '10px',
-			}}
-		>
+		<Container>
 			<CopyParagraph
 				imageUrl="/images/Illustratie_Neem_het_virus_niet_meeRetina.svg"
 				imageAlignment="right"

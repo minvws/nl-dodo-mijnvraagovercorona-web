@@ -116,8 +116,7 @@ const PeriodSelect = ({ country, updatePage }: PeriodSelectProps) => {
 					textAlign: 'center',
 					color: 'white',
 					paddingTop: '0.1em',
-					paddingRight: [0, '400px'],
-					paddingLeft: ['17px'],
+					paddingX: ['17px'],
 				}}
 			>
 				<Box

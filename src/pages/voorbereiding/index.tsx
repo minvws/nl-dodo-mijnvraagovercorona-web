@@ -1,39 +1,12 @@
 /** @jsx jsx */
-import React from 'react';
-
-import { jsx, Container } from 'theme-ui';
-
+import Feedback from 'components/feedback/Feedback';
 import MetaTags from 'components/meta/MetaTags';
-import ContentPageHeader from 'components/structure/ContentPageHeader';
 import PreparationPanel from 'components/preparations/PreparationPanel';
 import PreparationPanelListItem from 'components/preparations/PreparationPanelListItem';
-import BodyContainer from 'components/structure/BodyContainer';
-import DataProtectionPanel from 'components/DataProtectionPanel';
-import Footer from 'components/structure/Footer';
-import { NavLink } from 'components/nav-link';
-import Feedback from 'components/feedback/Feedback';
-
-import AdviceContext from 'components/advice/AdviceContext';
-import { ImageAlleenSamen } from 'components/image-alleen-samen';
-
-const generateResultLink = ({
-	from,
-	to,
-	destination,
-	stage,
-}: {
-	from?: string;
-	to?: string;
-	destination?: string;
-	stage?: string;
-}) => ({
-	pathname: `/${destination}/${stage}`,
-	query: { van: from, tot: to },
-});
+import { Content, Page } from 'components/structure/Page';
+import { jsx } from 'theme-ui';
 
 const PreparationsPage = () => {
-	const { from, to, stage, destination } = React.useContext(AdviceContext);
-
 	return (
 		<>
 			<MetaTags
@@ -42,42 +15,11 @@ const PreparationsPage = () => {
 				url="/voorbereiding"
 			/>
 
-			<ContentPageHeader
-				message="Wat moet je regelen voor het thuisblijven?"
-				backgroundImage="/images/Banner_we_helpen_jeRetina.svg"
-			>
-				{stage && destination && (
-					<NavLink
-						href={generateResultLink({
-							from,
-							to,
-							stage,
-							destination,
-						})}
-						icon="back"
-					>
-						naar resultaat
-					</NavLink>
-				)}
-			</ContentPageHeader>
-
-			<BodyContainer>
-				<Container
-					sx={{
-						paddingLeft: ['paddingMobile', 0],
-						paddingRight: ['paddingMobile', 0],
-						li: {
-							paddingBottom: 0,
-						},
-						h2: {
-							marginTop: 0,
-						},
-					}}
-				>
+			<Page title="Wat moet je regelen voor het thuisblijven?">
+				<Content>
 					<p
 						sx={{
-							marginTop: '65px',
-							marginBottom: '65px',
+							marginY: '35px',
 							fontSize: 'smallText',
 							color: '#6A6A6A',
 							'::before': {
@@ -247,12 +189,8 @@ const PreparationsPage = () => {
 						</ul>
 					</PreparationPanel>
 					<Feedback />
-					<div sx={{ marginBottom: '65px' }} />
-					<ImageAlleenSamen />
-				</Container>
-			</BodyContainer>
-			<DataProtectionPanel onlyDesktop={true} />
-			<Footer />
+				</Content>
+			</Page>
 		</>
 	);
 };

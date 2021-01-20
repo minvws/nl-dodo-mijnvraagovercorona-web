@@ -15,7 +15,7 @@ const ProgressMarker = (props: ProgressMarkerProps) => {
 		<ul
 			sx={{
 				position: 'absolute',
-				top: ['45px', '150px'],
+				top: ['40px', '70px'],
 				paddingTop: 0,
 				marginTop: 0,
 				paddingLeft: 0,

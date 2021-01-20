@@ -5,16 +5,7 @@ import { AnchorLink } from 'components/Links';
 
 const HomePageNavigation = () => {
 	return (
-		<Container
-			sx={{
-				paddingLeft: ['mobilePadding', 0],
-				paddingBottom: '10px',
-				marginBottom: 0,
-				marginTop: '37px',
-				paddingRight: ['auto', 'sidePanel'],
-			}}
-			as="nav"
-		>
+		<Container as="nav">
 			<div
 				sx={{
 					display: 'grid',

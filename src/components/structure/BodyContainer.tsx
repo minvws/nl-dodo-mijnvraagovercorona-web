@@ -5,24 +5,21 @@ import { Container, ThemeUICSSObject, jsx } from 'theme-ui';
 type BodyContainerProps = {
 	sx?: ThemeUICSSObject;
 	children: React.ReactNode;
+	className?: string;
 };
 
-const BodyContainer = (props: BodyContainerProps) => {
+const BodyContainer: React.FC<BodyContainerProps> = (props) => {
 	return (
 		<Container
 			sx={{
-				paddingRight: ['mobilePadding', '420px', '400px'],
-				paddingLeft: ['mobilePadding'],
+				paddingY: 'mobilePadding',
+				paddingX: ['mobilePadding', 0],
+				margin: '0 auto',
+				maxWidth: 'maxWidthBody',
 			}}
+			className={props.className}
 		>
-			<Container
-				sx={{
-					maxWidth: 'maxWidthBody',
-					...props.sx,
-				}}
-			>
-				{props.children}
-			</Container>
+			{props.children}
 		</Container>
 	);
 };

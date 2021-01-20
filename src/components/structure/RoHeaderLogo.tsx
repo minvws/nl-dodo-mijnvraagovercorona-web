@@ -5,22 +5,22 @@ import Link from 'next/link';
 import { Image, Container, ThemeUICSSObject, jsx } from 'theme-ui';
 
 type RoHeaderLogoProps = {
-	align?: string;
 	children?: React.ReactNode;
 };
 
+export const alignLogoRightOnMobileStyles: ThemeUICSSObject = {
+	'.logo': {
+		textAlign: ['right', 'center'],
+		paddingRight: ['30px', 0],
+	},
+	header: {
+		backgroundImage: 'none',
+	},
+};
+
 const RoHeaderLogo = (props: RoHeaderLogoProps) => {
-	const containerStyle: ThemeUICSSObject =
-		props.align && props.align === 'center'
-			? {
-					textAlign: 'center',
-			  }
-			: {
-					textAlign: 'right',
-					paddingRight: '1em',
-			  };
 	return (
-		<Container sx={containerStyle}>
+		<Container className="logo" sx={{ textAlign: 'center' }}>
 			<Link href="/" passHref>
 				<a sx={{ img: { width: ['54px', '68px'], height: 'auto' } }}>
 					<Image

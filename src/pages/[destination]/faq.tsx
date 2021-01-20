@@ -1,21 +1,13 @@
 /** @jsx jsx */
 import React from 'react';
 
-import { jsx, Container } from 'theme-ui';
-
+import { jsx } from 'theme-ui';
 import { countries } from 'config/countries';
-
 import { useDestination } from 'hooks/use-destination';
 import MetaTags from 'components/meta/MetaTags';
 import { FaqListComplete } from 'components/faq/FaqList';
-import BodyContainer from 'components/structure/BodyContainer';
-import ContentPageHeader from 'components/structure/ContentPageHeader';
-import DataProtectionPanel from 'components/DataProtectionPanel';
-import Footer from 'components/structure/Footer';
-import AdviceContext from 'components/advice/AdviceContext';
 import Feedback from 'components/feedback/Feedback';
-import { NavLink } from 'components/nav-link';
-import { ImageAlleenSamen } from 'components/image-alleen-samen';
+import { Content, Page } from 'components/structure/Page';
 
 const generateResultLink = ({
 	from,
@@ -37,7 +29,6 @@ interface FAQProps {
 }
 
 const FAQ = ({ destination }: FAQProps) => {
-	const { from, to, stage } = React.useContext(AdviceContext);
 	const country = useDestination(destination as string);
 
 	return (
@@ -48,40 +39,16 @@ const FAQ = ({ destination }: FAQProps) => {
 				url="/faq"
 			/>
 
-			<ContentPageHeader
-				message="Veelgestelde vragen"
-				backgroundImage="/images/Illustratie_Mobiel_Veelgestelde_vragenRetina.svg"
+			<Page
+				title="Veelgestelde vragen"
+				showBackLink="result"
+				// backgroundImage="/images/Illustratie_Mobiel_Veelgestelde_vragenRetina.svg"
 			>
-				{stage && destination && (
-					<NavLink
-						href={generateResultLink({
-							from,
-							to,
-							stage,
-							destination,
-						})}
-						icon="back"
-					>
-						naar resultaat
-					</NavLink>
-				)}
-			</ContentPageHeader>
-
-			<BodyContainer>
-				<Container
-					sx={{
-						paddingLeft: ['mobilePadding', 0],
-						paddingRight: ['mobilePadding', 0],
-						paddingBottom: '80px',
-					}}
-				>
+				<Content>
 					<FaqListComplete country={country} />
 					<Feedback />
-					<ImageAlleenSamen />
-				</Container>
-			</BodyContainer>
-			<DataProtectionPanel onlyDesktop={true} />
-			<Footer />
+				</Content>
+			</Page>
 		</>
 	);
 };
