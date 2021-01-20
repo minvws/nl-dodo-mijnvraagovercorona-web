@@ -1,7 +1,7 @@
 import { countries, Country } from 'config/countries';
 import Fuse from 'fuse.js';
 
-const MAX_SEARCH_RESULTS = 10;
+const MAX_SEARCH_RESULTS = 6;
 
 const fuseSearchInstance = new Fuse(countries, {
 	includeScore: true,
