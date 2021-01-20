@@ -230,6 +230,18 @@ const faqs: {
 				en volg het advies van de GGD op.
 			</p>,
 		],
+		testAgain: () => [
+			'Ik ben in het buitenland al (negatief) getest. Moet ik weer getest worden?',
+			<p>
+				Ja. Testen is echt een momentopname. Het kan tot 10 dagen duren voordat
+				je klachten krijgt. Het kan dus zijn dat je te vroeg bent getest in het
+				buitenland. Daarom moet je bij terugkomst alsnog 10 dagen in
+				thuisquarantaine. Je kan je thuisquarantaine verkorten door op dag 5 na
+				thuiskomst een testafspraak in te plannen. Als de testuitslag negatief
+				is, mag je uit quarantaine. Is de testuitslag positief? Blijf dan thuis
+				en volg het advies van de GGD op.
+			</p>,
+		],
 		canQuarantaineBeShortened: () => [
 			'Kan ik de 10 dagen thuisquarantaine inkorten?',
 			<p>
@@ -253,18 +265,6 @@ const faqs: {
 		myFamily: () => [
 			'Mijn partner, kinderen of huisgenoot zijn niet mee op reis geweest. Moeten zij ook in thuisquarantaine?',
 			<p>Nee, alleen de persoon die op reis is geweest moet in quarantaine.</p>,
-		],
-		testAgain: () => [
-			'Ik ben in het buitenland al (negatief) getest. Moet ik weer getest worden?',
-			<p>
-				Ja. Testen is echt een momentopname. Het kan tot 10 dagen duren voordat
-				je klachten krijgt. Het kan dus zijn dat je te vroeg bent getest in het
-				buitenland. Daarom moet je bij terugkomst alsnog 10 dagen in
-				thuisquarantaine. Je kan je thuisquarantaine verkorten door op dag 5 na
-				thuiskomst een testafspraak in te plannen. Als de testuitslag negatief
-				is, mag je uit quarantaine. Is de testuitslag positief? Blijf dan thuis
-				en volg het advies van de GGD op.
-			</p>,
 		],
 		testEarlier: () => [
 			'Kan ik mij eerder laten testen?',
