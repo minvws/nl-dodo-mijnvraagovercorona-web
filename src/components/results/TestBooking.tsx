@@ -150,7 +150,7 @@ const TestBooking = ({ toDate, quarantaine }: TestBookingProps) => {
 		<div
 			sx={{
 				maxWidth: 'widgetMaxWidth',
-				marginTop: ['10px', '60px'],
+				marginTop: ['10px'],
 				paddingTop: !quarantaine ? '36px' : 0,
 			}}
 		>
