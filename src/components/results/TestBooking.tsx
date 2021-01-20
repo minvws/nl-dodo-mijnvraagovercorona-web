@@ -7,7 +7,13 @@ import { differenceInDays, isBefore, isAfter } from 'date-fns';
 import { jsx } from 'theme-ui';
 import { addDays, formatLongDate } from 'utilities/dateUtils';
 
-const CallGGD = ({ quarantaineDay }: { quarantaineDay: number }) => {
+const CallGGD = ({
+	quarantaineDay,
+	quarantaine,
+}: {
+	quarantaineDay: number;
+	quarantaine: boolean;
+}) => {
 	return (
 		<>
 			<p
@@ -15,7 +21,7 @@ const CallGGD = ({ quarantaineDay }: { quarantaineDay: number }) => {
 					fontSize: ['bodyMobile', 'body'],
 				}}
 			>
-				{quarantaineDay < 4 ? (
+				{quarantaine && quarantaineDay < 4 ? (
 					<>
 						Het kan al wel telefonisch via <strong>0800-1202</strong>. Houd je
 						burgerservicenummer (BSN) bij de hand.
@@ -74,9 +80,9 @@ interface MakeOnlineAppointmentProps extends TestBookingProps {
 }
 
 const MakeOnlineAppointment = ({
-	toDate,
 	quarantaineDay,
 	isDuringTravel,
+	quarantaine,
 }: MakeOnlineAppointmentProps) => {
 	const appointmentPossible = quarantaineDay > 3;
 
@@ -87,7 +93,7 @@ const MakeOnlineAppointment = ({
 				maxWidth: 'widgetMaxWidth',
 			}}
 		>
-			{!appointmentPossible && (
+			{quarantaine && !appointmentPossible && (
 				<p
 					sx={{
 						position: 'absolute',
@@ -118,7 +124,7 @@ const MakeOnlineAppointment = ({
 				</p>
 			)}
 			<CtaToGGDWebsite>
-				{quarantaineDay > 5 && 'Heb je klachten? '}
+				{(!quarantaine || quarantaineDay > 5) && 'Heb je klachten? '}
 				Maak direct een afspraak op de website van de GGD
 			</CtaToGGDWebsite>
 		</div>
@@ -127,9 +133,10 @@ const MakeOnlineAppointment = ({
 
 interface TestBookingProps {
 	toDate: Date;
+	quarantaine: boolean;
 }
 
-const TestBooking = ({ toDate }: TestBookingProps) => {
+const TestBooking = ({ toDate, quarantaine }: TestBookingProps) => {
 	const isDuringTravel = isBefore(new Date(), toDate);
 	const isAfterTravel = isAfter(new Date(), toDate);
 	// We add 1 to the difference of days since 0 days difference is your return date, which is day 1.
@@ -140,9 +147,21 @@ const TestBooking = ({ toDate }: TestBookingProps) => {
 		: -1;
 
 	return (
-		<div sx={{ maxWidth: 'widgetMaxWidth', marginTop: ['10px', '60px'] }}>
-			{quarantaineDay <= 5 && (
-				<h2 sx={{ color: 'header', fontSize: ['h2Mobile', 'h2'] }}>
+		<div
+			sx={{
+				maxWidth: 'widgetMaxWidth',
+				marginTop: ['10px', '60px'],
+				paddingTop: !quarantaine ? '36px' : 0,
+			}}
+		>
+			{quarantaine && quarantaineDay <= 5 && (
+				<h2
+					sx={{
+						color: 'header',
+						fontSize: ['h2Mobile', 'h2'],
+						paddingTop: '36px',
+					}}
+				>
 					Verkort je thuisquarantaine door je te laten testen op dag 5
 				</h2>
 			)}
@@ -150,10 +169,13 @@ const TestBooking = ({ toDate }: TestBookingProps) => {
 				toDate={toDate}
 				quarantaineDay={quarantaineDay}
 				isDuringTravel={isDuringTravel}
+				quarantaine={quarantaine}
 			/>
 
-			{quarantaineDay > 0 && <CallGGD quarantaineDay={quarantaineDay} />}
-			{isDuringTravel && (
+			{(!quarantaine || quarantaineDay > 0) && (
+				<CallGGD quarantaineDay={quarantaineDay} quarantaine={quarantaine} />
+			)}
+			{quarantaine && isDuringTravel && (
 				<ReminderCalendarInvite
 					title="Zet 'Afspraak maken coronatest' in je agenda"
 					modalTitle="Afspraak maken coronatest in agenda"
