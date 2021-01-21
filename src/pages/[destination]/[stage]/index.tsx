@@ -106,7 +106,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 	return (
 		<>
 			<MetaTags
-				title="Advies en actuele situatie bestemming | Quarantaine Reischeck | Reizentijdenscorona.nl"
+				title="Advies en actuele situatie bestemming | Quarantaine Reischeck | Rijksoverheid.nl"
 				description="Advies op basis van actuele informatie over bestemming."
 				url={`/${destination}/${stage}`}
 			/>
@@ -404,7 +404,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 								modalTitle="Reischeck opnieuw invullen in agenda"
 								modalBody="Heb je een andere (digitale) agenda? Zet je reminder om de reischeck opnieuw in te vullen er dan zelf in."
 								inviteTitle="Reischeck invullen"
-								inviteText="Je bent van plan bijna op reis te gaan. De situatie kan veranderd zijn. Doe daarom nog een keer de reischeck op https://www.reizentijdenscorona.nl."
+								inviteText="Je bent van plan bijna op reis te gaan. De situatie kan veranderd zijn. Doe daarom nog een keer de reischeck op https://www.reizentijdenscorona.rijksoverheid.nl."
 								singleDay={startOfDay(addDays(new Date(fromDate), -7))}
 							/>
 							<Container
@@ -452,7 +452,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 							modalTitle="Thuisquarantaine in agenda"
 							modalBody="Heb je een andere (digitale) agenda? Zet je thuisquarantaine er dan zelf in."
 							inviteTitle="Thuisquarantaine"
-							inviteText="Krijg je (lichte) klachten? Maak direct een testafspraak op https://coranatest.nl of bel de GGD op 0800-1202. Kijk voor tips over je thuisquarantaine op https://reizentijdenscorona.nl/voorbereiding."
+							inviteText="Krijg je (lichte) klachten? Maak direct een testafspraak op https://coranatest.nl of bel de GGD op 0800-1202. Kijk voor tips over je thuisquarantaine op https://reizentijdenscorona.rijksoverheid.nl/voorbereiding."
 							fromDate={startOfDay(toDate)}
 							toDate={endOfDay(addDays(toDate, 10))}
 						/>

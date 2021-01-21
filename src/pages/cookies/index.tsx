@@ -8,8 +8,8 @@ const Cookies = () => {
 	return (
 		<>
 			<MetaTags
-				title="Cookies | Quarantaine Reischeck | Reizentijdenscorona.nl"
-				description="Algemene Verordening Gegevensbescherming. Reizentijdenscorona.nl gebruikt cookies voor statistieken om te begrijpen hoe bezoekers de website gebruiken. Deze informatie helpt de website te verbeteren, bijvoorbeeld door informatie te  verduidelijken of het gebruikersgemak te vergroten."
+				title="Cookies | Quarantaine Reischeck | Rijksoverheid.nl"
+				description="Algemene Verordening Gegevensbescherming. Reizentijdenscorona.rijksoverheid.nl gebruikt cookies voor statistieken om te begrijpen hoe bezoekers de website gebruiken. Deze informatie helpt de website te verbeteren, bijvoorbeeld door informatie te  verduidelijken of het gebruikersgemak te vergroten."
 				url="/cookies"
 			/>
 
@@ -18,10 +18,10 @@ const Cookies = () => {
 					Algemene Verordening Gegevensbescherming
 				</Styled.h2>
 				<Styled.p>
-					Reizentijdenscorona.nl gebruikt cookies voor statistieken om te
-					begrijpen hoe bezoekers de website gebruiken. Deze informatie helpt de
-					website te verbeteren, bijvoorbeeld door informatie te verduidelijken
-					of het gebruikersgemak te vergroten.
+					Reizentijdenscorona.rijksoverheid.nl gebruikt cookies voor
+					statistieken om te begrijpen hoe bezoekers de website gebruiken. Deze
+					informatie helpt de website te verbeteren, bijvoorbeeld door
+					informatie te verduidelijken of het gebruikersgemak te vergroten.
 					<br />
 					Hiertoe verzamelen wij, net als elke website, IP-adressen van
 					bezoekers. Deze worden opgeslagen in zogeheten logfiles. De logfiles

@@ -124,7 +124,7 @@ const Period = ({ destination }: { destination: string }) => {
 	return (
 		<>
 			<MetaTags
-				title="Planning | Quarantaine Reischeck | Reizentijdenscorona.nl"
+				title="Planning | Quarantaine Reischeck | Rijksoverheid.nl"
 				description="Actuele informatie over bestemming en maatregelen."
 				url={`/${destination}/periode`}
 			/>

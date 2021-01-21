@@ -37,7 +37,7 @@ const PreparationsPage = () => {
 	return (
 		<>
 			<MetaTags
-				title="Online hulpmiddel | Quarantaine Reischeck | Reizentijdenscorona.nl"
+				title="Online hulpmiddel | Quarantaine Reischeck | Rijksoverheid.nl"
 				description="Online hulpmiddel met checklist voor reizigers."
 				url="/voorbereiding"
 			/>

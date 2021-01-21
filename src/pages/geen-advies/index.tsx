@@ -16,7 +16,7 @@ import { ImageAlleenSamen } from 'components/image-alleen-samen';
 const NoAdvice = () => (
 	<>
 		<MetaTags
-			title="Advies en actuele situatie bestemming | Quarantaine Reischeck | Reizentijdenscorona.nl"
+			title="Advies en actuele situatie bestemming | Quarantaine Reischeck | Rijksoverheid.nl"
 			description="Advies op basis van actuele informatie over bestemming."
 			url="/geen-advies"
 		/>
