@@ -303,7 +303,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 									title="Doe een sneltest"
 									subHeading="Max 4u voor vertrek"
 								>
-									Je hebt mogelijk ook een negatieve sneltest-uitslag nodig
+									Je hebt ook een negatieve sneltestuitslag nodig
 									<br />
 									<TravelInformationLink
 										href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/verplichte-negatieve-covid-19-testuitslagen/eisen-sneltest"
