@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { useState, useContext, useEffect } from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { endOfDay, isAfter, startOfDay } from 'date-fns';
 
@@ -29,9 +28,9 @@ import { Dialog } from 'components/dialog';
 import { NavLink } from 'components/nav-link';
 import Feedback from 'components/feedback/Feedback';
 import AdviceContext from 'components/advice/AdviceContext';
-import { QuarantaineCard } from 'components/quarantaine-card';
 import { ImageAlleenSamen } from 'components/image-alleen-samen';
 import ExpansionPanel from 'components/structure/ExpansionPanel';
+import { Card } from 'components/card';
 
 type Stage = 'voor-vertrek' | 'tijdens-je-reis' | 'na-thuiskomst';
 type Color = 'yellow' | 'orange' | 'red';
@@ -82,6 +81,9 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 		stage === 'voor-vertrek' && isMoreThanWeekBeforeDeparture(fromDate);
 
 	const showContactWithSymptoms = duringOrAfter;
+
+	const showNoFlyBanner = !!country?.transportRestrictions.length;
+	const noBoatMessage = country?.transportRestrictions.includes('boat');
 
 	// @TODO: Do this in a different place where it makes sense.
 	let color: Color = 'red';
@@ -153,14 +155,14 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 					{/* NEGATIVE TEST RESULT / DECLARATION */}
 					{showNegativeTestResult && (
 						<li>
-							Voor je terugreis naar Nederland heb je een{' '}
-							<strong>negatieve testuitslag</strong> nodig.
+							Voor je terugreis naar Nederland heb je{' '}
+							<strong>twee negatieve testuitslagen</strong> nodig.
 						</li>
 					)}
 					{showNegativeTestDeclaration && (
 						<li>
-							Voor je terugreis naar Nederland heb je een{' '}
-							<strong>negatieve testuitslag</strong> en{' '}
+							Voor je terugreis naar Nederland heb je{' '}
+							<strong>twee negatieve testuitslagen</strong> en een{' '}
 							<strong>verklaring</strong> nodig.
 						</li>
 					)}
@@ -193,6 +195,25 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 						paddingRight: ['mobilePadding', 0],
 					}}
 				>
+					{showNoFlyBanner && (
+						<div sx={{ paddingTop: ['36px', '44px'] }}>
+							<Card
+								image="/images/Vliegtuig_streep.svg"
+								imagePosition={{
+									backgroundPositionX: '5px',
+									backgroundPositionY: '22px',
+								}}
+								title={
+									noBoatMessage
+										? 'Er geldt een vlieg- en aanmeerverbod vanuit uw bestemming naar Nederland.'
+										: 'Er geldt een vliegverbod vanuit uw bestemming naar Nederland.'
+								}
+								href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/vliegverbod-en-aanmeerverbod"
+								external
+							/>
+						</div>
+					)}
+
 					<h2
 						sx={{
 							paddingTop: ['36px', '44px'],
@@ -202,7 +223,6 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 					>
 						Jouw reisschema
 					</h2>
-
 					<Container
 						sx={{
 							borderLeft: '2px solid #f0d5e2',
@@ -409,7 +429,6 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 							/>
 						)}
 					</Container>
-
 					{showSecondCheckCalenderInvite && fromDate && (
 						<Box sx={{ marginTop: ['10px', '60px'] }}>
 							<ReminderCalendarInvite
@@ -442,11 +461,9 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 							</Container>
 						</Box>
 					)}
-
 					{showContactWithSymptoms && toDate && (
 						<TestBooking toDate={toDate} quarantaine={showQuarantaine} />
 					)}
-
 					<h2
 						sx={{
 							paddingTop: ['36px', '44px'],
@@ -456,9 +473,14 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 					>
 						Zo kom je de thuisquarantaine goed door
 					</h2>
-
-					<QuarantaineCard />
-
+					<Card
+						image="/images/Banner_we_helpen_jeRetina.svg"
+						imagePosition={{
+							backgroundPositionX: '-10px',
+						}}
+						title="Wat moet ik regelen voor mijn thuisquarantaine?"
+						href="/voorbereiding"
+					/>
 					{showQuarantaine && toDate && (
 						<ReminderCalendarInvite
 							title="Zet je thuisquarantaine in je agenda"
@@ -470,7 +492,6 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 							toDate={endOfDay(addDays(toDate, 10))}
 						/>
 					)}
-
 					<h2
 						sx={{
 							paddingTop: ['36px', '44px'],
@@ -481,11 +502,9 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 						Veelgestelde vragen
 					</h2>
 					<FaqListShort country={country} stage={stage} />
-
 					<InternalLink href={`/${country?.slug}/faq`}>
 						Bekijk alle veelgestelde vragen
 					</InternalLink>
-
 					<Feedback />
 				</Container>
 				<DataProtectionPanel />

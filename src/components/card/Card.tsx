@@ -2,9 +2,26 @@
 import React, { useRef } from 'react';
 import { jsx, Box } from 'theme-ui';
 
-import { InternalLink } from 'components/Links';
+import { InternalLink, ExternalLink } from 'components/Links';
 
-export const QuarantaineCard = () => {
+interface CardProps {
+	title: string;
+	href: string;
+	image: string;
+	external?: boolean;
+	imagePosition: {
+		backgroundPositionX?: string;
+		backgroundPositionY?: string;
+	};
+}
+
+export const Card: React.FC<CardProps> = ({
+	title,
+	href,
+	image,
+	imagePosition,
+	external,
+}) => {
 	const linkElement = useRef<HTMLAnchorElement>(null);
 	const handleClick = () => {
 		const isTextSelected:
@@ -25,9 +42,9 @@ export const QuarantaineCard = () => {
 				paddingTop: '11px',
 				paddingBottom: '13px',
 				paddingLeft: '115px',
-				backgroundImage: 'url("/images/Banner_we_helpen_jeRetina.svg")',
+				backgroundImage: `url(${image})`,
 				backgroundRepeat: 'no-repeat',
-				backgroundPositionX: '-10px',
+				...imagePosition,
 				cursor: 'pointer',
 				maxWidth: 'widgetMaxWidth',
 			}}
@@ -40,11 +57,17 @@ export const QuarantaineCard = () => {
 					lineHeight: ['bodyMobile', 'body'],
 				}}
 			>
-				Wat moet ik regelen voor mijn thuisquarantaine?
+				{title}
 			</h3>
-			<InternalLink href="/voorbereiding" ref={linkElement}>
-				Meer uitleg
-			</InternalLink>
+			{!external ? (
+				<InternalLink href={href} ref={linkElement}>
+					Meer uitleg
+				</InternalLink>
+			) : (
+				<ExternalLink href={href} ref={linkElement}>
+					Meer uitleg
+				</ExternalLink>
+			)}
 		</Box>
 	);
 };
