@@ -21,7 +21,7 @@ const anchorSymbol = {
 	verticalShift: '12px',
 };
 
-const internalLinkSymbol = {
+const arrowLinkSymbol = {
 	iconFile: '/icons/Link Arrow.svg',
 	width: '7px',
 	height: '12px',
@@ -117,6 +117,12 @@ const LinkBase = React.forwardRef((props: LinkBaseProps, ref) => {
 					}}
 					onClick={props.onClick}
 					href={props.href}
+					{...(!props.internal
+						? {
+								target: '_blank',
+								rel: 'noopener noreferrer',
+						  }
+						: {})}
 					{...optionalRef}
 				>
 					{props.text}
@@ -132,7 +138,11 @@ export const AnchorLink = (props: LinkProps) => (
 );
 
 export const InternalLink = React.forwardRef((props: LinkProps, ref) => (
-	<LinkBase {...props} ref={ref} symbol={internalLinkSymbol} internal />
+	<LinkBase {...props} ref={ref} symbol={arrowLinkSymbol} internal />
+));
+
+export const ExternalLink = React.forwardRef((props: LinkProps, ref) => (
+	<LinkBase {...props} ref={ref} symbol={arrowLinkSymbol} />
 ));
 
 // @TODO: I'd rather see this as a button instead of a link
