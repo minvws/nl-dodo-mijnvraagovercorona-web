@@ -279,7 +279,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 									title="Laat je testen"
 									subHeading="Max 72u voor vertrek"
 								>
-									Je mag alleen terugreizen met een negatieve testuitslag
+									Je mag alleen terugreizen met een negatieve testuitslag.
 									<br />
 									<TravelInformationLink
 										href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/negatieve-covid-19-testuitslag-aankomst-nederland"
@@ -293,7 +293,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 									subHeading="Max 72u voor vertrek"
 								>
 									Je mag alleen terugreizen met een negatieve testuitslag en
-									testverklaring
+									testverklaring.
 									<br />
 									<TravelInformationLink href="" text="Meer informatie" />
 								</TravelAdvicePanel>
@@ -303,7 +303,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 									title="Doe een sneltest"
 									subHeading="Max 4u voor vertrek"
 								>
-									Je hebt ook een negatieve sneltestuitslag nodig
+									Je hebt ook een negatieve sneltestuitslag nodig.
 									<br />
 									<TravelInformationLink
 										href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/verplichte-negatieve-covid-19-testuitslagen/eisen-sneltest"
