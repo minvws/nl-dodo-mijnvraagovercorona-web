@@ -2,7 +2,6 @@
 import AdviceContext from 'components/advice/AdviceContext';
 import { NavLink } from 'components/nav-link';
 import RoHeaderLogo from 'components/structure/RoHeaderLogo';
-import { useDesktopQuery } from 'hooks/useDesktopQuery';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { jsx, Styled } from 'theme-ui';
@@ -34,24 +33,18 @@ const generateResultLink = ({
 const Header = (props: HeaderProps) => {
 	const { from, to, stage, destination } = React.useContext(AdviceContext);
 	const router = useRouter();
-	const isDesktop = useDesktopQuery();
 
-	let headerStyles = {
-		backgroundColor: 'headerBackground',
-		color: 'header',
-		backgroundImage: 'none',
-		backgroundRepeat: 'no-repeat',
-		backgroundPosition: 'right top',
-		paddingBottom: '28px',
-	};
-	if (!isDesktop) {
-		const bgImg = `url("${
-			props.backgroundImage || '/images/Koffer_MobielRetina.svg'
-		}")`;
-		headerStyles.backgroundImage = bgImg;
-	}
 	return (
-		<header sx={headerStyles}>
+		<header
+			sx={{
+				backgroundColor: 'headerBackground',
+				backgroundImage: [`url("${props.backgroundImage}")`, 'none'],
+				color: 'header',
+				backgroundRepeat: 'no-repeat',
+				backgroundPosition: 'right top',
+				paddingBottom: '28px',
+			}}
+		>
 			<RoHeaderLogo />
 			<BodyContainer>
 				{stage && destination && props.showBackLink === 'result' && (
