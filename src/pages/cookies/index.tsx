@@ -13,7 +13,7 @@ const Cookies = () => {
 				url="/cookies"
 			/>
 
-			<Page title="Cookies">
+			<Page title="Cookies" showBackLink="previous">
 				<Content>
 					<Styled.h2>Algemene Verordening Gegevensbescherming</Styled.h2>
 					<Styled.p>
