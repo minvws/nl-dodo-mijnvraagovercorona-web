@@ -339,7 +339,7 @@ const FaqList = ({
 	const showNegativeTestDeclaration = isNegativeTestDeclarationNeeded(country);
 
 	return (
-		<>
+		<div sx={{ marginBottom: '36px', ':last-child': { marginBottom: 0 } }}>
 			{Object.keys(faqs[stage]).map((key: string) => {
 				const [title, children] = faqs[stage][key](showNegativeTestDeclaration);
 
@@ -349,14 +349,13 @@ const FaqList = ({
 					</FaqItem>
 				);
 			})}
-		</>
+		</div>
 	);
 };
 
 const FaqListContainer = ({ children }: { children: React.ReactNode }) => (
 	<div
 		sx={{
-			marginTop: '35px',
 			paddingBottom: '20px',
 		}}
 	>
@@ -409,15 +408,15 @@ export const FaqListShort = ({
 
 export const FaqListComplete = ({ country }: FaqListProps) => (
 	<FaqListContainer>
-		<h3 sx={{ color: '#CA005D', marginTop: '36px', marginBottom: '0' }}>
+		<h3 sx={{ color: '#CA005D', marginTop: 0, marginBottom: '0' }}>
 			Voorbereiding
 		</h3>
 		<FaqList stage="voor-vertrek" country={country} />
-		<h3 sx={{ color: '#CA005D', marginTop: '36px', marginBottom: '0' }}>
+		<h3 sx={{ color: '#CA005D', marginTop: 0, marginBottom: '0' }}>
 			Tijdens de reis
 		</h3>
 		<FaqList stage="tijdens-je-reis" country={country} />
-		<h3 sx={{ color: '#CA005D', marginTop: '36px', marginBottom: '0' }}>
+		<h3 sx={{ color: '#CA005D', marginTop: 0, marginBottom: '0' }}>
 			Thuiskomst
 		</h3>
 		<FaqList stage="na-thuiskomst" country={country} />

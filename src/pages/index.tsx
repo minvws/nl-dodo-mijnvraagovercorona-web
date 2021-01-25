@@ -1,15 +1,10 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui';
-
-import MetaTags from 'components/meta/MetaTags';
-import ContentPageHeader from 'components/structure/ContentPageHeader';
-import StartCheckButton from 'components/home/StartCheckButton';
-import HomePageNavigation from 'components/home/HomePageNavigation';
-import BodyContainer from 'components/structure/BodyContainer';
 import CopySection from 'components/home/CopySection';
-import DataProtectionPanel from 'components/DataProtectionPanel';
-import { ImageAlleenSamen } from 'components/image-alleen-samen';
-import Footer from '../components/structure/Footer';
+import HomePageNavigation from 'components/home/HomePageNavigation';
+import StartCheckButton from 'components/home/StartCheckButton';
+import MetaTags from 'components/meta/MetaTags';
+import { Content, Hero, Page } from 'components/structure/Page';
+import { jsx } from 'theme-ui';
 
 const Home = () => {
 	return (
@@ -20,35 +15,32 @@ const Home = () => {
 				url="/"
 			/>
 
-			<ContentPageHeader
-				message="Toch noodzakelijk naar het buitenland?"
-				secondaryMessage="Ga niet op reis en boek geen reizen t/m 31 maart"
+			<Page
+				title="Toch noodzakelijk naar het buitenland?"
+				headerPrefix="Ga niet op reis en boek geen reizen t/m 31 maart"
 			>
-				<h2
-					sx={{
-						fontWeight: 'light',
-						width: ['80%', '549px'],
-						fontSize: '26px',
-						lineHeight: ['30px', '36px'],
-						marginTop: 0,
-						marginBottom: ['18px'],
-					}}
-				>
-					Doe de check voor corona-richtlijnen en tips voor je thuisquarantaine.
-				</h2>
-				<StartCheckButton />
-			</ContentPageHeader>
-
-			<HomePageNavigation />
-
-			<BodyContainer>
-				<CopySection />
-				<DataProtectionPanel />
-
-				<ImageAlleenSamen />
-			</BodyContainer>
-
-			<Footer />
+				<Hero>
+					<h2
+						sx={{
+							fontWeight: 'light',
+							width: ['80%', '549px'],
+							fontSize: '26px',
+							lineHeight: ['30px', '36px'],
+							marginTop: 0,
+							marginBottom: ['18px'],
+							color: 'roHighlight',
+						}}
+					>
+						Doe de check voor corona-richtlijnen en tips voor je
+						thuisquarantaine.
+					</h2>
+					<StartCheckButton />
+				</Hero>
+				<Content>
+					<HomePageNavigation />
+					<CopySection />
+				</Content>
+			</Page>
 		</>
 	);
 };

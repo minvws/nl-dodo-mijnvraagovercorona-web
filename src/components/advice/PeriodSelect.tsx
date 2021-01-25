@@ -116,8 +116,7 @@ const PeriodSelect = ({ country, updatePage }: PeriodSelectProps) => {
 					textAlign: 'center',
 					color: 'white',
 					paddingTop: '0.1em',
-					paddingRight: [0, '400px'],
-					paddingLeft: ['17px'],
+					paddingX: ['17px'],
 				}}
 			>
 				<Box
@@ -126,6 +125,10 @@ const PeriodSelect = ({ country, updatePage }: PeriodSelectProps) => {
 						margin: '0 auto',
 						position: 'relative',
 						padding: '14px 0',
+						display: 'flex',
+						justifyContent: 'center',
+						alignItems: 'center',
+						flexDirection: 'column',
 					}}
 				>
 					<Link
@@ -148,22 +151,24 @@ const PeriodSelect = ({ country, updatePage }: PeriodSelectProps) => {
 							fontSize: '15pt',
 							paddingTop: 0,
 							marginTop: 0,
-							marginBottom: '0.4em',
+							marginBottom: 0,
 						}}
 					>
 						<span sx={{ fontWeight: 'normal' }}>{country}</span>
 					</h3>
-					<h5
-						sx={{
-							fontSize: '14pt',
-							fontWeight: 'normal',
-							marginTop: '0.1em',
-							marginBottom: 0,
-							paddingTop: 0,
-						}}
-					>
-						{message}
-					</h5>
+					{message && (
+						<h5
+							sx={{
+								fontSize: '14pt',
+								fontWeight: 'normal',
+								marginTop: '0.1em',
+								marginBottom: 0,
+								paddingTop: 0,
+							}}
+						>
+							{message}
+						</h5>
+					)}
 				</Box>
 			</Container>
 			<BodyContainer>
