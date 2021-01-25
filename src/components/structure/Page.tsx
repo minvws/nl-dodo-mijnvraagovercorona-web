@@ -36,7 +36,7 @@ export const Page: React.FC<PageProps> = ({
 					flexDirection: ['column', 'row'],
 				}}
 			>
-				<Box sx={{ width: '100%' }}>
+				<Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
 					<Header
 						message={title}
 						headerPrefix={headerPrefix}
@@ -44,7 +44,12 @@ export const Page: React.FC<PageProps> = ({
 						backgroundImage={illustrationMobileUrl}
 					/>
 					<main>{children}</main>
-					<div sx={cleanPageOnMobile ? { display: ['none', 'block'] } : {}}>
+					<div
+						sx={{
+							display: cleanPageOnMobile ? ['none', 'block'] : undefined,
+							marginTop: 'auto',
+						}}
+					>
 						<DataProtectionPanel sx={{ display: ['block', 'none'] }} />
 						<ImageAlleenSamen />
 						<Footer />
