@@ -15,7 +15,11 @@ const PreparationsPage = () => {
 				url="/voorbereiding"
 			/>
 
-			<Page title="Wat moet je regelen voor het thuisblijven?">
+			<Page
+				title="Wat moet je regelen voor het thuisblijven?"
+				illustrationUrl="/images/Illustratie_We_helpen_je_op_weg_sidebar.svg"
+				illustrationMobileUrl="/images/Illustratie_Mobiel_We_helpen_je_op_weg_sidebar.svg"
+			>
 				<Content>
 					<p
 						sx={{

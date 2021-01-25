@@ -13,6 +13,8 @@ interface PageProps {
 	// If true: hides DataProtectionPanel, Footer and Alleen Samen logo on mobile.
 	cleanPageOnMobile?: boolean;
 	className?: string;
+	illustrationUrl?: string;
+	illustrationMobileUrl?: string;
 }
 
 export const Page: React.FC<PageProps> = ({
@@ -22,6 +24,8 @@ export const Page: React.FC<PageProps> = ({
 	showBackLink,
 	cleanPageOnMobile,
 	className,
+	illustrationUrl = '/images/Koffer_DesktopRetina.svg',
+	illustrationMobileUrl = '/images/Koffer_MobielRetina.svg',
 }) => {
 	return (
 		<>
@@ -37,6 +41,7 @@ export const Page: React.FC<PageProps> = ({
 						message={title}
 						headerPrefix={headerPrefix}
 						showBackLink={showBackLink}
+						backgroundImage={illustrationMobileUrl}
 					/>
 					<main>{children}</main>
 					<div sx={cleanPageOnMobile ? { display: ['none', 'block'] } : {}}>
@@ -45,7 +50,10 @@ export const Page: React.FC<PageProps> = ({
 						<Footer />
 					</div>
 				</Box>
-				<DataProtectionPanel sx={{ display: ['none', 'block'] }} />
+				<DataProtectionPanel
+					sx={{ display: ['none', 'block'] }}
+					illustrationUrl={illustrationUrl}
+				/>
 			</Flex>
 		</>
 	);

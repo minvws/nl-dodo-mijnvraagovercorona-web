@@ -4,9 +4,13 @@ import { Box, jsx } from 'theme-ui';
 
 type DataProtectionPanelProps = {
 	className?: string;
+	illustrationUrl?: string;
 };
 
-const DataProtectionPanel = ({ className }: DataProtectionPanelProps) => {
+const DataProtectionPanel = ({
+	className,
+	illustrationUrl,
+}: DataProtectionPanelProps) => {
 	return (
 		<Box
 			as="aside"
@@ -14,10 +18,13 @@ const DataProtectionPanel = ({ className }: DataProtectionPanelProps) => {
 			className={className}
 			sx={{
 				backgroundColor: ['white', 'sidePanel'],
-				position: 'relative',
+				position: ['relative', 'sticky'],
+				top: ['inherit', 0],
+				right: ['inherit', 0],
+				height: ['auto', '100vh'],
 				maxWidth: ['100%', '400px'],
 				padding: ['mobilePadding', '30px'],
-				backgroundImage: ['none', 'url("/images/Koffer_DesktopRetina.svg")'],
+				backgroundImage: ['none', `url("${illustrationUrl}")`],
 				backgroundRepeat: 'no-repeat',
 				backgroundPosition: 'right -60px bottom 20px',
 				backgroundSize: ['auto', '339px', '439px'],

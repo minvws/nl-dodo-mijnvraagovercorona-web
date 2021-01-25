@@ -42,7 +42,8 @@ const FAQ = ({ destination }: FAQProps) => {
 			<Page
 				title="Veelgestelde vragen"
 				showBackLink="result"
-				// backgroundImage="/images/Illustratie_Mobiel_Veelgestelde_vragenRetina.svg"
+				illustrationUrl="/images/Illustratie_Mobiel_Veelgestelde_vragenRetina.svg"
+				illustrationMobileUrl="/images/Illustratie_Mobiel_Veelgestelde_vragenRetina.svg"
 			>
 				<Content>
 					<FaqListComplete country={country} />
