@@ -24,7 +24,8 @@ const PreparationsPage = () => {
 				<Content>
 					<p
 						sx={{
-							marginY: '35px',
+							marginBottom: '35px',
+							marginTop: 0,
 							fontSize: 'smallText',
 							color: '#6A6A6A',
 							'::before': {

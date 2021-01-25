@@ -81,7 +81,7 @@ const Header = (props: HeaderProps) => {
 							color: 'smallText',
 							marginBottom: '25px',
 							display: 'block',
-							maxWidth: ['80%', '60%'],
+							maxWidth: '60%',
 						}}
 					>
 						{props.headerPrefix}

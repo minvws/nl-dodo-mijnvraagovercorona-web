@@ -16,6 +16,7 @@ import { ButtonPrimary } from 'components/button';
 import { Content, Hero, Page } from 'components/structure/Page';
 import ProgressMarker from 'components/advice/ProgressMarker';
 import { alignLogoRightOnMobileStyles } from 'components/structure/RoHeaderLogo';
+import BodyContainer from 'components/structure/BodyContainer';
 
 const calculateStage = ({
 	fromDate,
@@ -146,14 +147,13 @@ const Period = ({ destination }: { destination: string }) => {
 					</Dialog>
 				</Hero>
 				<PeriodSelect country={country?.fullName} updatePage={updateDate} />
-				<Content>
+				<BodyContainer>
 					{fromDate && toDate && country && (
 						<div
 							sx={{
 								textAlign: 'right',
 								paddingLeft: 'mobilePadding',
 								paddingRight: 'mobilePadding',
-								paddingBottom: '120px',
 							}}
 							ref={submitRef}
 						>
@@ -162,7 +162,7 @@ const Period = ({ destination }: { destination: string }) => {
 							</ButtonPrimary>
 						</div>
 					)}
-				</Content>
+				</BodyContainer>
 			</Page>
 		</>
 	);

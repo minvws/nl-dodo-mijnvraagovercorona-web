@@ -11,7 +11,7 @@ type RoHeaderLogoProps = {
 export const alignLogoRightOnMobileStyles: ThemeUICSSObject = {
 	'.logo': {
 		textAlign: ['right', 'center'],
-		paddingRight: ['30px', 0],
+		paddingRight: ['34px', 0],
 	},
 	header: {
 		backgroundImage: 'none',

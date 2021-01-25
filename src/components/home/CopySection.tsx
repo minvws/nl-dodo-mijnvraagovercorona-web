@@ -4,7 +4,7 @@ import CopyParagraph from './CopyParagraph';
 
 const CopySection = () => {
 	return (
-		<Container>
+		<Container sx={{ paddingTop: '30px' }}>
 			<CopyParagraph
 				imageUrl="/images/Illustratie_Neem_het_virus_niet_meeRetina.svg"
 				imageAlignment="right"
