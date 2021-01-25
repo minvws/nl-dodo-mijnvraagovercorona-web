@@ -23,9 +23,9 @@ import TravelInformationLink from 'components/TravelPlan/TravelInformationLink';
 import { Dialog } from 'components/dialog';
 import Feedback from 'components/feedback/Feedback';
 import AdviceContext from 'components/advice/AdviceContext';
-import { QuarantaineCard } from 'components/quarantaine-card';
-import ExpansionPanel from 'components/structure/ExpansionPanel';
 import { Content, Hero, Page } from 'components/structure/Page';
+import ExpansionPanel from 'components/structure/ExpansionPanel';
+import { Card } from 'components/card';
 
 type Stage = 'voor-vertrek' | 'tijdens-je-reis' | 'na-thuiskomst';
 type Color = 'yellow' | 'orange' | 'red';
@@ -77,6 +77,9 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 
 	const showContactWithSymptoms = duringOrAfter;
 
+	const showNoFlyBanner = !!country?.transportRestrictions.length;
+	const noBoatMessage = country?.transportRestrictions.includes('boat');
+
 	// @TODO: Do this in a different place where it makes sense.
 	let color: Color = 'red';
 	if (country?.riskLevel === RiskLevel.B_RISICOVOL_INREISBEPERKINGEN) {
@@ -100,7 +103,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 	return (
 		<>
 			<MetaTags
-				title="Advies en actuele situatie bestemming | Quarantaine Reischeck | Reizentijdenscorona.nl"
+				title="Advies en actuele situatie bestemming | Quarantaine Reischeck | Rijksoverheid.nl"
 				description="Advies op basis van actuele informatie over bestemming."
 				url={`/${destination}/${stage}`}
 			/>
@@ -145,14 +148,14 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 						{/* NEGATIVE TEST RESULT / DECLARATION */}
 						{showNegativeTestResult && (
 							<li>
-								Voor je terugreis naar Nederland heb je een{' '}
-								<strong>negatieve testuitslag</strong> nodig.
+								Voor je terugreis naar Nederland heb je{' '}
+								<strong>twee negatieve testuitslagen</strong> nodig.
 							</li>
 						)}
 						{showNegativeTestDeclaration && (
 							<li>
-								Voor je terugreis naar Nederland heb je een{' '}
-								<strong>negatieve testuitslag</strong> en{' '}
+								Voor je terugreis naar Nederland heb je{' '}
+								<strong>twee negatieve testuitslagen</strong> en een{' '}
 								<strong>verklaring</strong> nodig.
 							</li>
 						)}
@@ -179,6 +182,25 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 					</ul>
 				</Hero>
 				<Content>
+					{showNoFlyBanner && (
+						<div sx={{ marginBottom: ['36px', '44px'] }}>
+							<Card
+								image="/images/Vliegtuig_streep.svg"
+								imagePosition={{
+									backgroundPositionX: '5px',
+									backgroundPositionY: '22px',
+								}}
+								title={
+									noBoatMessage
+										? 'Er geldt een vlieg- en aanmeerverbod vanuit uw bestemming naar Nederland.'
+										: 'Er geldt een vliegverbod vanuit uw bestemming naar Nederland.'
+								}
+								href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/vliegverbod-en-aanmeerverbod"
+								external
+							/>
+						</div>
+					)}
+
 					<h2
 						sx={{
 							color: 'header',
@@ -188,7 +210,6 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 					>
 						Jouw reisschema
 					</h2>
-
 					<Container
 						sx={{
 							borderLeft: '2px solid #f0d5e2',
@@ -245,7 +266,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 									title="Laat je testen"
 									subHeading="Max 72u voor vertrek"
 								>
-									Je mag alleen terugreizen met een negatieve testuitslag
+									Je mag alleen terugreizen met een negatieve testuitslag.
 									<br />
 									<TravelInformationLink
 										href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/negatieve-covid-19-testuitslag-aankomst-nederland"
@@ -259,9 +280,22 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 									subHeading="Max 72u voor vertrek"
 								>
 									Je mag alleen terugreizen met een negatieve testuitslag en
-									testverklaring
+									testverklaring.
 									<br />
 									<TravelInformationLink href="" text="Meer informatie" />
+								</TravelAdvicePanel>
+							)}
+							{showQuarantaine && (
+								<TravelAdvicePanel
+									title="Doe een sneltest"
+									subHeading="Max 4u voor vertrek"
+								>
+									Je hebt ook een negatieve sneltestuitslag nodig.
+									<br />
+									<TravelInformationLink
+										href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/verplichte-negatieve-covid-19-testuitslagen/eisen-sneltest"
+										text="Meer informatie"
+									/>
 								</TravelAdvicePanel>
 							)}
 						</TravelPlanStage>
@@ -382,7 +416,6 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 							/>
 						)}
 					</Container>
-
 					{showSecondCheckCalenderInvite && fromDate && (
 						<Box sx={{ marginTop: ['10px', '60px'] }}>
 							<ReminderCalendarInvite
@@ -390,7 +423,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 								modalTitle="Reischeck opnieuw invullen in agenda"
 								modalBody="Heb je een andere (digitale) agenda? Zet je reminder om de reischeck opnieuw in te vullen er dan zelf in."
 								inviteTitle="Reischeck invullen"
-								inviteText="Je bent van plan bijna op reis te gaan. De situatie kan veranderd zijn. Doe daarom nog een keer de reischeck op https://www.reizentijdenscorona.nl."
+								inviteText="Je bent van plan bijna op reis te gaan. De situatie kan veranderd zijn. Doe daarom nog een keer de reischeck op https://www.reizentijdenscorona.rijksoverheid.nl."
 								singleDay={startOfDay(addDays(new Date(fromDate), -7))}
 							/>
 							<Container
@@ -415,9 +448,9 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 							</Container>
 						</Box>
 					)}
-
-					{showContactWithSymptoms && toDate && <TestBooking toDate={toDate} />}
-
+					{showContactWithSymptoms && toDate && (
+						<TestBooking toDate={toDate} quarantaine={showQuarantaine} />
+					)}
 					<h2
 						sx={{
 							paddingTop: ['36px', '44px'],
@@ -427,21 +460,25 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 					>
 						Zo kom je de thuisquarantaine goed door
 					</h2>
-
-					<QuarantaineCard />
-
+					<Card
+						image="/images/Banner_we_helpen_jeRetina.svg"
+						imagePosition={{
+							backgroundPositionX: '-10px',
+						}}
+						title="Wat moet ik regelen voor mijn thuisquarantaine?"
+						href="/voorbereiding"
+					/>
 					{showQuarantaine && toDate && (
 						<ReminderCalendarInvite
 							title="Zet je thuisquarantaine in je agenda"
 							modalTitle="Thuisquarantaine in agenda"
 							modalBody="Heb je een andere (digitale) agenda? Zet je thuisquarantaine er dan zelf in."
 							inviteTitle="Thuisquarantaine"
-							inviteText="Krijg je (lichte) klachten? Maak direct een testafspraak op https://coranatest.nl of bel de GGD op 0800-1202. Kijk voor tips over je thuisquarantaine op https://reizentijdenscorona.nl/voorbereiding."
+							inviteText="Krijg je (lichte) klachten? Maak direct een testafspraak op https://coranatest.nl of bel de GGD op 0800-1202. Kijk voor tips over je thuisquarantaine op https://reizentijdenscorona.rijksoverheid.nl/voorbereiding."
 							fromDate={startOfDay(toDate)}
 							toDate={endOfDay(addDays(toDate, 10))}
 						/>
 					)}
-
 					<h2
 						sx={{
 							paddingTop: ['36px', '44px'],
@@ -452,11 +489,9 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 						Veelgestelde vragen
 					</h2>
 					<FaqListShort country={country} stage={stage} />
-
 					<InternalLink href={`/${country?.slug}/faq`}>
 						Bekijk alle veelgestelde vragen
 					</InternalLink>
-
 					<Feedback />
 				</Content>
 			</Page>

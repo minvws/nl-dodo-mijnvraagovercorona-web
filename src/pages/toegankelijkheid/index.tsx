@@ -8,7 +8,7 @@ const Cookies = () => {
 	return (
 		<>
 			<MetaTags
-				title="Digitale toegankelijkheid | Quarantaine Reischeck | Reizentijdenscorona.nl"
+				title="Digitale toegankelijkheid | Quarantaine Reischeck | Rijksoverheid.nl"
 				description="De Rijksoverheid maakt zijn websites volgens de webrichtlijnen van de Nederlandse overheid. De sites moeten voor iedereen digitaal toegankelijk zijn."
 				url="/toegankelijkheid"
 			/>

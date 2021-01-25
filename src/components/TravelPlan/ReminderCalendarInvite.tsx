@@ -105,7 +105,12 @@ const ReminderCalendarInvite = (props: SingleDayProps | MultiDayProps) => {
 		>
 			<Menu>
 				<MenuButton
-					sx={{ border: 'none', background: 'transparent', padding: 0 }}
+					sx={{
+						border: 'none',
+						background: 'transparent',
+						padding: 0,
+						width: '100%',
+					}}
 				>
 					<CallToAction icon={AppointmentIcon}>
 						<p>{props.title}</p>

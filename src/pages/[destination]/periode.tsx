@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import React, { useEffect, useRef, useState } from 'react';
 import { jsx } from 'theme-ui';
+import { isAfter, addDays } from 'date-fns';
 
 import MetaTags from 'components/meta/MetaTags';
 import { InternalLink } from 'components/Links';
@@ -52,10 +53,17 @@ const generateResultLink = ({
 	toDate: Date;
 	destination: string;
 	stage: string;
-}) => ({
-	pathname: `/${destination}/${stage}`,
-	query: { van: formatDate(fromDate), tot: formatDate(toDate) },
-});
+}) => {
+	/* Check whether the quarantaine period has ended when more then 10 days have passed */
+	const isAfterQuarantaine = isAfter(new Date(), addDays(toDate, 11));
+
+	return isAfterQuarantaine
+		? '/geen-advies'
+		: {
+				pathname: `/${destination}/${stage}`,
+				query: { van: formatDate(fromDate), tot: formatDate(toDate) },
+		  };
+};
 
 const Period = ({ destination }: { destination: string }) => {
 	const country = useDestination(destination as string);
@@ -116,7 +124,7 @@ const Period = ({ destination }: { destination: string }) => {
 	return (
 		<>
 			<MetaTags
-				title="Planning | Quarantaine Reischeck | Reizentijdenscorona.nl"
+				title="Planning | Quarantaine Reischeck | Rijksoverheid.nl"
 				description="Actuele informatie over bestemming en maatregelen."
 				url={`/${destination}/periode`}
 			/>

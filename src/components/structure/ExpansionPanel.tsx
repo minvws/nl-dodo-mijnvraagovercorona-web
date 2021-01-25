@@ -1,4 +1,5 @@
 /** @jsx jsx */
+import { useEffect, useRef, useState } from 'react';
 import { Container, jsx } from 'theme-ui';
 import {
 	Disclosure,
@@ -12,9 +13,26 @@ type ExpansionPanelProps = {
 };
 
 const ExpansionPanel = (props: ExpansionPanelProps) => {
+	const [open, setOpen] = useState(false);
+	const contentRef = useRef<HTMLDivElement>(null);
+	const handleChange = () => {
+		setOpen((open) => !open);
+	};
+
+	useEffect(() => {
+		if (open && contentRef?.current) {
+			/* If the element is fully within the visible area of the viewport, it does nothing.
+			 * Otherwise, the element is scrolled into view.
+			 * A proprietary variant of the standard Element.scrollIntoView() method.
+			 * This is needed for mobile devices and both Android Chrome and iOs support it */
+			/* @ts-ignore */
+			contentRef.current.scrollIntoViewIfNeeded?.();
+		}
+	}, [open]);
+
 	return (
 		<Container>
-			<Disclosure>
+			<Disclosure onChange={handleChange}>
 				<DisclosureButton
 					sx={{
 						position: 'relative',
@@ -70,6 +88,7 @@ const ExpansionPanel = (props: ExpansionPanelProps) => {
 							fontSize: ['bodyMobile', 'body'],
 							lineHeight: ['bodyMobile', 'body'],
 						}}
+						ref={contentRef}
 					>
 						{props.children}
 					</div>

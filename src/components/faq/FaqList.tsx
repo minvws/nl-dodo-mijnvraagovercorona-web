@@ -95,10 +95,14 @@ const faqs: {
 		whyNegativeTest: (showNegativeTestDeclaration: boolean | undefined) =>
 			showNegativeTestDeclaration
 				? [
-						'Waarom heb ik een negatieve testuitslag en negatieve testverklaring nodig?',
+						'Waarom heb ik twee negatieve testuitslagen en een negatieve testverklaring nodig?',
 						<p>
-							Dit is een van de Nederlandse maatregelen om de import en
-							verspreiding van het coronavirus tegen te gaan. Je kan{' '}
+							U moet als reiziger uit een hoogrisicoland 2 negatieve
+							testuitslagen laten zien als u naar Nederland reist. Dit is omdat
+							reizigers uit hoog-risicogebieden een risico vormen op de import
+							en verspreiding van het coronavirus. De verplichte testuitslagen
+							vervangen nooit andere coronamaatregelen, zoals het inreisverbod,
+							quarantaine of vaccinatie. Je kan{' '}
 							<a
 								href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/negatieve-covid-19-testuitslag-aankomst-nederland/negatieve-testuitslag-buiten-eu-en-schengen"
 								target="_blank"
@@ -110,10 +114,14 @@ const faqs: {
 						</p>,
 				  ]
 				: [
-						'Waarom heb ik een negatieve testuitslag nodig?',
+						'Waarom heb ik twee negatieve testuitslagen nodig?',
 						<p>
-							Dit is een van de Nederlandse maatregelen om de import en
-							verspreiding van het coronavirus tegen te gaan. Je kan{' '}
+							U moet als reiziger uit een hoogrisicoland 2 negatieve
+							testuitslagen laten zien als u naar Nederland reist. Dit is omdat
+							reizigers uit hoog-risicogebieden een risico vormen op de import
+							en verspreiding van het coronavirus. De verplichte testuitslagen
+							vervangen nooit andere coronamaatregelen, zoals het inreisverbod,
+							quarantaine of vaccinatie. Je kan{' '}
 							<a
 								href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/negatieve-covid-19-testuitslag-aankomst-nederland/negatieve-testuitslag-binnen-eu-en-schengen"
 								target="_blank"
@@ -149,6 +157,44 @@ const faqs: {
 					Meer informatie kan je{' '}
 					<a
 						href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/negatieve-covid-19-testuitslag-aankomst-nederland"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						hier
+					</a>{' '}
+					vinden.
+				</p>
+				<p>
+					De negatieve sneltestuitslag moet in het Engels, Duits, Frans,
+					Italiaans, Portugees, Spaans of Nederlands zijn. Het document wordt op
+					5 punten gecontroleerd:
+				</p>
+				<ul>
+					<li>
+						Type test: dit moet een sneltest (antigeen of LAMP-test) of PCR-test
+						zijn.
+					</li>
+					<li>
+						Testresultaat: moet negatief op SARS-CoV-2 (of niet gedetecteerd)
+						zijn
+					</li>
+					<li>
+						Voor- en achternaam: overeenkomstig met het paspoort. Datum en tijd
+						van afname van de test: de test is maximaal 4 uur oud bij het aan
+						boord gaan van het vliegtuig of de ferry. Voor transportmedewerkers
+						geldt dat de test maximaal 24 uur oud is bij het aan boord gaan van
+						de ferry.
+					</li>
+					<li>
+						Op de testuitslag staat een logo of kenmerk van een instituut of
+						arts.
+					</li>
+				</ul>
+				<p>
+					De testuitslag mag zowel op papier als digitaal worden getoond. Meer
+					informatie kan je{' '}
+					<a
+						href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/verplichte-negatieve-covid-19-testuitslagen/eisen-sneltest"
 						target="_blank"
 						rel="noopener noreferrer"
 					>
@@ -230,6 +276,18 @@ const faqs: {
 				en volg het advies van de GGD op.
 			</p>,
 		],
+		testAgain: () => [
+			'Ik ben in het buitenland al (negatief) getest. Moet ik weer getest worden?',
+			<p>
+				Ja. Testen is echt een momentopname. Het kan tot 10 dagen duren voordat
+				je klachten krijgt. Het kan dus zijn dat je te vroeg bent getest in het
+				buitenland. Daarom moet je bij terugkomst alsnog 10 dagen in
+				thuisquarantaine. Je kan je thuisquarantaine verkorten door op dag 5 na
+				thuiskomst een testafspraak in te plannen. Als de testuitslag negatief
+				is, mag je uit quarantaine. Is de testuitslag positief? Blijf dan thuis
+				en volg het advies van de GGD op.
+			</p>,
+		],
 		canQuarantaineBeShortened: () => [
 			'Kan ik de 10 dagen thuisquarantaine inkorten?',
 			<p>
@@ -253,18 +311,6 @@ const faqs: {
 		myFamily: () => [
 			'Mijn partner, kinderen of huisgenoot zijn niet mee op reis geweest. Moeten zij ook in thuisquarantaine?',
 			<p>Nee, alleen de persoon die op reis is geweest moet in quarantaine.</p>,
-		],
-		testAgain: () => [
-			'Ik ben in het buitenland al (negatief) getest. Moet ik weer getest worden?',
-			<p>
-				Ja. Testen is echt een momentopname. Het kan tot 10 dagen duren voordat
-				je klachten krijgt. Het kan dus zijn dat je te vroeg bent getest in het
-				buitenland. Daarom moet je bij terugkomst alsnog 10 dagen in
-				thuisquarantaine. Je kan je thuisquarantaine verkorten door op dag 5 na
-				thuiskomst een testafspraak in te plannen. Als de testuitslag negatief
-				is, mag je uit quarantaine. Is de testuitslag positief? Blijf dan thuis
-				en volg het advies van de GGD op.
-			</p>,
 		],
 		testEarlier: () => [
 			'Kan ik mij eerder laten testen?',

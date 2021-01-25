@@ -21,7 +21,7 @@ const anchorSymbol = {
 	verticalShift: '12px',
 };
 
-const internalLinkSymbol = {
+const arrowLinkSymbol = {
 	iconFile: '/icons/Link Arrow.svg',
 	width: '7px',
 	height: '12px',
@@ -53,7 +53,7 @@ const dialogSymbol = {
 
 type LinkProps = {
 	href: string;
-	internal?: boolean;
+	external?: boolean;
 	text?: string;
 	onClick?: (event: any) => void;
 	children?: React.ReactNode;
@@ -66,14 +66,14 @@ type LinkBaseProps = LinkProps & {
 };
 
 const LinkWrapper = ({
-	internal,
+	external,
 	href,
 	children,
 }: {
-	internal?: boolean;
+	external?: boolean;
 	href: string;
 	children: React.ReactNode;
-}) => (internal ? <Link href={href}>{children}</Link> : <>{children}</>);
+}) => (!external ? <Link href={href}>{children}</Link> : <>{children}</>);
 
 const LinkBase = React.forwardRef((props: LinkBaseProps, ref) => {
 	const baseIconStyles: ThemeUICSSObject = {
@@ -100,7 +100,7 @@ const LinkBase = React.forwardRef((props: LinkBaseProps, ref) => {
 
 	return (
 		<Box sx={containerStyles}>
-			<LinkWrapper internal={props.internal} href={props.href}>
+			<LinkWrapper external={props.external} href={props.href}>
 				<a
 					sx={{
 						fontSize: ['linkMobile', 'link'],
@@ -117,6 +117,12 @@ const LinkBase = React.forwardRef((props: LinkBaseProps, ref) => {
 					}}
 					onClick={props.onClick}
 					href={props.href}
+					{...(props.external
+						? {
+								target: '_blank',
+								rel: 'noopener noreferrer',
+						  }
+						: {})}
 					{...optionalRef}
 				>
 					{props.text}
@@ -132,7 +138,11 @@ export const AnchorLink = (props: LinkProps) => (
 );
 
 export const InternalLink = React.forwardRef((props: LinkProps, ref) => (
-	<LinkBase {...props} ref={ref} symbol={internalLinkSymbol} internal />
+	<LinkBase {...props} ref={ref} symbol={arrowLinkSymbol} />
+));
+
+export const ExternalLink = React.forwardRef((props: LinkProps, ref) => (
+	<LinkBase {...props} ref={ref} symbol={arrowLinkSymbol} external />
 ));
 
 // @TODO: I'd rather see this as a button instead of a link

@@ -8,8 +8,8 @@ const Cookies = () => {
 	return (
 		<>
 			<MetaTags
-				title="Cookies | Quarantaine Reischeck | Reizentijdenscorona.nl"
-				description="Algemene Verordening Gegevensbescherming. Reizentijdenscorona.nl gebruikt cookies voor statistieken om te begrijpen hoe bezoekers de website gebruiken. Deze informatie helpt de website te verbeteren, bijvoorbeeld door informatie te  verduidelijken of het gebruikersgemak te vergroten."
+				title="Cookies | Quarantaine Reischeck | Rijksoverheid.nl"
+				description="Algemene Verordening Gegevensbescherming. Reizentijdenscorona.rijksoverheid.nl gebruikt cookies voor statistieken om te begrijpen hoe bezoekers de website gebruiken. Deze informatie helpt de website te verbeteren, bijvoorbeeld door informatie te  verduidelijken of het gebruikersgemak te vergroten."
 				url="/cookies"
 			/>
 
@@ -17,10 +17,10 @@ const Cookies = () => {
 				<Content>
 					<Styled.h2>Algemene Verordening Gegevensbescherming</Styled.h2>
 					<Styled.p>
-						Reizentijdenscorona.nl gebruikt cookies voor statistieken om te
-						begrijpen hoe bezoekers de website gebruiken. Deze informatie helpt
-						de website te verbeteren, bijvoorbeeld door informatie te
-						verduidelijken of het gebruikersgemak te vergroten.
+						Reizentijdenscorona.rijksoverheid.nl gebruikt cookies voor
+						statistieken om te begrijpen hoe bezoekers de website gebruiken.
+						Deze informatie helpt de website te verbeteren, bijvoorbeeld door
+						informatie te verduidelijken of het gebruikersgemak te vergroten.
 						<br />
 						Hiertoe verzamelen wij, net als elke website, IP-adressen van
 						bezoekers. Deze worden opgeslagen in zogeheten logfiles. De logfiles
@@ -57,7 +57,7 @@ const Cookies = () => {
 						noodzakelijk is om aangifte te doen van strafbare feiten.
 					</Styled.p>
 					<Styled.h2>Telecomwet – cookies voor webstatistieken</Styled.h2>
-					<Styled.p>
+					<Styled.p sx={{ paddingBottom: '80px' }}>
 						In algemene zin is het zo dat websites bezoekers toestemming moeten
 						vragen voor het plaatsen van cookies. De cookiewet maakt een
 						uitzondering voor cookies die niet privacygevoelig zijn,

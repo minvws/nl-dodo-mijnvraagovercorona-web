@@ -9,7 +9,7 @@ const Privacy = () => {
 	return (
 		<>
 			<MetaTags
-				title="Privacy | Quarantaine Reischeck | Reizentijdenscorona.nl"
+				title="Privacy | Quarantaine Reischeck | Rijksoverheid.nl"
 				description="Wilt u meer informatie over het privacybeleid van de Rijksoverheid, kijk dan op www.rijksoverheid.nl/privacy."
 				url="/privacy"
 			/>
@@ -29,11 +29,15 @@ const Privacy = () => {
 						.
 					</Styled.p>
 					<Styled.p>
-						Reizentijdenscorona.nl gebruikt cookies voor webstatistieken om te
-						begrijpen hoe bezoekers de website gebruiken. Lees{' '}
-						<Link href="/cookies">hier</Link> meer.
+						Reizentijdenscorona.rijksoverheid.nl gebruikt cookies voor
+						webstatistieken om te begrijpen hoe bezoekers de website gebruiken.
+						Lees <Link href="/cookies">hier</Link> meer.
 					</Styled.p>
-					<Styled.p>
+					<Styled.p
+						sx={{
+							marginBottom: '80px',
+						}}
+					>
 						Omdat onze website nog in de testfase zit, bieden wij u de
 						mogelijkheid ons te vertellen wat u van de website vindt. Bij het
 						beantwoorden van een aantal korte vragen worden geen

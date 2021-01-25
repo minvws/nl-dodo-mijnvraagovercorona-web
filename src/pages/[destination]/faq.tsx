@@ -34,7 +34,7 @@ const FAQ = ({ destination }: FAQProps) => {
 	return (
 		<>
 			<MetaTags
-				title="Veelgestelde vragen | Quarantaine Reischeck | Reizentijdenscorona.nl"
+				title="Veelgestelde vragen | Quarantaine Reischeck | Rijksoverheid.nl"
 				description="Overzicht van veelgestelde vragen over quarantaine en reizen."
 				url="/faq"
 			/>
