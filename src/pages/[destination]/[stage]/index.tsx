@@ -192,8 +192,8 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 								}}
 								title={
 									noBoatMessage
-										? 'Er geldt een vlieg- en aanmeerverbod vanuit uw bestemming naar Nederland.'
-										: 'Er geldt een vliegverbod vanuit uw bestemming naar Nederland.'
+										? 'Er geldt een vlieg- en aanmeerverbod vanuit je bestemming naar Nederland.'
+										: 'Er geldt een vliegverbod vanuit je bestemming naar Nederland.'
 								}
 								href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/vliegverbod-en-aanmeerverbod"
 								external
