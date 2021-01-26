@@ -50,8 +50,10 @@ export const Page: React.FC<PageProps> = ({
 							marginTop: 'auto',
 						}}
 					>
-						<DataProtectionPanel sx={{ display: ['block', 'none'] }} />
-						<ImageAlleenSamen />
+						<BodyContainer>
+							<DataProtectionPanel sx={{ display: ['block', 'none'] }} />
+							<ImageAlleenSamen />
+						</BodyContainer>
 						<Footer />
 					</div>
 				</Box>
@@ -69,8 +71,12 @@ export const Hero: React.FC = ({ children }) => (
 		sx={{
 			backgroundColor: 'headerBackground',
 			paddingBottom: '36px',
+			// If the here is nested INSIDE the main element, this means that no only the header
+			// has a hero, but also the page content has a hero section.
+			// The negative margin top makes sure that these two hero sections "connect" with
+			// each other.
 			'main > &': {
-				marginTop: '-50px',
+				marginTop: '-45px',
 			},
 			'> div': {
 				paddingTop: '18px',
