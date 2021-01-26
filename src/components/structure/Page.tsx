@@ -89,7 +89,10 @@ export const Hero: React.FC = ({ children }) => (
 
 export const Content: React.FC = ({ children }) => (
 	<BodyContainer
-		sx={{ paddingTop: '65px', '> :first-child': { marginTop: 0 } }}
+		sx={{
+			paddingTop: '65px',
+			'> :first-child': { marginTop: 0 },
+		}}
 	>
 		{children}
 	</BodyContainer>
