@@ -1,15 +1,33 @@
 import React from 'react';
 
-const AdviceContext = React.createContext<{
+export const meansOfTransport = [
+	'vliegtuig',
+	'auto',
+	'trein',
+	'bus',
+	'ferry',
+	'anders',
+] as const;
+
+export type MeansOfTransport = typeof meansOfTransport[number];
+
+interface AdviesContextState {
+	// @TODO: Check waarom Bart alle set methods optional gemaakt heeft.
 	destination?: string;
-	setDestination?: Function;
+	setDestination: Function;
 	stage?: string;
 	setStage?: Function;
 	from?: string;
 	setFrom?: Function;
 	to?: string;
 	setTo?: Function;
-}>({});
+	meansOfTransport?: MeansOfTransport;
+	setMeansOfTransport: (mean: MeansOfTransport) => void;
+}
+
+const AdviceContext = React.createContext<AdviesContextState>(
+	{} as AdviesContextState,
+);
 
 type Props = {
 	children: React.ReactNode;
@@ -20,6 +38,10 @@ export const AdviceProvider = ({ children }: Props) => {
 	const [stage, setStage] = React.useState();
 	const [from, setFrom] = React.useState();
 	const [to, setTo] = React.useState();
+	const [
+		meansOfTransport,
+		setMeansOfTransport,
+	] = React.useState<MeansOfTransport>();
 
 	return (
 		<AdviceContext.Provider
@@ -32,6 +54,8 @@ export const AdviceProvider = ({ children }: Props) => {
 				setFrom,
 				to,
 				setTo,
+				meansOfTransport,
+				setMeansOfTransport,
 			}}
 		>
 			{children}
