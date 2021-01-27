@@ -148,15 +148,32 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 						{/* NEGATIVE TEST RESULT / DECLARATION */}
 						{showNegativeTestResult && (
 							<li>
-								Voor je terugreis naar Nederland heb je{' '}
-								<strong>twee negatieve testuitslagen</strong> nodig.
+								Voor je vliegreis terug naar Nederland heb je{' '}
+								<strong>twee negatieve testuitslagen</strong> nodig. Reis je
+								anders, kijk dan{' '}
+								<a
+									href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/reizen-naar-nederland-checklist"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									hier
+								</a>
+								.
 							</li>
 						)}
 						{showNegativeTestDeclaration && (
 							<li>
-								Voor je terugreis naar Nederland heb je{' '}
+								Voor je vliegreis terug naar Nederland heb je{' '}
 								<strong>twee negatieve testuitslagen</strong> en een{' '}
-								<strong>verklaring</strong> nodig.
+								<strong>verklaring</strong> nodig. Reis je anders, kijk dan{' '}
+								<a
+									href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/reizen-naar-nederland-checklist"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									hier
+								</a>
+								.
 							</li>
 						)}
 
