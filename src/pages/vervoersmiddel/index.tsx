@@ -12,8 +12,6 @@ import { RadioButton } from 'components/radio-button';
 import BodyContainer from 'components/structure/BodyContainer';
 import { Hero, Page } from 'components/structure/Page';
 import { alignLogoRightOnMobileStyles } from 'components/structure/RoHeaderLogo';
-import { countries } from 'config/countries';
-import { useDestination } from 'hooks/use-destination';
 import { useRouter } from 'next/router';
 import React, { useRef, useState } from 'react';
 import { Box, Flex, jsx } from 'theme-ui';
@@ -67,13 +65,16 @@ const MeansOfTransportPage = () => {
 	};
 
 	/**
-	 * If any of the
+	 * If the destination has not been selected
 	 */
 	if (!destination) {
 		if (isBrowser()) router.push(getAdvicePath.destination());
 		return null;
 	}
 
+	/**
+	 * If the destination has been set, but the period has not been selected yet
+	 */
 	if (destination && (!from || !to)) {
 		if (isBrowser()) router.push(getAdvicePath.period());
 		return null;

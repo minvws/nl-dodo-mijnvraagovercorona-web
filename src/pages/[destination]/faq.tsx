@@ -9,21 +9,6 @@ import { FaqListComplete } from 'components/faq/FaqList';
 import Feedback from 'components/feedback/Feedback';
 import { Content, Page } from 'components/structure/Page';
 
-const generateResultLink = ({
-	from,
-	to,
-	destination,
-	stage,
-}: {
-	from?: string;
-	to?: string;
-	destination?: string;
-	stage?: string;
-}) => ({
-	pathname: `/${destination}/${stage}`,
-	query: { van: from, tot: to },
-});
-
 interface FAQProps {
 	destination: string;
 }
