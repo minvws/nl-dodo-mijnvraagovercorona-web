@@ -13,7 +13,7 @@ const BodyContainer: React.FC<BodyContainerProps> = (props) => {
 		<Container
 			sx={{
 				paddingY: 'mobilePadding',
-				paddingX: ['mobilePadding', 0],
+				paddingX: ['mobilePadding', 'mobilePadding', 0],
 				margin: '0 auto',
 				maxWidth: 'maxWidthBody',
 			}}
