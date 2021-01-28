@@ -11,6 +11,8 @@ export const meansOfTransport = [
 
 export type MeansOfTransport = typeof meansOfTransport[number];
 
+export type TravelStage = 'voor-vertrek' | 'tijdens-je-reis' | 'na-thuiskomst';
+
 interface AdviesContextState {
 	// @TODO: Check waarom Bart alle set methods optional gemaakt heeft.
 	destination?: string;

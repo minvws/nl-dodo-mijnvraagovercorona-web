@@ -30,6 +30,7 @@ import { Content, Hero, Page } from 'components/structure/Page';
 import ExpansionPanel from 'components/structure/ExpansionPanel';
 import { Card } from 'components/card';
 import { cartesianProduct } from 'utilities/pathUtils';
+import { getTravelSchemeContentBlocks } from 'utilities/travel-advice';
 
 type Stage = 'voor-vertrek' | 'tijdens-je-reis' | 'na-thuiskomst';
 type Color = 'yellow' | 'orange' | 'red';
@@ -62,6 +63,16 @@ const AdviceResult = ({
 	const fromDate: Date | undefined = van ? parseDate(van) : undefined;
 	const toDate: Date | undefined = tot ? parseDate(tot) : undefined;
 	const [showDialog, setShowDialog] = useState(false);
+
+	// Gets show/hide booleans for all content blocks.
+	const c = getTravelSchemeContentBlocks({
+		fromDate,
+		toDate,
+		currentTravelStage: stage,
+		currentCategory: country?.riskLevel,
+		currentMeansOfTransport: meansOfTransport,
+		coronaMelderCountry: country?.coronaMelderCountry,
+	});
 
 	const showPreperation = stage === 'voor-vertrek';
 	const showCoronamelderApp = country?.coronaMelderCountry;
@@ -227,19 +238,21 @@ const AdviceResult = ({
 							margin: 0,
 						}}
 					>
-						{stage === 'voor-vertrek' && (
+						{(c.reisschema__downloadReisApp || c.reisschema__coronaMelder) && (
 							<TravelPlanStage
 								title="Voorbereiding"
 								subHeading="Laat je niet verrassen"
 								date={new Date()}
 							>
-								<TravelAdvicePanel title="Blijf op de hoogte van de laatste ontwikkelingen op je bestemming">
-									<TravelInformationLink
-										href="https://www.nederlandwereldwijd.nl/documenten/vragen-en-antwoorden/reis-app-buitenlandse-zaken"
-										text="Download de reisapp"
-									/>
-								</TravelAdvicePanel>
-								{showCoronamelderApp && (
+								{c.reisschema__downloadReisApp && (
+									<TravelAdvicePanel title="Blijf op de hoogte van de laatste ontwikkelingen op je bestemming">
+										<TravelInformationLink
+											href="https://www.nederlandwereldwijd.nl/documenten/vragen-en-antwoorden/reis-app-buitenlandse-zaken"
+											text="Download de reisapp"
+										/>
+									</TravelAdvicePanel>
+								)}
+								{c.reisschema__coronaMelder && (
 									<TravelAdvicePanel
 										title={`Wist je dat de CoronaMelder ook werkt in ${country?.fullName}?`}
 									>
@@ -258,19 +271,21 @@ const AdviceResult = ({
 							subHeading={country?.fullName}
 							date={fromDate}
 						>
-							<TravelAdvicePanel
-								title="Code oranje"
-								subHeading={duringOrAfter ? 'Totale reisduur' : 'Nu'}
-							>
-								Naast het coronarisico gelden er mogelijk inreisbeperkingen of
-								veiligheidsrisico's in {country?.fullName}.
-								<br />
-								<TravelInformationLink
-									href={`https://www.nederlandwereldwijd.nl/landen/${country?.slug}/reizen/reisadvies`}
-									text="Uitgebreid reisadvies"
-								/>
-							</TravelAdvicePanel>
-							{showNegativeTestResult && (
+							{c.reisschema__reisadvies && (
+								<TravelAdvicePanel
+									title="Code oranje"
+									subHeading={duringOrAfter ? 'Totale reisduur' : 'Nu'}
+								>
+									Naast het coronarisico gelden er mogelijk inreisbeperkingen of
+									veiligheidsrisico's in {country?.fullName}.
+									<br />
+									<TravelInformationLink
+										href={`https://www.nederlandwereldwijd.nl/landen/${country?.slug}/reizen/reisadvies`}
+										text="Uitgebreid reisadvies"
+									/>
+								</TravelAdvicePanel>
+							)}
+							{c.reisschema__pcrtest && (
 								<TravelAdvicePanel
 									title="Laat je testen"
 									subHeading="Max 72u voor vertrek"
@@ -283,7 +298,7 @@ const AdviceResult = ({
 									/>
 								</TravelAdvicePanel>
 							)}
-							{showNegativeTestDeclaration && (
+							{c.reisschame__pcrtest_en_verklaring && (
 								<TravelAdvicePanel
 									title="Laat je testen"
 									subHeading="Max 72u voor vertrek"
@@ -294,7 +309,7 @@ const AdviceResult = ({
 									<TravelInformationLink href="" text="Meer informatie" />
 								</TravelAdvicePanel>
 							)}
-							{showQuarantaine && (
+							{c.reisschema__sneltest && (
 								<TravelAdvicePanel
 									title="Doe een sneltest"
 									subHeading="Max 4u voor vertrek"
@@ -312,11 +327,13 @@ const AdviceResult = ({
 						<TravelPlanStage
 							title="Thuiskomst"
 							subHeading={
-								showQuarantaine ? 'Start 10 dagen thuisquarantaine' : undefined
+								c.reisschema__thuisquarantaine
+									? 'Start 10 dagen thuisquarantaine'
+									: undefined
 							}
 							date={toDate}
 						>
-							{showQuarantaine && (
+							{c.reisschema__thuisquarantaine && (
 								<TravelAdvicePanel
 									title="Mogelijk klachten"
 									subHeading="Tot en met dag 10"
@@ -418,7 +435,7 @@ const AdviceResult = ({
 								</TravelAdvicePanel>
 							)}
 						</TravelPlanStage>
-						{showQuarantaine && (
+						{c.reisschema__thuisquarantaine && (
 							<TravelPlanStage
 								title="Einde thuisquarantaine"
 								date={toDate && addDays(toDate, 10)}
