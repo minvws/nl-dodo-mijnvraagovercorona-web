@@ -19,12 +19,12 @@ import React, { useRef, useState } from 'react';
 import { Box, Flex, jsx } from 'theme-ui';
 import { isBrowser } from 'utilities/is-browser';
 
-const MeansOfTransportPage = ({ destination }: { destination: string }) => {
-	const country = useDestination(destination as string);
+const MeansOfTransportPage = () => {
 	const formRef = useRef<HTMLFormElement>(null);
 	const {
 		setMeansOfTransport,
 		meansOfTransport,
+		destination,
 		from,
 		to,
 		stage,
@@ -46,10 +46,10 @@ const MeansOfTransportPage = ({ destination }: { destination: string }) => {
 
 		router.push(
 			getAdvicePath.result({
-				destination,
 				meansOfTransport,
 				// As string casting since we now for sure that
 				// we have from and to date here, otherwise a redirect would have occured.
+				destination: destination as string,
 				stage: stage as string,
 				fromDate: from as string,
 				toDate: to as string,
@@ -66,13 +66,16 @@ const MeansOfTransportPage = ({ destination }: { destination: string }) => {
 		setMeansOfTransport(selectedTransport);
 	};
 
-	if (!country) {
+	/**
+	 * If any of the
+	 */
+	if (!destination) {
 		if (isBrowser()) router.push(getAdvicePath.destination());
 		return null;
 	}
 
-	if (country && (!from || !to)) {
-		if (isBrowser()) router.push(getAdvicePath.period({ destination }));
+	if (destination && (!from || !to)) {
+		if (isBrowser()) router.push(getAdvicePath.period());
 		return null;
 	}
 
@@ -81,7 +84,7 @@ const MeansOfTransportPage = ({ destination }: { destination: string }) => {
 			<MetaTags
 				title="Planning | Quarantaine Reischeck | Rijksoverheid.nl"
 				description="Actuele informatie over bestemming en maatregelen."
-				url={`/${destination}/vervoersmiddel`}
+				url={`/vervoersmiddel`}
 			/>
 
 			<Page
@@ -159,28 +162,5 @@ const MeansOfTransportPage = ({ destination }: { destination: string }) => {
 		</>
 	);
 };
-
-export interface AdviceMeansOfTransportStaticProps {
-	params: {
-		destination: string;
-	};
-}
-
-export const getStaticProps = async ({
-	params,
-}: AdviceMeansOfTransportStaticProps) => {
-	return {
-		props: {
-			destination: params.destination,
-		},
-	};
-};
-
-export const getStaticPaths = () => ({
-	paths: countries.map((country) => ({
-		params: { destination: country.slug },
-	})),
-	fallback: false,
-});
 
 export default MeansOfTransportPage;

@@ -1,12 +1,17 @@
-interface UrlWithDestinationProperties {
+interface ResultUrlProperties {
 	destination: string;
-}
-
-interface ResultUrlProperties extends UrlWithDestinationProperties {
 	fromDate: string;
 	toDate: string;
 	meansOfTransport: string;
 	stage: string;
+}
+
+interface StepsUrlProperties {
+	destination?: string;
+	fromDate?: string;
+	toDate?: string;
+	meansOfTransport?: string;
+	stage?: string;
 }
 
 /**
@@ -15,10 +20,19 @@ interface ResultUrlProperties extends UrlWithDestinationProperties {
  */
 export const getAdvicePath = {
 	destination: () => '/bestemming',
-	period: ({ destination }: UrlWithDestinationProperties) =>
-		`/${destination}/periode`,
-	meansOfTransport: ({ destination }: UrlWithDestinationProperties) =>
-		`/${destination}/vervoersmiddel`,
+	period: () => `/periode`,
+	meansOfTransport: () => `/vervoersmiddel`,
+	steps: ({
+		destination,
+		fromDate,
+		toDate,
+		meansOfTransport,
+		stage,
+	}: StepsUrlProperties) => {
+		if (!destination) return '/bestemming';
+		if (!fromDate || !toDate || !stage) return '/periode';
+		if (!meansOfTransport) return '/vervoersmiddel';
+	},
 	result: ({
 		destination,
 		fromDate,

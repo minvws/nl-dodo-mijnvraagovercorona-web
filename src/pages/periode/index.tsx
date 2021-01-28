@@ -44,9 +44,11 @@ const calculateStage = ({
 	return 'na-thuiskomst';
 };
 
-const Period = ({ destination }: { destination: string }) => {
+const Period = () => {
+	const { destination, setFrom, setTo, setStage } = React.useContext(
+		AdviceContext,
+	);
 	const country = useDestination(destination as string);
-	const { setFrom, setTo, setStage } = React.useContext(AdviceContext);
 	const router = useRouter();
 	const submitRef = useRef<HTMLDivElement>(null);
 
@@ -74,7 +76,7 @@ const Period = ({ destination }: { destination: string }) => {
 		if (isAfterQuarantaine) {
 			setResultLink(getAdvicePath.noResult());
 		} else {
-			setResultLink(getAdvicePath.meansOfTransport({ destination }));
+			setResultLink(getAdvicePath.meansOfTransport());
 		}
 
 		if (setFrom) setFrom(formatDate(fromDate));
@@ -104,7 +106,7 @@ const Period = ({ destination }: { destination: string }) => {
 	};
 
 	if (!country) {
-		if (isBrowser()) router.push('/bestemming');
+		if (isBrowser()) router.push(getAdvicePath.destination());
 		return null;
 	}
 
@@ -113,7 +115,7 @@ const Period = ({ destination }: { destination: string }) => {
 			<MetaTags
 				title="Planning | Quarantaine Reischeck | Rijksoverheid.nl"
 				description="Actuele informatie over bestemming en maatregelen."
-				url={`/${destination}/periode`}
+				url={`/periode`}
 			/>
 
 			<Page
@@ -160,28 +162,5 @@ const Period = ({ destination }: { destination: string }) => {
 		</>
 	);
 };
-
-export interface AdviceDestinationStaticProps {
-	params: {
-		destination: string;
-	};
-}
-
-export const getStaticProps = async ({
-	params,
-}: AdviceDestinationStaticProps) => {
-	return {
-		props: {
-			destination: params.destination,
-		},
-	};
-};
-
-export const getStaticPaths = () => ({
-	paths: countries.map((country) => ({
-		params: { destination: country.slug },
-	})),
-	fallback: false,
-});
 
 export default Period;
