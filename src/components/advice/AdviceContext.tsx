@@ -5,7 +5,6 @@ export const meansOfTransport = [
 	'auto',
 	'trein',
 	'bus',
-	'ferry',
 	'anders',
 ] as const;
 

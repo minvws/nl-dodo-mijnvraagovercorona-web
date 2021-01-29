@@ -21,6 +21,7 @@ export interface GetTravelSchemeContentBlocksParams {
 	fromDate?: Date;
 	toDate?: Date;
 	coronaMelderCountry?: boolean;
+	transportRestrictions?: Array<string>;
 }
 
 /**

@@ -4,10 +4,9 @@
  */
 
 import { MeansOfTransport, TravelStage } from 'components/advice/AdviceContext';
-import { RiskLevel } from 'config/countries';
+import { RiskLevel, TransportRestrictions } from 'config/countries';
 import { GetTravelSchemeContentBlocksParams } from './travel-advice';
-import { isBefore } from 'date-fns';
-import { addDays } from 'utilities/dateUtils';
+import { isBefore, addDays, subDays } from 'date-fns';
 
 export type ShowBlockFunction<InputType extends unknown> = (
 	options: InputType,
@@ -55,8 +54,26 @@ export const maxDaysAfterToDate: ShowBlockFunction<number> = (maxDays) => ({
 }) => (toDate ? isBefore(new Date(), addDays(toDate, maxDays)) : false);
 
 /**
+ * Function that accept a number of days, ensuring that that Today date
+ * is not more than maxDays before the travel fromDate.
+ */
+export const maxDaysBeforeFromDate: ShowBlockFunction<number> = (maxDays) => ({
+	fromDate,
+}) => (fromDate ? isBefore(new Date(), subDays(fromDate, maxDays)) : false);
+
+/**
  * Function that ensures the current country is a coronamelder country.
  */
 export const coronaMelderCountry: ShowBlockFunction<boolean> = (bool) => ({
 	coronaMelderCountry,
 }) => coronaMelderCountry === bool;
+
+/**
+ * Function that ensures the current country has a certain transport restriction.
+ */
+export const hasTransportRestriction: ShowBlockFunction<TransportRestrictions> = (
+	allOfTheseTransportRestrictions,
+) => ({ transportRestrictions }) =>
+	allOfTheseTransportRestrictions.every((transportMode) =>
+		transportRestrictions?.includes(transportMode),
+	);

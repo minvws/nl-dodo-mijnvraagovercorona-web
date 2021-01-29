@@ -25,6 +25,8 @@ import Feedback from 'components/feedback/Feedback';
 import AdviceContext, {
 	MeansOfTransport,
 	meansOfTransport,
+	travelStage,
+	TravelStage,
 } from 'components/advice/AdviceContext';
 import { Content, Hero, Page } from 'components/structure/Page';
 import ExpansionPanel from 'components/structure/ExpansionPanel';
@@ -72,6 +74,7 @@ const AdviceResult = ({
 		currentCategory: country?.riskLevel,
 		currentMeansOfTransport: meansOfTransport,
 		coronaMelderCountry: country?.coronaMelderCountry,
+		transportRestrictions: country?.transportRestrictions,
 	});
 
 	const showPreperation = stage === 'voor-vertrek';
@@ -97,9 +100,6 @@ const AdviceResult = ({
 
 	const showContactWithSymptoms = duringOrAfter;
 
-	const showNoFlyBanner = !!country?.transportRestrictions.length;
-	const noBoatMessage = country?.transportRestrictions.includes('boat');
-
 	// @TODO: Do this in a different place where it makes sense.
 	let color: Color = 'red';
 	if (country?.riskLevel === RiskLevel.B_RISICOVOL_INREISBEPERKINGEN) {
@@ -108,6 +108,11 @@ const AdviceResult = ({
 	if (country?.riskLevel === RiskLevel.C_VEILIGE_LIJST) {
 		color = 'yellow';
 	}
+
+	console.log({
+		agenda__reischeckOpnieuwInvullen: c.agenda__reischeckOpnieuwInvullen,
+		showSecondCheckCalenderInvite,
+	});
 
 	/**
 	 * Update the AdviceContext so when landing on a results page and skipping the period and destination pages
@@ -220,7 +225,7 @@ const AdviceResult = ({
 				</Hero>
 				<Content>
 					Je reist met {meansOfTransport}
-					{showNoFlyBanner && (
+					{c.banner__vliegtuigEnFerryVerbod && (
 						<div sx={{ marginBottom: ['36px', '44px'] }}>
 							<Card
 								image="/images/Vliegtuig_streep.svg"
@@ -228,11 +233,21 @@ const AdviceResult = ({
 									backgroundPositionX: '5px',
 									backgroundPositionY: '22px',
 								}}
-								title={
-									noBoatMessage
-										? 'Er geldt een vlieg- en aanmeerverbod vanuit je bestemming naar Nederland.'
-										: 'Er geldt een vliegverbod vanuit je bestemming naar Nederland.'
-								}
+								title="Er geldt een vlieg- en aanmeerverbod vanuit je bestemming naar Nederland."
+								href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/vliegverbod-en-aanmeerverbod"
+								external
+							/>
+						</div>
+					)}
+					{c.banner__vliegtuigVerbod && !c.banner__vliegtuigEnFerryVerbod && (
+						<div sx={{ marginBottom: ['36px', '44px'] }}>
+							<Card
+								image="/images/Vliegtuig_streep.svg"
+								imagePosition={{
+									backgroundPositionX: '5px',
+									backgroundPositionY: '22px',
+								}}
+								title="Er geldt een vliegverbod vanuit je bestemming naar Nederland."
 								href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/vliegverbod-en-aanmeerverbod"
 								external
 							/>
@@ -562,12 +577,10 @@ export const getStaticProps = async ({
 	};
 };
 
-const stages = ['voor-vertrek', 'tijdens-je-reis', 'na-thuiskomst'];
-
 export const getStaticPaths = () => ({
 	paths: cartesianProduct(
 		countries.map((country) => `${country.slug}`),
-		stages,
+		travelStage.map((stage) => `${stage}`),
 		meansOfTransport.map((means) => `${means}`),
 	).map(([destination, stage, meansOfTransport]: string[]) => ({
 		params: { destination, stage, meansOfTransport },

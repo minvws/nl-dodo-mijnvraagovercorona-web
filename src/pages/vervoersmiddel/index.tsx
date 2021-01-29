@@ -138,12 +138,6 @@ const MeansOfTransportPage = () => {
 						/>
 						<RadioButton<MeansOfTransport>
 							name="meansOfTransport"
-							label="Met de ferry (boot)"
-							value="ferry"
-							onChange={handleMeansOfTransportSelect}
-						/>
-						<RadioButton<MeansOfTransport>
-							name="meansOfTransport"
 							label="Ik reis op een andere manier terug naar Nederland"
 							value="anders"
 							onChange={handleMeansOfTransportSelect}

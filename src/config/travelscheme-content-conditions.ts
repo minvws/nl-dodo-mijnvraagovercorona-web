@@ -9,6 +9,8 @@ import {
 	meansOfTransport,
 	coronaMelderCountry,
 	maxDaysAfterToDate,
+	hasTransportRestriction,
+	maxDaysBeforeFromDate,
 } from 'utilities/travel-advice/conditions';
 
 /**
@@ -21,27 +23,11 @@ const allCountriesExceptB: RiskLevel[] = [
 	RiskLevel.D_EU_INREISVERBOD,
 ];
 
-const allMeansOfTransport: MeansOfTransport[] = [
-	'vliegtuig',
-	'auto',
-	'trein',
-	'bus',
-	'ferry',
-	'anders',
-];
-
 const allMeansOfTransportExceptCar: MeansOfTransport[] = [
 	'vliegtuig',
 	'trein',
 	'bus',
-	'ferry',
 	'anders',
-];
-
-const allTravelStages: TravelStage[] = [
-	'voor-vertrek',
-	'tijdens-je-reis',
-	'na-thuiskomst',
 ];
 
 /**
@@ -58,57 +44,74 @@ const allTravelStages: TravelStage[] = [
  * should not be used directly, but is consumed via getTravelSchemeContentBlocks()
  */
 export const travelAdviceConfiguration = {
-	// Travel Scheme
+	/* Travel Scheme */
 	reisschema__downloadReisApp: [
 		countryCategory(allCountriesExceptB),
-		meansOfTransport(allMeansOfTransport),
 		travelStage(['voor-vertrek']),
 	],
 	reisschema__coronaMelder: [
-		meansOfTransport(allMeansOfTransport),
 		travelStage(['voor-vertrek']),
 		coronaMelderCountry(true),
 	],
 	reisschema__voorbereidenThuisQuarantaine: [
 		countryCategory([RiskLevel.A_RISICOVOL, RiskLevel.D_EU_INREISVERBOD]),
-		meansOfTransport(allMeansOfTransport),
 		travelStage(['voor-vertrek']),
 	],
 	reisschema__reisadvies: [
 		countryCategory(allCountriesExceptB),
-		meansOfTransport(allMeansOfTransport),
-		travelStage(allTravelStages),
 		maxDaysAfterToDate(10),
 	],
 	reisschema__pcrtest: [
 		countryCategory([RiskLevel.A_RISICOVOL]),
 		meansOfTransport(allMeansOfTransportExceptCar),
-		travelStage(allTravelStages),
 		maxDaysAfterToDate(10),
 	],
 	reisschame__pcrtest_en_verklaring: [
 		countryCategory([RiskLevel.D_EU_INREISVERBOD]),
 		meansOfTransport(allMeansOfTransportExceptCar),
-		travelStage(allTravelStages),
 		maxDaysAfterToDate(10),
 	],
 	reisschema__sneltest: [
 		countryCategory([RiskLevel.A_RISICOVOL, RiskLevel.D_EU_INREISVERBOD]),
-		meansOfTransport(['vliegtuig', 'ferry']),
-		travelStage(allTravelStages),
+		meansOfTransport(['vliegtuig']),
 		maxDaysAfterToDate(10),
 	],
 	reisschema__gezondheidsverklaring: [
 		countryCategory(allCountriesExceptB),
 		meansOfTransport(['vliegtuig']),
-		travelStage(allTravelStages),
 		maxDaysAfterToDate(10),
 	],
 	reisschema__thuisquarantaine: [
 		countryCategory([RiskLevel.A_RISICOVOL, RiskLevel.D_EU_INREISVERBOD]),
-		meansOfTransport(allMeansOfTransport),
-		travelStage(allTravelStages),
 		maxDaysAfterToDate(10),
 	],
-	//
+
+	/* Banners */
+	banner__vliegtuigVerbod: [hasTransportRestriction(['vliegtuig'])],
+
+	banner__vliegtuigEnFerryVerbod: [
+		hasTransportRestriction(['vliegtuig', 'ferry']),
+	],
+
+	/* Agenda */
+	agenda__reischeckOpnieuwInvullen: [
+		travelStage(['voor-vertrek']),
+		maxDaysBeforeFromDate(7),
+	],
+	agenda__thuisQuarantaine: [
+		countryCategory([RiskLevel.A_RISICOVOL, RiskLevel.D_EU_INREISVERBOD]),
+		maxDaysAfterToDate(10),
+	],
+
+	/* GGD sectie */
+	ggd__afspraakMakenNietMogelijk: [
+		countryCategory([RiskLevel.A_RISICOVOL, RiskLevel.D_EU_INREISVERBOD]),
+		travelStage(['tijdens-je-reis']),
+	],
+	ggd__afspraakMakenAlleenTelefonisch: [
+		countryCategory([RiskLevel.A_RISICOVOL, RiskLevel.D_EU_INREISVERBOD]),
+		travelStage(['na-thuiskomst']),
+		maxDaysAfterToDate(4),
+	],
+	ggd__alleOpties: [],
 };
