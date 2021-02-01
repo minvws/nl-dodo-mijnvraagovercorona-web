@@ -141,6 +141,12 @@ const TestBooking = ({
 		? differenceInDays(new Date(), toDate) + 1
 		: -1;
 
+	const showTitle =
+		contentBlocks.afspraak_coronatest__nog_niet_mogelijk ||
+		contentBlocks.afspraak_coronatest__niet_online_wel_telefonisch ||
+		contentBlocks.afspraak_coronatest__online_en_telefonisch ||
+		contentBlocks.afspraak_coronatest__heb_je_klachten_after_5_days;
+
 	return (
 		<div
 			sx={{
@@ -149,7 +155,7 @@ const TestBooking = ({
 				paddingTop: !quarantaine ? '36px' : 0,
 			}}
 		>
-			{quarantaineDay <= 5 && (
+			{showTitle && (
 				<h2
 					sx={{
 						color: 'header',
