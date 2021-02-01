@@ -1,7 +1,7 @@
 interface ResultUrlProperties {
 	destination: string;
-	fromDate: string;
-	toDate: string;
+	fromDate?: string;
+	toDate?: string;
 	meansOfTransport: string;
 	stage: string;
 }
@@ -12,6 +12,10 @@ interface StepsUrlProperties {
 	toDate?: string;
 	meansOfTransport?: string;
 	stage?: string;
+}
+
+interface NoResultUrlProperties {
+	destination: string;
 }
 
 /**
@@ -39,7 +43,13 @@ export const getAdvicePath = {
 		toDate,
 		meansOfTransport,
 		stage,
-	}: ResultUrlProperties) =>
-		`/${destination}/${meansOfTransport}/${stage}?van=${fromDate}&tot=${toDate}`,
-	noResult: () => '/geen-advies',
+	}: ResultUrlProperties): {
+		pathname: string;
+		query: { van?: string; tot?: string };
+	} => ({
+		pathname: `/${destination}/${meansOfTransport}/${stage}`,
+		query: { van: fromDate, tot: toDate },
+	}),
+	noResult: ({ destination }: NoResultUrlProperties) =>
+		`/${destination}/geen-advies`,
 };

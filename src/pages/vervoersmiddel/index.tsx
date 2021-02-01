@@ -85,7 +85,7 @@ const MeansOfTransportPage = () => {
 			<MetaTags
 				title="Planning | Quarantaine Reischeck | Rijksoverheid.nl"
 				description="Actuele informatie over bestemming en maatregelen."
-				url={`/vervoersmiddel`}
+				url="/vervoersmiddel"
 			/>
 
 			<Page

@@ -21,7 +21,7 @@ const FAQ = ({ destination }: FAQProps) => {
 			<MetaTags
 				title="Veelgestelde vragen | Quarantaine Reischeck | Rijksoverheid.nl"
 				description="Overzicht van veelgestelde vragen over quarantaine en reizen."
-				url="/faq"
+				url={`/${country?.slug}/faq`}
 			/>
 
 			<Page
