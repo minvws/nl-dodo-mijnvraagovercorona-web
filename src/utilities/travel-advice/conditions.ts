@@ -6,7 +6,7 @@
 import { MeansOfTransport, TravelStage } from 'components/advice/AdviceContext';
 import { RiskLevel, TransportRestrictions } from 'config/countries';
 import { GetTravelSchemeContentBlocksParams } from './travel-advice';
-import { differenceInDays, isBefore } from 'date-fns';
+import { differenceInDays, isAfter, isBefore } from 'date-fns';
 import { addDays } from 'utilities/dateUtils';
 
 export type ShowBlockFunction<InputType extends unknown> = (
@@ -95,3 +95,9 @@ export const travelRestriction: ShowBlockFunction<TransportRestrictions> = (
 			transportRestrictions &&
 			transportRestrictions.indexOf(transportType) > -1,
 	);
+
+export const beforeDate: ShowBlockFunction<Date> = (date) => ({ fromDate }) =>
+	fromDate ? isBefore(fromDate, date) : false;
+
+export const afterDate: ShowBlockFunction<Date> = (date) => ({ fromDate }) =>
+	fromDate ? isAfter(fromDate, date) : false;
