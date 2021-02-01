@@ -9,6 +9,8 @@ import {
 	travelRestriction,
 	minDaysBeforeFromDate,
 	minDaysHome,
+	beforeDate,
+	afterDate,
 } from 'utilities/travel-advice/conditions';
 
 /**
@@ -42,6 +44,42 @@ const allMeansOfTransportExceptCar: MeansOfTransport[] = [
  * should not be used directly, but is consumed via getTravelSchemeContentBlocks()
  */
 export const travelAdviceConfiguration = {
+	/* Bullets */
+	bullets__tm_31maart_niet_reizen: [
+		countryCategory(allCountriesExceptB),
+		travelStage(['voor-vertrek']),
+		// Month is April here, but JS Months are 0 based.
+		beforeDate(new Date(2021, 3, 1)),
+	],
+	bullets__na_31maart_reizen_onzeker: [
+		countryCategory(allCountriesExceptB),
+		travelStage(['voor-vertrek']),
+		// Month is March here, but JS Months are 0 based.
+		afterDate(new Date(2021, 2, 31)),
+	],
+	bullets__na_reis_10dgn_thuisquarantaine: [
+		countryCategory([RiskLevel.A_RISICOVOL, RiskLevel.D_EU_INREISVERBOD]),
+		travelStage(['voor-vertrek']),
+	],
+	bullets__ga_10dgn_thuisquarantaine: [
+		countryCategory([RiskLevel.A_RISICOVOL, RiskLevel.D_EU_INREISVERBOD]),
+		travelStage(['tijdens-je-reis', 'na-thuiskomst']),
+		maxDaysHome(10),
+	],
+	bullets__geen_thuisquarantaine: [
+		countryCategory([RiskLevel.C_VEILIGE_LIJST]),
+		maxDaysHome(10),
+	],
+	bullets__verhoogd_risico: [
+		countryCategory([RiskLevel.A_RISICOVOL, RiskLevel.D_EU_INREISVERBOD]),
+		travelStage(['tijdens-je-reis', 'na-thuiskomst']),
+		maxDaysHome(10),
+	],
+	bullets__laag_risico: [
+		countryCategory([RiskLevel.C_VEILIGE_LIJST]),
+		travelStage(['tijdens-je-reis', 'na-thuiskomst']),
+		maxDaysHome(10),
+	],
 	/* Travel Scheme */
 	reisschema__downloadReisApp: [
 		countryCategory(allCountriesExceptB),

@@ -136,74 +136,45 @@ const AdviceResult = ({
 							},
 						}}
 					>
-						{/* RISK LEVEL */}
-						{!duringOrAfter ? (
-							isAfter(fromDate as Date, new Date(2021, 3, 1)) ? (
-								<li>
-									Het is <strong>onzeker</strong> of reizen na 31 maart mogelijk
-									is. Houd de berichtgeving van de overheid in de gaten.
-								</li>
-							) : (
-								<li>
-									Tot en met 31 maart <strong>niet reizen</strong>. Maak alleen
-									echt noodzakelijke reizen. Daar vallen vakanties bijvoorbeeld
-									niet onder.
-								</li>
-							)
-						) : (
+						{c.bullets__na_31maart_reizen_onzeker && (
 							<li>
-								Er is een {color === 'yellow' ? 'laag' : 'verhoogd'} risico dat
-								je <strong>besmet</strong> bent geraakt.
+								Het is <strong>onzeker</strong> of reizen na 31 maart mogelijk
+								is. Houd de berichtgeving van de overheid in de gaten.
 							</li>
 						)}
-
-						{/* NEGATIVE TEST RESULT / DECLARATION */}
-						{showNegativeTestResult && (
+						{c.bullets__tm_31maart_niet_reizen && (
 							<li>
-								Voor je vliegreis terug naar Nederland heb je{' '}
-								<strong>twee negatieve testuitslagen</strong> nodig. Reis je
-								anders, kijk dan{' '}
-								<a
-									href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/reizen-naar-nederland-checklist"
-									target="_blank"
-									rel="noopener noreferrer"
-								>
-									hier
-								</a>
-								.
+								Tot en met 31 maart <strong>niet reizen</strong>. Maak alleen
+								echt noodzakelijke reizen. Daar vallen vakanties bijvoorbeeld
+								niet onder.
 							</li>
 						)}
-						{showNegativeTestDeclaration && (
+						{c.bullets__verhoogd_risico && (
 							<li>
-								Voor je vliegreis terug naar Nederland heb je{' '}
-								<strong>twee negatieve testuitslagen</strong> en een{' '}
-								<strong>verklaring</strong> nodig. Reis je anders, kijk dan{' '}
-								<a
-									href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/reizen-naar-nederland-checklist"
-									target="_blank"
-									rel="noopener noreferrer"
-								>
-									hier
-								</a>
-								.
+								Er is een verhoogd risico dat je <strong>besmet</strong> bent
+								geraakt.
 							</li>
 						)}
-
-						{/* QUARANTAINE */}
-						{!showQuarantaine && (
+						{c.bullets__laag_risico && (
 							<li>
-								Je hoeft <strong>niet 10 dagen in thuisquarantaine</strong> na
-								je reis. Deze situatie kan tijdens je reis veranderen.
+								Er is een laag risico dat je <strong>besmet</strong> bent
+								geraakt
 							</li>
 						)}
-						{showQuarantaine && showPreperation && (
+						{c.bullets__na_reis_10dgn_thuisquarantaine && (
 							<li>
 								Je gaat na je reis <strong>10 dagen in thuisquarantaine</strong>
 								. Bereid je goed voor. De situatie kan tijdens je reis
 								veranderen.
 							</li>
 						)}
-						{showQuarantaine && duringOrAfter && (
+						{c.bullets__geen_thuisquarantaine && (
+							<li>
+								Je hoeft <strong>niet 10 dagen in thuisquarantaine</strong> na
+								je reis. Deze situatie kan tijdens je reis veranderen.
+							</li>
+						)}
+						{c.bullets__ga_10dgn_thuisquarantaine && (
 							<li>
 								Ga <strong>10 dagen in thuisquarantaine</strong>.
 							</li>
