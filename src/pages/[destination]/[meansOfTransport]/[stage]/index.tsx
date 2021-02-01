@@ -25,11 +25,14 @@ import Feedback from 'components/feedback/Feedback';
 import AdviceContext, {
 	MeansOfTransport,
 	meansOfTransport,
+	travelStage,
+	TravelStage,
 } from 'components/advice/AdviceContext';
 import { Content, Hero, Page } from 'components/structure/Page';
 import ExpansionPanel from 'components/structure/ExpansionPanel';
 import { Card } from 'components/card';
 import { cartesianProduct } from 'utilities/pathUtils';
+import { getTravelSchemeContentBlocks } from 'utilities/travel-advice';
 
 type Stage = 'voor-vertrek' | 'tijdens-je-reis' | 'na-thuiskomst';
 type Color = 'yellow' | 'orange' | 'red';
@@ -63,10 +66,18 @@ const AdviceResult = ({
 	const toDate: Date | undefined = tot ? parseDate(tot) : undefined;
 	const [showDialog, setShowDialog] = useState(false);
 
-	const showPreperation = stage === 'voor-vertrek';
-	const showCoronamelderApp = country?.coronaMelderCountry;
+	// Gets show/hide booleans for all content blocks.
+	const c = getTravelSchemeContentBlocks({
+		fromDate,
+		toDate,
+		currentTravelStage: stage,
+		currentCategory: country?.riskLevel,
+		currentMeansOfTransport: meansOfTransport,
+		coronaMelderCountry: country?.coronaMelderCountry,
+		transportRestrictions: country?.transportRestrictions,
+	});
 
-	const showDeparture = stage === 'voor-vertrek' || stage === 'tijdens-je-reis';
+	const showPreperation = stage === 'voor-vertrek';
 	const duringOrAfter =
 		stage === 'tijdens-je-reis' || stage === 'na-thuiskomst';
 
@@ -80,14 +91,6 @@ const AdviceResult = ({
 	const showQuarantaine =
 		country?.riskLevel === RiskLevel.A_RISICOVOL ||
 		country?.riskLevel === RiskLevel.D_EU_INREISVERBOD;
-
-	const showSecondCheckCalenderInvite =
-		stage === 'voor-vertrek' && isMoreThanWeekBeforeDeparture(fromDate);
-
-	const showContactWithSymptoms = duringOrAfter;
-
-	const showNoFlyBanner = !!country?.transportRestrictions.length;
-	const noBoatMessage = country?.transportRestrictions.includes('boat');
 
 	// @TODO: Do this in a different place where it makes sense.
 	let color: Color = 'red';
@@ -157,15 +160,32 @@ const AdviceResult = ({
 						{/* NEGATIVE TEST RESULT / DECLARATION */}
 						{showNegativeTestResult && (
 							<li>
-								Voor je terugreis naar Nederland heb je{' '}
-								<strong>twee negatieve testuitslagen</strong> nodig.
+								Voor je vliegreis terug naar Nederland heb je{' '}
+								<strong>twee negatieve testuitslagen</strong> nodig. Reis je
+								anders, kijk dan{' '}
+								<a
+									href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/reizen-naar-nederland-checklist"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									hier
+								</a>
+								.
 							</li>
 						)}
 						{showNegativeTestDeclaration && (
 							<li>
-								Voor je terugreis naar Nederland heb je{' '}
+								Voor je vliegreis terug naar Nederland heb je{' '}
 								<strong>twee negatieve testuitslagen</strong> en een{' '}
-								<strong>verklaring</strong> nodig.
+								<strong>verklaring</strong> nodig. Reis je anders, kijk dan{' '}
+								<a
+									href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/reizen-naar-nederland-checklist"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									hier
+								</a>
+								.
 							</li>
 						)}
 
@@ -191,8 +211,8 @@ const AdviceResult = ({
 					</ul>
 				</Hero>
 				<Content>
-					Je reist met {meansOfTransport}
-					{showNoFlyBanner && (
+					{(c.banner__airboattravel_restriction ||
+						c.banner__airtravel_restriction) && (
 						<div sx={{ marginBottom: ['36px', '44px'] }}>
 							<Card
 								image="/images/Vliegtuig_streep.svg"
@@ -201,7 +221,7 @@ const AdviceResult = ({
 									backgroundPositionY: '22px',
 								}}
 								title={
-									noBoatMessage
+									c.banner__airboattravel_restriction
 										? 'Er geldt een vlieg- en aanmeerverbod vanuit je bestemming naar Nederland.'
 										: 'Er geldt een vliegverbod vanuit je bestemming naar Nederland.'
 								}
@@ -227,19 +247,21 @@ const AdviceResult = ({
 							margin: 0,
 						}}
 					>
-						{stage === 'voor-vertrek' && (
+						{(c.reisschema__downloadReisApp || c.reisschema__coronaMelder) && (
 							<TravelPlanStage
 								title="Voorbereiding"
 								subHeading="Laat je niet verrassen"
 								date={new Date()}
 							>
-								<TravelAdvicePanel title="Blijf op de hoogte van de laatste ontwikkelingen op je bestemming">
-									<TravelInformationLink
-										href="https://www.nederlandwereldwijd.nl/documenten/vragen-en-antwoorden/reis-app-buitenlandse-zaken"
-										text="Download de reisapp"
-									/>
-								</TravelAdvicePanel>
-								{showCoronamelderApp && (
+								{c.reisschema__downloadReisApp && (
+									<TravelAdvicePanel title="Blijf op de hoogte van de laatste ontwikkelingen op je bestemming">
+										<TravelInformationLink
+											href="https://www.nederlandwereldwijd.nl/documenten/vragen-en-antwoorden/reis-app-buitenlandse-zaken"
+											text="Download de reisapp"
+										/>
+									</TravelAdvicePanel>
+								)}
+								{c.reisschema__coronaMelder && (
 									<TravelAdvicePanel
 										title={`Wist je dat de CoronaMelder ook werkt in ${country?.fullName}?`}
 									>
@@ -258,19 +280,21 @@ const AdviceResult = ({
 							subHeading={country?.fullName}
 							date={fromDate}
 						>
-							<TravelAdvicePanel
-								title="Code oranje"
-								subHeading={duringOrAfter ? 'Totale reisduur' : 'Nu'}
-							>
-								Naast het coronarisico gelden er mogelijk inreisbeperkingen of
-								veiligheidsrisico's in {country?.fullName}.
-								<br />
-								<TravelInformationLink
-									href={`https://www.nederlandwereldwijd.nl/landen/${country?.slug}/reizen/reisadvies`}
-									text="Uitgebreid reisadvies"
-								/>
-							</TravelAdvicePanel>
-							{showNegativeTestResult && (
+							{c.reisschema__reisadvies && (
+								<TravelAdvicePanel
+									title="Code oranje"
+									subHeading={duringOrAfter ? 'Totale reisduur' : 'Nu'}
+								>
+									Naast het coronarisico gelden er mogelijk inreisbeperkingen of
+									veiligheidsrisico's in {country?.fullName}.
+									<br />
+									<TravelInformationLink
+										href={`https://www.nederlandwereldwijd.nl/landen/${country?.slug}/reizen/reisadvies`}
+										text="Uitgebreid reisadvies"
+									/>
+								</TravelAdvicePanel>
+							)}
+							{c.reisschema__pcrtest && (
 								<TravelAdvicePanel
 									title="Laat je testen"
 									subHeading="Max 72u voor vertrek"
@@ -283,7 +307,7 @@ const AdviceResult = ({
 									/>
 								</TravelAdvicePanel>
 							)}
-							{showNegativeTestDeclaration && (
+							{c.reisschame__pcrtest_en_verklaring && (
 								<TravelAdvicePanel
 									title="Laat je testen"
 									subHeading="Max 72u voor vertrek"
@@ -294,7 +318,7 @@ const AdviceResult = ({
 									<TravelInformationLink href="" text="Meer informatie" />
 								</TravelAdvicePanel>
 							)}
-							{showQuarantaine && (
+							{c.reisschema__sneltest && (
 								<TravelAdvicePanel
 									title="Doe een sneltest"
 									subHeading="Max 4u voor vertrek"
@@ -312,11 +336,13 @@ const AdviceResult = ({
 						<TravelPlanStage
 							title="Thuiskomst"
 							subHeading={
-								showQuarantaine ? 'Start 10 dagen thuisquarantaine' : undefined
+								c.reisschema__thuisquarantaine
+									? 'Start 10 dagen thuisquarantaine'
+									: undefined
 							}
 							date={toDate}
 						>
-							{showQuarantaine && (
+							{c.reisschema__thuisquarantaine && (
 								<TravelAdvicePanel
 									title="Mogelijk klachten"
 									subHeading="Tot en met dag 10"
@@ -418,14 +444,14 @@ const AdviceResult = ({
 								</TravelAdvicePanel>
 							)}
 						</TravelPlanStage>
-						{showQuarantaine && (
+						{c.reisschema__thuisquarantaine && (
 							<TravelPlanStage
 								title="Einde thuisquarantaine"
 								date={toDate && addDays(toDate, 10)}
 							/>
 						)}
 					</Container>
-					{showSecondCheckCalenderInvite && fromDate && (
+					{c.agenda__reischeck_opnieuw_invullen && fromDate && (
 						<Box sx={{ marginTop: ['10px', '60px'] }}>
 							<ReminderCalendarInvite
 								title="Zet 'Reischeck opnieuw invullen' in je agenda"
@@ -457,27 +483,35 @@ const AdviceResult = ({
 							</Container>
 						</Box>
 					)}
-					{showContactWithSymptoms && toDate && (
-						<TestBooking toDate={toDate} quarantaine={showQuarantaine} />
+					{toDate && (
+						<TestBooking
+							contentBlocks={c}
+							toDate={toDate}
+							quarantaine={showQuarantaine}
+						/>
 					)}
-					<h2
-						sx={{
-							paddingTop: ['36px', '44px'],
-							color: 'header',
-							fontSize: ['h2Mobile', 'h2'],
-						}}
-					>
-						Zo kom je de thuisquarantaine goed door
-					</h2>
-					<Card
-						image="/images/Banner_we_helpen_jeRetina.svg"
-						imagePosition={{
-							backgroundPositionX: '-10px',
-						}}
-						title="Wat moet ik regelen voor mijn thuisquarantaine?"
-						href="/voorbereiding"
-					/>
-					{showQuarantaine && toDate && (
+					{c.banner__thuisquarantaine && (
+						<>
+							<h2
+								sx={{
+									paddingTop: ['36px', '44px'],
+									color: 'header',
+									fontSize: ['h2Mobile', 'h2'],
+								}}
+							>
+								Zo kom je de thuisquarantaine goed door
+							</h2>
+							<Card
+								image="/images/Banner_we_helpen_jeRetina.svg"
+								imagePosition={{
+									backgroundPositionX: '-10px',
+								}}
+								title="Wat moet ik regelen voor mijn thuisquarantaine?"
+								href="/voorbereiding"
+							/>
+						</>
+					)}
+					{c.agenda__zet_thuisquarantaine_in_agenda && toDate && (
 						<ReminderCalendarInvite
 							title="Zet je thuisquarantaine in je agenda"
 							modalTitle="Thuisquarantaine in agenda"
@@ -528,12 +562,10 @@ export const getStaticProps = async ({
 	};
 };
 
-const stages = ['voor-vertrek', 'tijdens-je-reis', 'na-thuiskomst'];
-
 export const getStaticPaths = () => ({
 	paths: cartesianProduct(
 		countries.map((country) => `${country.slug}`),
-		stages,
+		travelStage.map((stage) => `${stage}`),
 		meansOfTransport.map((means) => `${means}`),
 	).map(([destination, stage, meansOfTransport]: string[]) => ({
 		params: { destination, stage, meansOfTransport },

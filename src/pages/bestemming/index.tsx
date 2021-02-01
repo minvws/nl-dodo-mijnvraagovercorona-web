@@ -32,7 +32,7 @@ const Destination = () => {
 		if (!destination) return;
 
 		setDestination(destination);
-		router.push(getAdvicePath.period({ destination }));
+		router.push(getAdvicePath.period());
 	};
 
 	return (

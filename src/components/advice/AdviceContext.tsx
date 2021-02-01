@@ -5,17 +5,24 @@ export const meansOfTransport = [
 	'auto',
 	'trein',
 	'bus',
-	'ferry',
 	'anders',
 ] as const;
 
 export type MeansOfTransport = typeof meansOfTransport[number];
 
+export const travelStage = [
+	'voor-vertrek',
+	'tijdens-je-reis',
+	'na-thuiskomst',
+] as const;
+
+export type TravelStage = typeof travelStage[number];
+
 interface AdviesContextState {
 	// @TODO: Check waarom Bart alle set methods optional gemaakt heeft.
 	destination?: string;
 	setDestination: Function;
-	stage?: string;
+	stage?: TravelStage;
 	setStage?: Function;
 	from?: string;
 	setFrom?: Function;
