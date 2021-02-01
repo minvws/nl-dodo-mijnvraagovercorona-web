@@ -49,18 +49,24 @@ export const travelStage: ShowBlockFunction<TravelStage[]> = (
 /**
  * Function that accept a number of days, ensuring that that Today date
  * is more or equal than minDays AFTER the travel toDate.
+ *
+ * Difference in days adds +1 since your first day at home (day 0), is
+ * actually day 1 of your quarantaine.
  */
-export const minDaysAfterToDate: ShowBlockFunction<number> = (minDays) => ({
+export const minDaysHome: ShowBlockFunction<number> = (minDays) => ({
 	toDate,
-}) => (toDate ? differenceInDays(new Date(), toDate) >= minDays : false);
+}) => (toDate ? differenceInDays(new Date(), toDate) + 1 >= minDays : false);
 
 /**
  * Function that accept a number of days, ensuring that that Today date
  * is not more than maxDays past the travel toDate.
+ *
+ * Difference in days adds +1 since your first day at home (day 0), is
+ * actually day 1 of your quarantaine.
  */
-export const maxDaysAfterToDate: ShowBlockFunction<number> = (maxDays) => ({
+export const maxDaysHome: ShowBlockFunction<number> = (maxDays) => ({
 	toDate,
-}) => (toDate ? differenceInDays(new Date(), toDate) <= maxDays : false);
+}) => (toDate ? differenceInDays(new Date(), toDate) + 1 <= maxDays : false);
 
 /**
  * Function that accept a number of days, ensuring that that Today date
@@ -71,7 +77,7 @@ export const minDaysBeforeFromDate: ShowBlockFunction<number> = (minDays) => ({
 }) => (fromDate ? differenceInDays(fromDate, new Date()) >= minDays : false);
 
 /**
- * Function that ensures the current country is a coronamelder country.
+ * Function that ensures the current country is  a coronamelder country.
  */
 export const coronaMelderCountry: ShowBlockFunction<boolean> = (bool) => ({
 	coronaMelderCountry,

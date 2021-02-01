@@ -5,10 +5,10 @@ import {
 	travelStage,
 	meansOfTransport,
 	coronaMelderCountry,
-	maxDaysAfterToDate,
+	maxDaysHome,
 	travelRestriction,
 	minDaysBeforeFromDate,
-	minDaysAfterToDate,
+	minDaysHome,
 } from 'utilities/travel-advice/conditions';
 
 /**
@@ -57,31 +57,31 @@ export const travelAdviceConfiguration = {
 	],
 	reisschema__reisadvies: [
 		countryCategory(allCountriesExceptB),
-		maxDaysAfterToDate(10),
+		maxDaysHome(10),
 	],
 	reisschema__pcrtest: [
 		countryCategory([RiskLevel.A_RISICOVOL]),
 		meansOfTransport(allMeansOfTransportExceptCar),
-		maxDaysAfterToDate(10),
+		maxDaysHome(10),
 	],
 	reisschame__pcrtest_en_verklaring: [
 		countryCategory([RiskLevel.D_EU_INREISVERBOD]),
 		meansOfTransport(allMeansOfTransportExceptCar),
-		maxDaysAfterToDate(10),
+		maxDaysHome(10),
 	],
 	reisschema__sneltest: [
 		countryCategory([RiskLevel.A_RISICOVOL, RiskLevel.D_EU_INREISVERBOD]),
 		meansOfTransport(['vliegtuig']),
-		maxDaysAfterToDate(10),
+		maxDaysHome(10),
 	],
 	reisschema__gezondheidsverklaring: [
 		countryCategory(allCountriesExceptB),
 		meansOfTransport(['vliegtuig']),
-		maxDaysAfterToDate(10),
+		maxDaysHome(10),
 	],
 	reisschema__thuisquarantaine: [
 		countryCategory([RiskLevel.A_RISICOVOL, RiskLevel.D_EU_INREISVERBOD]),
-		maxDaysAfterToDate(10),
+		maxDaysHome(10),
 	],
 	// Other widgets
 	banner__airtravel_restriction: [travelRestriction(['vliegtuig'])],
@@ -103,17 +103,17 @@ export const travelAdviceConfiguration = {
 	afspraak_coronatest__niet_online_wel_telefonisch: [
 		countryCategory([RiskLevel.A_RISICOVOL, RiskLevel.D_EU_INREISVERBOD]),
 		travelStage(['na-thuiskomst']),
-		maxDaysAfterToDate(3),
+		maxDaysHome(3),
 	],
 	afspraak_coronatest__online_en_telefonisch: [
 		countryCategory([RiskLevel.A_RISICOVOL, RiskLevel.D_EU_INREISVERBOD]),
 		travelStage(['na-thuiskomst']),
-		minDaysAfterToDate(4),
-		maxDaysAfterToDate(5),
+		minDaysHome(4),
+		maxDaysHome(5),
 	],
 	afspraak_coronatest__heb_je_klachten_after_5_days: [
 		countryCategory(allCountriesExceptB),
 		travelStage(['na-thuiskomst']),
-		minDaysAfterToDate(6),
+		minDaysHome(6),
 	],
 };
