@@ -1,3 +1,5 @@
+import { MeansOfTransport } from 'components/advice/AdviceContext';
+
 // Enum with all available country names
 export enum CountrySlugs {
 	afghanistan = 'afghanistan',

@@ -1,16 +1,14 @@
 import { RiskLevel } from './countries';
-import {
-	MeansOfTransport,
-	TravelStage,
-} from '../components/advice/AdviceContext';
+import { MeansOfTransport } from '../components/advice/AdviceContext';
 import {
 	countryCategory,
 	travelStage,
 	meansOfTransport,
 	coronaMelderCountry,
 	maxDaysAfterToDate,
-	hasTransportRestriction,
-	maxDaysBeforeFromDate,
+	travelRestriction,
+	minDaysBeforeFromDate,
+	minDaysAfterToDate,
 } from 'utilities/travel-advice/conditions';
 
 /**
@@ -85,33 +83,37 @@ export const travelAdviceConfiguration = {
 		countryCategory([RiskLevel.A_RISICOVOL, RiskLevel.D_EU_INREISVERBOD]),
 		maxDaysAfterToDate(10),
 	],
-
-	/* Banners */
-	banner__vliegtuigVerbod: [hasTransportRestriction(['vliegtuig'])],
-
-	banner__vliegtuigEnFerryVerbod: [
-		hasTransportRestriction(['vliegtuig', 'ferry']),
+	// Other widgets
+	banner__airtravel_restriction: [travelRestriction(['vliegtuig'])],
+	banner__airboattravel_restriction: [
+		travelRestriction(['vliegtuig', 'ferry']),
 	],
-
-	/* Agenda */
-	agenda__reischeckOpnieuwInvullen: [
+	agenda__reischeck_opnieuw_invullen: [
 		travelStage(['voor-vertrek']),
-		maxDaysBeforeFromDate(7),
+		minDaysBeforeFromDate(7),
 	],
-	agenda__thuisQuarantaine: [
+	agenda__afspraak_coronatest: [
 		countryCategory([RiskLevel.A_RISICOVOL, RiskLevel.D_EU_INREISVERBOD]),
-		maxDaysAfterToDate(10),
+		travelStage(['voor-vertrek', 'tijdens-je-reis']),
 	],
-
-	/* GGD sectie */
-	ggd__afspraakMakenNietMogelijk: [
+	afspraak_coronatest__nog_niet_mogelijk: [
 		countryCategory([RiskLevel.A_RISICOVOL, RiskLevel.D_EU_INREISVERBOD]),
-		travelStage(['tijdens-je-reis']),
+		travelStage(['voor-vertrek', 'tijdens-je-reis']),
 	],
-	ggd__afspraakMakenAlleenTelefonisch: [
+	afspraak_coronatest__niet_online_wel_telefonisch: [
 		countryCategory([RiskLevel.A_RISICOVOL, RiskLevel.D_EU_INREISVERBOD]),
 		travelStage(['na-thuiskomst']),
-		maxDaysAfterToDate(4),
+		maxDaysAfterToDate(3),
 	],
-	ggd__alleOpties: [],
+	afspraak_coronatest__online_en_telefonisch: [
+		countryCategory([RiskLevel.A_RISICOVOL, RiskLevel.D_EU_INREISVERBOD]),
+		travelStage(['na-thuiskomst']),
+		minDaysAfterToDate(4),
+		maxDaysAfterToDate(5),
+	],
+	afspraak_coronatest__heb_je_klachten_after_5_days: [
+		countryCategory(allCountriesExceptB),
+		travelStage(['na-thuiskomst']),
+		minDaysAfterToDate(6),
+	],
 };

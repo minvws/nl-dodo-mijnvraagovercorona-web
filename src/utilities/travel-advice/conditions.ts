@@ -6,7 +6,8 @@
 import { MeansOfTransport, TravelStage } from 'components/advice/AdviceContext';
 import { RiskLevel, TransportRestrictions } from 'config/countries';
 import { GetTravelSchemeContentBlocksParams } from './travel-advice';
-import { isBefore, addDays, subDays } from 'date-fns';
+import { differenceInDays, isBefore } from 'date-fns';
+import { addDays } from 'utilities/dateUtils';
 
 export type ShowBlockFunction<InputType extends unknown> = (
 	options: InputType,
@@ -47,19 +48,27 @@ export const travelStage: ShowBlockFunction<TravelStage[]> = (
 
 /**
  * Function that accept a number of days, ensuring that that Today date
+ * is more or equal than minDays AFTER the travel toDate.
+ */
+export const minDaysAfterToDate: ShowBlockFunction<number> = (minDays) => ({
+	toDate,
+}) => (toDate ? differenceInDays(new Date(), toDate) >= minDays : false);
+
+/**
+ * Function that accept a number of days, ensuring that that Today date
  * is not more than maxDays past the travel toDate.
  */
 export const maxDaysAfterToDate: ShowBlockFunction<number> = (maxDays) => ({
 	toDate,
-}) => (toDate ? isBefore(new Date(), addDays(toDate, maxDays)) : false);
+}) => (toDate ? differenceInDays(new Date(), toDate) <= maxDays : false);
 
 /**
  * Function that accept a number of days, ensuring that that Today date
- * is not more than maxDays before the travel fromDate.
+ * is more than minDays BEFORE the travel fromDate.
  */
-export const maxDaysBeforeFromDate: ShowBlockFunction<number> = (maxDays) => ({
+export const minDaysBeforeFromDate: ShowBlockFunction<number> = (minDays) => ({
 	fromDate,
-}) => (fromDate ? isBefore(new Date(), subDays(fromDate, maxDays)) : false);
+}) => (fromDate ? differenceInDays(fromDate, new Date()) >= minDays : false);
 
 /**
  * Function that ensures the current country is a coronamelder country.
@@ -69,11 +78,14 @@ export const coronaMelderCountry: ShowBlockFunction<boolean> = (bool) => ({
 }) => coronaMelderCountry === bool;
 
 /**
- * Function that ensures the current country has a certain transport restriction.
+ * Function that checks ALL of the past transportation means apply to
+ * the current country.
  */
-export const hasTransportRestriction: ShowBlockFunction<TransportRestrictions> = (
-	allOfTheseTransportRestrictions,
+export const travelRestriction: ShowBlockFunction<TransportRestrictions> = (
+	allOfTheseMeans,
 ) => ({ transportRestrictions }) =>
-	allOfTheseTransportRestrictions.every((transportMode) =>
-		transportRestrictions?.includes(transportMode),
+	allOfTheseMeans.every(
+		(transportType) =>
+			transportRestrictions &&
+			transportRestrictions.indexOf(transportType) > -1,
 	);

@@ -78,9 +78,6 @@ const AdviceResult = ({
 	});
 
 	const showPreperation = stage === 'voor-vertrek';
-	const showCoronamelderApp = country?.coronaMelderCountry;
-
-	const showDeparture = stage === 'voor-vertrek' || stage === 'tijdens-je-reis';
 	const duringOrAfter =
 		stage === 'tijdens-je-reis' || stage === 'na-thuiskomst';
 
@@ -95,11 +92,6 @@ const AdviceResult = ({
 		country?.riskLevel === RiskLevel.A_RISICOVOL ||
 		country?.riskLevel === RiskLevel.D_EU_INREISVERBOD;
 
-	const showSecondCheckCalenderInvite =
-		stage === 'voor-vertrek' && isMoreThanWeekBeforeDeparture(fromDate);
-
-	const showContactWithSymptoms = duringOrAfter;
-
 	// @TODO: Do this in a different place where it makes sense.
 	let color: Color = 'red';
 	if (country?.riskLevel === RiskLevel.B_RISICOVOL_INREISBEPERKINGEN) {
@@ -108,11 +100,6 @@ const AdviceResult = ({
 	if (country?.riskLevel === RiskLevel.C_VEILIGE_LIJST) {
 		color = 'yellow';
 	}
-
-	console.log({
-		agenda__reischeckOpnieuwInvullen: c.agenda__reischeckOpnieuwInvullen,
-		showSecondCheckCalenderInvite,
-	});
 
 	/**
 	 * Update the AdviceContext so when landing on a results page and skipping the period and destination pages
@@ -225,7 +212,8 @@ const AdviceResult = ({
 				</Hero>
 				<Content>
 					Je reist met {meansOfTransport}
-					{c.banner__vliegtuigEnFerryVerbod && (
+					{(c.banner__airboattravel_restriction ||
+						c.banner__airtravel_restriction) && (
 						<div sx={{ marginBottom: ['36px', '44px'] }}>
 							<Card
 								image="/images/Vliegtuig_streep.svg"
@@ -233,21 +221,11 @@ const AdviceResult = ({
 									backgroundPositionX: '5px',
 									backgroundPositionY: '22px',
 								}}
-								title="Er geldt een vlieg- en aanmeerverbod vanuit je bestemming naar Nederland."
-								href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/vliegverbod-en-aanmeerverbod"
-								external
-							/>
-						</div>
-					)}
-					{c.banner__vliegtuigVerbod && !c.banner__vliegtuigEnFerryVerbod && (
-						<div sx={{ marginBottom: ['36px', '44px'] }}>
-							<Card
-								image="/images/Vliegtuig_streep.svg"
-								imagePosition={{
-									backgroundPositionX: '5px',
-									backgroundPositionY: '22px',
-								}}
-								title="Er geldt een vliegverbod vanuit je bestemming naar Nederland."
+								title={
+									c.banner__airboattravel_restriction
+										? 'Er geldt een vlieg- en aanmeerverbod vanuit je bestemming naar Nederland.'
+										: 'Er geldt een vliegverbod vanuit je bestemming naar Nederland.'
+								}
 								href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/vliegverbod-en-aanmeerverbod"
 								external
 							/>
@@ -474,7 +452,7 @@ const AdviceResult = ({
 							/>
 						)}
 					</Container>
-					{showSecondCheckCalenderInvite && fromDate && (
+					{c.agenda__reischeck_opnieuw_invullen && fromDate && (
 						<Box sx={{ marginTop: ['10px', '60px'] }}>
 							<ReminderCalendarInvite
 								title="Zet 'Reischeck opnieuw invullen' in je agenda"
@@ -506,8 +484,12 @@ const AdviceResult = ({
 							</Container>
 						</Box>
 					)}
-					{showContactWithSymptoms && toDate && (
-						<TestBooking toDate={toDate} quarantaine={showQuarantaine} />
+					{toDate && (
+						<TestBooking
+							contentBlocks={c}
+							toDate={toDate}
+							quarantaine={showQuarantaine}
+						/>
 					)}
 					<h2
 						sx={{

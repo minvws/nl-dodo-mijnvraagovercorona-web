@@ -1,4 +1,4 @@
-import { RiskLevel } from 'config/countries';
+import { RiskLevel, TransportRestrictions } from 'config/countries';
 import {
 	MeansOfTransport,
 	TravelStage,
@@ -21,7 +21,7 @@ export interface GetTravelSchemeContentBlocksParams {
 	fromDate?: Date;
 	toDate?: Date;
 	coronaMelderCountry?: boolean;
-	transportRestrictions?: Array<string>;
+	transportRestrictions?: TransportRestrictions;
 }
 
 /**
@@ -29,6 +29,9 @@ export interface GetTravelSchemeContentBlocksParams {
  * configuration properties.
  */
 type AdviceConfigBlocks = keyof typeof travelAdviceConfiguration;
+export type TravelSchemeContentBlocks = {
+	[key in AdviceConfigBlocks]: boolean;
+};
 
 /**
  * Iterates over all conditions and resolves them to 1 single boolean.
@@ -48,18 +51,13 @@ export const getTravelSchemeContentBlocks = (
 ) => {
 	return (Object.keys(travelAdviceConfiguration) as Array<
 		keyof typeof travelAdviceConfiguration
-	>).reduce(
-		(config, currentProperty) => {
-			return {
-				...config,
-				[currentProperty]: evaluateAllConditionsToSingleBoolean(
-					travelAdviceConfiguration[currentProperty],
-					currentValues,
-				),
-			};
-		},
-		{} as {
-			[key in AdviceConfigBlocks]: boolean;
-		},
-	);
+	>).reduce((config, currentProperty) => {
+		return {
+			...config,
+			[currentProperty]: evaluateAllConditionsToSingleBoolean(
+				travelAdviceConfiguration[currentProperty],
+				currentValues,
+			),
+		};
+	}, {} as TravelSchemeContentBlocks);
 };
