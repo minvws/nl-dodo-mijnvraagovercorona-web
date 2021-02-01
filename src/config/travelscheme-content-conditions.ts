@@ -88,6 +88,7 @@ export const travelAdviceConfiguration = {
 	banner__airboattravel_restriction: [
 		travelRestriction(['vliegtuig', 'ferry']),
 	],
+	banner__thuisquarantaine: [maxDaysHome(10)],
 	agenda__reischeck_opnieuw_invullen: [
 		travelStage(['voor-vertrek']),
 		minDaysBeforeFromDate(7),

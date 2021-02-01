@@ -76,7 +76,7 @@ const AdviceResult = ({
 		coronaMelderCountry: country?.coronaMelderCountry,
 		transportRestrictions: country?.transportRestrictions,
 	});
-	console.log('root', c);
+
 	const showPreperation = stage === 'voor-vertrek';
 	const duringOrAfter =
 		stage === 'tijdens-je-reis' || stage === 'na-thuiskomst';
@@ -211,7 +211,6 @@ const AdviceResult = ({
 					</ul>
 				</Hero>
 				<Content>
-					Je reist met {meansOfTransport}
 					{(c.banner__airboattravel_restriction ||
 						c.banner__airtravel_restriction) && (
 						<div sx={{ marginBottom: ['36px', '44px'] }}>
@@ -491,23 +490,27 @@ const AdviceResult = ({
 							quarantaine={showQuarantaine}
 						/>
 					)}
-					<h2
-						sx={{
-							paddingTop: ['36px', '44px'],
-							color: 'header',
-							fontSize: ['h2Mobile', 'h2'],
-						}}
-					>
-						Zo kom je de thuisquarantaine goed door
-					</h2>
-					<Card
-						image="/images/Banner_we_helpen_jeRetina.svg"
-						imagePosition={{
-							backgroundPositionX: '-10px',
-						}}
-						title="Wat moet ik regelen voor mijn thuisquarantaine?"
-						href="/voorbereiding"
-					/>
+					{c.banner__thuisquarantaine && (
+						<>
+							<h2
+								sx={{
+									paddingTop: ['36px', '44px'],
+									color: 'header',
+									fontSize: ['h2Mobile', 'h2'],
+								}}
+							>
+								Zo kom je de thuisquarantaine goed door
+							</h2>
+							<Card
+								image="/images/Banner_we_helpen_jeRetina.svg"
+								imagePosition={{
+									backgroundPositionX: '-10px',
+								}}
+								title="Wat moet ik regelen voor mijn thuisquarantaine?"
+								href="/voorbereiding"
+							/>
+						</>
+					)}
 					{c.agenda__zet_thuisquarantaine_in_agenda && toDate && (
 						<ReminderCalendarInvite
 							title="Zet je thuisquarantaine in je agenda"
