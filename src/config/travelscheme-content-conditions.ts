@@ -116,9 +116,14 @@ export const travelAdviceConfiguration = {
 		minDaysHome(4),
 		maxDaysHome(5),
 	],
-	afspraak_coronatest__heb_je_klachten_after_5_days: [
-		countryCategory(allCountriesExceptB),
+	afspraak_coronatest__heb_je_klachten_na_5_dagen: [
+		countryCategory([RiskLevel.A_RISICOVOL, RiskLevel.D_EU_INREISVERBOD]),
 		travelStage(['na-thuiskomst']),
 		minDaysHome(6),
+	],
+	afspraak_cornatest__heb_je_klachten_land_c: [
+		countryCategory([RiskLevel.C_VEILIGE_LIJST]),
+		travelStage(['na-thuiskomst']),
+		maxDaysHome(10),
 	],
 };

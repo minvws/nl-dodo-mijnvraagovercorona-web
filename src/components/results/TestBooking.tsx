@@ -133,20 +133,6 @@ const TestBooking = ({
 	quarantaine,
 	contentBlocks,
 }: TestBookingProps) => {
-	const isAfterTravel = isAfter(new Date(), toDate);
-	// We add 1 to the difference of days since 0 days difference is your return date, which is day 1.
-	// That makes for example 9 days AFTER your return date day 10.
-	// Returns -1 as quarantaineDay if user has NOT yet returned.
-	const quarantaineDay = isAfterTravel
-		? differenceInDays(new Date(), toDate) + 1
-		: -1;
-
-	const showTitle =
-		contentBlocks.afspraak_coronatest__nog_niet_mogelijk ||
-		contentBlocks.afspraak_coronatest__niet_online_wel_telefonisch ||
-		contentBlocks.afspraak_coronatest__online_en_telefonisch ||
-		contentBlocks.afspraak_coronatest__heb_je_klachten_after_5_days;
-
 	return (
 		<div
 			sx={{
@@ -155,27 +141,35 @@ const TestBooking = ({
 				paddingTop: !quarantaine ? '36px' : 0,
 			}}
 		>
-			{showTitle && (
-				<h2
-					sx={{
-						color: 'header',
-						fontSize: ['h2Mobile', 'h2'],
-						paddingTop: '36px',
-					}}
-				>
-					Verkort je thuisquarantaine door je te laten testen op dag 5
-				</h2>
-			)}
-
 			{contentBlocks.afspraak_coronatest__nog_niet_mogelijk && (
-				<MakeOnlineAppointment
-					appointmentNotPossibleTitle="Je kunt nog geen afspraak maken"
-					appointmentNotPossibleSubtitle="Dit kan telefonisch op dag 1 van je thuisquarantaine of online vanaf dag 4"
-					ggdCtaButtonText="Maak direct een afspraak op de website van de GGD"
-				/>
+				<>
+					<h2
+						sx={{
+							color: 'header',
+							fontSize: ['h2Mobile', 'h2'],
+							paddingTop: '36px',
+						}}
+					>
+						Verkort je thuisquarantaine door je te laten testen op dag 5
+					</h2>
+					<MakeOnlineAppointment
+						appointmentNotPossibleTitle="Je kunt nog geen afspraak maken"
+						appointmentNotPossibleSubtitle="Dit kan telefonisch op dag 1 van je thuisquarantaine of online vanaf dag 4"
+						ggdCtaButtonText="Maak direct een afspraak op de website van de GGD"
+					/>
+				</>
 			)}
 			{contentBlocks.afspraak_coronatest__niet_online_wel_telefonisch && (
 				<>
+					<h2
+						sx={{
+							color: 'header',
+							fontSize: ['h2Mobile', 'h2'],
+							paddingTop: '36px',
+						}}
+					>
+						Verkort je thuisquarantaine door je te laten testen op dag 5
+					</h2>
 					<MakeOnlineAppointment
 						appointmentNotPossibleTitle="Je kunt nog geen online afspraak maken"
 						appointmentNotPossibleSubtitle="Dit op dag 4 van je thuisquarantaine"
@@ -186,11 +180,21 @@ const TestBooking = ({
 			)}
 			{contentBlocks.afspraak_coronatest__online_en_telefonisch && (
 				<>
+					<h2
+						sx={{
+							color: 'header',
+							fontSize: ['h2Mobile', 'h2'],
+							paddingTop: '36px',
+						}}
+					>
+						Verkort je thuisquarantaine door je te laten testen op dag 5
+					</h2>
 					<MakeOnlineAppointment ggdCtaButtonText="Maak direct een afspraak op de website van de GGD" />
 					<CallGGD />
 				</>
 			)}
-			{contentBlocks.afspraak_coronatest__heb_je_klachten_after_5_days && (
+			{(contentBlocks.afspraak_coronatest__heb_je_klachten_na_5_dagen ||
+				contentBlocks.afspraak_cornatest__heb_je_klachten_land_c) && (
 				<>
 					<MakeOnlineAppointment ggdCtaButtonText="Heb je klachten? Maak direct een afspraak op de website van de GGD" />
 					<CallGGD />
