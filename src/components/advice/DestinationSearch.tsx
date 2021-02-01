@@ -8,20 +8,18 @@ import {
 	ComboboxList,
 	ComboboxOption,
 } from '@reach/combobox';
-import { useRouter } from 'next/router';
 
 import { CountryMatches, searchCities } from 'services/CountryService';
-import { getCountrySlug } from 'utilities/pathUtils';
 import '@reach/combobox/styles.css';
-import AdviceContext from 'components/advice/AdviceContext';
 import { ButtonStyledAsSubmit } from 'components/button/ButtonStyled';
 
-const DestinationSearch = () => {
+interface DestinationSearchProps {
+	onDestinationChosen: (destination: string) => void;
+}
+
+const DestinationSearch = ({ onDestinationChosen }: DestinationSearchProps) => {
 	const [searchResults, setSearchResults] = useState<CountryMatches[]>([]);
 	const [userInput, setUserInput] = useState<string>('');
-	const { setDestination } = React.useContext(AdviceContext);
-
-	const router = useRouter();
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const { value } = event.target;
@@ -37,12 +35,7 @@ const DestinationSearch = () => {
 	const getDestinationName = (dest: CountryMatches) => dest.fullName;
 
 	const handleSelect = (destinationName: string) => {
-		// @TODO: Handle invalid destination names which return in null being returned
-		// from the slug.
-		const location = `/${getCountrySlug(destinationName)}/periode`;
-
-		if (setDestination) setDestination(getCountrySlug(destinationName));
-		router.push(location);
+		onDestinationChosen(destinationName);
 	};
 
 	const handleSubmit = (event: FormEvent) => {

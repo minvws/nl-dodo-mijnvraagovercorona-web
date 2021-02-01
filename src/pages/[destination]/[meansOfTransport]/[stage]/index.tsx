@@ -22,10 +22,14 @@ import TravelAdvicePanel from 'components/TravelPlan/TravelAdvicePanel';
 import TravelInformationLink from 'components/TravelPlan/TravelInformationLink';
 import { Dialog } from 'components/dialog';
 import Feedback from 'components/feedback/Feedback';
-import AdviceContext from 'components/advice/AdviceContext';
+import AdviceContext, {
+	MeansOfTransport,
+	meansOfTransport,
+} from 'components/advice/AdviceContext';
 import { Content, Hero, Page } from 'components/structure/Page';
 import ExpansionPanel from 'components/structure/ExpansionPanel';
 import { Card } from 'components/card';
+import { cartesianProduct } from 'utilities/pathUtils';
 
 type Stage = 'voor-vertrek' | 'tijdens-je-reis' | 'na-thuiskomst';
 type Color = 'yellow' | 'orange' | 'red';
@@ -33,6 +37,7 @@ type Color = 'yellow' | 'orange' | 'red';
 type AdviceProps = {
 	destination: string;
 	stage: Stage;
+	meansOfTransport: MeansOfTransport;
 };
 
 // @TODO: Hopefully we can do this in an easier way.
@@ -43,7 +48,11 @@ const getPageTitle = (color: Color) => {
 	return `Je bestemming heeft een ${riskLevelTekst}coronarisico`;
 };
 
-const AdviceResult = ({ destination, stage }: AdviceProps) => {
+const AdviceResult = ({
+	destination,
+	stage,
+	meansOfTransport,
+}: AdviceProps) => {
 	const { setFrom, setTo, setStage, setDestination } = useContext(
 		AdviceContext,
 	);
@@ -182,6 +191,7 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 					</ul>
 				</Hero>
 				<Content>
+					Je reist met {meansOfTransport}
 					{showNoFlyBanner && (
 						<div sx={{ marginBottom: ['36px', '44px'] }}>
 							<Card
@@ -200,7 +210,6 @@ const AdviceResult = ({ destination, stage }: AdviceProps) => {
 							/>
 						</div>
 					)}
-
 					<h2
 						sx={{
 							color: 'header',
@@ -503,6 +512,7 @@ export interface AdviceDestinationStageStaticProps {
 	params: {
 		destination: string;
 		stage: string;
+		meansOfTransport: MeansOfTransport;
 	};
 }
 
@@ -513,27 +523,21 @@ export const getStaticProps = async ({
 		props: {
 			destination: params.destination,
 			stage: params.stage,
+			meansOfTransport: params.meansOfTransport,
 		},
 	};
 };
 
-export const getStaticPaths = () => ({
-	paths: countries.reduce(
-		(
-			paths: Array<{ params: { destination: string; stage: string } }>,
-			country,
-		) => {
-			const stages = ['voor-vertrek', 'tijdens-je-reis', 'na-thuiskomst'];
+const stages = ['voor-vertrek', 'tijdens-je-reis', 'na-thuiskomst'];
 
-			return [
-				...paths,
-				...stages.map((stage) => ({
-					params: { destination: country.slug, stage },
-				})),
-			];
-		},
-		[],
-	),
+export const getStaticPaths = () => ({
+	paths: cartesianProduct(
+		countries.map((country) => `${country.slug}`),
+		stages,
+		meansOfTransport.map((means) => `${means}`),
+	).map(([destination, stage, meansOfTransport]: string[]) => ({
+		params: { destination, stage, meansOfTransport },
+	})),
 	fallback: false,
 });
 

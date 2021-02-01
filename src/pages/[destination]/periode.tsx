@@ -18,6 +18,7 @@ import { Content, Hero, Page } from 'components/structure/Page';
 import ProgressMarker from 'components/advice/ProgressMarker';
 import { alignLogoRightOnMobileStyles } from 'components/structure/RoHeaderLogo';
 import BodyContainer from 'components/structure/BodyContainer';
+import { getAdvicePath } from 'components/advice/utils';
 
 const calculateStage = ({
 	fromDate,
@@ -43,28 +44,6 @@ const calculateStage = ({
 	return 'na-thuiskomst';
 };
 
-const generateResultLink = ({
-	fromDate,
-	toDate,
-	destination,
-	stage,
-}: {
-	fromDate: Date;
-	toDate: Date;
-	destination: string;
-	stage: string;
-}) => {
-	/* Check whether the quarantaine period has ended when more then 10 days have passed */
-	const isAfterQuarantaine = isAfter(new Date(), addDays(toDate, 11));
-
-	return isAfterQuarantaine
-		? '/geen-advies'
-		: {
-				pathname: `/${destination}/${stage}`,
-				query: { van: formatDate(fromDate), tot: formatDate(toDate) },
-		  };
-};
-
 const Period = ({ destination }: { destination: string }) => {
 	const country = useDestination(destination as string);
 	const { setFrom, setTo, setStage } = React.useContext(AdviceContext);
@@ -81,18 +60,26 @@ const Period = ({ destination }: { destination: string }) => {
 		setShowDialog(true);
 	};
 
+	/**
+	 * Store selected dates in context, and generate the next stap url:
+	 * This is either no advice page, or the means of transport step.
+	 */
 	useEffect(() => {
-		if (fromDate && toDate) {
-			const stage = calculateStage({ fromDate, toDate });
+		if (!fromDate || !toDate) return;
 
-			setResultLink(
-				generateResultLink({ fromDate, toDate, destination, stage }),
-			);
+		const isAfterQuarantaine = isAfter(new Date(), addDays(toDate, 11));
+		const stage = calculateStage({ fromDate, toDate });
 
-			if (setFrom) setFrom(formatDate(fromDate));
-			if (setTo) setTo(formatDate(toDate));
-			if (setStage) setStage(stage);
+		/* Check whether the quarantaine period has ended when more then 10 days have passed */
+		if (isAfterQuarantaine) {
+			setResultLink(getAdvicePath.noResult());
+		} else {
+			setResultLink(getAdvicePath.meansOfTransport({ destination }));
 		}
+
+		if (setFrom) setFrom(formatDate(fromDate));
+		if (setTo) setTo(formatDate(toDate));
+		if (setStage) setStage(stage);
 	}, [fromDate, toDate, destination]);
 
 	/**
@@ -135,7 +122,7 @@ const Period = ({ destination }: { destination: string }) => {
 				sx={alignLogoRightOnMobileStyles}
 			>
 				<Hero>
-					<ProgressMarker stage={2} totalStages={2} />
+					<ProgressMarker stage={2} totalStages={3} />
 					<InternalLink href="" onClick={openDialog}>
 						Waarom vragen we dit?
 					</InternalLink>
@@ -165,9 +152,7 @@ const Period = ({ destination }: { destination: string }) => {
 							}}
 							ref={submitRef}
 						>
-							<ButtonPrimary href={resultLink}>
-								Toon het resultaat
-							</ButtonPrimary>
+							<ButtonPrimary href={resultLink}>Naar vraag 3</ButtonPrimary>
 						</div>
 					)}
 				</BodyContainer>
