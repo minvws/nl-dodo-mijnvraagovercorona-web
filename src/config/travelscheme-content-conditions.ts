@@ -71,12 +71,12 @@ export const travelAdviceConfiguration = {
 	],
 	reisschema__sneltest: [
 		countryCategory([RiskLevel.A_RISICOVOL, RiskLevel.D_EU_INREISVERBOD]),
-		meansOfTransport(['vliegtuig']),
+		meansOfTransport(['vliegtuig', 'anders']),
 		maxDaysHome(10),
 	],
 	reisschema__gezondheidsverklaring: [
 		countryCategory(allCountriesExceptB),
-		meansOfTransport(['vliegtuig']),
+		meansOfTransport(['vliegtuig', 'anders']),
 		maxDaysHome(10),
 	],
 	reisschema__thuisquarantaine: [
