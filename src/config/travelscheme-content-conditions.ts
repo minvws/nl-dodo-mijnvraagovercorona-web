@@ -92,6 +92,10 @@ export const travelAdviceConfiguration = {
 		travelStage(['voor-vertrek']),
 		minDaysBeforeFromDate(7),
 	],
+	agenda__zet_thuisquarantaine_in_agenda: [
+		countryCategory([RiskLevel.A_RISICOVOL, RiskLevel.D_EU_INREISVERBOD]),
+		maxDaysHome(10),
+	],
 	agenda__afspraak_coronatest: [
 		countryCategory([RiskLevel.A_RISICOVOL, RiskLevel.D_EU_INREISVERBOD]),
 		travelStage(['voor-vertrek', 'tijdens-je-reis']),

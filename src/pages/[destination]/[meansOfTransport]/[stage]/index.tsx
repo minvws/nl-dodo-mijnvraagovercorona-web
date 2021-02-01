@@ -76,7 +76,7 @@ const AdviceResult = ({
 		coronaMelderCountry: country?.coronaMelderCountry,
 		transportRestrictions: country?.transportRestrictions,
 	});
-
+	console.log('root', c);
 	const showPreperation = stage === 'voor-vertrek';
 	const duringOrAfter =
 		stage === 'tijdens-je-reis' || stage === 'na-thuiskomst';
@@ -508,7 +508,7 @@ const AdviceResult = ({
 						title="Wat moet ik regelen voor mijn thuisquarantaine?"
 						href="/voorbereiding"
 					/>
-					{showQuarantaine && toDate && (
+					{c.agenda__zet_thuisquarantaine_in_agenda && toDate && (
 						<ReminderCalendarInvite
 							title="Zet je thuisquarantaine in je agenda"
 							modalTitle="Thuisquarantaine in agenda"

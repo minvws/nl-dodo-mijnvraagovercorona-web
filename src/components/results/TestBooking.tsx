@@ -8,7 +8,7 @@ import { jsx } from 'theme-ui';
 import { addDays, formatLongDate } from 'utilities/dateUtils';
 import { TravelSchemeContentBlocks } from 'utilities/travel-advice/travel-advice';
 
-const CallGGD = ({
+export const CallGGD = ({
 	callingIsOnlyOption,
 }: {
 	callingIsOnlyOption?: boolean;
@@ -79,7 +79,7 @@ interface MakeOnlineAppointmentProps {
 	ggdCtaButtonText: string;
 }
 
-const MakeOnlineAppointment = ({
+export const MakeOnlineAppointment = ({
 	appointmentNotPossibleSubtitle,
 	appointmentNotPossibleTitle,
 	ggdCtaButtonText,
@@ -140,7 +140,7 @@ const TestBooking = ({
 	const quarantaineDay = isAfterTravel
 		? differenceInDays(new Date(), toDate) + 1
 		: -1;
-	console.log(contentBlocks);
+
 	return (
 		<div
 			sx={{
@@ -181,7 +181,7 @@ const TestBooking = ({
 			{contentBlocks.afspraak_coronatest__online_en_telefonisch && (
 				<>
 					<MakeOnlineAppointment ggdCtaButtonText="Maak direct een afspraak op de website van de GGD" />
-					<CallGGD callingIsOnlyOption />
+					<CallGGD />
 				</>
 			)}
 			{contentBlocks.afspraak_coronatest__heb_je_klachten_after_5_days && (
