@@ -266,8 +266,15 @@ const AdviceResult = ({
 										title={`Wist je dat de CoronaMelder ook werkt in ${country?.fullName}?`}
 									>
 										<TravelInformationLink
-											href="https://www.coronamelder.nl/nl/faq/13-gebruik-app-uit-ander-land/
-"
+											href="https://www.coronamelder.nl/nl/faq/13-gebruik-app-uit-ander-land/"
+											text="Meer informatie"
+										/>
+									</TravelAdvicePanel>
+								)}
+								{c.reisschema__voorbereidenThuisQuarantaine && (
+									<TravelAdvicePanel title="Bereid je goed voor op je thuisquarantaine">
+										<TravelInformationLink
+											href="/voorbereiding"
 											text="Meer informatie"
 										/>
 									</TravelAdvicePanel>
