@@ -10,12 +10,29 @@ import { Dialog } from 'components/dialog';
 import { Content, Hero, Page } from 'components/structure/Page';
 import ProgressMarker from 'components/advice/ProgressMarker';
 import { alignLogoRightOnMobileStyles } from 'components/structure/RoHeaderLogo';
+import AdviceContext from 'components/advice/AdviceContext';
+import { getCountrySlug } from 'utilities/pathUtils';
+import { useRouter } from 'next/router';
+import { getAdvicePath } from 'components/advice/utils';
 
 const Destination = () => {
 	const [showDialog, setShowDialog] = useState(false);
+	const { setDestination } = React.useContext(AdviceContext);
+	const router = useRouter();
 	const openDialog = (event: any) => {
 		event.preventDefault();
 		setShowDialog(true);
+	};
+
+	const handleDestinationChose = (destinationName: string) => {
+		const destination = getCountrySlug(destinationName);
+
+		// @TODO: Handle invalid destination names which return in null being returned
+		// from the slug.
+		if (!destination) return;
+
+		setDestination(destination);
+		router.push(getAdvicePath.period());
 	};
 
 	return (
@@ -31,7 +48,7 @@ const Destination = () => {
 				sx={alignLogoRightOnMobileStyles}
 			>
 				<Hero>
-					<ProgressMarker stage={1} totalStages={2} />
+					<ProgressMarker stage={1} totalStages={3} />
 					<InternalLink href="" onClick={openDialog}>
 						Waarom vragen we dit?
 					</InternalLink>
@@ -49,7 +66,7 @@ const Destination = () => {
 					</Dialog>
 				</Hero>
 				<Content>
-					<DestinationSearch />
+					<DestinationSearch onDestinationChosen={handleDestinationChose} />
 				</Content>
 			</Page>
 		</>

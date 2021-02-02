@@ -9,15 +9,15 @@ import PeriodSelect from 'components/advice/PeriodSelect';
 import { formatDate } from 'utilities/pathUtils';
 import { useDestination } from 'hooks/use-destination';
 import { useRouter } from 'next/router';
-import { countries } from 'config/countries';
 import { isBrowser } from 'utilities/is-browser';
 import AdviceContext from 'components/advice/AdviceContext';
 import { Dialog } from 'components/dialog';
 import { ButtonPrimary } from 'components/button';
-import { Content, Hero, Page } from 'components/structure/Page';
+import { Hero, Page } from 'components/structure/Page';
 import ProgressMarker from 'components/advice/ProgressMarker';
 import { alignLogoRightOnMobileStyles } from 'components/structure/RoHeaderLogo';
 import BodyContainer from 'components/structure/BodyContainer';
+import { getAdvicePath } from 'components/advice/utils';
 
 const calculateStage = ({
 	fromDate,
@@ -43,31 +43,11 @@ const calculateStage = ({
 	return 'na-thuiskomst';
 };
 
-const generateResultLink = ({
-	fromDate,
-	toDate,
-	destination,
-	stage,
-}: {
-	fromDate: Date;
-	toDate: Date;
-	destination: string;
-	stage: string;
-}) => {
-	/* Check whether the quarantaine period has ended when more then 10 days have passed */
-	const isAfterQuarantaine = isAfter(new Date(), addDays(toDate, 11));
-
-	return isAfterQuarantaine
-		? '/geen-advies'
-		: {
-				pathname: `/${destination}/${stage}`,
-				query: { van: formatDate(fromDate), tot: formatDate(toDate) },
-		  };
-};
-
-const Period = ({ destination }: { destination: string }) => {
+const Period = () => {
+	const { destination, setFrom, setTo, setStage } = React.useContext(
+		AdviceContext,
+	);
 	const country = useDestination(destination as string);
-	const { setFrom, setTo, setStage } = React.useContext(AdviceContext);
 	const router = useRouter();
 	const submitRef = useRef<HTMLDivElement>(null);
 
@@ -81,18 +61,26 @@ const Period = ({ destination }: { destination: string }) => {
 		setShowDialog(true);
 	};
 
+	/**
+	 * Store selected dates in context, and generate the next step url:
+	 * This is either no advice page, or the means of transport step.
+	 */
 	useEffect(() => {
-		if (fromDate && toDate) {
-			const stage = calculateStage({ fromDate, toDate });
+		if (!fromDate || !toDate) return;
 
-			setResultLink(
-				generateResultLink({ fromDate, toDate, destination, stage }),
-			);
+		const isAfterQuarantaine = isAfter(new Date(), addDays(toDate, 11));
+		const stage = calculateStage({ fromDate, toDate });
 
-			if (setFrom) setFrom(formatDate(fromDate));
-			if (setTo) setTo(formatDate(toDate));
-			if (setStage) setStage(stage);
+		/* Check whether the quarantaine period has ended when more then 10 days have passed */
+		if (isAfterQuarantaine && destination) {
+			setResultLink(getAdvicePath.noResult({ destination }));
+		} else {
+			setResultLink(getAdvicePath.meansOfTransport());
 		}
+
+		if (setFrom) setFrom(formatDate(fromDate));
+		if (setTo) setTo(formatDate(toDate));
+		if (setStage) setStage(stage);
 	}, [fromDate, toDate, destination]);
 
 	/**
@@ -117,7 +105,7 @@ const Period = ({ destination }: { destination: string }) => {
 	};
 
 	if (!country) {
-		if (isBrowser()) router.push('/bestemming');
+		if (isBrowser()) router.push(getAdvicePath.destination());
 		return null;
 	}
 
@@ -126,7 +114,7 @@ const Period = ({ destination }: { destination: string }) => {
 			<MetaTags
 				title="Planning | Quarantaine Reischeck | Rijksoverheid.nl"
 				description="Actuele informatie over bestemming en maatregelen."
-				url={`/${destination}/periode`}
+				url="/periode"
 			/>
 
 			<Page
@@ -135,7 +123,7 @@ const Period = ({ destination }: { destination: string }) => {
 				sx={alignLogoRightOnMobileStyles}
 			>
 				<Hero>
-					<ProgressMarker stage={2} totalStages={2} />
+					<ProgressMarker stage={2} totalStages={3} />
 					<InternalLink href="" onClick={openDialog}>
 						Waarom vragen we dit?
 					</InternalLink>
@@ -165,9 +153,7 @@ const Period = ({ destination }: { destination: string }) => {
 							}}
 							ref={submitRef}
 						>
-							<ButtonPrimary href={resultLink}>
-								Toon het resultaat
-							</ButtonPrimary>
+							<ButtonPrimary href={resultLink}>Naar vraag 3</ButtonPrimary>
 						</div>
 					)}
 				</BodyContainer>
@@ -175,28 +161,5 @@ const Period = ({ destination }: { destination: string }) => {
 		</>
 	);
 };
-
-export interface AdviceDestinationStaticProps {
-	params: {
-		destination: string;
-	};
-}
-
-export const getStaticProps = async ({
-	params,
-}: AdviceDestinationStaticProps) => {
-	return {
-		props: {
-			destination: params.destination,
-		},
-	};
-};
-
-export const getStaticPaths = () => ({
-	paths: countries.map((country) => ({
-		params: { destination: country.slug },
-	})),
-	fallback: false,
-});
 
 export default Period;

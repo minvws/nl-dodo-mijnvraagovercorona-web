@@ -3,16 +3,15 @@ import { CallToAction } from 'components/call-to-action/call-to-action';
 import { NewTabIcon } from 'components/icons/NewTab';
 import { TestAppointmentIcon } from 'components/icons/TestAppointment';
 import ReminderCalendarInvite from 'components/TravelPlan/ReminderCalendarInvite';
-import { differenceInDays, isBefore, isAfter } from 'date-fns';
+import { differenceInDays, isAfter } from 'date-fns';
 import { jsx } from 'theme-ui';
 import { addDays, formatLongDate } from 'utilities/dateUtils';
+import { TravelSchemeContentBlocks } from 'utilities/travel-advice/travel-advice';
 
-const CallGGD = ({
-	quarantaineDay,
-	quarantaine,
+export const CallGGD = ({
+	callingIsOnlyOption,
 }: {
-	quarantaineDay: number;
-	quarantaine: boolean;
+	callingIsOnlyOption?: boolean;
 }) => {
 	return (
 		<>
@@ -21,7 +20,7 @@ const CallGGD = ({
 					fontSize: ['bodyMobile', 'body'],
 				}}
 			>
-				{quarantaine && quarantaineDay < 4 ? (
+				{callingIsOnlyOption ? (
 					<>
 						Het kan al wel telefonisch via <strong>0800-1202</strong>. Houd je
 						burgerservicenummer (BSN) bij de hand.
@@ -74,18 +73,17 @@ const CtaToGGDWebsite: React.FC = ({ children }) => (
 	</a>
 );
 
-interface MakeOnlineAppointmentProps extends TestBookingProps {
-	quarantaineDay: number;
-	isDuringTravel: boolean;
+interface MakeOnlineAppointmentProps {
+	appointmentNotPossibleTitle?: string;
+	appointmentNotPossibleSubtitle?: string;
+	ggdCtaButtonText: string;
 }
 
-const MakeOnlineAppointment = ({
-	quarantaineDay,
-	isDuringTravel,
-	quarantaine,
+export const MakeOnlineAppointment = ({
+	appointmentNotPossibleSubtitle,
+	appointmentNotPossibleTitle,
+	ggdCtaButtonText,
 }: MakeOnlineAppointmentProps) => {
-	const appointmentPossible = quarantaineDay > 3;
-
 	return (
 		<div
 			sx={{
@@ -93,7 +91,7 @@ const MakeOnlineAppointment = ({
 				maxWidth: 'widgetMaxWidth',
 			}}
 		>
-			{quarantaine && !appointmentPossible && (
+			{Boolean(appointmentNotPossibleTitle) && (
 				<p
 					sx={{
 						position: 'absolute',
@@ -115,18 +113,11 @@ const MakeOnlineAppointment = ({
 						color: '#545454',
 					}}
 				>
-					<strong>
-						Je kunt nog geen {!isDuringTravel && 'online '} afspraak maken
-					</strong>
-					{isDuringTravel &&
-						'Dit kan telefonisch op dag 1 van je thuisquarantaine of online vanaf dag 4.'}
-					{!isDuringTravel && 'Dit kan op dag 4 van je thuisquarantaine.'}
+					<strong>{appointmentNotPossibleTitle}</strong>
+					{appointmentNotPossibleSubtitle}
 				</p>
 			)}
-			<CtaToGGDWebsite>
-				{(!quarantaine || quarantaineDay > 5) && 'Heb je klachten? '}
-				Maak direct een afspraak op de website van de GGD
-			</CtaToGGDWebsite>
+			<CtaToGGDWebsite>{ggdCtaButtonText}</CtaToGGDWebsite>
 		</div>
 	);
 };
@@ -134,18 +125,14 @@ const MakeOnlineAppointment = ({
 interface TestBookingProps {
 	toDate: Date;
 	quarantaine: boolean;
+	contentBlocks: TravelSchemeContentBlocks;
 }
 
-const TestBooking = ({ toDate, quarantaine }: TestBookingProps) => {
-	const isDuringTravel = isBefore(new Date(), toDate);
-	const isAfterTravel = isAfter(new Date(), toDate);
-	// We add 1 to the difference of days since 0 days difference is your return date, which is day 1.
-	// That makes for example 9 days AFTER your return date day 10.
-	// Returns -1 as quarantaineDay if user has NOT yet returned.
-	const quarantaineDay = isAfterTravel
-		? differenceInDays(new Date(), toDate) + 1
-		: -1;
-
+const TestBooking = ({
+	toDate,
+	quarantaine,
+	contentBlocks,
+}: TestBookingProps) => {
 	return (
 		<div
 			sx={{
@@ -154,28 +141,67 @@ const TestBooking = ({ toDate, quarantaine }: TestBookingProps) => {
 				paddingTop: !quarantaine ? '36px' : 0,
 			}}
 		>
-			{quarantaine && quarantaineDay <= 5 && (
-				<h2
-					sx={{
-						color: 'header',
-						fontSize: ['h2Mobile', 'h2'],
-						paddingTop: '36px',
-					}}
-				>
-					Verkort je thuisquarantaine door je te laten testen op dag 5
-				</h2>
+			{contentBlocks.afspraak_coronatest__nog_niet_mogelijk && (
+				<>
+					<h2
+						sx={{
+							color: 'header',
+							fontSize: ['h2Mobile', 'h2'],
+							paddingTop: '36px',
+						}}
+					>
+						Verkort je thuisquarantaine door je te laten testen op dag 5
+					</h2>
+					<MakeOnlineAppointment
+						appointmentNotPossibleTitle="Je kunt nog geen afspraak maken"
+						appointmentNotPossibleSubtitle="Dit kan telefonisch op dag 1 van je thuisquarantaine of online vanaf dag 4"
+						ggdCtaButtonText="Maak direct een afspraak op de website van de GGD"
+					/>
+				</>
 			)}
-			<MakeOnlineAppointment
-				toDate={toDate}
-				quarantaineDay={quarantaineDay}
-				isDuringTravel={isDuringTravel}
-				quarantaine={quarantaine}
-			/>
+			{contentBlocks.afspraak_coronatest__niet_online_wel_telefonisch && (
+				<>
+					<h2
+						sx={{
+							color: 'header',
+							fontSize: ['h2Mobile', 'h2'],
+							paddingTop: '36px',
+						}}
+					>
+						Verkort je thuisquarantaine door je te laten testen op dag 5
+					</h2>
+					<MakeOnlineAppointment
+						appointmentNotPossibleTitle="Je kunt nog geen online afspraak maken"
+						appointmentNotPossibleSubtitle="Dit op dag 4 van je thuisquarantaine"
+						ggdCtaButtonText="Maak direct een afspraak op de website van de GGD"
+					/>
+					<CallGGD callingIsOnlyOption />
+				</>
+			)}
+			{contentBlocks.afspraak_coronatest__online_en_telefonisch && (
+				<>
+					<h2
+						sx={{
+							color: 'header',
+							fontSize: ['h2Mobile', 'h2'],
+							paddingTop: '36px',
+						}}
+					>
+						Verkort je thuisquarantaine door je te laten testen op dag 5
+					</h2>
+					<MakeOnlineAppointment ggdCtaButtonText="Maak direct een afspraak op de website van de GGD" />
+					<CallGGD />
+				</>
+			)}
+			{(contentBlocks.afspraak_coronatest__heb_je_klachten_na_5_dagen ||
+				contentBlocks.afspraak_coronatest__heb_je_klachten_land_c) && (
+				<>
+					<MakeOnlineAppointment ggdCtaButtonText="Heb je klachten? Maak direct een afspraak op de website van de GGD" />
+					<CallGGD />
+				</>
+			)}
 
-			{(!quarantaine || quarantaineDay > 0) && (
-				<CallGGD quarantaineDay={quarantaineDay} quarantaine={quarantaine} />
-			)}
-			{quarantaine && isDuringTravel && (
+			{contentBlocks.agenda__afspraak_coronatest && (
 				<ReminderCalendarInvite
 					title="Zet 'Afspraak maken coronatest' in je agenda"
 					modalTitle="Afspraak maken coronatest in agenda"

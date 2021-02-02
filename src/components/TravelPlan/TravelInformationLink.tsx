@@ -25,6 +25,7 @@ const TravelInformationLink = (props: TravelInformationLinkProps) => {
 	const symbolFile = props.symbolFile
 		? props.symbolFile
 		: '/icons/Vector-1.svg';
+
 	return (
 		<LinkWrapper href={props.href} internal={props.internal}>
 			<a

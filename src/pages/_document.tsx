@@ -1,6 +1,4 @@
 /** @jsx jsx */
-import * as React from 'react';
-
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 
 import { jsx } from 'theme-ui';

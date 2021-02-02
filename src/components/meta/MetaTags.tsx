@@ -5,9 +5,10 @@ type Props = {
 	title: string;
 	description: string;
 	url: string;
+	noIndex?: boolean;
 };
 
-const MetaTags = ({ title, description, url }: Props) => {
+const MetaTags = ({ title, description, url, noIndex }: Props) => {
 	const baseUrl = 'https://reizentijdenscorona.rijksoverheid.nl';
 	const completeURl = `${baseUrl}${url}`;
 
@@ -31,6 +32,8 @@ const MetaTags = ({ title, description, url }: Props) => {
 			<meta property="twitter:title" content={title} />
 			<meta property="twitter:description" content={description} />
 			<meta property="twitter:image" content={`${baseUrl}/share.png`} />
+
+			{noIndex && <meta name="robots" content="noindex" />}
 		</Head>
 	);
 };

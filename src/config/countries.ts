@@ -1,3 +1,5 @@
+import { MeansOfTransport } from 'components/advice/AdviceContext';
+
 // Enum with all available country names
 export enum CountrySlugs {
 	afghanistan = 'afghanistan',
@@ -214,6 +216,8 @@ export enum RiskLevel {
 	D_EU_INREISVERBOD,
 }
 
+export type TransportRestrictions = Array<'vliegtuig' | 'ferry'>;
+
 export interface Country {
 	fullName: string;
 	slug: CountrySlugs;
@@ -221,7 +225,7 @@ export interface Country {
 	euCountry: boolean;
 	schengenCountry: boolean;
 	riskLevel: RiskLevel;
-	transportRestrictions: Array<'plane' | 'boat'>;
+	transportRestrictions: TransportRestrictions;
 	synonyms?: string[];
 }
 
@@ -287,7 +291,7 @@ export const countries: Country[] = [
 		euCountry: false,
 		schengenCountry: false,
 		riskLevel: RiskLevel.D_EU_INREISVERBOD,
-		transportRestrictions: ['plane'],
+		transportRestrictions: ['vliegtuig'],
 	},
 	{
 		fullName: 'Armenië',
@@ -395,7 +399,7 @@ export const countries: Country[] = [
 		euCountry: false,
 		schengenCountry: false,
 		riskLevel: RiskLevel.D_EU_INREISVERBOD,
-		transportRestrictions: ['plane'],
+		transportRestrictions: ['vliegtuig'],
 	},
 	{
 		fullName: 'Bosnië - Herzegovina',
@@ -422,7 +426,7 @@ export const countries: Country[] = [
 		euCountry: false,
 		schengenCountry: false,
 		riskLevel: RiskLevel.D_EU_INREISVERBOD,
-		transportRestrictions: ['plane'],
+		transportRestrictions: ['vliegtuig'],
 	},
 	{
 		fullName: 'Brunei',
@@ -494,7 +498,7 @@ export const countries: Country[] = [
 		euCountry: false,
 		schengenCountry: false,
 		riskLevel: RiskLevel.D_EU_INREISVERBOD,
-		transportRestrictions: ['plane'],
+		transportRestrictions: ['vliegtuig'],
 	},
 	{
 		fullName: 'China',
@@ -521,7 +525,7 @@ export const countries: Country[] = [
 		euCountry: false,
 		schengenCountry: false,
 		riskLevel: RiskLevel.D_EU_INREISVERBOD,
-		transportRestrictions: ['plane'],
+		transportRestrictions: ['vliegtuig'],
 	},
 	{
 		fullName: 'Comoren',
@@ -611,7 +615,7 @@ export const countries: Country[] = [
 		euCountry: false,
 		schengenCountry: false,
 		riskLevel: RiskLevel.D_EU_INREISVERBOD,
-		transportRestrictions: ['plane'],
+		transportRestrictions: ['vliegtuig'],
 	},
 	{
 		fullName: 'Duitsland',
@@ -629,7 +633,7 @@ export const countries: Country[] = [
 		euCountry: false,
 		schengenCountry: false,
 		riskLevel: RiskLevel.D_EU_INREISVERBOD,
-		transportRestrictions: ['plane'],
+		transportRestrictions: ['vliegtuig'],
 	},
 	{
 		fullName: 'Egypte',
@@ -729,7 +733,7 @@ export const countries: Country[] = [
 		euCountry: false,
 		schengenCountry: false,
 		riskLevel: RiskLevel.D_EU_INREISVERBOD,
-		transportRestrictions: ['plane'],
+		transportRestrictions: ['vliegtuig'],
 	},
 	{
 		fullName: 'Gabon',
@@ -819,7 +823,7 @@ export const countries: Country[] = [
 		euCountry: false,
 		schengenCountry: false,
 		riskLevel: RiskLevel.D_EU_INREISVERBOD,
-		transportRestrictions: ['plane'],
+		transportRestrictions: ['vliegtuig'],
 	},
 	{
 		fullName: 'Haïti',
@@ -944,7 +948,7 @@ export const countries: Country[] = [
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
-		riskLevel: RiskLevel.C_VEILIGE_LIJST,
+		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 		transportRestrictions: [],
 	},
 	{
@@ -972,7 +976,7 @@ export const countries: Country[] = [
 		euCountry: false,
 		schengenCountry: false,
 		riskLevel: RiskLevel.D_EU_INREISVERBOD,
-		transportRestrictions: ['plane'],
+		transportRestrictions: ['vliegtuig'],
 	},
 	{
 		fullName: 'Kameroen',
@@ -1468,7 +1472,7 @@ export const countries: Country[] = [
 		euCountry: false,
 		schengenCountry: false,
 		riskLevel: RiskLevel.D_EU_INREISVERBOD,
-		transportRestrictions: ['plane'],
+		transportRestrictions: ['vliegtuig'],
 	},
 	{
 		fullName: 'Papoea-Nieuw-Guinea',
@@ -1486,7 +1490,7 @@ export const countries: Country[] = [
 		euCountry: false,
 		schengenCountry: false,
 		riskLevel: RiskLevel.D_EU_INREISVERBOD,
-		transportRestrictions: ['plane'],
+		transportRestrictions: ['vliegtuig'],
 	},
 	{
 		fullName: 'Peru',
@@ -1495,7 +1499,7 @@ export const countries: Country[] = [
 		euCountry: false,
 		schengenCountry: false,
 		riskLevel: RiskLevel.D_EU_INREISVERBOD,
-		transportRestrictions: ['plane'],
+		transportRestrictions: ['vliegtuig'],
 	},
 	{
 		fullName: 'Polen',
@@ -1738,7 +1742,7 @@ export const countries: Country[] = [
 		euCountry: false,
 		schengenCountry: false,
 		riskLevel: RiskLevel.D_EU_INREISVERBOD,
-		transportRestrictions: ['plane'],
+		transportRestrictions: ['vliegtuig'],
 	},
 	{
 		fullName: 'Swaziland',
@@ -1882,7 +1886,7 @@ export const countries: Country[] = [
 		euCountry: false,
 		schengenCountry: false,
 		riskLevel: RiskLevel.D_EU_INREISVERBOD,
-		transportRestrictions: ['plane'],
+		transportRestrictions: ['vliegtuig'],
 	},
 	{
 		fullName: 'Vanuatu',
@@ -1909,7 +1913,7 @@ export const countries: Country[] = [
 		euCountry: false,
 		schengenCountry: false,
 		riskLevel: RiskLevel.D_EU_INREISVERBOD,
-		transportRestrictions: ['plane'],
+		transportRestrictions: ['vliegtuig'],
 	},
 	{
 		fullName: 'Verenigd Koninkrijk',
@@ -1918,7 +1922,7 @@ export const countries: Country[] = [
 		euCountry: false,
 		schengenCountry: false,
 		riskLevel: RiskLevel.A_RISICOVOL,
-		transportRestrictions: ['plane', 'boat'],
+		transportRestrictions: ['vliegtuig', 'ferry'],
 		synonyms: ['Engeland', 'Schotland', 'Wales', 'Noord-Ierland'],
 	},
 	{
@@ -2002,7 +2006,7 @@ export const countries: Country[] = [
 		euCountry: false,
 		schengenCountry: false,
 		riskLevel: RiskLevel.D_EU_INREISVERBOD,
-		transportRestrictions: ['plane'],
+		transportRestrictions: ['vliegtuig'],
 	},
 	{
 		fullName: 'Zuid-Korea',
