@@ -310,6 +310,14 @@ const AdviceResult = ({
 									/>
 								</TravelAdvicePanel>
 							)}
+							{c.reisschema__gezondheidsverklaring && (
+								<TravelAdvicePanel title="Vul de gezondheidsverklaring in voor je vertrek">
+									<TravelInformationLink
+										href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/documenten/publicaties/2020/07/20/gezondheidsverklaring-reizigers-nederlands"
+										text="Meer informatie"
+									/>
+								</TravelAdvicePanel>
+							)}
 						</TravelPlanStage>
 
 						<TravelPlanStage
