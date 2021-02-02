@@ -17,11 +17,18 @@ const Cookies = () => {
 				<Content>
 					<Styled.p>
 						Een toegankelijke website is voor alle doelgroepen beter te
-						gebruiken. Daarom is in het{' '}
-						<u>Tijdelijk besluit digitale toegankelijkheid overheid</u> bepaald
-						dat overheidssites moeten voldoen aan toegankelijkheidseisen zoals
-						vastgelegd in EN 301 549/WCAG 2.1 en daarover verantwoording moeten
-						afleggen in een toegankelijkheidsverklaring.
+						gebruiken. Daarom is in het '
+						<a
+							href="https://wetten.overheid.nl/BWBR0040936/2018-07-01"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							Tijdelijk besluit digitale toegankelijkheid overheid
+						</a>
+						' bepaald dat overheidssites moeten voldoen aan
+						toegankelijkheidseisen zoals vastgelegd in EN 301 549/WCAG 2.1 en
+						daarover verantwoording moeten afleggen in een
+						toegankelijkheidsverklaring.
 					</Styled.p>
 					<Styled.p>
 						Deze verklaring kan pas na grondig onderzoek door een daarvoor
