@@ -95,13 +95,13 @@ const faqs: {
 		whyNegativeTest: (showNegativeTestDeclaration: boolean | undefined) =>
 			showNegativeTestDeclaration
 				? [
-						'Waarom heb ik twee negatieve testuitslagen en een negatieve testverklaring nodig?',
+						'Waarom heb ik een negatieve testuitslag en een negatieve testverklaring nodig?',
 						<p>
-							U moet als reiziger uit een hoogrisicoland 2 negatieve
-							testuitslagen laten zien als u naar Nederland reist. Dit is omdat
+							U moet als reiziger uit een hoogrisicoland een negatieve
+							testuitslag laten zien als u naar Nederland reist. Dit is omdat
 							reizigers uit hoog-risicogebieden een risico vormen op de import
-							en verspreiding van het coronavirus. De verplichte testuitslagen
-							vervangen nooit andere coronamaatregelen, zoals het inreisverbod,
+							en verspreiding van het coronavirus. De verplichte testuitslag
+							vervangt nooit andere coronamaatregelen, zoals het inreisverbod,
 							quarantaine of vaccinatie. Je kan{' '}
 							<a
 								href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/negatieve-covid-19-testuitslag-aankomst-nederland/negatieve-testuitslag-buiten-eu-en-schengen"
@@ -114,13 +114,13 @@ const faqs: {
 						</p>,
 				  ]
 				: [
-						'Waarom heb ik twee negatieve testuitslagen nodig?',
+						'Waarom heb ik een negatieve testuitslag nodig?',
 						<p>
-							U moet als reiziger uit een hoogrisicoland 2 negatieve
-							testuitslagen laten zien als u naar Nederland reist. Dit is omdat
+							U moet als reiziger uit een hoogrisicoland een negatieve
+							testuitslag laten zien als u naar Nederland reist. Dit is omdat
 							reizigers uit hoog-risicogebieden een risico vormen op de import
-							en verspreiding van het coronavirus. De verplichte testuitslagen
-							vervangen nooit andere coronamaatregelen, zoals het inreisverbod,
+							en verspreiding van het coronavirus. De verplichte testuitslag
+							vervangt nooit andere coronamaatregelen, zoals het inreisverbod,
 							quarantaine of vaccinatie. Je kan{' '}
 							<a
 								href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/negatieve-covid-19-testuitslag-aankomst-nederland/negatieve-testuitslag-binnen-eu-en-schengen"
