@@ -235,8 +235,16 @@ const faqs: {
 						<p>
 							Je kan een test laten afnemen bij een gevalideerd testcentrum (bv.
 							laboratorium, arts, gezondheidsdienst, etc) op je reisbestemming.
-							Let erop dat de test voldoet aan de eisen die Nederland stelt
-							hieraan. Zie hiervoor de andere veelgestelde vraag.
+							Lees{' '}
+							<a
+								href="https://www.nederlandwereldwijd.nl/documenten/vragen-en-antwoorden/waar-kan-ik-een-pcr-of-sneltest-laten-doen-in-het-buitenland"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								hier
+							</a>{' '}
+							meer. Let erop dat de test voldoet aan de eisen die Nederland
+							stelt hieraan. Zie hiervoor de andere veelgestelde vraag.
 						</p>,
 				  ],
 		whatToDoPositive: () => [
