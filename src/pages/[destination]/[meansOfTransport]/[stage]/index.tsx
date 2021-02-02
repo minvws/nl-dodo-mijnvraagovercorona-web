@@ -138,9 +138,10 @@ const AdviceResult = ({
 						)}
 						{c.bullets__tm_31maart_niet_reizen && (
 							<li>
-								Tot en met 31 maart <strong>niet reizen</strong>. Maak alleen
-								echt noodzakelijke reizen. Daar vallen vakanties bijvoorbeeld
-								niet onder.
+								Tot en met 31 maart <strong>niet reizen</strong>. Reis alleen
+								bij ernstige familieomstandigheden of voor werk dat echt niet
+								uitgesteld kan worden en waarbij fysieke aanwezigheid absoluut
+								nodig is.
 							</li>
 						)}
 						{c.bullets__verhoogd_risico && (
@@ -297,7 +298,7 @@ const AdviceResult = ({
 							{c.reisschema__sneltest && (
 								<TravelAdvicePanel
 									title="Doe een sneltest"
-									subHeading="Max 4u voor vertrek"
+									subHeading="Max 4u voor het aan boord gaan"
 								>
 									Je hebt voor je terugreis ook een negatieve sneltestuitslag
 									nodig.

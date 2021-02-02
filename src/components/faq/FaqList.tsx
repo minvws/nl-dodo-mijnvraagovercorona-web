@@ -30,20 +30,18 @@ const faqs: {
 		whatNecessary: () => [
 			'Wat valt onder een noodzakelijke reis?',
 			<p>
-				Blijf in Nederland tot en met 31 maart en boek geen reizen.
-				Uitzonderingen worden gemaakt voor werk in het buitenland met grote
-				economische belangen en een (aanstaand) sterfgeval in de naaste
-				omgeving. Vakantiereizen, familiebezoek of op vakantie naar een tweede
-				huis zijn geen noodzakelijke reizen. Ook het fysiek bezoeken van een
-				organisatie in het buitenland is in veel gevallen niet noodzakelijk.
+				Blijf in Nederland. Ga niet op reis. Boek geen reizen voor de periode
+				tot en met 31 maart. Reis alleen bij ernstige familieomstandigheden of
+				voor werk dat echt niet uitgesteld kan worden en waarbij fysieke
+				aanwezigheid absoluut nodig is.
 			</p>,
 		],
 		whyRisk: () => [
 			'Waarom is reizen naar het buitenland zo’n groot risico?',
 			<p>
-				Wanneer je besmet raakt in het buitenland, kun je thuis anderen
-				besmetten. Ook met een andere, besmettelijkere variant van het virus. Ga
-				niet op reis, blijf in Nederland en boek geen reizen.
+				Elke reis verhoogt de kans op meer besmettingen in Nederland en in het
+				buitenland. Ga niet op reis en blijf in Nederland. Boek geen reizen voor
+				de periode tot en met 31 maart.
 			</p>,
 		],
 		whyQuarantine: () => [
