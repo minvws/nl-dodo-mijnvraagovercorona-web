@@ -503,6 +503,7 @@ export const countries: Country[] = [
 		schengenCountry: false,
 		riskLevel: RiskLevel.C_VEILIGE_LIJST,
 		transportRestrictions: [],
+		synonyms: ['Hong Kong'],
 	},
 	{
 		fullName: 'Colombia',
