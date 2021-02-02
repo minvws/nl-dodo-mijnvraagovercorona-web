@@ -70,6 +70,7 @@ export enum CountrySlugs {
 	haiti = 'haiti',
 	honduras = 'honduras',
 	hongarije = 'hongarije',
+	hongKong = 'hongkong',
 	ierland = 'ierland',
 	ijsland = 'ijsland',
 	india = 'india',
@@ -502,6 +503,15 @@ export const countries: Country[] = [
 	{
 		fullName: 'China',
 		slug: CountrySlugs.china,
+		coronaMelderCountry: false,
+		euCountry: false,
+		schengenCountry: false,
+		riskLevel: RiskLevel.C_VEILIGE_LIJST,
+		transportRestrictions: [],
+	},
+	{
+		fullName: 'Hongkong SAR',
+		slug: CountrySlugs.hongKong,
 		coronaMelderCountry: false,
 		euCountry: false,
 		schengenCountry: false,
