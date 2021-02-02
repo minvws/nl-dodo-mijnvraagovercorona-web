@@ -247,6 +247,7 @@ const AdviceResult = ({
 										<TravelInformationLink
 											href="/voorbereiding"
 											text="Meer informatie"
+											internal
 										/>
 									</TravelAdvicePanel>
 								)}

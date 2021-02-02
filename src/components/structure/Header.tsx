@@ -1,9 +1,10 @@
 /** @jsx jsx */
+import React, { useMemo, useContext } from 'react';
 import AdviceContext from 'components/advice/AdviceContext';
+import { getAdvicePath } from 'components/advice/utils';
 import { NavLink } from 'components/nav-link';
 import RoHeaderLogo from 'components/structure/RoHeaderLogo';
 import { useRouter } from 'next/router';
-import React from 'react';
 import { jsx, Styled } from 'theme-ui';
 import BodyContainer from './BodyContainer';
 
@@ -11,34 +12,45 @@ type HeaderProps = {
 	message: string;
 	headerPrefix?: React.ReactNode;
 	backgroundImage?: string;
-	children?: React.ReactNode;
 	showBackLink?: 'result' | 'previous' | 'retry';
 };
 
-const generateResultLink = ({
-	from,
-	to,
-	destination,
-	stage,
-}: {
-	from?: string;
-	to?: string;
-	destination?: string;
-	stage?: string;
-}) => ({
-	pathname: `/${destination}/${stage}`,
-	query: { van: from, tot: to },
-});
-
-const Header = (props: HeaderProps) => {
-	const { from, to, stage, destination } = React.useContext(AdviceContext);
+const Header = ({
+	message,
+	headerPrefix,
+	backgroundImage,
+	showBackLink,
+}: HeaderProps) => {
+	const { from, to, stage, destination, meansOfTransport } = useContext(
+		AdviceContext,
+	);
 	const router = useRouter();
+	const resultLink = useMemo(() => {
+		if (
+			showBackLink === 'result' &&
+			from &&
+			to &&
+			stage &&
+			destination &&
+			meansOfTransport
+		) {
+			return getAdvicePath.result({
+				fromDate: from,
+				toDate: to,
+				stage,
+				destination,
+				meansOfTransport,
+			});
+		}
+
+		return null;
+	}, [showBackLink, from, to, stage, destination, meansOfTransport]);
 
 	return (
 		<header
 			sx={{
 				backgroundColor: 'headerBackground',
-				backgroundImage: [`url("${props.backgroundImage}")`, 'none'],
+				backgroundImage: [`url("${backgroundImage}")`, 'none'],
 				color: 'header',
 				backgroundRepeat: 'no-repeat',
 				backgroundPosition: 'right top',
@@ -47,33 +59,25 @@ const Header = (props: HeaderProps) => {
 		>
 			<RoHeaderLogo />
 			<BodyContainer>
-				{stage && destination && props.showBackLink === 'result' && (
-					<NavLink
-						href={generateResultLink({
-							from,
-							to,
-							stage,
-							destination,
-						})}
-						icon="back"
-					>
+				{resultLink && (
+					<NavLink href={resultLink} icon="back">
 						naar resultaat
 					</NavLink>
 				)}
 
-				{props.showBackLink === 'previous' && (
+				{showBackLink === 'previous' && (
 					<NavLink onClick={() => router.back()} icon="back">
 						terug
 					</NavLink>
 				)}
 
-				{props.showBackLink === 'retry' && (
+				{showBackLink === 'retry' && (
 					<NavLink href="/" icon="refresh">
 						opnieuw
 					</NavLink>
 				)}
 
-				{props.headerPrefix && (
+				{headerPrefix && (
 					<span
 						sx={{
 							fontSize: 'chapeau',
@@ -84,7 +88,7 @@ const Header = (props: HeaderProps) => {
 							maxWidth: '60%',
 						}}
 					>
-						{props.headerPrefix}
+						{headerPrefix}
 					</span>
 				)}
 
@@ -95,7 +99,7 @@ const Header = (props: HeaderProps) => {
 						width: ['80%', '60%'],
 					}}
 				>
-					{props.message}
+					{message}
 				</Styled.h1>
 			</BodyContainer>
 		</header>
