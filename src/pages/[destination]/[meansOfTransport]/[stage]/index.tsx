@@ -302,7 +302,7 @@ const AdviceResult = ({
 									title="Doe een sneltest"
 									subHeading="Max 4u voor vertrek"
 								>
-									Je hebt ook een negatieve sneltestuitslag nodig.
+									Je hebt voor je terugreis ook een negatieve sneltestuitslag nodig.
 									<br />
 									<TravelInformationLink
 										href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/verplichte-negatieve-covid-19-testuitslagen/eisen-sneltest"
