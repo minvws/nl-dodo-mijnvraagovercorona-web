@@ -62,7 +62,7 @@ const Period = () => {
 	};
 
 	/**
-	 * Store selected dates in context, and generate the next stap url:
+	 * Store selected dates in context, and generate the next step url:
 	 * This is either no advice page, or the means of transport step.
 	 */
 	useEffect(() => {
@@ -72,8 +72,8 @@ const Period = () => {
 		const stage = calculateStage({ fromDate, toDate });
 
 		/* Check whether the quarantaine period has ended when more then 10 days have passed */
-		if (isAfterQuarantaine) {
-			setResultLink(getAdvicePath.noResult());
+		if (isAfterQuarantaine && destination) {
+			setResultLink(getAdvicePath.noResult({ destination }));
 		} else {
 			setResultLink(getAdvicePath.meansOfTransport());
 		}
@@ -114,7 +114,7 @@ const Period = () => {
 			<MetaTags
 				title="Planning | Quarantaine Reischeck | Rijksoverheid.nl"
 				description="Actuele informatie over bestemming en maatregelen."
-				url={`/periode`}
+				url="/periode"
 			/>
 
 			<Page

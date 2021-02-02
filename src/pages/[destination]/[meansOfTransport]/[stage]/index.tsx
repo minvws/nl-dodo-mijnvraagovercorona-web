@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { useState, useContext, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { endOfDay, isAfter, startOfDay } from 'date-fns';
+import { endOfDay, startOfDay } from 'date-fns';
 
 import { jsx, Container, Box } from 'theme-ui';
 
@@ -10,11 +10,7 @@ import TestBooking from 'components/results/TestBooking';
 import ReminderCalendarInvite from 'components/TravelPlan/ReminderCalendarInvite';
 import { FaqListShort } from 'components/faq/FaqList';
 import { DialogLink, InternalLink } from 'components/Links';
-import {
-	parseDate,
-	isMoreThanWeekBeforeDeparture,
-	addDays,
-} from 'utilities/dateUtils';
+import { parseDate, addDays } from 'utilities/dateUtils';
 import { useDestination } from 'hooks/use-destination';
 import { countries, RiskLevel } from 'config/countries';
 import TravelPlanStage from 'components/TravelPlan/TravelPlanStage';
@@ -28,18 +24,18 @@ import AdviceContext, {
 	travelStage,
 	TravelStage,
 } from 'components/advice/AdviceContext';
+import { getAdvicePath } from 'components/advice/utils';
 import { Content, Hero, Page } from 'components/structure/Page';
 import ExpansionPanel from 'components/structure/ExpansionPanel';
 import { Card } from 'components/card';
 import { cartesianProduct } from 'utilities/pathUtils';
 import { getTravelSchemeContentBlocks } from 'utilities/travel-advice';
 
-type Stage = 'voor-vertrek' | 'tijdens-je-reis' | 'na-thuiskomst';
 type Color = 'yellow' | 'orange' | 'red';
 
 type AdviceProps = {
 	destination: string;
-	stage: Stage;
+	stage: TravelStage;
 	meansOfTransport: MeansOfTransport;
 };
 
@@ -77,16 +73,8 @@ const AdviceResult = ({
 		transportRestrictions: country?.transportRestrictions,
 	});
 
-	const showPreperation = stage === 'voor-vertrek';
 	const duringOrAfter =
 		stage === 'tijdens-je-reis' || stage === 'na-thuiskomst';
-
-	const showNegativeTestResult =
-		country?.riskLevel === RiskLevel.A_RISICOVOL ||
-		country?.riskLevel === RiskLevel.B_RISICOVOL_INREISBEPERKINGEN;
-
-	const showNegativeTestDeclaration =
-		country?.riskLevel === RiskLevel.D_EU_INREISVERBOD;
 
 	const showQuarantaine =
 		country?.riskLevel === RiskLevel.A_RISICOVOL ||
@@ -117,7 +105,13 @@ const AdviceResult = ({
 			<MetaTags
 				title="Advies en actuele situatie bestemming | Quarantaine Reischeck | Rijksoverheid.nl"
 				description="Advies op basis van actuele informatie over bestemming."
-				url={`/${destination}/${stage}`}
+				url={
+					getAdvicePath.result({
+						destination,
+						meansOfTransport,
+						stage,
+					}).pathname
+				}
 			/>
 
 			<Page title={getPageTitle(color)} showBackLink="retry">

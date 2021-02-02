@@ -194,7 +194,7 @@ const TestBooking = ({
 				</>
 			)}
 			{(contentBlocks.afspraak_coronatest__heb_je_klachten_na_5_dagen ||
-				contentBlocks.afspraak_cornatest__heb_je_klachten_land_c) && (
+				contentBlocks.afspraak_coronatest__heb_je_klachten_land_c) && (
 				<>
 					<MakeOnlineAppointment ggdCtaButtonText="Heb je klachten? Maak direct een afspraak op de website van de GGD" />
 					<CallGGD />

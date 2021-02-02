@@ -80,6 +80,13 @@ export const travelAdviceConfiguration = {
 		travelStage(['tijdens-je-reis', 'na-thuiskomst']),
 		maxDaysHome(10),
 	],
+	bullets__10dgn_verstreken: [countryCategory(allCountriesExceptB)],
+	bullets__thuisquarantaine_voorbij: [
+		countryCategory([RiskLevel.A_RISICOVOL, RiskLevel.D_EU_INREISVERBOD]),
+	],
+	bullets__doe_de_check_opnieuw: [countryCategory(allCountriesExceptB)],
+	bullets__klachten_dan_testen: [countryCategory(allCountriesExceptB)],
+
 	/* Travel Scheme */
 	reisschema__downloadReisApp: [
 		countryCategory(allCountriesExceptB),
@@ -159,7 +166,7 @@ export const travelAdviceConfiguration = {
 		travelStage(['na-thuiskomst']),
 		minDaysHome(6),
 	],
-	afspraak_cornatest__heb_je_klachten_land_c: [
+	afspraak_coronatest__heb_je_klachten_land_c: [
 		countryCategory([RiskLevel.C_VEILIGE_LIJST]),
 		travelStage(['na-thuiskomst']),
 		maxDaysHome(10),
