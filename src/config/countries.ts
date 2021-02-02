@@ -1716,6 +1716,15 @@ export const countries: Country[] = [
 		schengenCountry: true,
 		riskLevel: RiskLevel.A_RISICOVOL,
 		transportRestrictions: [],
+		synonyms: [
+			'Canarische Eilanden',
+			'La Palma',
+			'Tenerife',
+			'Gran Canaria',
+			'Fuerteventura',
+			'Lanzarote',
+			'de Balearen',
+		],
 	},
 	{
 		fullName: 'Sri Lanka',
