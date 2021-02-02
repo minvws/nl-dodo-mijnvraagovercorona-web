@@ -288,7 +288,10 @@ const AdviceResult = ({
 									Je mag alleen terugreizen met een negatieve testuitslag en
 									testverklaring.
 									<br />
-									<TravelInformationLink href="" text="Meer informatie" />
+									<TravelInformationLink
+										href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/negatieve-covid-19-testuitslag-aankomst-nederland"
+										text="Meer informatie"
+									/>
 								</TravelAdvicePanel>
 							)}
 							{c.reisschema__sneltest && (
@@ -296,7 +299,8 @@ const AdviceResult = ({
 									title="Doe een sneltest"
 									subHeading="Max 4u voor vertrek"
 								>
-									Je hebt voor je terugreis ook een negatieve sneltestuitslag nodig.
+									Je hebt voor je terugreis ook een negatieve sneltestuitslag
+									nodig.
 									<br />
 									<TravelInformationLink
 										href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/verplichte-negatieve-covid-19-testuitslagen/eisen-sneltest"
