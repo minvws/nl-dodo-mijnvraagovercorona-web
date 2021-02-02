@@ -25,6 +25,7 @@ const NoAdvice = ({ destination }: NoAdviceProps) => {
 				title="Advies en actuele situatie bestemming | Quarantaine Reischeck | Rijksoverheid.nl"
 				description="Advies op basis van actuele informatie over bestemming."
 				url={getAdvicePath.noResult({ destination })}
+				noIndex
 			/>
 
 			<Page title="Helaas, we kunnen je geen advies geven" showBackLink="retry">
