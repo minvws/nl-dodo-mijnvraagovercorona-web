@@ -7,7 +7,6 @@ import { MeansOfTransport, TravelStage } from 'components/advice/AdviceContext';
 import { RiskLevel, TransportRestrictions } from 'config/countries';
 import { GetTravelSchemeContentBlocksParams } from './travel-advice';
 import { differenceInDays, isAfter, isBefore } from 'date-fns';
-import { addDays } from 'utilities/dateUtils';
 
 export type ShowBlockFunction<InputType extends unknown> = (
 	options: InputType,
