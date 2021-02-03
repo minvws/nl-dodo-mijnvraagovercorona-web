@@ -143,12 +143,14 @@ const MeansOfTransportPage = () => {
 							onChange={handleMeansOfTransportSelect}
 						/>
 						{meansOfTransport && (
-							<Flex sx={{ justifyContent: 'flex-end', paddingTop: 30 }}>
-								<Box>
-									<ButtonStyledAsSubmit>
-										Naar het resultaat
-									</ButtonStyledAsSubmit>
-								</Box>
+							<Flex
+								sx={{
+									justifyContent: [undefined, 'flex-end'],
+									width: '100%',
+									paddingTop: 30,
+								}}
+							>
+								<ButtonStyledAsSubmit>Naar het resultaat</ButtonStyledAsSubmit>
 							</Flex>
 						)}
 					</form>
