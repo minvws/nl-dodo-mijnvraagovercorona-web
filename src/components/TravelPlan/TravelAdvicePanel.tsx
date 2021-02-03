@@ -8,39 +8,43 @@ type TravelAdvicePanelProps = {
 	children: React.ReactNode;
 };
 
-const TravelAdvicePanel = (props: TravelAdvicePanelProps) => {
-	return (
-		<Container
+const TravelAdvicePanel = ({
+	title,
+	subHeading,
+	children,
+}: TravelAdvicePanelProps) => (
+	<Container
+		sx={{
+			marginTop: '-0.5em',
+			paddingBottom: '0.9em',
+		}}
+	>
+		<div
 			sx={{
-				marginTop: '-0.5em',
-				paddingBottom: '0.9em',
+				color: 'black',
+				border: '1px solid #CA005D',
+				borderRadius: '10px',
+				paddingLeft: '0.5em',
+				paddingRight: '0.5em',
 			}}
 		>
 			<div
 				sx={{
-					color: 'black',
-					border: '1px solid #CA005D',
-					borderRadius: '10px',
-					paddingLeft: '0.5em',
-					paddingRight: '0.5em',
+					display: 'flex',
+					paddingTop: '0.5em',
+					justifyContent: 'space-between',
+					flexDirection: ['column', 'row'],
 				}}
 			>
-				<div
+				<h4
 					sx={{
-						display: 'flex',
-						paddingTop: '0.5em',
-						justifyContent: 'space-between',
-						flexDirection: ['column', 'row'],
+						margin: 0,
+						padding: 0,
 					}}
 				>
-					<h4
-						sx={{
-							margin: 0,
-							padding: 0,
-						}}
-					>
-						{props.title}
-					</h4>
+					{title}
+				</h4>
+				{subHeading && (
 					<h5
 						sx={{
 							color: 'gray', // todo
@@ -50,21 +54,21 @@ const TravelAdvicePanel = (props: TravelAdvicePanelProps) => {
 							fontWeight: 'normal',
 						}}
 					>
-						{props.subHeading}
+						{subHeading}
 					</h5>
-				</div>
-				<Container
-					sx={{
-						marginTop: '2px',
-						paddingTop: '0.2em',
-						paddingBottom: '0.5em',
-					}}
-				>
-					{props.children}
-				</Container>
+				)}
 			</div>
-		</Container>
-	);
-};
+			<Container
+				sx={{
+					marginTop: '2px',
+					paddingTop: '0.2em',
+					paddingBottom: '0.5em',
+				}}
+			>
+				{children}
+			</Container>
+		</div>
+	</Container>
+);
 
 export default TravelAdvicePanel;

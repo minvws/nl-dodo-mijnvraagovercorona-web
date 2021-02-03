@@ -11,7 +11,12 @@ type TravelPlanStageProps = {
 	children?: React.ReactNode;
 };
 
-const TravelPlanStage = (props: TravelPlanStageProps) => {
+const TravelPlanStage = ({
+	title,
+	subHeading,
+	date,
+	children,
+}: TravelPlanStageProps) => {
 	return (
 		<>
 			<div
@@ -36,21 +41,6 @@ const TravelPlanStage = (props: TravelPlanStageProps) => {
 					},
 				}}
 			>
-				{props.date && (
-					<span
-						sx={{
-							fontSize: ['bodyMobile', 'body'],
-							textAlign: 'right',
-							marginRight: '8px',
-							display: 'inline-block',
-							color: 'smallText',
-							fontWeight: 700,
-							lineHeight: 1,
-						}}
-					>
-						{formatShortDate(props.date)}:
-					</span>
-				)}
 				<h3
 					sx={{
 						display: 'inline-block',
@@ -61,9 +51,18 @@ const TravelPlanStage = (props: TravelPlanStageProps) => {
 						lineHeight: 1,
 					}}
 				>
-					{props.title}
+					{date && (
+						<span
+							sx={{
+								color: 'smallText',
+							}}
+						>
+							{`${formatShortDate(date)}: `}
+						</span>
+					)}
+					{title}
 				</h3>
-				{props.subHeading && (
+				{subHeading && (
 					<h4
 						sx={{
 							fontWeight: 'normal',
@@ -73,11 +72,11 @@ const TravelPlanStage = (props: TravelPlanStageProps) => {
 							color: 'text',
 						}}
 					>
-						{props.subHeading}
+						{subHeading}
 					</h4>
 				)}
 			</div>
-			{props.children}
+			{children}
 		</>
 	);
 };
