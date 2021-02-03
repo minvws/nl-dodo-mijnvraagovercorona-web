@@ -37,7 +37,7 @@ export type TravelSchemeContentBlocks = {
  * Iterates over all conditions and resolves them to 1 single boolean.
  * ALL rows must resolve to true for it to be visible.
  */
-const evaluateAllConditionsToSingleBoolean = (
+export const evaluateAllConditionsToSingleBoolean = (
 	fns: EvaluateBooleanMethod[],
 	currentValues: GetTravelSchemeContentBlocksParams,
 ) => fns.map((fn) => fn(currentValues)).every((bool) => bool === true);
