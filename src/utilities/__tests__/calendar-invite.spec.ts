@@ -7,6 +7,12 @@ import {
 } from 'utilities/calendar-invite';
 
 describe('Util: Calendar invite', () => {
+	beforeAll(() => {
+		jest
+			.useFakeTimers('modern')
+			.setSystemTime(new Date('2021-02-01').getTime());
+	});
+
 	it('Should render a valid outlook invite url', () => {
 		const outlook = generateOutlookOnlineUrl({
 			title: 'Test title',
@@ -42,7 +48,7 @@ describe('Util: Calendar invite', () => {
 		});
 
 		expect(ics).toMatchInlineSnapshot(
-			`"data:text/calendar;charset=utf8,BEGIN:VCALENDAR%0AVERSION:2.0%0ABEGIN:VEVENT%0AUID:20210402T220000Z--Test%20title@rijksoverheid.nl%0ADTSTAMP:20210113%0ADTSTART:20210402T220000Z%0ADTEND:20210408T121200Z%0ASUMMARY:Test%20title%0ADESCRIPTION:Longer%20description%0AEND:VEVENT%0AEND:VCALENDAR"`,
+			`"data:text/calendar;charset=utf8,BEGIN:VCALENDAR%0AVERSION:2.0%0ABEGIN:VEVENT%0AUID:20210402T220000Z--Test%20title@rijksoverheid.nl%0ADTSTAMP:20210201%0ADTSTART:20210402T220000Z%0ADTEND:20210408T121200Z%0ASUMMARY:Test%20title%0ADESCRIPTION:Longer%20description%0AEND:VEVENT%0AEND:VCALENDAR"`,
 		);
 	});
 
