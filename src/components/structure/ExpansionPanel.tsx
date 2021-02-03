@@ -33,66 +33,72 @@ const ExpansionPanel = (props: ExpansionPanelProps) => {
 	return (
 		<Container>
 			<Disclosure onChange={handleChange}>
-				<DisclosureButton
-					sx={{
-						position: 'relative',
-						textAlign: 'left',
-						paddingLeft: 0,
-						paddingBottom: '15px',
-						paddingTop: '15px',
-						paddingRight: '30px',
-						background: 'none',
-						border: 'none',
-						fontFamily: 'body',
-						fontSize: ['bodyMobile', 'body'],
-						lineHeight: ['bodyMobile', 'body'],
-						width: '100%',
-						backgroundRepeat: 'no-repeat',
-						backgroundPosition: 'right 15px center',
-						borderBottom: '1px solid #AEC1D1',
-
-						'::after': {
-							content: '""',
-							position: 'absolute',
-							right: '15px',
-							top: '24px',
-							height: '8px',
-							width: '13px',
-							display: 'block',
-							backgroundImage: 'url("/icons/FAQ Arrow.svg")',
-							transition: 'transform .2s ease-in-out',
-						},
-
-						'&[aria-expanded="true"]': {
-							borderBottom: 'none',
+				<dt>
+					<DisclosureButton
+						sx={{
+							position: 'relative',
+							textAlign: 'left',
+							paddingLeft: 0,
+							paddingBottom: '15px',
+							paddingTop: '15px',
+							paddingRight: '30px',
+							background: 'none',
+							border: 'none',
+							fontFamily: 'body',
+							fontSize: ['bodyMobile', 'body'],
+							lineHeight: ['bodyMobile', 'body'],
+							width: '100%',
+							backgroundRepeat: 'no-repeat',
+							backgroundPosition: 'right 15px center',
+							borderBottom: '1px solid #AEC1D1',
 
 							'::after': {
-								transform: 'rotate(180deg)',
+								content: '""',
+								position: 'absolute',
+								right: '15px',
+								top: '24px',
+								height: '8px',
+								width: '13px',
+								display: 'block',
+								backgroundImage: 'url("/icons/FAQ Arrow.svg")',
+								transition: 'transform .2s ease-in-out',
 							},
 
-							'+ div': {
+							'&[aria-expanded="true"]': {
+								borderBottom: 'none',
+
+								'::after': {
+									transform: 'rotate(180deg)',
+								},
+							},
+						}}
+					>
+						{props.text}
+					</DisclosureButton>
+				</dt>
+				<dd sx={{ padding: 0, margin: 0 }}>
+					<DisclosurePanel
+						sx={{
+							div: {
 								borderBottom: '1px solid #AEC1D1',
 
 								'p:first-child': {
 									marginTop: 0,
 								},
 							},
-						},
-					}}
-				>
-					{props.text}
-				</DisclosureButton>
-				<DisclosurePanel>
-					<div
-						sx={{
-							fontSize: ['bodyMobile', 'body'],
-							lineHeight: ['bodyMobile', 'body'],
 						}}
-						ref={contentRef}
 					>
-						{props.children}
-					</div>
-				</DisclosurePanel>
+						<div
+							sx={{
+								fontSize: ['bodyMobile', 'body'],
+								lineHeight: ['bodyMobile', 'body'],
+							}}
+							ref={contentRef}
+						>
+							{props.children}
+						</div>
+					</DisclosurePanel>
+				</dd>
 			</Disclosure>
 		</Container>
 	);

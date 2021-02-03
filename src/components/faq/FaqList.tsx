@@ -368,13 +368,14 @@ const FaqList = ({
 };
 
 const FaqListContainer = ({ children }: { children: React.ReactNode }) => (
-	<div
+	<dl
 		sx={{
 			paddingBottom: '20px',
+			margin: 0,
 		}}
 	>
 		{children}
-	</div>
+	</dl>
 );
 
 export const FaqListShort = ({
