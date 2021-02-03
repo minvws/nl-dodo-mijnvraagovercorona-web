@@ -25,7 +25,7 @@ const TravelPlanStage = ({
 					color: 'header',
 					position: 'relative',
 					// Make step title lowercase if it is prepended with a date.
-					'span + h3': {
+					'span + span': {
 						textTransform: 'lowercase',
 					},
 					'::before': {
@@ -60,7 +60,7 @@ const TravelPlanStage = ({
 							{`${formatShortDate(date)}: `}
 						</span>
 					)}
-					{title}
+					<span>{title}</span>
 				</h3>
 				{subHeading && (
 					<h4
