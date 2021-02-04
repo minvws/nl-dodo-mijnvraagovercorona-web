@@ -22,8 +22,8 @@ const NoAdvice = ({ destination }: NoAdviceProps) => {
 	return (
 		<>
 			<MetaTags
-				title="Advies en actuele situatie bestemming | Quarantaine Reischeck | Rijksoverheid.nl"
-				description="Advies op basis van actuele informatie over bestemming."
+				title={`Geen Advies ${country?.fullName} | Quarantaine Reischeck | Rijksoverheid.nl`}
+				description={`Er is geen advies mogelijk voor je reis naar ${country?.fullName} op basis van de door jou opgegeven data.`}
 				url={getAdvicePath.noResult({ destination })}
 				noIndex
 			/>

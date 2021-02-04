@@ -12,7 +12,7 @@ import { FaqListShort } from 'components/faq/FaqList';
 import { DialogLink, InternalLink } from 'components/Links';
 import { parseDate, addDays } from 'utilities/dateUtils';
 import { useDestination } from 'hooks/use-destination';
-import { countries, RiskLevel } from 'config/countries';
+import { countries, Country, RiskLevel } from 'config/countries';
 import TravelPlanStage from 'components/TravelPlan/TravelPlanStage';
 import TravelAdvicePanel from 'components/TravelPlan/TravelAdvicePanel';
 import TravelInformationLink from 'components/TravelPlan/TravelInformationLink';
@@ -45,6 +45,51 @@ const getPageTitle = (color: Color) => {
 	if (color === 'red') riskLevelTekst = 'hoog ';
 
 	return `Je bestemming heeft een ${riskLevelTekst}coronarisico`;
+};
+
+const getPageMetaTitle = ({
+	stage,
+	country,
+	meansOfTransport,
+}: {
+	stage: TravelStage;
+	country: Country | null;
+	meansOfTransport: MeansOfTransport;
+}) => {
+	const stageTranslation: string = {
+		'voor-vertrek': 'Voor vertrek',
+		'tijdens-je-reis': 'Tijdens je reis',
+		'na-thuiskomst': 'Na thuiskomst',
+	}[stage];
+	const meansOfTransportTranslation =
+		meansOfTransport[0].toUpperCase() + meansOfTransport.slice(1);
+
+	return `Advies Quarantaine ${country?.fullName} ${stageTranslation} ${meansOfTransportTranslation} | Quarantaine Reischeck | Rijksoverheid.nl`;
+};
+
+const getPageMetaDescription = ({
+	stage,
+	country,
+	meansOfTransport,
+}: {
+	stage: TravelStage;
+	country: Country | null;
+	meansOfTransport: MeansOfTransport;
+}) => {
+	const stageTranslation: string = {
+		'voor-vertrek': 'als je nog moet vertrekken',
+		'tijdens-je-reis': 'als je nog op reis bent',
+		'na-thuiskomst': 'als je weer thuis bent',
+	}[stage];
+	const meansOfTransportTranslation: string = {
+		vliegtuig: 'met het vliegtuig',
+		auto: 'met de auto',
+		trein: 'met de trein',
+		bus: 'met de bus',
+		anders: 'met een ander vervoersmiddel',
+	}[meansOfTransport];
+
+	return `Advies rondom corona-richtlijnen voor je reis naar ${country?.fullName} ${meansOfTransportTranslation} ${stageTranslation}.`;
 };
 
 const AdviceResult = ({
@@ -103,8 +148,12 @@ const AdviceResult = ({
 	return (
 		<>
 			<MetaTags
-				title="Advies en actuele situatie bestemming | Quarantaine Reischeck | Rijksoverheid.nl"
-				description="Advies op basis van actuele informatie over bestemming."
+				title={getPageMetaTitle({ stage, country, meansOfTransport })}
+				description={getPageMetaDescription({
+					stage,
+					country,
+					meansOfTransport,
+				})}
 				url={
 					getAdvicePath.result({
 						destination,
