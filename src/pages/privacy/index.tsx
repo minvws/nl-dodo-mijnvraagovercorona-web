@@ -1,53 +1,63 @@
 /** @jsx jsx */
 import { jsx, Styled } from 'theme-ui';
-import Link from 'next/link';
+import sanity from 'utilities/sanity';
 
 import MetaTags from 'components/meta/MetaTags';
 import { Content, Page } from 'components/structure/Page';
+import { ContentBlock } from 'components/content-block/ContentBlock';
 
-const Privacy = () => {
-	return (
-		<>
-			<MetaTags
-				title="Privacy | Quarantaine Reischeck | Rijksoverheid.nl"
-				description="Wilt u meer informatie over het privacybeleid van de Rijksoverheid, kijk dan op www.rijksoverheid.nl/privacy."
-				url="/privacy"
-			/>
+const query = `*[_type == "privacy-page"]`;
 
-			<Page title="Privacy" showBackLink="previous">
-				<Content>
-					<Styled.p>
-						Wilt u meer informatie over het privacybeleid van de Rijksoverheid,
-						kijk dan op{' '}
-						<a
-							href="https://www.rijksoverheid.nl/privacy"
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							www.rijksoverheid.nl/privacy
-						</a>
-						.
-					</Styled.p>
-					<Styled.p>
-						Reizentijdenscorona.rijksoverheid.nl gebruikt cookies voor
-						webstatistieken om te begrijpen hoe bezoekers de website gebruiken.
-						Lees <Link href="/cookies">hier</Link> meer.
-					</Styled.p>
-					<Styled.p
-						sx={{
-							marginBottom: '80px',
-						}}
-					>
-						Omdat onze website nog in de testfase zit, bieden wij u de
-						mogelijkheid ons te vertellen wat u van de website vindt. Bij het
-						beantwoorden van een aantal korte vragen worden geen
-						persoonsgegevens gevraagd, opgeslagen of verwerkt. Uw antwoorden
-						worden alleen gebruikt om onze website te verbeteren.
-					</Styled.p>
-				</Content>
-			</Page>
-		</>
-	);
+interface PrivacyProps {
+	page: {
+		metaData: {
+			title: {
+				nl: string;
+				en: string;
+			};
+			description: {
+				nl: string;
+				en: string;
+			};
+		};
+		title: {
+			nl: string;
+			en: string;
+		};
+		content: {
+			nl: Array<Object>;
+			en: Array<Object>;
+		};
+	};
+	locale: 'nl' | 'en';
+}
+
+const Privacy = ({ page, locale }: PrivacyProps) => (
+	<>
+		<MetaTags
+			title={`${page.metaData.title[locale]} | Quarantaine Reischeck | Rijksoverheid.nl`}
+			description={page.metaData.description[locale]}
+			url="/privacy"
+		/>
+
+		<Page title={page.title[locale]} showBackLink="previous">
+			<Content>
+				<ContentBlock content={page.content[locale]} />
+			</Content>
+		</Page>
+	</>
+);
+
+export const getStaticProps = async ({
+	params,
+}: {
+	params: { locale?: 'nl' | 'en' };
+}) => {
+	const [page] = await sanity.fetch(query);
+
+	return {
+		props: { page, locale: params?.locale || 'nl' },
+	};
 };
 
 export default Privacy;
