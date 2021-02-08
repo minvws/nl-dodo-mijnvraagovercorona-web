@@ -79,52 +79,33 @@ const PreparationsPage = () => {
 						</ul>
 					</PreparationPanel>
 					<PreparationPanel
-						text="Wie brengt de kinderen naar school? Of naar de buitensport?"
-						image="/images/Illustratie_Is_alles_geregeld_voor_kinderenRetina.svg"
+						text="Is alles geregeld voor de kinderen?"
+						image="/images/Illustratie_kinderenRetina.svg"
 					>
 						<p>
-							Kinderen t/m 12 jaar mogen naar school, de opvang en deelnemen aan
-							buitenactiviteiten, waaronder sport. Op dit moment mogen ze niet
-							naar de bso of deelnemen aan binnen(sport)activiteiten.
+							Kinderen mogen net als volwassenen niet naar school of gaan
+							sporten.
 						</p>
 						<ul>
 							<PreparationPanelListItem
-								text="Vraag familie of vrienden"
-								subtext="Kinderen spelen geen grote rol bij de verspreiding van het virus. Zolang je familie of vrienden niet tot een kwetsbare groep behoren, kunnen zij de kinderen naar school of sport brengen."
-							/>
-							<PreparationPanelListItem
-								text="Buren of ouders van klasgenootjes"
-								subtext="Heb je geen contactgegevens? Vraag de opvang of school of zij kunnen helpen contact te leggen met andere ouders."
-							/>
-							<PreparationPanelListItem
-								text="Buitenspelen en -sporten"
-								subtext="Zolang je kind geen klachten heeft mogen ze wel buitenspelen en buitensporten. Contact houden met vrienden en klasgenoten is belangrijk."
-							/>
-						</ul>
-					</PreparationPanel>
-					<PreparationPanel
-						text="Is alles geregeld voor de oudere kinderen?"
-						image="/images/Illustratie_Oudere_kinderenRetina.svg"
-					>
-						<p>
-							Jongeren van 13 t/m 17 jaar mogen net als volwassenen niet naar
-							school of gaan sporten.
-						</p>
-						<ul>
-							<PreparationPanelListItem
-								text="Regel een fijne studeerplek voor je kind"
-								subtext="Heb je geen laptop of computer? Vaak kun je er via school één lenen om online les te volgen."
+								text="Regel een fijne plek voor je kind om huiswerk te maken of te studeren"
+								subtext="Zorg voor een rustige omgeving waar ze zich goed kunnen concentreren.
+                Heb je geen laptop of computer? Vaak kun je er via school één lenen om
+                online les te volgen."
 							/>
 							<PreparationPanelListItem
 								text="Regel andere manier van contact met vrienden"
-								subtext="Organiseer een video-call met vrienden of speel een online game. Contact houden met vrienden en klasgenoten is belangrijk."
+								subtext="Organiseer een video-call met vrienden of speel een online game. Contact
+                houden met vrienden en klasgenoten is belangrijk."
 							/>
 							<PreparationPanelListItem
 								text="Virtueel sporten"
-								subtext="Een trainer wil mogelijk meedenken over oefeningen die in de tuin, op het balkon of in de woonkamer gedaan kunnen worden."
+								subtext="Een trainer wil mogelijk meedenken over oefeningen die in de tuin, op het
+                balkon of in de woonkamer gedaan kunnen worden."
 							/>
 						</ul>
 					</PreparationPanel>
+
 					<PreparationPanel
 						text="Is je medicijnvoorraad op orde? Weet je wie je moet bellen als er iets misgaat?"
 						image="/images/Illustratie_MedicijnenRetina.svg"
