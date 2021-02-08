@@ -79,26 +79,26 @@ const PreparationsPage = () => {
 						</ul>
 					</PreparationPanel>
 					<PreparationPanel
-						text="Is alles geregeld voor de jonge kinderen?"
+						text="Wie brengt de kinderen naar school? Of naar de buitensport?"
 						image="/images/Illustratie_Is_alles_geregeld_voor_kinderenRetina.svg"
 					>
 						<p>
-							Op dit moment mogen ook kinderen t/m 12 jaar niet naar school, de
-							opvang en bso. Ook mogen ze niet deelnemen aan binnenactiviteiten,
-							waaronder sport.
+							Kinderen t/m 12 jaar mogen naar school, de opvang en deelnemen aan
+							buitenactiviteiten, waaronder sport. Op dit moment mogen ze niet
+							naar de bso of deelnemen aan binnen(sport)activiteiten.
 						</p>
 						<ul>
 							<PreparationPanelListItem
-								text="Buitenspelen en -sporten"
-								subtext="Zolang je kind geen klachten heeft mogen ze wel buitenspelen en buitensporten. Contact houden met vrienden en klasgenoten is belangrijk."
-							/>
-							<PreparationPanelListItem
-								text="Regel een fijne plek voor je kind om huiswerk te maken"
-								subtext="Zorg voor een rustige omgeving waar ze zich goed kunnen concentreren."
+								text="Vraag familie of vrienden"
+								subtext="Kinderen spelen geen grote rol bij de verspreiding van het virus. Zolang je familie of vrienden niet tot een kwetsbare groep behoren, kunnen zij de kinderen naar school of sport brengen."
 							/>
 							<PreparationPanelListItem
 								text="Buren of ouders van klasgenootjes"
 								subtext="Heb je geen contactgegevens? Vraag de opvang of school of zij kunnen helpen contact te leggen met andere ouders."
+							/>
+							<PreparationPanelListItem
+								text="Buitenspelen en -sporten"
+								subtext="Zolang je kind geen klachten heeft mogen ze wel buitenspelen en buitensporten. Contact houden met vrienden en klasgenoten is belangrijk."
 							/>
 						</ul>
 					</PreparationPanel>
@@ -192,6 +192,21 @@ const PreparationsPage = () => {
 								subtext="Buurtkinderen vinden het vaak heel leuk om de hond uit te laten."
 							/>
 							<PreparationPanelListItem text="Regel een hondenuitlaatservice" />
+						</ul>
+					</PreparationPanel>
+					<PreparationPanel
+						text="Hulp en steun bij quarantaine"
+						image="/images/Illustratie_Hulp-en-steun.svg"
+					>
+						<ul>
+							<PreparationPanelListItem
+								text="Kan niemand je helpen met bijvoorbeeld de boodschappen of het ophalen van de kinderen uit school? Dan kun je contact opnemen met jouw gemeente."
+								subtext="Zolang je 1,5m afstand houdt, hoef je je geen zorgen te maken dat anderen besmet raken."
+							/>
+							<PreparationPanelListItem
+								text="Ook het Rode Kruis heeft een landelijke hulplijn (070-4455 888) die met je kan kijken naar hulp in jouw buurt."
+								subtext="Zolang je 1,5m afstand houdt, hoef je je geen zorgen te maken dat anderen besmet raken."
+							/>
 						</ul>
 					</PreparationPanel>
 					<Feedback />
