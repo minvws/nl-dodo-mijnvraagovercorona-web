@@ -1,62 +1,59 @@
-/** @jsx jsx */
-import { jsx, Styled } from 'theme-ui';
-import sanity from 'utilities/sanity';
+import sanity, { getPageQuery, getLocaleProperty } from 'utilities/sanity';
 
 import MetaTags from 'components/meta/MetaTags';
 import { Content, Page } from 'components/structure/Page';
 import { ContentBlock } from 'components/content-block/ContentBlock';
 
-const query = `*[_type == "privacy-page"]`;
-
 interface PrivacyProps {
 	page: {
 		metaData: {
-			title: {
-				nl: string;
-				en: string;
-			};
-			description: {
-				nl: string;
-				en: string;
-			};
+			title: string;
+			description: string;
 		};
-		title: {
-			nl: string;
-			en: string;
-		};
-		content: {
-			nl: Array<Object>;
-			en: Array<Object>;
-		};
+		title: string;
+		content: Array<Object>;
+	};
+	siteSettings: {
+		pageTitleSuffix: string;
 	};
 	locale: 'nl' | 'en';
 }
 
-const Privacy = ({ page, locale }: PrivacyProps) => (
+const Privacy = ({ page, siteSettings, locale }: PrivacyProps) => (
 	<>
 		<MetaTags
-			title={`${page.metaData.title[locale]} | Quarantaine Reischeck | Rijksoverheid.nl`}
-			description={page.metaData.description[locale]}
+			title={`${page.metaData.title}${siteSettings.pageTitleSuffix}`}
+			description={page.metaData.description}
 			url="/privacy"
+			locale={locale}
 		/>
 
-		<Page title={page.title[locale]} showBackLink="previous">
+		<Page title={page.title} showBackLink="previous">
 			<Content>
-				<ContentBlock content={page.content[locale]} />
+				<ContentBlock content={page.content} />
 			</Content>
 		</Page>
 	</>
 );
 
-export const getStaticProps = async ({
-	params,
-}: {
-	params: { locale?: 'nl' | 'en' };
-}) => {
-	const [page] = await sanity.fetch(query);
+export const getStaticProps = async () => {
+	const pageProjection = `{
+		"metaData": {
+			${getLocaleProperty('title', 'metaData.title')},
+			${getLocaleProperty('description', 'metaData.description')},
+		},
+		${getLocaleProperty('title')},
+		${getLocaleProperty('content')},
+	}`;
+	const { page, siteSettings } = await sanity.fetch(
+		getPageQuery({
+			type: 'privacy-page',
+			pageProjection,
+		}),
+	);
 
 	return {
-		props: { page, locale: params?.locale || 'nl' },
+		props: { page, siteSettings, locale: process.env.NEXT_PUBLIC_LOCALE },
 	};
 };
 
