@@ -30,21 +30,13 @@ import ExpansionPanel from 'components/structure/ExpansionPanel';
 import { Card } from 'components/card';
 import { cartesianProduct } from 'utilities/pathUtils';
 import { getTravelSchemeContentBlocks } from 'utilities/travel-advice';
-
-type Color = 'yellow' | 'orange' | 'red';
+import { content } from 'content/travel-scheme';
+import { useTranslation } from 'hooks/use-translation';
 
 type AdviceProps = {
 	destination: string;
 	stage: TravelStage;
 	meansOfTransport: MeansOfTransport;
-};
-
-// @TODO: Hopefully we can do this in an easier way.
-const getPageTitle = (color: Color) => {
-	let riskLevelTekst = '';
-	if (color === 'red') riskLevelTekst = 'hoog ';
-
-	return `Je bestemming heeft een ${riskLevelTekst}coronarisico`;
 };
 
 const getPageMetaTitle = ({
@@ -106,6 +98,7 @@ const AdviceResult = ({
 	const fromDate: Date | undefined = van ? parseDate(van) : undefined;
 	const toDate: Date | undefined = tot ? parseDate(tot) : undefined;
 	const [showDialog, setShowDialog] = useState(false);
+	const { t, t_s } = useTranslation(content);
 
 	// Gets show/hide booleans for all content blocks.
 	const c = getTravelSchemeContentBlocks({
@@ -125,14 +118,11 @@ const AdviceResult = ({
 		country?.riskLevel === RiskLevel.A_RISICOVOL ||
 		country?.riskLevel === RiskLevel.D_EU_INREISVERBOD;
 
-	// @TODO: Do this in a different place where it makes sense.
-	let color: Color = 'red';
-	if (country?.riskLevel === RiskLevel.B_RISICOVOL_INREISBEPERKINGEN) {
-		color = 'orange';
-	}
-	if (country?.riskLevel === RiskLevel.C_VEILIGE_LIJST) {
-		color = 'yellow';
-	}
+	const pageTitle =
+		country?.riskLevel === RiskLevel.A_RISICOVOL ||
+		country?.riskLevel === RiskLevel.D_EU_INREISVERBOD
+			? t('page_title__high_risk')
+			: t('page_title');
 
 	/**
 	 * Update the AdviceContext so when landing on a results page and skipping the period and destination pages
@@ -163,7 +153,7 @@ const AdviceResult = ({
 				}
 			/>
 
-			<Page title={getPageTitle(color)} showBackLink="retry">
+			<Page title={`${pageTitle}`} showBackLink="retry">
 				<Hero>
 					<ul
 						sx={{
@@ -180,48 +170,23 @@ const AdviceResult = ({
 						}}
 					>
 						{c.bullets__na_31maart_reizen_onzeker && (
-							<li>
-								Het is <strong>onzeker</strong> of reizen na 31 maart mogelijk
-								is. Houd de berichtgeving van de overheid in de gaten.
-							</li>
+							<li>{t('bullets__na_31maart_reizen_onzeker')}</li>
 						)}
 						{c.bullets__tm_31maart_niet_reizen && (
-							<li>
-								Tot en met 31 maart <strong>niet reizen</strong>. Reis alleen
-								bij ernstige familieomstandigheden of voor werk dat echt niet
-								uitgesteld kan worden en waarbij fysieke aanwezigheid absoluut
-								nodig is.
-							</li>
+							<li>{t('bullets__tm_31maart_niet_reizen')}</li>
 						)}
 						{c.bullets__verhoogd_risico && (
-							<li>
-								Er is een verhoogd risico dat je <strong>besmet</strong> bent
-								geraakt.
-							</li>
+							<li>{t('bullets__verhoogd_risico')}</li>
 						)}
-						{c.bullets__laag_risico && (
-							<li>
-								Er is een laag risico dat je <strong>besmet</strong> bent
-								geraakt
-							</li>
-						)}
+						{c.bullets__laag_risico && <li>{t('bullets__laag_risico')}</li>}
 						{c.bullets__na_reis_10dgn_thuisquarantaine && (
-							<li>
-								Je gaat na je reis <strong>10 dagen in thuisquarantaine</strong>
-								. Bereid je goed voor. De situatie kan tijdens je reis
-								veranderen.
-							</li>
+							<li>{t('bullets__na_reis_10dgn_thuisquarantaine')}</li>
 						)}
 						{c.bullets__geen_thuisquarantaine && (
-							<li>
-								Je hoeft <strong>niet 10 dagen in thuisquarantaine</strong> na
-								je reis. Deze situatie kan tijdens je reis veranderen.
-							</li>
+							<li>{t('bullets__geen_thuisquarantaine')}</li>
 						)}
 						{c.bullets__ga_10dgn_thuisquarantaine && (
-							<li>
-								Ga <strong>10 dagen in thuisquarantaine</strong>.
-							</li>
+							<li>{t('bullets__ga_10dgn_thuisquarantaine')}</li>
 						)}
 					</ul>
 				</Hero>
@@ -252,7 +217,7 @@ const AdviceResult = ({
 							marginTop: 0,
 						}}
 					>
-						Jouw reisschema
+						{t('travelscheme__title')}
 					</h2>
 					<Container
 						sx={{
@@ -264,33 +229,41 @@ const AdviceResult = ({
 					>
 						{(c.reisschema__downloadReisApp || c.reisschema__coronaMelder) && (
 							<TravelPlanStage
-								title="Voorbereiding"
-								subHeading="Laat je niet verrassen"
+								title={t_s('travelscheme__voorbereiding_title')}
+								subHeading={t_s('travelscheme__voorbereiding_subtitle')}
 								date={new Date()}
 							>
 								{c.reisschema__downloadReisApp && (
-									<TravelAdvicePanel title="Blijf op de hoogte van de laatste ontwikkelingen op je bestemming">
+									<TravelAdvicePanel
+										title={t_s('travelscheme__downloadReisapp')}
+									>
 										<TravelInformationLink
 											href="https://www.nederlandwereldwijd.nl/documenten/vragen-en-antwoorden/reis-app-buitenlandse-zaken"
-											text="Download de reisapp"
+											text={t_s('travelscheme__downloadReisapp_cta')}
 										/>
 									</TravelAdvicePanel>
 								)}
 								{c.reisschema__coronaMelder && (
 									<TravelAdvicePanel
-										title={`Wist je dat de CoronaMelder ook werkt in ${country?.fullName}?`}
+										title={t_s('travelscheme__coronaMelder', {
+											country: country?.fullName,
+										})}
 									>
 										<TravelInformationLink
 											href="https://www.coronamelder.nl/nl/faq/13-gebruik-app-uit-ander-land/"
-											text="Meer informatie"
+											text={t_s('reisschema__coronaMelder_cta')}
 										/>
 									</TravelAdvicePanel>
 								)}
 								{c.reisschema__voorbereidenThuisQuarantaine && (
-									<TravelAdvicePanel title="Bereid je goed voor op je thuisquarantaine">
+									<TravelAdvicePanel
+										title={t_s('travelscheme__voorbereidenThuisQuarantaine')}
+									>
 										<TravelInformationLink
 											href="/voorbereiding"
-											text="Meer informatie"
+											text={t_s(
+												'travelscheme__voorbereidenThuisQuarantaine_cta',
+											)}
 											internal
 										/>
 									</TravelAdvicePanel>
@@ -299,88 +272,95 @@ const AdviceResult = ({
 						)}
 
 						<TravelPlanStage
-							title="Vertrek"
+							title={t_s('travelscheme__vertrek_title')}
 							subHeading={country?.fullName}
 							date={fromDate}
 						>
 							{c.reisschema__reisadvies && (
 								<TravelAdvicePanel
-									title="Code oranje"
-									subHeading={duringOrAfter ? 'Totale reisduur' : 'Nu'}
+									title={t_s('travelscheme__reisadvies_title')}
+									subHeading={
+										duringOrAfter
+											? t_s('travelscheme__reisadvies_totale_reisduur')
+											: t_s('travelscheme__reisadvies_nu')
+									}
 								>
-									Naast het coronarisico gelden er mogelijk inreisbeperkingen of
-									veiligheidsrisico's in {country?.fullName}.
+									{t('travelscheme__reisadvies_text', {
+										country: country?.fullName,
+									})}
 									<br />
 									<TravelInformationLink
 										href={`https://www.nederlandwereldwijd.nl/landen/${country?.slug}/reizen/reisadvies`}
-										text="Uitgebreid reisadvies"
+										text={t_s('travelscheme__reisadvies_cta')}
 									/>
 								</TravelAdvicePanel>
 							)}
 							{c.reisschema__pcrtest && (
 								<TravelAdvicePanel
-									title="Laat je testen"
-									subHeading="Max 72u voor vertrek"
+									title={t_s('travelscheme__pcrtest_title')}
+									subHeading={t_s('travelscheme__pcrtest_subtitle')}
 								>
-									Je mag alleen terugreizen met een negatieve testuitslag.
+									{t('travelscheme__pcrtest_text')}
 									<br />
 									<TravelInformationLink
 										href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/negatieve-covid-19-testuitslag-aankomst-nederland"
-										text="Meer informatie"
+										text={t_s('travelscheme__pcrtest_cta')}
 									/>
 								</TravelAdvicePanel>
 							)}
 							{c.reisschame__pcrtest_en_verklaring && (
 								<TravelAdvicePanel
-									title="Laat je testen"
-									subHeading="Max 72u voor vertrek"
+									title={t_s('travelscheme__pcrtest_en_verklaring_title')}
+									subHeading={t_s(
+										'travelscheme__pcrtest_en_verklaring_subtitle',
+									)}
 								>
-									Je mag alleen terugreizen met een negatieve testuitslag en
-									testverklaring.
+									{t('travelscheme__pcrtest_en_verklaring_text')}
 									<br />
 									<TravelInformationLink
 										href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/negatieve-covid-19-testuitslag-aankomst-nederland"
-										text="Meer informatie"
+										text={t_s('travelscheme__pcrtest_en_verklaring_cta')}
 									/>
 								</TravelAdvicePanel>
 							)}
 							{c.reisschema__sneltest && (
 								<TravelAdvicePanel
-									title="Doe een sneltest"
-									subHeading="Max 4u voor het aan boord gaan"
+									title={t_s('travelscheme__sneltest_title')}
+									subHeading={t_s('travelscheme__sneltest_subtitle')}
 								>
-									Je hebt voor je terugreis ook een negatieve sneltestuitslag
-									nodig.
+									{t('travelscheme__sneltest_text')}
 									<br />
 									<TravelInformationLink
 										href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/verplichte-negatieve-covid-19-testuitslagen/eisen-sneltest"
-										text="Meer informatie"
+										text={t_s('travelscheme__sneltest_cta')}
 									/>
 								</TravelAdvicePanel>
 							)}
 							{c.reisschema__gezondheidsverklaring && (
-								<TravelAdvicePanel title="Vul de gezondheidsverklaring in voor je vertrek">
+								<TravelAdvicePanel
+									title={t_s('travelscheme__gezondheidsverklaring_title')}
+								>
 									<TravelInformationLink
 										href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/documenten/publicaties/2020/07/20/gezondheidsverklaring-reizigers-nederlands"
-										text="Meer informatie"
+										text={t_s('travelscheme__gezondheidsverklaring_cta')}
 									/>
 								</TravelAdvicePanel>
 							)}
 						</TravelPlanStage>
 
 						<TravelPlanStage
-							title="Thuiskomst"
+							title={t_s('travelscheme__thuiskomst__title')}
 							subHeading={
 								c.reisschema__thuisquarantaine
-									? 'Start 10 dagen thuisquarantaine'
+									? t_s('travelscheme__thuiskomst__subtitle')
 									: undefined
 							}
 							date={toDate}
 						>
 							{c.reisschema__thuisquarantaine && (
 								<TravelAdvicePanel
-									title="Mogelijk klachten"
-									subHeading="Tot en met dag 10"
+									title={t_s('travelscheme__thuisquarantaine_title')}
+									subHeading={t_s('travelscheme__thuisquarantaine_subtitle')}
 								>
 									<DialogLink
 										href=""
@@ -389,10 +369,10 @@ const AdviceResult = ({
 											setShowDialog(true);
 										}}
 									>
-										Meer informatie
+										{t('travelscheme__thuisquarantaine_cta')}
 									</DialogLink>
 									<Dialog
-										title="Mogelijk klachten"
+										title={t_s('travelscheme__thuisquarantaine_title')}
 										isVisible={showDialog}
 										closeDialog={() => setShowDialog(false)}
 									>
@@ -481,7 +461,7 @@ const AdviceResult = ({
 						</TravelPlanStage>
 						{c.reisschema__thuisquarantaine && (
 							<TravelPlanStage
-								title="Einde thuisquarantaine"
+								title={t_s('travelscheme__einde_thuisquarantaine_title')}
 								date={toDate && addDays(toDate, 10)}
 							/>
 						)}
@@ -489,11 +469,17 @@ const AdviceResult = ({
 					{c.agenda__reischeck_opnieuw_invullen && fromDate && (
 						<Box sx={{ marginTop: ['10px', '60px'] }}>
 							<ReminderCalendarInvite
-								title="Zet 'Reischeck opnieuw invullen' in je agenda"
-								modalTitle="Reischeck opnieuw invullen in agenda"
-								modalBody="Heb je een andere (digitale) agenda? Zet je reminder om de reischeck opnieuw in te vullen er dan zelf in."
-								inviteTitle="Reischeck invullen"
-								inviteText="Je bent van plan bijna op reis te gaan. De situatie kan veranderd zijn. Doe daarom nog een keer de reischeck op https://www.reizentijdenscorona.rijksoverheid.nl."
+								title={t_s('agenda__reischeck_opnieuw_invullen_title')}
+								modalTitle={t_s(
+									'agenda__reischeck_opnieuw_invullen_modal_title',
+								)}
+								modalBody={t_s('agenda__reischeck_opnieuw_invullen_modal_body')}
+								inviteTitle={t_s(
+									'agenda__reischeck_opnieuw_invullen_invite_title',
+								)}
+								inviteText={t_s(
+									'agenda__reischeck_opnieuw_invullen_invite_text',
+								)}
 								singleDay={startOfDay(addDays(new Date(fromDate), -7))}
 							/>
 							<Container
@@ -512,8 +498,9 @@ const AdviceResult = ({
 										lineHeight: '1.4em',
 									}}
 								>
-									De situatie kan veranderen. Doe daarom voor vertrek de check
-									nog een keer.
+									{t(
+										'agenda__reischeck_opnieuw_invullen_situatie_kan_veranderen',
+									)}
 								</p>
 							</Container>
 						</Box>
@@ -534,25 +521,33 @@ const AdviceResult = ({
 									fontSize: ['h2Mobile', 'h2'],
 								}}
 							>
-								Zo kom je de thuisquarantaine goed door
+								{t('banner__thuisquarantaine_title')}
 							</h2>
 							<Card
 								image="/images/Banner_we_helpen_jeRetina.svg"
 								imagePosition={{
 									backgroundPositionX: '-10px',
 								}}
-								title="Wat moet ik regelen voor mijn thuisquarantaine?"
+								title={t_s('banner__thuisquarantaine_title')}
 								href="/voorbereiding"
 							/>
 						</>
 					)}
 					{c.agenda__zet_thuisquarantaine_in_agenda && toDate && (
 						<ReminderCalendarInvite
-							title="Zet je thuisquarantaine in je agenda"
-							modalTitle="Thuisquarantaine in agenda"
-							modalBody="Heb je een andere (digitale) agenda? Zet je thuisquarantaine er dan zelf in."
-							inviteTitle="Thuisquarantaine"
-							inviteText="Krijg je (lichte) klachten? Maak direct een testafspraak op https://coranatest.nl of bel de GGD op 0800-1202. Kijk voor tips over je thuisquarantaine op https://reizentijdenscorona.rijksoverheid.nl/voorbereiding."
+							title={t_s('agenda__zet_thuisquarantaine_in_agenda_title')}
+							modalTitle={t_s(
+								'agenda__zet_thuisquarantaine_in_agenda_modal_title',
+							)}
+							modalBody={t_s(
+								'agenda__zet_thuisquarantaine_in_agenda_modal_body',
+							)}
+							inviteTitle={t_s(
+								'agenda__zet_thuisquarantaine_in_agenda_invite_title',
+							)}
+							inviteText={t_s(
+								'agenda__zet_thuisquarantaine_in_agenda_invite_text',
+							)}
 							fromDate={startOfDay(toDate)}
 							toDate={endOfDay(addDays(toDate, 10))}
 						/>
@@ -564,11 +559,11 @@ const AdviceResult = ({
 							fontSize: ['h2Mobile', 'h2'],
 						}}
 					>
-						Veelgestelde vragen
+						{t('veelgestelde_vragen_title')}
 					</h2>
 					<FaqListShort country={country} stage={stage} />
 					<InternalLink href={`/${country?.slug}/faq`}>
-						Bekijk alle veelgestelde vragen
+						{t('veelgestelde_vragen_cta')}
 					</InternalLink>
 					<Feedback />
 				</Content>
@@ -593,6 +588,7 @@ export const getStaticProps = async ({
 			destination: params.destination,
 			stage: params.stage,
 			meansOfTransport: params.meansOfTransport,
+			content,
 		},
 	};
 };
