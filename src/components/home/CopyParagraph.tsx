@@ -44,6 +44,7 @@ const CopyParagraph = (props: CopyParagraphProps) => {
 				sx={{
 					display: 'flex',
 					justifyContent: 'center',
+					alignItems: 'center',
 					order: imageOrder(),
 				}}
 			>
