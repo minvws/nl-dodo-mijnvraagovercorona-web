@@ -83,10 +83,9 @@ const PreparationsPage = () => {
 						image="/images/Illustratie_Is_alles_geregeld_voor_kinderenRetina.svg"
 					>
 						<p>
-							Kinderen t/m 12 jaar mogen gewoon naar school, de opvang en
-							deelnemen aan buitenactiviteiten, waaronder sport. Op dit moment
-							mogen ze niet naar de bso of deelnemen aan binnenactiviteiten,
-							waaronder sport.
+							Kinderen t/m 12 jaar mogen naar school, de opvang en deelnemen aan
+							buitenactiviteiten, waaronder sport. Op dit moment mogen ze niet
+							naar de bso of deelnemen aan binnen(sport)activiteiten.
 						</p>
 						<ul>
 							<PreparationPanelListItem
