@@ -65,7 +65,7 @@ export const useTranslation = (): UseTranslation => {
 			);
 	}, [content]);
 
-	const t: TranslationFunction = useMemo(() => {
+	const translate: TranslationFunctionToString = useMemo(() => {
 		return (contentKey, variables) => {
 			const lookedupContent = content[contentKey];
 
@@ -88,17 +88,16 @@ export const useTranslation = (): UseTranslation => {
 				},
 			);
 
-			// Convert HTML into React components and return that.
-			return parse(contentWithVariables);
+			return contentWithVariables;
 		};
 	}, [content]);
 
 	return {
-		t,
+		t: (contentKey, variables) => parse(translate(contentKey, variables)),
 		// The t_s method used the t() method, and converts it to a string.
 		// Be carefull with putting any HTML into these strings. It will
 		// turn it into an unreadable string.
-		t_s: (contentKey, variables) => `${t(contentKey, variables)}`,
+		t_s: (contentKey, variables) => translate(contentKey, variables),
 	};
 };
 
