@@ -12,7 +12,7 @@ import { FaqListShort } from 'components/faq/FaqList';
 import { DialogLink, InternalLink } from 'components/Links';
 import { parseDate, addDays } from 'utilities/dateUtils';
 import { useDestination } from 'hooks/use-destination';
-import { countries, Country, RiskLevel } from 'config/countries';
+import { countries, RiskLevel } from 'config/countries';
 import TravelPlanStage from 'components/TravelPlan/TravelPlanStage';
 import TravelAdvicePanel from 'components/TravelPlan/TravelAdvicePanel';
 import TravelInformationLink from 'components/TravelPlan/TravelInformationLink';
