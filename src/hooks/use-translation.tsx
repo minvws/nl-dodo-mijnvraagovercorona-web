@@ -1,10 +1,4 @@
-import React, {
-	useContext,
-	useMemo,
-	createContext,
-	useState,
-	useEffect,
-} from 'react';
+import React, { useContext, useMemo, createContext, useEffect } from 'react';
 // @TODO: Not really happy with processing HTML, who knows what we will be injecting...
 import parse from 'html-react-parser';
 
@@ -121,8 +115,6 @@ export const TranslationProvider: React.FC<{ content?: TranslationObject }> = ({
 	children,
 	content,
 }) => {
-	const [pageContent] = useState<TranslationObject>(content || {});
-
 	return (
 		<TranslationContext.Provider value={content || {}}>
 			{children}

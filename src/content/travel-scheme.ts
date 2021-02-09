@@ -1,4 +1,22 @@
 export const content = {
+	page_meta_description:
+		'Advies rondom corona-richtlijnen voor je reis naar {{countryName}} {{meansOfTransport}} {{stage}}.',
+	page_meta_description__transport_vliegtuig: 'met het vliegtuig',
+	page_meta_description__transport_auto: 'met de auto',
+	page_meta_description__transport_trein: 'met de trein',
+	page_meta_description__transport_bus: 'met de bus',
+	page_meta_description__transport_anders: 'met een ander vervoersmiddel',
+
+	// @TODO: Do we want to change the voor-vertrek to underscores as well?
+	// This means either a replacement in the url, or in the page render.
+	// Both aren't really great options either...
+	'page_meta_description__stage_voor-vertrek': 'als je nog moet vertrekken',
+	'page_meta_description__stage_tijdens-je-reis': 'als je nog op reis bent',
+	'page_meta_description__stage_na-thuiskomst': 'als je weer thuis bent',
+
+	page_meta_title:
+		'Advies Quarantaine {{countryName}} {{stage}} {{meansOfTransport}} | Quarantaine Reischeck | Rijksoverheid.nl',
+
 	page_title: 'Je bestemming heeft een coronarisico',
 	page_title__high_risk: 'Je bestemming heeft een hoog coronarisico',
 	bullets__na_31maart_reizen_onzeker:

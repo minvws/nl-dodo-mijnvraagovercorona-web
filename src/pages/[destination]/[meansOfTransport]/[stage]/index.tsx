@@ -31,57 +31,13 @@ import { Card } from 'components/card';
 import { cartesianProduct } from 'utilities/pathUtils';
 import { getTravelSchemeContentBlocks } from 'utilities/travel-advice';
 import { content } from 'content/travel-scheme';
+import { generalContent } from 'content/_general-content';
 import { useTranslation } from 'hooks/use-translation';
 
 type AdviceProps = {
 	destination: string;
 	stage: TravelStage;
 	meansOfTransport: MeansOfTransport;
-};
-
-const getPageMetaTitle = ({
-	stage,
-	country,
-	meansOfTransport,
-}: {
-	stage: TravelStage;
-	country: Country | null;
-	meansOfTransport: MeansOfTransport;
-}) => {
-	const stageTranslation: string = {
-		'voor-vertrek': 'Voor vertrek',
-		'tijdens-je-reis': 'Tijdens je reis',
-		'na-thuiskomst': 'Na thuiskomst',
-	}[stage];
-	const meansOfTransportTranslation =
-		meansOfTransport[0].toUpperCase() + meansOfTransport.slice(1);
-
-	return `Advies Quarantaine ${country?.fullName} ${stageTranslation} ${meansOfTransportTranslation} | Quarantaine Reischeck | Rijksoverheid.nl`;
-};
-
-const getPageMetaDescription = ({
-	stage,
-	country,
-	meansOfTransport,
-}: {
-	stage: TravelStage;
-	country: Country | null;
-	meansOfTransport: MeansOfTransport;
-}) => {
-	const stageTranslation: string = {
-		'voor-vertrek': 'als je nog moet vertrekken',
-		'tijdens-je-reis': 'als je nog op reis bent',
-		'na-thuiskomst': 'als je weer thuis bent',
-	}[stage];
-	const meansOfTransportTranslation: string = {
-		vliegtuig: 'met het vliegtuig',
-		auto: 'met de auto',
-		trein: 'met de trein',
-		bus: 'met de bus',
-		anders: 'met een ander vervoersmiddel',
-	}[meansOfTransport];
-
-	return `Advies rondom corona-richtlijnen voor je reis naar ${country?.fullName} ${meansOfTransportTranslation} ${stageTranslation}.`;
 };
 
 const AdviceResult = ({
@@ -138,11 +94,17 @@ const AdviceResult = ({
 	return (
 		<>
 			<MetaTags
-				title={getPageMetaTitle({ stage, country, meansOfTransport })}
-				description={getPageMetaDescription({
-					stage,
-					country,
-					meansOfTransport,
+				title={t_s('page_meta_title', {
+					stage: t_s(`general__${stage}`),
+					countryName: country?.fullName,
+					meansOfTransport: t_s(`general__${meansOfTransport}`),
+				})}
+				description={t_s('page_meta_description', {
+					countryName: country?.fullName,
+					stage: t_s(`page_meta_description__stage_${stage}`),
+					meansOfTransport: t_s(
+						`page_meta_description__transport_${meansOfTransport}`,
+					),
 				})}
 				url={
 					getAdvicePath.result({
@@ -588,7 +550,10 @@ export const getStaticProps = async ({
 			destination: params.destination,
 			stage: params.stage,
 			meansOfTransport: params.meansOfTransport,
-			content,
+			content: {
+				...content,
+				...generalContent,
+			},
 		},
 	};
 };
