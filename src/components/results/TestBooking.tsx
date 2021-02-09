@@ -4,6 +4,7 @@ import { NewTabIcon } from 'components/icons/NewTab';
 import { TestAppointmentIcon } from 'components/icons/TestAppointment';
 import ReminderCalendarInvite from 'components/TravelPlan/ReminderCalendarInvite';
 import { differenceInDays, isAfter } from 'date-fns';
+import { useTranslation } from 'hooks/use-translation';
 import { jsx } from 'theme-ui';
 import { addDays, formatLongDate } from 'utilities/dateUtils';
 import { TravelSchemeContentBlocks } from 'utilities/travel-advice/travel-advice';
@@ -13,6 +14,8 @@ export const CallGGD = ({
 }: {
 	callingIsOnlyOption?: boolean;
 }) => {
+	const { t } = useTranslation();
+
 	return (
 		<>
 			<p
@@ -21,15 +24,9 @@ export const CallGGD = ({
 				}}
 			>
 				{callingIsOnlyOption ? (
-					<>
-						Het kan al wel telefonisch via <strong>0800-1202</strong>. Houd je
-						burgerservicenummer (BSN) bij de hand.
-					</>
+					<>{t('afspraak_coronatest__call_ggd__calling_only_option')}</>
 				) : (
-					<>
-						Of bel <strong>0800-1202</strong>. Houd je burgerservicenummer (BSN)
-						bij de hand.
-					</>
+					<>{t('afspraak_coronatest__call_ggd')}</>
 				)}
 			</p>
 			<p
@@ -48,7 +45,7 @@ export const CallGGD = ({
 					},
 				}}
 			>
-				We delen geen gegevens met de GGD
+				{t('afspraak_coronatest__call_ggd__no_data_shared')}
 			</p>
 		</>
 	);
@@ -133,6 +130,8 @@ const TestBooking = ({
 	quarantaine,
 	contentBlocks,
 }: TestBookingProps) => {
+	const { t, t_s } = useTranslation();
+
 	return (
 		<div
 			sx={{
@@ -150,12 +149,18 @@ const TestBooking = ({
 							paddingTop: '36px',
 						}}
 					>
-						Verkort je thuisquarantaine door je te laten testen op dag 5
+						{t_s('afspraak_coronatest__title')}
 					</h2>
 					<MakeOnlineAppointment
-						appointmentNotPossibleTitle="Je kunt nog geen afspraak maken"
-						appointmentNotPossibleSubtitle="Dit kan telefonisch op dag 1 van je thuisquarantaine of online vanaf dag 4"
-						ggdCtaButtonText="Maak direct een afspraak op de website van de GGD"
+						appointmentNotPossibleTitle={t_s(
+							'afspraak_coronatest__nog_niet_mogelijk_title',
+						)}
+						appointmentNotPossibleSubtitle={t_s(
+							'afspraak_coronatest__nog_niet_mogelijk_subtitle',
+						)}
+						ggdCtaButtonText={t_s(
+							'afspraak_coronatest__nog_niet_mogelijk_ggdCta',
+						)}
 					/>
 				</>
 			)}
@@ -168,12 +173,18 @@ const TestBooking = ({
 							paddingTop: '36px',
 						}}
 					>
-						Verkort je thuisquarantaine door je te laten testen op dag 5
+						{t_s('afspraak_coronatest__title')}
 					</h2>
 					<MakeOnlineAppointment
-						appointmentNotPossibleTitle="Je kunt nog geen online afspraak maken"
-						appointmentNotPossibleSubtitle="Dit op dag 4 van je thuisquarantaine"
-						ggdCtaButtonText="Maak direct een afspraak op de website van de GGD"
+						appointmentNotPossibleTitle={t_s(
+							'afspraak_coronatest__niet_online_wel_telefonisch_title',
+						)}
+						appointmentNotPossibleSubtitle={t_s(
+							'afspraak_coronatest__niet_online_wel_telefonisch_subtitle',
+						)}
+						ggdCtaButtonText={t_s(
+							'afspraak_coronatest__niet_online_wel_telefonisch_ggdCta',
+						)}
 					/>
 					<CallGGD callingIsOnlyOption />
 				</>
@@ -187,29 +198,37 @@ const TestBooking = ({
 							paddingTop: '36px',
 						}}
 					>
-						Verkort je thuisquarantaine door je te laten testen op dag 5
+						{t_s('afspraak_coronatest__title')}
 					</h2>
-					<MakeOnlineAppointment ggdCtaButtonText="Maak direct een afspraak op de website van de GGD" />
+					<MakeOnlineAppointment
+						ggdCtaButtonText={t_s(
+							'afspraak_coronatest__online_en_telefonisch_ggdCta',
+						)}
+					/>
 					<CallGGD />
 				</>
 			)}
 			{(contentBlocks.afspraak_coronatest__heb_je_klachten_na_5_dagen ||
 				contentBlocks.afspraak_coronatest__heb_je_klachten_land_c) && (
 				<>
-					<MakeOnlineAppointment ggdCtaButtonText="Heb je klachten? Maak direct een afspraak op de website van de GGD" />
+					<MakeOnlineAppointment
+						ggdCtaButtonText={t_s(
+							'afspraak_coronatest__heb_je_klachten_na_5_dagen_of_land_c_ggdCta',
+						)}
+					/>
 					<CallGGD />
 				</>
 			)}
 
 			{contentBlocks.agenda__afspraak_coronatest && (
 				<ReminderCalendarInvite
-					title="Zet 'Afspraak maken coronatest' in je agenda"
-					modalTitle="Afspraak maken coronatest in agenda"
-					modalBody="Heb je een andere (digitale) agenda? Zet je reminder om een afspraak voor de coronatest te maken er dan zelf in."
-					inviteTitle="Afspraak maken coronatest"
-					inviteText={`Bel de GGD op telefoonnummer 0800-1202 voor het maken van een testafspraak op ${formatLongDate(
-						addDays(toDate, 4),
-					)}. Houd je BSN nummer bij de hand.`}
+					title={t_s('agenda__afspraak_coronatest_title')}
+					modalTitle={t_s('agenda__afspraak_coronatest_modal_title')}
+					modalBody={t_s('agenda__afspraak_coronatest_modal_body')}
+					inviteTitle={t_s('agenda__afspraak_coronatest_invite_title')}
+					inviteText={t_s('agenda__afspraak_coronatest_invite_text', {
+						appointmentDate: formatLongDate(addDays(toDate, 4)),
+					})}
 					singleDay={toDate}
 				/>
 			)}

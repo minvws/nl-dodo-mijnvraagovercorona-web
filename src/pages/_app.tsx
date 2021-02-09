@@ -11,6 +11,7 @@ import { trackPageview } from 'utilities/piwik';
 import theme from 'utilities/styling/theme';
 import 'styles/global.css';
 import 'styles/components/PeriodSelect.css';
+import { TranslationProvider } from 'hooks/use-translation';
 
 const TravelCheckApp = ({ Component, pageProps }: AppProps) => {
 	useEffect(() => {
@@ -21,7 +22,7 @@ const TravelCheckApp = ({ Component, pageProps }: AppProps) => {
 	}, []);
 
 	return (
-		<>
+		<TranslationProvider content={pageProps.content}>
 			<Head>
 				<meta
 					name="viewport"
@@ -41,7 +42,7 @@ const TravelCheckApp = ({ Component, pageProps }: AppProps) => {
 					</Box>
 				</AdviceProvider>
 			</ThemeProvider>
-		</>
+		</TranslationProvider>
 	);
 };
 

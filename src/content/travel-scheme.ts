@@ -98,4 +98,46 @@ export const content = {
 
 	veelgestelde_vragen_title: 'Veelgestelde vragen',
 	veelgestelde_vragen_cta: 'Bekijk alle veelgestelde vragen',
+
+	agenda__afspraak_coronatest_title:
+		"Zet 'Afspraak maken coronatest' in je agenda",
+	agenda__afspraak_coronatest_modal_title:
+		'Afspraak maken coronatest in agenda',
+	agenda__afspraak_coronatest_modal_body:
+		'Heb je een andere (digitale) agenda? Zet je reminder om een afspraak voor de coronatest te maken er dan zelf in.',
+	agenda__afspraak_coronatest_invite_title: 'Afspraak maken coronatest',
+	agenda__afspraak_coronatest_invite_text:
+		'Bel de GGD op telefoonnummer 0800-1202 voor het maken van een testafspraak op {{appointmentDate}}. Houd je BSN nummer bij de hand.',
+
+	afspraak_coronatest__title:
+		'Verkort je thuisquarantaine door je te laten testen op dag 5',
+
+	afspraak_coronatest__nog_niet_mogelijk_title:
+		'Je kunt nog geen afspraak maken',
+	afspraak_coronatest__nog_niet_mogelijk_subtitle:
+		'Dit kan telefonisch op dag 1 van je thuisquarantaine of online vanaf dag 4',
+	afspraak_coronatest__nog_niet_mogelijk_ggdCta:
+		'Maak direct een afspraak op de website van de GGD',
+
+	afspraak_coronatest__niet_online_wel_telefonisch_title:
+		'Je kunt nog geen online afspraak maken',
+	afspraak_coronatest__niet_online_wel_telefonisch_subtitle:
+		'Dit op dag 4 van je thuisquarantaine',
+	afspraak_coronatest__niet_online_wel_telefonisch_ggdCta:
+		'Maak direct een afspraak op de website van de GGD',
+
+	afspraak_coronatest__online_en_telefonisch_ggdCta:
+		'Maak direct een afspraak op de website van de GGD',
+
+	afspraak_coronatest__heb_je_klachten_na_5_dagen_of_land_c_ggdCta:
+		'Heb je klachten? Maak direct een afspraak op de website van de GGD',
+
+	afspraak_coronatest__call_ggd:
+		'Of bel <strong>0800-1202</strong>. Houd je burgerservicenummer (BSN) bij de hand.',
+
+	afspraak_coronatest__call_ggd__calling_only_option:
+		'Het kan al wel telefonisch via <strong>0800-1202</strong>. Houd je burgerservicenummer (BSN) bij de hand.',
+
+	afspraak_coronatest__call_ggd__no_data_shared:
+		'We delen geen gegevens met de GGD',
 };

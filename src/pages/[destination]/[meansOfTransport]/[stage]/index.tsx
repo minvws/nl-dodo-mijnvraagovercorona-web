@@ -98,7 +98,7 @@ const AdviceResult = ({
 	const fromDate: Date | undefined = van ? parseDate(van) : undefined;
 	const toDate: Date | undefined = tot ? parseDate(tot) : undefined;
 	const [showDialog, setShowDialog] = useState(false);
-	const { t, t_s } = useTranslation(content);
+	const { t, t_s } = useTranslation();
 
 	// Gets show/hide booleans for all content blocks.
 	const c = getTravelSchemeContentBlocks({
