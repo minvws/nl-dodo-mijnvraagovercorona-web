@@ -22,27 +22,29 @@ const TravelCheckApp = ({ Component, pageProps }: AppProps) => {
 	}, []);
 
 	return (
-		<TranslationProvider content={pageProps.content}>
+		<>
 			<Head>
 				<meta
 					name="viewport"
 					content="width=device-width, initial-scale=1.0, user-scalable=yes"
 				/>
 			</Head>
-			<ThemeProvider theme={theme}>
-				<AdviceProvider>
-					<Box
-						sx={{
-							minHeight: '100vh',
-							display: 'flex',
-							flexDirection: 'column',
-						}}
-					>
-						<Component {...pageProps} />
-					</Box>
-				</AdviceProvider>
-			</ThemeProvider>
-		</TranslationProvider>
+			<TranslationProvider content={pageProps.content}>
+				<ThemeProvider theme={theme}>
+					<AdviceProvider>
+						<Box
+							sx={{
+								minHeight: '100vh',
+								display: 'flex',
+								flexDirection: 'column',
+							}}
+						>
+							<Component {...pageProps} />
+						</Box>
+					</AdviceProvider>
+				</ThemeProvider>
+			</TranslationProvider>
+		</>
 	);
 };
 

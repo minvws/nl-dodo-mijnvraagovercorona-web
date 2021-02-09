@@ -1,4 +1,10 @@
-import { useContext, useMemo, createContext, useState, useEffect } from 'react';
+import React, {
+	useContext,
+	useMemo,
+	createContext,
+	useState,
+	useEffect,
+} from 'react';
 // @TODO: Not really happy with processing HTML, who knows what we will be injecting...
 import parse from 'html-react-parser';
 
@@ -7,7 +13,7 @@ type TranslationVariables = { [key: string]: string | number | undefined };
 export type TranslationFunction = (
 	contentKey: string,
 	variables?: TranslationVariables,
-) => {};
+) => string | JSX.Element | JSX.Element[];
 
 export type TranslationFunctionToString = (
 	contentKey: string,
@@ -91,7 +97,7 @@ export const useTranslation = (): UseTranslation => {
 			// Convert HTML into React components and return that.
 			return parse(contentWithVariables);
 		};
-	}, []);
+	}, [content]);
 
 	return {
 		t,
@@ -118,7 +124,7 @@ export const TranslationProvider: React.FC<{ content?: TranslationObject }> = ({
 	const [pageContent] = useState<TranslationObject>(content || {});
 
 	return (
-		<TranslationContext.Provider value={pageContent}>
+		<TranslationContext.Provider value={content || {}}>
 			{children}
 		</TranslationContext.Provider>
 	);
