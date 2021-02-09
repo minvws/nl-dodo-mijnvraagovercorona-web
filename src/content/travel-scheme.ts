@@ -158,4 +158,9 @@ export const content = {
 
 	afspraak_coronatest__call_ggd__no_data_shared:
 		'We delen geen gegevens met de GGD',
+
+	banner__airboattravel_restriction:
+		'Er geldt een vlieg- en aanmeerverbod vanuit je bestemming naar Nederland.',
+	banner__airtravel_restriction:
+		'Er geldt een vliegverbod vanuit je bestemming naar Nederland.',
 };

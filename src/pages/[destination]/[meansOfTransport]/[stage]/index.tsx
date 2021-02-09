@@ -164,8 +164,8 @@ const AdviceResult = ({
 								}}
 								title={
 									c.banner__airboattravel_restriction
-										? 'Er geldt een vlieg- en aanmeerverbod vanuit je bestemming naar Nederland.'
-										: 'Er geldt een vliegverbod vanuit je bestemming naar Nederland.'
+										? t_s('banner__airboattravel_restriction')
+										: t_s('banner__airtravel_restriction')
 								}
 								href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/vliegverbod-en-aanmeerverbod"
 								external
