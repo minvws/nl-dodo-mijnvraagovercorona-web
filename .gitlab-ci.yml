@@ -33,6 +33,7 @@ variables:
       # --cache=true
 
 stages:
+  - test
   - build
   - deploy
 
@@ -43,6 +44,12 @@ before_script:
 
 after_script:
   - echo "Ended by ${GITLAB_USER_LOGIN} at $(date +%Y-%m-%d'-'%H-%M-%S)"
+
+test:
+  image: &build-image
+  script:
+    - yarn
+    - yarn test
 
 build image latest:
   <<: *build-image
