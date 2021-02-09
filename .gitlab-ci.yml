@@ -46,7 +46,9 @@ after_script:
   - echo "Ended by ${GITLAB_USER_LOGIN} at $(date +%Y-%m-%d'-'%H-%M-%S)"
 
 test:
-  image: &build-image
+  image:
+    name: gcr.io/kaniko-project/executor:v1.3.0-debug
+    entrypoint: ['']
   script:
     - yarn
     - yarn test
