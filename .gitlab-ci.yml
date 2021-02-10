@@ -47,6 +47,7 @@ after_script:
 
 test:
   image: node:14-alpine
+  stage: test
   script:
     - yarn
     - yarn test
