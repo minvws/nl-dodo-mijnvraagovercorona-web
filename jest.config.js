@@ -1,3 +1,6 @@
+// Make sure the timezone is the same on all devices the tests are run on.
+process.env.TZ = 'UTC';
+
 module.exports = {
 	collectCoverageFrom: [
 		'**/*.{js,jsx,ts,tsx}',

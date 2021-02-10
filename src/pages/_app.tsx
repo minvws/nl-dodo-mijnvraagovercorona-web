@@ -11,6 +11,7 @@ import { trackPageview } from 'utilities/piwik';
 import theme from 'utilities/styling/theme';
 import 'styles/global.css';
 import 'styles/components/PeriodSelect.css';
+import { TranslationProvider } from 'hooks/use-translation';
 
 const TravelCheckApp = ({ Component, pageProps }: AppProps) => {
 	useEffect(() => {
@@ -28,19 +29,21 @@ const TravelCheckApp = ({ Component, pageProps }: AppProps) => {
 					content="width=device-width, initial-scale=1.0, user-scalable=yes"
 				/>
 			</Head>
-			<ThemeProvider theme={theme}>
-				<AdviceProvider>
-					<Box
-						sx={{
-							minHeight: '100vh',
-							display: 'flex',
-							flexDirection: 'column',
-						}}
-					>
-						<Component {...pageProps} />
-					</Box>
-				</AdviceProvider>
-			</ThemeProvider>
+			<TranslationProvider content={pageProps.content}>
+				<ThemeProvider theme={theme}>
+					<AdviceProvider>
+						<Box
+							sx={{
+								minHeight: '100vh',
+								display: 'flex',
+								flexDirection: 'column',
+							}}
+						>
+							<Component {...pageProps} />
+						</Box>
+					</AdviceProvider>
+				</ThemeProvider>
+			</TranslationProvider>
 		</>
 	);
 };
