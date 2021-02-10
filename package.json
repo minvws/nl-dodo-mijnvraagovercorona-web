@@ -12,6 +12,13 @@
 		"storybook": "start-storybook -s ./public -p 9000",
 		"build-storybook": "build-storybook"
 	},
+	"browserslist": [
+		"> 0.5% in NL",
+		"last 2 versions",
+		"Firefox ESR",
+		"not dead",
+		"edge <= 42"
+	],
 	"dependencies": {
 		"@emotion/core": "10.1.1",
 		"@emotion/react": "^11.1.3",
