@@ -46,7 +46,7 @@ after_script:
   - echo "Ended by ${GITLAB_USER_LOGIN} at $(date +%Y-%m-%d'-'%H-%M-%S)"
 
 test:
-  image: node:13-alpine
+  image: node:14-alpine
   script:
     - yarn
     - yarn test
