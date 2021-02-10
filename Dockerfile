@@ -1,7 +1,7 @@
 # copied from https://github.com/minvws/nl-covid19-data-dashboard/blob/develop/Dockerfile
 
 # Stage 0 - Install dependencies
-FROM node:14-alpine as react-build-base
+FROM node:14 as react-build-base
 WORKDIR /app
 
 COPY package.json yarn.lock ./
@@ -9,7 +9,7 @@ RUN yarn
 COPY . .
 
 # Stage 1 - Build application
-FROM node:14-alpine as react-build
+FROM node:14 as react-build
 
 WORKDIR /app
 COPY --from=react-build-base /app/node_modules /app/node_modules
