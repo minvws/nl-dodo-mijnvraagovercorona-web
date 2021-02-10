@@ -38,17 +38,17 @@ export const content = {
 	travelscheme__voorbereiding_title: 'Voorbereiding',
 	travelscheme__voorbereiding_subtitle: 'Laat je niet verrassen',
 
-	travelscheme__downloadReisapp:
-		'Blijf op de hoogte van de laatste ontwikkelingen op je bestemming',
-	travelscheme__downloadReisapp_cta: 'Download de reisapp',
+	travelscheme__downloadReisapp_title: 'De reisapp',
+	travelscheme__downloadReisapp_text:
+		'Blijf op de hoogte van de laatste ontwikkelingen op je bestemming via <a href="https://www.nederlandwereldwijd.nl/documenten/vragen-en-antwoorden/reis-app-buitenlandse-zaken" target="_blank" rel="noopener noreferrer">de reisapp</a>.',
 
-	travelscheme__coronaMelder:
-		'Wist je dat de CoronaMelder ook werkt in {{country}}?',
-	travelscheme__coronaMelder_cta: 'Meer informatie',
+	travelscheme__coronaMelder_title: 'CoronaMelder',
+	travelscheme__coronaMelder_text:
+		'Wist je dat <a target="_blank" rel="noopener noreferrer" href="https://www.coronamelder.nl/nl/faq/13-gebruik-app-uit-ander-land/">de CoronaMelder</a> ook werkt in {{country}}?',
 
-	travelscheme__voorbereidenThuisQuarantaine:
-		'Bereid je goed voor op je thuisquarantaine',
-	travelscheme__voorbereidenThuisQuarantaine_cta: 'Meer informatie',
+	travelscheme__voorbereidenThuisQuarantaine_title: 'Thuisquarantaine',
+	travelscheme__voorbereidenThuisQuarantaine_text:
+		'Bereid je vast voor op <a href="/voorbereiding">je thuisquarantaine</a> na terugkomst.',
 
 	travelscheme__vertrek_title: 'Vertrek',
 
@@ -62,24 +62,21 @@ export const content = {
 	travelscheme__pcrtest_title: 'Laat je testen',
 	travelscheme__pcrtest_subtitle: 'Max 72u voor vertrek',
 	travelscheme__pcrtest_text:
-		'Je mag alleen terugreizen met een negatieve testuitslag.',
-	travelscheme__pcrtest_cta: 'Meer informatie',
+		'Je mag alleen terugreizen met een <a href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/negatieve-covid-19-testuitslag-aankomst-nederland" target="_blank" rel="noopener noreferrer">negatieve testuitslag</a>.',
 
 	travelscheme__pcrtest_en_verklaring_title: 'Laat je testen',
 	travelscheme__pcrtest_en_verklaring_subtitle: 'Max 72u voor vertrek',
 	travelscheme__pcrtest_en_verklaring_text:
-		'Je mag alleen terugreizen met een negatieve testuitslag en testverklaring.',
-	travelscheme__pcrtest_en_verklaring_cta: 'Meer informatie',
+		'Je mag alleen terugreizen met een negatieve <a href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/negatieve-covid-19-testuitslag-aankomst-nederland" target="_blank" rel="noopener noreferrer">testuitslag en testverklaring</a>.',
 
 	travelscheme__sneltest_title: 'Doe een sneltest',
 	travelscheme__sneltest_subtitle: 'Max 4u voor het aan boord gaan',
 	travelscheme__sneltest_text:
-		'Je hebt voor je terugreis ook een negatieve sneltestuitslag nodig.',
-	travelscheme__sneltest_cta: 'Meer informatie',
+		'Je hebt voor je terugreis ook een <a href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/verplichte-negatieve-covid-19-testuitslagen/eisen-sneltest" target="_blank" rel="noopener noreferrer">negatieve sneltestuitslag</a> nodig.',
 
-	travelscheme__gezondheidsverklaring_title:
-		'Vul de gezondheidsverklaring in voor je vertrek',
-	travelscheme__gezondheidsverklaring_cta: 'Meer informatie',
+	travelscheme__gezondheidsverklaring_title: 'Gezondheidsverklaring',
+	travelscheme__gezondheidsverklaring_text:
+		'Vul <a href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/documenten/publicaties/2020/07/20/gezondheidsverklaring-reizigers-nederlands" target="_blank" rel="noopener noreferrer">de gezondheidsverklaring</a> in voor je vertrek.',
 
 	travelscheme__thuiskomst__title: 'Thuiskomst',
 	travelscheme__thuiskomst__subtitle: 'Start 10 dagen thuisquarantaine',

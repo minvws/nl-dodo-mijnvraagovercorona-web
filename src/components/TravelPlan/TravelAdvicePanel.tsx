@@ -26,6 +26,22 @@ const TravelAdvicePanel = ({
 				borderRadius: '10px',
 				paddingLeft: '0.5em',
 				paddingRight: '0.5em',
+				a: {
+					color: 'text',
+					'&[target="_blank"]::after': {
+						display: 'inline-block',
+						content: '""',
+						backgroundImage: `url('/icons/Vector-1.svg')`,
+						backgroundSize: '0.8em 0.7em',
+						height: '0.7em',
+						width: '0.7em',
+						marginLeft: '0.3em',
+						backgroundPositionY: '0.1em',
+						backgroundRepeat: 'no-repeat',
+						fontSize: ['chapeau'],
+						lineHeight: ['chapeau'],
+					},
+				},
 			}}
 		>
 			<div
