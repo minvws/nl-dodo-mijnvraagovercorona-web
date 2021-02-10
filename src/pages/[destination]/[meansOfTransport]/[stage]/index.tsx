@@ -197,37 +197,27 @@ const AdviceResult = ({
 							>
 								{c.reisschema__downloadReisApp && (
 									<TravelAdvicePanel
-										title={t_s('travelscheme__downloadReisapp')}
+										title={t_s('travelscheme__downloadReisapp_title')}
 									>
-										<TravelInformationLink
-											href="https://www.nederlandwereldwijd.nl/documenten/vragen-en-antwoorden/reis-app-buitenlandse-zaken"
-											text={t_s('travelscheme__downloadReisapp_cta')}
-										/>
+										{t('travelscheme__downloadReisapp_text')}
 									</TravelAdvicePanel>
 								)}
 								{c.reisschema__coronaMelder && (
 									<TravelAdvicePanel
-										title={t_s('travelscheme__coronaMelder', {
+										title={t_s('travelscheme__coronaMelder_title')}
+									>
+										{t('travelscheme__coronaMelder_text', {
 											country: country?.fullName,
 										})}
-									>
-										<TravelInformationLink
-											href="https://www.coronamelder.nl/nl/faq/13-gebruik-app-uit-ander-land/"
-											text={t_s('reisschema__coronaMelder_cta')}
-										/>
 									</TravelAdvicePanel>
 								)}
 								{c.reisschema__voorbereidenThuisQuarantaine && (
 									<TravelAdvicePanel
-										title={t_s('travelscheme__voorbereidenThuisQuarantaine')}
+										title={t_s(
+											'travelscheme__voorbereidenThuisQuarantaine_title',
+										)}
 									>
-										<TravelInformationLink
-											href="/voorbereiding"
-											text={t_s(
-												'travelscheme__voorbereidenThuisQuarantaine_cta',
-											)}
-											internal
-										/>
+										{t('travelscheme__voorbereidenThuisQuarantaine_text')}
 									</TravelAdvicePanel>
 								)}
 							</TravelPlanStage>
@@ -263,11 +253,6 @@ const AdviceResult = ({
 									subHeading={t_s('travelscheme__pcrtest_subtitle')}
 								>
 									{t('travelscheme__pcrtest_text')}
-									<br />
-									<TravelInformationLink
-										href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/negatieve-covid-19-testuitslag-aankomst-nederland"
-										text={t_s('travelscheme__pcrtest_cta')}
-									/>
 								</TravelAdvicePanel>
 							)}
 							{c.reisschame__pcrtest_en_verklaring && (
@@ -278,11 +263,6 @@ const AdviceResult = ({
 									)}
 								>
 									{t('travelscheme__pcrtest_en_verklaring_text')}
-									<br />
-									<TravelInformationLink
-										href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/negatieve-covid-19-testuitslag-aankomst-nederland"
-										text={t_s('travelscheme__pcrtest_en_verklaring_cta')}
-									/>
 								</TravelAdvicePanel>
 							)}
 							{c.reisschema__sneltest && (
@@ -291,21 +271,13 @@ const AdviceResult = ({
 									subHeading={t_s('travelscheme__sneltest_subtitle')}
 								>
 									{t('travelscheme__sneltest_text')}
-									<br />
-									<TravelInformationLink
-										href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/verplichte-negatieve-covid-19-testuitslagen/eisen-sneltest"
-										text={t_s('travelscheme__sneltest_cta')}
-									/>
 								</TravelAdvicePanel>
 							)}
 							{c.reisschema__gezondheidsverklaring && (
 								<TravelAdvicePanel
 									title={t_s('travelscheme__gezondheidsverklaring_title')}
 								>
-									<TravelInformationLink
-										href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/documenten/publicaties/2020/07/20/gezondheidsverklaring-reizigers-nederlands"
-										text={t_s('travelscheme__gezondheidsverklaring_cta')}
-									/>
+									{t('travelscheme__gezondheidsverklaring_text')}
 								</TravelAdvicePanel>
 							)}
 						</TravelPlanStage>
