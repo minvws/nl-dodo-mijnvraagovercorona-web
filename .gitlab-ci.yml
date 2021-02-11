@@ -18,7 +18,7 @@ variables:
     - echo "${DOCKER_AUTH_CONFIG}" > /kaniko/.docker/config.json
     - cat /kaniko/.docker/config.json
     - cat ./Dockerfile |
-      sed "s~node:14~harbor.diensten.test.overheid.standaardplatform.rijksapps.nl/vws-reis/node:14~g"
+      sed "s~node:14-alpine~harbor.diensten.test.overheid.standaardplatform.rijksapps.nl/vws-reis/node:14-alpine~g"
       > Dockerfile_derived # Adjust FROM to prevent Docker rate limiting; assuming adjusted image to be present in Harbor; ref. sp-demo/housekeeping
     - cat Dockerfile_derived
     - echo "CI_PROJECT_DIR ${CI_PROJECT_DIR}"
@@ -33,6 +33,7 @@ variables:
       # --cache=true
 
 stages:
+  - test
   - build
   - deploy
 
@@ -43,6 +44,13 @@ before_script:
 
 after_script:
   - echo "Ended by ${GITLAB_USER_LOGIN} at $(date +%Y-%m-%d'-'%H-%M-%S)"
+
+test:
+  image: harbor.diensten.test.overheid.standaardplatform.rijksapps.nl/vws-reis/node:14-alpine
+  stage: test
+  script:
+    - yarn
+    - yarn test
 
 build image latest:
   <<: *build-image

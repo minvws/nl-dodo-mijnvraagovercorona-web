@@ -6,7 +6,7 @@ type Props = {
 	description: string;
 	url: string;
 	noIndex?: boolean;
-	locale: 'en' | 'nl';
+	locale?: 'en' | 'nl';
 };
 
 const MetaTags = ({ title, description, url, noIndex }: Props) => {

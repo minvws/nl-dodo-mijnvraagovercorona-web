@@ -8,6 +8,8 @@ import Feedback from 'components/feedback/Feedback';
 import { Content, Hero, Page } from 'components/structure/Page';
 import { getTravelSchemeContentBlocks } from 'utilities/travel-advice';
 import { getAdvicePath } from 'components/advice/utils';
+import { content } from 'content/travel-scheme';
+import { generalContent } from 'content/_general-content';
 
 interface NoAdviceProps {
 	destination: string;
@@ -96,6 +98,10 @@ export const getStaticProps = async ({ params }: NoAdviceStaticProps) => {
 	return {
 		props: {
 			destination: params.destination,
+			content: {
+				...content,
+				...generalContent,
+			},
 		},
 	};
 };

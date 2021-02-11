@@ -22,7 +22,7 @@ describe('Util: Calendar invite', () => {
 		});
 
 		expect(outlook).toMatchInlineSnapshot(
-			`"https://outlook.live.com/calendar/0/deeplink/compose?rru=addevent&path=%2Fcalendar%2Faction%2Fcompose&startdt=2021-04-02T22:00:00.000Z&enddt=2021-04-08T12:12:00.000Z&subject=Test%20title&body=Longer%20description&location=&allday=false"`,
+			`"https://outlook.live.com/calendar/0/deeplink/compose?rru=addevent&path=%2Fcalendar%2Faction%2Fcompose&startdt=2021-04-03T00:00:00.000Z&enddt=2021-04-08T14:12:00.000Z&subject=Test%20title&body=Longer%20description&location=&allday=false"`,
 		);
 	});
 
@@ -35,7 +35,7 @@ describe('Util: Calendar invite', () => {
 		});
 
 		expect(office365).toMatchInlineSnapshot(
-			`"https://outlook.office365.com/calendar/0/deeplink/compose?rru=addevent&path=%2Fcalendar%2Faction%2Fcompose&startdt=2021-04-02T22:00:00.000Z&enddt=2021-04-08T12:12:00.000Z&subject=Test%20title&body=Longer%20description&location=&allday=false"`,
+			`"https://outlook.office365.com/calendar/0/deeplink/compose?rru=addevent&path=%2Fcalendar%2Faction%2Fcompose&startdt=2021-04-03T00:00:00.000Z&enddt=2021-04-08T14:12:00.000Z&subject=Test%20title&body=Longer%20description&location=&allday=false"`,
 		);
 	});
 
@@ -48,7 +48,7 @@ describe('Util: Calendar invite', () => {
 		});
 
 		expect(ics).toMatchInlineSnapshot(
-			`"data:text/calendar;charset=utf8,BEGIN:VCALENDAR%0AVERSION:2.0%0ABEGIN:VEVENT%0AUID:20210402T220000Z--Test%20title@rijksoverheid.nl%0ADTSTAMP:20210201%0ADTSTART:20210402T220000Z%0ADTEND:20210408T121200Z%0ASUMMARY:Test%20title%0ADESCRIPTION:Longer%20description%0AEND:VEVENT%0AEND:VCALENDAR"`,
+			`"data:text/calendar;charset=utf8,BEGIN:VCALENDAR%0AVERSION:2.0%0ABEGIN:VEVENT%0AUID:20210403T000000Z--Test%20title@rijksoverheid.nl%0ADTSTAMP:20210201%0ADTSTART:20210403T000000Z%0ADTEND:20210408T141200Z%0ASUMMARY:Test%20title%0ADESCRIPTION:Longer%20description%0AEND:VEVENT%0AEND:VCALENDAR"`,
 		);
 	});
 
@@ -61,7 +61,7 @@ describe('Util: Calendar invite', () => {
 		});
 
 		expect(gcal).toMatchInlineSnapshot(
-			`"https://calendar.google.com/calendar/render?action=TEMPLATE&dates=20210402T220000Z%2F20210408T121200Z&text=Test%20title&details=Longer%20description&location=&allday=false"`,
+			`"https://calendar.google.com/calendar/render?action=TEMPLATE&dates=20210403T000000Z%2F20210408T141200Z&text=Test%20title&details=Longer%20description&location=&allday=false"`,
 		);
 	});
 
@@ -74,7 +74,7 @@ describe('Util: Calendar invite', () => {
 		});
 
 		expect(ycal).toMatchInlineSnapshot(
-			`"https://calendar.yahoo.com/?v=60&title=Test%20title&desc=Longer%20description&st=20210402T220000Z&et=20210408T121200Z"`,
+			`"https://calendar.yahoo.com/?v=60&title=Test%20title&desc=Longer%20description&st=20210403T000000Z&et=20210408T141200Z"`,
 		);
 	});
 });
