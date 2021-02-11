@@ -109,7 +109,7 @@ export const content = {
 		'Heb je een andere (digitale) agenda? Zet je thuisquarantaine er dan zelf in.',
 	agenda__zet_thuisquarantaine_in_agenda_invite_title: 'Thuisquarantaine',
 	agenda__zet_thuisquarantaine_in_agenda_invite_text:
-		'Krijg je (lichte) klachten? Maak direct een testafspraak op https://coranatest.nl of bel de GGD op 0800-1202. Kijk voor tips over je thuisquarantaine op https://reizentijdenscorona.rijksoverheid.nl/voorbereiding.',
+		'Krijg je (lichte) klachten? Maak direct een testafspraak op https://coronatest.nl of bel de GGD op 0800-1202. Kijk voor tips over je thuisquarantaine op https://reizentijdenscorona.rijksoverheid.nl/voorbereiding.',
 
 	veelgestelde_vragen_title: 'Veelgestelde vragen',
 	veelgestelde_vragen_cta: 'Bekijk alle veelgestelde vragen',
