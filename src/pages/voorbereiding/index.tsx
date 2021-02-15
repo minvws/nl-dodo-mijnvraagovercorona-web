@@ -180,14 +180,8 @@ const PreparationsPage = () => {
 						image="/images/Illustratie_Hulp-en-steun.svg"
 					>
 						<ul>
-							<PreparationPanelListItem
-								text="Kan niemand je helpen met bijvoorbeeld de boodschappen of het ophalen van de kinderen uit school? Dan kun je contact opnemen met jouw gemeente."
-								subtext="Zolang je 1,5m afstand houdt, hoef je je geen zorgen te maken dat anderen besmet raken."
-							/>
-							<PreparationPanelListItem
-								text="Ook het Rode Kruis heeft een landelijke hulplijn (070-4455 888) die met je kan kijken naar hulp in jouw buurt."
-								subtext="Zolang je 1,5m afstand houdt, hoef je je geen zorgen te maken dat anderen besmet raken."
-							/>
+							<PreparationPanelListItem text="Kan niemand je helpen met bijvoorbeeld de boodschappen of het ophalen van de kinderen uit school? Dan kun je contact opnemen met jouw gemeente." />
+							<PreparationPanelListItem text="Ook het Rode Kruis heeft een landelijke hulplijn (070-4455 888) die met je kan kijken naar hulp in jouw buurt." />
 						</ul>
 					</PreparationPanel>
 					<Feedback />
