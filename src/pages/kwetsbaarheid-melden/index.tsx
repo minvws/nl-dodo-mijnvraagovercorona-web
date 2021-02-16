@@ -1,63 +1,26 @@
-import sanity, { getPageQuery, getLocaleProperty } from 'utilities/sanity';
+import { ContentPageProps, getContentPageQuery } from 'utilities/sanity';
 
-import MetaTags from 'components/meta/MetaTags';
-import { Content, Page } from 'components/structure/Page';
-import { ContentBlock } from 'components/content-block/ContentBlock';
-
-interface KwetsbaarheidMeldenProps {
-	page: {
-		metaData: {
-			title: string;
-			description: string;
-		};
-		title: string;
-		content: Array<Object>;
-	};
-	siteSettings: {
-		pageTitleSuffix: string;
-	};
-	locale: 'nl' | 'en';
-}
+import { ContentPage } from 'components/content-page';
 
 const KwetsbaarheidMelden = ({
 	page,
 	siteSettings,
 	locale,
-}: KwetsbaarheidMeldenProps) => (
-	<>
-		<MetaTags
-			title={`${page.metaData.title}${siteSettings.pageTitleSuffix}`}
-			description={page.metaData.description}
-			url="/kwetsbaarheid-melden"
-			locale={locale}
-		/>
-
-		<Page title={page.title} showBackLink="previous">
-			<Content>
-				<ContentBlock content={page.content} />
-			</Content>
-		</Page>
-	</>
+}: ContentPageProps) => (
+	<ContentPage page={page} siteSettings={siteSettings} locale={locale} />
 );
 
 export const getStaticProps = async () => {
-	const pageProjection = `{
-		"metaData": {
-			${getLocaleProperty('title', 'metaData.title')},
-			${getLocaleProperty('description', 'metaData.description')},
-		},
-		${getLocaleProperty('title')},
-		${getLocaleProperty('content')},
-	}`;
-	const { page, siteSettings } = await sanity.fetch(
-		getPageQuery({
-			type: 'kwetsbaarheid-melden-page',
-			pageProjection,
-		}),
+	const { page, siteSettings } = await getContentPageQuery(
+		'kwetsbaarheid-melden-page',
 	);
 
 	return {
-		props: { page, siteSettings, locale: process.env.NEXT_PUBLIC_LOCALE },
+		props: {
+			page,
+			siteSettings,
+			locale: process.env.NEXT_PUBLIC_LOCALE,
+		},
 	};
 };
 

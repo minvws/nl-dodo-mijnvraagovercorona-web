@@ -20,7 +20,7 @@ interface VoorbereidingProps {
 	siteSettings: {
 		pageTitleSuffix: string;
 	};
-	items: {
+	documents: {
 		title: string;
 		image: string;
 		description: string;
@@ -36,7 +36,7 @@ const VoorbereidingPage = ({
 	page,
 	siteSettings,
 	locale,
-	items,
+	documents,
 }: VoorbereidingProps) => (
 	<>
 		<MetaTags
@@ -73,11 +73,11 @@ const VoorbereidingPage = ({
 				>
 					{page.saveCopy}
 				</p>
-				{items.map((item) => (
-					<PreparationPanel image={item.image} text={item.title}>
-						{item.description && <p>{item.description}</p>}
+				{documents.map((document) => (
+					<PreparationPanel image={document.image} text={document.title}>
+						{document.description && <p>{document.description}</p>}
 						<ul>
-							{item.items.map((item) => (
+							{document.items.map((item) => (
 								<PreparationPanelListItem
 									text={item.title}
 									subtext={item.description}
@@ -101,29 +101,28 @@ export const getStaticProps = async () => {
 		${getLocaleProperty('title')},
 		${getLocaleProperty('saveCopy')}
 	}`;
-	const { page, siteSettings } = await sanity.fetch(
+	const documentsQuery = `*[_type == "voorbereiding-document"]{
+		${getLocaleProperty('title')},
+		${getLocaleProperty('description')},
+		"image": image.asset->url,
+		"items": items[]{
+			${getLocaleProperty('title', 'title')},
+			${getLocaleProperty('description', 'description')}
+		}
+	} | order(order asc)`;
+	const { page, siteSettings, documents } = await sanity.fetch(
 		getPageQuery({
 			type: 'voorbereiding-page',
 			pageProjection,
+			documentsQuery,
 		}),
-	);
-	const items = await sanity.fetch(
-		`*[_type == "voorbereiding-document"]{
-			${getLocaleProperty('title')},
-			${getLocaleProperty('description')},
-			"image": image.asset->url,
-			"items": items[]{
-				${getLocaleProperty('title', 'title')},
-				${getLocaleProperty('description', 'description')}
-			}
-		} | order(order asc)`,
 	);
 
 	return {
 		props: {
 			page,
 			siteSettings,
-			items,
+			documents,
 			locale: process.env.NEXT_PUBLIC_LOCALE,
 		},
 	};
