@@ -52,7 +52,6 @@ const LanguageLink = ({ id, currentPath }: LanguageLinkProps) => {
 		<InternalLink
 			href={getCurrentUrlForLanguage(currentPath, language, currentLanguage)}
 			lang={Languages.Dutch}
-
 		>
 			{language.fullName}{' '}
 			{currentLanguage.id === language.id && (
@@ -88,6 +87,7 @@ export const LanguageSelector = () => {
 						color: 'copyHeading',
 						display: 'flex',
 						justifyContent: 'center',
+						alignItems: 'center',
 						transition: '200ms ease-in-out',
 						transitionProperty: 'background-color, color',
 						':hover, :focus': {
@@ -108,6 +108,14 @@ export const LanguageSelector = () => {
 							stroke: 'copyHeading',
 							transition: '200ms ease-in-out',
 							transitionProperty: 'stroke, fill',
+						},
+						// On tiny devices the language selector won't fit.
+						'@media screen and (max-width: 350px)': {
+							fontSize: '12px',
+							svg: {
+								width: '6px',
+								marginLeft: '8px',
+							},
 						},
 					}}
 				>
