@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import React, { useState } from 'react';
+import sanity, { getPageQuery, getLocaleProperty } from 'utilities/sanity';
 import { jsx } from 'theme-ui';
 
 import MetaTags from 'components/meta/MetaTags';
@@ -15,7 +16,32 @@ import { getCountrySlug } from 'utilities/pathUtils';
 import { useRouter } from 'next/router';
 import { getAdvicePath } from 'components/advice/utils';
 
-const Destination = () => {
+interface BestemmingProps {
+	page: {
+		metaData: {
+			title: string;
+			description: string;
+		};
+		header: {
+			title: string;
+			modal: {
+				link: string;
+				text: string;
+				title: string;
+			};
+		};
+		nietGevonden: string;
+		placeholder: string;
+		button: string;
+		url: string;
+	};
+	siteSettings: {
+		pageTitleSuffix: string;
+	};
+	locale: 'nl' | 'en';
+}
+
+const Bestemming = ({ page, siteSettings, locale }: BestemmingProps) => {
 	const [showDialog, setShowDialog] = useState(false);
 	const { setDestination } = React.useContext(AdviceContext);
 	const router = useRouter();
@@ -38,31 +64,27 @@ const Destination = () => {
 	return (
 		<>
 			<MetaTags
-				title="Bestemming | Quarantaine Reischeck | Rijksoverheid.nl"
-				description="Actuele informatie over bestemming en maatregelen."
-				url="/bestemming"
+				title={`${page.metaData.title}${siteSettings.pageTitleSuffix}`}
+				description={page.metaData.description}
+				locale={locale}
+				url={page.url}
 			/>
 			<Page
-				title="Welk land is of was je bestemming?"
+				title={page.header.title}
 				cleanPageOnMobile
 				sx={alignLogoRightOnMobileStyles}
 			>
 				<Hero>
 					<ProgressMarker stage={1} totalStages={3} />
 					<InternalLink href="" onClick={openDialog}>
-						Waarom vragen we dit?
+						{page.header.modal.link}
 					</InternalLink>
 					<Dialog
-						title="Waarom vragen we je naar je bestemming?"
+						title={page.header.modal.title}
 						isVisible={showDialog}
 						closeDialog={() => setShowDialog(false)}
 					>
-						<p>
-							Door deze informatie kunnen we je specifiek advies geven,
-							afgestemd op jouw bestemming. Op dit moment bieden wij enkel
-							landelijk advies. Binnenkort adviseren we ook op stedelijk en
-							regionaal niveau op deze website.
-						</p>
+						<p>{page.header.modal.text}</p>
 					</Dialog>
 				</Hero>
 				<Content>
@@ -73,4 +95,39 @@ const Destination = () => {
 	);
 };
 
-export default Destination;
+export const getStaticProps = async () => {
+	const pageProjection = `{
+		"metaData": {
+			${getLocaleProperty('title', 'metaData.title')},
+			${getLocaleProperty('description', 'metaData.description')},
+		},
+		"header": {
+			${getLocaleProperty('title', 'header.title')},
+			"modal": {
+				${getLocaleProperty('link', 'header.modal.link')},
+				${getLocaleProperty('text', 'header.modal.text')},
+				${getLocaleProperty('title', 'header.modal.title')},
+			}
+		},
+		${getLocaleProperty('button')},
+		${getLocaleProperty('nietGevonden')},
+		${getLocaleProperty('placeholder')},
+		url
+	}`;
+	const { page, siteSettings } = await sanity.fetch(
+		getPageQuery({
+			type: 'bestemming-page',
+			pageProjection,
+		}),
+	);
+
+	return {
+		props: {
+			page,
+			siteSettings,
+			locale: process.env.NEXT_PUBLIC_LOCALE,
+		},
+	};
+};
+
+export default Bestemming;

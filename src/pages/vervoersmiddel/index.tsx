@@ -1,4 +1,13 @@
 /** @jsx jsx */
+import React, { useRef, useState } from 'react';
+import { useRouter } from 'next/router';
+import { Flex, jsx } from 'theme-ui';
+import sanity, {
+	getPageQuery,
+	getLocaleProperty,
+	getLocaleArrayProperty,
+} from 'utilities/sanity';
+
 import AdviceContext, {
 	MeansOfTransport,
 } from 'components/advice/AdviceContext';
@@ -12,12 +21,36 @@ import { RadioButton } from 'components/radio-button';
 import BodyContainer from 'components/structure/BodyContainer';
 import { Hero, Page } from 'components/structure/Page';
 import { alignLogoRightOnMobileStyles } from 'components/structure/RoHeaderLogo';
-import { useRouter } from 'next/router';
-import React, { useRef, useState } from 'react';
-import { Box, Flex, jsx } from 'theme-ui';
 import { isBrowser } from 'utilities/is-browser';
 
-const MeansOfTransportPage = () => {
+interface VervoersmiddelProps {
+	page: {
+		metaData: {
+			title: string;
+			description: string;
+		};
+		header: {
+			title: string;
+			modal: {
+				link: string;
+				text: string;
+				title: string;
+			};
+		};
+		button: string;
+		url: string;
+	};
+	siteSettings: {
+		pageTitleSuffix: string;
+	};
+	locale: 'nl' | 'en';
+}
+
+const VervoersmiddelPage = ({
+	page,
+	siteSettings,
+	locale,
+}: VervoersmiddelProps) => {
 	const formRef = useRef<HTMLFormElement>(null);
 	const {
 		setMeansOfTransport,
@@ -83,30 +116,28 @@ const MeansOfTransportPage = () => {
 	return (
 		<>
 			<MetaTags
-				title="Planning | Quarantaine Reischeck | Rijksoverheid.nl"
-				description="Actuele informatie over bestemming en maatregelen."
-				url="/vervoersmiddel"
+				title={`${page.metaData.title}${siteSettings.pageTitleSuffix}`}
+				description={page.metaData.description}
+				locale={locale}
+				url={page.url}
 			/>
 
 			<Page
-				title="Hoe reis je terug naar Nederland?"
+				title={page.header.title}
 				cleanPageOnMobile
 				sx={alignLogoRightOnMobileStyles}
 			>
 				<Hero>
 					<ProgressMarker stage={3} totalStages={3} />
 					<InternalLink href="" onClick={openDialog}>
-						Waarom vragen we dit?
+						{page.header.modal.link}
 					</InternalLink>
 					<Dialog
-						title="Waarom vragen we hoe je terug reist naar Nederland?"
+						title={page.header.modal.title}
 						isVisible={showDialog}
 						closeDialog={() => setShowDialog(false)}
 					>
-						<p>
-							De regels zijn afhankelijk van hoe je reist. Als je aangeeft hoe
-							je terugreist, kunnen wij je voorzien van actuele informatie.
-						</p>
+						<p>{page.header.modal.text}</p>
 					</Dialog>
 				</Hero>
 
@@ -160,4 +191,39 @@ const MeansOfTransportPage = () => {
 	);
 };
 
-export default MeansOfTransportPage;
+export const getStaticProps = async () => {
+	const pageProjection = `{
+		"metaData": {
+			${getLocaleProperty('title', 'metaData.title')},
+			${getLocaleProperty('description', 'metaData.description')},
+		},
+		"header": {
+			${getLocaleProperty('title', 'header.title')},
+			"modal": {
+				${getLocaleProperty('link', 'header.modal.link')},
+				${getLocaleProperty('text', 'header.modal.text')},
+				${getLocaleProperty('title', 'header.modal.title')},
+			}
+		},
+		${getLocaleProperty('button')},
+		url
+	}`;
+	const { page, siteSettings } = await sanity.fetch(
+		getPageQuery({
+			type: 'vervoersmiddel-page',
+			pageProjection,
+		}),
+	);
+
+	console.log(page);
+
+	return {
+		props: {
+			page,
+			siteSettings,
+			locale: process.env.NEXT_PUBLIC_LOCALE,
+		},
+	};
+};
+
+export default VervoersmiddelPage;

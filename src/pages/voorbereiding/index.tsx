@@ -16,6 +16,7 @@ interface VoorbereidingProps {
 		};
 		title: string;
 		saveCopy: string;
+		url: string;
 	};
 	siteSettings: {
 		pageTitleSuffix: string;
@@ -43,7 +44,7 @@ const VoorbereidingPage = ({
 			title={`${page.metaData.title}${siteSettings.pageTitleSuffix}`}
 			description={page.metaData.description}
 			locale={locale}
-			url="/voorbereiding"
+			url={page.url}
 		/>
 
 		<Page
@@ -74,7 +75,11 @@ const VoorbereidingPage = ({
 					{page.saveCopy}
 				</p>
 				{documents.map((document) => (
-					<PreparationPanel image={document.image} text={document.title}>
+					<PreparationPanel
+						image={document.image}
+						text={document.title}
+						key={document.title}
+					>
 						{document.description && <p>{document.description}</p>}
 						<ul>
 							{document.items.map((item) => (
@@ -99,7 +104,8 @@ export const getStaticProps = async () => {
 			${getLocaleProperty('description', 'metaData.description')},
 		},
 		${getLocaleProperty('title')},
-		${getLocaleProperty('saveCopy')}
+		${getLocaleProperty('saveCopy')},
+		url
 	}`;
 	const documentsQuery = `*[_type == "voorbereiding-document"]{
 		${getLocaleProperty('title')},

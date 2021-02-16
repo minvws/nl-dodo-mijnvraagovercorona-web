@@ -1,5 +1,10 @@
 /** @jsx jsx */
 import React, { useEffect, useRef, useState } from 'react';
+import sanity, {
+	getPageQuery,
+	getLocaleProperty,
+	getLocaleArrayProperty,
+} from 'utilities/sanity';
 import { jsx } from 'theme-ui';
 import { isAfter, addDays } from 'date-fns';
 
@@ -43,7 +48,33 @@ const calculateStage = ({
 	return 'na-thuiskomst';
 };
 
-const Period = () => {
+interface PeriodeProps {
+	page: {
+		metaData: {
+			title: string;
+			description: string;
+		};
+		header: {
+			title: string;
+			modal: {
+				link: string;
+				text: string;
+				title: string;
+			};
+		};
+		datumTussentekst: string;
+		maanden: string[];
+		dagen: string[];
+		url: string;
+		button: string;
+	};
+	siteSettings: {
+		pageTitleSuffix: string;
+	};
+	locale: 'nl' | 'en';
+}
+
+const Periode = ({ page, siteSettings, locale }: PeriodeProps) => {
 	const { destination, setFrom, setTo, setStage } = React.useContext(
 		AdviceContext,
 	);
@@ -112,34 +143,28 @@ const Period = () => {
 	return (
 		<>
 			<MetaTags
-				title="Planning | Quarantaine Reischeck | Rijksoverheid.nl"
-				description="Actuele informatie over bestemming en maatregelen."
-				url="/periode"
+				title={`${page.metaData.title}${siteSettings.pageTitleSuffix}`}
+				description={page.metaData.description}
+				locale={locale}
+				url={page.url}
 			/>
 
 			<Page
-				title="In welke periode ben of was je daar?"
+				title={page.header.title}
 				cleanPageOnMobile
 				sx={alignLogoRightOnMobileStyles}
 			>
 				<Hero>
 					<ProgressMarker stage={2} totalStages={3} />
 					<InternalLink href="" onClick={openDialog}>
-						Waarom vragen we dit?
+						{page.header.modal.link}
 					</InternalLink>
 					<Dialog
-						title="Waarom vragen we je naar je reisperiode?"
+						title={page.header.modal.title}
 						isVisible={showDialog}
 						closeDialog={() => setShowDialog(false)}
 					>
-						<p>
-							Het is mogelijk dat een land van kleurcode verandert tijdens je
-							verblijf.
-						</p>
-						<p>
-							Daarnaast bieden we je andere informatie als je op reis gaat, dan
-							wanneer je net terug bent.
-						</p>
+						<p>{page.header.modal.text}</p>
 					</Dialog>
 				</Hero>
 				<PeriodSelect country={country?.fullName} updatePage={updateDate} />
@@ -153,7 +178,7 @@ const Period = () => {
 							}}
 							ref={submitRef}
 						>
-							<ButtonPrimary href={resultLink}>Naar vraag 3</ButtonPrimary>
+							<ButtonPrimary href={resultLink}>{page.button}</ButtonPrimary>
 						</div>
 					)}
 				</BodyContainer>
@@ -162,4 +187,41 @@ const Period = () => {
 	);
 };
 
-export default Period;
+export const getStaticProps = async () => {
+	const pageProjection = `{
+		"metaData": {
+			${getLocaleProperty('title', 'metaData.title')},
+			${getLocaleProperty('description', 'metaData.description')},
+		},
+		"header": {
+			${getLocaleProperty('title', 'header.title')},
+			"modal": {
+				${getLocaleProperty('link', 'header.modal.link')},
+				${getLocaleProperty('text', 'header.modal.text')},
+				${getLocaleProperty('title', 'header.modal.title')},
+			}
+		},
+		${getLocaleProperty('button')},
+		${getLocaleProperty('datumTussentekst')},
+		${getLocaleProperty('placeholder')},
+		${getLocaleArrayProperty('maanden')},
+		${getLocaleArrayProperty('dagen')},
+		url
+	}`;
+	const { page, siteSettings } = await sanity.fetch(
+		getPageQuery({
+			type: 'periode-page',
+			pageProjection,
+		}),
+	);
+
+	return {
+		props: {
+			page,
+			siteSettings,
+			locale: process.env.NEXT_PUBLIC_LOCALE,
+		},
+	};
+};
+
+export default Periode;

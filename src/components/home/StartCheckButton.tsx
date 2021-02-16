@@ -1,8 +1,8 @@
 import React from 'react';
 import { ButtonPrimary } from '../button';
 
-const StartCheckButton = () => (
-	<ButtonPrimary href="/bestemming">Doe de check</ButtonPrimary>
+const StartCheckButton = ({ children }: { children: React.ReactNode }) => (
+	<ButtonPrimary href="/bestemming">{children}</ButtonPrimary>
 );
 
 export default StartCheckButton;

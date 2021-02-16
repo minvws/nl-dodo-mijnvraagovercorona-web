@@ -18,6 +18,9 @@ const options: ClientConfig = {
 export const getLocaleProperty = (name: string, path?: string): string =>
 	`"${name}": ${path || name}.${process.env.NEXT_PUBLIC_LOCALE}`;
 
+export const getLocaleArrayProperty = (name: string, path?: string): string =>
+	`"${name}": ${path || name}[].${process.env.NEXT_PUBLIC_LOCALE}`;
+
 /**
  * These props contain all the data returned by a content page query
  */
@@ -76,7 +79,30 @@ export const getPageQuery = ({
 }): string => `{
 	"page": *[_type == "${type}"][0]${pageProjection},
 	"siteSettings": *[_type == "site-settings-document"][0]{
-		${getLocaleProperty('pageTitleSuffix')}
+		${getLocaleProperty('pageTitleSuffix')},
+		"privacy": {
+			${getLocaleProperty('title', 'privacy.title')},
+			${getLocaleArrayProperty('beloftes', 'privacy.beloftes')},
+		},
+		"header": {
+			${getLocaleProperty('logoAlt', 'header.logoAlt')},
+			${getLocaleProperty('opnieuw', 'header.opnieuw')},
+			${getLocaleProperty('terug', 'header.terug')},
+		},
+		"footer": {
+			${getLocaleProperty('alleenSamenAlt', 'footer.alleenSamenAlt')},
+			${getLocaleProperty('meerInformatieTitle', 'footer.meerInformatieTitle')},
+			${getLocaleProperty('rijksoverheidText', 'footer.rijksoverheidText')},
+			${getLocaleProperty('rijksoverheidUrl', 'footer.rijksoverheidUrl')},
+			${getLocaleProperty('title', 'footer.title')},
+			${getLocaleArrayProperty('items', 'footer.items')},
+		},
+		"feedback": {
+			${getLocaleProperty('button', 'feedback.button')},
+			${getLocaleProperty('content', 'feedback.content')},
+			${getLocaleProperty('title', 'feedback.title')},
+			${getLocaleProperty('url', 'feedback.url')},
+		},
 	},
 	${documentsQuery && `"documents": ${documentsQuery}`}
 }`;
