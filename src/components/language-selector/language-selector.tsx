@@ -22,6 +22,10 @@ export interface Language {
 	currentLanguageText: string;
 }
 
+/**
+ * @note The default language (NL), should always be the first
+ * in the array!
+ */
 export const languages: Language[] = [
 	{
 		id: Languages.Dutch,
