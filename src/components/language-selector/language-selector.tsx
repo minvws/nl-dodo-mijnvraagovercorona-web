@@ -24,7 +24,8 @@ export interface Language {
 
 /**
  * @note The default language (NL), should always be the first
- * in the array!
+ * in the array since the first language is used as the default if no
+ * language can be resolved.
  */
 export const languages: Language[] = [
 	{
