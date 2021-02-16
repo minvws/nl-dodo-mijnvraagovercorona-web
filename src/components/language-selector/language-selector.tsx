@@ -74,6 +74,7 @@ export const LanguageSelector = () => {
 
 	return (
 		<div
+			className="language-selector"
 			sx={{
 				position: 'absolute',
 				top: '2rem',
