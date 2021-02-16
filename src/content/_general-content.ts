@@ -10,4 +10,8 @@ export const generalContent = {
 	general__trein: 'Trein',
 	general__bus: 'Bus',
 	general__anders: 'Anders',
+
+	general__taal: 'Taal',
+	general__wissel_van_taal: 'Wissel van taal',
+	general__huidige_taal_prefix: 'Huidige',
 };

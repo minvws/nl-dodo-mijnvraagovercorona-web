@@ -12,6 +12,7 @@ import theme from 'utilities/styling/theme';
 import 'styles/global.css';
 import 'styles/components/PeriodSelect.css';
 import { TranslationProvider } from 'hooks/use-translation';
+import { generalContent } from 'content/_general-content';
 
 const TravelCheckApp = ({ Component, pageProps }: AppProps) => {
 	useEffect(() => {
@@ -21,6 +22,10 @@ const TravelCheckApp = ({ Component, pageProps }: AppProps) => {
 		};
 	}, []);
 
+	const pageTranslations = pageProps.content || {};
+	// @TODO: Add nl / en switch after other branch is merged.
+	const globalTranslations = generalContent;
+
 	return (
 		<>
 			<Head>
@@ -29,7 +34,9 @@ const TravelCheckApp = ({ Component, pageProps }: AppProps) => {
 					content="width=device-width, initial-scale=1.0, user-scalable=yes"
 				/>
 			</Head>
-			<TranslationProvider content={pageProps.content}>
+			<TranslationProvider
+				content={{ ...pageTranslations, ...globalTranslations }}
+			>
 				<ThemeProvider theme={theme}>
 					<AdviceProvider>
 						<Box

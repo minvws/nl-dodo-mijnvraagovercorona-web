@@ -57,6 +57,7 @@ type LinkProps = {
 	text?: string;
 	onClick?: (event: any) => void;
 	children?: React.ReactNode;
+	lang?: string;
 	sx?: ThemeUICSSObject;
 };
 
@@ -117,6 +118,8 @@ const LinkBase = React.forwardRef((props: LinkBaseProps, ref) => {
 					}}
 					onClick={props.onClick}
 					href={props.href}
+					lang={props.lang}
+					hrefLang={props.lang}
 					{...(props.external
 						? {
 								target: '_blank',
