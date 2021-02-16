@@ -1,5 +1,6 @@
 /** @jsx jsx */
-import { Menu, MenuButton, MenuList } from '@reach/menu-button';
+import { Menu, MenuButton, MenuItems, MenuPopover } from '@reach/menu-button';
+import { positionRight } from '@reach/popover';
 import '@reach/menu-button/styles.css';
 import { Chevron } from 'components/icons/Chevron';
 import { InternalLink } from 'components/Links';
@@ -51,6 +52,7 @@ const LanguageLink = ({ id, currentPath }: LanguageLinkProps) => {
 		<InternalLink
 			href={getCurrentUrlForLanguage(currentPath, language, currentLanguage)}
 			lang={Languages.Dutch}
+
 		>
 			{language.fullName}{' '}
 			{currentLanguage.id === language.id && (
@@ -67,7 +69,13 @@ export const LanguageSelector = () => {
 	const currentLanguage = useCurrentLangage(asPath, languages);
 
 	return (
-		<div sx={{ position: 'absolute', top: '2rem', right: 'mobilePadding' }}>
+		<div
+			sx={{
+				position: 'absolute',
+				top: '2rem',
+				right: 'mobilePadding',
+			}}
+		>
 			<Menu>
 				<MenuButton
 					sx={{
@@ -109,7 +117,7 @@ export const LanguageSelector = () => {
 					<span
 						sx={{
 							fontWeight: 'normal',
-							display: 'inline-block',
+							display: ['none', 'inline-block'],
 							marginRight: '6px',
 						}}
 					>
@@ -118,15 +126,13 @@ export const LanguageSelector = () => {
 					{currentLanguage.fullName}
 					<Chevron />
 				</MenuButton>
-				<MenuList
-					sx={{
-						position: 'absolute',
-						backgroundColor: 'white',
-						padding: '12px',
-						width: '300px',
-						maxWidth: '100vw',
-						border: 'none',
-						boxShadow: `
+				<MenuPopover position={positionRight}>
+					<MenuItems
+						sx={{
+							backgroundColor: 'white',
+							padding: '12px',
+							border: 'none',
+							boxShadow: `
             0 2.8px 6.3px rgba(0, 0, 0, 0.008),
             0 6.7px 15.1px rgba(0, 0, 0, 0.013),
             0 12.5px 28.4px rgba(0, 0, 0, 0.017),
@@ -134,23 +140,24 @@ export const LanguageSelector = () => {
             0 41.8px 94.8px rgba(0, 0, 0, 0.026),
             0 100px 227px rgba(0, 0, 0, 0.04)
             `,
-						a: {
-							fontSize: '16px',
-						},
-					}}
-				>
-					<ul sx={{ listStyleType: 'none', padding: 0 }}>
-						<li sx={{ marginBottom: '8px' }}>
-							{t('general__wissel_van_taal')}
-						</li>
-						<li>
-							<LanguageLink id={Languages.Dutch} currentPath={asPath} />
-						</li>
-						<li>
-							<LanguageLink id={Languages.English} currentPath={asPath} />
-						</li>
-					</ul>
-				</MenuList>
+							a: {
+								fontSize: '16px',
+							},
+						}}
+					>
+						<ul sx={{ listStyleType: 'none', padding: 0 }}>
+							<li sx={{ marginBottom: '8px' }}>
+								{t('general__wissel_van_taal')}
+							</li>
+							<li>
+								<LanguageLink id={Languages.Dutch} currentPath={asPath} />
+							</li>
+							<li>
+								<LanguageLink id={Languages.English} currentPath={asPath} />
+							</li>
+						</ul>
+					</MenuItems>
+				</MenuPopover>
 			</Menu>
 		</div>
 	);

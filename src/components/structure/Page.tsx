@@ -45,13 +45,13 @@ export const Page: React.FC<PageProps> = ({
 						position: 'relative',
 					}}
 				>
+					<LanguageSelector />
 					<Header
 						message={title}
 						headerPrefix={headerPrefix}
 						showBackLink={showBackLink}
 						backgroundImage={illustrationMobileUrl}
 					/>
-					<LanguageSelector />
 					<main>{children}</main>
 					<div
 						sx={{
