@@ -20,7 +20,7 @@ export const contentNl = {
 	page_title: 'Je bestemming heeft een coronarisico',
 	page_title__high_risk: 'Je bestemming heeft een hoog coronarisico',
 	bullets__na_31maart_reizen_onzeker:
-		'Het is <strong>onzeker</strong> of reizen reizen na 31 maart mogelijk is. Houd de berichtgeving van de overheid in de gaten.',
+		'Het is <strong>onzeker</strong> of reizen na 31 maart mogelijk is. Houd de berichtgeving van de overheid in de gaten.',
 	bullets__tm_31maart_niet_reizen:
 		'Tot en met 31 maart <strong>niet reizen</strong>. Reis alleen bij ernstige familieomstandigheden of voor werk dat echt niet uitgesteld kan worden en waarbij fysieke aanwezigheid absoluut nodig is.',
 	bullets__verhoogd_risico:
@@ -164,24 +164,24 @@ export const contentNl = {
 
 export const contentEn = {
 	page_meta_description:
-		'Advies rondom corona-richtlijnen voor je reis naar {{countryName}} {{meansOfTransport}} {{stage}}.',
-	page_meta_description__transport_vliegtuig: 'met het vliegtuig',
-	page_meta_description__transport_auto: 'met de auto',
-	page_meta_description__transport_trein: 'met de trein',
-	page_meta_description__transport_bus: 'met de bus',
-	page_meta_description__transport_anders: 'met een ander vervoersmiddel',
+		'Advice on corona guidelines for your trip to {{countryName}} {{meansOfTransport}} {{stage}}.',
+	page_meta_description__transport_vliegtuig: 'by plane',
+	page_meta_description__transport_auto: 'by car',
+	page_meta_description__transport_trein: 'by train',
+	page_meta_description__transport_bus: 'by coach',
+	page_meta_description__transport_anders: 'with another means of transport',
 
-	'page_meta_description__stage_voor-vertrek': 'als je nog moet vertrekken',
-	'page_meta_description__stage_tijdens-je-reis': 'als je nog op reis bent',
-	'page_meta_description__stage_na-thuiskomst': 'als je weer thuis bent',
+	'page_meta_description__stage_voor-vertrek': 'if you still have to leave',
+	'page_meta_description__stage_tijdens-je-reis': 'if you are still traveling',
+	'page_meta_description__stage_na-thuiskomst': 'after you got back home',
 
 	page_meta_title:
-		'Advies Quarantaine {{countryName}} {{stage}} {{meansOfTransport}} | Quarantaine Reischeck | Rijksoverheid.nl',
+		'Quarantine advice {{countryName}} {{stage}} {{meansOfTransport}} | Quarantaine Reischeck | Rijksoverheid.nl',
 
-	page_title: 'Je bestemming heeft een coronarisico',
-	page_title__high_risk: 'Je bestemming heeft een hoog coronarisico',
+	page_title: 'Your destination has a corona risk',
+	page_title__high_risk: 'Your destination has a high corona risk',
 	bullets__na_31maart_reizen_onzeker:
-		'Het is <strong>onzeker</strong> of reizen reizen na 31 maart mogelijk is. Houd de berichtgeving van de overheid in de gaten.',
+		'It is <strong>uncertain</strong> whether travel is possible after March 31. Keep an eye on government reports.',
 	bullets__tm_31maart_niet_reizen:
 		'Do <strong>not travel abroad</strong> in the period up to and including 31 March 2021. Only travel if it is absolutely essential. Holiday travel is not essential.',
 	bullets__verhoogd_risico:
@@ -210,7 +210,7 @@ export const contentEn = {
 
 	travelscheme__voorbereidenThuisQuarantaine_title: 'Self-quarantine',
 	travelscheme__voorbereidenThuisQuarantaine_text:
-		'Prepare well for <a href="/voorbereiding">your self-quarantine</a> na terugkomst.',
+		'Prepare well for <a href="/voorbereiding">your self-quarantine</a> after your return.',
 
 	travelscheme__vertrek_title: 'Departure',
 
