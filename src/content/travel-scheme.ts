@@ -202,15 +202,15 @@ export const contentEn = {
 
 	travelscheme__downloadReisapp_title: 'The travel app (Reisapp)',
 	travelscheme__downloadReisapp_text:
-		'Keep track of the latest developments at your destination via <a href="https://www.nederlandwereldwijd.nl/documenten/vragen-en-antwoorden/reis-app-buitenlandse-zaken" target="_blank" rel="noopener noreferrer">the travel app (Reisapp)</a>.',
+		'Keep track of the latest developments at your destination via <a href="https://www.nederlandwereldwijd.nl/documenten/vragen-en-antwoorden/reis-app-buitenlandse-zaken" target="_blank" rel="noopener noreferrer">the travel app (information in Dutch)</a>.',
 
 	travelscheme__coronaMelder_title: 'CoronaMelder',
 	travelscheme__coronaMelder_text:
-		'Did you know the <a target="_blank" rel="noopener noreferrer" href="https://www.coronamelder.nl/nl/faq/13-gebruik-app-uit-ander-land/">CoronaMelder notification app</a> also works in {{country}}?',
+		'Did you know the <a target="_blank" rel="noopener noreferrer" href="https://www.coronamelder.nl/en/faq/13-gebruik-app-uit-ander-land/">CoronaMelder notification app</a> also works in {{country}}?',
 
 	travelscheme__voorbereidenThuisQuarantaine_title: 'Self-quarantine',
 	travelscheme__voorbereidenThuisQuarantaine_text:
-		'Prepare well for <a href="/voorbereiding">your self-quarantine</a> after your return.',
+		'Prepare well for <a href="/en/voorbereiding">your self-quarantine</a> after your return.',
 
 	travelscheme__vertrek_title: 'Departure',
 
@@ -219,27 +219,27 @@ export const contentEn = {
 	travelscheme__reisadvies_nu: 'Now',
 	travelscheme__reisadvies_text:
 		'As well as the risk of becoming infected with COVID-19, there may also be entry restrictions or safety risks in {{country}}.',
-	travelscheme__reisadvies_cta: 'Detailed travel advice',
+	travelscheme__reisadvies_cta: 'Detailed travel advice (information in Dutch)',
 
 	travelscheme__pcrtest_title: 'Get tested',
 	travelscheme__pcrtest_subtitle: 'Max. 72 hours before departure',
 	travelscheme__pcrtest_text:
-		'You can only travel to the Netherlands if you have a <a href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/negatieve-covid-19-testuitslag-aankomst-nederland" target="_blank" rel="noopener noreferrer">negative test result</a>.',
+		'You can only travel to the Netherlands if you have a <a href="https://www.government.nl/topics/coronavirus-covid-19/visiting-the-netherlands-from-abroad/mandatory-negative-test-results-and-declaration" target="_blank" rel="noopener noreferrer">negative test result</a>.',
 
 	travelscheme__pcrtest_en_verklaring_title: 'Get tested',
 	travelscheme__pcrtest_en_verklaring_subtitle:
 		'Max. 72 hours before departure',
 	travelscheme__pcrtest_en_verklaring_text:
-		'You can only travel to the Netherlands if you have a negative <a href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/negatieve-covid-19-testuitslag-aankomst-nederland" target="_blank" rel="noopener noreferrer">test result and test declaration</a>.',
+		'You can only travel to the Netherlands if you have a negative <a href="https://www.government.nl/topics/coronavirus-covid-19/visiting-the-netherlands-from-abroad/mandatory-negative-test-results-and-declaration" target="_blank" rel="noopener noreferrer">test result and test declaration</a>.',
 
 	travelscheme__sneltest_title: 'Do a rapid test',
 	travelscheme__sneltest_subtitle: 'Max. 4 hours before departure',
 	travelscheme__sneltest_text:
-		'You also need a <a href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/verplichte-negatieve-covid-19-testuitslagen/eisen-sneltest" target="_blank" rel="noopener noreferrer">negative rapid test result</a>.',
+		'You also need a <a href="https://www.government.nl/topics/coronavirus-covid-19/visiting-the-netherlands-from-abroad/mandatory-negative-test-results-and-declaration/requirements-rapid-test-result" target="_blank" rel="noopener noreferrer">negative rapid test result</a>.',
 
 	travelscheme__gezondheidsverklaring_title: 'Health declaration',
 	travelscheme__gezondheidsverklaring_text:
-		'Fill in <a href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/documenten/publicaties/2020/07/20/gezondheidsverklaring-reizigers-nederlands" target="_blank" rel="noopener noreferrer">the health declaration</a> before your departure.',
+		'Fill in <a href="https://www.government.nl/topics/coronavirus-covid-19/documents/publications/2020/07/07/information-for-passengers-flying-to-and-from-the-netherlands" target="_blank" rel="noopener noreferrer">the health declaration</a> before your departure.',
 
 	travelscheme__thuiskomst__title: 'Back home',
 	travelscheme__thuiskomst__subtitle: 'Start of self-quarantine for 10 days',
