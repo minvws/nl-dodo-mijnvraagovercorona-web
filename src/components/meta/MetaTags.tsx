@@ -27,11 +27,8 @@ const MetaTags = ({ title, description, url, noIndex, locale }: Props) => {
 			<meta name="title" content={title} />
 			<meta name="description" content={description} />
 
-			<link
-				rel="alternate"
-				hrefLang={alternateLocale}
-				href={completeURl.replace(`/${locale}`, `/${alternateLocale}`)}
-			/>
+			<link rel="alternate" hrefLang="nl" href={`${baseUrl}/nl${url}`} />
+			<link rel="alternate" hrefLang="en" href={`${baseUrl}/en${url}`} />
 
 			<meta property="og:type" content="website" />
 			<meta property="og:locale" content={localesIncludingRegion[locale]} />
