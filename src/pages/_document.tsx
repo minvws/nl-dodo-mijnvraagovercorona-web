@@ -6,7 +6,7 @@ import { jsx } from 'theme-ui';
 class ReizenTijdensCoronaDocument extends Document {
 	render() {
 		return (
-			<Html lang="nl">
+			<Html>
 				<Head>
 					<meta charSet="utf-8" />
 

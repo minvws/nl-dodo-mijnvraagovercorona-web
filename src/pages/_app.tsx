@@ -20,6 +20,9 @@ const ReizenTijdensCoronaApp = ({ Component, pageProps }: AppProps) => {
 			Router.events.off('routeChangeComplete', trackPageview);
 		};
 	}, []);
+	useEffect(() => {
+		document.documentElement.lang = pageProps.locale;
+	}, [pageProps.locale]);
 
 	return (
 		<>

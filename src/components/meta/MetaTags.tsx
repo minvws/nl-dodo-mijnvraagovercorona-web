@@ -6,10 +6,15 @@ type Props = {
 	description: string;
 	url: string;
 	noIndex?: boolean;
-	locale?: 'en' | 'nl';
+	locale: 'en' | 'nl';
 };
 
-const MetaTags = ({ title, description, url, noIndex }: Props) => {
+const locales = {
+	en: 'en_gb',
+	nl: 'nl_nl',
+};
+
+const MetaTags = ({ title, description, url, noIndex, locale }: Props) => {
 	const baseUrl = 'https://reizentijdenscorona.rijksoverheid.nl';
 	const completeURl = `${baseUrl}${url}`;
 
@@ -20,7 +25,12 @@ const MetaTags = ({ title, description, url, noIndex }: Props) => {
 			<meta name="description" content={description} />
 
 			<meta property="og:type" content="website" />
-			<meta property="og:locale" content="nl_NL" />
+			<meta property="og:locale" content={locales[locale]} />
+			<meta
+				property="og:locale:alternate"
+				content={locales[locale === 'nl' ? 'en' : 'nl']}
+			/>
+
 			<meta property="og:url" content={completeURl} />
 			<meta property="og:image" content={`${baseUrl}/share.png`} />
 			<link rel="canonical" href={completeURl} />
