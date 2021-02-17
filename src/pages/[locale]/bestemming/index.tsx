@@ -15,7 +15,7 @@ import AdviceContext from 'components/advice/AdviceContext';
 import { getCountrySlug } from 'utilities/pathUtils';
 import { useRouter } from 'next/router';
 import { getAdvicePath } from 'components/advice/utils';
-import { useSanityPageContent, useSanitySiteSettings } from 'hooks/translation';
+import { useSanityPageContent } from 'hooks/translation';
 
 interface PageContent {
 	metaData: {
@@ -38,7 +38,6 @@ interface PageContent {
 
 const Bestemming = () => {
 	const page = useSanityPageContent<PageContent>();
-	const siteSettings = useSanitySiteSettings();
 	const [showDialog, setShowDialog] = useState(false);
 	const { setDestination } = React.useContext(AdviceContext);
 	const router = useRouter();
