@@ -17,7 +17,7 @@ export const alignLogoRightOnMobileStyles: ThemeUICSSObject = {
 		backgroundImage: 'none',
 	},
 	'.language-selector': {
-		display: ['none', 'block'],
+		display: ['none', 'flex'],
 	},
 };
 
