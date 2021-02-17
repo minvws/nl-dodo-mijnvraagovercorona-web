@@ -104,6 +104,7 @@ export const getStaticProps = async ({
 				${getLocaleProperty({ name: 'usp', path: 'linklist.usp', locale })},
 			},
 		},
+		url,
 	}`;
 
 	const { page, siteSettings } = await sanity.fetch(

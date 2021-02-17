@@ -9,14 +9,17 @@ type Props = {
 	locale: 'en' | 'nl';
 };
 
-const locales = {
+const localesIncludingRegion = {
 	en: 'en_gb',
 	nl: 'nl_nl',
 };
 
 const MetaTags = ({ title, description, url, noIndex, locale }: Props) => {
 	const baseUrl = 'https://reizentijdenscorona.rijksoverheid.nl';
-	const completeURl = `${baseUrl}${url}`;
+	const completeURl = `${baseUrl}/${locale}${url}`;
+	const alternateLocale = locale === 'nl' ? 'en' : 'nl';
+	const alternateLocaleIncludingRegion =
+		localesIncludingRegion[alternateLocale];
 
 	return (
 		<Head>
@@ -24,11 +27,17 @@ const MetaTags = ({ title, description, url, noIndex, locale }: Props) => {
 			<meta name="title" content={title} />
 			<meta name="description" content={description} />
 
+			<link
+				rel="alternate"
+				hrefLang={alternateLocale}
+				href={completeURl.replace(`/${locale}`, `/${alternateLocale}`)}
+			/>
+
 			<meta property="og:type" content="website" />
-			<meta property="og:locale" content={locales[locale]} />
+			<meta property="og:locale" content={localesIncludingRegion[locale]} />
 			<meta
 				property="og:locale:alternate"
-				content={locales[locale === 'nl' ? 'en' : 'nl']}
+				content={alternateLocaleIncludingRegion}
 			/>
 
 			<meta property="og:url" content={completeURl} />
