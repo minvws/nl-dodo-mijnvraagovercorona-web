@@ -7,8 +7,6 @@
 		"test": "jest",
 		"test:watch": "jest --watch",
 		"build": "next build && next-sitemap && next export",
-		"build:nl": "NEXT_PUBLIC_LOCALE=nl yarn build -o ./out-nl",
-		"build:en": "NEXT_PUBLIC_LOCALE=en yarn build -o ./out-en",
 		"start": "NODE_ENV=production next start",
 		"type-check": "tsc",
 		"storybook": "start-storybook -s ./public -p 9000",

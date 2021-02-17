@@ -14,12 +14,12 @@ FROM node:14-alpine as react-build
 WORKDIR /app
 COPY --from=react-build-base /app/node_modules /app/node_modules
 COPY . .
-RUN yarn build:nl
+RUN yarn build
 
 ## Stage 2 - the test environment
 FROM bitnami/nginx:latest
 
-COPY --from=react-build /app/out-nl /app/
+COPY --from=react-build /app/out /app/
 
 COPY nginx.conf nginx_headers.conf nginx_common.conf nginx_nl.conf /opt/bitnami/nginx/conf/
 

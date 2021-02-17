@@ -95,29 +95,38 @@ const Bestemming = ({ page, siteSettings, locale }: BestemmingProps) => {
 	);
 };
 
-export const getStaticProps = async () => {
+export const getStaticProps = async ({
+	params: { locale },
+}: {
+	params: { locale: 'nl' | 'en' };
+}) => {
 	const pageProjection = `{
 		"metaData": {
-			${getLocaleProperty('title', 'metaData.title')},
-			${getLocaleProperty('description', 'metaData.description')},
+			${getLocaleProperty({ name: 'title', path: 'metaData.title', locale })},
+			${getLocaleProperty({
+				name: 'description',
+				path: 'metaData.description',
+				locale,
+			})},
 		},
 		"header": {
-			${getLocaleProperty('title', 'header.title')},
+			${getLocaleProperty({ name: 'title', path: 'header.title', locale })},
 			"modal": {
-				${getLocaleProperty('link', 'header.modal.link')},
-				${getLocaleProperty('text', 'header.modal.text')},
-				${getLocaleProperty('title', 'header.modal.title')},
+				${getLocaleProperty({ name: 'link', path: 'header.modal.link', locale })},
+				${getLocaleProperty({ name: 'text', path: 'header.modal.text', locale })},
+				${getLocaleProperty({ name: 'title', path: 'header.modal.title', locale })},
 			}
 		},
-		${getLocaleProperty('button')},
-		${getLocaleProperty('nietGevonden')},
-		${getLocaleProperty('placeholder')},
+		${getLocaleProperty({ name: 'button', locale })},
+		${getLocaleProperty({ name: 'nietGevonden', locale })},
+		${getLocaleProperty({ name: 'placeholder', locale })},
 		url
 	}`;
 	const { page, siteSettings } = await sanity.fetch(
 		getPageQuery({
 			type: 'bestemming-page',
 			pageProjection,
+			locale,
 		}),
 	);
 
@@ -125,9 +134,16 @@ export const getStaticProps = async () => {
 		props: {
 			page,
 			siteSettings,
-			locale: process.env.NEXT_PUBLIC_LOCALE,
+			locale,
 		},
 	};
 };
+
+export const getStaticPaths = () => ({
+	paths: ['nl', 'en'].map((locale) => ({
+		params: { locale },
+	})),
+	fallback: false,
+});
 
 export default Bestemming;

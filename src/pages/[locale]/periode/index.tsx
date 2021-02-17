@@ -1,10 +1,6 @@
 /** @jsx jsx */
 import React, { useEffect, useRef, useState } from 'react';
-import sanity, {
-	getPageQuery,
-	getLocaleProperty,
-	getLocaleArrayProperty,
-} from 'utilities/sanity';
+import sanity, { getPageQuery, getLocaleProperty } from 'utilities/sanity';
 import { jsx } from 'theme-ui';
 import { isAfter, addDays } from 'date-fns';
 
@@ -187,31 +183,40 @@ const Periode = ({ page, siteSettings, locale }: PeriodeProps) => {
 	);
 };
 
-export const getStaticProps = async () => {
+export const getStaticProps = async ({
+	params: { locale },
+}: {
+	params: { locale: 'nl' | 'en' };
+}) => {
 	const pageProjection = `{
 		"metaData": {
-			${getLocaleProperty('title', 'metaData.title')},
-			${getLocaleProperty('description', 'metaData.description')},
+			${getLocaleProperty({ name: 'title', path: 'metaData.title', locale })},
+			${getLocaleProperty({
+				name: 'description',
+				path: 'metaData.description',
+				locale,
+			})},
 		},
 		"header": {
-			${getLocaleProperty('title', 'header.title')},
+			${getLocaleProperty({ name: 'title', path: 'header.title', locale })},
 			"modal": {
-				${getLocaleProperty('link', 'header.modal.link')},
-				${getLocaleProperty('text', 'header.modal.text')},
-				${getLocaleProperty('title', 'header.modal.title')},
+				${getLocaleProperty({ name: 'link', path: 'header.modal.link', locale })},
+				${getLocaleProperty({ name: 'text', path: 'header.modal.text', locale })},
+				${getLocaleProperty({ name: 'title', path: 'header.modal.title', locale })},
 			}
 		},
-		${getLocaleProperty('button')},
-		${getLocaleProperty('datumTussentekst')},
-		${getLocaleProperty('placeholder')},
-		${getLocaleArrayProperty('maanden')},
-		${getLocaleArrayProperty('dagen')},
+		${getLocaleProperty({ name: 'button', locale })},
+		${getLocaleProperty({ name: 'datumTussentekst', locale })},
+		${getLocaleProperty({ name: 'placeholder', locale })},
+		${getLocaleProperty({ name: 'maanden', locale, array: true })},
+		${getLocaleProperty({ name: 'dagen', locale, array: true })},
 		url
 	}`;
 	const { page, siteSettings } = await sanity.fetch(
 		getPageQuery({
 			type: 'periode-page',
 			pageProjection,
+			locale,
 		}),
 	);
 
@@ -219,9 +224,16 @@ export const getStaticProps = async () => {
 		props: {
 			page,
 			siteSettings,
-			locale: process.env.NEXT_PUBLIC_LOCALE,
+			locale,
 		},
 	};
 };
+
+export const getStaticPaths = () => ({
+	paths: ['nl', 'en'].map((locale) => ({
+		params: { locale },
+	})),
+	fallback: false,
+});
 
 export default Periode;

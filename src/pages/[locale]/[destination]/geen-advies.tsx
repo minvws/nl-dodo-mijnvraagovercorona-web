@@ -1,5 +1,7 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
+
+import { cartesianProduct } from 'utilities/pathUtils';
 import { countries } from 'config/countries';
 import { useDestination } from 'hooks/use-destination';
 import MetaTags from 'components/meta/MetaTags';
@@ -91,6 +93,7 @@ const NoAdvice = ({ destination }: NoAdviceProps) => {
 export interface NoAdviceStaticProps {
 	params: {
 		destination: string;
+		locale: string;
 	};
 }
 
@@ -107,8 +110,11 @@ export const getStaticProps = async ({ params }: NoAdviceStaticProps) => {
 };
 
 export const getStaticPaths = () => ({
-	paths: countries.map((country) => ({
-		params: { destination: country.slug },
+	paths: cartesianProduct(
+		countries.map((country) => `${country.slug}`),
+		['nl', 'en'].map((locale) => `${locale}`),
+	).map(([destination, locale]: string[]) => ({
+		params: { destination, locale },
 	})),
 	fallback: false,
 });

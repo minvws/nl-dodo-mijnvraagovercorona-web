@@ -3,7 +3,7 @@ import Document, { Html, Head, Main, NextScript } from 'next/document';
 
 import { jsx } from 'theme-ui';
 
-class TravelCheckDocument extends Document {
+class ReizenTijdensCoronaDocument extends Document {
 	render() {
 		return (
 			<Html lang="nl">
@@ -51,4 +51,4 @@ class TravelCheckDocument extends Document {
 	}
 }
 
-export default TravelCheckDocument;
+export default ReizenTijdensCoronaDocument;
