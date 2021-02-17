@@ -8,6 +8,8 @@ export interface Language {
 	fullName: string;
 	shortName: string;
 	urlPrefix: string;
+	locale: string;
+	alternateLocales: string[];
 }
 
 /**
@@ -21,11 +23,15 @@ export const languages: Language[] = [
 		fullName: 'Nederlands',
 		shortName: 'Nl',
 		urlPrefix: '/nl',
+		locale: 'nl_nl',
+		alternateLocales: ['en_gb'],
 	},
 	{
 		id: Languages.English,
 		fullName: 'English',
 		shortName: 'En',
 		urlPrefix: '/en',
+		locale: 'en_gb',
+		alternateLocales: ['nl_nl'],
 	},
 ];

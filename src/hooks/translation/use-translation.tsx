@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useEffect } from 'react';
+import { useContext, useMemo, useEffect } from 'react';
 // @TODO: Not really happy with processing HTML, who knows what we will be injecting...
 import parse from 'html-react-parser';
 import { TranslationContext } from './translation-context';

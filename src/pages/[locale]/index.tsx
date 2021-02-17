@@ -7,70 +7,67 @@ import HomePageNavigation from 'components/home/HomePageNavigation';
 import StartCheckButton from 'components/home/StartCheckButton';
 import MetaTags from 'components/meta/MetaTags';
 import { Content, Hero, Page } from 'components/structure/Page';
+import { useSanityPageContent } from 'hooks/translation';
 
-interface LandingProps {
-	page: {
-		metaData: {
-			title: string;
-			description: string;
-		};
-		header: {
-			button: string;
-			pretitle: string;
-			subtitle: string;
-			title: string;
-		};
-		uitleg: {
-			description: string;
-			image: string;
-			pretitle: string;
-			title: string;
-			linklist: {
-				id: string;
-				usp: string;
-			};
-		}[];
-		url: string;
+interface PageContent {
+	metaData: {
+		title: string;
+		description: string;
 	};
-	siteSettings: {
-		pageTitleSuffix: string;
+	header: {
+		button: string;
+		pretitle: string;
+		subtitle: string;
+		title: string;
 	};
-	locale: 'nl' | 'en';
+	uitleg: {
+		description: string;
+		image: string;
+		pretitle: string;
+		title: string;
+		linklist: {
+			id: string;
+			usp: string;
+		};
+	}[];
+	url: string;
 }
 
-const Landing = ({ page, siteSettings, locale }: LandingProps) => (
-	<>
-		<MetaTags
-			title={page.metaData.title}
-			description={page.metaData.description}
-			url={page.url}
-			locale={locale}
-		/>
+const Landing = () => {
+	const page = useSanityPageContent<PageContent>();
+	return (
+		<>
+			<MetaTags
+				title={page.metaData.title}
+				description={page.metaData.description}
+				url={page.url}
+			/>
 
-		<Page title={page.header.title} headerPrefix={page.header.pretitle}>
-			<Hero>
-				<h2
-					sx={{
-						fontWeight: 'light',
-						width: ['80%', '549px'],
-						fontSize: '26px',
-						lineHeight: ['30px', '36px'],
-						marginTop: 0,
-						marginBottom: ['18px'],
-						color: 'roHighlight',
-					}}
-				>
-					{page.header.subtitle}
-				</h2>
-				<StartCheckButton>{page.header.button}</StartCheckButton>
-			</Hero>
-			<Content>
-				<HomePageNavigation uitleg={page.uitleg} />
-				<CopySection uitleg={page.uitleg} />
-			</Content>
-		</Page>
-	</>
-);
+			<Page title={page.header.title} headerPrefix={page.header.pretitle}>
+				<Hero>
+					<h2
+						sx={{
+							fontWeight: 'light',
+							width: ['80%', '549px'],
+							fontSize: '26px',
+							lineHeight: ['30px', '36px'],
+							marginTop: 0,
+							marginBottom: ['18px'],
+							color: 'roHighlight',
+						}}
+					>
+						{page.header.subtitle}
+					</h2>
+					<StartCheckButton>{page.header.button}</StartCheckButton>
+				</Hero>
+				<Content>
+					<HomePageNavigation uitleg={page.uitleg} />
+					<CopySection uitleg={page.uitleg} />
+				</Content>
+			</Page>
+		</>
+	);
+};
 
 interface LandingStaticProps {
 	params: { locale: 'nl' | 'en' };

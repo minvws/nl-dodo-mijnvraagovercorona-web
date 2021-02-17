@@ -31,9 +31,7 @@ import { Card } from 'components/card';
 import { cartesianProduct } from 'utilities/pathUtils';
 import { getTravelSchemeContentBlocks } from 'utilities/travel-advice';
 import { contentNl, contentEn } from 'content/travel-scheme';
-import { generalContentNl, generalContentEn } from 'content/_general-content';
 import { useTranslation } from 'hooks/translation';
-import { countriesEn, countriesNl } from 'content/countries';
 import { Languages } from 'config/languages';
 
 type AdviceProps = {
@@ -117,7 +115,6 @@ const AdviceResult = ({
 						stage,
 					}).pathname
 				}
-				locale={locale}
 			/>
 
 			<Page title={`${pageTitle}`} showBackLink="retry">
@@ -524,21 +521,13 @@ export const getStaticProps = async ({
 	params,
 }: AdviceDestinationStageStaticProps) => {
 	const content = params.locale === 'en' ? contentEn : contentNl;
-	const generalContent =
-		params.locale === 'en' ? generalContentEn : generalContentNl;
-	const countries = params.locale === 'en' ? countriesEn : countriesNl;
 
 	return {
 		props: {
 			destination: params.destination,
 			stage: params.stage,
 			meansOfTransport: params.meansOfTransport,
-			content: {
-				...content,
-				...generalContent,
-				...countries,
-			},
-			locale: params.locale,
+			localPageTranslations: content,
 		},
 	};
 };

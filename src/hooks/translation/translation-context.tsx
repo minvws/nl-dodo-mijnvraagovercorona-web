@@ -1,10 +1,14 @@
 import { Languages } from 'config/languages';
+import { SiteSettings } from 'content/siteSettings';
 import { createContext } from 'react';
 
 export type Translations = { [key: string]: string };
+type SanityContent = unknown;
 
 export interface TranslationContextState {
 	translations: Translations;
+	siteSettings: SiteSettings;
+	sanityPageContent: SanityContent;
 	locale: Languages;
 }
 
@@ -18,10 +22,17 @@ export const TranslationContext = createContext<TranslationContextState>(
 export const TranslationProvider: React.FC<{
 	content?: Translations;
 	locale: Languages;
-}> = ({ children, locale, content }) => {
+	siteSettings: SiteSettings;
+	sanityPageContent?: SanityContent;
+}> = ({ children, locale, content, siteSettings, sanityPageContent }) => {
 	return (
 		<TranslationContext.Provider
-			value={{ translations: content || {}, locale }}
+			value={{
+				translations: content || {},
+				locale,
+				siteSettings,
+				sanityPageContent: sanityPageContent || {},
+			}}
 		>
 			{children}
 		</TranslationContext.Provider>

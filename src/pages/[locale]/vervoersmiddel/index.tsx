@@ -18,35 +18,27 @@ import BodyContainer from 'components/structure/BodyContainer';
 import { Hero, Page } from 'components/structure/Page';
 import { alignLogoRightOnMobileStyles } from 'components/structure/RoHeaderLogo';
 import { isBrowser } from 'utilities/is-browser';
+import { useSanityPageContent } from 'hooks/translation';
 
-interface VervoersmiddelProps {
-	page: {
-		metaData: {
-			title: string;
-			description: string;
-		};
-		header: {
-			title: string;
-			modal: {
-				link: string;
-				text: string;
-				title: string;
-			};
-		};
-		button: string;
-		url: string;
+interface PageContent {
+	metaData: {
+		title: string;
+		description: string;
 	};
-	siteSettings: {
-		pageTitleSuffix: string;
+	header: {
+		title: string;
+		modal: {
+			link: string;
+			text: string;
+			title: string;
+		};
 	};
-	locale: 'nl' | 'en';
+	button: string;
+	url: string;
 }
 
-const VervoersmiddelPage = ({
-	page,
-	siteSettings,
-	locale,
-}: VervoersmiddelProps) => {
+const VervoersmiddelPage = () => {
+	const page = useSanityPageContent<PageContent>();
 	const formRef = useRef<HTMLFormElement>(null);
 	const {
 		setMeansOfTransport,
@@ -112,9 +104,8 @@ const VervoersmiddelPage = ({
 	return (
 		<>
 			<MetaTags
-				title={`${page.metaData.title}${siteSettings.pageTitleSuffix}`}
+				title={page.metaData.title}
 				description={page.metaData.description}
-				locale={locale}
 				url={page.url}
 			/>
 

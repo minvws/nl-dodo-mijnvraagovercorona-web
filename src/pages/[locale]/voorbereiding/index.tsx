@@ -7,20 +7,19 @@ import MetaTags from 'components/meta/MetaTags';
 import PreparationPanel from 'components/preparations/PreparationPanel';
 import PreparationPanelListItem from 'components/preparations/PreparationPanelListItem';
 import { Content, Page } from 'components/structure/Page';
+import { useSanityPageContent } from 'hooks/translation';
+
+interface PageContent {
+	metaData: {
+		title: string;
+		description: string;
+	};
+	title: string;
+	saveCopy: string;
+	url: string;
+}
 
 interface VoorbereidingProps {
-	page: {
-		metaData: {
-			title: string;
-			description: string;
-		};
-		title: string;
-		saveCopy: string;
-		url: string;
-	};
-	siteSettings: {
-		pageTitleSuffix: string;
-	};
 	documents: {
 		title: string;
 		image: string;
@@ -30,73 +29,69 @@ interface VoorbereidingProps {
 			description?: string;
 		}[];
 	}[];
-	locale: 'nl' | 'en';
 }
 
-const VoorbereidingPage = ({
-	page,
-	siteSettings,
-	locale,
-	documents,
-}: VoorbereidingProps) => (
-	<>
-		<MetaTags
-			title={`${page.metaData.title}${siteSettings.pageTitleSuffix}`}
-			description={page.metaData.description}
-			locale={locale}
-			url={page.url}
-		/>
+const VoorbereidingPage = ({ documents }: VoorbereidingProps) => {
+	const page = useSanityPageContent<PageContent>();
+	return (
+		<>
+			<MetaTags
+				title={page.metaData.title}
+				description={page.metaData.description}
+				url={page.url}
+			/>
 
-		<Page
-			showBackLink="result"
-			title={page.title}
-			illustrationUrl="/images/Illustratie_We_helpen_je_op_weg_sidebar.svg"
-			illustrationMobileUrl="/images/Illustratie_Mobiel_We_helpen_je_op_weg_sidebar.svg"
-		>
-			<Content>
-				<p
-					sx={{
-						marginBottom: '35px',
-						marginTop: 0,
-						fontSize: 'smallText',
-						color: '#6A6A6A',
-						'::before': {
-							content: '""',
-							backgroundImage: 'url("/icons/Union.svg")',
-							backgroundSize: '30px 30px',
-							marginTop: '-5px',
-							marginRight: '10px',
-							float: 'left',
-							height: '30px',
-							width: '30px',
-						},
-					}}
-				>
-					{page.saveCopy}
-				</p>
-				{documents.map((document) => (
-					<PreparationPanel
-						image={document.image}
-						text={document.title}
-						key={document.title}
+			<Page
+				showBackLink="result"
+				title={page.title}
+				illustrationUrl="/images/Illustratie_We_helpen_je_op_weg_sidebar.svg"
+				illustrationMobileUrl="/images/Illustratie_Mobiel_We_helpen_je_op_weg_sidebar.svg"
+			>
+				<Content>
+					<p
+						sx={{
+							marginBottom: '35px',
+							marginTop: 0,
+							fontSize: 'smallText',
+							color: '#6A6A6A',
+							'::before': {
+								content: '""',
+								backgroundImage: 'url("/icons/Union.svg")',
+								backgroundSize: '30px 30px',
+								marginTop: '-5px',
+								marginRight: '10px',
+								float: 'left',
+								height: '30px',
+								width: '30px',
+							},
+						}}
 					>
-						{document.description && <p>{document.description}</p>}
-						<ul>
-							{document.items.map((item) => (
-								<PreparationPanelListItem
-									text={item.title}
-									subtext={item.description}
-									key={item.title}
-								/>
-							))}
-						</ul>
-					</PreparationPanel>
-				))}
-				<Feedback />
-			</Content>
-		</Page>
-	</>
-);
+						{page.saveCopy}
+					</p>
+					{documents.map((document) => (
+						<PreparationPanel
+							image={document.image}
+							text={document.title}
+							key={document.title}
+						>
+							{document.description && <p>{document.description}</p>}
+							<ul>
+								{document.items.map((item) => (
+									<PreparationPanelListItem
+										text={item.title}
+										subtext={item.description}
+										key={item.title}
+									/>
+								))}
+							</ul>
+						</PreparationPanel>
+					))}
+					<Feedback />
+				</Content>
+			</Page>
+		</>
+	);
+};
 
 export const getStaticProps = async ({
 	params: { locale },
