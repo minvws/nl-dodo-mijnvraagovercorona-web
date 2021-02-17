@@ -15,33 +15,29 @@ import AdviceContext from 'components/advice/AdviceContext';
 import { getCountrySlug } from 'utilities/pathUtils';
 import { useRouter } from 'next/router';
 import { getAdvicePath } from 'components/advice/utils';
+import { useSanityPageContent } from 'hooks/translation';
 
-interface BestemmingProps {
-	page: {
-		metaData: {
-			title: string;
-			description: string;
-		};
-		header: {
-			title: string;
-			modal: {
-				link: string;
-				text: string;
-				title: string;
-			};
-		};
-		nietGevonden: string;
-		placeholder: string;
-		button: string;
-		url: string;
+interface PageContent {
+	metaData: {
+		title: string;
+		description: string;
 	};
-	siteSettings: {
-		pageTitleSuffix: string;
+	header: {
+		title: string;
+		modal: {
+			link: string;
+			text: string;
+			title: string;
+		};
 	};
-	locale: 'nl' | 'en';
+	nietGevonden: string;
+	placeholder: string;
+	button: string;
+	url: string;
 }
 
-const Bestemming = ({ page, siteSettings, locale }: BestemmingProps) => {
+const Bestemming = () => {
+	const page = useSanityPageContent<PageContent>();
 	const [showDialog, setShowDialog] = useState(false);
 	const { setDestination } = React.useContext(AdviceContext);
 	const router = useRouter();
@@ -64,9 +60,8 @@ const Bestemming = ({ page, siteSettings, locale }: BestemmingProps) => {
 	return (
 		<>
 			<MetaTags
-				title={`${page.metaData.title}${siteSettings.pageTitleSuffix}`}
+				title={page.metaData.title}
 				description={page.metaData.description}
-				locale={locale}
 				url={page.url}
 			/>
 			<Page

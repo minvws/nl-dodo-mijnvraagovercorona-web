@@ -11,15 +11,13 @@ import { Content, Hero, Page } from 'components/structure/Page';
 import { getTravelSchemeContentBlocks } from 'utilities/travel-advice';
 import { getAdvicePath } from 'components/advice/utils';
 import { contentEn, contentNl } from 'content/travel-scheme';
-import { generalContentEn, generalContentNl } from 'content/_general-content';
-import { countriesEn, countriesNl } from 'content/countries';
+import { Languages } from 'config/languages';
 
 interface NoAdviceProps {
 	destination: string;
-	locale: 'nl' | 'en';
 }
 
-const NoAdvice = ({ destination, locale }: NoAdviceProps) => {
+const NoAdvice = ({ destination }: NoAdviceProps) => {
 	const country = useDestination(destination as string);
 	const c = getTravelSchemeContentBlocks({
 		currentCategory: country?.riskLevel,
@@ -28,11 +26,10 @@ const NoAdvice = ({ destination, locale }: NoAdviceProps) => {
 	return (
 		<>
 			<MetaTags
-				title={`Geen Advies ${country?.fullName} | Quarantaine Reischeck | Rijksoverheid.nl`}
+				title={`Geen Advies ${country?.fullName}`}
 				description={`Er is geen advies mogelijk voor je reis naar ${country?.fullName} op basis van de door jou opgegeven data.`}
 				url={getAdvicePath.noResult({ destination, locale })}
 				noIndex
-				locale={locale}
 			/>
 
 			<Page title="Helaas, we kunnen je geen advies geven" showBackLink="retry">
@@ -96,25 +93,17 @@ const NoAdvice = ({ destination, locale }: NoAdviceProps) => {
 export interface NoAdviceStaticProps {
 	params: {
 		destination: string;
-		locale: string;
+		locale: Languages;
 	};
 }
 
 export const getStaticProps = async ({ params }: NoAdviceStaticProps) => {
 	const content = params.locale === 'en' ? contentEn : contentNl;
-	const generalContent =
-		params.locale === 'en' ? generalContentEn : generalContentNl;
-	const countries = params.locale === 'en' ? countriesEn : countriesNl;
 
 	return {
 		props: {
 			destination: params.destination,
-			content: {
-				...content,
-				...generalContent,
-				...countries,
-			},
-			locale: params.locale,
+			localPageTranslations: content,
 		},
 	};
 };

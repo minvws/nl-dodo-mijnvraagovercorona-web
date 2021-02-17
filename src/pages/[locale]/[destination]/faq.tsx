@@ -12,19 +12,17 @@ import { Content, Page } from 'components/structure/Page';
 
 interface FAQProps {
 	destination: string;
-	locale: 'nl' | 'en';
 }
 
-const FAQ = ({ destination, locale }: FAQProps) => {
+const FAQ = ({ destination }: FAQProps) => {
 	const country = useDestination(destination as string);
 
 	return (
 		<>
 			<MetaTags
-				title={`Veelgestelde vragen ${country?.fullName} | Quarantaine Reischeck | Rijksoverheid.nl`}
+				title={`Veelgestelde vragen ${country?.fullName}`}
 				description="Overzicht van veelgestelde vragen over quarantaine en reizen."
 				url={`/${country?.slug}/faq`}
-				locale={locale}
 			/>
 
 			<Page

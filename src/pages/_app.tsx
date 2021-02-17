@@ -13,6 +13,7 @@ import 'styles/global.css';
 import 'styles/components/PeriodSelect.css';
 import { TranslationProvider } from 'hooks/translation';
 import { generalContentEn, generalContentNl } from 'content/_general-content';
+import { countriesEn, countriesNl } from 'content/countries';
 
 const ReizenTijdensCoronaApp = ({ Component, pageProps }: AppProps) => {
 	useEffect(() => {
@@ -25,9 +26,10 @@ const ReizenTijdensCoronaApp = ({ Component, pageProps }: AppProps) => {
 		document.documentElement.lang = pageProps.locale;
 	}, [pageProps.locale]);
 
-	const pageTranslations = pageProps.content || {};
-	const globalTranslations =
+	const localGlobalTranslations =
 		pageProps.locale === 'en' ? generalContentEn : generalContentNl;
+	const localCountryTranslations =
+		pageProps.locale === 'en' ? countriesEn : countriesNl;
 
 	return (
 		<>
@@ -39,7 +41,13 @@ const ReizenTijdensCoronaApp = ({ Component, pageProps }: AppProps) => {
 			</Head>
 			<TranslationProvider
 				locale={pageProps.locale}
-				content={{ ...pageTranslations, ...globalTranslations }}
+				sanityPageContent={pageProps.page}
+				siteSettings={pageProps.siteSettings}
+				content={{
+					...pageProps.localPageTranslations,
+					...localGlobalTranslations,
+					...localCountryTranslations,
+				}}
 			>
 				<ThemeProvider theme={theme}>
 					<AdviceProvider>

@@ -19,6 +19,7 @@ import ProgressMarker from 'components/advice/ProgressMarker';
 import { alignLogoRightOnMobileStyles } from 'components/structure/RoHeaderLogo';
 import BodyContainer from 'components/structure/BodyContainer';
 import { getAdvicePath } from 'components/advice/utils';
+import { useSanityPageContent } from 'hooks/translation';
 
 const calculateStage = ({
 	fromDate,
@@ -44,33 +45,28 @@ const calculateStage = ({
 	return 'na-thuiskomst';
 };
 
-interface PeriodeProps {
-	page: {
-		metaData: {
-			title: string;
-			description: string;
-		};
-		header: {
-			title: string;
-			modal: {
-				link: string;
-				text: string;
-				title: string;
-			};
-		};
-		datumTussentekst: string;
-		maanden: string[];
-		dagen: string[];
-		url: string;
-		button: string;
+interface PageContent {
+	metaData: {
+		title: string;
+		description: string;
 	};
-	siteSettings: {
-		pageTitleSuffix: string;
+	header: {
+		title: string;
+		modal: {
+			link: string;
+			text: string;
+			title: string;
+		};
 	};
-	locale: 'nl' | 'en';
+	datumTussentekst: string;
+	maanden: string[];
+	dagen: string[];
+	url: string;
+	button: string;
 }
 
-const Periode = ({ page, siteSettings, locale }: PeriodeProps) => {
+const Periode = () => {
+	const page = useSanityPageContent<PageContent>();
 	const { destination, setFrom, setTo, setStage } = React.useContext(
 		AdviceContext,
 	);
@@ -139,9 +135,8 @@ const Periode = ({ page, siteSettings, locale }: PeriodeProps) => {
 	return (
 		<>
 			<MetaTags
-				title={`${page.metaData.title}${siteSettings.pageTitleSuffix}`}
+				title={page.metaData.title}
 				description={page.metaData.description}
-				locale={locale}
 				url={page.url}
 			/>
 
