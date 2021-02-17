@@ -26,11 +26,8 @@ export const getCurrentUrlForLanguage = (
 	currentLanguage: Language,
 ) => {
 	// If current page is only '/', replace it with the url prefix.
-	const newPath =
-		path === '/'
-			? language.urlPrefix
-			: path.replace(currentLanguage.urlPrefix, language.urlPrefix);
-
-	// If the url prefix is '' (for nl homepage, replace it with '/' instead).
-	return newPath === '' ? '/' : newPath;
+	// This makes the '/' homepage also redirect to '/nl'
+	return path === '/'
+		? language.urlPrefix
+		: path.replace(currentLanguage.urlPrefix, language.urlPrefix);
 };

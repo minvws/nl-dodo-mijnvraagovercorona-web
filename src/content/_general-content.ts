@@ -11,7 +11,6 @@ export const generalContent = {
 	general__bus: 'Bus',
 	general__anders: 'Anders',
 
-	general__taal: 'Taal',
 	general__wissel_van_taal: 'Wissel van taal',
-	general__huidige_taal_prefix: 'Huidige',
+	general__huidige_taal: 'Huidige taal',
 };
