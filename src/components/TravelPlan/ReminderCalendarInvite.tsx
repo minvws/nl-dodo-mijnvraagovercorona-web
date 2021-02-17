@@ -9,6 +9,7 @@ import { formatLongDate } from 'utilities/dateUtils';
 import { Dialog } from 'components/dialog';
 import { CallToAction } from 'components/call-to-action/call-to-action';
 import { AppointmentIcon } from 'components/icons/Appointment';
+import { useTranslation } from 'hooks/use-translation';
 
 interface ReminderCalendarInviteProps {
 	title: string;
@@ -75,12 +76,14 @@ const CalenderInviteMenuItem: React.FC<CalenderInviteMenuItemProps> = ({
 
 const ReminderCalendarInvite = (props: SingleDayProps | MultiDayProps) => {
 	const [showDialog, setShowDialog] = useState(false);
+	const { t } = useTranslation();
 	const dateText =
 		'singleDay' in props ? (
 			<>{formatLongDate(props.singleDay)}</>
 		) : (
 			<>
-				{formatLongDate(props.fromDate)} t/m {formatLongDate(props.toDate)}
+				{formatLongDate(props.fromDate)} {t('general__tot_en_met')}{' '}
+				{formatLongDate(props.toDate)}
 			</>
 		);
 

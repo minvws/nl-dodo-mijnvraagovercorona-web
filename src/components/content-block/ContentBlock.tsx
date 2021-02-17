@@ -12,15 +12,26 @@ interface ContentProps {
 
 interface MarkProps {
 	children: React.ReactNode;
+	node?: {
+		style: string;
+	};
 	mark?: {
 		href?: string;
 	};
 }
 
+const Block = ({ node, children }: MarkProps) => {
+	if (node?.style === 'h2') return <Styled.h2>{children}</Styled.h2>;
+
+	return <Styled.p>{children}</Styled.p>;
+};
+
 const serializers = {
 	types: {
-		block: ({ children }: MarkProps) => <Styled.p>{children}</Styled.p>,
+		block: Block,
 	},
+	list: ({ children }: MarkProps) => <Styled.ul>{children}</Styled.ul>,
+	container: ({ children }: MarkProps) => <>{children}</>,
 	marks: {
 		strong: ({ children }: MarkProps) => (
 			<strong sx={{ fontWeight: 'bold' }}>{children}</strong>

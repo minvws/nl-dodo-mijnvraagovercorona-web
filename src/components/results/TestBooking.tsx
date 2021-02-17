@@ -3,7 +3,6 @@ import { CallToAction } from 'components/call-to-action/call-to-action';
 import { NewTabIcon } from 'components/icons/NewTab';
 import { TestAppointmentIcon } from 'components/icons/TestAppointment';
 import ReminderCalendarInvite from 'components/TravelPlan/ReminderCalendarInvite';
-import { differenceInDays, isAfter } from 'date-fns';
 import { useTranslation } from 'hooks/use-translation';
 import { jsx } from 'theme-ui';
 import { addDays, formatLongDate } from 'utilities/dateUtils';
