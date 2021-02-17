@@ -1,4 +1,4 @@
-export const generalContent = {
+export const generalContentNl = {
 	// Stages
 	'general__voor-vertrek': 'Voor vertrek',
 	'general__tijdens-je-reis': 'Tijdens je reis',
@@ -10,4 +10,22 @@ export const generalContent = {
 	general__trein: 'Trein',
 	general__bus: 'Bus',
 	general__anders: 'Anders',
+	general__tot_en_met: 't/m',
+	general__more_information: 'Meer uitleg',
+};
+
+export const generalContentEn = {
+	// Stages
+	'general__voor-vertrek': 'Voor vertrek',
+	'general__tijdens-je-reis': 'Tijdens je reis',
+	'general__na-thuiskomst': 'Na thuiskomst',
+
+	// Means of transport
+	general__vliegtuig: 'Plane',
+	general__auto: 'Car',
+	general__trein: 'Train',
+	general__bus: 'Bus',
+	general__anders: 'Other',
+	general__tot_en_met: 'up to and including',
+	general__more_information: 'Meer information',
 };

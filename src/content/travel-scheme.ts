@@ -1,4 +1,4 @@
-export const content = {
+export const contentNl = {
 	page_meta_description:
 		'Advies rondom corona-richtlijnen voor je reis naar {{countryName}} {{meansOfTransport}} {{stage}}.',
 	page_meta_description__transport_vliegtuig: 'met het vliegtuig',
@@ -20,7 +20,7 @@ export const content = {
 	page_title: 'Je bestemming heeft een coronarisico',
 	page_title__high_risk: 'Je bestemming heeft een hoog coronarisico',
 	bullets__na_31maart_reizen_onzeker:
-		'Het is <strong>onzeker</strong> of reizen reizen na 31 maart mogelijk is. Houd de berichtgeving van de overheid in de gaten.',
+		'Het is <strong>onzeker</strong> of reizen na 31 maart mogelijk is. Houd de berichtgeving van de overheid in de gaten.',
 	bullets__tm_31maart_niet_reizen:
 		'Tot en met 31 maart <strong>niet reizen</strong>. Reis alleen bij ernstige familieomstandigheden of voor werk dat echt niet uitgesteld kan worden en waarbij fysieke aanwezigheid absoluut nodig is.',
 	bullets__verhoogd_risico:
@@ -160,4 +160,167 @@ export const content = {
 		'Er geldt een vlieg- en aanmeerverbod vanuit je bestemming naar Nederland.',
 	banner__airtravel_restriction:
 		'Er geldt een vliegverbod vanuit je bestemming naar Nederland.',
+};
+
+export const contentEn = {
+	page_meta_description:
+		'Advice on corona guidelines for your trip to {{countryName}} {{meansOfTransport}} {{stage}}.',
+	page_meta_description__transport_vliegtuig: 'by plane',
+	page_meta_description__transport_auto: 'by car',
+	page_meta_description__transport_trein: 'by train',
+	page_meta_description__transport_bus: 'by coach',
+	page_meta_description__transport_anders: 'with another means of transport',
+
+	'page_meta_description__stage_voor-vertrek': 'if you still have to leave',
+	'page_meta_description__stage_tijdens-je-reis': 'if you are still traveling',
+	'page_meta_description__stage_na-thuiskomst': 'after you got back home',
+
+	page_meta_title:
+		'Quarantine advice {{countryName}} {{stage}} {{meansOfTransport}} | Quarantaine Reischeck | Rijksoverheid.nl',
+
+	page_title: 'Your destination has a corona risk',
+	page_title__high_risk: 'Your destination has a high corona risk',
+	bullets__na_31maart_reizen_onzeker:
+		'It is <strong>uncertain</strong> whether travel is possible after March 31. Keep an eye on government reports.',
+	bullets__tm_31maart_niet_reizen:
+		'Do <strong>not travel abroad</strong> in the period up to and including 31 March 2021. Only travel if it is absolutely essential. Holiday travel is not essential.',
+	bullets__verhoogd_risico:
+		'There is an <strong>increased</strong> risk that you have been infected.',
+	bullets__laag_risico:
+		'There is <strong>no increased</strong> risk that you have been infected.',
+	bullets__na_reis_10dgn_thuisquarantaine:
+		'After your trip you <strong>must self-quarantine for 10 days</strong>. Make sure you’re well prepared. The situation may change while you are abroad.',
+	bullets__geen_thuisquarantaine:
+		'You do <strong>not have to self-quarantine</strong> for 10 days after travelling. The situation may change while you are abroad.',
+	bullets__ga_10dgn_thuisquarantaine:
+		'<strong>Self-quarantine for 10 days</strong>.',
+
+	travelscheme__title: 'Your travel schedule',
+	travelscheme__voorbereiding_title: 'Preparation',
+	travelscheme__voorbereiding_subtitle:
+		'Don’t let changing restrictions take you by surprise',
+
+	travelscheme__downloadReisapp_title: 'The travel app (Reisapp)',
+	travelscheme__downloadReisapp_text:
+		'Keep track of the latest developments at your destination via <a href="https://www.nederlandwereldwijd.nl/documenten/vragen-en-antwoorden/reis-app-buitenlandse-zaken" target="_blank" rel="noopener noreferrer">the travel app (information in Dutch)</a>.',
+
+	travelscheme__coronaMelder_title: 'CoronaMelder',
+	travelscheme__coronaMelder_text:
+		'Did you know the <a target="_blank" rel="noopener noreferrer" href="https://www.coronamelder.nl/en/faq/13-gebruik-app-uit-ander-land/">CoronaMelder notification app</a> also works in {{country}}?',
+
+	travelscheme__voorbereidenThuisQuarantaine_title: 'Self-quarantine',
+	travelscheme__voorbereidenThuisQuarantaine_text:
+		'Prepare well for <a href="/en/voorbereiding">your self-quarantine</a> after your return.',
+
+	travelscheme__vertrek_title: 'Departure',
+
+	travelscheme__reisadvies_title: 'Orange travel advisory',
+	travelscheme__reisadvies_totale_reisduur: 'Totale reisduur',
+	travelscheme__reisadvies_nu: 'Now',
+	travelscheme__reisadvies_text:
+		'As well as the risk of becoming infected with COVID-19, there may also be entry restrictions or safety risks in {{country}}.',
+	travelscheme__reisadvies_cta: 'Detailed travel advice (information in Dutch)',
+
+	travelscheme__pcrtest_title: 'Get tested',
+	travelscheme__pcrtest_subtitle: 'Max. 72 hours before departure',
+	travelscheme__pcrtest_text:
+		'You can only travel to the Netherlands if you have a <a href="https://www.government.nl/topics/coronavirus-covid-19/visiting-the-netherlands-from-abroad/mandatory-negative-test-results-and-declaration" target="_blank" rel="noopener noreferrer">negative test result</a>.',
+
+	travelscheme__pcrtest_en_verklaring_title: 'Get tested',
+	travelscheme__pcrtest_en_verklaring_subtitle:
+		'Max. 72 hours before departure',
+	travelscheme__pcrtest_en_verklaring_text:
+		'You can only travel to the Netherlands if you have a negative <a href="https://www.government.nl/topics/coronavirus-covid-19/visiting-the-netherlands-from-abroad/mandatory-negative-test-results-and-declaration" target="_blank" rel="noopener noreferrer">test result and test declaration</a>.',
+
+	travelscheme__sneltest_title: 'Do a rapid test',
+	travelscheme__sneltest_subtitle: 'Max. 4 hours before departure',
+	travelscheme__sneltest_text:
+		'You also need a <a href="https://www.government.nl/topics/coronavirus-covid-19/visiting-the-netherlands-from-abroad/mandatory-negative-test-results-and-declaration/requirements-rapid-test-result" target="_blank" rel="noopener noreferrer">negative rapid test result</a>.',
+
+	travelscheme__gezondheidsverklaring_title: 'Health declaration',
+	travelscheme__gezondheidsverklaring_text:
+		'Fill in <a href="https://www.government.nl/topics/coronavirus-covid-19/documents/publications/2020/07/07/information-for-passengers-flying-to-and-from-the-netherlands" target="_blank" rel="noopener noreferrer">the health declaration</a> before your departure.',
+
+	travelscheme__thuiskomst__title: 'Back home',
+	travelscheme__thuiskomst__subtitle: 'Start of self-quarantine for 10 days',
+
+	travelscheme__thuisquarantaine_title: 'Symptoms may appear',
+	travelscheme__thuisquarantaine_subtitle: 'Day 1 to 10',
+	travelscheme__thuisquarantaine_cta: 'More information',
+
+	travelscheme__einde_thuisquarantaine_title:
+		'Your self-quarantine period is over.',
+
+	agenda__reischeck_opnieuw_invullen_title:
+		"Add 'Do travel check again' to your calendar",
+	agenda__reischeck_opnieuw_invullen_modal_title: 'Do the travel check again',
+	agenda__reischeck_opnieuw_invullen_modal_body:
+		'If you have a different calendar, set a reminder to do the travel check again yourself.',
+	agenda__reischeck_opnieuw_invullen_invite_title: 'Do the travel check',
+	agenda__reischeck_opnieuw_invullen_invite_text:
+		'You are planning to travel soon. The situation may have changed. So do the travel check again at https://www.reizentijdenscorona.rijksoverheid.nl.',
+	agenda__reischeck_opnieuw_invullen_situatie_kan_veranderen:
+		'The situation may change. So you should do the check again shortly before you leave.',
+
+	banner__thuisquarantaine_title: "We'll help you prepare for self-quarantine",
+
+	agenda__zet_thuisquarantaine_in_agenda_title:
+		'Add your self-quarantine period to your calendar',
+	agenda__zet_thuisquarantaine_in_agenda_modal_title:
+		'Add self-quarantine to calendar',
+	agenda__zet_thuisquarantaine_in_agenda_modal_body:
+		'If you have a different calendar, add your self-quarantine period to your calendar yourself.',
+	agenda__zet_thuisquarantaine_in_agenda_invite_title: 'Self-quarantine',
+	agenda__zet_thuisquarantaine_in_agenda_invite_text:
+		'If you get symptoms, even if they are only mild, make an appointment for a test at https://coronatest.nl or call the GGD on 0800 1202. For tips on self-quarantining see https://reizentijdenscorona.rijksoverheid.nl/voorbereiding.',
+
+	veelgestelde_vragen_title: 'Frequently asked questions',
+	veelgestelde_vragen_cta: 'See the frequently asked questions',
+
+	agenda__afspraak_coronatest_title:
+		"Add 'Make a test appointment' to your calendar",
+	agenda__afspraak_coronatest_modal_title:
+		"Add 'Make a test appointment' to calendar.",
+	agenda__afspraak_coronatest_modal_body:
+		'If you have a different calendar, set a reminder to make a test appointment yourself.',
+	agenda__afspraak_coronatest_invite_title: 'Make a test appointment',
+	agenda__afspraak_coronatest_invite_text:
+		'Call the municipal health service (GGD) on 0800 1202 to make a test appointment on {{appointmentDate}}. Have your citizen service number (BSN) ready.',
+
+	afspraak_coronatest__title:
+		'Shorten your self-quarantine by getting tested on day 5',
+
+	afspraak_coronatest__nog_niet_mogelijk_title:
+		'It is not yet possible to make an appointment',
+	afspraak_coronatest__nog_niet_mogelijk_subtitle:
+		'You can do this by phone on day 1 of your self-quarantine or online from day 4.',
+	afspraak_coronatest__nog_niet_mogelijk_ggdCta:
+		'Make an appointment on the GGD website.',
+
+	afspraak_coronatest__niet_online_wel_telefonisch_title:
+		'It is not yet possible to make an appointment online',
+	afspraak_coronatest__niet_online_wel_telefonisch_subtitle:
+		'You can do this from day 4 of your self-quarantine',
+	afspraak_coronatest__niet_online_wel_telefonisch_ggdCta:
+		'Make an appointment on the GGD website.',
+
+	afspraak_coronatest__online_en_telefonisch_ggdCta:
+		'Make an appointment on the GGD website.',
+
+	afspraak_coronatest__heb_je_klachten_na_5_dagen_of_land_c_ggdCta:
+		'COVID-19 symptoms? Make an appointment on the GGD website.',
+
+	afspraak_coronatest__call_ggd:
+		'Or call <strong>0800 1202</strong>. Have your citizen service number (BSN) ready.',
+
+	afspraak_coronatest__call_ggd__calling_only_option:
+		'You can already make an appointment by phone on <strong>0800 1202</strong>. Have your citizen service number (BSN) ready.',
+
+	afspraak_coronatest__call_ggd__no_data_shared:
+		'The Travel Check website does not share any data with the GGD.',
+
+	banner__airboattravel_restriction:
+		'There is a ban on flights and ferries from your destination to the Netherlands.',
+	banner__airtravel_restriction:
+		'There is a ban on flights from your destination to the Netherlands.',
 };

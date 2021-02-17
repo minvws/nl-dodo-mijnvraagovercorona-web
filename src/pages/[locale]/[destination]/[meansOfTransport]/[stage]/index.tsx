@@ -30,9 +30,10 @@ import ExpansionPanel from 'components/structure/ExpansionPanel';
 import { Card } from 'components/card';
 import { cartesianProduct } from 'utilities/pathUtils';
 import { getTravelSchemeContentBlocks } from 'utilities/travel-advice';
-import { content } from 'content/travel-scheme';
-import { generalContent } from 'content/_general-content';
+import { contentNl, contentEn } from 'content/travel-scheme';
+import { generalContentNl, generalContentEn } from 'content/_general-content';
 import { useTranslation } from 'hooks/use-translation';
+import { countriesEn, countriesNl } from 'content/countries';
 
 type AdviceProps = {
 	destination: string;
@@ -96,11 +97,11 @@ const AdviceResult = ({
 			<MetaTags
 				title={t_s('page_meta_title', {
 					stage: t_s(`general__${stage}`),
-					countryName: country?.fullName,
+					countryName: t_s(country!.slug),
 					meansOfTransport: t_s(`general__${meansOfTransport}`),
 				})}
 				description={t_s('page_meta_description', {
-					countryName: country?.fullName,
+					countryName: t_s(country!.slug),
 					stage: t_s(`page_meta_description__stage_${stage}`),
 					meansOfTransport: t_s(
 						`page_meta_description__transport_${meansOfTransport}`,
@@ -207,7 +208,7 @@ const AdviceResult = ({
 										title={t_s('travelscheme__coronaMelder_title')}
 									>
 										{t('travelscheme__coronaMelder_text', {
-											country: country?.fullName,
+											country: t_s(country!.slug),
 										})}
 									</TravelAdvicePanel>
 								)}
@@ -225,7 +226,7 @@ const AdviceResult = ({
 
 						<TravelPlanStage
 							title={t_s('travelscheme__vertrek_title')}
-							subHeading={country?.fullName}
+							subHeading={t_s(country!.slug)}
 							date={fromDate}
 						>
 							{c.reisschema__reisadvies && (
@@ -238,7 +239,7 @@ const AdviceResult = ({
 									}
 								>
 									{t('travelscheme__reisadvies_text', {
-										country: country?.fullName,
+										country: t_s(country!.slug),
 									})}
 									<br />
 									<TravelInformationLink
@@ -517,6 +518,15 @@ export interface AdviceDestinationStageStaticProps {
 export const getStaticProps = async ({
 	params,
 }: AdviceDestinationStageStaticProps) => {
+	const content =
+		process.env.NEXT_PUBLIC_LOCALE === 'en' ? contentEn : contentNl;
+	const generalContent =
+		process.env.NEXT_PUBLIC_LOCALE === 'en'
+			? generalContentEn
+			: generalContentNl;
+	const countries =
+		process.env.NEXT_PUBLIC_LOCALE === 'en' ? countriesEn : countriesNl;
+
 	return {
 		props: {
 			destination: params.destination,
@@ -525,6 +535,7 @@ export const getStaticProps = async ({
 			content: {
 				...content,
 				...generalContent,
+				...countries,
 			},
 		},
 	};
