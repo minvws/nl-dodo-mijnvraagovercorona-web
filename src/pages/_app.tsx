@@ -11,7 +11,7 @@ import { trackPageview } from 'utilities/piwik';
 import theme from 'utilities/styling/theme';
 import 'styles/global.css';
 import 'styles/components/PeriodSelect.css';
-import { TranslationProvider } from 'hooks/use-translation';
+import { TranslationProvider } from 'hooks/translation';
 import { generalContentEn, generalContentNl } from 'content/_general-content';
 
 const ReizenTijdensCoronaApp = ({ Component, pageProps }: AppProps) => {
@@ -23,11 +23,8 @@ const ReizenTijdensCoronaApp = ({ Component, pageProps }: AppProps) => {
 	}, []);
 
 	const pageTranslations = pageProps.content || {};
-	// @TODO: Add nl / en switch after other branch is merged.
 	const globalTranslations =
-		process.env.NEXT_PUBLIC_LOCALE === 'en'
-			? generalContentEn
-			: generalContentNl;
+		pageProps.locale === 'en' ? generalContentEn : generalContentNl;
 
 	return (
 		<>
@@ -38,6 +35,7 @@ const ReizenTijdensCoronaApp = ({ Component, pageProps }: AppProps) => {
 				/>
 			</Head>
 			<TranslationProvider
+				locale={pageProps.locale}
 				content={{ ...pageTranslations, ...globalTranslations }}
 			>
 				<ThemeProvider theme={theme}>

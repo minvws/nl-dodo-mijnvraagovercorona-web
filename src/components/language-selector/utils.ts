@@ -1,18 +1,4 @@
-import { useMemo } from 'react';
-import { Language } from './language-selector';
-
-export const useCurrentLangage = (path: string = '', languages: Language[]) => {
-	const language = useMemo(
-		() =>
-			languages.find(
-				(language) =>
-					language.urlPrefix !== '' && path.startsWith(language.urlPrefix),
-			) ?? languages[0],
-		[path],
-	);
-
-	return language;
-};
+import { Language } from 'config/languages';
 
 export const getCurrentUrlForLanguage = (
 	path: string,

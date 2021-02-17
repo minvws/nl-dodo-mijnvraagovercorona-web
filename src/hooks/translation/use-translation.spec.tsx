@@ -1,14 +1,14 @@
 import { renderHook } from '@testing-library/react-hooks';
 import React from 'react';
-import {
-	TranslationObject,
-	TranslationProvider,
-	useTranslation,
-} from './use-translation';
+import { useTranslation } from './use-translation';
+import { TranslationProvider, Translations } from './translation-context';
+import { Languages } from 'config/languages';
 
-const getWrapper = (translations: TranslationObject) => {
+const getWrapper = (translations: Translations) => {
 	const translationProviderWrapper: React.FC = ({ children }) => (
-		<TranslationProvider content={translations}>{children}</TranslationProvider>
+		<TranslationProvider content={translations} locale={Languages.English}>
+			{children}
+		</TranslationProvider>
 	);
 
 	return translationProviderWrapper;

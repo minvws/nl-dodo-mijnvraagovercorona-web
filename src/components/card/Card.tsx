@@ -3,7 +3,7 @@ import React, { useRef } from 'react';
 import { jsx, Box } from 'theme-ui';
 
 import { InternalLink, ExternalLink } from 'components/Links';
-import { useTranslation } from 'hooks/use-translation';
+import { useTranslation } from 'hooks/translation';
 
 interface CardProps {
 	title: string;

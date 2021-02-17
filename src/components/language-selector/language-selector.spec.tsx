@@ -1,6 +1,5 @@
-import { renderHook } from '@testing-library/react-hooks';
-import { getCurrentUrlForLanguage, useCurrentLangage } from './utils';
-import { Language } from './language-selector';
+import { Language } from 'config/languages';
+import { getCurrentUrlForLanguage } from './utils';
 
 const nl: Language = {
 	id: 1,
@@ -14,46 +13,8 @@ const en: Language = {
 	fullName: 'Engels',
 	currentLanguageText: '',
 };
-const de: Language = {
-	id: 3,
-	urlPrefix: '/de',
-	fullName: 'Duits',
-	currentLanguageText: '',
-};
 
 describe('Language selector', () => {
-	it('useCurrentLanguage Hook: Should get the right language from the current url', () => {
-		// @ts-ignore
-		const languages = [nl, en, de];
-
-		// Url without a language param should default to NL (first in the array)
-		expect(
-			renderHook(() =>
-				useCurrentLangage('/voorbereiding/op/quarantaine', languages),
-			).result.current.fullName,
-		).toEqual('Nederlands');
-
-		// A known language prefix should result in that language.
-		expect(
-			renderHook(() =>
-				useCurrentLangage('/en/voorbereiding/op/quarantaine', languages),
-			).result.current.fullName,
-		).toEqual('Engels');
-
-		// A unknown language prefix is the same as no language prefix -> NL (first in the array)
-		expect(
-			renderHook(() =>
-				useCurrentLangage('/be/voorbereiding/op/quarantaine', languages),
-			).result.current.fullName,
-		).toEqual('Nederlands');
-
-		// Should default to NL if somehow no url is supplied.
-		expect(
-			renderHook(() => useCurrentLangage(undefined, languages)).result.current
-				.fullName,
-		).toEqual('Nederlands');
-	});
-
 	it('getCurrentUrlForLanguage util: Should transform a url from 1 language to another', () => {
 		// NL to EN
 		expect(

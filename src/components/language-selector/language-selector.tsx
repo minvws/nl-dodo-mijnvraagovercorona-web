@@ -1,42 +1,11 @@
 /** @jsx jsx */
 import { Link } from 'components/Links';
 import { ScreenreaderOnly } from 'components/ScreenreaderOnly';
-import { useTranslation } from 'hooks/use-translation';
+import { languages, Languages } from 'config/languages';
+import { useCurrentLanguage, useTranslation } from 'hooks/translation';
 import { useRouter } from 'next/router';
 import { Flex, jsx } from 'theme-ui';
-import { getCurrentUrlForLanguage, useCurrentLangage } from './utils';
-
-export enum Languages {
-	Dutch = 'nl',
-	English = 'en',
-}
-
-export interface Language {
-	id: Languages;
-	fullName: string;
-	shortName: string;
-	urlPrefix: string;
-}
-
-/**
- * @note The default language (NL), should always be the first
- * in the array since the first language is used as the default if no
- * language can be resolved.
- */
-export const languages: Language[] = [
-	{
-		id: Languages.Dutch,
-		fullName: 'Nederlands',
-		shortName: 'Nl',
-		urlPrefix: '/nl',
-	},
-	{
-		id: Languages.English,
-		fullName: 'English',
-		shortName: 'En',
-		urlPrefix: '/en',
-	},
-];
+import { getCurrentUrlForLanguage } from './utils';
 
 interface LanguageLinkProps {
 	id: Languages;
@@ -46,10 +15,10 @@ interface LanguageLinkProps {
 const LanguageLink = ({ id, currentPath }: LanguageLinkProps) => {
 	const { t } = useTranslation();
 	const language = languages.find((lang) => lang.id === id);
-	const currentLanguage = useCurrentLangage(currentPath, languages);
+	const currentLanguage = useCurrentLanguage();
 	const isCurrentLanguage = currentLanguage.id === language?.id;
 
-	if (!language) return null;
+	if (!language || !currentLanguage) return null;
 
 	return (
 		<Link
