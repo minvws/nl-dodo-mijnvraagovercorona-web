@@ -11,6 +11,7 @@ export interface TranslationContextState {
 export const TranslationContext = createContext<TranslationContextState>(
 	{} as TranslationContextState,
 );
+
 /**
  * Translation Provider used in the _app.tsx. Providing the useTranslation()
  * hook with the translation keys and their content.

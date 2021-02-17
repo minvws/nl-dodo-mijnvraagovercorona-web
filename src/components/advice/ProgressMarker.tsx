@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { InternalLink } from 'components/Links';
-import Link from 'next/link';
+import { Link } from 'components/link';
 import React from 'react';
 import { jsx } from 'theme-ui';
 

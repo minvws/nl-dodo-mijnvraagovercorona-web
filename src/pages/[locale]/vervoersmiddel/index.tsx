@@ -80,6 +80,7 @@ const VervoersmiddelPage = ({
 				stage: stage as string,
 				fromDate: from as string,
 				toDate: to as string,
+				locale,
 			}),
 		);
 	};
@@ -97,7 +98,7 @@ const VervoersmiddelPage = ({
 	 * If the destination has not been selected
 	 */
 	if (!destination) {
-		if (isBrowser()) router.push(getAdvicePath.destination());
+		if (isBrowser()) router.push(getAdvicePath.destination(locale));
 		return null;
 	}
 
@@ -105,7 +106,7 @@ const VervoersmiddelPage = ({
 	 * If the destination has been set, but the period has not been selected yet
 	 */
 	if (destination && (!from || !to)) {
-		if (isBrowser()) router.push(getAdvicePath.period());
+		if (isBrowser()) router.push(getAdvicePath.period(locale));
 		return null;
 	}
 

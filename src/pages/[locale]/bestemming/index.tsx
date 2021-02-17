@@ -58,7 +58,7 @@ const Bestemming = ({ page, siteSettings, locale }: BestemmingProps) => {
 		if (!destination) return;
 
 		setDestination(destination);
-		router.push(getAdvicePath.period());
+		router.push(getAdvicePath.period(locale));
 	};
 
 	return (

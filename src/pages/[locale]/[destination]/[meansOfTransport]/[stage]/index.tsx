@@ -115,6 +115,7 @@ const AdviceResult = ({
 						destination,
 						meansOfTransport,
 						stage,
+						locale,
 					}).pathname
 				}
 				locale={locale}

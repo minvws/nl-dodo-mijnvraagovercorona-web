@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import React from 'react';
-import { default as NextLink } from 'next/link';
-
 import { ThemeUICSSObject, Box, jsx, Link as ThemeLink } from 'theme-ui';
+
+import { Link as LocaleLink } from 'components/link';
 
 interface Symbol {
 	iconFile: string;
@@ -84,7 +84,7 @@ const LinkWrapper = ({
 	href: string;
 	children: React.ReactNode;
 }) =>
-	!external ? <NextLink href={href}>{children}</NextLink> : <>{children}</>;
+	!external ? <LocaleLink href={href}>{children}</LocaleLink> : <>{children}</>;
 
 const LinkBase = React.forwardRef((props: LinkBaseProps, ref) => {
 	const baseIconStyles: ThemeUICSSObject = {

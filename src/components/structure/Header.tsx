@@ -7,6 +7,7 @@ import RoHeaderLogo from 'components/structure/RoHeaderLogo';
 import { useRouter } from 'next/router';
 import { jsx, Styled } from 'theme-ui';
 import BodyContainer from './BodyContainer';
+import { useCurrentLanguage } from 'hooks/translation';
 
 type HeaderProps = {
 	message: string;
@@ -24,6 +25,7 @@ const Header = ({
 	const { from, to, stage, destination, meansOfTransport } = useContext(
 		AdviceContext,
 	);
+	const locale = useCurrentLanguage();
 	const router = useRouter();
 	const resultLink = useMemo(() => {
 		if (
@@ -40,6 +42,7 @@ const Header = ({
 				stage,
 				destination,
 				meansOfTransport,
+				locale,
 			});
 		}
 

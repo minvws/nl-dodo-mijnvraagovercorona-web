@@ -1,10 +1,9 @@
 /** @jsx jsx */
 import React from 'react';
-import Link from 'next/link';
 import { jsx } from 'theme-ui';
 
+import { Link } from 'components/link';
 import { ButtonStyled } from './ButtonStyled';
-import { useCurrentLanguage } from 'hooks/translation';
 
 interface ButtonPrimaryProps {
 	href: string | Object;
@@ -17,8 +16,6 @@ export const ButtonPrimary: React.FC<ButtonPrimaryProps> = ({
 	external,
 	children,
 }) => {
-	const currentLanguage = useCurrentLanguage();
-
 	if (external && typeof href === 'string')
 		return (
 			<a href={href} target="_blank" rel="noopener noreferrer">
@@ -27,7 +24,7 @@ export const ButtonPrimary: React.FC<ButtonPrimaryProps> = ({
 		);
 
 	return (
-		<Link href={`${currentLanguage.urlPrefix}${href}`} passHref>
+		<Link href={href} passHref>
 			<a>
 				<ButtonStyled>{children}</ButtonStyled>
 			</a>

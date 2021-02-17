@@ -30,7 +30,7 @@ const NoAdvice = ({ destination, locale }: NoAdviceProps) => {
 			<MetaTags
 				title={`Geen Advies ${country?.fullName} | Quarantaine Reischeck | Rijksoverheid.nl`}
 				description={`Er is geen advies mogelijk voor je reis naar ${country?.fullName} op basis van de door jou opgegeven data.`}
-				url={getAdvicePath.noResult({ destination })}
+				url={getAdvicePath.noResult({ destination, locale })}
 				noIndex
 				locale={locale}
 			/>

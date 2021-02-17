@@ -100,9 +100,9 @@ const Periode = ({ page, siteSettings, locale }: PeriodeProps) => {
 
 		/* Check whether the quarantaine period has ended when more then 10 days have passed */
 		if (isAfterQuarantaine && destination) {
-			setResultLink(getAdvicePath.noResult({ destination }));
+			setResultLink(getAdvicePath.noResult({ destination, locale }));
 		} else {
-			setResultLink(getAdvicePath.meansOfTransport());
+			setResultLink(getAdvicePath.meansOfTransport(locale));
 		}
 
 		if (setFrom) setFrom(formatDate(fromDate));
@@ -132,7 +132,7 @@ const Periode = ({ page, siteSettings, locale }: PeriodeProps) => {
 	};
 
 	if (!country) {
-		if (isBrowser()) router.push(getAdvicePath.destination());
+		if (isBrowser()) router.push(getAdvicePath.destination(locale));
 		return null;
 	}
 

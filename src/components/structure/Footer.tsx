@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, Container, ThemeUICSSObject } from 'theme-ui';
-import Link from 'next/link';
+import { Link } from 'components/link';
 
 import BodyContainer from 'components/structure/BodyContainer';
 
