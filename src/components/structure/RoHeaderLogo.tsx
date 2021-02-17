@@ -16,6 +16,9 @@ export const alignLogoRightOnMobileStyles: ThemeUICSSObject = {
 	header: {
 		backgroundImage: 'none',
 	},
+	'.language-selector': {
+		display: ['none', 'flex'],
+	},
 };
 
 const RoHeaderLogo = (props: RoHeaderLogoProps) => {

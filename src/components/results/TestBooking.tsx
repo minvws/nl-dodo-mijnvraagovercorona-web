@@ -3,7 +3,7 @@ import { CallToAction } from 'components/call-to-action/call-to-action';
 import { NewTabIcon } from 'components/icons/NewTab';
 import { TestAppointmentIcon } from 'components/icons/TestAppointment';
 import ReminderCalendarInvite from 'components/TravelPlan/ReminderCalendarInvite';
-import { useTranslation } from 'hooks/use-translation';
+import { useTranslation } from 'hooks/translation';
 import { jsx } from 'theme-ui';
 import { addDays, formatLongDate } from 'utilities/dateUtils';
 import { TravelSchemeContentBlocks } from 'utilities/travel-advice/travel-advice';

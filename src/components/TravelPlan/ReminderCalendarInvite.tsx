@@ -9,7 +9,7 @@ import { formatLongDate } from 'utilities/dateUtils';
 import { Dialog } from 'components/dialog';
 import { CallToAction } from 'components/call-to-action/call-to-action';
 import { AppointmentIcon } from 'components/icons/Appointment';
-import { useTranslation } from 'hooks/use-translation';
+import { useTranslation } from 'hooks/translation';
 
 interface ReminderCalendarInviteProps {
 	title: string;

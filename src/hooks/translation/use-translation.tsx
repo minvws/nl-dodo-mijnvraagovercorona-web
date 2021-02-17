@@ -1,6 +1,7 @@
-import React, { useContext, useMemo, createContext, useEffect } from 'react';
+import React, { useContext, useMemo, useEffect } from 'react';
 // @TODO: Not really happy with processing HTML, who knows what we will be injecting...
 import parse from 'html-react-parser';
+import { TranslationContext } from './translation-context';
 
 type TranslationVariables = { [key: string]: string | number | undefined };
 
@@ -55,7 +56,7 @@ const curlyBracketRegex = /\{\{(.+?)\}\}/g;
  * resulting in a bad user experience.
  */
 export const useTranslation = (): UseTranslation => {
-	const content = useContext(TranslationContext);
+	const content = useContext(TranslationContext).translations;
 
 	// Throw an error if hook is used without content.
 	useEffect(() => {
@@ -99,24 +100,4 @@ export const useTranslation = (): UseTranslation => {
 		// turn it into an unreadable string.
 		t_s: (contentKey, variables) => translate(contentKey, variables),
 	};
-};
-
-export interface TranslationObject {
-	[key: string]: string;
-}
-
-export const TranslationContext = createContext<TranslationObject>({});
-/**
- * Translation Provider used in the _app.tsx. Providing the useTranslation()
- * hook with the translation keys and their content.
- */
-export const TranslationProvider: React.FC<{ content?: TranslationObject }> = ({
-	children,
-	content,
-}) => {
-	return (
-		<TranslationContext.Provider value={content || {}}>
-			{children}
-		</TranslationContext.Provider>
-	);
 };

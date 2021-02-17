@@ -32,19 +32,22 @@ import { cartesianProduct } from 'utilities/pathUtils';
 import { getTravelSchemeContentBlocks } from 'utilities/travel-advice';
 import { contentNl, contentEn } from 'content/travel-scheme';
 import { generalContentNl, generalContentEn } from 'content/_general-content';
-import { useTranslation } from 'hooks/use-translation';
+import { useTranslation } from 'hooks/translation';
 import { countriesEn, countriesNl } from 'content/countries';
+import { Languages } from 'config/languages';
 
 type AdviceProps = {
 	destination: string;
 	stage: TravelStage;
 	meansOfTransport: MeansOfTransport;
+	locale: 'nl' | 'en';
 };
 
 const AdviceResult = ({
 	destination,
 	stage,
 	meansOfTransport,
+	locale,
 }: AdviceProps) => {
 	const { setFrom, setTo, setStage, setDestination } = useContext(
 		AdviceContext,
@@ -114,6 +117,7 @@ const AdviceResult = ({
 						stage,
 					}).pathname
 				}
+				locale={locale}
 			/>
 
 			<Page title={`${pageTitle}`} showBackLink="retry">
@@ -512,20 +516,17 @@ export interface AdviceDestinationStageStaticProps {
 		destination: string;
 		stage: string;
 		meansOfTransport: MeansOfTransport;
+		locale: Languages;
 	};
 }
 
 export const getStaticProps = async ({
 	params,
 }: AdviceDestinationStageStaticProps) => {
-	const content =
-		process.env.NEXT_PUBLIC_LOCALE === 'en' ? contentEn : contentNl;
+	const content = params.locale === 'en' ? contentEn : contentNl;
 	const generalContent =
-		process.env.NEXT_PUBLIC_LOCALE === 'en'
-			? generalContentEn
-			: generalContentNl;
-	const countries =
-		process.env.NEXT_PUBLIC_LOCALE === 'en' ? countriesEn : countriesNl;
+		params.locale === 'en' ? generalContentEn : generalContentNl;
+	const countries = params.locale === 'en' ? countriesEn : countriesNl;
 
 	return {
 		props: {
@@ -537,6 +538,7 @@ export const getStaticProps = async ({
 				...generalContent,
 				...countries,
 			},
+			locale: params.locale,
 		},
 	};
 };

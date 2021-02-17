@@ -12,6 +12,9 @@ export const generalContentNl = {
 	general__anders: 'Anders',
 	general__tot_en_met: 't/m',
 	general__more_information: 'Meer uitleg',
+
+	general__wissel_van_taal: 'Wissel van taal',
+	general__huidige_taal: 'Huidige taal',
 };
 
 export const generalContentEn = {
@@ -28,4 +31,7 @@ export const generalContentEn = {
 	general__anders: 'Other',
 	general__tot_en_met: 'up to and including',
 	general__more_information: 'Meer information',
+
+	general__wissel_van_taal: 'Change language',
+	general__huidige_taal: 'Current language',
 };

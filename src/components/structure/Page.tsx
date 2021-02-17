@@ -5,6 +5,7 @@ import { Box, Flex, jsx } from 'theme-ui';
 import BodyContainer from './BodyContainer';
 import Header from './Header';
 import Footer from './Footer';
+import { LanguageSelector } from 'components/language-selector';
 
 interface PageProps {
 	title: string;
@@ -36,7 +37,15 @@ export const Page: React.FC<PageProps> = ({
 					flexDirection: ['column', 'row'],
 				}}
 			>
-				<Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
+				<Box
+					sx={{
+						width: '100%',
+						display: 'flex',
+						flexDirection: 'column',
+						position: 'relative',
+					}}
+				>
+					<LanguageSelector />
 					<Header
 						message={title}
 						headerPrefix={headerPrefix}

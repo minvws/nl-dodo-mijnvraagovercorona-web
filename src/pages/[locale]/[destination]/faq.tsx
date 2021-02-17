@@ -12,9 +12,10 @@ import { Content, Page } from 'components/structure/Page';
 
 interface FAQProps {
 	destination: string;
+	locale: 'nl' | 'en';
 }
 
-const FAQ = ({ destination }: FAQProps) => {
+const FAQ = ({ destination, locale }: FAQProps) => {
 	const country = useDestination(destination as string);
 
 	return (
@@ -23,6 +24,7 @@ const FAQ = ({ destination }: FAQProps) => {
 				title={`Veelgestelde vragen ${country?.fullName} | Quarantaine Reischeck | Rijksoverheid.nl`}
 				description="Overzicht van veelgestelde vragen over quarantaine en reizen."
 				url={`/${country?.slug}/faq`}
+				locale={locale}
 			/>
 
 			<Page

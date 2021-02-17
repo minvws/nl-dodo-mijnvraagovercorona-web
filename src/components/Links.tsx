@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from 'react';
-import Link from 'next/link';
+import { default as NextLink } from 'next/link';
 
 import { ThemeUICSSObject, Box, jsx, Link as ThemeLink } from 'theme-ui';
 
@@ -12,6 +12,14 @@ interface Symbol {
 	verticalShift: string;
 	style?: any;
 }
+
+const noSymbol = {
+	iconFile: '',
+	width: '0',
+	height: '0',
+	position: 'left',
+	verticalShift: '0',
+};
 
 const anchorSymbol = {
 	iconFile: '/icons/Anker arrow.svg',
@@ -57,7 +65,9 @@ type LinkProps = {
 	text?: string;
 	onClick?: (event: any) => void;
 	children?: React.ReactNode;
+	lang?: string;
 	sx?: ThemeUICSSObject;
+	className?: string;
 };
 
 type LinkBaseProps = LinkProps & {
@@ -73,7 +83,8 @@ const LinkWrapper = ({
 	external?: boolean;
 	href: string;
 	children: React.ReactNode;
-}) => (!external ? <Link href={href}>{children}</Link> : <>{children}</>);
+}) =>
+	!external ? <NextLink href={href}>{children}</NextLink> : <>{children}</>;
 
 const LinkBase = React.forwardRef((props: LinkBaseProps, ref) => {
 	const baseIconStyles: ThemeUICSSObject = {
@@ -117,6 +128,9 @@ const LinkBase = React.forwardRef((props: LinkBaseProps, ref) => {
 					}}
 					onClick={props.onClick}
 					href={props.href}
+					lang={props.lang}
+					hrefLang={props.lang}
+					className={props.className}
 					{...(props.external
 						? {
 								target: '_blank',
@@ -132,6 +146,10 @@ const LinkBase = React.forwardRef((props: LinkBaseProps, ref) => {
 		</Box>
 	);
 });
+
+export const Link = (props: LinkProps) => (
+	<LinkBase {...props} symbol={noSymbol} />
+);
 
 export const AnchorLink = (props: LinkProps) => (
 	<LinkBase {...props} symbol={anchorSymbol} />

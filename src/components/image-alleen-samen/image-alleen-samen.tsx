@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import { useTranslation } from 'hooks/use-translation';
 
 export const ImageAlleenSamen = () => {
 	return (

@@ -11,7 +11,8 @@ import { trackPageview } from 'utilities/piwik';
 import theme from 'utilities/styling/theme';
 import 'styles/global.css';
 import 'styles/components/PeriodSelect.css';
-import { TranslationProvider } from 'hooks/use-translation';
+import { TranslationProvider } from 'hooks/translation';
+import { generalContentEn, generalContentNl } from 'content/_general-content';
 
 const ReizenTijdensCoronaApp = ({ Component, pageProps }: AppProps) => {
 	useEffect(() => {
@@ -24,6 +25,10 @@ const ReizenTijdensCoronaApp = ({ Component, pageProps }: AppProps) => {
 		document.documentElement.lang = pageProps.locale;
 	}, [pageProps.locale]);
 
+	const pageTranslations = pageProps.content || {};
+	const globalTranslations =
+		pageProps.locale === 'en' ? generalContentEn : generalContentNl;
+
 	return (
 		<>
 			<Head>
@@ -32,7 +37,10 @@ const ReizenTijdensCoronaApp = ({ Component, pageProps }: AppProps) => {
 					content="width=device-width, initial-scale=1.0, user-scalable=yes"
 				/>
 			</Head>
-			<TranslationProvider content={pageProps.content}>
+			<TranslationProvider
+				locale={pageProps.locale}
+				content={{ ...pageTranslations, ...globalTranslations }}
+			>
 				<ThemeProvider theme={theme}>
 					<AdviceProvider>
 						<Box
