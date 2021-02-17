@@ -18,7 +18,7 @@ import BodyContainer from 'components/structure/BodyContainer';
 import { Hero, Page } from 'components/structure/Page';
 import { alignLogoRightOnMobileStyles } from 'components/structure/RoHeaderLogo';
 import { isBrowser } from 'utilities/is-browser';
-import { useSanityPageContent } from 'hooks/translation';
+import { useCurrentLanguage, useSanityPageContent } from 'hooks/translation';
 
 interface PageContent {
 	metaData: {
@@ -39,6 +39,7 @@ interface PageContent {
 
 const VervoersmiddelPage = () => {
 	const page = useSanityPageContent<PageContent>();
+	const language = useCurrentLanguage();
 	const formRef = useRef<HTMLFormElement>(null);
 	const {
 		setMeansOfTransport,
@@ -72,7 +73,7 @@ const VervoersmiddelPage = () => {
 				stage: stage as string,
 				fromDate: from as string,
 				toDate: to as string,
-				locale,
+				locale: language.id,
 			}),
 		);
 	};
@@ -90,7 +91,7 @@ const VervoersmiddelPage = () => {
 	 * If the destination has not been selected
 	 */
 	if (!destination) {
-		if (isBrowser()) router.push(getAdvicePath.destination(locale));
+		if (isBrowser()) router.push(getAdvicePath.destination(language.id));
 		return null;
 	}
 
@@ -98,7 +99,7 @@ const VervoersmiddelPage = () => {
 	 * If the destination has been set, but the period has not been selected yet
 	 */
 	if (destination && (!from || !to)) {
-		if (isBrowser()) router.push(getAdvicePath.period(locale));
+		if (isBrowser()) router.push(getAdvicePath.period(language.id));
 		return null;
 	}
 
