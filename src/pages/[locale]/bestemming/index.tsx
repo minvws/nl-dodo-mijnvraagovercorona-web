@@ -36,11 +36,7 @@ interface PageContent {
 	url: string;
 }
 
-interface BestemmingProps {
-	locale: 'nl' | 'en';
-}
-
-const Bestemming = ({ locale }: BestemmingProps) => {
+const Bestemming = () => {
 	const page = useSanityPageContent<PageContent>();
 	const siteSettings = useSanitySiteSettings();
 	const [showDialog, setShowDialog] = useState(false);
