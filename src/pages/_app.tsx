@@ -14,7 +14,7 @@ import 'styles/components/PeriodSelect.css';
 import { TranslationProvider } from 'hooks/use-translation';
 import { generalContentEn, generalContentNl } from 'content/_general-content';
 
-const TravelCheckApp = ({ Component, pageProps }: AppProps) => {
+const ReizenTijdensCoronaApp = ({ Component, pageProps }: AppProps) => {
 	useEffect(() => {
 		Router.events.on('routeChangeComplete', trackPageview);
 		return () => {
@@ -58,4 +58,4 @@ const TravelCheckApp = ({ Component, pageProps }: AppProps) => {
 	);
 };
 
-export default TravelCheckApp;
+export default ReizenTijdensCoronaApp;

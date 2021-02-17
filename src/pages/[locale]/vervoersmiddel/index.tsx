@@ -2,11 +2,7 @@
 import React, { useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Flex, jsx } from 'theme-ui';
-import sanity, {
-	getPageQuery,
-	getLocaleProperty,
-	getLocaleArrayProperty,
-} from 'utilities/sanity';
+import sanity, { getPageQuery, getLocaleProperty } from 'utilities/sanity';
 
 import AdviceContext, {
 	MeansOfTransport,
@@ -191,39 +187,53 @@ const VervoersmiddelPage = ({
 	);
 };
 
-export const getStaticProps = async () => {
+export const getStaticProps = async ({
+	params: { locale },
+}: {
+	params: { locale: 'nl' | 'en' };
+}) => {
 	const pageProjection = `{
 		"metaData": {
-			${getLocaleProperty('title', 'metaData.title')},
-			${getLocaleProperty('description', 'metaData.description')},
+			${getLocaleProperty({ name: 'title', path: 'metaData.title', locale })},
+			${getLocaleProperty({
+				name: 'description',
+				path: 'metaData.description',
+				locale,
+			})},
 		},
 		"header": {
-			${getLocaleProperty('title', 'header.title')},
+			${getLocaleProperty({ name: 'title', path: 'header.title', locale })},
 			"modal": {
-				${getLocaleProperty('link', 'header.modal.link')},
-				${getLocaleProperty('text', 'header.modal.text')},
-				${getLocaleProperty('title', 'header.modal.title')},
+				${getLocaleProperty({ name: 'link', path: 'header.modal.link', locale })},
+				${getLocaleProperty({ name: 'text', path: 'header.modal.text', locale })},
+				${getLocaleProperty({ name: 'title', path: 'header.modal.title', locale })},
 			}
 		},
-		${getLocaleProperty('button')},
+		${getLocaleProperty({ name: 'button', locale })},
 		url
 	}`;
 	const { page, siteSettings } = await sanity.fetch(
 		getPageQuery({
 			type: 'vervoersmiddel-page',
 			pageProjection,
+			locale,
 		}),
 	);
-
-	console.log(page);
 
 	return {
 		props: {
 			page,
 			siteSettings,
-			locale: process.env.NEXT_PUBLIC_LOCALE,
+			locale,
 		},
 	};
 };
+
+export const getStaticPaths = () => ({
+	paths: ['nl', 'en'].map((locale) => ({
+		params: { locale },
+	})),
+	fallback: false,
+});
 
 export default VervoersmiddelPage;

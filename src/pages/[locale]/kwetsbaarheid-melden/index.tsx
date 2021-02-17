@@ -10,18 +10,30 @@ const KwetsbaarheidMelden = ({
 	<ContentPage page={page} siteSettings={siteSettings} locale={locale} />
 );
 
-export const getStaticProps = async () => {
-	const { page, siteSettings } = await getContentPageQuery(
-		'kwetsbaarheid-melden-page',
-	);
+export const getStaticProps = async ({
+	params: { locale },
+}: {
+	params: { locale: 'nl' | 'en' };
+}) => {
+	const { page, siteSettings } = await getContentPageQuery({
+		type: 'kwetsbaarheid-melden-page',
+		locale,
+	});
 
 	return {
 		props: {
 			page,
 			siteSettings,
-			locale: process.env.NEXT_PUBLIC_LOCALE,
+			locale,
 		},
 	};
 };
+
+export const getStaticPaths = () => ({
+	paths: ['nl', 'en'].map((locale) => ({
+		params: { locale },
+	})),
+	fallback: false,
+});
 
 export default KwetsbaarheidMelden;

@@ -546,8 +546,9 @@ export const getStaticPaths = () => ({
 		countries.map((country) => `${country.slug}`),
 		travelStage.map((stage) => `${stage}`),
 		meansOfTransport.map((means) => `${means}`),
-	).map(([destination, stage, meansOfTransport]: string[]) => ({
-		params: { destination, stage, meansOfTransport },
+		['nl', 'en'].map((locale) => `${locale}`),
+	).map(([destination, stage, meansOfTransport, locale]: string[]) => ({
+		params: { destination, stage, meansOfTransport, locale },
 	})),
 	fallback: false,
 });

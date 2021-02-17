@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import React from 'react';
-
 import { jsx } from 'theme-ui';
+
+import { cartesianProduct } from 'utilities/pathUtils';
 import { countries } from 'config/countries';
 import { useDestination } from 'hooks/use-destination';
 import MetaTags from 'components/meta/MetaTags';
@@ -42,6 +43,7 @@ const FAQ = ({ destination }: FAQProps) => {
 export interface FAQStaticProps {
 	params: {
 		destination: string;
+		locale: 'nl' | 'en';
 	};
 }
 
@@ -49,13 +51,17 @@ export const getStaticProps = async ({ params }: FAQStaticProps) => {
 	return {
 		props: {
 			destination: params.destination,
+			locale: params.locale,
 		},
 	};
 };
 
 export const getStaticPaths = () => ({
-	paths: countries.map((country) => ({
-		params: { destination: country.slug },
+	paths: cartesianProduct(
+		countries.map((country) => `${country.slug}`),
+		['nl', 'en'].map((locale) => `${locale}`),
+	).map(([destination, locale]: string[]) => ({
+		params: { destination, locale },
 	})),
 	fallback: false,
 });

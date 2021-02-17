@@ -15,11 +15,17 @@ const options: ClientConfig = {
 /**
  * This helper function allows us to automatically extract the correct locale from a localized piece of content
  */
-export const getLocaleProperty = (name: string, path?: string): string =>
-	`"${name}": ${path || name}.${process.env.NEXT_PUBLIC_LOCALE}`;
-
-export const getLocaleArrayProperty = (name: string, path?: string): string =>
-	`"${name}": ${path || name}[].${process.env.NEXT_PUBLIC_LOCALE}`;
+export const getLocaleProperty = ({
+	name,
+	path,
+	array,
+	locale,
+}: {
+	name: string;
+	path?: string;
+	array?: boolean;
+	locale: 'nl' | 'en';
+}): string => `"${name}": ${path || name}${array ? '[]' : ''}.${locale}`;
 
 /**
  * These props contain all the data returned by a content page query
@@ -44,16 +50,24 @@ export type ContentPageProps = {
 /**
  * This api call includes all the data for a content page including the generic site settings
  */
-export const getContentPageQuery = async (
-	type: string,
-): Promise<ContentPageProps> => {
+export const getContentPageQuery = async ({
+	type,
+	locale,
+}: {
+	type: string;
+	locale: 'nl' | 'en';
+}): Promise<ContentPageProps> => {
 	const pageProjection = `{
 		"metaData": {
-			${getLocaleProperty('title', 'metaData.title')},
-			${getLocaleProperty('description', 'metaData.description')},
+			${getLocaleProperty({ name: 'title', path: 'metaData.title', locale })},
+			${getLocaleProperty({
+				name: 'description',
+				path: 'metaData.description',
+				locale,
+			})},
 		},
-		${getLocaleProperty('title')},
-		${getLocaleProperty('content')},
+		${getLocaleProperty({ name: 'title', locale })},
+		${getLocaleProperty({ name: 'content', locale })},
 		url
 	}`;
 
@@ -61,6 +75,7 @@ export const getContentPageQuery = async (
 		getPageQuery({
 			type,
 			pageProjection,
+			locale,
 		}),
 	);
 };
@@ -72,36 +87,64 @@ export const getPageQuery = ({
 	type,
 	pageProjection,
 	documentsQuery,
+	locale,
 }: {
 	type: string;
 	pageProjection: string;
 	documentsQuery?: string;
+	locale: 'nl' | 'en';
 }): string => `{
 	"page": *[_type == "${type}"][0]${pageProjection},
 	"siteSettings": *[_type == "site-settings-document"][0]{
-		${getLocaleProperty('pageTitleSuffix')},
+		${getLocaleProperty({ name: 'pageTitleSuffix', locale })},
 		"privacy": {
-			${getLocaleProperty('title', 'privacy.title')},
-			${getLocaleArrayProperty('beloftes', 'privacy.beloftes')},
+			${getLocaleProperty({ name: 'title', path: 'privacy.title', locale })},
+			${getLocaleProperty({
+				name: 'beloftes',
+				path: 'privacy.beloftes',
+				array: true,
+				locale,
+			})},
 		},
 		"header": {
-			${getLocaleProperty('logoAlt', 'header.logoAlt')},
-			${getLocaleProperty('opnieuw', 'header.opnieuw')},
-			${getLocaleProperty('terug', 'header.terug')},
+			${getLocaleProperty({ name: 'logoAlt', path: 'header.logoAlt', locale })},
+			${getLocaleProperty({ name: 'opnieuw', path: 'header.opnieuw', locale })},
+			${getLocaleProperty({ name: 'terug', path: 'header.terug', locale })},
 		},
 		"footer": {
-			${getLocaleProperty('alleenSamenAlt', 'footer.alleenSamenAlt')},
-			${getLocaleProperty('meerInformatieTitle', 'footer.meerInformatieTitle')},
-			${getLocaleProperty('rijksoverheidText', 'footer.rijksoverheidText')},
-			${getLocaleProperty('rijksoverheidUrl', 'footer.rijksoverheidUrl')},
-			${getLocaleProperty('title', 'footer.title')},
-			${getLocaleArrayProperty('items', 'footer.items')},
+			${getLocaleProperty({
+				name: 'alleenSamenAlt',
+				path: 'footer.alleenSamenAlt',
+				locale,
+			})},
+			${getLocaleProperty({
+				name: 'meerInformatieTitle',
+				path: 'footer.meerInformatieTitle',
+				locale,
+			})},
+			${getLocaleProperty({
+				name: 'rijksoverheidText',
+				path: 'footer.rijksoverheidText',
+				locale,
+			})},
+			${getLocaleProperty({
+				name: 'rijksoverheidUrl',
+				path: 'footer.rijksoverheidUrl',
+				locale,
+			})},
+			${getLocaleProperty({ name: 'title', path: 'footer.title', locale })},
+			${getLocaleProperty({
+				name: 'items',
+				path: 'footer.items',
+				array: true,
+				locale,
+			})},
 		},
 		"feedback": {
-			${getLocaleProperty('button', 'feedback.button')},
-			${getLocaleProperty('content', 'feedback.content')},
-			${getLocaleProperty('title', 'feedback.title')},
-			${getLocaleProperty('url', 'feedback.url')},
+			${getLocaleProperty({ name: 'button', path: 'feedback.button', locale })},
+			${getLocaleProperty({ name: 'content', path: 'feedback.content', locale })},
+			${getLocaleProperty({ name: 'title', path: 'feedback.title', locale })},
+			${getLocaleProperty({ name: 'url', path: 'feedback.url', locale })},
 		},
 	},
 	${documentsQuery && `"documents": ${documentsQuery}`}

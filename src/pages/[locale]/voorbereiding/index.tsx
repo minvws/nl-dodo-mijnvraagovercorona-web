@@ -86,6 +86,7 @@ const VoorbereidingPage = ({
 								<PreparationPanelListItem
 									text={item.title}
 									subtext={item.description}
+									key={item.title}
 								/>
 							))}
 						</ul>
@@ -97,23 +98,31 @@ const VoorbereidingPage = ({
 	</>
 );
 
-export const getStaticProps = async () => {
+export const getStaticProps = async ({
+	params: { locale },
+}: {
+	params: { locale: 'nl' | 'en' };
+}) => {
 	const pageProjection = `{
 		"metaData": {
-			${getLocaleProperty('title', 'metaData.title')},
-			${getLocaleProperty('description', 'metaData.description')},
+			${getLocaleProperty({ name: 'title', path: 'metaData.title', locale })},
+			${getLocaleProperty({
+				name: 'description',
+				path: 'metaData.description',
+				locale,
+			})},
 		},
-		${getLocaleProperty('title')},
-		${getLocaleProperty('saveCopy')},
+		${getLocaleProperty({ name: 'title', locale })},
+		${getLocaleProperty({ name: 'saveCopy', locale })},
 		url
 	}`;
 	const documentsQuery = `*[_type == "voorbereiding-document"]{
-		${getLocaleProperty('title')},
-		${getLocaleProperty('description')},
+		${getLocaleProperty({ name: 'title', locale })},
+		${getLocaleProperty({ name: 'description', locale })},
 		"image": image.asset->url,
 		"items": items[]{
-			${getLocaleProperty('title', 'title')},
-			${getLocaleProperty('description', 'description')}
+			${getLocaleProperty({ name: 'title', locale })},
+			${getLocaleProperty({ name: 'description', locale })},
 		}
 	} | order(order asc)`;
 	const { page, siteSettings, documents } = await sanity.fetch(
@@ -121,6 +130,7 @@ export const getStaticProps = async () => {
 			type: 'voorbereiding-page',
 			pageProjection,
 			documentsQuery,
+			locale,
 		}),
 	);
 
@@ -129,9 +139,16 @@ export const getStaticProps = async () => {
 			page,
 			siteSettings,
 			documents,
-			locale: process.env.NEXT_PUBLIC_LOCALE,
+			locale,
 		},
 	};
 };
+
+export const getStaticPaths = () => ({
+	paths: ['nl', 'en'].map((locale) => ({
+		params: { locale },
+	})),
+	fallback: false,
+});
 
 export default VoorbereidingPage;

@@ -6,16 +6,30 @@ const Cookies = ({ page, siteSettings, locale }: ContentPageProps) => (
 	<ContentPage page={page} siteSettings={siteSettings} locale={locale} />
 );
 
-export const getStaticProps = async () => {
-	const { page, siteSettings } = await getContentPageQuery('cookies-page');
+export const getStaticProps = async ({
+	params: { locale },
+}: {
+	params: { locale: 'nl' | 'en' };
+}) => {
+	const { page, siteSettings } = await getContentPageQuery({
+		type: 'cookies-page',
+		locale,
+	});
 
 	return {
 		props: {
 			page,
 			siteSettings,
-			locale: process.env.NEXT_PUBLIC_LOCALE,
+			locale,
 		},
 	};
 };
+
+export const getStaticPaths = () => ({
+	paths: ['nl', 'en'].map((locale) => ({
+		params: { locale },
+	})),
+	fallback: false,
+});
 
 export default Cookies;
