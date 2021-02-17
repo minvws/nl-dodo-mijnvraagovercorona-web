@@ -7,18 +7,29 @@ type Props = {
 	description: string;
 	url: string;
 	noIndex?: boolean;
+	skipPageSuffix?: boolean;
 };
 
-const MetaTags = ({ title, description, url, noIndex }: Props) => {
+const MetaTags = ({
+	title,
+	description,
+	url,
+	noIndex,
+	skipPageSuffix,
+}: Props) => {
 	const language = useCurrentLanguage();
 	const baseUrl = 'https://reizentijdenscorona.rijksoverheid.nl';
 	const completeURl = `${baseUrl}/${language.id}${url}`;
 	const siteSettings = useSanitySiteSettings();
 
+	const pageTitle = `${title}${
+		skipPageSuffix ? '' : siteSettings.pageTitleSuffix
+	}`;
+
 	return (
 		<Head>
-			<title>{title}</title>
-			<meta name="title" content={`${title}${siteSettings.pageTitleSuffix}`} />
+			<title>{pageTitle}</title>
+			<meta name="title" content={`${pageTitle}`} />
 			<meta name="description" content={description} />
 
 			<link rel="alternate" hrefLang="nl" href={`${baseUrl}/nl${url}`} />

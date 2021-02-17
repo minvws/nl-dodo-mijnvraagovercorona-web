@@ -41,6 +41,7 @@ const Landing = () => {
 				title={page.metaData.title}
 				description={page.metaData.description}
 				url={page.url}
+				skipPageSuffix
 			/>
 
 			<Page title={page.header.title} headerPrefix={page.header.pretitle}>
