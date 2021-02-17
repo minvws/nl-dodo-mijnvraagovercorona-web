@@ -55,7 +55,7 @@ const LanguageLink = ({ id, currentPath }: LanguageLinkProps) => {
 		<Link
 			className={isCurrentLanguage ? 'active' : undefined}
 			href={getCurrentUrlForLanguage(currentPath, language, currentLanguage)}
-			lang={Languages.Dutch}
+			lang={currentLanguage.id}
 		>
 			{language.shortName}{' '}
 			{isCurrentLanguage && (
