@@ -11,7 +11,7 @@ import {
 
 import { Languages } from 'config/languages';
 
-import { CountryMatches, searchCities } from 'services/CountryService';
+import { CountryMatches, searchCities } from 'utilities/destination';
 
 import { ButtonStyledAsSubmit } from 'components/button';
 

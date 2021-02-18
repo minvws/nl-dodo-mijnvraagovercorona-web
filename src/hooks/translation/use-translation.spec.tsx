@@ -6,7 +6,40 @@ import { Languages } from 'config/languages';
 
 const getWrapper = (translations: Translations) => {
 	const translationProviderWrapper: React.FC = ({ children }) => (
-		<TranslationProvider content={translations} locale={Languages.English}>
+		<TranslationProvider
+			content={translations}
+			locale={Languages.English}
+			siteSettings={{
+				pageTitleSuffix: '',
+				feedback: {
+					button: '',
+					content: '',
+					title: '',
+					url: '',
+				},
+				footer: {
+					alleenSamenAlt: '',
+					items: [''],
+					meerInformatieTitle: '',
+					rijksoverheidText: '',
+					rijksoverheidUrl: '',
+					title: '',
+				},
+				header: {
+					logoAlt: 'string',
+					opnieuw: 'string',
+					terug: 'string',
+					resultaat: 'string',
+				},
+				privacy: { title: '', beloftes: [''] },
+				vervoersmiddelen: [
+					{
+						naam: 'vliegtuig',
+						uitgebreid: '',
+					},
+				],
+			}}
+		>
 			{children}
 		</TranslationProvider>
 	);

@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { endOfDay, startOfDay } from 'date-fns';
 import { jsx, Container, Box } from 'theme-ui';
 
-import { getSiteSettingsQuery } from 'utilities/sanity';
+import { getFaqsQuery } from 'utilities/sanity';
 import { parseDate, addDays } from 'utilities/dateUtils';
 import { cartesianProduct } from 'utilities/pathUtils';
 import { getTravelSchemeContentBlocks } from 'utilities/travel-advice';
@@ -15,7 +15,7 @@ import { Languages } from 'config/languages';
 import { MetaTags } from 'components/meta';
 import { TestBooking } from 'components/test-booking';
 import { ReminderCalendarInvite } from 'components/travel-plan';
-import { FaqListShort } from 'components/faq';
+import { Faqs, FaqListShort } from 'components/faq';
 import { DialogLink, InternalLink } from 'components/links';
 import {
 	TravelPlanStage,
@@ -39,12 +39,14 @@ import { contentNl, contentEn } from 'content/travel-scheme';
 
 import { useTranslation } from 'hooks/translation';
 import { useDestination } from 'hooks/use-destination';
+import { getRequiredFaqs, orderByReferences } from 'utilities/faqs';
 
 type AdviceProps = {
 	destination: string;
 	stage: TravelStage;
 	meansOfTransport: MeansOfTransport;
 	locale: 'nl' | 'en';
+	faqs: Faqs;
 };
 
 const AdviceResult = ({
@@ -52,6 +54,7 @@ const AdviceResult = ({
 	stage,
 	meansOfTransport,
 	locale,
+	faqs,
 }: AdviceProps) => {
 	const { setFrom, setTo, setStage, setDestination } = useContext(
 		AdviceContext,
@@ -504,7 +507,7 @@ const AdviceResult = ({
 					>
 						{t('veelgestelde_vragen_title')}
 					</h2>
-					<FaqListShort country={country} stage={stage} />
+					<FaqListShort faqs={faqs} />
 					<InternalLink href={`/${country?.slug}/faq`}>
 						{t('veelgestelde_vragen_cta')}
 					</InternalLink>
@@ -518,7 +521,7 @@ const AdviceResult = ({
 export interface AdviceDestinationStageStaticProps {
 	params: {
 		destination: string;
-		stage: string;
+		stage: TravelStage;
 		meansOfTransport: MeansOfTransport;
 		locale: Languages;
 	};
@@ -528,7 +531,11 @@ export const getStaticProps = async ({
 	params: { locale, destination, stage, meansOfTransport },
 }: AdviceDestinationStageStaticProps) => {
 	const content = locale === 'en' ? contentEn : contentNl;
-	const siteSettings = await getSiteSettingsQuery({ locale });
+	const requiredFaqs = getRequiredFaqs({ stage, destination });
+	const { siteSettings, faqs } = await getFaqsQuery({
+		locale,
+		faqs: requiredFaqs,
+	});
 
 	return {
 		props: {
@@ -538,6 +545,7 @@ export const getStaticProps = async ({
 			siteSettings,
 			localPageTranslations: content,
 			locale,
+			faqs: orderByReferences({ faqs, references: requiredFaqs }),
 		},
 	};
 };

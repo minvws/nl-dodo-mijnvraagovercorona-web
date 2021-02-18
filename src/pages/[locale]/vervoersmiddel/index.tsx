@@ -58,8 +58,6 @@ const VervoersmiddelPage = ({ locale, page }: VervoersmiddelProps) => {
 	const router = useRouter();
 	const [showDialog, setShowDialog] = useState(false);
 
-	console.log(page);
-
 	const openDialog = (event: any) => {
 		event.preventDefault();
 		setShowDialog(true);

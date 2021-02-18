@@ -80,6 +80,30 @@ export const getContentPageQuery = async ({
 	);
 };
 
+const toStringArray = (array: Array<string>): string =>
+	`[${array.map((item) => `"${item}"`).join(', ')}]`;
+
+const toExcludeList = (array: Array<string>): string =>
+	array.map((item) => ` && reference != "${item}"`).join('');
+
+export const faqDocumentsQuery = ({
+	locale,
+	faqs,
+	exclude,
+}: {
+	locale: 'nl' | 'en';
+	faqs?: string[];
+	exclude?: string[];
+}) => `
+	*[_type == "faq-document"${
+		faqs ? ` && reference in ${toStringArray(faqs)}` : ''
+	}${exclude ? toExcludeList(exclude) : ''}]{
+		reference,
+		reisfase,
+		${getLocaleProperty({ name: 'vraag', locale })},
+		${getLocaleProperty({ name: 'antwoord', locale })},
+	} | order(order asc)`;
+
 const siteSettingsQuery = ({ locale }: { locale: 'nl' | 'en' }): string => `
 	*[_type == "site-settings-document"][0]{
 		${getLocaleProperty({ name: 'pageTitleSuffix', locale })},
@@ -96,6 +120,7 @@ const siteSettingsQuery = ({ locale }: { locale: 'nl' | 'en' }): string => `
 			${getLocaleProperty({ name: 'logoAlt', path: 'header.logoAlt', locale })},
 			${getLocaleProperty({ name: 'opnieuw', path: 'header.opnieuw', locale })},
 			${getLocaleProperty({ name: 'terug', path: 'header.terug', locale })},
+			${getLocaleProperty({ name: 'resultaat', path: 'header.resultaat', locale })},
 		},
 		"footer": {
 			${getLocaleProperty({
@@ -138,11 +163,31 @@ const siteSettingsQuery = ({ locale }: { locale: 'nl' | 'en' }): string => `
 		}
 	}`;
 
+/**
+ * This query will only return the global site settings
+ */
 export const getSiteSettingsQuery = async ({
 	locale,
 }: {
 	locale: 'nl' | 'en';
 }) => await client.fetch(siteSettingsQuery({ locale }));
+
+/**
+ * This query will return the global site settings and a list of requested faqs
+ */
+export const getFaqsQuery = async ({
+	locale,
+	faqs,
+	exclude,
+}: {
+	locale: 'nl' | 'en';
+	faqs?: string[];
+	exclude?: string[];
+}) =>
+	await client.fetch(`{
+		"siteSettings": ${siteSettingsQuery({ locale })},
+		"faqs": ${faqDocumentsQuery({ locale, faqs, exclude })},
+	}`);
 
 /**
  * This will create a Sanity GROQ Query for a specific page type

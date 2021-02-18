@@ -6,12 +6,16 @@ const nl: Language = {
 	urlPrefix: '/nl',
 	fullName: 'Nederlands',
 	shortName: 'NL',
+	locale: 'nl_NL',
+	alternateLocales: ['en_GB'],
 };
 const en: Language = {
 	id: Languages.English,
 	urlPrefix: '/en',
 	fullName: 'Engels',
 	shortName: 'EN',
+	locale: 'en_GB',
+	alternateLocales: ['nl_NL'],
 };
 
 describe('Language selector', () => {

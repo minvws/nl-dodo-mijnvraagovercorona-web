@@ -2,8 +2,11 @@
 import React from 'react';
 import { jsx } from 'theme-ui';
 
-import { getSiteSettingsQuery } from 'utilities/sanity';
+import type { Faqs } from 'components/faq';
+
+import { getFaqsQuery } from 'utilities/sanity';
 import { cartesianProduct } from 'utilities/pathUtils';
+import { getExcludedFaqs } from 'utilities/faqs';
 
 import { countries } from 'config/countries';
 
@@ -17,9 +20,10 @@ import { useDestination } from 'hooks/use-destination';
 
 interface FAQProps {
 	destination: string;
+	faqs: Faqs;
 }
 
-const FAQ = ({ destination }: FAQProps) => {
+const FAQ = ({ destination, faqs }: FAQProps) => {
 	const country = useDestination(destination as string);
 	const { t_s } = useTranslation();
 
@@ -38,7 +42,7 @@ const FAQ = ({ destination }: FAQProps) => {
 				illustrationMobileUrl="/images/Illustratie_Mobiel_Veelgestelde_vragenRetina.svg"
 			>
 				<Content>
-					<FaqListComplete country={country} />
+					<FaqListComplete faqs={faqs} />
 					<Feedback />
 				</Content>
 			</Page>
@@ -56,13 +60,17 @@ export interface FAQStaticProps {
 export const getStaticProps = async ({
 	params: { destination, locale },
 }: FAQStaticProps) => {
-	const siteSettings = await getSiteSettingsQuery({ locale });
+	const { faqs, siteSettings } = await getFaqsQuery({
+		locale,
+		exclude: getExcludedFaqs({ destination }),
+	});
 
 	return {
 		props: {
 			destination,
 			locale,
 			siteSettings,
+			faqs,
 		},
 	};
 };

@@ -1,13 +1,16 @@
 /** @jsx jsx */
 import React, { useMemo, useContext } from 'react';
+import { jsx, Styled } from 'theme-ui';
+import { useRouter } from 'next/router';
+
 import AdviceContext from 'components/advice/AdviceContext';
 import { getAdvicePath } from 'components/advice/utils';
 import { NavLink } from 'components/nav-link';
-import { RoHeaderLogo } from 'components/structure/RoHeaderLogo';
-import { useRouter } from 'next/router';
-import { jsx, Styled } from 'theme-ui';
+import { RoHeaderLogo } from 'components/structure';
+
+import { useCurrentLanguage, useSanitySiteSettings } from 'hooks/translation';
+
 import { BodyContainer } from './BodyContainer';
-import { useCurrentLanguage } from 'hooks/translation';
 
 type HeaderProps = {
 	message: string;
@@ -26,6 +29,7 @@ export const Header = ({
 		AdviceContext,
 	);
 	const language = useCurrentLanguage();
+	const siteSettings = useSanitySiteSettings();
 	const router = useRouter();
 	const resultLink = useMemo(() => {
 		if (
@@ -64,19 +68,19 @@ export const Header = ({
 			<BodyContainer>
 				{resultLink && (
 					<NavLink href={resultLink} icon="back">
-						naar resultaat
+						{siteSettings.header.resultaat}
 					</NavLink>
 				)}
 
 				{showBackLink === 'previous' && (
 					<NavLink onClick={() => router.back()} icon="back">
-						terug
+						{siteSettings.header.terug}
 					</NavLink>
 				)}
 
 				{showBackLink === 'retry' && (
 					<NavLink href="/" icon="refresh">
-						opnieuw
+						{siteSettings.header.opnieuw}
 					</NavLink>
 				)}
 

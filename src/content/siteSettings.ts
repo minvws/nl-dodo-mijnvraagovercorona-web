@@ -18,6 +18,7 @@ export interface SiteSettings {
 		logoAlt: string;
 		opnieuw: string;
 		terug: string;
+		resultaat: string;
 	};
 	privacy: {
 		title: string;
