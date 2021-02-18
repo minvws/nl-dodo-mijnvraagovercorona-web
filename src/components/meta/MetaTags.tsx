@@ -10,7 +10,7 @@ type Props = {
 	skipPageSuffix?: boolean;
 };
 
-const MetaTags = ({
+export const MetaTags = ({
 	title,
 	description,
 	url,
@@ -68,5 +68,3 @@ const MetaTags = ({
 		</Head>
 	);
 };
-
-export default MetaTags;

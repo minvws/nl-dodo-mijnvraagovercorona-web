@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import Document, { Html, Head, Main, NextScript } from 'next/document';
-
 import { jsx } from 'theme-ui';
 
 class ReizenTijdensCoronaDocument extends Document {

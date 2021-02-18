@@ -1,29 +1,34 @@
 /** @jsx jsx */
 import React, { useEffect, useRef, useState } from 'react';
-import sanity, { getPageQuery, getLocaleProperty } from 'utilities/sanity';
+import { useRouter } from 'next/router';
 import { jsx } from 'theme-ui';
 import { isAfter, addDays } from 'date-fns';
 
-import MetaTags from 'components/meta/MetaTags';
-import { InternalLink } from 'components/Links';
-import PeriodSelect from 'components/advice/PeriodSelect';
+import sanity, { getPageQuery, getLocaleProperty } from 'utilities/sanity';
 import { formatDate } from 'utilities/pathUtils';
-import { useDestination } from 'hooks/use-destination';
-import { useRouter } from 'next/router';
 import { isBrowser } from 'utilities/is-browser';
-import AdviceContext from 'components/advice/AdviceContext';
+
+import { MetaTags } from 'components/meta';
+import { InternalLink } from 'components/links';
+import { PeriodSelect } from 'components/advice/PeriodSelect';
 import { Dialog } from 'components/dialog';
 import { ButtonPrimary } from 'components/button';
-import { Hero, Page } from 'components/structure/Page';
-import ProgressMarker from 'components/advice/ProgressMarker';
-import { alignLogoRightOnMobileStyles } from 'components/structure/RoHeaderLogo';
-import BodyContainer from 'components/structure/BodyContainer';
+import { ProgressMarker } from 'components/advice/ProgressMarker';
+import {
+	BodyContainer,
+	alignLogoRightOnMobileStyles,
+	Hero,
+	Page,
+} from 'components/structure';
 import { getAdvicePath } from 'components/advice/utils';
+import AdviceContext from 'components/advice/AdviceContext';
+
 import {
 	useCurrentLanguage,
 	useSanityPageContent,
 	useTranslation,
 } from 'hooks/translation';
+import { useDestination } from 'hooks/use-destination';
 
 const calculateStage = ({
 	fromDate,

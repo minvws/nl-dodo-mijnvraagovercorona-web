@@ -12,7 +12,7 @@ type ExpansionPanelProps = {
 	children: React.ReactNode;
 };
 
-const ExpansionPanel = (props: ExpansionPanelProps) => {
+export const ExpansionPanel = (props: ExpansionPanelProps) => {
 	const [open, setOpen] = useState(false);
 	const contentRef = useRef<HTMLDivElement>(null);
 	const handleChange = () => {
@@ -103,5 +103,3 @@ const ExpansionPanel = (props: ExpansionPanelProps) => {
 		</Container>
 	);
 };
-
-export default ExpansionPanel;

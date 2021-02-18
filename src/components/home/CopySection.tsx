@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { Container, jsx } from 'theme-ui';
-import CopyParagraph from './CopyParagraph';
+import { CopyParagraph } from './CopyParagraph';
 
 interface CopySectionProps {
 	uitleg: {
@@ -15,7 +15,7 @@ interface CopySectionProps {
 	}[];
 }
 
-const CopySection = ({ uitleg }: CopySectionProps) => (
+export const CopySection = ({ uitleg }: CopySectionProps) => (
 	<Container sx={{ paddingTop: '30px' }}>
 		{uitleg.map((item, index) => (
 			<CopyParagraph
@@ -31,5 +31,3 @@ const CopySection = ({ uitleg }: CopySectionProps) => (
 		))}
 	</Container>
 );
-
-export default CopySection;

@@ -1,19 +1,23 @@
 /** @jsx jsx */
 import React, { useEffect } from 'react';
 import Head from 'next/head';
-import Router, { AppProps } from 'next/dist/next-server/lib/router/router';
+import type { AppProps } from 'next/app';
+import Router from 'next/router';
 
 import { jsx, Box, ThemeProvider } from 'theme-ui';
 
-import { AdviceProvider } from 'components/advice/AdviceContext';
 import { trackPageview } from 'utilities/piwik';
-
 import theme from 'utilities/styling/theme';
-import 'styles/global.css';
-import 'styles/components/PeriodSelect.css';
+
+import { AdviceProvider } from 'components/advice/AdviceContext';
+
 import { TranslationProvider } from 'hooks/translation';
+
 import { generalContentEn, generalContentNl } from 'content/_general-content';
 import { countriesEn, countriesNl } from 'content/countries';
+
+import 'styles/global.css';
+import 'styles/components/PeriodSelect.css';
 
 const ReizenTijdensCoronaApp = ({ Component, pageProps }: AppProps) => {
 	useEffect(() => {

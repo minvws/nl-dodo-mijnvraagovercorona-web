@@ -1,4 +1,4 @@
-export const TestAppointmentIcon = () => (
+export const TestAppointment = () => (
 	<svg
 		width="48"
 		height="56"

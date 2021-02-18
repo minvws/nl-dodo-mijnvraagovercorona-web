@@ -1,12 +1,14 @@
 /** @jsx jsx */
-import { CallToAction } from 'components/call-to-action/call-to-action';
-import { NewTabIcon } from 'components/icons/NewTab';
-import { TestAppointmentIcon } from 'components/icons/TestAppointment';
-import ReminderCalendarInvite from 'components/TravelPlan/ReminderCalendarInvite';
-import { useTranslation } from 'hooks/translation';
 import { jsx } from 'theme-ui';
+
+import { CallToAction } from 'components/call-to-action';
+import { NewTab, TestAppointment } from 'components/icons';
+import { ReminderCalendarInvite } from 'components/travel-plan/ReminderCalendarInvite';
+
 import { addDays, formatLongDate } from 'utilities/dateUtils';
 import { TravelSchemeContentBlocks } from 'utilities/travel-advice/travel-advice';
+
+import { useTranslation } from 'hooks/translation';
 
 export const CallGGD = ({
 	callingIsOnlyOption,
@@ -60,10 +62,10 @@ const CtaToGGDWebsite: React.FC = ({ children }) => (
 			display: 'block',
 		}}
 	>
-		<CallToAction icon={TestAppointmentIcon}>
+		<CallToAction icon={TestAppointment}>
 			<p>
 				{children}
-				<NewTabIcon sx={{ marginLeft: 10 }} />
+				<NewTab sx={{ marginLeft: 10 }} />
 			</p>
 		</CallToAction>
 	</a>
@@ -124,7 +126,7 @@ interface TestBookingProps {
 	contentBlocks: TravelSchemeContentBlocks;
 }
 
-const TestBooking = ({
+export const TestBooking = ({
 	toDate,
 	quarantaine,
 	contentBlocks,
@@ -234,5 +236,3 @@ const TestBooking = ({
 		</div>
 	);
 };
-
-export default TestBooking;

@@ -21,7 +21,7 @@ const LinkWrapper = ({
 	children: React.ReactNode;
 }) => (internal ? <Link href={href}>{children}</Link> : <>{children}</>);
 
-const TravelInformationLink = (props: TravelInformationLinkProps) => {
+export const TravelInformationLink = (props: TravelInformationLinkProps) => {
 	const symbolFile = props.symbolFile
 		? props.symbolFile
 		: '/icons/Vector-1.svg';
@@ -60,5 +60,3 @@ const TravelInformationLink = (props: TravelInformationLinkProps) => {
 		</LinkWrapper>
 	);
 };
-
-export default TravelInformationLink;

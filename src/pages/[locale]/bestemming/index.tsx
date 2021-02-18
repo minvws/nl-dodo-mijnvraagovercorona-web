@@ -1,21 +1,27 @@
 /** @jsx jsx */
 import React, { useState } from 'react';
-import sanity, { getPageQuery, getLocaleProperty } from 'utilities/sanity';
 import { jsx } from 'theme-ui';
-
-import MetaTags from 'components/meta/MetaTags';
-import { InternalLink } from 'components/Links';
-import '@reach/dialog/styles.css';
-import DestinationSearch from 'components/advice/DestinationSearch';
-import { Dialog } from 'components/dialog';
-import { Content, Hero, Page } from 'components/structure/Page';
-import ProgressMarker from 'components/advice/ProgressMarker';
-import { alignLogoRightOnMobileStyles } from 'components/structure/RoHeaderLogo';
-import AdviceContext from 'components/advice/AdviceContext';
 import { useRouter } from 'next/router';
-import { getAdvicePath } from 'components/advice/utils';
-import { useSanityPageContent } from 'hooks/translation';
+
+import sanity, { getPageQuery, getLocaleProperty } from 'utilities/sanity';
+
 import { Languages } from 'config/languages';
+
+import { MetaTags } from 'components/meta';
+import { InternalLink } from 'components/links';
+import { DestinationSearch } from 'components/advice/DestinationSearch';
+import { ProgressMarker } from 'components/advice/ProgressMarker';
+import { Dialog } from 'components/dialog';
+import {
+	Content,
+	Hero,
+	Page,
+	alignLogoRightOnMobileStyles,
+} from 'components/structure';
+import AdviceContext from 'components/advice/AdviceContext';
+import { getAdvicePath } from 'components/advice/utils';
+
+import { useSanityPageContent } from 'hooks/translation';
 
 interface PageContent {
 	metaData: {

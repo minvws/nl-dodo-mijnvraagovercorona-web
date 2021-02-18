@@ -2,38 +2,43 @@
 import { useState, useContext, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { endOfDay, startOfDay } from 'date-fns';
-
 import { jsx, Container, Box } from 'theme-ui';
 
 import { getSiteSettingsQuery } from 'utilities/sanity';
-import MetaTags from 'components/meta/MetaTags';
-import TestBooking from 'components/results/TestBooking';
-import ReminderCalendarInvite from 'components/TravelPlan/ReminderCalendarInvite';
-import { FaqListShort } from 'components/faq/FaqList';
-import { DialogLink, InternalLink } from 'components/Links';
 import { parseDate, addDays } from 'utilities/dateUtils';
-import { useDestination } from 'hooks/use-destination';
+import { cartesianProduct } from 'utilities/pathUtils';
+import { getTravelSchemeContentBlocks } from 'utilities/travel-advice';
+
 import { countries, RiskLevel } from 'config/countries';
-import TravelPlanStage from 'components/TravelPlan/TravelPlanStage';
-import TravelAdvicePanel from 'components/TravelPlan/TravelAdvicePanel';
-import TravelInformationLink from 'components/TravelPlan/TravelInformationLink';
+import { Languages } from 'config/languages';
+
+import { MetaTags } from 'components/meta';
+import { TestBooking } from 'components/test-booking';
+import { ReminderCalendarInvite } from 'components/travel-plan';
+import { FaqListShort } from 'components/faq';
+import { DialogLink, InternalLink } from 'components/links';
+import {
+	TravelPlanStage,
+	TravelAdvicePanel,
+	TravelInformationLink,
+} from 'components/travel-plan';
 import { Dialog } from 'components/dialog';
-import Feedback from 'components/feedback/Feedback';
+import { Feedback } from 'components/feedback';
+import { getAdvicePath } from 'components/advice/utils';
+import { Content, Hero, Page } from 'components/structure';
+import { ExpansionPanel } from 'components/structure';
+import { Card } from 'components/card';
 import AdviceContext, {
 	MeansOfTransport,
 	meansOfTransport,
 	travelStage,
 	TravelStage,
 } from 'components/advice/AdviceContext';
-import { getAdvicePath } from 'components/advice/utils';
-import { Content, Hero, Page } from 'components/structure/Page';
-import ExpansionPanel from 'components/structure/ExpansionPanel';
-import { Card } from 'components/card';
-import { cartesianProduct } from 'utilities/pathUtils';
-import { getTravelSchemeContentBlocks } from 'utilities/travel-advice';
+
 import { contentNl, contentEn } from 'content/travel-scheme';
+
 import { useTranslation } from 'hooks/translation';
-import { Languages } from 'config/languages';
+import { useDestination } from 'hooks/use-destination';
 
 type AdviceProps = {
 	destination: string;

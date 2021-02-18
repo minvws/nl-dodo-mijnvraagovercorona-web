@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { Link } from 'components/Links';
-import { ScreenreaderOnly } from 'components/ScreenreaderOnly';
+import { Link } from 'components/links';
+import { ScreenReaderOnly } from 'components/screen-reader-only';
 import { languages, Languages } from 'config/languages';
 import { useCurrentLanguage, useTranslation } from 'hooks/translation';
 import { useRouter } from 'next/router';
@@ -28,7 +28,7 @@ const LanguageLink = ({ id, currentPath }: LanguageLinkProps) => {
 		>
 			{language.shortName}{' '}
 			{isCurrentLanguage && (
-				<ScreenreaderOnly>({t('general__huidige_taal')})</ScreenreaderOnly>
+				<ScreenReaderOnly>({t('general__huidige_taal')})</ScreenReaderOnly>
 			)}
 		</Link>
 	);
@@ -71,7 +71,7 @@ export const LanguageSelector = () => {
 				},
 			}}
 		>
-			<ScreenreaderOnly>{t('general__wissel_van_taal')}:</ScreenreaderOnly>
+			<ScreenReaderOnly>{t('general__wissel_van_taal')}:</ScreenReaderOnly>
 			<LanguageLink id={Languages.Dutch} currentPath={asPath} />
 			<LanguageLink id={Languages.English} currentPath={asPath} />
 		</Flex>

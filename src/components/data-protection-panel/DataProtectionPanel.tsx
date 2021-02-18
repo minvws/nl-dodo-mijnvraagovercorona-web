@@ -1,13 +1,13 @@
 /** @jsx jsx */
-import PrivacyList from 'components/PrivacyList';
 import { Box, jsx } from 'theme-ui';
+import { PrivacyList } from 'components/privacy-list';
 
 type DataProtectionPanelProps = {
 	className?: string;
 	illustrationUrl?: string;
 };
 
-const DataProtectionPanel = ({
+export const DataProtectionPanel = ({
 	className,
 	illustrationUrl,
 }: DataProtectionPanelProps) => {
@@ -64,5 +64,3 @@ const DataProtectionPanel = ({
 		</Box>
 	);
 };
-
-export default DataProtectionPanel;

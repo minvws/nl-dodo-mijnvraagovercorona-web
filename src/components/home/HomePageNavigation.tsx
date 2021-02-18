@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 import { Container, jsx } from 'theme-ui';
-import { AnchorLink } from 'components/Links';
+import { AnchorLink } from 'components/links/Links';
 
 interface HomePageNavigationProps {
 	uitleg: {
@@ -16,7 +16,7 @@ interface HomePageNavigationProps {
 	}[];
 }
 
-const HomePageNavigation = ({ uitleg }: HomePageNavigationProps) => (
+export const HomePageNavigation = ({ uitleg }: HomePageNavigationProps) => (
 	<Container as="nav">
 		<div
 			sx={{
@@ -46,5 +46,3 @@ const HomePageNavigation = ({ uitleg }: HomePageNavigationProps) => (
 		</div>
 	</Container>
 );
-
-export default HomePageNavigation;

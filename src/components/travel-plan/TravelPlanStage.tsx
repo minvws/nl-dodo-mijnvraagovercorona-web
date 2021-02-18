@@ -11,7 +11,7 @@ type TravelPlanStageProps = {
 	children?: React.ReactNode;
 };
 
-const TravelPlanStage = ({
+export const TravelPlanStage = ({
 	title,
 	subHeading,
 	date,
@@ -80,5 +80,3 @@ const TravelPlanStage = ({
 		</>
 	);
 };
-
-export default TravelPlanStage;

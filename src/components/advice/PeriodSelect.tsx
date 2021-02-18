@@ -2,13 +2,16 @@
 import React, { useState } from 'react';
 import { jsx, Link, Image, Container, Box } from 'theme-ui';
 import DayPicker, { DateUtils, NavbarElementProps } from 'react-day-picker';
-import { useDesktopQuery } from 'hooks/useDesktopQuery';
+
 import { formatShortDate } from 'utilities/dateUtils';
-import BodyContainer from 'components/structure/BodyContainer';
+
+import { BodyContainer } from 'components/structure';
+import { ScreenReaderOnly } from 'components/screen-reader-only';
+import { Chevron } from 'components/icons';
+
+import { useDesktopQuery } from 'hooks/useDesktopQuery';
 
 import 'react-day-picker/lib/style.css';
-import { ScreenreaderOnly } from 'components/ScreenreaderOnly';
-import { Chevron } from 'components/icons/Chevron';
 
 type Range = {
 	from: Date;
@@ -62,13 +65,13 @@ const Navbar = ({
 				<span aria-hidden>
 					<Chevron />
 				</span>
-				<ScreenreaderOnly>{prev}</ScreenreaderOnly>
+				<ScreenReaderOnly>{prev}</ScreenReaderOnly>
 			</button>
 			<button
 				sx={{ paddingRight: 10, paddingLeft: 0 }}
 				onClick={() => onNextClick()}
 			>
-				<ScreenreaderOnly>{next}</ScreenreaderOnly>
+				<ScreenReaderOnly>{next}</ScreenReaderOnly>
 				<span aria-hidden>
 					<Chevron />
 				</span>
@@ -84,7 +87,7 @@ const generateMessage = ({ from, to }: Range) =>
 		? `${formatShortDate(from)} tot ...`
 		: `${formatShortDate(from)} tot ${formatShortDate(to)}`;
 
-const PeriodSelect = ({ country, updatePage }: PeriodSelectProps) => {
+export const PeriodSelect = ({ country, updatePage }: PeriodSelectProps) => {
 	const isDesktop = useDesktopQuery();
 	const [range, setRange] = useState<Range | undefined>();
 	const [message, setMessage] = useState<string>('');
@@ -262,5 +265,3 @@ const PeriodSelect = ({ country, updatePage }: PeriodSelectProps) => {
 		</>
 	);
 };
-
-export default PeriodSelect;

@@ -2,14 +2,17 @@
 import { jsx, Container, ThemeUICSSObject } from 'theme-ui';
 import { Link } from 'components/link';
 
-import BodyContainer from 'components/structure/BodyContainer';
+import { BodyContainer } from 'components/structure/BodyContainer';
 
 type FooterProps = {
 	onlyDesktop?: boolean;
 	pushToBottom?: boolean;
 };
 
-const Footer = ({ onlyDesktop = false, pushToBottom = false }: FooterProps) => {
+export const Footer = ({
+	onlyDesktop = false,
+	pushToBottom = false,
+}: FooterProps) => {
 	const mobileDisplay = onlyDesktop ? 'none' : 'inherit';
 	const absolutePositioning: ThemeUICSSObject = pushToBottom
 		? {
@@ -109,5 +112,3 @@ const Footer = ({ onlyDesktop = false, pushToBottom = false }: FooterProps) => {
 		</footer>
 	);
 };
-
-export default Footer;

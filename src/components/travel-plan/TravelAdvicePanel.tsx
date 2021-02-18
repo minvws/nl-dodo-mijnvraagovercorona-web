@@ -8,7 +8,7 @@ type TravelAdvicePanelProps = {
 	children: React.ReactNode;
 };
 
-const TravelAdvicePanel = ({
+export const TravelAdvicePanel = ({
 	title,
 	subHeading,
 	children,
@@ -86,5 +86,3 @@ const TravelAdvicePanel = ({
 		</div>
 	</Container>
 );
-
-export default TravelAdvicePanel;

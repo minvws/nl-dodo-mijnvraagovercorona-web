@@ -1,10 +1,12 @@
+import Fuse from 'fuse.js';
+
 import { countries, Country } from 'config/countries';
 import { Languages } from 'config/languages';
+
 import {
 	countriesNl as countriesNlTranslations,
 	countriesEn as countriesEnTranslations,
 } from 'content/countries';
-import Fuse from 'fuse.js';
 
 const MAX_SEARCH_RESULTS = 6;
 
@@ -21,14 +23,14 @@ const fuseSearchInstanceNl = new Fuse(countries, {
 	...fuseSettings,
 	getFn: (country, path) => {
 		if (path[0] === 'slug') return countriesNlTranslations[country.slug];
-		return country.synonyms;
+		return country.synonyms ?? [];
 	},
 });
 const fuseSearchInstanceEn = new Fuse(countries, {
 	...fuseSettings,
 	getFn: (country, path) => {
 		if (path[0] === 'slug') return countriesEnTranslations[country.slug];
-		return country.synonyms;
+		return country.synonyms ?? [];
 	},
 });
 

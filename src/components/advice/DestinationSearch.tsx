@@ -9,18 +9,22 @@ import {
 	ComboboxOption,
 } from '@reach/combobox';
 
-import { CountryMatches, searchCities } from 'services/CountryService';
-import '@reach/combobox/styles.css';
-import { ButtonStyledAsSubmit } from 'components/button/ButtonStyled';
 import { Languages } from 'config/languages';
+
+import { CountryMatches, searchCities } from 'services/CountryService';
+
+import { ButtonStyledAsSubmit } from 'components/button';
+
 import { useTranslation } from 'hooks/translation';
+
+import '@reach/combobox/styles.css';
 
 interface DestinationSearchProps {
 	onDestinationChosen: (destination: string) => void;
 	locale: Languages;
 }
 
-const DestinationSearch = ({
+export const DestinationSearch = ({
 	onDestinationChosen,
 	locale,
 }: DestinationSearchProps) => {
@@ -184,5 +188,3 @@ const DestinationSearch = ({
 		</Container>
 	);
 };
-
-export default DestinationSearch;

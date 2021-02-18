@@ -2,10 +2,12 @@
 import { jsx } from 'theme-ui';
 import sanity, { getPageQuery, getLocaleProperty } from 'utilities/sanity';
 
-import CopySection from 'components/home/CopySection';
-import HomePageNavigation from 'components/home/HomePageNavigation';
-import StartCheckButton from 'components/home/StartCheckButton';
-import MetaTags from 'components/meta/MetaTags';
+import {
+	CopySection,
+	HomePageNavigation,
+	StartCheckButton,
+} from 'components/home';
+import { MetaTags } from 'components/meta';
 import { Content, Hero, Page } from 'components/structure/Page';
 import { useSanityPageContent } from 'hooks/translation';
 
@@ -35,6 +37,7 @@ interface PageContent {
 
 const Landing = () => {
 	const page = useSanityPageContent<PageContent>();
+
 	return (
 		<>
 			<MetaTags

@@ -4,7 +4,7 @@ import { Box, jsx, Styled } from 'theme-ui';
 
 import { ButtonPrimary } from 'components/button';
 
-const Feedback = () => (
+export const Feedback = () => (
 	<Box sx={{ paddingY: ['36px', '44px'] }}>
 		<h2
 			sx={{
@@ -23,5 +23,3 @@ const Feedback = () => (
 		</ButtonPrimary>
 	</Box>
 );
-
-export default Feedback;

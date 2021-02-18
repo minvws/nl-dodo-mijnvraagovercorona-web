@@ -21,7 +21,7 @@ export const alignLogoRightOnMobileStyles: ThemeUICSSObject = {
 	},
 };
 
-const RoHeaderLogo = (props: RoHeaderLogoProps) => {
+export const RoHeaderLogo = (props: RoHeaderLogoProps) => {
 	return (
 		<Container className="logo" sx={{ textAlign: 'center' }}>
 			<Link href="/" passHref>
@@ -36,5 +36,3 @@ const RoHeaderLogo = (props: RoHeaderLogoProps) => {
 		</Container>
 	);
 };
-
-export default RoHeaderLogo;

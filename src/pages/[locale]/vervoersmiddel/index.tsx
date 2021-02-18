@@ -2,22 +2,24 @@
 import React, { useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Flex, jsx } from 'theme-ui';
+
 import sanity, { getPageQuery, getLocaleProperty } from 'utilities/sanity';
+import { isBrowser } from 'utilities/is-browser';
 
 import AdviceContext, {
 	MeansOfTransport,
 } from 'components/advice/AdviceContext';
-import ProgressMarker from 'components/advice/ProgressMarker';
+import { ProgressMarker } from 'components/advice/ProgressMarker';
 import { getAdvicePath } from 'components/advice/utils';
 import { ButtonStyledAsSubmit } from 'components/button/ButtonStyled';
 import { Dialog } from 'components/dialog';
-import { InternalLink } from 'components/Links';
-import MetaTags from 'components/meta/MetaTags';
+import { InternalLink } from 'components/links/Links';
+import { MetaTags } from 'components/meta';
 import { RadioButton } from 'components/radio-button';
-import BodyContainer from 'components/structure/BodyContainer';
+import { BodyContainer } from 'components/structure/BodyContainer';
 import { Hero, Page } from 'components/structure/Page';
 import { alignLogoRightOnMobileStyles } from 'components/structure/RoHeaderLogo';
-import { isBrowser } from 'utilities/is-browser';
+
 import { useCurrentLanguage, useSanityPageContent } from 'hooks/translation';
 
 interface PageContent {

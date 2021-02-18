@@ -1,12 +1,16 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
+
 import sanity, { getPageQuery, getLocaleProperty } from 'utilities/sanity';
 
-import Feedback from 'components/feedback/Feedback';
-import MetaTags from 'components/meta/MetaTags';
-import PreparationPanel from 'components/preparations/PreparationPanel';
-import PreparationPanelListItem from 'components/preparations/PreparationPanelListItem';
-import { Content, Page } from 'components/structure/Page';
+import { Feedback } from 'components/feedback';
+import { MetaTags } from 'components/meta';
+import {
+	PreparationPanel,
+	PreparationPanelListItem,
+} from 'components/preparations';
+import { Content, Page } from 'components/structure';
+
 import { useSanityPageContent } from 'hooks/translation';
 
 interface PageContent {

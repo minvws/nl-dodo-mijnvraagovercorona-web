@@ -7,8 +7,8 @@ import '@reach/menu-button/styles.css';
 import { endOfDay, format } from 'date-fns';
 import { formatLongDate } from 'utilities/dateUtils';
 import { Dialog } from 'components/dialog';
-import { CallToAction } from 'components/call-to-action/call-to-action';
-import { AppointmentIcon } from 'components/icons/Appointment';
+import { CallToAction } from 'components/call-to-action/CallToAction';
+import { Appointment } from 'components/icons';
 import { useTranslation } from 'hooks/translation';
 
 interface ReminderCalendarInviteProps {
@@ -74,7 +74,9 @@ const CalenderInviteMenuItem: React.FC<CalenderInviteMenuItemProps> = ({
 	</MenuItem>
 );
 
-const ReminderCalendarInvite = (props: SingleDayProps | MultiDayProps) => {
+export const ReminderCalendarInvite = (
+	props: SingleDayProps | MultiDayProps,
+) => {
 	const [showDialog, setShowDialog] = useState(false);
 	const { t } = useTranslation();
 	const dateText =
@@ -115,7 +117,7 @@ const ReminderCalendarInvite = (props: SingleDayProps | MultiDayProps) => {
 						width: '100%',
 					}}
 				>
-					<CallToAction icon={AppointmentIcon}>
+					<CallToAction icon={Appointment}>
 						<p>{props.title}</p>
 						<span sx={{ display: 'block' }}>{dateText}</span>
 					</CallToAction>
@@ -183,5 +185,3 @@ const ReminderCalendarInvite = (props: SingleDayProps | MultiDayProps) => {
 		</Container>
 	);
 };
-
-export default ReminderCalendarInvite;

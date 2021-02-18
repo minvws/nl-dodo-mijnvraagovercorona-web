@@ -2,7 +2,7 @@
 import React, { useRef } from 'react';
 import { jsx, Box } from 'theme-ui';
 
-import { InternalLink, ExternalLink } from 'components/Links';
+import { InternalLink, ExternalLink } from 'components/links';
 import { useTranslation } from 'hooks/translation';
 
 interface CardProps {

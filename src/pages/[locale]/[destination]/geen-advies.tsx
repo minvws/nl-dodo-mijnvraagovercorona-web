@@ -1,19 +1,23 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
 
-import { cartesianProduct } from 'utilities/pathUtils';
-import { countries } from 'config/countries';
-import { useDestination } from 'hooks/use-destination';
-import MetaTags from 'components/meta/MetaTags';
-import { CallGGD, MakeOnlineAppointment } from 'components/results/TestBooking';
-import Feedback from 'components/feedback/Feedback';
-import { Content, Hero, Page } from 'components/structure/Page';
-import { getTravelSchemeContentBlocks } from 'utilities/travel-advice';
-import { getAdvicePath } from 'components/advice/utils';
-import { contentEn, contentNl } from 'content/travel-scheme';
-import { Languages } from 'config/languages';
 import { getSiteSettingsQuery } from 'utilities/sanity';
+import { cartesianProduct } from 'utilities/pathUtils';
+import { getTravelSchemeContentBlocks } from 'utilities/travel-advice';
+
+import { countries } from 'config/countries';
+import { Languages } from 'config/languages';
+
+import { MetaTags } from 'components/meta';
+import { CallGGD, MakeOnlineAppointment } from 'components/test-booking';
+import { Feedback } from 'components/feedback';
+import { Content, Hero, Page } from 'components/structure';
+import { getAdvicePath } from 'components/advice/utils';
+
+import { contentEn, contentNl } from 'content/travel-scheme';
+
 import { useTranslation } from 'hooks/translation';
+import { useDestination } from 'hooks/use-destination';
 
 interface NoAdviceProps {
 	destination: string;

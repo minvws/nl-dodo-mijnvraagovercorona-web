@@ -1,8 +1,8 @@
 import { ContentPageProps } from 'utilities/sanity';
 
-import MetaTags from 'components/meta/MetaTags';
-import { Content, Page } from 'components/structure/Page';
-import { ContentBlock } from 'components/content-block/ContentBlock';
+import { MetaTags } from 'components/meta';
+import { Content, Page } from 'components/structure';
+import { ContentBlock } from 'components/content-block';
 
 export const ContentPage = ({ page }: ContentPageProps) => (
 	<>

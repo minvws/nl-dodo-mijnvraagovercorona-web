@@ -1,12 +1,14 @@
 /** @jsx jsx */
-import { jsx, Container } from 'theme-ui';
+import { jsx } from 'theme-ui';
 
 type PreparationPanelListItemProps = {
 	text: string;
 	subtext?: string;
 };
 
-const PreparationPanelListItem = (props: PreparationPanelListItemProps) => {
+export const PreparationPanelListItem = (
+	props: PreparationPanelListItemProps,
+) => {
 	return (
 		<li
 			sx={{
@@ -40,5 +42,3 @@ const PreparationPanelListItem = (props: PreparationPanelListItemProps) => {
 		</li>
 	);
 };
-
-export default PreparationPanelListItem;

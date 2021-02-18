@@ -8,7 +8,7 @@ type BodyContainerProps = {
 	className?: string;
 };
 
-const BodyContainer: React.FC<BodyContainerProps> = (props) => {
+export const BodyContainer: React.FC<BodyContainerProps> = (props) => {
 	return (
 		<Container
 			sx={{
@@ -23,5 +23,3 @@ const BodyContainer: React.FC<BodyContainerProps> = (props) => {
 		</Container>
 	);
 };
-
-export default BodyContainer;

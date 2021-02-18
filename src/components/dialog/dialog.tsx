@@ -1,8 +1,8 @@
 /** @jsx jsx */
+import React from 'react';
 import { jsx } from 'theme-ui';
 import { DialogOverlay, DialogContent } from '@reach/dialog';
 import VisuallyHidden from '@reach/visually-hidden';
-import React from 'react';
 
 import '@reach/dialog/styles.css';
 

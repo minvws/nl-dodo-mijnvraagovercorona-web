@@ -1,0 +1,1 @@
+export { DataProtectionPanel } from './DataProtectionPanel';

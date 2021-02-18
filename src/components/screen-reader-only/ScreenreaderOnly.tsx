@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
 
-export const ScreenreaderOnly: React.FC = ({ children }) => {
+export const ScreenReaderOnly: React.FC = ({ children }) => {
 	return (
 		<span
 			sx={{

@@ -3,10 +3,10 @@ import React, { useMemo, useContext } from 'react';
 import AdviceContext from 'components/advice/AdviceContext';
 import { getAdvicePath } from 'components/advice/utils';
 import { NavLink } from 'components/nav-link';
-import RoHeaderLogo from 'components/structure/RoHeaderLogo';
+import { RoHeaderLogo } from 'components/structure/RoHeaderLogo';
 import { useRouter } from 'next/router';
 import { jsx, Styled } from 'theme-ui';
-import BodyContainer from './BodyContainer';
+import { BodyContainer } from './BodyContainer';
 import { useCurrentLanguage } from 'hooks/translation';
 
 type HeaderProps = {
@@ -16,7 +16,7 @@ type HeaderProps = {
 	showBackLink?: 'result' | 'previous' | 'retry';
 };
 
-const Header = ({
+export const Header = ({
 	message,
 	headerPrefix,
 	backgroundImage,
@@ -108,5 +108,3 @@ const Header = ({
 		</header>
 	);
 };
-
-export default Header;
