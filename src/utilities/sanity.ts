@@ -80,22 +80,8 @@ export const getContentPageQuery = async ({
 	);
 };
 
-/**
- * This will create a Sanity GROQ Query for a specific page type
- */
-export const getPageQuery = ({
-	type,
-	pageProjection,
-	documentsQuery,
-	locale,
-}: {
-	type: string;
-	pageProjection: string;
-	documentsQuery?: string;
-	locale: 'nl' | 'en';
-}): string => `{
-	"page": *[_type == "${type}"][0]${pageProjection},
-	"siteSettings": *[_type == "site-settings-document"][0]{
+const siteSettingsQuery = ({ locale }: { locale: 'nl' | 'en' }): string => `
+	*[_type == "site-settings-document"][0]{
 		${getLocaleProperty({ name: 'pageTitleSuffix', locale })},
 		"privacy": {
 			${getLocaleProperty({ name: 'title', path: 'privacy.title', locale })},
@@ -146,7 +132,30 @@ export const getPageQuery = ({
 			${getLocaleProperty({ name: 'title', path: 'feedback.title', locale })},
 			${getLocaleProperty({ name: 'url', path: 'feedback.url', locale })},
 		},
-	},
+	}`;
+
+export const getSiteSettingsQuery = async ({
+	locale,
+}: {
+	locale: 'nl' | 'en';
+}) => await client.fetch(siteSettingsQuery({ locale }));
+
+/**
+ * This will create a Sanity GROQ Query for a specific page type
+ */
+export const getPageQuery = ({
+	type,
+	pageProjection,
+	documentsQuery,
+	locale,
+}: {
+	type: string;
+	pageProjection: string;
+	documentsQuery?: string;
+	locale: 'nl' | 'en';
+}): string => `{
+	"page": *[_type == "${type}"][0]${pageProjection},
+	"siteSettings": ${siteSettingsQuery({ locale })},
 	${documentsQuery && `"documents": ${documentsQuery}`}
 }`;
 

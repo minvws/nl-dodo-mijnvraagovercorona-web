@@ -38,7 +38,11 @@ const MetaTags = ({
 			<meta property="og:type" content="website" />
 			<meta property="og:locale" content={language.locale} />
 			{language.alternateLocales.map((alternateLocale) => (
-				<meta property="og:locale:alternate" content={alternateLocale} />
+				<meta
+					property="og:locale:alternate"
+					content={alternateLocale}
+					key={alternateLocale}
+				/>
 			))}
 
 			<meta property="og:url" content={completeURl} />

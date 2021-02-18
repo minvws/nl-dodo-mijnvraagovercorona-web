@@ -3,6 +3,7 @@ import { SiteSettings } from 'content/siteSettings';
 import { createContext } from 'react';
 
 export type Translations = { [key: string]: string };
+
 type SanityContent = unknown;
 
 export interface TranslationContextState {

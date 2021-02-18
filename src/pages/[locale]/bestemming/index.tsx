@@ -36,7 +36,11 @@ interface PageContent {
 	url: string;
 }
 
-const Bestemming = () => {
+interface BestemmingProps {
+	locale: 'nl' | 'en';
+}
+
+const Bestemming = ({ locale }: BestemmingProps) => {
 	const page = useSanityPageContent<PageContent>();
 	const [showDialog, setShowDialog] = useState(false);
 	const { setDestination } = React.useContext(AdviceContext);

@@ -37,7 +37,11 @@ interface PageContent {
 	url: string;
 }
 
-const VervoersmiddelPage = () => {
+interface VervoersmiddelProps {
+	locale: 'nl' | 'en';
+}
+
+const VervoersmiddelPage = ({ locale }: VervoersmiddelProps) => {
 	const page = useSanityPageContent<PageContent>();
 	const formRef = useRef<HTMLFormElement>(null);
 	const {

@@ -9,6 +9,7 @@ import MetaTags from 'components/meta/MetaTags';
 import { FaqListComplete } from 'components/faq/FaqList';
 import Feedback from 'components/feedback/Feedback';
 import { Content, Page } from 'components/structure/Page';
+import { getSiteSettingsQuery } from 'utilities/sanity';
 
 interface FAQProps {
 	destination: string;
@@ -47,11 +48,16 @@ export interface FAQStaticProps {
 	};
 }
 
-export const getStaticProps = async ({ params }: FAQStaticProps) => {
+export const getStaticProps = async ({
+	params: { destination, locale },
+}: FAQStaticProps) => {
+	const siteSettings = await getSiteSettingsQuery({ locale });
+
 	return {
 		props: {
-			destination: params.destination,
-			locale: params.locale,
+			destination,
+			locale,
+			siteSettings,
 		},
 	};
 };

@@ -12,12 +12,14 @@ import { getTravelSchemeContentBlocks } from 'utilities/travel-advice';
 import { getAdvicePath } from 'components/advice/utils';
 import { contentEn, contentNl } from 'content/travel-scheme';
 import { Languages } from 'config/languages';
+import { getSiteSettingsQuery } from 'utilities/sanity';
 
 interface NoAdviceProps {
 	destination: string;
+	locale: 'nl' | 'en';
 }
 
-const NoAdvice = ({ destination }: NoAdviceProps) => {
+const NoAdvice = ({ destination, locale }: NoAdviceProps) => {
 	const country = useDestination(destination as string);
 	const c = getTravelSchemeContentBlocks({
 		currentCategory: country?.riskLevel,
@@ -97,12 +99,17 @@ export interface NoAdviceStaticProps {
 	};
 }
 
-export const getStaticProps = async ({ params }: NoAdviceStaticProps) => {
-	const content = params.locale === 'en' ? contentEn : contentNl;
+export const getStaticProps = async ({
+	params: { destination, locale },
+}: NoAdviceStaticProps) => {
+	const content = locale === 'en' ? contentEn : contentNl;
+	const siteSettings = await getSiteSettingsQuery({ locale });
 
 	return {
 		props: {
-			destination: params.destination,
+			destination,
+			locale,
+			siteSettings,
 			localPageTranslations: content,
 		},
 	};

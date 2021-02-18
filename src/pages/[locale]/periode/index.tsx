@@ -65,7 +65,11 @@ interface PageContent {
 	button: string;
 }
 
-const Periode = () => {
+interface PeriodeProps {
+	locale: 'nl' | 'en';
+}
+
+const Periode = ({ locale }: PeriodeProps) => {
 	const page = useSanityPageContent<PageContent>();
 	const { destination, setFrom, setTo, setStage } = React.useContext(
 		AdviceContext,

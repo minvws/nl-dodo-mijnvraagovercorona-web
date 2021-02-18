@@ -25,7 +25,7 @@ const Header = ({
 	const { from, to, stage, destination, meansOfTransport } = useContext(
 		AdviceContext,
 	);
-	const locale = useCurrentLanguage();
+	const language = useCurrentLanguage();
 	const router = useRouter();
 	const resultLink = useMemo(() => {
 		if (
@@ -42,7 +42,7 @@ const Header = ({
 				stage,
 				destination,
 				meansOfTransport,
-				locale,
+				locale: language.id,
 			});
 		}
 

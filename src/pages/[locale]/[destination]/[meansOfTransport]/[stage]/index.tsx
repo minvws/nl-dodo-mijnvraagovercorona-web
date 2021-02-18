@@ -5,6 +5,7 @@ import { endOfDay, startOfDay } from 'date-fns';
 
 import { jsx, Container, Box } from 'theme-ui';
 
+import { getSiteSettingsQuery } from 'utilities/sanity';
 import MetaTags from 'components/meta/MetaTags';
 import TestBooking from 'components/results/TestBooking';
 import ReminderCalendarInvite from 'components/TravelPlan/ReminderCalendarInvite';
@@ -519,16 +520,19 @@ export interface AdviceDestinationStageStaticProps {
 }
 
 export const getStaticProps = async ({
-	params,
+	params: { locale, destination, stage, meansOfTransport },
 }: AdviceDestinationStageStaticProps) => {
-	const content = params.locale === 'en' ? contentEn : contentNl;
+	const content = locale === 'en' ? contentEn : contentNl;
+	const siteSettings = await getSiteSettingsQuery({ locale });
 
 	return {
 		props: {
-			destination: params.destination,
-			stage: params.stage,
-			meansOfTransport: params.meansOfTransport,
+			destination,
+			stage,
+			meansOfTransport,
+			siteSettings,
 			localPageTranslations: content,
+			locale,
 		},
 	};
 };
