@@ -1,4 +1,4 @@
-export const NewTabIcon = (props: React.SVGAttributes<SVGElement>) => (
+export const NewTab = (props: React.SVGAttributes<SVGElement>) => (
 	<svg
 		width="14"
 		height="15"

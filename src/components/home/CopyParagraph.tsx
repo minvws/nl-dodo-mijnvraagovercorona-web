@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Image, Container, jsx } from 'theme-ui';
 import { useDesktopQuery } from 'hooks/useDesktopQuery';
 
@@ -11,7 +11,7 @@ type CopyParagraphProps = {
 	id?: string;
 };
 
-const CopyParagraph = (props: CopyParagraphProps) => {
+export const CopyParagraph = (props: CopyParagraphProps) => {
 	const isDesktop = useDesktopQuery();
 
 	const imageOrder = () => {
@@ -90,5 +90,3 @@ const CopyParagraph = (props: CopyParagraphProps) => {
 		</Container>
 	);
 };
-
-export default CopyParagraph;

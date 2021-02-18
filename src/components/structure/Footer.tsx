@@ -1,15 +1,27 @@
 /** @jsx jsx */
 import { jsx, Container, ThemeUICSSObject } from 'theme-ui';
-import Link from 'next/link';
+import { Link } from 'components/link';
 
-import BodyContainer from 'components/structure/BodyContainer';
+import { BodyContainer } from 'components/structure/BodyContainer';
+import { useSanitySiteSettings } from 'hooks/translation';
 
 type FooterProps = {
 	onlyDesktop?: boolean;
 	pushToBottom?: boolean;
 };
 
-const Footer = ({ onlyDesktop = false, pushToBottom = false }: FooterProps) => {
+export const Footer = ({
+	onlyDesktop = false,
+	pushToBottom = false,
+}: FooterProps) => {
+	const siteSettings = useSanitySiteSettings();
+	const footerLinks = [
+		'/privacy',
+		'/cookies',
+		'/copyright',
+		'/toegankelijkheid',
+		'/kwetsbaarheid-melden',
+	];
 	const mobileDisplay = onlyDesktop ? 'none' : 'inherit';
 	const absolutePositioning: ThemeUICSSObject = pushToBottom
 		? {
@@ -19,6 +31,7 @@ const Footer = ({ onlyDesktop = false, pushToBottom = false }: FooterProps) => {
 				bottom: 0,
 		  }
 		: {};
+
 	return (
 		<footer
 			sx={{
@@ -66,23 +79,13 @@ const Footer = ({ onlyDesktop = false, pushToBottom = false }: FooterProps) => {
 					}}
 				>
 					<div>
-						<h3>Over deze check</h3>
+						<h3>{siteSettings.footer.title}</h3>
 						<ul>
-							<li>
-								<Link href="/privacy">Privacy</Link>
-							</li>
-							<li>
-								<Link href="/cookies">Cookies</Link>
-							</li>
-							<li>
-								<Link href="/copyright">Copyright</Link>
-							</li>
-							<li>
-								<Link href="/toegankelijkheid">Toegankelijkheid</Link>
-							</li>
-							<li>
-								<Link href="/kwetsbaarheid-melden">Kwetsbaarheid melden</Link>
-							</li>
+							{siteSettings.footer.items.map((item, index) => (
+								<li key={item}>
+									<Link href={footerLinks[index]}>{item}</Link>
+								</li>
+							))}
 						</ul>
 					</div>
 
@@ -91,15 +94,15 @@ const Footer = ({ onlyDesktop = false, pushToBottom = false }: FooterProps) => {
 							marginTop: ['41px', 0],
 						}}
 					>
-						<h3>Meer informatie?</h3>
+						<h3>{siteSettings.footer.meerInformatieTitle}</h3>
 						<ul>
 							<li>
 								<a
-									href="https://www.rijksoverheid.nl"
+									href={siteSettings.footer.rijksoverheidUrl}
 									target="_blank"
 									rel="noopener noreferrer"
 								>
-									Kijk op rijksoverheid.nl
+									{siteSettings.footer.rijksoverheidText}
 								</a>
 							</li>
 						</ul>
@@ -109,5 +112,3 @@ const Footer = ({ onlyDesktop = false, pushToBottom = false }: FooterProps) => {
 		</footer>
 	);
 };
-
-export default Footer;

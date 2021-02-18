@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import React from 'react';
 import { Button as ThemeUiButton, jsx } from 'theme-ui';
-import styled from '@emotion/styled';
 
 interface ButtonStyledProps {
 	children: React.ReactNode;

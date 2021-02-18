@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import React from 'react';
-import Link from 'next/link';
 import { jsx } from 'theme-ui';
 
+import { Link } from 'components/link';
 import { ButtonStyled } from './ButtonStyled';
 
 interface ButtonPrimaryProps {
@@ -15,15 +15,19 @@ export const ButtonPrimary: React.FC<ButtonPrimaryProps> = ({
 	href,
 	external,
 	children,
-}) =>
-	external && typeof href === 'string' ? (
-		<a href={href} target="_blank" rel="noopener noreferrer">
-			<ButtonStyled>{children}</ButtonStyled>
-		</a>
-	) : (
+}) => {
+	if (external && typeof href === 'string')
+		return (
+			<a href={href} target="_blank" rel="noopener noreferrer">
+				<ButtonStyled>{children}</ButtonStyled>
+			</a>
+		);
+
+	return (
 		<Link href={href} passHref>
 			<a>
 				<ButtonStyled>{children}</ButtonStyled>
 			</a>
 		</Link>
 	);
+};

@@ -4,24 +4,25 @@ import { Box, jsx, Styled } from 'theme-ui';
 
 import { ButtonPrimary } from 'components/button';
 
-const Feedback = () => (
-	<Box sx={{ paddingY: ['36px', '44px'] }}>
-		<h2
-			sx={{
-				color: 'header',
-				fontSize: ['h2Mobile', 'h2'],
-			}}
-		>
-			Waar zou je nog meer mee geholpen zijn?
-		</h2>
-		<Styled.p>
-			Help deze website beter te maken. Deel je mening anoniem in een paar
-			vragen.
-		</Styled.p>
-		<ButtonPrimary href="https://valsplat.typeform.com/to/hlgYe4qs" external>
-			Deel je mening
-		</ButtonPrimary>
-	</Box>
-);
+import { useSanitySiteSettings } from 'hooks/translation';
 
-export default Feedback;
+export const Feedback = () => {
+	const siteSettings = useSanitySiteSettings();
+
+	return (
+		<Box sx={{ paddingY: ['36px', '44px'] }}>
+			<h2
+				sx={{
+					color: 'header',
+					fontSize: ['h2Mobile', 'h2'],
+				}}
+			>
+				{siteSettings.feedback.title}
+			</h2>
+			<Styled.p>{siteSettings.feedback.content}</Styled.p>
+			<ButtonPrimary href={siteSettings.feedback.url} external>
+				{siteSettings.feedback.button}
+			</ButtonPrimary>
+		</Box>
+	);
+};

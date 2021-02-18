@@ -1,10 +1,11 @@
 /** @jsx jsx */
-import DataProtectionPanel from 'components/DataProtectionPanel';
+import { DataProtectionPanel } from 'components/data-protection-panel';
 import { ImageAlleenSamen } from 'components/image-alleen-samen';
 import { Box, Flex, jsx } from 'theme-ui';
-import BodyContainer from './BodyContainer';
-import Header from './Header';
-import Footer from './Footer';
+import { BodyContainer } from './BodyContainer';
+import { Header } from './Header';
+import { Footer } from './Footer';
+import { LanguageSelector } from 'components/language-selector';
 
 interface PageProps {
 	title: string;
@@ -26,45 +27,51 @@ export const Page: React.FC<PageProps> = ({
 	className,
 	illustrationUrl = '/images/Koffer_DesktopRetina.svg',
 	illustrationMobileUrl = '/images/Koffer_MobielRetina.svg',
-}) => {
-	return (
-		<>
-			<Flex
-				className={className}
+}) => (
+	<>
+		<Flex
+			className={className}
+			sx={{
+				minHeight: '100vh',
+				flexDirection: ['column', 'row'],
+			}}
+		>
+			<Box
 				sx={{
-					minHeight: '100vh',
-					flexDirection: ['column', 'row'],
+					width: '100%',
+					display: 'flex',
+					flexDirection: 'column',
+					position: 'relative',
 				}}
 			>
-				<Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
-					<Header
-						message={title}
-						headerPrefix={headerPrefix}
-						showBackLink={showBackLink}
-						backgroundImage={illustrationMobileUrl}
-					/>
-					<main>{children}</main>
-					<div
-						sx={{
-							display: cleanPageOnMobile ? ['none', 'block'] : undefined,
-							marginTop: 'auto',
-						}}
-					>
-						<BodyContainer>
-							<DataProtectionPanel sx={{ display: ['block', 'none'] }} />
-							<ImageAlleenSamen />
-						</BodyContainer>
-						<Footer />
-					</div>
-				</Box>
-				<DataProtectionPanel
-					sx={{ display: ['none', 'block'] }}
-					illustrationUrl={illustrationUrl}
+				<LanguageSelector />
+				<Header
+					message={title}
+					headerPrefix={headerPrefix}
+					showBackLink={showBackLink}
+					backgroundImage={illustrationMobileUrl}
 				/>
-			</Flex>
-		</>
-	);
-};
+				<main>{children}</main>
+				<div
+					sx={{
+						display: cleanPageOnMobile ? ['none', 'block'] : undefined,
+						marginTop: 'auto',
+					}}
+				>
+					<BodyContainer>
+						<DataProtectionPanel sx={{ display: ['block', 'none'] }} />
+						<ImageAlleenSamen />
+					</BodyContainer>
+					<Footer />
+				</div>
+			</Box>
+			<DataProtectionPanel
+				sx={{ display: ['none', 'block'] }}
+				illustrationUrl={illustrationUrl}
+			/>
+		</Flex>
+	</>
+);
 
 export const Hero: React.FC = ({ children }) => (
 	<div

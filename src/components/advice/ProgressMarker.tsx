@@ -1,16 +1,17 @@
 /** @jsx jsx */
-import { InternalLink } from 'components/Links';
-import Link from 'next/link';
 import React from 'react';
 import { jsx } from 'theme-ui';
+
+import { Link } from 'components/link';
 
 type ProgressMarkerProps = {
 	stage: number;
 	totalStages: number;
 };
 
-const ProgressMarker = (props: ProgressMarkerProps) => {
+export const ProgressMarker = (props: ProgressMarkerProps) => {
 	const rangeArr = [...Array(props.totalStages).keys()];
+
 	return (
 		<ul
 			sx={{
@@ -82,5 +83,3 @@ const ProgressMarker = (props: ProgressMarkerProps) => {
 		</ul>
 	);
 };
-
-export default ProgressMarker;

@@ -219,7 +219,6 @@ export enum RiskLevel {
 export type TransportRestrictions = Array<'vliegtuig' | 'ferry'>;
 
 export interface Country {
-	fullName: string;
 	slug: CountrySlugs;
 	coronaMelderCountry: boolean;
 	euCountry: boolean;
@@ -231,7 +230,6 @@ export interface Country {
 
 export const countries: Country[] = [
 	{
-		fullName: 'Afghanistan',
 		slug: CountrySlugs.afghanistan,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -240,7 +238,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Albanië',
 		slug: CountrySlugs.albanie,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -249,7 +246,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Algerije',
 		slug: CountrySlugs.algerije,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -258,7 +254,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Andorra',
 		slug: CountrySlugs.andorra,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -267,7 +262,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Angola',
 		slug: CountrySlugs.angola,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -276,7 +270,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Antigua en Barbuda',
 		slug: CountrySlugs.antiguaBarbuda,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -285,7 +278,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Argentinië',
 		slug: CountrySlugs.argentinie,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -294,7 +286,6 @@ export const countries: Country[] = [
 		transportRestrictions: ['vliegtuig'],
 	},
 	{
-		fullName: 'Armenië',
 		slug: CountrySlugs.armenie,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -303,7 +294,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Australië',
 		slug: CountrySlugs.australie,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -312,7 +302,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Azerbeidzjan',
 		slug: CountrySlugs.azerbeidzjan,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -321,7 +310,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: "Bahama's",
 		slug: CountrySlugs.bahamas,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -330,7 +318,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Bahrein',
 		slug: CountrySlugs.bahrein,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -339,7 +326,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Bangladesh',
 		slug: CountrySlugs.bangladesh,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -348,7 +334,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Barbados',
 		slug: CountrySlugs.barbados,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -357,7 +342,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'België',
 		slug: CountrySlugs.belgie,
 		coronaMelderCountry: true,
 		euCountry: true,
@@ -366,7 +350,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Belize',
 		slug: CountrySlugs.belize,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -375,7 +358,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Benin',
 		slug: CountrySlugs.benin,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -384,7 +366,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Bhutan',
 		slug: CountrySlugs.bhutan,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -393,7 +374,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Bolivia',
 		slug: CountrySlugs.bolivia,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -402,7 +382,6 @@ export const countries: Country[] = [
 		transportRestrictions: ['vliegtuig'],
 	},
 	{
-		fullName: 'Bosnië - Herzegovina',
 		slug: CountrySlugs.bosnieHerzegovina,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -411,7 +390,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Botswana',
 		slug: CountrySlugs.botswana,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -420,7 +398,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Brazilië',
 		slug: CountrySlugs.brazilie,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -429,7 +406,6 @@ export const countries: Country[] = [
 		transportRestrictions: ['vliegtuig'],
 	},
 	{
-		fullName: 'Brunei',
 		slug: CountrySlugs.brunei,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -438,7 +414,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Bulgarije',
 		slug: CountrySlugs.bulgarije,
 		coronaMelderCountry: false,
 		euCountry: true,
@@ -447,7 +422,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Burkina Faso',
 		slug: CountrySlugs.burkinaFaso,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -456,7 +430,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Burundi',
 		slug: CountrySlugs.burundi,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -465,7 +438,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Cambodja',
 		slug: CountrySlugs.cambodja,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -474,7 +446,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Canada',
 		slug: CountrySlugs.canada,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -483,7 +454,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Centraal-Afrikaanse Republiek',
 		slug: CountrySlugs.centraalAfrikaanseRepubliek,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -492,7 +462,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Chili',
 		slug: CountrySlugs.chili,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -501,7 +470,6 @@ export const countries: Country[] = [
 		transportRestrictions: ['vliegtuig'],
 	},
 	{
-		fullName: 'China',
 		slug: CountrySlugs.china,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -510,7 +478,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Hongkong SAR',
 		slug: CountrySlugs.hongKong,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -519,7 +486,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Colombia',
 		slug: CountrySlugs.colombia,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -528,7 +494,6 @@ export const countries: Country[] = [
 		transportRestrictions: ['vliegtuig'],
 	},
 	{
-		fullName: 'Comoren',
 		slug: CountrySlugs.comoren,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -537,7 +502,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Congo-Brazzaville',
 		slug: CountrySlugs.congoBrazzaville,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -546,7 +510,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Congo (Democratische Republiek)',
 		slug: CountrySlugs.congoDemocratischeRepubliek,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -555,7 +518,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Costa Rica',
 		slug: CountrySlugs.costaRica,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -564,7 +526,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Cuba',
 		slug: CountrySlugs.cuba,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -573,7 +534,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Cyprus',
 		slug: CountrySlugs.cyprus,
 		coronaMelderCountry: false,
 		euCountry: true,
@@ -582,7 +542,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Denemarken',
 		slug: CountrySlugs.denemarken,
 		coronaMelderCountry: true,
 		euCountry: true,
@@ -591,7 +550,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Djibouti',
 		slug: CountrySlugs.djibouti,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -600,7 +558,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Dominica',
 		slug: CountrySlugs.dominica,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -609,7 +566,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Dominicaanse Republiek',
 		slug: CountrySlugs.dominicaanseRepubliek,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -618,7 +574,6 @@ export const countries: Country[] = [
 		transportRestrictions: ['vliegtuig'],
 	},
 	{
-		fullName: 'Duitsland',
 		slug: CountrySlugs.duitsland,
 		coronaMelderCountry: true,
 		euCountry: true,
@@ -627,7 +582,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Ecuador',
 		slug: CountrySlugs.ecuador,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -636,7 +590,6 @@ export const countries: Country[] = [
 		transportRestrictions: ['vliegtuig'],
 	},
 	{
-		fullName: 'Egypte',
 		slug: CountrySlugs.egypte,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -645,7 +598,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'El Salvador',
 		slug: CountrySlugs.elSalvador,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -654,7 +606,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Equatoriaal-Guinea',
 		slug: CountrySlugs.equatoriaalGuinea,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -663,7 +614,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Eritrea',
 		slug: CountrySlugs.eritrea,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -672,7 +622,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Estland',
 		slug: CountrySlugs.estland,
 		coronaMelderCountry: false,
 		euCountry: true,
@@ -681,7 +630,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Ethiopië',
 		slug: CountrySlugs.ethiopie,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -690,7 +638,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Fiji',
 		slug: CountrySlugs.fiji,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -699,7 +646,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Filipijnen',
 		slug: CountrySlugs.filipijnen,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -709,7 +655,6 @@ export const countries: Country[] = [
 	},
 	// @TODO: Finland heeft verschillen per regio.
 	{
-		fullName: 'Finland',
 		slug: CountrySlugs.finland,
 		coronaMelderCountry: true,
 		euCountry: true,
@@ -718,7 +663,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Frankrijk',
 		slug: CountrySlugs.frankrijk,
 		coronaMelderCountry: false,
 		euCountry: true,
@@ -727,7 +671,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Frans-Guyana',
 		slug: CountrySlugs.fransGuyana,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -736,7 +679,6 @@ export const countries: Country[] = [
 		transportRestrictions: ['vliegtuig'],
 	},
 	{
-		fullName: 'Gabon',
 		slug: CountrySlugs.gabon,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -745,7 +687,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Gambia',
 		slug: CountrySlugs.gambia,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -754,7 +695,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Georgië',
 		slug: CountrySlugs.georgie,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -763,7 +703,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Ghana',
 		slug: CountrySlugs.ghana,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -772,7 +711,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Grenada',
 		slug: CountrySlugs.grenada,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -781,7 +719,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Griekenland',
 		slug: CountrySlugs.griekenland,
 		coronaMelderCountry: false,
 		euCountry: true,
@@ -790,7 +727,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Guatemala',
 		slug: CountrySlugs.guatemala,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -799,7 +735,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Guinee',
 		slug: CountrySlugs.guinee,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -808,7 +743,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Guinee-Bissau',
 		slug: CountrySlugs.guineeBissau,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -817,7 +751,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Guyana',
 		slug: CountrySlugs.guyana,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -826,7 +759,6 @@ export const countries: Country[] = [
 		transportRestrictions: ['vliegtuig'],
 	},
 	{
-		fullName: 'Haïti',
 		slug: CountrySlugs.haiti,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -835,7 +767,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Honduras',
 		slug: CountrySlugs.honduras,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -844,7 +775,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Hongarije',
 		slug: CountrySlugs.hongarije,
 		coronaMelderCountry: false,
 		euCountry: true,
@@ -853,7 +783,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Ierland',
 		slug: CountrySlugs.ierland,
 		coronaMelderCountry: true,
 		euCountry: true,
@@ -862,7 +791,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'IJsland',
 		slug: CountrySlugs.ijsland,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -871,7 +799,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'India',
 		slug: CountrySlugs.india,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -880,7 +807,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Indonesië',
 		slug: CountrySlugs.indonesie,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -889,7 +815,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Irak',
 		slug: CountrySlugs.irak,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -898,7 +823,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Iran',
 		slug: CountrySlugs.iran,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -907,7 +831,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Israël',
 		slug: CountrySlugs.israel,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -916,7 +839,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Italië',
 		slug: CountrySlugs.italie,
 		coronaMelderCountry: true,
 		euCountry: true,
@@ -925,7 +847,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Ivoorkust',
 		slug: CountrySlugs.ivoorkust,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -934,7 +855,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Jamaica',
 		slug: CountrySlugs.jamaica,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -943,7 +863,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Japan',
 		slug: CountrySlugs.japan,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -952,7 +871,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Jemen',
 		slug: CountrySlugs.jemen,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -961,7 +879,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Jordanië',
 		slug: CountrySlugs.jordanie,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -970,7 +887,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Kaapverdië',
 		slug: CountrySlugs.kaapverdie,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -979,7 +895,6 @@ export const countries: Country[] = [
 		transportRestrictions: ['vliegtuig'],
 	},
 	{
-		fullName: 'Kameroen',
 		slug: CountrySlugs.kameroen,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -988,7 +903,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Kazachstan',
 		slug: CountrySlugs.kazachstan,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -997,7 +911,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Kenia',
 		slug: CountrySlugs.kenia,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1006,7 +919,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Kirgizië',
 		slug: CountrySlugs.kirgizie,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1015,7 +927,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Kiribati',
 		slug: CountrySlugs.kiribati,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1024,7 +935,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Koeweit',
 		slug: CountrySlugs.koeweit,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1033,7 +943,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Kosovo',
 		slug: CountrySlugs.kosovo,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1042,7 +951,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Kroatië',
 		slug: CountrySlugs.kroatie,
 		coronaMelderCountry: true,
 		euCountry: true,
@@ -1051,7 +959,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Laos',
 		slug: CountrySlugs.laos,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1060,7 +967,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Lesotho',
 		slug: CountrySlugs.lesotho,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1069,7 +975,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Letland',
 		slug: CountrySlugs.letland,
 		coronaMelderCountry: true,
 		euCountry: true,
@@ -1078,7 +983,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Libanon',
 		slug: CountrySlugs.libanon,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1087,7 +991,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Liberia',
 		slug: CountrySlugs.liberia,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1096,7 +999,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Libië',
 		slug: CountrySlugs.libie,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1105,7 +1007,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Liechtenstein',
 		slug: CountrySlugs.liechtenstein,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1114,7 +1015,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Litouwen',
 		slug: CountrySlugs.litouwen,
 		coronaMelderCountry: false,
 		euCountry: true,
@@ -1123,7 +1023,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Luxemburg',
 		slug: CountrySlugs.luxemburg,
 		coronaMelderCountry: false,
 		euCountry: true,
@@ -1132,7 +1031,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Madagaskar',
 		slug: CountrySlugs.madagaskar,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1141,7 +1039,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Malawi',
 		slug: CountrySlugs.malawi,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1150,7 +1047,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Maldiven',
 		slug: CountrySlugs.maldiven,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1159,7 +1055,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Maleisië',
 		slug: CountrySlugs.maleisie,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1168,7 +1063,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Mali',
 		slug: CountrySlugs.mali,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1177,7 +1071,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Malta',
 		slug: CountrySlugs.malta,
 		coronaMelderCountry: false,
 		euCountry: true,
@@ -1186,7 +1079,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Marokko',
 		slug: CountrySlugs.marokko,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1195,7 +1087,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Marshalleilanden',
 		slug: CountrySlugs.marshalleilanden,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1204,7 +1095,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Mauritanië',
 		slug: CountrySlugs.mauritanie,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1213,7 +1103,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Mauritius',
 		slug: CountrySlugs.mauritius,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1222,7 +1111,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Mexico',
 		slug: CountrySlugs.mexico,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1231,7 +1119,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Micronesia',
 		slug: CountrySlugs.micronesia,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1240,7 +1127,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Moldavië',
 		slug: CountrySlugs.moldavie,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1249,7 +1135,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Monaco',
 		slug: CountrySlugs.monaco,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1258,7 +1143,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Mongolië',
 		slug: CountrySlugs.mongolie,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1267,7 +1151,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Montenegro',
 		slug: CountrySlugs.montenegro,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1276,7 +1159,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Mozambique',
 		slug: CountrySlugs.mozambique,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1285,7 +1167,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Myanmar',
 		slug: CountrySlugs.myanmar,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1294,7 +1175,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Namibië',
 		slug: CountrySlugs.namibie,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1303,7 +1183,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Nauru',
 		slug: CountrySlugs.nauru,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1312,7 +1191,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Nepal',
 		slug: CountrySlugs.nepal,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1321,7 +1199,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Nicaragua',
 		slug: CountrySlugs.nicaragua,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1330,7 +1207,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Nieuw-Zeeland',
 		slug: CountrySlugs.nieuwZeeland,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1339,7 +1215,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Niger',
 		slug: CountrySlugs.niger,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1348,7 +1223,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Nigeria',
 		slug: CountrySlugs.nigeria,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1357,7 +1231,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Noord-Korea',
 		slug: CountrySlugs.noordKorea,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1366,7 +1239,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Noord-Macedonië',
 		slug: CountrySlugs.noordMacedonie,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1376,7 +1248,6 @@ export const countries: Country[] = [
 	},
 	// @TODO: Noorwegen heeft afwijkingen per stad
 	{
-		fullName: 'Noorwegen',
 		slug: CountrySlugs.noorwegen,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1385,7 +1256,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Oeganda',
 		slug: CountrySlugs.oeganda,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1394,7 +1264,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Oekraïne',
 		slug: CountrySlugs.oekraine,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1403,7 +1272,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Oezbekistan',
 		slug: CountrySlugs.oezbekistan,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1412,7 +1280,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Oman',
 		slug: CountrySlugs.oman,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1421,7 +1288,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Oostenrijk',
 		slug: CountrySlugs.oostenrijk,
 		coronaMelderCountry: false,
 		euCountry: true,
@@ -1430,7 +1296,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Oost-Timor',
 		slug: CountrySlugs.oostTimor,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1439,7 +1304,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Pakistan',
 		slug: CountrySlugs.pakistan,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1448,7 +1312,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Palau',
 		slug: CountrySlugs.palau,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1457,7 +1320,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Palestina',
 		slug: CountrySlugs.palestina,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1466,7 +1328,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Panama',
 		slug: CountrySlugs.panama,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1475,7 +1336,6 @@ export const countries: Country[] = [
 		transportRestrictions: ['vliegtuig'],
 	},
 	{
-		fullName: 'Papoea-Nieuw-Guinea',
 		slug: CountrySlugs.papoeaNieuwGuinea,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1484,7 +1344,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Paraguay',
 		slug: CountrySlugs.paraguay,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1493,7 +1352,6 @@ export const countries: Country[] = [
 		transportRestrictions: ['vliegtuig'],
 	},
 	{
-		fullName: 'Peru',
 		slug: CountrySlugs.peru,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1502,7 +1360,6 @@ export const countries: Country[] = [
 		transportRestrictions: ['vliegtuig'],
 	},
 	{
-		fullName: 'Polen',
 		slug: CountrySlugs.polen,
 		coronaMelderCountry: false,
 		euCountry: true,
@@ -1511,7 +1368,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Portugal',
 		slug: CountrySlugs.portugal,
 		coronaMelderCountry: false,
 		euCountry: true,
@@ -1520,7 +1376,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Qatar',
 		slug: CountrySlugs.qatar,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1529,7 +1384,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Roemenië',
 		slug: CountrySlugs.roemenie,
 		coronaMelderCountry: false,
 		euCountry: true,
@@ -1538,7 +1392,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Rusland',
 		slug: CountrySlugs.rusland,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1547,7 +1400,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Rwanda',
 		slug: CountrySlugs.rwanda,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1556,7 +1408,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Saint Kitts en Nevis',
 		slug: CountrySlugs.saintKittsNevis,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1565,7 +1416,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Saint Lucia',
 		slug: CountrySlugs.saintLucia,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1574,7 +1424,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Saint Vincent en de Grenadines',
 		slug: CountrySlugs.saintVincentGrenadines,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1583,7 +1432,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Salomonseilanden',
 		slug: CountrySlugs.salomonseilanden,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1592,7 +1440,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Samoa',
 		slug: CountrySlugs.samoa,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1601,7 +1448,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'San Marino',
 		slug: CountrySlugs.sanMarino,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1610,7 +1456,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Sao Tomé en Principe',
 		slug: CountrySlugs.saoTomePrincipe,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1619,7 +1464,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Saoedi-Arabië',
 		slug: CountrySlugs.saoediArabie,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1628,7 +1472,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Senegal',
 		slug: CountrySlugs.senegal,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1637,7 +1480,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Servië',
 		slug: CountrySlugs.servie,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1646,7 +1488,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Seychellen',
 		slug: CountrySlugs.seychellen,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1655,7 +1496,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Sierra Leone',
 		slug: CountrySlugs.sierraLeone,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1664,7 +1504,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Singapore',
 		slug: CountrySlugs.singapore,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1673,7 +1512,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Slovenië',
 		slug: CountrySlugs.slovenie,
 		coronaMelderCountry: false,
 		euCountry: true,
@@ -1682,7 +1520,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Slowakije',
 		slug: CountrySlugs.slowakije,
 		coronaMelderCountry: false,
 		euCountry: true,
@@ -1691,7 +1528,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Soedan',
 		slug: CountrySlugs.soedan,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1700,7 +1536,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Somalië',
 		slug: CountrySlugs.somalie,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1709,7 +1544,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Spanje',
 		slug: CountrySlugs.spanje,
 		coronaMelderCountry: true,
 		euCountry: true,
@@ -1727,7 +1561,6 @@ export const countries: Country[] = [
 		],
 	},
 	{
-		fullName: 'Sri Lanka',
 		slug: CountrySlugs.sriLanka,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1736,7 +1569,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Suriname',
 		slug: CountrySlugs.suriname,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1745,7 +1577,6 @@ export const countries: Country[] = [
 		transportRestrictions: ['vliegtuig'],
 	},
 	{
-		fullName: 'Swaziland',
 		slug: CountrySlugs.swaziland,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1754,7 +1585,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Syrië',
 		slug: CountrySlugs.syrie,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1763,7 +1593,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Tadzjikistan',
 		slug: CountrySlugs.tadzjikistan,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1772,7 +1601,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Taiwan',
 		slug: CountrySlugs.taiwan,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1781,7 +1609,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Tanzania',
 		slug: CountrySlugs.tanzania,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1790,7 +1617,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Thailand',
 		slug: CountrySlugs.thailand,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1799,7 +1625,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Togo',
 		slug: CountrySlugs.togo,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1808,7 +1633,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Tonga',
 		slug: CountrySlugs.tonga,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1817,7 +1641,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Trinidad en Tobago',
 		slug: CountrySlugs.trinidadTobago,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1826,7 +1649,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Tsjaad',
 		slug: CountrySlugs.tsjaad,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1835,7 +1657,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Tsjechië',
 		slug: CountrySlugs.tsjechie,
 		coronaMelderCountry: false,
 		euCountry: true,
@@ -1844,7 +1665,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Tunesië',
 		slug: CountrySlugs.tunesie,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1853,7 +1673,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Turkije',
 		slug: CountrySlugs.turkije,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1862,7 +1681,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Turkmenistan',
 		slug: CountrySlugs.turkmenistan,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1871,7 +1689,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Tuvalu',
 		slug: CountrySlugs.tuvalu,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1880,7 +1697,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Uruguay',
 		slug: CountrySlugs.uruguay,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1889,7 +1705,6 @@ export const countries: Country[] = [
 		transportRestrictions: ['vliegtuig'],
 	},
 	{
-		fullName: 'Vanuatu',
 		slug: CountrySlugs.vanuatu,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1898,7 +1713,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Vaticaanstad',
 		slug: CountrySlugs.vaticaanstad,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1907,7 +1721,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Venezuela',
 		slug: CountrySlugs.venezuela,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1916,7 +1729,6 @@ export const countries: Country[] = [
 		transportRestrictions: ['vliegtuig'],
 	},
 	{
-		fullName: 'Verenigd Koninkrijk',
 		slug: CountrySlugs.verenigdKoninkrijk,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1926,7 +1738,6 @@ export const countries: Country[] = [
 		synonyms: ['Engeland', 'Schotland', 'Wales', 'Noord-Ierland'],
 	},
 	{
-		fullName: 'Verenigde Arabische Emiraten',
 		slug: CountrySlugs.verenigdeArabischeEmiraten,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1945,7 +1756,6 @@ export const countries: Country[] = [
 		],
 	},
 	{
-		fullName: 'Verenigde Staten van Amerika',
 		slug: CountrySlugs.verenigdeStatenVanAmerika,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1955,7 +1765,6 @@ export const countries: Country[] = [
 		synonyms: ['Amerika'],
 	},
 	{
-		fullName: 'Vietnam',
 		slug: CountrySlugs.vietnam,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1964,7 +1773,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Westelijke Sahara',
 		slug: CountrySlugs.westelijkeSahara,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1973,7 +1781,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Wit-Rusland',
 		slug: CountrySlugs.witRusland,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1982,7 +1789,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Zambia',
 		slug: CountrySlugs.zambia,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -1991,7 +1797,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Zimbabwe',
 		slug: CountrySlugs.zimbabwe,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -2000,7 +1805,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Zuid-Afrika',
 		slug: CountrySlugs.zuidAfrika,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -2009,7 +1813,6 @@ export const countries: Country[] = [
 		transportRestrictions: ['vliegtuig'],
 	},
 	{
-		fullName: 'Zuid-Korea',
 		slug: CountrySlugs.zuidKorea,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -2018,7 +1821,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Zuid-Soedan',
 		slug: CountrySlugs.zuidSoedan,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -2027,7 +1829,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Zweden',
 		slug: CountrySlugs.zweden,
 		coronaMelderCountry: false,
 		euCountry: true,
@@ -2036,7 +1837,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Zwitserland',
 		slug: CountrySlugs.zwitserland,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -2047,7 +1847,6 @@ export const countries: Country[] = [
 
 	// antilles
 	{
-		fullName: 'Aruba',
 		slug: CountrySlugs.aruba,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -2056,7 +1855,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Bonaire',
 		slug: CountrySlugs.bonaire,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -2065,7 +1863,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Saba',
 		slug: CountrySlugs.saba,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -2074,7 +1871,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'St Eustacius',
 		slug: CountrySlugs.stEustacius,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -2083,7 +1879,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'St Maarten',
 		slug: CountrySlugs.StMaarten,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -2092,7 +1887,6 @@ export const countries: Country[] = [
 		transportRestrictions: [],
 	},
 	{
-		fullName: 'Curaçao',
 		slug: CountrySlugs.curacao,
 		coronaMelderCountry: false,
 		euCountry: false,
@@ -2105,4 +1899,3 @@ export const countries: Country[] = [
 export const countrySlugs: CountrySlugs[] = countries.map(
 	(country) => country.slug,
 );
-export const countryNames = countries.map((country) => country.fullName);

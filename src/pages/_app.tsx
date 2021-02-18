@@ -1,25 +1,39 @@
 /** @jsx jsx */
 import React, { useEffect } from 'react';
 import Head from 'next/head';
-import Router, { AppProps } from 'next/dist/next-server/lib/router/router';
+import type { AppProps } from 'next/app';
+import Router from 'next/router';
 
 import { jsx, Box, ThemeProvider } from 'theme-ui';
 
-import { AdviceProvider } from 'components/advice/AdviceContext';
 import { trackPageview } from 'utilities/piwik';
-
 import theme from 'utilities/styling/theme';
+
+import { AdviceProvider } from 'components/advice/AdviceContext';
+
+import { TranslationProvider } from 'hooks/translation';
+
+import { generalContentEn, generalContentNl } from 'content/_general-content';
+import { countriesEn, countriesNl } from 'content/countries';
+
 import 'styles/global.css';
 import 'styles/components/PeriodSelect.css';
-import { TranslationProvider } from 'hooks/use-translation';
 
-const TravelCheckApp = ({ Component, pageProps }: AppProps) => {
+const ReizenTijdensCoronaApp = ({ Component, pageProps }: AppProps) => {
 	useEffect(() => {
 		Router.events.on('routeChangeComplete', trackPageview);
 		return () => {
 			Router.events.off('routeChangeComplete', trackPageview);
 		};
 	}, []);
+	useEffect(() => {
+		document.documentElement.lang = pageProps.locale;
+	}, [pageProps.locale]);
+
+	const localGlobalTranslations =
+		pageProps.locale === 'en' ? generalContentEn : generalContentNl;
+	const localCountryTranslations =
+		pageProps.locale === 'en' ? countriesEn : countriesNl;
 
 	return (
 		<>
@@ -29,7 +43,16 @@ const TravelCheckApp = ({ Component, pageProps }: AppProps) => {
 					content="width=device-width, initial-scale=1.0, user-scalable=yes"
 				/>
 			</Head>
-			<TranslationProvider content={pageProps.content}>
+			<TranslationProvider
+				locale={pageProps.locale}
+				sanityPageContent={pageProps.page}
+				siteSettings={pageProps.siteSettings}
+				content={{
+					...pageProps.localPageTranslations,
+					...localGlobalTranslations,
+					...localCountryTranslations,
+				}}
+			>
 				<ThemeProvider theme={theme}>
 					<AdviceProvider>
 						<Box
@@ -48,4 +71,4 @@ const TravelCheckApp = ({ Component, pageProps }: AppProps) => {
 	);
 };
 
-export default TravelCheckApp;
+export default ReizenTijdensCoronaApp;
