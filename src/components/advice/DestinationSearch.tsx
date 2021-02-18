@@ -12,14 +12,21 @@ import {
 import { CountryMatches, searchCities } from 'services/CountryService';
 import '@reach/combobox/styles.css';
 import { ButtonStyledAsSubmit } from 'components/button/ButtonStyled';
+import { Languages } from 'config/languages';
+import { useTranslation } from 'hooks/translation';
 
 interface DestinationSearchProps {
 	onDestinationChosen: (destination: string) => void;
+	locale: Languages;
 }
 
-const DestinationSearch = ({ onDestinationChosen }: DestinationSearchProps) => {
+const DestinationSearch = ({
+	onDestinationChosen,
+	locale,
+}: DestinationSearchProps) => {
 	const [searchResults, setSearchResults] = useState<CountryMatches[]>([]);
 	const [userInput, setUserInput] = useState<string>('');
+	const { t_s } = useTranslation();
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const { value } = event.target;
@@ -28,11 +35,9 @@ const DestinationSearch = ({ onDestinationChosen }: DestinationSearchProps) => {
 		if (value === '') {
 			setSearchResults([]);
 		} else {
-			setSearchResults(searchCities(value));
+			setSearchResults(searchCities(value, locale));
 		}
 	};
-
-	const getDestinationName = (dest: CountryMatches) => dest.fullName;
 
 	const handleSelect = (destinationName: string) => {
 		onDestinationChosen(destinationName);
@@ -42,19 +47,19 @@ const DestinationSearch = ({ onDestinationChosen }: DestinationSearchProps) => {
 		event.preventDefault();
 
 		const match = searchResults.find(
-			(results) => results.fullName === userInput,
+			(results) => t_s(results.slug) === userInput,
 		);
 
 		// If there is a match on the full name, use this value.
 		if (match) {
-			handleSelect(getDestinationName(match));
+			handleSelect(match.slug);
 			return;
 		}
 
 		// If there is no full match but there are suggestions available,
 		// pick the first one.
 		if (searchResults.length > 0) {
-			handleSelect(getDestinationName(searchResults[0]));
+			handleSelect(searchResults[0].slug);
 		}
 	};
 
@@ -111,8 +116,8 @@ const DestinationSearch = ({ onDestinationChosen }: DestinationSearchProps) => {
 							{searchResults.length ? (
 								searchResults.map((country) => (
 									<ComboboxOption
-										key={country.fullName}
-										value={country.fullName}
+										key={country.slug}
+										value={t_s(country.slug)}
 										sx={{
 											padding: 0,
 
@@ -137,12 +142,12 @@ const DestinationSearch = ({ onDestinationChosen }: DestinationSearchProps) => {
 											}}
 											dangerouslySetInnerHTML={{
 												__html:
-													country.fullName.replace(
+													t_s(country.slug).replace(
 														new RegExp(userInput, 'gi'),
 														'<strong>$&</strong>',
 													) +
 													/* If country is matched on a synonym, show the matching synonym */
-													(country.matchedOn !== country.fullName
+													(country.matchedOn !== t_s(country.slug)
 														? ` <span>(${country.matchedOn})</span>`
 														: ''),
 											}}

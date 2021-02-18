@@ -10,6 +10,7 @@ import { FaqListComplete } from 'components/faq/FaqList';
 import Feedback from 'components/feedback/Feedback';
 import { Content, Page } from 'components/structure/Page';
 import { getSiteSettingsQuery } from 'utilities/sanity';
+import { useTranslation } from 'hooks/translation';
 
 interface FAQProps {
 	destination: string;
@@ -17,11 +18,12 @@ interface FAQProps {
 
 const FAQ = ({ destination }: FAQProps) => {
 	const country = useDestination(destination as string);
+	const { t_s } = useTranslation();
 
 	return (
 		<>
 			<MetaTags
-				title={`Veelgestelde vragen ${country?.fullName}`}
+				title={`Veelgestelde vragen ${t_s(country!.slug)}`}
 				description="Overzicht van veelgestelde vragen over quarantaine en reizen."
 				url={`/${country?.slug}/faq`}
 			/>

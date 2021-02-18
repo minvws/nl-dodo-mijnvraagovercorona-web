@@ -19,7 +19,11 @@ import ProgressMarker from 'components/advice/ProgressMarker';
 import { alignLogoRightOnMobileStyles } from 'components/structure/RoHeaderLogo';
 import BodyContainer from 'components/structure/BodyContainer';
 import { getAdvicePath } from 'components/advice/utils';
-import { useSanityPageContent } from 'hooks/translation';
+import {
+	useCurrentLanguage,
+	useSanityPageContent,
+	useTranslation,
+} from 'hooks/translation';
 
 const calculateStage = ({
 	fromDate,
@@ -71,6 +75,8 @@ interface PeriodeProps {
 
 const Periode = ({ locale }: PeriodeProps) => {
 	const page = useSanityPageContent<PageContent>();
+	const language = useCurrentLanguage();
+	const { t_s } = useTranslation();
 	const { destination, setFrom, setTo, setStage } = React.useContext(
 		AdviceContext,
 	);
@@ -100,9 +106,11 @@ const Periode = ({ locale }: PeriodeProps) => {
 
 		/* Check whether the quarantaine period has ended when more then 10 days have passed */
 		if (isAfterQuarantaine && destination) {
-			setResultLink(getAdvicePath.noResult({ destination, locale }));
+			setResultLink(
+				getAdvicePath.noResult({ destination, locale: language.id }),
+			);
 		} else {
-			setResultLink(getAdvicePath.meansOfTransport(locale));
+			setResultLink(getAdvicePath.meansOfTransport(language.id));
 		}
 
 		if (setFrom) setFrom(formatDate(fromDate));
@@ -132,7 +140,7 @@ const Periode = ({ locale }: PeriodeProps) => {
 	};
 
 	if (!country) {
-		if (isBrowser()) router.push(getAdvicePath.destination(locale));
+		if (isBrowser()) router.push(getAdvicePath.destination(language.id));
 		return null;
 	}
 
@@ -162,7 +170,7 @@ const Periode = ({ locale }: PeriodeProps) => {
 						<p>{page.header.modal.text}</p>
 					</Dialog>
 				</Hero>
-				<PeriodSelect country={country?.fullName} updatePage={updateDate} />
+				<PeriodSelect country={t_s(country!.slug)} updatePage={updateDate} />
 				<BodyContainer>
 					{fromDate && toDate && country && (
 						<div

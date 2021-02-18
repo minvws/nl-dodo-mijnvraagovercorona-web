@@ -12,10 +12,10 @@ import { Content, Hero, Page } from 'components/structure/Page';
 import ProgressMarker from 'components/advice/ProgressMarker';
 import { alignLogoRightOnMobileStyles } from 'components/structure/RoHeaderLogo';
 import AdviceContext from 'components/advice/AdviceContext';
-import { getCountrySlug } from 'utilities/pathUtils';
 import { useRouter } from 'next/router';
 import { getAdvicePath } from 'components/advice/utils';
 import { useSanityPageContent } from 'hooks/translation';
+import { Languages } from 'config/languages';
 
 interface PageContent {
 	metaData: {
@@ -37,7 +37,7 @@ interface PageContent {
 }
 
 interface BestemmingProps {
-	locale: 'nl' | 'en';
+	locale: Languages;
 }
 
 const Bestemming = ({ locale }: BestemmingProps) => {
@@ -50,14 +50,8 @@ const Bestemming = ({ locale }: BestemmingProps) => {
 		setShowDialog(true);
 	};
 
-	const handleDestinationChose = (destinationName: string) => {
-		const destination = getCountrySlug(destinationName);
-
-		// @TODO: Handle invalid destination names which return in null being returned
-		// from the slug.
-		if (!destination) return;
-
-		setDestination(destination);
+	const handleDestinationChose = (destinationSlug: string) => {
+		setDestination(destinationSlug);
 		router.push(getAdvicePath.period(locale));
 	};
 
@@ -87,7 +81,10 @@ const Bestemming = ({ locale }: BestemmingProps) => {
 					</Dialog>
 				</Hero>
 				<Content>
-					<DestinationSearch onDestinationChosen={handleDestinationChose} />
+					<DestinationSearch
+						locale={locale}
+						onDestinationChosen={handleDestinationChose}
+					/>
 				</Content>
 			</Page>
 		</>

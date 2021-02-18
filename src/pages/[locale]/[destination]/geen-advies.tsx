@@ -13,14 +13,16 @@ import { getAdvicePath } from 'components/advice/utils';
 import { contentEn, contentNl } from 'content/travel-scheme';
 import { Languages } from 'config/languages';
 import { getSiteSettingsQuery } from 'utilities/sanity';
+import { useTranslation } from 'hooks/translation';
 
 interface NoAdviceProps {
 	destination: string;
-	locale: 'nl' | 'en';
+	locale: Languages;
 }
 
 const NoAdvice = ({ destination, locale }: NoAdviceProps) => {
 	const country = useDestination(destination as string);
+	const { t_s } = useTranslation();
 	const c = getTravelSchemeContentBlocks({
 		currentCategory: country?.riskLevel,
 	});
@@ -28,8 +30,10 @@ const NoAdvice = ({ destination, locale }: NoAdviceProps) => {
 	return (
 		<>
 			<MetaTags
-				title={`Geen Advies ${country?.fullName}`}
-				description={`Er is geen advies mogelijk voor je reis naar ${country?.fullName} op basis van de door jou opgegeven data.`}
+				title={`Geen Advies ${t_s(country!.slug)}`}
+				description={`Er is geen advies mogelijk voor je reis naar ${t_s(
+					country!.slug,
+				)} op basis van de door jou opgegeven data.`}
 				url={getAdvicePath.noResult({ destination, locale })}
 				noIndex
 			/>

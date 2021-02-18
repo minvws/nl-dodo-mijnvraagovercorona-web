@@ -23,13 +23,6 @@ export function parsePeriod(periodStr: string): [Date, Date] {
 	return [dateStrToDate(fromDateStr), dateStrToDate(toDateStr)];
 }
 
-export function getCountrySlug(countryName: string) {
-	const matchedCountry = countries.find(
-		(country) => country.fullName === countryName,
-	);
-	return matchedCountry?.slug ?? null;
-}
-
 /**
  * A cartesian product is a final array that combines multiple arrays in ALL
  * variations possible. For example:
