@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { Box, jsx } from 'theme-ui';
 import { PrivacyList } from 'components/privacy-list';
+import { useSanitySiteSettings } from 'hooks/translation';
 
 type DataProtectionPanelProps = {
 	className?: string;
@@ -11,6 +12,8 @@ export const DataProtectionPanel = ({
 	className,
 	illustrationUrl,
 }: DataProtectionPanelProps) => {
+	const siteSettings = useSanitySiteSettings();
+
 	return (
 		<Box
 			as="aside"
@@ -50,15 +53,12 @@ export const DataProtectionPanel = ({
 						margin: 0,
 					}}
 				>
-					Zo gaan we om met jouw gegevens:
+					{siteSettings.privacy.title}
 				</h3>
 				<PrivacyList>
-					<li>Niemand weet wie je bent. Het invullen is volledig anoniem.</li>
-					<li>We slaan geen reisgegevens op.</li>
-					<li>
-						We houden alleen bij welke onderdelen bezocht worden, zodat we deze
-						website kunnen verbeteren.
-					</li>
+					{siteSettings.privacy.beloftes.map((belofte) => (
+						<li key={belofte}>{belofte}</li>
+					))}
 				</PrivacyList>
 			</Box>
 		</Box>

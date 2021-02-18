@@ -15,7 +15,7 @@ import { CountryMatches, searchCities } from 'services/CountryService';
 
 import { ButtonStyledAsSubmit } from 'components/button';
 
-import { useTranslation } from 'hooks/translation';
+import { useTranslation, useSanityPageContent } from 'hooks/translation';
 
 import '@reach/combobox/styles.css';
 
@@ -24,12 +24,19 @@ interface DestinationSearchProps {
 	locale: Languages;
 }
 
+interface BestemmingPage {
+	button: string;
+	placeholder: string;
+	nietGevonden: string;
+}
+
 export const DestinationSearch = ({
 	onDestinationChosen,
 	locale,
 }: DestinationSearchProps) => {
 	const [searchResults, setSearchResults] = useState<CountryMatches[]>([]);
 	const [userInput, setUserInput] = useState<string>('');
+	const page: BestemmingPage = useSanityPageContent();
 	const { t_s } = useTranslation();
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -102,7 +109,7 @@ export const DestinationSearch = ({
 						}}
 						onChange={handleChange}
 						selectOnClick={true}
-						placeholder='Bijvoorbeeld "Frankrijk"'
+						placeholder={page.placeholder}
 					/>
 					<ComboboxPopover
 						sx={{
@@ -165,8 +172,7 @@ export const DestinationSearch = ({
 										margin: '0',
 									}}
 								>
-									Er zijn geen landen gevonden die voldoen aan de zoekterm "
-									{userInput}".
+									{page.nietGevonden?.replace('$$userInput', userInput)}
 								</p>
 							)}
 						</ComboboxList>
@@ -180,7 +186,7 @@ export const DestinationSearch = ({
 								},
 							}}
 						>
-							<ButtonStyledAsSubmit>Naar vraag 2</ButtonStyledAsSubmit>
+							<ButtonStyledAsSubmit>{page.button}</ButtonStyledAsSubmit>
 						</Flex>
 					)}
 				</Combobox>

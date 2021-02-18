@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React, { useState } from 'react';
-import { jsx, Link, Image, Container, Box } from 'theme-ui';
+import { jsx, Link as ThemeLink, Image, Container, Box } from 'theme-ui';
 import DayPicker, { DateUtils, NavbarElementProps } from 'react-day-picker';
 
 import { formatShortDate } from 'utilities/dateUtils';
@@ -8,7 +8,9 @@ import { formatShortDate } from 'utilities/dateUtils';
 import { BodyContainer } from 'components/structure';
 import { ScreenReaderOnly } from 'components/screen-reader-only';
 import { Chevron } from 'components/icons';
+import { Link } from 'components/link';
 
+import { useSanityPageContent } from 'hooks/translation';
 import { useDesktopQuery } from 'hooks/useDesktopQuery';
 
 import 'react-day-picker/lib/style.css';
@@ -80,17 +82,32 @@ const Navbar = ({
 	);
 };
 
-const generateMessage = ({ from, to }: Range) =>
+interface PeriodePage {
+	button: string;
+	dagen: string[];
+	terugTekst: string;
+	datumKiesTekst: string;
+	datumTussenTekst: string;
+	maanden: string[];
+}
+
+const generateMessage = ({
+	from,
+	to,
+	datumKiesTekst,
+	datumTussenTekst,
+}: Range & { datumKiesTekst: string; datumTussenTekst: string }) =>
 	!from
-		? 'Kies een datum'
+		? datumKiesTekst
 		: !to
-		? `${formatShortDate(from)} tot ...`
-		: `${formatShortDate(from)} tot ${formatShortDate(to)}`;
+		? `${formatShortDate(from)} ${datumTussenTekst} ...`
+		: `${formatShortDate(from)} ${datumTussenTekst} ${formatShortDate(to)}`;
 
 export const PeriodSelect = ({ country, updatePage }: PeriodSelectProps) => {
 	const isDesktop = useDesktopQuery();
 	const [range, setRange] = useState<Range | undefined>();
 	const [message, setMessage] = useState<string>('');
+	const page: PeriodePage = useSanityPageContent();
 
 	const handleDayClick = (day: any) => {
 		// @ts-ignore An error where addDayToRange only excepts a completed range
@@ -101,7 +118,13 @@ export const PeriodSelect = ({ country, updatePage }: PeriodSelectProps) => {
 	React.useEffect(() => {
 		if (range) {
 			updatePage(range);
-			setMessage(generateMessage(range));
+			setMessage(
+				generateMessage({
+					...range,
+					datumKiesTekst: page.datumKiesTekst,
+					datumTussenTekst: page.datumTussenTekst,
+				}),
+			);
 		}
 	}, [range]);
 
@@ -134,20 +157,18 @@ export const PeriodSelect = ({ country, updatePage }: PeriodSelectProps) => {
 						flexDirection: 'column',
 					}}
 				>
-					<Link
-						href="/bestemming"
-						sx={{
-							position: 'absolute',
-							left: 0,
-							top: '50%',
-							transform: 'translateY(-50%)',
-							color: 'white',
-						}}
-					>
-						<Image
-							src="/icons/Back Arrow Big.svg"
-							alt="Terug naar invoer bestemming"
-						/>
+					<Link href="/bestemming">
+						<ThemeLink
+							sx={{
+								position: 'absolute',
+								left: 0,
+								top: '50%',
+								transform: 'translateY(-50%)',
+								color: 'white',
+							}}
+						>
+							<Image src="/icons/Back Arrow Big.svg" alt={page.terugTekst} />
+						</ThemeLink>
 					</Link>
 					<h3
 						sx={{
@@ -233,21 +254,8 @@ export const PeriodSelect = ({ country, updatePage }: PeriodSelectProps) => {
 							fontWeight: 'bold',
 						},
 					}}
-					months={[
-						'Januari',
-						'Februari',
-						'Maart',
-						'April',
-						'Mei',
-						'Juni',
-						'Juli',
-						'Augustus',
-						'September',
-						'Oktober',
-						'November',
-						'December',
-					]}
-					weekdaysShort={['Z', 'M', 'D', 'W', 'D', 'V', 'Z']}
+					months={page.maanden}
+					weekdaysShort={page.dagen}
 					firstDayOfWeek={1}
 					className="Selectable"
 					fixedWeeks={true}

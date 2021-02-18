@@ -3,6 +3,7 @@ import { jsx, Container, ThemeUICSSObject } from 'theme-ui';
 import { Link } from 'components/link';
 
 import { BodyContainer } from 'components/structure/BodyContainer';
+import { useSanitySiteSettings } from 'hooks/translation';
 
 type FooterProps = {
 	onlyDesktop?: boolean;
@@ -13,6 +14,14 @@ export const Footer = ({
 	onlyDesktop = false,
 	pushToBottom = false,
 }: FooterProps) => {
+	const siteSettings = useSanitySiteSettings();
+	const footerLinks = [
+		'/privacy',
+		'/cookies',
+		'/copyright',
+		'/toegankelijkheid',
+		'/kwetsbaarheid-melden',
+	];
 	const mobileDisplay = onlyDesktop ? 'none' : 'inherit';
 	const absolutePositioning: ThemeUICSSObject = pushToBottom
 		? {
@@ -22,6 +31,7 @@ export const Footer = ({
 				bottom: 0,
 		  }
 		: {};
+
 	return (
 		<footer
 			sx={{
@@ -69,23 +79,13 @@ export const Footer = ({
 					}}
 				>
 					<div>
-						<h3>Over deze check</h3>
+						<h3>{siteSettings.footer.title}</h3>
 						<ul>
-							<li>
-								<Link href="/privacy">Privacy</Link>
-							</li>
-							<li>
-								<Link href="/cookies">Cookies</Link>
-							</li>
-							<li>
-								<Link href="/copyright">Copyright</Link>
-							</li>
-							<li>
-								<Link href="/toegankelijkheid">Toegankelijkheid</Link>
-							</li>
-							<li>
-								<Link href="/kwetsbaarheid-melden">Kwetsbaarheid melden</Link>
-							</li>
+							{siteSettings.footer.items.map((item, index) => (
+								<li key={item}>
+									<Link href={footerLinks[index]}>{item}</Link>
+								</li>
+							))}
 						</ul>
 					</div>
 
@@ -94,15 +94,15 @@ export const Footer = ({
 							marginTop: ['41px', 0],
 						}}
 					>
-						<h3>Meer informatie?</h3>
+						<h3>{siteSettings.footer.meerInformatieTitle}</h3>
 						<ul>
 							<li>
 								<a
-									href="https://www.rijksoverheid.nl"
+									href={siteSettings.footer.rijksoverheidUrl}
 									target="_blank"
 									rel="noopener noreferrer"
 								>
-									Kijk op rijksoverheid.nl
+									{siteSettings.footer.rijksoverheidText}
 								</a>
 							</li>
 						</ul>

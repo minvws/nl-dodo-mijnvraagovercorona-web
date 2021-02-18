@@ -11,6 +11,7 @@ type ProgressMarkerProps = {
 
 export const ProgressMarker = (props: ProgressMarkerProps) => {
 	const rangeArr = [...Array(props.totalStages).keys()];
+
 	return (
 		<ul
 			sx={{

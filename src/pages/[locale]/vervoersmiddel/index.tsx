@@ -20,7 +20,7 @@ import { BodyContainer } from 'components/structure/BodyContainer';
 import { Hero, Page } from 'components/structure/Page';
 import { alignLogoRightOnMobileStyles } from 'components/structure/RoHeaderLogo';
 
-import { useCurrentLanguage, useSanityPageContent } from 'hooks/translation';
+import { useSanitySiteSettings } from 'hooks/translation';
 
 interface PageContent {
 	metaData: {
@@ -41,11 +41,11 @@ interface PageContent {
 
 interface VervoersmiddelProps {
 	locale: 'nl' | 'en';
+	page: PageContent;
 }
 
-const VervoersmiddelPage = ({ locale }: VervoersmiddelProps) => {
-	const page = useSanityPageContent<PageContent>();
-	const language = useCurrentLanguage();
+const VervoersmiddelPage = ({ locale, page }: VervoersmiddelProps) => {
+	const siteSettings = useSanitySiteSettings();
 	const formRef = useRef<HTMLFormElement>(null);
 	const {
 		setMeansOfTransport,
@@ -57,6 +57,8 @@ const VervoersmiddelPage = ({ locale }: VervoersmiddelProps) => {
 	} = React.useContext(AdviceContext);
 	const router = useRouter();
 	const [showDialog, setShowDialog] = useState(false);
+
+	console.log(page);
 
 	const openDialog = (event: any) => {
 		event.preventDefault();
@@ -79,7 +81,7 @@ const VervoersmiddelPage = ({ locale }: VervoersmiddelProps) => {
 				stage: stage as string,
 				fromDate: from as string,
 				toDate: to as string,
-				locale: language.id,
+				locale,
 			}),
 		);
 	};
@@ -97,7 +99,7 @@ const VervoersmiddelPage = ({ locale }: VervoersmiddelProps) => {
 	 * If the destination has not been selected
 	 */
 	if (!destination) {
-		if (isBrowser()) router.push(getAdvicePath.destination(language.id));
+		if (isBrowser()) router.push(getAdvicePath.destination(locale));
 		return null;
 	}
 
@@ -105,7 +107,7 @@ const VervoersmiddelPage = ({ locale }: VervoersmiddelProps) => {
 	 * If the destination has been set, but the period has not been selected yet
 	 */
 	if (destination && (!from || !to)) {
-		if (isBrowser()) router.push(getAdvicePath.period(language.id));
+		if (isBrowser()) router.push(getAdvicePath.period(locale));
 		return null;
 	}
 
@@ -138,36 +140,15 @@ const VervoersmiddelPage = ({ locale }: VervoersmiddelProps) => {
 
 				<BodyContainer>
 					<form method="POST" action="" onSubmit={handleSubmit} ref={formRef}>
-						<RadioButton<MeansOfTransport>
-							name="meansOfTransport"
-							label="Met het vliegtuig"
-							value="vliegtuig"
-							onChange={handleMeansOfTransportSelect}
-						/>
-						<RadioButton<MeansOfTransport>
-							name="meansOfTransport"
-							label="Met de auto"
-							value="auto"
-							onChange={handleMeansOfTransportSelect}
-						/>
-						<RadioButton<MeansOfTransport>
-							name="meansOfTransport"
-							label="Met de trein"
-							value="trein"
-							onChange={handleMeansOfTransportSelect}
-						/>
-						<RadioButton<MeansOfTransport>
-							name="meansOfTransport"
-							label="Met de bus"
-							value="bus"
-							onChange={handleMeansOfTransportSelect}
-						/>
-						<RadioButton<MeansOfTransport>
-							name="meansOfTransport"
-							label="Ik reis op een andere manier terug naar Nederland"
-							value="anders"
-							onChange={handleMeansOfTransportSelect}
-						/>
+						{siteSettings.vervoersmiddelen.map((item) => (
+							<RadioButton<MeansOfTransport>
+								name="meansOfTransport"
+								label={item.uitgebreid}
+								value={item.naam}
+								key={item.naam}
+								onChange={handleMeansOfTransportSelect}
+							/>
+						))}
 						{meansOfTransport && (
 							<Flex
 								sx={{
@@ -176,7 +157,7 @@ const VervoersmiddelPage = ({ locale }: VervoersmiddelProps) => {
 									paddingTop: 30,
 								}}
 							>
-								<ButtonStyledAsSubmit>Naar het resultaat</ButtonStyledAsSubmit>
+								<ButtonStyledAsSubmit>{page.button}</ButtonStyledAsSubmit>
 							</Flex>
 						)}
 					</form>

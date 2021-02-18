@@ -1,7 +1,10 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
 
+import { useSanitySiteSettings } from 'hooks/translation';
+
 export const ImageAlleenSamen = () => {
+	const siteSettings = useSanitySiteSettings();
 	return (
 		<a
 			href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/coronavirus-beeld-en-video/communicatiemiddelen-campagne"
@@ -16,7 +19,7 @@ export const ImageAlleenSamen = () => {
 		>
 			<img
 				src="/images/logo-alleen-samen.svg"
-				alt="Alleen samen krijgen we corona onder controle. Ga naar de campagnewebsite."
+				alt={siteSettings.footer.alleenSamenAlt}
 			/>
 		</a>
 	);

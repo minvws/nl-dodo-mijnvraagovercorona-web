@@ -168,7 +168,7 @@ export const ReminderCalendarInvite = (
 						onSelect={() => setShowDialog(true)}
 						icon="/icons/other-calendar.svg"
 					>
-						Een andere agenda
+						{t('general__andere_agenda')}
 					</CalenderInviteMenuItem>
 				</MenuList>
 			</Menu>

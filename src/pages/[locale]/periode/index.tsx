@@ -218,7 +218,9 @@ export const getStaticProps = async ({
 			}
 		},
 		${getLocaleProperty({ name: 'button', locale })},
-		${getLocaleProperty({ name: 'datumTussentekst', locale })},
+		${getLocaleProperty({ name: 'datumTussenTekst', locale })},
+		${getLocaleProperty({ name: 'datumKiesTekst', locale })},
+		${getLocaleProperty({ name: 'terugTekst', locale })},
 		${getLocaleProperty({ name: 'placeholder', locale })},
 		${getLocaleProperty({ name: 'maanden', locale, array: true })},
 		${getLocaleProperty({ name: 'dagen', locale, array: true })},

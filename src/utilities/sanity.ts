@@ -132,6 +132,10 @@ const siteSettingsQuery = ({ locale }: { locale: 'nl' | 'en' }): string => `
 			${getLocaleProperty({ name: 'title', path: 'feedback.title', locale })},
 			${getLocaleProperty({ name: 'url', path: 'feedback.url', locale })},
 		},
+		"vervoersmiddelen": vervoersmiddelen[]{
+			naam,
+			${getLocaleProperty({ name: 'uitgebreid', locale })},
+		}
 	}`;
 
 export const getSiteSettingsQuery = async ({

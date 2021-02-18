@@ -19,7 +19,6 @@ export const travelStage = [
 export type TravelStage = typeof travelStage[number];
 
 interface AdviesContextState {
-	// @TODO: Check waarom Bart alle set methods optional gemaakt heeft.
 	destination?: string;
 	setDestination: Function;
 	stage?: TravelStage;

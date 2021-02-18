@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'components/link';
 
 import { Image, Container, ThemeUICSSObject, jsx } from 'theme-ui';
+import { useSanitySiteSettings } from 'hooks/translation';
 
 type RoHeaderLogoProps = {
 	children?: React.ReactNode;
@@ -22,14 +23,13 @@ export const alignLogoRightOnMobileStyles: ThemeUICSSObject = {
 };
 
 export const RoHeaderLogo = (props: RoHeaderLogoProps) => {
+	const siteSettings = useSanitySiteSettings();
+
 	return (
 		<Container className="logo" sx={{ textAlign: 'center' }}>
 			<Link href="/" passHref>
 				<a sx={{ img: { width: ['54px', '68px'], height: 'auto' } }}>
-					<Image
-						src="/icons/RO logo.svg"
-						alt="Logo Rijksoverheid - Naar de homepage van Rieizentijdenscorona.nl"
-					/>
+					<Image src="/icons/RO logo.svg" alt={siteSettings.header.logoAlt} />
 					{props.children}
 				</a>
 			</Link>
