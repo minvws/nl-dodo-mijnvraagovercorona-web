@@ -9,7 +9,7 @@ import { formatLongDate } from 'utilities/dateUtils';
 import { Dialog } from 'components/dialog';
 import { CallToAction } from 'components/call-to-action/CallToAction';
 import { Appointment } from 'components/icons';
-import { useTranslation } from 'hooks/translation';
+import { useCurrentLanguage, useTranslation } from 'hooks/translation';
 
 interface ReminderCalendarInviteProps {
 	title: string;
@@ -79,13 +79,14 @@ export const ReminderCalendarInvite = (
 ) => {
 	const [showDialog, setShowDialog] = useState(false);
 	const { t } = useTranslation();
+	const { locale } = useCurrentLanguage();
 	const dateText =
 		'singleDay' in props ? (
-			<>{formatLongDate(props.singleDay)}</>
+			<>{formatLongDate(props.singleDay, locale)}</>
 		) : (
 			<>
-				{formatLongDate(props.fromDate)} {t('general__tot_en_met')}{' '}
-				{formatLongDate(props.toDate)}
+				{formatLongDate(props.fromDate, locale)} {t('general__tot_en_met')}{' '}
+				{formatLongDate(props.toDate, locale)}
 			</>
 		);
 

@@ -44,8 +44,8 @@ export const LanguageSelector = () => {
 			sx={{
 				position: 'absolute',
 				top: '2rem',
-				right: ['inherit', 'mobilePadding'],
-				left: ['mobilePadding', 'inherit'],
+				right: 'mobilePadding',
+				left: 'inherit',
 				a: {
 					margin: '0 8px',
 					fontWeight: 'normal',

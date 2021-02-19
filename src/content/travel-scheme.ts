@@ -22,7 +22,7 @@ export const contentNl = {
 	bullets__na_31maart_reizen_onzeker:
 		'Het is <strong>onzeker</strong> of reizen na 31 maart mogelijk is. Houd de berichtgeving van de overheid in de gaten.',
 	bullets__tm_31maart_niet_reizen:
-		'Tot en met 31 maart <strong>niet reizen</strong>. Reis alleen bij ernstige familieomstandigheden of voor werk dat echt niet uitgesteld kan worden en waarbij fysieke aanwezigheid absoluut nodig is.',
+		'Je mag tot en met 31 maart <strong>niet reizen</strong>. Reis alleen bij ernstige familieomstandigheden of voor je werk dat echt niet uitgesteld kan worden en waarbij fysieke aanwezigheid absoluut nodig is.',
 	bullets__verhoogd_risico:
 		'Er is een verhoogd risico dat je <strong>besmet</strong> bent geraakt.',
 	bullets__laag_risico:
@@ -183,7 +183,7 @@ export const contentEn = {
 	bullets__na_31maart_reizen_onzeker:
 		'It is <strong>uncertain</strong> whether travel is possible after March 31. Keep an eye on government reports.',
 	bullets__tm_31maart_niet_reizen:
-		'Do <strong>not travel abroad</strong> in the period up to and including 31 March 2021. Only travel if it is absolutely essential. Holiday travel is not essential.',
+		'You are <strong>not allowed to travel</strong> until March 31. Only travel in serious family circumstances or for work that really cannot be delayed and where physical presence is absolutely necessary.',
 	bullets__verhoogd_risico:
 		'There is an <strong>increased</strong> risk that you have been infected.',
 	bullets__laag_risico:

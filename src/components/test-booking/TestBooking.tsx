@@ -8,7 +8,7 @@ import { ReminderCalendarInvite } from 'components/travel-plan/ReminderCalendarI
 import { addDays, formatLongDate } from 'utilities/dateUtils';
 import { TravelSchemeContentBlocks } from 'utilities/travel-advice/travel-advice';
 
-import { useTranslation } from 'hooks/translation';
+import { useCurrentLanguage, useTranslation } from 'hooks/translation';
 
 export const CallGGD = ({
 	callingIsOnlyOption,
@@ -132,6 +132,7 @@ export const TestBooking = ({
 	contentBlocks,
 }: TestBookingProps) => {
 	const { t, t_s } = useTranslation();
+	const { locale } = useCurrentLanguage();
 
 	return (
 		<div
@@ -228,7 +229,7 @@ export const TestBooking = ({
 					modalBody={t_s('agenda__afspraak_coronatest_modal_body')}
 					inviteTitle={t_s('agenda__afspraak_coronatest_invite_title')}
 					inviteText={t_s('agenda__afspraak_coronatest_invite_text', {
-						appointmentDate: formatLongDate(addDays(toDate, 4)),
+						appointmentDate: formatLongDate(addDays(toDate, 4), locale),
 					})}
 					singleDay={toDate}
 				/>

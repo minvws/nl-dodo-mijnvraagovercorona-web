@@ -534,7 +534,7 @@ export const getStaticProps = async ({
 	const requiredFaqs = getRequiredFaqs({ stage, destination });
 	const { siteSettings, faqs } = await getFaqsQuery({
 		locale,
-		faqs: requiredFaqs,
+		include: requiredFaqs,
 	});
 
 	return {

@@ -6,15 +6,18 @@ export const addDays = (date: Date, days: number): Date =>
 export const isMoreThanWeekBeforeDeparture = (date?: Date): boolean =>
 	date !== undefined && isBefore(new Date(), addDaysDateFns(date, -7));
 
-export const formatShortDate = (date?: Date): string =>
+export const formatShortDate = (date: Date, locale: string): string =>
 	date
 		? date
-				.toLocaleDateString('nl-NL', { month: 'short', day: 'numeric' })
+				.toLocaleDateString(locale.replace('_', '-'), {
+					month: 'short',
+					day: 'numeric',
+				})
 				.replace('.', '')
 		: '';
 
-export const formatLongDate = (date: Date) =>
-	date.toLocaleDateString('nl-nL', {
+export const formatLongDate = (date: Date, locale: string) =>
+	date.toLocaleDateString(locale.replace('_', '-'), {
 		day: 'numeric',
 		month: 'long',
 		year: 'numeric',

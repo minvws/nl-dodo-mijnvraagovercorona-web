@@ -10,7 +10,7 @@ import { ScreenReaderOnly } from 'components/screen-reader-only';
 import { Chevron } from 'components/icons';
 import { Link } from 'components/link';
 
-import { useSanityPageContent } from 'hooks/translation';
+import { useCurrentLanguage, useSanityPageContent } from 'hooks/translation';
 import { useDesktopQuery } from 'hooks/useDesktopQuery';
 
 import 'react-day-picker/lib/style.css';
@@ -96,15 +96,24 @@ const generateMessage = ({
 	to,
 	datumKiesTekst,
 	datumTussenTekst,
-}: Range & { datumKiesTekst: string; datumTussenTekst: string }) =>
+	locale,
+}: Range & {
+	datumKiesTekst: string;
+	datumTussenTekst: string;
+	locale: string;
+}) =>
 	!from
 		? datumKiesTekst
 		: !to
-		? `${formatShortDate(from)} ${datumTussenTekst} ...`
-		: `${formatShortDate(from)} ${datumTussenTekst} ${formatShortDate(to)}`;
+		? `${formatShortDate(from, locale)} ${datumTussenTekst} ...`
+		: `${formatShortDate(from, locale)} ${datumTussenTekst} ${formatShortDate(
+				to,
+				locale,
+		  )}`;
 
 export const PeriodSelect = ({ country, updatePage }: PeriodSelectProps) => {
 	const isDesktop = useDesktopQuery();
+	const { locale } = useCurrentLanguage();
 	const [range, setRange] = useState<Range | undefined>();
 	const [message, setMessage] = useState<string>('');
 	const page: PeriodePage = useSanityPageContent();
@@ -121,6 +130,7 @@ export const PeriodSelect = ({ country, updatePage }: PeriodSelectProps) => {
 			setMessage(
 				generateMessage({
 					...range,
+					locale,
 					datumKiesTekst: page.datumKiesTekst,
 					datumTussenTekst: page.datumTussenTekst,
 				}),

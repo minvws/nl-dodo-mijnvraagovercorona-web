@@ -88,15 +88,15 @@ const toExcludeList = (array: Array<string>): string =>
 
 export const faqDocumentsQuery = ({
 	locale,
-	faqs,
+	include,
 	exclude,
 }: {
 	locale: 'nl' | 'en';
-	faqs?: string[];
+	include?: string[];
 	exclude?: string[];
 }) => `
 	*[_type == "faq-document"${
-		faqs ? ` && reference in ${toStringArray(faqs)}` : ''
+		include ? ` && reference in ${toStringArray(include)}` : ''
 	}${exclude ? toExcludeList(exclude) : ''}]{
 		reference,
 		reisfase,
@@ -108,6 +108,8 @@ const siteSettingsQuery = ({ locale }: { locale: 'nl' | 'en' }): string => `
 	*[_type == "site-settings-document"][0]{
 		${getLocaleProperty({ name: 'pageTitleSuffix', locale })},
 		"privacy": {
+			${getLocaleProperty({ name: 'id', path: 'privacy.id', locale })},
+			${getLocaleProperty({ name: 'usp', path: 'privacy.usp', locale })},
 			${getLocaleProperty({ name: 'title', path: 'privacy.title', locale })},
 			${getLocaleProperty({
 				name: 'beloftes',
@@ -177,16 +179,16 @@ export const getSiteSettingsQuery = async ({
  */
 export const getFaqsQuery = async ({
 	locale,
-	faqs,
+	include,
 	exclude,
 }: {
 	locale: 'nl' | 'en';
-	faqs?: string[];
+	include?: string[];
 	exclude?: string[];
 }) =>
 	await client.fetch(`{
 		"siteSettings": ${siteSettingsQuery({ locale })},
-		"faqs": ${faqDocumentsQuery({ locale, faqs, exclude })},
+		"faqs": ${faqDocumentsQuery({ locale, include, exclude })},
 	}`);
 
 /**
@@ -197,15 +199,29 @@ export const getPageQuery = ({
 	pageProjection,
 	documentsQuery,
 	locale,
+	faqs,
 }: {
 	type: string;
 	pageProjection: string;
 	documentsQuery?: string;
 	locale: 'nl' | 'en';
+	faqs?: {
+		include?: string[];
+		exclude?: string[];
+	};
 }): string => `{
 	"page": *[_type == "${type}"][0]${pageProjection},
 	"siteSettings": ${siteSettingsQuery({ locale })},
-	${documentsQuery && `"documents": ${documentsQuery}`}
+	${
+		faqs
+			? `"faqs": ${faqDocumentsQuery({
+					locale,
+					include: faqs?.include,
+					exclude: faqs?.exclude,
+			  })},`
+			: ''
+	}
+	${documentsQuery ? `"documents": ${documentsQuery}` : ''}
 }`;
 
 /**

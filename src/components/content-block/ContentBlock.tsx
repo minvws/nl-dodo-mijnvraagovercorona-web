@@ -2,6 +2,8 @@
 import React from 'react';
 import { jsx, Styled } from 'theme-ui';
 
+import { Link } from 'components/link';
+
 /** @ts-ignore Types would be nice */
 import SanityContentBlock from '@sanity/block-content-to-react';
 
@@ -16,7 +18,8 @@ interface MarkProps {
 		style: string;
 	};
 	mark?: {
-		href?: string;
+		href: string;
+		internal?: boolean;
 	};
 }
 
@@ -39,11 +42,16 @@ const serializers = {
 		em: ({ children }: MarkProps) => (
 			<em sx={{ fontStyle: 'italic' }}>{children}</em>
 		),
-		link: ({ children, mark }: MarkProps) => (
-			<a href={mark?.href} target="_blank" rel="noopener noreferrer">
-				{children}
-			</a>
-		),
+		link: ({ children, mark }: MarkProps) =>
+			mark?.internal ? (
+				<Link href={mark!.href}>
+					{Array.isArray(children) ? children[0] : children}
+				</Link>
+			) : (
+				<a href={mark!.href} target="_blank" rel="noopener noreferrer">
+					{children}
+				</a>
+			),
 	},
 };
 

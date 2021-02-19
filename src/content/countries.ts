@@ -1,4 +1,4 @@
-import { CountrySlugs } from 'config/countries';
+import { CountrySlugs, SynonymSlugs } from 'config/countries';
 
 export const countriesNl: { [key in CountrySlugs]: string } = {
 	[CountrySlugs.afghanistan]: 'Afghanistan',
@@ -208,6 +208,29 @@ export const countriesNl: { [key in CountrySlugs]: string } = {
 	[CountrySlugs.curacao]: 'Curaçao',
 };
 
+export const synonymsNL: { [key in SynonymSlugs]: string } = {
+	[SynonymSlugs.canarischeEilanden]: 'Canarische Eilanden',
+	[SynonymSlugs.laPalma]: 'La Palma',
+	[SynonymSlugs.tenerife]: 'Tenerife',
+	[SynonymSlugs.granCanaria]: 'Gran Canaria',
+	[SynonymSlugs.fuerteventura]: 'Fuerteventura',
+	[SynonymSlugs.lanzarote]: 'Lanzarote',
+	[SynonymSlugs.deBalearen]: 'de Balearen',
+	[SynonymSlugs.engeland]: 'Engeland',
+	[SynonymSlugs.schotland]: 'Schotland',
+	[SynonymSlugs.wales]: 'Wales',
+	[SynonymSlugs.noordIerland]: 'Noord-Ierland',
+	[SynonymSlugs.dubai]: 'Dubai',
+	[SynonymSlugs.abuDhabi]: 'Abu Dhabi',
+	[SynonymSlugs.ajman]: 'Ajman',
+	[SynonymSlugs.fujairah]: 'Fujairah',
+	[SynonymSlugs.sharjah]: 'Sharjah',
+	[SynonymSlugs.shariqah]: 'Shariqah',
+	[SynonymSlugs.rasAlKhaimah]: 'Ras al-Khaimah',
+	[SynonymSlugs.ummAlQaywayn]: 'Umm al-Qaywayn',
+	[SynonymSlugs.amerika]: 'Amerika',
+};
+
 export const countriesEn: { [key in CountrySlugs]: string } = {
 	[CountrySlugs.afghanistan]: 'Afghanistan',
 	[CountrySlugs.albanie]: 'Albania',
@@ -414,4 +437,27 @@ export const countriesEn: { [key in CountrySlugs]: string } = {
 	[CountrySlugs.stEustacius]: 'St Eustacius',
 	[CountrySlugs.StMaarten]: 'Saint Martin',
 	[CountrySlugs.curacao]: 'Curaçao',
+};
+
+export const synonymsEN: { [key in SynonymSlugs]: string } = {
+	[SynonymSlugs.canarischeEilanden]: 'Canary Islands',
+	[SynonymSlugs.laPalma]: 'La Palma',
+	[SynonymSlugs.tenerife]: 'Tenerife',
+	[SynonymSlugs.granCanaria]: 'Gran Canaria',
+	[SynonymSlugs.fuerteventura]: 'Fuerteventura',
+	[SynonymSlugs.lanzarote]: 'Lanzarote',
+	[SynonymSlugs.deBalearen]: 'the Balearic Islands',
+	[SynonymSlugs.engeland]: 'England',
+	[SynonymSlugs.schotland]: 'Scotland',
+	[SynonymSlugs.wales]: 'Wales',
+	[SynonymSlugs.noordIerland]: 'Northern Ireland',
+	[SynonymSlugs.dubai]: 'Dubai',
+	[SynonymSlugs.abuDhabi]: 'Abu Dhabi',
+	[SynonymSlugs.ajman]: 'Ajman',
+	[SynonymSlugs.fujairah]: 'Fujairah',
+	[SynonymSlugs.sharjah]: 'Sharjah',
+	[SynonymSlugs.shariqah]: 'Shariqah',
+	[SynonymSlugs.rasAlKhaimah]: 'Ras al-Khaimah',
+	[SynonymSlugs.ummAlQaywayn]: 'Umm al-Qaywayn',
+	[SynonymSlugs.amerika]: 'America',
 };
