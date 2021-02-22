@@ -1249,7 +1249,7 @@ export const countries: Country[] = [
 	// @TODO: Noorwegen heeft afwijkingen per stad
 	{
 		slug: CountrySlugs.noorwegen,
-		coronaMelderCountry: false,
+		coronaMelderCountry: true,
 		euCountry: false,
 		schengenCountry: true,
 		riskLevel: RiskLevel.A_RISICOVOL,
@@ -1513,7 +1513,7 @@ export const countries: Country[] = [
 	},
 	{
 		slug: CountrySlugs.slovenie,
-		coronaMelderCountry: false,
+		coronaMelderCountry: true,
 		euCountry: true,
 		schengenCountry: true,
 		riskLevel: RiskLevel.A_RISICOVOL,
