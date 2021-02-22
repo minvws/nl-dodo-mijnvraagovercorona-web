@@ -40,6 +40,7 @@ stages:
 # CI_* variables are defined in GitLab group settings, see build log for actual values
 before_script:
   - echo "Started by ${GITLAB_USER_LOGIN} at $(date +%Y-%m-%d'-'%H-%M-%S)"
+  - export CI_JOB_TIMESTAMP=$(date -u +%s)
   - unset ${HISTFILE} # Disable shell cache for security purposes
 
 after_script:
