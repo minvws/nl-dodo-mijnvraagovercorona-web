@@ -23,12 +23,12 @@ variables:
     - cat Dockerfile_derived
     - echo "CI_PROJECT_DIR ${CI_PROJECT_DIR}"
     - pwd
-    - 'echo ${CD_HARBOR_REGISTRY}/vws-reis/${CD_APP_NAME}:${CI_COMMIT_TAG_ID}'
+    - 'echo ${CD_HARBOR_REGISTRY}/vws-reis/${CD_APP_NAME}:${CD_COMMIT_TAG_ID}'
     # Build and push to Harbor
     - /kaniko/executor
       --context ${CI_PROJECT_DIR}
       --dockerfile ./Dockerfile_derived
-      --destination ${CD_HARBOR_REGISTRY}/vws-reis/${CD_APP_NAME}:${CI_COMMIT_TAG_ID}
+      --destination ${CD_HARBOR_REGISTRY}/vws-reis/${CD_APP_NAME}:${CD_COMMIT_TAG_ID}
       --destination ${CD_HARBOR_REGISTRY}/vws-reis/${CD_APP_NAME}:${CD_TAG}
       # --cache=true
 
@@ -40,7 +40,7 @@ stages:
 # CI_* variables are defined in GitLab group settings, see build log for actual values
 before_script:
   - echo "Started by ${GITLAB_USER_LOGIN} at $(date +%Y-%m-%d'-'%H-%M-%S)"
-  - export CI_COMMIT_TAG_ID=$(echo ${CI_COMMIT_TAG} | cut -d'-' -f 2)
+  - export CD_COMMIT_TAG_ID=$(echo ${CI_COMMIT_TAG} | cut -d'-' -f 2)
   - unset ${HISTFILE} # Disable shell cache for security purposes
 
 after_script:
@@ -83,7 +83,7 @@ build image production:
 
 deploy image latest:
   variables:
-    CD_APP_TAG: $CI_COMMIT_TAG_ID
+    CD_APP_TAG: $CD_COMMIT_TAG_ID
     CD_ENVIRONMENT: development
   stage: deploy
   trigger: vws/reis/nl-covid19-travel-during-corona-deploy
@@ -94,7 +94,7 @@ deploy image latest:
 
 deploy image staging:
   variables:
-    CD_APP_TAG: $CI_COMMIT_TAG_ID
+    CD_APP_TAG: $CD_COMMIT_TAG_ID
     CD_ENVIRONMENT: staging
   stage: deploy
   trigger: vws/reis/nl-covid19-travel-during-corona-deploy
@@ -105,7 +105,7 @@ deploy image staging:
 
 deploy image production:
   variables:
-    CD_APP_TAG: $CI_COMMIT_TAG_ID
+    CD_APP_TAG: $CD_COMMIT_TAG_ID
     CD_ENVIRONMENT: production
   stage: deploy
   trigger: vws/reis/nl-covid19-travel-during-corona-deploy
