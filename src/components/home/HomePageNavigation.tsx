@@ -14,9 +14,16 @@ interface HomePageNavigationProps {
 			usp?: string;
 		};
 	}[];
+	privacy: {
+		id: string;
+		usp: string;
+	};
 }
 
-export const HomePageNavigation = ({ uitleg }: HomePageNavigationProps) => (
+export const HomePageNavigation = ({
+	uitleg,
+	privacy,
+}: HomePageNavigationProps) => (
 	<Container as="nav">
 		<div
 			sx={{
@@ -41,7 +48,7 @@ export const HomePageNavigation = ({ uitleg }: HomePageNavigationProps) => (
 					),
 			)}
 			<span sx={{ display: ['block', 'none'] }}>
-				<AnchorLink href="#privacy">Je privacy is altijd beschermd</AnchorLink>
+				<AnchorLink href={`#${privacy.id}`}>{privacy.usp}</AnchorLink>
 			</span>
 		</div>
 	</Container>

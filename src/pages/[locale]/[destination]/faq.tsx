@@ -4,7 +4,7 @@ import { jsx } from 'theme-ui';
 
 import type { Faqs } from 'components/faq';
 
-import { getFaqsQuery } from 'utilities/sanity';
+import sanity, { getPageQuery, getLocaleProperty } from 'utilities/sanity';
 import { cartesianProduct } from 'utilities/pathUtils';
 import { getExcludedFaqs } from 'utilities/faqs';
 
@@ -21,28 +21,41 @@ import { useDestination } from 'hooks/use-destination';
 interface FAQProps {
 	destination: string;
 	faqs: Faqs;
+	page: {
+		metaData: {
+			title: string;
+			description: string;
+		};
+		title: string;
+		stages: {
+			thuiskomst: string;
+			tijdens: string;
+			voorbereiding: string;
+		};
+		url: string;
+	};
 }
 
-const FAQ = ({ destination, faqs }: FAQProps) => {
+const FAQ = ({ destination, faqs, page }: FAQProps) => {
 	const country = useDestination(destination as string);
 	const { t_s } = useTranslation();
 
 	return (
 		<>
 			<MetaTags
-				title={`Veelgestelde vragen ${t_s(country!.slug)}`}
-				description="Overzicht van veelgestelde vragen over quarantaine en reizen."
-				url={`/${country?.slug}/faq`}
+				title={page.metaData.title.replace('$$country', t_s(country!.slug))}
+				description={page.metaData.description}
+				url={page.url.replace('$$country', country!.slug)}
 			/>
 
 			<Page
-				title="Veelgestelde vragen"
+				title={page.title}
 				showBackLink="result"
 				illustrationUrl="/images/Illustratie_Mobiel_Veelgestelde_vragenRetina.svg"
 				illustrationMobileUrl="/images/Illustratie_Mobiel_Veelgestelde_vragenRetina.svg"
 			>
 				<Content>
-					<FaqListComplete faqs={faqs} />
+					<FaqListComplete faqs={faqs} stages={page.stages} />
 					<Feedback />
 				</Content>
 			</Page>
@@ -60,10 +73,37 @@ export interface FAQStaticProps {
 export const getStaticProps = async ({
 	params: { destination, locale },
 }: FAQStaticProps) => {
-	const { faqs, siteSettings } = await getFaqsQuery({
-		locale,
-		exclude: getExcludedFaqs({ destination }),
-	});
+	const pageProjection = `{
+		"metaData": {
+			${getLocaleProperty({ name: 'title', path: 'metaData.title', locale })},
+			${getLocaleProperty({
+				name: 'description',
+				path: 'metaData.description',
+				locale,
+			})},
+		},
+		${getLocaleProperty({ name: 'title', locale })},
+		"stages": {
+			${getLocaleProperty({ name: 'thuiskomst', path: 'stages.thuiskomst', locale })},
+			${getLocaleProperty({ name: 'tijdens', path: 'stages.tijdens', locale })},
+			${getLocaleProperty({
+				name: 'voorbereiding',
+				path: 'stages.voorbereiding',
+				locale,
+			})},
+		},
+		url
+	}`;
+	const { page, faqs, siteSettings } = await sanity.fetch(
+		getPageQuery({
+			type: 'faq-page',
+			pageProjection,
+			locale,
+			faqs: {
+				exclude: getExcludedFaqs({ destination }),
+			},
+		}),
+	);
 
 	return {
 		props: {
@@ -71,6 +111,7 @@ export const getStaticProps = async ({
 			locale,
 			siteSettings,
 			faqs,
+			page,
 		},
 	};
 };

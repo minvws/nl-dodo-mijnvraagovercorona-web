@@ -21,6 +21,8 @@ export interface SiteSettings {
 		resultaat: string;
 	};
 	privacy: {
+		id: string;
+		usp: string;
 		title: string;
 		beloftes: string[];
 	};

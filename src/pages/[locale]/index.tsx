@@ -9,7 +9,7 @@ import {
 } from 'components/home';
 import { MetaTags } from 'components/meta';
 import { Content, Hero, Page } from 'components/structure/Page';
-import { useSanityPageContent } from 'hooks/translation';
+import { useSanityPageContent, useSanitySiteSettings } from 'hooks/translation';
 
 interface PageContent {
 	metaData: {
@@ -37,6 +37,7 @@ interface PageContent {
 
 const Landing = () => {
 	const page = useSanityPageContent<PageContent>();
+	const siteSettings = useSanitySiteSettings();
 
 	return (
 		<>
@@ -65,7 +66,10 @@ const Landing = () => {
 					<StartCheckButton>{page.header.button}</StartCheckButton>
 				</Hero>
 				<Content>
-					<HomePageNavigation uitleg={page.uitleg} />
+					<HomePageNavigation
+						uitleg={page.uitleg}
+						privacy={siteSettings.privacy}
+					/>
 					<CopySection uitleg={page.uitleg} />
 				</Content>
 			</Page>

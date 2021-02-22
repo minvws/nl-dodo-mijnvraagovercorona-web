@@ -57,7 +57,8 @@ export const Header = ({
 		<header
 			sx={{
 				backgroundColor: 'headerBackground',
-				backgroundImage: [`url("${backgroundImage}")`, 'none'],
+				/** Temporarily remove the background image on mobile as well to make space for the language selector */
+				// backgroundImage: [`url("${backgroundImage}")`, 'none'],
 				color: 'header',
 				backgroundRepeat: 'no-repeat',
 				backgroundPosition: 'right top',

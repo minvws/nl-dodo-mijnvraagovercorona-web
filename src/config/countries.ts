@@ -209,6 +209,29 @@ export enum CountrySlugs {
 	curacao = 'curacao',
 }
 
+export enum SynonymSlugs {
+	canarischeEilanden = 'canarische-eilanden',
+	laPalma = 'la-palma',
+	tenerife = 'tenerife',
+	granCanaria = 'gran-canaria',
+	fuerteventura = 'fuerteventura',
+	lanzarote = 'lanzarote',
+	deBalearen = 'de-balearen',
+	engeland = 'engeland',
+	schotland = 'schotland',
+	wales = 'wales',
+	noordIerland = 'noord-ierland',
+	dubai = 'dubai',
+	abuDhabi = 'abu-dhabi',
+	ajman = 'ajman',
+	fujairah = 'fujairah',
+	sharjah = 'sharjah',
+	shariqah = 'shariqah',
+	rasAlKhaimah = 'ras-al-khaimah',
+	ummAlQaywayn = 'umm-al-qaywayn',
+	amerika = 'amerika',
+}
+
 export enum RiskLevel {
 	A_RISICOVOL,
 	B_RISICOVOL_INREISBEPERKINGEN,
@@ -225,7 +248,7 @@ export interface Country {
 	schengenCountry: boolean;
 	riskLevel: RiskLevel;
 	transportRestrictions: TransportRestrictions;
-	synonyms?: string[];
+	synonyms?: SynonymSlugs[];
 }
 
 export const countries: Country[] = [
@@ -1551,13 +1574,13 @@ export const countries: Country[] = [
 		riskLevel: RiskLevel.A_RISICOVOL,
 		transportRestrictions: [],
 		synonyms: [
-			'Canarische Eilanden',
-			'La Palma',
-			'Tenerife',
-			'Gran Canaria',
-			'Fuerteventura',
-			'Lanzarote',
-			'de Balearen',
+			SynonymSlugs.canarischeEilanden,
+			SynonymSlugs.laPalma,
+			SynonymSlugs.tenerife,
+			SynonymSlugs.granCanaria,
+			SynonymSlugs.fuerteventura,
+			SynonymSlugs.lanzarote,
+			SynonymSlugs.deBalearen,
 		],
 	},
 	{
@@ -1735,7 +1758,12 @@ export const countries: Country[] = [
 		schengenCountry: false,
 		riskLevel: RiskLevel.A_RISICOVOL,
 		transportRestrictions: ['vliegtuig', 'ferry'],
-		synonyms: ['Engeland', 'Schotland', 'Wales', 'Noord-Ierland'],
+		synonyms: [
+			SynonymSlugs.engeland,
+			SynonymSlugs.schotland,
+			SynonymSlugs.wales,
+			SynonymSlugs.noordIerland,
+		],
 	},
 	{
 		slug: CountrySlugs.verenigdeArabischeEmiraten,
@@ -1745,14 +1773,14 @@ export const countries: Country[] = [
 		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 		transportRestrictions: [],
 		synonyms: [
-			'Dubai',
-			'Abu Dhabi',
-			'Ajman',
-			'Fujairah',
-			'Sharjah',
-			'Shariqah',
-			'Ras al-Khaimah',
-			'Umm al-Qaywayn',
+			SynonymSlugs.dubai,
+			SynonymSlugs.abuDhabi,
+			SynonymSlugs.ajman,
+			SynonymSlugs.fujairah,
+			SynonymSlugs.sharjah,
+			SynonymSlugs.shariqah,
+			SynonymSlugs.rasAlKhaimah,
+			SynonymSlugs.ummAlQaywayn,
 		],
 	},
 	{
@@ -1762,7 +1790,7 @@ export const countries: Country[] = [
 		schengenCountry: false,
 		riskLevel: RiskLevel.D_EU_INREISVERBOD,
 		transportRestrictions: [],
-		synonyms: ['Amerika'],
+		synonyms: [SynonymSlugs.amerika],
 	},
 	{
 		slug: CountrySlugs.vietnam,

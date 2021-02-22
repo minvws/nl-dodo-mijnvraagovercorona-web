@@ -15,6 +15,11 @@ export type Faqs = {
 
 interface FaqListProps {
 	faqs: Faqs;
+	stages: {
+		thuiskomst: string;
+		tijdens: string;
+		voorbereiding: string;
+	};
 }
 
 const FaqList = ({ faqs }: { faqs: Faqs }) => (
@@ -48,18 +53,18 @@ export const FaqListShort = ({ faqs }: { faqs: Faqs }) => (
 	</FaqListContainer>
 );
 
-export const FaqListComplete = ({ faqs }: FaqListProps) => (
+export const FaqListComplete = ({ faqs, stages }: FaqListProps) => (
 	<FaqListContainer>
 		<h3 sx={{ color: '#CA005D', marginTop: 0, marginBottom: '0' }}>
-			Voorbereiding
+			{stages.voorbereiding}
 		</h3>
 		<FaqList faqs={faqs.filter((faq) => faq.reisfase === 'voorbereiding')} />
 		<h3 sx={{ color: '#CA005D', marginTop: 0, marginBottom: '0' }}>
-			Tijdens de reis
+			{stages.tijdens}
 		</h3>
 		<FaqList faqs={faqs.filter((faq) => faq.reisfase === 'tijdensDeReis')} />
 		<h3 sx={{ color: '#CA005D', marginTop: 0, marginBottom: '0' }}>
-			Thuiskomst
+			{stages.thuiskomst}
 		</h3>
 		<FaqList faqs={faqs.filter((faq) => faq.reisfase === 'thuiskomst')} />
 	</FaqListContainer>

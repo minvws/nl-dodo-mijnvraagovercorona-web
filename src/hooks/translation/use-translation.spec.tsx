@@ -31,7 +31,7 @@ const getWrapper = (translations: Translations) => {
 					terug: 'string',
 					resultaat: 'string',
 				},
-				privacy: { title: '', beloftes: [''] },
+				privacy: { id: '', usp: '', title: '', beloftes: [''] },
 				vervoersmiddelen: [
 					{
 						naam: 'vliegtuig',

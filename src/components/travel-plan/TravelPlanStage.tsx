@@ -2,7 +2,8 @@
 import React from 'react';
 import { jsx } from 'theme-ui';
 
-import { formatShortDate } from '../../utilities/dateUtils';
+import { formatShortDate } from 'utilities/dateUtils';
+import { useCurrentLanguage } from 'hooks/translation';
 
 type TravelPlanStageProps = {
 	title: string;
@@ -17,6 +18,8 @@ export const TravelPlanStage = ({
 	date,
 	children,
 }: TravelPlanStageProps) => {
+	const { locale } = useCurrentLanguage();
+
 	return (
 		<>
 			<div
@@ -57,7 +60,7 @@ export const TravelPlanStage = ({
 								color: 'smallText',
 							}}
 						>
-							{`${formatShortDate(date)}: `}
+							{`${formatShortDate(date, locale)}: `}
 						</span>
 					)}
 					<span>{title}</span>
