@@ -160,6 +160,26 @@ export const contentNl = {
 		'Er geldt een vlieg- en aanmeerverbod vanuit je bestemming naar Nederland.',
 	banner__airtravel_restriction:
 		'Er geldt een vliegverbod vanuit je bestemming naar Nederland.',
+
+	dialogue_mogelijke_klachten__subtitle: 'Tot en met dag 10',
+	dialogue_mogelijke_klachten__tm_dag_5: 'Dag 1 tot en met 5',
+	dialogue_mogelijke_klachten__tm_dag_5_intro:
+		'Als je besmet raakt met het coronavirus duurt het meestal 5 dagen voordat je klachten krijgt. Daarom kan je onbewust het coronavirus hebben en anderen besmetten. Blijf daarom thuis.',
+	dialogue_mogelijke_klachten__wat_als_ik_klachten_heb:
+		'Wat als ik klachten heb?',
+	dialogue_mogelijke_klachten__wat_als_ik_klachten_heb_antwoord:
+		'Maak een testafspraak bij de GGD als je klachten hebt. Dit kan via <a href="https://www.coronatest.nl" target="_blank" rel="noopener noreferrer">coronatest.nl</a> of bel naar 0800-1202. Houd je BSN bij je hand.',
+	dialogue_mogelijke_klachten__geen_klachten_dag_5:
+		'Ik heb geen klachten op dag 5. Kan ik eerder uit quarantaine?',
+	dialogue_mogelijke_klachten__geen_klachten_dag_5_antwoord:
+		'Je kunt je vanaf dag 5 laten testen, ook als je geen klachten hebt. Als de testuitslag negatief is, mag je uit quarantaine. Krijg je na een negatieve testuitslag toch klachten, laat je dan opnieuw testen. Eerder dan de 5e dag testen heeft geen zin. Het kan zijn dat je dan te vroeg test om het virus aan te kunnen tonen.',
+	dialogue_mogelijke_klachten__tm_dag_10: 'Dag 5 tot en met 10',
+	dialogue_mogelijke_klachten__tm_dag_10_intro:
+		'Niet iedereen krijgt binnen de eerste 5 dagen klachten. Na dag 5 kan je nog steeds onbewust het coronavirus hebben en anderen besmetten. Blijf daarom thuis. Uit het bron- en contactonderzoek van de GGD blijkt dat bij 99% van de contacten die klachten krijgt, dit gebeurt binnen 10 dagen na het laatste contact met iemand die besmet is met het virus.',
+	dialogue_mogelijke_klachten__wat_als_ik_klachten_krijg:
+		'Wat als ik klachten krijg?',
+	dialogue_mogelijke_klachten__wat_als_ik_klachten_krijg_antwoord:
+		'Maak een testafspraak bij de GGD als je klachten hebt. Dit kan via <a href="https://www.coronatest.nl" target="_blank" rel="noopener noreferrer">coronatest.nl</a> of bel naar 0800-1202. Houd je BSN bij je hand.',
 };
 
 export const contentEn = {
@@ -323,4 +343,24 @@ export const contentEn = {
 		'There is a ban on flights and ferries from your destination to the Netherlands.',
 	banner__airtravel_restriction:
 		'There is a ban on flights from your destination to the Netherlands.',
+
+	dialogue_mogelijke_klachten__subtitle: 'Day 1 to 10',
+	dialogue_mogelijke_klachten__tm_dag_5: 'Day 1 to 5',
+	dialogue_mogelijke_klachten__tm_dag_5_intro:
+		'After infection with coronavirus it usually takes 5 days for symptoms to appear. So you could have the virus without knowing it and may infect others. That’s why you need to stay at home.',
+	dialogue_mogelijke_klachten__wat_als_ik_klachten_heb:
+		'What if I have symptoms?',
+	dialogue_mogelijke_klachten__wat_als_ik_klachten_heb_antwoord:
+		'Make an appointment for a test with the municipal health service (GGD) if you have symptoms. Go to <a href="https://www.coronatest.nl" target="_blank" rel="noopener noreferrer">coronatest.nl</a> or call 0800 1202. Have your citizen service number (BSN) ready.',
+	dialogue_mogelijke_klachten__geen_klachten_dag_5:
+		'I have no symptoms on day 5. Can I stop self-quarantining sooner?',
+	dialogue_mogelijke_klachten__geen_klachten_dag_5_antwoord:
+		'You can get tested from day 5, even if you have no symptoms. If the test result is negative, you can stop self-quarantining. If you get symptoms after a negative test, get tested again. Getting tested before day 5 is not useful. It may be too early for the test to trace the virus.',
+	dialogue_mogelijke_klachten__tm_dag_10: 'Day 5 to 10',
+	dialogue_mogelijke_klachten__tm_dag_10_intro:
+		'Not everyone gets symptoms within the first 5 days. After day 5 you could still have the virus without knowing it and may infect others. So you need to stay at home. The GGD’s contact tracing shows that 99% of people who develop symptoms get them within 10 days of their last contact with an infected person.',
+	dialogue_mogelijke_klachten__wat_als_ik_klachten_krijg:
+		'What if I have symptoms?',
+	dialogue_mogelijke_klachten__wat_als_ik_klachten_krijg_antwoord:
+		'Make an appointment with the municipal health service (GGD) if you have symptoms. Go to <a href="https://www.coronatest.nl" target="_blank" rel="noopener noreferrer">coronatest.nl</a> or call 0800 1202. Have your citizen service number (BSN) ready.',
 };

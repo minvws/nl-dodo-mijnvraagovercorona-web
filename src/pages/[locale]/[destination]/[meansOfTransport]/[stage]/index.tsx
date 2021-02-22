@@ -343,61 +343,43 @@ const AdviceResult = ({
 													display: 'block',
 												}}
 											>
-												Tot en met dag 10
+												{t('dialogue_mogelijke_klachten__subtitle')}
 											</span>
-											<h4>Dag 1 tot en met 5</h4>
-											<p>
-												Als je besmet raakt met het coronavirus duurt het
-												meestal 5 dagen voordat je klachten krijgt. Daarom kan
-												je onbewust het coronavirus hebben en anderen besmetten.
-												Blijf daarom thuis.
-											</p>
-											<ExpansionPanel text="Wat als ik klachten heb?">
+											<h4>{t('dialogue_mogelijke_klachten__tm_dag_5')}</h4>
+											<p>{t('dialogue_mogelijke_klachten__tm_dag_5_intro')}</p>
+											<ExpansionPanel
+												text={t_s(
+													'dialogue_mogelijke_klachten__wat_als_ik_klachten_heb',
+												)}
+											>
 												<p>
-													Maak een testafspraak bij de GGD als je klachten hebt.
-													Dit kan via{' '}
-													<a
-														href="https://www.coronatest.nl"
-														target="_blank"
-														rel="noopener noreferrer"
-													>
-														coronatest.nl
-													</a>{' '}
-													of bel naar 0800-1202. Houd je BSN bij je hand.
+													{t(
+														'dialogue_mogelijke_klachten__wat_als_ik_klachten_heb_antwoord',
+													)}
 												</p>
 											</ExpansionPanel>
-											<ExpansionPanel text="Ik heb geen klachten op dag 5. Kan ik eerder uit quarantaine?">
+											<ExpansionPanel
+												text={t_s(
+													'dialogue_mogelijke_klachten__geen_klachten_dag_5',
+												)}
+											>
 												<p>
-													Je kunt je vanaf dag 5 laten testen, ook als je geen
-													klachten hebt. Als de testuitslag negatief is, mag je
-													uit quarantaine. Krijg je na een negatieve testuitslag
-													toch klachten, laat je dan opnieuw testen. Eerder dan
-													de 5e dag testen heeft geen zin. Het kan zijn dat je
-													dan te vroeg test om het virus aan te kunnen tonen.
+													{t(
+														'dialogue_mogelijke_klachten__geen_klachten_dag_5_antwoord',
+													)}
 												</p>
 											</ExpansionPanel>
-											<h4>Dag 5 tot en met 10</h4>
-											<p>
-												Niet iedereen krijgt binnen de eerste 5 dagen klachten.
-												Na dag 5 kan je nog steeds onbewust het coronavirus
-												hebben en anderen besmetten. Blijf daarom thuis. Uit het
-												bron- en contactonderzoek van de GGD blijkt dat bij 99%
-												van de contacten die klachten krijgt, dit gebeurt binnen
-												10 dagen na het laatste contact met iemand die besmet is
-												met het virus.
-											</p>
-											<ExpansionPanel text="Wat als ik klachten krijg?">
+											<h4>{t('dialogue_mogelijke_klachten__tm_dag_10')}</h4>
+											<p>{t('dialogue_mogelijke_klachten__tm_dag_10_intro')}</p>
+											<ExpansionPanel
+												text={t_s(
+													'dialogue_mogelijke_klachten__wat_als_ik_klachten_krijg',
+												)}
+											>
 												<p>
-													Maak een testafspraak bij de GGD als je klachten hebt.
-													Dit kan via{' '}
-													<a
-														href="https://www.coronatest.nl"
-														target="_blank"
-														rel="noopener noreferrer"
-													>
-														coronatest.nl
-													</a>{' '}
-													of bel naar 0800-1202. Houd je BSN bij je hand.
+													{t(
+														'dialogue_mogelijke_klachten__wat_als_ik_klachten_krijg_antwoord',
+													)}
 												</p>
 											</ExpansionPanel>
 										</div>
