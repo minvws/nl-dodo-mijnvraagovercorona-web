@@ -51,7 +51,7 @@ test:
   stage: test
   script:
     - yarn
-    - echo ${CI_TAG_ID}
+    - echo ${CD_COMMIT_TAG_ID}
     - yarn test
 
 build image latest:
