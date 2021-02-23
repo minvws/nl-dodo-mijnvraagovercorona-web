@@ -49,18 +49,12 @@ export const MetaTags = ({
 			<meta property="og:image" content={`${baseUrl}/share.png`} />
 			<link rel="canonical" href={completeURl} />
 
-			<meta
-				property="og:title"
-				content={`${title}${siteSettings.pageTitleSuffix}`}
-			/>
+			<meta property="og:title" content={pageTitle} />
 			<meta property="og:description" content={description} />
 
 			<meta property="twitter:card" content="summary_large_image" />
 			<meta property="twitter:url" content={completeURl} />
-			<meta
-				property="twitter:title"
-				content={`${title}${siteSettings.pageTitleSuffix}`}
-			/>
+			<meta property="twitter:title" content={pageTitle} />
 			<meta property="twitter:description" content={description} />
 			<meta property="twitter:image" content={`${baseUrl}/share.png`} />
 

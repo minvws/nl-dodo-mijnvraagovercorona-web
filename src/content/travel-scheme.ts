@@ -15,7 +15,7 @@ export const contentNl = {
 	'page_meta_description__stage_na-thuiskomst': 'als je weer thuis bent',
 
 	page_meta_title:
-		'Advies Quarantaine {{countryName}} {{stage}} {{meansOfTransport}} | Quarantaine Reischeck | Rijksoverheid.nl',
+		'Advies Quarantaine {{countryName}} {{stage}} {{meansOfTransport}}',
 
 	page_title: 'Je bestemming heeft een coronarisico',
 	page_title__high_risk: 'Je bestemming heeft een hoog coronarisico',
@@ -196,7 +196,7 @@ export const contentEn = {
 	'page_meta_description__stage_na-thuiskomst': 'after you got back home',
 
 	page_meta_title:
-		'Quarantine advice {{countryName}} {{stage}} {{meansOfTransport}} | Quarantaine Reischeck | Rijksoverheid.nl',
+		'Quarantine advice {{countryName}} {{stage}} {{meansOfTransport}}',
 
 	page_title: 'Your destination has a corona risk',
 	page_title__high_risk: 'Your destination has a high corona risk',

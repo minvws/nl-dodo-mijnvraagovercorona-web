@@ -21,9 +21,9 @@ export const generalContentNl = {
 
 export const generalContentEn = {
 	// Stages
-	'general__voor-vertrek': 'Voor vertrek',
-	'general__tijdens-je-reis': 'Tijdens je reis',
-	'general__na-thuiskomst': 'Na thuiskomst',
+	'general__voor-vertrek': 'Before departure',
+	'general__tijdens-je-reis': 'During your trip',
+	'general__na-thuiskomst': 'After your trip',
 
 	// Means of transport
 	general__vliegtuig: 'Plane',
