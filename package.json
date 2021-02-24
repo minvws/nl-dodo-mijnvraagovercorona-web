@@ -6,10 +6,8 @@
     "test:reizen": "yarn workspace @quarantaine/reizen run test",
     "dev:reizen": "yarn workspace @quarantaine/reizen dev"
   },
-  "workspaces": {
-    "packages": [
-      "packages/*"
-    ]
-  },
+  "workspaces": [
+    "packages/*"
+  ],
   "dependencies": {}
 }
