@@ -35,6 +35,7 @@ variables:
 stages:
   - test
   - build
+  - label
   - deploy
 
 # CI_* variables are defined in GitLab group settings, see build log for actual values
@@ -72,6 +73,20 @@ build image staging:
       when: always
     - when: never
 
+label image production:
+  stage: label
+  environment:
+    name: test-cluster
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^production/'
+      when: always
+    - when: never
+  script:
+    - CD_USERNAME=$(kubectl get secret -n ${CD_NAMESPACE_BHR} sa-user-secret -o jsonpath={.data.username} | base64 --decode)
+    - CD_PASSWORD=$(kubectl get secret -n ${CD_NAMESPACE_BHR} sa-user-secret -o jsonpath={.data.password} | base64 --decode)
+    - "CONTENT_HEADER='Content-Type:application/json'"
+    - curl -v -u "${CD_USERNAME}:${CD_PASSWORD}" -H ${CONTENT_HEADER} https://${CD_HARBOR_REGISTRY}/api/repositories/vws-reis/${CD_APP_NAME}/tags/${CD_APP_TAG}/labels -d '{"id":1}'
+
 deploy image latest:
   variables:
     CD_WEBSITE_COMMIT_TAG: $CI_COMMIT_TAG
@@ -104,3 +119,4 @@ deploy image production:
     - if: '$CI_COMMIT_TAG =~ /^production/'
       when: manual
     - when: never
+
