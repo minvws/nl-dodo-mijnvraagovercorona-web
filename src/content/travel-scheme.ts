@@ -235,7 +235,7 @@ export const contentEn = {
 	travelscheme__vertrek_title: 'Departure',
 
 	travelscheme__reisadvies_title: 'Orange travel advisory',
-	travelscheme__reisadvies_totale_reisduur: 'Totale reisduur',
+	travelscheme__reisadvies_totale_reisduur: 'Total travel time',
 	travelscheme__reisadvies_nu: 'Now',
 	travelscheme__reisadvies_text:
 		'As well as the risk of becoming infected with COVID-19, there may also be entry restrictions or safety risks in {{country}}.',
