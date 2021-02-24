@@ -1,1 +1,0 @@
-export { DataProtectionPanel } from './DataProtectionPanel';
