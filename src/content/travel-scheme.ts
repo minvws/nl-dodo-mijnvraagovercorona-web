@@ -269,7 +269,7 @@ export const contentEn = {
 	travelscheme__thuisquarantaine_cta: 'More information',
 
 	travelscheme__einde_thuisquarantaine_title:
-		'Your self-quarantine period is over.',
+		'Your self-quarantine period is over',
 
 	agenda__reischeck_opnieuw_invullen_title:
 		"Add 'Do travel check again' to your calendar",
