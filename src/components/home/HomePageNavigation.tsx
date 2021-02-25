@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import React from 'react';
 import { Container, jsx } from 'theme-ui';
 import { AnchorLink } from 'components/links/Links';
 
@@ -28,7 +27,7 @@ export const HomePageNavigation = ({
 		<div
 			sx={{
 				display: 'grid',
-				gridTemplateColumns: ['1fr', '1fr 1fr 1fr'], // todo: replace this with repeat()
+				gridTemplateColumns: ['1fr', 'repeat(3, 1fr)'],
 				paddingX: ['17px'],
 				paddingBottom: '23px',
 				columnGap: '29px',
@@ -47,9 +46,11 @@ export const HomePageNavigation = ({
 						</AnchorLink>
 					),
 			)}
-			<span sx={{ display: ['block', 'none'] }}>
-				<AnchorLink href={`#${privacy.id}`}>{privacy.usp}</AnchorLink>
-			</span>
+			<div sx={{ display: ['block', 'none'] }}>
+				<AnchorLink href={`#${privacy.id}`} sx={{ display: ['block', 'none'] }}>
+					{privacy.usp}
+				</AnchorLink>
+			</div>
 		</div>
 	</Container>
 );

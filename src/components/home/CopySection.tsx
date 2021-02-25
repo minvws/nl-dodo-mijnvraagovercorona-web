@@ -24,9 +24,41 @@ export const CopySection = ({ uitleg }: CopySectionProps) => (
 				key={item.title}
 				id={item.linklist.id}
 			>
-				<h4>{item.pretitle}</h4>
-				<h3>{item.title}</h3>
-				<p className="large">{item.description}</p>
+				<p
+					sx={{
+						fontWeight: 'bold',
+						fontSize: 'smallText',
+						lineHeight: ['smallTextMobile', 'smallText'],
+						color: 'smallText',
+						marginBottom: '5px',
+					}}
+				>
+					{item.pretitle}
+				</p>
+				<h3
+					sx={{
+						marginTop: 0,
+						marginBottom: '17px',
+						padding: 0,
+						fontWeight: 'bold',
+						fontSize: ['h2Mobile', 'h2'],
+						lineHeight: ['h2Mobile', 'h2'],
+						color: 'copyHeading',
+					}}
+				>
+					{item.title}
+				</h3>
+				<p
+					sx={{
+						fontWeight: 'normal',
+						margin: 0,
+						fontSize: ['bodyMobile', 'body'],
+						lineHeight: ['bodyMobile', 'body'],
+						color: 'copyBody',
+					}}
+				>
+					{item.description}
+				</p>
 			</CopyParagraph>
 		))}
 	</Container>
