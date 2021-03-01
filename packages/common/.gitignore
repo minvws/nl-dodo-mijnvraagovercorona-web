@@ -8,12 +8,6 @@
 # testing
 /coverage
 
-# next.js
-/.next/
-/out/
-/out-nl/
-/out-en/
-
 # production
 /build
 public/robots.txt
