@@ -11,18 +11,13 @@
 # next.js
 /.next/
 /out/
-/out-nl/
-/out-en/
 
 # production
 /build
-public/robots.txt
-public/sitemap*
 
 # misc
 .DS_Store
 *.pem
-.idea
 
 # debug
 npm-debug.log*
@@ -35,5 +30,5 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
-# Next static dist folder
-out
+# vercel
+.vercel
