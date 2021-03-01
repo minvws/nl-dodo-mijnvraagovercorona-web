@@ -4,7 +4,9 @@
   "scripts": {
     "test": "yarn workspaces run test",
     "test:reizen": "yarn workspace @quarantaine/reizen run test",
-    "dev:reizen": "yarn workspace @quarantaine/reizen dev"
+    "test:check": "yarn workspace @quarantaine/check run test",
+    "dev:reizen": "yarn workspace @quarantaine/reizen dev",
+    "dev:check": "yarn workspace @quarantaine/check dev"
   },
   "workspaces": [
     "packages/*"
