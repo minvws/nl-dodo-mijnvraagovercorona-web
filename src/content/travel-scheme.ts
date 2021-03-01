@@ -60,12 +60,13 @@ export const contentNl = {
 	travelscheme__reisadvies_cta: 'Uitgebreid reisadvies',
 
 	travelscheme__pcrtest_title: 'Laat je testen',
-	travelscheme__pcrtest_subtitle: 'Max 72u voor vertrek',
+	travelscheme__pcrtest_subtitle: 'Max 72u voor aankomst in Nederland',
 	travelscheme__pcrtest_text:
 		'Je mag alleen terugreizen met een <a href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/negatieve-covid-19-testuitslag-aankomst-nederland" target="_blank" rel="noopener noreferrer">negatieve testuitslag</a>.',
 
 	travelscheme__pcrtest_en_verklaring_title: 'Laat je testen',
-	travelscheme__pcrtest_en_verklaring_subtitle: 'Max 72u voor vertrek',
+	travelscheme__pcrtest_en_verklaring_subtitle:
+		'Max 72u voor aankomst in Nederland',
 	travelscheme__pcrtest_en_verklaring_text:
 		'Je mag alleen terugreizen met een negatieve <a href="https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/reizen-en-vakantie/negatieve-covid-19-testuitslag-aankomst-nederland" target="_blank" rel="noopener noreferrer">testuitslag en testverklaring</a>.',
 
@@ -242,13 +243,14 @@ export const contentEn = {
 	travelscheme__reisadvies_cta: 'Detailed travel advice (information in Dutch)',
 
 	travelscheme__pcrtest_title: 'Get tested',
-	travelscheme__pcrtest_subtitle: 'Max. 72 hours before departure',
+	travelscheme__pcrtest_subtitle:
+		'Max. 72 hours before arrival in the Netherlands',
 	travelscheme__pcrtest_text:
 		'You can only travel to the Netherlands if you have a <a href="https://www.government.nl/topics/coronavirus-covid-19/visiting-the-netherlands-from-abroad/mandatory-negative-test-results-and-declaration" target="_blank" rel="noopener noreferrer">negative test result</a>.',
 
 	travelscheme__pcrtest_en_verklaring_title: 'Get tested',
 	travelscheme__pcrtest_en_verklaring_subtitle:
-		'Max. 72 hours before departure',
+		'Max. 72 hours before arrival in the Netherlands',
 	travelscheme__pcrtest_en_verklaring_text:
 		'You can only travel to the Netherlands if you have a negative <a href="https://www.government.nl/topics/coronavirus-covid-19/visiting-the-netherlands-from-abroad/mandatory-negative-test-results-and-declaration" target="_blank" rel="noopener noreferrer">test result and test declaration</a>.',
 
