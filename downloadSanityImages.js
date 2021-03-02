@@ -1,6 +1,6 @@
 const stream = require('stream');
 const { promisify } = require('util');
-const fs = require('fs');
+const { mkdirSync, createWriteStream } = require('fs');
 const got = require('got');
 
 const pipeline = promisify(stream.pipeline);
@@ -16,10 +16,12 @@ const pipeline = promisify(stream.pipeline);
 			},
 		).json();
 
+		mkdirSync('./public/images/sanity/');
+
 		for (const { url, originalFilename } of result) {
 			await pipeline(
 				got.stream(url),
-				fs.createWriteStream(`./public/images/sanity/${originalFilename}`),
+				createWriteStream(`./public/images/sanity/${originalFilename}`),
 			);
 		}
 	} catch (error) {
