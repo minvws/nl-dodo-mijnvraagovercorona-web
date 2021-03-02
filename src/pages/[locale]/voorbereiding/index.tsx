@@ -118,7 +118,7 @@ export const getStaticProps = async ({
 	const documentsQuery = `*[_type == "voorbereiding-document"]{
 		${getLocaleProperty({ name: 'title', locale })},
 		${getLocaleProperty({ name: 'description', locale })},
-		"image": image.asset->url,
+		"image": "/images/sanity/" + image.asset->originalFilename,
 		"items": items[]{
 			${getLocaleProperty({ name: 'title', locale })},
 			${getLocaleProperty({ name: 'description', locale })},

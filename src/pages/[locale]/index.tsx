@@ -100,7 +100,7 @@ export const getStaticProps = async ({
 			${getLocaleProperty({ name: 'title', path: 'header.title', locale })},
 		},
 		"uitleg": uitleg[]{
-			"image": image.asset->url,
+			"image": "/images/sanity/" + image.asset->originalFilename,
 			${getLocaleProperty({ name: 'description', locale })},
 			${getLocaleProperty({ name: 'pretitle', locale })},
 			${getLocaleProperty({ name: 'title', locale })},
