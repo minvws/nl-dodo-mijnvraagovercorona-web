@@ -1,23 +1,28 @@
 {
-  "name": "@quarantaine/common",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "test": "true",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.13.8",
-    "@storybook/addon-actions": "^6.1.20",
-    "@storybook/addon-essentials": "^6.1.20",
-    "@storybook/addon-links": "^6.1.20",
-    "@storybook/react": "^6.1.20",
-    "@testing-library/jest-dom": "^5.11.9",
-    "babel-loader": "^8.2.2",
-    "storybook-addon-next-router": "^2.0.4"
-  },
-  "dependencies": {
-    "theme-ui": "^0.3.5"
-  }
+	"name": "@quarantaine/common",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"test": "true",
+		"storybook": "start-storybook -p 6006",
+		"build:storybook": "build-storybook"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.13.8",
+		"@storybook/addon-actions": "^6.1.20",
+		"@storybook/addon-docs": "^6.1.20",
+		"@storybook/addon-essentials": "^6.1.20",
+		"@storybook/addon-links": "^6.1.20",
+		"@storybook/react": "^6.1.20",
+		"@testing-library/jest-dom": "^5.11.9",
+		"babel-loader": "^8.2.2",
+		"react": "^17.0.1",
+		"storybook-addon-next-router": "^2.0.4",
+		"typescript": "^4.2.2"
+	},
+	"dependencies": {
+		"react": "16",
+		"theme-ui": "^0.3.5"
+	},
+	"main": "./src/index.ts"
 }

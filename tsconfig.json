@@ -1,6 +1,6 @@
 {
 	"compilerOptions": {
-		"target": "esnext",
+    "target": "esnext",
 		"moduleResolution": "node",
 		"allowJs": true,
 		"noEmit": true,
@@ -13,8 +13,11 @@
 		"lib": ["dom", "ESNext"],
 		"skipLibCheck": true,
 		"resolveJsonModule": true,
-		"baseUrl": "src"
+    "baseUrl": ".",
+    "rootDir": ".",
+    "paths": {
+      "@quarantaine/*": ["./packages/*/src"]
+    },
 	},
-	"include": ["src"],
-	"exclude": ["node_modules"]
+  "exclude": ["node_modules", "dist"]
 }

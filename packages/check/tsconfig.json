@@ -1,14 +1,12 @@
 {
-  "extends": "../../tsconfig-base.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "src"
+    "rootDir": "./src",
+    "baseUrl": "./src"
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
   ],
-  "exclude": [
-    "node_modules"
-  ]
 }
