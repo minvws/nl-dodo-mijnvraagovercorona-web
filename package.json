@@ -7,7 +7,8 @@
     "test:check": "yarn workspace @quarantaine/check run test",
     "dev:reizen": "yarn workspace @quarantaine/reizen dev",
     "dev:check": "yarn workspace @quarantaine/check dev",
-    "dev:common": "yarn workspace @quarantaine/common storybook"
+    "dev:common": "yarn workspace @quarantaine/common storybook",
+    "build:reizen": "yarn workspace @quarantaine/reizen build"
   },
   "workspaces": [
     "packages/*"

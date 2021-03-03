@@ -18,7 +18,6 @@
     "paths": {
       "@quarantaine/*": ["./packages/*/src"]
     },
-    "typeRoots": ["./types"]
 	},
   "exclude": ["node_modules", "dist"]
 }
