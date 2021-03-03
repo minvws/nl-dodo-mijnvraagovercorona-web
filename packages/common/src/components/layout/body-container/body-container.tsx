@@ -13,6 +13,7 @@ export const BodyContainer: React.FC<BodyContainerProps> = ({
 	className,
 	children,
 	as,
+	label,
 }) => {
 	return (
 		<Container
