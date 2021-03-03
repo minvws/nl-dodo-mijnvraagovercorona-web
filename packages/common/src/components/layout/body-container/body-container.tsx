@@ -5,9 +5,15 @@ import { Container, jsx } from 'theme-ui';
 type BodyContainerProps = {
 	children: React.ReactNode;
 	className?: string;
+	as?: React.ElementType;
+	label?: string;
 };
 
-export const BodyContainer: React.FC<BodyContainerProps> = ({className, children}) => {
+export const BodyContainer: React.FC<BodyContainerProps> = ({
+	className,
+	children,
+	as,
+}) => {
 	return (
 		<Container
 			sx={{
@@ -17,6 +23,8 @@ export const BodyContainer: React.FC<BodyContainerProps> = ({className, children
 				maxWidth: 'maxWidthBody',
 			}}
 			className={className}
+			as={as}
+			aria-label={label}
 		>
 			{children}
 		</Container>
