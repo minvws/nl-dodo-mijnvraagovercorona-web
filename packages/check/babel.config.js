@@ -1,3 +1,3 @@
-const babelBaseConfig = require("../../babel.config.base");
+const babelBaseConfig = require('../../babel.config.base');
 
 module.exports = babelBaseConfig;
