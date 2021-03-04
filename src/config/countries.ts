@@ -915,7 +915,7 @@ export const countries: Country[] = [
 		euCountry: false,
 		schengenCountry: false,
 		riskLevel: RiskLevel.D_EU_INREISVERBOD,
-		transportRestrictions: ['vliegtuig'],
+		transportRestrictions: [],
 	},
 	{
 		slug: CountrySlugs.kameroen,
