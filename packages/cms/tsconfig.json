@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "noEmit": false
+  },
+  "include": [
+    "./node_modules/@sanity/base/types/**/*.ts",
+    "./sanity.d.ts",
+    "./**/*.ts",
+    "./**/*.tsx"
+  ]
+}
