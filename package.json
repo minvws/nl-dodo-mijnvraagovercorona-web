@@ -9,7 +9,8 @@
 		"dev:check": "yarn workspace @quarantaine/check dev",
 		"dev:common": "yarn workspace @quarantaine/common storybook",
 		"dev:cms": "yarn workspace @quarantaine/cms start",
-		"build:reizen": "yarn workspace @quarantaine/reizen build"
+		"build:reizen": "yarn workspace @quarantaine/reizen build",
+		"build:check": "yarn workspace @quarantaine/reizen build"
 	},
 	"workspaces": [
 		"packages/*"
