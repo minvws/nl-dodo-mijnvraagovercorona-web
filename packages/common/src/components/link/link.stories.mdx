@@ -1,0 +1,26 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { ChevronIcon } from '@quarantaine/common';
+import { Link } from './';
+
+<Meta title="Components/Link" component={Link} />
+
+# Link
+
+Klik mij.
+
+<Canvas>
+	<Story name="Link">
+		<Link href="/">Internal link</Link>
+		<br />
+		<Link href="/" external>
+			External link
+		</Link>
+		<br />
+		<Link href="/" icon={<ChevronIcon />}>
+			Link with icon
+		</Link>
+		<Link href="/" icon={<ChevronIcon rotate="90deg" />}>
+			Link with icon
+		</Link>
+	</Story>
+</Canvas>
