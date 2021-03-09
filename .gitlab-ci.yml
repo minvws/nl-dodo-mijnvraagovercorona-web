@@ -3,7 +3,6 @@
 #
 
 variables:
-  CD_APP_NAME: travel-during-corona-website
   CD_NAMESPACE_BHR: vws-reis-bhr
   CD_HARBOR_REGISTRY: harbor.diensten.test.overheid.standaardplatform.rijksapps.nl
 
@@ -19,20 +18,20 @@ image: harbor.diensten.test.overheid.standaardplatform.rijksapps.nl/vws-reis/too
   script:
     - echo "${DOCKER_AUTH_CONFIG}" > /kaniko/.docker/config.json
     - cat /kaniko/.docker/config.json
-    - cat ./Dockerfile |
+    - cat ./packages/${CD_APP_FOLDER}/Dockerfile |
       sed "s~node:14-alpine~harbor.diensten.test.overheid.standaardplatform.rijksapps.nl/vws-reis/node:14-alpine~g"
-      > Dockerfile_derived # Adjust FROM to prevent Docker rate limiting; assuming adjusted image to be present in Harbor; ref. sp-demo/housekeeping
-    - cat Dockerfile_derived
+      > ./packages/${CD_APP_FOLDER}/Dockerfile_derived
+    - cat ./packages/${CD_APP_FOLDER}/Dockerfile_derived
     - echo "CI_PROJECT_DIR ${CI_PROJECT_DIR}"
     - pwd
     - 'echo ${CD_HARBOR_REGISTRY}/vws-reis/${CD_APP_NAME}:${CD_APP_TAG}'
-    # Build and push to Harbor
     - /kaniko/executor
       --context ${CI_PROJECT_DIR}
-      --dockerfile ./Dockerfile_derived
+      --dockerfile /packages/${CD_APP_FOLDER}/Dockerfile_derived
+      --build-arg buildid=${CD_APP_TAG}
       --destination ${CD_HARBOR_REGISTRY}/vws-reis/${CD_APP_NAME}:${CD_APP_TAG}
       --destination ${CD_HARBOR_REGISTRY}/vws-reis/${CD_APP_NAME}:${CD_TAG}
-      # --cache=true
+      --cache=true
 
 stages:
   - test
@@ -57,28 +56,34 @@ test:
     - yarn
     - yarn test
 
-build image latest:
+build reizen image latest:
   <<: *build-image
   variables:
     CD_TAG: latest
+    CD_APP_NAME: travel-during-corona-website
+    CD_APP_FOLDER: reizen
   rules:
     - if: '$CI_COMMIT_TAG =~ /^development/'
       when: always
     - when: never
 
-build image staging:
+build reizen image staging:
   <<: *build-image
   variables:
     CD_TAG: staging
+    CD_APP_NAME: travel-during-corona-website
+    CD_APP_FOLDER: reizen
   rules:
     - if: '$CI_COMMIT_TAG =~ /^staging/'
       when: always
     - when: never
 
-label image production:
+label reizen image production:
   stage: label
   environment:
     name: test-cluster
+  variables:
+    CD_APP_NAME: travel-during-corona-website
   rules:
     - if: '$CI_COMMIT_TAG =~ /^production/'
       when: always
@@ -89,8 +94,9 @@ label image production:
     - "CONTENT_HEADER='Content-Type:application/json'"
     - curl -v -u "${CD_USERNAME}:${CD_PASSWORD}" -H ${CONTENT_HEADER} https://${CD_HARBOR_REGISTRY}/api/repositories/vws-reis/${CD_APP_NAME}/tags/${CD_APP_TAG}/labels -d '{"id":1}'
 
-deploy image latest:
+deploy reizen image latest:
   variables:
+    CD_APP_NAME: travel-during-corona-website
     CD_WEBSITE_COMMIT_TAG: $CI_COMMIT_TAG
     CD_ENVIRONMENT: development
   stage: deploy
@@ -100,8 +106,9 @@ deploy image latest:
       when: on_success
     - when: never
 
-deploy image staging:
+deploy reizen image staging:
   variables:
+    CD_APP_NAME: travel-during-corona-website
     CD_WEBSITE_COMMIT_TAG: $CI_COMMIT_TAG
     CD_ENVIRONMENT: staging
   stage: deploy
@@ -111,8 +118,9 @@ deploy image staging:
       when: on_success
     - when: never
 
-deploy image production:
+deploy reizen image production:
   variables:
+    CD_APP_NAME: travel-during-corona-website
     CD_WEBSITE_COMMIT_TAG: $CI_COMMIT_TAG
     CD_ENVIRONMENT: production
   stage: deploy
@@ -121,4 +129,3 @@ deploy image production:
     - if: '$CI_COMMIT_TAG =~ /^production/'
       when: manual
     - when: never
-
