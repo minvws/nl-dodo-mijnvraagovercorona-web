@@ -2,18 +2,13 @@
 import { jsx } from 'theme-ui';
 import { SVGAttributes } from 'react';
 
-interface ChevronIconProps extends SVGAttributes<SVGElement> {
-	// In '90deg' like string.
-	rotate?: string;
-}
+interface ChevronIconProps extends SVGAttributes<SVGElement> {}
 
 export const ChevronIcon = ({
 	fill = 'currentColor',
-	rotate,
 	...svgProps
 }: ChevronIconProps) => (
 	<svg
-		sx={{ transform: rotate ? `rotate(${rotate})` : undefined }}
 		width="12"
 		height="19"
 		viewBox="0 0 12 19"
