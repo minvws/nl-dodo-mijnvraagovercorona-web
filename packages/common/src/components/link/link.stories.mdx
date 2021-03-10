@@ -1,0 +1,38 @@
+import { Meta, Story, Canvas, Props } from '@storybook/addon-docs/blocks';
+import { Link } from './';
+
+<Meta title="Components/Link" component={Link} />
+
+# Link
+
+The link component can be used to either link via the router inside the app, or link to an external website.
+By default the component is prefixed with a chevron icon — which can be disabled via the `withChrevron={false}` prop.
+
+## Props
+
+The `as` and `onClick` prop are only required if you provide `as="button"`. Storybook however shows all of them in one table. As soon as you use
+`as="button"` the `href` and `external` props aren't required anymore.
+
+<Props of={Link} />
+
+## Component usage
+
+<Canvas>
+	<Story name="Link">
+		<span>Internal link</span>
+		<br />
+		<Link href="/">First we go here</Link>
+		<br />
+		<span>External link, rendering target _blank</span>
+		<br />
+		<Link href="https://www.google.com" external>
+			Next I bring you there
+		</Link>
+		<br />
+		<span>A button disguised as a link</span>
+		<br />
+		<Link as="button" onClick={() => alert('Jep, this is working 🤓')}>
+			Click me
+		</Link>
+	</Story>
+</Canvas>
