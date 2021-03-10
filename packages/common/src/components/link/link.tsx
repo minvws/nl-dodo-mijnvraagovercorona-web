@@ -70,6 +70,7 @@ export const Link: React.FC<LinkProps> = React.forwardRef((props, ref) => {
 	if ('as' in props) {
 		return (
 			<button
+				{...props}
 				className={className}
 				sx={linkStyling}
 				ref={ref as React.ForwardedRef<HTMLButtonElement> | undefined}
@@ -84,6 +85,7 @@ export const Link: React.FC<LinkProps> = React.forwardRef((props, ref) => {
 	// Anchor
 	return (
 		<a
+			{...props}
 			className={className}
 			sx={linkStyling}
 			href={props.href}
