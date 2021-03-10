@@ -1,0 +1,29 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { Dialog } from './';
+
+<Meta title="Components/Dialog" component={Dialog} />
+
+# Dialog
+
+Klik mij.
+
+<Canvas>
+	<Story name="Visible">
+		<Dialog
+			closeDialog={() => console.log('closed')}
+			isVisible={true}
+			title="Niet schrikken"
+		>
+			Boe!
+		</Dialog>
+	</Story>
+	<Story name="Hidden">
+		<Dialog
+			closeDialog={() => console.log('closed')}
+			isVisible={false}
+			title="Niet schrikken"
+		>
+			Boe!
+		</Dialog>
+	</Story>
+</Canvas>

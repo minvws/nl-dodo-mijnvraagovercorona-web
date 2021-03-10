@@ -95,6 +95,7 @@ export const theme: Theme = {
 	styles: {
 		root: {
 			fontFamily: 'body',
+			scrollBehavior: 'smooth',
 			a: {
 				color: 'copyHeading',
 			},

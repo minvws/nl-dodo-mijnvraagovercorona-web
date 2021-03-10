@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import { BodyContainer } from '../body-container';
+import { BodyContainer } from '@quarantaine/common';
 
 export const Header = () => {
 	return (
