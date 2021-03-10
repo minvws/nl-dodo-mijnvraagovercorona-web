@@ -4,7 +4,7 @@ import { jsx, SxStyleProp } from 'theme-ui';
 import { ChevronIcon } from '../../icons';
 
 interface LinkPropsBase {
-	withChrevon?: boolean;
+	withChevron?: boolean;
 	className?: string;
 	fontWeight?: 'lighter' | 'normal' | 'bold';
 	ref?: React.Ref<HTMLAnchorElement>;
@@ -31,7 +31,7 @@ export const Link: React.FC<LinkProps> = React.forwardRef((props, ref) => {
 	const {
 		className,
 		fontWeight = 'normal',
-		withChrevon = true,
+		withChevron = true,
 		children,
 		lang,
 	} = props;
@@ -75,7 +75,7 @@ export const Link: React.FC<LinkProps> = React.forwardRef((props, ref) => {
 				ref={ref as React.ForwardedRef<HTMLButtonElement> | undefined}
 				onClick={props.onClick}
 			>
-				{withChrevon && <ChevronIcon className="chevron" />}
+				{withChevron && <ChevronIcon className="chevron" />}
 				{children}
 			</button>
 		);
@@ -93,7 +93,7 @@ export const Link: React.FC<LinkProps> = React.forwardRef((props, ref) => {
 			target={props.external ? '_blank' : undefined}
 			rel={props.external ? 'noopener noreferrer' : undefined}
 		>
-			{withChrevon && <ChevronIcon className="chevron" />}
+			{withChevron && <ChevronIcon className="chevron" />}
 			{children}
 		</a>
 	);
