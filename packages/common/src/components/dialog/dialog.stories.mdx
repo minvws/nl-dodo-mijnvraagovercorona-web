@@ -5,25 +5,32 @@ import { Dialog } from './';
 
 # Dialog
 
-Klik mij.
+A dialog can be used to show content inside a modal.
+
+## Props
+
+<Props of={Dialog} />
+
+## Component usage
+
+export const WrappedDialog = () => {
+	const [visible, setVisible] = React.useState(false);
+	return (
+		<div>
+			<button onClick={() => setVisible(true)}>Show Dialog</button>
+			<Dialog
+				closeDialog={() => setVisible(false)}
+				isVisible={visible}
+				title="Niet schrikken"
+			>
+				Boe!
+			</Dialog>
+		</div>
+	);
+};
 
 <Canvas>
-	<Story name="Visible">
-		<Dialog
-			closeDialog={() => console.log('closed')}
-			isVisible={true}
-			title="Niet schrikken"
-		>
-			Boe!
-		</Dialog>
-	</Story>
-	<Story name="Hidden">
-		<Dialog
-			closeDialog={() => console.log('closed')}
-			isVisible={false}
-			title="Niet schrikken"
-		>
-			Boe!
-		</Dialog>
+	<Story name="Dialog">
+		<WrappedDialog />
 	</Story>
 </Canvas>
