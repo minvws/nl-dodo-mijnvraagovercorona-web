@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"test": "true",
-		"storybook": "start-storybook -p 6006",
+		"storybook": "start-storybook -s ../../packages/reizen/public -p 6006",
 		"build:storybook": "build-storybook"
 	},
 	"devDependencies": {

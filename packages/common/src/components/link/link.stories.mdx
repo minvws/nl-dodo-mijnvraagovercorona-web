@@ -13,6 +13,8 @@ By default the component is prefixed with a chevron icon — which can be disabl
 The `as` and `onClick` prop are only required if you provide `as="button"`. Storybook however shows all of them in one table. As soon as you use
 `as="button"` the `href` and `external` props aren't required anymore.
 
+The `styledAs` prop gives you the option to either render a link/button that looks like a anchor or like a button.
+
 <Props of={Link} />
 
 ## Component usage
@@ -32,6 +34,36 @@ The `as` and `onClick` prop are only required if you provide `as="button"`. Stor
 		<span>A button disguised as a link</span>
 		<br />
 		<Link as="button" onClick={() => alert('Jep, this is working 🤓')}>
+			Click me
+		</Link>
+	</Story>
+</Canvas>
+
+### Button component
+
+Via the `styledAs="button"` prop you can render a anchor or button that looks like a button.
+
+<Canvas>
+	<Story name="Button">
+		<span>Internal link, disguised as a button</span>
+		<br />
+		<Link href="/" styledAs="button">
+			First we go here
+		</Link>
+		<br />
+		<span>External link, rendering target _blank (disguised as a button)</span>
+		<br />
+		<Link styledAs="button" href="https://www.google.com" external>
+			Next I bring you there
+		</Link>
+		<br />
+		<span>A real button looking just like a button</span>
+		<br />
+		<Link
+			styledAs="button"
+			as="button"
+			onClick={() => alert('Jep, this is working 🤓')}
+		>
 			Click me
 		</Link>
 	</Story>
