@@ -3,7 +3,6 @@ import { addDecorator } from '@storybook/react';
 import { ThemeProvider, jsx } from 'theme-ui';
 import { withNextRouter } from 'storybook-addon-next-router';
 import { theme } from '../src/theme';
-import '../src/theme/fonts.css';
 
 import '../src/theme/global.css';
 
