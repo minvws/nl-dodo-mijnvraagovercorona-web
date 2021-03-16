@@ -151,4 +151,5 @@ const LinkBase = <T extends React.ElementType = 'a'>(
 	);
 };
 
-export const Link = React.forwardRef(LinkBase) as typeof LinkBase;
+// @ts-ignore
+export const Link = React.forwardRef(LinkBase);
