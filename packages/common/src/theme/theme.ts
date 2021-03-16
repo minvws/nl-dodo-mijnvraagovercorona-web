@@ -114,9 +114,6 @@ export const theme: Theme = {
 			lineHeight: ['h2Mobile', 'h2'],
 			color: 'header',
 		},
-		li: {
-			listStyleImage: 'url("/icons/Polygon 6.svg")',
-		},
 		p: {
 			fontSize: '14pt',
 		},
