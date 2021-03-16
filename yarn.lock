@@ -1963,7 +1963,7 @@
     "@reach/utils" "0.13.2"
     tslib "^2.1.0"
 
-"@reach/dialog@^0.13.0":
+"@reach/dialog@^0.13.0", "@reach/dialog@^0.13.2":
   version "0.13.2"
   resolved "https://registry.yarnpkg.com/@reach/dialog/-/dialog-0.13.2.tgz#edbb8800f20e795c70b455b34999c6355b61c154"
   integrity sha512-DOl7REyfrC3v6ugZtuiZs3pNr4ctRFBPU53AXph1kS5qH+3HxW2/Nq231Wg3ck+FQsZI+Ch4DeT0af52nbIaCg==
@@ -1975,7 +1975,7 @@
     react-remove-scroll "^2.4.1"
     tslib "^2.1.0"
 
-"@reach/disclosure@^0.13.0":
+"@reach/disclosure@^0.13.0", "@reach/disclosure@^0.13.2":
   version "0.13.2"
   resolved "https://registry.yarnpkg.com/@reach/disclosure/-/disclosure-0.13.2.tgz#77a169256b076b74e32d4db3131a3926f6b6e58f"
   integrity sha512-gO9CP9VMsu7QRymACP2hxUlnkjD+bZXc2u9wDhGvzdQY31ReQO3UO2ispZWgxZyYETywnBx2DrHpUkLIoSXwIg==
@@ -2059,7 +2059,7 @@
     tslib "^2.1.0"
     warning "^4.0.3"
 
-"@reach/visually-hidden@^0.13.0":
+"@reach/visually-hidden@^0.13.0", "@reach/visually-hidden@^0.13.2":
   version "0.13.2"
   resolved "https://registry.yarnpkg.com/@reach/visually-hidden/-/visually-hidden-0.13.2.tgz#ee21de376a7e57e60dc92d95a671073796caa17e"
   integrity sha512-sPZwNS0/duOuG0mYwE5DmgEAzW9VhgU3aIt1+mrfT/xiT9Cdncqke+kRBQgU708q/Ttm9tWsoHni03nn/SuPTQ==

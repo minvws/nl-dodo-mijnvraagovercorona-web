@@ -1,0 +1,36 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { Dialog } from './';
+
+<Meta title="Components/Dialog" component={Dialog} />
+
+# Dialog
+
+A dialog can be used to show content inside a modal.
+
+## Props
+
+<Props of={Dialog} />
+
+## Component usage
+
+export const WrappedDialog = () => {
+	const [visible, setVisible] = React.useState(false);
+	return (
+		<div>
+			<button onClick={() => setVisible(true)}>Show Dialog</button>
+			<Dialog
+				closeDialog={() => setVisible(false)}
+				isVisible={visible}
+				title="Niet schrikken"
+			>
+				Boe!
+			</Dialog>
+		</div>
+	);
+};
+
+<Canvas>
+	<Story name="Dialog">
+		<WrappedDialog />
+	</Story>
+</Canvas>

@@ -1,19 +1,21 @@
 import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
-import { BodyContainer, Header } from './';
+import { ExpansionPanel } from './';
 
-<Meta title="Components/Layout" component={BodyContainer} />
+<Meta title="Components/ExpansionPanel" component={ExpansionPanel} />
 
-# Layout
+# ExpansionPanel
 
-This section contains all general layout components used to constrcut a page.
+The ExpansionPanel is used to create a colapsable piece of content.
 
-## BodyContainer
+## Props
 
-The BodyContainer is used to center the content, and ensure padding on mobile devices.
+<Props of={ExpansionPanel} />
+
+## Component usage
 
 <Canvas>
-	<Story name="BodyContainer">
-		<BodyContainer>
+	<Story name="ExpansionPanel">
+		<ExpansionPanel title="Title for panel">
 			<p>
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fermentum
 				ullamcorper dui, vitae ultricies dolor sagittis ultricies. Donec vitae
@@ -26,16 +28,6 @@ The BodyContainer is used to center the content, and ensure padding on mobile de
 				diam. Morbi facilisis sapien ex, ut rutrum tellus feugiat et. Praesent a
 				ligula ac odio finibus laoreet nec in felis. Nulla facilisi.
 			</p>
-		</BodyContainer>
-	</Story>
-</Canvas>
-
-## Header
-
-Header component
-
-<Canvas>
-	<Story name="Header">
-		<Header />
+		</ExpansionPanel>
 	</Story>
 </Canvas>
