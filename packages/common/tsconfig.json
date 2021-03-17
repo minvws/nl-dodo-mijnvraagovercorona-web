@@ -1,10 +1,9 @@
 {
 	"extends": "../../tsconfig.json",
 	"compilerOptions": {
-		"rootDir": "./src",
-		"outDir": "./dist",
-		"noEmit": false,
+		"baseUrl": "./src",
 		"typeRoots": ["./types"]
 	},
-	"include": ["src"]
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }

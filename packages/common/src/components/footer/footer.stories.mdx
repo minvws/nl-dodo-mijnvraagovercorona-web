@@ -1,0 +1,34 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { Footer, FooterColumn} from './';
+
+<Meta title="Components/Footer" component={Footer} />
+
+# Footer
+
+The Footer is used to create a colapsable piece of content.
+
+## Props
+
+<Props of={Footer} />
+
+## Component usage
+
+<Canvas>
+	<Story name="Footer">
+		<Footer>
+      <FooterColumn title="First column title">
+        <ul>
+          <li><a href="#">Go here</a></li>
+          <li><a href="#">Go there</a></li>
+          <li><a href="#">Take a detour</a></li>
+          <li><a href="#">Come back to the start</a></li>
+        </ul>
+      </FooterColumn>
+      <FooterColumn title="Second column title">
+        <ul>
+          <li><a href="#">Or go to RO.nl</a></li>
+        </ul>
+      </FooterColumn>
+    </Footer>
+	</Story>
+</Canvas>
