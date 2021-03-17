@@ -1,0 +1,24 @@
+import { Meta, Story, Canvas, Props } from '@storybook/addon-docs/blocks';
+import { QuickLinks } from './';
+import { Link } from '@quarantaine/common';
+
+<Meta title="Components/QuickLinks" component={QuickLinks} />
+
+# QuickLinks
+
+The quicklinks component is used as a wrapper compound around a group of link components with hashes.
+The chevron from the `Link` component will automatically be rotated 90 deg to indicate that it is an anchor link.
+
+## Component usage
+
+<Canvas>
+	<Story name="QuickLinks">
+		<QuickLinks>
+			<Link href="#">Down</Link>
+			<Link href="#">Down</Link>
+			<Link href="#">Down</Link>
+			<Link href="#">Down</Link>
+			<Link href="#">Dun - dun dun dundun</Link>
+		</QuickLinks>
+	</Story>
+</Canvas>

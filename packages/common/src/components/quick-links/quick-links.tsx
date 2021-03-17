@@ -1,0 +1,39 @@
+/** @jsx jsx */
+import { Container, jsx } from 'theme-ui';
+
+export const QuickLinks: React.FC = ({ children }) => (
+	<Container as="nav">
+		<div
+			sx={{
+				display: 'flex',
+				flexDirection: ['column', 'row'],
+				padding: ['18px 0', '18px'],
+				margin: '0 auto',
+				borderBottom: ['none', '1px solid #AEC1D1'],
+				justifyContent: 'space-between',
+				a: {
+					flexBasis: '100%',
+					pr: [0, '24px'],
+					pb: ['20px', 0],
+					textDecoration: 'underline',
+					fontWeight: 'bold',
+					alignItems: 'flex-start',
+					':hover .chevron, :focus .chevron': {
+						transform: 'rotate(90deg) translate3d(3px, 0, 0)',
+					},
+					'.chevron': {
+						marginTop: 4,
+						transform: 'rotate(90deg)',
+						path: { stroke: 'smallText', fill: 'smallText' },
+					},
+					'&:last-of-type': {
+						pr: 0,
+						pb: 0,
+					},
+				},
+			}}
+		>
+			{children}
+		</div>
+	</Container>
+);
