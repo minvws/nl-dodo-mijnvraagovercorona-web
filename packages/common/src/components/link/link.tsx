@@ -72,8 +72,8 @@ const useStyles = ({ fontWeight, styledAs }: LinkPropsBase) => {
 		};
 
 		const buttonStyling: SxStyleProp = {
-			paddingRight: ['none', 'buttonPadding'],
-			paddingLeft: ['none', 'buttonPadding'],
+			paddingRight: 'buttonPadding',
+			paddingLeft: 'buttonPadding',
 			margin: '0',
 			borderRadius: '5px',
 			display: 'inline-block',
