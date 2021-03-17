@@ -3,6 +3,7 @@ import { AppProps } from 'next/dist/next-server/lib/router/router';
 import Head from 'next/head';
 import React from 'react';
 import { ThemeProvider } from 'theme-ui';
+import '@quarantaine/common/src/theme/global.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
 	return (
