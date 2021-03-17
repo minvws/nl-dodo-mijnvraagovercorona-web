@@ -9,10 +9,19 @@ import {
 
 type ExpansionPanelProps = {
 	title: string;
+	/**
+	 * Title suffix is an optional suffix to the title, used a short additional description.
+	 * The main difference is that this text won't render in bold.
+	 */
+	titleSuffix?: string;
 	children: React.ReactNode;
 };
 
-export const ExpansionPanel = ({ title, children }: ExpansionPanelProps) => {
+export const ExpansionPanel = ({
+	title,
+	children,
+	titleSuffix,
+}: ExpansionPanelProps) => {
 	const [open, setOpen] = useState(false);
 	const contentRef = useRef<HTMLDivElement>(null);
 	const handleChange = () => {
@@ -71,6 +80,9 @@ export const ExpansionPanel = ({ title, children }: ExpansionPanelProps) => {
 						}}
 					>
 						{title}
+						{titleSuffix && (
+							<span sx={{ fontWeight: 'normal' }}>{titleSuffix}</span>
+						)}
 					</DisclosureButton>
 				</dt>
 				<dd sx={{ padding: 0, margin: 0 }}>

@@ -46,7 +46,6 @@ export const theme: Theme = {
 		componentSpacing: ['1em', 0],
 		paragraphSpacing: ['24px', '28px'],
 		h2Spacing: '18px',
-		h3Spacing: '12px',
 		section: '70px',
 		buttonPadding: '36px',
 		sidePanel: ['300px', '400px'],
@@ -117,15 +116,6 @@ export const theme: Theme = {
 			margin: '0',
 			marginBottom: 'h2Spacing',
 		},
-		h3: {
-			fontFamily: 'body',
-			fontSize: 'chapeau',
-			lineHeight: 'chapeau',
-			color: 'smallText',
-			fontWeight: 'bold',
-			margin: '0',
-			marginBottom: 'h3Spacing',
-		},
 		p: {
 			fontSize: ['bodyMobile', 'body'],
 			lineHeight: ['bodyMobile', 'body'],
@@ -136,6 +126,17 @@ export const theme: Theme = {
 			fontSize: '14pt',
 			margin: '0',
 			marginBottom: 'paragraphSpacing',
+		},
+	},
+	text: {
+		chapeau: {
+			fontFamily: 'body',
+			fontSize: 'chapeau',
+			lineHeight: 'chapeau',
+			color: 'smallText',
+			fontWeight: 'bold',
+			margin: '0',
+			marginBottom: '12px',
 		},
 	},
 };

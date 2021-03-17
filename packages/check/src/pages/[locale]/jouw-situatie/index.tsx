@@ -12,7 +12,10 @@ export default function JouwSituatie() {
 			<Page title="Jouw situatie" sx={{ 'dd a': { marginBottom: '16px' } }}>
 				<Box sx={{ mt: '36px' }}>
 					<Styled.h2>Jij en corona</Styled.h2>
-					<ExpansionPanel title="Ik heb coronaklachten (o.a. verkouden, koorts of benauwd)">
+					<ExpansionPanel
+						title="Ik heb coronaklachten"
+						titleSuffix="(o.a. verkouden, koorts of benauwd)"
+					>
 						<Styled.p>
 							Je hebt misschien corona als je 1 of meer van deze klachten hebt:
 						</Styled.p>
