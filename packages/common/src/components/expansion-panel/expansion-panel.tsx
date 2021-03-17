@@ -31,31 +31,28 @@ export const ExpansionPanel = ({ title, children }: ExpansionPanelProps) => {
 	}, [open]);
 
 	return (
-		<Container>
+		<Container sx={{ backgroundColor: 'expansionPanel', marginBottom: '16px' }}>
 			<Disclosure onChange={handleChange}>
 				<dt>
 					<DisclosureButton
 						sx={{
 							position: 'relative',
 							textAlign: 'left',
-							paddingLeft: 0,
-							paddingBottom: '15px',
-							paddingTop: '15px',
-							paddingRight: '30px',
+							padding: '15px',
+							paddingLeft: '48px',
 							background: 'none',
 							border: 'none',
 							fontFamily: 'body',
 							fontSize: ['bodyMobile', 'body'],
 							lineHeight: ['bodyMobile', 'body'],
 							width: '100%',
-							backgroundRepeat: 'no-repeat',
-							backgroundPosition: 'right 15px center',
-							borderBottom: '1px solid #AEC1D1',
+							color: 'link',
+							fontWeight: 'bold',
 
 							'::after': {
 								content: '""',
 								position: 'absolute',
-								right: '15px',
+								left: '15px',
 								top: '24px',
 								height: '8px',
 								width: '13px',
@@ -80,16 +77,24 @@ export const ExpansionPanel = ({ title, children }: ExpansionPanelProps) => {
 					<DisclosurePanel
 						sx={{
 							div: {
-								borderBottom: '1px solid #AEC1D1',
-
 								'p:first-child': {
 									marginTop: 0,
 								},
+								'> :last-child': {
+									marginBottom: 0,
+								},
+							},
+							ul: {
+								paddingLeft: '20px',
+							},
+							p: {
+								marginBottom: '8px',
 							},
 						}}
 					>
 						<div
 							sx={{
+								padding: '0 15px 15px 48px',
 								fontSize: ['bodyMobile', 'body'],
 								lineHeight: ['bodyMobile', 'body'],
 							}}

@@ -79,9 +79,9 @@ export default function Home() {
 								[`margin${index % 2 ? 'Left' : 'Right'}`]: [undefined, '30px'],
 							}}
 						>
-							<Styled.h3 as="p" sx={{ mb: 3 }}>
+							<Styled.h4 as="p" sx={{ mb: 3 }}>
 								{copy.subTitle}
-							</Styled.h3>
+							</Styled.h4>
 							<Styled.h2>{copy.title}</Styled.h2>
 							<Styled.p>{copy.text}</Styled.p>
 						</div>

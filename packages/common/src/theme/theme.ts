@@ -12,6 +12,7 @@ export const theme: Theme = {
 		stepElement: '#AEC1D1',
 		background: '#FFFFFF',
 		headerBackground: '#EFF7F9',
+		expansionPanel: '#EFF7F9',
 
 		hoverSecondary: '#931e55',
 		structureBackground: '#f0d5e2',
@@ -133,6 +134,8 @@ export const theme: Theme = {
 		},
 		ul: {
 			fontSize: '14pt',
+			margin: '0',
+			marginBottom: 'paragraphSpacing',
 		},
 	},
 };
