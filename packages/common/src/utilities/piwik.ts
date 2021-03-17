@@ -11,18 +11,13 @@ declare global {
 	}
 }
 
-export const usePiwik = ({ locale }) => {
+export const usePiwik = () => {
 	useEffect(() => {
 		Router.events.on('routeChangeComplete', trackPageview);
-		console.log('TRACK ON');
 		return () => {
-			console.log('TRACK OFF');
 			Router.events.off('routeChangeComplete', trackPageview);
 		};
 	}, []);
-	useEffect(() => {
-		document.documentElement.lang = locale;
-	}, [locale]);
 };
 
 /**
@@ -31,8 +26,6 @@ export const usePiwik = ({ locale }) => {
  */
 export const trackPageview = () => {
 	if (!isBrowser()) return;
-
-	console.log('TRACK');
 
 	try {
 		window?.Piwik?.getTracker?.().trackPageView?.();

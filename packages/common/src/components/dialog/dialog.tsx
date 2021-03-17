@@ -5,8 +5,6 @@ import { jsx } from 'theme-ui';
 import { DialogOverlay, DialogContent } from '@reach/dialog';
 import VisuallyHidden from '@reach/visually-hidden';
 
-import '@reach/dialog/styles.css';
-
 interface DialogProps {
 	closeDialog: () => void;
 	isVisible: boolean;
