@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { Container, jsx } from 'theme-ui';
 
-export const QuickLinks: React.FC = ({ children }) => (
-	<Container as="nav">
+export const QuickLinks: React.FC = ({ children, ...props }) => (
+	<Container as="nav" {...props}>
 		<div
 			sx={{
 				display: 'flex',
