@@ -15,7 +15,7 @@ export const theme: Theme = {
 
 		hoverSecondary: '#931e55',
 		structureBackground: '#f0d5e2',
-		backgroundSecondary: '#f4b843',
+		backgroundSecondary: '#FFB612',
 		footerBackground: '#0e6999',
 		roHighlight: '#21416F',
 		internalLink: '#3D7AA3',
@@ -27,7 +27,7 @@ export const theme: Theme = {
 		link: '#01689B',
 		linkHover: '#002783',
 
-		sidePanel: '#F9C346',
+		sidePanel: '#FFB612',
 
 		smallText: '#CA005D',
 		copyHeading: '#154273',
@@ -113,9 +113,6 @@ export const theme: Theme = {
 			fontSize: ['h2Mobile', 'h2'],
 			lineHeight: ['h2Mobile', 'h2'],
 			color: 'header',
-		},
-		li: {
-			listStyleImage: 'url("/icons/Polygon 6.svg")',
 		},
 		p: {
 			fontSize: '14pt',

@@ -1,2 +1,2 @@
-export * from './piwik';
+export * from './hooks';
 export * from './is-browser';

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import Router from 'next/router';
 
-import { isBrowser } from './is-browser';
+import { isBrowser } from '@quarantaine/common';
 
 declare global {
 	interface Window {
@@ -24,7 +24,7 @@ export const usePiwik = () => {
  * Small helper method to wrap the piwik trackpageview
  * inside a try catch and making sure it only runs on the browser.
  */
-export const trackPageview = () => {
+const trackPageview = () => {
 	if (!isBrowser()) return;
 
 	try {
