@@ -12,6 +12,7 @@ export const theme: Theme = {
 		stepElement: '#AEC1D1',
 		background: '#FFFFFF',
 		headerBackground: '#EFF7F9',
+		expansionPanel: '#EFF7F9',
 
 		hoverSecondary: '#931e55',
 		structureBackground: '#f0d5e2',
@@ -45,7 +46,6 @@ export const theme: Theme = {
 		componentSpacing: ['1em', 0],
 		paragraphSpacing: ['24px', '28px'],
 		h2Spacing: '18px',
-		h3Spacing: '12px',
 		section: '70px',
 		buttonPadding: '36px',
 		sidePanel: ['300px', '400px'],
@@ -116,15 +116,6 @@ export const theme: Theme = {
 			margin: '0',
 			marginBottom: 'h2Spacing',
 		},
-		h3: {
-			fontFamily: 'body',
-			fontSize: 'chapeau',
-			lineHeight: 'chapeau',
-			color: 'smallText',
-			fontWeight: 'bold',
-			margin: '0',
-			marginBottom: 'h3Spacing',
-		},
 		p: {
 			fontSize: ['bodyMobile', 'body'],
 			lineHeight: ['bodyMobile', 'body'],
@@ -133,6 +124,19 @@ export const theme: Theme = {
 		},
 		ul: {
 			fontSize: '14pt',
+			margin: '0',
+			marginBottom: 'paragraphSpacing',
+		},
+	},
+	text: {
+		chapeau: {
+			fontFamily: 'body',
+			fontSize: 'chapeau',
+			lineHeight: 'chapeau',
+			color: 'smallText',
+			fontWeight: 'bold',
+			marginTop: '16px',
+			marginBottom: '12px',
 		},
 	},
 };

@@ -1,6 +1,9 @@
 #
 # GitLab build pipeline
 #
+default:
+  tags:
+    - default
 
 variables:
   CD_NAMESPACE_BHR: vws-reis-bhr

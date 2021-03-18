@@ -72,8 +72,8 @@ const useStyles = ({ fontWeight, styledAs }: LinkPropsBase) => {
 		};
 
 		const buttonStyling: SxStyleProp = {
-			paddingRight: ['none', 'buttonPadding'],
-			paddingLeft: ['none', 'buttonPadding'],
+			paddingRight: 'buttonPadding',
+			paddingLeft: 'buttonPadding',
 			margin: '0',
 			borderRadius: '5px',
 			display: 'inline-block',
@@ -112,6 +112,7 @@ const LinkBase = <T extends React.ElementType = 'a'>(
 		children,
 		styledAs = 'link',
 		lang,
+		external,
 		as = 'a',
 		...remainingProps
 	} = props;
@@ -142,8 +143,8 @@ const LinkBase = <T extends React.ElementType = 'a'>(
 			lang={lang}
 			hrefLang={lang}
 			ref={ref}
-			target={props.external ? '_blank' : undefined}
-			rel={props.external ? 'noopener noreferrer' : undefined}
+			target={external ? '_blank' : undefined}
+			rel={external ? 'noopener noreferrer' : undefined}
 		>
 			{withChevron && <ChevronIcon className="chevron" />}
 			{children}

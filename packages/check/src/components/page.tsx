@@ -14,9 +14,9 @@ interface PageProps {
 	title: string;
 }
 
-export const Page: React.FC<PageProps> = ({ children, title }) => {
+export const Page: React.FC<PageProps> = ({ children, title, ...props }) => {
 	return (
-		<Flex sx={{ flexDirection: 'column', minHeight: '100vh' }}>
+		<Flex {...props} sx={{ flexDirection: 'column', minHeight: '100vh' }}>
 			<Header sx={{ '.logo': { mt: '-2rem' } }}>
 				<Logo alt="Logo Rijksoverheid - Naar de homepage van quarantainecheck.rijksoverheid.nl" />
 				<h1>{title}</h1>
