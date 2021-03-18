@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Box, jsx, Styled } from 'theme-ui';
+import { Box, jsx, Styled, Text } from 'theme-ui';
 import { MetaTags } from 'components/meta-tags';
 import React from 'react';
 import { Page } from 'components/page';
@@ -79,9 +79,7 @@ export default function Home() {
 								[`margin${index % 2 ? 'Left' : 'Right'}`]: [undefined, '30px'],
 							}}
 						>
-							<Styled.h3 as="p" sx={{ mb: 3 }}>
-								{copy.subTitle}
-							</Styled.h3>
+							<Text variant="chapeau">{copy.subTitle}</Text>
 							<Styled.h2>{copy.title}</Styled.h2>
 							<Styled.p>{copy.text}</Styled.p>
 						</div>
