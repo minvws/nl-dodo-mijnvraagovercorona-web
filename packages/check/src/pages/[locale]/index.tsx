@@ -50,7 +50,9 @@ export default function Home() {
 			<Page title="Moet ik in quarantaine?">
 				<QuickLinks sx={{ mb: '30px' }}>
 					{homepageCopy.map((copy) => (
-						<Link href={`#${copy.key}`}>{copy.quickLinkText}</Link>
+						<Link key={copy.key} href={`#${copy.key}`}>
+							{copy.quickLinkText}
+						</Link>
 					))}
 					<Link href="privacy" sx={{ display: ['block', 'none'] }}>
 						Je privacy is altijd beschermd

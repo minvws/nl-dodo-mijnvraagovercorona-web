@@ -113,6 +113,7 @@ const LinkBase = <T extends React.ElementType = 'a'>(
 		styledAs = 'link',
 		lang,
 		as = 'a',
+    external,
 		...remainingProps
 	} = props;
 
