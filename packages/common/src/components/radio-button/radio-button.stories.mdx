@@ -1,0 +1,26 @@
+import { Meta, Props, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { RadioButton } from './';
+
+<Meta title="Components/RadioButton" component={RadioButton} />
+
+# RadioButton
+
+The RadioButton is used to create a radiobutton form element.
+
+## Props
+
+<Props of={RadioButton} />
+
+## Component usage
+
+<Canvas>
+	<Story name="RadioButton">
+		<RadioButton
+			name="radio"
+			label="Een voorbeeld radiobutton"
+			value="1"
+			id="uniek"
+			onChange={(value) => console.log(value)}
+		/>
+	</Story>
+</Canvas>

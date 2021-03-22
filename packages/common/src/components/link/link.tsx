@@ -87,6 +87,7 @@ const useStyles = ({ fontWeight, styledAs }: LinkPropsBase) => {
 			backgroundColor: 'button',
 			color: 'white',
 			transition: 'background-color 300ms ease-in-out',
+			textAlign: 'center',
 
 			':hover, :focus': {
 				backgroundColor: 'buttonHover',
@@ -112,8 +113,8 @@ const LinkBase = <T extends React.ElementType = 'a'>(
 		children,
 		styledAs = 'link',
 		lang,
+		external,
 		as = 'a',
-    external,
 		...remainingProps
 	} = props;
 
@@ -143,8 +144,8 @@ const LinkBase = <T extends React.ElementType = 'a'>(
 			lang={lang}
 			hrefLang={lang}
 			ref={ref}
-			target={props.external ? '_blank' : undefined}
-			rel={props.external ? 'noopener noreferrer' : undefined}
+			target={external ? '_blank' : undefined}
+			rel={external ? 'noopener noreferrer' : undefined}
 		>
 			{withChevron && <ChevronIcon className="chevron" />}
 			{children}

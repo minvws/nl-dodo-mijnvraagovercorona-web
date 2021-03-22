@@ -1,21 +1,15 @@
-import { Meta, Props, Story, Canvas } from '@storybook/addon-docs/blocks';
-import { ExpansionPanel } from './';
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { Content } from './';
 
-<Meta title="Components/ExpansionPanel" component={ExpansionPanel} />
+<Meta title="Components/Content" component={Content} />
 
-# ExpansionPanel
+# Content
 
-The ExpansionPanel is used to create a colapsable piece of content.
-
-## Props
-
-<Props of={ExpansionPanel} />
-
-## Component usage
+The Content component is used to center the content, and ensure padding on mobile devices. As an addition on top of the Bodycontainer it provides additional vertical spacing.
 
 <Canvas>
-	<Story name="ExpansionPanel">
-		<ExpansionPanel title="Title for panel">
+	<Story name="Content">
+		<Content>
 			<p>
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fermentum
 				ullamcorper dui, vitae ultricies dolor sagittis ultricies. Donec vitae
@@ -28,6 +22,6 @@ The ExpansionPanel is used to create a colapsable piece of content.
 				diam. Morbi facilisis sapien ex, ut rutrum tellus feugiat et. Praesent a
 				ligula ac odio finibus laoreet nec in felis. Nulla facilisi.
 			</p>
-		</ExpansionPanel>
+		</Content>
 	</Story>
 </Canvas>

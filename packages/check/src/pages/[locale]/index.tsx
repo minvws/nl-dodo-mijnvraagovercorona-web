@@ -1,9 +1,10 @@
 /** @jsx jsx */
-import { Box, jsx, Styled, Text } from 'theme-ui';
+import { jsx } from 'theme-ui';
 import { MetaTags } from 'components/meta-tags';
 import React from 'react';
 import { Page } from 'components/page';
-import { Link, QuickLinks } from '@quarantaine/common';
+
+import { Link, QuickLinks, SectionInformational } from '@quarantaine/common';
 
 // In array so we can easily abstract it to CMS later.
 interface HomepageCopy {
@@ -50,7 +51,7 @@ export default function Home() {
 			<Page title="Moet ik in quarantaine?">
 				<QuickLinks sx={{ mb: '30px' }}>
 					{homepageCopy.map((copy) => (
-						<Link key={copy.key} href={`#${copy.key}`}>
+						<Link href={`#${copy.key}`} key={copy.key}>
 							{copy.quickLinkText}
 						</Link>
 					))}
@@ -60,32 +61,15 @@ export default function Home() {
 				</QuickLinks>
 
 				{homepageCopy.map((copy, index) => (
-					<Box
+					<SectionInformational
 						key={copy.key}
 						id={copy.key}
-						as="section"
-						sx={{
-							mb: '38px',
-							display: 'flex',
-							alignItems: ['flex-start', 'center'],
-							flexDirection: ['column', index % 2 ? 'row' : 'row-reverse'],
-						}}
-					>
-						<img
-							sx={{ width: 200, maxWidth: '80%', margin: '0 auto' }}
-							src={copy.illustrationUrl}
-							alt=""
-						/>
-						<div
-							sx={{
-								[`margin${index % 2 ? 'Left' : 'Right'}`]: [undefined, '30px'],
-							}}
-						>
-							<Text variant="chapeau">{copy.subTitle}</Text>
-							<Styled.h2>{copy.title}</Styled.h2>
-							<Styled.p>{copy.text}</Styled.p>
-						</div>
-					</Box>
+						imageAlignment={index % 2 === 0 ? 'right' : 'left'}
+						imageUrl={copy.illustrationUrl}
+						chapeau={copy.subTitle}
+						title={copy.title}
+						content={copy.text}
+					/>
 				))}
 			</Page>
 		</>
