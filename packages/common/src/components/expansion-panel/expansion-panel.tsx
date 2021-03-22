@@ -89,7 +89,7 @@ export const ExpansionPanel = ({
 					<DisclosurePanel
 						sx={{
 							div: {
-								'p:first-child': {
+								'p:first-of-type': {
 									marginTop: 0,
 								},
 								'> :last-child': {
