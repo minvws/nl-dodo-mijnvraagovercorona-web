@@ -12,16 +12,22 @@ import { Flex, jsx } from 'theme-ui';
 
 interface PageProps {
 	title: string;
+	withoutContainer?: boolean;
 }
 
-export const Page: React.FC<PageProps> = ({ children, title, ...props }) => {
+export const Page: React.FC<PageProps> = ({
+	children,
+	title,
+	withoutContainer,
+	...props
+}) => {
 	return (
 		<Flex {...props} sx={{ flexDirection: 'column', minHeight: '100vh' }}>
 			<Header sx={{ '.logo': { mt: '-2rem' } }}>
 				<Logo alt="Logo Rijksoverheid - Naar de homepage van quarantainecheck.rijksoverheid.nl" />
 				<h1>{title}</h1>
 			</Header>
-			<BodyContainer>{children}</BodyContainer>
+			{withoutContainer ? children : <BodyContainer>{children}</BodyContainer>}
 			<Footer sx={{ mt: 'auto' }}>
 				<FooterColumn title="Over deze check">
 					<ul>

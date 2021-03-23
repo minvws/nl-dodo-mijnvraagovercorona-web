@@ -14,3 +14,4 @@ export * from './quick-links';
 export * from './radio-button';
 export * from './screen-reader-only';
 export * from './section-informational';
+export * from './datepicker';

@@ -1,0 +1,41 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { Link } from '@quarantaine/common';
+import {
+	Datepicker,
+	DatepickerTopbar,
+	DatepickerBacklinkWrapper,
+	DatepickerTopbarTitle,
+} from './';
+import 'react-day-picker/lib/style.css';
+
+<Meta title="Components/Datepicker" component={Datepicker} />
+
+# Datepicker
+
+The Datepicker is used to center the content, and ensure padding on mobile devices.
+
+<Canvas>
+	<Story name="Datepicker">
+		<Datepicker />
+	</Story>
+</Canvas>
+
+<Canvas>
+	<Story name="Datepicker Single Date">
+		<Datepicker variant="singleDate" />
+	</Story>
+</Canvas>
+
+<Canvas>
+	<Story name="DatepickerTopbar">
+		<DatepickerTopbar>
+			<DatepickerBacklinkWrapper>
+				<Link href="/">Terug</Link>
+			</DatepickerBacklinkWrapper>
+			<DatepickerTopbarTitle
+				title="Kies een datum"
+				subtitle="25mrt tot 28mrt"
+			/>
+		</DatepickerTopbar>
+	</Story>
+</Canvas>
