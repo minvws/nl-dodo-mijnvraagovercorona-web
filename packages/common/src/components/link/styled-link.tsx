@@ -88,6 +88,7 @@ const useStyles = ({ fontWeight, styledAs }: StyledLinkPropsBase) => {
 			backgroundColor: 'button',
 			color: 'white',
 			transition: 'background-color 300ms ease-in-out',
+			textAlign: 'center',
 
 			':hover, :focus': {
 				backgroundColor: 'buttonHover',

@@ -9,6 +9,7 @@ export * from './footer';
 export * from './header';
 export * from './hero';
 export * from './link';
+export * from './locale-selector';
 export * from './logo';
 export * from './quick-links';
 export * from './radio-button';

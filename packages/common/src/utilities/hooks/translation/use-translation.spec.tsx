@@ -2,13 +2,13 @@ import { renderHook } from '@testing-library/react-hooks';
 import React from 'react';
 import { useTranslation } from './use-translation';
 import { TranslationProvider, Translations } from './translation-context';
-import { Languages } from 'config/languages';
+import { Locales } from './locales';
 
 const getWrapper = (translations: Translations) => {
 	const translationProviderWrapper: React.FC = ({ children }) => (
 		<TranslationProvider
 			content={translations}
-			locale={Languages.English}
+			locale={Locales.English}
 			siteSettings={{
 				pageTitleSuffix: '',
 				feedback: {
