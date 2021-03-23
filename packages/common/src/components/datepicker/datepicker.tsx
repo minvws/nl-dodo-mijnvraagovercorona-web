@@ -1,72 +1,13 @@
 /** @jsx jsx */
-import { ScreenReaderOnly } from '../screen-reader-only';
-import React, { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import DayPicker, {
 	DateUtils,
 	RangeModifier,
-	NavbarElementProps,
 	Modifier,
 } from 'react-day-picker';
-import { ChevronIcon } from '../../icons';
 import { useDesktopQuery } from '../../utilities';
 import { jsx } from 'theme-ui';
-
-const Navbar = ({
-	nextMonth,
-	previousMonth,
-	onPreviousClick,
-	onNextClick,
-	localeUtils,
-}: NavbarElementProps) => {
-	const months = localeUtils.getMonths();
-	const prev = months[previousMonth.getMonth()];
-	const next = months[nextMonth.getMonth()];
-
-	return (
-		<div
-			sx={{
-				position: 'absolute',
-				width: '100%',
-				display: 'flex',
-				justifyContent: 'space-between',
-				top: 8,
-				left: 0,
-				svg: { width: ['16px', '10px'] },
-				path: { fill: 'smallText' },
-				button: {
-					border: 'none',
-					backgroundColor: 'transparent',
-					// This makes sure that if a user quickly taps the button,
-					// the mobile browsers won't see this as a "double tap to zoom".
-					touchAction: 'manipulation',
-				},
-			}}
-		>
-			<button
-				sx={{
-					paddingLeft: 10,
-					paddingRight: 0,
-					svg: { transform: 'rotate(180deg)' },
-				}}
-				onClick={() => onPreviousClick()}
-			>
-				<span aria-hidden>
-					<ChevronIcon />
-				</span>
-				<ScreenReaderOnly>{prev}</ScreenReaderOnly>
-			</button>
-			<button
-				sx={{ paddingRight: 10, paddingLeft: 0 }}
-				onClick={() => onNextClick()}
-			>
-				<ScreenReaderOnly>{next}</ScreenReaderOnly>
-				<span aria-hidden>
-					<ChevronIcon />
-				</span>
-			</button>
-		</div>
-	);
-};
+import { Navbar } from './components/navbar-element';
 
 export type DatepickerRangeDataType = RangeModifier;
 
