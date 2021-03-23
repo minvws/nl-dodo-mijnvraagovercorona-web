@@ -38,6 +38,7 @@ const pageSettings = {
 	back: 'Terug naar de vorige pagina',
 	chooseADate: 'Kies een datum',
 	title: 'Wanneer was je voor het laatst bij deze persoon in de buurt?',
+	toResult: 'Naar resultaat',
 };
 
 export default function JouwSituatie() {
@@ -61,13 +62,22 @@ export default function JouwSituatie() {
 						</Link>
 					</DatepickerBacklinkWrapper>
 				</DatepickerTopbar>
-				<BodyContainer>
+				<BodyContainer sx={{ display: 'flex', flexDirection: 'column' }}>
 					<Datepicker
 						variant="singleDay"
 						months={months}
 						weekdaysShort={daysShort}
 						onDayClick={setSelectedDate}
 					/>
+
+					{selectedDate && (
+						<Link
+							sx={{ marginLeft: 'auto', marginY: '24px' }}
+							styledAs="button"
+						>
+							{pageSettings.toResult}
+						</Link>
+					)}
 				</BodyContainer>
 			</Page>
 		</>
