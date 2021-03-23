@@ -150,7 +150,7 @@ export const Datepicker = (props: DatepickerProps) => {
 			showOutsideDays={true}
 			numberOfMonths={isDesktop ? 2 : 1}
 			selectedDays={selectedDays}
-			// Weird ?? undefined is only to satisfy typescript, so null is converted to undefined.
+			// The "?? undefined" is only to satisfy typescript, so null is converted to undefined.
 			// The RangeModifier type provided by react-day-picker also says that from/to can be null,
 			// where the modifier doesn't accept null as values (but would work with it..). Therefore
 			// we convert it back to undefined if null.
