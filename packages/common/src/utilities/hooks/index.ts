@@ -1,3 +1,4 @@
+export * from './content';
 export * from './translation';
-export * from './usePiwik';
-export * from './useDesktopQuery';
+export * from './use-piwik';
+export * from './use-desktop-query';
