@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from 'react';
-import { Box, jsx } from 'theme-ui';
+import { Box, Styled, jsx } from 'theme-ui';
 
 import { BodyContainer } from '@quarantaine/common';
 
@@ -68,17 +68,13 @@ export const BannerDataProtection = ({
 						paddingRight: '16px',
 					}}
 				>
-					<h3
+					<Styled.h2
 						sx={{
-							fontSize: ['h2Mobile', 'h2'],
 							color: 'secondaryHeader',
-							paddingLeft: '4px',
-							paddingBottom: '8px',
-							margin: 0,
 						}}
 					>
 						{content.title}
-					</h3>
+					</Styled.h2>
 					<ul
 						sx={{
 							fontSize: ['bodyMobile', 'body'],
