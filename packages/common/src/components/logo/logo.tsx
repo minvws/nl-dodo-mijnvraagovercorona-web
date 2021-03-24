@@ -10,7 +10,7 @@ export const alignLogoRightOnMobileStyles: SxStyleProp = {
 		textAlign: ['right', 'center'],
 		paddingRight: ['34px', 0],
 	},
-	'.language-selector': {
+	'.locale-selector': {
 		display: ['none', 'flex'],
 	},
 	header: {

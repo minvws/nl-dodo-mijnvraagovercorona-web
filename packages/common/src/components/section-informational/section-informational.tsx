@@ -51,7 +51,7 @@ export const SectionInformational: React.FC<SectionInformationalProps> = ({
 		>
 			{chapeau && <Text variant="chapeau">{chapeau}</Text>}
 			<Styled.h2>{title}</Styled.h2>
-			<Styled.p>{children}</Styled.p>
+			{children}
 		</div>
 	</Container>
 );

@@ -1,4 +1,5 @@
 export interface CommonSiteSettings {
+	baseUrl: string;
 	pageTitleSuffix: string;
 	feedback: {
 		button: string;
