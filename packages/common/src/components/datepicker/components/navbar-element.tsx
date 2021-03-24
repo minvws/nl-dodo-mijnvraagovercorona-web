@@ -1,7 +1,8 @@
+/** @jsx jsx */
 import { ChevronIcon } from '../../../icons';
-import React from 'react';
 import { NavbarElementProps } from 'react-day-picker';
 import { ScreenReaderOnly } from '../../screen-reader-only';
+import { jsx } from 'theme-ui';
 
 /**
  * Prev / next month navigation component passed to ReactDayPicker.
@@ -27,7 +28,7 @@ export const Navbar = ({
 				top: 8,
 				left: 0,
 				svg: { width: ['16px', '10px'] },
-				path: { fill: 'smallText' },
+				path: { fill: 'smallText', stroke: 'smallText' },
 				button: {
 					border: 'none',
 					backgroundColor: 'transparent',
