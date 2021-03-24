@@ -8,6 +8,7 @@ import {
 	QuarantaineOverviewBlock,
 	QuarantaineOverviewBullet,
 } from 'components/quarantine-overview';
+import { GGDSpecialInstructions } from 'components/ggd-special-instructions';
 
 // @TODO: CMS
 const pageSettings = {
@@ -88,6 +89,10 @@ export default function JouwSituatie() {
 								</p>
 							</QuarantaineOverviewBullet>
 						</QuarantaineOverviewBlock>
+
+						<Box sx={{ mt: 'box' }}>
+							<GGDSpecialInstructions />
+						</Box>
 					</BodyContainer>
 				</Box>
 			</Page>
