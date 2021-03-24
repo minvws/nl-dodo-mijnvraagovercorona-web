@@ -22,7 +22,14 @@ export const Page: React.FC<PageProps> = ({
 	...props
 }) => {
 	return (
-		<Flex {...props} sx={{ flexDirection: 'column', minHeight: '100vh' }}>
+		<Flex
+			{...props}
+			sx={{
+				flexDirection: 'column',
+				minHeight: '100vh',
+				fontSize: ['bodyMobile', 'body'],
+			}}
+		>
 			<Header sx={{ '.logo': { mt: '-2rem' } }}>
 				<Logo alt="Logo Rijksoverheid - Naar de homepage van quarantainecheck.rijksoverheid.nl" />
 				<h1>{title}</h1>

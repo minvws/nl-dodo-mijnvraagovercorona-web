@@ -42,7 +42,8 @@ export const theme: Theme = {
 		widgetMaxWidth: '450px',
 	},
 	space: {
-		mobilePadding: '17px',
+		mobilePadding: '16px',
+		box: '16px',
 		componentSpacing: ['1em', 0],
 		paragraphSpacing: ['24px', '28px'],
 		h2Spacing: '18px',
@@ -53,6 +54,7 @@ export const theme: Theme = {
 	},
 	radii: {
 		button: '5px',
+		box: '8px',
 	},
 	fonts: {
 		body: 'RoSans, sans-serif',
