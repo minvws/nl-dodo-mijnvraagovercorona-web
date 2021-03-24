@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { MetaTags } from 'components/meta-tags';
 import { Page } from 'components/page';
-import { Box, jsx, Styled } from 'theme-ui';
+import { Box, jsx, Styled, Text } from 'theme-ui';
 import { useRouter } from 'next/router';
 import { BodyContainer, Link } from '@quarantaine/common';
 import {
@@ -95,6 +95,22 @@ export default function JouwSituatie() {
 						</Box>
 					</BodyContainer>
 				</Box>
+				<BodyContainer sx={{ mt: '32px' }}>
+					<Box sx={{ width: '350px', maxWidth: '100%' }}>
+						<Link
+							styledAs="button"
+							href="https://www.rijksoverheid.nl"
+							externel
+						>
+							Download de Quarantainegids
+						</Link>
+
+						<Text variant="small">
+							In de Quarantainegids vind je hulp, tips en adviezen om je
+							thuisquarantaineperiode zo goed en prettig mogelijk door te komen.
+						</Text>
+					</Box>
+				</BodyContainer>
 			</Page>
 		</>
 	);

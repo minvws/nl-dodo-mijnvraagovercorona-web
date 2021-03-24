@@ -140,5 +140,12 @@ export const theme: Theme = {
 			marginTop: '16px',
 			marginBottom: '12px',
 		},
+		small: {
+			fontFamily: 'body',
+			fontSize: 'chapeau',
+			lineHeight: 'chapeau',
+			marginTop: '16px',
+			marginBottom: '12px',
+		},
 	},
 };
