@@ -8,7 +8,7 @@ import { ExpansionPanel, Link } from '@quarantaine/common';
 export default function JouwSituatie() {
 	return (
 		<>
-			<MetaTags title="Jouw situatie" description="" url="/" />
+			<MetaTags title="Jouw situatie" description="" url="/nl/jouw-situatie" />
 			<Page title="Jouw situatie" sx={{ 'dd a': { marginBottom: '16px' } }}>
 				<Box sx={{ mt: '36px' }}>
 					<Styled.h2>Jij en corona</Styled.h2>

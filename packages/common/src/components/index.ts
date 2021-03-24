@@ -6,6 +6,7 @@ export * from './call-to-action';
 export * from './card';
 export * from './content';
 export * from './content-block';
+export * from './datepicker';
 export * from './dialog';
 export * from './expansion-panel';
 export * from './footer';
