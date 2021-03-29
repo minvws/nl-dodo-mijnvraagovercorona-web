@@ -3,13 +3,19 @@ import { MetaTags } from 'components/meta-tags';
 import { Page } from 'components/page';
 import { Box, jsx, Styled, Text } from 'theme-ui';
 import { useRouter } from 'next/router';
-import { BodyContainer, Link } from '@quarantaine/common';
+import {
+	BodyContainer,
+	CallToAction,
+	Link,
+	SaveInCalendar,
+} from '@quarantaine/common';
 import {
 	QuarantaineOverviewBlock,
 	QuarantaineOverviewBullet,
 } from 'components/quarantine-overview';
 import { GGDSpecialInstructions } from 'components/ggd-special-instructions';
 import { InlineDialog } from 'components/inline-dialog';
+import { PrinterIcon } from 'icons/printer';
 
 // @TODO: CMS
 const pageSettings = {
@@ -146,11 +152,39 @@ export default function JouwSituatie() {
 					</BodyContainer>
 				</Box>
 				<BodyContainer sx={{ mt: '32px' }}>
-					<Box sx={{ width: '350px', maxWidth: '100%' }}>
+					<Box
+						sx={{
+							width: '380px',
+							maxWidth: '100%',
+							button: {
+								background: 'transparent',
+								p: 0,
+								border: 0,
+								width: '100%',
+								mb: 'box',
+								':hover, :focus': {
+									'> span': {
+										backgroundColor: '#fcfeff',
+									},
+								},
+								'> span': {
+									backgroundColor: '#eef7fB',
+									transition: 'background 300ms ease-in-out',
+									p: { fontWeight: 'normal', fontSize: '19px' },
+									backgroundImage: 'none',
+									padding: '14px',
+								},
+								svg: {
+									width: '24px',
+									height: '18px',
+								},
+							},
+						}}
+					>
 						<Link
 							styledAs="button"
 							href="https://www.rijksoverheid.nl"
-							externel
+							external
 						>
 							Download de Quarantainegids
 						</Link>
@@ -159,6 +193,24 @@ export default function JouwSituatie() {
 							In de Quarantainegids vind je hulp, tips en adviezen om je
 							thuisquarantaineperiode zo goed en prettig mogelijk door te komen.
 						</Text>
+
+						<SaveInCalendar
+							locale="nl"
+							content={{ tot_en_met: 't/m', other_calendar: 'Andere agenda' }}
+							title="Zet je thuisquarantaine in je agenda"
+							modalTitle="Zet je thuisquarantaine in je agenda"
+							modalBody="Heb je een andere (digitale) agenda? Zet je thuisquarantaine er dan zelf in."
+							inviteTitle="Thuisquarantaine"
+							inviteText="Krijg je (lichte) klachten? Maak direct een testafspraak op https://coronatest.nl of bel de GGD op 0800-1202. Kijk voor tips over je thuisquarantaine op https://reizentijdenscorona.rijksoverheid.nl/voorbereiding."
+							fromDate={new Date(12, 5, 2021)}
+							toDate={new Date(18, 5, 2021)}
+							hideDate
+						/>
+						<button onClick={() => window.print()}>
+							<CallToAction icon={PrinterIcon}>
+								<p>Print jouw thuisquarantaineoverzicht</p>
+							</CallToAction>
+						</button>
 					</Box>
 				</BodyContainer>
 			</Page>
