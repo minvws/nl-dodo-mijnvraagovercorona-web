@@ -6,6 +6,7 @@ import { ThemeProvider } from 'theme-ui';
 import { theme } from '@quarantaine/common';
 
 import '@quarantaine/common/src/theme/global.css';
+import '@reach/dialog/styles.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
 	return (

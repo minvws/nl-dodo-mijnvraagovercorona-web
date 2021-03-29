@@ -9,6 +9,7 @@ import {
 	QuarantaineOverviewBullet,
 } from 'components/quarantine-overview';
 import { GGDSpecialInstructions } from 'components/ggd-special-instructions';
+import { InlineDialog } from 'components/inline-dialog';
 
 // @TODO: CMS
 const pageSettings = {
@@ -39,7 +40,56 @@ export default function JouwSituatie() {
 							<QuarantaineOverviewBullet>
 								<p>
 									<strong>Ga direct in thuisquarantaine</strong> en vermijd
-									contact met andere personen.
+									contact met andere personen.{' '}
+									<InlineDialog
+										buttonText="Wat zijn de regels?"
+										title="Wat zijn de regels tijdens thuisquarantaine?"
+									>
+										<ul>
+											<li>
+												<strong>Alleen de mensen die bij je wonen</strong> mogen
+												samen met jou in huis zijn.
+											</li>
+											<li>
+												<strong>
+													Blijf zo veel mogelijk op 1,5 meter afstand
+												</strong>{' '}
+												van je huisgenoten. Dus niet knuffelen, niet zoenen en
+												geen seks.
+											</li>
+											<li>
+												Blijf zoveel mogelijk op je <strong>eigen kamer</strong>{' '}
+												en <strong>slaap</strong> daar indien mogelijk{' '}
+												<strong>alleen</strong>.
+											</li>
+											<li>
+												<strong>Ontvang geen bezoek</strong>, behalve voor
+												medische redenen (bijvoorbeeld de huisarts of iemand van
+												de GGD).
+											</li>
+											<li>
+												Heb je <strong>medische hulp</strong> nodig? Ga dan niet
+												naar de huisarts of het ziekenhuis, maar bel de arts.
+											</li>
+											<li>
+												Laat <strong>anderen boodschappen</strong> doen.
+											</li>
+											<li>
+												<strong>Je mag in de tuin of op je balkon</strong>{' '}
+												zitten.
+											</li>
+											<li>
+												<strong> Werk thuis.</strong> Werk je in de zorg? Dan
+												mag je alleen werken bij uitzondering en als je geen
+												klachten hebt. Overleg dit altijd met de GGD of de
+												bedrijfsarts.
+											</li>
+											<li>
+												<strong>Reis niet</strong> met het openbaar vervoer of
+												met een taxi.
+											</li>
+										</ul>
+									</InlineDialog>
 								</p>
 
 								<p>
