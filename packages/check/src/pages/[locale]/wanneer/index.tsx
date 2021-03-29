@@ -1,8 +1,9 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import { MetaTags } from 'components/meta-tags';
 import React, { useState } from 'react';
+
 import { Page } from 'components/page';
+
 import {
 	DatepickerTopbar,
 	DatepickerTopbarTitle,
@@ -11,8 +12,15 @@ import {
 	BodyContainer,
 	Datepicker,
 	Link,
+	MetaTags,
 	formatShortDate,
+	sanityClient,
+	getPageQuery,
+	getLocaleProperty,
+	useSanityPageContent,
+	useSanitySiteSettings,
 } from '@quarantaine/common';
+
 import 'react-day-picker/lib/style.css';
 
 // @TODO: Add site settings
@@ -41,13 +49,16 @@ const pageSettings = {
 	toResult: 'Naar resultaat',
 };
 
-export default function JouwSituatie() {
+export default function Wanneer() {
+	const page = useSanityPageContent();
+	const siteSettings = useSanitySiteSettings();
 	const [selectedDate, setSelectedDate] = useState<Date>();
 
 	return (
 		<>
-			<MetaTags title={pageSettings.title} description="" url="/nl/wanneer" />
-			<Page title={pageSettings.title} withoutContainer>
+			<MetaTags title="Wanneer" description="" url="/jouw-situatie" />
+
+			<Page title={pageSettings.title}>
 				<DatepickerTopbar>
 					<DatepickerTopbarTitle
 						title={pageSettings.chooseADate}
@@ -74,6 +85,7 @@ export default function JouwSituatie() {
 						<Link
 							sx={{ marginLeft: 'auto', marginY: '24px' }}
 							styledAs="button"
+							href="/jouw-situatie"
 						>
 							{pageSettings.toResult}
 						</Link>
@@ -83,3 +95,62 @@ export default function JouwSituatie() {
 		</>
 	);
 }
+
+interface WanneerStaticProps {
+	params: { locale: 'nl' | 'en' };
+}
+
+export const getStaticProps = async ({
+	params: { locale },
+}: WanneerStaticProps) => {
+	const pageProjection = `{
+		"metaData": {
+			${getLocaleProperty({ name: 'title', path: 'metaData.title', locale })},
+			${getLocaleProperty({
+				name: 'description',
+				path: 'metaData.description',
+				locale,
+			})},
+		},
+		"header": {
+			${getLocaleProperty({ name: 'button', path: 'header.button', locale })},
+			${getLocaleProperty({ name: 'pretitle', path: 'header.pretitle', locale })},
+			${getLocaleProperty({ name: 'subtitle', path: 'header.subtitle', locale })},
+			${getLocaleProperty({ name: 'title', path: 'header.title', locale })},
+		},
+		"uitleg": uitleg[]{
+			"image": "/images/sanity/" + image.asset->originalFilename,
+			${getLocaleProperty({ name: 'description', locale })},
+			${getLocaleProperty({ name: 'pretitle', locale })},
+			${getLocaleProperty({ name: 'title', locale })},
+			"linklist": {
+				${getLocaleProperty({ name: 'id', path: 'linklist.id', locale })},
+				${getLocaleProperty({ name: 'usp', path: 'linklist.usp', locale })},
+			},
+		},
+		url,
+	}`;
+
+	const { page, siteSettings } = await sanityClient.fetch(
+		getPageQuery({
+			type: 'landing-page',
+			pageProjection,
+			locale,
+		}),
+	);
+
+	return {
+		props: {
+			page,
+			siteSettings,
+			locale,
+		},
+	};
+};
+
+export const getStaticPaths = () => ({
+	paths: ['nl'].map((locale) => ({
+		params: { locale },
+	})),
+	fallback: false,
+});

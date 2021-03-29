@@ -46,7 +46,7 @@ export const LocaleSelector = () => {
 	const { t } = useTranslation();
 	const { locales } = useContext(TranslationContext);
 
-	return (
+	return locales.length > 1 ? (
 		<Flex
 			className="locale-selector"
 			sx={{
@@ -86,5 +86,5 @@ export const LocaleSelector = () => {
 				<LocaleLink key={locale.id} locale={locale} currentPath={asPath} />
 			))}
 		</Flex>
-	);
+	) : null;
 };

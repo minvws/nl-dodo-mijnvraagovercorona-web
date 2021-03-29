@@ -1,26 +1,31 @@
-import { AppProps } from 'next/dist/next-server/lib/router/router';
-import Head from 'next/head';
-import React from 'react';
-import { ThemeProvider } from 'theme-ui';
+/** @jsx jsx */
+import type { AppProps } from 'next/app';
+import { jsx } from 'theme-ui';
 
-import { theme } from '@quarantaine/common';
+import {
+	locales,
+	App,
+	generalContentNl,
+	generalContentEn,
+} from '@quarantaine/common';
 
 import '@quarantaine/common/src/theme/global.css';
 
-function MyApp({ Component, pageProps }: AppProps) {
-	return (
-		<>
-			<Head>
-				<meta
-					name="viewport"
-					content="width=device-width, initial-scale=1.0, user-scalable=yes"
-				/>
-			</Head>
-			<ThemeProvider theme={theme}>
-				<Component {...pageProps} />
-			</ThemeProvider>
-		</>
-	);
-}
+const CheckApp = ({ Component, pageProps }: AppProps) => {
+	const localGlobalTranslations =
+		pageProps.locale === 'en' ? generalContentEn : generalContentNl;
 
-export default MyApp;
+	return (
+		<App
+			locale={pageProps.locale}
+			locales={[locales.dutch]}
+			pageContent={pageProps.page}
+			siteSettings={pageProps.siteSettings}
+			content={{ ...localGlobalTranslations }}
+		>
+			<Component {...pageProps} />
+		</App>
+	);
+};
+
+export default CheckApp;
