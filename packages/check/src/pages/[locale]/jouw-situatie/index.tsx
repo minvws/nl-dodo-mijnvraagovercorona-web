@@ -11,7 +11,7 @@ interface ContentType {
 	content: React.FC;
 	ctas: { text: string; name: string }[];
 }
-const situationsJij: ContentType[] = [
+export const situationsJij: ContentType[] = [
 	{
 		title: 'Ik heb coronaklachten',
 		titleSuffix: '(o.a. verkouden, koorts of benauwd)',
@@ -127,7 +127,7 @@ const situationsJij: ContentType[] = [
 	},
 ];
 
-const situationsOther: ContentType[] = [
+export const situationsOther: ContentType[] = [
 	{
 		title: 'Iemand bij mij in huis of gezin heeft coronaklachten',
 		content: () => (

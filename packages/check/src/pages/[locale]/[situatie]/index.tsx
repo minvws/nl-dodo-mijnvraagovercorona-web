@@ -16,6 +16,7 @@ import {
 import { GGDSpecialInstructions } from 'components/ggd-special-instructions';
 import { InlineDialog } from 'components/inline-dialog';
 import { PrinterIcon } from 'icons/printer';
+import { situationsJij, situationsOther } from '../jouw-situatie';
 
 // @TODO: CMS
 const pageSettings = {
@@ -225,15 +226,18 @@ export async function getStaticProps() {
 
 export async function getStaticPaths() {
 	// @TODO: Add paths from CMS here.
+	// After that is done, remove exports from the 2 situations objects
+	// (or maybe those objects are deleted all together).
+	const paths = [...situationsJij, ...situationsOther]
+		.filter((s) => s.ctas[0]?.name)
+		.map((s) => s.ctas[0].name);
 	return {
-		paths: [
-			{
-				params: {
-					situatie: 'in-de-buurt-geweest-van-iemand-met-corona',
-					locale: 'nl',
-				},
+		paths: paths.map((p) => ({
+			params: {
+				situatie: p,
+				locale: 'nl',
 			},
-		],
+		})),
 		fallback: false,
 	};
 }
