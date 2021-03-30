@@ -18,33 +18,33 @@ import { FaRegCopyright, FaAccessibleIcon } from 'react-icons/fa';
 import { SiGnuprivacyguard } from 'react-icons/si';
 import { GrVulnerability } from 'react-icons/gr';
 
-import { getSingletonDocument, getPage } from './utilities/getSingleton';
+import { getPage } from './utilities/getSingleton';
 import { getDocumentList, getPageList } from './utilities/getDocumentList';
 
 const genericPagesConfig = [
 	{
 		schemaType: 'privacy-page',
-		title: 'Privacy Pagina',
+		title: 'Common Privacy Pagina',
 		icon: SiGnuprivacyguard,
 	},
 	{
 		schemaType: 'cookies-page',
-		title: 'Cookies Pagina',
+		title: 'Common Cookies Pagina',
 		icon: GiCookie,
 	},
 	{
 		schemaType: 'copyright-page',
-		title: 'Copyright Pagina',
+		title: 'Common Copyright Pagina',
 		icon: FaRegCopyright,
 	},
 	{
 		schemaType: 'toegankelijkheid-page',
-		title: 'Toegankelijkheid Pagina',
+		title: 'Common Toegankelijkheid Pagina',
 		icon: FaAccessibleIcon,
 	},
 	{
 		schemaType: 'kwetsbaarheid-melden-page',
-		title: 'Kwetsbaarheid Melden Pagina',
+		title: 'Common Kwetsbaarheid Melden Pagina',
 		icon: GrVulnerability,
 	},
 ];
@@ -56,41 +56,33 @@ const genericPagesConfig = [
 const reizenPagesConfig = [
 	{
 		schemaType: 'landing-page',
-		title: 'Landing Pagina',
+		title: 'Reizen Landing Pagina',
 		icon: GiHouse,
 	},
 	{
 		schemaType: 'voorbereiding-page',
-		title: 'Voorbereiding Pagina',
+		title: 'Reizen Voorbereiding Pagina',
 		icon: GiClosedDoors,
 	},
 	{
 		schemaType: 'bestemming-page',
-		title: 'Bestemming Pagina',
+		title: 'Reizen Bestemming Pagina',
 		icon: GiFlagObjective,
 	},
 	{
 		schemaType: 'periode-page',
-		title: 'Periode Pagina',
+		title: 'Reizen Periode Pagina',
 		icon: GiCalendar,
 	},
 	{
 		schemaType: 'vervoersmiddel-page',
-		title: 'Vervoersmiddel Pagina',
+		title: 'Reizen Vervoersmiddel Pagina',
 		icon: GiCommercialAirplane,
 	},
 	{
 		schemaType: 'faq-page',
-		title: 'FAQ Pagina',
+		title: 'Reizen FAQ Pagina',
 		icon: GiLightBulb,
-	},
-];
-
-const checkPagesConfig = [
-	{
-		schemaType: 'landing-page',
-		title: 'Landing Pagina',
-		icon: GiHouse,
 	},
 ];
 
@@ -110,28 +102,38 @@ const siteSettingsConfig = [
  * A list of all document types which can contain multiple versions.
  * These will be rendered as a list inside the CMS.
  */
-const multiDocumentsConfig = [
+const reizenMultiDocumentsConfig = [
 	{
 		schemaType: 'faq-document',
-		title: 'FAQ Documenten',
+		title: 'Reizen FAQ Documenten',
 		icon: GiHelp,
 	},
 	{
 		schemaType: 'reis-schema-document',
-		title: 'Reisschema Documenten',
+		title: 'Reizen Reisschema Documenten',
 		icon: GiCardRandom,
 	},
 	{
 		schemaType: 'ggd-contact-document',
-		title: 'GGD Contact Documenten',
+		title: 'Reizen GGD Contact Documenten',
 		icon: GiTestTubes,
 	},
 	{
 		schemaType: 'voorbereiding-document',
-		title: 'Voorbereiding Documenten',
+		title: 'Reizen Voorbereiding Documenten',
 		icon: GiJumpingDog,
 	},
 ];
+
+const checkPagesConfig = [
+	{
+		schemaType: 'check-landing-page',
+		title: 'Check Landing Pagina',
+		icon: GiHouse,
+	},
+];
+
+const checkMultiDocumentsConfig = [];
 
 export default () =>
 	S.list()
@@ -142,15 +144,18 @@ export default () =>
 			S.divider(),
 
 			/** Generic Pages */
+			...genericPagesConfig.map((config) => getPageList(config)),
+			S.divider(),
 
 			/** Reizen Pages */
 			...reizenPagesConfig.map((config) => getPage(config)),
 			S.divider(),
 
+			/** Reizen Multiple Documents */
+			...reizenMultiDocumentsConfig.map((config) => getDocumentList(config)),
+			S.divider(),
+
 			/** Check Pages */
 			...checkPagesConfig.map((config) => getPage(config)),
 			S.divider(),
-
-			/** Multiple Documents */
-			...multiDocumentsConfig.map((config) => getDocumentList(config)),
 		]);

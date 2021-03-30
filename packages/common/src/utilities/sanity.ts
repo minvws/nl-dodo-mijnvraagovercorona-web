@@ -53,9 +53,11 @@ export type ContentPageProps = {
 export const getContentPageQuery = async ({
 	type,
 	locale,
+	site,
 }: {
 	type: string;
 	locale: 'nl' | 'en';
+	site: 'reizen-tijdens-corona' | 'quarantaine-check';
 }): Promise<ContentPageProps> => {
 	const pageProjection = `{
 		"metaData": {
@@ -76,6 +78,7 @@ export const getContentPageQuery = async ({
 			type,
 			pageProjection,
 			locale,
+			site,
 		}),
 	);
 };
@@ -104,8 +107,14 @@ export const faqDocumentsQuery = ({
 		${getLocaleProperty({ name: 'antwoord', locale })},
 	} | order(order asc)`;
 
-const siteSettingsQuery = ({ locale }: { locale: 'nl' | 'en' }): string => `
-	*[_type == "site-settings-document"][0]{
+const siteSettingsQuery = ({
+	locale,
+	site,
+}: {
+	locale: 'nl' | 'en';
+	site: 'reizen-tijdens-corona' | 'quarantaine-check';
+}): string => `
+	*[_type == "site-settings-document" && site == "${site}"][0]{
 		baseUrl,
 		${getLocaleProperty({ name: 'pageTitleSuffix', locale })},
 		"privacy": {
@@ -171,9 +180,11 @@ const siteSettingsQuery = ({ locale }: { locale: 'nl' | 'en' }): string => `
  */
 export const getSiteSettingsQuery = async ({
 	locale,
+	site,
 }: {
 	locale: 'nl' | 'en';
-}) => await sanityClient.fetch(siteSettingsQuery({ locale }));
+	site: 'reizen-tijdens-corona' | 'quarantaine-check';
+}) => await sanityClient.fetch(siteSettingsQuery({ locale, site }));
 
 /**
  * This query will return the global site settings and a list of requested faqs
@@ -188,7 +199,7 @@ export const getFaqsQuery = async ({
 	exclude?: string[];
 }) =>
 	await sanityClient.fetch(`{
-		"siteSettings": ${siteSettingsQuery({ locale })},
+		"siteSettings": ${siteSettingsQuery({ locale, site: 'reizen-tijdens-corona' })},
 		"faqs": ${faqDocumentsQuery({ locale, include, exclude })},
 	}`);
 
@@ -200,19 +211,21 @@ export const getPageQuery = ({
 	pageProjection,
 	documentsQuery,
 	locale,
+	site,
 	faqs,
 }: {
 	type: string;
 	pageProjection: string;
 	documentsQuery?: string;
 	locale: 'nl' | 'en';
+	site: 'reizen-tijdens-corona' | 'quarantaine-check';
 	faqs?: {
 		include?: string[];
 		exclude?: string[];
 	};
 }): string => `{
-	"page": *[_type == "${type}"][0]${pageProjection},
-	"siteSettings": ${siteSettingsQuery({ locale })},
+	"page": *[_type == "${type}" && metaData.site == "${site}"][0]${pageProjection},
+	"siteSettings": ${siteSettingsQuery({ locale, site })},
 	${
 		faqs
 			? `"faqs": ${faqDocumentsQuery({

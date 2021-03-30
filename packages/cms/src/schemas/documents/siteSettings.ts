@@ -4,6 +4,14 @@ export default {
 	type: 'document',
 	fields: [
 		{
+			title: 'Site',
+			name: 'site',
+			type: 'string',
+			options: {
+				list: ['reizen-tijdens-corona', 'quarantaine-check'],
+			},
+		},
+		{
 			title: 'Site URL',
 			name: 'baseUrl',
 			type: 'string',
