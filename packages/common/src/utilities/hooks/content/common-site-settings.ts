@@ -9,7 +9,10 @@ export interface CommonSiteSettings {
 	};
 	footer: {
 		alleenSamenAlt: string;
-		items: string[];
+		items: {
+			url: string;
+			content: string;
+		}[];
 		meerInformatieTitle: string;
 		rijksoverheidText: string;
 		rijksoverheidUrl: string;

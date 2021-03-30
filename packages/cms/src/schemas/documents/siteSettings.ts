@@ -64,7 +64,25 @@ export default {
 					title: 'Onderdelen',
 					name: 'items',
 					type: 'array',
-					of: [{ type: 'localeString' }],
+					of: [
+						{
+							type: 'object',
+							name: 'item',
+							title: 'Onderdeel',
+							fields: [
+								{
+									name: 'url',
+									title: 'URL',
+									type: 'string',
+								},
+								{
+									name: 'content',
+									title: 'Content',
+									type: 'localeString',
+								},
+							],
+						},
+					],
 					options: {
 						sortable: false,
 						editModal: 'popover',

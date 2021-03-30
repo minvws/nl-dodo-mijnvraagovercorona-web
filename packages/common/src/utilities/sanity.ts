@@ -156,12 +156,10 @@ const siteSettingsQuery = ({
 				locale,
 			})},
 			${getLocaleProperty({ name: 'title', path: 'footer.title', locale })},
-			${getLocaleProperty({
-				name: 'items',
-				path: 'footer.items',
-				array: true,
-				locale,
-			})},
+			"items": footer.items[]{
+				url,
+				${getLocaleProperty({ name: 'content', locale })},
+			},
 		},
 		"feedback": {
 			${getLocaleProperty({ name: 'button', path: 'feedback.button', locale })},
