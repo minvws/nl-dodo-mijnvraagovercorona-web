@@ -15,85 +15,101 @@ import {
 	useSanityPageContent,
 	useSanitySiteSettings,
 	Content,
+	Hero,
 } from '@quarantaine/common';
 
-// In array so we can easily abstract it to CMS later.
-interface HomepageCopy {
-	key: string;
-	quickLinkText: string;
-	subTitle: string;
-	title: string;
-	text: string;
-	illustrationUrl: string;
+interface PageContent {
+	metaData: {
+		title: string;
+		description: string;
+	};
+	header: {
+		button: string;
+		pretitle: string;
+		subtitle: string;
+		title: string;
+	};
+	uitleg: {
+		description: string;
+		image: string;
+		pretitle: string;
+		title: string;
+		linklist: {
+			id: string;
+			usp: string;
+		};
+	}[];
+	url: string;
 }
-const homepageCopy: HomepageCopy[] = [
-	{
-		key: 'voorkom-verspreiding',
-		quickLinkText: 'Help verspreiding van het virus voorkomen',
-		subTitle: 'Waarom is dit belangrijk?',
-		title: 'Help verspreiding van het virus voorkomen',
-		text: 'Door in quarantaine te gaan voorkom je dat anderen besmet raken.',
-		illustrationUrl: '/images/corona-world.svg',
-	},
-	{
-		key: 'binnen-1-minuut',
-		quickLinkText: 'Weet binnen 1 minuut of je in thuisquarantaine moet',
-		subTitle: 'De check',
-		title: 'Weet waar je aan toe bent',
-		text:
-			'Misschien heb je zelf klachten of ben je in de buurt geweest van iemand met corona. Of je bent op reis geweest naar een gebied met een hoog coronarisico. Met de check weet je of jij in quarantaine moet gaan en je moet laten testen om verspreiding van het virus te voorkomen.',
-		illustrationUrl: '/images/checklist.svg',
-	},
-	{
-		key: 'wij-helpen',
-		quickLinkText: 'We helpen je met je thuisquarantaine',
-		subTitle: 'Het resultaat',
-		title: 'We helpen je op weg',
-		text:
-			'Als je in quarantaine moet, dan helpen we je om de thuisquarantaine zo goed mogelijk voor te bereiden én door te komen.',
-		illustrationUrl: '/images/people-help.svg',
-	},
-];
 
 export default function LandingPage() {
-	const page = useSanityPageContent();
+	const page = useSanityPageContent<PageContent>();
 	const siteSettings = useSanitySiteSettings();
 
 	return (
 		<>
 			<MetaTags
-				title="Quarantaine check"
-				description=""
-				url="/"
+				title={page.metaData.title}
+				description={page.metaData.description}
+				url={page.url}
 				skipPageSuffix
 			/>
 
-			<Page title="Moet ik in quarantaine?">
-				<Content>
-					<Link styledAs="button" href="/nl/jouw-situatie">
-						Doe de check
+			<Page title={page.header.title} headerPrefix={page.header.pretitle}>
+				<Hero>
+					<h2
+						sx={{
+							fontWeight: 'light',
+							width: ['80%', '549px'],
+							fontSize: '26px',
+							lineHeight: ['30px', '36px'],
+							marginTop: 0,
+							marginBottom: ['18px'],
+							color: 'roHighlight',
+						}}
+					>
+						{page.header.subtitle}
+					</h2>
+					<Link styledAs="button" href="/jouw-situatie">
+						{page.header.button}
 					</Link>
-					<QuickLinks sx={{ mb: '30px' }}>
-						{homepageCopy.map((copy) => (
-							<Link href={`#${copy.key}`} key={copy.key}>
-								{copy.quickLinkText}
-							</Link>
-						))}
-						<Link href="privacy" sx={{ display: ['block', 'none'] }}>
-							Je privacy is altijd beschermd
+				</Hero>
+
+				<Content>
+					<QuickLinks>
+						{page.uitleg.map(
+							(item) =>
+								item.linklist.id &&
+								item.linklist.usp && (
+									<Link
+										href={`#${item.linklist.id}`}
+										key={item.linklist.id}
+										fontWeight="bold"
+									>
+										{item.linklist.usp}
+									</Link>
+								),
+						)}
+
+						<Link
+							href={`#${siteSettings.privacy.id}`}
+							sx={{ display: ['block', 'none'] }}
+							fontWeight="bold"
+						>
+							{siteSettings.privacy.usp}
 						</Link>
 					</QuickLinks>
 
-					{homepageCopy.map((copy, index) => (
+					{page.uitleg.map((item, index) => (
 						<SectionInformational
-							key={copy.key}
-							id={copy.key}
+							imageUrl={item.image}
 							imageAlignment={index % 2 === 0 ? 'right' : 'left'}
-							imageUrl={copy.illustrationUrl}
-							chapeau={copy.subTitle}
-							title={copy.title}
+							key={item.title}
+							id={item.linklist.id}
+							chapeau={item.pretitle}
+							title={item.title}
 						>
-							<Styled.p>{copy.text}</Styled.p>
+							<Styled.p>{item.description}</Styled.p>
 						</SectionInformational>
 					))}
 				</Content>
@@ -139,8 +155,8 @@ export const getStaticProps = async ({
 
 	const { page, siteSettings } = await sanityClient.fetch(
 		getPageQuery({
-			site: 'reizen-tijdens-corona',
-			type: 'landing-page',
+			site: 'quarantaine-check',
+			type: 'check-landing-page',
 			pageProjection,
 			locale,
 		}),

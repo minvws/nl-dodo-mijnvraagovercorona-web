@@ -20,6 +20,8 @@ import periodePage from './pages/reizen/periode';
 import vervoersmiddelPage from './pages/reizen/vervoersmiddel';
 import faqPage from './pages/reizen/faq';
 
+import checkLandingPage from './pages/check/check-landing';
+
 import localeStringObject from './objects/localeString';
 import localeBlockObject from './objects/localeBlock';
 import localeUrlObject from './objects/localeUrl';
@@ -33,6 +35,7 @@ export default createSchema({
 		/**
 		 * Pages
 		 * Pages are single pages within our applications which need internationalization and configuration.
+		 * Common pages
 		 */
 		privacyPage,
 		cookiesPage,
@@ -40,12 +43,20 @@ export default createSchema({
 		kwetsbaarheidMeldenPage,
 		toegankelijkheidPage,
 
+		/**
+		 * Reizen pages
+		 */
 		landingPage,
 		voorbereidingPage,
 		bestemmingPage,
 		periodePage,
 		vervoersmiddelPage,
 		faqPage,
+
+		/**
+		 * Check pages
+		 */
+		checkLandingPage,
 
 		/**
 		 * Site settings
