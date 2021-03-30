@@ -81,7 +81,7 @@ export const ExpansionPanel = ({
 					>
 						{title}
 						{titleSuffix && (
-							<span sx={{ fontWeight: 'normal' }}>{titleSuffix}</span>
+							<span sx={{ fontWeight: 'normal' }}> {titleSuffix}</span>
 						)}
 					</DisclosureButton>
 				</dt>

@@ -22,8 +22,9 @@ import {
 	cartesianProduct,
 } from '@quarantaine/common';
 
+import { getSituations } from 'utilities/situations';
+
 import 'react-day-picker/lib/style.css';
-import { situationsJij, situationsOther } from 'pages/[locale]/jouw-situatie';
 import { useRouter } from 'next/router';
 import { differenceInDays, startOfDay } from 'date-fns';
 
@@ -173,16 +174,13 @@ export const getStaticProps = async ({
 	};
 };
 
-export const getStaticPaths = () => {
-	// @TODO: Add paths from CMS here.
-	const situaties = [...situationsJij, ...situationsOther]
-		.filter((s) => s.ctas[0]?.name)
-		.map((s) => s.ctas[0].name);
+export const getStaticPaths = async () => {
+	const situations = await getSituations();
 
 	return {
 		paths: cartesianProduct(
-			situaties,
-			['nl', 'en'].map((locale) => `${locale}`),
+			situations,
+			['nl'].map((locale) => `${locale}`),
 		).map(([situatie, locale]: string[]) => ({
 			params: { situatie, locale },
 		})),
