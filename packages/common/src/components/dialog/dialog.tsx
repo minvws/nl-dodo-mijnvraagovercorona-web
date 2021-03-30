@@ -28,10 +28,16 @@ export const Dialog: React.FC<DialogProps> = ({
 				// content would have a blue background.
 				background: ['white', 'rgba(1, 104, 155, 0.7)'],
 				paddingRight: [0, '300px', '400px'],
-				p: {
+				'p, ul': {
 					fontSize: ['bodyMobile', 'body'],
 					lineHeight: ['bodyMobile', 'body'],
 					color: 'text',
+				},
+				ul: {
+					paddingLeft: 24,
+				},
+				li: {
+					marginBottom: 'box',
 				},
 				'.close-button': {
 					position: 'absolute',
