@@ -168,6 +168,7 @@ export default function JouwSituatie() {
 									},
 								},
 								'> span': {
+									border: 'none',
 									backgroundColor: '#eef7fB',
 									transition: 'background 300ms ease-in-out',
 									p: { fontWeight: 'normal', fontSize: '19px' },
