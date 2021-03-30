@@ -1,0 +1,30 @@
+import { Meta, Props, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { SaveInCalendar } from './';
+
+<Meta title="Components/SaveInCalendar" component={SaveInCalendar} />
+
+# SaveInCalendar
+
+The SaveInCalendar elements shows a call to action button that adds a specific event
+to your calendar on click.
+
+## Props
+
+<Props of={SaveInCalendar} />
+
+## Component usage
+
+<Canvas>
+	<Story name="SaveInCalendar">
+		<SaveInCalendar
+			singleDay={new Date(10, 10, 2020)}
+			locale="nl"
+			content={{ tot_en_met: 't/m', other_calendar: 'Andere agenda' }}
+			title="Zet je thuisquarantaine in je agenda"
+			modalTitle="Zet je thuisquarantaine in je agenda"
+			modalBody="Heb je een andere (digitale) agenda? Zet je thuisquarantaine er dan zelf in."
+			inviteTitle="Thuisquarantaine"
+			inviteText="Krijg je (lichte) klachten? Maak direct een testafspraak op https://coronatest.nl of bel de GGD op 0800-1202. Kijk voor tips over je thuisquarantaine op https://reizentijdenscorona.rijksoverheid.nl/voorbereiding."
+		/>
+	</Story>
+</Canvas>

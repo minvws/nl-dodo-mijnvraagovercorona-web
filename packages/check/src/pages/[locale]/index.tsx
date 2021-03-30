@@ -70,6 +70,9 @@ export default function LandingPage() {
 
 			<Page title="Moet ik in quarantaine?">
 				<Content>
+					<Link styledAs="button" href="/nl/jouw-situatie">
+						Doe de check
+					</Link>
 					<QuickLinks sx={{ mb: '30px' }}>
 						{homepageCopy.map((copy) => (
 							<Link href={`#${copy.key}`} key={copy.key}>

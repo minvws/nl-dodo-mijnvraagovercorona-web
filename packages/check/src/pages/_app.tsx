@@ -10,6 +10,8 @@ import {
 } from '@quarantaine/common';
 
 import '@quarantaine/common/src/theme/global.css';
+import '@reach/dialog/styles.css';
+import '@reach/menu-button/styles.css';
 
 const CheckApp = ({ Component, pageProps }: AppProps) => {
 	const localGlobalTranslations =

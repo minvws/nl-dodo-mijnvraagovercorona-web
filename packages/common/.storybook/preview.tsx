@@ -5,6 +5,8 @@ import { withNextRouter } from 'storybook-addon-next-router';
 import { theme, TranslationProvider, locales } from '../src';
 
 import '../src/theme/global.css';
+import '@reach/menu-button/styles.css';
+import '@reach/dialog/styles.css';
 
 addDecorator(withNextRouter());
 addDecorator((storyFn) => (
