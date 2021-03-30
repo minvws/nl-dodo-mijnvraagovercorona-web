@@ -211,7 +211,7 @@ export default function JouwSituatie() {
 							>
 								<Content />
 								{situation.ctas.map((cta) => (
-									<Link href={`/nl/${cta.name}`} styledAs="button">
+									<Link href={`/nl/${cta.name}/wanneer`} styledAs="button">
 										{cta.text}
 									</Link>
 								))}
@@ -228,7 +228,7 @@ export default function JouwSituatie() {
 							>
 								<Content />
 								{situation.ctas.map((cta) => (
-									<Link href={`/nl/${cta.name}`} styledAs="button">
+									<Link href={`/nl/${cta.name}/wanneer`} styledAs="button">
 										{cta.text}
 									</Link>
 								))}
