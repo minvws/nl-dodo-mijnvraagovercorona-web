@@ -19,5 +19,6 @@ export * from './meta-tags';
 export * from './page';
 export * from './quick-links';
 export * from './radio-button';
+export * from './save-in-calendar';
 export * from './screen-reader-only';
 export * from './section-informational';
