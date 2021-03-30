@@ -4,8 +4,9 @@
 	"private": true,
 	"scripts": {
 		"dev": "next dev",
-		"build": "next build",
-		"start": "next start",
+		"build": "yarn run download-images && next build && next-sitemap && next export",
+		"download-images": "node ./downloadSanityImages.js",
+		"start": "NODE_ENV=production next start",
 		"test": "true"
 	},
 	"dependencies": {
@@ -16,6 +17,7 @@
 		"theme-ui": "^0.3.5"
 	},
 	"devDependencies": {
-		"next-transpile-modules": "^6.3.0"
+		"next-transpile-modules": "^6.3.0",
+		"next-sitemap": "^1.4.15"
 	}
 }
