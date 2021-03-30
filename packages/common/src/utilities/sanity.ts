@@ -104,8 +104,8 @@ export const faqDocumentsQuery = ({
 		${getLocaleProperty({ name: 'antwoord', locale })},
 	} | order(order asc)`;
 
-const siteSettingsQuery = ({ locale }: { locale: 'nl' | 'en' }): string => `
-	*[_type == "site-settings-document"][0]{
+  const siteSettingsQuery = ({ locale }: { locale: 'nl' | 'en' }): string => `
+	*[_type == "site-settings-document" && site == "reizen-tijdens-corona"][0]{
 		baseUrl,
 		${getLocaleProperty({ name: 'pageTitleSuffix', locale })},
 		"privacy": {

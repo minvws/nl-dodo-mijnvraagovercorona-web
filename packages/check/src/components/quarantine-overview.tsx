@@ -19,6 +19,7 @@ export const QuarantaineOverviewBlock: React.FC<QuarantaineOverviewBlockProps> =
 			borderRadius: 'box',
 			padding: 'box',
 			position: 'relative',
+			fontSize: ['bodyMobile', 'body'],
 			'& + &': {
 				marginTop: '72px',
 				// lines between blocks.

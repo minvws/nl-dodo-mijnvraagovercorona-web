@@ -6,6 +6,7 @@ import { Link } from '@quarantaine/common';
 
 /** @ts-ignore Types would be nice */
 import SanityContentBlock from '@sanity/block-content-to-react';
+import { InlineDialog } from '../dialog';
 
 interface ContentProps {
 	title?: string;
@@ -20,6 +21,14 @@ interface MarkProps {
 	mark?: {
 		href: string;
 		internal?: boolean;
+	};
+}
+
+interface DialogProps {
+	children: React.ReactNode;
+	mark: {
+		modal_title: string;
+		modal_content: Array<Object>;
 	};
 }
 
@@ -55,6 +64,16 @@ const serializers = {
 				{Array.isArray(children) ? children[0] : children}
 			</Link>
 		),
+		dialog: ({ children, mark }: DialogProps) => {
+			return (
+				<InlineDialog
+					title={mark.modal_title}
+					buttonText={`${Array.isArray(children) ? children[0] : children}`}
+				>
+					<ContentBlock content={mark.modal_content} />
+				</InlineDialog>
+			);
+		},
 	},
 };
 
