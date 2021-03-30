@@ -11,6 +11,7 @@ import {
 	getLocaleProperty,
 	sanityClient,
 	getPageQuery,
+	InlineDialog,
 } from '@quarantaine/common';
 import { Page } from 'components/page';
 import {
@@ -18,7 +19,6 @@ import {
 	QuarantaineOverviewBullet,
 } from 'components/quarantine-overview';
 import { GGDSpecialInstructions } from 'components/ggd-special-instructions';
-import { InlineDialog } from 'components/inline-dialog';
 
 import { PrinterIcon } from 'icons/printer';
 import { situationsJij, situationsOther } from '../jouw-situatie';

@@ -1,6 +1,8 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import { Dialog, Link, QuestionIcon } from '@quarantaine/common';
+import { Dialog } from './dialog';
+import { Link } from '../link';
+import { QuestionIcon } from '../../icons/question';
 import { useState } from 'react';
 
 export const InlineDialog: React.FC<{ title: string; buttonText: string }> = ({
@@ -17,12 +19,18 @@ export const InlineDialog: React.FC<{ title: string; buttonText: string }> = ({
 				onClick={() => setIsVisible(true)}
 				sx={{
 					textDecoration: 'none !important',
+					'.chevron': {
+						display: 'none',
+					},
+					svg: {
+						fill: 'currentColor',
+					},
 				}}
 			>
 				<span
 					sx={{
 						backgroundImage:
-							'linear-gradient(to right, black 60%, rgba(255,255,255,0) 0%)',
+							'linear-gradient(to right, currentColor 60%, rgba(255,255,255,0) 0%)',
 						backgroundPosition: 'center bottom 3px',
 						backgroundSize: '6px 1px',
 						backgroundRepeat: 'repeat-x',
