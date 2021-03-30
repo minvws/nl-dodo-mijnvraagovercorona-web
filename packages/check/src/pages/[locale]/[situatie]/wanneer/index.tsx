@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import { Page } from 'components/page';
 
@@ -19,9 +19,13 @@ import {
 	getLocaleProperty,
 	useSanityPageContent,
 	useSanitySiteSettings,
+	cartesianProduct,
 } from '@quarantaine/common';
 
 import 'react-day-picker/lib/style.css';
+import { situationsJij, situationsOther } from 'pages/[locale]/jouw-situatie';
+import { useRouter } from 'next/router';
+import { differenceInDays, startOfDay } from 'date-fns';
 
 // @TODO: Add site settings
 const months = [
@@ -49,11 +53,30 @@ const pageSettings = {
 	toResult: 'Naar resultaat',
 };
 
+const datePageUrlToResultUrl = (
+	datePageUrl: string,
+	day: number,
+	maxDays: number,
+) => {
+	const daySuffix = day === 0 || maxDays === 1 ? '' : `/${day}-dagen-geleden`;
+
+	return datePageUrl.replace(
+		'/wanneer',
+		day > maxDays ? '/geen-resultaat' : daySuffix,
+	);
+};
+
 export default function Wanneer() {
 	const page = useSanityPageContent();
 	const siteSettings = useSanitySiteSettings();
 	const [selectedDate, setSelectedDate] = useState<Date>();
+	const router = useRouter();
 
+	// @TODO: Disable dates in the future?
+	const nrOfDaysAgo = useMemo(() => {
+		if (!selectedDate) return null;
+		return differenceInDays(startOfDay(new Date()), startOfDay(selectedDate));
+	}, [selectedDate]);
 	return (
 		<>
 			<MetaTags title="Wanneer" description="" url="/jouw-situatie" />
@@ -81,11 +104,11 @@ export default function Wanneer() {
 						onDayClick={setSelectedDate}
 					/>
 
-					{selectedDate && (
+					{selectedDate && nrOfDaysAgo !== null && (
 						<Link
 							sx={{ marginLeft: 'auto', marginY: '24px' }}
 							styledAs="button"
-							href="/jouw-situatie"
+							href={datePageUrlToResultUrl(router.asPath, nrOfDaysAgo, 10)}
 						>
 							{pageSettings.toResult}
 						</Link>
@@ -149,9 +172,19 @@ export const getStaticProps = async ({
 	};
 };
 
-export const getStaticPaths = () => ({
-	paths: ['nl'].map((locale) => ({
-		params: { locale },
-	})),
-	fallback: false,
-});
+export const getStaticPaths = () => {
+	// @TODO: Add paths from CMS here.
+	const situaties = [...situationsJij, ...situationsOther]
+		.filter((s) => s.ctas[0]?.name)
+		.map((s) => s.ctas[0].name);
+
+	return {
+		paths: cartesianProduct(
+			situaties,
+			['nl', 'en'].map((locale) => `${locale}`),
+		).map(([situatie, locale]: string[]) => ({
+			params: { situatie, locale },
+		})),
+		fallback: false,
+	};
+};
