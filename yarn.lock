@@ -1852,8 +1852,6 @@
     "@reach/utils" "0.13.2"
     tslib "^2.1.0"
 
-<<<<<<< HEAD
-=======
 "@reach/auto-id@0.14.0":
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/@reach/auto-id/-/auto-id-0.14.0.tgz#1edfdeddb8fad656ec894a934c78f20c3b341416"
@@ -1862,15 +1860,6 @@
     "@reach/utils" "0.14.0"
     tslib "^2.1.0"
 
-"@reach/auto-id@^0.10.5":
-  version "0.10.5"
-  resolved "https://registry.yarnpkg.com/@reach/auto-id/-/auto-id-0.10.5.tgz#fa78c71ce2f565ebed1ad91a8d9a685176d23c48"
-  integrity sha512-we4/bwjFxJ3F+2eaddQ1HltbKvJ7AB8clkN719El7Zugpn/vOjfPMOVUiBqTmPGLUvkYrq4tpuFwLvk2HyOVHg==
-  dependencies:
-    "@reach/utils" "0.10.5"
-    tslib "^2.0.0"
-
->>>>>>> develop
 "@reach/combobox@^0.13.0":
   version "0.13.2"
   resolved "https://registry.yarnpkg.com/@reach/combobox/-/combobox-0.13.2.tgz#f0a38c685a2704f6a189709e63cd7e25809da1e4"
