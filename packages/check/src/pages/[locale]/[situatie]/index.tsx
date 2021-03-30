@@ -224,6 +224,7 @@ export async function getStaticProps() {
 }
 
 export async function getStaticPaths() {
+	// @TODO: Add paths from CMS here.
 	return {
 		paths: [
 			{

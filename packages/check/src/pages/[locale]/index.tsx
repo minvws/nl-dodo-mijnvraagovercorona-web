@@ -49,6 +49,9 @@ export default function Home() {
 		<>
 			<MetaTags title="Quarantaine check" description="" url="/" />
 			<Page title="Moet ik in quarantaine?">
+				<Link styledAs="button" href="/nl/jouw-situatie">
+					Doe de check
+				</Link>
 				<QuickLinks sx={{ mb: '30px' }}>
 					{homepageCopy.map((copy) => (
 						<Link href={`#${copy.key}`} key={copy.key}>
