@@ -1,9 +1,20 @@
 /** @jsx jsx */
-import { Box, jsx, Styled } from 'theme-ui';
-import { MetaTags } from 'components/meta-tags';
 import React from 'react';
+import { Box, jsx, Styled } from 'theme-ui';
+
 import { Page } from 'components/page';
-import { ExpansionPanel, Link } from '@quarantaine/common';
+
+import {
+	ExpansionPanel,
+	Link,
+	sanityClient,
+	getPageQuery,
+	getLocaleProperty,
+	Content,
+	MetaTags,
+	useSanityPageContent,
+	useSanitySiteSettings,
+} from '@quarantaine/common';
 
 interface ContentType {
 	title: string;
@@ -182,56 +193,120 @@ export const situationsOther: ContentType[] = [
 ];
 
 export default function JouwSituatie() {
+	const page = useSanityPageContent();
+	const siteSettings = useSanitySiteSettings();
+
 	return (
 		<>
-			<MetaTags title="Jouw situatie" description="" url="/nl/jouw-situatie" />
+			<MetaTags title="Jouw situatie" description="" url="/jouw-situatie" />
 			<Page title="Jouw situatie" sx={{ 'dd a': { marginBottom: '16px' } }}>
-				<Box sx={{ mt: '36px' }}>
-					<Styled.h2>Jij en corona</Styled.h2>
+				<Content>
+					<Box sx={{ mt: '36px' }}>
+						<Styled.h2>Jij en corona</Styled.h2>
 
-					{situationsJij.map(({ content: Content, ...situation }) => (
-						<ExpansionPanel
-							title={situation.title}
-							titleSuffix={situation.titleSuffix}
-						>
-							<Content />
-							{situation.ctas.map((cta) => (
-								<Link href={`/nl/${cta.name}`} styledAs="button">
-									{cta.text}
-								</Link>
-							))}
-						</ExpansionPanel>
-					))}
-				</Box>
-				<Box sx={{ my: '36px' }}>
-					<Styled.h2>Mensen bij jou in huis en corona</Styled.h2>
+						{situationsJij.map(({ content: Content, ...situation }) => (
+							<ExpansionPanel
+								title={situation.title}
+								titleSuffix={situation.titleSuffix}
+							>
+								<Content />
+								{situation.ctas.map((cta) => (
+									<Link href={`/nl/${cta.name}`} styledAs="button">
+										{cta.text}
+									</Link>
+								))}
+							</ExpansionPanel>
+						))}
+					</Box>
+					<Box sx={{ my: '36px' }}>
+						<Styled.h2>Mensen bij jou in huis en corona</Styled.h2>
 
-					{situationsOther.map(({ content: Content, ...situation }) => (
-						<ExpansionPanel
-							title={situation.title}
-							titleSuffix={situation.titleSuffix}
-						>
-							<Content />
-							{situation.ctas.map((cta) => (
-								<Link href={`/nl/${cta.name}`} styledAs="button">
-									{cta.text}
-								</Link>
-							))}
-						</ExpansionPanel>
-					))}
-				</Box>
-				<Styled.h2>Staat jouw situatie er niet tussen?</Styled.h2>
-				<Styled.p>Dan hoef je nu niet in thuisquarantaine te gaan.</Styled.p>
-				<Styled.p>
-					Blijf wel{' '}
-					<Link href="/" withChevron={false}>
-						alle basisregels
-					</Link>{' '}
-					volgen om het virus geen kans te geven zich verder te verspreiden. Dus
-					houd 1,5 meter afstand, was je handen en bij klachten blijf thuis en
-					laat je testen.
-				</Styled.p>
+						{situationsOther.map(({ content: Content, ...situation }) => (
+							<ExpansionPanel
+								title={situation.title}
+								titleSuffix={situation.titleSuffix}
+							>
+								<Content />
+								{situation.ctas.map((cta) => (
+									<Link href={`/nl/${cta.name}`} styledAs="button">
+										{cta.text}
+									</Link>
+								))}
+							</ExpansionPanel>
+						))}
+					</Box>
+					<Styled.h2>Staat jouw situatie er niet tussen?</Styled.h2>
+					<Styled.p>Dan hoef je nu niet in thuisquarantaine te gaan.</Styled.p>
+					<Styled.p>
+						Blijf wel{' '}
+						<Link href="/" withChevron={false}>
+							alle basisregels
+						</Link>{' '}
+						volgen om het virus geen kans te geven zich verder te verspreiden.
+						Dus houd 1,5 meter afstand, was je handen en bij klachten blijf
+						thuis en laat je testen.
+					</Styled.p>
+				</Content>
 			</Page>
 		</>
 	);
 }
+
+interface JouwSituatieStaticProps {
+	params: { locale: 'nl' | 'en' };
+}
+
+export const getStaticProps = async ({
+	params: { locale },
+}: JouwSituatieStaticProps) => {
+	const pageProjection = `{
+		"metaData": {
+			${getLocaleProperty({ name: 'title', path: 'metaData.title', locale })},
+			${getLocaleProperty({
+				name: 'description',
+				path: 'metaData.description',
+				locale,
+			})},
+		},
+		"header": {
+			${getLocaleProperty({ name: 'button', path: 'header.button', locale })},
+			${getLocaleProperty({ name: 'pretitle', path: 'header.pretitle', locale })},
+			${getLocaleProperty({ name: 'subtitle', path: 'header.subtitle', locale })},
+			${getLocaleProperty({ name: 'title', path: 'header.title', locale })},
+		},
+		"uitleg": uitleg[]{
+			"image": "/images/sanity/" + image.asset->originalFilename,
+			${getLocaleProperty({ name: 'description', locale })},
+			${getLocaleProperty({ name: 'pretitle', locale })},
+			${getLocaleProperty({ name: 'title', locale })},
+			"linklist": {
+				${getLocaleProperty({ name: 'id', path: 'linklist.id', locale })},
+				${getLocaleProperty({ name: 'usp', path: 'linklist.usp', locale })},
+			},
+		},
+		url,
+	}`;
+
+	const { page, siteSettings } = await sanityClient.fetch(
+		getPageQuery({
+			type: 'landing-page',
+			pageProjection,
+			locale,
+		}),
+	);
+
+	return {
+		props: {
+			page,
+			siteSettings,
+			locale,
+		},
+	};
+};
+
+export const getStaticPaths = () => ({
+	paths: ['nl'].map((locale) => ({
+		params: { locale },
+	})),
+	fallback: false,
+});

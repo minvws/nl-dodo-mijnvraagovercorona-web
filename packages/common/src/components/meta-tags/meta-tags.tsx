@@ -1,5 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Head from 'next/head';
+
+import {
+	useCurrentLocale,
+	useSanitySiteSettings,
+	TranslationContext,
+} from '@quarantaine/common';
 
 type Props = {
 	title: string;
@@ -16,10 +22,12 @@ export const MetaTags = ({
 	noIndex,
 	skipPageSuffix,
 }: Props) => {
-	const baseUrl = 'https://quarantainecheck.rijksoverheid.nl';
-	const completeURl = `${baseUrl}/nl${url}`;
+	const locale = useCurrentLocale();
+	const { locales } = useContext(TranslationContext);
+	const { pageTitleSuffix, baseUrl } = useSanitySiteSettings();
+	const completeURl = `${baseUrl}/${locale.id}${url}`;
 
-	const pageTitle = `${title}${skipPageSuffix ? '' : ' Rijksoverheid'}`;
+	const pageTitle = `${title}${skipPageSuffix ? '' : pageTitleSuffix}`;
 
 	return (
 		<Head>
@@ -27,9 +35,25 @@ export const MetaTags = ({
 			<meta name="title" content={`${pageTitle}`} />
 			<meta name="description" content={description} />
 
-			<link rel="alternate" hrefLang="nl" href={`${baseUrl}/nl${url}`} />
+			{locales.map((locale) => (
+				<link
+					key={locale.id}
+					rel="alternate"
+					hrefLang={locale.id}
+					href={`${baseUrl}/${locale.id}${url}`}
+				/>
+			))}
 
 			<meta property="og:type" content="website" />
+			<meta property="og:locale" content={locale.locale} />
+			{locale.alternateLocales.map((alternateLocale) => (
+				<meta
+					property="og:locale:alternate"
+					content={alternateLocale}
+					key={alternateLocale}
+				/>
+			))}
+
 			<meta property="og:url" content={completeURl} />
 			<meta property="og:image" content={`${baseUrl}/share.png`} />
 			<link rel="canonical" href={completeURl} />

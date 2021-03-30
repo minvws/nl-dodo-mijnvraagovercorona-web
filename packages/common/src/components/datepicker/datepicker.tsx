@@ -5,9 +5,10 @@ import DayPicker, {
 	RangeModifier,
 	Modifier,
 } from 'react-day-picker';
-import { useDesktopQuery } from '../../utilities';
 import { jsx } from 'theme-ui';
 import { Navbar } from './components/navbar-element';
+
+import { useDesktopQuery } from '@quarantaine/common';
 
 export type DatepickerRangeDataType = RangeModifier;
 

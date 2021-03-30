@@ -1,20 +1,25 @@
 /** @jsx jsx */
-import { MetaTags } from 'components/meta-tags';
-import { Page } from 'components/page';
 import { Box, jsx, Styled, Text } from 'theme-ui';
 import { useRouter } from 'next/router';
+
 import {
 	BodyContainer,
 	CallToAction,
 	Link,
 	SaveInCalendar,
+	MetaTags,
+	getLocaleProperty,
+	sanityClient,
+	getPageQuery,
 } from '@quarantaine/common';
+import { Page } from 'components/page';
 import {
 	QuarantaineOverviewBlock,
 	QuarantaineOverviewBullet,
 } from 'components/quarantine-overview';
 import { GGDSpecialInstructions } from 'components/ggd-special-instructions';
 import { InlineDialog } from 'components/inline-dialog';
+
 import { PrinterIcon } from 'icons/printer';
 import { situationsJij, situationsOther } from '../jouw-situatie';
 
@@ -24,13 +29,13 @@ const pageSettings = {
 	quarantineOverviewTitle: 'Dit is jouw thuisquarantaine overzicht',
 };
 
-export default function JouwSituatie() {
+export default function Situatie() {
 	const router = useRouter();
 
 	return (
 		<>
 			<MetaTags title={pageSettings.title} description="" url={router.asPath} />
-			<Page title={pageSettings.title} withoutContainer>
+			<Page title={pageSettings.title}>
 				<Box sx={{ backgroundColor: 'headerBackground', py: 'box' }}>
 					<BodyContainer sx={{ paddingRight: [, '165px'] }}>
 						<Styled.h2>{pageSettings.quarantineOverviewTitle}</Styled.h2>
@@ -220,8 +225,8 @@ export default function JouwSituatie() {
 	);
 }
 
-export async function getStaticProps() {
-	return { props: {} };
+interface SituatieStaticProps {
+	params: { locale: 'nl' | 'en' };
 }
 
 export async function getStaticPaths() {
@@ -241,3 +246,51 @@ export async function getStaticPaths() {
 		fallback: false,
 	};
 }
+
+export const getStaticProps = async ({
+	params: { locale },
+}: SituatieStaticProps) => {
+	const pageProjection = `{
+		"metaData": {
+			${getLocaleProperty({ name: 'title', path: 'metaData.title', locale })},
+			${getLocaleProperty({
+				name: 'description',
+				path: 'metaData.description',
+				locale,
+			})},
+		},
+		"header": {
+			${getLocaleProperty({ name: 'button', path: 'header.button', locale })},
+			${getLocaleProperty({ name: 'pretitle', path: 'header.pretitle', locale })},
+			${getLocaleProperty({ name: 'subtitle', path: 'header.subtitle', locale })},
+			${getLocaleProperty({ name: 'title', path: 'header.title', locale })},
+		},
+		"uitleg": uitleg[]{
+			"image": "/images/sanity/" + image.asset->originalFilename,
+			${getLocaleProperty({ name: 'description', locale })},
+			${getLocaleProperty({ name: 'pretitle', locale })},
+			${getLocaleProperty({ name: 'title', locale })},
+			"linklist": {
+				${getLocaleProperty({ name: 'id', path: 'linklist.id', locale })},
+				${getLocaleProperty({ name: 'usp', path: 'linklist.usp', locale })},
+			},
+		},
+		url,
+	}`;
+
+	const { page, siteSettings } = await sanityClient.fetch(
+		getPageQuery({
+			type: 'landing-page',
+			pageProjection,
+			locale,
+		}),
+	);
+
+	return {
+		props: {
+			page,
+			siteSettings,
+			locale,
+		},
+	};
+};

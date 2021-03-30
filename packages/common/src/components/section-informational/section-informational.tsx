@@ -4,11 +4,10 @@ import { Container, Text, Styled, jsx } from 'theme-ui';
 
 type SectionInformationalProps = {
 	imageUrl?: string;
-	imageAlignment: 'left' | 'right';
+	imageAlignment?: 'left' | 'right';
 	id?: string;
-	chapeau: string;
+	chapeau?: string;
 	title: string;
-	content: string;
 };
 
 export const SectionInformational: React.FC<SectionInformationalProps> = ({
@@ -17,7 +16,7 @@ export const SectionInformational: React.FC<SectionInformationalProps> = ({
 	imageUrl,
 	chapeau,
 	title,
-	content,
+	children,
 }) => (
 	<Container
 		id={id}
@@ -29,26 +28,34 @@ export const SectionInformational: React.FC<SectionInformationalProps> = ({
 			alignItems: ['flex-start', 'center'],
 			flexDirection: [
 				'column',
-				imageAlignment === 'right' ? 'row' : 'row-reverse',
+				imageAlignment === 'left' ? 'row' : 'row-reverse',
 			],
 		}}
 	>
 		<img
-			sx={{ width: 200, maxWidth: '80%', margin: '0 auto' }}
+			sx={{
+				width: ['auto', 200],
+				maxWidth: ['100%', '80%'],
+				margin: '0 auto',
+			}}
 			src={imageUrl}
 			alt=""
 		/>
 		<div
 			sx={{
-				[`margin${imageAlignment === 'right' ? 'Left' : 'Right'}`]: [
+				[`margin${imageAlignment === 'left' ? 'Left' : 'Right'}`]: [
 					undefined,
 					'30px',
 				],
 			}}
 		>
-			<Text variant="chapeau">{chapeau}</Text>
+			{chapeau && <Text variant="chapeau">{chapeau}</Text>}
 			<Styled.h2>{title}</Styled.h2>
-			<Styled.p>{content}</Styled.p>
+			{children}
 		</div>
 	</Container>
 );
+
+SectionInformational.defaultProps = {
+	imageAlignment: 'left',
+};
