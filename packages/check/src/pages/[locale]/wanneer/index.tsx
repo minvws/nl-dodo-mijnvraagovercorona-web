@@ -133,6 +133,7 @@ export const getStaticProps = async ({
 
 	const { page, siteSettings } = await sanityClient.fetch(
 		getPageQuery({
+			site: 'reizen-tijdens-corona',
 			type: 'landing-page',
 			pageProjection,
 			locale,
