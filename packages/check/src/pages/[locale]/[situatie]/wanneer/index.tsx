@@ -98,6 +98,7 @@ export default function Wanneer() {
 				</DatepickerTopbar>
 				<BodyContainer sx={{ display: 'flex', flexDirection: 'column' }}>
 					<Datepicker
+						disabledDays={(day) => day > new Date()}
 						variant="singleDay"
 						months={months}
 						weekdaysShort={daysShort}
