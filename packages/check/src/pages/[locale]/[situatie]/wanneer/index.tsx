@@ -26,7 +26,7 @@ import { getSituations } from 'utilities/situations';
 
 import 'react-day-picker/lib/style.css';
 import { useRouter } from 'next/router';
-import { differenceInDays, startOfDay } from 'date-fns';
+import { differenceInDays, startOfDay, format } from 'date-fns';
 
 // @TODO: Add site settings
 const months = [
@@ -78,6 +78,7 @@ export default function Wanneer() {
 		if (!selectedDate) return null;
 		return differenceInDays(startOfDay(new Date()), startOfDay(selectedDate));
 	}, [selectedDate]);
+
 	return (
 		<>
 			<MetaTags title="Wanneer" description="" url="/jouw-situatie" />
@@ -92,7 +93,7 @@ export default function Wanneer() {
 						}
 					/>
 					<DatepickerBacklinkWrapper>
-						<Link href="/jouw-situatie">
+						<Link href="/nl/jouw-situatie">
 							<ScreenReaderOnly>{pageSettings.back}</ScreenReaderOnly>
 						</Link>
 					</DatepickerBacklinkWrapper>
@@ -110,7 +111,10 @@ export default function Wanneer() {
 						<Link
 							sx={{ marginLeft: 'auto', marginY: '24px' }}
 							styledAs="button"
-							href={datePageUrlToResultUrl(router.asPath, nrOfDaysAgo, 10)}
+							href={
+								datePageUrlToResultUrl(router.asPath, nrOfDaysAgo, 10) +
+								`?event=${format(selectedDate, 'dd-MM-yyyy')}`
+							}
 						>
 							{pageSettings.toResult}
 						</Link>
