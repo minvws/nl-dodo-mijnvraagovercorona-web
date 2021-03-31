@@ -14,11 +14,6 @@ export default {
 			type: 'header',
 		},
 		{
-			title: 'Header melding app',
-			name: 'headerMeldingApp',
-			type: 'header',
-		},
-		{
 			title: 'Header reis',
 			name: 'headerReis',
 			type: 'header',
