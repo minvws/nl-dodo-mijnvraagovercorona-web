@@ -13,6 +13,7 @@ interface PageProps {
 	cleanPageOnMobile?: boolean;
 	className?: string;
 	illustrationUrl?: string;
+	showRetryLink?: boolean;
 }
 
 export const Page: React.FC<PageProps> = ({
@@ -22,10 +23,17 @@ export const Page: React.FC<PageProps> = ({
 	cleanPageOnMobile,
 	className,
 	illustrationUrl = '/images/Koffer_DesktopRetina.svg',
+	showRetryLink,
 }) => {
 	return (
 		<PageComponent
-			header={<Header title={title} headerPrefix={headerPrefix} />}
+			header={
+				<Header
+					title={title}
+					headerPrefix={headerPrefix}
+					showRetryLink={showRetryLink}
+				/>
+			}
 			footer={<Footer />}
 			cleanPageOnMobile={cleanPageOnMobile}
 			className={className}
