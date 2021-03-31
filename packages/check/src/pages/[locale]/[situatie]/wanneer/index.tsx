@@ -30,6 +30,7 @@ import { getSituations } from 'utilities/situations';
 import 'react-day-picker/lib/style.css';
 import { useRouter } from 'next/router';
 import { differenceInDays, startOfDay, format } from 'date-fns';
+import { ProgressMarker } from 'components/progress-marker';
 
 // @TODO: Add site settings
 const months = [
@@ -76,6 +77,7 @@ interface PageContent {
 	maanden: string[];
 	dagen: string[];
 	url: string;
+	currentStepLabel: string;
 }
 
 const datePageUrlToResultUrl = (
@@ -119,7 +121,10 @@ export default function Wanneer({ situatie, locale }) {
 
 			<Page title={page.header.title}>
 				<Hero>
-					{/* <ProgressMarker stage={1} totalStages={2} /> */}
+					<ProgressMarker
+						currentStageLabel={page.currentStepLabel}
+						currentStage={2}
+					/>
 					<Link fontWeight="lighter" as="button" onClick={openDialog}>
 						{page.header.modal.link}
 					</Link>
@@ -232,6 +237,7 @@ export const getStaticProps = async ({
 		${getLocaleProperty({ name: 'maanden', locale, array: true })},
 		${getLocaleProperty({ name: 'dagen', locale, array: true })},
 		url,
+    ${getLocaleProperty({ name: 'currentStepLabel', locale })},
 	}`;
 
 	const { page, siteSettings } = await sanityClient.fetch(

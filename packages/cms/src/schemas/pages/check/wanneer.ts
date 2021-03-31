@@ -82,5 +82,10 @@ export default {
 			name: 'url',
 			type: 'string',
 		},
+		{
+			title: 'Huidige stap label',
+			name: 'currentStepLabel',
+			type: 'localeString',
+		},
 	],
 };

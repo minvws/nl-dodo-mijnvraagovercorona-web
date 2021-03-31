@@ -220,6 +220,7 @@ export default function Situatie() {
 			<Page
 				title={pageSettings.title}
 				headerPrefix={pageSettings.situationTitle}
+				showRetryLink
 			>
 				<Box sx={{ backgroundColor: 'headerBackground', py: 'box' }}>
 					<BodyContainer sx={{ paddingRight: [, '165px'] }}>

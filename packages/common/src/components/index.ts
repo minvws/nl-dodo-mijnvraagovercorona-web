@@ -17,6 +17,7 @@ export * from './locale-selector';
 export * from './logo';
 export * from './meta-tags';
 export * from './page';
+export * from './progress-marker';
 export * from './quick-links';
 export * from './radio-button';
 export * from './save-in-calendar';
