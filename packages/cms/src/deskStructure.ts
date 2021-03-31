@@ -137,6 +137,11 @@ const checkPagesConfig = [
 		title: 'Check Jouw Situatie Pagina',
 		icon: GiPeriscope,
 	},
+	{
+		schemaType: 'wanneer-page',
+		title: 'Check Wanneer Pagina',
+		icon: GiCalendar,
+	},
 ];
 
 const checkMultiDocumentsConfig = [];
