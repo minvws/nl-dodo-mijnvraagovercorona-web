@@ -7,7 +7,7 @@ export const getStaticPaths = async () => {
 	const situations = await getSituations();
 
 	const dates = [
-		'gisteren',
+		'1-dagen-geleden',
 		'2-dagen-geleden',
 		'3-dagen-geleden',
 		'4-dagen-geleden',
