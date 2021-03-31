@@ -1,15 +1,10 @@
 import { cartesianProduct } from '@quarantaine/common';
-import { situationsJij, situationsOther } from '../jouw-situatie';
 import { default as Situatie, getStaticProps } from './index';
 
-export { getStaticProps };
-export default Situatie;
+import { getSituations } from 'utilities/situations';
 
-export const getStaticPaths = () => {
-	// @TODO: Add paths from CMS here.
-	const situaties = [...situationsJij, ...situationsOther]
-		.filter((s) => s.ctas[0]?.name)
-		.map((s) => s.ctas[0].name);
+export const getStaticPaths = async () => {
+	const situations = await getSituations();
 
 	const dates = [
 		'gisteren',
@@ -27,12 +22,16 @@ export const getStaticPaths = () => {
 
 	return {
 		paths: cartesianProduct(
-			situaties,
+			situations,
 			dates,
-			['nl', 'en'].map((locale) => `${locale}`),
+			['nl'].map((locale) => `${locale}`),
 		).map(([situatie, date, locale]: string[]) => ({
 			params: { situatie, locale, date },
 		})),
 		fallback: false,
 	};
 };
+
+export { getStaticProps };
+
+export default Situatie;

@@ -13,15 +13,15 @@ import {
 	getPageQuery,
 	InlineDialog,
 } from '@quarantaine/common';
+
 import { Page } from 'components/page';
 import {
 	QuarantaineOverviewBlock,
 	QuarantaineOverviewBullet,
 } from 'components/quarantine-overview';
 import { GGDSpecialInstructions } from 'components/ggd-special-instructions';
-
+import { getSituations } from 'utilities/situations';
 import { PrinterIcon } from 'icons/printer';
-import { situationsJij, situationsOther } from '../jouw-situatie';
 
 // @TODO: CMS
 const pageSettings = {
@@ -230,16 +230,12 @@ interface SituatieStaticProps {
 }
 
 export async function getStaticPaths() {
-	// @TODO: Add paths from CMS here.
-	// After that is done, remove exports from the 2 situations objects
-	// (or maybe those objects are deleted all together).
-	const paths = [...situationsJij, ...situationsOther]
-		.filter((s) => s.ctas[0]?.name)
-		.map((s) => s.ctas[0].name);
+	const situations = await getSituations();
+
 	return {
-		paths: paths.map((p) => ({
+		paths: situations.map((situation) => ({
 			params: {
-				situatie: p,
+				situatie: situation,
 				locale: 'nl',
 			},
 		})),

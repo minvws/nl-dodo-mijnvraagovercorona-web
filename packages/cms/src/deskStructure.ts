@@ -13,6 +13,7 @@ import {
 	GiCalendar,
 	GiCommercialAirplane,
 	GiLightBulb,
+	GiPeriscope,
 } from 'react-icons/gi';
 import { FaRegCopyright, FaAccessibleIcon } from 'react-icons/fa';
 import { SiGnuprivacyguard } from 'react-icons/si';
@@ -130,6 +131,11 @@ const checkPagesConfig = [
 		schemaType: 'check-landing-page',
 		title: 'Check Landing Pagina',
 		icon: GiHouse,
+	},
+	{
+		schemaType: 'jouw-situatie-page',
+		title: 'Check Jouw Situatie Pagina',
+		icon: GiPeriscope,
 	},
 ];
 

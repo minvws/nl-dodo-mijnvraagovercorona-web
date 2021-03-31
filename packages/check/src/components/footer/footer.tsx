@@ -10,20 +10,13 @@ import {
 
 export const Footer = () => {
 	const siteSettings = useSanitySiteSettings();
-	const footerLinks = [
-		'/privacy',
-		'/cookies',
-		'/copyright',
-		'/toegankelijkheid',
-		'/kwetsbaarheid-melden',
-	];
 	return (
 		<FooterComponent>
 			<FooterColumn title={siteSettings.footer.title}>
 				<ul>
-					{siteSettings.footer.items.map((item, index) => (
-						<li key={item}>
-							<Link href={footerLinks[index]}>{item}</Link>
+					{siteSettings.footer.items.map((item) => (
+						<li key={item.url}>
+							<Link href={item.url}>{item.content}</Link>
 						</li>
 					))}
 				</ul>

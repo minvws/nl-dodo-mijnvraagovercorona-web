@@ -10,6 +10,7 @@ const options: ClientConfig = {
 	dataset: 'production',
 	projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '',
 	useCdn: process.env.NODE_ENV === 'production' || false,
+	apiVersion: 'v1',
 };
 
 /**
@@ -156,12 +157,10 @@ const siteSettingsQuery = ({
 				locale,
 			})},
 			${getLocaleProperty({ name: 'title', path: 'footer.title', locale })},
-			${getLocaleProperty({
-				name: 'items',
-				path: 'footer.items',
-				array: true,
-				locale,
-			})},
+			"items": footer.items[]{
+				url,
+				${getLocaleProperty({ name: 'content', locale })},
+			},
 		},
 		"feedback": {
 			${getLocaleProperty({ name: 'button', path: 'feedback.button', locale })},
