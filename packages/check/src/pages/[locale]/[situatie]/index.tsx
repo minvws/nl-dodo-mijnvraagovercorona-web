@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { Box, jsx, Styled, Text } from 'theme-ui';
 import { useRouter } from 'next/router';
+import { parse, differenceInDays, addDays, format } from 'date-fns';
 
 import {
 	BodyContainer,
@@ -23,134 +24,202 @@ import { GGDSpecialInstructions } from 'components/ggd-special-instructions';
 import { getSituations } from 'utilities/situations';
 import { PrinterIcon } from 'icons/printer';
 
+interface QuarantainePlanDay {
+	// vandaag, laatste contact, etc
+	title: string;
+	// dag 0, dag 4, of 'vandaag' waarmee de dag index dynamisch wordt.
+	day: number | 'vandaag';
+	// Deze type gaat waarschijnlijk een array met wysywig content worden,
+	// die we daarna het sanity contentblock in gooien. Dan verandert deze type dus.
+	bullets: React.FC[];
+}
+type QuarantainePlan = QuarantainePlanDay[];
+
+interface ContentType {
+	situationTitle: string;
+	title: string;
+	quarantineOverviewTitle: string;
+	quarantainePlan: QuarantainePlan;
+}
 // @TODO: CMS
-const pageSettings = {
+const pageSettings: ContentType = {
+	situationTitle: 'Je hebt corona, met klachten',
 	title: 'Ga direct in quarantaine en laat je testen',
-	quarantineOverviewTitle: 'Dit is jouw thuisquarantaine overzicht',
+	quarantineOverviewTitle: 'Dit is jouw thuisquarantaine overzicht:',
+	quarantainePlan: [
+		{
+			title: 'Laatste contact',
+			day: 0,
+			bullets: [],
+		},
+		{
+			title: 'Vandaag',
+			day: 'vandaag',
+			bullets: [
+				() => (
+					<>
+						<p>
+							<strong>Ga direct in thuisquarantaine</strong> en vermijd contact
+							met andere personen.{' '}
+							<InlineDialog
+								buttonText="Wat zijn de regels?"
+								title="Wat zijn de regels tijdens thuisquarantaine?"
+							>
+								<ul>
+									<li>
+										<strong>Alleen de mensen die bij je wonen</strong> mogen
+										samen met jou in huis zijn.
+									</li>
+									<li>
+										<strong>Blijf zo veel mogelijk op 1,5 meter afstand</strong>{' '}
+										van je huisgenoten. Dus niet knuffelen, niet zoenen en geen
+										seks.
+									</li>
+									<li>
+										Blijf zoveel mogelijk op je <strong>eigen kamer</strong> en{' '}
+										<strong>slaap</strong> daar indien mogelijk{' '}
+										<strong>alleen</strong>.
+									</li>
+									<li>
+										<strong>Ontvang geen bezoek</strong>, behalve voor medische
+										redenen (bijvoorbeeld de huisarts of iemand van de GGD).
+									</li>
+									<li>
+										Heb je <strong>medische hulp</strong> nodig? Ga dan niet
+										naar de huisarts of het ziekenhuis, maar bel de arts.
+									</li>
+									<li>
+										Laat <strong>anderen boodschappen</strong> doen.
+									</li>
+									<li>
+										<strong>Je mag in de tuin of op je balkon</strong> zitten.
+									</li>
+									<li>
+										<strong> Werk thuis.</strong> Werk je in de zorg? Dan mag je
+										alleen werken bij uitzondering en als je geen klachten hebt.
+										Overleg dit altijd met de GGD of de bedrijfsarts.
+									</li>
+									<li>
+										<strong>Reis niet</strong> met het openbaar vervoer of met
+										een taxi.
+									</li>
+								</ul>
+							</InlineDialog>
+						</p>
+
+						<p>
+							<strong>Dus niet meer naar buiten,</strong> geen boodschappen doen
+							en niet naar je werk.
+						</p>
+					</>
+				),
+				() => (
+					<>
+						<p>
+							<strong>Laat je zo snel mogelijk testen</strong> op corona:
+							<Link href="https://www.rijksoverheid.nl" external>
+								maak nu een afspraak
+							</Link>
+						</p>
+
+						<p>
+							<strong>Is de testuitslag negatief?</strong> Dan mag je de
+							thuisquarantaine beeindigen. Vermijd wel contact met kwetsbare
+							personen tot en met dag 10 na het laatste coronacontact.
+						</p>
+
+						<p>
+							<strong>Is de testuitslag positief?</strong> Dan heb je coroan. De
+							GGD vertelt je meer en je moet{' '}
+							<Link href="https://www.rijksoverheid.nl" external>
+								in isolatie
+							</Link>
+							.
+						</p>
+					</>
+				),
+			],
+		},
+		{
+			title: 'Einde',
+			day: 10,
+			bullets: [
+				() => (
+					<>
+						<p>
+							<strong>Geen klachten?</strong> Dan mag je je thuisquarantaine
+							beeindigen.
+						</p>
+						<p>
+							<strong>Heb je wel coronaklachten?</strong> Blijf thuis en
+							<Link href="https://www.rijksoverheid.nl" external>
+								laat je opnieuw testen
+							</Link>
+						</p>
+					</>
+				),
+			],
+		},
+	],
+};
+
+const getDateSinceEvent = (
+	day: number | 'vandaag',
+	todayDay: number,
+	eventDate: Date,
+) => {
+	const daysSince = day === 'vandaag' ? todayDay : day;
+	return format(addDays(eventDate, daysSince), 'dd MMMM');
 };
 
 export default function Situatie() {
 	const router = useRouter();
 
+	const selectedLastEventDate = router.query.event
+		? parse(`${router.query.event}`, 'dd-MM-yyyy', new Date())
+		: undefined;
+
+	const todayDay = selectedLastEventDate
+		? differenceInDays(new Date(), selectedLastEventDate)
+		: undefined;
+
 	return (
 		<>
 			<MetaTags title={pageSettings.title} description="" url={router.asPath} />
-			<Page title={pageSettings.title}>
+			<Page
+				title={pageSettings.title}
+				headerPrefix={pageSettings.situationTitle}
+			>
 				<Box sx={{ backgroundColor: 'headerBackground', py: 'box' }}>
 					<BodyContainer sx={{ paddingRight: [, '165px'] }}>
 						<Styled.h2>{pageSettings.quarantineOverviewTitle}</Styled.h2>
-						<QuarantaineOverviewBlock
-							title="Zat 6 maart"
-							subtitle="(laatste contact)"
-							day="Dag 0"
-						/>
-						<QuarantaineOverviewBlock
-							title="Don 11 maart"
-							subtitle="(vandaag)"
-							day="Dag 5"
-						>
-							<QuarantaineOverviewBullet>
-								<p>
-									<strong>Ga direct in thuisquarantaine</strong> en vermijd
-									contact met andere personen.{' '}
-									<InlineDialog
-										buttonText="Wat zijn de regels?"
-										title="Wat zijn de regels tijdens thuisquarantaine?"
-									>
-										<ul>
-											<li>
-												<strong>Alleen de mensen die bij je wonen</strong> mogen
-												samen met jou in huis zijn.
-											</li>
-											<li>
-												<strong>
-													Blijf zo veel mogelijk op 1,5 meter afstand
-												</strong>{' '}
-												van je huisgenoten. Dus niet knuffelen, niet zoenen en
-												geen seks.
-											</li>
-											<li>
-												Blijf zoveel mogelijk op je <strong>eigen kamer</strong>{' '}
-												en <strong>slaap</strong> daar indien mogelijk{' '}
-												<strong>alleen</strong>.
-											</li>
-											<li>
-												<strong>Ontvang geen bezoek</strong>, behalve voor
-												medische redenen (bijvoorbeeld de huisarts of iemand van
-												de GGD).
-											</li>
-											<li>
-												Heb je <strong>medische hulp</strong> nodig? Ga dan niet
-												naar de huisarts of het ziekenhuis, maar bel de arts.
-											</li>
-											<li>
-												Laat <strong>anderen boodschappen</strong> doen.
-											</li>
-											<li>
-												<strong>Je mag in de tuin of op je balkon</strong>{' '}
-												zitten.
-											</li>
-											<li>
-												<strong> Werk thuis.</strong> Werk je in de zorg? Dan
-												mag je alleen werken bij uitzondering en als je geen
-												klachten hebt. Overleg dit altijd met de GGD of de
-												bedrijfsarts.
-											</li>
-											<li>
-												<strong>Reis niet</strong> met het openbaar vervoer of
-												met een taxi.
-											</li>
-										</ul>
-									</InlineDialog>
-								</p>
 
-								<p>
-									<strong>Dus niet meer naar buiten,</strong> geen boodschappen
-									doen en niet naar je werk.
-								</p>
-							</QuarantaineOverviewBullet>
-							<QuarantaineOverviewBullet>
-								<p>
-									<strong>Laat je zo snel mogelijk testen</strong> op corona:
-									<Link href="https://www.rijksoverheid.nl" external>
-										maak nu een afspraak
-									</Link>
-								</p>
-
-								<p>
-									<strong>Is de testuitslag negatief?</strong> Dan mag je de
-									thuisquarantaine beeindigen. Vermijd wel contact met kwetsbare
-									personen tot en met dag 10 na het laatste coronacontact.
-								</p>
-
-								<p>
-									<strong>Is de testuitslag positief?</strong> Dan heb je
-									coroan. De GGD vertelt je meer en je moet{' '}
-									<Link href="https://www.rijksoverheid.nl" external>
-										in isolatie
-									</Link>
-									.
-								</p>
-							</QuarantaineOverviewBullet>
-						</QuarantaineOverviewBlock>
-						<QuarantaineOverviewBlock
-							title="Din 16 maart"
-							subtitle="(einde)"
-							day="Dag 10"
-						>
-							<QuarantaineOverviewBullet>
-								<p>
-									<strong>Geen klachten?</strong> Dan mag je je thuisquarantaine
-									beeindigen.
-								</p>
-								<p>
-									<strong>Heb je wel coronaklachten?</strong> Blijf thuis en
-									<Link href="https://www.rijksoverheid.nl" external>
-										laat je opnieuw testen
-									</Link>
-								</p>
-							</QuarantaineOverviewBullet>
-						</QuarantaineOverviewBlock>
+						{pageSettings.quarantainePlan.map((day) => (
+							<QuarantaineOverviewBlock
+								// If no date is provided we show the "laatste contact", "vandaag" values as the main title.
+								title={
+									selectedLastEventDate && todayDay
+										? getDateSinceEvent(
+												day.day,
+												todayDay,
+												selectedLastEventDate,
+										  )
+										: day.title
+								}
+								subtitle={selectedLastEventDate ? `(${day.title})` : ''}
+								day={`dag ${day.day === 'vandaag' ? todayDay : day.day}`}
+							>
+								{day.bullets.map((BulletContent) => (
+									<QuarantaineOverviewBullet>
+										{/* Zie comment in interface, zo gauw dit in Sanity zit,
+                    wordt dit waarschijnlijk een wysywig content object, dan renderen
+                    we hier niet dit component maar ContentBlock waar we dat content
+                    object aan meegeven. */}
+										<BulletContent />
+									</QuarantaineOverviewBullet>
+								))}
+							</QuarantaineOverviewBlock>
+						))}
 
 						<Box sx={{ mt: 'box' }}>
 							<GGDSpecialInstructions />

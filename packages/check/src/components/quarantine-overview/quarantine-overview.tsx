@@ -41,12 +41,19 @@ export const QuarantaineOverviewBlock: React.FC<QuarantaineOverviewBlockProps> =
 	>
 		<Flex sx={{ justifyContent: 'space-between' }}>
 			<p sx={{ margin: 0, color: 'smallText', fontWeight: 'bold' }}>
-				{title} <span sx={{ fontWeight: 'normal' }}>{subtitle}</span>
+				{title}{' '}
+				<span sx={{ fontWeight: 'normal', textTransform: 'lowercase' }}>
+					{subtitle}
+				</span>
 			</p>
 			<Text
 				variant="chapeau"
 				as="span"
-				sx={{ margin: 0, color: 'copyHeading', fontWeight: 'normal' }}
+				sx={{
+					margin: 0,
+					color: 'copyHeading',
+					fontWeight: 'normal',
+				}}
 			>
 				{day}
 			</Text>
