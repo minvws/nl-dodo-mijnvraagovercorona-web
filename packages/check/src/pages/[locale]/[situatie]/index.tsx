@@ -40,12 +40,43 @@ interface ContentType {
 	title: string;
 	quarantineOverviewTitle: string;
 	quarantainePlan: QuarantainePlan;
+	quarantaineGidsButtonText: string;
+	quarantaineGidsUrl: string;
+	quarantaineGidsText: string;
+	tot_en_met: string;
+	other_calendar: string;
+	calendar: {
+		title: string;
+		modalTitle: string;
+		modalBody: string;
+		inviteTitle: string;
+		inviteText: string;
+	};
+	printCta: string;
+	quarantaineDuration: number;
 }
 // @TODO: CMS
 const pageSettings: ContentType = {
 	situationTitle: 'Je hebt corona, met klachten',
 	title: 'Ga direct in quarantaine en laat je testen',
 	quarantineOverviewTitle: 'Dit is jouw thuisquarantaine overzicht:',
+	quarantaineGidsButtonText: 'Download de Quarantainegids',
+	quarantaineGidsUrl: 'https://www.rijksoverheid.nl',
+	quarantaineGidsText:
+		'In de Quarantainegids vind je hulp, tips en adviezen om je thuisquarantaineperiode zo goed en prettig mogelijk door te komen.',
+	tot_en_met: 't/m',
+	other_calendar: 'Andere agenda',
+	calendar: {
+		title: 'Zet je thuisquarantaine in je agenda',
+		modalTitle: 'et je thuisquarantaine in je agenda',
+		modalBody:
+			'Heb je een andere (digitale) agenda? Zet je thuisquarantaine er dan zelf in.',
+		inviteTitle: 'Thuisquarantaine',
+		inviteText:
+			'Krijg je (lichte) klachten? Maak direct een testafspraak op https://coronatest.nl of bel de GGD op 0800-1202. Kijk voor tips over je thuisquarantaine op https://reizentijdenscorona.rijksoverheid.nl/voorbereiding.',
+	},
+	printCta: 'Print jouw thuisquarantaineoverzicht',
+	quarantaineDuration: 10,
 	quarantainePlan: [
 		{
 			title: 'Laatste contact',
@@ -196,6 +227,7 @@ export default function Situatie() {
 
 						{pageSettings.quarantainePlan.map((day) => (
 							<QuarantaineOverviewBlock
+								key={day.title}
 								// If no date is provided we show the "laatste contact", "vandaag" values as the main title.
 								title={
 									selectedLastEventDate && todayDay
@@ -209,8 +241,8 @@ export default function Situatie() {
 								subtitle={selectedLastEventDate ? `(${day.title})` : ''}
 								day={`dag ${day.day === 'vandaag' ? todayDay : day.day}`}
 							>
-								{day.bullets.map((BulletContent) => (
-									<QuarantaineOverviewBullet>
+								{day.bullets.map((BulletContent, index) => (
+									<QuarantaineOverviewBullet key={index}>
 										{/* Zie comment in interface, zo gauw dit in Sanity zit,
                     wordt dit waarschijnlijk een wysywig content object, dan renderen
                     we hier niet dit component maar ContentBlock waar we dat content
@@ -259,32 +291,33 @@ export default function Situatie() {
 					>
 						<Link
 							styledAs="button"
-							href="https://www.rijksoverheid.nl"
+							href={pageSettings.quarantaineGidsUrl}
 							external
 						>
-							Download de Quarantainegids
+							{pageSettings.quarantaineGidsButtonText}
 						</Link>
 
-						<Text variant="small">
-							In de Quarantainegids vind je hulp, tips en adviezen om je
-							thuisquarantaineperiode zo goed en prettig mogelijk door te komen.
-						</Text>
+						<Text variant="small">{pageSettings.quarantaineGidsText}</Text>
 
 						<SaveInCalendar
+							// @TODO: Locale
 							locale="nl"
-							content={{ tot_en_met: 't/m', other_calendar: 'Andere agenda' }}
-							title="Zet je thuisquarantaine in je agenda"
-							modalTitle="Zet je thuisquarantaine in je agenda"
-							modalBody="Heb je een andere (digitale) agenda? Zet je thuisquarantaine er dan zelf in."
-							inviteTitle="Thuisquarantaine"
-							inviteText="Krijg je (lichte) klachten? Maak direct een testafspraak op https://coronatest.nl of bel de GGD op 0800-1202. Kijk voor tips over je thuisquarantaine op https://reizentijdenscorona.rijksoverheid.nl/voorbereiding."
+							content={{
+								tot_en_met: pageSettings.tot_en_met,
+								other_calendar: pageSettings.other_calendar,
+							}}
+							title={pageSettings.calendar.title}
+							modalTitle={pageSettings.calendar.modalTitle}
+							modalBody={pageSettings.calendar.modalBody}
+							inviteTitle={pageSettings.calendar.inviteTitle}
+							inviteText={pageSettings.calendar.inviteText}
 							fromDate={new Date(12, 5, 2021)}
 							toDate={new Date(18, 5, 2021)}
 							hideDate
 						/>
 						<button onClick={() => window.print()}>
 							<CallToAction icon={PrinterIcon}>
-								<p>Print jouw thuisquarantaineoverzicht</p>
+								<p>{pageSettings.printCta}</p>
 							</CallToAction>
 						</button>
 					</Box>
