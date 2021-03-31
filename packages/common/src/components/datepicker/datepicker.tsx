@@ -4,6 +4,7 @@ import DayPicker, {
 	DateUtils,
 	RangeModifier,
 	Modifier,
+	DayModifiers,
 } from 'react-day-picker';
 import { jsx } from 'theme-ui';
 import { Navbar } from './components/navbar-element';
@@ -15,6 +16,7 @@ export type DatepickerRangeDataType = RangeModifier;
 interface DatepickerBaseProps {
 	months: string[];
 	weekdaysShort: string[];
+	disabledDays?: Date[] | ((day: Date) => boolean);
 }
 
 interface DatepickerSlingedayProps extends DatepickerBaseProps {
@@ -38,7 +40,8 @@ export const Datepicker = (props: DatepickerProps) => {
 	const [selectedDate, setSelectedDate] = useState<Date>();
 
 	const handleDayClick = useMemo(
-		() => (day: Date) => {
+		() => (day: Date, { disabled }: DayModifiers) => {
+			if (disabled) return;
 			if (props.variant === 'range') {
 				setRange((currentRange) => DateUtils.addDayToRange(day, currentRange));
 			} else {
@@ -65,6 +68,7 @@ export const Datepicker = (props: DatepickerProps) => {
 	return (
 		<DayPicker
 			navbarElement={Navbar}
+			disabledDays={props.disabledDays}
 			sx={{
 				padding: [0, '70px 0 30px 0'],
 				width: '100%',
