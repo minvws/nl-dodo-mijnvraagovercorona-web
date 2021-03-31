@@ -203,6 +203,14 @@ const getDateSinceEvent = (
 	return format(addDays(eventDate, daysSince), 'dd MMMM');
 };
 
+const getDayLabel = (day: number | 'vandaag', todayDay?: number) => {
+	if (day === 'vandaag') {
+		return todayDay ? `dag ${todayDay}` : '';
+	}
+
+	return `dag ${day}`;
+};
+
 export default function Situatie() {
 	const router = useRouter();
 
@@ -240,7 +248,7 @@ export default function Situatie() {
 										: day.title
 								}
 								subtitle={selectedLastEventDate ? `(${day.title})` : ''}
-								day={`dag ${day.day === 'vandaag' ? todayDay : day.day}`}
+								day={getDayLabel(day.day, todayDay)}
 							>
 								{day.bullets.map((BulletContent, index) => (
 									<QuarantaineOverviewBullet key={index}>
