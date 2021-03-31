@@ -23,6 +23,7 @@ import faqPage from './pages/reizen/faq';
 import checkLandingPage from './pages/check/check-landing';
 import jouwSituatiePage from './pages/check/jouw-situatie';
 import wanneerPage from './pages/check/wanneer';
+import geenAdviesPage from './pages/check/geen-advies';
 
 import localeStringObject from './objects/localeString';
 import localeBlockObject from './objects/localeBlock';
@@ -61,6 +62,7 @@ export default createSchema({
 		checkLandingPage,
 		jouwSituatiePage,
 		wanneerPage,
+		geenAdviesPage,
 
 		/**
 		 * Site settings

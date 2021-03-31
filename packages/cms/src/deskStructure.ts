@@ -14,6 +14,7 @@ import {
 	GiCommercialAirplane,
 	GiLightBulb,
 	GiPeriscope,
+	GiThumbDown,
 } from 'react-icons/gi';
 import { FaRegCopyright, FaAccessibleIcon } from 'react-icons/fa';
 import { SiGnuprivacyguard } from 'react-icons/si';
@@ -141,6 +142,11 @@ const checkPagesConfig = [
 		schemaType: 'wanneer-page',
 		title: 'Check Wanneer Pagina',
 		icon: GiCalendar,
+	},
+	{
+		schemaType: 'geen-advies-page',
+		title: 'Geen Advies Pagina',
+		icon: GiThumbDown,
 	},
 ];
 
