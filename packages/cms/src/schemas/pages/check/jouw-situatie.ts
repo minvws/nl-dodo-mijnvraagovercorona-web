@@ -67,6 +67,11 @@ export default {
 									fields: [
 										{ title: 'Naam', name: 'name', type: 'string' },
 										{ title: 'Text', name: 'text', type: 'localeString' },
+										{
+											title: 'Geen datum kiezen',
+											name: 'skipDatepicker',
+											type: 'boolean',
+										},
 									],
 								},
 							],
@@ -129,6 +134,11 @@ export default {
 									fields: [
 										{ title: 'Naam', name: 'name', type: 'string' },
 										{ title: 'Text', name: 'text', type: 'localeString' },
+										{
+											title: 'Geen datum kiezen',
+											name: 'skipDatepicker',
+											type: 'boolean',
+										},
 									],
 								},
 							],

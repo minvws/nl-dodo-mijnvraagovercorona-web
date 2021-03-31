@@ -35,6 +35,7 @@ interface JouwSituatiePageContent {
 		ctas: {
 			name: string;
 			text: string;
+			skipDatepicker: boolean;
 		}[];
 	}[];
 	situationsOtherTitle: string;
@@ -44,6 +45,7 @@ interface JouwSituatiePageContent {
 		ctas: {
 			name: string;
 			text: string;
+			skipDatepicker: boolean;
 		}[];
 	}[];
 	noMatch: {
@@ -85,7 +87,11 @@ export default function JouwSituatie() {
 								{situation.ctas.map((cta) => (
 									<Link
 										key={cta.name}
-										href={`/nl/${cta.name}/wanneer`}
+										href={
+											cta.skipDatepicker
+												? `/nl/${cta.name}`
+												: `/nl/${cta.name}/wanneer`
+										}
 										styledAs="button"
 									>
 										{cta.text}
@@ -103,7 +109,11 @@ export default function JouwSituatie() {
 								{situation.ctas?.map((cta) => (
 									<Link
 										key={cta.name}
-										href={`/nl/${cta.name}/wanneer`}
+										href={
+											cta.skipDatepicker
+												? `/nl/${cta.name}`
+												: `/nl/${cta.name}/wanneer`
+										}
 										styledAs="button"
 									>
 										{cta.text}
@@ -153,6 +163,7 @@ export const getStaticProps = async ({
 			"ctas": ctas[]{
 				name,
 				${getLocaleProperty({ name: 'text', locale })},
+        skipDatepicker
 			}
 		},
 		${getLocaleProperty({ name: 'situationsOtherTitle', locale })},
@@ -169,6 +180,7 @@ export const getStaticProps = async ({
 			"ctas": ctas[]{
 				name,
 				${getLocaleProperty({ name: 'text', locale })},
+        skipDatepicker
 			}
 		},
 		"noMatch": {

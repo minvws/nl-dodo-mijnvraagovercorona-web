@@ -58,13 +58,11 @@ const datePageUrlToResultUrl = (
 	datePageUrl: string,
 	day: number,
 	maxDays: number,
+	locale: 'nl' | 'en',
 ) => {
 	const daySuffix = day === 0 || maxDays === 1 ? '' : `/${day}-dagen-geleden`;
-
-	return datePageUrl.replace(
-		'/wanneer',
-		day > maxDays ? '/geen-resultaat' : daySuffix,
-	);
+	if (day > maxDays) return `/${locale}/geen-advies`;
+	return datePageUrl.replace('/wanneer', daySuffix);
 };
 
 interface WanneerProps {
@@ -84,7 +82,6 @@ export default function Wanneer({ situatie, locale }: WanneerProps) {
 		setShowDialog(true);
 	};
 
-	// @TODO: Disable dates in the future?
 	const nrOfDaysAgo = useMemo(() => {
 		if (!selectedDate) return null;
 		return differenceInDays(startOfDay(new Date()), startOfDay(selectedDate));
@@ -142,7 +139,9 @@ export default function Wanneer({ situatie, locale }: WanneerProps) {
 							sx={{ marginLeft: 'auto', marginY: '24px' }}
 							styledAs="button"
 							href={
-								datePageUrlToResultUrl(router.asPath, nrOfDaysAgo, 10) +
+								// @TODO: Check if we need to make the 10 days (max days for which we have advice)
+								// dynamic based on the situation.
+								datePageUrlToResultUrl(router.asPath, nrOfDaysAgo, 10, locale) +
 								`?event=${format(selectedDate, 'dd-MM-yyyy')}`
 							}
 						>
