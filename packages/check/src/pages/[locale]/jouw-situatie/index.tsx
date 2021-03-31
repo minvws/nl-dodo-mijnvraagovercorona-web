@@ -3,6 +3,7 @@ import React from 'react';
 import { Box, jsx, Styled } from 'theme-ui';
 
 import { Page } from 'components/page';
+import { ProgressMarker } from 'components/progress-marker';
 
 import {
 	ExpansionPanel,
@@ -15,6 +16,7 @@ import {
 	ContentBlock,
 	useSanityPageContent,
 	useSanitySiteSettings,
+	Hero,
 } from '@quarantaine/common';
 
 interface JouwSituatiePageContent {
@@ -49,6 +51,7 @@ interface JouwSituatiePageContent {
 		content: Array<Object>;
 	};
 	url: string;
+	currentStepLabel: string;
 }
 
 export default function JouwSituatie() {
@@ -63,6 +66,12 @@ export default function JouwSituatie() {
 				url={page.url}
 			/>
 			<Page title={page.header.title} sx={{ 'dd a': { marginBottom: '16px' } }}>
+				<Hero>
+					<ProgressMarker
+						currentStageLabel={page.currentStepLabel}
+						currentStage={1}
+					/>
+				</Hero>
 				<Content>
 					<Box sx={{ mt: '36px' }}>
 						<Styled.h2>{page.situationsYouTitle}</Styled.h2>
@@ -167,6 +176,7 @@ export const getStaticProps = async ({
 			${getLocaleProperty({ name: 'content', path: 'noMatch.content', locale })},
 		},
 		url,
+    ${getLocaleProperty({ name: 'currentStepLabel', locale })},
 	}`;
 
 	const { page, siteSettings } = await sanityClient.fetch(
