@@ -60,7 +60,12 @@ const datePageUrlToResultUrl = (
 	maxDays: number,
 	locale: 'nl' | 'en',
 ) => {
-	const daySuffix = day === 0 || maxDays === 1 ? '' : `/${day}-dagen-geleden`;
+	const daySuffix =
+		day === 0 || maxDays === 1
+			? ''
+			: day === 1
+			? `/${day}-dag-geleden`
+			: `/${day}-dagen-geleden`;
 	if (day > maxDays) return `/${locale}/geen-advies`;
 	return datePageUrl.replace('/wanneer', daySuffix);
 };
@@ -72,7 +77,6 @@ interface WanneerProps {
 
 export default function Wanneer({ situatie, locale }: WanneerProps) {
 	const page = useSanityPageContent<PageContent>();
-	const siteSettings = useSanitySiteSettings();
 	const [selectedDate, setSelectedDate] = useState<Date>();
 	const [showDialog, setShowDialog] = useState(false);
 	const router = useRouter();
@@ -129,6 +133,7 @@ export default function Wanneer({ situatie, locale }: WanneerProps) {
 					<Datepicker
 						disabledDays={(day) => day > new Date()}
 						variant="singleDay"
+						showPreviousMonth
 						months={page.maanden}
 						weekdaysShort={page.dagen}
 						onDayClick={setSelectedDate}

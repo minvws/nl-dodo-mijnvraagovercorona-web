@@ -171,7 +171,65 @@ const siteSettingsQuery = ({
 		"vervoersmiddelen": vervoersmiddelen[]{
 			naam,
 			${getLocaleProperty({ name: 'uitgebreid', locale })},
-		}
+		},
+		"quarantaineGids": {
+			${getLocaleProperty({
+				name: 'button',
+				path: 'quarantaineGids.button',
+				locale,
+			})},
+			${getLocaleProperty({
+				name: 'text',
+				path: 'quarantaineGids.text',
+				locale,
+			})},
+			${getLocaleProperty({
+				name: 'url',
+				path: 'quarantaineGids.url',
+				locale,
+			})},
+		},
+		"quarantaineCalendar": {
+			${getLocaleProperty({
+				name: 'dateSeperator',
+				path: 'quarantaineCalendar.dateSeperator',
+				locale,
+			})},
+			${getLocaleProperty({
+				name: 'otherCalendar',
+				path: 'quarantaineCalendar.otherCalendar',
+				locale,
+			})},
+			${getLocaleProperty({
+				name: 'title',
+				path: 'quarantaineCalendar.title',
+				locale,
+			})},
+			${getLocaleProperty({
+				name: 'modalTitle',
+				path: 'quarantaineCalendar.modalTitle',
+				locale,
+			})},
+			${getLocaleProperty({
+				name: 'modalBody',
+				path: 'quarantaineCalendar.modalBody',
+				locale,
+			})},
+			${getLocaleProperty({
+				name: 'inviteTitle',
+				path: 'quarantaineCalendar.inviteTitle',
+				locale,
+			})},
+			${getLocaleProperty({
+				name: 'inviteText',
+				path: 'quarantaineCalendar.inviteText',
+				locale,
+			})},
+		},
+		${getLocaleProperty({ name: 'quarantineOverviewTitle', locale })},
+		${getLocaleProperty({ name: 'printCta', locale })},
+		${getLocaleProperty({ name: 'favoriteCta', locale })},
+		${getLocaleProperty({ name: 'GGDSpecialInstructions', locale })},
 	}`;
 
 /**

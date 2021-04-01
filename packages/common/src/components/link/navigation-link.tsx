@@ -44,6 +44,7 @@ export const NavigationLink: React.FC<NavigationLinkProps> = ({
 }) => (
 	<LinkWrapper href={href} onClick={onClick}>
 		<ThemeLink
+			as="span"
 			sx={{
 				position: 'absolute',
 				top: '30px',
