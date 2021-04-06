@@ -141,7 +141,7 @@ export default function Wanneer({ situatie, locale }: WanneerProps) {
 
 					{selectedDate && nrOfDaysAgo !== null && (
 						<Link
-							sx={{ marginLeft: 'auto', marginY: '24px' }}
+							sx={{ marginLeft: 'auto' }}
 							styledAs="button"
 							href={
 								// @TODO: Check if we need to make the 10 days (max days for which we have advice)
