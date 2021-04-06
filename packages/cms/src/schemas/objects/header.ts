@@ -24,9 +24,9 @@ export default {
 					type: 'localeString',
 				},
 				{
-					title: 'Tekst',
-					name: 'text',
-					type: 'localeText',
+					title: 'Content',
+					name: 'content',
+					type: 'localeBlock',
 				},
 			],
 		},

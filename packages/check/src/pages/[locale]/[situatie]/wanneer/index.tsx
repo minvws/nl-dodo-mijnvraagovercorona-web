@@ -20,9 +20,8 @@ import {
 	getPageQuery,
 	getLocaleProperty,
 	useSanityPageContent,
-	useSanitySiteSettings,
 	cartesianProduct,
-	Header,
+	ContentBlock,
 } from '@quarantaine/common';
 
 import { getSituations } from 'utilities/situations';
@@ -41,8 +40,8 @@ interface PageContent {
 		title: string;
 		modal: {
 			link: string;
-			text: string;
 			title: string;
+			content: Object[];
 		};
 	};
 	button: string;
@@ -113,7 +112,7 @@ export default function Wanneer({ situatie, locale }: WanneerProps) {
 						isVisible={showDialog}
 						closeDialog={() => setShowDialog(false)}
 					>
-						<p>{page.header.modal.text}</p>
+						<ContentBlock content={page.header.modal.content} />
 					</Dialog>
 				</Hero>
 				<DatepickerTopbar>
@@ -204,8 +203,8 @@ export const getStaticProps = async ({
 					locale,
 				})},
 				${getLocaleProperty({
-					name: 'text',
-					path: `${headerPath}.modal.text`,
+					name: 'content',
+					path: `${headerPath}.modal.content`,
 					locale,
 				})},
 				${getLocaleProperty({
