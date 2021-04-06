@@ -31,14 +31,20 @@ const getDateSinceEvent = ({
 	day,
 	todayDay,
 	eventDate,
+	locale,
 }: {
 	day: number | undefined;
 	todayDay: number;
 	eventDate: Date;
+	locale: string;
 }) => {
 	const daysSince = day === undefined ? todayDay : day;
 
-	return format(addDays(eventDate, daysSince), 'dd MMMM');
+	return addDays(eventDate, daysSince).toLocaleDateString(locale, {
+		weekday: 'short',
+		month: 'long',
+		day: 'numeric',
+	});
 };
 
 const getDayLabel = ({
@@ -90,7 +96,11 @@ interface PageContent {
 	url: string;
 }
 
-export default function Situatie() {
+interface SituatieProps {
+	locale: 'nl' | 'en';
+}
+
+export default function Situatie({ locale }: SituatieProps) {
 	const page = useSanityPageContent<PageContent>();
 	const siteSettings = useSanitySiteSettings<SiteSettings>();
 	const router = useRouter();
@@ -136,6 +146,7 @@ export default function Situatie() {
 												day: day.day,
 												todayDay,
 												eventDate: selectedLastEventDate,
+												locale,
 										  })
 										: day.title
 								}
