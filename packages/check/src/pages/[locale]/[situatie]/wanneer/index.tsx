@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 
 import { Page } from 'components/page';
 
@@ -80,6 +80,7 @@ export default function Wanneer({ situatie, locale }: WanneerProps) {
 	const [selectedDate, setSelectedDate] = useState<Date>();
 	const [showDialog, setShowDialog] = useState(false);
 	const router = useRouter();
+	const linkRef = useRef<HTMLAnchorElement>(null);
 
 	const openDialog = (event: any) => {
 		event.preventDefault();
@@ -131,27 +132,42 @@ export default function Wanneer({ situatie, locale }: WanneerProps) {
 				</DatepickerTopbar>
 				<BodyContainer sx={{ display: 'flex', flexDirection: 'column' }}>
 					<Datepicker
-						disabledDays={(day) => day > addDays(new Date(), 1)}
+						disabledDays={(day) => day > addDays(startOfDay(new Date()), 1)}
 						variant="singleDay"
 						showPreviousMonth
 						months={page.maanden}
 						weekdaysShort={page.dagen}
-						onDayClick={setSelectedDate}
+						onDayClick={(date) => {
+							if (
+								linkRef.current &&
+								typeof linkRef.current.scrollIntoView === 'function' &&
+								window.innerWidth < 800
+							) {
+								linkRef.current.scrollIntoView({ block: 'center' });
+							}
+							setSelectedDate(date);
+						}}
 					/>
 
 					{selectedDate && nrOfDaysAgo !== null && (
-						<Link
-							sx={{ marginLeft: 'auto' }}
-							styledAs="button"
-							href={
-								// @TODO: Check if we need to make the 10 days (max days for which we have advice)
-								// dynamic based on the situation.
-								datePageUrlToResultUrl(router.asPath, nrOfDaysAgo, 10, locale) +
-								`?event=${format(selectedDate, 'dd-MM-yyyy')}`
-							}
-						>
-							{page.button}
-						</Link>
+						<span ref={linkRef}>
+							<Link
+								sx={{ marginLeft: 'auto' }}
+								styledAs="button"
+								href={
+									// @TODO: Check if we need to make the 10 days (max days for which we have advice)
+									// dynamic based on the situation.
+									datePageUrlToResultUrl(
+										router.asPath,
+										nrOfDaysAgo,
+										10,
+										locale,
+									) + `?event=${format(selectedDate, 'dd-MM-yyyy')}`
+								}
+							>
+								{page.button}
+							</Link>
+						</span>
 					)}
 				</BodyContainer>
 			</Page>
