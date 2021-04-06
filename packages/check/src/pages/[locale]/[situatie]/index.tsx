@@ -1,7 +1,14 @@
 /** @jsx jsx */
 import { Box, jsx, Styled, Text } from 'theme-ui';
 import { useRouter } from 'next/router';
-import { parse, differenceInDays, addDays, format } from 'date-fns';
+import {
+	parse,
+	differenceInDays,
+	addDays,
+	format,
+	startOfDay,
+	endOfDay,
+} from 'date-fns';
 
 import {
 	BodyContainer,
@@ -94,6 +101,7 @@ interface PageContent {
 	pretitle: string;
 	quarantinePlan: QuarantainePlan;
 	showPrintAndCalendar: boolean;
+	quarantaineDuration?: number;
 	url: string;
 }
 
@@ -209,7 +217,7 @@ export default function Situatie({ locale }: SituatieProps) {
 
 						<Text variant="small">{siteSettings.quarantaineGids.text}</Text>
 
-						{page.showPrintAndCalendar && (
+						{page.showPrintAndCalendar && selectedLastEventDate && (
 							<>
 								<SaveInCalendar
 									locale="nl" // @TODO: Locale
@@ -223,8 +231,13 @@ export default function Situatie({ locale }: SituatieProps) {
 									modalBody={siteSettings.quarantaineCalendar.modalBody}
 									inviteTitle={siteSettings.quarantaineCalendar.inviteTitle}
 									inviteText={siteSettings.quarantaineCalendar.inviteText}
-									fromDate={new Date(12, 5, 2021)} // @TODO: Correct dates
-									toDate={new Date(18, 5, 2021)} // @TODO: Correct dates
+									fromDate={startOfDay(selectedLastEventDate)}
+									toDate={endOfDay(
+										addDays(
+											selectedLastEventDate,
+											page.quarantaineDuration || 10,
+										),
+									)}
 									hideDate
 								/>
 								<button onClick={() => window.print()}>
@@ -311,6 +324,7 @@ export const getStaticProps = async ({
 			${getLocaleProperty({ name: 'bullets', locale, array: true })},
 		},
 		showPrintAndCalendar,
+    quarantaineDuration,
 		url,
 	}`;
 
