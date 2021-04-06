@@ -73,9 +73,10 @@ const datePageUrlToResultUrl = (
 interface WanneerProps {
 	situatie: Situaties;
 	locale: 'nl';
+	maxDays: number;
 }
 
-export default function Wanneer({ situatie, locale }: WanneerProps) {
+export default function Wanneer({ situatie, locale, maxDays }: WanneerProps) {
 	const page = useSanityPageContent<PageContent>();
 	const [selectedDate, setSelectedDate] = useState<Date>();
 	const [showDialog, setShowDialog] = useState(false);
@@ -155,12 +156,10 @@ export default function Wanneer({ situatie, locale }: WanneerProps) {
 								sx={{ marginLeft: 'auto' }}
 								styledAs="button"
 								href={
-									// @TODO: Check if we need to make the 10 days (max days for which we have advice)
-									// dynamic based on the situation.
 									datePageUrlToResultUrl(
 										router.asPath,
 										nrOfDaysAgo,
-										10,
+										maxDays,
 										locale,
 									) + `?event=${format(selectedDate, 'dd-MM-yyyy')}`
 								}
@@ -191,6 +190,11 @@ interface WanneerStaticProps {
 export const getStaticProps = async ({
 	params: { locale, situatie },
 }: WanneerStaticProps) => {
+	const situations = await getSituations();
+	const currentSituation = situations.find((s) => s.url === situatie);
+
+	const maxDays = currentSituation?.maxDays || 10;
+
 	const headerPath = {
 		'ik-ben-misschien-besmet': 'headerBuurt',
 		'ik-heb-een-coronamelder-melding-gekregen': 'headerBuurt',
@@ -255,6 +259,7 @@ export const getStaticProps = async ({
 			situatie,
 			siteSettings,
 			locale,
+			maxDays,
 		},
 	};
 };
@@ -264,7 +269,7 @@ export const getStaticPaths = async () => {
 
 	return {
 		paths: cartesianProduct(
-			situations,
+			situations.map((situation) => situation.url),
 			['nl'].map((locale) => `${locale}`),
 		).map(([situatie, locale]: string[]) => ({
 			params: { situatie, locale },
