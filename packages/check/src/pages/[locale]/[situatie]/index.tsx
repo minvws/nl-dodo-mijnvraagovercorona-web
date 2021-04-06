@@ -15,6 +15,7 @@ import {
 	useSanityPageContent,
 	useSanitySiteSettings,
 	ContentBlock,
+	Feedback,
 } from '@quarantaine/common';
 
 import { SiteSettings } from 'content/site-settings';
@@ -234,6 +235,7 @@ export default function Situatie({ locale }: SituatieProps) {
 							</>
 						)}
 					</Box>
+					<Feedback />
 				</BodyContainer>
 			</Page>
 		</>
