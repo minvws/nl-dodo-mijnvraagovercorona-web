@@ -160,8 +160,8 @@ export default function Wanneer({ situatie, locale }: WanneerProps) {
 }
 
 type Situaties =
-	| 'ik-kan-geen-afstand-houden'
-	| 'ik-kan-wel-afstand-houden'
+	| 'ik-kan-geen-afstand-houden-en-huisgenoot-heeft-geen-klachten'
+	| 'ik-kan-afstand-houden'
 	| 'ik-ben-misschien-besmet'
 	| 'ik-heb-een-coronamelder-melding-gekregen'
 	| 'ik-kom-uit-een-risicogebied'
@@ -176,13 +176,14 @@ export const getStaticProps = async ({
 	params: { locale, situatie },
 }: WanneerStaticProps) => {
 	const headerPath = {
-		'ik-kan-geen-afstand-houden': 'headerHuisgenootGeenAfstand',
-		'ik-kan-wel-afstand-houden': 'headerHuisgenootAfstand',
 		'ik-ben-misschien-besmet': 'headerBuurt',
 		'ik-heb-een-coronamelder-melding-gekregen': 'headerBuurt',
 		'ik-kom-uit-een-risicogebied': 'headerReis',
 		'ik-heb-corona-met-klachten': 'headerCoronaMetKlachten',
 		'ik-heb-corona-zonder-klachten': 'headerCoronaZonderKlachten',
+		'ik-kan-afstand-houden': 'headerHuisgenootAfstand',
+		'ik-kan-geen-afstand-houden-en-huisgenoot-heeft-geen-klachten':
+			'headerHuisgenootGeenAfstand',
 	}[situatie];
 
 	const pageProjection = `{
