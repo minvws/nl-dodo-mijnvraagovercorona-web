@@ -23,6 +23,7 @@ import {
 	useSanitySiteSettings,
 	cartesianProduct,
 	Header,
+	addDays,
 } from '@quarantaine/common';
 
 import { getSituations } from 'utilities/situations';
@@ -131,7 +132,7 @@ export default function Wanneer({ situatie, locale }: WanneerProps) {
 				</DatepickerTopbar>
 				<BodyContainer sx={{ display: 'flex', flexDirection: 'column' }}>
 					<Datepicker
-						disabledDays={(day) => day > new Date()}
+						disabledDays={(day) => day > addDays(new Date(), 1)}
 						variant="singleDay"
 						showPreviousMonth
 						months={page.maanden}
