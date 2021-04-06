@@ -18,7 +18,7 @@ export type DatepickerRangeDataType = RangeModifier;
 interface DatepickerBaseProps {
 	months: string[];
 	weekdaysShort: string[];
-	showPreviousMonth: boolean;
+	showPreviousMonth?: boolean;
 	disabledDays?: Date[] | ((day: Date) => boolean);
 }
 
