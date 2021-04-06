@@ -35,6 +35,7 @@ export const SectionInformational: React.FC<SectionInformationalProps> = ({
 		<img
 			sx={{
 				width: ['auto', 200],
+				minWidth: ['200px'],
 				maxWidth: ['100%', '80%'],
 				margin: '0 auto',
 			}}
