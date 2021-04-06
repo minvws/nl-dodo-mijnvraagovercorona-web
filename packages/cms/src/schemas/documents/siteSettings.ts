@@ -201,5 +201,73 @@ export default {
 				},
 			],
 		},
+		{
+			title: 'Quarantaine lijst titel',
+			name: 'quarantineOverviewTitle',
+			type: 'localeString',
+		},
+		{
+			title: 'Quarantaine Gids',
+			name: 'quarantaineGids',
+			type: 'object',
+			fields: [
+				{
+					title: 'Quarantainegids button',
+					name: 'button',
+					type: 'localeString',
+				},
+				{
+					title: 'Quarantainegids URL',
+					name: 'url',
+					type: 'localeString',
+				},
+				{
+					title: 'Quarantainegids text',
+					name: 'text',
+					type: 'localeString',
+				},
+			],
+		},
+		{
+			title: 'Quarantaine Agenda',
+			name: 'quarantaineCalendar',
+			type: 'object',
+			fields: [
+				{
+					title: 'Tot en met',
+					name: 'dateSeperator',
+					type: 'localeString',
+				},
+				{
+					title: 'Andere agenda',
+					name: 'otherCalendar',
+					type: 'localeString',
+				},
+				{ title: 'Agenda titel', name: 'title', type: 'localeString' },
+				{ title: 'Modal titel', name: 'modalTitle', type: 'localeString' },
+				{ title: 'Modal body', name: 'modalBody', type: 'localeString' },
+				{
+					title: 'Uitnodiging titel',
+					name: 'inviteTitle',
+					type: 'localeString',
+				},
+				{ title: 'Uitnodiging text', name: 'inviteText', type: 'localeString' },
+			],
+		},
+		{
+			title: 'Print call to action',
+			name: 'printCta',
+			type: 'localeString',
+		},
+		{
+			title: 'Favorieten call to action',
+			name: 'favoriteCta',
+			type: 'localeString',
+		},
+		{
+			title: 'Speciale instructies GGD',
+			name: 'GGDSpecialInstructions',
+			type: 'localeString',
+		},
 	],
 };

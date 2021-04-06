@@ -24,6 +24,12 @@ import checkLandingPage from './pages/check/check-landing';
 import jouwSituatiePage from './pages/check/jouw-situatie';
 import wanneerPage from './pages/check/wanneer';
 import geenAdviesPage from './pages/check/geen-advies';
+import situatieZelfKlachtenPage from './pages/check/situatie-zelf-klachten';
+import situatieBuurtPage from './pages/check/situatie-buurt';
+import situatieCoronaMetKlachtenPage from './pages/check/situatie-corona-met-klachten';
+import situatieCoronaZonderKlachtenPage from './pages/check/situatie-corona-zonder-klachten';
+import situatieHuisgenootMetKlachtenPage from './pages/check/situatie-huisgenoot-met-klachten';
+import situatieReisPage from './pages/check/situatie-reis';
 
 import localeStringObject from './objects/localeString';
 import localeBlockObject from './objects/localeBlock';
@@ -31,6 +37,10 @@ import localeUrlObject from './objects/localeUrl';
 import localeTextObject from './objects/localeText';
 import pageMetaDataObject from './objects/pageMetaData';
 import headerObject from './objects/header';
+import quarantinePlanObject from './objects/quarantinePlan';
+import situatieHuisgenootCoronaGeenAfstandGeenKlachtenPage from './pages/check/situatie-huisgenoot-corona-geen-afstand-geen-klachten';
+import situatieHuisgenootCoronaGeenAfstandWelKlachtenPage from './pages/check/situatie-huisgenoot-corona-geen-afstand-wel-klachten';
+import situatieHuisgenootCoronaWelAfstandPage from './pages/check/situatie-huisgenoot-corona-wel-afstand';
 
 export default createSchema({
 	name: 'default',
@@ -63,6 +73,15 @@ export default createSchema({
 		jouwSituatiePage,
 		wanneerPage,
 		geenAdviesPage,
+		situatieZelfKlachtenPage,
+		situatieBuurtPage,
+		situatieCoronaMetKlachtenPage,
+		situatieCoronaZonderKlachtenPage,
+		situatieHuisgenootMetKlachtenPage,
+		situatieReisPage,
+		situatieHuisgenootCoronaGeenAfstandGeenKlachtenPage,
+		situatieHuisgenootCoronaGeenAfstandWelKlachtenPage,
+		situatieHuisgenootCoronaWelAfstandPage,
 
 		/**
 		 * Site settings
@@ -89,5 +108,6 @@ export default createSchema({
 		localeTextObject,
 		pageMetaDataObject,
 		headerObject,
+		quarantinePlanObject,
 	]),
 });

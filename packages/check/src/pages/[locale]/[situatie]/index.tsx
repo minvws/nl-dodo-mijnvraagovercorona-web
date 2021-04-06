@@ -1,7 +1,14 @@
 /** @jsx jsx */
 import { Box, jsx, Styled, Text } from 'theme-ui';
 import { useRouter } from 'next/router';
-import { parse, differenceInDays, addDays, format } from 'date-fns';
+import {
+	parse,
+	differenceInDays,
+	addDays,
+	format,
+	startOfDay,
+	endOfDay,
+} from 'date-fns';
 
 import {
 	BodyContainer,
@@ -12,9 +19,13 @@ import {
 	getLocaleProperty,
 	sanityClient,
 	getPageQuery,
-	InlineDialog,
+	useSanityPageContent,
+	useSanitySiteSettings,
+	ContentBlock,
+	Feedback,
 } from '@quarantaine/common';
 
+import { SiteSettings } from 'content/site-settings';
 import { Page } from 'components/page';
 import {
 	QuarantaineOverviewBlock,
@@ -24,194 +35,83 @@ import { GGDSpecialInstructions } from 'components/ggd-special-instructions';
 import { getSituations } from 'utilities/situations';
 import { PrinterIcon } from 'icons/printer';
 
-interface QuarantainePlanDay {
-	// vandaag, laatste contact, etc
-	title: string;
-	// dag 0, dag 4, of 'vandaag' waarmee de dag index dynamisch wordt.
-	day: number | 'vandaag';
-	// Deze type gaat waarschijnlijk een array met wysywig content worden,
-	// die we daarna het sanity contentblock in gooien. Dan verandert deze type dus.
-	bullets: React.FC[];
-}
-type QuarantainePlan = QuarantainePlanDay[];
+const getDateSinceEvent = ({
+	day,
+	todayDay,
+	eventDate,
+	locale,
+}: {
+	day: number | undefined;
+	todayDay: number;
+	eventDate: Date;
+	locale: string;
+}) => {
+	const daysSince = day === undefined ? todayDay : day;
 
-interface ContentType {
-	situationTitle: string;
-	title: string;
-	quarantineOverviewTitle: string;
-	quarantainePlan: QuarantainePlan;
-	quarantaineGidsButtonText: string;
-	quarantaineGidsUrl: string;
-	quarantaineGidsText: string;
-	tot_en_met: string;
-	other_calendar: string;
-	calendar: {
-		title: string;
-		modalTitle: string;
-		modalBody: string;
-		inviteTitle: string;
-		inviteText: string;
-	};
-	printCta: string;
-	quarantaineDuration: number;
-}
-// @TODO: CMS
-const pageSettings: ContentType = {
-	situationTitle: 'Je hebt corona, met klachten',
-	title: 'Ga direct in quarantaine en laat je testen',
-	quarantineOverviewTitle: 'Dit is jouw thuisquarantaine overzicht:',
-	quarantaineGidsButtonText: 'Download de Quarantainegids',
-	quarantaineGidsUrl: 'https://www.rijksoverheid.nl',
-	quarantaineGidsText:
-		'In de Quarantainegids vind je hulp, tips en adviezen om je thuisquarantaineperiode zo goed en prettig mogelijk door te komen.',
-	tot_en_met: 't/m',
-	other_calendar: 'Andere agenda',
-	calendar: {
-		title: 'Zet je thuisquarantaine in je agenda',
-		modalTitle: 'et je thuisquarantaine in je agenda',
-		modalBody:
-			'Heb je een andere (digitale) agenda? Zet je thuisquarantaine er dan zelf in.',
-		inviteTitle: 'Thuisquarantaine',
-		inviteText:
-			'Krijg je (lichte) klachten? Maak direct een testafspraak op https://coronatest.nl of bel de GGD op 0800-1202. Kijk voor tips over je thuisquarantaine op https://reizentijdenscorona.rijksoverheid.nl/voorbereiding.',
-	},
-	printCta: 'Print jouw thuisquarantaineoverzicht',
-	quarantaineDuration: 10,
-	quarantainePlan: [
-		{
-			title: 'Laatste contact',
-			day: 0,
-			bullets: [],
-		},
-		{
-			title: 'Vandaag',
-			day: 'vandaag',
-			bullets: [
-				() => (
-					<>
-						<p>
-							<strong>Ga direct in thuisquarantaine</strong> en vermijd contact
-							met andere personen.{' '}
-							<InlineDialog
-								buttonText="Wat zijn de regels?"
-								title="Wat zijn de regels tijdens thuisquarantaine?"
-							>
-								<ul>
-									<li>
-										<strong>Alleen de mensen die bij je wonen</strong> mogen
-										samen met jou in huis zijn.
-									</li>
-									<li>
-										<strong>Blijf zo veel mogelijk op 1,5 meter afstand</strong>{' '}
-										van je huisgenoten. Dus niet knuffelen, niet zoenen en geen
-										seks.
-									</li>
-									<li>
-										Blijf zoveel mogelijk op je <strong>eigen kamer</strong> en{' '}
-										<strong>slaap</strong> daar indien mogelijk{' '}
-										<strong>alleen</strong>.
-									</li>
-									<li>
-										<strong>Ontvang geen bezoek</strong>, behalve voor medische
-										redenen (bijvoorbeeld de huisarts of iemand van de GGD).
-									</li>
-									<li>
-										Heb je <strong>medische hulp</strong> nodig? Ga dan niet
-										naar de huisarts of het ziekenhuis, maar bel de arts.
-									</li>
-									<li>
-										Laat <strong>anderen boodschappen</strong> doen.
-									</li>
-									<li>
-										<strong>Je mag in de tuin of op je balkon</strong> zitten.
-									</li>
-									<li>
-										<strong> Werk thuis.</strong> Werk je in de zorg? Dan mag je
-										alleen werken bij uitzondering en als je geen klachten hebt.
-										Overleg dit altijd met de GGD of de bedrijfsarts.
-									</li>
-									<li>
-										<strong>Reis niet</strong> met het openbaar vervoer of met
-										een taxi.
-									</li>
-								</ul>
-							</InlineDialog>
-						</p>
-
-						<p>
-							<strong>Dus niet meer naar buiten,</strong> geen boodschappen doen
-							en niet naar je werk.
-						</p>
-					</>
-				),
-				() => (
-					<>
-						<p>
-							<strong>Laat je zo snel mogelijk testen</strong> op corona:
-							<Link href="https://www.rijksoverheid.nl" external>
-								maak nu een afspraak
-							</Link>
-						</p>
-
-						<p>
-							<strong>Is de testuitslag negatief?</strong> Dan mag je de
-							thuisquarantaine beeindigen. Vermijd wel contact met kwetsbare
-							personen tot en met dag 10 na het laatste coronacontact.
-						</p>
-
-						<p>
-							<strong>Is de testuitslag positief?</strong> Dan heb je coroan. De
-							GGD vertelt je meer en je moet{' '}
-							<Link href="https://www.rijksoverheid.nl" external>
-								in isolatie
-							</Link>
-							.
-						</p>
-					</>
-				),
-			],
-		},
-		{
-			title: 'Einde',
-			day: 10,
-			bullets: [
-				() => (
-					<>
-						<p>
-							<strong>Geen klachten?</strong> Dan mag je je thuisquarantaine
-							beeindigen.
-						</p>
-						<p>
-							<strong>Heb je wel coronaklachten?</strong> Blijf thuis en
-							<Link href="https://www.rijksoverheid.nl" external>
-								laat je opnieuw testen
-							</Link>
-						</p>
-					</>
-				),
-			],
-		},
-	],
+	return addDays(eventDate, daysSince).toLocaleDateString(locale, {
+		weekday: 'short',
+		month: 'long',
+		day: 'numeric',
+	});
 };
 
-const getDateSinceEvent = (
-	day: number | 'vandaag',
-	todayDay: number,
-	eventDate: Date,
-) => {
-	const daysSince = day === 'vandaag' ? todayDay : day;
-	return format(addDays(eventDate, daysSince), 'dd MMMM');
-};
-
-const getDayLabel = (day: number | 'vandaag', todayDay?: number) => {
-	if (day === 'vandaag') {
+const getDayLabel = ({
+	day,
+	title,
+	todayDay,
+}: {
+	day: number | undefined;
+	title: string;
+	todayDay?: number;
+}) => {
+	if (title === 'Vandaag') {
 		return todayDay ? `dag ${todayDay}` : '';
 	}
 
 	return `dag ${day}`;
 };
 
-export default function Situatie() {
+const filterQuarantinePlan = ({
+	quarantinePlan,
+	todayDay,
+}: {
+	quarantinePlan: QuarantainePlan;
+	todayDay: number;
+}): QuarantainePlan =>
+	quarantinePlan
+		? quarantinePlan.filter(
+				({ showOn }) => showOn === undefined || showOn.includes(todayDay),
+		  )
+		: [];
+
+type QuarantainePlan = {
+	day?: number;
+	showOn?: Array<number>;
+	title: string;
+	bullets: Array<Array<Object>>;
+}[];
+interface PageContent {
+	metaData: {
+		title: string;
+		description: string;
+	};
+	header: {
+		title: string;
+	};
+	pretitle: string;
+	quarantinePlan: QuarantainePlan;
+	showPrintAndCalendar: boolean;
+	quarantaineDuration?: number;
+	url: string;
+}
+
+interface SituatieProps {
+	locale: 'nl' | 'en';
+}
+
+export default function Situatie({ locale }: SituatieProps) {
+	const page = useSanityPageContent<PageContent>();
+	const siteSettings = useSanitySiteSettings<SiteSettings>();
 	const router = useRouter();
 
 	const selectedLastEventDate = router.query.event
@@ -222,43 +122,52 @@ export default function Situatie() {
 		? differenceInDays(new Date(), selectedLastEventDate)
 		: undefined;
 
+	const quarantainePlan = filterQuarantinePlan({
+		quarantinePlan: page.quarantinePlan,
+		todayDay: todayDay || 0, // TODO: provide day
+	});
+
 	return (
 		<>
-			<MetaTags title={pageSettings.title} description="" url={router.asPath} />
+			<MetaTags
+				title={page.metaData.title}
+				description={page.metaData.description}
+				url={page.url}
+			/>
 			<Page
-				title={pageSettings.title}
-				headerPrefix={pageSettings.situationTitle}
+				title={page.header.title}
+				headerPrefix={page.pretitle}
 				showRetryLink
 			>
 				<Box sx={{ backgroundColor: 'headerBackground', py: 'box' }}>
 					<BodyContainer sx={{ paddingRight: [, '165px'] }}>
-						<Styled.h2>{pageSettings.quarantineOverviewTitle}</Styled.h2>
+						<Styled.h2>{siteSettings.quarantineOverviewTitle}</Styled.h2>
 
-						{pageSettings.quarantainePlan.map((day) => (
+						{quarantainePlan.map((day) => (
 							<QuarantaineOverviewBlock
 								key={day.title}
-								// If no date is provided we show the "laatste contact", "vandaag" values as the main title.
+								/**
+								 * If no date is provided we show the "laatste contact", "vandaag" values as the main title.
+								 */
 								title={
 									selectedLastEventDate && todayDay
-										? getDateSinceEvent(
-												day.day,
+										? getDateSinceEvent({
+												day: day.day,
 												todayDay,
-												selectedLastEventDate,
-										  )
+												eventDate: selectedLastEventDate,
+												locale,
+										  })
 										: day.title
 								}
 								subtitle={selectedLastEventDate ? `(${day.title})` : ''}
-								day={getDayLabel(day.day, todayDay)}
+								day={getDayLabel({ day: day.day, title: day.title, todayDay })}
 							>
-								{day.bullets.map((BulletContent, index) => (
-									<QuarantaineOverviewBullet key={index}>
-										{/* Zie comment in interface, zo gauw dit in Sanity zit,
-                    wordt dit waarschijnlijk een wysywig content object, dan renderen
-                    we hier niet dit component maar ContentBlock waar we dat content
-                    object aan meegeven. */}
-										<BulletContent />
-									</QuarantaineOverviewBullet>
-								))}
+								{day.bullets &&
+									day.bullets.map((content, index) => (
+										<QuarantaineOverviewBullet key={index}>
+											<ContentBlock content={content} />
+										</QuarantaineOverviewBullet>
+									))}
 							</QuarantaineOverviewBlock>
 						))}
 
@@ -300,44 +209,63 @@ export default function Situatie() {
 					>
 						<Link
 							styledAs="button"
-							href={pageSettings.quarantaineGidsUrl}
+							href={siteSettings.quarantaineGids.url}
 							external
 						>
-							{pageSettings.quarantaineGidsButtonText}
+							{siteSettings.quarantaineGids.button}
 						</Link>
 
-						<Text variant="small">{pageSettings.quarantaineGidsText}</Text>
+						<Text variant="small">{siteSettings.quarantaineGids.text}</Text>
 
-						<SaveInCalendar
-							// @TODO: Locale
-							locale="nl"
-							content={{
-								tot_en_met: pageSettings.tot_en_met,
-								other_calendar: pageSettings.other_calendar,
-							}}
-							title={pageSettings.calendar.title}
-							modalTitle={pageSettings.calendar.modalTitle}
-							modalBody={pageSettings.calendar.modalBody}
-							inviteTitle={pageSettings.calendar.inviteTitle}
-							inviteText={pageSettings.calendar.inviteText}
-							fromDate={new Date(12, 5, 2021)}
-							toDate={new Date(18, 5, 2021)}
-							hideDate
-						/>
-						<button onClick={() => window.print()}>
-							<CallToAction icon={PrinterIcon}>
-								<p>{pageSettings.printCta}</p>
-							</CallToAction>
-						</button>
+						{page.showPrintAndCalendar && selectedLastEventDate && (
+							<>
+								<SaveInCalendar
+									locale="nl" // @TODO: Locale
+									content={{
+										tot_en_met: siteSettings.quarantaineCalendar.dateSeperator,
+										other_calendar:
+											siteSettings.quarantaineCalendar.otherCalendar,
+									}}
+									title={siteSettings.quarantaineCalendar.title}
+									modalTitle={siteSettings.quarantaineCalendar.modalTitle}
+									modalBody={siteSettings.quarantaineCalendar.modalBody}
+									inviteTitle={siteSettings.quarantaineCalendar.inviteTitle}
+									inviteText={siteSettings.quarantaineCalendar.inviteText}
+									fromDate={startOfDay(selectedLastEventDate)}
+									toDate={endOfDay(
+										addDays(
+											selectedLastEventDate,
+											page.quarantaineDuration || 10,
+										),
+									)}
+									hideDate
+								/>
+								<button onClick={() => window.print()}>
+									<CallToAction icon={PrinterIcon}>
+										<p>{siteSettings.printCta}</p>
+									</CallToAction>
+								</button>
+							</>
+						)}
 					</Box>
+					<Feedback />
 				</BodyContainer>
 			</Page>
 		</>
 	);
 }
 
+type Situaties =
+	| 'ik-kan-geen-afstand-houden-en-huisgenoot-heeft-geen-klachten'
+	| 'ik-kan-afstand-houden'
+	| 'ik-ben-misschien-besmet'
+	| 'ik-heb-een-coronamelder-melding-gekregen'
+	| 'ik-kom-uit-een-risicogebied'
+	| 'ik-heb-corona-met-klachten'
+	| 'ik-heb-corona-zonder-klachten';
+
 interface SituatieStaticProps {
-	params: { locale: 'nl' | 'en' };
+	params: { locale: 'nl' | 'en'; situatie: Situaties };
 }
 
 export async function getStaticPaths() {
@@ -355,8 +283,24 @@ export async function getStaticPaths() {
 }
 
 export const getStaticProps = async ({
-	params: { locale },
+	params: { locale, situatie },
 }: SituatieStaticProps) => {
+	const type = {
+		'ik-heb-1-of-meer-coronaklachten': 'situatie-zelf-klachten-page',
+		'ik-ben-misschien-besmet': 'situatie-buurt-page',
+		'ik-kan-geen-afstand-houden-en-huisgenoot-heeft-klachten':
+			'situatie-huisgenoot-corona-geen-afstand-wel-klachten-page',
+		'ik-kan-geen-afstand-houden-en-huisgenoot-heeft-geen-klachten':
+			'situatie-huisgenoot-corona-geen-afstand-geen-klachten-page',
+		'ik-kan-afstand-houden': 'situatie-huisgenoot-corona-wel-afstand-page',
+		'iemand-in-huis-heeft-zware-klachten':
+			'situatie-huisgenoot-met-klachten-page',
+		'ik-heb-een-coronamelder-melding-gekregen': 'situatie-buurt-page',
+		'ik-kom-uit-een-risicogebied': 'situatie-reis-page',
+		'ik-heb-corona-met-klachten': 'situatie-corona-met-klachten-page',
+		'ik-heb-corona-zonder-klachten': 'situatie-corona-zonder-klachten-page',
+	}[situatie];
+
 	const pageProjection = `{
 		"metaData": {
 			${getLocaleProperty({ name: 'title', path: 'metaData.title', locale })},
@@ -372,23 +316,22 @@ export const getStaticProps = async ({
 			${getLocaleProperty({ name: 'subtitle', path: 'header.subtitle', locale })},
 			${getLocaleProperty({ name: 'title', path: 'header.title', locale })},
 		},
-		"uitleg": uitleg[]{
-			"image": "/images/sanity/" + image.asset->originalFilename,
-			${getLocaleProperty({ name: 'description', locale })},
-			${getLocaleProperty({ name: 'pretitle', locale })},
+		${getLocaleProperty({ name: 'pretitle', locale })},
+		"quarantinePlan": quarantinePlan[]{
+			day,
+			showOn,
 			${getLocaleProperty({ name: 'title', locale })},
-			"linklist": {
-				${getLocaleProperty({ name: 'id', path: 'linklist.id', locale })},
-				${getLocaleProperty({ name: 'usp', path: 'linklist.usp', locale })},
-			},
+			${getLocaleProperty({ name: 'bullets', locale, array: true })},
 		},
+		showPrintAndCalendar,
+    quarantaineDuration,
 		url,
 	}`;
 
 	const { page, siteSettings } = await sanityClient.fetch(
 		getPageQuery({
-			site: 'reizen-tijdens-corona',
-			type: 'landing-page',
+			site: 'quarantaine-check',
+			type,
 			pageProjection,
 			locale,
 		}),

@@ -7,6 +7,8 @@ import DayPicker, {
 	DayModifiers,
 } from 'react-day-picker';
 import { jsx } from 'theme-ui';
+import { subMonths } from 'date-fns';
+
 import { Navbar } from './components/navbar-element';
 
 import { useDesktopQuery } from '@quarantaine/common';
@@ -16,6 +18,7 @@ export type DatepickerRangeDataType = RangeModifier;
 interface DatepickerBaseProps {
 	months: string[];
 	weekdaysShort: string[];
+	showPreviousMonth?: boolean;
 	disabledDays?: Date[] | ((day: Date) => boolean);
 }
 
@@ -70,7 +73,7 @@ export const Datepicker = (props: DatepickerProps) => {
 			navbarElement={Navbar}
 			disabledDays={props.disabledDays}
 			sx={{
-				padding: [0, '70px 0 30px 0'],
+				padding: [0, '20px 0'],
 				width: '100%',
 				fontSize: ['18px', '16px'],
 
@@ -144,6 +147,11 @@ export const Datepicker = (props: DatepickerProps) => {
 				},
 			}}
 			months={props.months}
+			month={
+				props.showPreviousMonth && isDesktop
+					? subMonths(new Date(), 1)
+					: undefined
+			}
 			weekdaysShort={props.weekdaysShort}
 			firstDayOfWeek={1}
 			className={

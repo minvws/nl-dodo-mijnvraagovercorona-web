@@ -22,7 +22,7 @@ export const Page: React.FC<PageProps> = ({
 	children,
 	cleanPageOnMobile,
 	className,
-	illustrationUrl = '/images/Koffer_DesktopRetina.svg',
+	illustrationUrl = '/images/illustration-couch.svg',
 	showRetryLink,
 }) => {
 	return (

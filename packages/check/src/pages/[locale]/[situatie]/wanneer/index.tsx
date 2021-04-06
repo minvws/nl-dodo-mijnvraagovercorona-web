@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 
 import { Page } from 'components/page';
 
@@ -20,9 +20,9 @@ import {
 	getPageQuery,
 	getLocaleProperty,
 	useSanityPageContent,
-	useSanitySiteSettings,
 	cartesianProduct,
-	Header,
+	ContentBlock,
+	addDays,
 } from '@quarantaine/common';
 
 import { getSituations } from 'utilities/situations';
@@ -41,8 +41,8 @@ interface PageContent {
 		title: string;
 		modal: {
 			link: string;
-			text: string;
 			title: string;
+			content: Object[];
 		};
 	};
 	button: string;
@@ -60,17 +60,27 @@ const datePageUrlToResultUrl = (
 	maxDays: number,
 	locale: 'nl' | 'en',
 ) => {
-	const daySuffix = day === 0 || maxDays === 1 ? '' : `/${day}-dagen-geleden`;
+	const daySuffix =
+		day === 0 || maxDays === 1
+			? ''
+			: day === 1
+			? `/${day}-dag-geleden`
+			: `/${day}-dagen-geleden`;
 	if (day > maxDays) return `/${locale}/geen-advies`;
 	return datePageUrl.replace('/wanneer', daySuffix);
 };
 
-export default function Wanneer({ situatie, locale }) {
+interface WanneerProps {
+	situatie: Situaties;
+	locale: 'nl';
+}
+
+export default function Wanneer({ situatie, locale }: WanneerProps) {
 	const page = useSanityPageContent<PageContent>();
-	const siteSettings = useSanitySiteSettings();
 	const [selectedDate, setSelectedDate] = useState<Date>();
 	const [showDialog, setShowDialog] = useState(false);
 	const router = useRouter();
+	const linkRef = useRef<HTMLAnchorElement>(null);
 
 	const openDialog = (event: any) => {
 		event.preventDefault();
@@ -104,7 +114,7 @@ export default function Wanneer({ situatie, locale }) {
 						isVisible={showDialog}
 						closeDialog={() => setShowDialog(false)}
 					>
-						<p>{page.header.modal.text}</p>
+						<ContentBlock content={page.header.modal.content} />
 					</Dialog>
 				</Hero>
 				<DatepickerTopbar>
@@ -122,26 +132,42 @@ export default function Wanneer({ situatie, locale }) {
 				</DatepickerTopbar>
 				<BodyContainer sx={{ display: 'flex', flexDirection: 'column' }}>
 					<Datepicker
-						disabledDays={(day) => day > new Date()}
+						disabledDays={(day) => day > addDays(startOfDay(new Date()), 1)}
 						variant="singleDay"
+						showPreviousMonth
 						months={page.maanden}
 						weekdaysShort={page.dagen}
-						onDayClick={setSelectedDate}
+						onDayClick={(date) => {
+							if (
+								linkRef.current &&
+								typeof linkRef.current.scrollIntoView === 'function' &&
+								window.innerWidth < 800
+							) {
+								linkRef.current.scrollIntoView({ block: 'center' });
+							}
+							setSelectedDate(date);
+						}}
 					/>
 
 					{selectedDate && nrOfDaysAgo !== null && (
-						<Link
-							sx={{ marginLeft: 'auto', marginY: '24px' }}
-							styledAs="button"
-							href={
-								// @TODO: Check if we need to make the 10 days (max days for which we have advice)
-								// dynamic based on the situation.
-								datePageUrlToResultUrl(router.asPath, nrOfDaysAgo, 10, locale) +
-								`?event=${format(selectedDate, 'dd-MM-yyyy')}`
-							}
-						>
-							{page.button}
-						</Link>
+						<span ref={linkRef}>
+							<Link
+								sx={{ marginLeft: 'auto' }}
+								styledAs="button"
+								href={
+									// @TODO: Check if we need to make the 10 days (max days for which we have advice)
+									// dynamic based on the situation.
+									datePageUrlToResultUrl(
+										router.asPath,
+										nrOfDaysAgo,
+										10,
+										locale,
+									) + `?event=${format(selectedDate, 'dd-MM-yyyy')}`
+								}
+							>
+								{page.button}
+							</Link>
+						</span>
 					)}
 				</BodyContainer>
 			</Page>
@@ -150,8 +176,8 @@ export default function Wanneer({ situatie, locale }) {
 }
 
 type Situaties =
-	| 'ik-kan-geen-afstand-houden'
-	| 'ik-kan-wel-afstand-houden'
+	| 'ik-kan-geen-afstand-houden-en-huisgenoot-heeft-geen-klachten'
+	| 'ik-kan-afstand-houden'
 	| 'ik-ben-misschien-besmet'
 	| 'ik-heb-een-coronamelder-melding-gekregen'
 	| 'ik-kom-uit-een-risicogebied'
@@ -166,13 +192,14 @@ export const getStaticProps = async ({
 	params: { locale, situatie },
 }: WanneerStaticProps) => {
 	const headerPath = {
-		'ik-kan-geen-afstand-houden': 'headerHuisgenootGeenAfstand',
-		'ik-kan-wel-afstand-houden': 'headerHuisgenootAfstand',
 		'ik-ben-misschien-besmet': 'headerBuurt',
 		'ik-heb-een-coronamelder-melding-gekregen': 'headerBuurt',
 		'ik-kom-uit-een-risicogebied': 'headerReis',
 		'ik-heb-corona-met-klachten': 'headerCoronaMetKlachten',
 		'ik-heb-corona-zonder-klachten': 'headerCoronaZonderKlachten',
+		'ik-kan-afstand-houden': 'headerHuisgenootAfstand',
+		'ik-kan-geen-afstand-houden-en-huisgenoot-heeft-geen-klachten':
+			'headerHuisgenootGeenAfstand',
 	}[situatie];
 
 	const pageProjection = `{
@@ -193,8 +220,8 @@ export const getStaticProps = async ({
 					locale,
 				})},
 				${getLocaleProperty({
-					name: 'text',
-					path: `${headerPath}.modal.text`,
+					name: 'content',
+					path: `${headerPath}.modal.content`,
 					locale,
 				})},
 				${getLocaleProperty({

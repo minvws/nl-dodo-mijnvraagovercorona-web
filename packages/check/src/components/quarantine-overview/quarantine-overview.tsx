@@ -39,7 +39,7 @@ export const QuarantaineOverviewBlock: React.FC<QuarantaineOverviewBlockProps> =
 			},
 		}}
 	>
-		<Flex sx={{ justifyContent: 'space-between' }}>
+		<Flex sx={{ justifyContent: 'space-between', '& + div': { mt: '16px' } }}>
 			<p sx={{ margin: 0, color: 'smallText', fontWeight: 'bold' }}>
 				{title}{' '}
 				<span sx={{ fontWeight: 'normal', textTransform: 'lowercase' }}>

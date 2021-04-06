@@ -37,7 +37,11 @@ export default function GeenAdvies() {
 				description={page.metaData.description}
 				url={page.url}
 			/>
-			<Page title={page.header.title} headerPrefix={page.header.pretitle}>
+			<Page
+				showRetryLink
+				title={page.header.title}
+				headerPrefix={page.header.pretitle}
+			>
 				<Content>
 					<ContentBlock content={page.content} />
 				</Content>

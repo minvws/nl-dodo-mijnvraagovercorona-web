@@ -15,6 +15,7 @@ import {
 	GiLightBulb,
 	GiPeriscope,
 	GiThumbDown,
+	GiThumbUp,
 } from 'react-icons/gi';
 import { FaRegCopyright, FaAccessibleIcon } from 'react-icons/fa';
 import { SiGnuprivacyguard } from 'react-icons/si';
@@ -142,6 +143,51 @@ const checkPagesConfig = [
 		schemaType: 'wanneer-page',
 		title: 'Check Wanneer Pagina',
 		icon: GiCalendar,
+	},
+	{
+		schemaType: 'situatie-zelf-klachten-page',
+		title: 'Check Situatie Zelf Klachten Pagina',
+		icon: GiThumbUp,
+	},
+	{
+		schemaType: 'situatie-buurt-page',
+		title: 'Check Situatie Buurt Pagina',
+		icon: GiThumbUp,
+	},
+	{
+		schemaType: 'situatie-reis-page',
+		title: 'Check Situatie Reis Pagina',
+		icon: GiThumbUp,
+	},
+	{
+		schemaType: 'situatie-corona-zonder-klachten-page',
+		title: 'Check Situatie Corona Zonder Klachten Pagina',
+		icon: GiThumbUp,
+	},
+	{
+		schemaType: 'situatie-corona-met-klachten-page',
+		title: 'Check Situatie Corona Met Klachten Pagina',
+		icon: GiThumbUp,
+	},
+	{
+		schemaType: 'situatie-huisgenoot-met-klachten-page',
+		title: 'Check Situatie Huisgenoot Met Klachten Pagina',
+		icon: GiThumbUp,
+	},
+	{
+		schemaType: 'situatie-huisgenoot-corona-geen-afstand-geen-klachten-page',
+		title: 'Check Situatie Huisgenoot Corona Geen Afstand Geen Klachten Pagina',
+		icon: GiThumbUp,
+	},
+	{
+		schemaType: 'situatie-huisgenoot-corona-geen-afstand-wel-klachten-page',
+		title: 'Check Situatie Huisgenoot Corona Geen Afstand Wel Klachten Pagina',
+		icon: GiThumbUp,
+	},
+	{
+		schemaType: 'situatie-huisgenoot-corona-wel-afstand-page',
+		title: 'Check Situatie Huisgenoot Corona Wel Afstand Pagina',
+		icon: GiThumbUp,
 	},
 	{
 		schemaType: 'geen-advies-page',

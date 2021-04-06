@@ -56,6 +56,21 @@ interface JouwSituatiePageContent {
 	currentStepLabel: string;
 }
 
+const CtaWrapper: React.FC = ({ children }) => (
+	<div
+		sx={{
+			a: {
+				height: 'auto',
+				minHeight: '55px',
+				lineHeight: 1.5,
+				py: '12px',
+			},
+		}}
+	>
+		{children}
+	</div>
+);
+
 export default function JouwSituatie() {
 	const page = useSanityPageContent<JouwSituatiePageContent>();
 	const siteSettings = useSanitySiteSettings();
@@ -84,19 +99,21 @@ export default function JouwSituatie() {
 								titleSuffix={situation.titleSuffix}
 							>
 								<ContentBlock content={situation.content} />
-								{situation.ctas.map((cta) => (
-									<Link
-										key={cta.name}
-										href={
-											cta.skipDatepicker
-												? `/nl/${cta.name}`
-												: `/nl/${cta.name}/wanneer`
-										}
-										styledAs="button"
-									>
-										{cta.text}
-									</Link>
-								))}
+								<CtaWrapper>
+									{situation.ctas.map((cta) => (
+										<Link
+											key={cta.name}
+											href={
+												cta.skipDatepicker
+													? `/nl/${cta.name}`
+													: `/nl/${cta.name}/wanneer`
+											}
+											styledAs="button"
+										>
+											{cta.text}
+										</Link>
+									))}
+								</CtaWrapper>
 							</ExpansionPanel>
 						))}
 					</Box>
@@ -106,19 +123,21 @@ export default function JouwSituatie() {
 						{page.situationsOther.map((situation) => (
 							<ExpansionPanel key={situation.title} title={situation.title}>
 								<ContentBlock content={situation.content} />
-								{situation.ctas?.map((cta) => (
-									<Link
-										key={cta.name}
-										href={
-											cta.skipDatepicker
-												? `/nl/${cta.name}`
-												: `/nl/${cta.name}/wanneer`
-										}
-										styledAs="button"
-									>
-										{cta.text}
-									</Link>
-								))}
+								<CtaWrapper>
+									{situation.ctas?.map((cta) => (
+										<Link
+											key={cta.name}
+											href={
+												cta.skipDatepicker
+													? `/nl/${cta.name}`
+													: `/nl/${cta.name}/wanneer`
+											}
+											styledAs="button"
+										>
+											{cta.text}
+										</Link>
+									))}
+								</CtaWrapper>
 							</ExpansionPanel>
 						))}
 					</Box>
