@@ -73,7 +73,7 @@ export const Datepicker = (props: DatepickerProps) => {
 			navbarElement={Navbar}
 			disabledDays={props.disabledDays}
 			sx={{
-				padding: [0, '70px 0 30px 0'],
+				padding: [0, '20px 0'],
 				width: '100%',
 				fontSize: ['18px', '16px'],
 
