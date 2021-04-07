@@ -34,6 +34,11 @@ export default {
 			type: 'number',
 		},
 		{
+			title: 'Maximaal aantal dagen waarna geen advies mogelijk is',
+			name: 'maxDays',
+			type: 'number',
+		},
+		{
 			title: 'URL',
 			name: 'url',
 			type: 'string',

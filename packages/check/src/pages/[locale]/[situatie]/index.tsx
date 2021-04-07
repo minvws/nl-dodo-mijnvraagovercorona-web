@@ -5,7 +5,6 @@ import {
 	parse,
 	differenceInDays,
 	addDays,
-	format,
 	startOfDay,
 	endOfDay,
 } from 'date-fns';
@@ -34,6 +33,7 @@ import {
 import { GGDSpecialInstructions } from 'components/ggd-special-instructions';
 import { getSituations } from 'utilities/situations';
 import { PrinterIcon } from 'icons/printer';
+import { getSanityPageIdBySituation, Situaties } from 'config/situaties';
 
 const getDateSinceEvent = ({
 	day,
@@ -255,15 +255,6 @@ export default function Situatie({ locale }: SituatieProps) {
 	);
 }
 
-type Situaties =
-	| 'ik-kan-geen-afstand-houden-en-huisgenoot-heeft-geen-klachten'
-	| 'ik-kan-afstand-houden'
-	| 'ik-ben-misschien-besmet'
-	| 'ik-heb-een-coronamelder-melding-gekregen'
-	| 'ik-kom-uit-een-risicogebied'
-	| 'ik-heb-corona-met-klachten'
-	| 'ik-heb-corona-zonder-klachten';
-
 interface SituatieStaticProps {
 	params: { locale: 'nl' | 'en'; situatie: Situaties };
 }
@@ -274,7 +265,7 @@ export async function getStaticPaths() {
 	return {
 		paths: situations.map((situation) => ({
 			params: {
-				situatie: situation,
+				situatie: situation.url,
 				locale: 'nl',
 			},
 		})),
@@ -285,22 +276,6 @@ export async function getStaticPaths() {
 export const getStaticProps = async ({
 	params: { locale, situatie },
 }: SituatieStaticProps) => {
-	const type = {
-		'ik-heb-1-of-meer-coronaklachten': 'situatie-zelf-klachten-page',
-		'ik-ben-misschien-besmet': 'situatie-buurt-page',
-		'ik-kan-geen-afstand-houden-en-huisgenoot-heeft-klachten':
-			'situatie-huisgenoot-corona-geen-afstand-wel-klachten-page',
-		'ik-kan-geen-afstand-houden-en-huisgenoot-heeft-geen-klachten':
-			'situatie-huisgenoot-corona-geen-afstand-geen-klachten-page',
-		'ik-kan-afstand-houden': 'situatie-huisgenoot-corona-wel-afstand-page',
-		'iemand-in-huis-heeft-zware-klachten':
-			'situatie-huisgenoot-met-klachten-page',
-		'ik-heb-een-coronamelder-melding-gekregen': 'situatie-buurt-page',
-		'ik-kom-uit-een-risicogebied': 'situatie-reis-page',
-		'ik-heb-corona-met-klachten': 'situatie-corona-met-klachten-page',
-		'ik-heb-corona-zonder-klachten': 'situatie-corona-zonder-klachten-page',
-	}[situatie];
-
 	const pageProjection = `{
 		"metaData": {
 			${getLocaleProperty({ name: 'title', path: 'metaData.title', locale })},
@@ -325,13 +300,14 @@ export const getStaticProps = async ({
 		},
 		showPrintAndCalendar,
     quarantaineDuration,
+    maxDays,
 		url,
 	}`;
 
 	const { page, siteSettings } = await sanityClient.fetch(
 		getPageQuery({
 			site: 'quarantaine-check',
-			type,
+			type: getSanityPageIdBySituation(situatie),
 			pageProjection,
 			locale,
 		}),

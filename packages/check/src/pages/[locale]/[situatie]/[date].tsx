@@ -6,28 +6,23 @@ import { getSituations } from 'utilities/situations';
 export const getStaticPaths = async () => {
 	const situations = await getSituations();
 
-	const dates = [
-		'1-dag-geleden',
-		'2-dagen-geleden',
-		'3-dagen-geleden',
-		'4-dagen-geleden',
-		'5-dagen-geleden',
-		'6-dagen-geleden',
-		'7-dagen-geleden',
-		'8-dagen-geleden',
-		'9-dagen-geleden',
-		'10-dagen-geleden',
-		'geen-resultaat',
-	];
+	const paths = situations.map((situation) => {
+		// Create an array with all the date slugs for this situation.
+		const dates = Array.from({ length: situation.maxDays }).map(
+			(_, index) => `${index + 1}-${index + 1 === 1 ? 'dag' : 'dagen'}-geleden`,
+		);
+		dates.push('geen-resultaat');
+
+		// Create cartesion product for 1 situation.
+		return cartesianProduct([situation.url], dates, ['nl']).map(
+			([situatie, date, locale]: string[]) => ({
+				params: { situatie, locale, date },
+			}),
+		);
+	});
 
 	return {
-		paths: cartesianProduct(
-			situations,
-			dates,
-			['nl'].map((locale) => `${locale}`),
-		).map(([situatie, date, locale]: string[]) => ({
-			params: { situatie, locale, date },
-		})),
+		paths: ([] as typeof paths[0]).concat(...paths),
 		fallback: false,
 	};
 };
