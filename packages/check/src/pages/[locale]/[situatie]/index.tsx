@@ -117,6 +117,7 @@ interface PageContent {
 	};
 	pretitle: string;
 	quarantinePlan: QuarantainePlan;
+	quarantinePlanTitle: string;
 	showPrintAndCalendar: boolean;
 	quarantaineDuration?: number;
 	url: string;
@@ -164,7 +165,7 @@ export default function Situatie({ locale, date }: SituatieProps) {
 					}}
 				>
 					<BodyContainer sx={{ paddingRight: [, '165px'] }}>
-						<Styled.h2>{siteSettings.quarantineOverviewTitle}</Styled.h2>
+						<Styled.h2>{page.quarantinePlanTitle}</Styled.h2>
 
 						{quarantainePlan.map((day) => (
 							<QuarantaineOverviewBlock
@@ -322,6 +323,7 @@ export const getStaticProps = async ({
 			${getLocaleProperty({ name: 'title', locale })},
 			${getLocaleProperty({ name: 'bullets', locale, array: true })},
 		},
+		${getLocaleProperty({ name: 'quarantinePlanTitle', locale })},
 		showPrintAndCalendar,
    		quarantaineDuration,
 		url,

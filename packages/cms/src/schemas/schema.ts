@@ -42,6 +42,7 @@ import localeTextObject from './objects/localeText';
 import pageMetaDataObject from './objects/pageMetaData';
 import headerObject from './objects/header';
 import quarantinePlanObject from './objects/quarantinePlan';
+import situatiePageObject from './objects/situatiePage';
 
 export default createSchema({
 	name: 'default',
@@ -111,5 +112,6 @@ export default createSchema({
 		pageMetaDataObject,
 		headerObject,
 		quarantinePlanObject,
+		situatiePageObject,
 	]),
 });
