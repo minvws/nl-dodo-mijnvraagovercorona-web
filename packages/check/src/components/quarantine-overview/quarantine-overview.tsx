@@ -5,6 +5,7 @@ interface QuarantaineOverviewBlockProps {
 	title: string;
 	subtitle: string;
 	day: string;
+	dividers: number;
 }
 
 export const QuarantaineOverviewBlock: React.FC<QuarantaineOverviewBlockProps> = ({
@@ -12,6 +13,7 @@ export const QuarantaineOverviewBlock: React.FC<QuarantaineOverviewBlockProps> =
 	subtitle,
 	day,
 	children,
+	dividers,
 }) => (
 	<Box
 		sx={{
@@ -20,26 +22,31 @@ export const QuarantaineOverviewBlock: React.FC<QuarantaineOverviewBlockProps> =
 			padding: 'box',
 			position: 'relative',
 			fontSize: ['bodyMobile', 'body'],
-			'& + &': {
-				marginTop: '72px',
-				// lines between blocks.
-				'::before': {
-					position: 'absolute',
-					content: '""',
-					display: 'block',
-					width: '24px',
-					height: '68px',
-					left: '50%',
-					top: '-68px',
-					transform: 'translateX(-50%)',
-					backgroundImage: 'url(/icons/section-divider.svg)',
-					backgroundRepeat: 'repeat-y',
-					backgroundPosition: 'top center',
-				},
-			},
+			marginTop: dividers ? `${dividers * 18}px` : '18px',
+			// lines between blocks.
+			'::before': dividers
+				? {
+						position: 'absolute',
+						content: '""',
+						display: 'block',
+						width: '24px',
+						height: `${dividers * 17}px`,
+						left: '50%',
+						top: `${dividers * -17}px`,
+						transform: 'translateX(-50%)',
+						backgroundImage: 'url(/icons/section-divider.svg)',
+						backgroundRepeat: 'repeat-y',
+						backgroundPosition: 'top center',
+				  }
+				: {},
 		}}
 	>
-		<Flex sx={{ justifyContent: 'space-between', '& + div': { mt: '16px' } }}>
+		<Flex
+			sx={{
+				justifyContent: 'space-between',
+				'& + div': { mt: '16px' },
+			}}
+		>
 			<p sx={{ margin: 0, color: 'smallText', fontWeight: 'bold' }}>
 				{title}{' '}
 				<span sx={{ fontWeight: 'normal', textTransform: 'lowercase' }}>

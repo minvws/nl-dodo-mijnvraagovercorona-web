@@ -5,7 +5,6 @@ import {
 	parse,
 	differenceInDays,
 	addDays,
-	format,
 	startOfDay,
 	endOfDay,
 } from 'date-fns';
@@ -55,20 +54,18 @@ const getDateSinceEvent = ({
 	});
 };
 
-const getDayLabel = ({
-	day,
-	title,
-	todayDay,
-}: {
-	day: number | undefined;
-	title: string;
-	todayDay?: number;
-}) => {
-	if (title === 'Vandaag') {
-		return todayDay ? `dag ${todayDay}` : '';
+const getDayDifference = (
+	day: QuarantainePlanDay,
+	previousDay: QuarantainePlanDay,
+) => {
+	const current = day?.day;
+	const previous = previousDay?.day;
+
+	if (!isNaN(current) && !isNaN(previous)) {
+		return Math.max(current - previous - 1, 0);
 	}
 
-	return `dag ${day}`;
+	return 0;
 };
 
 const filterQuarantinePlan = ({
@@ -79,17 +76,29 @@ const filterQuarantinePlan = ({
 	todayDay: number;
 }): QuarantainePlan =>
 	quarantinePlan
-		? quarantinePlan.filter(
-				({ showOn }) => showOn === undefined || showOn.includes(todayDay),
-		  )
+		? quarantinePlan
+				.map((day) => ({
+					...day,
+					day: day.day === undefined ? todayDay : day.day,
+				}))
+				.filter(
+					({ showOn }) => showOn === undefined || showOn.includes(todayDay),
+				)
+				.map((day, index, plan) => ({
+					...day,
+					difference: getDayDifference(day, plan[index - 1]),
+				}))
 		: [];
 
-type QuarantainePlan = {
-	day?: number;
+type QuarantainePlanDay = {
+	day: number;
 	showOn?: Array<number>;
 	title: string;
 	bullets: Array<Array<Object>>;
-}[];
+	difference: number;
+};
+
+type QuarantainePlan = QuarantainePlanDay[];
 interface PageContent {
 	metaData: {
 		title: string;
@@ -160,7 +169,8 @@ export default function Situatie({ locale }: SituatieProps) {
 										: day.title
 								}
 								subtitle={selectedLastEventDate ? `(${day.title})` : ''}
-								day={getDayLabel({ day: day.day, title: day.title, todayDay })}
+								day={`dag ${day.day}`}
+								dividers={day.difference}
 							>
 								{day.bullets &&
 									day.bullets.map((content, index) => (
