@@ -91,6 +91,9 @@ const filterQuarantinePlan = ({
 				}))
 		: [];
 
+const parseDateFromUrl = (date: string): number =>
+	date[0] ? parseInt(date[0], 10) : 0;
+
 type QuarantainePlanDay = {
 	day: number;
 	showOn?: Array<number>;
@@ -117,9 +120,10 @@ interface PageContent {
 
 interface SituatieProps {
 	locale: 'nl' | 'en';
+	date: string;
 }
 
-export default function Situatie({ locale }: SituatieProps) {
+export default function Situatie({ locale, date }: SituatieProps) {
 	const page = useSanityPageContent<PageContent>();
 	const siteSettings = useSanitySiteSettings<SiteSettings>();
 	const router = useRouter();
@@ -134,7 +138,7 @@ export default function Situatie({ locale }: SituatieProps) {
 
 	const quarantainePlan = filterQuarantinePlan({
 		quarantinePlan: page.quarantinePlan,
-		todayDay: todayDay || 0, // TODO: provide day
+		todayDay: todayDay || parseDateFromUrl(date),
 	});
 
 	return (
@@ -149,7 +153,12 @@ export default function Situatie({ locale }: SituatieProps) {
 				headerPrefix={page.pretitle}
 				showRetryLink
 			>
-				<Box sx={{ backgroundColor: 'headerBackground', py: 'box' }}>
+				<Box
+					sx={{
+						backgroundColor: 'headerBackground',
+						py: 'box',
+					}}
+				>
 					<BodyContainer sx={{ paddingRight: [, '165px'] }}>
 						<Styled.h2>{siteSettings.quarantineOverviewTitle}</Styled.h2>
 
@@ -267,7 +276,7 @@ export default function Situatie({ locale }: SituatieProps) {
 }
 
 interface SituatieStaticProps {
-	params: { locale: 'nl' | 'en'; situatie: Situaties };
+	params: { locale: 'nl' | 'en'; situatie: Situaties; date: string };
 }
 
 export async function getStaticPaths() {
@@ -285,7 +294,7 @@ export async function getStaticPaths() {
 }
 
 export const getStaticProps = async ({
-	params: { locale, situatie },
+	params: { locale, situatie, date },
 }: SituatieStaticProps) => {
 	const pageProjection = `{
 		"metaData": {
@@ -329,6 +338,7 @@ export const getStaticProps = async ({
 			page,
 			siteSettings,
 			locale,
+			date: date || '',
 		},
 	};
 };
