@@ -55,20 +55,18 @@ const getDateSinceEvent = ({
 	});
 };
 
-const getDayLabel = ({
-	day,
-	title,
-	todayDay,
-}: {
-	day: number | undefined;
-	title: string;
-	todayDay?: number;
-}) => {
-	if (title === 'Vandaag') {
-		return todayDay ? `dag ${todayDay}` : '';
+const getDayDifference = (
+	day: QuarantainePlanDay,
+	previousDay: QuarantainePlanDay,
+) => {
+	const current = day?.day;
+	const previous = previousDay?.day;
+
+	if (!isNaN(current) && !isNaN(previous)) {
+		return Math.max(current - previous - 1, 0);
 	}
 
-	return `dag ${day}`;
+	return 0;
 };
 
 const filterQuarantinePlan = ({
@@ -79,17 +77,36 @@ const filterQuarantinePlan = ({
 	todayDay: number;
 }): QuarantainePlan =>
 	quarantinePlan
-		? quarantinePlan.filter(
-				({ showOn }) => showOn === undefined || showOn.includes(todayDay),
-		  )
+		? quarantinePlan
+				.map((day) => ({
+					...day,
+          // Replace day number with todayDay number if not set.
+					day: day.day === undefined ? todayDay : day.day,
+				}))
+        // Remove any blocks that should not be visible on todayDay
+				.filter(
+					({ showOn }) => showOn === undefined || showOn.includes(todayDay),
+				)
+        // Add difference property containing the difference (in days) between
+        // this block and the previous one.
+				.map((day, index, plan) => ({
+					...day,
+					difference: getDayDifference(day, plan[index - 1]),
+				}))
 		: [];
 
-type QuarantainePlan = {
-	day?: number;
+const parseDateFromUrl = (date: string): number =>
+	date[0] ? parseInt(date[0], 10) : 0;
+
+type QuarantainePlanDay = {
+	day: number;
 	showOn?: Array<number>;
 	title: string;
 	bullets: Array<Array<Object>>;
-}[];
+	difference: number;
+};
+
+type QuarantainePlan = QuarantainePlanDay[];
 interface PageContent {
 	metaData: {
 		title: string;
@@ -107,9 +124,10 @@ interface PageContent {
 
 interface SituatieProps {
 	locale: 'nl' | 'en';
+	date: string;
 }
 
-export default function Situatie({ locale }: SituatieProps) {
+export default function Situatie({ locale, date }: SituatieProps) {
 	const page = useSanityPageContent<PageContent>();
 	const siteSettings = useSanitySiteSettings<SiteSettings>();
 	const router = useRouter();
@@ -124,7 +142,7 @@ export default function Situatie({ locale }: SituatieProps) {
 
 	const quarantainePlan = filterQuarantinePlan({
 		quarantinePlan: page.quarantinePlan,
-		todayDay: todayDay || 0, // TODO: provide day
+		todayDay: todayDay || parseDateFromUrl(date),
 	});
 
 	return (
@@ -139,7 +157,12 @@ export default function Situatie({ locale }: SituatieProps) {
 				headerPrefix={page.pretitle}
 				showRetryLink
 			>
-				<Box sx={{ backgroundColor: 'headerBackground', py: 'box' }}>
+				<Box
+					sx={{
+						backgroundColor: 'headerBackground',
+						py: 'box',
+					}}
+				>
 					<BodyContainer sx={{ paddingRight: [, '165px'] }}>
 						<Styled.h2>{siteSettings.quarantineOverviewTitle}</Styled.h2>
 
@@ -150,7 +173,7 @@ export default function Situatie({ locale }: SituatieProps) {
 								 * If no date is provided we show the "laatste contact", "vandaag" values as the main title.
 								 */
 								title={
-									selectedLastEventDate && todayDay
+									selectedLastEventDate && typeof todayDay !== 'undefined'
 										? getDateSinceEvent({
 												day: day.day,
 												todayDay,
@@ -160,7 +183,8 @@ export default function Situatie({ locale }: SituatieProps) {
 										: day.title
 								}
 								subtitle={selectedLastEventDate ? `(${day.title})` : ''}
-								day={getDayLabel({ day: day.day, title: day.title, todayDay })}
+								day={`dag ${day.day}`}
+								dividers={day.difference}
 							>
 								{day.bullets &&
 									day.bullets.map((content, index) => (
@@ -256,7 +280,7 @@ export default function Situatie({ locale }: SituatieProps) {
 }
 
 interface SituatieStaticProps {
-	params: { locale: 'nl' | 'en'; situatie: Situaties };
+	params: { locale: 'nl' | 'en'; situatie: Situaties; date: string };
 }
 
 export async function getStaticPaths() {
@@ -274,7 +298,7 @@ export async function getStaticPaths() {
 }
 
 export const getStaticProps = async ({
-	params: { locale, situatie },
+	params: { locale, situatie, date },
 }: SituatieStaticProps) => {
 	const pageProjection = `{
 		"metaData": {
@@ -318,6 +342,7 @@ export const getStaticProps = async ({
 			page,
 			siteSettings,
 			locale,
+			date: date || '',
 		},
 	};
 };
