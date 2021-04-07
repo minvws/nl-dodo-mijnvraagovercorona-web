@@ -1,34 +1,21 @@
-import { sanityClient, getPageQuery } from '@quarantaine/common';
+import { sanityClient } from '@quarantaine/common';
 
 export const getSituations = async () => {
-	const pageProjection: string = `{
-		situationsYou[]{
-			"ctas": ctas[].name
-		},
-		situationsOther[]{
-			"ctas": ctas[].name
-		},
-	}`;
-	const { page } = await sanityClient.fetch(
-		getPageQuery({
-			site: 'quarantaine-check',
-			type: 'jouw-situatie-page',
-			pageProjection,
-			locale: 'nl',
-		}),
-	);
+	const { page } = await sanityClient.fetch<{
+		page: { _type: string; url: string; maxDays: number }[];
+	}>(`{
+    "page": *[_type match "$situatie-" && metaData.site == "quarantaine-check"]{
+      _type,
+      url,
+      maxDays,
+    },
+  }`);
 
-	return Object.keys(page).reduce(
-		(results: Array<string>, key: string) => [
-			...results,
-			...page[key].reduce(
-				(items: Array<string>, item: { ctas?: Array<string> }) => [
-					...items,
-					...(item.ctas ? item.ctas : []),
-				],
-				[],
-			),
-		],
-		[],
+	return (
+		page
+			// Remove any pages without a url
+			.filter((p) => p.url)
+			// Remove any page types NOT starting with situatie-
+			.filter((p) => p._type.startsWith('situatie-'))
 	);
 };
