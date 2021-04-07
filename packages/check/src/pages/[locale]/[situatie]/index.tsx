@@ -34,6 +34,7 @@ import { GGDSpecialInstructions } from 'components/ggd-special-instructions';
 import { getSituations } from 'utilities/situations';
 import { PrinterIcon } from 'icons/printer';
 import { getSanityPageIdBySituation, Situaties } from 'config/situaties';
+import Head from 'next/head';
 
 const getDateSinceEvent = ({
 	day,
@@ -152,6 +153,20 @@ export default function Situatie({ locale, date }: SituatieProps) {
 				description={page.metaData.description}
 				url={page.url}
 			/>
+			<Head>
+				<style media="print">
+					{/* These styles arent applied on the component themselves since we
+          don't want to hide them every page. */}
+					{`
+          header { background-color: transparent !important; padding: 0 !important; margin: 0 !important; }
+          header > div, main > div { padding-bottom: 0 !important; padding-top: 0 !important; }
+          header h1 {font-size: 26px !important; margin: 0 !important; }
+          /* Again link */
+          header a span { display: none !important; }
+          aside, footer { display: none; }
+          `}
+				</style>
+			</Head>
 			<Page
 				title={page.header.title}
 				headerPrefix={page.pretitle}
@@ -161,6 +176,9 @@ export default function Situatie({ locale, date }: SituatieProps) {
 					sx={{
 						backgroundColor: 'headerBackground',
 						py: 'box',
+						'@media print': {
+							backgroundColor: 'transparent',
+						},
 					}}
 				>
 					<BodyContainer sx={{ paddingRight: [, '165px'] }}>
@@ -200,7 +218,7 @@ export default function Situatie({ locale, date }: SituatieProps) {
 						</Box>
 					</BodyContainer>
 				</Box>
-				<BodyContainer sx={{ mt: '32px' }}>
+				<BodyContainer sx={{ mt: '32px', '@media print': { display: 'none' } }}>
 					<Box
 						sx={{
 							width: '380px',
