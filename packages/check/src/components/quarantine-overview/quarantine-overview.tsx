@@ -93,11 +93,11 @@ export const QuarantaineOverviewBullet: React.FC = ({ children }) => (
 					display: 'inline-block',
 					content: '""',
 					backgroundImage: `url('/icons/outlink.svg')`,
-					backgroundSize: '19px 12px',
+					backgroundSize: '14px 14px',
 					backgroundRepeat: 'no-repeat',
 					height: '14px',
 					width: '14px',
-					marginLeft: '6px',
+					marginLeft: '4px',
 				},
 				'&:hover, &:focus': {
 					color: 'inherit',
