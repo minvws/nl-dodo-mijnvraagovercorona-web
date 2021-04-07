@@ -169,7 +169,7 @@ export default function Situatie({ locale, date }: SituatieProps) {
 								 * If no date is provided we show the "laatste contact", "vandaag" values as the main title.
 								 */
 								title={
-									selectedLastEventDate && todayDay
+									selectedLastEventDate && typeof todayDay !== 'undefined'
 										? getDateSinceEvent({
 												day: day.day,
 												todayDay,
