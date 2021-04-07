@@ -17,6 +17,7 @@ export interface CommonSiteSettings {
 		rijksoverheidText: string;
 		rijksoverheidUrl: string;
 		title: string;
+		footerText: Object[];
 	};
 	header: {
 		logoAlt: string;
