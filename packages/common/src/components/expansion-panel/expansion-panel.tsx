@@ -48,7 +48,7 @@ export const ExpansionPanel = ({
 							position: 'relative',
 							textAlign: 'left',
 							padding: '15px',
-							paddingLeft: '48px',
+							paddingRight: '48px',
 							background: 'none',
 							border: 'none',
 							fontFamily: 'body',
@@ -57,17 +57,20 @@ export const ExpansionPanel = ({
 							width: '100%',
 							color: 'link',
 							fontWeight: 'bold',
-
-							'::after': {
+							'::before, ::after': {
 								content: '""',
 								position: 'absolute',
-								left: '15px',
-								top: '24px',
-								height: '8px',
-								width: '13px',
+								right: '15px',
+								top: '28px',
+								height: '2px',
+								width: '18px',
 								display: 'block',
-								backgroundImage: 'url("/icons/FAQ Arrow.svg")',
+								backgroundColor: 'link',
 								transition: 'transform .2s ease-in-out',
+							},
+
+							'::after': {
+								transform: 'rotate(90deg)',
 							},
 
 							'&[aria-expanded="true"]': {
@@ -106,7 +109,7 @@ export const ExpansionPanel = ({
 					>
 						<div
 							sx={{
-								padding: '0 15px 15px 48px',
+								padding: '0 48px 15px 15px',
 								fontSize: ['bodyMobile', 'body'],
 								lineHeight: ['bodyMobile', 'body'],
 							}}
