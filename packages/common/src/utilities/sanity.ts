@@ -156,6 +156,11 @@ const siteSettingsQuery = ({
 				path: 'footer.rijksoverheidUrl',
 				locale,
 			})},
+      ${getLocaleProperty({
+				name: 'footerText',
+				path: 'footer.footerText',
+				locale,
+			})},
 			${getLocaleProperty({ name: 'title', path: 'footer.title', locale })},
 			"items": footer.items[]{
 				url,

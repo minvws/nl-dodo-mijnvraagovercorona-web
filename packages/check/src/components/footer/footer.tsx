@@ -6,6 +6,7 @@ import {
 	FooterColumn,
 	useSanitySiteSettings,
 	Link,
+	ContentBlock,
 } from '@quarantaine/common';
 
 export const Footer = () => {
@@ -30,6 +31,9 @@ export const Footer = () => {
 						</Link>
 					</li>
 				</ul>
+				<div sx={{ mt: '24px', 'p:last-child': { mb: 0 } }}>
+					<ContentBlock content={siteSettings.footer.footerText} />
+				</div>
 			</FooterColumn>
 		</FooterComponent>
 	);

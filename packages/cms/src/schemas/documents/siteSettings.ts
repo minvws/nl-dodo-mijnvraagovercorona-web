@@ -108,6 +108,11 @@ export default {
 					name: 'alleenSamenAlt',
 					type: 'localeString',
 				},
+				{
+					title: 'Footer tekst',
+					name: 'footerText',
+					type: 'localeBlock',
+				},
 			],
 		},
 		{
