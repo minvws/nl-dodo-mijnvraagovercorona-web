@@ -22,7 +22,7 @@ export const QuarantaineOverviewBlock: React.FC<QuarantaineOverviewBlockProps> =
 			padding: 'box',
 			position: 'relative',
 			fontSize: ['bodyMobile', 'body'],
-			marginTop: dividers ? `${dividers * 18}px` : '18px',
+			marginTop: dividers ? `${dividers * 16 + 8}px` : '8px',
 			// lines between blocks.
 			'::before': dividers
 				? {
@@ -30,9 +30,9 @@ export const QuarantaineOverviewBlock: React.FC<QuarantaineOverviewBlockProps> =
 						content: '""',
 						display: 'block',
 						width: '24px',
-						height: `${dividers * 17}px`,
+						height: `${dividers * 16 + 4}px`,
 						left: '50%',
-						top: `${dividers * -17}px`,
+						top: `${dividers * -16 - 4}px`,
 						transform: 'translateX(-50%)',
 						backgroundImage: 'url(/icons/section-divider.svg)',
 						backgroundRepeat: 'repeat-y',
