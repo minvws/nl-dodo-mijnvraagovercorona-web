@@ -80,11 +80,15 @@ const filterQuarantinePlan = ({
 		? quarantinePlan
 				.map((day) => ({
 					...day,
+          // Replace day number with todayDay number if not set.
 					day: day.day === undefined ? todayDay : day.day,
 				}))
+        // Remove any blocks that should not be visible on todayDay
 				.filter(
 					({ showOn }) => showOn === undefined || showOn.includes(todayDay),
 				)
+        // Add difference property containing the difference (in days) between
+        // this block and the previous one.
 				.map((day, index, plan) => ({
 					...day,
 					difference: getDayDifference(day, plan[index - 1]),
