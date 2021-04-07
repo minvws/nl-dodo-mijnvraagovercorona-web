@@ -14,6 +14,11 @@ export default {
 			type: 'header',
 		},
 		{
+			title: 'Header coronamelder',
+			name: 'headerCoronamelder',
+			type: 'header',
+		},
+		{
 			title: 'Header reis',
 			name: 'headerReis',
 			type: 'header',

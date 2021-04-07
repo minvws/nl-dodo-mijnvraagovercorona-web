@@ -20,7 +20,7 @@ const situationToSanityPageMapping: { [key in Situaties]: string } = {
 	'ik-kan-afstand-houden': 'situatie-huisgenoot-corona-wel-afstand-page',
 	'iemand-in-huis-heeft-zware-klachten':
 		'situatie-huisgenoot-met-klachten-page',
-	'ik-heb-een-coronamelder-melding-gekregen': 'situatie-buurt-page',
+	'ik-heb-een-coronamelder-melding-gekregen': 'situatie-coronamelder-page',
 	'ik-kom-uit-een-risicogebied': 'situatie-reis-page',
 	'ik-heb-corona-met-klachten': 'situatie-corona-met-klachten-page',
 	'ik-heb-corona-zonder-klachten': 'situatie-corona-zonder-klachten-page',

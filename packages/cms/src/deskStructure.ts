@@ -155,6 +155,11 @@ const checkPagesConfig = [
 		icon: GiThumbUp,
 	},
 	{
+		schemaType: 'situatie-coronamelder-page',
+		title: 'Check Situatie Coronamelder Pagina',
+		icon: GiThumbUp,
+	},
+	{
 		schemaType: 'situatie-reis-page',
 		title: 'Check Situatie Reis Pagina',
 		icon: GiThumbUp,

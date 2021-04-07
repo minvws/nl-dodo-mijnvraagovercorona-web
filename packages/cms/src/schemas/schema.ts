@@ -30,6 +30,10 @@ import situatieCoronaMetKlachtenPage from './pages/check/situatie-corona-met-kla
 import situatieCoronaZonderKlachtenPage from './pages/check/situatie-corona-zonder-klachten';
 import situatieHuisgenootMetKlachtenPage from './pages/check/situatie-huisgenoot-met-klachten';
 import situatieReisPage from './pages/check/situatie-reis';
+import situatieHuisgenootCoronaGeenAfstandGeenKlachtenPage from './pages/check/situatie-huisgenoot-corona-geen-afstand-geen-klachten';
+import situatieHuisgenootCoronaGeenAfstandWelKlachtenPage from './pages/check/situatie-huisgenoot-corona-geen-afstand-wel-klachten';
+import situatieHuisgenootCoronaWelAfstandPage from './pages/check/situatie-huisgenoot-corona-wel-afstand';
+import situatieCoronamelderPage from './pages/check/situatie-coronamelder';
 
 import localeStringObject from './objects/localeString';
 import localeBlockObject from './objects/localeBlock';
@@ -38,9 +42,6 @@ import localeTextObject from './objects/localeText';
 import pageMetaDataObject from './objects/pageMetaData';
 import headerObject from './objects/header';
 import quarantinePlanObject from './objects/quarantinePlan';
-import situatieHuisgenootCoronaGeenAfstandGeenKlachtenPage from './pages/check/situatie-huisgenoot-corona-geen-afstand-geen-klachten';
-import situatieHuisgenootCoronaGeenAfstandWelKlachtenPage from './pages/check/situatie-huisgenoot-corona-geen-afstand-wel-klachten';
-import situatieHuisgenootCoronaWelAfstandPage from './pages/check/situatie-huisgenoot-corona-wel-afstand';
 
 export default createSchema({
 	name: 'default',
@@ -75,6 +76,7 @@ export default createSchema({
 		geenAdviesPage,
 		situatieZelfKlachtenPage,
 		situatieBuurtPage,
+		situatieCoronamelderPage,
 		situatieCoronaMetKlachtenPage,
 		situatieCoronaZonderKlachtenPage,
 		situatieHuisgenootMetKlachtenPage,

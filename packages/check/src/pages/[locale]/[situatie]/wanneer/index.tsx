@@ -197,7 +197,7 @@ export const getStaticProps = async ({
 
 	const headerPath = {
 		'ik-ben-misschien-besmet': 'headerBuurt',
-		'ik-heb-een-coronamelder-melding-gekregen': 'headerBuurt',
+		'ik-heb-een-coronamelder-melding-gekregen': 'headerCoronamelder',
 		'ik-kom-uit-een-risicogebied': 'headerReis',
 		'ik-heb-corona-met-klachten': 'headerCoronaMetKlachten',
 		'ik-heb-corona-zonder-klachten': 'headerCoronaZonderKlachten',
