@@ -106,6 +106,7 @@ export default function JouwSituatie() {
 								key={situation.title}
 								title={situation.title}
 								titleSuffix={situation.titleSuffix}
+								variant="plus"
 							>
 								<ContentBlock content={situation.content} />
 								<CtaWrapper>
@@ -130,7 +131,11 @@ export default function JouwSituatie() {
 						<Styled.h2>{page.situationsOtherTitle}</Styled.h2>
 
 						{page.situationsOther.map((situation) => (
-							<ExpansionPanel key={situation.title} title={situation.title}>
+							<ExpansionPanel
+								key={situation.title}
+								title={situation.title}
+								variant="plus"
+							>
 								<ContentBlock content={situation.content} />
 								<CtaWrapper>
 									{situation.ctas?.map((cta) => (
@@ -154,7 +159,11 @@ export default function JouwSituatie() {
 						<Styled.h2>{page.situationsExceptionsTitle}</Styled.h2>
 
 						{page.situationsExceptions.map((situation) => (
-							<ExpansionPanel key={situation.title} title={situation.title}>
+							<ExpansionPanel
+								key={situation.title}
+								title={situation.title}
+								variant="plus"
+							>
 								<ContentBlock content={situation.content} />
 								<CtaWrapper>
 									{situation.ctas?.map((cta) => (

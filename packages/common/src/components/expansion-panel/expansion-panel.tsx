@@ -14,6 +14,7 @@ type ExpansionPanelProps = {
 	 * The main difference is that this text won't render in bold.
 	 */
 	titleSuffix?: string;
+	variant?: 'chevron' | 'plus';
 	children: React.ReactNode;
 };
 
@@ -21,6 +22,7 @@ export const ExpansionPanel = ({
 	title,
 	children,
 	titleSuffix,
+	variant,
 }: ExpansionPanelProps) => {
 	const [open, setOpen] = useState(false);
 	const contentRef = useRef<HTMLDivElement>(null);
@@ -48,7 +50,6 @@ export const ExpansionPanel = ({
 							position: 'relative',
 							textAlign: 'left',
 							padding: '15px',
-							paddingRight: '48px',
 							background: 'none',
 							border: 'none',
 							fontFamily: 'body',
@@ -57,21 +58,52 @@ export const ExpansionPanel = ({
 							width: '100%',
 							color: 'link',
 							fontWeight: 'bold',
-							'::before, ::after': {
-								content: '""',
-								position: 'absolute',
-								right: '15px',
-								top: '28px',
-								height: '2px',
-								width: '18px',
-								display: 'block',
-								backgroundColor: 'link',
-								transition: 'transform .2s ease-in-out',
-							},
 
-							'::after': {
-								transform: 'rotate(90deg)',
-							},
+							...(variant === 'plus'
+								? {
+										paddingRight: '48px',
+								  }
+								: {
+										paddingLeft: '48px',
+								  }),
+
+							...(variant === 'plus'
+								? {
+										'::before, ::after': {
+											content: '""',
+											position: 'absolute',
+											right: '15px',
+											top: '28px',
+											height: '2px',
+											width: '18px',
+											display: 'block',
+											backgroundColor: 'link',
+											transition: 'transform .2s ease-in-out',
+										},
+								  }
+								: {}),
+
+							...(variant === 'chevron'
+								? {
+										'::after': {
+											content: '""',
+											position: 'absolute',
+											left: '15px',
+											top: '24px',
+											height: '8px',
+											width: '13px',
+											display: 'block',
+											backgroundImage: 'url("/icons/FAQ Arrow.svg")',
+											transition: 'transform .2s ease-in-out',
+										},
+								  }
+								: {}),
+
+							...(variant === 'plus'
+								? {
+										'::after': { transform: 'rotate(90deg)' },
+								  }
+								: {}),
 
 							'&[aria-expanded="true"]': {
 								borderBottom: 'none',
@@ -109,7 +141,8 @@ export const ExpansionPanel = ({
 					>
 						<div
 							sx={{
-								padding: '0 48px 15px 15px',
+								padding:
+									variant === 'plus' ? '0 48px 15px 15px' : '0 15px 15px 48px',
 								fontSize: ['bodyMobile', 'body'],
 								lineHeight: ['bodyMobile', 'body'],
 							}}
@@ -122,4 +155,8 @@ export const ExpansionPanel = ({
 			</Disclosure>
 		</Container>
 	);
+};
+
+ExpansionPanel.defaultProps = {
+	variant: 'chevron',
 };
