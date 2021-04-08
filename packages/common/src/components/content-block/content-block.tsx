@@ -34,6 +34,7 @@ interface DialogProps {
 
 const Block = ({ node, children }: MarkProps) => {
 	if (node?.style === 'h2') return <Styled.h2>{children}</Styled.h2>;
+	if (node?.style === 'span') return <span>{children}</span>;
 
 	return <Styled.p>{children}</Styled.p>;
 };

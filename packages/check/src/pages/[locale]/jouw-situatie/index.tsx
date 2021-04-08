@@ -34,7 +34,7 @@ interface JouwSituatiePageContent {
 		content: Array<Object>;
 		ctas: {
 			name: string;
-			text: string;
+			content: Object[];
 			skipDatepicker: boolean;
 		}[];
 	}[];
@@ -44,7 +44,7 @@ interface JouwSituatiePageContent {
 		content: Array<Object>;
 		ctas: {
 			name: string;
-			text: string;
+			content: Object[];
 			skipDatepicker: boolean;
 		}[];
 	}[];
@@ -54,7 +54,7 @@ interface JouwSituatiePageContent {
 		content: Array<Object>;
 		ctas: {
 			name: string;
-			text: string;
+			content: Object[];
 			skipDatepicker: boolean;
 		}[];
 	}[];
@@ -120,7 +120,7 @@ export default function JouwSituatie() {
 											}
 											styledAs="button"
 										>
-											{cta.text}
+											<ContentBlock content={cta.content} />
 										</Link>
 									))}
 								</CtaWrapper>
@@ -148,7 +148,7 @@ export default function JouwSituatie() {
 											}
 											styledAs="button"
 										>
-											{cta.text}
+											<ContentBlock content={cta.content} />
 										</Link>
 									))}
 								</CtaWrapper>
@@ -176,7 +176,7 @@ export default function JouwSituatie() {
 											}
 											styledAs="button"
 										>
-											{cta.text}
+											<ContentBlock content={cta.content} />
 										</Link>
 									))}
 								</CtaWrapper>
@@ -224,7 +224,7 @@ export const getStaticProps = async ({
 			})},
 			"ctas": ctas[]{
 				name,
-				${getLocaleProperty({ name: 'text', locale })},
+				${getLocaleProperty({ name: 'content', locale })},
         		skipDatepicker
 			}
 		},
@@ -241,7 +241,7 @@ export const getStaticProps = async ({
 			})},
 			"ctas": ctas[]{
 				name,
-				${getLocaleProperty({ name: 'text', locale })},
+				${getLocaleProperty({ name: 'content', locale })},
         		skipDatepicker
 			}
 		},
@@ -258,7 +258,7 @@ export const getStaticProps = async ({
 			})},
 			"ctas": ctas[]{
 				name,
-				${getLocaleProperty({ name: 'text', locale })},
+				${getLocaleProperty({ name: 'content', locale })},
         		skipDatepicker
 			}
 		},

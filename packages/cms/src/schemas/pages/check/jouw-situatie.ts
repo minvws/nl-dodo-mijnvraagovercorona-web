@@ -66,7 +66,7 @@ export default {
 									},
 									fields: [
 										{ title: 'Naam', name: 'name', type: 'string' },
-										{ title: 'Text', name: 'text', type: 'localeString' },
+										{ title: 'Content', name: 'content', type: 'localeBlock' },
 										{
 											title: 'Geen datum kiezen',
 											name: 'skipDatepicker',
@@ -133,7 +133,7 @@ export default {
 									},
 									fields: [
 										{ title: 'Naam', name: 'name', type: 'string' },
-										{ title: 'Text', name: 'text', type: 'localeString' },
+										{ title: 'Content', name: 'content', type: 'localeBlock' },
 										{
 											title: 'Geen datum kiezen',
 											name: 'skipDatepicker',
@@ -200,7 +200,7 @@ export default {
 									},
 									fields: [
 										{ title: 'Naam', name: 'name', type: 'string' },
-										{ title: 'Text', name: 'text', type: 'localeString' },
+										{ title: 'Content', name: 'content', type: 'localeBlock' },
 										{
 											title: 'Geen datum kiezen',
 											name: 'skipDatepicker',
