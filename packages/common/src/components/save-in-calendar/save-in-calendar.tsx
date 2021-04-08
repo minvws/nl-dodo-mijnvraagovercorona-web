@@ -6,13 +6,7 @@ import { MenuButton, MenuItem, MenuList, Menu } from '@reach/menu-button';
 import { endOfDay } from 'date-fns';
 import { Appointment } from '../../icons/appointment';
 
-import {
-	Dialog,
-	CallToAction,
-	formatLongDate,
-	useTranslation,
-	useCurrentLocale,
-} from '@quarantaine/common';
+import { Dialog, CallToAction, formatLongDate } from '@quarantaine/common';
 
 interface ReminderCalendarInviteProps {
 	/**

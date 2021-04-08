@@ -79,17 +79,16 @@ const filterQuarantinePlan = ({
 }): QuarantainePlan =>
 	quarantinePlan
 		? quarantinePlan
-				.map((day) => ({
-					...day,
-					// Replace day number with todayDay number if not set.
-					day: day.day === undefined ? todayDay : day.day,
-				}))
-				// Remove any blocks that should not be visible on todayDay
+				/* Remove any blocks that should not be visible on todayDay */
 				.filter(
 					({ showOn }) => showOn === undefined || showOn.includes(todayDay),
 				)
-				// Add difference property containing the difference (in days) between
-				// this block and the previous one.
+				/** Replace the day number with todayDay if the number is not set */
+				.map((day) => ({
+					...day,
+					day: day.day === undefined ? todayDay : day.day,
+				}))
+				/** Add difference property containing the difference (in days) between this block and the previous one. */
 				.map((day, index, plan) => ({
 					...day,
 					difference: getDayDifference(day, plan[index - 1]),
@@ -152,11 +151,11 @@ export default function Situatie({ locale, date }: SituatieProps) {
 			<MetaTags
 				title={page.metaData.title}
 				description={page.metaData.description}
-				url={page.url}
+				url={`/${page.url}${date ? `/${date}` : ''}`}
 			/>
 			<Head>
 				<style media="print">
-					{/* These styles arent applied on the component themselves since we
+					{/* These styles aren't applied on the component themselves since we
           don't want to hide them every page. */}
 					{`
           header { background-color: transparent !important; padding: 0 !important; margin: 0 !important; }
@@ -263,7 +262,7 @@ export default function Situatie({ locale, date }: SituatieProps) {
 						{page.showPrintAndCalendar && selectedLastEventDate && (
 							<>
 								<SaveInCalendar
-									locale="nl" // @TODO: Locale
+									locale={locale}
 									content={{
 										tot_en_met: siteSettings.quarantaineCalendar.dateSeperator,
 										other_calendar:
