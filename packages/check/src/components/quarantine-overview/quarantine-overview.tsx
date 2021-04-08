@@ -39,12 +39,26 @@ export const QuarantaineOverviewBlock: React.FC<QuarantaineOverviewBlockProps> =
 						backgroundPosition: 'top center',
 				  }
 				: {},
+			'@media print': {
+				fontSize: '13px',
+				borderBottom: '1px solid #ccc',
+				borderRadius: '0',
+				p: { fontSize: '15px' },
+				margin: 0,
+				'::before': {
+					display: 'none',
+					marginTop: '0',
+				},
+			},
 		}}
 	>
 		<Flex
 			sx={{
 				justifyContent: 'space-between',
 				'& + div': { mt: '16px' },
+				'@media print': {
+					mt: '0 !important',
+				},
 			}}
 		>
 			<p sx={{ margin: 0, color: 'smallText', fontWeight: 'bold' }}>
@@ -93,14 +107,19 @@ export const QuarantaineOverviewBullet: React.FC = ({ children }) => (
 					display: 'inline-block',
 					content: '""',
 					backgroundImage: `url('/icons/outlink.svg')`,
-					backgroundSize: '19px 12px',
+					backgroundSize: '14px 14px',
 					backgroundRepeat: 'no-repeat',
 					height: '14px',
 					width: '14px',
-					marginLeft: '6px',
+					marginLeft: '4px',
 				},
 				'&:hover, &:focus': {
 					color: 'inherit',
+				},
+			},
+			'@media print': {
+				p: {
+					marginBottom: '6px',
 				},
 			},
 		}}

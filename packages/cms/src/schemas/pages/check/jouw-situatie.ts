@@ -148,6 +148,73 @@ export default {
 			],
 		},
 		{
+			title: 'Uitzonderingen titel',
+			name: 'situationsExceptionsTitle',
+			type: 'localeString',
+		},
+		{
+			title: 'Uitzonderingen',
+			name: 'situationsExceptions',
+			type: 'array',
+			of: [
+				{
+					title: 'Onderdeel',
+					name: 'item',
+					type: 'object',
+					preview: {
+						select: {
+							title: 'title.nl',
+							subtitle: 'pretitle.nl',
+							media: 'image',
+						},
+					},
+					fields: [
+						{
+							title: 'Titel',
+							name: 'title',
+							type: 'localeString',
+						},
+						{
+							title: 'Titel suffix',
+							name: 'titleSuffix',
+							type: 'localeString',
+						},
+						{
+							title: 'Content',
+							name: 'content',
+							type: 'localeBlock',
+						},
+						{
+							title: 'Call to actions',
+							name: 'ctas',
+							type: 'array',
+							of: [
+								{
+									title: 'Call to action',
+									name: 'cta',
+									type: 'object',
+									preview: {
+										select: {
+											title: 'text.nl',
+										},
+									},
+									fields: [
+										{ title: 'Naam', name: 'name', type: 'string' },
+										{ title: 'Text', name: 'text', type: 'localeString' },
+										{
+											title: 'Geen datum kiezen',
+											name: 'skipDatepicker',
+											type: 'boolean',
+										},
+									],
+								},
+							],
+						},
+					],
+				},
+			],
+		},
+		{
 			title: 'Geen match',
 			name: 'noMatch',
 			type: 'object',

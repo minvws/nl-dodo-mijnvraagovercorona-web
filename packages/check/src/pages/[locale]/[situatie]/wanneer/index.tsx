@@ -150,8 +150,8 @@ export default function Wanneer({ situatie, locale, maxDays }: WanneerProps) {
 						}}
 					/>
 
-					{selectedDate && nrOfDaysAgo !== null && (
-						<span ref={linkRef} sx={{ display: 'flex' }}>
+					<span ref={linkRef} sx={{ display: 'flex' }}>
+						{selectedDate && nrOfDaysAgo !== null && (
 							<Link
 								sx={{ marginLeft: 'auto' }}
 								styledAs="button"
@@ -166,8 +166,8 @@ export default function Wanneer({ situatie, locale, maxDays }: WanneerProps) {
 							>
 								{page.button}
 							</Link>
-						</span>
-					)}
+						)}
+					</span>
 				</BodyContainer>
 			</Page>
 		</>

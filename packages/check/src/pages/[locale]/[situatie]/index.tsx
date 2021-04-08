@@ -34,6 +34,7 @@ import { GGDSpecialInstructions } from 'components/ggd-special-instructions';
 import { getSituations } from 'utilities/situations';
 import { PrinterIcon } from 'icons/printer';
 import { getSanityPageIdBySituation, Situaties } from 'config/situaties';
+import Head from 'next/head';
 
 const getDateSinceEvent = ({
 	day,
@@ -78,17 +79,16 @@ const filterQuarantinePlan = ({
 }): QuarantainePlan =>
 	quarantinePlan
 		? quarantinePlan
-				.map((day) => ({
-					...day,
-					// Replace day number with todayDay number if not set.
-					day: day.day === undefined ? todayDay : day.day,
-				}))
-				// Remove any blocks that should not be visible on todayDay
+				/* Remove any blocks that should not be visible on todayDay */
 				.filter(
 					({ showOn }) => showOn === undefined || showOn.includes(todayDay),
 				)
-				// Add difference property containing the difference (in days) between
-				// this block and the previous one.
+				/** Replace the day number with todayDay if the number is not set */
+				.map((day) => ({
+					...day,
+					day: day.day === undefined ? todayDay : day.day,
+				}))
+				/** Add difference property containing the difference (in days) between this block and the previous one. */
 				.map((day, index, plan) => ({
 					...day,
 					difference: getDayDifference(day, plan[index - 1]),
@@ -117,6 +117,7 @@ interface PageContent {
 	};
 	pretitle: string;
 	quarantinePlan: QuarantainePlan;
+	quarantinePlanTitle: string;
 	showPrintAndCalendar: boolean;
 	quarantaineDuration?: number;
 	url: string;
@@ -150,8 +151,22 @@ export default function Situatie({ locale, date }: SituatieProps) {
 			<MetaTags
 				title={page.metaData.title}
 				description={page.metaData.description}
-				url={page.url}
+				url={`/${page.url}${date ? `/${date}` : ''}`}
 			/>
+			<Head>
+				<style media="print">
+					{/* These styles aren't applied on the component themselves since we
+          don't want to hide them every page. */}
+					{`
+          header { background-color: transparent !important; padding: 0 !important; margin: 0 !important; }
+          header > div, main > div { padding-bottom: 0 !important; padding-top: 0 !important; }
+          header h1 {font-size: 26px !important; margin: 0 !important; }
+          /* Again link */
+          header a span { display: none !important; }
+          aside, footer { display: none; }
+          `}
+				</style>
+			</Head>
 			<Page
 				title={page.header.title}
 				headerPrefix={page.pretitle}
@@ -161,10 +176,13 @@ export default function Situatie({ locale, date }: SituatieProps) {
 					sx={{
 						backgroundColor: 'headerBackground',
 						py: 'box',
+						'@media print': {
+							backgroundColor: 'transparent',
+						},
 					}}
 				>
 					<BodyContainer sx={{ paddingRight: [, '165px'] }}>
-						<Styled.h2>{siteSettings.quarantineOverviewTitle}</Styled.h2>
+						<Styled.h2>{page.quarantinePlanTitle}</Styled.h2>
 
 						{quarantainePlan.map((day) => (
 							<QuarantaineOverviewBlock
@@ -200,7 +218,7 @@ export default function Situatie({ locale, date }: SituatieProps) {
 						</Box>
 					</BodyContainer>
 				</Box>
-				<BodyContainer sx={{ mt: '32px' }}>
+				<BodyContainer sx={{ mt: '32px', '@media print': { display: 'none' } }}>
 					<Box
 						sx={{
 							width: '380px',
@@ -244,7 +262,7 @@ export default function Situatie({ locale, date }: SituatieProps) {
 						{page.showPrintAndCalendar && selectedLastEventDate && (
 							<>
 								<SaveInCalendar
-									locale="nl" // @TODO: Locale
+									locale={locale}
 									content={{
 										tot_en_met: siteSettings.quarantaineCalendar.dateSeperator,
 										other_calendar:
@@ -322,6 +340,7 @@ export const getStaticProps = async ({
 			${getLocaleProperty({ name: 'title', locale })},
 			${getLocaleProperty({ name: 'bullets', locale, array: true })},
 		},
+		${getLocaleProperty({ name: 'quarantinePlanTitle', locale })},
 		showPrintAndCalendar,
    		quarantaineDuration,
 		url,
