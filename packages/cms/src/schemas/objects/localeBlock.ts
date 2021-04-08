@@ -22,6 +22,16 @@ export default {
 		of: [
 			{
 				type: 'block',
+				styles: [
+					{
+						title: 'Heading 2',
+						value: 'h2',
+					},
+					{
+						title: 'Span',
+						value: 'span',
+					},
+				],
 				marks: {
 					annotations: [
 						{

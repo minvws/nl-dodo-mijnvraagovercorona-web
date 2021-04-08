@@ -34,7 +34,7 @@ interface JouwSituatiePageContent {
 		content: Array<Object>;
 		ctas: {
 			name: string;
-			text: string;
+			content: Object[];
 			skipDatepicker: boolean;
 		}[];
 	}[];
@@ -44,7 +44,17 @@ interface JouwSituatiePageContent {
 		content: Array<Object>;
 		ctas: {
 			name: string;
-			text: string;
+			content: Object[];
+			skipDatepicker: boolean;
+		}[];
+	}[];
+	situationsExceptionsTitle: string;
+	situationsExceptions: {
+		title: string;
+		content: Array<Object>;
+		ctas: {
+			name: string;
+			content: Object[];
 			skipDatepicker: boolean;
 		}[];
 	}[];
@@ -73,7 +83,6 @@ const CtaWrapper: React.FC = ({ children }) => (
 
 export default function JouwSituatie() {
 	const page = useSanityPageContent<JouwSituatiePageContent>();
-	const siteSettings = useSanitySiteSettings();
 
 	return (
 		<>
@@ -97,6 +106,7 @@ export default function JouwSituatie() {
 								key={situation.title}
 								title={situation.title}
 								titleSuffix={situation.titleSuffix}
+								variant="plus"
 							>
 								<ContentBlock content={situation.content} />
 								<CtaWrapper>
@@ -110,7 +120,7 @@ export default function JouwSituatie() {
 											}
 											styledAs="button"
 										>
-											{cta.text}
+											<ContentBlock content={cta.content} />
 										</Link>
 									))}
 								</CtaWrapper>
@@ -121,7 +131,11 @@ export default function JouwSituatie() {
 						<Styled.h2>{page.situationsOtherTitle}</Styled.h2>
 
 						{page.situationsOther.map((situation) => (
-							<ExpansionPanel key={situation.title} title={situation.title}>
+							<ExpansionPanel
+								key={situation.title}
+								title={situation.title}
+								variant="plus"
+							>
 								<ContentBlock content={situation.content} />
 								<CtaWrapper>
 									{situation.ctas?.map((cta) => (
@@ -134,13 +148,42 @@ export default function JouwSituatie() {
 											}
 											styledAs="button"
 										>
-											{cta.text}
+											<ContentBlock content={cta.content} />
 										</Link>
 									))}
 								</CtaWrapper>
 							</ExpansionPanel>
 						))}
 					</Box>
+					<Box sx={{ my: '36px' }}>
+						<Styled.h2>{page.situationsExceptionsTitle}</Styled.h2>
+
+						{page.situationsExceptions.map((situation) => (
+							<ExpansionPanel
+								key={situation.title}
+								title={situation.title}
+								variant="plus"
+							>
+								<ContentBlock content={situation.content} />
+								<CtaWrapper>
+									{situation.ctas?.map((cta) => (
+										<Link
+											key={cta.name}
+											href={
+												cta.skipDatepicker
+													? `/nl/${cta.name}`
+													: `/nl/${cta.name}/wanneer`
+											}
+											styledAs="button"
+										>
+											<ContentBlock content={cta.content} />
+										</Link>
+									))}
+								</CtaWrapper>
+							</ExpansionPanel>
+						))}
+					</Box>
+
 					<Styled.h2>{page.noMatch.title}</Styled.h2>
 					<ContentBlock content={page.noMatch.content} />
 				</Content>
@@ -181,8 +224,8 @@ export const getStaticProps = async ({
 			})},
 			"ctas": ctas[]{
 				name,
-				${getLocaleProperty({ name: 'text', locale })},
-        skipDatepicker
+				${getLocaleProperty({ name: 'content', locale })},
+        		skipDatepicker
 			}
 		},
 		${getLocaleProperty({ name: 'situationsOtherTitle', locale })},
@@ -198,8 +241,25 @@ export const getStaticProps = async ({
 			})},
 			"ctas": ctas[]{
 				name,
-				${getLocaleProperty({ name: 'text', locale })},
-        skipDatepicker
+				${getLocaleProperty({ name: 'content', locale })},
+        		skipDatepicker
+			}
+		},
+		${getLocaleProperty({ name: 'situationsExceptionsTitle', locale })},
+		"situationsExceptions": situationsExceptions[]{
+			${getLocaleProperty({ name: 'title', locale })},
+			${getLocaleProperty({
+				name: 'titleSuffix',
+				locale,
+			})},
+			${getLocaleProperty({
+				name: 'content',
+				locale,
+			})},
+			"ctas": ctas[]{
+				name,
+				${getLocaleProperty({ name: 'content', locale })},
+        		skipDatepicker
 			}
 		},
 		"noMatch": {
@@ -207,7 +267,7 @@ export const getStaticProps = async ({
 			${getLocaleProperty({ name: 'content', path: 'noMatch.content', locale })},
 		},
 		url,
-    ${getLocaleProperty({ name: 'currentStepLabel', locale })},
+    	${getLocaleProperty({ name: 'currentStepLabel', locale })},
 	}`;
 
 	const { page, siteSettings } = await sanityClient.fetch(
