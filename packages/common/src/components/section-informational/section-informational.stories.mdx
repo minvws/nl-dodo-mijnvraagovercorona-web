@@ -1,0 +1,44 @@
+import { Meta, Props, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { SectionInformational } from './';
+
+<Meta
+	title="Components/SectionInformational"
+	component={SectionInformational}
+/>
+
+# SectionInformational
+
+The SectionInformational is used to display an image with a title and some content.
+
+## Props
+
+<Props of={SectionInformational} />
+
+## Component usage
+
+<Canvas>
+	<Story name="SectionInformational">
+		<SectionInformational
+			imageUrl="/images/Koffer_DesktopRetina.svg"
+			imageAlignment="left"
+			id="test"
+			chapeau="Waarom deze check?"
+			title="Neem uit het buitenland het virus niet mee naar huis"
+		>
+			Wanneer je besmet raakt in het buitenland, kun je thuis anderen besmetten.
+			Ook met een andere, besmettelijkere variant van het virus. Deze check
+			helpt je de juiste keuzes te maken voor, tijdens en na je reis.
+		</SectionInformational>
+		<SectionInformational
+			imageUrl="/images/Illustratie_Mobiel_Veelgestelde_vragenRetina.svg"
+			imageAlignment="right"
+			id="test2"
+			chapeau="Waarom deze check?"
+			title="Neem uit het buitenland het virus niet mee naar huis"
+		>
+			Wanneer je besmet raakt in het buitenland, kun je thuis anderen besmetten.
+			Ook met een andere, besmettelijkere variant van het virus. Deze check
+			helpt je de juiste keuzes te maken voor, tijdens en na je reis.
+		</SectionInformational>
+	</Story>
+</Canvas>

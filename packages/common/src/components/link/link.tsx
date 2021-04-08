@@ -1,102 +1,56 @@
-/** @jsx jsx */
-import React, { useMemo } from 'react';
-import { jsx, SxStyleProp } from 'theme-ui';
-import { ChevronIcon } from '../../icons';
+import { default as NextLink } from 'next/link';
+import { useCurrentLocale } from '@quarantaine/common';
 
-interface LinkPropsBase {
-	withChevron?: boolean;
-	className?: string;
-	fontWeight?: 'lighter' | 'normal' | 'bold';
-	ref?: React.Ref<HTMLAnchorElement>;
-	lang?: string;
-}
+import {
+	StyledLink,
+	StyledLinkProps,
+	StyledLinkPropsAsAnchor,
+} from './styled-link';
 
-export interface LinkPropsAsAnchor extends LinkPropsBase {
-	external?: boolean;
-	href: string;
-}
+/**
+ * Small helper method that prefixes the requested url with a locale.
+ */
+const getHrefWithlocale = (href: string, urlPrefix: string) =>
+	!href.includes('/nl') && !href.includes('/en') ? `${urlPrefix}${href}` : href;
 
-export interface LinkPropsAsButton extends LinkPropsBase {
-	/**
-	 * Use the as prop to convert the anchor into a button. This also requires you
-	 * to use the onClick prop and drop the href and external props.
-	 */
-	as: 'button';
-	onClick: (ev: any) => void;
-}
+export const Link: React.FC<StyledLinkProps> = (props) => {
+	const { children } = props;
+	const { urlPrefix } = useCurrentLocale();
 
-export type LinkProps = LinkPropsAsAnchor | LinkPropsAsButton;
-
-export const Link: React.FC<LinkProps> = React.forwardRef((props, ref) => {
-	const {
-		className,
-		fontWeight = 'normal',
-		withChevron = true,
-		children,
-		lang,
-	} = props;
-
-	const linkStyling: SxStyleProp = {
-		fontSize: ['linkMobile', 'link'],
-		fontWeight: fontWeight,
-		lineHeight: ['linkMobile', 'link'],
-		fontFamily: 'body',
-		display: 'inline-flex',
-		alignItems: 'center',
-		color: 'link',
-		textDecoration: 'none',
-		border: 'none',
-		backgroundColor: 'transparent',
-		transition: '300ms ease-in-out',
-		transitionProperty: 'color',
-		padding: '0',
-		'&:hover, &:focus': {
-			color: 'linkHover',
-			'.chevron': {
-				transform: 'translate3d(3px, 0, 0)',
-			},
-		},
-		'.chevron': {
-			transform: 'translate3d(0, 0, 0)',
-			transition: '300ms ease-in-out',
-			transitionProperty: 'transform',
-			marginRight: 13,
-			width: 9,
-			minWidth: 9,
-		},
-	};
-
-	// Link as button
-	if ('as' in props) {
-		return (
-			<button
-				{...props}
-				className={className}
-				sx={linkStyling}
-				ref={ref as React.ForwardedRef<HTMLButtonElement> | undefined}
-				onClick={props.onClick}
-			>
-				{withChevron && <ChevronIcon className="chevron" />}
-				{children}
-			</button>
-		);
+	if ('as' in props && props.as === 'button') {
+		return <StyledLink {...props}>{children}</StyledLink>;
 	}
 
-	// Anchor
+	const { href, ...propsWithoutHref } = props;
+	const hrefWithLocale = props.external
+		? href
+		: getHrefWithlocale(href, urlPrefix);
+
 	return (
-		<a
-			{...props}
-			className={className}
-			sx={linkStyling}
-			href={props.href}
-			lang={lang}
-			hrefLang={lang}
-			ref={ref as React.ForwardedRef<HTMLAnchorElement> | undefined}
-			target={props.external ? '_blank' : undefined}
-			rel={props.external ? 'noopener noreferrer' : undefined}
-		>
-			{withChevron && <ChevronIcon className="chevron" />}
-			{children}
-		</a>
+		<NextLink href={hrefWithLocale} passHref>
+			<StyledLink {...propsWithoutHref} href={hrefWithLocale}>
+				{children}
+			</StyledLink>
+		</NextLink>
 	);
-});
+};
+
+/**
+ * The NavLink component only renders a Next Router Link component with locale.
+ * no styles will be applied.
+ */
+export const NavLink: React.FC<StyledLinkPropsAsAnchor> = ({
+	children,
+	href,
+	className,
+	...propsWithoutHref
+}) => {
+	const { urlPrefix } = useCurrentLocale();
+	const hrefWithLocale = getHrefWithlocale(href, urlPrefix);
+
+	return (
+		<NextLink {...propsWithoutHref} href={hrefWithLocale} passHref>
+			<a className={className}>{children}</a>
+		</NextLink>
+	);
+};

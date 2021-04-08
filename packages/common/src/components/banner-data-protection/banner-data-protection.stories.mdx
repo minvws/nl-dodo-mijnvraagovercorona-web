@@ -1,0 +1,32 @@
+import { Meta, Props, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { BannerDataProtection } from './';
+
+<Meta
+	title="Components/BannerDataProtection"
+	component={BannerDataProtection}
+/>
+
+# BannerDataProtection
+
+The BannerDataProtection is used to display the various promises we make regarding the user data.
+
+## Props
+
+<Props of={BannerDataProtection} />
+
+## Component usage
+
+<Canvas>
+	<Story name="BannerDataProtection">
+		<BannerDataProtection
+			content={{
+				title: 'We zijn zorgvuldig met je gegevens',
+				beloftes: [
+					'Niemand weet wie je bent. Had je maar meer indruk moeten maken in de brugklas.',
+					'We zullen geen stoute dingen doen.',
+					'Verkopen je gegevens alleen aan betrouwbare kopers.',
+				],
+			}}
+		/>
+	</Story>
+</Canvas>

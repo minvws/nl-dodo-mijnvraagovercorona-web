@@ -12,10 +12,11 @@ export const theme: Theme = {
 		stepElement: '#AEC1D1',
 		background: '#FFFFFF',
 		headerBackground: '#EFF7F9',
+		expansionPanel: '#EFF7F9',
 
 		hoverSecondary: '#931e55',
 		structureBackground: '#f0d5e2',
-		backgroundSecondary: '#f4b843',
+		backgroundSecondary: '#FFB612',
 		footerBackground: '#0e6999',
 		roHighlight: '#21416F',
 		internalLink: '#3D7AA3',
@@ -27,7 +28,7 @@ export const theme: Theme = {
 		link: '#01689B',
 		linkHover: '#002783',
 
-		sidePanel: '#F9C346',
+		sidePanel: '#FFB612',
 
 		smallText: '#CA005D',
 		copyHeading: '#154273',
@@ -41,11 +42,11 @@ export const theme: Theme = {
 		widgetMaxWidth: '450px',
 	},
 	space: {
-		mobilePadding: '17px',
+		mobilePadding: '16px',
+		box: '16px',
 		componentSpacing: ['1em', 0],
-		paragraphMobile: '24px',
-		paragraphDesktop: '28px',
-		underBotton: '38px',
+		paragraphSpacing: ['24px', '28px'],
+		h2Spacing: '18px',
 		section: '70px',
 		buttonPadding: '36px',
 		sidePanel: ['300px', '400px'],
@@ -53,6 +54,7 @@ export const theme: Theme = {
 	},
 	radii: {
 		button: '5px',
+		box: '8px',
 	},
 	fonts: {
 		body: 'RoSans, sans-serif',
@@ -95,6 +97,7 @@ export const theme: Theme = {
 	styles: {
 		root: {
 			fontFamily: 'body',
+			scrollBehavior: 'smooth',
 			a: {
 				color: 'copyHeading',
 			},
@@ -112,15 +115,37 @@ export const theme: Theme = {
 			fontSize: ['h2Mobile', 'h2'],
 			lineHeight: ['h2Mobile', 'h2'],
 			color: 'header',
-		},
-		li: {
-			listStyleImage: 'url("/icons/Polygon 6.svg")',
+			margin: '0',
+			marginBottom: 'h2Spacing',
 		},
 		p: {
-			fontSize: '14pt',
+			fontSize: ['bodyMobile', 'body'],
+			lineHeight: ['bodyMobile', 'body'],
+			margin: '0',
+			marginBottom: 'paragraphSpacing',
 		},
 		ul: {
 			fontSize: '14pt',
+			margin: '0',
+			marginBottom: 'paragraphSpacing',
+		},
+	},
+	text: {
+		chapeau: {
+			fontFamily: 'body',
+			fontSize: 'chapeau',
+			lineHeight: 'chapeau',
+			color: 'smallText',
+			fontWeight: 'bold',
+			marginTop: '16px',
+			marginBottom: '12px',
+		},
+		small: {
+			fontFamily: 'body',
+			fontSize: 'chapeau',
+			lineHeight: 'chapeau',
+			marginTop: '16px',
+			marginBottom: '12px',
 		},
 	},
 };

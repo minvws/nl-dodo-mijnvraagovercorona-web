@@ -17,6 +17,7 @@ build
 **/public/robots.txt
 **/public/sitemap*
 **/public/images/sanity
+dist
 
 # misc
 .DS_Store
