@@ -51,21 +51,6 @@ interface JouwSituatiePageContent {
 	currentStepLabel: string;
 }
 
-// const CtaWrapper: React.FC = ({ children }) => (
-// 	<div
-// 		sx={{
-// 			a: {
-// 				height: 'auto',
-// 				minHeight: '55px',
-// 				lineHeight: 1.5,
-// 				py: '12px',
-// 			},
-// 		}}
-// 	>
-// 		{children}
-// 	</div>
-// );
-
 export default function JouwSituatie() {
 	const page = useSanityPageContent<JouwSituatiePageContent>();
 
