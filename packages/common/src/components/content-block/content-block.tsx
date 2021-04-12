@@ -21,6 +21,7 @@ interface MarkProps {
 	mark?: {
 		href: string;
 		internal?: boolean;
+		button?: boolean;
 	};
 }
 
@@ -57,12 +58,17 @@ const serializers = {
 				href={mark!.href}
 				withChevron={false}
 				external={!mark?.internal}
-				sx={{
-					textDecoration: 'underline',
-					fontSize: 'inherit',
-				}}
+				styledAs={mark?.button ? 'button' : undefined}
+				sx={
+					!mark?.button
+						? {
+								textDecoration: 'underline',
+								fontSize: 'inherit',
+						  }
+						: {}
+				}
 			>
-				{Array.isArray(children) ? children[0] : children}
+				{mark?.button ? <span>{children}</span> : children}
 			</Link>
 		),
 		dialog: ({ children, mark }: DialogProps) => {
