@@ -65,7 +65,12 @@ const serializers = {
 								textDecoration: 'underline',
 								fontSize: 'inherit',
 						  }
-						: {}
+						: {
+								height: 'auto',
+								minHeight: '55px',
+								lineHeight: 1.5,
+								py: '12px',
+						  }
 				}
 			>
 				{mark?.button ? <span>{children}</span> : children}
