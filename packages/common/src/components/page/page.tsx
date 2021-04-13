@@ -9,7 +9,6 @@ interface PageProps {
 	// If true: hides DataProtectionPanel, Footer and Alleen Samen logo on mobile.
 	cleanPageOnMobile?: boolean;
 	className?: string;
-	illustrationUrl?: string;
 }
 
 export const Page: React.FC<PageProps> = ({
@@ -18,7 +17,6 @@ export const Page: React.FC<PageProps> = ({
 	footer,
 	cleanPageOnMobile,
 	className,
-	illustrationUrl = '/images/Koffer_DesktopRetina.svg',
 }) => {
 	const siteSettings = useSanitySiteSettings();
 

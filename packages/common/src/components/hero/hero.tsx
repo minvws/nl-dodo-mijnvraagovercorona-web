@@ -20,18 +20,30 @@ export const Hero: React.FC<HeroProps> = ({
 		sx={{
 			backgroundColor: 'headerBackground',
 			color: 'header',
-			paddingBottom: '36px',
+			paddingBottom: '32px',
 		}}
 	>
 		<Container
 			sx={{
-				backgroundImage: `url(${illustrationUrl})`,
-				backgroundRepeat: 'no-repeat',
-				backgroundPosition: 'right bottom 10px',
-				backgroundSize: 'auto 100%',
+				minHeight: '150px',
+				position: 'relative',
+				'::before': {
+					content: '""',
+					display: 'block',
+					position: 'absolute',
+					right: 0,
+					top: ['0', 'initial'],
+					bottom: ['initial', '-30px'],
+					height: 'calc(100% + 80px)',
+					width: ['120px', '400px'],
+					backgroundImage: `url(${illustrationUrl})`,
+					backgroundRepeat: 'no-repeat',
+					backgroundPosition: ['right top', 'right bottom'],
+					backgroundSize: 'contain',
+				},
 			}}
 		>
-			<BodyContainer sx={{ paddingY: 0 }}>
+			<BodyContainer sx={{ paddingY: 0, position: 'relative', zIndex: '2' }}>
 				{titlePrefix && (
 					<span
 						sx={{
@@ -51,6 +63,7 @@ export const Hero: React.FC<HeroProps> = ({
 						marginTop: 0,
 						marginBottom: 12,
 						width: ['80%', '60%'],
+						paddingRight: ['40px', 0],
 					}}
 				>
 					{title}

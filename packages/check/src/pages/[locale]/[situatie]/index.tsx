@@ -170,7 +170,11 @@ export default function Situatie({ locale, date }: SituatieProps) {
 				</style>
 			</Head>
 			<Page showRetryLink>
-				<Hero title={page.header.title} titlePrefix={page.pretitle} />
+				<Hero
+					title={page.header.title}
+					titlePrefix={page.pretitle}
+					illustrationUrl="/images/illustration-couch.svg"
+				/>
 				<Content>
 					<section sx={{ paddingRight: [, '165px'] }}>
 						<Styled.h2>{page.quarantinePlanTitle}</Styled.h2>
