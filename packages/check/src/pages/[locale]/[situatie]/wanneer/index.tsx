@@ -23,6 +23,7 @@ import {
 	cartesianProduct,
 	ContentBlock,
 	addDays,
+	Content,
 } from '@quarantaine/common';
 
 import { getSituations } from 'utilities/situations';
@@ -101,8 +102,8 @@ export default function Wanneer({ situatie, locale, maxDays }: WanneerProps) {
 				url={page.url.replace('$$situatie', situatie)}
 			/>
 
-			<Page title={page.header.title}>
-				<Hero>
+			<Page>
+				<Hero title={page.header.title}>
 					<ProgressMarker
 						currentStageLabel={page.currentStepLabel}
 						currentStage={2}
@@ -118,57 +119,59 @@ export default function Wanneer({ situatie, locale, maxDays }: WanneerProps) {
 						<ContentBlock content={page.header.modal.content} />
 					</Dialog>
 				</Hero>
-				<DatepickerTopbar>
-					<DatepickerTopbarTitle
-						title={page.datumKiesTekst}
-						subtitle={
-							selectedDate ? formatShortDate(selectedDate, locale) : undefined
-						}
-					/>
-					<DatepickerBacklinkWrapper>
-						<Link href="/nl/jouw-situatie">
-							<ScreenReaderOnly>{page.terugTekst}</ScreenReaderOnly>
-						</Link>
-					</DatepickerBacklinkWrapper>
-				</DatepickerTopbar>
-				<BodyContainer sx={{ display: 'flex', flexDirection: 'column' }}>
-					<Datepicker
-						disabledDays={(day) => day > addDays(startOfDay(new Date()), 1)}
-						variant="singleDay"
-						showPreviousMonth
-						months={page.maanden}
-						weekdaysShort={page.dagen}
-						onDayClick={(date) => {
-							if (
-								linkRef.current &&
-								typeof linkRef.current.scrollIntoView === 'function' &&
-								window.innerWidth < 800
-							) {
-								linkRef.current.scrollIntoView({ block: 'center' });
+				<Content noSpacingOnTop>
+					<DatepickerTopbar>
+						<DatepickerTopbarTitle
+							title={page.datumKiesTekst}
+							subtitle={
+								selectedDate ? formatShortDate(selectedDate, locale) : undefined
 							}
-							setSelectedDate(date);
-						}}
-					/>
-
-					<span ref={linkRef} sx={{ display: 'flex' }}>
-						{selectedDate && nrOfDaysAgo !== null && (
-							<Link
-								sx={{ marginLeft: 'auto' }}
-								styledAs="button"
-								href={
-									datePageUrlToResultUrl(
-										router.asPath,
-										nrOfDaysAgo,
-										maxDays,
-										locale,
-									) + `?event=${format(selectedDate, 'dd-MM-yyyy')}`
-								}
-							>
-								{page.button}
+						/>
+						<DatepickerBacklinkWrapper>
+							<Link href="/nl/jouw-situatie">
+								<ScreenReaderOnly>{page.terugTekst}</ScreenReaderOnly>
 							</Link>
-						)}
-					</span>
-				</BodyContainer>
+						</DatepickerBacklinkWrapper>
+					</DatepickerTopbar>
+					<BodyContainer sx={{ display: 'flex', flexDirection: 'column' }}>
+						<Datepicker
+							disabledDays={(day) => day > addDays(startOfDay(new Date()), 1)}
+							variant="singleDay"
+							showPreviousMonth
+							months={page.maanden}
+							weekdaysShort={page.dagen}
+							onDayClick={(date) => {
+								if (
+									linkRef.current &&
+									typeof linkRef.current.scrollIntoView === 'function' &&
+									window.innerWidth < 800
+								) {
+									linkRef.current.scrollIntoView({ block: 'center' });
+								}
+								setSelectedDate(date);
+							}}
+						/>
+
+						<span ref={linkRef} sx={{ display: 'flex' }}>
+							{selectedDate && nrOfDaysAgo !== null && (
+								<Link
+									sx={{ marginLeft: 'auto' }}
+									styledAs="button"
+									href={
+										datePageUrlToResultUrl(
+											router.asPath,
+											nrOfDaysAgo,
+											maxDays,
+											locale,
+										) + `?event=${format(selectedDate, 'dd-MM-yyyy')}`
+									}
+								>
+									{page.button}
+								</Link>
+							)}
+						</span>
+					</BodyContainer>
+				</Content>
 			</Page>
 		</>
 	);

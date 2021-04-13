@@ -5,6 +5,7 @@ import {
 	Content,
 	ContentBlock,
 	MetaTags,
+	Hero,
 } from '@quarantaine/common';
 
 export const ContentPage = ({ page }: ContentPageProps) => (
@@ -15,7 +16,8 @@ export const ContentPage = ({ page }: ContentPageProps) => (
 			url={page.url}
 		/>
 
-		<Page title={page.title} showBackLink="previous">
+		<Page showBackLink="previous">
+			<Hero title={page.title} />
 			<Content>
 				<ContentBlock content={page.content} />
 			</Content>

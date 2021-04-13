@@ -7,7 +7,7 @@ export const QuickLinks: React.FC = ({ children, ...props }) => (
 			sx={{
 				display: 'flex',
 				flexDirection: ['column', 'row'],
-				padding: ['18px 0', '18px'],
+				padding: ['0 0 18px 0', '18px'],
 				margin: '0 auto',
 				borderBottom: ['none', '1px solid #AEC1D1'],
 				justifyContent: 'space-between',

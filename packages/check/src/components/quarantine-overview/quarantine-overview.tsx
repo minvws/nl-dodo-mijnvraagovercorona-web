@@ -18,6 +18,7 @@ export const QuarantaineOverviewBlock: React.FC<QuarantaineOverviewBlockProps> =
 	<Box
 		sx={{
 			backgroundColor: 'white',
+			border: '1px solid #CDD7E0',
 			borderRadius: 'box',
 			padding: 'box',
 			position: 'relative',

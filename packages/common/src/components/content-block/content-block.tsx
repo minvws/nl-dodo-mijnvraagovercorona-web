@@ -89,6 +89,6 @@ const serializers = {
 	},
 };
 
-export const ContentBlock: React.FC<ContentProps> = ({ content }) => (
-	<SanityContentBlock blocks={content} serializers={serializers} />
+export const ContentBlock: React.FC<ContentProps> = ({ content, ...props }) => (
+	<SanityContentBlock blocks={content} serializers={serializers} {...props} />
 );

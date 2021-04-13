@@ -71,11 +71,12 @@ export const DatepickerTopbar: React.FC = ({ children }) => {
 				color: 'white',
 				paddingTop: '0.1em',
 				paddingX: ['17px'],
+				maxWidth: '100%',
 			}}
 		>
 			<Box
 				sx={{
-					maxWidth: 'maxWidthBody',
+					maxWidth: 'container',
 					margin: '0 auto',
 					position: 'relative',
 					padding: '14px 0',

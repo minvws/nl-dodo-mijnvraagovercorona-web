@@ -1,27 +1,75 @@
 /** @jsx jsx */
 import React from 'react';
-import { jsx } from 'theme-ui';
+import { Container, jsx, Styled } from 'theme-ui';
 
-import { Content } from '@quarantaine/common';
+import { BodyContainer } from '@quarantaine/common';
 
-export const Hero: React.FC = ({ children }) => (
+interface HeroProps {
+	title: string;
+	titlePrefix?: string;
+	illustrationUrl?: string;
+}
+
+export const Hero: React.FC<HeroProps> = ({
+	children,
+	title,
+	titlePrefix,
+	illustrationUrl = '/images/default-illustration.svg',
+}) => (
 	<div
 		sx={{
 			backgroundColor: 'headerBackground',
-			paddingBottom: '36px',
-			/**
-			 * If the Hero is nested INSIDE the main element, this means that not only the header has a hero,
-			 * but also the page content has a hero section. The negative margin top makes sure that these two
-			 * hero sections "connect" with each other.
-			 */
-			'main > &': {
-				marginTop: '-45px',
-			},
-			'> div': {
-				paddingTop: '18px',
-			},
+			color: 'header',
+			paddingBottom: '32px',
 		}}
 	>
-		<Content>{children}</Content>
+		<Container
+			sx={{
+				minHeight: '150px',
+				position: 'relative',
+				'::before': {
+					content: '""',
+					display: 'block',
+					position: 'absolute',
+					right: 0,
+					top: ['0', 'initial'],
+					bottom: ['initial', '-30px'],
+					height: 'calc(100% + 80px)',
+					width: ['120px', '400px'],
+					backgroundImage: `url(${illustrationUrl})`,
+					backgroundRepeat: 'no-repeat',
+					backgroundPosition: ['right top', 'right bottom'],
+					backgroundSize: 'contain',
+				},
+			}}
+		>
+			<BodyContainer sx={{ paddingY: 0, position: 'relative', zIndex: '2' }}>
+				{titlePrefix && (
+					<span
+						sx={{
+							fontSize: 'chapeau',
+							fontWeight: 'bold',
+							color: 'smallText',
+							marginBottom: '25px',
+							display: 'block',
+							maxWidth: '60%',
+						}}
+					>
+						{titlePrefix}
+					</span>
+				)}
+				<Styled.h1
+					sx={{
+						marginTop: 0,
+						marginBottom: 12,
+						width: ['80%', '60%'],
+						paddingRight: ['40px', 0],
+					}}
+				>
+					{title}
+				</Styled.h1>
+				{children}
+			</BodyContainer>
+		</Container>
 	</div>
 );

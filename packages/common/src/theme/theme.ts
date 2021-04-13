@@ -28,15 +28,13 @@ export const theme: Theme = {
 		link: '#01689B',
 		linkHover: '#002783',
 
-		sidePanel: '#FFB612',
-
 		smallText: '#CA005D',
 		copyHeading: '#154273',
 		copyBody: 'black',
 	},
 	breakpoints: ['1024px', '1280px', '1440px'],
 	sizes: {
-		container: '100%',
+		container: '1200px',
 		maxWidthBody: ['665px'],
 		buttonHeight: '55px',
 		widgetMaxWidth: '450px',
@@ -49,8 +47,6 @@ export const theme: Theme = {
 		h2Spacing: '18px',
 		section: '70px',
 		buttonPadding: '36px',
-		sidePanel: ['300px', '400px'],
-		sidePanelLarge: '400px',
 	},
 	radii: {
 		button: '5px',
@@ -74,6 +70,7 @@ export const theme: Theme = {
 		bodyMobile: '19px',
 		smallText: '16px',
 		footerText: '19px',
+		asideText: '19px',
 	},
 	fontWeights: {
 		light: 400,
