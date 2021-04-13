@@ -32,31 +32,16 @@ interface JouwSituatiePageContent {
 		title: string;
 		titleSuffix?: string;
 		content: Array<Object>;
-		ctas: {
-			name: string;
-			content: Object[];
-			skipDatepicker: boolean;
-		}[];
 	}[];
 	situationsOtherTitle: string;
 	situationsOther: {
 		title: string;
 		content: Array<Object>;
-		ctas: {
-			name: string;
-			content: Object[];
-			skipDatepicker: boolean;
-		}[];
 	}[];
 	situationsExceptionsTitle: string;
 	situationsExceptions: {
 		title: string;
 		content: Array<Object>;
-		ctas: {
-			name: string;
-			content: Object[];
-			skipDatepicker: boolean;
-		}[];
 	}[];
 	noMatch: {
 		title: string;
@@ -65,21 +50,6 @@ interface JouwSituatiePageContent {
 	url: string;
 	currentStepLabel: string;
 }
-
-const CtaWrapper: React.FC = ({ children }) => (
-	<div
-		sx={{
-			a: {
-				height: 'auto',
-				minHeight: '55px',
-				lineHeight: 1.5,
-				py: '12px',
-			},
-		}}
-	>
-		{children}
-	</div>
-);
 
 export default function JouwSituatie() {
 	const page = useSanityPageContent<JouwSituatiePageContent>();
@@ -109,21 +79,6 @@ export default function JouwSituatie() {
 								variant="plus"
 							>
 								<ContentBlock content={situation.content} />
-								<CtaWrapper>
-									{situation.ctas.map((cta) => (
-										<Link
-											key={cta.name}
-											href={
-												cta.skipDatepicker
-													? `/nl/${cta.name}`
-													: `/nl/${cta.name}/wanneer`
-											}
-											styledAs="button"
-										>
-											<ContentBlock content={cta.content} />
-										</Link>
-									))}
-								</CtaWrapper>
 							</ExpansionPanel>
 						))}
 					</Box>
@@ -137,21 +92,6 @@ export default function JouwSituatie() {
 								variant="plus"
 							>
 								<ContentBlock content={situation.content} />
-								<CtaWrapper>
-									{situation.ctas?.map((cta) => (
-										<Link
-											key={cta.name}
-											href={
-												cta.skipDatepicker
-													? `/nl/${cta.name}`
-													: `/nl/${cta.name}/wanneer`
-											}
-											styledAs="button"
-										>
-											<ContentBlock content={cta.content} />
-										</Link>
-									))}
-								</CtaWrapper>
 							</ExpansionPanel>
 						))}
 					</Box>
@@ -165,21 +105,6 @@ export default function JouwSituatie() {
 								variant="plus"
 							>
 								<ContentBlock content={situation.content} />
-								<CtaWrapper>
-									{situation.ctas?.map((cta) => (
-										<Link
-											key={cta.name}
-											href={
-												cta.skipDatepicker
-													? `/nl/${cta.name}`
-													: `/nl/${cta.name}/wanneer`
-											}
-											styledAs="button"
-										>
-											<ContentBlock content={cta.content} />
-										</Link>
-									))}
-								</CtaWrapper>
 							</ExpansionPanel>
 						))}
 					</Box>
@@ -222,11 +147,6 @@ export const getStaticProps = async ({
 				name: 'content',
 				locale,
 			})},
-			"ctas": ctas[]{
-				name,
-				${getLocaleProperty({ name: 'content', locale })},
-        		skipDatepicker
-			}
 		},
 		${getLocaleProperty({ name: 'situationsOtherTitle', locale })},
 		"situationsOther": situationsOther[]{
@@ -239,11 +159,6 @@ export const getStaticProps = async ({
 				name: 'content',
 				locale,
 			})},
-			"ctas": ctas[]{
-				name,
-				${getLocaleProperty({ name: 'content', locale })},
-        		skipDatepicker
-			}
 		},
 		${getLocaleProperty({ name: 'situationsExceptionsTitle', locale })},
 		"situationsExceptions": situationsExceptions[]{
@@ -255,12 +170,7 @@ export const getStaticProps = async ({
 			${getLocaleProperty({
 				name: 'content',
 				locale,
-			})},
-			"ctas": ctas[]{
-				name,
-				${getLocaleProperty({ name: 'content', locale })},
-        		skipDatepicker
-			}
+			})}
 		},
 		"noMatch": {
 			${getLocaleProperty({ name: 'title', path: 'noMatch.title', locale })},
