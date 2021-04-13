@@ -50,32 +50,6 @@ export default {
 							name: 'content',
 							type: 'localeBlock',
 						},
-						{
-							title: 'Call to actions',
-							name: 'ctas',
-							type: 'array',
-							of: [
-								{
-									title: 'Call to action',
-									name: 'cta',
-									type: 'object',
-									preview: {
-										select: {
-											title: 'text.nl',
-										},
-									},
-									fields: [
-										{ title: 'Naam', name: 'name', type: 'string' },
-										{ title: 'Content', name: 'content', type: 'localeBlock' },
-										{
-											title: 'Geen datum kiezen',
-											name: 'skipDatepicker',
-											type: 'boolean',
-										},
-									],
-								},
-							],
-						},
 					],
 				},
 			],
@@ -117,32 +91,6 @@ export default {
 							name: 'content',
 							type: 'localeBlock',
 						},
-						{
-							title: 'Call to actions',
-							name: 'ctas',
-							type: 'array',
-							of: [
-								{
-									title: 'Call to action',
-									name: 'cta',
-									type: 'object',
-									preview: {
-										select: {
-											title: 'text.nl',
-										},
-									},
-									fields: [
-										{ title: 'Naam', name: 'name', type: 'string' },
-										{ title: 'Content', name: 'content', type: 'localeBlock' },
-										{
-											title: 'Geen datum kiezen',
-											name: 'skipDatepicker',
-											type: 'boolean',
-										},
-									],
-								},
-							],
-						},
 					],
 				},
 			],
@@ -183,32 +131,6 @@ export default {
 							title: 'Content',
 							name: 'content',
 							type: 'localeBlock',
-						},
-						{
-							title: 'Call to actions',
-							name: 'ctas',
-							type: 'array',
-							of: [
-								{
-									title: 'Call to action',
-									name: 'cta',
-									type: 'object',
-									preview: {
-										select: {
-											title: 'text.nl',
-										},
-									},
-									fields: [
-										{ title: 'Naam', name: 'name', type: 'string' },
-										{ title: 'Content', name: 'content', type: 'localeBlock' },
-										{
-											title: 'Geen datum kiezen',
-											name: 'skipDatepicker',
-											type: 'boolean',
-										},
-									],
-								},
-							],
 						},
 					],
 				},
