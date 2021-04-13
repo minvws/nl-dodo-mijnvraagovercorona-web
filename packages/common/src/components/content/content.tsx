@@ -8,7 +8,14 @@ import {
 	BannerDataProtection,
 } from '@quarantaine/common';
 
-export const Content: React.FC = ({ children }) => {
+interface ContentProps {
+	noSpacingOnTop?: boolean;
+}
+
+export const Content: React.FC<ContentProps> = ({
+	children,
+	noSpacingOnTop,
+}) => {
 	const siteSettings = useSanitySiteSettings();
 
 	return (
@@ -20,7 +27,7 @@ export const Content: React.FC = ({ children }) => {
 			>
 				<BodyContainer
 					sx={{
-						paddingTop: '24px',
+						paddingTop: noSpacingOnTop ? 0 : '24px',
 						'> :first-child': { marginTop: 0 },
 					}}
 				>

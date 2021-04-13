@@ -119,7 +119,7 @@ export default function Wanneer({ situatie, locale, maxDays }: WanneerProps) {
 						<ContentBlock content={page.header.modal.content} />
 					</Dialog>
 				</Hero>
-				<Content>
+				<Content noSpacingOnTop>
 					<DatepickerTopbar>
 						<DatepickerTopbarTitle
 							title={page.datumKiesTekst}
