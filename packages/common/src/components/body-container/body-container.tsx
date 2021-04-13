@@ -20,7 +20,7 @@ export const BodyContainer: React.FC<BodyContainerProps> = ({
 			sx={{
 				paddingY: 'mobilePadding',
 				paddingX: ['mobilePadding', 'mobilePadding', 0],
-				margin: '0 auto',
+				margin: ['0 auto', 0],
 				maxWidth: 'maxWidthBody',
 			}}
 			className={className}

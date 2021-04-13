@@ -1,27 +1,49 @@
 /** @jsx jsx */
 import React from 'react';
-import { jsx } from 'theme-ui';
+import { Container, jsx, Styled } from 'theme-ui';
 
-import { Content } from '@quarantaine/common';
+import { BodyContainer } from '@quarantaine/common';
 
-export const Hero: React.FC = ({ children }) => (
+interface HeroProps {
+	title: string;
+	titlePrefix?: string;
+}
+
+export const Hero: React.FC<HeroProps> = ({ children, title, titlePrefix }) => (
 	<div
 		sx={{
 			backgroundColor: 'headerBackground',
+			color: 'header',
 			paddingBottom: '36px',
-			/**
-			 * If the Hero is nested INSIDE the main element, this means that not only the header has a hero,
-			 * but also the page content has a hero section. The negative margin top makes sure that these two
-			 * hero sections "connect" with each other.
-			 */
-			'main > &': {
-				marginTop: '-45px',
-			},
-			'> div': {
-				paddingTop: '18px',
-			},
 		}}
 	>
-		<Content>{children}</Content>
+		<Container>
+			<BodyContainer sx={{ paddingY: 0 }}>
+				{titlePrefix && (
+					<span
+						sx={{
+							fontSize: 'chapeau',
+							fontWeight: 'bold',
+							color: 'smallText',
+							marginBottom: '25px',
+							display: 'block',
+							maxWidth: '60%',
+						}}
+					>
+						{titlePrefix}
+					</span>
+				)}
+				<Styled.h1
+					sx={{
+						marginTop: 0,
+						marginBottom: 12,
+						width: ['80%', '60%'],
+					}}
+				>
+					{title}
+				</Styled.h1>
+				{children}
+			</BodyContainer>
+		</Container>
 	</div>
 );

@@ -13,6 +13,9 @@ export const Footer = () => {
 	const siteSettings = useSanitySiteSettings();
 	return (
 		<FooterComponent>
+			<div sx={{ order: [3, 'inherit'], marginTop: ['50px', 0] }}>
+				<ContentBlock content={siteSettings.footer.footerText} />
+			</div>
 			<FooterColumn title={siteSettings.footer.title}>
 				<ul>
 					{siteSettings.footer.items.map((item) => (
@@ -31,9 +34,6 @@ export const Footer = () => {
 						</Link>
 					</li>
 				</ul>
-				<div sx={{ mt: '24px', 'p:last-child': { mb: 0 } }}>
-					<ContentBlock content={siteSettings.footer.footerText} />
-				</div>
 			</FooterColumn>
 		</FooterComponent>
 	);

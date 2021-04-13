@@ -91,8 +91,8 @@ export default function JouwSituatie() {
 				description={page.metaData.description}
 				url={page.url}
 			/>
-			<Page title={page.header.title} sx={{ 'dd a': { marginBottom: '16px' } }}>
-				<Hero>
+			<Page sx={{ 'dd a': { marginBottom: '16px' } }}>
+				<Hero title={page.header.title}>
 					<ProgressMarker
 						currentStageLabel={page.currentStepLabel}
 						currentStage={1}

@@ -6,8 +6,6 @@ import { Footer } from 'components/footer';
 import { Page as PageComponent } from '@quarantaine/common';
 
 interface PageProps {
-	title: string;
-	headerPrefix?: string;
 	showBackLink?: 'result' | 'previous' | 'retry';
 	// If true: hides DataProtectionPanel, Footer and Alleen Samen logo on mobile.
 	cleanPageOnMobile?: boolean;
@@ -17,8 +15,6 @@ interface PageProps {
 }
 
 export const Page: React.FC<PageProps> = ({
-	title,
-	headerPrefix,
 	children,
 	cleanPageOnMobile,
 	className,
@@ -27,13 +23,7 @@ export const Page: React.FC<PageProps> = ({
 }) => {
 	return (
 		<PageComponent
-			header={
-				<Header
-					title={title}
-					headerPrefix={headerPrefix}
-					showRetryLink={showRetryLink}
-				/>
-			}
+			header={<Header showRetryLink={showRetryLink} />}
 			footer={<Footer />}
 			cleanPageOnMobile={cleanPageOnMobile}
 			className={className}

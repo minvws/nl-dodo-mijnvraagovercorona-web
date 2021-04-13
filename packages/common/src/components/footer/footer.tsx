@@ -1,12 +1,12 @@
 /** @jsx jsx */
 import { jsx, Container } from 'theme-ui';
-import { BodyContainer } from '@quarantaine/common';
 
 export const FooterColumn: React.FC<{ title: string }> = ({
 	title,
 	children,
+	...props
 }) => (
-	<div>
+	<div {...props}>
 		<h2>{title}</h2>
 		{children}
 	</div>
@@ -22,6 +22,7 @@ export const Footer: React.FC = ({ children, ...props }) => {
 				fontSize: 'footerText',
 				h2: {
 					marginBottom: '6px',
+					marginTop: 0,
 					fontSize: 'footerText',
 				},
 				a: {
@@ -41,20 +42,22 @@ export const Footer: React.FC = ({ children, ...props }) => {
 				},
 			}}
 		>
-			<BodyContainer>
-				<Container
-					sx={{
-						paddingY: '68px',
-						display: 'grid',
-						gridTemplateColumns: ['1fr', '1fr 1fr'],
-						'> div:not(:first-child)': {
-							marginTop: ['40px', 0],
-						},
-					}}
-				>
-					{children}
-				</Container>
-			</BodyContainer>
+			<Container
+				sx={{
+					paddingY: '68px',
+					paddingX: ['mobilePadding', , 0],
+					display: 'grid',
+					gridTemplateColumns: ['1fr', '1.25fr 1fr 1fr'],
+					'> div:not(:last-child)': {
+						marginBottom: ['40px', 0],
+					},
+					'> div': {
+						paddingRight: '80px',
+					},
+				}}
+			>
+				{children}
+			</Container>
 		</footer>
 	);
 };
