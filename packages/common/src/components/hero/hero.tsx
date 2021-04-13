@@ -7,9 +7,15 @@ import { BodyContainer } from '@quarantaine/common';
 interface HeroProps {
 	title: string;
 	titlePrefix?: string;
+	illustrationUrl?: string;
 }
 
-export const Hero: React.FC<HeroProps> = ({ children, title, titlePrefix }) => (
+export const Hero: React.FC<HeroProps> = ({
+	children,
+	title,
+	titlePrefix,
+	illustrationUrl = '/images/default-illustration.svg',
+}) => (
 	<div
 		sx={{
 			backgroundColor: 'headerBackground',
@@ -17,7 +23,14 @@ export const Hero: React.FC<HeroProps> = ({ children, title, titlePrefix }) => (
 			paddingBottom: '36px',
 		}}
 	>
-		<Container>
+		<Container
+			sx={{
+				backgroundImage: `url(${illustrationUrl})`,
+				backgroundRepeat: 'no-repeat',
+				backgroundPosition: 'right bottom 10px',
+				backgroundSize: 'auto 100%',
+			}}
+		>
 			<BodyContainer sx={{ paddingY: 0 }}>
 				{titlePrefix && (
 					<span
