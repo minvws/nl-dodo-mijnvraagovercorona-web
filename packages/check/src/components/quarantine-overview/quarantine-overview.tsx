@@ -91,6 +91,9 @@ export const QuarantaineOverviewBullet: React.FC = ({ children }) => (
 			backgroundImage: 'url(/icons/triangle.svg)',
 			backgroundRepeat: 'no-repeat',
 			backgroundPosition: '0 5px',
+			'&:not(:last-child)': {
+				marginBottom: '32px',
+			},
 			'a, button': {
 				color: 'text',
 				textDecoration: 'underline',
@@ -117,6 +120,9 @@ export const QuarantaineOverviewBullet: React.FC = ({ children }) => (
 				'&:hover, &:focus': {
 					color: 'inherit',
 				},
+			},
+			'p:last-child': {
+				marginBottom: 0,
 			},
 			'@media print': {
 				p: {

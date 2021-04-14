@@ -41,7 +41,12 @@ export const Content: React.FC<ContentProps> = ({
 						maxWidth: ['100%', '340px'],
 					}}
 				>
-					<BodyContainer sx={{ paddingX: ['mobilePadding', , 0] }}>
+					<BodyContainer
+						sx={{
+							paddingLeft: ['mobilePadding', 0, 0],
+							paddingRight: ['mobilePadding', 'tabletPadding', 0],
+						}}
+					>
 						<BannerDataProtection content={siteSettings.privacy} />
 					</BodyContainer>
 				</Box>

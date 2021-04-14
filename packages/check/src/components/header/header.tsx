@@ -18,7 +18,7 @@ export const Header = ({ showRetryLink }: HeaderProps) => {
 	return (
 		<HeaderComponent>
 			{showRetryLink && (
-				<NavigationLink href="/jouw-situatie" icon="refresh">
+				<NavigationLink href="/" icon="refresh">
 					{siteSettings.header.opnieuw}
 				</NavigationLink>
 			)}

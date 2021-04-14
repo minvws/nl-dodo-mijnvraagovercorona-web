@@ -41,6 +41,7 @@ export const theme: Theme = {
 	},
 	space: {
 		mobilePadding: '16px',
+		tabletPadding: '24px',
 		box: '16px',
 		componentSpacing: ['1em', 0],
 		paragraphSpacing: ['24px', '28px'],

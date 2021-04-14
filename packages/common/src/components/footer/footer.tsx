@@ -45,7 +45,7 @@ export const Footer: React.FC = ({ children, ...props }) => {
 			<Container
 				sx={{
 					paddingY: '68px',
-					paddingX: ['mobilePadding', , 0],
+					paddingX: ['mobilePadding', 'tabletPadding', 0],
 					display: 'grid',
 					gridTemplateColumns: ['1fr', '1.25fr 1fr 1fr'],
 					'> div:not(:last-child)': {
