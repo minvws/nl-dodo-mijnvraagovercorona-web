@@ -1,5 +1,5 @@
 import { Meta, Props, Story, Canvas } from '@storybook/addon-docs/blocks';
-import { ExpansionPanel } from './';
+import { ExpansionPanel, ExpansionPanelGroup } from './';
 
 <Meta title="Components/ExpansionPanel" component={ExpansionPanel} />
 
@@ -48,5 +48,62 @@ The ExpansionPanel is used to create a colapsable piece of content.
 				ligula ac odio finibus laoreet nec in felis. Nulla facilisi.
 			</p>
 		</ExpansionPanel>
+	</Story>
+</Canvas>
+
+## Expansion Panel Group
+
+By wrapping multiple expansion panels in a `ExpansionPanelGroup`, the panels will communicate via a
+context making sure only a single panel is expanded at all times.
+
+<Canvas>
+	<Story name="ExpansionPanelGroup">
+		<ExpansionPanelGroup>
+			<ExpansionPanel title="First panel" variant="plus">
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+					fermentum ullamcorper dui, vitae ultricies dolor sagittis ultricies.
+					Donec vitae nisi interdum, euismod magna vel, lobortis arcu. Maecenas
+					condimentum turpis at placerat pretium. Mauris vitae elementum dui,
+					sed elementum mauris. Nam id pharetra leo. Donec mi eros, auctor porta
+					placerat at, placerat in felis. Aliquam erat volutpat. Aliquam
+					vestibulum, dolor quis consectetur suscipit, urna magna tincidunt
+					augue, vel faucibus quam arcu at erat. Vivamus nulla magna, malesuada
+					nec tempor nec, tincidunt sed diam. Morbi facilisis sapien ex, ut
+					rutrum tellus feugiat et. Praesent a ligula ac odio finibus laoreet
+					nec in felis. Nulla facilisi.
+				</p>
+			</ExpansionPanel>
+			<ExpansionPanel title="Second panel" variant="plus">
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+					fermentum ullamcorper dui, vitae ultricies dolor sagittis ultricies.
+					Donec vitae nisi interdum, euismod magna vel, lobortis arcu. Maecenas
+					condimentum turpis at placerat pretium. Mauris vitae elementum dui,
+					sed elementum mauris. Nam id pharetra leo. Donec mi eros, auctor porta
+					placerat at, placerat in felis. Aliquam erat volutpat. Aliquam
+					vestibulum, dolor quis consectetur suscipit, urna magna tincidunt
+					augue, vel faucibus quam arcu at erat. Vivamus nulla magna, malesuada
+					nec tempor nec, tincidunt sed diam. Morbi facilisis sapien ex, ut
+					rutrum tellus feugiat et. Praesent a ligula ac odio finibus laoreet
+					nec in felis. Nulla facilisi.
+				</p>
+			</ExpansionPanel>
+			<ExpansionPanel title="Thirs panel" variant="plus">
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+					fermentum ullamcorper dui, vitae ultricies dolor sagittis ultricies.
+					Donec vitae nisi interdum, euismod magna vel, lobortis arcu. Maecenas
+					condimentum turpis at placerat pretium. Mauris vitae elementum dui,
+					sed elementum mauris. Nam id pharetra leo. Donec mi eros, auctor porta
+					placerat at, placerat in felis. Aliquam erat volutpat. Aliquam
+					vestibulum, dolor quis consectetur suscipit, urna magna tincidunt
+					augue, vel faucibus quam arcu at erat. Vivamus nulla magna, malesuada
+					nec tempor nec, tincidunt sed diam. Morbi facilisis sapien ex, ut
+					rutrum tellus feugiat et. Praesent a ligula ac odio finibus laoreet
+					nec in felis. Nulla facilisi.
+				</p>
+			</ExpansionPanel>
+		</ExpansionPanelGroup>
 	</Story>
 </Canvas>
