@@ -9,8 +9,8 @@ export const BannerAlleenSamen = ({ alt }: BannerAlleenSamenProps) => {
 	return (
 		<aside
 			sx={{
-				backgroundColor: ['backgroundSecondary', 'white'],
-				padding: '40px 0',
+				backgroundColor: ['backgroundSecondary'],
+				padding: ['40px 0', '45px 0'],
 			}}
 		>
 			<a
@@ -18,7 +18,7 @@ export const BannerAlleenSamen = ({ alt }: BannerAlleenSamenProps) => {
 				target="_blank"
 				rel="noopener noreferrer"
 				sx={{
-					width: '360px',
+					width: '300px',
 					maxWidth: '80%',
 					margin: '0 auto ',
 					display: 'block',

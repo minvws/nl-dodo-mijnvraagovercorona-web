@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Box, jsx, Styled, Text } from 'theme-ui';
+import { Box, Container, jsx, Styled, Text } from 'theme-ui';
 import { useRouter } from 'next/router';
 import {
 	parse,
@@ -22,6 +22,8 @@ import {
 	useSanitySiteSettings,
 	ContentBlock,
 	Feedback,
+	Hero,
+	Content,
 } from '@quarantaine/common';
 
 import { SiteSettings } from 'content/site-settings';
@@ -167,21 +169,14 @@ export default function Situatie({ locale, date }: SituatieProps) {
           `}
 				</style>
 			</Head>
-			<Page
-				title={page.header.title}
-				headerPrefix={page.pretitle}
-				showRetryLink
-			>
-				<Box
-					sx={{
-						backgroundColor: 'headerBackground',
-						py: 'box',
-						'@media print': {
-							backgroundColor: 'transparent',
-						},
-					}}
-				>
-					<BodyContainer sx={{ paddingRight: [, '165px'] }}>
+			<Page showRetryLink>
+				<Hero
+					title={page.header.title}
+					titlePrefix={page.pretitle}
+					illustrationUrl="/images/illustration-couch.svg"
+				/>
+				<Content>
+					<section sx={{ paddingRight: [, '165px'] }}>
 						<Styled.h2>{page.quarantinePlanTitle}</Styled.h2>
 
 						{quarantainePlan.map((day) => (
@@ -216,82 +211,83 @@ export default function Situatie({ locale, date }: SituatieProps) {
 						<Box sx={{ mt: 'box' }}>
 							<GGDSpecialInstructions />
 						</Box>
-					</BodyContainer>
-				</Box>
-				<BodyContainer sx={{ mt: '32px', '@media print': { display: 'none' } }}>
-					<Box
-						sx={{
-							width: '380px',
-							maxWidth: '100%',
-							button: {
-								background: 'transparent',
-								p: 0,
-								border: 0,
-								width: '100%',
-								mb: 'box',
-								':hover, :focus': {
+					</section>
+					<section sx={{ mt: '32px', '@media print': { display: 'none' } }}>
+						<Box
+							sx={{
+								width: '380px',
+								maxWidth: '100%',
+								button: {
+									background: 'transparent',
+									p: 0,
+									border: 0,
+									width: '100%',
+									mb: 'box',
+									':hover, :focus': {
+										'> span': {
+											backgroundColor: '#fcfeff',
+										},
+									},
 									'> span': {
-										backgroundColor: '#fcfeff',
+										border: 'none',
+										backgroundColor: '#eef7fB',
+										transition: 'background 300ms ease-in-out',
+										p: { fontWeight: 'normal', fontSize: '19px' },
+										backgroundImage: 'none',
+										padding: '14px',
+									},
+									svg: {
+										width: '24px',
+										height: '18px',
 									},
 								},
-								'> span': {
-									border: 'none',
-									backgroundColor: '#eef7fB',
-									transition: 'background 300ms ease-in-out',
-									p: { fontWeight: 'normal', fontSize: '19px' },
-									backgroundImage: 'none',
-									padding: '14px',
-								},
-								svg: {
-									width: '24px',
-									height: '18px',
-								},
-							},
-						}}
-					>
-						<Link
-							styledAs="button"
-							href={siteSettings.quarantaineGids.url}
-							external
+							}}
 						>
-							{siteSettings.quarantaineGids.button}
-						</Link>
+							<Link
+								styledAs="button"
+								href={siteSettings.quarantaineGids.url}
+								external
+							>
+								{siteSettings.quarantaineGids.button}
+							</Link>
 
-						<Text variant="small">{siteSettings.quarantaineGids.text}</Text>
+							<Text variant="small">{siteSettings.quarantaineGids.text}</Text>
 
-						{page.showPrintAndCalendar && selectedLastEventDate && (
-							<>
-								<SaveInCalendar
-									locale={locale}
-									content={{
-										tot_en_met: siteSettings.quarantaineCalendar.dateSeperator,
-										other_calendar:
-											siteSettings.quarantaineCalendar.otherCalendar,
-									}}
-									title={siteSettings.quarantaineCalendar.title}
-									modalTitle={siteSettings.quarantaineCalendar.modalTitle}
-									modalBody={siteSettings.quarantaineCalendar.modalBody}
-									inviteTitle={siteSettings.quarantaineCalendar.inviteTitle}
-									inviteText={siteSettings.quarantaineCalendar.inviteText}
-									fromDate={startOfDay(selectedLastEventDate)}
-									toDate={endOfDay(
-										addDays(
-											selectedLastEventDate,
-											page.quarantaineDuration || 10,
-										),
-									)}
-									hideDate
-								/>
-								<button onClick={() => window.print()}>
-									<CallToAction icon={PrinterIcon}>
-										<p>{siteSettings.printCta}</p>
-									</CallToAction>
-								</button>
-							</>
-						)}
-					</Box>
-					<Feedback />
-				</BodyContainer>
+							{page.showPrintAndCalendar && selectedLastEventDate && (
+								<>
+									<SaveInCalendar
+										locale={locale}
+										content={{
+											tot_en_met:
+												siteSettings.quarantaineCalendar.dateSeperator,
+											other_calendar:
+												siteSettings.quarantaineCalendar.otherCalendar,
+										}}
+										title={siteSettings.quarantaineCalendar.title}
+										modalTitle={siteSettings.quarantaineCalendar.modalTitle}
+										modalBody={siteSettings.quarantaineCalendar.modalBody}
+										inviteTitle={siteSettings.quarantaineCalendar.inviteTitle}
+										inviteText={siteSettings.quarantaineCalendar.inviteText}
+										fromDate={startOfDay(selectedLastEventDate)}
+										toDate={endOfDay(
+											addDays(
+												selectedLastEventDate,
+												page.quarantaineDuration || 10,
+											),
+										)}
+										hideDate
+									/>
+									<button onClick={() => window.print()}>
+										<CallToAction icon={PrinterIcon}>
+											<p>{siteSettings.printCta}</p>
+										</CallToAction>
+									</button>
+								</>
+							)}
+						</Box>
+						<Feedback />
+					</section>
+				</Content>
 			</Page>
 		</>
 	);

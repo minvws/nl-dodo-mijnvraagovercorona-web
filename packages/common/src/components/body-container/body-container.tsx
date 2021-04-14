@@ -19,8 +19,8 @@ export const BodyContainer: React.FC<BodyContainerProps> = ({
 		<Container
 			sx={{
 				paddingY: 'mobilePadding',
-				paddingX: ['mobilePadding', 'mobilePadding', 0],
-				margin: '0 auto',
+				paddingX: ['mobilePadding', 'tabletPadding', 0],
+				margin: ['0 auto', 0],
 				maxWidth: 'maxWidthBody',
 			}}
 			className={className}

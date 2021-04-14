@@ -1,12 +1,7 @@
 /** @jsx jsx */
 import { Box, Flex, jsx } from 'theme-ui';
 
-import {
-	BannerAlleenSamen,
-	BannerDataProtection,
-	useDesktopQuery,
-	useSanitySiteSettings,
-} from '@quarantaine/common';
+import { BannerAlleenSamen, useSanitySiteSettings } from '@quarantaine/common';
 
 interface PageProps {
 	header: React.ReactNode;
@@ -14,7 +9,6 @@ interface PageProps {
 	// If true: hides DataProtectionPanel, Footer and Alleen Samen logo on mobile.
 	cleanPageOnMobile?: boolean;
 	className?: string;
-	illustrationUrl?: string;
 }
 
 export const Page: React.FC<PageProps> = ({
@@ -23,9 +17,7 @@ export const Page: React.FC<PageProps> = ({
 	footer,
 	cleanPageOnMobile,
 	className,
-	illustrationUrl = '/images/Koffer_DesktopRetina.svg',
 }) => {
-	const isDesktop = useDesktopQuery();
 	const siteSettings = useSanitySiteSettings();
 
 	return (
@@ -45,29 +37,23 @@ export const Page: React.FC<PageProps> = ({
 				}}
 			>
 				{header}
-				<main>{children}</main>
+				<main
+					sx={{
+						aside: cleanPageOnMobile ? { display: ['none', 'inherit'] } : {},
+					}}
+				>
+					{children}
+				</main>
 				<div
 					sx={{
 						display: cleanPageOnMobile ? ['none', 'block'] : undefined,
 						marginTop: 'auto',
 					}}
 				>
-					{!isDesktop && (
-						<BannerDataProtection
-							withContainer
-							content={siteSettings.privacy}
-						/>
-					)}
 					<BannerAlleenSamen alt={siteSettings.footer.alleenSamenAlt} />
 					{footer}
 				</div>
 			</Box>
-			{isDesktop && (
-				<BannerDataProtection
-					illustrationUrl={illustrationUrl}
-					content={siteSettings.privacy}
-				/>
-			)}
 		</Flex>
 	);
 };

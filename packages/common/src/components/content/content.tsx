@@ -1,16 +1,56 @@
 /** @jsx jsx */
 import React from 'react';
-import { jsx } from 'theme-ui';
+import { Box, Container, Flex, jsx } from 'theme-ui';
 
-import { BodyContainer } from '@quarantaine/common';
+import {
+	BodyContainer,
+	useSanitySiteSettings,
+	BannerDataProtection,
+} from '@quarantaine/common';
 
-export const Content: React.FC = ({ children }) => (
-	<BodyContainer
-		sx={{
-			paddingTop: '65px',
-			'> :first-child': { marginTop: 0 },
-		}}
-	>
-		{children}
-	</BodyContainer>
-);
+interface ContentProps {
+	noSpacingOnTop?: boolean;
+}
+
+export const Content: React.FC<ContentProps> = ({
+	children,
+	noSpacingOnTop,
+}) => {
+	const siteSettings = useSanitySiteSettings();
+
+	return (
+		<Container>
+			<Flex
+				sx={{
+					flexDirection: ['column', 'row'],
+				}}
+			>
+				<BodyContainer
+					sx={{
+						paddingTop: noSpacingOnTop ? 0 : '24px',
+						'> :first-child': { marginTop: 0 },
+					}}
+				>
+					{children}
+				</BodyContainer>
+				<Box
+					id="privacy"
+					as="aside"
+					sx={{
+						margin: ['0 0 55px 0', '55px 0 55px auto'],
+						maxWidth: ['100%', '340px'],
+					}}
+				>
+					<BodyContainer
+						sx={{
+							paddingLeft: ['mobilePadding', 0, 0],
+							paddingRight: ['mobilePadding', 'tabletPadding', 0],
+						}}
+					>
+						<BannerDataProtection content={siteSettings.privacy} />
+					</BodyContainer>
+				</Box>
+			</Flex>
+		</Container>
+	);
+};

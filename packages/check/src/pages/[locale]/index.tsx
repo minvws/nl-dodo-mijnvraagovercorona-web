@@ -55,8 +55,8 @@ export default function LandingPage() {
 				skipPageSuffix
 			/>
 
-			<Page title={page.header.title} headerPrefix={page.header.pretitle}>
-				<Hero>
+			<Page>
+				<Hero title={page.header.title} titlePrefix={page.header.pretitle}>
 					<h2
 						sx={{
 							fontWeight: 'light',

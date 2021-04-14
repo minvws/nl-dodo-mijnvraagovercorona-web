@@ -18,6 +18,7 @@ export const QuarantaineOverviewBlock: React.FC<QuarantaineOverviewBlockProps> =
 	<Box
 		sx={{
 			backgroundColor: 'white',
+			border: '1px solid #CDD7E0',
 			borderRadius: 'box',
 			padding: 'box',
 			position: 'relative',
@@ -90,6 +91,9 @@ export const QuarantaineOverviewBullet: React.FC = ({ children }) => (
 			backgroundImage: 'url(/icons/triangle.svg)',
 			backgroundRepeat: 'no-repeat',
 			backgroundPosition: '0 5px',
+			'&:not(:last-child)': {
+				marginBottom: '32px',
+			},
 			'a, button': {
 				color: 'text',
 				textDecoration: 'underline',
@@ -116,6 +120,9 @@ export const QuarantaineOverviewBullet: React.FC = ({ children }) => (
 				'&:hover, &:focus': {
 					color: 'inherit',
 				},
+			},
+			'p:last-child': {
+				marginBottom: 0,
 			},
 			'@media print': {
 				p: {

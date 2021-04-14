@@ -12,6 +12,7 @@ import {
 	ContentBlock,
 	useSanityPageContent,
 	Content,
+	Hero,
 } from '@quarantaine/common';
 
 interface GeenAdviesPageContent {
@@ -37,11 +38,8 @@ export default function GeenAdvies() {
 				description={page.metaData.description}
 				url={page.url}
 			/>
-			<Page
-				showRetryLink
-				title={page.header.title}
-				headerPrefix={page.header.pretitle}
-			>
+			<Page showRetryLink>
+				<Hero title={page.header.title} titlePrefix={page.header.pretitle} />
 				<Content>
 					<ContentBlock content={page.content} />
 				</Content>

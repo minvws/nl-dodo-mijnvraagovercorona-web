@@ -9,18 +9,16 @@ import {
 } from '@quarantaine/common';
 
 type HeaderProps = {
-	title: string;
-	headerPrefix?: React.ReactNode;
 	showRetryLink?: Boolean;
 };
 
-export const Header = ({ title, headerPrefix, showRetryLink }: HeaderProps) => {
+export const Header = ({ showRetryLink }: HeaderProps) => {
 	const siteSettings = useSanitySiteSettings();
 
 	return (
-		<HeaderComponent title={title} headerPrefix={headerPrefix}>
+		<HeaderComponent>
 			{showRetryLink && (
-				<NavigationLink href="/jouw-situatie" icon="refresh">
+				<NavigationLink href="/" icon="refresh">
 					{siteSettings.header.opnieuw}
 				</NavigationLink>
 			)}

@@ -19,7 +19,7 @@ export const ProgressMarker = ({
 		<ol
 			sx={{
 				position: 'absolute',
-				top: ['40px', '70px'],
+				top: '-50px',
 				paddingTop: 0,
 				marginTop: 0,
 				paddingLeft: 0,

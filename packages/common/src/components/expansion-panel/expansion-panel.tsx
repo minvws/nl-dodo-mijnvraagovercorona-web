@@ -6,6 +6,10 @@ import {
 	DisclosureButton,
 	DisclosurePanel,
 } from '@reach/disclosure';
+import {
+	useExpansionPanelGroup,
+	useExpansionPanelId,
+} from './expansion-panel-group';
 
 type ExpansionPanelProps = {
 	title: string;
@@ -26,9 +30,19 @@ export const ExpansionPanel = ({
 }: ExpansionPanelProps) => {
 	const [open, setOpen] = useState(false);
 	const contentRef = useRef<HTMLDivElement>(null);
+	const id = useExpansionPanelId();
+	// Panel group will only be set and used if it is indeed wrapped inside a group
+	// Otherwise this won't have any effect.
+	const { expandedPanel, setExpandedPanel } = useExpansionPanelGroup();
 	const handleChange = () => {
 		setOpen((open) => !open);
 	};
+
+	useEffect(() => {
+		if (expandedPanel && expandedPanel !== id) {
+			setOpen(false);
+		}
+	}, [expandedPanel]);
 
 	useEffect(() => {
 		if (open && contentRef?.current) {
@@ -39,11 +53,14 @@ export const ExpansionPanel = ({
 			/* @ts-ignore */
 			contentRef.current.scrollIntoViewIfNeeded?.();
 		}
+		if (open && typeof setExpandedPanel === 'function' && id) {
+			setExpandedPanel(id);
+		}
 	}, [open]);
 
 	return (
 		<Container sx={{ backgroundColor: 'expansionPanel', marginBottom: '16px' }}>
-			<Disclosure onChange={handleChange}>
+			<Disclosure onChange={handleChange} open={open}>
 				<dt>
 					<DisclosureButton
 						sx={{
