@@ -123,7 +123,8 @@ export const theme: Theme = {
 			marginBottom: 'paragraphSpacing',
 		},
 		ul: {
-			fontSize: '14pt',
+			fontSize: ['bodyMobile', 'body'],
+			lineHeight: ['bodyMobile', 'body'],
 			margin: '0',
 			marginBottom: 'paragraphSpacing',
 		},
