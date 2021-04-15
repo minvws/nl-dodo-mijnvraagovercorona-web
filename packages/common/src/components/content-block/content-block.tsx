@@ -70,6 +70,9 @@ const serializers = {
 								minHeight: '55px',
 								lineHeight: 1.5,
 								py: '12px',
+								fontWeight: 'bold',
+								marginBottom: '8px',
+								marginTop: '8px',
 						  }
 				}
 			>
