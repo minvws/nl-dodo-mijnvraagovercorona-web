@@ -26,6 +26,7 @@ export const Dialog: React.FC<DialogProps> = ({
 			sx={{
 				// White background color on mobile is needed because otherwise overflowing
 				// content would have a blue background.
+				zIndex: '2',
 				background: ['white', 'rgba(1, 104, 155, 0.7)'],
 				'p, ul': {
 					fontSize: ['bodyMobile', 'body'],
