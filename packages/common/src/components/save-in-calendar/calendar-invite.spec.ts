@@ -4,7 +4,7 @@ import {
 	generateOffice365Url,
 	generateOutlookOnlineUrl,
 	generateYahooCalendarUrl,
-} from 'utilities/calendar-invite';
+} from './utils';
 
 describe('Util: Calendar invite', () => {
 	beforeAll(() => {
