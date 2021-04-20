@@ -44,6 +44,7 @@ export const Navbar = ({
 					paddingRight: 0,
 					svg: { transform: 'rotate(180deg)' },
 				}}
+				data-testid="prev-month"
 				onClick={() => onPreviousClick()}
 			>
 				<span aria-hidden>
@@ -53,6 +54,7 @@ export const Navbar = ({
 			</button>
 			<button
 				sx={{ paddingRight: 10, paddingLeft: 0 }}
+				data-testid="next-month"
 				onClick={() => onNextClick()}
 			>
 				<ScreenReaderOnly>{next}</ScreenReaderOnly>
