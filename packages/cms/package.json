@@ -5,6 +5,7 @@
 	"scripts": {
 		"start": "sanity start",
 		"test": "true",
+    "test:e2e": "true",
 		"build": "sanity build",
 		"deploy": "sanity deploy"
 	},

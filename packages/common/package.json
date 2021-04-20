@@ -4,6 +4,7 @@
 	"private": true,
 	"scripts": {
 		"test": "jest",
+		"test:e2e": "true",
 		"test:watch": "jest --watch",
 		"storybook": "start-storybook -s ../../packages/check/public -p 6006",
 		"build:storybook": "build-storybook"

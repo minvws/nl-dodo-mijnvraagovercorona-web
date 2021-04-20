@@ -15,7 +15,7 @@
 		"resolveJsonModule": true,
 		"baseUrl": ".",
 		"rootDir": ".",
-    "typeRoots": ["./packages/*/types", "node_modules/@types", "node_modules/cypress", "node_modules/@testing-library/cypress"],
+    "typeRoots": ["<rootDir>/packages/*/types", "<rootDir>/node_modules/@types"],
 		"paths": {
 			"@quarantaine/*": ["./packages/*/src"]
 		}
