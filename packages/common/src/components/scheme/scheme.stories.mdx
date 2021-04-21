@@ -1,0 +1,41 @@
+import { Meta, Story, Canvas, Props } from '@storybook/addon-docs/blocks';
+import { SchemeBlock, SchemeBullet } from './';
+
+<Meta title="Components/SchemeBlock" component={SchemeBlock} />
+
+# SchemeBlock And SchemeBullet
+
+The `SchemeBlock` and `SchemeBullet` components are used for rendering quarantaine and travel plans for the users.
+Each `SchemeBlock` has a title, subtitle and a possible day label, showing 1 specific moment in time. Nested inside each
+`SchemeBlock` can be one or multiple `SchemeBullet` components. Each of these bullets can hold WYSYWIG content (including paragraphs).
+
+## Component usage
+
+<Canvas>
+	<Story name="SchemeBlock">
+		<SchemeBlock title="Main title" subtitle="Subtitle" day="Day label">
+			<SchemeBullet>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
+					dictum congue dolor, ut molestie neque volutpat ac. Nulla ac nunc sed
+					augue sagittis lacinia eu ac elit.{' '}
+				</p>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
+					dictum congue dolor, ut molestie neque volutpat ac. Nulla ac nunc sed
+					augue sagittis lacinia eu ac elit.{' '}
+				</p>
+			</SchemeBullet>
+			<SchemeBullet>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
+					dictum congue dolor, <strong>ut molestie neque volutpat</strong> ac.
+					Nulla ac nunc sed augue sagittis lacinia eu ac elit.{' '}
+				</p>
+			</SchemeBullet>
+		</SchemeBlock>
+		<SchemeBlock title="Vandaag" subtitle="vertrek naar huis" day="dag 3">
+			<SchemeBullet>More here.</SchemeBullet>
+		</SchemeBlock>
+	</Story>
+</Canvas>

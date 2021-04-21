@@ -24,3 +24,4 @@ export * from './radio-button';
 export * from './save-in-calendar';
 export * from './screen-reader-only';
 export * from './section-informational';
+export * from './scheme';
