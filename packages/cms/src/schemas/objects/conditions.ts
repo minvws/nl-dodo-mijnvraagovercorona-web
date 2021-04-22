@@ -24,6 +24,12 @@ export default {
 			],
 		},
 		{
+			title: 'Dagen sinds thuiskomst',
+			name: 'daysHome',
+			type: 'array',
+			of: [{ type: 'number' }],
+		},
+		{
 			title: 'Coronamelder',
 			name: 'coronamelder',
 			type: 'boolean',

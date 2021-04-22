@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Box, Container, jsx, Styled, Text } from 'theme-ui';
+import { Box, jsx, Styled, Text } from 'theme-ui';
 import { useRouter } from 'next/router';
 import {
 	parse,
@@ -24,14 +24,12 @@ import {
 	Feedback,
 	Hero,
 	Content,
+	SchemeBlock,
+	SchemeBullet,
 } from '@quarantaine/common';
 
 import { SiteSettings } from 'content/site-settings';
 import { Page } from 'components/page';
-import {
-	QuarantaineOverviewBlock,
-	QuarantaineOverviewBullet,
-} from 'components/quarantine-overview';
 import { GGDSpecialInstructions } from 'components/ggd-special-instructions';
 import { getSituations } from 'utilities/situations';
 import { PrinterIcon } from 'icons/printer';
@@ -180,7 +178,7 @@ export default function Situatie({ locale, date }: SituatieProps) {
 						<Styled.h2>{page.quarantinePlanTitle}</Styled.h2>
 
 						{quarantainePlan.map((day) => (
-							<QuarantaineOverviewBlock
+							<SchemeBlock
 								key={day.title}
 								/**
 								 * If no date is provided we show the "laatste contact", "vandaag" values as the main title.
@@ -197,15 +195,14 @@ export default function Situatie({ locale, date }: SituatieProps) {
 								}
 								subtitle={selectedLastEventDate ? `(${day.title})` : ''}
 								day={`dag ${day.day}`}
-								dividers={day.difference}
 							>
 								{day.bullets &&
 									day.bullets.map((content, index) => (
-										<QuarantaineOverviewBullet key={index}>
+										<SchemeBullet key={index}>
 											<ContentBlock content={content} />
-										</QuarantaineOverviewBullet>
+										</SchemeBullet>
 									))}
-							</QuarantaineOverviewBlock>
+							</SchemeBlock>
 						))}
 
 						<Box sx={{ mt: 'box' }}>

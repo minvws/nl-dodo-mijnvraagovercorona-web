@@ -46,6 +46,20 @@ export default {
 							preview: {
 								select: {
 									title: 'content.nl',
+									conditions: 'conditions',
+								},
+								prepare({
+									title,
+									conditions,
+								}: {
+									title: { nl: string };
+									conditions?: number[];
+								}) {
+									console.log(title);
+									return {
+										title: title.nl,
+										subtitle: 'Test',
+									};
 								},
 							},
 						},
@@ -62,6 +76,11 @@ export default {
 			name: 'travelPlan',
 			type: 'object',
 			fields: [
+				{
+					title: 'Titel',
+					name: 'title',
+					type: 'localeString',
+				},
 				{
 					title: 'Voorbereiding',
 					name: 'preparation',
@@ -89,6 +108,11 @@ export default {
 			name: 'quarantinePlan',
 			type: 'object',
 			fields: [
+				{
+					title: 'Titel',
+					name: 'title',
+					type: 'localeString',
+				},
 				{
 					title: 'Thuiskomst',
 					name: 'return',
