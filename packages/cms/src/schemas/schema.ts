@@ -23,6 +23,7 @@ import vervoersmiddelPage from './pages/reizen/vervoersmiddel';
 import faqPage from './pages/reizen/faq';
 import tussenstopPage from './pages/reizen/tussenstop';
 import resultaatPage from './pages/reizen/resultaat';
+import geenResultaatPage from './pages/reizen/geen-resultaat';
 
 import checkLandingPage from './pages/check/check-landing';
 import jouwSituatiePage from './pages/check/jouw-situatie';
@@ -75,6 +76,7 @@ export default createSchema({
 		faqPage,
 		tussenstopPage,
 		resultaatPage,
+		geenResultaatPage,
 
 		/**
 		 * Check pages

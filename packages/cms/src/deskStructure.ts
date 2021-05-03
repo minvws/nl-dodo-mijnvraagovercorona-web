@@ -101,6 +101,11 @@ const reizenPagesConfig = [
 		title: 'Reizen Resultaat Pagina',
 		icon: GiTestTubes,
 	},
+	{
+		schemaType: 'geen-resultaat-page',
+		title: 'Reizen Geen Resultaat Pagina',
+		icon: GiTestTubes,
+	},
 ];
 
 /**

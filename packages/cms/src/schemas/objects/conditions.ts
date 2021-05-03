@@ -5,7 +5,7 @@ export default {
 	fields: [
 		{
 			title: 'Reisfase',
-			name: 'travelfase',
+			name: 'travelStage',
 			type: 'array',
 			of: [{ type: 'reference', to: [{ type: 'travel-fase-document' }] }],
 		},

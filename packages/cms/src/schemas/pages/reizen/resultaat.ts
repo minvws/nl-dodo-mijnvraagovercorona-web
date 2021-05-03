@@ -1,3 +1,5 @@
+import { blockContentPreview } from '../../../utilities/blockContentPreview';
+
 export default {
 	title: 'Reizen Resultaat Pagina',
 	name: 'resultaat-page',
@@ -16,26 +18,15 @@ export default {
 				{
 					title: 'Titel',
 					name: 'title',
-					type: 'localeString',
-				},
-				{
-					title: 'Samenvatting',
-					name: 'summary',
 					type: 'array',
 					of: [
 						{
 							type: 'object',
 							fields: [
 								{
-									title: 'Icoon',
-									name: 'icon',
-									type: 'string',
-									options: { list: ['safe', 'warning-yellow', 'warning-red'] },
-								},
-								{
 									title: 'Content',
 									name: 'content',
-									type: 'localeBlock',
+									type: 'localeString',
 								},
 								{
 									title: 'Condities',
@@ -46,25 +37,67 @@ export default {
 							preview: {
 								select: {
 									title: 'content.nl',
-									conditions: 'conditions',
-								},
-								prepare({
-									title,
-									conditions,
-								}: {
-									title: { nl: string };
-									conditions?: number[];
-								}) {
-									console.log(title);
-									return {
-										title: title.nl,
-										subtitle: 'Test',
-									};
 								},
 							},
 						},
 					],
 				},
+				{
+					title: 'Subtitel',
+					name: 'subtitle',
+					type: 'array',
+					of: [
+						{
+							type: 'object',
+							fields: [
+								{
+									title: 'Content',
+									name: 'content',
+									type: 'localeString',
+								},
+								{
+									title: 'Condities',
+									name: 'conditions',
+									type: 'conditions',
+								},
+							],
+							preview: {
+								select: {
+									title: 'content.nl',
+								},
+							},
+						},
+					],
+				},
+				// {
+				// 	title: 'Samenvatting',
+				// 	name: 'summary',
+				// 	type: 'array',
+				// 	of: [
+				// 		{
+				// 			type: 'object',
+				// 			fields: [
+				// 				{
+				// 					title: 'Icoon',
+				// 					name: 'icon',
+				// 					type: 'string',
+				// 					options: { list: ['safe', 'warning-yellow', 'warning-red'] },
+				// 				},
+				// 				{
+				// 					title: 'Content',
+				// 					name: 'content',
+				// 					type: 'localeBlock',
+				// 				},
+				// 				{
+				// 					title: 'Condities',
+				// 					name: 'conditions',
+				// 					type: 'conditions',
+				// 				},
+				// 			],
+				// 			preview: blockContentPreview,
+				// 		},
+				// 	],
+				// },
 			],
 			options: {
 				collapsible: true,
