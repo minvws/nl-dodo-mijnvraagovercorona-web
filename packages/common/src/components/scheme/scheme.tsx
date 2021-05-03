@@ -88,11 +88,20 @@ export const SchemeBlock: React.FC<SchemeBlockProps> = ({
 	</Box>
 );
 
-export const SchemeBullet: React.FC = ({ children }) => (
+interface SchemeBulletProps {
+	icon?: string;
+}
+
+export const SchemeBullet: React.FC<SchemeBulletProps> = ({
+	children,
+	icon,
+}) => (
 	<Box
 		sx={{
 			paddingLeft: '30px',
-			backgroundImage: 'url(/icons/triangle.svg)',
+			backgroundImage: `url(${
+				icon ? `/icons/${icon}.svg` : '/icons/triangle.svg'
+			})`,
 			backgroundRepeat: 'no-repeat',
 			backgroundPosition: '0 5px',
 			'&:not(:last-child)': {
