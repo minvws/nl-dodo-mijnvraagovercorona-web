@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { Box, Flex, jsx, Text } from 'theme-ui';
 
-interface SchemeBlockProps {
+export interface SchemeBlockProps {
 	title: string;
 	subtitle?: string;
 	day: string;
@@ -68,9 +68,7 @@ export const SchemeBlock: React.FC<SchemeBlockProps> = ({
 				{subtitle && (
 					<>
 						{' '}
-						<span sx={{ fontWeight: 'normal', textTransform: 'lowercase' }}>
-							{subtitle}
-						</span>
+						<span sx={{ fontWeight: 'normal' }}>{subtitle}</span>
 					</>
 				)}
 			</p>

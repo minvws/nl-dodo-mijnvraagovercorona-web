@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { jsx, Styled } from 'theme-ui';
 
 import { Link } from '@quarantaine/common';
@@ -8,13 +8,17 @@ import { Link } from '@quarantaine/common';
 import SanityContentBlock from '@sanity/block-content-to-react';
 import { InlineDialog } from '../dialog';
 
+export type ContentVariables = { [key: string]: string };
+
 interface ContentProps {
 	title?: string;
 	content: Array<Object>;
+	contentVariables?: ContentVariables;
 }
 
 interface MarkProps {
 	children: React.ReactNode;
+	contentVariables?: ContentVariables;
 	node?: {
 		style: string;
 	};
@@ -33,29 +37,60 @@ interface DialogProps {
 	};
 }
 
-const Block = ({ node, children }: MarkProps) => {
-	if (node?.style === 'h2') return <Styled.h2>{children}</Styled.h2>;
-	if (node?.style === 'span') return <span>{children}</span>;
+export const replaceContentVariables = (
+	text: unknown,
+	contentVariables: ContentVariables | undefined,
+) => {
+	if (typeof text !== 'string' || !contentVariables) return text;
+	let replacedText = text;
+	Object.keys(contentVariables).map(
+		(key) =>
+			(replacedText = replacedText.replace(`$$${key}`, contentVariables[key])),
+	);
 
-	return <Styled.p>{children}</Styled.p>;
+	return replacedText;
 };
 
-const serializers = {
+export const replaceContentVariablesInReactChildren = (
+	children: React.ReactNode,
+	contentVariables: ContentVariables | undefined,
+) =>
+	React.Children.map(children, (child) =>
+		replaceContentVariables(child, contentVariables),
+	);
+
+const Block = ({ node, children, contentVariables }: MarkProps) => {
+	if (node?.style === 'h2') return <Styled.h2>{children}</Styled.h2>;
+	if (node?.style === 'span') return <span>{children}</span>;
+	return (
+		<Styled.p>
+			{replaceContentVariablesInReactChildren(children, contentVariables)}
+		</Styled.p>
+	);
+};
+
+const getSerializers = (contentVariables?: ContentVariables) => ({
 	types: {
-		block: Block,
+		block: (props: MarkProps) => (
+			<Block {...props} contentVariables={contentVariables} />
+		),
 	},
 	list: ({ children }: MarkProps) => <Styled.ul>{children}</Styled.ul>,
 	container: ({ children }: MarkProps) => <>{children}</>,
 	marks: {
 		strong: ({ children }: MarkProps) => (
-			<strong sx={{ fontWeight: 'bold' }}>{children}</strong>
+			<strong sx={{ fontWeight: 'bold' }}>
+				{replaceContentVariablesInReactChildren(children, contentVariables)}
+			</strong>
 		),
 		em: ({ children }: MarkProps) => (
-			<em sx={{ fontStyle: 'italic' }}>{children}</em>
+			<em sx={{ fontStyle: 'italic' }}>
+				{replaceContentVariablesInReactChildren(children, contentVariables)}
+			</em>
 		),
 		link: ({ children, mark }: MarkProps) => (
 			<Link
-				href={mark!.href}
+				href={replaceContentVariables(mark!.href, contentVariables) as string}
 				withChevron={false}
 				external={!mark?.internal}
 				styledAs={mark?.button ? 'button' : undefined}
@@ -76,7 +111,13 @@ const serializers = {
 						  }
 				}
 			>
-				{mark?.button ? <span>{children}</span> : children}
+				{mark?.button ? (
+					<span>
+						{replaceContentVariablesInReactChildren(children, contentVariables)}
+					</span>
+				) : (
+					replaceContentVariablesInReactChildren(children, contentVariables)
+				)}
 			</Link>
 		),
 		dialog: ({ children, mark }: DialogProps) => {
@@ -90,8 +131,18 @@ const serializers = {
 			);
 		},
 	},
-};
+});
 
-export const ContentBlock: React.FC<ContentProps> = ({ content, ...props }) => (
-	<SanityContentBlock blocks={content} serializers={serializers} {...props} />
-);
+export const ContentBlock: React.FC<ContentProps> = ({
+	content,
+	contentVariables,
+	...props
+}) => {
+	const serializers = useMemo(() => getSerializers(contentVariables), [
+		contentVariables,
+	]);
+
+	return (
+		<SanityContentBlock blocks={content} serializers={serializers} {...props} />
+	);
+};

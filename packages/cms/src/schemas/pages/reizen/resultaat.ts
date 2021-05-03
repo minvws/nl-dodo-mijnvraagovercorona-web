@@ -163,7 +163,7 @@ export default {
 				},
 				{
 					title: 'Einde',
-					name: 'End',
+					name: 'end',
 					type: 'travelCard',
 				},
 			],
