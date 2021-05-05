@@ -7,6 +7,8 @@ import { Link } from '@quarantaine/common';
 /** @ts-ignore Types would be nice */
 import SanityContentBlock from '@sanity/block-content-to-react';
 import { InlineDialog } from '../dialog';
+import { SaveInCalendar } from '../save-in-calendar';
+import { useSanitySiteSettings } from '../../utilities';
 
 export type ContentVariables = { [key: string]: string };
 
@@ -34,6 +36,16 @@ interface DialogProps {
 	mark: {
 		modal_title: string;
 		modal_content: Array<Object>;
+	};
+}
+
+interface AddToCalendarProps {
+	children: React.ReactNode;
+	mark: {
+		modal_title: string;
+		modal_body: string;
+		invite_title: string;
+		invite_text: string;
 	};
 }
 
@@ -128,6 +140,25 @@ const getSerializers = (contentVariables?: ContentVariables) => ({
 				>
 					<ContentBlock content={mark.modal_content} />
 				</InlineDialog>
+			);
+		},
+		addToCalendar: ({ children, mark }: AddToCalendarProps) => {
+			const siteSettings = useSanitySiteSettings();
+			return (
+				<SaveInCalendar
+					locale="nl"
+					content={{
+						tot_en_met: siteSettings.quarantaineCalendar.dateSeperator,
+						other_calendar: siteSettings.quarantaineCalendar.otherCalendar,
+					}}
+					modalTitle={mark.modal_title}
+					modalBody={mark.modal_body}
+					inviteText={mark.invite_text}
+					inviteTitle={mark.invite_title}
+					singleDay={new Date()}
+				>
+					{replaceContentVariablesInReactChildren(children, contentVariables)}
+				</SaveInCalendar>
 			);
 		},
 	},

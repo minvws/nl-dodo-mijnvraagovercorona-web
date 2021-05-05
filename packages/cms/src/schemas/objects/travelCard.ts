@@ -31,11 +31,6 @@ export default {
 							name: 'content',
 							type: 'localeBlock',
 						},
-						// {
-						// 	title: 'Chevron',
-						// 	name: 'chevron',
-						// 	type: 'boolean',
-						// },
 						{
 							title: 'Icoon',
 							name: 'icon',
