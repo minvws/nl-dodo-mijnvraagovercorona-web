@@ -169,6 +169,23 @@ export default {
 			],
 		},
 		{
+			title: 'Veelgestelde vragen',
+			name: 'faq',
+			type: 'object',
+			fields: [
+				{
+					title: 'Titel',
+					name: 'title',
+					type: 'localeString',
+				},
+				{
+					title: 'Bekijk alle veelgestelde vragen',
+					name: 'viewAll',
+					type: 'localeString',
+				},
+			],
+		},
+		{
 			title: 'URL',
 			name: 'url',
 			type: 'string',
