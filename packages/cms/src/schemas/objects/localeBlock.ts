@@ -80,8 +80,7 @@ export default {
 								{
 									name: 'modal_body',
 									title: '"Andere agenda" modal uitleg',
-									type: 'array',
-									of: [{ type: 'block' }],
+									type: 'text',
 								},
 								{
 									name: 'invite_title',
@@ -93,7 +92,7 @@ export default {
 								},
 								{
 									title: 'Agenda data',
-									name: 'icon',
+									name: 'period',
 									type: 'string',
 									options: {
 										layout: 'radio',

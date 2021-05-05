@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { useEffect, useMemo } from 'react';
+import React, { useContext, useEffect, useMemo } from 'react';
 import { jsx, Styled } from 'theme-ui';
 
 import { Link } from '@quarantaine/common';
@@ -15,7 +15,6 @@ export type ContentVariables = { [key: string]: string };
 interface ContentProps {
 	title?: string;
 	content: Array<Object>;
-	contentVariables?: ContentVariables;
 }
 
 interface MarkProps {
@@ -46,6 +45,7 @@ interface AddToCalendarProps {
 		modal_body: string;
 		invite_title: string;
 		invite_text: string;
+		period: 'quarantaine-period' | 'testappointment-reminder';
 	};
 }
 
@@ -144,6 +144,25 @@ const getSerializers = (contentVariables?: ContentVariables) => ({
 		},
 		addToCalendar: ({ children, mark }: AddToCalendarProps) => {
 			const siteSettings = useSanitySiteSettings();
+			const { serializersConfig } = useContentBlockData();
+
+			if (
+				!mark.period ||
+				!serializersConfig?.addToCalendar?.testday ||
+				!serializersConfig?.addToCalendar?.quarantaine
+			)
+				return null;
+
+			const dateProps =
+				mark.period === 'testappointment-reminder'
+					? {
+							singleDay: serializersConfig.addToCalendar.testday,
+					  }
+					: {
+							fromDate: serializersConfig.addToCalendar.quarantaine[0],
+							toDate: serializersConfig.addToCalendar.quarantaine[1],
+					  };
+
 			return (
 				<SaveInCalendar
 					locale="nl"
@@ -155,7 +174,7 @@ const getSerializers = (contentVariables?: ContentVariables) => ({
 					modalBody={mark.modal_body}
 					inviteText={mark.invite_text}
 					inviteTitle={mark.invite_title}
-					singleDay={new Date()}
+					{...dateProps}
 				>
 					{replaceContentVariablesInReactChildren(children, contentVariables)}
 				</SaveInCalendar>
@@ -164,11 +183,41 @@ const getSerializers = (contentVariables?: ContentVariables) => ({
 	},
 });
 
-export const ContentBlock: React.FC<ContentProps> = ({
-	content,
-	contentVariables,
-	...props
+interface ContentBlockDataContextState {
+	contentVariables?: Record<string, string>;
+	serializersConfig?: {
+		addToCalendar?: {
+			testday?: Date;
+			quarantaine?: [Date, Date];
+		};
+	};
+}
+
+/**
+ * This context is responsible for holding 2 things;
+ * 1. contentVariables: Any variables like $$country that should be replace in
+ *    the content blocks rendered inside the provider.
+ * 2. serialiersConfig: Custom config for a specific serializer, like dates for the
+ *    add to calendar serializer.
+ */
+const ContentBlockDataContext = React.createContext<ContentBlockDataContextState>(
+	{},
+);
+export const ContentBlockDataProvider: React.FC<ContentBlockDataContextState> = ({
+	children,
+	...data
 }) => {
+	const memoizedData = useMemo(() => data, [data]);
+	return (
+		<ContentBlockDataContext.Provider value={memoizedData}>
+			{children}
+		</ContentBlockDataContext.Provider>
+	);
+};
+export const useContentBlockData = () => useContext(ContentBlockDataContext);
+
+export const ContentBlock: React.FC<ContentProps> = ({ content, ...props }) => {
+	const { contentVariables } = useContentBlockData();
 	const serializers = useMemo(() => getSerializers(contentVariables), [
 		contentVariables,
 	]);
