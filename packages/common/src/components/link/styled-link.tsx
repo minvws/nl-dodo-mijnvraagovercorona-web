@@ -130,7 +130,7 @@ const StyledLinkBase = <T extends React.ElementType = 'a'>(
 	const {
 		className,
 		// If styled as a button, the default for the chevron is false, vice versa for the link.
-		withChevron = props.styledAs == 'link' ? true : false,
+		withChevron = props.styledAs === 'link' || !props.styledAs ? true : false,
 		children,
 		styledAs = 'link',
 		lang,

@@ -6,15 +6,15 @@ export const QuickLinks: React.FC = ({ children, ...props }) => (
 		<div
 			sx={{
 				display: 'flex',
-				flexDirection: ['column', 'row'],
-				padding: ['0 0 18px 0', '18px'],
+				flexDirection: 'column',
+				padding: ['0 0 18px 0', '18px 18px 18px 0'],
 				margin: '0 auto',
 				borderBottom: ['none', '1px solid #AEC1D1'],
 				justifyContent: 'space-between',
 				a: {
 					flexBasis: '100%',
 					pr: [0, '24px'],
-					pb: ['20px', 0],
+					pb: '12px',
 					textDecoration: 'underline',
 					fontWeight: 'bold',
 					alignItems: 'flex-start',
