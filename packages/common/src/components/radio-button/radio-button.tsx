@@ -3,7 +3,7 @@ import { jsx } from 'theme-ui';
 
 interface RadioButtonProps<ValueOptions> {
 	name: string;
-	label: string;
+	label: string | React.ReactElement;
 	value: ValueOptions;
 	id: string;
 	onChange: (value: ValueOptions) => void;

@@ -15,7 +15,42 @@ export default {
 		},
 		{
 			title: 'Button',
-			name: 'button',
+			name: 'toResultButton',
+			type: 'localeString',
+		},
+		{
+			title: '"Ja"-label',
+			name: 'yes',
+			type: 'localeString',
+		},
+		{
+			title: '"Nee"-label',
+			name: 'no',
+			type: 'localeString',
+		},
+		{
+			title: 'Radio button "ja"-tekst',
+			name: 'radioYes',
+			type: 'localeString',
+		},
+		{
+			title: 'Radio button "nee"-tekst',
+			name: 'radioNo',
+			type: 'localeString',
+		},
+		{
+			title: '"Land niet gevonden"-tekst',
+			name: 'notFound',
+			type: 'localeString',
+		},
+		{
+			title: 'Slechtzienden tekst label dat uitleg geeft over land zoekveld',
+			name: 'searchLabel',
+			type: 'localeString',
+		},
+		{
+			title: 'Land zoekveld placeholder',
+			name: 'placeholder',
 			type: 'localeString',
 		},
 		{
