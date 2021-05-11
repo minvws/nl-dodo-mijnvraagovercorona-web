@@ -19,7 +19,7 @@ interface InviteParameters {
 	startDate: Date;
 	endDate: Date;
 }
-// @TODO: Do we want an all day invite, or a invite that blocks the whole day from 0.00 to 0.00
+
 /** All urls are based on: https://datebook.dev/generators */
 export const getAllCalendarInvites = (params: InviteParameters) => {
 	return {
