@@ -93,35 +93,6 @@ export default {
 						},
 					],
 				},
-				// {
-				// 	title: 'Samenvatting',
-				// 	name: 'summary',
-				// 	type: 'array',
-				// 	of: [
-				// 		{
-				// 			type: 'object',
-				// 			fields: [
-				// 				{
-				// 					title: 'Icoon',
-				// 					name: 'icon',
-				// 					type: 'string',
-				// 					options: { list: ['safe', 'warning-yellow', 'warning-red'] },
-				// 				},
-				// 				{
-				// 					title: 'Content',
-				// 					name: 'content',
-				// 					type: 'localeBlock',
-				// 				},
-				// 				{
-				// 					title: 'Condities',
-				// 					name: 'conditions',
-				// 					type: 'conditions',
-				// 				},
-				// 			],
-				// 			preview: blockContentPreview,
-				// 		},
-				// 	],
-				// },
 			],
 			options: {
 				collapsible: true,
@@ -136,7 +107,29 @@ export default {
 				{
 					title: 'Titel',
 					name: 'title',
-					type: 'localeString',
+					type: 'array',
+					of: [
+						{
+							type: 'object',
+							fields: [
+								{
+									title: 'Content',
+									name: 'content',
+									type: 'localeString',
+								},
+								{
+									title: 'Condities',
+									name: 'conditions',
+									type: 'conditions',
+								},
+							],
+							preview: {
+								select: {
+									title: 'content.nl',
+								},
+							},
+						},
+					],
 				},
 				{
 					title: 'Voorbereiding',
@@ -168,7 +161,29 @@ export default {
 				{
 					title: 'Titel',
 					name: 'title',
-					type: 'localeString',
+					type: 'array',
+					of: [
+						{
+							type: 'object',
+							fields: [
+								{
+									title: 'Content',
+									name: 'content',
+									type: 'localeString',
+								},
+								{
+									title: 'Condities',
+									name: 'conditions',
+									type: 'conditions',
+								},
+							],
+							preview: {
+								select: {
+									title: 'content.nl',
+								},
+							},
+						},
+					],
 				},
 				{
 					title: 'Thuiskomst',
