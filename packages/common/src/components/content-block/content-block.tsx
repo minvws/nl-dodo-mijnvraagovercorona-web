@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { useContext, useEffect, useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { jsx, Styled } from 'theme-ui';
 
 import { Link } from '@quarantaine/common';
