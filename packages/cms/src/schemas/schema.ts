@@ -1,11 +1,13 @@
 import createSchema from 'part:@sanity/base/schema-creator';
 import schemaTypes from 'all:part:@sanity/base/schema-type';
 
-import ggdContactDocument from './documents/ggdContact';
 import siteSettingsDocument from './documents/siteSettings';
 import faqDocument from './documents/faq';
 import voorbereidingDocument from './documents/voorbereiding';
-import reisSchemaDocument from './documents/reisSchema';
+import countryDocument from './documents/country';
+import riskCategoryDocument from './documents/riskCategory';
+import travelFaseDocument from './documents/travelFase';
+import meansOfTransportDocument from './documents/meansOfTransport';
 
 import privacyPage from './pages/common/privacy';
 import cookiesPage from './pages/common/cookies';
@@ -19,6 +21,9 @@ import bestemmingPage from './pages/reizen/bestemming';
 import periodePage from './pages/reizen/periode';
 import vervoersmiddelPage from './pages/reizen/vervoersmiddel';
 import faqPage from './pages/reizen/faq';
+import tussenstopPage from './pages/reizen/tussenstop';
+import resultaatPage from './pages/reizen/resultaat';
+import geenResultaatPage from './pages/reizen/geen-resultaat';
 
 import checkLandingPage from './pages/check/check-landing';
 import jouwSituatiePage from './pages/check/jouw-situatie';
@@ -43,6 +48,8 @@ import pageMetaDataObject from './objects/pageMetaData';
 import headerObject from './objects/header';
 import quarantinePlanObject from './objects/quarantinePlan';
 import situatiePageObject from './objects/situatiePage';
+import conditionsObject from './objects/conditions';
+import travelCardObject from './objects/travelCard';
 
 export default createSchema({
 	name: 'default',
@@ -67,6 +74,9 @@ export default createSchema({
 		periodePage,
 		vervoersmiddelPage,
 		faqPage,
+		tussenstopPage,
+		resultaatPage,
+		geenResultaatPage,
 
 		/**
 		 * Check pages
@@ -96,10 +106,12 @@ export default createSchema({
 		 * Documents
 		 * Documents are types which need to be created to have multiple versions.
 		 */
-		ggdContactDocument,
 		faqDocument,
-		reisSchemaDocument,
 		voorbereidingDocument,
+		countryDocument,
+		riskCategoryDocument,
+		travelFaseDocument,
+		meansOfTransportDocument,
 
 		/**
 		 * Objects
@@ -113,5 +125,7 @@ export default createSchema({
 		headerObject,
 		quarantinePlanObject,
 		situatiePageObject,
+		conditionsObject,
+		travelCardObject,
 	]),
 });

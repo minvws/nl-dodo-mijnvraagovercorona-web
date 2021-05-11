@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { Box, Flex, jsx, Text } from 'theme-ui';
 
-interface SchemeBlockProps {
+export interface SchemeBlockProps {
 	title: string;
 	subtitle?: string;
 	day: string;
@@ -68,9 +68,7 @@ export const SchemeBlock: React.FC<SchemeBlockProps> = ({
 				{subtitle && (
 					<>
 						{' '}
-						<span sx={{ fontWeight: 'normal', textTransform: 'lowercase' }}>
-							{subtitle}
-						</span>
+						<span sx={{ fontWeight: 'normal' }}>{subtitle}</span>
 					</>
 				)}
 			</p>
@@ -90,11 +88,20 @@ export const SchemeBlock: React.FC<SchemeBlockProps> = ({
 	</Box>
 );
 
-export const SchemeBullet: React.FC = ({ children }) => (
+interface SchemeBulletProps {
+	icon?: string;
+}
+
+export const SchemeBullet: React.FC<SchemeBulletProps> = ({
+	children,
+	icon,
+}) => (
 	<Box
 		sx={{
 			paddingLeft: '30px',
-			backgroundImage: 'url(/icons/triangle.svg)',
+			backgroundImage: `url(${
+				icon ? `/icons/${icon}.svg` : '/icons/triangle.svg'
+			})`,
 			backgroundRepeat: 'no-repeat',
 			backgroundPosition: '0 5px',
 			'&:not(:last-child)': {

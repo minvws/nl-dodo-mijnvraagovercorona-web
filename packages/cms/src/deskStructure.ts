@@ -3,10 +3,11 @@ import S from '@sanity/desk-tool/structure-builder';
 import {
 	GiHouse,
 	GiTestTubes,
+	GiJumpAcross,
 	GiCookie,
 	GiSettingsKnobs,
 	GiHelp,
-	GiCardRandom,
+	GiWorld,
 	GiJumpingDog,
 	GiClosedDoors,
 	GiFlagObjective,
@@ -16,6 +17,9 @@ import {
 	GiPeriscope,
 	GiThumbDown,
 	GiThumbUp,
+	GiRadioactive,
+	GiTrail,
+	GiCarWheel,
 } from 'react-icons/gi';
 import { FaRegCopyright, FaAccessibleIcon } from 'react-icons/fa';
 import { SiGnuprivacyguard } from 'react-icons/si';
@@ -83,9 +87,24 @@ const reizenPagesConfig = [
 		icon: GiCommercialAirplane,
 	},
 	{
+		schemaType: 'tussenstop-page',
+		title: 'Reizen Tussenstop Pagina',
+		icon: GiJumpAcross,
+	},
+	{
 		schemaType: 'faq-page',
 		title: 'Reizen FAQ Pagina',
 		icon: GiLightBulb,
+	},
+	{
+		schemaType: 'resultaat-page',
+		title: 'Reizen Resultaat Pagina',
+		icon: GiTestTubes,
+	},
+	{
+		schemaType: 'geen-resultaat-page',
+		title: 'Reizen Geen Resultaat Pagina',
+		icon: GiTestTubes,
 	},
 ];
 
@@ -112,14 +131,24 @@ const reizenMultiDocumentsConfig = [
 		icon: GiHelp,
 	},
 	{
-		schemaType: 'reis-schema-document',
-		title: 'Reizen Reisschema Documenten',
-		icon: GiCardRandom,
+		schemaType: 'land-document',
+		title: 'Reizen Land Documenten',
+		icon: GiWorld,
 	},
 	{
-		schemaType: 'ggd-contact-document',
-		title: 'Reizen GGD Contact Documenten',
-		icon: GiTestTubes,
+		schemaType: 'risk-category-document',
+		title: 'Reizen Risico Categorie Documenten',
+		icon: GiRadioactive,
+	},
+	{
+		schemaType: 'travel-fase-document',
+		title: 'Reizen Reisfase Documenten',
+		icon: GiTrail,
+	},
+	{
+		schemaType: 'means-of-transport-document',
+		title: 'Reizen Ververvoersmethode Documenten',
+		icon: GiCarWheel,
 	},
 	{
 		schemaType: 'voorbereiding-document',

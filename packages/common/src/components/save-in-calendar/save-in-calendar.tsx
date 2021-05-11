@@ -6,17 +6,15 @@ import { MenuButton, MenuItem, MenuList, Menu } from '@reach/menu-button';
 import { endOfDay } from 'date-fns';
 import { Appointment } from '../../icons/appointment';
 
-import { Dialog, CallToAction, formatLongDate } from '@quarantaine/common';
+import {
+	Dialog,
+	CallToAction,
+	formatLongDate,
+	Link,
+	useLinkStyles,
+} from '@quarantaine/common';
 
 interface ReminderCalendarInviteProps {
-	/**
-	 * Button title
-	 */
-	title: string;
-	/**
-	 * If set to false, the date won't be rendered in the button.
-	 */
-	hideDate?: boolean;
 	/**
 	 * Modal is shown when user clicks "other calendar"
 	 */
@@ -95,9 +93,12 @@ const CalenderInviteMenuItem: React.FC<CalenderInviteMenuItemProps> = ({
 	</MenuItem>
 );
 
-export const SaveInCalendar = (props: SingleDayProps | MultiDayProps) => {
+export const SaveInCalendar: React.FC<SingleDayProps | MultiDayProps> = (
+	props,
+) => {
 	const [showDialog, setShowDialog] = useState(false);
-	const { locale, content, hideDate } = props;
+	const { locale, content } = props;
+	const styles = useLinkStyles({ styledAs: 'button-secondary' });
 	const dateText =
 		'singleDay' in props ? (
 			<>{formatLongDate(props.singleDay, locale)}</>
@@ -130,16 +131,27 @@ export const SaveInCalendar = (props: SingleDayProps | MultiDayProps) => {
 			<Menu>
 				<MenuButton
 					sx={{
-						border: 'none',
-						background: 'transparent',
-						padding: 0,
-						width: '100%',
+						...styles,
+						// These important styles are needed because
+						// in SchemeBlocks these styles would otherwise be overridden
+						// for all anchors and buttons.
+						textDecoration: 'none !important',
+						textAlign: 'left',
+						color: '#01689B !important',
 					}}
 				>
-					<CallToAction icon={Appointment}>
-						<p>{props.title}</p>
-						{!hideDate && <span sx={{ display: 'block' }}>{dateText}</span>}
-					</CallToAction>
+					<span
+						sx={{
+							display: 'flex',
+							alignItems: 'center',
+							justifyContent: 'center',
+						}}
+					>
+						<span sx={{ mr: 12, svg: { width: 20, height: 18 } }}>
+							<Appointment />
+						</span>
+						<span>{props.children}</span>
+					</span>
 				</MenuButton>
 				<MenuList
 					sx={{

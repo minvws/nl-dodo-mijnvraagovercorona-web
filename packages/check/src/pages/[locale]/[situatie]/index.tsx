@@ -260,7 +260,6 @@ export default function Situatie({ locale, date }: SituatieProps) {
 											other_calendar:
 												siteSettings.quarantaineCalendar.otherCalendar,
 										}}
-										title={siteSettings.quarantaineCalendar.title}
 										modalTitle={siteSettings.quarantaineCalendar.modalTitle}
 										modalBody={siteSettings.quarantaineCalendar.modalBody}
 										inviteTitle={siteSettings.quarantaineCalendar.inviteTitle}
@@ -272,8 +271,9 @@ export default function Situatie({ locale, date }: SituatieProps) {
 												page.quarantaineDuration || 10,
 											),
 										)}
-										hideDate
-									/>
+									>
+										{siteSettings.quarantaineCalendar.title}
+									</SaveInCalendar>
 									<button onClick={() => window.print()}>
 										<CallToAction icon={PrinterIcon}>
 											<p>{siteSettings.printCta}</p>

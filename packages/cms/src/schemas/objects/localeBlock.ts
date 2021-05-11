@@ -1,6 +1,7 @@
 import { supportedLocales, Locale } from '../../utilities/locales';
 
 import { FiLink } from 'react-icons/fi';
+import { RiCalendarCheckLine } from 'react-icons/ri';
 import { VscScreenFull } from 'react-icons/vsc';
 
 export default {
@@ -60,6 +61,52 @@ export default {
 									name: 'modal_content',
 									type: 'array',
 									of: [{ type: 'block' }],
+								},
+							],
+						},
+						{
+							name: 'addToCalendar',
+							type: 'object',
+							title: 'Toevoegen aan kalender',
+							blockEditor: {
+								icon: RiCalendarCheckLine,
+							},
+							fields: [
+								{
+									name: 'modal_title',
+									title: '"Andere agenda" modal titel',
+									type: 'string',
+								},
+								{
+									name: 'modal_body',
+									title: '"Andere agenda" modal uitleg',
+									type: 'text',
+								},
+								{
+									name: 'invite_title',
+									type: 'string',
+								},
+								{
+									name: 'invite_text',
+									type: 'text',
+								},
+								{
+									title: 'Agenda data',
+									name: 'period',
+									type: 'string',
+									options: {
+										layout: 'radio',
+										list: [
+											{
+												title: 'Quarantaine periode',
+												value: 'quarantaine-period',
+											},
+											{
+												title: 'Testafspraak maken (dag 5)',
+												value: 'testappointment-reminder',
+											},
+										],
+									},
 								},
 							],
 						},
