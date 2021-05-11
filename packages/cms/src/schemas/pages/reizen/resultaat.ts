@@ -1,5 +1,3 @@
-import { blockContentPreview } from '../../../utilities/blockContentPreview';
-
 export default {
 	title: 'Reizen Resultaat Pagina',
 	name: 'resultaat-page',

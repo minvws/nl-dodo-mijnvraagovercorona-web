@@ -16,7 +16,29 @@ export default {
 		{
 			title: 'Content',
 			name: 'content',
-			type: 'localeBlock',
+			type: 'array',
+			of: [
+				{
+					type: 'object',
+					fields: [
+						{
+							title: 'Content',
+							name: 'content',
+							type: 'localeBlock',
+						},
+						{
+							title: 'Condities',
+							name: 'conditions',
+							type: 'conditions',
+						},
+					],
+					preview: {
+						select: {
+							title: 'content.nl',
+						},
+					},
+				},
+			],
 		},
 		{
 			title: 'Onderdelen',
