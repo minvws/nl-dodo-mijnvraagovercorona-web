@@ -172,7 +172,10 @@ const getSerializers = (contentVariables?: ContentVariables) => ({
 					}}
 					modalTitle={mark.modal_title}
 					modalBody={mark.modal_body}
-					inviteText={mark.invite_text}
+					inviteText={`${replaceContentVariables(
+						mark.invite_text,
+						contentVariables,
+					)}`}
 					inviteTitle={mark.invite_title}
 					{...dateProps}
 				>
