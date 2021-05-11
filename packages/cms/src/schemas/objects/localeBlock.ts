@@ -44,6 +44,7 @@ export default {
 							},
 							fields: [
 								{ name: 'href', type: 'string' },
+								{ name: 'chevron', type: 'boolean' },
 								{ name: 'button', type: 'boolean' },
 								{ name: 'internal', type: 'boolean' },
 							],

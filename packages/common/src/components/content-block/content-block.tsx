@@ -25,6 +25,7 @@ interface MarkProps {
 	};
 	mark?: {
 		href: string;
+		chevron?: boolean;
 		internal?: boolean;
 		button?: boolean;
 	};
@@ -103,7 +104,7 @@ const getSerializers = (contentVariables?: ContentVariables) => ({
 		link: ({ children, mark }: MarkProps) => (
 			<Link
 				href={replaceContentVariables(mark!.href, contentVariables) as string}
-				withChevron={false}
+				withChevron={mark?.chevron || false}
 				external={!mark?.internal}
 				styledAs={mark?.button ? 'button' : undefined}
 				sx={

@@ -74,7 +74,7 @@ export default {
 						{
 							title: 'Omschrijving',
 							name: 'description',
-							type: 'localeText',
+							type: 'localeBlock',
 						},
 						{
 							title: 'Afbeelding',
