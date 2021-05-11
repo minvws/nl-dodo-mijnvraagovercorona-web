@@ -11,6 +11,30 @@ export default {
 			type: 'pageMetaData',
 		},
 		{
+			title:
+				'Reisfase (voor/tijdens/na), zoals getoond in pagina titel en meta',
+			name: 'travelStage',
+			type: 'object',
+			options: { collapsible: true },
+			fields: [
+				{
+					title: 'Voor vertrek',
+					name: 'voor_vertrek',
+					type: 'localeString',
+				},
+				{
+					title: 'Tijdens je reis',
+					name: 'tijdens_je_reis',
+					type: 'localeString',
+				},
+				{
+					title: 'Na thuiskomst',
+					name: 'na_thuiskomst',
+					type: 'localeString',
+				},
+			],
+		},
+		{
 			title: 'Header',
 			name: 'header',
 			type: 'object',
