@@ -9,6 +9,13 @@ export default {
 			type: 'string',
 		},
 		{
+			title: 'Nederland Wereldwijd Slug',
+			description:
+				'Dit veld hoeft enkel ingevuld te worden wanneer de url slug voor Nederland Wereldwijd anders is.',
+			name: 'nederlandWereldwijdSlug',
+			type: 'string',
+		},
+		{
 			title: 'Naam',
 			name: 'name',
 			type: 'localeString',
