@@ -14,7 +14,7 @@ export const getStaticPaths = async () => {
 		dates.push('geen-resultaat');
 
 		// Create cartesion product for 1 situation.
-		return cartesianProduct([situation.url], dates, ['nl']).map(
+		return cartesianProduct([situation.url], dates, ['nl', 'en']).map(
 			([situatie, date, locale]: string[]) => ({
 				params: { situatie, locale, date },
 			}),
