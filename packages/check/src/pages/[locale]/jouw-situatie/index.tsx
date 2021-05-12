@@ -199,7 +199,7 @@ export const getStaticProps = async ({
 };
 
 export const getStaticPaths = () => ({
-	paths: ['nl'].map((locale) => ({
+	paths: ['nl', 'en'].map((locale) => ({
 		params: { locale },
 	})),
 	fallback: false,

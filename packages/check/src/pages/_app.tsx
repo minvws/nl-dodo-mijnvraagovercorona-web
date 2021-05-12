@@ -20,7 +20,7 @@ const CheckApp = ({ Component, pageProps }: AppProps) => {
 	return (
 		<App
 			locale={pageProps.locale}
-			locales={[locales.dutch]}
+			locales={[locales.dutch, locales.english]}
 			pageContent={pageProps.page}
 			siteSettings={pageProps.siteSettings}
 			content={{ ...localGlobalTranslations }}

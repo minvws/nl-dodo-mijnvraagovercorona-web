@@ -273,7 +273,7 @@ export const getStaticPaths = async () => {
 	return {
 		paths: cartesianProduct(
 			situations.map((situation) => situation.url),
-			['nl'].map((locale) => `${locale}`),
+			['nl', 'en'].map((locale) => `${locale}`),
 		).map(([situatie, locale]: string[]) => ({
 			params: { situatie, locale },
 		})),

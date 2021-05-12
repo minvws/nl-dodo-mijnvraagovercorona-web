@@ -26,6 +26,7 @@ import {
 	Content,
 	SchemeBlock,
 	SchemeBullet,
+	cartesianProduct
 } from '@quarantaine/common';
 
 import { SiteSettings } from 'content/site-settings';
@@ -298,12 +299,13 @@ export async function getStaticPaths() {
 	const situations = await getSituations();
 
 	return {
-		paths: situations.map((situation) => ({
-			params: {
-				situatie: situation.url,
-				locale: 'nl',
-			},
+		paths: cartesianProduct(
+			situations.map((situation) => situation.url),
+			['nl', 'en'].map((locale) => `${locale}`),
+		).map(([situatie, locale]: string[]) => ({
+			params: { situatie, locale },
 		})),
+
 		fallback: false,
 	};
 }
