@@ -43,6 +43,22 @@ export default {
 			of: [{ type: 'localeString' }],
 		},
 	],
+	orderings: [
+		{
+      		title: 'Naam',
+      		name: 'nameAsc',
+      		by: [
+        		{field: 'name.nl', direction: 'asc'}
+      		]
+		},
+		{
+      		title: 'Risico Categorie',
+      		name: 'riskCategoryDesc',
+      		by: [
+        		{field: 'riskCategory.label', direction: 'desc'}
+      		]
+		}
+	],
 	preview: {
 		select: {
 			title: 'name.nl',
