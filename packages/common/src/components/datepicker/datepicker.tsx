@@ -115,7 +115,8 @@ export const Datepicker = (props: DatepickerProps) => {
 
 				'.DayPicker-Day--outside': {
 					color: 'black',
-					opacity: '.25',
+					opacity: '0',
+					pointerEvents: 'none',
 				},
 
 				'.DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside)': {
