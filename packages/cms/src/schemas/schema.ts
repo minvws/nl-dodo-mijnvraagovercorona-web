@@ -14,6 +14,7 @@ import cookiesPage from './pages/common/cookies';
 import copyrightPage from './pages/common/copyright';
 import kwetsbaarheidMeldenPage from './pages/common/kwetsbaarheidMelden';
 import toegankelijkheidPage from './pages/common/toegankelijkheid';
+import error404Page from './pages/common/404page';
 
 import landingPage from './pages/reizen/landing';
 import voorbereidingPage from './pages/reizen/voorbereiding';
@@ -64,6 +65,7 @@ export default createSchema({
 		copyrightPage,
 		kwetsbaarheidMeldenPage,
 		toegankelijkheidPage,
+		error404Page,
 
 		/**
 		 * Reizen pages

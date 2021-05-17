@@ -21,6 +21,7 @@ import {
 	GiTrail,
 	GiCarWheel,
 } from 'react-icons/gi';
+import { BiError } from 'react-icons/bi';
 import { FaRegCopyright, FaAccessibleIcon } from 'react-icons/fa';
 import { SiGnuprivacyguard } from 'react-icons/si';
 import { GrVulnerability } from 'react-icons/gr';
@@ -53,6 +54,11 @@ const genericPagesConfig = [
 		schemaType: 'kwetsbaarheid-melden-page',
 		title: 'Common Kwetsbaarheid Melden Pagina',
 		icon: GrVulnerability,
+	},
+	{
+		schemaType: 'error-404-page',
+		title: 'Common 404 Pagina',
+		icon: BiError,
 	},
 ];
 
