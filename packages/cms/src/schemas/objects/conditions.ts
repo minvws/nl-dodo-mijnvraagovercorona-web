@@ -15,6 +15,18 @@ export default {
 			type: 'array',
 			of: [{ type: 'reference', to: [{ type: 'risk-category-document' }] }],
 		},
+				{
+			title: 'Risico Categorie Tussenstop Kort',
+			name: 'stopoverShort',
+			type: 'array',
+			of: [{ type: 'reference', to: [{ type: 'risk-category-document' }] }],
+		},
+				{
+			title: 'Risico Categorie Tussenstop Lang',
+			name: 'stopoverLong',
+			type: 'array',
+			of: [{ type: 'reference', to: [{ type: 'risk-category-document' }] }],
+		},
 		{
 			title: 'Vervoersmethode',
 			name: 'meansOfTransport',
@@ -28,6 +40,12 @@ export default {
 			name: 'daysHome',
 			type: 'array',
 			of: [{ type: 'number' }],
+		},
+		{
+			title: 'Gebruik hoogste risico categorie',
+			name: 'useHighestRiskCategory',
+			description: 'Gebruik voor de conditie "Risico Categorie" de hoogste risico categorie tussen zowel de tussenstop als de eindbestemming',
+			type: 'boolean',
 		},
 		{
 			title: 'Coronamelder',

@@ -19,24 +19,49 @@ export default {
 			type: 'localeString',
 		},
 		{
-			title: '"Ja"-label',
-			name: 'yes',
-			type: 'localeString',
-		},
-		{
-			title: '"Nee"-label',
-			name: 'no',
-			type: 'localeString',
-		},
-		{
-			title: 'Radio button "ja"-tekst',
-			name: 'radioYes',
-			type: 'localeString',
-		},
-		{
-			title: 'Radio button "nee"-tekst',
-			name: 'radioNo',
-			type: 'localeString',
+			title: 'Opties',
+			name: 'options',
+			type: 'array',
+			of: [
+				{
+					name: 'options',
+					type: 'object',
+					fields: [
+						{
+							title: 'Radiobuttons',
+							name: 'content',
+							type: 'array',
+							of: [
+								{
+									type: 'object',
+									fields: [
+										{
+											title: 'Naam',
+											name: 'name',
+											type: 'string',
+										},
+										{
+											title: 'Label',
+											name: 'label',
+											type: 'localeBlock',
+										},
+									],
+									preview: {
+										select: {
+											title: 'label.nl',
+										},
+									},
+								},
+							],
+						},
+						{
+							title: 'Condities',
+							name: 'conditions',
+							type: 'conditions',
+						},
+					],
+				},
+			],
 		},
 		{
 			title: '"Land niet gevonden"-tekst',
