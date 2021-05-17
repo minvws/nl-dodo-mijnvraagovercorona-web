@@ -24,6 +24,8 @@ export const theme: Theme = {
 
 		button: '#CD005A',
 		buttonHover: '#A00057',
+		buttonSecondary: '#eef7fb',
+		buttonSecondaryHover: '#fcfeff',
 
 		link: '#01689B',
 		linkHover: '#002783',
@@ -37,6 +39,7 @@ export const theme: Theme = {
 		container: '1200px',
 		maxWidthBody: ['665px'],
 		buttonHeight: '55px',
+		buttonSecondaryHeight: '45px',
 		widgetMaxWidth: '450px',
 	},
 	space: {
@@ -123,7 +126,8 @@ export const theme: Theme = {
 			marginBottom: 'paragraphSpacing',
 		},
 		ul: {
-			fontSize: '14pt',
+			fontSize: ['bodyMobile', 'body'],
+			lineHeight: ['bodyMobile', 'body'],
 			margin: '0',
 			marginBottom: 'paragraphSpacing',
 		},

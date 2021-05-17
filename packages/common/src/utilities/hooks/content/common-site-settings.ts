@@ -31,4 +31,8 @@ export interface CommonSiteSettings {
 		title: string;
 		beloftes: string[];
 	};
+	quarantaineCalendar: {
+		dateSeperator: string;
+		otherCalendar: string;
+	};
 }

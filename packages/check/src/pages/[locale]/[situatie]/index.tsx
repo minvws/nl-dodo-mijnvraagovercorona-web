@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Box, Container, jsx, Styled, Text } from 'theme-ui';
+import { Box, jsx, Styled, Text } from 'theme-ui';
 import { useRouter } from 'next/router';
 import {
 	parse,
@@ -24,14 +24,13 @@ import {
 	Feedback,
 	Hero,
 	Content,
+	SchemeBlock,
+	SchemeBullet,
+	cartesianProduct
 } from '@quarantaine/common';
 
 import { SiteSettings } from 'content/site-settings';
 import { Page } from 'components/page';
-import {
-	QuarantaineOverviewBlock,
-	QuarantaineOverviewBullet,
-} from 'components/quarantine-overview';
 import { GGDSpecialInstructions } from 'components/ggd-special-instructions';
 import { getSituations } from 'utilities/situations';
 import { PrinterIcon } from 'icons/printer';
@@ -180,7 +179,7 @@ export default function Situatie({ locale, date }: SituatieProps) {
 						<Styled.h2>{page.quarantinePlanTitle}</Styled.h2>
 
 						{quarantainePlan.map((day) => (
-							<QuarantaineOverviewBlock
+							<SchemeBlock
 								key={day.title}
 								/**
 								 * If no date is provided we show the "laatste contact", "vandaag" values as the main title.
@@ -197,15 +196,14 @@ export default function Situatie({ locale, date }: SituatieProps) {
 								}
 								subtitle={selectedLastEventDate ? `(${day.title})` : ''}
 								day={`dag ${day.day}`}
-								dividers={day.difference}
 							>
 								{day.bullets &&
 									day.bullets.map((content, index) => (
-										<QuarantaineOverviewBullet key={index}>
+										<SchemeBullet key={index}>
 											<ContentBlock content={content} />
-										</QuarantaineOverviewBullet>
+										</SchemeBullet>
 									))}
-							</QuarantaineOverviewBlock>
+							</SchemeBlock>
 						))}
 
 						<Box sx={{ mt: 'box' }}>
@@ -263,7 +261,6 @@ export default function Situatie({ locale, date }: SituatieProps) {
 											other_calendar:
 												siteSettings.quarantaineCalendar.otherCalendar,
 										}}
-										title={siteSettings.quarantaineCalendar.title}
 										modalTitle={siteSettings.quarantaineCalendar.modalTitle}
 										modalBody={siteSettings.quarantaineCalendar.modalBody}
 										inviteTitle={siteSettings.quarantaineCalendar.inviteTitle}
@@ -275,8 +272,9 @@ export default function Situatie({ locale, date }: SituatieProps) {
 												page.quarantaineDuration || 10,
 											),
 										)}
-										hideDate
-									/>
+									>
+										{siteSettings.quarantaineCalendar.title}
+									</SaveInCalendar>
 									<button onClick={() => window.print()}>
 										<CallToAction icon={PrinterIcon}>
 											<p>{siteSettings.printCta}</p>
@@ -301,12 +299,13 @@ export async function getStaticPaths() {
 	const situations = await getSituations();
 
 	return {
-		paths: situations.map((situation) => ({
-			params: {
-				situatie: situation.url,
-				locale: 'nl',
-			},
+		paths: cartesianProduct(
+			situations.map((situation) => situation.url),
+			['nl', 'en'].map((locale) => `${locale}`),
+		).map(([situatie, locale]: string[]) => ({
+			params: { situatie, locale },
 		})),
+
 		fallback: false,
 	};
 }

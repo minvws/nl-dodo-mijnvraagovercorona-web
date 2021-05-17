@@ -59,30 +59,33 @@ export const ExpansionPanel = ({
 	}, [open]);
 
 	return (
-		<Container sx={{ backgroundColor: 'expansionPanel', marginBottom: '16px' }}>
+		<Container
+			sx={{
+				backgroundColor: variant === 'plus' ? 'expansionPanel' : 'white',
+				marginBottom: variant === 'plus' ? '16px' : 0,
+				borderBottom: variant === 'chevron' ? '1px solid #AEC1D1' : undefined,
+				borderTop: variant === 'chevron' ? '1px solid #AEC1D1' : undefined,
+				'& + &': {
+					borderTop: 'none',
+				},
+			}}
+		>
 			<Disclosure onChange={handleChange} open={open}>
 				<dt>
 					<DisclosureButton
 						sx={{
 							position: 'relative',
 							textAlign: 'left',
-							padding: '15px',
+							padding: variant === 'plus' ? '15px' : '8px 15px 8px 0',
 							background: 'none',
 							border: 'none',
 							fontFamily: 'body',
 							fontSize: ['bodyMobile', 'body'],
 							lineHeight: ['bodyMobile', 'body'],
 							width: '100%',
-							color: 'link',
-							fontWeight: 'bold',
-
-							...(variant === 'plus'
-								? {
-										paddingRight: '48px',
-								  }
-								: {
-										paddingLeft: '48px',
-								  }),
+							color: variant === 'plus' ? 'link' : 'text',
+							fontWeight: variant === 'plus' ? 'bold' : 'normal',
+							paddingRight: '48px',
 
 							...(variant === 'plus'
 								? {
@@ -105,8 +108,8 @@ export const ExpansionPanel = ({
 										'::after': {
 											content: '""',
 											position: 'absolute',
-											left: '15px',
-											top: '24px',
+											right: '15px',
+											top: '20px',
 											height: '8px',
 											width: '13px',
 											display: 'block',
@@ -123,8 +126,6 @@ export const ExpansionPanel = ({
 								: {}),
 
 							'&[aria-expanded="true"]': {
-								borderBottom: 'none',
-
 								'::after': {
 									transform: 'rotate(180deg)',
 								},
@@ -159,7 +160,7 @@ export const ExpansionPanel = ({
 						<div
 							sx={{
 								padding:
-									variant === 'plus' ? '0 48px 15px 15px' : '0 15px 15px 48px',
+									variant === 'plus' ? '0 48px 15px 15px' : '0 48px 15px 0',
 								fontSize: ['bodyMobile', 'body'],
 								lineHeight: ['bodyMobile', 'body'],
 							}}

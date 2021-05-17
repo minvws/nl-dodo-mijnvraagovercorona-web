@@ -1,19 +1,17 @@
 /** @jsx jsx */
 import { Box, Flex, jsx, Text } from 'theme-ui';
 
-interface QuarantaineOverviewBlockProps {
+export interface SchemeBlockProps {
 	title: string;
-	subtitle: string;
+	subtitle?: string;
 	day: string;
-	dividers: number;
 }
 
-export const QuarantaineOverviewBlock: React.FC<QuarantaineOverviewBlockProps> = ({
+export const SchemeBlock: React.FC<SchemeBlockProps> = ({
 	title,
 	subtitle,
 	day,
 	children,
-	dividers,
 }) => (
 	<Box
 		sx={{
@@ -23,23 +21,25 @@ export const QuarantaineOverviewBlock: React.FC<QuarantaineOverviewBlockProps> =
 			padding: 'box',
 			position: 'relative',
 			fontSize: ['bodyMobile', 'body'],
-			marginTop: dividers ? `${dividers * 16 + 8}px` : '8px',
-			// lines between blocks.
-			'::before': dividers
-				? {
-						position: 'absolute',
-						content: '""',
-						display: 'block',
-						width: '24px',
-						height: `${dividers * 16 + 4}px`,
-						left: '50%',
-						top: `${dividers * -16 - 4}px`,
-						transform: 'translateX(-50%)',
-						backgroundImage: 'url(/icons/section-divider.svg)',
-						backgroundRepeat: 'repeat-y',
-						backgroundPosition: 'top center',
-				  }
-				: {},
+			marginBottom: '12px',
+			'& + &': {
+				marginTop: '32px',
+				'::before': {
+					content: '""',
+					display: 'block',
+					color: 'green',
+					width: '22px',
+					height: '13px',
+					position: 'absolute',
+					left: '50%',
+					transform: 'translateX(-50%)',
+					top: '-24px',
+					backgroundImage: 'url(/icons/chevron.svg)',
+					backgroundRepeat: 'no-repeat',
+					backgroundPosition: 'center',
+					backgroundSize: '22px 13px',
+				},
+			},
 			'@media print': {
 				fontSize: '13px',
 				borderBottom: '1px solid #ccc',
@@ -56,6 +56,7 @@ export const QuarantaineOverviewBlock: React.FC<QuarantaineOverviewBlockProps> =
 		<Flex
 			sx={{
 				justifyContent: 'space-between',
+				alignItems: 'center',
 				'& + div': { mt: '16px' },
 				'@media print': {
 					mt: '0 !important',
@@ -63,10 +64,13 @@ export const QuarantaineOverviewBlock: React.FC<QuarantaineOverviewBlockProps> =
 			}}
 		>
 			<p sx={{ margin: 0, color: 'smallText', fontWeight: 'bold' }}>
-				{title}{' '}
-				<span sx={{ fontWeight: 'normal', textTransform: 'lowercase' }}>
-					{subtitle}
-				</span>
+				{title}
+				{subtitle && (
+					<>
+						{' '}
+						<span sx={{ fontWeight: 'normal' }}>{subtitle}</span>
+					</>
+				)}
 			</p>
 			<Text
 				variant="chapeau"
@@ -84,11 +88,20 @@ export const QuarantaineOverviewBlock: React.FC<QuarantaineOverviewBlockProps> =
 	</Box>
 );
 
-export const QuarantaineOverviewBullet: React.FC = ({ children }) => (
+interface SchemeBulletProps {
+	icon?: string;
+}
+
+export const SchemeBullet: React.FC<SchemeBulletProps> = ({
+	children,
+	icon,
+}) => (
 	<Box
 		sx={{
 			paddingLeft: '30px',
-			backgroundImage: 'url(/icons/triangle.svg)',
+			backgroundImage: `url(${
+				icon ? `/icons/${icon}.svg` : '/icons/triangle.svg'
+			})`,
 			backgroundRepeat: 'no-repeat',
 			backgroundPosition: '0 5px',
 			'&:not(:last-child)': {

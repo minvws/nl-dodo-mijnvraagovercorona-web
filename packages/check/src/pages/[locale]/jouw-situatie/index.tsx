@@ -61,7 +61,7 @@ export default function JouwSituatie() {
 				description={page.metaData.description}
 				url={page.url}
 			/>
-			<Page sx={{ 'dd a': { marginBottom: '16px' } }}>
+			<Page>
 				<Hero title={page.header.title}>
 					<ProgressMarker
 						currentStageLabel={page.currentStepLabel}
@@ -199,7 +199,7 @@ export const getStaticProps = async ({
 };
 
 export const getStaticPaths = () => ({
-	paths: ['nl'].map((locale) => ({
+	paths: ['nl', 'en'].map((locale) => ({
 		params: { locale },
 	})),
 	fallback: false,

@@ -1,6 +1,8 @@
 /** @jsx jsx */
 import { Image, Container, jsx, SxStyleProp } from 'theme-ui';
 
+import { useCurrentLocale } from '@quarantaine/common';
+
 type HeaderLogoProps = {
 	alt: string;
 };
@@ -19,9 +21,11 @@ export const alignLogoRightOnMobileStyles: SxStyleProp = {
 };
 
 export const Logo = ({ alt }: HeaderLogoProps) => {
+	const { urlPrefix } = useCurrentLocale();
+
 	return (
 		<Container className="logo" sx={{ textAlign: 'center' }}>
-			<a href="/">
+			<a href={urlPrefix}>
 				<Image
 					sx={{ width: ['54px', '68px'], height: 'auto' }}
 					src="/icons/RO logo.svg"

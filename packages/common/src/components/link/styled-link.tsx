@@ -9,7 +9,7 @@ interface StyledLinkPropsBase {
 	className?: string;
 	fontWeight?: 'lighter' | 'normal' | 'bold';
 	lang?: string;
-	styledAs?: 'link' | 'button';
+	styledAs?: 'link' | 'button' | 'button-secondary';
 }
 
 export interface StyledLinkPropsAsAnchor extends StyledLinkPropsBase {
@@ -40,7 +40,10 @@ export type StyledLinkProps<P extends React.ElementType = 'a' | 'button'> = {
 	as?: P;
 } & MergeElementProps<P, StyledLinkPropsAsAnchor | StyledLinkPropsAsButton>;
 
-const useStyles = ({ fontWeight, styledAs }: StyledLinkPropsBase) => {
+export const useLinkStyles = ({
+	fontWeight,
+	styledAs,
+}: StyledLinkPropsBase) => {
 	const styles = useMemo(() => {
 		const linkStyling: SxStyleProp = {
 			fontSize: ['linkMobile', 'link'],
@@ -95,7 +98,24 @@ const useStyles = ({ fontWeight, styledAs }: StyledLinkPropsBase) => {
 			},
 		};
 
-		return styledAs === 'button' ? buttonStyling : linkStyling;
+		const buttonSecondaryStyling: SxStyleProp = {
+			...buttonStyling,
+			backgroundColor: 'buttonSecondary',
+			color: 'link',
+			height: 'auto',
+			minHeight: 'buttonSecondaryHeight',
+			py: '8px',
+			px: '12px',
+			lineHeight: '1.2',
+			':hover, :focus': {
+				backgroundColor: 'buttonSecondaryHover',
+			},
+		};
+
+		if (styledAs === 'button') return buttonStyling;
+		if (styledAs === 'button-secondary') return buttonSecondaryStyling;
+
+		return linkStyling;
 	}, [styledAs, fontWeight]);
 
 	return styles;
@@ -105,12 +125,12 @@ const StyledLinkBase = <T extends React.ElementType = 'a'>(
 	props: StyledLinkProps<T>,
 	ref: React.Ref<any>,
 ) => {
-	const styles = useStyles(props);
+	const styles = useLinkStyles(props);
 
 	const {
 		className,
 		// If styled as a button, the default for the chevron is false, vice versa for the link.
-		withChevron = props.styledAs == 'button' ? false : true,
+		withChevron = props.styledAs === 'link' || !props.styledAs ? true : false,
 		children,
 		styledAs = 'link',
 		lang,

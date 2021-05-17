@@ -33,6 +33,11 @@ export default {
 					name: 'button',
 					type: 'localeString',
 				},
+				{
+					title: 'Disclaimer',
+					name: 'disclaimer',
+					type: 'localeBlock',
+				},
 			],
 			options: {
 				collapsible: true,
@@ -69,7 +74,7 @@ export default {
 						{
 							title: 'Omschrijving',
 							name: 'description',
-							type: 'localeText',
+							type: 'localeBlock',
 						},
 						{
 							title: 'Afbeelding',
