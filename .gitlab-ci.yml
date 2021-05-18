@@ -33,7 +33,6 @@ image: harbor.diensten.test.overheid.standaardplatform.rijksapps.nl/vws-reis/too
       --dockerfile /packages/${CD_APP_FOLDER}/Dockerfile_derived
       --build-arg buildid=${CD_APP_TAG}
       --destination ${CD_HARBOR_REGISTRY}/vws-reis/${CD_APP_NAME}:${CD_APP_TAG}
-      --destination ${CD_HARBOR_REGISTRY}/vws-reis/${CD_APP_NAME}:${CD_TAG}
       --cache=true
 
 stages:
@@ -62,7 +61,6 @@ test:
 build reizen image latest:
   <<: *build-image
   variables:
-    CD_TAG: latest
     CD_APP_NAME: travel-during-corona-website
     CD_APP_FOLDER: reizen
   rules:
@@ -73,7 +71,6 @@ build reizen image latest:
 build check image latest:
   <<: *build-image
   variables:
-    CD_TAG: latest
     CD_APP_NAME: quarantaine-check-website
     CD_APP_FOLDER: check
   rules:
@@ -84,7 +81,6 @@ build check image latest:
 build reizen image staging:
   <<: *build-image
   variables:
-    CD_TAG: staging
     CD_APP_NAME: travel-during-corona-website
     CD_APP_FOLDER: reizen
   rules:
@@ -95,7 +91,6 @@ build reizen image staging:
 build check image staging:
   <<: *build-image
   variables:
-    CD_TAG: staging
     CD_APP_NAME: quarantaine-check-website
     CD_APP_FOLDER: check
   rules:
