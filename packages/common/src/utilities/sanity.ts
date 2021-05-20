@@ -231,8 +231,32 @@ const siteSettingsQuery = ({
 				locale,
 			})},
 		},
+		"checkAgainCalendar": {
+			${getLocaleProperty({
+				name: 'modalTitle',
+				path: 'checkAgainCalendar.modalTitle',
+				locale,
+			})},
+			${getLocaleProperty({
+				name: 'modalBody',
+				path: 'checkAgainCalendar.modalBody',
+				locale,
+			})},
+			${getLocaleProperty({
+				name: 'inviteTitle',
+				path: 'checkAgainCalendar.inviteTitle',
+				locale,
+			})},
+			${getLocaleProperty({
+				name: 'inviteText',
+				path: 'checkAgainCalendar.inviteText',
+				locale,
+			})},
+		},
 		${getLocaleProperty({ name: 'quarantineOverviewTitle', locale })},
 		${getLocaleProperty({ name: 'printCta', locale })},
+		${getLocaleProperty({ name: 'agendaCta', locale })},
+		${getLocaleProperty({ name: 'checkAgainCta', locale })},
 		${getLocaleProperty({ name: 'favoriteCta', locale })},
 		${getLocaleProperty({ name: 'GGDSpecialInstructions', locale })},
 	}`;

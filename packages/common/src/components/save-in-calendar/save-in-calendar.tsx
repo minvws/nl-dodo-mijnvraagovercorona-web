@@ -125,7 +125,7 @@ export const SaveInCalendar: React.FC<SingleDayProps | MultiDayProps> = (
 	return (
 		<Container
 			sx={{
-				marginTop: '24px',
+				marginTop: '16px',
 			}}
 		>
 			<Menu>
@@ -138,13 +138,14 @@ export const SaveInCalendar: React.FC<SingleDayProps | MultiDayProps> = (
 						textDecoration: 'none !important',
 						textAlign: 'left',
 						color: '#01689B !important',
+						width: '100%',
 					}}
 				>
 					<span
 						sx={{
 							display: 'flex',
 							alignItems: 'center',
-							justifyContent: 'center',
+							justifyContent: 'left',
 						}}
 					>
 						<span sx={{ mr: 12, svg: { width: 20, height: 18 } }}>

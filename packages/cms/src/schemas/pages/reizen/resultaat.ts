@@ -223,6 +223,23 @@ export default {
 			],
 		},
 		{
+			title: 'Quarantainetips',
+			name: 'quarantinetips',
+			type: 'object',
+			fields: [
+				{
+					title: 'Button',
+					name: 'button',
+					type: 'localeString',
+				},
+				{
+					title: 'Content',
+					name: 'content',
+					type: 'localeBlock',
+				},
+			],
+		},
+		{
 			title: 'URL',
 			name: 'url',
 			type: 'string',

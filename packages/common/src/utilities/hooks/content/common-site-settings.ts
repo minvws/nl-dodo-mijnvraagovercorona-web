@@ -34,5 +34,19 @@ export interface CommonSiteSettings {
 	quarantaineCalendar: {
 		dateSeperator: string;
 		otherCalendar: string;
+		title: string;
+		modalTitle: string;
+		modalBody: string;
+		inviteTitle: string;
+		inviteText: string;
 	};
+	checkAgainCalendar: {
+		modalTitle: string;
+		modalBody: string;
+		inviteTitle: string;
+		inviteText: string;
+	};
+	printCta: string;
+	checkAgainCta: string;
+	agendaCta: string;
 }
