@@ -215,6 +215,7 @@ export default {
 			title: 'Quarantaine Gids',
 			name: 'quarantaineGids',
 			type: 'object',
+			options: { collapsible: true },
 			fields: [
 				{
 					title: 'Quarantainegids button',
@@ -237,6 +238,7 @@ export default {
 			title: 'Quarantaine Agenda',
 			name: 'quarantaineCalendar',
 			type: 'object',
+			options: { collapsible: true },
 			fields: [
 				{
 					title: 'Tot en met',
@@ -260,8 +262,34 @@ export default {
 			],
 		},
 		{
+			title: 'Check Opnieuw Invullen Agenda',
+			name: 'checkAgainCalendar',
+			type: 'object',
+			options: { collapsible: true },
+			fields: [
+				{ title: 'Modal titel', name: 'modalTitle', type: 'localeString' },
+				{ title: 'Modal body', name: 'modalBody', type: 'localeString' },
+				{
+					title: 'Uitnodiging titel',
+					name: 'inviteTitle',
+					type: 'localeString',
+				},
+				{ title: 'Uitnodiging text', name: 'inviteText', type: 'localeString' },
+			],
+		},
+		{
 			title: 'Print call to action',
 			name: 'printCta',
+			type: 'localeString',
+		},
+		{
+			title: 'Check opnieuw call to action',
+			name: 'checkAgainCta',
+			type: 'localeString',
+		},
+		{
+			title: 'Agenda call to action',
+			name: 'agendaCta',
 			type: 'localeString',
 		},
 		{

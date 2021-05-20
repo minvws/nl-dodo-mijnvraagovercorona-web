@@ -26,14 +26,14 @@ import {
 	Content,
 	SchemeBlock,
 	SchemeBullet,
-	cartesianProduct
+	cartesianProduct,
+	PrinterIcon,
 } from '@quarantaine/common';
 
 import { SiteSettings } from 'content/site-settings';
 import { Page } from 'components/page';
 import { GGDSpecialInstructions } from 'components/ggd-special-instructions';
 import { getSituations } from 'utilities/situations';
-import { PrinterIcon } from 'icons/printer';
 import { getSanityPageIdBySituation, Situaties } from 'config/situaties';
 import Head from 'next/head';
 
