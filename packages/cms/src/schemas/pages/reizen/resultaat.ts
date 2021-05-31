@@ -130,11 +130,6 @@ export default {
 					],
 				},
 				{
-					title: 'Voorbereiding',
-					name: 'preparation',
-					type: 'travelCard',
-				},
-				{
 					title: 'Heenreis',
 					name: 'outbound',
 					type: 'travelCard',
