@@ -1,6 +1,7 @@
 export enum Locales {
 	Dutch = 'nl',
 	English = 'en',
+	Spanish = 'es',
 }
 
 export interface Locale {
@@ -28,5 +29,13 @@ export const locales: { [key: string]: Locale } = {
 		urlPrefix: '/en',
 		locale: 'en_gb',
 		alternateLocales: ['nl_nl'],
+	},
+	spanish: {
+		id: Locales.Spanish,
+		fullName: 'Spanish',
+		shortName: 'Es',
+		urlPrefix: '/es',
+		locale: 'es_es',
+		alternateLocales: ['en_gb'],
 	},
 };
