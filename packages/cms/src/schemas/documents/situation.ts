@@ -48,5 +48,15 @@ export default {
 			name: 'url',
 			type: 'string',
 		},
+		{
+			title: 'Beschermd-vraag tonen?',
+			name: 'showProtected',
+			type: 'boolean',
+		},
+		{
+			title: 'Datum-vraag tonen?',
+			name: 'showDate',
+			type: 'boolean',
+		},
 	],
 };

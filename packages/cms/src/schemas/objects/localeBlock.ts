@@ -44,6 +44,12 @@ export default {
 							},
 							fields: [
 								{ name: 'href', type: 'string' },
+								{
+									title: 'Situatiepagina',
+									name: 'situation_page',
+									type: 'reference',
+									to: [{ type: 'situation-document' }],
+								},
 								{ name: 'chevron', type: 'boolean' },
 								{ name: 'button', type: 'boolean' },
 								{ name: 'internal', type: 'boolean' },
