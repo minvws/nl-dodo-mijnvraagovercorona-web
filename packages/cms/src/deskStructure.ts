@@ -236,7 +236,13 @@ const checkPagesConfig = [
 	},
 ];
 
-const checkMultiDocumentsConfig = [];
+const checkMultiDocumentsConfig = [
+	{
+		schemaType: 'situation-document',
+		title: `Situatiepagina's`,
+		icon: GiHelp,
+	},
+];
 
 export default () =>
 	S.list()
@@ -260,5 +266,9 @@ export default () =>
 
 			/** Check Pages */
 			...checkPagesConfig.map((config) => getPage(config)),
+			S.divider(),
+
+			/** Check Multiple Documents */
+			...checkMultiDocumentsConfig.map((config) => getDocumentList(config)),
 			S.divider(),
 		]);
