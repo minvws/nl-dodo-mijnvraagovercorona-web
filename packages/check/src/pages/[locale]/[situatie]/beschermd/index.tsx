@@ -16,6 +16,7 @@ import {
 	Hero,
 	Dialog,
 	formatShortDate,
+	Fieldset,
 	sanityClient,
 	getPageQuery,
 	getLocaleProperty,
@@ -97,9 +98,7 @@ export default function Beschermd({
 				<Content noSpacingOnTop>
 					<BodyContainer sx={{ display: 'flex', flexDirection: 'column' }}>
 						<form method="POST" action="" onSubmit={handleSubmit} ref={formRef}>
-							<fieldset>
-								<legend>{page.beschermdLabel}</legend>
-
+							<Fieldset legend={page.beschermdLabel}>
 								<ContentBlock content={page.beschermdHelpText} />
 
 								<RadioButton
@@ -116,7 +115,7 @@ export default function Beschermd({
 									value="no"
 									onChange={onRadioChange}
 								/>
-							</fieldset>
+							</Fieldset>
 
 							<Link as="button" styledAs="button" type="submit">
 								{page.beschermdButtonText}

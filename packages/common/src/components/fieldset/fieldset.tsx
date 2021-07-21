@@ -3,7 +3,7 @@ import { theme } from '../../theme';
 import { Heading, jsx } from 'theme-ui';
 
 interface FieldsetProps<ValueOptions> {
-	children: React.ReactChildren;
+	children: JSX.Element | JSX.Element[];
 	legend?: string | React.ReactElement;
 }
 
@@ -15,7 +15,7 @@ export const Fieldset = <ValueOptions extends string>({
 		<fieldset
 			sx={{
 				padding: 0,
-				margin: 0,
+				marginBottom: 'paragraphSpacing',
 				border: 'none',
 			}}
 		>

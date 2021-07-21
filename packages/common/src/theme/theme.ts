@@ -155,6 +155,7 @@ export const theme: Theme = {
 			lineHeight: 'body',
 			fontWeight: 'bold',
 			marginBottom: '12px',
+			padding: 0,
 		},
 	},
 };
