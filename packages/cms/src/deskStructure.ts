@@ -20,6 +20,7 @@ import {
 	GiRadioactive,
 	GiTrail,
 	GiCarWheel,
+	GiShieldReflect,
 } from 'react-icons/gi';
 import { BiError } from 'react-icons/bi';
 import { FaRegCopyright, FaAccessibleIcon } from 'react-icons/fa';
@@ -173,6 +174,11 @@ const checkPagesConfig = [
 		schemaType: 'jouw-situatie-page',
 		title: 'Check Jouw Situatie Pagina',
 		icon: GiPeriscope,
+	},
+	{
+		schemaType: 'check-beschermd-page',
+		title: 'Check Beschermd Pagina',
+		icon: GiShieldReflect,
 	},
 	{
 		schemaType: 'wanneer-page',
