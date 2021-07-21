@@ -149,5 +149,12 @@ export const theme: Theme = {
 			marginTop: '16px',
 			marginBottom: '12px',
 		},
+		legend: {
+			fontFamily: 'body',
+			fontSize: 'body',
+			lineHeight: 'body',
+			fontWeight: 'bold',
+			marginBottom: '12px',
+		},
 	},
 };
