@@ -29,7 +29,7 @@ import geenResultaatPage from './pages/reizen/geen-resultaat';
 
 import checkLandingPage from './pages/check/check-landing';
 import jouwSituatiePage from './pages/check/jouw-situatie';
-import beschermdPage from './pages/check/beschermd';
+import benIkBeschermdPage from './pages/check/ben-ik-beschermd';
 import wanneerPage from './pages/check/wanneer';
 import geenAdviesPage from './pages/check/geen-advies';
 import situatieZelfKlachtenPage from './pages/check/situatie-zelf-klachten';
@@ -87,7 +87,7 @@ export default createSchema({
 		 */
 		checkLandingPage,
 		jouwSituatiePage,
-		beschermdPage,
+		benIkBeschermdPage,
 		wanneerPage,
 		geenAdviesPage,
 		situatieZelfKlachtenPage,

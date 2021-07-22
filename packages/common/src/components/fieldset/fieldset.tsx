@@ -1,6 +1,5 @@
 /** @jsx jsx */
-import { theme } from '../../theme';
-import { Heading, jsx } from 'theme-ui';
+import { jsx, Text } from 'theme-ui';
 
 interface FieldsetProps<ValueOptions> {
 	children: JSX.Element | JSX.Element[];
@@ -20,14 +19,9 @@ export const Fieldset = <ValueOptions extends string>({
 			}}
 		>
 			{legend && (
-				<Heading
-					as="legend"
-					sx={{
-						...theme.text?.legend,
-					}}
-				>
+				<Text as="legend" variant="legend">
 					{legend}
-				</Heading>
+				</Text>
 			)}
 			{children}
 		</fieldset>

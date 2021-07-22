@@ -5,17 +5,9 @@ import React, { useMemo, useRef, useState } from 'react';
 import { Page } from 'components/page';
 
 import {
-	DatepickerTopbar,
-	DatepickerTopbarTitle,
-	DatepickerBacklinkWrapper,
-	ScreenReaderOnly,
-	BodyContainer,
-	Datepicker,
 	Link,
 	MetaTags,
 	Hero,
-	Dialog,
-	formatShortDate,
 	Fieldset,
 	sanityClient,
 	getPageQuery,
@@ -23,7 +15,6 @@ import {
 	useSanityPageContent,
 	cartesianProduct,
 	ContentBlock,
-	addDays,
 	Content,
 	RadioButton,
 } from '@quarantaine/common';
@@ -32,7 +23,6 @@ import { getSituations } from 'utilities/situations';
 
 import 'react-day-picker/lib/style.css';
 import { useRouter } from 'next/router';
-import { differenceInDays, startOfDay, format } from 'date-fns';
 import { ProgressMarker } from 'components/progress-marker';
 
 interface PageContent {
@@ -74,6 +64,11 @@ export default function Beschermd({
 		console.log('Volgende!');
 
 		// TODO: update url based on currentSituation.showDate
+
+		// deze pagina: situatie/ben-ik-beschermd
+		// ja ik ben beschermd -> beschermd pagina // situatie/ik-ben-beschermd
+		// nee & currentSituation.showDate -> date pagina // situatie/wanneer
+		// nee & !currentSituation.showDate -> onbeschermd pagina // situatie/ik-ben-niet-beschermd
 	};
 
 	const onRadioChange = (value: any) => {
@@ -95,33 +90,30 @@ export default function Beschermd({
 						currentStage={2}
 					/>
 				</Hero>
-				<Content noSpacingOnTop>
-					<BodyContainer sx={{ display: 'flex', flexDirection: 'column' }}>
-						<form method="POST" action="" onSubmit={handleSubmit} ref={formRef}>
-							<Fieldset legend={page.beschermdLabel}>
-								<ContentBlock content={page.beschermdHelpText} />
+				<Content>
+					<form method="POST" action="" onSubmit={handleSubmit} ref={formRef}>
+						<Fieldset legend={page.beschermdLabel}>
+							<ContentBlock content={page.beschermdHelpText} />
+							<RadioButton
+								name="protected"
+								id="beschermdYesLabel"
+								label={<ContentBlock content={page.beschermdYesLabel} />}
+								value="yes"
+								onChange={onRadioChange}
+							/>
+							<RadioButton
+								name="protected"
+								id="beschermdNoLabel"
+								label={<ContentBlock content={page.beschermdNoLabel} />}
+								value="no"
+								onChange={onRadioChange}
+							/>
+						</Fieldset>
 
-								<RadioButton
-									name="protected"
-									id="beschermdYesLabel"
-									label={<ContentBlock content={page.beschermdYesLabel} />}
-									value="yes"
-									onChange={onRadioChange}
-								/>
-								<RadioButton
-									name="protected"
-									id="beschermdNoLabel"
-									label={<ContentBlock content={page.beschermdNoLabel} />}
-									value="no"
-									onChange={onRadioChange}
-								/>
-							</Fieldset>
-
-							<Link as="button" styledAs="button" type="submit">
-								{page.beschermdButtonText}
-							</Link>
-						</form>
-					</BodyContainer>
+						<Link as="button" styledAs="button" type="submit">
+							{page.beschermdButtonText}
+						</Link>
+					</form>
 				</Content>
 			</Page>
 		</>
@@ -173,7 +165,7 @@ export const getStaticProps = async ({
 	const { page, siteSettings } = await sanityClient.fetch(
 		getPageQuery({
 			site: 'quarantaine-check',
-			type: 'check-beschermd-page',
+			type: 'check-ben-ik-beschermd-page',
 			pageProjection,
 			locale,
 		}),

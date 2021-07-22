@@ -1,6 +1,6 @@
 export default {
-	title: 'Check Beschermd Pagina',
-	name: 'check-beschermd-page',
+	title: 'Check Ben ik beschermd Pagina',
+	name: 'check-ben-ik-beschermd-page',
 	type: 'document',
 	fields: [
 		{

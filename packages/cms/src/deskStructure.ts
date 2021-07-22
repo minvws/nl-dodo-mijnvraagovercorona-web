@@ -176,8 +176,8 @@ const checkPagesConfig = [
 		icon: GiPeriscope,
 	},
 	{
-		schemaType: 'check-beschermd-page',
-		title: 'Check Beschermd Pagina',
+		schemaType: 'check-ben-ik-beschermd-page',
+		title: 'Check Ben ik beschermd Pagina',
 		icon: GiShieldReflect,
 	},
 	{
