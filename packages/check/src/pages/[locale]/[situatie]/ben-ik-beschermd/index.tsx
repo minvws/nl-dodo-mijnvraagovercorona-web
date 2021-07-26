@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useState } from 'react';
 
 import { Page } from 'components/page';
 
@@ -143,13 +143,13 @@ type Situaties =
 	| 'ik-heb-corona-met-klachten'
 	| 'ik-heb-corona-zonder-klachten';
 
-interface WanneerStaticProps {
+interface BeschermdStaticProps {
 	params: { locale: 'nl' | 'en'; situatie: Situaties };
 }
 
 export const getStaticProps = async ({
 	params: { locale, situatie },
-}: WanneerStaticProps) => {
+}: BeschermdStaticProps) => {
 	const situations = await getSituations();
 	const currentSituation = situations.find(
 		(situation) => situation.url === situatie,
