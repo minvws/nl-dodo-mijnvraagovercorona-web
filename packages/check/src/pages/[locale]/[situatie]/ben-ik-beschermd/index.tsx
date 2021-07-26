@@ -51,28 +51,32 @@ export default function Beschermd({
 	currentSituation,
 	locale,
 }: BeschermdProps) {
+	const baseUrl = `/${locale}/${currentSituation.url}`;
 	const page = useSanityPageContent<PageContent>();
-	// const router = useRouter();
-	// const linkRef = useRef<HTMLAnchorElement>(null);
-	const formRef = useRef<HTMLFormElement>(null);
+	const [selectedOption, setSelectedOption] = useState<string>();
 
 	/**
 	 * Navigate to next step.
 	 */
-	const handleSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
-		ev.preventDefault();
-		console.log('Volgende!');
+	const getNextStepUrl = () => {
+		if (selectedOption === 'yes') {
+			// ja ik ben beschermd -> beschermd pagina // situatie/ik-ben-beschermd
+			return `${baseUrl}/ik-ben-beschermd`;
+		} else if (
+			selectedOption === 'no' &&
+			typeof currentSituation.showDate !== 'undefined' &&
+			currentSituation.showDate
+		) {
+			// nee & currentSituation.showDate -> date pagina // situatie/wanneer
+			return `${baseUrl}/wanneer`;
+		}
 
-		// TODO: update url based on currentSituation.showDate
-
-		// deze pagina: situatie/ben-ik-beschermd
-		// ja ik ben beschermd -> beschermd pagina // situatie/ik-ben-beschermd
-		// nee & currentSituation.showDate -> date pagina // situatie/wanneer
-		// nee & !currentSituation.showDate -> onbeschermd pagina // situatie/ik-ben-niet-beschermd
+		// nee & !currentSituation.showDate -> onbeschermd pagina // situatie
+		return `${baseUrl}`;
 	};
 
-	const onRadioChange = (value: any) => {
-		console.log('Radio change!');
+	const onRadioChange = (value: string) => {
+		setSelectedOption(value);
 	};
 
 	return (
@@ -91,29 +95,29 @@ export default function Beschermd({
 					/>
 				</Hero>
 				<Content>
-					<form method="POST" action="" onSubmit={handleSubmit} ref={formRef}>
-						<Fieldset legend={page.beschermdLabel}>
-							<ContentBlock content={page.beschermdHelpText} />
-							<RadioButton
-								name="protected"
-								id="beschermdYesLabel"
-								label={<ContentBlock content={page.beschermdYesLabel} />}
-								value="yes"
-								onChange={onRadioChange}
-							/>
-							<RadioButton
-								name="protected"
-								id="beschermdNoLabel"
-								label={<ContentBlock content={page.beschermdNoLabel} />}
-								value="no"
-								onChange={onRadioChange}
-							/>
-						</Fieldset>
+					<Fieldset legend={page.beschermdLabel}>
+						<ContentBlock content={page.beschermdHelpText} />
+						<RadioButton
+							name="protected"
+							id="beschermdYesLabel"
+							label={<ContentBlock content={page.beschermdYesLabel} />}
+							value="yes"
+							onChange={onRadioChange}
+						/>
+						<RadioButton
+							name="protected"
+							id="beschermdNoLabel"
+							label={<ContentBlock content={page.beschermdNoLabel} />}
+							value="no"
+							onChange={onRadioChange}
+						/>
+					</Fieldset>
 
-						<Link as="button" styledAs="button" type="submit">
+					{selectedOption && (
+						<Link href={getNextStepUrl()} styledAs="button">
 							{page.beschermdButtonText}
 						</Link>
-					</form>
+					)}
 				</Content>
 			</Page>
 		</>
