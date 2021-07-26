@@ -51,8 +51,9 @@ export default function Beschermd({
 	currentSituation,
 	locale,
 }: BeschermdProps) {
-	const baseUrl = `/${locale}/${currentSituation.url}`;
+	const router = useRouter();
 	const page = useSanityPageContent<PageContent>();
+	const baseUrl = `/${locale}/${currentSituation.url}`;
 	const [selectedOption, setSelectedOption] = useState<string>();
 
 	/**
@@ -79,6 +80,13 @@ export default function Beschermd({
 		setSelectedOption(value);
 	};
 
+	const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		console.log('submit to:', getNextStepUrl());
+
+		router.push(getNextStepUrl());
+	};
+
 	return (
 		<>
 			<MetaTags
@@ -95,29 +103,31 @@ export default function Beschermd({
 					/>
 				</Hero>
 				<Content>
-					<Fieldset legend={page.beschermdLabel}>
-						<ContentBlock content={page.beschermdHelpText} />
-						<RadioButton
-							name="protected"
-							id="beschermdYesLabel"
-							label={<ContentBlock content={page.beschermdYesLabel} />}
-							value="yes"
-							onChange={onRadioChange}
-						/>
-						<RadioButton
-							name="protected"
-							id="beschermdNoLabel"
-							label={<ContentBlock content={page.beschermdNoLabel} />}
-							value="no"
-							onChange={onRadioChange}
-						/>
-					</Fieldset>
+					<form action="" onSubmit={onSubmit}>
+						<Fieldset legend={page.beschermdLabel}>
+							<ContentBlock content={page.beschermdHelpText} />
+							<RadioButton
+								name="protected"
+								id="beschermdYesLabel"
+								label={<ContentBlock content={page.beschermdYesLabel} />}
+								value="yes"
+								onChange={onRadioChange}
+							/>
+							<RadioButton
+								name="protected"
+								id="beschermdNoLabel"
+								label={<ContentBlock content={page.beschermdNoLabel} />}
+								value="no"
+								onChange={onRadioChange}
+							/>
+						</Fieldset>
 
-					{selectedOption && (
-						<Link href={getNextStepUrl()} styledAs="button">
-							{page.beschermdButtonText}
-						</Link>
-					)}
+						{selectedOption && (
+							<Link as="button" styledAs="button" type="submit">
+								{page.beschermdButtonText}
+							</Link>
+						)}
+					</form>
 				</Content>
 			</Page>
 		</>
