@@ -19,7 +19,7 @@ export const RadioButton = <ValueOptions extends string>({
 	id,
 }: RadioButtonProps<ValueOptions>) => {
 	return (
-		<>
+		<div sx={{ '& + &': { marginTop: 'mobilePadding' } }}>
 			<input
 				id={id}
 				type="radio"
@@ -28,6 +28,7 @@ export const RadioButton = <ValueOptions extends string>({
 				onChange={(ev) => onChange(ev.target.value as ValueOptions)}
 				checked={checked}
 				sx={{
+					position: 'absolute',
 					height: 0,
 					width: 0,
 					opacity: 0,
@@ -71,6 +72,6 @@ export const RadioButton = <ValueOptions extends string>({
 			>
 				{label}
 			</label>
-		</>
+		</div>
 	);
 };

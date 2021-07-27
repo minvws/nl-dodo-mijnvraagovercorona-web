@@ -1,0 +1,38 @@
+import { Meta, Props, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { Fieldset } from './';
+import { RadioButton } from '../radio-button';
+
+<Meta title="Components/Fieldset" component={Fieldset} />
+
+# Fieldset
+
+The Fieldset is used to create a group of form elements.
+
+## Props
+
+<Props of={Fieldset} />
+
+## Component usage
+
+<Canvas>
+	<Story name="Fieldset">
+		<Fieldset
+			legend="Gegroepeerde invoervelden"
+		>
+			<RadioButton
+				name="radio"
+				label="Een voorbeeld radiobutton 1"
+				value="1"
+				id="uniek1"
+				onChange={(value) => console.log(value)}
+			/>
+			<RadioButton
+				name="radio"
+				label="Een voorbeeld radiobutton 2"
+				value="2"
+				id="uniek2"
+				onChange={(value) => console.log(value)}
+			/>
+		</Fieldset>
+	</Story>
+</Canvas>
