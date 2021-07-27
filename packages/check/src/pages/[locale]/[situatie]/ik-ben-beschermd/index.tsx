@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui';
+import { Box, jsx } from 'theme-ui';
 import React from 'react';
 
 import { Page } from 'components/page';
@@ -8,15 +8,17 @@ import {
 	MetaTags,
 	Hero,
 	sanityClient,
-	getPageQuery,
 	getLocaleProperty,
 	useSanityPageContent,
 	cartesianProduct,
 	Content,
+	getSituationPageQuery,
+	ContentBlock,
+	Tile,
 } from '@quarantaine/common';
 
 import { getSituations } from 'utilities/situations';
-
+import { GGDSpecialInstructions } from 'components/ggd-special-instructions';
 interface PageContent {
 	metaData: {
 		title: string;
@@ -26,64 +28,56 @@ interface PageContent {
 		title: string;
 	};
 	pretitle: string;
-	isBeschermdText: Object[];
 	url: string;
+	showProtected?: boolean;
+	beschermdTitle: string;
+	beschermdText: Object[];
+	showDate?: boolean;
 }
 
 interface IsBeschermdProps {
-	currentSituation: any; // TODO
 	locale: 'nl';
 }
 
-export default function IsBeschermd({
-	currentSituation,
-	locale,
-}: IsBeschermdProps) {
+export default function IsBeschermd({ locale }: IsBeschermdProps) {
 	const page = useSanityPageContent<PageContent>();
-
-	console.log('page', page);
 
 	return (
 		<>
 			<MetaTags
 				title={page.metaData.title}
 				description={page.metaData.title}
-				url={page.url.replace('$$situatie', currentSituation.url)}
+				url={`/${page.url}`}
 			/>
 
 			<Page showRetryLink>
 				<Hero
-					title={page.header.title}
+					title={page.beschermdTitle}
 					titlePrefix={page.pretitle}
-					illustrationUrl="/images/illustration-couch.svg"
+					illustrationUrl="/images/illustration-door.svg"
 				/>
-				<Content>{page.isBeschermdText}</Content>
+				<Content>
+					<section sx={{ paddingRight: [, '165px'] }}>
+						<Tile>
+							<ContentBlock content={page.beschermdText} />
+						</Tile>
+						<Box sx={{ mt: 'box' }}>
+							<GGDSpecialInstructions />
+						</Box>
+					</section>
+				</Content>
 			</Page>
 		</>
 	);
 }
 
-type Situaties =
-	| 'ik-kan-geen-afstand-houden-en-huisgenoot-heeft-geen-klachten'
-	| 'ik-kan-afstand-houden'
-	| 'ik-ben-misschien-besmet'
-	| 'ik-heb-een-coronamelder-melding-gekregen'
-	| 'ik-kom-uit-een-risicogebied'
-	| 'ik-heb-corona-met-klachten'
-	| 'ik-heb-corona-zonder-klachten';
-
 interface IsBeschermdStaticProps {
-	params: { locale: 'nl' | 'en'; situatie: Situaties };
+	params: { locale: 'nl' | 'en'; situatie: string };
 }
 
 export const getStaticProps = async ({
 	params: { locale, situatie },
 }: IsBeschermdStaticProps) => {
-	const situations = await getSituations();
-	const currentSituation = situations.find(
-		(situation) => situation.url === situatie,
-	);
-
 	const pageProjection = `{
 		"metaData": {
 			${getLocaleProperty({ name: 'title', path: 'metaData.title', locale })},
@@ -95,16 +89,20 @@ export const getStaticProps = async ({
 		},
 		"header": {
 			${getLocaleProperty({ name: 'title', path: `header.title`, locale })},
+			${getLocaleProperty({ name: 'pretitle', path: 'header.pretitle', locale })},
 		},
 		${getLocaleProperty({ name: 'pretitle', locale })},
-		${getLocaleProperty({ name: 'isBeschermdText', locale })},
+		${getLocaleProperty({ name: 'beschermdTitle', locale })},
+		${getLocaleProperty({ name: 'beschermdText', locale })},
 		url,
+		showProtected,
+    showDate
 	}`;
 
 	const { page, siteSettings } = await sanityClient.fetch(
-		getPageQuery({
-			site: 'quarantaine-check',
-			type: 'check-ik-ben-beschermd-page',
+		getSituationPageQuery({
+			type: 'situation-document',
+			situationSlug: situatie,
 			pageProjection,
 			locale,
 		}),
@@ -113,7 +111,6 @@ export const getStaticProps = async ({
 	return {
 		props: {
 			page,
-			currentSituation,
 			siteSettings,
 			locale,
 		},

@@ -29,7 +29,6 @@ import geenResultaatPage from './pages/reizen/geen-resultaat';
 
 import checkLandingPage from './pages/check/check-landing';
 import jouwSituatiePage from './pages/check/jouw-situatie';
-import ikBenBeschermdPage from './pages/check/ik-ben-beschermd';
 import benIkBeschermdPage from './pages/check/ben-ik-beschermd';
 import wanneerPage from './pages/check/wanneer';
 import geenAdviesPage from './pages/check/geen-advies';
@@ -88,7 +87,6 @@ export default createSchema({
 		 */
 		checkLandingPage,
 		jouwSituatiePage,
-		ikBenBeschermdPage,
 		benIkBeschermdPage,
 		wanneerPage,
 		geenAdviesPage,

@@ -181,11 +181,6 @@ const checkPagesConfig = [
 		icon: GiShieldReflect,
 	},
 	{
-		schemaType: 'check-ik-ben-beschermd-page',
-		title: 'Check Ik ben beschermd Pagina',
-		icon: GiShieldReflect,
-	},
-	{
 		schemaType: 'wanneer-page',
 		title: 'Check Wanneer Pagina',
 		icon: GiCalendar,
