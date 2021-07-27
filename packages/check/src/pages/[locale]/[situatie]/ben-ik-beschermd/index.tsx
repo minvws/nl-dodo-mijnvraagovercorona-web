@@ -24,6 +24,7 @@ import { getSituations } from 'utilities/situations';
 import 'react-day-picker/lib/style.css';
 import { useRouter } from 'next/router';
 import { ProgressMarker } from 'components/progress-marker';
+import { Situation } from 'config/situaties';
 
 interface PageContent {
 	metaData: {
@@ -43,7 +44,7 @@ interface PageContent {
 }
 
 interface BeschermdProps {
-	currentSituation: any; // TODO
+	currentSituation: Situation;
 	locale: 'nl';
 }
 
@@ -82,8 +83,6 @@ export default function Beschermd({
 
 	const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		console.log('submit to:', getNextStepUrl());
-
 		router.push(getNextStepUrl());
 	};
 
@@ -134,17 +133,8 @@ export default function Beschermd({
 	);
 }
 
-type Situaties =
-	| 'ik-kan-geen-afstand-houden-en-huisgenoot-heeft-geen-klachten'
-	| 'ik-kan-afstand-houden'
-	| 'ik-ben-misschien-besmet'
-	| 'ik-heb-een-coronamelder-melding-gekregen'
-	| 'ik-kom-uit-een-risicogebied'
-	| 'ik-heb-corona-met-klachten'
-	| 'ik-heb-corona-zonder-klachten';
-
 interface BeschermdStaticProps {
-	params: { locale: 'nl' | 'en'; situatie: Situaties };
+	params: { locale: 'nl' | 'en'; situatie: string };
 }
 
 export const getStaticProps = async ({
