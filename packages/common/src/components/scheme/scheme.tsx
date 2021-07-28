@@ -2,9 +2,9 @@
 import { Box, Flex, jsx, Text } from 'theme-ui';
 
 export interface SchemeBlockProps {
-	title: string;
+	title?: string;
 	subtitle?: string;
-	day: string;
+	day?: string;
 }
 
 export const SchemeBlock: React.FC<SchemeBlockProps> = ({
@@ -53,38 +53,50 @@ export const SchemeBlock: React.FC<SchemeBlockProps> = ({
 			},
 		}}
 	>
-		<Flex
-			sx={{
-				justifyContent: 'space-between',
-				alignItems: 'center',
-				'& + div': { mt: '16px' },
-				'@media print': {
-					mt: '0 !important',
-				},
-			}}
-		>
-			<p sx={{ margin: 0, color: 'smallText', fontWeight: 'bold' }}>
-				{title}
-				{subtitle && (
-					<>
-						{' '}
-						<span sx={{ fontWeight: 'normal' }}>{subtitle}</span>
-					</>
-				)}
-			</p>
-			<Text
-				variant="chapeau"
-				as="span"
+		{title && day && (
+			<Flex
 				sx={{
-					margin: 0,
-					color: 'copyHeading',
-					fontWeight: 'normal',
+					justifyContent: 'space-between',
+					alignItems: 'center',
+					'& + div': { mt: '16px' },
+					'@media print': {
+						mt: '0 !important',
+					},
 				}}
 			>
-				{day}
-			</Text>
-		</Flex>
-		{children && <Box>{children}</Box>}
+				<p sx={{ margin: 0, color: 'smallText', fontWeight: 'bold' }}>
+					{title}
+					{subtitle && (
+						<>
+							{' '}
+							<span sx={{ fontWeight: 'normal' }}>{subtitle}</span>
+						</>
+					)}
+				</p>
+				<Text
+					variant="chapeau"
+					as="span"
+					sx={{
+						margin: 0,
+						color: 'copyHeading',
+						fontWeight: 'normal',
+					}}
+				>
+					{day}
+				</Text>
+			</Flex>
+		)}
+		{children && (
+			<Box
+				sx={{
+					'p:last-child': {
+						marginBottom: 0,
+					},
+				}}
+			>
+				{children}
+			</Box>
+		)}
 	</Box>
 );
 

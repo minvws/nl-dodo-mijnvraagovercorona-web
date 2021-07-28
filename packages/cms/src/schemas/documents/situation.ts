@@ -54,6 +54,16 @@ export default {
 			type: 'boolean',
 		},
 		{
+			title: 'Beschermd header title',
+			name: 'beschermdTitle',
+			type: 'localeString',
+		},
+		{
+			title: 'Beschermd text',
+			name: 'beschermdText',
+			type: 'localeBlock',
+		},
+		{
 			title: 'Datum-vraag tonen?',
 			name: 'showDate',
 			type: 'boolean',
