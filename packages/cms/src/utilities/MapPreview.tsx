@@ -8,10 +8,10 @@ import * as topojson from 'topojson-client';
 type RiskLevels = 'X' | 'Y' | 'Z' | 'ZV';
 
 const statusToColorMapping: { [key in RiskLevels]: string } = {
-	X: 'green',
-	Y: 'yellow',
-	Z: 'orange',
-	ZV: 'red',
+	X: '#39870C',
+	Y: '#F9E11E',
+	Z: '#E17000',
+	ZV: '#D52B1E',
 };
 
 interface TooltipData {
