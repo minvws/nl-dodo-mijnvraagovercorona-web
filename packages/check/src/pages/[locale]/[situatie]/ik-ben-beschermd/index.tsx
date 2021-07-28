@@ -14,7 +14,7 @@ import {
 	Content,
 	getSituationPageQuery,
 	ContentBlock,
-	Tile,
+	SchemeBlock,
 } from '@quarantaine/common';
 
 import { getSituations } from 'utilities/situations';
@@ -58,9 +58,9 @@ export default function IsBeschermd({ locale }: IsBeschermdProps) {
 				/>
 				<Content>
 					<section sx={{ paddingRight: [, '165px'] }}>
-						<Tile>
+						<SchemeBlock>
 							<ContentBlock content={page.beschermdText} />
-						</Tile>
+						</SchemeBlock>
 						<Box sx={{ mt: 'box' }}>
 							<GGDSpecialInstructions />
 						</Box>
