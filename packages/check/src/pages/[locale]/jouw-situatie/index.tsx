@@ -53,7 +53,7 @@ interface JouwSituatiePageContent {
 
 export default function JouwSituatie() {
 	const page = useSanityPageContent<JouwSituatiePageContent>();
-
+	console.log(page);
 	return (
 		<>
 			<MetaTags
@@ -147,6 +147,21 @@ export const getStaticProps = async ({
 				name: 'content',
 				locale,
 			})},
+      "contentBlocks": contentBlocks[]{
+        ${getLocaleProperty({
+					name: 'content',
+					locale,
+				})},
+        "situation": {
+          ${getLocaleProperty({
+						name: 'situationLinkTitle',
+						locale,
+					})},
+          "url": situationReference->url,
+          "showDate": situationReference->showDate,
+          "showProtected": situationReference->showProtected,
+        }
+      }
 		},
 		${getLocaleProperty({ name: 'situationsOtherTitle', locale })},
 		"situationsOther": situationsOther[]{
@@ -170,7 +185,13 @@ export const getStaticProps = async ({
 			${getLocaleProperty({
 				name: 'content',
 				locale,
-			})}
+			})},
+      "contentBlocks": contentBlocks[]{
+        ${getLocaleProperty({
+					name: 'content',
+					locale,
+				})},
+      }
 		},
 		"noMatch": {
 			${getLocaleProperty({ name: 'title', path: 'noMatch.title', locale })},
