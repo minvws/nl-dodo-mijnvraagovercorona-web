@@ -20,6 +20,13 @@ import {
 } from '@quarantaine/common';
 import { Situation } from 'config/situaties';
 
+interface SituationContent {
+	title: string;
+	titleSuffix?: string;
+	content: Array<Object>;
+	contentBlocks: Array<Object>;
+}
+
 interface JouwSituatiePageContent {
 	metaData: {
 		title: string;
@@ -29,22 +36,11 @@ interface JouwSituatiePageContent {
 		title: string;
 	};
 	situationsYouTitle: string;
-	situationsYou: {
-		title: string;
-		titleSuffix?: string;
-		content: Array<Object>;
-		contentBlocks: Array<Object>;
-	}[];
+	situationsYou: SituationContent[];
 	situationsOtherTitle: string;
-	situationsOther: {
-		title: string;
-		content: Array<Object>;
-	}[];
+	situationsOther: SituationContent[];
 	situationsExceptionsTitle: string;
-	situationsExceptions: {
-		title: string;
-		content: Array<Object>;
-	}[];
+	situationsExceptions: SituationContent[];
 	noMatch: {
 		title: string;
 		content: Array<Object>;
@@ -74,6 +70,35 @@ const getUrlBySituation = (situation: Situation) => {
 	return `/${situation.url}`;
 };
 
+const renderPanel = (situation: SituationContent) => (
+	<ExpansionPanel
+		key={situation.title}
+		title={situation.title}
+		titleSuffix={situation.titleSuffix}
+		variant="plus"
+	>
+		{situation.contentBlocks &&
+			situation.contentBlocks.map(
+				(contentBlock: ContentBlocks, key: number) => {
+					if (contentBlock.content) {
+						return <ContentBlock key={key} content={contentBlock.content} />;
+					} else if (contentBlock.situation?.url) {
+						return (
+							<Styled.p key={key}>
+								<Link
+									styledAs="button"
+									href={getUrlBySituation(contentBlock.situation)}
+								>
+									{contentBlock.situation.situationLinkTitle}
+								</Link>
+							</Styled.p>
+						);
+					}
+				},
+			)}
+	</ExpansionPanel>
+);
+
 export default function JouwSituatie() {
 	const page = useSanityPageContent<JouwSituatiePageContent>();
 	return (
@@ -93,69 +118,19 @@ export default function JouwSituatie() {
 				<Content>
 					<Box sx={{ mt: '36px' }}>
 						<Styled.h2>{page.situationsYouTitle}</Styled.h2>
-						{page.situationsYou.map((situation) => (
-							<ExpansionPanel
-								key={situation.title}
-								title={situation.title}
-								titleSuffix={situation.titleSuffix}
-								variant="plus"
-							>
-								{/* TODO: Old situation content, can be removed if content is all moved to contentBlocks */}
-								{!situation.contentBlocks && (
-									<ContentBlock content={situation.content} />
-								)}
-								{situation.contentBlocks &&
-									situation.contentBlocks.map(
-										(contentBlock: ContentBlocks, key) => {
-											if (contentBlock.content) {
-												return (
-													<ContentBlock
-														key={key}
-														content={contentBlock.content}
-													/>
-												);
-											} else if (contentBlock.situation?.url) {
-												return (
-													<Styled.p key={key}>
-														<Link
-															styledAs="button"
-															href={getUrlBySituation(contentBlock.situation)}
-														>
-															{contentBlock.situation.situationLinkTitle}
-														</Link>
-													</Styled.p>
-												);
-											}
-										},
-									)}
-							</ExpansionPanel>
-						))}
+						{page.situationsYou.map((situation) => renderPanel(situation))}
 					</Box>
 					<Box sx={{ my: '36px' }}>
 						<Styled.h2>{page.situationsOtherTitle}</Styled.h2>
 
-						{page.situationsOther.map((situation) => (
-							<ExpansionPanel
-								key={situation.title}
-								title={situation.title}
-								variant="plus"
-							>
-								<ContentBlock content={situation.content} />
-							</ExpansionPanel>
-						))}
+						{page.situationsOther.map((situation) => renderPanel(situation))}
 					</Box>
 					<Box sx={{ my: '36px' }}>
 						<Styled.h2>{page.situationsExceptionsTitle}</Styled.h2>
 
-						{page.situationsExceptions.map((situation) => (
-							<ExpansionPanel
-								key={situation.title}
-								title={situation.title}
-								variant="plus"
-							>
-								<ContentBlock content={situation.content} />
-							</ExpansionPanel>
-						))}
+						{page.situationsExceptions.map((situation) =>
+							renderPanel(situation),
+						)}
 					</Box>
 
 					<Styled.h2>{page.noMatch.title}</Styled.h2>
