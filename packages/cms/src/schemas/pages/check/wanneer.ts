@@ -8,6 +8,7 @@ export default {
 			name: 'metaData',
 			type: 'pageMetaData',
 		},
+		// TODO: verwijderen als content verplaatst is
 		{
 			title: 'Header in de buurt',
 			name: 'headerBuurt',
@@ -43,6 +44,7 @@ export default {
 			name: 'headerHuisgenootGeenAfstand',
 			type: 'header',
 		},
+		// END TODO: verwijderen als content verplaatst is
 		{
 			title: 'Terug tekst',
 			name: 'terugTekst',
