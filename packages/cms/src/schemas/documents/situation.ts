@@ -68,5 +68,10 @@ export default {
 			name: 'showDate',
 			type: 'boolean',
 		},
+		{
+			title: 'Datum-vraag header',
+			name: 'dateHeader',
+			type: 'header',
+		},
 	],
 };
