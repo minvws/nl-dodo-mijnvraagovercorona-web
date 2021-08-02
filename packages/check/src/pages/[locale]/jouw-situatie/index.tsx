@@ -88,6 +88,10 @@ const renderPanel = (situation: SituationContent) => (
 								<Link
 									styledAs="button"
 									href={getUrlBySituation(contentBlock.situation)}
+									sx={{
+										marginBottom: '8px',
+										marginTop: '8px',
+									}}
 								>
 									{contentBlock.situation.situationLinkTitle}
 								</Link>
