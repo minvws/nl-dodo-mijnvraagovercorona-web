@@ -199,6 +199,22 @@ export const getStaticProps = async ({
 				name: 'content',
 				locale,
 			})},
+			"contentBlocks": contentBlocks[]{
+				${getLocaleProperty({
+					name: 'content',
+					path: '^',
+					locale,
+				})},
+        "situation": {
+          ${getLocaleProperty({
+						name: 'situationLinkTitle',
+						locale,
+					})},
+          "url": situationReference->url,
+          "showDate": situationReference->showDate,
+          "showProtected": situationReference->showProtected,
+        }
+      }
 		},
 		${getLocaleProperty({ name: 'situationsExceptionsTitle', locale })},
 		"situationsExceptions": situationsExceptions[]{
@@ -212,10 +228,20 @@ export const getStaticProps = async ({
 				locale,
 			})},
       "contentBlocks": contentBlocks[]{
-        ${getLocaleProperty({
+				${getLocaleProperty({
 					name: 'content',
+					path: '^',
 					locale,
 				})},
+        "situation": {
+          ${getLocaleProperty({
+						name: 'situationLinkTitle',
+						locale,
+					})},
+          "url": situationReference->url,
+          "showDate": situationReference->showDate,
+          "showProtected": situationReference->showProtected,
+        }
       }
 		},
 		"noMatch": {
@@ -223,7 +249,7 @@ export const getStaticProps = async ({
 			${getLocaleProperty({ name: 'content', path: 'noMatch.content', locale })},
 		},
 		url,
-    	${getLocaleProperty({ name: 'currentStepLabel', locale })},
+		${getLocaleProperty({ name: 'currentStepLabel', locale })},
 	}`;
 
 	const { page, siteSettings } = await sanityClient.fetch(
