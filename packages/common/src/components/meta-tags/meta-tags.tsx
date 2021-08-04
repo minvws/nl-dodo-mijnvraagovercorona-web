@@ -29,8 +29,6 @@ export const MetaTags = ({
 
 	const pageTitle = `${title}${skipPageSuffix ? '' : pageTitleSuffix}`;
 
-	console.log(locales);
-
 	return (
 		<Head>
 			<title>{pageTitle}</title>
