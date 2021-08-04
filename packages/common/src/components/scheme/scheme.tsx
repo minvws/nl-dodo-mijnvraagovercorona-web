@@ -89,8 +89,41 @@ export const SchemeBlock: React.FC<SchemeBlockProps> = ({
 		{children && (
 			<Box
 				sx={{
+					'a, button': {
+						color: 'text',
+						textDecoration: 'underline',
+						fontSize: 'inherit',
+						fontWeight: 'inherit',
+						'.chevron': {
+							display: 'none',
+						},
+						// eg modal icon
+						svg: {
+							marginLeft: '0px',
+							width: '20px',
+							height: '20px',
+						},
+						'&[target="_blank"]::after': {
+							display: 'inline-block',
+							content: '""',
+							backgroundImage: `url('/icons/outlink.svg')`,
+							backgroundSize: '14px 14px',
+							backgroundRepeat: 'no-repeat',
+							height: '14px',
+							width: '14px',
+							marginLeft: '4px',
+						},
+						'&:hover, &:focus': {
+							color: 'inherit',
+						},
+					},
 					'p:last-child': {
 						marginBottom: 0,
+					},
+					'@media print': {
+						p: {
+							marginBottom: '6px',
+						},
 					},
 				}}
 			>
@@ -118,41 +151,6 @@ export const SchemeBullet: React.FC<SchemeBulletProps> = ({
 			backgroundPosition: '0 5px',
 			'&:not(:last-child)': {
 				marginBottom: '32px',
-			},
-			'a, button': {
-				color: 'text',
-				textDecoration: 'underline',
-				fontSize: 'inherit',
-				'.chevron': {
-					display: 'none',
-				},
-				// eg modal icon
-				svg: {
-					marginLeft: '6px',
-					width: '20px',
-					height: '20px',
-				},
-				'&[target="_blank"]::after': {
-					display: 'inline-block',
-					content: '""',
-					backgroundImage: `url('/icons/outlink.svg')`,
-					backgroundSize: '14px 14px',
-					backgroundRepeat: 'no-repeat',
-					height: '14px',
-					width: '14px',
-					marginLeft: '4px',
-				},
-				'&:hover, &:focus': {
-					color: 'inherit',
-				},
-			},
-			'p:last-child': {
-				marginBottom: 0,
-			},
-			'@media print': {
-				p: {
-					marginBottom: '6px',
-				},
 			},
 		}}
 	>
