@@ -24,6 +24,7 @@ import {
 	ContentBlock,
 	addDays,
 	Content,
+	getSituationPageQuery,
 } from '@quarantaine/common';
 
 import { getSituations } from 'utilities/situations';
@@ -32,27 +33,32 @@ import 'react-day-picker/lib/style.css';
 import { useRouter } from 'next/router';
 import { differenceInDays, startOfDay, format } from 'date-fns';
 import { ProgressMarker } from 'components/progress-marker';
+import { Situation } from 'config/situaties';
 
 interface PageContent {
-	metaData: {
-		title: string;
-		description: string;
-	};
-	header: {
-		title: string;
-		modal: {
-			link: string;
+	page: {
+		metaData: {
 			title: string;
-			content: Object[];
+			description: string;
+		};
+		button: string;
+		datumKiesTekst: string;
+		terugTekst: string;
+		maanden: string[];
+		dagen: string[];
+		url: string;
+		currentStepLabel: string;
+	};
+	situation: {
+		header: {
+			title: string;
+			modal: {
+				link: string;
+				title: string;
+				content: Object[];
+			};
 		};
 	};
-	button: string;
-	datumKiesTekst: string;
-	terugTekst: string;
-	maanden: string[];
-	dagen: string[];
-	url: string;
-	currentStepLabel: string;
 }
 
 const datePageUrlToResultUrl = (
@@ -72,13 +78,18 @@ const datePageUrlToResultUrl = (
 };
 
 interface WanneerProps {
-	situatie: Situaties;
+	currentSituation: Situation;
 	locale: 'nl';
 	maxDays: number;
 }
 
-export default function Wanneer({ situatie, locale, maxDays }: WanneerProps) {
+export default function Wanneer({
+	currentSituation,
+	locale,
+	maxDays,
+}: WanneerProps) {
 	const page = useSanityPageContent<PageContent>();
+
 	const [selectedDate, setSelectedDate] = useState<Date>();
 	const [showDialog, setShowDialog] = useState(false);
 	const router = useRouter();
@@ -97,39 +108,45 @@ export default function Wanneer({ situatie, locale, maxDays }: WanneerProps) {
 	return (
 		<>
 			<MetaTags
-				title={page.metaData.title}
-				description={page.metaData.title}
-				url={page.url.replace('$$situatie', situatie)}
+				title={page.page.metaData.title}
+				description={page.page.metaData.title}
+				url={page.page.url.replace('$$situatie', currentSituation.url)}
 			/>
 
 			<Page>
-				<Hero title={page.header.title}>
+				<Hero title={page.situation.header.title}>
 					<ProgressMarker
-						currentStageLabel={page.currentStepLabel}
+						currentStageLabel={page.page.currentStepLabel}
 						currentStage={2}
 					/>
 					<Link fontWeight="lighter" as="button" onClick={openDialog}>
-						{page.header.modal.link}
+						{page.situation.header.modal.link}
 					</Link>
 					<Dialog
-						title={page.header.modal.title}
+						title={page.situation.header.modal.title}
 						isVisible={showDialog}
 						closeDialog={() => setShowDialog(false)}
 					>
-						<ContentBlock content={page.header.modal.content} />
+						<ContentBlock content={page.situation.header.modal.content} />
 					</Dialog>
 				</Hero>
 				<Content noSpacingOnTop>
 					<DatepickerTopbar>
 						<DatepickerTopbarTitle
-							title={page.datumKiesTekst}
+							title={page.page.datumKiesTekst}
 							subtitle={
 								selectedDate ? formatShortDate(selectedDate, locale) : undefined
 							}
 						/>
 						<DatepickerBacklinkWrapper>
-							<Link href="/nl/jouw-situatie">
-								<ScreenReaderOnly>{page.terugTekst}</ScreenReaderOnly>
+							<Link
+								href={
+									currentSituation.showProtected
+										? `/${currentSituation.url}/ben-ik-beschermd`
+										: '/jouw-situatie'
+								}
+							>
+								<ScreenReaderOnly>{page.page.terugTekst}</ScreenReaderOnly>
 							</Link>
 						</DatepickerBacklinkWrapper>
 					</DatepickerTopbar>
@@ -138,8 +155,8 @@ export default function Wanneer({ situatie, locale, maxDays }: WanneerProps) {
 							disabledDays={(day) => day > addDays(startOfDay(new Date()), 1)}
 							variant="singleDay"
 							showPreviousMonth
-							months={page.maanden}
-							weekdaysShort={page.dagen}
+							months={page.page.maanden}
+							weekdaysShort={page.page.dagen}
 							onDayClick={(date) => {
 								if (
 									linkRef.current &&
@@ -166,7 +183,7 @@ export default function Wanneer({ situatie, locale, maxDays }: WanneerProps) {
 										) + `?event=${format(selectedDate, 'dd-MM-yyyy')}`
 									}
 								>
-									{page.button}
+									{page.page.button}
 								</Link>
 							)}
 						</span>
@@ -177,17 +194,8 @@ export default function Wanneer({ situatie, locale, maxDays }: WanneerProps) {
 	);
 }
 
-type Situaties =
-	| 'ik-kan-geen-afstand-houden-en-huisgenoot-heeft-geen-klachten'
-	| 'ik-kan-afstand-houden'
-	| 'ik-ben-misschien-besmet'
-	| 'ik-heb-een-coronamelder-melding-gekregen'
-	| 'ik-kom-uit-een-risicogebied'
-	| 'ik-heb-corona-met-klachten'
-	| 'ik-heb-corona-zonder-klachten';
-
 interface WanneerStaticProps {
-	params: { locale: 'nl' | 'en'; situatie: Situaties };
+	params: { locale: 'nl' | 'en'; situatie: string };
 }
 
 export const getStaticProps = async ({
@@ -198,17 +206,6 @@ export const getStaticProps = async ({
 
 	const maxDays = currentSituation?.maxDays || 10;
 
-	const headerPath = {
-		'ik-ben-misschien-besmet': 'headerBuurt',
-		'ik-heb-een-coronamelder-melding-gekregen': 'headerCoronamelder',
-		'ik-kom-uit-een-risicogebied': 'headerReis',
-		'ik-heb-corona-met-klachten': 'headerCoronaMetKlachten',
-		'ik-heb-corona-zonder-klachten': 'headerCoronaZonderKlachten',
-		'ik-kan-afstand-houden': 'headerHuisgenootAfstand',
-		'ik-kan-geen-afstand-houden-en-huisgenoot-heeft-geen-klachten':
-			'headerHuisgenootGeenAfstand',
-	}[situatie];
-
 	const pageProjection = `{
 		"metaData": {
 			${getLocaleProperty({ name: 'title', path: 'metaData.title', locale })},
@@ -217,26 +214,6 @@ export const getStaticProps = async ({
 				path: 'metaData.description',
 				locale,
 			})},
-		},
-		"header": {
-			${getLocaleProperty({ name: 'title', path: `${headerPath}.title`, locale })},
-			"modal": {
-				${getLocaleProperty({
-					name: 'link',
-					path: `${headerPath}.modal.link`,
-					locale,
-				})},
-				${getLocaleProperty({
-					name: 'content',
-					path: `${headerPath}.modal.content`,
-					locale,
-				})},
-				${getLocaleProperty({
-					name: 'title',
-					path: `${headerPath}.modal.title`,
-					locale,
-				})},
-			}
 		},
 		${getLocaleProperty({ name: 'button', locale })},
 		${getLocaleProperty({ name: 'datumKiesTekst', locale })},
@@ -256,10 +233,42 @@ export const getStaticProps = async ({
 		}),
 	);
 
+	const situationPageProjection = `{
+		"header": {
+			${getLocaleProperty({ name: 'title', path: `dateHeader.title`, locale })},
+			"modal": {
+				${getLocaleProperty({
+					name: 'link',
+					path: `dateHeader.modal.link`,
+					locale,
+				})},
+				${getLocaleProperty({
+					name: 'content',
+					path: `dateHeader.modal.content`,
+					locale,
+				})},
+				${getLocaleProperty({
+					name: 'title',
+					path: `dateHeader.modal.title`,
+					locale,
+				})},
+			}
+		},
+	}`;
+
+	const { page: situationPage } = await sanityClient.fetch(
+		getSituationPageQuery({
+			type: 'situation-document',
+			situationSlug: situatie,
+			pageProjection: situationPageProjection,
+			locale,
+		}),
+	);
+
 	return {
 		props: {
-			page,
-			situatie,
+			page: { page, situation: situationPage },
+			currentSituation,
 			siteSettings,
 			locale,
 			maxDays,
@@ -272,7 +281,9 @@ export const getStaticPaths = async () => {
 
 	return {
 		paths: cartesianProduct(
-			situations.map((situation) => situation.url),
+			situations
+				.filter((situation) => situation.showDate)
+				.map((situation) => situation.url),
 			['nl', 'en'].map((locale) => `${locale}`),
 		).map(([situatie, locale]: string[]) => ({
 			params: { situatie, locale },

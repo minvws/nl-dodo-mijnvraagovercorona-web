@@ -18,6 +18,14 @@ import {
 	useSanitySiteSettings,
 	Hero,
 } from '@quarantaine/common';
+import { Situation } from 'config/situaties';
+
+interface SituationContent {
+	title: string;
+	titleSuffix?: string;
+	content: Array<Object>;
+	contentBlocks: Array<Object>;
+}
 
 interface JouwSituatiePageContent {
 	metaData: {
@@ -28,21 +36,11 @@ interface JouwSituatiePageContent {
 		title: string;
 	};
 	situationsYouTitle: string;
-	situationsYou: {
-		title: string;
-		titleSuffix?: string;
-		content: Array<Object>;
-	}[];
+	situationsYou: SituationContent[];
 	situationsOtherTitle: string;
-	situationsOther: {
-		title: string;
-		content: Array<Object>;
-	}[];
+	situationsOther: SituationContent[];
 	situationsExceptionsTitle: string;
-	situationsExceptions: {
-		title: string;
-		content: Array<Object>;
-	}[];
+	situationsExceptions: SituationContent[];
 	noMatch: {
 		title: string;
 		content: Array<Object>;
@@ -51,9 +49,62 @@ interface JouwSituatiePageContent {
 	currentStepLabel: string;
 }
 
+interface SituationAsLink extends Situation {
+	situationLinkTitle: string;
+}
+
+interface ContentBlocks {
+	content?: Array<Object>;
+	situation?: SituationAsLink;
+}
+
+const getUrlBySituation = (situation: Situation) => {
+	if (
+		typeof situation.showProtected !== 'undefined' &&
+		situation.showProtected
+	) {
+		return `/${situation.url}/ben-ik-beschermd`;
+	} else if (typeof situation.showDate !== 'undefined' && situation.showDate) {
+		return `/${situation.url}/wanneer`;
+	}
+	return `/${situation.url}`;
+};
+
+const renderPanel = (situation: SituationContent) => (
+	<ExpansionPanel
+		key={situation.title}
+		title={situation.title}
+		titleSuffix={situation.titleSuffix}
+		variant="plus"
+	>
+		{situation.contentBlocks &&
+			situation.contentBlocks.map(
+				(contentBlock: ContentBlocks, key: number) => {
+					if (contentBlock.content) {
+						return <ContentBlock key={key} content={contentBlock.content} />;
+					} else if (contentBlock.situation?.url) {
+						return (
+							<Styled.p key={key}>
+								<Link
+									styledAs="button"
+									href={getUrlBySituation(contentBlock.situation)}
+									sx={{
+										marginBottom: '8px',
+										marginTop: '8px',
+									}}
+								>
+									{contentBlock.situation.situationLinkTitle}
+								</Link>
+							</Styled.p>
+						);
+					}
+				},
+			)}
+	</ExpansionPanel>
+);
+
 export default function JouwSituatie() {
 	const page = useSanityPageContent<JouwSituatiePageContent>();
-
 	return (
 		<>
 			<MetaTags
@@ -71,42 +122,19 @@ export default function JouwSituatie() {
 				<Content>
 					<Box sx={{ mt: '36px' }}>
 						<Styled.h2>{page.situationsYouTitle}</Styled.h2>
-						{page.situationsYou.map((situation) => (
-							<ExpansionPanel
-								key={situation.title}
-								title={situation.title}
-								titleSuffix={situation.titleSuffix}
-								variant="plus"
-							>
-								<ContentBlock content={situation.content} />
-							</ExpansionPanel>
-						))}
+						{page.situationsYou.map((situation) => renderPanel(situation))}
 					</Box>
 					<Box sx={{ my: '36px' }}>
 						<Styled.h2>{page.situationsOtherTitle}</Styled.h2>
 
-						{page.situationsOther.map((situation) => (
-							<ExpansionPanel
-								key={situation.title}
-								title={situation.title}
-								variant="plus"
-							>
-								<ContentBlock content={situation.content} />
-							</ExpansionPanel>
-						))}
+						{page.situationsOther.map((situation) => renderPanel(situation))}
 					</Box>
 					<Box sx={{ my: '36px' }}>
 						<Styled.h2>{page.situationsExceptionsTitle}</Styled.h2>
 
-						{page.situationsExceptions.map((situation) => (
-							<ExpansionPanel
-								key={situation.title}
-								title={situation.title}
-								variant="plus"
-							>
-								<ContentBlock content={situation.content} />
-							</ExpansionPanel>
-						))}
+						{page.situationsExceptions.map((situation) =>
+							renderPanel(situation),
+						)}
 					</Box>
 
 					<Styled.h2>{page.noMatch.title}</Styled.h2>
@@ -147,6 +175,22 @@ export const getStaticProps = async ({
 				name: 'content',
 				locale,
 			})},
+      "contentBlocks": contentBlocks[]{
+				${getLocaleProperty({
+					name: 'content',
+					path: '^',
+					locale,
+				})},
+        "situation": {
+          ${getLocaleProperty({
+						name: 'situationLinkTitle',
+						locale,
+					})},
+          "url": situationReference->url,
+          "showDate": situationReference->showDate,
+          "showProtected": situationReference->showProtected,
+        }
+      }
 		},
 		${getLocaleProperty({ name: 'situationsOtherTitle', locale })},
 		"situationsOther": situationsOther[]{
@@ -159,6 +203,22 @@ export const getStaticProps = async ({
 				name: 'content',
 				locale,
 			})},
+			"contentBlocks": contentBlocks[]{
+				${getLocaleProperty({
+					name: 'content',
+					path: '^',
+					locale,
+				})},
+        "situation": {
+          ${getLocaleProperty({
+						name: 'situationLinkTitle',
+						locale,
+					})},
+          "url": situationReference->url,
+          "showDate": situationReference->showDate,
+          "showProtected": situationReference->showProtected,
+        }
+      }
 		},
 		${getLocaleProperty({ name: 'situationsExceptionsTitle', locale })},
 		"situationsExceptions": situationsExceptions[]{
@@ -170,14 +230,30 @@ export const getStaticProps = async ({
 			${getLocaleProperty({
 				name: 'content',
 				locale,
-			})}
+			})},
+      "contentBlocks": contentBlocks[]{
+				${getLocaleProperty({
+					name: 'content',
+					path: '^',
+					locale,
+				})},
+        "situation": {
+          ${getLocaleProperty({
+						name: 'situationLinkTitle',
+						locale,
+					})},
+          "url": situationReference->url,
+          "showDate": situationReference->showDate,
+          "showProtected": situationReference->showProtected,
+        }
+      }
 		},
 		"noMatch": {
 			${getLocaleProperty({ name: 'title', path: 'noMatch.title', locale })},
 			${getLocaleProperty({ name: 'content', path: 'noMatch.content', locale })},
 		},
 		url,
-    	${getLocaleProperty({ name: 'currentStepLabel', locale })},
+		${getLocaleProperty({ name: 'currentStepLabel', locale })},
 	}`;
 
 	const { page, siteSettings } = await sanityClient.fetch(

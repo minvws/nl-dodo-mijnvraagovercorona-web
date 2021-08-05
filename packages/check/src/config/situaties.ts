@@ -1,3 +1,10 @@
+export interface Situation {
+	maxDays: number;
+	showDate: boolean;
+	showProtected: boolean;
+	url: string;
+}
+
 export type Situaties =
 	| 'ik-kan-geen-afstand-houden-en-huisgenoot-heeft-geen-klachten'
 	| 'ik-kan-afstand-houden'

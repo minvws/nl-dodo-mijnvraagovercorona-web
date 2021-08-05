@@ -324,6 +324,21 @@ export const getPageQuery = ({
 	${documentsQuery ? `"documents": ${documentsQuery}` : ''}
 }`;
 
+export const getSituationPageQuery = ({
+	type,
+	pageProjection,
+	locale,
+	situationSlug,
+}: {
+	type: string;
+	pageProjection: string;
+	locale: 'nl' | 'en';
+	situationSlug: string;
+}): string => `{
+	"page": *[_type == "${type}" && metaData.site == "quarantaine-check" && url=="${situationSlug}"][0]${pageProjection},
+	"siteSettings": ${siteSettingsQuery({ locale, site: 'quarantaine-check' })},
+}`;
+
 /**
  * This will initialize the Sanity client
  */
