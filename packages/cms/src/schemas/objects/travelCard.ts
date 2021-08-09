@@ -72,7 +72,7 @@ export default {
 							title: 'content.nl',
 							subtitle: 'conditions.riskCategory',
 							// There is no way to get all properties form an array,
-							// so you have to fetch them one by one (even if they might now exist),
+							// so you have to fetch them one by one (even if they might not exist),
 							// and concat them in prepare below.
 							// https://www.sanity.io/docs/previews-list-views
 							riskcategory0: 'conditions.riskCategory.0.name',
