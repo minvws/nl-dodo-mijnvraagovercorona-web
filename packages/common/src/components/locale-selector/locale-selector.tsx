@@ -152,8 +152,12 @@ export const LocaleSelector = () => {
 				animate={{
 					height: dropdownExpanded ? 'auto' : '0',
 					width: dropdownExpanded ? 'auto' : '0',
+					display: dropdownExpanded ? 'flex' : 'none',
 				}}
-				sx={{ overflow: 'hidden', display: 'flex', flexDirection: 'column' }}
+				sx={{
+					overflow: 'hidden',
+					flexDirection: 'column',
+				}}
 				id="locale-dropdown"
 			>
 				{locales
