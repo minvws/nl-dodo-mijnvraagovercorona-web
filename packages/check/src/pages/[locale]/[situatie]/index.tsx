@@ -28,6 +28,7 @@ import {
 	SchemeBullet,
 	cartesianProduct,
 	PrinterIcon,
+	getSituationPageQuery,
 } from '@quarantaine/common';
 
 import { SiteSettings } from 'content/site-settings';
@@ -122,6 +123,8 @@ interface PageContent {
 	showPrintAndCalendar: boolean;
 	quarantaineDuration?: number;
 	url: string;
+	showProtected?: boolean;
+	showDate?: boolean;
 }
 
 interface SituatieProps {
@@ -339,12 +342,14 @@ export const getStaticProps = async ({
 		showPrintAndCalendar,
    		quarantaineDuration,
 		url,
+    showProtected,
+    showDate
 	}`;
 
 	const { page, siteSettings } = await sanityClient.fetch(
-		getPageQuery({
-			site: 'quarantaine-check',
-			type: getSanityPageIdBySituation(situatie),
+		getSituationPageQuery({
+			type: 'situation-document',
+			situationSlug: situatie,
 			pageProjection,
 			locale,
 		}),
