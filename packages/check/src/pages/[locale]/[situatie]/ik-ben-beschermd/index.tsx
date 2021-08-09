@@ -19,6 +19,7 @@ import {
 
 import { getSituations } from 'utilities/situations';
 import { GGDSpecialInstructions } from 'components/ggd-special-instructions';
+import { Locale } from 'types/locale';
 interface PageContent {
 	metaData: {
 		title: string;
@@ -72,7 +73,7 @@ export default function IsBeschermd({ locale }: IsBeschermdProps) {
 }
 
 interface IsBeschermdStaticProps {
-	params: { locale: 'nl' | 'en'; situatie: string };
+	params: { locale: Locale; situatie: string };
 }
 
 export const getStaticProps = async ({

@@ -19,6 +19,7 @@ import {
 	Hero,
 } from '@quarantaine/common';
 import { Situation } from 'config/situaties';
+import { Locale } from 'types/locale';
 
 interface SituationContent {
 	title: string;
@@ -146,7 +147,7 @@ export default function JouwSituatie() {
 }
 
 interface JouwSituatieStaticProps {
-	params: { locale: 'nl' | 'en' };
+	params: { locale: Locale };
 }
 
 export const getStaticProps = async ({

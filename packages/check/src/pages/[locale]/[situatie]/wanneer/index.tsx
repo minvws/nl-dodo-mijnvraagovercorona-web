@@ -34,6 +34,7 @@ import { useRouter } from 'next/router';
 import { differenceInDays, startOfDay, format } from 'date-fns';
 import { ProgressMarker } from 'components/progress-marker';
 import { Situation } from 'config/situaties';
+import { Locale } from 'types/locale';
 
 interface PageContent {
 	page: {
@@ -65,7 +66,7 @@ const datePageUrlToResultUrl = (
 	datePageUrl: string,
 	day: number,
 	maxDays: number,
-	locale: 'nl' | 'en',
+	locale: Locale,
 ) => {
 	const daySuffix =
 		day === 0 || maxDays === 1
@@ -195,7 +196,7 @@ export default function Wanneer({
 }
 
 interface WanneerStaticProps {
-	params: { locale: 'nl' | 'en'; situatie: string };
+	params: { locale: Locale; situatie: string };
 }
 
 export const getStaticProps = async ({

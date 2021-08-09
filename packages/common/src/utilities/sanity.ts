@@ -1,4 +1,5 @@
 import client, { ClientConfig } from '@sanity/client';
+import { Locale as LocaleQcheck } from '../../../check/src/types/locale';
 
 /**
  * The configuration for Sanity
@@ -332,7 +333,7 @@ export const getSituationPageQuery = ({
 }: {
 	type: string;
 	pageProjection: string;
-	locale: 'nl' | 'en';
+	locale: LocaleQcheck;
 	situationSlug: string;
 }): string => `{
 	"page": *[_type == "${type}" && metaData.site == "quarantaine-check" && url=="${situationSlug}"][0]${pageProjection},

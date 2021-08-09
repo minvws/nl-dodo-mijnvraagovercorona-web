@@ -14,6 +14,7 @@ import {
 	Content,
 	Hero,
 } from '@quarantaine/common';
+import { Locale } from 'types/locale';
 
 interface GeenAdviesPageContent {
 	metaData: {
@@ -49,7 +50,7 @@ export default function GeenAdvies() {
 }
 
 interface GeenAdviesStaticProps {
-	params: { locale: 'nl' | 'en' };
+	params: { locale: Locale };
 }
 
 export const getStaticProps = async ({
