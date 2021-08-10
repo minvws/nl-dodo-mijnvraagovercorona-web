@@ -25,6 +25,7 @@ import 'react-day-picker/lib/style.css';
 import { useRouter } from 'next/router';
 import { ProgressMarker } from 'components/progress-marker';
 import { Situation } from 'config/situaties';
+import { Locale } from 'types/locale';
 
 interface PageContent {
 	metaData: {
@@ -134,7 +135,7 @@ export default function Beschermd({
 }
 
 interface BeschermdStaticProps {
-	params: { locale: 'nl' | 'en'; situatie: string };
+	params: { locale: Locale; situatie: string };
 }
 
 export const getStaticProps = async ({

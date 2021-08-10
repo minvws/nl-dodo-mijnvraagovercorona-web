@@ -1,4 +1,5 @@
 import client, { ClientConfig } from '@sanity/client';
+import { Locale as LocaleQcheck } from '../../../check/src/types/locale';
 
 /**
  * The configuration for Sanity
@@ -25,7 +26,7 @@ export const getLocaleProperty = ({
 	name: string;
 	path?: string;
 	array?: boolean;
-	locale: 'nl' | 'en';
+	locale: string;
 }): string => `"${name}": ${path || name}${array ? '[]' : ''}.${locale}`;
 
 /**
@@ -45,7 +46,7 @@ export type ContentPageProps = {
 		pageTitleSuffix: string;
 		url: string;
 	};
-	locale: 'nl' | 'en';
+	locale: string;
 };
 
 /**
@@ -57,7 +58,7 @@ export const getContentPageQuery = async ({
 	site,
 }: {
 	type: string;
-	locale: 'nl' | 'en';
+	locale: string;
 	site: 'reizen-tijdens-corona' | 'quarantaine-check';
 }): Promise<ContentPageProps> => {
 	const pageProjection = `{
@@ -95,7 +96,7 @@ export const faqDocumentsQuery = ({
 	include,
 	exclude,
 }: {
-	locale: 'nl' | 'en';
+	locale: string;
 	include?: string[];
 	exclude?: string[];
 }) => `
@@ -112,7 +113,7 @@ const siteSettingsQuery = ({
 	locale,
 	site,
 }: {
-	locale: 'nl' | 'en';
+	locale: string;
 	site: 'reizen-tijdens-corona' | 'quarantaine-check';
 }): string => `
 	*[_type == "site-settings-document" && site == "${site}"][0]{
@@ -268,7 +269,7 @@ export const getSiteSettingsQuery = async ({
 	locale,
 	site,
 }: {
-	locale: 'nl' | 'en';
+	locale: string;
 	site: 'reizen-tijdens-corona' | 'quarantaine-check';
 }) => await sanityClient.fetch(siteSettingsQuery({ locale, site }));
 
@@ -280,7 +281,7 @@ export const getFaqsQuery = async ({
 	include,
 	exclude,
 }: {
-	locale: 'nl' | 'en';
+	locale: string;
 	include?: string[];
 	exclude?: string[];
 }) =>
@@ -303,7 +304,7 @@ export const getPageQuery = ({
 	type: string;
 	pageProjection: string;
 	documentsQuery?: string;
-	locale: 'nl' | 'en';
+	locale: string;
 	site: 'reizen-tijdens-corona' | 'quarantaine-check';
 	faqs?: {
 		include?: string[];
@@ -332,7 +333,7 @@ export const getSituationPageQuery = ({
 }: {
 	type: string;
 	pageProjection: string;
-	locale: 'nl' | 'en';
+	locale: LocaleQcheck;
 	situationSlug: string;
 }): string => `{
 	"page": *[_type == "${type}" && metaData.site == "quarantaine-check" && url=="${situationSlug}"][0]${pageProjection},

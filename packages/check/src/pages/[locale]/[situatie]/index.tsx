@@ -35,8 +35,9 @@ import { SiteSettings } from 'content/site-settings';
 import { Page } from 'components/page';
 import { GGDSpecialInstructions } from 'components/ggd-special-instructions';
 import { getSituations } from 'utilities/situations';
-import { getSanityPageIdBySituation, Situaties } from 'config/situaties';
+import { Situaties } from 'config/situaties';
 import Head from 'next/head';
+import { Locale } from 'types/locale';
 
 const getDateSinceEvent = ({
 	day,
@@ -128,7 +129,7 @@ interface PageContent {
 }
 
 interface SituatieProps {
-	locale: 'nl' | 'en';
+	locale: Locale;
 	date: string;
 }
 
@@ -295,7 +296,7 @@ export default function Situatie({ locale, date }: SituatieProps) {
 }
 
 interface SituatieStaticProps {
-	params: { locale: 'nl' | 'en'; situatie: Situaties; date: string };
+	params: { locale: Locale; situatie: Situaties; date: string };
 }
 
 export async function getStaticPaths() {

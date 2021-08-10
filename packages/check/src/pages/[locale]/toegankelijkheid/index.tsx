@@ -1,6 +1,7 @@
 import { ContentPage } from 'components/content-page';
 
 import { ContentPageProps, getContentPageQuery } from '@quarantaine/common';
+import { Locale } from 'types/locale';
 
 const Toegankelijkheid = ({ page, siteSettings, locale }: ContentPageProps) => (
 	<ContentPage page={page} siteSettings={siteSettings} locale={locale} />
@@ -9,7 +10,7 @@ const Toegankelijkheid = ({ page, siteSettings, locale }: ContentPageProps) => (
 export const getStaticProps = async ({
 	params: { locale },
 }: {
-	params: { locale: 'nl' | 'en' };
+	params: { locale: Locale };
 }) => {
 	const { page, siteSettings } = await getContentPageQuery({
 		site: 'quarantaine-check',

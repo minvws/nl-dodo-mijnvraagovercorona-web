@@ -1,9 +1,10 @@
 /** @jsx jsx */
-import { useContext } from 'react';
+import { useContext, useState, useRef } from 'react';
 
 import { useRouter } from 'next/router';
 import { Flex, jsx } from 'theme-ui';
 import { getCurrentUrlForLocale } from './utils';
+import { AnimatePresence, motion } from 'framer-motion';
 
 import {
 	ScreenReaderOnly,
@@ -12,7 +13,12 @@ import {
 	useCurrentLocale,
 	useTranslation,
 	NavLink,
+	useOnPressEscape,
+	useOnClickOutside,
+	useOnRouteChange,
 } from '@quarantaine/common';
+
+import { WorldIcon } from '../../icons/world';
 
 interface LocaleLinkProps {
 	locale: Locale;
@@ -20,71 +26,146 @@ interface LocaleLinkProps {
 }
 
 const LocaleLink = ({ locale, currentPath }: LocaleLinkProps) => {
-	const { t } = useTranslation();
 	const currentLocale = useCurrentLocale();
-	const isCurrentLocale = currentLocale.id === locale.id;
-
-	if (!currentLocale) return null;
 
 	return (
 		<NavLink
 			withChevron={false}
-			className={isCurrentLocale ? 'active' : undefined}
 			href={getCurrentUrlForLocale(currentPath, locale, currentLocale)}
-			lang={currentLocale.id}
+			lang={locale.id}
+			sx={{ textDecoration: 'none', mt: 8 }}
 		>
-			{locale.shortName}{' '}
-			{isCurrentLocale && (
-				<ScreenReaderOnly>({t('general__huidige_taal')})</ScreenReaderOnly>
-			)}
+			{locale.fullName}{' '}
 		</NavLink>
 	);
 };
 
 export const LocaleSelector = () => {
+	const [dropdownExpanded, setDropdownExpanded] = useState(false);
 	const { asPath } = useRouter();
 	const { t } = useTranslation();
 	const { locales } = useContext(TranslationContext);
+	const currentLocale = useCurrentLocale();
+	const selectorRef = useRef(null);
 
-	return locales.length > 1 ? (
+	const closeDropdown = () => setDropdownExpanded(false);
+
+	useOnPressEscape(closeDropdown);
+	useOnClickOutside(selectorRef, closeDropdown);
+	useOnRouteChange(closeDropdown);
+
+	if (locales.length <= 1) return null;
+
+	return (
 		<Flex
+			ref={selectorRef}
 			className="locale-selector"
 			sx={{
 				position: 'absolute',
 				top: '2rem',
 				right: 'mobilePadding',
 				left: 'inherit',
-				a: {
-					margin: '0 8px',
-					fontWeight: 'normal',
+				fontSize: '16px',
+				backgroundColor: 'white',
+				borderRadius: 'box',
+				flexDirection: 'column',
+				padding: '8px 12px',
+				':focus-within::before': {
+					opacity: 1,
+				},
+				zIndex: '3',
+				'&::before': {
+					pointerEvents: 'none',
+					opacity: dropdownExpanded ? 1 : 0,
+					transition: 'opacity 300ms ease-in-out',
+					borderRadius: 'box',
+					content: '""',
 					display: 'block',
-					fontSize: ['linkMobile', 'link'],
-					textDecoration: 'none',
-					textTransform: 'uppercase',
-					'&::after': {
-						content: '""',
-						display: 'block',
-						height: '2px',
-						width: '100%',
-						backgroundColor: 'link',
-						opacity: 0,
-						transform: 'translate3d(0, 5px, 0)',
-						transition: '150ms ease-in-out',
-						transitionProperty: 'transform, opacity',
-					},
-					'&.active, &:hover, &:focus': {
-						'&::after': {
-							opacity: 1,
-							transform: 'translate3d(0,0,0)',
-						},
+					position: 'absolute',
+					width: '100%',
+					height: '100%',
+					boxShadow: '0px 0px 10px rgba(21, 66, 115, 0.2)',
+					left: 0,
+					top: 0,
+				},
+				a: {
+					':hover, :focus': {
+						textDecoration: 'underline',
+						outline: 'none',
 					},
 				},
 			}}
 		>
-			<ScreenReaderOnly>{t('general__wissel_van_taal')}:</ScreenReaderOnly>
-			{locales.map((locale) => (
-				<LocaleLink key={locale.id} locale={locale} currentPath={asPath} />
-			))}
+			<button
+				aria-controls="locale-dropdown"
+				aria-expanded={dropdownExpanded}
+				onClick={() => setDropdownExpanded((expanded) => !expanded)}
+				sx={{
+					backgroundColor: 'transparent',
+					border: 'none',
+					display: 'flex',
+					color: 'copyHeading',
+					fontWeight: 'bold',
+					fontSize: '16px',
+					justifyContent: 'space-between',
+					alignItems: 'center',
+					lineHeight: '1',
+					padding: 0,
+					':hover, :focus': {
+						outline: 'none',
+						textDecoration: 'underline',
+					},
+				}}
+			>
+				<ScreenReaderOnly>{t('general__wissel_van_taal')}</ScreenReaderOnly>
+				<ScreenReaderOnly>{t('general__huidige_taal')}:</ScreenReaderOnly>
+				<AnimatePresence initial={false}>
+					<motion.span
+						key={dropdownExpanded ? 'expanded' : 'shorthand'}
+						transition={{ duration: 0.3 }}
+						animate={{ width: 'auto', opacity: 1 }}
+						sx={{ whiteSpace: 'nowrap', overflow: 'hidden' }}
+						initial={{ width: 0, opacity: 0 }}
+						exit={{ width: 0, opacity: 0 }}
+					>
+						{dropdownExpanded
+							? currentLocale.fullName
+							: currentLocale.shortName.toUpperCase()}
+					</motion.span>
+				</AnimatePresence>
+				<span
+					sx={{
+						display: 'block',
+						minWidth: '22px',
+						minHeight: '22px',
+						marginLeft: 8,
+						path: { fill: 'copyHeading' },
+					}}
+					aria-hidden
+				>
+					<WorldIcon />
+				</span>
+			</button>
+
+			<motion.div
+				hidden={!dropdownExpanded}
+				animate={{
+					height: dropdownExpanded ? 'auto' : '0',
+					width: dropdownExpanded ? 'auto' : '0',
+					display: dropdownExpanded ? 'flex' : 'none',
+				}}
+				sx={{
+					overflow: 'hidden',
+					flexDirection: 'column',
+				}}
+				id="locale-dropdown"
+			>
+				{locales
+					.filter((locale) => locale.id !== currentLocale.id)
+					.map((locale) => (
+						<LocaleLink key={locale.id} locale={locale} currentPath={asPath} />
+					))}
+			</motion.div>
 		</Flex>
-	) : null;
+	);
 };
