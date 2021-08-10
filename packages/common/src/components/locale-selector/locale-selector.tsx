@@ -143,7 +143,7 @@ export const LocaleSelector = () => {
 					}}
 					aria-hidden
 				>
-					<WorldIcon />
+					<WorldIcon width="24" height="24" />
 				</span>
 			</button>
 
