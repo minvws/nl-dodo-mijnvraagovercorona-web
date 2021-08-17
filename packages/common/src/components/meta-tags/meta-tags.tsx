@@ -46,13 +46,16 @@ export const MetaTags = ({
 
 			<meta property="og:type" content="website" />
 			<meta property="og:locale" content={locale.locale} />
-			{locale.alternateLocales.map((alternateLocale) => (
-				<meta
-					property="og:locale:alternate"
-					content={alternateLocale}
-					key={alternateLocale}
-				/>
-			))}
+			{locales.map(
+				(alternateLocale) =>
+					locale.id !== alternateLocale.id && (
+						<meta
+							property="og:locale:alternate"
+							content={alternateLocale.locale}
+							key={alternateLocale.locale}
+						/>
+					),
+			)}
 
 			<meta property="og:url" content={completeURl} />
 			<meta property="og:image" content={`${baseUrl}/share.png`} />

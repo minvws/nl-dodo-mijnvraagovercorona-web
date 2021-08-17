@@ -21,6 +21,11 @@ export default {
 			type: 'localeString',
 		},
 		{
+			title: 'Regio',
+			name: 'region',
+			type: 'boolean',
+		},
+		{
 			title: 'Coronamelder',
 			name: 'coronamelder',
 			type: 'boolean',
@@ -45,19 +50,15 @@ export default {
 	],
 	orderings: [
 		{
-      		title: 'Naam',
-      		name: 'nameAsc',
-      		by: [
-        		{field: 'name.nl', direction: 'asc'}
-      		]
+			title: 'Naam',
+			name: 'nameAsc',
+			by: [{ field: 'name.nl', direction: 'asc' }],
 		},
 		{
-      		title: 'Risico Categorie',
-      		name: 'riskCategoryDesc',
-      		by: [
-        		{field: 'riskCategory.label', direction: 'desc'}
-      		]
-		}
+			title: 'Risico Categorie',
+			name: 'riskCategoryDesc',
+			by: [{ field: 'riskCategory.label', direction: 'desc' }],
+		},
 	],
 	preview: {
 		select: {

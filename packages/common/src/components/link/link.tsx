@@ -11,7 +11,9 @@ import {
  * Small helper method that prefixes the requested url with a locale.
  */
 const getHrefWithlocale = (href: string, urlPrefix: string) =>
-	!href.includes('/nl') && !href.includes('/en') ? `${urlPrefix}${href}` : href;
+	!href.includes('/nl') && !href.includes('/en') && !href.includes('/es')
+		? `${urlPrefix}${href}`
+		: href;
 
 export const Link: React.FC<StyledLinkProps> = (props) => {
 	const { children } = props;

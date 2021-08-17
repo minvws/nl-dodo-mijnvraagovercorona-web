@@ -9,30 +9,6 @@ export default {
 			type: 'pageMetaData',
 		},
 		{
-			title:
-				'Reisfase (voor/tijdens/na), zoals getoond in pagina titel en meta',
-			name: 'travelStage',
-			type: 'object',
-			options: { collapsible: true },
-			fields: [
-				{
-					title: 'Voor vertrek',
-					name: 'voor_vertrek',
-					type: 'localeString',
-				},
-				{
-					title: 'Tijdens je reis',
-					name: 'tijdens_je_reis',
-					type: 'localeString',
-				},
-				{
-					title: 'Na thuiskomst',
-					name: 'na_thuiskomst',
-					type: 'localeString',
-				},
-			],
-		},
-		{
 			title: 'Header',
 			name: 'header',
 			type: 'object',
@@ -130,11 +106,6 @@ export default {
 					],
 				},
 				{
-					title: 'Voorbereiding',
-					name: 'preparation',
-					type: 'travelCard',
-				},
-				{
 					title: 'Heenreis',
 					name: 'outbound',
 					type: 'travelCard',
@@ -219,6 +190,23 @@ export default {
 					title: 'Bekijk alle veelgestelde vragen',
 					name: 'viewAll',
 					type: 'localeString',
+				},
+			],
+		},
+		{
+			title: 'Quarantainetips',
+			name: 'quarantinetips',
+			type: 'object',
+			fields: [
+				{
+					title: 'Button',
+					name: 'button',
+					type: 'localeString',
+				},
+				{
+					title: 'Content',
+					name: 'content',
+					type: 'localeBlock',
 				},
 			],
 		},

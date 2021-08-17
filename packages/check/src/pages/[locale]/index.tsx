@@ -17,6 +17,7 @@ import {
 	Content,
 	Hero,
 } from '@quarantaine/common';
+import { Locale } from 'types/locale';
 
 interface PageContent {
 	metaData: {
@@ -119,7 +120,7 @@ export default function LandingPage() {
 }
 
 interface LandingStaticProps {
-	params: { locale: 'nl' | 'en' };
+	params: { locale: Locale };
 }
 
 export const getStaticProps = async ({

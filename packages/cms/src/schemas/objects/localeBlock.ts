@@ -19,7 +19,6 @@ export default {
 		title: locale.title,
 		name: locale.id,
 		type: 'array',
-		validation: (Rule: { required: () => void }) => Rule.required(),
 		of: [
 			{
 				type: 'block',

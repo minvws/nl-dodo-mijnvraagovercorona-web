@@ -26,6 +26,7 @@ export const InlineDialog: React.FC<{ title: string; buttonText: string }> = ({
 						fill: 'currentColor',
 					},
 				}}
+				type="button"
 			>
 				<span
 					sx={{

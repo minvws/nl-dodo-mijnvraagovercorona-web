@@ -20,7 +20,9 @@ import {
 	GiRadioactive,
 	GiTrail,
 	GiCarWheel,
+	GiShieldReflect,
 } from 'react-icons/gi';
+import { BiError } from 'react-icons/bi';
 import { FaRegCopyright, FaAccessibleIcon } from 'react-icons/fa';
 import { SiGnuprivacyguard } from 'react-icons/si';
 import { GrVulnerability } from 'react-icons/gr';
@@ -53,6 +55,11 @@ const genericPagesConfig = [
 		schemaType: 'kwetsbaarheid-melden-page',
 		title: 'Common Kwetsbaarheid Melden Pagina',
 		icon: GrVulnerability,
+	},
+	{
+		schemaType: 'error-404-page',
+		title: 'Common 404 Pagina',
+		icon: BiError,
 	},
 ];
 
@@ -169,6 +176,11 @@ const checkPagesConfig = [
 		icon: GiPeriscope,
 	},
 	{
+		schemaType: 'check-ben-ik-beschermd-page',
+		title: 'Check Ben ik beschermd Pagina',
+		icon: GiShieldReflect,
+	},
+	{
 		schemaType: 'wanneer-page',
 		title: 'Check Wanneer Pagina',
 		icon: GiCalendar,
@@ -230,7 +242,13 @@ const checkPagesConfig = [
 	},
 ];
 
-const checkMultiDocumentsConfig = [];
+const checkMultiDocumentsConfig = [
+	{
+		schemaType: 'situation-document',
+		title: `Situatiepagina's`,
+		icon: GiHelp,
+	},
+];
 
 export default () =>
 	S.list()
@@ -254,5 +272,9 @@ export default () =>
 
 			/** Check Pages */
 			...checkPagesConfig.map((config) => getPage(config)),
+			S.divider(),
+
+			/** Check Multiple Documents */
+			...checkMultiDocumentsConfig.map((config) => getDocumentList(config)),
 			S.divider(),
 		]);

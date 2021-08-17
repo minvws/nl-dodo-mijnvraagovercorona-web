@@ -11,6 +11,7 @@ export * from './dialog';
 export * from './expansion-panel';
 export * from './feedback';
 export * from './footer';
+export * from './fieldset';
 export * from './header';
 export * from './hero';
 export * from './link';

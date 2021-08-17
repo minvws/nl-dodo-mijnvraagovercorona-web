@@ -10,20 +10,26 @@
 		"deploy": "sanity deploy"
 	},
 	"dependencies": {
-		"@sanity/base": "^2.7.4",
+		"@sanity/base": "^2.10.2",
 		"@sanity/components": "^2.2.6",
-		"@sanity/core": "^2.7.4",
-		"@sanity/default-layout": "^2.7.4",
-		"@sanity/default-login": "^2.2.6",
-		"@sanity/desk-tool": "^2.7.4",
-		"@sanity/vision": "^2.7.4",
+		"@sanity/core": "^2.10.2",
+		"@sanity/default-layout": "^2.10.2",
+		"@sanity/default-login": "^2.8.0",
+		"@sanity/desk-tool": "^2.10.4",
+		"@sanity/vision": "^2.10.0",
+		"@visx/event": "^1.7.0",
+		"@visx/geo": "^1.17.1",
+		"@visx/tooltip": "^1.17.1",
+		"@visx/zoom": "^1.14.1",
 		"prop-types": "^15.7",
 		"react": "^17.0",
 		"react-dom": "^17.0",
 		"react-icons": "^4.2.0",
-		"sanity-plugin-order-documents": "^0.0.13"
+		"sanity-plugin-order-documents": "^0.0.18",
+		"topojson-client": "^3.1.0"
 	},
 	"devDependencies": {
-		"@sanity/cli": "^2.7.4"
+		"@sanity/cli": "^2.10.0",
+		"@types/topojson-client": "^3.1.0"
 	}
 }

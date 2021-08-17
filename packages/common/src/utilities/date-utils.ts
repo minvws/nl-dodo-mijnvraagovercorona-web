@@ -1,10 +1,10 @@
-import { addDays as addDaysDateFns, isAfter, isBefore } from 'date-fns';
+import { addDays as addDaysDateFns, isBefore } from 'date-fns';
 
 export const addDays = (date: Date, days: number): Date =>
 	addDaysDateFns(date, days);
 
-export const isMoreThanWeekBeforeDeparture = (date?: Date): boolean =>
-	date !== undefined && isBefore(new Date(), addDaysDateFns(date, -7));
+export const isMoreThanWeekBefore = (date?: Date): boolean =>
+	date !== undefined && isBefore(new Date(), addDays(date, -7));
 
 export const formatShortDate = (date: Date, locale: string): string =>
 	date
