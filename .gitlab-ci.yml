@@ -73,7 +73,7 @@ test check:
     - yarn test:check
 
 e2e reizen:
-  image: harbor.cicd.s15m.nl/vws-qplicht-docker-hub/cypress/browsers:node14.16.0-chrome89-ff86
+  image: harbor.diensten.test.overheid.standaardplatform.rijksapps.nl/vws-reis/cypress/browsers:node14.16.0-chrome89-ff86
   stage: test
   script:
     - yarn
