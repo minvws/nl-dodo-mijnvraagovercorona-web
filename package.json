@@ -3,9 +3,11 @@
 	"private": true,
 	"scripts": {
 		"test": "yarn workspaces run test",
-		"test:e2e": "yarn workspaces run test:e2e",
 		"test:reizen": "yarn workspace @quarantaine/reizen run test",
 		"test:check": "yarn workspace @quarantaine/check run test",
+		"test:common": "yarn workspace @quarantaine/common run test",
+		"e2e:reizen": "yarn workspace @quarantaine/reizen run test:e2e",
+		"e2e-open:reizen": "yarn workspace @quarantaine/reizen run e2e:open",
 		"dev:reizen": "yarn workspace @quarantaine/reizen dev",
 		"dev:check": "yarn workspace @quarantaine/check dev",
 		"dev:common": "yarn workspace @quarantaine/common storybook",

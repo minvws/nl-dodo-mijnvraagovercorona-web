@@ -8,6 +8,7 @@ module.exports = {
 		'!**/node_modules/**',
 	],
 	setupFilesAfterEnv: ['@quarantaine/common/jest-helpers/setup-tests.js'],
+	testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec).[jt]s?(x)'],
 	testPathIgnorePatterns: ['/node_modules/', '/.next/', '/.storybook/'],
 	transform: {
 		'^.+\\.(js|jsx|ts|tsx)$': '<rootDir>/../../node_modules/babel-jest',

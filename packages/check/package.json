@@ -7,8 +7,7 @@
 		"build": "yarn run download-images && next build && next-sitemap && next export",
 		"download-images": "node ./downloadSanityImages.js",
 		"start": "NODE_ENV=production next start",
-		"test": "true",
-    "test:e2e": "true"
+		"test": "true"
 	},
 	"browserslist": [
 		"> 0.5% in NL",
