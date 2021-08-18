@@ -17,15 +17,18 @@ import {
 	ContentBlock,
 	Content,
 	RadioButton,
+	StyledLink,
+	generalContentNl,
+	generalContentEn,
 } from '@quarantaine/common';
 
 import { getSituations } from 'utilities/situations';
 
 import 'react-day-picker/lib/style.css';
 import { useRouter } from 'next/router';
-import { ProgressMarker } from 'components/progress-marker';
 import { Situation } from 'config/situaties';
 import { Locale } from 'types/locale';
+import { LinkBack } from 'components/link-back';
 
 interface PageContent {
 	metaData: {
@@ -46,7 +49,7 @@ interface PageContent {
 
 interface BeschermdProps {
 	currentSituation: Situation;
-	locale: 'nl';
+	locale: 'nl' | 'en';
 }
 
 export default function Beschermd({
@@ -97,10 +100,7 @@ export default function Beschermd({
 
 			<Page>
 				<Hero title={page.header.title}>
-					<ProgressMarker
-						currentStageLabel={page.currentStepLabel}
-						currentStage={2}
-					/>
+					<LinkBack href={`/${locale}/jouw-situatie`} />
 				</Hero>
 				<Content>
 					<form action="" onSubmit={onSubmit}>
