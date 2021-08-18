@@ -51,12 +51,37 @@ before_script:
 after_script:
   - echo "Ended by ${GITLAB_USER_LOGIN} at $(date +%Y-%m-%d'-'%H-%M-%S)"
 
-test:
+test common:
   image: harbor.diensten.test.overheid.standaardplatform.rijksapps.nl/vws-reis/node:14-alpine
   stage: test
   script:
     - yarn
-    - yarn test
+    - yarn test:common
+
+test reizen:
+  image: harbor.diensten.test.overheid.standaardplatform.rijksapps.nl/vws-reis/node:14-alpine
+  stage: test
+  script:
+    - yarn
+    - yarn test:reizen
+
+test check:
+  image: harbor.diensten.test.overheid.standaardplatform.rijksapps.nl/vws-reis/node:14-alpine
+  stage: test
+  script:
+    - yarn
+    - yarn test:check
+
+# Temporary disbabled to E2E tests (they have never been enabled), because
+# it doesn't seem posibible to get the cypress image via the old harbor.
+# @TODO: Replace with the below url once new harbor is used for reizen site:
+# image: harbor.cicd.s15m.nl/vws-reis-docker-hub/cypress/browsers:node14.16.0-chrome89-ff86
+# e2e reizen:
+#   image: harbor.diensten.test.overheid.standaardplatform.rijksapps.nl/vws-reis/cypress/browsers:node14.16.0-chrome89-ff86
+#   stage: test
+#   script:
+#     - yarn
+#     - yarn e2e:reizen
 
 build reizen image latest:
   <<: *build-image
