@@ -36,6 +36,7 @@
 		"@reach/visually-hidden": "^0.15.0",
 		"@sanity/block-content-to-react": "^3.0.0",
 		"date-fns": "^2.21.3",
+		"domhandler": "4.0.0",
 		"framer-motion": "^4.1.17",
 		"html-react-parser": "^1.2.8",
 		"next": "^10.2.0",
