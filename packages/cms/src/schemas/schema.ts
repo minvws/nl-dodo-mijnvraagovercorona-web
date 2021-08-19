@@ -32,16 +32,6 @@ import jouwSituatiePage from './pages/check/jouw-situatie';
 import benIkBeschermdPage from './pages/check/ben-ik-beschermd';
 import wanneerPage from './pages/check/wanneer';
 import geenAdviesPage from './pages/check/geen-advies';
-import situatieZelfKlachtenPage from './pages/check/situatie-zelf-klachten';
-import situatieBuurtPage from './pages/check/situatie-buurt';
-import situatieCoronaMetKlachtenPage from './pages/check/situatie-corona-met-klachten';
-import situatieCoronaZonderKlachtenPage from './pages/check/situatie-corona-zonder-klachten';
-import situatieHuisgenootMetKlachtenPage from './pages/check/situatie-huisgenoot-met-klachten';
-import situatieReisPage from './pages/check/situatie-reis';
-import situatieHuisgenootCoronaGeenAfstandGeenKlachtenPage from './pages/check/situatie-huisgenoot-corona-geen-afstand-geen-klachten';
-import situatieHuisgenootCoronaGeenAfstandWelKlachtenPage from './pages/check/situatie-huisgenoot-corona-geen-afstand-wel-klachten';
-import situatieHuisgenootCoronaWelAfstandPage from './pages/check/situatie-huisgenoot-corona-wel-afstand';
-import situatieCoronamelderPage from './pages/check/situatie-coronamelder';
 
 import localeStringObject from './objects/localeString';
 import localeBlockObject from './objects/localeBlock';
@@ -90,16 +80,6 @@ export default createSchema({
 		benIkBeschermdPage,
 		wanneerPage,
 		geenAdviesPage,
-		situatieZelfKlachtenPage,
-		situatieBuurtPage,
-		situatieCoronamelderPage,
-		situatieCoronaMetKlachtenPage,
-		situatieCoronaZonderKlachtenPage,
-		situatieHuisgenootMetKlachtenPage,
-		situatieReisPage,
-		situatieHuisgenootCoronaGeenAfstandGeenKlachtenPage,
-		situatieHuisgenootCoronaGeenAfstandWelKlachtenPage,
-		situatieHuisgenootCoronaWelAfstandPage,
 
 		/**
 		 * Site settings
