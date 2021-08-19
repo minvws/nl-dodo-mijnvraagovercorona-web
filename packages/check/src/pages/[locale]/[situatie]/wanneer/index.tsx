@@ -7,8 +7,6 @@ import { Page } from 'components/page';
 import {
 	DatepickerTopbar,
 	DatepickerTopbarTitle,
-	DatepickerBacklinkWrapper,
-	ScreenReaderOnly,
 	BodyContainer,
 	Datepicker,
 	Link,
@@ -32,9 +30,9 @@ import { getSituations } from 'utilities/situations';
 import 'react-day-picker/lib/style.css';
 import { useRouter } from 'next/router';
 import { differenceInDays, startOfDay, format } from 'date-fns';
-import { ProgressMarker } from 'components/progress-marker';
 import { Situation } from 'config/situaties';
 import { Locale } from 'types/locale';
+import { LinkBack } from 'components/link-back';
 
 interface PageContent {
 	page: {
@@ -116,9 +114,12 @@ export default function Wanneer({
 
 			<Page>
 				<Hero title={page.situation.header.title}>
-					<ProgressMarker
-						currentStageLabel={page.page.currentStepLabel}
-						currentStage={2}
+					<LinkBack
+						href={
+							currentSituation.showProtected
+								? `/${locale}/${currentSituation.url}/ben-ik-beschermd`
+								: `/${locale}/jouw-situatie`
+						}
 					/>
 					<Link fontWeight="lighter" as="button" onClick={openDialog}>
 						{page.situation.header.modal.link}
@@ -139,17 +140,6 @@ export default function Wanneer({
 								selectedDate ? formatShortDate(selectedDate, locale) : undefined
 							}
 						/>
-						<DatepickerBacklinkWrapper>
-							<Link
-								href={
-									currentSituation.showProtected
-										? `/${currentSituation.url}/ben-ik-beschermd`
-										: '/jouw-situatie'
-								}
-							>
-								<ScreenReaderOnly>{page.page.terugTekst}</ScreenReaderOnly>
-							</Link>
-						</DatepickerBacklinkWrapper>
 					</DatepickerTopbar>
 					<BodyContainer sx={{ display: 'flex', flexDirection: 'column' }}>
 						<Datepicker

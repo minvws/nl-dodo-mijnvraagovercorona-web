@@ -9,7 +9,7 @@ interface StyledLinkPropsBase {
 	className?: string;
 	fontWeight?: 'lighter' | 'normal' | 'bold';
 	lang?: string;
-	styledAs?: 'link' | 'button' | 'button-secondary';
+	styledAs?: 'link' | 'link-back' | 'button' | 'button-secondary';
 }
 
 export interface StyledLinkPropsAsAnchor extends StyledLinkPropsBase {
@@ -45,6 +45,14 @@ export const useLinkStyles = ({
 	styledAs,
 }: StyledLinkPropsBase) => {
 	const styles = useMemo(() => {
+		const chevronStyling: SxStyleProp = {
+			transform: 'translateX(0)',
+			transition: '300ms ease-in-out',
+			transitionProperty: 'transform',
+			marginRight: 13,
+			width: 9,
+			minWidth: 9,
+		};
 		const linkStyling: SxStyleProp = {
 			fontSize: ['linkMobile', 'link'],
 			fontWeight: fontWeight,
@@ -62,16 +70,28 @@ export const useLinkStyles = ({
 			'&:hover, &:focus': {
 				color: 'linkHover',
 				'.chevron': {
-					transform: 'translate3d(3px, 0, 0)',
+					transform: 'translateX(3px)',
 				},
 			},
 			'.chevron': {
-				transform: 'translate3d(0, 0, 0)',
-				transition: '300ms ease-in-out',
-				transitionProperty: 'transform',
-				marginRight: 13,
-				width: 9,
-				minWidth: 9,
+				...chevronStyling,
+			},
+		};
+
+		const linkBackStyling: SxStyleProp = {
+			...linkStyling,
+			position: 'absolute',
+			top: '-50px',
+			fontWeight: 'bold',
+			'&:hover, &:focus': {
+				color: 'linkHover',
+				'.chevron': {
+					transform: 'translateX(-3px) rotate(180deg)',
+				},
+			},
+			'.chevron': {
+				...chevronStyling,
+				transform: 'translateX(0) rotate(180deg)',
 			},
 		};
 
@@ -112,6 +132,7 @@ export const useLinkStyles = ({
 			},
 		};
 
+		if (styledAs === 'link-back') return linkBackStyling;
 		if (styledAs === 'button') return buttonStyling;
 		if (styledAs === 'button-secondary') return buttonSecondaryStyling;
 
@@ -130,7 +151,11 @@ const StyledLinkBase = <T extends React.ElementType = 'a'>(
 	const {
 		className,
 		// If styled as a button, the default for the chevron is false, vice versa for the link.
-		withChevron = props.styledAs === 'link' || !props.styledAs ? true : false,
+		withChevron = props.styledAs === 'link' ||
+		props.styledAs === 'link-back' ||
+		!props.styledAs
+			? true
+			: false,
 		children,
 		styledAs = 'link',
 		lang,
