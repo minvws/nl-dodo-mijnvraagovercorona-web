@@ -116,7 +116,7 @@ export default function JouwSituatie({ locale }: { locale: string }) {
 			/>
 			<Page>
 				<Hero title={page.header.title}>
-					<LinkBack href={`/${locale}/`} />
+					<LinkBack href={`/${locale}`} />
 				</Hero>
 				<Content>
 					<Box sx={{ mt: '36px' }}>
