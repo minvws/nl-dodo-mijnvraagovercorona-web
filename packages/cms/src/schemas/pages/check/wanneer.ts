@@ -8,43 +8,6 @@ export default {
 			name: 'metaData',
 			type: 'pageMetaData',
 		},
-		// TODO: verwijderen als content verplaatst is
-		{
-			title: 'Header in de buurt',
-			name: 'headerBuurt',
-			type: 'header',
-		},
-		{
-			title: 'Header coronamelder',
-			name: 'headerCoronamelder',
-			type: 'header',
-		},
-		{
-			title: 'Header reis',
-			name: 'headerReis',
-			type: 'header',
-		},
-		{
-			title: 'Header corona zonder klachten',
-			name: 'headerCoronaZonderKlachten',
-			type: 'header',
-		},
-		{
-			title: 'Header corona met klachten',
-			name: 'headerCoronaMetKlachten',
-			type: 'header',
-		},
-		{
-			title: 'Header huisgenoot afstand houden',
-			name: 'headerHuisgenootAfstand',
-			type: 'header',
-		},
-		{
-			title: 'Header huisgenoot geen afstand houden',
-			name: 'headerHuisgenootGeenAfstand',
-			type: 'header',
-		},
-		// END TODO: verwijderen als content verplaatst is
 		{
 			title: 'Terug tekst',
 			name: 'terugTekst',

@@ -186,56 +186,6 @@ const checkPagesConfig = [
 		icon: GiCalendar,
 	},
 	{
-		schemaType: 'situatie-zelf-klachten-page',
-		title: 'Check Situatie Zelf Klachten Pagina',
-		icon: GiThumbUp,
-	},
-	{
-		schemaType: 'situatie-buurt-page',
-		title: 'Check Situatie Buurt Pagina',
-		icon: GiThumbUp,
-	},
-	{
-		schemaType: 'situatie-coronamelder-page',
-		title: 'Check Situatie Coronamelder Pagina',
-		icon: GiThumbUp,
-	},
-	{
-		schemaType: 'situatie-reis-page',
-		title: 'Check Situatie Reis Pagina',
-		icon: GiThumbUp,
-	},
-	{
-		schemaType: 'situatie-corona-zonder-klachten-page',
-		title: 'Check Situatie Corona Zonder Klachten Pagina',
-		icon: GiThumbUp,
-	},
-	{
-		schemaType: 'situatie-corona-met-klachten-page',
-		title: 'Check Situatie Corona Met Klachten Pagina',
-		icon: GiThumbUp,
-	},
-	{
-		schemaType: 'situatie-huisgenoot-met-klachten-page',
-		title: 'Check Situatie Huisgenoot Met Klachten Pagina',
-		icon: GiThumbUp,
-	},
-	{
-		schemaType: 'situatie-huisgenoot-corona-geen-afstand-geen-klachten-page',
-		title: 'Check Situatie Huisgenoot Corona Geen Afstand Geen Klachten Pagina',
-		icon: GiThumbUp,
-	},
-	{
-		schemaType: 'situatie-huisgenoot-corona-geen-afstand-wel-klachten-page',
-		title: 'Check Situatie Huisgenoot Corona Geen Afstand Wel Klachten Pagina',
-		icon: GiThumbUp,
-	},
-	{
-		schemaType: 'situatie-huisgenoot-corona-wel-afstand-page',
-		title: 'Check Situatie Huisgenoot Corona Wel Afstand Pagina',
-		icon: GiThumbUp,
-	},
-	{
 		schemaType: 'geen-advies-page',
 		title: 'Geen Advies Pagina',
 		icon: GiThumbDown,
