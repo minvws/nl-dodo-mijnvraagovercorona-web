@@ -20,6 +20,7 @@ import {
 } from '@quarantaine/common';
 import { Situation } from 'config/situaties';
 import { Locale } from 'types/locale';
+import { LinkBack } from 'components/link-back';
 
 interface SituationContent {
 	title: string;
@@ -104,7 +105,7 @@ const renderPanel = (situation: SituationContent) => (
 	</ExpansionPanel>
 );
 
-export default function JouwSituatie() {
+export default function JouwSituatie({ locale }: { locale: string }) {
 	const page = useSanityPageContent<JouwSituatiePageContent>();
 	return (
 		<>
@@ -115,10 +116,7 @@ export default function JouwSituatie() {
 			/>
 			<Page>
 				<Hero title={page.header.title}>
-					<ProgressMarker
-						currentStageLabel={page.currentStepLabel}
-						currentStage={1}
-					/>
+					<LinkBack href={`/${locale}/`} locale={locale} />
 				</Hero>
 				<Content>
 					<Box sx={{ mt: '36px' }}>
