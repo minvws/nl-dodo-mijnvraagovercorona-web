@@ -53,7 +53,7 @@ export const SchemeBlock: React.FC<SchemeBlockProps> = ({
 			},
 		}}
 	>
-		{title && day && (
+		{(title || day) && (
 			<Flex
 				sx={{
 					justifyContent: 'space-between',
@@ -64,26 +64,30 @@ export const SchemeBlock: React.FC<SchemeBlockProps> = ({
 					},
 				}}
 			>
-				<p sx={{ margin: 0, color: 'smallText', fontWeight: 'bold' }}>
-					{title}
-					{subtitle && (
-						<>
-							{' '}
-							<span sx={{ fontWeight: 'normal' }}>{subtitle}</span>
-						</>
-					)}
-				</p>
-				<Text
-					variant="chapeau"
-					as="span"
-					sx={{
-						margin: 0,
-						color: 'copyHeading',
-						fontWeight: 'normal',
-					}}
-				>
-					{day}
-				</Text>
+				{title && (
+					<p sx={{ margin: 0, color: 'smallText', fontWeight: 'bold' }}>
+						{title}
+						{subtitle && (
+							<>
+								{' '}
+								<span sx={{ fontWeight: 'normal' }}>{subtitle}</span>
+							</>
+						)}
+					</p>
+				)}
+				{day && (
+					<Text
+						variant="chapeau"
+						as="span"
+						sx={{
+							margin: 0,
+							color: 'copyHeading',
+							fontWeight: 'normal',
+						}}
+					>
+						{day}
+					</Text>
+				)}
 			</Flex>
 		)}
 		{children && (
