@@ -108,11 +108,6 @@ const reizenPagesConfig = [
 		title: 'Reizen Resultaat Pagina',
 		icon: GiTestTubes,
 	},
-	{
-		schemaType: 'geen-resultaat-page',
-		title: 'Reizen Geen Resultaat Pagina',
-		icon: GiTestTubes,
-	},
 ];
 
 /**
@@ -187,7 +182,7 @@ const checkPagesConfig = [
 	},
 	{
 		schemaType: 'geen-advies-page',
-		title: 'Geen Advies Pagina',
+		title: 'Check Geen Advies Pagina',
 		icon: GiThumbDown,
 	},
 ];

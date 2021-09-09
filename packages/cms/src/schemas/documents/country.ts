@@ -1,3 +1,5 @@
+import { AiOutlineClockCircle } from 'react-icons/ai';
+
 export default {
 	title: 'Land Documenten',
 	name: 'land-document',
@@ -35,11 +37,52 @@ export default {
 			name: 'formerFlyRestriction',
 			type: 'boolean',
 		},
+		// @TODO: Remove old riskcategory once all risk categories
+		// are move to the new riskCategoryPlanning property.
 		{
 			title: 'Risico Categorie',
 			name: 'riskCategory',
 			type: 'reference',
 			to: [{ type: 'risk-category-document' }],
+		},
+		{
+			title: 'Risico categorie planning',
+			name: 'riskCategoryPlanning',
+			type: 'array',
+			of: [
+				{
+					name: 'riskCategory',
+					title: 'Risicocategorie',
+					type: 'object',
+					icon: AiOutlineClockCircle,
+					fields: [
+						{
+							title: 'Datum van ingang (0.00u)',
+							name: 'startDate',
+							type: 'date',
+							options: { dateFormat: 'DD-MM-YYYY' },
+						},
+						{
+							title: 'Risicocategorie',
+							name: 'riskCategory',
+							type: 'reference',
+							to: [{ type: 'risk-category-document' }],
+						},
+					],
+					preview: {
+						select: {
+							title: 'startDate',
+							subtitle: 'riskCategory.name',
+						},
+						prepare({ title, subtitle }: { title: string; subtitle: string }) {
+							return {
+								title: title ? title.split('-').reverse().join('-') : undefined,
+								subtitle,
+							};
+						},
+					},
+				},
+			],
 		},
 		{
 			title: 'Synoniemen',
@@ -63,7 +106,7 @@ export default {
 	preview: {
 		select: {
 			title: 'name.nl',
-			subtitle: 'riskCategory.label',
+			subtitle: 'riskCategoryPlanning.0.riskCategory.label',
 		},
 	},
 };
