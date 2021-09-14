@@ -37,14 +37,6 @@ export default {
 			name: 'formerFlyRestriction',
 			type: 'boolean',
 		},
-		// @TODO: Remove old riskcategory once all risk categories
-		// are move to the new riskCategoryPlanning property.
-		{
-			title: 'Risico Categorie',
-			name: 'riskCategory',
-			type: 'reference',
-			to: [{ type: 'risk-category-document' }],
-		},
 		{
 			title: 'Risico categorie planning',
 			name: 'riskCategoryPlanning',
