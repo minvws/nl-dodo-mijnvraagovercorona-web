@@ -29,7 +29,7 @@ export const locales: { [key: string]: Locale } = {
 	},
 	spanish: {
 		id: Locales.Spanish,
-		fullName: 'Spanish',
+		fullName: 'Español',
 		shortName: 'Es',
 		urlPrefix: '/es',
 		locale: 'es_es',
