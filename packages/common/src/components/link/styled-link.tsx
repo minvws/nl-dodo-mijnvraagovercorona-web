@@ -96,6 +96,8 @@ export const useLinkStyles = ({
 		};
 
 		const buttonStyling: SxStyleProp = {
+			paddingTop: '15px',
+			paddingBottom: '15px',
 			paddingRight: 'buttonPadding',
 			paddingLeft: 'buttonPadding',
 			margin: '0',
@@ -104,8 +106,7 @@ export const useLinkStyles = ({
 			textDecoration: 'none',
 			border: 'none',
 			minWidth: ['100%', '0'],
-			height: 'buttonHeight',
-			lineHeight: '55px',
+			minHeight: 'buttonHeight',
 			fontSize: ['buttonMobile', 'button'],
 			fontFamily: 'heading',
 			backgroundColor: 'button',
