@@ -9,7 +9,7 @@ variables:
   CD_NAMESPACE_BHR: vws-reis-bhr
   CD_HARBOR_REGISTRY: harbor.cicd.s15m.nl
 
-image: harbor.cicd.s15m.nl/vws-qplicht/tool-box:1.2
+image: harbor.cicd.s15m.nl/vws-reis/tool-box:1.2
 
 .build-image: &build-image
   environment:
@@ -22,7 +22,7 @@ image: harbor.cicd.s15m.nl/vws-qplicht/tool-box:1.2
     - echo "${DOCKER_AUTH_CONFIG}" > /kaniko/.docker/config.json
     - cat /kaniko/.docker/config.json
     - cat ./packages/${CD_APP_FOLDER}/Dockerfile |
-      sed "s~node:14-alpine~harbor.cicd.s15m.nl/vws-qplicht-docker-hub/library/node:14-alpine~g"
+      sed "s~node:14-alpine~harbor.cicd.s15m.nl/vws-reis-docker-hub/library/node:14-alpine~g"
       > ./packages/${CD_APP_FOLDER}/Dockerfile_derived
     - cat ./packages/${CD_APP_FOLDER}/Dockerfile_derived
     - echo "CI_PROJECT_DIR ${CI_PROJECT_DIR}"
