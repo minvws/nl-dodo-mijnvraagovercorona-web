@@ -22,7 +22,7 @@ image: harbor.diensten.test.overheid.standaardplatform.rijksapps.nl/vws-reis/too
     - echo "${DOCKER_AUTH_CONFIG}" > /kaniko/.docker/config.json
     - cat /kaniko/.docker/config.json
     - cat ./packages/${CD_APP_FOLDER}/Dockerfile |
-      sed "s~node:14-alpine~harbor.diensten.test.overheid.standaardplatform.rijksapps.nl/vws-reis-docker-hub/library/node:14-alpine~g"
+      sed "s~node:14-alpine~harbor.diensten.test.overheid.standaardplatform.rijksapps.nl/vws-reis/node:14-alpine~g"
       > ./packages/${CD_APP_FOLDER}/Dockerfile_derived
     - cat ./packages/${CD_APP_FOLDER}/Dockerfile_derived
     - echo "CI_PROJECT_DIR ${CI_PROJECT_DIR}"
@@ -51,21 +51,21 @@ after_script:
   - echo "Ended by ${GITLAB_USER_LOGIN} at $(date +%Y-%m-%d'-'%H-%M-%S)"
 
 test common:
-  image: harbor.diensten.test.overheid.standaardplatform.rijksapps.nl/vws-reis-docker-hub/library/node:14-alpine
+  image: harbor.diensten.test.overheid.standaardplatform.rijksapps.nl/vws-reis/node:14-alpine
   stage: test
   script:
     - yarn
     - yarn test:common
 
 test reizen:
-  image: harbor.diensten.test.overheid.standaardplatform.rijksapps.nl/vws-reis-docker-hub/library/node:14-alpine
+  image: harbor.diensten.test.overheid.standaardplatform.rijksapps.nl/vws-reis/node:14-alpine
   stage: test
   script:
     - yarn
     - yarn test:reizen
 
 test check:
-  image: harbor.diensten.test.overheid.standaardplatform.rijksapps.nl/vws-reis-docker-hub/library/node:14-alpine
+  image: harbor.diensten.test.overheid.standaardplatform.rijksapps.nl/vws-reis/node:14-alpine
   stage: test
   script:
     - yarn
@@ -76,7 +76,7 @@ test check:
 # @TODO: Replace with the below url once new harbor is used for reizen site:
 # image: harbor.diensten.test.overheid.standaardplatform.rijksapps.nl/vws-reis-docker-hub/cypress/browsers:node14.16.0-chrome89-ff86
 # e2e reizen:
-#   image: harbor.diensten.test.overheid.standaardplatform.rijksapps.nl/vws-reis-docker-hub/library/cypress/browsers:node14.16.0-chrome89-ff86
+#   image: harbor.diensten.test.overheid.standaardplatform.rijksapps.nl/vws-reis/cypress/browsers:node14.16.0-chrome89-ff86
 #   stage: test
 #   script:
 #     - yarn
