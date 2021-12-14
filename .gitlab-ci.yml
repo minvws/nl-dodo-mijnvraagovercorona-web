@@ -38,6 +38,7 @@ image: harbor.diensten.test.overheid.standaardplatform.rijksapps.nl/vws-reis/too
 stages:
   - test
   - build
+  - label
   - deploy
 
 # CI_* variables are defined in GitLab group settings, see build log for actual values
@@ -175,3 +176,35 @@ deploy check image production:
     - if: '$CI_COMMIT_TAG =~ /^production/'
       when: manual
     - when: never
+
+label reizen image production:
+  stage: label
+  environment:
+    name: test-cluster
+  variables:
+    CD_APP_NAME: travel-during-corona-website
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^production/'
+      when: always
+    - when: never
+  script:
+    - CD_USERNAME=$(kubectl get secret -n ${CD_NAMESPACE_BHR} sa-user-secret -o jsonpath={.data.username} | base64 --decode)
+    - CD_PASSWORD=$(kubectl get secret -n ${CD_NAMESPACE_BHR} sa-user-secret -o jsonpath={.data.password} | base64 --decode)
+    - "CONTENT_HEADER='Content-Type:application/json'"
+    - curl -v -u "${CD_USERNAME}:${CD_PASSWORD}" -H ${CONTENT_HEADER} https://${CD_HARBOR_REGISTRY}/api/repositories/vws-reis/${CD_APP_NAME}/tags/${CD_APP_TAG}/labels -d '{"id":1}'
+
+label check image production:
+  stage: label
+  environment:
+    name: test-cluster
+  variables:
+    CD_APP_NAME: quarantaine-check-website
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^production/'
+      when: always
+    - when: never
+  script:
+    - CD_USERNAME=$(kubectl get secret -n ${CD_NAMESPACE_BHR} sa-user-secret -o jsonpath={.data.username} | base64 --decode)
+    - CD_PASSWORD=$(kubectl get secret -n ${CD_NAMESPACE_BHR} sa-user-secret -o jsonpath={.data.password} | base64 --decode)
+    - "CONTENT_HEADER='Content-Type:application/json'"
+    - curl -v -u "${CD_USERNAME}:${CD_PASSWORD}" -H ${CONTENT_HEADER} https://${CD_HARBOR_REGISTRY}/api/repositories/vws-reis/${CD_APP_NAME}/tags/${CD_APP_TAG}/labels -d '{"id":1}'
