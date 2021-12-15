@@ -68,12 +68,12 @@ test check:
     - yarn
     - yarn test:check
 
-# e2e reizen:
-#   image: harbor.cicd.s15m.nl/vws-reis-docker-hub/library/cypress/browsers:node14.16.0-chrome89-ff86
-#   stage: test
-#   script:
-#     - yarn
-#     - yarn e2e:reizen
+test reizen e2e:
+  image: harbor.cicd.s15m.nl/vws-reis-docker-hub/library/cypress/browsers:node14.16.0-chrome89-ff86
+  stage: test
+  script:
+    - yarn
+    - yarn e2e:reizen
 
 build reizen image:
   <<: *build-image
