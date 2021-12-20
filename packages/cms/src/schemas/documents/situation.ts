@@ -2,6 +2,16 @@ export default {
 	title: 'Situatie document',
 	name: 'situation-document',
 	type: 'document',
+	fieldsets: [
+		{
+			name: 'protectedContent',
+			title: 'Beschermd content',
+			options: {
+				collapsible: true,
+				collapsed: true,
+			},
+		},
+	],
 	fields: [
 		{
 			title: 'Meta data',
@@ -57,11 +67,13 @@ export default {
 			title: 'Beschermd header title',
 			name: 'beschermdTitle',
 			type: 'localeString',
+			fieldset: 'protectedContent',
 		},
 		{
 			title: 'Beschermd text',
 			name: 'beschermdText',
 			type: 'localeBlock',
+			fieldset: 'protectedContent',
 		},
 		{
 			title: 'Datum-vraag tonen?',
