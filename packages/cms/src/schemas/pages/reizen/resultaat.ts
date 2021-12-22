@@ -136,9 +136,14 @@ export default {
 							type: 'object',
 							fields: [
 								{
-									title: 'Content',
+									title: 'Heading',
 									name: 'content',
 									type: 'localeString',
+								},
+								{
+									title: 'Content',
+									name: 'contentBlock',
+									type: 'localeBlock',
 								},
 								{
 									title: 'Condities',
