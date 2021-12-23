@@ -8,6 +8,7 @@ declare global {
 		Piwik?: {
 			getTracker?: () => { trackPageView?: () => void };
 		};
+		_paq?: Array<any>;
 	}
 }
 
@@ -29,5 +30,34 @@ const trackPageview = () => {
 
 	try {
 		window?.Piwik?.getTracker?.().trackPageView?.();
+	} catch {}
+};
+
+/**
+ * Small helper method to wrap the piwik trackGoal
+ * inside a try catch and making sure it only runs on the browser.
+ */
+export const trackGoal = (goalID) => {
+	if (!isBrowser()) return;
+
+	try {
+		window?._paq?.push(['trackGoal', goalID]);
+	} catch {}
+};
+
+/**
+ * Small helper method to wrap the piwik trackEvent
+ * inside a try catch and making sure it only runs on the browser.
+ */
+export const trackEvent = (
+	category: string,
+	action: string,
+	name?: string,
+	value?: number,
+) => {
+	if (!isBrowser()) return;
+
+	try {
+		window?._paq?.push(['trackEvent', category, action, name, value]);
 	} catch {}
 };
