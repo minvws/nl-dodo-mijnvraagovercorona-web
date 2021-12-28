@@ -6,18 +6,26 @@ import {
 	trackEvent,
 	ScreenReaderOnly,
 	ThumbIcon,
+	Link,
 } from '@quarantaine/common';
+import { useState } from 'react';
 
 interface OwnProps {
 	likeEventName: string;
 	dislikeEventName: string;
+	feedbackUrl: string;
 }
 
 export const LikeOrDislike: React.FC<OwnProps> = ({
 	likeEventName,
 	dislikeEventName,
+	feedbackUrl,
 }) => {
 	const siteSettings = useSanitySiteSettings();
+	const [showFeedback, setShowFeedback] = useState<boolean>(false);
+	const [feedback, setFeedback] = useState<'like' | 'dislike' | undefined>(
+		undefined,
+	);
 
 	const buttonStyles: SxStyleProp = {
 		paddingTop: '15px',
@@ -60,7 +68,13 @@ export const LikeOrDislike: React.FC<OwnProps> = ({
 			<Box sx={{ display: 'flex', gap: '1em' }}>
 				<Button
 					sx={buttonStyles}
-					onClick={() => trackEvent('Button', 'Click', likeEventName)}
+					onClick={() => {
+						if (!feedback) {
+							setShowFeedback(true);
+							setFeedback('like');
+							trackEvent('Button', 'Click', likeEventName);
+						}
+					}}
 				>
 					<ThumbIcon
 						sx={{
@@ -73,7 +87,13 @@ export const LikeOrDislike: React.FC<OwnProps> = ({
 				</Button>
 				<Button
 					sx={buttonStyles}
-					onClick={() => trackEvent('Button', 'Click', dislikeEventName)}
+					onClick={() => {
+						if (!feedback) {
+							setShowFeedback(true);
+							setFeedback('dislike');
+							trackEvent('Button', 'Click', dislikeEventName);
+						}
+					}}
 				>
 					<ThumbIcon
 						sx={{
@@ -86,6 +106,28 @@ export const LikeOrDislike: React.FC<OwnProps> = ({
 					<ScreenReaderOnly>Nee</ScreenReaderOnly>
 				</Button>
 			</Box>
+			{showFeedback && (
+				<Box
+					sx={{
+						backgroundColor: 'buttonSecondary',
+						padding: '16px',
+						borderRadius: '5px',
+						marginTop: '16px',
+					}}
+				>
+					<Styled.p sx={{ marginBottom: '16px' }}>
+						Bedankt voor je reactie. Je zou ons enorm helpen als je met een paar
+						anonieme vragen wilt vertellen wat je van deze website vindt.
+					</Styled.p>
+					<Link
+						styledAs="button"
+						href={`${feedbackUrl}&feedback=${feedback}`}
+						external
+					>
+						{siteSettings.feedback.button}
+					</Link>
+				</Box>
+			)}
 		</Box>
 	);
 };
