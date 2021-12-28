@@ -134,7 +134,7 @@ deploy reizen image latest:
     CD_WEBSITE_COMMIT_TAG: $CI_COMMIT_TAG
     CD_ENVIRONMENT: development
   stage: deploy
-  trigger: vws/reis/quarantine-websites-deploy
+  trigger: vws/reis/nl-covid19-travel-during-corona-deploy
   rules:
     - if: '$CI_COMMIT_TAG =~ /^development/'
       when: on_success
@@ -146,7 +146,7 @@ deploy check image latest:
     CD_WEBSITE_COMMIT_TAG: $CI_COMMIT_TAG
     CD_ENVIRONMENT: development
   stage: deploy
-  trigger: vws/reis/quarantine-websites-deploy
+  trigger: vws/reis/nl-covid19-travel-during-corona-deploy
   rules:
     - if: '$CI_COMMIT_TAG =~ /^development/'
       when: on_success
@@ -158,7 +158,7 @@ deploy reizen image staging:
     CD_WEBSITE_COMMIT_TAG: $CI_COMMIT_TAG
     CD_ENVIRONMENT: staging
   stage: deploy
-  trigger: vws/reis/quarantine-websites-deploy
+  trigger: vws/reis/nl-covid19-travel-during-corona-deploy
   rules:
     - if: '$CI_COMMIT_TAG =~ /^staging/'
       when: on_success
@@ -170,7 +170,7 @@ deploy check image staging:
     CD_WEBSITE_COMMIT_TAG: $CI_COMMIT_TAG
     CD_ENVIRONMENT: staging
   stage: deploy
-  trigger: vws/reis/quarantine-websites-deploy
+  trigger: vws/reis/nl-covid19-travel-during-corona-deploy
   rules:
     - if: '$CI_COMMIT_TAG =~ /^staging/'
       when: on_success
@@ -182,7 +182,7 @@ deploy reizen image production:
     CD_WEBSITE_COMMIT_TAG: $CI_COMMIT_TAG
     CD_ENVIRONMENT: production
   stage: deploy
-  trigger: vws/reis/quarantine-websites-deploy
+  trigger: vws/reis/nl-covid19-travel-during-corona-deploy
   rules:
     - if: '$CI_COMMIT_TAG =~ /^production/'
       when: manual
@@ -194,7 +194,7 @@ deploy check image production:
     CD_WEBSITE_COMMIT_TAG: $CI_COMMIT_TAG
     CD_ENVIRONMENT: production
   stage: deploy
-  trigger: vws/reis/quarantine-websites-deploy
+  trigger: vws/reis/nl-covid19-travel-during-corona-deploy
   rules:
     - if: '$CI_COMMIT_TAG =~ /^production/'
       when: manual
