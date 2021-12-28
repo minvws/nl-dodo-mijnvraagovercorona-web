@@ -32,6 +32,17 @@ image: harbor.cicd.s15m.nl/vws-reis/tool-box:1.2
       --destination ${CD_HARBOR_REGISTRY}/vws-reis/${CD_APP_NAME}:${CD_APP_TAG}
       --cache=true
 
+.label-image: &label-image
+  environment:
+    name: overheid-test2
+  stage: label
+  image: harbor.cicd.s15m.nl/vws-reis/tool-box:1.2
+  script:
+    - CD_USERNAME=${HARBOR_ROBOT_NAME}
+    - CD_PASSWORD=$(echo ${HARBOR_ROBOT_SECRET} | base64 -d)
+    - "CONTENT_HEADER='Content-Type:application/json'"
+    - curl -v -u "${CD_USERNAME}:${CD_PASSWORD}" -H ${CONTENT_HEADER} https://${CD_HARBOR_REGISTRY}/api/repositories/vws-reis/${CD_APP_NAME}/tags/${CD_APP_TAG}/labels -d '{"id":${CD_ENVIRONMENT_LABEL}}'
+
 stages:
   - test
   - build
@@ -91,20 +102,41 @@ test check:
 #     - yarn
 #     - yarn e2e:reizen
 
-label image production:
-  stage: label
-  environment:
-    name: test-cluster
-  image: harbor.cicd.s15m.nl/vws-reis/tool-box:1.2
+label reizen image staging:
+  <<: *label-image
+  variables:
+    CD_APP_NAME: travel-during-corona-website
+    CD_ENVIRONMENT_LABEL: 2
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^staging/'
+      when: always
+
+label check image staging:
+  <<: *label-image
+  variables:
+    CD_APP_NAME: quarantaine-check-website
+    CD_ENVIRONMENT_LABEL: 2
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^staging/'
+      when: always
+
+label reizen image production:
+  <<: *label-image
+  variables:
+    CD_APP_NAME: travel-during-corona-website
+    CD_ENVIRONMENT_LABEL: 1
   rules:
     - if: '$CI_COMMIT_TAG =~ /^production/'
       when: always
-    - when: never
-  script:
-    - CD_USERNAME=$(kubectl get secret -n ${CD_NAMESPACE_BHR} sa-user-secret -o jsonpath={.data.username} | base64 --decode)
-    - CD_PASSWORD=$(kubectl get secret -n ${CD_NAMESPACE_BHR} sa-user-secret -o jsonpath={.data.password} | base64 --decode)
-    - "CONTENT_HEADER='Content-Type:application/json'"
-    - curl -v -u "${CD_USERNAME}:${CD_PASSWORD}" -H ${CONTENT_HEADER} https://${CD_HARBOR_REGISTRY}/api/repositories/vws-reis/${CD_APP_NAME}/tags/${CD_APP_TAG}/labels -d '{"id":1}'
+
+label check image production:
+  <<: *label-image
+  variables:
+    CD_APP_NAME: quarantaine-check-website
+    CD_ENVIRONMENT_LABEL: 1
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^production/'
+      when: always
 
 build reizen image:
   <<: *build-image
