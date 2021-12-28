@@ -116,8 +116,7 @@ export const LikeOrDislike: React.FC<OwnProps> = ({
 					}}
 				>
 					<Styled.p sx={{ marginBottom: '16px' }}>
-						Bedankt voor je reactie. Je zou ons enorm helpen als je met een paar
-						anonieme vragen wilt vertellen wat je van deze website vindt.
+						{siteSettings.feedback.thanks}
 					</Styled.p>
 					<Link
 						styledAs="button"
