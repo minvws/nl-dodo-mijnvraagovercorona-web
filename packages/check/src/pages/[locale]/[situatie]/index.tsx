@@ -10,18 +10,17 @@ import {
 } from 'date-fns';
 
 import {
-	BodyContainer,
 	CallToAction,
 	Link,
 	SaveInCalendar,
 	MetaTags,
 	getLocaleProperty,
 	sanityClient,
-	getPageQuery,
 	useSanityPageContent,
 	useSanitySiteSettings,
 	ContentBlock,
 	Feedback,
+	getFeedbackUrl,
 	Hero,
 	Content,
 	SchemeBlock,
@@ -131,9 +130,10 @@ interface PageContent {
 interface SituatieProps {
 	locale: Locale;
 	date: string;
+	situatie: string;
 }
 
-export default function Situatie({ locale, date }: SituatieProps) {
+export default function Situatie({ locale, date, situatie }: SituatieProps) {
 	const page = useSanityPageContent<PageContent>();
 	const siteSettings = useSanitySiteSettings<SiteSettings>();
 	const router = useRouter();
@@ -287,7 +287,13 @@ export default function Situatie({ locale, date }: SituatieProps) {
 								</>
 							)}
 						</Box>
-						<Feedback />
+						<Feedback
+							name="Quarantaine Check Result"
+							feedbackUrl={getFeedbackUrl(siteSettings.feedback.url, {
+								situation: situatie,
+								day: todayDay?.toString(),
+							})}
+						/>
 					</section>
 				</Content>
 			</Page>
@@ -343,8 +349,8 @@ export const getStaticProps = async ({
 		showPrintAndCalendar,
    		quarantaineDuration,
 		url,
-    showProtected,
-    showDate
+    	showProtected,
+    	showDate
 	}`;
 
 	const { page, siteSettings } = await sanityClient.fetch(
@@ -361,6 +367,7 @@ export const getStaticProps = async ({
 			page,
 			siteSettings,
 			locale,
+			situatie,
 			date: date || '',
 		},
 	};
