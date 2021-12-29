@@ -173,6 +173,7 @@ const siteSettingsQuery = ({
 			${getLocaleProperty({ name: 'content', path: 'feedback.content', locale })},
 			${getLocaleProperty({ name: 'title', path: 'feedback.title', locale })},
 			${getLocaleProperty({ name: 'url', path: 'feedback.url', locale })},
+			${getLocaleProperty({ name: 'thanks', path: 'feedback.thanks', locale })},
 		},
 		"vervoersmiddelen": vervoersmiddelen[]{
 			naam,

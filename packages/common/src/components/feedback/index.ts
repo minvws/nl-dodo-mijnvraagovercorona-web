@@ -1,1 +1,1 @@
-export { Feedback } from './Feedback';
+export { Feedback, getFeedbackUrl } from './Feedback';

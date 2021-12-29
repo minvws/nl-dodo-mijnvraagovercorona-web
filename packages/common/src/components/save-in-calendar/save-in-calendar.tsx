@@ -127,6 +127,7 @@ export const SaveInCalendar: React.FC<SingleDayProps | MultiDayProps> = (
 			sx={{
 				marginTop: '16px',
 			}}
+			as="span"
 		>
 			<Menu>
 				<MenuButton

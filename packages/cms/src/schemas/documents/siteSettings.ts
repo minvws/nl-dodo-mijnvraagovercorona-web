@@ -170,6 +170,11 @@ export default {
 					type: 'localeString',
 				},
 				{
+					title: 'Bedank',
+					name: 'thanks',
+					type: 'localeString',
+				},
+				{
 					title: 'URL',
 					name: 'url',
 					type: 'localeString',

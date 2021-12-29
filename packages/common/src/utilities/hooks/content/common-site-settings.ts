@@ -4,6 +4,7 @@ export interface CommonSiteSettings {
 	feedback: {
 		button: string;
 		content: string;
+		thanks: string;
 		title: string;
 		url: string;
 	};
