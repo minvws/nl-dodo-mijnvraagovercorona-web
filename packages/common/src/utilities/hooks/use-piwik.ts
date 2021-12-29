@@ -36,8 +36,7 @@ const trackPageview = () => {
 /**
  * Small helper method to wrap the piwik trackGoal
  * inside a try catch and making sure it only runs on the browser.
- */
-export const trackGoal = (goalID) => {
+ */ export const trackGoal = (goalID: number) => {
 	if (!isBrowser()) return;
 
 	try {
