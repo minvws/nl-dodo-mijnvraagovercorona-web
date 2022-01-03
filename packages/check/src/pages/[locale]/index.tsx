@@ -16,6 +16,8 @@ import {
 	useSanitySiteSettings,
 	Content,
 	Hero,
+	Feedback,
+	getFeedbackUrl,
 } from '@quarantaine/common';
 import { Locale } from 'types/locale';
 
@@ -113,6 +115,12 @@ export default function LandingPage() {
 							<Styled.p>{item.description}</Styled.p>
 						</SectionInformational>
 					))}
+					<Feedback
+						name="Quarantaine Check Home"
+						feedbackUrl={getFeedbackUrl(siteSettings.feedback.url, {
+							source: 'home',
+						})}
+					/>
 				</Content>
 			</Page>
 		</>

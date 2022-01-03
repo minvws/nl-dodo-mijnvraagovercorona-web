@@ -292,6 +292,7 @@ export default function Situatie({ locale, date, situatie }: SituatieProps) {
 							feedbackUrl={getFeedbackUrl(siteSettings.feedback.url, {
 								situation: situatie,
 								day: todayDay?.toString(),
+								source: 'result',
 							})}
 						/>
 					</section>
