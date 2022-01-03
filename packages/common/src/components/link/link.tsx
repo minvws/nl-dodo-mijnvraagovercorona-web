@@ -1,5 +1,5 @@
 import { default as NextLink } from 'next/link';
-import { useCurrentLocale } from '@quarantaine/common';
+import { useCurrentLocale, ExternalIcon } from '@quarantaine/common';
 
 import {
 	StyledLink,
@@ -32,6 +32,7 @@ export const Link: React.FC<StyledLinkProps> = (props) => {
 		<NextLink href={hrefWithLocale} passHref>
 			<StyledLink {...propsWithoutHref} href={hrefWithLocale}>
 				{children}
+				{props.external && <ExternalIcon />}
 			</StyledLink>
 		</NextLink>
 	);
