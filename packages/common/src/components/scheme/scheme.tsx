@@ -101,22 +101,6 @@ export const SchemeBlock: React.FC<SchemeBlockProps> = ({
 						'.chevron': {
 							display: 'none',
 						},
-						// eg modal icon
-						svg: {
-							marginLeft: '0px',
-							width: '20px',
-							height: '20px',
-						},
-						'&[target="_blank"]::after': {
-							display: 'inline-block',
-							content: '""',
-							backgroundImage: `url('/icons/outlink.svg')`,
-							backgroundSize: '14px 14px',
-							backgroundRepeat: 'no-repeat',
-							height: '14px',
-							width: '14px',
-							marginLeft: '4px',
-						},
 						'&:hover, &:focus': {
 							color: 'inherit',
 						},

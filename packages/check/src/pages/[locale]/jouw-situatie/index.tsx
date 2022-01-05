@@ -3,7 +3,6 @@ import React from 'react';
 import { Box, jsx, Styled } from 'theme-ui';
 
 import { Page } from 'components/page';
-import { ProgressMarker } from 'components/progress-marker';
 
 import {
 	ExpansionPanel,
@@ -15,8 +14,10 @@ import {
 	MetaTags,
 	ContentBlock,
 	useSanityPageContent,
-	useSanitySiteSettings,
+	Feedback,
+	getFeedbackUrl,
 	Hero,
+	useSanitySiteSettings,
 } from '@quarantaine/common';
 import { Situation } from 'config/situaties';
 import { Locale } from 'types/locale';
@@ -107,6 +108,8 @@ const renderPanel = (situation: SituationContent) => (
 
 export default function JouwSituatie({ locale }: { locale: string }) {
 	const page = useSanityPageContent<JouwSituatiePageContent>();
+	const siteSettings = useSanitySiteSettings();
+
 	return (
 		<>
 			<MetaTags
@@ -138,6 +141,13 @@ export default function JouwSituatie({ locale }: { locale: string }) {
 
 					<Styled.h2>{page.noMatch.title}</Styled.h2>
 					<ContentBlock content={page.noMatch.content} />
+
+					<Feedback
+						name="Your Situation"
+						feedbackUrl={getFeedbackUrl(siteSettings.feedback.url, {
+							source: 'your-situation',
+						})}
+					/>
 				</Content>
 			</Page>
 		</>
