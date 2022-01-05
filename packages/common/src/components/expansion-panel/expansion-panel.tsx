@@ -19,6 +19,7 @@ type ExpansionPanelProps = {
 	 */
 	titleSuffix?: string;
 	variant?: 'chevron' | 'plus';
+	toggleEvent?: Function;
 	children: React.ReactNode;
 };
 
@@ -26,6 +27,7 @@ export const ExpansionPanel = ({
 	title,
 	children,
 	titleSuffix,
+	toggleEvent,
 	variant,
 }: ExpansionPanelProps) => {
 	const [open, setOpen] = useState(false);
@@ -35,6 +37,7 @@ export const ExpansionPanel = ({
 	// Otherwise this won't have any effect.
 	const { expandedPanel, setExpandedPanel } = useExpansionPanelGroup();
 	const handleChange = () => {
+		toggleEvent && toggleEvent(open ? 'close' : 'open');
 		setOpen((open) => !open);
 	};
 

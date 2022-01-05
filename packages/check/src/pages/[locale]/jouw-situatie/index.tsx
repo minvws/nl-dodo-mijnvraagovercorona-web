@@ -18,6 +18,7 @@ import {
 	getFeedbackUrl,
 	Hero,
 	useSanitySiteSettings,
+	trackEvent,
 } from '@quarantaine/common';
 import { Situation } from 'config/situaties';
 import { Locale } from 'types/locale';
@@ -78,6 +79,9 @@ const renderPanel = (situation: SituationContent) => (
 		key={situation.title}
 		title={situation.title}
 		titleSuffix={situation.titleSuffix}
+		toggleEvent={(state: string) =>
+			state === 'open' && trackEvent('Situation', 'Open', situation.title)
+		}
 		variant="plus"
 	>
 		{situation.contentBlocks &&
