@@ -38,6 +38,7 @@ interface JouwSituatiePageContent {
 	};
 	header: {
 		title: string;
+		content: Object[];
 	};
 	situationsYouTitle: string;
 	situationsYou: SituationContent[];
@@ -124,6 +125,7 @@ export default function JouwSituatie({ locale }: { locale: string }) {
 			<Page>
 				<Hero title={page.header.title}>
 					<LinkBack href={`/${locale}`} />
+					<ContentBlock content={page.header.content} />
 				</Hero>
 				<Content>
 					<Box sx={{ mt: '36px' }}>
@@ -135,7 +137,7 @@ export default function JouwSituatie({ locale }: { locale: string }) {
 
 						{page.situationsOther.map((situation) => renderPanel(situation))}
 					</Box>
-					<Box sx={{ my: '36px' }}>
+					<Box sx={{ my: '36px' }} id="uitzonderingen">
 						<Styled.h2>{page.situationsExceptionsTitle}</Styled.h2>
 
 						{page.situationsExceptions.map((situation) =>
@@ -176,6 +178,7 @@ export const getStaticProps = async ({
 		},
 		"header": {
 			${getLocaleProperty({ name: 'title', path: 'header.title', locale })},
+			${getLocaleProperty({ name: 'content', path: 'header.content', locale })},
 		},
 		${getLocaleProperty({ name: 'situationsYouTitle', locale })},
 		"situationsYou": situationsYou[]{

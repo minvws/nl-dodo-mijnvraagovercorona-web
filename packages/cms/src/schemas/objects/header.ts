@@ -9,6 +9,11 @@ export default {
 			type: 'localeString',
 		},
 		{
+			title: 'Content',
+			name: 'content',
+			type: 'localeBlock',
+		},
+		{
 			title: 'Modal',
 			name: 'modal',
 			type: 'object',
