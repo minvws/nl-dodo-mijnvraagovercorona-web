@@ -1,7 +1,7 @@
 export interface Situation {
 	maxDays: number;
 	showDate: boolean;
-	showProtected: boolean;
+	showExceptions: boolean;
 	url: string;
 }
 

@@ -116,8 +116,8 @@ export default function Wanneer({
 				<Hero title={page.situation.header.title}>
 					<LinkBack
 						href={
-							currentSituation.showProtected
-								? `/${locale}/${currentSituation.url}/ben-ik-beschermd`
+							currentSituation.showExceptions
+								? `/${locale}/${currentSituation.url}/ben-ik-uitgezonderd`
 								: `/${locale}/jouw-situatie`
 						}
 					/>

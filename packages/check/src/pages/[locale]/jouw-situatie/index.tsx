@@ -65,10 +65,10 @@ interface ContentBlocks {
 
 const getUrlBySituation = (situation: Situation) => {
 	if (
-		typeof situation.showProtected !== 'undefined' &&
-		situation.showProtected
+		typeof situation.showExceptions !== 'undefined' &&
+		situation.showExceptions
 	) {
-		return `/${situation.url}/ben-ik-beschermd`;
+		return `/${situation.url}/ben-ik-uitgezonderd`;
 	} else if (typeof situation.showDate !== 'undefined' && situation.showDate) {
 		return `/${situation.url}/wanneer`;
 	}
@@ -204,7 +204,7 @@ export const getStaticProps = async ({
 					})},
           "url": situationReference->url,
           "showDate": situationReference->showDate,
-          "showProtected": situationReference->showProtected,
+          "showExceptions": situationReference->showExceptions,
         }
       }
 		},
@@ -232,7 +232,7 @@ export const getStaticProps = async ({
 					})},
           "url": situationReference->url,
           "showDate": situationReference->showDate,
-          "showProtected": situationReference->showProtected,
+          "showExceptions": situationReference->showExceptions,
         }
       }
 		},
@@ -260,7 +260,7 @@ export const getStaticProps = async ({
 					})},
           "url": situationReference->url,
           "showDate": situationReference->showDate,
-          "showProtected": situationReference->showProtected,
+          "showExceptions": situationReference->showExceptions,
         }
       }
 		},

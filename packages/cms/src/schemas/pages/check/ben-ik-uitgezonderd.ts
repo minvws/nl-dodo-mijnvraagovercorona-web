@@ -1,6 +1,6 @@
 export default {
-	title: 'Check Ben ik beschermd Pagina',
-	name: 'check-ben-ik-beschermd-page',
+	title: 'Check Ben ik uitgezonderd Pagina',
+	name: 'check-ben-ik-uitgezonderd-page',
 	type: 'document',
 	fields: [
 		{
@@ -14,28 +14,28 @@ export default {
 			type: 'header',
 		},
 		{
-			title: 'Beschermd veld label',
-			name: 'beschermdLabel',
+			title: 'Uitgezonderd veld label',
+			name: 'uitgezonderdLabel',
 			type: 'localeString',
 		},
 		{
-			title: 'Beschermd help text',
-			name: 'beschermdHelpText',
+			title: 'Uitgezonderd help text',
+			name: 'uitgezonderdHelpText',
 			type: 'localeBlock',
 		},
 		{
-			title: 'Beschermd ja label',
-			name: 'beschermdYesLabel',
+			title: 'Uitgezonderd ja label',
+			name: 'uitgezonderdYesLabel',
 			type: 'localeBlock',
 		},
 		{
-			title: 'Beschermd nee label',
-			name: 'beschermdNoLabel',
+			title: 'Uitgezonderd nee label',
+			name: 'uitgezonderdNoLabel',
 			type: 'localeBlock',
 		},
 		{
-			title: 'Beschermd button text',
-			name: 'beschermdButtonText',
+			title: 'Uitgezonderd button text',
+			name: 'uitgezonderdButtonText',
 			type: 'localeString',
 		},
 		{

@@ -30,17 +30,17 @@ interface PageContent {
 	};
 	pretitle: string;
 	url: string;
-	showProtected?: boolean;
+	showExceptions?: boolean;
 	beschermdTitle: string;
 	beschermdText: Object[];
 	showDate?: boolean;
 }
 
-interface IsBeschermdProps {
+interface IsUitgezonderdProps {
 	locale: 'nl';
 }
 
-export default function IsBeschermd({ locale }: IsBeschermdProps) {
+export default function IsUitgezonderd({ locale }: IsUitgezonderdProps) {
 	const page = useSanityPageContent<PageContent>();
 
 	return (
@@ -72,13 +72,13 @@ export default function IsBeschermd({ locale }: IsBeschermdProps) {
 	);
 }
 
-interface IsBeschermdStaticProps {
+interface IsUitgezonderdStaticProps {
 	params: { locale: Locale; situatie: string };
 }
 
 export const getStaticProps = async ({
 	params: { locale, situatie },
-}: IsBeschermdStaticProps) => {
+}: IsUitgezonderdStaticProps) => {
 	const pageProjection = `{
 		"metaData": {
 			${getLocaleProperty({ name: 'title', path: 'metaData.title', locale })},
@@ -96,8 +96,8 @@ export const getStaticProps = async ({
 		${getLocaleProperty({ name: 'beschermdTitle', locale })},
 		${getLocaleProperty({ name: 'beschermdText', locale })},
 		url,
-		showProtected,
-    showDate
+		showExceptions,
+    	showDate
 	}`;
 
 	const { page, siteSettings } = await sanityClient.fetch(
@@ -124,7 +124,7 @@ export const getStaticPaths = async () => {
 	return {
 		paths: cartesianProduct(
 			situations
-				.filter((situation) => situation.showProtected)
+				.filter((situation) => situation.showExceptions)
 				.map((situation) => situation.url),
 			['nl', 'en'].map((locale) => `${locale}`),
 		).map(([situatie, locale]: string[]) => ({

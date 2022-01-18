@@ -6,7 +6,7 @@ export const getSituations = async () => {
 			_type: string;
 			url: string;
 			maxDays: number;
-			showProtected: boolean;
+			showExceptions: boolean;
 			showDate: boolean;
 		}[];
 	}>(`{
@@ -15,7 +15,7 @@ export const getSituations = async () => {
       _id,
       url,
       maxDays,
-      showProtected,
+      showExceptions,
       showDate
     },
   }`);

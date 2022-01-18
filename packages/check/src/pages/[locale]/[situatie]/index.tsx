@@ -123,7 +123,7 @@ interface PageContent {
 	showPrintAndCalendar: boolean;
 	quarantaineDuration?: number;
 	url: string;
-	showProtected?: boolean;
+	showExceptions?: boolean;
 	showDate?: boolean;
 }
 
@@ -350,7 +350,7 @@ export const getStaticProps = async ({
 		showPrintAndCalendar,
    		quarantaineDuration,
 		url,
-    	showProtected,
+    	showExceptions,
     	showDate
 	}`;
 

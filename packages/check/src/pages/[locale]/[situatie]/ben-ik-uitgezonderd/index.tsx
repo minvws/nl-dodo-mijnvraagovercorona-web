@@ -38,24 +38,24 @@ interface PageContent {
 	header: {
 		title: string;
 	};
-	beschermdLabel: string;
-	beschermdHelpText: Object[];
-	beschermdYesLabel: Object[];
-	beschermdNoLabel: Object[];
-	beschermdButtonText: string;
+	uitgezonderdLabel: string;
+	uitgezonderdHelpText: Object[];
+	uitgezonderdYesLabel: Object[];
+	uitgezonderdNoLabel: Object[];
+	uitgezonderdButtonText: string;
 	url: string;
 	currentStepLabel: string;
 }
 
-interface BeschermdProps {
+interface UitgezonderdProps {
 	currentSituation: Situation;
 	locale: 'nl' | 'en';
 }
 
-export default function Beschermd({
+export default function Uitgezonderd({
 	currentSituation,
 	locale,
-}: BeschermdProps) {
+}: UitgezonderdProps) {
 	const router = useRouter();
 	const page = useSanityPageContent<PageContent>();
 	const baseUrl = `/${locale}/${currentSituation.url}`;
@@ -66,8 +66,8 @@ export default function Beschermd({
 	 */
 	const getNextStepUrl = () => {
 		if (selectedOption === 'yes') {
-			// ja ik ben beschermd -> beschermd pagina // situatie/ik-ben-beschermd
-			return `${baseUrl}/ik-ben-beschermd`;
+			// ja ik ben uitgezonderd -> uitgezonderd pagina // situatie/ik-ben-uitgezonderd
+			return `${baseUrl}/ik-ben-uitgezonderd`;
 		} else if (
 			selectedOption === 'no' &&
 			typeof currentSituation.showDate !== 'undefined' &&
@@ -77,7 +77,7 @@ export default function Beschermd({
 			return `${baseUrl}/wanneer`;
 		}
 
-		// nee & !currentSituation.showDate -> onbeschermd pagina // situatie
+		// nee & !currentSituation.showDate -> onuitgezonderd pagina // situatie
 		return `${baseUrl}`;
 	};
 
@@ -104,19 +104,19 @@ export default function Beschermd({
 				</Hero>
 				<Content>
 					<form action="" onSubmit={onSubmit}>
-						<Fieldset legend={page.beschermdLabel}>
-							<ContentBlock content={page.beschermdHelpText} />
+						<Fieldset legend={page.uitgezonderdLabel}>
+							<ContentBlock content={page.uitgezonderdHelpText} />
 							<RadioButton
 								name="protected"
-								id="beschermdYesLabel"
-								label={<ContentBlock content={page.beschermdYesLabel} />}
+								id="uitgezonderdYesLabel"
+								label={<ContentBlock content={page.uitgezonderdYesLabel} />}
 								value="yes"
 								onChange={onRadioChange}
 							/>
 							<RadioButton
 								name="protected"
-								id="beschermdNoLabel"
-								label={<ContentBlock content={page.beschermdNoLabel} />}
+								id="uitgezonderdNoLabel"
+								label={<ContentBlock content={page.uitgezonderdNoLabel} />}
 								value="no"
 								onChange={onRadioChange}
 							/>
@@ -124,7 +124,7 @@ export default function Beschermd({
 
 						{selectedOption && (
 							<Link as="button" styledAs="button" type="submit">
-								{page.beschermdButtonText}
+								{page.uitgezonderdButtonText}
 							</Link>
 						)}
 					</form>
@@ -134,13 +134,13 @@ export default function Beschermd({
 	);
 }
 
-interface BeschermdStaticProps {
+interface UitgezonderdStaticProps {
 	params: { locale: Locale; situatie: string };
 }
 
 export const getStaticProps = async ({
 	params: { locale, situatie },
-}: BeschermdStaticProps) => {
+}: UitgezonderdStaticProps) => {
 	const situations = await getSituations();
 	const currentSituation = situations.find(
 		(situation) => situation.url === situatie,
@@ -158,19 +158,19 @@ export const getStaticProps = async ({
 		"header": {
 			${getLocaleProperty({ name: 'title', path: `header.title`, locale })},
 		},
-		${getLocaleProperty({ name: 'beschermdLabel', locale })},
-		${getLocaleProperty({ name: 'beschermdHelpText', locale })},
-		${getLocaleProperty({ name: 'beschermdYesLabel', locale })},
-		${getLocaleProperty({ name: 'beschermdNoLabel', locale })},
-		${getLocaleProperty({ name: 'beschermdButtonText', locale })},
-		url,
+		${getLocaleProperty({ name: 'uitgezonderdLabel', locale })},
+		${getLocaleProperty({ name: 'uitgezonderdHelpText', locale })},
+		${getLocaleProperty({ name: 'uitgezonderdYesLabel', locale })},
+		${getLocaleProperty({ name: 'uitgezonderdNoLabel', locale })},
+		${getLocaleProperty({ name: 'uitgezonderdButtonText', locale })},
 		${getLocaleProperty({ name: 'currentStepLabel', locale })},
+		url,
 	}`;
 
 	const { page, siteSettings } = await sanityClient.fetch(
 		getPageQuery({
 			site: 'quarantaine-check',
-			type: 'check-ben-ik-beschermd-page',
+			type: 'check-ben-ik-uitgezonderd-page',
 			pageProjection,
 			locale,
 		}),
@@ -192,7 +192,7 @@ export const getStaticPaths = async () => {
 	return {
 		paths: cartesianProduct(
 			situations
-				.filter((situation) => situation.showProtected)
+				.filter((situation) => situation.showExceptions)
 				.map((situation) => situation.url),
 			['nl', 'en'].map((locale) => `${locale}`),
 		).map(([situatie, locale]: string[]) => ({
