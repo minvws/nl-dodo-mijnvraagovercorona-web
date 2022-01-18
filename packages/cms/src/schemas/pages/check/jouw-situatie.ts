@@ -134,6 +134,11 @@ export default {
 			type: 'localeString',
 		},
 		{
+			title: 'Uitzonderingen content',
+			name: 'situationsExceptionsContent',
+			type: 'localeBlock',
+		},
+		{
 			title: 'Uitzonderingen',
 			name: 'situationsExceptions',
 			type: 'array',

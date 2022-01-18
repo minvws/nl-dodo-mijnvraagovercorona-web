@@ -45,6 +45,7 @@ interface JouwSituatiePageContent {
 	situationsOtherTitle: string;
 	situationsOther: SituationContent[];
 	situationsExceptionsTitle: string;
+	situationsExceptionsContent: Array<Object>;
 	situationsExceptions: SituationContent[];
 	noMatch: {
 		title: string;
@@ -139,6 +140,9 @@ export default function JouwSituatie({ locale }: { locale: string }) {
 					</Box>
 					<Box sx={{ my: '36px' }} id="uitzonderingen">
 						<Styled.h2>{page.situationsExceptionsTitle}</Styled.h2>
+						{page.situationsExceptionsContent && (
+							<ContentBlock content={page.situationsExceptionsContent} />
+						)}
 
 						{page.situationsExceptions.map((situation) =>
 							renderPanel(situation),
@@ -237,6 +241,7 @@ export const getStaticProps = async ({
       }
 		},
 		${getLocaleProperty({ name: 'situationsExceptionsTitle', locale })},
+		${getLocaleProperty({ name: 'situationsExceptionsContent', locale })},
 		"situationsExceptions": situationsExceptions[]{
 			${getLocaleProperty({ name: 'title', locale })},
 			${getLocaleProperty({
