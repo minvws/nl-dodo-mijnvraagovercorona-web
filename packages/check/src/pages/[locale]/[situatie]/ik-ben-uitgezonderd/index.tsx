@@ -31,8 +31,8 @@ interface PageContent {
 	pretitle: string;
 	url: string;
 	showExceptions?: boolean;
-	beschermdTitle: string;
-	beschermdText: Object[];
+	uitgezonderdTitle: string;
+	uitgezonderdText: Object[];
 	showDate?: boolean;
 }
 
@@ -53,14 +53,14 @@ export default function IsUitgezonderd({ locale }: IsUitgezonderdProps) {
 
 			<Page showRetryLink>
 				<Hero
-					title={page.beschermdTitle}
+					title={page.uitgezonderdTitle}
 					titlePrefix={page.pretitle}
 					illustrationUrl="/images/illustration-door.svg"
 				/>
 				<Content>
 					<section sx={{ paddingRight: [, '165px'] }}>
 						<SchemeBlock>
-							<ContentBlock content={page.beschermdText} />
+							<ContentBlock content={page.uitgezonderdText} />
 						</SchemeBlock>
 						<Box sx={{ mt: 'box' }}>
 							<GGDSpecialInstructions />
@@ -93,8 +93,8 @@ export const getStaticProps = async ({
 			${getLocaleProperty({ name: 'pretitle', path: 'header.pretitle', locale })},
 		},
 		${getLocaleProperty({ name: 'pretitle', locale })},
-		${getLocaleProperty({ name: 'beschermdTitle', locale })},
-		${getLocaleProperty({ name: 'beschermdText', locale })},
+		${getLocaleProperty({ name: 'uitgezonderdTitle', locale })},
+		${getLocaleProperty({ name: 'uitgezonderdText', locale })},
 		url,
 		showExceptions,
     	showDate

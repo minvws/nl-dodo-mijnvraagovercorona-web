@@ -107,14 +107,14 @@ export default function Uitgezonderd({
 						<Fieldset legend={page.uitgezonderdLabel}>
 							<ContentBlock content={page.uitgezonderdHelpText} />
 							<RadioButton
-								name="protected"
+								name="exception"
 								id="uitgezonderdYesLabel"
 								label={<ContentBlock content={page.uitgezonderdYesLabel} />}
 								value="yes"
 								onChange={onRadioChange}
 							/>
 							<RadioButton
-								name="protected"
+								name="exception"
 								id="uitgezonderdNoLabel"
 								label={<ContentBlock content={page.uitgezonderdNoLabel} />}
 								value="no"

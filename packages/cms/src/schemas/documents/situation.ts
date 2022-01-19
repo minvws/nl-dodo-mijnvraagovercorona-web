@@ -4,8 +4,8 @@ export default {
 	type: 'document',
 	fieldsets: [
 		{
-			name: 'protectedContent',
-			title: 'Beschermd content',
+			name: 'exceptionContent',
+			title: 'Uitgezonderd content',
 			options: {
 				collapsible: true,
 				collapsed: true,
@@ -67,13 +67,13 @@ export default {
 			title: 'Uitgezonderd header title',
 			name: 'uitgezonderdTitle',
 			type: 'localeString',
-			fieldset: 'protectedContent',
+			fieldset: 'exceptionContent',
 		},
 		{
 			title: 'Uitgezonderd text',
 			name: 'uitgezonderdText',
 			type: 'localeBlock',
-			fieldset: 'protectedContent',
+			fieldset: 'exceptionContent',
 		},
 		{
 			title: 'Datum-vraag tonen?',

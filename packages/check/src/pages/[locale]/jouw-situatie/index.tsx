@@ -191,22 +191,22 @@ export const getStaticProps = async ({
 				name: 'content',
 				locale,
 			})},
-      "contentBlocks": contentBlocks[]{
+			"contentBlocks": contentBlocks[]{
 				${getLocaleProperty({
 					name: 'content',
 					path: '^',
 					locale,
 				})},
-        "situation": {
-          ${getLocaleProperty({
+				"situation": {
+					${getLocaleProperty({
 						name: 'situationLinkTitle',
 						locale,
 					})},
-          "url": situationReference->url,
-          "showDate": situationReference->showDate,
-          "showExceptions": situationReference->showExceptions,
-        }
-      }
+					"url": situationReference->url,
+					"showDate": situationReference->showDate,
+					"showExceptions": situationReference->showExceptions,
+				}
+			}
 		},
 		${getLocaleProperty({ name: 'situationsOtherTitle', locale })},
 		"situationsOther": situationsOther[]{
@@ -225,16 +225,16 @@ export const getStaticProps = async ({
 					path: '^',
 					locale,
 				})},
-        "situation": {
-          ${getLocaleProperty({
+				"situation": {
+					${getLocaleProperty({
 						name: 'situationLinkTitle',
 						locale,
 					})},
-          "url": situationReference->url,
-          "showDate": situationReference->showDate,
-          "showExceptions": situationReference->showExceptions,
-        }
-      }
+					"url": situationReference->url,
+					"showDate": situationReference->showDate,
+					"showExceptions": situationReference->showExceptions,
+				}
+			}
 		},
 		${getLocaleProperty({ name: 'situationsExceptionsTitle', locale })},
 		"situationsExceptions": situationsExceptions[]{
@@ -247,22 +247,22 @@ export const getStaticProps = async ({
 				name: 'content',
 				locale,
 			})},
-      "contentBlocks": contentBlocks[]{
+      		"contentBlocks": contentBlocks[]{
 				${getLocaleProperty({
 					name: 'content',
 					path: '^',
 					locale,
 				})},
-        "situation": {
-          ${getLocaleProperty({
-						name: 'situationLinkTitle',
-						locale,
-					})},
-          "url": situationReference->url,
-          "showDate": situationReference->showDate,
-          "showExceptions": situationReference->showExceptions,
-        }
-      }
+        		"situation": {
+          			${getLocaleProperty({
+									name: 'situationLinkTitle',
+									locale,
+								})},
+					"url": situationReference->url,
+					"showDate": situationReference->showDate,
+					"showExceptions": situationReference->showExceptions,
+				}
+    		}
 		},
 		"noMatch": {
 			${getLocaleProperty({ name: 'title', path: 'noMatch.title', locale })},
