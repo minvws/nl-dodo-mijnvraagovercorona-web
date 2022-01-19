@@ -138,16 +138,6 @@ export default function JouwSituatie({ locale }: { locale: string }) {
 
 						{page.situationsOther.map((situation) => renderPanel(situation))}
 					</Box>
-					<Box sx={{ my: '36px' }} id="uitzonderingen">
-						<Styled.h2>{page.situationsExceptionsTitle}</Styled.h2>
-						{page.situationsExceptionsContent && (
-							<ContentBlock content={page.situationsExceptionsContent} />
-						)}
-
-						{page.situationsExceptions.map((situation) =>
-							renderPanel(situation),
-						)}
-					</Box>
 
 					<Styled.h2>{page.noMatch.title}</Styled.h2>
 					<ContentBlock content={page.noMatch.content} />
