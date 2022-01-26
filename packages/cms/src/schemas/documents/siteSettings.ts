@@ -182,6 +182,34 @@ export default {
 			],
 		},
 		{
+			title: 'CTA block',
+			name: 'ctaBlock',
+			type: 'object',
+			options: { collapsible: true },
+			fields: [
+				{
+					title: 'Titel',
+					name: 'title',
+					type: 'localeString',
+				},
+				{
+					title: 'Content',
+					name: 'content',
+					type: 'localeString',
+				},
+				{
+					title: 'Knop label',
+					name: 'label',
+					type: 'localeString',
+				},
+				{
+					title: 'Knop url',
+					name: 'url',
+					type: 'string',
+				},
+			],
+		},
+		{
 			title: 'Vervoersmiddelen',
 			name: 'vervoersmiddelen',
 			type: 'array',

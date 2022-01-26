@@ -175,6 +175,12 @@ const siteSettingsQuery = ({
 			${getLocaleProperty({ name: 'url', path: 'feedback.url', locale })},
 			${getLocaleProperty({ name: 'thanks', path: 'feedback.thanks', locale })},
 		},
+		"ctaBlock": {
+			${getLocaleProperty({ name: 'title', path: 'ctaBlock.title', locale })},
+			${getLocaleProperty({ name: 'content', path: 'ctaBlock.content', locale })},
+			${getLocaleProperty({ name: 'label', path: 'ctaBlock.label', locale })},
+			"url": ctaBlock.url
+		},
 		"vervoersmiddelen": vervoersmiddelen[]{
 			naam,
 			${getLocaleProperty({ name: 'uitgebreid', locale })},
