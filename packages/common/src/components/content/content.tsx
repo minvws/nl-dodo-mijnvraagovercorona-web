@@ -10,11 +10,13 @@ import {
 
 interface ContentProps {
 	noSpacingOnTop?: boolean;
+	hidePrivacyOnMobile?: boolean;
 }
 
 export const Content: React.FC<ContentProps> = ({
 	children,
 	noSpacingOnTop,
+	hidePrivacyOnMobile,
 }) => {
 	const siteSettings = useSanitySiteSettings();
 
@@ -45,6 +47,7 @@ export const Content: React.FC<ContentProps> = ({
 						sx={{
 							paddingLeft: ['mobilePadding', 0, 0],
 							paddingRight: ['mobilePadding', 'tabletPadding', 0],
+							display: hidePrivacyOnMobile ? ['none', 'block'] : undefined,
 						}}
 					>
 						<BannerDataProtection content={siteSettings.privacy} />
