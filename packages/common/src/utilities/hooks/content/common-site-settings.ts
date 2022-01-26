@@ -8,6 +8,12 @@ export interface CommonSiteSettings {
 		title: string;
 		url: string;
 	};
+	ctaBlock: {
+		title: string;
+		content: string;
+		label: string;
+		url: string;
+	};
 	footer: {
 		alleenSamenAlt: string;
 		items: {

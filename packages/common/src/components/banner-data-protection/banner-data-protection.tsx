@@ -1,5 +1,6 @@
 /** @jsx jsx */
-import { Box, Styled, jsx } from 'theme-ui';
+import { Tile } from '@quarantaine/common';
+import { Styled, jsx } from 'theme-ui';
 
 type BannerDataProtectionProps = {
 	content: {
@@ -12,15 +13,7 @@ export const BannerDataProtection = ({
 	content,
 }: BannerDataProtectionProps) => {
 	return (
-		<Box
-			sx={{
-				background:
-					'linear-gradient(360deg, #EFF7F9 0%, rgba(255, 255, 255, 0) 100%), #FFFFFF',
-				boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.2)',
-				borderRadius: '11px',
-				padding: '30px 30px 10px 30px',
-			}}
-		>
+		<Tile>
 			<Styled.h2
 				sx={{
 					color: 'copyHeading',
@@ -49,6 +42,6 @@ export const BannerDataProtection = ({
 					<li key={belofte}>{belofte}</li>
 				))}
 			</ul>
-		</Box>
+		</Tile>
 	);
 };
