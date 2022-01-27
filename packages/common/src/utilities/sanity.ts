@@ -1,5 +1,5 @@
 import client, { ClientConfig } from '@sanity/client';
-import { Locale as LocaleQcheck } from '../../../check/src/types/locale';
+import { Locales } from './hooks';
 
 /**
  * The configuration for Sanity
@@ -46,7 +46,7 @@ export type ContentPageProps = {
 		pageTitleSuffix: string;
 		url: string;
 	};
-	locale: string;
+	locale: Locales;
 };
 
 /**
@@ -58,7 +58,7 @@ export const getContentPageQuery = async ({
 	site,
 }: {
 	type: string;
-	locale: string;
+	locale: Locales;
 	site: 'reizen-tijdens-corona' | 'quarantaine-check';
 }): Promise<ContentPageProps> => {
 	const pageProjection = `{
@@ -340,7 +340,7 @@ export const getSituationPageQuery = ({
 }: {
 	type: string;
 	pageProjection: string;
-	locale: LocaleQcheck;
+	locale: Locales;
 	situationSlug: string;
 }): string => `{
 	"page": *[_type == "${type}" && metaData.site == "quarantaine-check" && url=="${situationSlug}"][0]${pageProjection},

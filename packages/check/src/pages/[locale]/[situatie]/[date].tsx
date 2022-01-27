@@ -2,6 +2,7 @@ import { cartesianProduct } from '@quarantaine/common';
 import { default as Situatie, getStaticProps } from './index';
 
 import { getSituations } from 'utilities/situations';
+import { locales } from 'content/general-content';
 
 export const getStaticPaths = async () => {
 	const situations = await getSituations();
@@ -14,7 +15,7 @@ export const getStaticPaths = async () => {
 		dates.push('geen-resultaat');
 
 		// Create cartesion product for 1 situation.
-		return cartesianProduct([situation.url], dates, ['nl', 'en']).map(
+		return cartesianProduct([situation.url], dates, locales).map(
 			([situatie, date, locale]: string[]) => ({
 				params: { situatie, locale, date },
 			}),

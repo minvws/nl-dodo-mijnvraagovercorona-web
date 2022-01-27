@@ -13,8 +13,9 @@ import {
 	useSanityPageContent,
 	Content,
 	Hero,
+	Locales,
 } from '@quarantaine/common';
-import { Locale } from 'types/locale';
+import { locales } from 'content/general-content';
 
 interface GeenAdviesPageContent {
 	metaData: {
@@ -50,7 +51,7 @@ export default function GeenAdvies() {
 }
 
 interface GeenAdviesStaticProps {
-	params: { locale: Locale };
+	params: { locale: Locales };
 }
 
 export const getStaticProps = async ({
@@ -96,7 +97,7 @@ export const getStaticProps = async ({
 };
 
 export const getStaticPaths = () => ({
-	paths: ['nl', 'en'].map((locale) => ({
+	paths: locales.map((locale) => ({
 		params: { locale },
 	})),
 	fallback: false,

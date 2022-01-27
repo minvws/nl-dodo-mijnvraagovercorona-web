@@ -3,7 +3,7 @@ import React from 'react';
 import { Container, Box, Styled, Text, jsx } from 'theme-ui';
 
 export interface DatepickerTopbarTitleProps {
-	title: string;
+	title?: string;
 	subtitle?: string;
 }
 
