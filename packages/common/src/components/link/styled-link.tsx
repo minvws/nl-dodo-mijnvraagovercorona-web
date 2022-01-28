@@ -9,7 +9,12 @@ interface StyledLinkPropsBase {
 	className?: string;
 	fontWeight?: 'lighter' | 'normal' | 'bold';
 	lang?: string;
-	styledAs?: 'link' | 'link-back' | 'button' | 'button-secondary';
+	styledAs?:
+		| 'link'
+		| 'link-back'
+		| 'button'
+		| 'button-secondary'
+		| 'button-disabled';
 }
 
 export interface StyledLinkPropsAsAnchor extends StyledLinkPropsBase {
@@ -24,6 +29,7 @@ export interface StyledLinkPropsAsButton extends StyledLinkPropsBase {
 	 * to use the onClick prop and drop the href and external props.
 	 */
 	as: 'button';
+	disabled?: boolean;
 }
 
 /**
@@ -133,9 +139,16 @@ export const useLinkStyles = ({
 			},
 		};
 
+		const buttonDisabledStyling: SxStyleProp = {
+			...buttonStyling,
+			opacity: 0.4,
+			pointerEvents: 'none',
+		};
+
 		if (styledAs === 'link-back') return linkBackStyling;
 		if (styledAs === 'button') return buttonStyling;
 		if (styledAs === 'button-secondary') return buttonSecondaryStyling;
+		if (styledAs === 'button-disabled') return buttonDisabledStyling;
 
 		return linkStyling;
 	}, [styledAs, fontWeight]);

@@ -8,6 +8,7 @@ interface HeroProps {
 	title: string;
 	titlePrefix?: string;
 	illustrationUrl?: string;
+	variant?: 'default' | 'breath';
 }
 
 export const Hero: React.FC<HeroProps> = ({
@@ -15,12 +16,13 @@ export const Hero: React.FC<HeroProps> = ({
 	title,
 	titlePrefix,
 	illustrationUrl = '/images/default-illustration.svg',
+	variant = 'default',
 }) => (
 	<div
 		sx={{
 			backgroundColor: 'headerBackground',
 			color: 'header',
-			paddingBottom: '32px',
+			paddingBottom: variant === 'breath' ? ['32px', '128px'] : '32px',
 		}}
 	>
 		<Container
