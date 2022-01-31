@@ -28,6 +28,7 @@ import {
 	cartesianProduct,
 	PrinterIcon,
 	getSituationPageQuery,
+	Locales,
 } from '@quarantaine/common';
 
 import { SiteSettings } from 'content/site-settings';
@@ -36,7 +37,7 @@ import { GGDSpecialInstructions } from 'components/ggd-special-instructions';
 import { getSituations } from 'utilities/situations';
 import { Situaties } from 'config/situaties';
 import Head from 'next/head';
-import { Locale } from 'types/locale';
+import { locales } from 'content/general-content';
 
 const getDateSinceEvent = ({
 	day,
@@ -128,7 +129,7 @@ interface PageContent {
 }
 
 interface SituatieProps {
-	locale: Locale;
+	locale: Locales;
 	date: string;
 	situatie: string;
 }
@@ -303,7 +304,7 @@ export default function Situatie({ locale, date, situatie }: SituatieProps) {
 }
 
 interface SituatieStaticProps {
-	params: { locale: Locale; situatie: Situaties; date: string };
+	params: { locale: Locales; situatie: Situaties; date: string };
 }
 
 export async function getStaticPaths() {
@@ -312,7 +313,7 @@ export async function getStaticPaths() {
 	return {
 		paths: cartesianProduct(
 			situations.map((situation) => situation.url),
-			['nl', 'en'].map((locale) => `${locale}`),
+			locales,
 		).map(([situatie, locale]: string[]) => ({
 			params: { situatie, locale },
 		})),

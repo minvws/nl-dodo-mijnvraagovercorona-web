@@ -17,9 +17,7 @@ import {
 	ContentBlock,
 	Content,
 	RadioButton,
-	StyledLink,
-	generalContentNl,
-	generalContentEn,
+	Locales,
 } from '@quarantaine/common';
 
 import { getSituations } from 'utilities/situations';
@@ -27,8 +25,8 @@ import { getSituations } from 'utilities/situations';
 import 'react-day-picker/lib/style.css';
 import { useRouter } from 'next/router';
 import { Situation } from 'config/situaties';
-import { Locale } from 'types/locale';
 import { LinkBack } from 'components/link-back';
+import { locales } from 'content/general-content';
 
 interface PageContent {
 	metaData: {
@@ -49,7 +47,7 @@ interface PageContent {
 
 interface UitgezonderdProps {
 	currentSituation: Situation;
-	locale: 'nl' | 'en';
+	locale: Locales;
 }
 
 export default function Uitgezonderd({
@@ -135,7 +133,7 @@ export default function Uitgezonderd({
 }
 
 interface UitgezonderdStaticProps {
-	params: { locale: Locale; situatie: string };
+	params: { locale: Locales; situatie: string };
 }
 
 export const getStaticProps = async ({
@@ -194,7 +192,7 @@ export const getStaticPaths = async () => {
 			situations
 				.filter((situation) => situation.showExceptions)
 				.map((situation) => situation.url),
-			['nl', 'en'].map((locale) => `${locale}`),
+			locales,
 		).map(([situatie, locale]: string[]) => ({
 			params: { situatie, locale },
 		})),

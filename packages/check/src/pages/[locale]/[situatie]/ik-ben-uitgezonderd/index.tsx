@@ -15,11 +15,12 @@ import {
 	getSituationPageQuery,
 	ContentBlock,
 	SchemeBlock,
+	Locales,
 } from '@quarantaine/common';
 
 import { getSituations } from 'utilities/situations';
 import { GGDSpecialInstructions } from 'components/ggd-special-instructions';
-import { Locale } from 'types/locale';
+import { locales } from 'content/general-content';
 interface PageContent {
 	metaData: {
 		title: string;
@@ -36,11 +37,7 @@ interface PageContent {
 	showDate?: boolean;
 }
 
-interface IsUitgezonderdProps {
-	locale: 'nl';
-}
-
-export default function IsUitgezonderd({ locale }: IsUitgezonderdProps) {
+export default function IsUitgezonderd() {
 	const page = useSanityPageContent<PageContent>();
 
 	return (
@@ -73,7 +70,7 @@ export default function IsUitgezonderd({ locale }: IsUitgezonderdProps) {
 }
 
 interface IsUitgezonderdStaticProps {
-	params: { locale: Locale; situatie: string };
+	params: { locale: Locales; situatie: string };
 }
 
 export const getStaticProps = async ({
@@ -126,7 +123,7 @@ export const getStaticPaths = async () => {
 			situations
 				.filter((situation) => situation.showExceptions)
 				.map((situation) => situation.url),
-			['nl', 'en'].map((locale) => `${locale}`),
+			locales,
 		).map(([situatie, locale]: string[]) => ({
 			params: { situatie, locale },
 		})),

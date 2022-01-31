@@ -18,8 +18,8 @@ import {
 	Hero,
 	Feedback,
 	getFeedbackUrl,
+	Locales,
 } from '@quarantaine/common';
-import { Locale } from 'types/locale';
 
 interface PageContent {
 	metaData: {
@@ -128,7 +128,7 @@ export default function LandingPage() {
 }
 
 interface LandingStaticProps {
-	params: { locale: Locale };
+	params: { locale: Locales };
 }
 
 export const getStaticProps = async ({

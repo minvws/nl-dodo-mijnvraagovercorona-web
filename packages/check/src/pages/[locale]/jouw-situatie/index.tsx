@@ -19,10 +19,11 @@ import {
 	Hero,
 	useSanitySiteSettings,
 	trackEvent,
+	Locales,
 } from '@quarantaine/common';
 import { Situation } from 'config/situaties';
-import { Locale } from 'types/locale';
 import { LinkBack } from 'components/link-back';
+import { locales } from 'content/general-content';
 
 interface SituationContent {
 	title: string;
@@ -126,7 +127,6 @@ export default function JouwSituatie({ locale }: { locale: string }) {
 			<Page>
 				<Hero title={page.header.title}>
 					<LinkBack href={`/${locale}`} />
-					<ContentBlock content={page.header.content} />
 				</Hero>
 				<Content>
 					<Box sx={{ mt: '36px' }}>
@@ -155,7 +155,7 @@ export default function JouwSituatie({ locale }: { locale: string }) {
 }
 
 interface JouwSituatieStaticProps {
-	params: { locale: Locale };
+	params: { locale: Locales };
 }
 
 export const getStaticProps = async ({
@@ -286,7 +286,7 @@ export const getStaticProps = async ({
 };
 
 export const getStaticPaths = () => ({
-	paths: ['nl', 'en'].map((locale) => ({
+	paths: locales.map((locale) => ({
 		params: { locale },
 	})),
 	fallback: false,
