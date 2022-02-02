@@ -49,6 +49,8 @@ export default function LandingPage() {
 	const page = useSanityPageContent<PageContent>();
 	const siteSettings = useSanitySiteSettings();
 
+	const uitleg = page.uitleg[0];
+
 	return (
 		<>
 			<MetaTags
@@ -59,8 +61,8 @@ export default function LandingPage() {
 			/>
 
 			<Page>
-				<Hero title={page.header.title} titlePrefix={page.header.pretitle}>
-					<h2
+				<Hero title={page.header.title} variant="breath">
+					<Styled.p
 						sx={{
 							fontWeight: 'light',
 							width: ['80%', '549px'],
@@ -72,55 +74,24 @@ export default function LandingPage() {
 						}}
 					>
 						{page.header.subtitle}
-					</h2>
+					</Styled.p>
 					<Link styledAs="button" href="/jouw-situatie">
 						{page.header.button}
 					</Link>
 				</Hero>
 
-				<Content>
-					<QuickLinks>
-						{page.uitleg.map(
-							(item) =>
-								item.linklist.id &&
-								item.linklist.usp && (
-									<Link
-										href={`#${item.linklist.id}`}
-										key={item.linklist.id}
-										fontWeight="bold"
-									>
-										{item.linklist.usp}
-									</Link>
-								),
-						)}
-
-						<Link
-							href={`#${siteSettings.privacy.id}`}
-							sx={{ display: ['block', 'none'] }}
-							fontWeight="bold"
-						>
-							{siteSettings.privacy.usp}
-						</Link>
-					</QuickLinks>
-
-					{page.uitleg.map((item, index) => (
-						<SectionInformational
-							imageUrl={item.image}
-							imageAlignment={index % 2 === 0 ? 'right' : 'left'}
-							key={item.title}
-							id={item.linklist.id}
-							chapeau={item.pretitle}
-							title={item.title}
-						>
-							<Styled.p>{item.description}</Styled.p>
-						</SectionInformational>
-					))}
-					<Feedback
-						name="Quarantaine Check Home"
-						feedbackUrl={getFeedbackUrl(siteSettings.feedback.url, {
-							source: 'home',
-						})}
-					/>
+				<Content hidePrivacyOnMobile>
+					<SectionInformational
+						imageUrl={uitleg.image}
+						imageAlignment="right"
+						key={uitleg.title}
+						id={uitleg.linklist.id}
+						chapeau={uitleg.pretitle}
+						title={uitleg.title}
+					>
+						<Styled.p>{uitleg.description}</Styled.p>
+						<Link href="/jouw-situatie">{page.header.button}</Link>
+					</SectionInformational>
 				</Content>
 			</Page>
 		</>
