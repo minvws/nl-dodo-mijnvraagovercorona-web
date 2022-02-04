@@ -4,6 +4,11 @@ export default {
 	type: 'document',
 	fields: [
 		{
+			title: 'Start Datum',
+			name: 'startDate',
+			type: 'date',
+		},
+		{
 			title: 'Meta data',
 			name: 'metaData',
 			type: 'pageMetaData',
@@ -221,4 +226,9 @@ export default {
 			type: 'string',
 		},
 	],
+	preview: {
+		select: {
+			title: 'startDate',
+		},
+	},
 };

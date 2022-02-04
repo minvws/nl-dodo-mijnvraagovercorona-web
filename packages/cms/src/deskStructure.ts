@@ -103,11 +103,6 @@ const reizenPagesConfig = [
 		title: 'Reizen FAQ Pagina',
 		icon: GiLightBulb,
 	},
-	{
-		schemaType: 'resultaat-page',
-		title: 'Reizen Resultaat Pagina',
-		icon: GiTestTubes,
-	},
 ];
 
 /**
@@ -156,6 +151,11 @@ const reizenMultiDocumentsConfig = [
 		schemaType: 'voorbereiding-document',
 		title: 'Reizen Voorbereiding Documenten',
 		icon: GiJumpingDog,
+	},
+	{
+		schemaType: 'resultaat-page',
+		title: 'Reizen Resultaat Pagina',
+		icon: GiTestTubes,
 	},
 ];
 
