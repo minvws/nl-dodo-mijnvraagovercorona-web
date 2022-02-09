@@ -108,7 +108,7 @@ export const ExpansionPanel = ({
 											width: '18px',
 											display: 'block',
 											backgroundColor:
-												variant === 'plus' ? 'link' : 'expansionPlusAlt',
+												variant === 'plus' ? 'link' : 'secondary',
 											transition: 'transform .2s ease-in-out',
 										},
 								  }
