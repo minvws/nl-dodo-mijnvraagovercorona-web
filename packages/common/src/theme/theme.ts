@@ -3,6 +3,10 @@ import { Theme } from 'theme-ui';
 export const theme: Theme = {
 	useCustomProperties: false,
 	colors: {
+		primary: '#01689B',
+		secondary: '#CA005D',
+		white: '#ffffff',
+
 		text: '#000000',
 		header: '#21426F',
 		secondaryHeader: '#BC285C',

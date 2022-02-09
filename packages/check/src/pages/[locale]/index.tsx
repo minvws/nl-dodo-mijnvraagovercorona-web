@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from 'react';
-import { jsx, Styled } from 'theme-ui';
+import { Box, jsx, Styled } from 'theme-ui';
 
 import { Page } from 'components/page';
 
@@ -19,9 +19,15 @@ import {
 	Feedback,
 	getFeedbackUrl,
 	Locales,
+	ContentBlock,
 } from '@quarantaine/common';
+import {
+	getJouwSituatiePageSituationsProjection,
+	JouwSituatiePageSituationsContent,
+	renderPanel,
+} from './jouw-situatie';
 
-interface PageContent {
+interface PageContent extends JouwSituatiePageSituationsContent {
 	metaData: {
 		title: string;
 		description: string;
@@ -61,7 +67,7 @@ export default function LandingPage() {
 			/>
 
 			<Page>
-				<Hero title={page.header.title} variant="breath">
+				<Hero title={page.header.title}>
 					<Styled.p
 						sx={{
 							fontWeight: 'light',
@@ -75,24 +81,39 @@ export default function LandingPage() {
 					>
 						{page.header.subtitle}
 					</Styled.p>
-					<Link styledAs="button" href="/jouw-situatie">
-						{page.header.button}
-					</Link>
 				</Hero>
 
-				<Content hidePrivacyOnMobile>
-					<SectionInformational
-						imageUrl={uitleg.image}
-						imageAlignment="right"
-						key={uitleg.title}
-						id={uitleg.linklist.id}
-						chapeau={uitleg.pretitle}
-						title={uitleg.title}
-					>
-						<Styled.p>{uitleg.description}</Styled.p>
-						<Link href="/jouw-situatie">{page.header.button}</Link>
-					</SectionInformational>
-				</Content>
+				<Box backgroundColor="headerBackground">
+					<Content hidePrivacyOnMobile>
+						<Box sx={{ mt: '36px' }}>
+							<Styled.h2>{page.situationsYouTitle}</Styled.h2>
+							{page.situationsYou.map((situation) =>
+								renderPanel(situation, 'plusalt'),
+							)}
+						</Box>
+						<Box sx={{ my: '36px' }}>
+							<Styled.h2>{page.situationsOtherTitle}</Styled.h2>
+
+							{page.situationsOther.map((situation) =>
+								renderPanel(situation, 'plusalt'),
+							)}
+						</Box>
+
+						<Styled.h2>{page.noMatch.title}</Styled.h2>
+						<ContentBlock content={page.noMatch.content} />
+
+						<SectionInformational
+							imageUrl={uitleg.image}
+							imageAlignment="right"
+							key={uitleg.title}
+							id={uitleg.linklist.id}
+							chapeau={uitleg.pretitle}
+							title={uitleg.title}
+						>
+							<Styled.p>{uitleg.description}</Styled.p>
+						</SectionInformational>
+					</Content>
+				</Box>
 			</Page>
 		</>
 	);
@@ -142,9 +163,22 @@ export const getStaticProps = async ({
 		}),
 	);
 
+	const jouwSituatiePageSituationsProjection = `{${getJouwSituatiePageSituationsProjection(
+		locale,
+	)}}`;
+
+	const { page: jouwSituatiePage } = await sanityClient.fetch(
+		getPageQuery({
+			site: 'quarantaine-check',
+			type: 'jouw-situatie-page',
+			pageProjection: jouwSituatiePageSituationsProjection,
+			locale,
+		}),
+	);
+
 	return {
 		props: {
-			page,
+			page: { ...page, ...jouwSituatiePage },
 			siteSettings,
 			locale,
 		},

@@ -11,6 +11,8 @@ import {
 	useExpansionPanelId,
 } from './expansion-panel-group';
 
+export type ExpansionPanelVariant = 'chevron' | 'plus' | 'plusalt' | undefined;
+
 type ExpansionPanelProps = {
 	title: string;
 	/**
@@ -18,7 +20,7 @@ type ExpansionPanelProps = {
 	 * The main difference is that this text won't render in bold.
 	 */
 	titleSuffix?: string;
-	variant?: 'chevron' | 'plus';
+	variant?: ExpansionPanelVariant;
 	toggleEvent?: Function;
 	children: React.ReactNode;
 };
@@ -65,7 +67,7 @@ export const ExpansionPanel = ({
 		<Container
 			sx={{
 				backgroundColor: variant === 'plus' ? 'expansionPanel' : 'white',
-				marginBottom: variant === 'plus' ? '16px' : 0,
+				marginBottom: variant === 'plus' || variant === 'plusalt' ? '16px' : 0,
 				borderBottom: variant === 'chevron' ? '1px solid #AEC1D1' : undefined,
 				borderTop: variant === 'chevron' ? '1px solid #AEC1D1' : undefined,
 				'& + &': {
@@ -79,18 +81,23 @@ export const ExpansionPanel = ({
 						sx={{
 							position: 'relative',
 							textAlign: 'left',
-							padding: variant === 'plus' ? '15px' : '8px 15px 8px 0',
+							padding:
+								variant === 'plus' || variant === 'plusalt'
+									? '15px'
+									: '8px 15px 8px 0',
 							background: 'none',
 							border: 'none',
 							fontFamily: 'body',
 							fontSize: ['bodyMobile', 'body'],
 							lineHeight: ['bodyMobile', 'body'],
 							width: '100%',
-							color: variant === 'plus' ? 'link' : 'text',
-							fontWeight: variant === 'plus' ? 'bold' : 'normal',
+							color:
+								variant === 'plus' || variant === 'plusalt' ? 'link' : 'text',
+							fontWeight:
+								variant === 'plus' || variant === 'plusalt' ? 'bold' : 'normal',
 							paddingRight: '48px',
 
-							...(variant === 'plus'
+							...(variant === 'plus' || variant === 'plusalt'
 								? {
 										'::before, ::after': {
 											content: '""',
@@ -100,7 +107,8 @@ export const ExpansionPanel = ({
 											height: '2px',
 											width: '18px',
 											display: 'block',
-											backgroundColor: 'link',
+											backgroundColor:
+												variant === 'plus' ? 'link' : 'expansionPlusAlt',
 											transition: 'transform .2s ease-in-out',
 										},
 								  }
@@ -122,7 +130,7 @@ export const ExpansionPanel = ({
 								  }
 								: {}),
 
-							...(variant === 'plus'
+							...(variant === 'plus' || variant === 'plusalt'
 								? {
 										'::after': { transform: 'rotate(90deg)' },
 								  }
@@ -163,7 +171,9 @@ export const ExpansionPanel = ({
 						<div
 							sx={{
 								padding:
-									variant === 'plus' ? '0 48px 15px 15px' : '0 48px 15px 0',
+									variant === 'plus' || variant === 'plusalt'
+										? '0 48px 15px 15px'
+										: '0 48px 15px 0',
 								fontSize: ['bodyMobile', 'body'],
 								lineHeight: ['bodyMobile', 'body'],
 							}}
