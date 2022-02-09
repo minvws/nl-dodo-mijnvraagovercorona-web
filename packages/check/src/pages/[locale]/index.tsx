@@ -1,12 +1,10 @@
 /** @jsx jsx */
 import React from 'react';
-import { Box, jsx, Styled } from 'theme-ui';
+import { Box, Container, Flex, jsx, Styled } from 'theme-ui';
 
 import { Page } from 'components/page';
 
 import {
-	Link,
-	QuickLinks,
 	SectionInformational,
 	MetaTags,
 	sanityClient,
@@ -14,12 +12,14 @@ import {
 	getLocaleProperty,
 	useSanityPageContent,
 	useSanitySiteSettings,
-	Content,
 	Hero,
 	Feedback,
 	getFeedbackUrl,
 	Locales,
 	ContentBlock,
+	BodyContainer,
+	BannerDataProtection,
+	Aside,
 } from '@quarantaine/common';
 import {
 	getJouwSituatiePageSituationsProjection,
@@ -83,37 +83,106 @@ export default function LandingPage() {
 					</Styled.p>
 				</Hero>
 
-				<Box backgroundColor="headerBackground">
-					<Content hidePrivacyOnMobile>
-						<Box sx={{ mt: '36px' }}>
-							<Styled.h2>{page.situationsYouTitle}</Styled.h2>
-							{page.situationsYou.map((situation) =>
-								renderPanel(situation, 'plusalt'),
-							)}
-						</Box>
-						<Box sx={{ my: '36px' }}>
-							<Styled.h2>{page.situationsOtherTitle}</Styled.h2>
-
-							{page.situationsOther.map((situation) =>
-								renderPanel(situation, 'plusalt'),
-							)}
-						</Box>
-
-						<Styled.h2>{page.noMatch.title}</Styled.h2>
-						<ContentBlock content={page.noMatch.content} />
-
-						<SectionInformational
-							imageUrl={uitleg.image}
-							imageAlignment="right"
-							key={uitleg.title}
-							id={uitleg.linklist.id}
-							chapeau={uitleg.pretitle}
-							title={uitleg.title}
+				<Box
+					backgroundColor="headerBackground"
+					sx={{
+						paddingBlockEnd: ['40px'],
+					}}
+				>
+					<Container>
+						<Flex
+							sx={{
+								flexDirection: ['column', 'row'],
+							}}
 						>
-							<Styled.p>{uitleg.description}</Styled.p>
-						</SectionInformational>
-					</Content>
+							<BodyContainer
+								noPaddingY
+								sx={{
+									'> * + * ': { marginBlockStart: ['36px'] },
+								}}
+							>
+								<div
+									sx={{
+										'> :last-child': {
+											marginBlockEnd: 0,
+										},
+									}}
+								>
+									<Styled.h2>{page.situationsYouTitle}</Styled.h2>
+									{page.situationsYou.map((situation) =>
+										renderPanel(situation, 'plusalt'),
+									)}
+								</div>
+								<div
+									sx={{
+										'> :last-child': {
+											marginBlockEnd: 0,
+										},
+									}}
+								>
+									<Styled.h2>{page.situationsOtherTitle}</Styled.h2>
+									{page.situationsOther.map((situation) =>
+										renderPanel(situation, 'plusalt'),
+									)}
+								</div>
+							</BodyContainer>
+							<Aside hideOnMobile>
+								<BannerDataProtection content={siteSettings.privacy} />
+							</Aside>
+						</Flex>
+					</Container>
 				</Box>
+
+				<Container
+					sx={{
+						paddingBlockStart: ['40px'],
+					}}
+				>
+					<Flex
+						sx={{
+							flexDirection: ['column', 'row'],
+						}}
+					>
+						<BodyContainer
+							noPaddingY
+							sx={{
+								'> * + * ': { marginBlockStart: ['36px'] },
+							}}
+						>
+							<div
+								sx={{
+									'> :last-child': {
+										marginBlockEnd: 0,
+									},
+								}}
+							>
+								<Styled.h2>{page.noMatch.title}</Styled.h2>
+								<ContentBlock content={page.noMatch.content} />
+							</div>
+
+							<SectionInformational
+								imageUrl={uitleg.image}
+								imageAlignment="right"
+								key={uitleg.title}
+								id={uitleg.linklist.id}
+								chapeau={uitleg.pretitle}
+								title={uitleg.title}
+							>
+								<Styled.p>{uitleg.description}</Styled.p>
+							</SectionInformational>
+
+							<Feedback
+								name="Your Situation"
+								feedbackUrl={getFeedbackUrl(siteSettings.feedback.url, {
+									source: 'your-situation',
+								})}
+							/>
+						</BodyContainer>
+						<Aside hideOnDesktop>
+							<BannerDataProtection content={siteSettings.privacy} />
+						</Aside>
+					</Flex>
+				</Container>
 			</Page>
 		</>
 	);
