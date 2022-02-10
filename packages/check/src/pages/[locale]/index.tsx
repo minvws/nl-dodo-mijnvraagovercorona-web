@@ -20,6 +20,8 @@ import {
 	BodyContainer,
 	BannerDataProtection,
 	Aside,
+	Stack,
+	Module,
 } from '@quarantaine/common';
 import {
 	getJouwSituatiePageSituationsProjection,
@@ -95,38 +97,23 @@ export default function LandingPage() {
 								flexDirection: ['column', 'row'],
 							}}
 						>
-							<BodyContainer
-								noPaddingY
-								sx={{
-									'> * + * ': { marginBlockStart: ['36px'] },
-								}}
-							>
-								<div
-									sx={{
-										'> :last-child': {
-											marginBlockEnd: 0,
-										},
-									}}
-								>
-									<Styled.h2>{page.situationsYouTitle}</Styled.h2>
-									{page.situationsYou.map((situation) =>
-										renderPanel(situation, 'plusalt'),
-									)}
-								</div>
-								<div
-									sx={{
-										'> :last-child': {
-											marginBlockEnd: 0,
-										},
-									}}
-								>
-									<Styled.h2>{page.situationsOtherTitle}</Styled.h2>
-									{page.situationsOther.map((situation) =>
-										renderPanel(situation, 'plusalt'),
-									)}
-								</div>
+							<BodyContainer noPaddingY>
+								<Stack spacing={['36px']}>
+									<Stack spacing={['16px']}>
+										<Styled.h2>{page.situationsYouTitle}</Styled.h2>
+										{page.situationsYou.map((situation) =>
+											renderPanel(situation, 'plusalt'),
+										)}
+									</Stack>
+									<Stack spacing={['16px']}>
+										<Styled.h2>{page.situationsOtherTitle}</Styled.h2>
+										{page.situationsOther.map((situation) =>
+											renderPanel(situation, 'plusalt'),
+										)}
+									</Stack>
+								</Stack>
 							</BodyContainer>
-							<Aside hideOnMobile>
+							<Aside>
 								<BannerDataProtection content={siteSettings.privacy} />
 							</Aside>
 						</Flex>
@@ -136,6 +123,7 @@ export default function LandingPage() {
 				<Container
 					sx={{
 						paddingBlockStart: ['40px'],
+						paddingBlockEnd: ['40px'],
 					}}
 				>
 					<Flex
@@ -143,40 +131,31 @@ export default function LandingPage() {
 							flexDirection: ['column', 'row'],
 						}}
 					>
-						<BodyContainer
-							noPaddingY
-							sx={{
-								'> * + * ': { marginBlockStart: ['36px'] },
-							}}
-						>
-							<div
-								sx={{
-									'> :last-child': {
-										marginBlockEnd: 0,
-									},
-								}}
-							>
-								<Styled.h2>{page.noMatch.title}</Styled.h2>
-								<ContentBlock content={page.noMatch.content} />
-							</div>
+						<BodyContainer noPaddingY>
+							<Stack spacing={['44px']}>
+								<Module>
+									<Styled.h2>{page.noMatch.title}</Styled.h2>
+									<ContentBlock content={page.noMatch.content} />
+								</Module>
 
-							<SectionInformational
-								imageUrl={uitleg.image}
-								imageAlignment="right"
-								key={uitleg.title}
-								id={uitleg.linklist.id}
-								chapeau={uitleg.pretitle}
-								title={uitleg.title}
-							>
-								<Styled.p>{uitleg.description}</Styled.p>
-							</SectionInformational>
+								<SectionInformational
+									imageUrl={uitleg.image}
+									imageAlignment="right"
+									key={uitleg.title}
+									id={uitleg.linklist.id}
+									chapeau={uitleg.pretitle}
+									title={uitleg.title}
+								>
+									<Styled.p>{uitleg.description}</Styled.p>
+								</SectionInformational>
 
-							<Feedback
-								name="Your Situation"
-								feedbackUrl={getFeedbackUrl(siteSettings.feedback.url, {
-									source: 'your-situation',
-								})}
-							/>
+								<Feedback
+									name="Your Situation"
+									feedbackUrl={getFeedbackUrl(siteSettings.feedback.url, {
+										source: 'your-situation',
+									})}
+								/>
+							</Stack>
 						</BodyContainer>
 						<Aside hideOnDesktop>
 							<BannerDataProtection content={siteSettings.privacy} />
