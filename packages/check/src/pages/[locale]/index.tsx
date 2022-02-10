@@ -22,6 +22,9 @@ import {
 	Aside,
 	Stack,
 	Module,
+	TheSidebar,
+	Retain,
+	Layer,
 } from '@quarantaine/common';
 import {
 	getJouwSituatiePageSituationsProjection,
@@ -85,19 +88,15 @@ export default function LandingPage() {
 					</Styled.p>
 				</Hero>
 
-				<Box
-					backgroundColor="headerBackground"
-					sx={{
-						paddingBlockEnd: ['40px'],
-					}}
-				>
+				<Layer backgroundColor="headerBackground" noPaddingBlockStart>
 					<Container>
-						<Flex
-							sx={{
-								flexDirection: ['column', 'row'],
-							}}
+						<TheSidebar
+							hideAsideOnMobile
+							asideChildren={
+								<BannerDataProtection content={siteSettings.privacy} />
+							}
 						>
-							<BodyContainer noPaddingY>
+							<Retain>
 								<Stack spacing={['36px']}>
 									<Stack spacing={['16px']}>
 										<Styled.h2>{page.situationsYouTitle}</Styled.h2>
@@ -112,56 +111,48 @@ export default function LandingPage() {
 										)}
 									</Stack>
 								</Stack>
-							</BodyContainer>
-							<Aside>
-								<BannerDataProtection content={siteSettings.privacy} />
-							</Aside>
-						</Flex>
+							</Retain>
+						</TheSidebar>
 					</Container>
-				</Box>
+				</Layer>
 
-				<Container
-					sx={{
-						paddingBlockStart: ['40px'],
-						paddingBlockEnd: ['40px'],
-					}}
-				>
-					<Flex
-						sx={{
-							flexDirection: ['column', 'row'],
-						}}
-					>
-						<BodyContainer noPaddingY>
-							<Stack spacing={['44px']}>
-								<Module>
-									<Styled.h2>{page.noMatch.title}</Styled.h2>
-									<ContentBlock content={page.noMatch.content} />
-								</Module>
+				<Layer>
+					<Container>
+						<TheSidebar
+							hideAsideOnTablet
+							asideChildren={
+								<BannerDataProtection content={siteSettings.privacy} />
+							}
+						>
+							<Retain>
+								<Stack spacing={['44px']}>
+									<Module>
+										<Styled.h2>{page.noMatch.title}</Styled.h2>
+										<ContentBlock content={page.noMatch.content} />
+									</Module>
 
-								<SectionInformational
-									imageUrl={uitleg.image}
-									imageAlignment="right"
-									key={uitleg.title}
-									id={uitleg.linklist.id}
-									chapeau={uitleg.pretitle}
-									title={uitleg.title}
-								>
-									<Styled.p>{uitleg.description}</Styled.p>
-								</SectionInformational>
+									<SectionInformational
+										imageUrl={uitleg.image}
+										imageAlignment="right"
+										key={uitleg.title}
+										id={uitleg.linklist.id}
+										chapeau={uitleg.pretitle}
+										title={uitleg.title}
+									>
+										<Styled.p>{uitleg.description}</Styled.p>
+									</SectionInformational>
 
-								<Feedback
-									name="Your Situation"
-									feedbackUrl={getFeedbackUrl(siteSettings.feedback.url, {
-										source: 'your-situation',
-									})}
-								/>
-							</Stack>
-						</BodyContainer>
-						<Aside hideOnDesktop>
-							<BannerDataProtection content={siteSettings.privacy} />
-						</Aside>
-					</Flex>
-				</Container>
+									<Feedback
+										name="Your Situation"
+										feedbackUrl={getFeedbackUrl(siteSettings.feedback.url, {
+											source: 'your-situation',
+										})}
+									/>
+								</Stack>
+							</Retain>
+						</TheSidebar>
+					</Container>
+				</Layer>
 			</Page>
 		</>
 	);
