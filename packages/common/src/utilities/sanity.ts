@@ -332,6 +332,29 @@ export const getPageQuery = ({
 	${documentsQuery ? `"documents": ${documentsQuery}` : ''}
 }`;
 
+export const getAdvicePageQuery = ({
+	type,
+	pageProjection,
+	locale,
+	faqs,
+}: {
+	type: string;
+	pageProjection: string;
+	locale: Locales;
+	faqs?: {
+		include?: string[];
+		exclude?: string[];
+	};
+}): string => `{
+	"pages": *[_type == "${type}" && metaData.site == "reizen-tijdens-corona"]${pageProjection},
+	"siteSettings": ${siteSettingsQuery({ locale, site: 'reizen-tijdens-corona' })},
+	"faqs": ${faqDocumentsQuery({
+		locale,
+		include: faqs?.include,
+		exclude: faqs?.exclude,
+	})},
+}`;
+
 export const getSituationPageQuery = ({
 	type,
 	pageProjection,
