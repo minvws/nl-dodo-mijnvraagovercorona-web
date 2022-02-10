@@ -246,7 +246,7 @@ export default function Situatie({ locale, date, situatie }: SituatieProps) {
 								},
 							}}
 						>
-							{/* <Link
+							<Link
 								styledAs="button"
 								href={siteSettings.quarantaineGids.url}
 								external
@@ -254,7 +254,7 @@ export default function Situatie({ locale, date, situatie }: SituatieProps) {
 								{siteSettings.quarantaineGids.button}
 							</Link>
 
-							<Text variant="small">{siteSettings.quarantaineGids.text}</Text> */}
+							<Text variant="small">{siteSettings.quarantaineGids.text}</Text>
 
 							{page.showPrintAndCalendar && selectedLastEventDate && (
 								<>
