@@ -24,23 +24,16 @@ import {
 import { Situation } from 'config/situaties';
 import { LinkBack } from 'components/link-back';
 import { locales } from 'content/general-content';
+import { ExpansionPanelVariant } from '@quarantaine/common/src/components/expansion-panel/expansion-panel';
 
-interface SituationContent {
+export interface SituationContent {
 	title: string;
 	titleSuffix?: string;
 	content: Array<Object>;
 	contentBlocks: Array<Object>;
 }
 
-interface JouwSituatiePageContent {
-	metaData: {
-		title: string;
-		description: string;
-	};
-	header: {
-		title: string;
-		content: Object[];
-	};
+export interface JouwSituatiePageSituationsContent {
 	situationsYouTitle: string;
 	situationsYou: SituationContent[];
 	situationsOtherTitle: string;
@@ -51,6 +44,18 @@ interface JouwSituatiePageContent {
 	noMatch: {
 		title: string;
 		content: Array<Object>;
+	};
+}
+
+export interface JouwSituatiePageContent
+	extends JouwSituatiePageSituationsContent {
+	metaData: {
+		title: string;
+		description: string;
+	};
+	header: {
+		title: string;
+		content: Object[];
 	};
 	url: string;
 	currentStepLabel: string;
@@ -77,7 +82,10 @@ const getUrlBySituation = (situation: Situation) => {
 	return `/${situation.url}`;
 };
 
-const renderPanel = (situation: SituationContent) => (
+export const renderPanel = (
+	situation: SituationContent,
+	variant: ExpansionPanelVariant = 'plus',
+) => (
 	<ExpansionPanel
 		key={situation.title}
 		title={situation.title}
@@ -85,7 +93,7 @@ const renderPanel = (situation: SituationContent) => (
 		toggleEvent={(state: string) =>
 			state === 'open' && trackEvent('Situation', 'Open', situation.title)
 		}
-		variant="plus"
+		variant={variant}
 	>
 		{situation.contentBlocks &&
 			situation.contentBlocks.map(
@@ -158,6 +166,98 @@ interface JouwSituatieStaticProps {
 	params: { locale: Locales };
 }
 
+export const getJouwSituatiePageSituationsProjection = (locale: string) => `
+	${getLocaleProperty({ name: 'situationsYouTitle', locale })},
+	"situationsYou": situationsYou[]{
+		${getLocaleProperty({ name: 'title', locale })},
+		${getLocaleProperty({
+			name: 'titleSuffix',
+			locale,
+		})},
+		${getLocaleProperty({
+			name: 'content',
+			locale,
+		})},
+		"contentBlocks": contentBlocks[]{
+			${getLocaleProperty({
+				name: 'content',
+				path: '^',
+				locale,
+			})},
+			"situation": {
+				${getLocaleProperty({
+					name: 'situationLinkTitle',
+					locale,
+				})},
+				"url": situationReference->url,
+				"showDate": situationReference->showDate,
+				"showExceptions": situationReference->showExceptions,
+			}
+		}
+	},
+	${getLocaleProperty({ name: 'situationsOtherTitle', locale })},
+	"situationsOther": situationsOther[]{
+		${getLocaleProperty({ name: 'title', locale })},
+		${getLocaleProperty({
+			name: 'titleSuffix',
+			locale,
+		})},
+		${getLocaleProperty({
+			name: 'content',
+			locale,
+		})},
+		"contentBlocks": contentBlocks[]{
+			${getLocaleProperty({
+				name: 'content',
+				path: '^',
+				locale,
+			})},
+			"situation": {
+				${getLocaleProperty({
+					name: 'situationLinkTitle',
+					locale,
+				})},
+				"url": situationReference->url,
+				"showDate": situationReference->showDate,
+				"showExceptions": situationReference->showExceptions,
+			}
+		}
+	},
+	${getLocaleProperty({ name: 'situationsExceptionsTitle', locale })},
+	${getLocaleProperty({ name: 'situationsExceptionsContent', locale })},
+	"situationsExceptions": situationsExceptions[]{
+		${getLocaleProperty({ name: 'title', locale })},
+		${getLocaleProperty({
+			name: 'titleSuffix',
+			locale,
+		})},
+		${getLocaleProperty({
+			name: 'content',
+			locale,
+		})},
+				"contentBlocks": contentBlocks[]{
+			${getLocaleProperty({
+				name: 'content',
+				path: '^',
+				locale,
+			})},
+					"situation": {
+							${getLocaleProperty({
+								name: 'situationLinkTitle',
+								locale,
+							})},
+				"url": situationReference->url,
+				"showDate": situationReference->showDate,
+				"showExceptions": situationReference->showExceptions,
+			}
+			}
+	},
+	"noMatch": {
+		${getLocaleProperty({ name: 'title', path: 'noMatch.title', locale })},
+		${getLocaleProperty({ name: 'content', path: 'noMatch.content', locale })},
+	}
+`;
+
 export const getStaticProps = async ({
 	params: { locale },
 }: JouwSituatieStaticProps) => {
@@ -174,95 +274,7 @@ export const getStaticProps = async ({
 			${getLocaleProperty({ name: 'title', path: 'header.title', locale })},
 			${getLocaleProperty({ name: 'content', path: 'header.content', locale })},
 		},
-		${getLocaleProperty({ name: 'situationsYouTitle', locale })},
-		"situationsYou": situationsYou[]{
-			${getLocaleProperty({ name: 'title', locale })},
-			${getLocaleProperty({
-				name: 'titleSuffix',
-				locale,
-			})},
-			${getLocaleProperty({
-				name: 'content',
-				locale,
-			})},
-			"contentBlocks": contentBlocks[]{
-				${getLocaleProperty({
-					name: 'content',
-					path: '^',
-					locale,
-				})},
-				"situation": {
-					${getLocaleProperty({
-						name: 'situationLinkTitle',
-						locale,
-					})},
-					"url": situationReference->url,
-					"showDate": situationReference->showDate,
-					"showExceptions": situationReference->showExceptions,
-				}
-			}
-		},
-		${getLocaleProperty({ name: 'situationsOtherTitle', locale })},
-		"situationsOther": situationsOther[]{
-			${getLocaleProperty({ name: 'title', locale })},
-			${getLocaleProperty({
-				name: 'titleSuffix',
-				locale,
-			})},
-			${getLocaleProperty({
-				name: 'content',
-				locale,
-			})},
-			"contentBlocks": contentBlocks[]{
-				${getLocaleProperty({
-					name: 'content',
-					path: '^',
-					locale,
-				})},
-				"situation": {
-					${getLocaleProperty({
-						name: 'situationLinkTitle',
-						locale,
-					})},
-					"url": situationReference->url,
-					"showDate": situationReference->showDate,
-					"showExceptions": situationReference->showExceptions,
-				}
-			}
-		},
-		${getLocaleProperty({ name: 'situationsExceptionsTitle', locale })},
-		${getLocaleProperty({ name: 'situationsExceptionsContent', locale })},
-		"situationsExceptions": situationsExceptions[]{
-			${getLocaleProperty({ name: 'title', locale })},
-			${getLocaleProperty({
-				name: 'titleSuffix',
-				locale,
-			})},
-			${getLocaleProperty({
-				name: 'content',
-				locale,
-			})},
-      		"contentBlocks": contentBlocks[]{
-				${getLocaleProperty({
-					name: 'content',
-					path: '^',
-					locale,
-				})},
-        		"situation": {
-          			${getLocaleProperty({
-									name: 'situationLinkTitle',
-									locale,
-								})},
-					"url": situationReference->url,
-					"showDate": situationReference->showDate,
-					"showExceptions": situationReference->showExceptions,
-				}
-    		}
-		},
-		"noMatch": {
-			${getLocaleProperty({ name: 'title', path: 'noMatch.title', locale })},
-			${getLocaleProperty({ name: 'content', path: 'noMatch.content', locale })},
-		},
+		${getJouwSituatiePageSituationsProjection(locale)},
 		url,
 		${getLocaleProperty({ name: 'currentStepLabel', locale })},
 	}`;

@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 import { Container, Text, Styled, jsx } from 'theme-ui';
+import { Module } from '@quarantaine/common';
 
 type SectionInformationalProps = {
 	imageUrl?: string;
@@ -42,7 +43,7 @@ export const SectionInformational: React.FC<SectionInformationalProps> = ({
 			src={imageUrl}
 			alt=""
 		/>
-		<div
+		<Module
 			sx={{
 				[`margin${imageAlignment === 'left' ? 'Left' : 'Right'}`]: [
 					undefined,
@@ -50,10 +51,14 @@ export const SectionInformational: React.FC<SectionInformationalProps> = ({
 				],
 			}}
 		>
-			{chapeau && <Text variant="chapeau">{chapeau}</Text>}
+			{chapeau && (
+				<Text variant="chapeau" sx={{ marginBlockStart: 0 }}>
+					{chapeau}
+				</Text>
+			)}
 			<Styled.h2>{title}</Styled.h2>
 			{children}
-		</div>
+		</Module>
 	</Container>
 );
 

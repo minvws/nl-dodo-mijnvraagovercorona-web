@@ -7,6 +7,7 @@ import {
 	useSanitySiteSettings,
 	BannerDataProtection,
 } from '@quarantaine/common';
+import { Aside } from '.';
 
 interface ContentProps {
 	noSpacingOnTop?: boolean;
@@ -37,28 +38,17 @@ export const Content: React.FC<ContentProps> = ({
 				>
 					{children}
 				</BodyContainer>
-				<Box
-					id="privacy"
-					as="aside"
-					sx={{
-						margin: ['0 0 55px 0', '55px 0 55px auto'],
-						paddingLeft: ['mobilePadding', 0, 0],
-						paddingRight: ['mobilePadding', 'tabletPadding', 0],
-						maxWidth: ['100%', '340px'],
-						'> * ~ *': {
-							marginBlockStart: '40px',
-						},
-					}}
-				>
+				<Aside>
 					{asideChildren}
 					<div
+						id="privacy"
 						sx={{
 							display: hidePrivacyOnMobile ? ['none', 'block'] : undefined,
 						}}
 					>
 						<BannerDataProtection content={siteSettings.privacy} />
 					</div>
-				</Box>
+				</Aside>
 			</Flex>
 		</Container>
 	);

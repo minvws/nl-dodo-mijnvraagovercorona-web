@@ -7,6 +7,7 @@ type BodyContainerProps = {
 	className?: string;
 	as?: React.ElementType;
 	label?: string;
+	noPaddingY?: boolean;
 };
 
 export const BodyContainer: React.FC<BodyContainerProps> = ({
@@ -14,11 +15,12 @@ export const BodyContainer: React.FC<BodyContainerProps> = ({
 	children,
 	as,
 	label,
+	noPaddingY,
 }) => {
 	return (
 		<Container
 			sx={{
-				paddingY: 'mobilePadding',
+				paddingY: noPaddingY ? 0 : 'mobilePadding',
 				paddingX: ['mobilePadding', 'tabletPadding', 0],
 				margin: ['0 auto', 0],
 				maxWidth: 'maxWidthBody',

@@ -1,3 +1,5 @@
+export * from './molecules';
+
 export * from './app';
 export * from './banner-alleen-samen';
 export * from './banner-data-protection';
