@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { Box, Flex, jsx } from 'theme-ui';
 
-import { BannerAlleenSamen, useSanitySiteSettings } from '@quarantaine/common';
+import { useSanitySiteSettings } from '@quarantaine/common';
 
 interface PageProps {
 	header: React.ReactNode;
@@ -50,7 +50,6 @@ export const Page: React.FC<PageProps> = ({
 						marginTop: 'auto',
 					}}
 				>
-					<BannerAlleenSamen alt={siteSettings.footer.alleenSamenAlt} />
 					{footer}
 				</div>
 			</Box>
