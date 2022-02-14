@@ -1,12 +1,10 @@
 /** @jsx jsx */
 import React from 'react';
-import { jsx, Styled } from 'theme-ui';
+import { Box, Container, Flex, jsx, Styled } from 'theme-ui';
 
 import { Page } from 'components/page';
 
 import {
-	Link,
-	QuickLinks,
 	SectionInformational,
 	MetaTags,
 	sanityClient,
@@ -14,14 +12,27 @@ import {
 	getLocaleProperty,
 	useSanityPageContent,
 	useSanitySiteSettings,
-	Content,
 	Hero,
 	Feedback,
 	getFeedbackUrl,
 	Locales,
+	ContentBlock,
+	BodyContainer,
+	BannerDataProtection,
+	Aside,
+	Stack,
+	Module,
+	TheSidebar,
+	Retain,
+	Layer,
 } from '@quarantaine/common';
+import {
+	getJouwSituatiePageSituationsProjection,
+	JouwSituatiePageSituationsContent,
+	renderPanel,
+} from './jouw-situatie';
 
-interface PageContent {
+interface PageContent extends JouwSituatiePageSituationsContent {
 	metaData: {
 		title: string;
 		description: string;
@@ -61,7 +72,7 @@ export default function LandingPage() {
 			/>
 
 			<Page>
-				<Hero title={page.header.title} variant="breath">
+				<Hero title={page.header.title}>
 					<Styled.p
 						sx={{
 							fontWeight: 'light',
@@ -75,24 +86,73 @@ export default function LandingPage() {
 					>
 						{page.header.subtitle}
 					</Styled.p>
-					<Link styledAs="button" href="/jouw-situatie">
-						{page.header.button}
-					</Link>
 				</Hero>
 
-				<Content hidePrivacyOnMobile>
-					<SectionInformational
-						imageUrl={uitleg.image}
-						imageAlignment="right"
-						key={uitleg.title}
-						id={uitleg.linklist.id}
-						chapeau={uitleg.pretitle}
-						title={uitleg.title}
-					>
-						<Styled.p>{uitleg.description}</Styled.p>
-						<Link href="/jouw-situatie">{page.header.button}</Link>
-					</SectionInformational>
-				</Content>
+				<Layer backgroundColor="headerBackground" noPaddingBlockStart>
+					<Container>
+						<TheSidebar
+							hideAsideOnMobile
+							asideChildren={
+								<BannerDataProtection content={siteSettings.privacy} />
+							}
+						>
+							<Retain>
+								<Stack spacing={['36px']}>
+									<Stack spacing={['16px']}>
+										<Styled.h2>{page.situationsYouTitle}</Styled.h2>
+										{page.situationsYou.map((situation) =>
+											renderPanel(situation, 'plusalt'),
+										)}
+									</Stack>
+									<Stack spacing={['16px']}>
+										<Styled.h2>{page.situationsOtherTitle}</Styled.h2>
+										{page.situationsOther.map((situation) =>
+											renderPanel(situation, 'plusalt'),
+										)}
+									</Stack>
+								</Stack>
+							</Retain>
+						</TheSidebar>
+					</Container>
+				</Layer>
+
+				<Layer>
+					<Container>
+						<TheSidebar
+							hideAsideOnTablet
+							asideChildren={
+								<BannerDataProtection content={siteSettings.privacy} />
+							}
+						>
+							<Retain>
+								<Stack spacing={['44px']}>
+									<Module>
+										<Styled.h2>{page.noMatch.title}</Styled.h2>
+										<ContentBlock content={page.noMatch.content} />
+									</Module>
+
+									<SectionInformational
+										imageUrl={uitleg.image}
+										imageAlignment="right"
+										key={uitleg.title}
+										id={uitleg.linklist.id}
+										chapeau={uitleg.pretitle}
+										title={uitleg.title}
+									>
+										<Styled.p>{uitleg.description}</Styled.p>
+									</SectionInformational>
+
+									<Feedback
+										name="Your Situation"
+										feedbackUrl={getFeedbackUrl(siteSettings.feedback.url, {
+											source: 'your-situation',
+										})}
+									/>
+								</Stack>
+							</Retain>
+						</TheSidebar>
+					</Container>
+				</Layer>
 			</Page>
 		</>
 	);
@@ -142,9 +202,22 @@ export const getStaticProps = async ({
 		}),
 	);
 
+	const jouwSituatiePageSituationsProjection = `{${getJouwSituatiePageSituationsProjection(
+		locale,
+	)}}`;
+
+	const { page: jouwSituatiePage } = await sanityClient.fetch(
+		getPageQuery({
+			site: 'quarantaine-check',
+			type: 'jouw-situatie-page',
+			pageProjection: jouwSituatiePageSituationsProjection,
+			locale,
+		}),
+	);
+
 	return {
 		props: {
-			page,
+			page: { ...page, ...jouwSituatiePage },
 			siteSettings,
 			locale,
 		},
