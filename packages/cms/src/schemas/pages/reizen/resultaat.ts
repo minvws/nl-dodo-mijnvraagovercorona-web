@@ -84,6 +84,38 @@ export default {
 			type: 'object',
 			fields: [
 				{
+					title: 'Waarschuwing Regelwijziging',
+					name: 'warningRuleChange',
+					type: 'array',
+					of: [
+						{
+							type: 'object',
+							fields: [
+								{
+									title: 'Content',
+									name: 'content',
+									type: 'localeBlock',
+								},
+								{
+									title: 'Link',
+									name: 'link',
+									type: 'localeString',
+								},
+								{
+									title: 'Condities',
+									name: 'conditions',
+									type: 'conditions',
+								},
+							],
+							preview: {
+								select: {
+									title: 'content.nl',
+								},
+							},
+						},
+					],
+				},
+				{
 					title: 'Titel',
 					name: 'title',
 					type: 'array',
