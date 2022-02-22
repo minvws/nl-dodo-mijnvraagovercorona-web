@@ -82,7 +82,6 @@ export const ExpansionPanel = ({
 
 	return (
 		<Container
-			id={hrefID}
 			sx={{
 				backgroundColor: variant === 'plus' ? 'expansionPanel' : 'white',
 				marginBottom: variant === 'plus' || variant === 'plusalt' ? '16px' : 0,
@@ -93,6 +92,15 @@ export const ExpansionPanel = ({
 				},
 			}}
 		>
+			<a
+				id={hrefID}
+				sx={{
+					display: 'block',
+					position: 'relative',
+					top: '-40px',
+					visibility: 'hidden',
+				}}
+			/>
 			<Disclosure onChange={handleChange} open={open}>
 				<dt>
 					<DisclosureButton
