@@ -10,6 +10,7 @@ import {
 	useExpansionPanelGroup,
 	useExpansionPanelId,
 } from './expansion-panel-group';
+import slugify from 'slugify';
 
 export type ExpansionPanelVariant = 'chevron' | 'plus' | 'plusalt' | undefined;
 
@@ -22,6 +23,7 @@ type ExpansionPanelProps = {
 	titleSuffix?: string;
 	variant?: ExpansionPanelVariant;
 	toggleEvent?: Function;
+	deepLinkAble?: boolean;
 	children: React.ReactNode;
 };
 
@@ -31,10 +33,16 @@ export const ExpansionPanel = ({
 	titleSuffix,
 	toggleEvent,
 	variant,
+	deepLinkAble,
 }: ExpansionPanelProps) => {
 	const [open, setOpen] = useState(false);
 	const contentRef = useRef<HTMLDivElement>(null);
 	const id = useExpansionPanelId();
+	const hrefID = slugify(title, {
+		lower: true,
+		strict: true,
+	});
+
 	// Panel group will only be set and used if it is indeed wrapped inside a group
 	// Otherwise this won't have any effect.
 	const { expandedPanel, setExpandedPanel } = useExpansionPanelGroup();
@@ -57,14 +65,24 @@ export const ExpansionPanel = ({
 			 * This is needed for mobile devices and both Android Chrome and iOs support it */
 			/* @ts-ignore */
 			contentRef.current.scrollIntoViewIfNeeded?.();
+			if (window && deepLinkAble) {
+				window.history.pushState(null, '', `#${hrefID}`);
+			}
 		}
 		if (open && typeof setExpandedPanel === 'function' && id) {
 			setExpandedPanel(id);
 		}
 	}, [open]);
 
+	useEffect(() => {
+		if (!window || !deepLinkAble) return;
+
+		if (window.location.hash.replace('#', '') === hrefID) setOpen(true);
+	}, []);
+
 	return (
 		<Container
+			id={hrefID}
 			sx={{
 				backgroundColor: variant === 'plus' ? 'expansionPanel' : 'white',
 				marginBottom: variant === 'plus' || variant === 'plusalt' ? '16px' : 0,
