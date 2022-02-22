@@ -85,6 +85,7 @@ const getUrlBySituation = (situation: Situation) => {
 export const renderPanel = (
 	situation: SituationContent,
 	variant: ExpansionPanelVariant = 'plus',
+	deepLinkAble?: boolean,
 ) => (
 	<ExpansionPanel
 		key={situation.title}
@@ -94,6 +95,7 @@ export const renderPanel = (
 			state === 'open' && trackEvent('Situation', 'Open', situation.title)
 		}
 		variant={variant}
+		deepLinkAble={deepLinkAble}
 	>
 		{situation.contentBlocks &&
 			situation.contentBlocks.map(
@@ -139,12 +141,16 @@ export default function JouwSituatie({ locale }: { locale: string }) {
 				<Content>
 					<Box sx={{ mt: '36px' }}>
 						<Styled.h2>{page.situationsYouTitle}</Styled.h2>
-						{page.situationsYou.map((situation) => renderPanel(situation))}
+						{page.situationsYou.map((situation) =>
+							renderPanel(situation, 'plus', true),
+						)}
 					</Box>
 					<Box sx={{ my: '36px' }}>
 						<Styled.h2>{page.situationsOtherTitle}</Styled.h2>
 
-						{page.situationsOther.map((situation) => renderPanel(situation))}
+						{page.situationsOther.map((situation) =>
+							renderPanel(situation, 'plus', true),
+						)}
 					</Box>
 
 					<Styled.h2>{page.noMatch.title}</Styled.h2>
