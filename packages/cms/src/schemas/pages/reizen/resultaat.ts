@@ -116,6 +116,11 @@ export default {
 					],
 				},
 				{
+					title: 'Buitenlandse zaken waarschuwing',
+					name: 'foreignAffairs',
+					type: 'localeBlock',
+				},
+				{
 					title: 'Titel',
 					name: 'title',
 					type: 'array',
