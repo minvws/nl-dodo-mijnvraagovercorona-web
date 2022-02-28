@@ -40,6 +40,45 @@ export default {
 			},
 		},
 		{
+			title: 'Cases',
+			name: 'cases',
+			type: 'array',
+			of: [
+				{
+					title: 'Case',
+					name: 'case',
+					type: 'object',
+					fields: [
+						{
+							title: 'Titel',
+							name: 'title',
+							type: 'localeString',
+						},
+						{
+							title: 'Titel suffix',
+							name: 'titleSuffix',
+							type: 'localeString',
+						},
+						{
+							title: 'Intro',
+							name: 'intro',
+							type: 'localeString',
+						},
+						{
+							title: 'Lees meer knop',
+							name: 'readMore',
+							type: 'localeString',
+						},
+						{
+							title: 'ContentBlocks',
+							name: 'contentBlocks',
+							type: 'contentBlocks',
+						},
+					],
+				},
+			],
+		},
+		{
 			title: 'Uitleg',
 			name: 'uitleg',
 			type: 'array',
