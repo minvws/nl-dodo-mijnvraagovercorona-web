@@ -65,12 +65,12 @@ interface SituationAsLink extends Situation {
 	situationLinkTitle: string;
 }
 
-interface ContentBlocks {
+export interface ContentBlocks {
 	content?: Array<Object>;
 	situation?: SituationAsLink;
 }
 
-const getUrlBySituation = (situation: Situation) => {
+export const getUrlBySituation = (situation: Situation) => {
 	if (
 		typeof situation.showExceptions !== 'undefined' &&
 		situation.showExceptions

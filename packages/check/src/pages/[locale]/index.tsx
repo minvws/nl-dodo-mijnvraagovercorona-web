@@ -25,9 +25,13 @@ import {
 	TheSidebar,
 	Retain,
 	Layer,
+	ExpansionPanel,
+	Link,
 } from '@quarantaine/common';
 import {
+	ContentBlocks,
 	getJouwSituatiePageSituationsProjection,
+	getUrlBySituation,
 	JouwSituatiePageSituationsContent,
 	renderPanel,
 } from './jouw-situatie';
@@ -43,6 +47,14 @@ interface PageContent extends JouwSituatiePageSituationsContent {
 		subtitle: string;
 		title: string;
 	};
+	titleCases: string;
+	cases: {
+		title: string;
+		titleSuffix?: string;
+		intro?: string;
+		readMoreLabel?: string;
+		contentBlocks: Array<Object>;
+	}[];
 	uitleg: {
 		description: string;
 		image: string;
@@ -61,6 +73,9 @@ export default function LandingPage() {
 	const siteSettings = useSanitySiteSettings();
 
 	const uitleg = page.uitleg[0];
+	const cases = page.cases.filter((item) => item.title);
+
+	console.log('cases', cases);
 
 	return (
 		<>
@@ -99,14 +114,54 @@ export default function LandingPage() {
 							<Retain>
 								<Stack spacing={['36px']}>
 									<Stack spacing={['16px']}>
-										<Styled.h2>{page.situationsYouTitle}</Styled.h2>
+										<Styled.h2>{page.titleCases}</Styled.h2>
+										{cases.map((item) => (
+											<div key={item.title}>
+												<h3>{item.title}</h3>
+												{item.intro && <p>{item.intro}</p>}
+
+												{!!(item.contentBlocks && item.readMoreLabel) && (
+													<ExpansionPanel title={item.readMoreLabel}>
+														<Stack>
+															{item.contentBlocks.map(
+																(contentBlock: ContentBlocks, key: number) => {
+																	if (contentBlock.content) {
+																		return (
+																			<div key={key}>
+																				<ContentBlock
+																					content={contentBlock.content}
+																				/>
+																			</div>
+																		);
+																	} else if (contentBlock.situation?.url) {
+																		return (
+																			<Link
+																				key={key}
+																				styledAs="button"
+																				href={getUrlBySituation(
+																					contentBlock.situation,
+																				)}
+																				sx={{
+																					marginBottom: '8px',
+																					marginTop: '8px',
+																				}}
+																			>
+																				{
+																					contentBlock.situation
+																						.situationLinkTitle
+																				}
+																			</Link>
+																		);
+																	}
+																},
+															)}
+														</Stack>
+													</ExpansionPanel>
+												)}
+											</div>
+										))}
+
 										{page.situationsYou.map((situation) =>
-											renderPanel(situation, 'plusalt'),
-										)}
-									</Stack>
-									<Stack spacing={['16px']}>
-										<Styled.h2>{page.situationsOtherTitle}</Styled.h2>
-										{page.situationsOther.map((situation) =>
 											renderPanel(situation, 'plusalt'),
 										)}
 									</Stack>
@@ -179,6 +234,38 @@ export const getStaticProps = async ({
 			${getLocaleProperty({ name: 'pretitle', path: 'header.pretitle', locale })},
 			${getLocaleProperty({ name: 'subtitle', path: 'header.subtitle', locale })},
 			${getLocaleProperty({ name: 'title', path: 'header.title', locale })},
+		},
+		${getLocaleProperty({ name: 'titleCases', locale })},
+		"cases": cases[]{
+			${getLocaleProperty({ name: 'title', locale })},
+			${getLocaleProperty({
+				name: 'titleSuffix',
+				locale,
+			})},
+			${getLocaleProperty({
+				name: 'intro',
+				locale,
+			})},
+			${getLocaleProperty({
+				name: 'readMoreLabel',
+				locale,
+			})},
+			"contentBlocks": contentBlocks[]{
+				${getLocaleProperty({
+					name: 'content',
+					path: '^',
+					locale,
+				})},
+				"situation": {
+					${getLocaleProperty({
+						name: 'situationLinkTitle',
+						locale,
+					})},
+					"url": situationReference->url,
+					"showDate": situationReference->showDate,
+					"showExceptions": situationReference->showExceptions,
+				}
+			}
 		},
 		"uitleg": uitleg[]{
 			"image": "/images/sanity/" + image.asset->originalFilename,
