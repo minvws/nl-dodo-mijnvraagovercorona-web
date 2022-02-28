@@ -40,6 +40,11 @@ export default {
 			},
 		},
 		{
+			title: 'Cases titel',
+			name: 'titleCases',
+			type: 'localeString',
+		},
+		{
 			title: 'Cases',
 			name: 'cases',
 			type: 'array',
@@ -73,7 +78,7 @@ export default {
 						},
 						{
 							title: 'Lees meer knop',
-							name: 'readMore',
+							name: 'readMoreLabel',
 							type: 'localeString',
 						},
 						{
