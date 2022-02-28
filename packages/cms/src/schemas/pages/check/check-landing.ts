@@ -48,6 +48,13 @@ export default {
 					title: 'Case',
 					name: 'case',
 					type: 'object',
+					preview: {
+						select: {
+							title: 'title.nl',
+							subtitle: 'pretitle.nl',
+							media: 'image',
+						},
+					},
 					fields: [
 						{
 							title: 'Titel',
