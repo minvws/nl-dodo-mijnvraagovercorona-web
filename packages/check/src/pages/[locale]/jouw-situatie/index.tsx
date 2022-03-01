@@ -36,7 +36,15 @@ export interface SituationContent {
 	contentBlocks: ContentSituationBlockProps[];
 }
 
-export interface JouwSituatiePageSituationsContent {
+export interface JouwSituatiePageNoMatchContent {
+	noMatch: {
+		title: string;
+		content: Array<Object>;
+	};
+}
+
+export interface JouwSituatiePageSituationsContent
+	extends JouwSituatiePageNoMatchContent {
 	situationsYouTitle: string;
 	situationsYou: SituationContent[];
 	situationsOtherTitle: string;
@@ -44,10 +52,6 @@ export interface JouwSituatiePageSituationsContent {
 	situationsExceptionsTitle: string;
 	situationsExceptionsContent: Array<Object>;
 	situationsExceptions: SituationContent[];
-	noMatch: {
-		title: string;
-		content: Array<Object>;
-	};
 }
 
 export interface JouwSituatiePageContent
@@ -131,6 +135,13 @@ export default function JouwSituatie({ locale }: { locale: string }) {
 interface JouwSituatieStaticProps {
 	params: { locale: Locales };
 }
+
+export const getJouwSituatiePageNoMatchProjection = (locale: string) => `
+	"noMatch": {
+		${getLocaleProperty({ name: 'title', path: 'noMatch.title', locale })},
+		${getLocaleProperty({ name: 'content', path: 'noMatch.content', locale })},
+	}
+`;
 
 export const getJouwSituatiePageSituationsProjection = (locale: string) => `
 	${getLocaleProperty({ name: 'situationsYouTitle', locale })},
@@ -217,10 +228,6 @@ export const getJouwSituatiePageSituationsProjection = (locale: string) => `
 				"showExceptions": situationReference->showExceptions,
 			}
 			}
-	},
-	"noMatch": {
-		${getLocaleProperty({ name: 'title', path: 'noMatch.title', locale })},
-		${getLocaleProperty({ name: 'content', path: 'noMatch.content', locale })},
 	}
 `;
 
@@ -241,6 +248,7 @@ export const getStaticProps = async ({
 			${getLocaleProperty({ name: 'content', path: 'header.content', locale })},
 		},
 		${getJouwSituatiePageSituationsProjection(locale)},
+		${getJouwSituatiePageNoMatchProjection(locale)},
 		url,
 		${getLocaleProperty({ name: 'currentStepLabel', locale })},
 	}`;

@@ -24,8 +24,8 @@ import {
 	Layer,
 } from '@quarantaine/common';
 import {
-	getJouwSituatiePageSituationsProjection,
-	JouwSituatiePageSituationsContent,
+	getJouwSituatiePageNoMatchProjection,
+	JouwSituatiePageNoMatchContent,
 } from './jouw-situatie';
 import {
 	Case,
@@ -33,7 +33,7 @@ import {
 	ContentSituationBlockProps,
 } from 'components/molecules';
 
-interface PageContent extends JouwSituatiePageSituationsContent {
+interface PageContent extends JouwSituatiePageNoMatchContent {
 	metaData: {
 		title: string;
 		description: string;
@@ -258,7 +258,7 @@ export const getStaticProps = async ({
 		}),
 	);
 
-	const jouwSituatiePageSituationsProjection = `{${getJouwSituatiePageSituationsProjection(
+	const jouwSituatiePageProjection = `{${getJouwSituatiePageNoMatchProjection(
 		locale,
 	)}}`;
 
@@ -266,7 +266,7 @@ export const getStaticProps = async ({
 		getPageQuery({
 			site: 'quarantaine-check',
 			type: 'jouw-situatie-page',
-			pageProjection: jouwSituatiePageSituationsProjection,
+			pageProjection: jouwSituatiePageProjection,
 			locale,
 		}),
 	);
