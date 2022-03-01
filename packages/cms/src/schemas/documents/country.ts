@@ -89,16 +89,63 @@ export default {
 			name: 'nameAsc',
 			by: [{ field: 'name.nl', direction: 'asc' }],
 		},
-		{
-			title: 'Risico Categorie',
-			name: 'riskCategoryDesc',
-			by: [{ field: 'riskCategory.label', direction: 'desc' }],
-		},
 	],
 	preview: {
 		select: {
 			title: 'name.nl',
-			subtitle: 'riskCategoryPlanning.0.riskCategory.label',
+			riskCategory0: 'riskCategoryPlanning.0.riskCategory.label',
+			riskCategory1: 'riskCategoryPlanning.1.riskCategory.label',
+			riskCategory2: 'riskCategoryPlanning.2.riskCategory.label',
+			riskCategory3: 'riskCategoryPlanning.3.riskCategory.label',
+			riskCategory4: 'riskCategoryPlanning.4.riskCategory.label',
+			riskCategory5: 'riskCategoryPlanning.5.riskCategory.label',
+			riskCategory6: 'riskCategoryPlanning.6.riskCategory.label',
+			riskCategory7: 'riskCategoryPlanning.7.riskCategory.label',
+			riskCategory8: 'riskCategoryPlanning.8.riskCategory.label',
+			riskCategory9: 'riskCategoryPlanning.9.riskCategory.label',
+		},
+		prepare({
+			title,
+			riskCategory0,
+			riskCategory1,
+			riskCategory2,
+			riskCategory3,
+			riskCategory4,
+			riskCategory5,
+			riskCategory6,
+			riskCategory7,
+			riskCategory8,
+			riskCategory9,
+		}: {
+			title: string;
+			riskCategory0: string | undefined;
+			riskCategory1: string | undefined;
+			riskCategory2: string | undefined;
+			riskCategory3: string | undefined;
+			riskCategory4: string | undefined;
+			riskCategory5: string | undefined;
+			riskCategory6: string | undefined;
+			riskCategory7: string | undefined;
+			riskCategory8: string | undefined;
+			riskCategory9: string | undefined;
+		}) {
+			const riskCategories = [
+				riskCategory0,
+				riskCategory1,
+				riskCategory2,
+				riskCategory3,
+				riskCategory4,
+				riskCategory5,
+				riskCategory6,
+				riskCategory7,
+				riskCategory8,
+				riskCategory9,
+			].filter(Boolean);
+
+			return {
+				title,
+				subtitle: riskCategories[riskCategories.length - 1],
+			};
 		},
 	},
 };
