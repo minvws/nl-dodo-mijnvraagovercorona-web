@@ -29,7 +29,7 @@ export const Case: React.FC<OwnProps> = ({
 					sx={{
 						marginBlockStart: 0,
 						color: 'header',
-						fontSize: 'bodyMobile',
+						fontSize: ['bodyMobile', 'body'],
 					}}
 				>
 					{title}
