@@ -35,6 +35,7 @@ import {
 	JouwSituatiePageSituationsContent,
 	renderPanel,
 } from './jouw-situatie';
+import { Case } from 'components/molecules';
 
 interface PageContent extends JouwSituatiePageSituationsContent {
 	metaData: {
@@ -72,10 +73,10 @@ export default function LandingPage() {
 	const page = useSanityPageContent<PageContent>();
 	const siteSettings = useSanitySiteSettings();
 
+	// Only show first uitleg
 	const uitleg = page.uitleg[0];
+	// Only show cases when a title is present (case is translated)
 	const cases = page.cases.filter((item) => item.title);
-
-	console.log('cases', cases);
 
 	return (
 		<>
@@ -114,51 +115,47 @@ export default function LandingPage() {
 							<Retain>
 								<Stack spacing={['36px']}>
 									<Stack spacing={['16px']}>
-										<Styled.h2>{page.titleCases}</Styled.h2>
+										<Styled.h2 sx={{ color: 'secondary', fontSize: 'chapeau' }}>
+											{page.titleCases}
+										</Styled.h2>
 										{cases.map((item) => (
-											<div key={item.title}>
-												<h3>{item.title}</h3>
-												{item.intro && <p>{item.intro}</p>}
-
-												{!!(item.contentBlocks && item.readMoreLabel) && (
-													<ExpansionPanel title={item.readMoreLabel}>
-														<Stack>
-															{item.contentBlocks.map(
-																(contentBlock: ContentBlocks, key: number) => {
-																	if (contentBlock.content) {
-																		return (
-																			<div key={key}>
-																				<ContentBlock
-																					content={contentBlock.content}
-																				/>
-																			</div>
-																		);
-																	} else if (contentBlock.situation?.url) {
-																		return (
-																			<Link
-																				key={key}
-																				styledAs="button"
-																				href={getUrlBySituation(
-																					contentBlock.situation,
-																				)}
-																				sx={{
-																					marginBottom: '8px',
-																					marginTop: '8px',
-																				}}
-																			>
-																				{
-																					contentBlock.situation
-																						.situationLinkTitle
-																				}
-																			</Link>
-																		);
-																	}
-																},
-															)}
-														</Stack>
-													</ExpansionPanel>
+											<Case
+												key={item.title}
+												title={item.title}
+												titleSuffix={item.titleSuffix}
+												intro={item.intro}
+												readMoreLabel={item.readMoreLabel}
+											>
+												{item.contentBlocks.map(
+													(contentBlock: ContentBlocks, key: number) => {
+														if (contentBlock.content) {
+															return (
+																<div key={key}>
+																	<ContentBlock
+																		content={contentBlock.content}
+																	/>
+																</div>
+															);
+														} else if (contentBlock.situation?.url) {
+															return (
+																<Link
+																	key={key}
+																	styledAs="button"
+																	href={getUrlBySituation(
+																		contentBlock.situation,
+																	)}
+																	sx={{
+																		marginBottom: '8px',
+																		marginTop: '8px',
+																	}}
+																>
+																	{contentBlock.situation.situationLinkTitle}
+																</Link>
+															);
+														}
+													},
 												)}
-											</div>
+											</Case>
 										))}
 
 										{page.situationsYou.map((situation) =>
