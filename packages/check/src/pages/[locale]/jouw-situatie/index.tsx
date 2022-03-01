@@ -21,16 +21,19 @@ import {
 	trackEvent,
 	Locales,
 } from '@quarantaine/common';
-import { Situation } from 'config/situaties';
 import { LinkBack } from 'components/link-back';
 import { locales } from 'content/general-content';
 import { ExpansionPanelVariant } from '@quarantaine/common/src/components/expansion-panel/expansion-panel';
+import {
+	ContentSituationBlock,
+	ContentSituationBlockProps,
+} from 'components/molecules';
 
 export interface SituationContent {
 	title: string;
 	titleSuffix?: string;
 	content: Array<Object>;
-	contentBlocks: Array<Object>;
+	contentBlocks: ContentSituationBlockProps[];
 }
 
 export interface JouwSituatiePageSituationsContent {
@@ -61,27 +64,6 @@ export interface JouwSituatiePageContent
 	currentStepLabel: string;
 }
 
-interface SituationAsLink extends Situation {
-	situationLinkTitle: string;
-}
-
-export interface ContentBlocks {
-	content?: Array<Object>;
-	situation?: SituationAsLink;
-}
-
-export const getUrlBySituation = (situation: Situation) => {
-	if (
-		typeof situation.showExceptions !== 'undefined' &&
-		situation.showExceptions
-	) {
-		return `/${situation.url}/ben-ik-uitgezonderd`;
-	} else if (typeof situation.showDate !== 'undefined' && situation.showDate) {
-		return `/${situation.url}/wanneer`;
-	}
-	return `/${situation.url}`;
-};
-
 export const renderPanel = (
 	situation: SituationContent,
 	variant: ExpansionPanelVariant = 'plus',
@@ -97,29 +79,7 @@ export const renderPanel = (
 		variant={variant}
 		deepLinkAble={deepLinkAble}
 	>
-		{situation.contentBlocks &&
-			situation.contentBlocks.map(
-				(contentBlock: ContentBlocks, key: number) => {
-					if (contentBlock.content) {
-						return <ContentBlock key={key} content={contentBlock.content} />;
-					} else if (contentBlock.situation?.url) {
-						return (
-							<Styled.p key={key}>
-								<Link
-									styledAs="button"
-									href={getUrlBySituation(contentBlock.situation)}
-									sx={{
-										marginBottom: '8px',
-										marginTop: '8px',
-									}}
-								>
-									{contentBlock.situation.situationLinkTitle}
-								</Link>
-							</Styled.p>
-						);
-					}
-				},
-			)}
+		<ContentSituationBlock contentBlocks={situation.contentBlocks} />
 	</ExpansionPanel>
 );
 

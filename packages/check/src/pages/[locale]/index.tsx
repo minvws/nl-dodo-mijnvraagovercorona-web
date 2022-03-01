@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import React from 'react';
-import { Box, Container, Flex, jsx, Styled } from 'theme-ui';
-
+import { jsx, Styled, Container } from 'theme-ui';
 import { Page } from 'components/page';
 
 import {
@@ -29,13 +28,15 @@ import {
 	Link,
 } from '@quarantaine/common';
 import {
-	ContentBlocks,
 	getJouwSituatiePageSituationsProjection,
-	getUrlBySituation,
 	JouwSituatiePageSituationsContent,
 	renderPanel,
 } from './jouw-situatie';
-import { Case } from 'components/molecules';
+import {
+	Case,
+	ContentSituationBlock,
+	ContentSituationBlockProps,
+} from 'components/molecules';
 
 interface PageContent extends JouwSituatiePageSituationsContent {
 	metaData: {
@@ -54,7 +55,7 @@ interface PageContent extends JouwSituatiePageSituationsContent {
 		titleSuffix?: string;
 		intro?: string;
 		readMoreLabel?: string;
-		contentBlocks: Array<Object>;
+		contentBlocks: ContentSituationBlockProps[];
 	}[];
 	uitleg: {
 		description: string;
@@ -115,7 +116,13 @@ export default function LandingPage() {
 							<Retain>
 								<Stack spacing={['36px']}>
 									<Stack spacing={['16px']}>
-										<Styled.h2 sx={{ color: 'secondary', fontSize: 'chapeau' }}>
+										<Styled.h2
+											sx={{
+												color: 'secondary',
+												fontSize: ['chapeau', 'chapeau'],
+												lineHeight: ['chapeau', 'chapeau'],
+											}}
+										>
 											{page.titleCases}
 										</Styled.h2>
 										{cases.map((item) => (
@@ -126,41 +133,11 @@ export default function LandingPage() {
 												intro={item.intro}
 												readMoreLabel={item.readMoreLabel}
 											>
-												{item.contentBlocks.map(
-													(contentBlock: ContentBlocks, key: number) => {
-														if (contentBlock.content) {
-															return (
-																<div key={key}>
-																	<ContentBlock
-																		content={contentBlock.content}
-																	/>
-																</div>
-															);
-														} else if (contentBlock.situation?.url) {
-															return (
-																<Link
-																	key={key}
-																	styledAs="button"
-																	href={getUrlBySituation(
-																		contentBlock.situation,
-																	)}
-																	sx={{
-																		marginBottom: '8px',
-																		marginTop: '8px',
-																	}}
-																>
-																	{contentBlock.situation.situationLinkTitle}
-																</Link>
-															);
-														}
-													},
-												)}
+												<ContentSituationBlock
+													contentBlocks={item.contentBlocks}
+												/>
 											</Case>
 										))}
-
-										{page.situationsYou.map((situation) =>
-											renderPanel(situation, 'plusalt'),
-										)}
 									</Stack>
 								</Stack>
 							</Retain>
