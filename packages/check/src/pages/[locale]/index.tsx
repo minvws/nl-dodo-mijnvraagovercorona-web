@@ -16,21 +16,16 @@ import {
 	getFeedbackUrl,
 	Locales,
 	ContentBlock,
-	BodyContainer,
 	BannerDataProtection,
-	Aside,
 	Stack,
 	Module,
 	TheSidebar,
 	Retain,
 	Layer,
-	ExpansionPanel,
-	Link,
 } from '@quarantaine/common';
 import {
 	getJouwSituatiePageSituationsProjection,
 	JouwSituatiePageSituationsContent,
-	renderPanel,
 } from './jouw-situatie';
 import {
 	Case,
