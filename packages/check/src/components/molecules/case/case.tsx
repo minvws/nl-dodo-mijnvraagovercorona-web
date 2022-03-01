@@ -39,7 +39,7 @@ export const Case: React.FC<OwnProps> = ({
 				</Styled.h3>
 				{intro && <Styled.p sx={{ color: 'detailText' }}>{intro}</Styled.p>}
 				{!!(children && readMoreLabel) && (
-					<ExpansionPanel title={readMoreLabel}>
+					<ExpansionPanel variant="plusinline" title={readMoreLabel}>
 						<Stack>{children}</Stack>
 					</ExpansionPanel>
 				)}
