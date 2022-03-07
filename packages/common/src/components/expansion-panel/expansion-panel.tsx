@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { useEffect, useRef, useState } from 'react';
-import { Container, jsx } from 'theme-ui';
+import { jsx, Container } from 'theme-ui';
 import {
 	Disclosure,
 	DisclosureButton,
@@ -12,7 +12,12 @@ import {
 } from './expansion-panel-group';
 import slugify from 'slugify';
 
-export type ExpansionPanelVariant = 'chevron' | 'plus' | 'plusalt' | undefined;
+export type ExpansionPanelVariant =
+	| 'chevron'
+	| 'plus'
+	| 'plusalt'
+	| 'plusinline'
+	| undefined;
 
 type ExpansionPanelProps = {
 	title: string;
@@ -102,113 +107,152 @@ export const ExpansionPanel = ({
 				}}
 			/>
 			<Disclosure onChange={handleChange} open={open}>
-				<dt>
-					<DisclosureButton
+				<dl
+					sx={{
+						display: 'flex',
+						flexDirection: 'column',
+						margin: 0,
+					}}
+				>
+					<dt
 						sx={{
-							position: 'relative',
-							textAlign: 'left',
-							padding:
-								variant === 'plus' || variant === 'plusalt'
-									? '15px'
-									: '8px 15px 8px 0',
-							background: 'none',
-							border: 'none',
-							fontFamily: 'body',
-							fontSize: ['bodyMobile', 'body'],
-							lineHeight: ['bodyMobile', 'body'],
-							width: '100%',
-							color:
-								variant === 'plus' || variant === 'plusalt' ? 'link' : 'text',
-							fontWeight:
-								variant === 'plus' || variant === 'plusalt' ? 'bold' : 'normal',
-							paddingRight: '48px',
-
-							...(variant === 'plus' || variant === 'plusalt'
-								? {
-										'::before, ::after': {
-											content: '""',
-											position: 'absolute',
-											right: '15px',
-											top: '28px',
-											height: '2px',
-											width: '18px',
-											display: 'block',
-											backgroundColor:
-												variant === 'plus' ? 'link' : 'secondary',
-											transition: 'transform .2s ease-in-out',
-										},
-								  }
-								: {}),
-
-							...(variant === 'chevron'
-								? {
-										'::after': {
-											content: '""',
-											position: 'absolute',
-											right: '15px',
-											top: '20px',
-											height: '8px',
-											width: '13px',
-											display: 'block',
-											backgroundImage: 'url("/icons/FAQ Arrow.svg")',
-											transition: 'transform .2s ease-in-out',
-										},
-								  }
-								: {}),
-
-							...(variant === 'plus' || variant === 'plusalt'
-								? {
-										'::after': { transform: 'rotate(90deg)' },
-								  }
-								: {}),
-
-							'&[aria-expanded="true"]': {
-								'::after': {
-									transform: 'rotate(180deg)',
-								},
-							},
+							order: variant === 'plusinline' ? 2 : 1,
 						}}
 					>
-						{title}
-						{titleSuffix && (
-							<span sx={{ fontWeight: 'normal' }}> {titleSuffix}</span>
-						)}
-					</DisclosureButton>
-				</dt>
-				<dd sx={{ padding: 0, margin: 0 }}>
-					<DisclosurePanel
-						sx={{
-							div: {
-								'p:first-of-type': {
-									marginTop: 0,
-								},
-								'> :last-child': {
-									marginBottom: 0,
-								},
-							},
-							ul: {
-								paddingLeft: '20px',
-							},
-							p: {
-								marginBottom: '8px',
-							},
-						}}
-					>
-						<div
+						<DisclosureButton
 							sx={{
+								position: 'relative',
+								textAlign: 'left',
 								padding:
 									variant === 'plus' || variant === 'plusalt'
-										? '0 48px 15px 15px'
-										: '0 48px 15px 0',
+										? '15px'
+										: variant === 'plusinline'
+										? '0'
+										: '8px 15px 8px 0',
+								background: 'none',
+								border: 'none',
+								fontFamily: 'body',
 								fontSize: ['bodyMobile', 'body'],
 								lineHeight: ['bodyMobile', 'body'],
+								width: '100%',
+								color:
+									variant === 'plus' || variant === 'plusalt'
+										? 'link'
+										: variant === 'plusinline'
+										? 'secondary'
+										: 'text',
+								fontWeight:
+									variant === 'plus' ||
+									variant === 'plusalt' ||
+									variant === 'plusinline'
+										? 'bold'
+										: 'normal',
+								...(variant === 'plusinline'
+									? {
+											paddingInlineStart: '32px',
+									  }
+									: {
+											paddingInlineEnd: '48px',
+									  }),
+
+								...(variant === 'plus' ||
+								variant === 'plusalt' ||
+								variant === 'plusinline'
+									? {
+											'::before, ::after': {
+												content: '""',
+												position: 'absolute',
+												...(variant === 'plusinline'
+													? {
+															left: 0,
+													  }
+													: { right: '15px' }),
+												top:
+													variant === 'plusinline'
+														? ['10px', '12px']
+														: ['26px', '28px'],
+												height: '2px',
+												width: '18px',
+												display: 'block',
+												backgroundColor:
+													variant === 'plus' ? 'link' : 'secondary',
+												transition: 'transform .2s ease-in-out',
+											},
+									  }
+									: {}),
+
+								...(variant === 'chevron'
+									? {
+											'::after': {
+												content: '""',
+												position: 'absolute',
+												right: '15px',
+												top: '20px',
+												height: '8px',
+												width: '13px',
+												display: 'block',
+												backgroundImage: 'url("/icons/FAQ Arrow.svg")',
+												transition: 'transform .2s ease-in-out',
+											},
+									  }
+									: {}),
+
+								...(variant === 'plus' ||
+								variant === 'plusalt' ||
+								variant === 'plusinline'
+									? {
+											'::after': { transform: 'rotate(90deg)' },
+									  }
+									: {}),
+
+								'&[aria-expanded="true"]': {
+									'::after': {
+										transform: 'rotate(180deg)',
+									},
+								},
 							}}
-							ref={contentRef}
 						>
-							{children}
-						</div>
-					</DisclosurePanel>
-				</dd>
+							{title}
+							{titleSuffix && (
+								<span sx={{ fontWeight: 'normal' }}> {titleSuffix}</span>
+							)}
+						</DisclosureButton>
+					</dt>
+					<dd sx={{ padding: 0, margin: 0, order: 1 }}>
+						<DisclosurePanel
+							sx={{
+								div: {
+									'p:first-of-type': {
+										marginTop: 0,
+									},
+									'> :last-child': {
+										marginBottom: 0,
+									},
+								},
+								ul: {
+									paddingLeft: '20px',
+								},
+								p: {
+									marginBottom: '8px',
+								},
+							}}
+						>
+							<div
+								sx={{
+									padding:
+										variant === 'plus' || variant === 'plusalt'
+											? '0 48px 15px 15px'
+											: '0 48px 15px 0',
+									fontSize: ['bodyMobile', 'body'],
+									lineHeight: ['bodyMobile', 'body'],
+								}}
+								ref={contentRef}
+							>
+								{children}
+							</div>
+						</DisclosurePanel>
+					</dd>
+				</dl>
 			</Disclosure>
 		</Container>
 	);

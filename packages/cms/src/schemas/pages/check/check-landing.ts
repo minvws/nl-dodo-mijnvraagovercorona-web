@@ -40,6 +40,57 @@ export default {
 			},
 		},
 		{
+			title: 'Cases titel',
+			name: 'titleCases',
+			type: 'localeString',
+		},
+		{
+			title: 'Cases',
+			name: 'cases',
+			type: 'array',
+			of: [
+				{
+					title: 'Case',
+					name: 'case',
+					type: 'object',
+					preview: {
+						select: {
+							title: 'title.nl',
+							subtitle: 'pretitle.nl',
+							media: 'image',
+						},
+					},
+					fields: [
+						{
+							title: 'Titel',
+							name: 'title',
+							type: 'localeString',
+						},
+						{
+							title: 'Titel suffix',
+							name: 'titleSuffix',
+							type: 'localeString',
+						},
+						{
+							title: 'Intro',
+							name: 'intro',
+							type: 'localeString',
+						},
+						{
+							title: 'Lees meer knop',
+							name: 'readMoreLabel',
+							type: 'localeString',
+						},
+						{
+							title: 'ContentBlocks',
+							name: 'contentBlocks',
+							type: 'contentBlocks',
+						},
+					],
+				},
+			],
+		},
+		{
 			title: 'Uitleg',
 			name: 'uitleg',
 			type: 'array',
