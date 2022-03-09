@@ -148,18 +148,13 @@ export default {
 					],
 				},
 				{
-					title: 'Heenreis',
-					name: 'outbound',
-					type: 'travelCard',
-				},
-				{
-					title: 'Tussenstop',
-					name: 'stopover',
-					type: 'travelCard',
-				},
-				{
 					title: 'Terugreis',
 					name: 'return',
+					type: 'travelCard',
+				},
+				{
+					title: 'Heenreis',
+					name: 'outbound',
 					type: 'travelCard',
 				},
 			],

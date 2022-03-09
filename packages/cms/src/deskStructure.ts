@@ -89,16 +89,6 @@ const reizenPagesConfig = [
 		icon: GiCalendar,
 	},
 	{
-		schemaType: 'vervoersmiddel-page',
-		title: 'Reizen Vervoersmiddel Pagina',
-		icon: GiCommercialAirplane,
-	},
-	{
-		schemaType: 'tussenstop-page',
-		title: 'Reizen Tussenstop Pagina',
-		icon: GiJumpAcross,
-	},
-	{
 		schemaType: 'faq-page',
 		title: 'Reizen FAQ Pagina',
 		icon: GiLightBulb,
@@ -141,11 +131,6 @@ const reizenMultiDocumentsConfig = [
 		schemaType: 'travel-fase-document',
 		title: 'Reizen Reisfase Documenten',
 		icon: GiTrail,
-	},
-	{
-		schemaType: 'means-of-transport-document',
-		title: 'Reizen Ververvoersmethode Documenten',
-		icon: GiCarWheel,
 	},
 	{
 		schemaType: 'voorbereiding-document',

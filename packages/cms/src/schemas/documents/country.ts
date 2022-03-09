@@ -33,11 +33,6 @@ export default {
 			type: 'boolean',
 		},
 		{
-			title: 'Voormalig vliegverbod',
-			name: 'formerFlyRestriction',
-			type: 'boolean',
-		},
-		{
 			title: 'Risico categorie planning',
 			name: 'riskCategoryPlanning',
 			type: 'array',
