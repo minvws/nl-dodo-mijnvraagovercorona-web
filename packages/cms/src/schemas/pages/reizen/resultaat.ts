@@ -72,6 +72,16 @@ export default {
 						},
 					],
 				},
+				{
+					title: 'Laatst gewijzigd',
+					name: 'lastChanged',
+					type: 'localeString',
+				},
+				{
+					title: 'Nog steeds geldig',
+					name: 'stillValid',
+					type: 'localeString',
+				},
 			],
 			options: {
 				collapsible: true,
