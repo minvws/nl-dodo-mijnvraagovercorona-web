@@ -229,6 +229,28 @@ export default {
 			],
 		},
 		{
+			title: 'Tussenstop of nieuwe bestemming',
+			name: 'stopover',
+			type: 'object',
+			fields: [
+				{
+					title: 'Titel',
+					name: 'title',
+					type: 'localeString',
+				},
+				{
+					title: 'Content',
+					name: 'content',
+					type: 'localeBlock',
+				},
+				{
+					title: 'Button',
+					name: 'button',
+					type: 'localeString',
+				},
+			],
+		},
+		{
 			title: 'Veelgestelde vragen',
 			name: 'faq',
 			type: 'object',
