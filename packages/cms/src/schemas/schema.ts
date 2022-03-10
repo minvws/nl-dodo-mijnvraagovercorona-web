@@ -7,7 +7,6 @@ import voorbereidingDocument from './documents/voorbereiding';
 import countryDocument from './documents/country';
 import riskCategoryDocument from './documents/riskCategory';
 import travelFaseDocument from './documents/travelFase';
-import meansOfTransportDocument from './documents/meansOfTransport';
 import situationDocument from './documents/situation';
 
 import privacyPage from './pages/common/privacy';
@@ -21,9 +20,7 @@ import landingPage from './pages/reizen/landing';
 import voorbereidingPage from './pages/reizen/voorbereiding';
 import bestemmingPage from './pages/reizen/bestemming';
 import periodePage from './pages/reizen/periode';
-import vervoersmiddelPage from './pages/reizen/vervoersmiddel';
 import faqPage from './pages/reizen/faq';
-import tussenstopPage from './pages/reizen/tussenstop';
 import resultaatPage from './pages/reizen/resultaat';
 
 import checkLandingPage from './pages/check/check-landing';
@@ -66,9 +63,7 @@ export default createSchema({
 		voorbereidingPage,
 		bestemmingPage,
 		periodePage,
-		vervoersmiddelPage,
 		faqPage,
-		tussenstopPage,
 		resultaatPage,
 
 		/**
@@ -95,7 +90,6 @@ export default createSchema({
 		countryDocument,
 		riskCategoryDocument,
 		travelFaseDocument,
-		meansOfTransportDocument,
 		situationDocument,
 
 		/**

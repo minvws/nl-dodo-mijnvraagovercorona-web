@@ -14,11 +14,6 @@ export default {
 			type: 'object',
 			fields: [
 				{
-					title: 'Voorloper titel',
-					name: 'pretitle',
-					type: 'localeString',
-				},
-				{
 					title: 'Titel',
 					name: 'title',
 					type: 'localeString',
@@ -32,11 +27,6 @@ export default {
 					title: 'Button',
 					name: 'button',
 					type: 'localeString',
-				},
-				{
-					title: 'Disclaimer',
-					name: 'disclaimer',
-					type: 'localeBlock',
 				},
 			],
 			options: {

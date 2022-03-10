@@ -210,36 +210,6 @@ export default {
 			],
 		},
 		{
-			title: 'Vervoersmiddelen',
-			name: 'vervoersmiddelen',
-			type: 'array',
-			of: [
-				{
-					title: 'Vervoersmiddel',
-					name: 'vervoersmiddel',
-					type: 'object',
-					preview: {
-						select: {
-							title: 'naam',
-							subtitle: 'uitgebreid.nl',
-						},
-					},
-					fields: [
-						{
-							title: 'Naam',
-							name: 'naam',
-							type: 'string',
-						},
-						{
-							title: 'Uitgebreid',
-							name: 'uitgebreid',
-							type: 'localeString',
-						},
-					],
-				},
-			],
-		},
-		{
 			title: 'Quarantaine lijst titel',
 			name: 'quarantineOverviewTitle',
 			type: 'localeString',
@@ -295,34 +265,8 @@ export default {
 			],
 		},
 		{
-			title: 'Check Opnieuw Invullen Agenda',
-			name: 'checkAgainCalendar',
-			type: 'object',
-			options: { collapsible: true },
-			fields: [
-				{ title: 'Modal titel', name: 'modalTitle', type: 'localeString' },
-				{ title: 'Modal body', name: 'modalBody', type: 'localeString' },
-				{
-					title: 'Uitnodiging titel',
-					name: 'inviteTitle',
-					type: 'localeString',
-				},
-				{ title: 'Uitnodiging text', name: 'inviteText', type: 'localeString' },
-			],
-		},
-		{
 			title: 'Print call to action',
 			name: 'printCta',
-			type: 'localeString',
-		},
-		{
-			title: 'Check opnieuw call to action',
-			name: 'checkAgainCta',
-			type: 'localeString',
-		},
-		{
-			title: 'Agenda call to action',
-			name: 'agendaCta',
 			type: 'localeString',
 		},
 		{
