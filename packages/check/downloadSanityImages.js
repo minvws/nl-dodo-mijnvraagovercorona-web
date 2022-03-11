@@ -1,6 +1,6 @@
 const stream = require('stream');
 const { promisify } = require('util');
-const { mkdirSync, createWriteStream } = require('fs');
+const { mkdirSync, createWriteStream, rmSync } = require('fs');
 const got = require('got');
 
 const pipeline = promisify(stream.pipeline);
@@ -16,6 +16,7 @@ const pipeline = promisify(stream.pipeline);
 			},
 		).json();
 
+		rmSync('./public/images/sanity/', { recursive: true, force: true });
 		mkdirSync('./public/images/sanity/');
 
 		for (const { url, originalFilename } of result) {
