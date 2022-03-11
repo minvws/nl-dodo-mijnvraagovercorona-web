@@ -22,12 +22,14 @@ import {
 	TheSidebar,
 	Retain,
 	Layer,
+	TheSwitcher,
 } from '@quarantaine/common';
 import {
 	getJouwSituatiePageNoMatchProjection,
 	JouwSituatiePageNoMatchContent,
 } from './jouw-situatie';
 import { Folder, FolderProps } from 'components/molecules';
+import { retainMaxWidth } from '@quarantaine/common/src/components/molecules/layout/retain';
 
 interface PageContent extends JouwSituatiePageNoMatchContent {
 	metaData: {
@@ -87,7 +89,7 @@ export default function LandingPage() {
 					</Styled.p>
 				</Hero>
 
-				<Layer backgroundColor="headerBackground" noPaddingBlockStart>
+				<Layer>
 					<Container>
 						<TheSidebar
 							hideAsideOnMobile
@@ -95,17 +97,15 @@ export default function LandingPage() {
 								<BannerDataProtection content={siteSettings.privacy} />
 							}
 						>
-							<Retain>
-								<Stack spacing={['36px']}>
-									<Stack spacing={['16px']}>
-										{page.folders
-											// if not translated, don't show
-											.filter((folder) => folder.title)
-											.map((folder) => (
-												<Folder {...folder} key={folder.title} />
-											))}
-									</Stack>
-								</Stack>
+							<Retain maxWidth={[retainMaxWidth, '48.75rem']}>
+								<TheSwitcher gap={['2rem', '6.5rem']}>
+									{page.folders
+										// if not translated, don't show
+										.filter((folder) => folder.title)
+										.map((folder) => (
+											<Folder {...folder} key={folder.title} />
+										))}
+								</TheSwitcher>
 							</Retain>
 						</TheSidebar>
 					</Container>
