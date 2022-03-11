@@ -3,7 +3,7 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "next dev",
+		"dev": "yarn run download-images && next dev",
 		"build": "yarn run download-images && next build && next-sitemap && next export",
 		"download-images": "node ./downloadSanityImages.js",
 		"start": "NODE_ENV=production next start",

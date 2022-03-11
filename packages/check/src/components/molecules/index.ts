@@ -1,2 +1,2 @@
-export * from './case';
+export * from './folder';
 export * from './content';
