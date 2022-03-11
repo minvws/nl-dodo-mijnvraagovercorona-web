@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 import { jsx, Styled } from 'theme-ui';
-import { ExpansionPanel, Stack } from '@quarantaine/common';
+import { ExpansionPanel, Stack, theme } from '@quarantaine/common';
 import { ContentSituationBlockProps } from '../content';
 
 export interface CaseProps {
@@ -23,9 +23,9 @@ export const Case: React.FC<CaseProps> = ({
 		<Styled.div
 			sx={{
 				padding: '1rem',
-				border: '1px solid #EEF7FB',
+				border: `1px solid ${theme?.colors?.headerBackground}`,
 				borderRadius: '5px',
-				boxShadow: '0px 4px 0px #EEF7FB',
+				boxShadow: `4px 12px 12px rgba(0, 0, 0, 0.07), 0px 4px 0px ${theme?.colors?.headerBackground}`,
 				backgroundColor: 'white',
 			}}
 		>
