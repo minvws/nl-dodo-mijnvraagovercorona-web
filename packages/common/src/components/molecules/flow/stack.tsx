@@ -9,7 +9,7 @@ interface OwnProps {
 
 export const Stack: React.FC<OwnProps> = ({
 	children,
-	spacing = ['24px', '28px'],
+	spacing = ['1.5rem', '1.75rem'],
 	styles,
 }) => {
 	return (
