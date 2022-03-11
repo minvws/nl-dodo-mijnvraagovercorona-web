@@ -44,13 +44,17 @@ interface PageContent extends JouwSituatiePageNoMatchContent {
 		subtitle: string;
 		title: string;
 	};
-	titleCases: string;
-	cases: {
+	folders: {
 		title: string;
-		titleSuffix?: string;
-		intro?: string;
-		readMoreLabel?: string;
-		contentBlocks: ContentSituationBlockProps[];
+		content: Array<Object>;
+		image: string;
+		cases: {
+			title: string;
+			titleSuffix?: string;
+			intro?: string;
+			readMoreLabel?: string;
+			contentBlocks: ContentSituationBlockProps[];
+		}[];
 	}[];
 	uitleg: {
 		description: string;
@@ -71,8 +75,6 @@ export default function LandingPage() {
 
 	// Only show first uitleg
 	const uitleg = page.uitleg[0];
-	// Only show cases when a title is present (case is translated)
-	const cases = page.cases.filter((item) => item.title);
 
 	return (
 		<>
@@ -111,28 +113,34 @@ export default function LandingPage() {
 							<Retain>
 								<Stack spacing={['36px']}>
 									<Stack spacing={['16px']}>
-										<Styled.h2
-											sx={{
-												color: 'secondary',
-												fontSize: ['chapeau', 'chapeau'],
-												lineHeight: ['chapeau', 'chapeau'],
-											}}
-										>
-											{page.titleCases}
-										</Styled.h2>
-										{cases.map((item) => (
-											<Case
-												key={item.title}
-												title={item.title}
-												titleSuffix={item.titleSuffix}
-												intro={item.intro}
-												readMoreLabel={item.readMoreLabel}
-											>
-												<ContentSituationBlock
-													contentBlocks={item.contentBlocks}
-												/>
-											</Case>
-										))}
+										{page.folders
+											// if not translated, don't show
+											.filter((folder) => folder.title)
+											.map((folder) => (
+												<Stack spacing={['32px']} key={folder.title}>
+													<img src={folder.image} alt="" />
+													<Styled.h2>{folder.title}</Styled.h2>
+													{folder.content && (
+														<ContentBlock content={folder.content} />
+													)}
+													{folder.cases
+														// if not translated, don't show
+														.filter((item) => item.title)
+														.map((item) => (
+															<Case
+																key={item.title}
+																title={item.title}
+																titleSuffix={item.titleSuffix}
+																intro={item.intro}
+																readMoreLabel={item.readMoreLabel}
+															>
+																<ContentSituationBlock
+																	contentBlocks={item.contentBlocks}
+																/>
+															</Case>
+														))}
+												</Stack>
+											))}
 									</Stack>
 								</Stack>
 							</Retain>
@@ -204,38 +212,44 @@ export const getStaticProps = async ({
 			${getLocaleProperty({ name: 'subtitle', path: 'header.subtitle', locale })},
 			${getLocaleProperty({ name: 'title', path: 'header.title', locale })},
 		},
-		${getLocaleProperty({ name: 'titleCases', locale })},
-		"cases": cases[]{
+
+		"folders": folders[]{
 			${getLocaleProperty({ name: 'title', locale })},
-			${getLocaleProperty({
-				name: 'titleSuffix',
-				locale,
-			})},
-			${getLocaleProperty({
-				name: 'intro',
-				locale,
-			})},
-			${getLocaleProperty({
-				name: 'readMoreLabel',
-				locale,
-			})},
-			"contentBlocks": contentBlocks[]{
+			${getLocaleProperty({ name: 'content', locale })},
+			"image": "/images/sanity/" + image.asset->originalFilename,
+			"cases": cases[]{
+				${getLocaleProperty({ name: 'title', locale })},
 				${getLocaleProperty({
-					name: 'content',
-					path: '^',
+					name: 'titleSuffix',
 					locale,
 				})},
-				"situation": {
+				${getLocaleProperty({
+					name: 'intro',
+					locale,
+				})},
+				${getLocaleProperty({
+					name: 'readMoreLabel',
+					locale,
+				})},
+				"contentBlocks": contentBlocks[]{
 					${getLocaleProperty({
-						name: 'situationLinkTitle',
+						name: 'content',
+						path: '^',
 						locale,
 					})},
-					"url": situationReference->url,
-					"showDate": situationReference->showDate,
-					"showExceptions": situationReference->showExceptions,
+					"situation": {
+						${getLocaleProperty({
+							name: 'situationLinkTitle',
+							locale,
+						})},
+						"url": situationReference->url,
+						"showDate": situationReference->showDate,
+						"showExceptions": situationReference->showExceptions,
+					}
 				}
 			}
 		},
+
 		"uitleg": uitleg[]{
 			"image": "/images/sanity/" + image.asset->originalFilename,
 			${getLocaleProperty({ name: 'description', locale })},
