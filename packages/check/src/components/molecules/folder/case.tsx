@@ -22,11 +22,14 @@ export const Case: React.FC<CaseProps> = ({
 	return (
 		<Styled.div
 			sx={{
+				padding: '1rem',
+				border: '1px solid #EEF7FB',
+				borderRadius: '5px',
+				boxShadow: '0px 4px 0px #EEF7FB',
 				backgroundColor: 'white',
-				padding: '16px',
 			}}
 		>
-			<Stack spacing={['16px']}>
+			<Stack spacing={['1rem']}>
 				<Styled.h3
 					sx={{
 						marginBlockStart: 0,
