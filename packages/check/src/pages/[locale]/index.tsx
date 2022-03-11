@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from 'react';
-import { jsx, Styled, Container } from 'theme-ui';
+import { jsx, Styled, Container, Box } from 'theme-ui';
 import { Page } from 'components/page';
 
 import {
@@ -87,65 +87,30 @@ export default function LandingPage() {
 					>
 						{page.header.subtitle}
 					</Styled.p>
+					<mark>Adviezen</mark>
 				</Hero>
 
 				<Layer>
 					<Container>
-						<TheSidebar
-							hideAsideOnMobile
-							asideChildren={
-								<BannerDataProtection content={siteSettings.privacy} />
-							}
-						>
-							<Retain maxWidth={[retainMaxWidth, '48.75rem']}>
-								<TheSwitcher gap={['2rem', '6.5rem']}>
-									{page.folders
-										// if not translated, don't show
-										.filter((folder) => folder.title)
-										.map((folder) => (
-											<Folder {...folder} key={folder.title} />
-										))}
-								</TheSwitcher>
-							</Retain>
-						</TheSidebar>
+						<Retain maxWidth={[retainMaxWidth, '100%']}>
+							<TheSwitcher gap={['2rem', '6.5rem']}>
+								{page.folders
+									// if not translated, don't show
+									.filter((folder) => folder.title)
+									.map((folder) => (
+										<Folder {...folder} key={folder.title} />
+									))}
+							</TheSwitcher>
+						</Retain>
 					</Container>
 				</Layer>
 
-				<Layer>
+				<Layer backgroundColor="headerBackground">
 					<Container>
-						<TheSidebar
-							hideAsideOnTablet
-							asideChildren={
-								<BannerDataProtection content={siteSettings.privacy} />
-							}
-						>
-							<Retain>
-								<Stack spacing={['44px']}>
-									<Module>
-										<Styled.h2>{page.noMatch.title}</Styled.h2>
-										<ContentBlock content={page.noMatch.content} />
-									</Module>
-
-									<SectionInformational
-										imageUrl={uitleg.image}
-										imageAlignment="right"
-										key={uitleg.title}
-										id={uitleg.linklist.id}
-										chapeau={uitleg.pretitle}
-										title={uitleg.title}
-									>
-										<Styled.p>{uitleg.description}</Styled.p>
-									</SectionInformational>
-
-									<Feedback
-										name="Your Situation"
-										feedbackUrl={getFeedbackUrl(siteSettings.feedback.url, {
-											source: 'your-situation',
-										})}
-									/>
-								</Stack>
-							</Retain>
-						</TheSidebar>
+						<TheSwitcher gap={['2rem', '6.5rem']}>
+							<mark>Hulp nodig</mark>
+							<mark>Hulp nodig</mark>
+						</TheSwitcher>
 					</Container>
 				</Layer>
 			</Page>
