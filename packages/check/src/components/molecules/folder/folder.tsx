@@ -19,27 +19,26 @@ export const Folder: React.FC<FolderProps> = ({
 	cases,
 }) => {
 	return (
-		<Stack spacing={['32px']}>
-			<Stack
-				spacing={['32px']}
-				styles={{ paddingInlineStart: '16px', paddingInlineEnd: '16px' }}
-			>
-				<img
-					src={image}
-					alt=""
-					sx={{
-						display: 'block',
-						maxInlineSize: '296px',
-						marginInlineStart: 'auto',
-						marginInlineEnd: 'auto',
-					}}
-				/>
-				<Stack spacing={['16px']}>
-					<Styled.h2>{title}</Styled.h2>
-					{content && <ContentBlock content={content} />}
-				</Stack>
+		<Stack spacing={['2rem']}>
+			<img
+				src={image}
+				alt=""
+				sx={{
+					display: 'block',
+					inlineSize: '100%',
+					maxInlineSize: '22rem',
+					marginInlineStart: 'auto',
+					marginInlineEnd: 'auto',
+					aspectRatio: '16 / 10',
+					objectFit: 'contain',
+					objectPosition: 'center center',
+				}}
+			/>
+			<Stack spacing={['1rem']}>
+				<Styled.h2>{title}</Styled.h2>
+				{content && <ContentBlock content={content} />}
 			</Stack>
-			<Stack spacing={['16px']}>
+			<Stack spacing={['1rem']}>
 				{cases
 					// if not translated, don't show
 					.filter((item) => item.title)
