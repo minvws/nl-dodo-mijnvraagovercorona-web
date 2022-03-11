@@ -20,7 +20,7 @@ import {
 	getJouwSituatiePageNoMatchProjection,
 	JouwSituatiePageNoMatchContent,
 } from './jouw-situatie';
-import { Folder, FolderProps } from 'components/molecules';
+import { Folder, FolderProps, Advice } from 'components/molecules';
 import { retainMaxWidth } from '@quarantaine/common/src/components/molecules/layout/retain';
 
 interface PageContent extends JouwSituatiePageNoMatchContent {
@@ -29,10 +29,14 @@ interface PageContent extends JouwSituatiePageNoMatchContent {
 		description: string;
 	};
 	header: {
-		button: string;
-		pretitle: string;
-		subtitle: string;
 		title: string;
+		subtitle: string;
+		adviceTitle: string;
+		advice: {
+			title: string;
+			subtitle: string;
+			icon: string;
+		}[];
 	};
 	folders: FolderProps[];
 	uitleg: {
@@ -51,9 +55,6 @@ interface PageContent extends JouwSituatiePageNoMatchContent {
 export default function LandingPage() {
 	const page = useSanityPageContent<PageContent>();
 	const siteSettings = useSanitySiteSettings();
-
-	// Only show first uitleg
-	const uitleg = page.uitleg[0];
 
 	return (
 		<>
@@ -79,7 +80,25 @@ export default function LandingPage() {
 					>
 						{page.header.subtitle}
 					</Styled.p>
-					<mark>Adviezen</mark>
+					<Box>
+						<Styled.h2>{page.header.adviceTitle}</Styled.h2>
+						<Box
+							as="ul"
+							sx={{
+								padding: 0,
+								listStyle: 'none',
+							}}
+						>
+							{page.header.advice.map(({ icon, title, subtitle }) => (
+								<Advice
+									key={icon}
+									icon={icon}
+									title={title}
+									subtitle={subtitle}
+								/>
+							))}
+						</Box>
+					</Box>
 				</Hero>
 
 				<Layer>
@@ -133,10 +152,18 @@ export const getStaticProps = async ({
 			})},
 		},
 		"header": {
-			${getLocaleProperty({ name: 'button', path: 'header.button', locale })},
-			${getLocaleProperty({ name: 'pretitle', path: 'header.pretitle', locale })},
-			${getLocaleProperty({ name: 'subtitle', path: 'header.subtitle', locale })},
 			${getLocaleProperty({ name: 'title', path: 'header.title', locale })},
+			${getLocaleProperty({ name: 'subtitle', path: 'header.subtitle', locale })},
+			${getLocaleProperty({
+				name: 'adviceTitle',
+				path: 'header.adviceTitle',
+				locale,
+			})},
+			"advice": header.advice[]{
+				${getLocaleProperty({ name: 'title', locale })},
+				${getLocaleProperty({ name: 'subtitle', locale })},
+				"icon": "/images/sanity/" + icon.asset->originalFilename,
+			}
 		},
 
 		"folders": folders[]{
@@ -175,7 +202,6 @@ export const getStaticProps = async ({
 				}
 			}
 		},
-
 		"uitleg": uitleg[]{
 			"image": "/images/sanity/" + image.asset->originalFilename,
 			${getLocaleProperty({ name: 'description', locale })},

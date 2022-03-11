@@ -14,11 +14,6 @@ export default {
 			type: 'object',
 			fields: [
 				{
-					title: 'Voorloper titel',
-					name: 'pretitle',
-					type: 'localeString',
-				},
-				{
 					title: 'Titel',
 					name: 'title',
 					type: 'localeString',
@@ -29,9 +24,43 @@ export default {
 					type: 'localeString',
 				},
 				{
-					title: 'Button',
-					name: 'button',
+					title: 'Advies Title',
+					name: 'adviceTitle',
 					type: 'localeString',
+				},
+				{
+					title: 'Adviezen',
+					name: 'advice',
+					type: 'array',
+					of: [
+						{
+							type: 'object',
+							fields: [
+								{
+									title: 'Titel',
+									name: 'title',
+									type: 'localeString',
+								},
+								{
+									title: 'Subtitel',
+									name: 'subtitle',
+									type: 'localeString',
+								},
+								{
+									title: 'Icoon',
+									name: 'icon',
+									type: 'image',
+								},
+							],
+							preview: {
+								select: {
+									title: 'title.nl',
+									subtitle: 'subtitle.nl',
+									media: 'icon',
+								},
+							},
+						},
+					],
 				},
 			],
 			options: {
