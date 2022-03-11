@@ -4,7 +4,6 @@ import { jsx, Styled, Container, Box } from 'theme-ui';
 import { Page } from 'components/page';
 
 import {
-	SectionInformational,
 	MetaTags,
 	sanityClient,
 	getPageQuery,
@@ -12,14 +11,7 @@ import {
 	useSanityPageContent,
 	useSanitySiteSettings,
 	Hero,
-	Feedback,
-	getFeedbackUrl,
 	Locales,
-	ContentBlock,
-	BannerDataProtection,
-	Stack,
-	Module,
-	TheSidebar,
 	Retain,
 	Layer,
 	TheSwitcher,
@@ -92,25 +84,31 @@ export default function LandingPage() {
 
 				<Layer>
 					<Container>
-						<Retain maxWidth={[retainMaxWidth, '100%']}>
-							<TheSwitcher gap={['2rem', '6.5rem']}>
-								{page.folders
-									// if not translated, don't show
-									.filter((folder) => folder.title)
-									.map((folder) => (
-										<Folder {...folder} key={folder.title} />
-									))}
-							</TheSwitcher>
-						</Retain>
+						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
+						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
+							<Retain maxWidth={[retainMaxWidth, '100%']}>
+								<TheSwitcher gap={['2rem', '4rem']}>
+									{page.folders
+										// if not translated, don't show
+										.filter((folder) => folder.title)
+										.map((folder) => (
+											<Folder {...folder} key={folder.title} />
+										))}
+								</TheSwitcher>
+							</Retain>
+						</Box>
 					</Container>
 				</Layer>
 
 				<Layer backgroundColor="headerBackground">
 					<Container>
-						<TheSwitcher gap={['2rem', '6.5rem']}>
-							<mark>Hulp nodig</mark>
-							<mark>Hulp nodig</mark>
-						</TheSwitcher>
+						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
+						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
+							<TheSwitcher gap={['2rem', '6.5rem']}>
+								<mark>Hulp nodig</mark>
+								<mark>Hulp nodig</mark>
+							</TheSwitcher>
+						</Box>
 					</Container>
 				</Layer>
 			</Page>
