@@ -40,6 +40,7 @@ import situatiePageObject from './objects/situatiePage';
 import conditionsObject from './objects/conditions';
 import travelCardObject from './objects/travelCard';
 import situationContentBlocksObject from './objects/situationContentBlocks';
+import caseObject from './objects/case';
 
 export default createSchema({
 	name: 'default',
@@ -107,5 +108,6 @@ export default createSchema({
 		conditionsObject,
 		travelCardObject,
 		situationContentBlocksObject,
+		caseObject,
 	]),
 });
