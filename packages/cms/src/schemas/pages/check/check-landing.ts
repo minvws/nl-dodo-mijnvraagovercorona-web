@@ -40,6 +40,16 @@ export default {
 			},
 		},
 		{
+			title: 'Cases',
+			name: 'folders',
+			type: 'array',
+			of: [
+				{
+					type: 'folder',
+				},
+			],
+		},
+		{
 			title: 'Cases titel',
 			name: 'titleCases',
 			type: 'localeString',
