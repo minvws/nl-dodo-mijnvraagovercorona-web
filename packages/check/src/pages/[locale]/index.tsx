@@ -27,11 +27,7 @@ import {
 	getJouwSituatiePageNoMatchProjection,
 	JouwSituatiePageNoMatchContent,
 } from './jouw-situatie';
-import {
-	Case,
-	ContentSituationBlock,
-	ContentSituationBlockProps,
-} from 'components/molecules';
+import { Folder, FolderProps } from 'components/molecules';
 
 interface PageContent extends JouwSituatiePageNoMatchContent {
 	metaData: {
@@ -44,18 +40,7 @@ interface PageContent extends JouwSituatiePageNoMatchContent {
 		subtitle: string;
 		title: string;
 	};
-	folders: {
-		title: string;
-		content: Array<Object>;
-		image: string;
-		cases: {
-			title: string;
-			titleSuffix?: string;
-			intro?: string;
-			readMoreLabel?: string;
-			contentBlocks: ContentSituationBlockProps[];
-		}[];
-	}[];
+	folders: FolderProps[];
 	uitleg: {
 		description: string;
 		image: string;
@@ -117,29 +102,7 @@ export default function LandingPage() {
 											// if not translated, don't show
 											.filter((folder) => folder.title)
 											.map((folder) => (
-												<Stack spacing={['32px']} key={folder.title}>
-													<img src={folder.image} alt="" />
-													<Styled.h2>{folder.title}</Styled.h2>
-													{folder.content && (
-														<ContentBlock content={folder.content} />
-													)}
-													{folder.cases
-														// if not translated, don't show
-														.filter((item) => item.title)
-														.map((item) => (
-															<Case
-																key={item.title}
-																title={item.title}
-																titleSuffix={item.titleSuffix}
-																intro={item.intro}
-																readMoreLabel={item.readMoreLabel}
-															>
-																<ContentSituationBlock
-																	contentBlocks={item.contentBlocks}
-																/>
-															</Case>
-														))}
-												</Stack>
+												<Folder {...folder} key={folder.title} />
 											))}
 									</Stack>
 								</Stack>

@@ -2,15 +2,17 @@
 import React from 'react';
 import { jsx, Styled } from 'theme-ui';
 import { ExpansionPanel, Stack } from '@quarantaine/common';
+import { ContentSituationBlockProps } from '../content';
 
-interface OwnProps {
+export interface CaseProps {
 	title: string;
 	titleSuffix?: string;
 	intro?: string;
 	readMoreLabel?: string;
+	contentBlocks?: ContentSituationBlockProps[];
 }
 
-export const Case: React.FC<OwnProps> = ({
+export const Case: React.FC<CaseProps> = ({
 	title,
 	titleSuffix,
 	intro,
