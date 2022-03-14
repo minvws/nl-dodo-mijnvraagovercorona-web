@@ -148,6 +148,25 @@ export default {
 			],
 		},
 		{
+			title: 'Hulp',
+			name: 'help',
+			type: 'object',
+			fields: [
+				{ title: 'Titel', name: 'title', type: 'localeString' },
+				{ title: 'Stel je vraag', name: 'question', type: 'localeString' },
+				{ title: 'Openingstijden', name: 'openingHours', type: 'localeString' },
+			],
+		},
+		{
+			title: 'Feedback',
+			name: 'feedback',
+			type: 'object',
+			fields: [
+				{ title: 'Titel', name: 'title', type: 'localeString' },
+				{ title: 'Button', name: 'button', type: 'localeString' },
+			],
+		},
+		{
 			title: 'URL',
 			name: 'url',
 			type: 'string',

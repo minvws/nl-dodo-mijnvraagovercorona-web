@@ -15,15 +15,22 @@ import {
 	Retain,
 	Layer,
 	TheSwitcher,
+	TheSwitcherItem,
 } from '@quarantaine/common';
 import {
 	getJouwSituatiePageNoMatchProjection,
 	JouwSituatiePageNoMatchContent,
 } from './jouw-situatie';
-import { Folder, FolderProps, Advice } from 'components/molecules';
+import {
+	Folder,
+	FolderProps,
+	Advice,
+	HulpPanel,
+	FeedbackPanel,
+} from 'components/molecules';
 import { retainMaxWidth } from '@quarantaine/common/src/components/molecules/layout/retain';
 
-interface PageContent extends JouwSituatiePageNoMatchContent {
+export interface PageContent extends JouwSituatiePageNoMatchContent {
 	metaData: {
 		title: string;
 		description: string;
@@ -49,6 +56,15 @@ interface PageContent extends JouwSituatiePageNoMatchContent {
 			usp: string;
 		};
 	}[];
+	help: {
+		title: string;
+		openingHours: string;
+		question: string;
+	};
+	feedback: {
+		title: string;
+		button: string;
+	};
 	url: string;
 }
 
@@ -126,9 +142,13 @@ export default function LandingPage() {
 					<Container>
 						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
 						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
-							<TheSwitcher gap={['2rem', '4rem']}>
-								<mark>Hulp nodig</mark>
-								<mark>Hulp nodig</mark>
+							<TheSwitcher gap={['4rem', '4rem']}>
+								<TheSwitcherItem blockAlign="center">
+									<FeedbackPanel />
+								</TheSwitcherItem>
+								<TheSwitcherItem blockAlign="center">
+									<HulpPanel />
+								</TheSwitcherItem>
 							</TheSwitcher>
 						</Box>
 					</Container>
@@ -214,6 +234,19 @@ export const getStaticProps = async ({
 				${getLocaleProperty({ name: 'id', path: 'linklist.id', locale })},
 				${getLocaleProperty({ name: 'usp', path: 'linklist.usp', locale })},
 			},
+		},
+		"help": {
+			${getLocaleProperty({ name: 'title', path: 'help.title', locale })},
+			${getLocaleProperty({ name: 'question', path: 'help.question', locale })},
+			${getLocaleProperty({
+				name: 'openingHours',
+				path: 'help.openingHours',
+				locale,
+			})},
+		},
+		"feedback": {
+			${getLocaleProperty({ name: 'title', path: 'feedback.title', locale })},
+			${getLocaleProperty({ name: 'button', path: 'feedback.button', locale })},
 		},
 		url,
 	}`;

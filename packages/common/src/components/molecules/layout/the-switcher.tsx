@@ -24,3 +24,29 @@ export const TheSwitcher: React.FC<OwnProps> = ({
 		</Flex>
 	);
 };
+
+interface TheSwitcherItemProps {
+	blockAlign?: 'start' | 'center' | 'end';
+	gap?: string | string[];
+}
+
+export const TheSwitcherItem: React.FC<TheSwitcherItemProps> = ({
+	children,
+	blockAlign = 'start',
+	gap = '2.25rem',
+}) => {
+	return (
+		<Flex
+			sx={{
+				flexDirection: 'column',
+				gap: gap,
+				justifyContent:
+					blockAlign === 'start' || blockAlign === 'end'
+						? `flex-${blockAlign}`
+						: blockAlign,
+			}}
+		>
+			{children}
+		</Flex>
+	);
+};
