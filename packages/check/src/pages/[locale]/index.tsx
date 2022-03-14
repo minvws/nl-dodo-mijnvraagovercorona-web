@@ -15,6 +15,7 @@ import {
 	Retain,
 	Layer,
 	TheSwitcher,
+	TheSwitcherItem,
 } from '@quarantaine/common';
 import {
 	getJouwSituatiePageNoMatchProjection,
@@ -141,9 +142,13 @@ export default function LandingPage() {
 					<Container>
 						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
 						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
-							<TheSwitcher gap={['2rem', '6.5rem']}>
-								<HulpPanel />
-								<FeedbackPanel />
+							<TheSwitcher gap={['4rem', '4rem']}>
+								<TheSwitcherItem blockAlign="center">
+									<FeedbackPanel />
+								</TheSwitcherItem>
+								<TheSwitcherItem blockAlign="center">
+									<HulpPanel />
+								</TheSwitcherItem>
 							</TheSwitcher>
 						</Box>
 					</Container>

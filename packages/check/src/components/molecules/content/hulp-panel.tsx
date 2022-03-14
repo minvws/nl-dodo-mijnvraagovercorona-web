@@ -3,39 +3,49 @@ import React from 'react';
 import { jsx, Box, Styled } from 'theme-ui';
 
 import type { PageContent } from 'pages/[locale]/index';
-import { useSanityPageContent } from '@quarantaine/common';
+import { Stack, useSanityPageContent } from '@quarantaine/common';
 
 export const HulpPanel = () => {
 	const page = useSanityPageContent<PageContent>();
 
 	return (
-		<Box
-			sx={{
-				flexDirection: 'column',
+		<Stack
+			styles={{
 				display: 'flex',
+				flexDirection: 'column',
+				maxInlineSize: '17.5rem',
+				marginInlineStart: 'auto',
+				marginInlineEnd: 'auto',
 				alignItems: 'center',
-				padding: 14,
+				textAlign: 'center',
 			}}
 		>
-			<Styled.h2>{page.help.title}</Styled.h2>
+			<Styled.h2
+				sx={{
+					fontSize: ['h1Mobile', 'h1'],
+				}}
+			>
+				{page.help.title}
+			</Styled.h2>
 			<Styled.p
 				sx={{
-					color: 'header',
+					fontSize: ['h2Mobile', 'h2'],
 					fontWeight: 'bold',
-					fontSize: 20,
-					textAlign: 'center',
+					color: 'header',
 				}}
 			>
 				{page.help.question}
 			</Styled.p>
-			<Box sx={{ display: 'flex', alignItems: 'center', marginBottom: 20 }}>
+			<Box
+				sx={{ display: 'flex', alignItems: 'center', marginBottom: '1.25rem' }}
+			>
 				<img src="/icons/phone.svg" />
 				<Styled.a
 					sx={{
 						color: 'secondary',
 						fontWeight: 'bold',
 						textDecoration: 'none',
-						fontSize: 32,
+						fontSize: '2rem',
 						margin: 0,
 						padding: 0,
 					}}
@@ -44,7 +54,7 @@ export const HulpPanel = () => {
 					0800-7707707
 				</Styled.a>
 			</Box>
-			<Styled.p sx={{ textAlign: 'center' }}>{page.help.openingHours}</Styled.p>
-		</Box>
+			<Styled.p>{page.help.openingHours}</Styled.p>
+		</Stack>
 	);
 };

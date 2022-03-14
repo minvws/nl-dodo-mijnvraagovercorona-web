@@ -6,6 +6,7 @@ import {
 	StyledLink,
 	useSanitySiteSettings,
 	useSanityPageContent,
+	Stack,
 } from '@quarantaine/common';
 import type { PageContent } from 'pages/[locale]/index';
 
@@ -14,21 +15,23 @@ export const FeedbackPanel = () => {
 	const page = useSanityPageContent<PageContent>();
 
 	return (
-		<Box
-			sx={{
-				flexDirection: 'column',
+		<Stack
+			styles={{
 				display: 'flex',
+				maxInlineSize: '17.5rem',
+				marginInlineStart: 'auto',
+				marginInlineEnd: 'auto',
+				flexDirection: 'column',
 				alignItems: 'center',
-				padding: 14,
+				textAlign: 'center',
 			}}
 		>
 			<img width="150px" src="/images/questions.svg" />
 			<Styled.p
 				sx={{
-					fontSize: 24,
+					fontSize: ['h2Mobile', 'h2'],
 					fontWeight: 'bold',
 					color: 'header',
-					marginTop: 28,
 				}}
 			>
 				{page.feedback.title}
@@ -42,6 +45,6 @@ export const FeedbackPanel = () => {
 			>
 				{page.feedback.button}
 			</StyledLink>
-		</Box>
+		</Stack>
 	);
 };
