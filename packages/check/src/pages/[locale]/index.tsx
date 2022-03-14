@@ -85,7 +85,10 @@ export default function LandingPage() {
 						<Box
 							as="ul"
 							sx={{
-								padding: 0,
+								display: 'flex',
+								gap: '1.5rem',
+								flexFlow: 'row wrap',
+								paddingInlineStart: 0,
 								listStyle: 'none',
 							}}
 						>

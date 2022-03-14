@@ -9,48 +9,44 @@ type AdviceProps = {
 };
 
 export const Advice: React.FC<AdviceProps> = ({ icon, title, subtitle }) => (
-	<Box
+	<Flex
 		as="li"
 		sx={{
-			marginBottom: '18px',
-			marginRight: '18px',
-			display: ['block', 'inline-block'],
+			gap: '0.5rem',
 		}}
 	>
-		<Flex>
-			<Box
+		<Box
+			sx={{
+				display: 'flex',
+				blockSize: '4rem',
+				inlineSize: '4rem',
+				padding: '1rem',
+				borderRadius: '50%',
+				background: 'white',
+			}}
+		>
+			<img src={icon} alt="" />
+		</Box>
+		<Box sx={{ flex: 1, alignSelf: 'center' }}>
+			<Styled.p
 				sx={{
-					width: '65px',
-					height: '65px',
-					background: 'white',
-					borderRadius: '50%',
-					display: 'flex',
-					padding: '15px',
+					color: 'heading',
+					fontSize: ['bodyMobile', 'body'],
+					margin: 0,
 				}}
 			>
-				<img src={icon} alt="" />
-			</Box>
-			<Box sx={{ flex: 1, paddingLeft: 8, alignSelf: 'center' }}>
-				<Styled.p
-					sx={{
-						color: 'heading',
-						fontSize: ['bodyMobile', 'body'],
-						margin: 0,
-					}}
-				>
-					{title}
-				</Styled.p>
-				<Styled.p
-					sx={{
-						color: 'secondary',
-						fontWeight: 'bold',
-						fontSize: ['bodyMobile', 'body'],
-						margin: 0,
-					}}
-				>
-					{subtitle}
-				</Styled.p>
-			</Box>
-		</Flex>
-	</Box>
+				{title}
+			</Styled.p>
+			<Styled.p
+				sx={{
+					color: 'secondary',
+					fontWeight: 'bold',
+					fontSize: ['bodyMobile', 'body'],
+					margin: 0,
+				}}
+			>
+				{subtitle}
+			</Styled.p>
+		</Box>
+	</Flex>
 );
