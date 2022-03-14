@@ -22,7 +22,7 @@ export const FeedbackPanel = () => {
 				padding: 14,
 			}}
 		>
-			<img width="150px" src="/images/sanity/veelgestelde-vragen.svg" />
+			<img width="150px" src="/images/questions.svg" />
 			<Styled.p
 				sx={{
 					fontSize: 24,
