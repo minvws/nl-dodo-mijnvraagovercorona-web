@@ -123,7 +123,7 @@ export default function LandingPage() {
 					<Container>
 						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
 						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
-							<TheSwitcher gap={['2rem', '6.5rem']}>
+							<TheSwitcher gap={['2rem', '4rem']}>
 								<mark>Hulp nodig</mark>
 								<mark>Hulp nodig</mark>
 							</TheSwitcher>
