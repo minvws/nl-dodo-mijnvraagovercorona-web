@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 import { jsx, Styled } from 'theme-ui';
-import { ExpansionPanel, Stack } from '@quarantaine/common';
+import { ExpansionPanel, Stack, trackEvent } from '@quarantaine/common';
 
 interface OwnProps {
 	title: string;
@@ -39,7 +39,13 @@ export const Case: React.FC<OwnProps> = ({
 				</Styled.h3>
 				{intro && <Styled.p sx={{ color: 'detailText' }}>{intro}</Styled.p>}
 				{!!(children && readMoreLabel) && (
-					<ExpansionPanel variant="plusinline" title={readMoreLabel}>
+					<ExpansionPanel
+						variant="plusinline"
+						title={readMoreLabel}
+						toggleEvent={(state: string) =>
+							state === 'open' && trackEvent('Situation', 'Open', title)
+						}
+					>
 						<Stack>{children}</Stack>
 					</ExpansionPanel>
 				)}
