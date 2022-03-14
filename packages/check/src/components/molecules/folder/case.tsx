@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 import { jsx, Styled } from 'theme-ui';
-import { ExpansionPanel, Stack, theme } from '@quarantaine/common';
+import { ExpansionPanel, Stack, theme, trackEvent } from '@quarantaine/common';
 import { ContentSituationBlockProps } from '../content';
 
 export interface CaseProps {
@@ -44,7 +44,13 @@ export const Case: React.FC<CaseProps> = ({
 				</Styled.h3>
 				{intro && <Styled.p sx={{ color: 'detailText' }}>{intro}</Styled.p>}
 				{!!(children && readMoreLabel) && (
-					<ExpansionPanel variant="plusinline" title={readMoreLabel}>
+					<ExpansionPanel
+						variant="plusinline"
+						title={readMoreLabel}
+						toggleEvent={(state: string) =>
+							state === 'open' && trackEvent('Situation', 'Open', title)
+						}
+					>
 						<Stack>{children}</Stack>
 					</ExpansionPanel>
 				)}
