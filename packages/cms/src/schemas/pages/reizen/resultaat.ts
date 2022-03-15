@@ -72,6 +72,16 @@ export default {
 						},
 					],
 				},
+				{
+					title: 'Laatst gewijzigd',
+					name: 'lastChanged',
+					type: 'localeString',
+				},
+				{
+					title: 'Nog steeds geldig',
+					name: 'stillValid',
+					type: 'localeString',
+				},
 			],
 			options: {
 				collapsible: true,
@@ -148,18 +158,13 @@ export default {
 					],
 				},
 				{
-					title: 'Heenreis',
-					name: 'outbound',
-					type: 'travelCard',
-				},
-				{
-					title: 'Tussenstop',
-					name: 'stopover',
-					type: 'travelCard',
-				},
-				{
 					title: 'Terugreis',
 					name: 'return',
+					type: 'travelCard',
+				},
+				{
+					title: 'Heenreis',
+					name: 'outbound',
 					type: 'travelCard',
 				},
 			],
@@ -220,6 +225,28 @@ export default {
 					title: 'Einde',
 					name: 'end',
 					type: 'travelCard',
+				},
+			],
+		},
+		{
+			title: 'Tussenstop of nieuwe bestemming',
+			name: 'stopover',
+			type: 'object',
+			fields: [
+				{
+					title: 'Titel',
+					name: 'title',
+					type: 'localeString',
+				},
+				{
+					title: 'Content',
+					name: 'content',
+					type: 'localeBlock',
+				},
+				{
+					title: 'Button',
+					name: 'button',
+					type: 'localeString',
 				},
 			],
 		},
