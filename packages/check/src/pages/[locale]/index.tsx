@@ -22,6 +22,7 @@ import {
 	TheSidebar,
 	Retain,
 	Layer,
+	StyledLink,
 } from '@quarantaine/common';
 import {
 	getJouwSituatiePageNoMatchProjection,
@@ -152,6 +153,17 @@ export default function LandingPage() {
 								<Stack spacing={['44px']}>
 									<Module>
 										<Styled.h2>{page.noMatch.title}</Styled.h2>
+										<Container mb={'28px'}>
+											<StyledLink
+												styledAs="button"
+												external
+												href={getFeedbackUrl(siteSettings.feedback.url, {
+													source: 'your-situation',
+												})}
+											>
+												{page.noMatch.button}
+											</StyledLink>
+										</Container>
 										<ContentBlock content={page.noMatch.content} />
 									</Module>
 
@@ -165,13 +177,6 @@ export default function LandingPage() {
 									>
 										<Styled.p>{uitleg.description}</Styled.p>
 									</SectionInformational>
-
-									<Feedback
-										name="Your Situation"
-										feedbackUrl={getFeedbackUrl(siteSettings.feedback.url, {
-											source: 'your-situation',
-										})}
-									/>
 								</Stack>
 							</Retain>
 						</TheSidebar>

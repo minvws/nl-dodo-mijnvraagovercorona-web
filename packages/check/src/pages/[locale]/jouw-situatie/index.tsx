@@ -39,6 +39,7 @@ export interface SituationContent {
 export interface JouwSituatiePageNoMatchContent {
 	noMatch: {
 		title: string;
+		button: string;
 		content: Array<Object>;
 	};
 }
@@ -139,6 +140,7 @@ interface JouwSituatieStaticProps {
 export const getJouwSituatiePageNoMatchProjection = (locale: string) => `
 	"noMatch": {
 		${getLocaleProperty({ name: 'title', path: 'noMatch.title', locale })},
+		${getLocaleProperty({ name: 'button', path: 'noMatch.button', locale })},
 		${getLocaleProperty({ name: 'content', path: 'noMatch.content', locale })},
 	}
 `;

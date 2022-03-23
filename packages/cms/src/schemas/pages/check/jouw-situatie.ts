@@ -147,6 +147,7 @@ export default {
 			type: 'object',
 			fields: [
 				{ title: 'Titel', name: 'title', type: 'localeString' },
+				{ title: 'Button', name: 'button', type: 'localeString' },
 				{
 					title: 'Content',
 					name: 'content',
