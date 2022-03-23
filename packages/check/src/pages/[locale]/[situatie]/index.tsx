@@ -38,6 +38,9 @@ import { getSituations } from 'utilities/situations';
 import { Situaties } from 'config/situaties';
 import Head from 'next/head';
 import { locales } from 'content/general-content';
+import { LinkBack } from 'components/link-back';
+import GlobalContext from 'utilities/global-context';
+import { useContext } from 'react';
 
 const getDateSinceEvent = ({
 	day,
@@ -138,6 +141,7 @@ export default function Situatie({ locale, date, situatie }: SituatieProps) {
 	const page = useSanityPageContent<PageContent>();
 	const siteSettings = useSanitySiteSettings<SiteSettings>();
 	const router = useRouter();
+	const { startPoint } = useContext(GlobalContext);
 
 	const selectedLastEventDate = router.query.event
 		? parse(`${router.query.event}`, 'dd-MM-yyyy', new Date())
@@ -173,12 +177,14 @@ export default function Situatie({ locale, date, situatie }: SituatieProps) {
           `}
 				</style>
 			</Head>
-			<Page showRetryLink>
+			<Page>
 				<Hero
 					title={page.header.title}
 					titlePrefix={page.pretitle}
 					illustrationUrl="/images/illustration-couch.svg"
-				/>
+				>
+					<LinkBack href={startPoint} variant="restart" />
+				</Hero>
 				<Content>
 					<section sx={{ paddingRight: [, '165px'] }}>
 						<Styled.h2>{page.quarantinePlanTitle}</Styled.h2>

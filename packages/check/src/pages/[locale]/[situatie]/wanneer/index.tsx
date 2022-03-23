@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useContext, useMemo, useRef, useState } from 'react';
 
 import { Page } from 'components/page';
 
@@ -34,6 +34,7 @@ import { differenceInDays, startOfDay, format } from 'date-fns';
 import { Situation } from 'config/situaties';
 import { LinkBack } from 'components/link-back';
 import { locales } from 'content/general-content';
+import GlobalContext from 'utilities/global-context';
 
 interface PageContent {
 	page: {
@@ -105,6 +106,8 @@ export default function Wanneer({
 		return differenceInDays(startOfDay(new Date()), startOfDay(selectedDate));
 	}, [selectedDate]);
 
+	const { startPoint } = useContext(GlobalContext);
+
 	return (
 		<>
 			<MetaTags
@@ -119,7 +122,7 @@ export default function Wanneer({
 						href={
 							currentSituation.showExceptions
 								? `/${locale}/${currentSituation.url}/ben-ik-uitgezonderd`
-								: `/${locale}/jouw-situatie`
+								: startPoint
 						}
 					/>
 					<Link fontWeight="lighter" as="button" onClick={openDialog}>
