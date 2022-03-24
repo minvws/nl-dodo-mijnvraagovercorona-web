@@ -18,8 +18,6 @@ import {
 	Content,
 	RadioButton,
 	Locales,
-	NavigationLink,
-	useTranslation,
 } from '@quarantaine/common';
 
 import { getSituations } from 'utilities/situations';
