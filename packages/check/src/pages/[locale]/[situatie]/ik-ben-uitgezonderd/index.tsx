@@ -91,7 +91,7 @@ export const getStaticProps = async ({
 		},
 		${getLocaleProperty({ name: 'pretitle', locale })},
 		${getLocaleProperty({ name: 'uitgezonderdTitle', locale })},
-		${getLocaleProperty({ name: 'uitgezonderdText', locale })},
+		${getLocaleProperty({ name: 'uitgezonderdText', locale, block: true })},
 		url,
 		showExceptions,
     	showDate

@@ -67,15 +67,19 @@ export const getStaticProps = async ({
 			})},
 		},
 		"header": {
-      ${getLocaleProperty({
-				name: 'pretitle',
-				path: 'header.pretitle',
-				locale,
-			})},
+      		${getLocaleProperty({
+						name: 'pretitle',
+						path: 'header.pretitle',
+						locale,
+					})},
 			${getLocaleProperty({ name: 'title', path: 'header.title', locale })},
 		},
 		url,
-    ${getLocaleProperty({ name: 'content', path: 'content', locale })},
+    	${getLocaleProperty({
+				name: 'content',
+				locale,
+				block: true,
+			})},
 	}`;
 
 	const { page, siteSettings } = await sanityClient.fetch(

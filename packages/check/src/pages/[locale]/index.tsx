@@ -12,7 +12,6 @@ import {
 	useSanityPageContent,
 	useSanitySiteSettings,
 	Hero,
-	Feedback,
 	getFeedbackUrl,
 	Locales,
 	ContentBlock,
@@ -74,6 +73,8 @@ export default function LandingPage() {
 	const uitleg = page.uitleg[0];
 	// Only show cases when a title is present (case is translated)
 	const cases = page.cases.filter((item) => item.title);
+
+	console.log(page);
 
 	return (
 		<>
@@ -227,8 +228,9 @@ export const getStaticProps = async ({
 			"contentBlocks": contentBlocks[]{
 				${getLocaleProperty({
 					name: 'content',
-					path: '^',
+					path: '@',
 					locale,
+					block: true,
 				})},
 				"situation": {
 					${getLocaleProperty({

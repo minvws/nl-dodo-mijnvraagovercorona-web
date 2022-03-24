@@ -8,6 +8,7 @@ import countryDocument from './documents/country';
 import riskCategoryDocument from './documents/riskCategory';
 import travelFaseDocument from './documents/travelFase';
 import situationDocument from './documents/situation';
+import modalsDocument from './documents/modals';
 
 import privacyPage from './pages/common/privacy';
 import cookiesPage from './pages/common/cookies';
@@ -30,7 +31,10 @@ import wanneerPage from './pages/check/wanneer';
 import geenAdviesPage from './pages/check/geen-advies';
 
 import localeStringObject from './objects/localeString';
-import localeBlockObject from './objects/localeBlock';
+import {
+	localeBlockObject,
+	localeBlockWithoutModalObject,
+} from './objects/localeBlock';
 import localeUrlObject from './objects/localeUrl';
 import localeTextObject from './objects/localeText';
 import pageMetaDataObject from './objects/pageMetaData';
@@ -91,6 +95,7 @@ export default createSchema({
 		riskCategoryDocument,
 		travelFaseDocument,
 		situationDocument,
+		modalsDocument,
 
 		/**
 		 * Objects
@@ -98,6 +103,7 @@ export default createSchema({
 		 */
 		localeStringObject,
 		localeBlockObject,
+		localeBlockWithoutModalObject,
 		localeUrlObject,
 		localeTextObject,
 		pageMetaDataObject,

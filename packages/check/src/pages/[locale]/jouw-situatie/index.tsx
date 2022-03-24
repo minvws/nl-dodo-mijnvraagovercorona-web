@@ -141,7 +141,12 @@ export const getJouwSituatiePageNoMatchProjection = (locale: string) => `
 	"noMatch": {
 		${getLocaleProperty({ name: 'title', path: 'noMatch.title', locale })},
 		${getLocaleProperty({ name: 'button', path: 'noMatch.button', locale })},
-		${getLocaleProperty({ name: 'content', path: 'noMatch.content', locale })},
+		${getLocaleProperty({
+			name: 'content',
+			path: 'noMatch.content',
+			locale,
+			block: true,
+		})},
 	}
 `;
 
@@ -156,12 +161,14 @@ export const getJouwSituatiePageSituationsProjection = (locale: string) => `
 		${getLocaleProperty({
 			name: 'content',
 			locale,
+			block: true,
 		})},
 		"contentBlocks": contentBlocks[]{
 			${getLocaleProperty({
 				name: 'content',
-				path: '^',
+				path: '@',
 				locale,
+				block: true,
 			})},
 			"situation": {
 				${getLocaleProperty({
@@ -184,12 +191,14 @@ export const getJouwSituatiePageSituationsProjection = (locale: string) => `
 		${getLocaleProperty({
 			name: 'content',
 			locale,
+			block: true,
 		})},
 		"contentBlocks": contentBlocks[]{
 			${getLocaleProperty({
 				name: 'content',
-				path: '^',
+				path: '@',
 				locale,
+				block: true,
 			})},
 			"situation": {
 				${getLocaleProperty({
@@ -203,7 +212,11 @@ export const getJouwSituatiePageSituationsProjection = (locale: string) => `
 		}
 	},
 	${getLocaleProperty({ name: 'situationsExceptionsTitle', locale })},
-	${getLocaleProperty({ name: 'situationsExceptionsContent', locale })},
+	${getLocaleProperty({
+		name: 'situationsExceptionsContent',
+		locale,
+		block: true,
+	})},
 	"situationsExceptions": situationsExceptions[]{
 		${getLocaleProperty({ name: 'title', locale })},
 		${getLocaleProperty({
@@ -213,23 +226,25 @@ export const getJouwSituatiePageSituationsProjection = (locale: string) => `
 		${getLocaleProperty({
 			name: 'content',
 			locale,
+			block: true,
 		})},
-				"contentBlocks": contentBlocks[]{
+		"contentBlocks": contentBlocks[]{
 			${getLocaleProperty({
 				name: 'content',
-				path: '^',
+				path: '@',
 				locale,
+				block: true,
 			})},
-					"situation": {
-							${getLocaleProperty({
-								name: 'situationLinkTitle',
-								locale,
-							})},
+			"situation": {
+				${getLocaleProperty({
+					name: 'situationLinkTitle',
+					locale,
+				})},
 				"url": situationReference->url,
 				"showDate": situationReference->showDate,
 				"showExceptions": situationReference->showExceptions,
 			}
-			}
+		}
 	}
 `;
 
@@ -247,7 +262,12 @@ export const getStaticProps = async ({
 		},
 		"header": {
 			${getLocaleProperty({ name: 'title', path: 'header.title', locale })},
-			${getLocaleProperty({ name: 'content', path: 'header.content', locale })},
+			${getLocaleProperty({
+				name: 'content',
+				path: 'header.content',
+				locale,
+				block: true,
+			})},
 		},
 		${getJouwSituatiePageSituationsProjection(locale)},
 		${getJouwSituatiePageNoMatchProjection(locale)},

@@ -83,13 +83,11 @@ const filterQuarantinePlan = ({
 	quarantinePlan
 		? quarantinePlan
 				/* Remove any blocks that should not be visible on todayDay */
-				.filter(
-					({ showOn }) => showOn === undefined || showOn.includes(todayDay),
-				)
+				.filter(({ showOn }) => !showOn || showOn.includes(todayDay))
 				/** Replace the day number with todayDay if the number is not set */
 				.map((day) => ({
 					...day,
-					day: day.day === undefined ? todayDay : day.day,
+					day: !day.day ? todayDay : day.day,
 				}))
 				/** Add difference property containing the difference (in days) between this block and the previous one. */
 				.map((day, index, plan) => ({
@@ -151,6 +149,8 @@ export default function Situatie({ locale, date, situatie }: SituatieProps) {
 		quarantinePlan: page.quarantinePlan,
 		todayDay: todayDay || parseDateFromUrl(date),
 	});
+
+	console.log(page.quarantinePlan);
 
 	return (
 		<>
@@ -354,6 +354,22 @@ export const getStaticProps = async ({
     	showExceptions,
     	showDate
 	}`;
+
+	console.log(
+		`${getLocaleProperty({
+			name: 'bullets',
+			locale,
+			array: true,
+			block: true,
+		})}`,
+	);
+	console.log(
+		`${getLocaleProperty({
+			name: 'bullets',
+			locale,
+			array: true,
+		})}`,
+	);
 
 	const { page, siteSettings } = await sanityClient.fetch(
 		getSituationPageQuery({
