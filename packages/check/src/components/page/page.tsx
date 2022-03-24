@@ -9,16 +9,18 @@ interface PageProps {
 	// If true: hides DataProtectionPanel, Footer and Alleen Samen logo on mobile.
 	cleanPageOnMobile?: boolean;
 	className?: string;
+	noHeader?: boolean;
 }
 
 export const Page: React.FC<PageProps> = ({
 	children,
 	cleanPageOnMobile,
 	className,
+	noHeader,
 }) => {
 	return (
 		<PageComponent
-			header={<Header />}
+			header={noHeader ? null : <Header />}
 			footer={<Footer />}
 			cleanPageOnMobile={cleanPageOnMobile}
 			className={className}

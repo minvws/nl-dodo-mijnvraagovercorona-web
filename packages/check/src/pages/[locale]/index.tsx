@@ -16,6 +16,7 @@ import {
 	Layer,
 	TheSwitcher,
 	TheSwitcherItem,
+	Header,
 } from '@quarantaine/common';
 import {
 	getJouwSituatiePageNoMatchProjection,
@@ -86,7 +87,8 @@ export default function LandingPage() {
 				skipPageSuffix
 			/>
 
-			<Page>
+			<Page noHeader>
+				<Header />
 				<Hero title={page.header.title}>
 					<Styled.p
 						sx={{
