@@ -28,6 +28,7 @@ import {
 	Advice,
 	HulpPanel,
 	FeedbackPanel,
+	Masthead,
 } from 'components/molecules';
 import { retainMaxWidth } from '@quarantaine/common/src/components/molecules/layout/retain';
 import GlobalContext from 'utilities/global-context';
@@ -88,21 +89,22 @@ export default function LandingPage() {
 			/>
 
 			<Page noHeader>
-				<Header />
+				<Masthead headerSlot={<Header transparent />} />
 				<Hero title={page.header.title}>
 					<Styled.p
 						sx={{
 							fontWeight: 'light',
 							width: ['80%', '549px'],
-							fontSize: '26px',
-							lineHeight: ['30px', '36px'],
 							marginTop: 0,
 							marginBottom: ['18px'],
-							color: 'roHighlight',
 						}}
 					>
 						{page.header.subtitle}
 					</Styled.p>
+				</Hero>
+
+				<Layer backgroundColor="headerBackground">
+					<mark>@todo</mark>
 					<Box>
 						<Styled.h2>{page.header.adviceTitle}</Styled.h2>
 						<Box
@@ -125,7 +127,7 @@ export default function LandingPage() {
 							))}
 						</Box>
 					</Box>
-				</Hero>
+				</Layer>
 
 				<Layer>
 					<Container>

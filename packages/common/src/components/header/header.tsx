@@ -8,13 +8,17 @@ import {
 	LocaleSelector,
 } from '@quarantaine/common';
 
-export const Header: React.FC = ({ children }) => {
+interface HeaderProps {
+	transparent?: boolean;
+}
+
+export const Header: React.FC<HeaderProps> = ({ transparent, children }) => {
 	const siteSettings = useSanitySiteSettings();
 
 	return (
 		<header
 			sx={{
-				backgroundColor: 'headerBackground',
+				backgroundColor: transparent ? 'transparent' : 'headerBackground',
 				color: 'header',
 				backgroundRepeat: 'no-repeat',
 				backgroundPosition: 'right top',
@@ -23,7 +27,11 @@ export const Header: React.FC = ({ children }) => {
 		>
 			<LocaleSelector />
 			<Logo alt={siteSettings.header.logoAlt} />
-			{children && <Container sx={{paddingX: ['mobilePadding', , 0]}}>{children}</Container>}
+			{children && (
+				<Container sx={{ paddingX: ['mobilePadding', , 0] }}>
+					{children}
+				</Container>
+			)}
 		</header>
 	);
 };
