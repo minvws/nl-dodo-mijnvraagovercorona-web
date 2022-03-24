@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { jsx, Styled, Container, Box } from 'theme-ui';
 import { Page } from 'components/page';
 
@@ -29,6 +29,7 @@ import {
 	FeedbackPanel,
 } from 'components/molecules';
 import { retainMaxWidth } from '@quarantaine/common/src/components/molecules/layout/retain';
+import GlobalContext from 'utilities/global-context';
 
 export interface PageContent extends JouwSituatiePageNoMatchContent {
 	metaData: {
@@ -70,7 +71,11 @@ export interface PageContent extends JouwSituatiePageNoMatchContent {
 
 export default function LandingPage() {
 	const page = useSanityPageContent<PageContent>();
-	const siteSettings = useSanitySiteSettings();
+	const { startPoint, setStartPoint } = useContext(GlobalContext);
+
+	useEffect(() => {
+		setStartPoint && setStartPoint('');
+	}, []);
 
 	return (
 		<>
