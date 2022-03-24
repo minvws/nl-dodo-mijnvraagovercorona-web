@@ -73,7 +73,7 @@ export default function LandingPage() {
 	const { startPoint, setStartPoint } = useContext(GlobalContext);
 
 	useEffect(() => {
-		setStartPoint && setStartPoint('/');
+		setStartPoint && setStartPoint('');
 	}, []);
 
 	// Only show first uitleg

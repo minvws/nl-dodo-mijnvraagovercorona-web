@@ -5,7 +5,7 @@ export interface StateContext {
 	setStartPoint?: (value: string) => void;
 }
 
-export const defaultState = { startPoint: '/' };
+export const defaultState = { startPoint: '' };
 const GlobalContext = React.createContext<StateContext>(defaultState);
 
 export default GlobalContext;
