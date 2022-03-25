@@ -25,7 +25,7 @@ export const Advice: React.FC<AdviceProps> = ({ icon, title, subtitle }) => (
 				'& > img': {
 					blockSize: '1.75rem',
 					inlineSize: '1.75rem',
-					objectFit: 'cover',
+					objectFit: 'contain',
 				},
 			}}
 		>
