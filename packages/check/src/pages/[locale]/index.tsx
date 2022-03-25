@@ -17,6 +17,7 @@ import {
 	TheSwitcher,
 	TheSwitcherItem,
 	StyledLink,
+	Stack,
 } from '@quarantaine/common';
 import {
 	getJouwSituatiePageNoMatchProjection,
@@ -139,42 +140,40 @@ export default function LandingPage() {
 						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
 						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
 							<Retain maxWidth={[retainMaxWidth, '100%']}>
-								<TheSwitcher gap={['2rem', '4rem']}>
-									{page.folders
-										// if not translated, don't show
-										.filter((folder) => folder.title)
-										.map((folder) => (
-											<Folder {...folder} key={folder.title} />
-										))}
-								</TheSwitcher>
-							</Retain>
-						</Box>
-						<Box
-							sx={{
-								paddingX: ['mobilePadding', 'tabletPadding', 0],
-								marginTop: '40px',
-							}}
-						>
-							<Retain maxWidth={[retainMaxWidth, '100%']}>
-								<Styled.h2>{page.topics.title}</Styled.h2>
-								<Box
-									sx={{
-										display: 'flex',
-										flexDirection: ['column', 'row'],
-										justifyContent: 'space-between',
-									}}
-								>
-									{page.topics.topics.map(({ href, icon, title }) => (
-										<StyledLink
-											styledAs="button-large"
-											href={href}
-											icon={icon}
-											key={href}
+								<Stack spacing={['4.5rem', '6,75rem']}>
+									<TheSwitcher gap={['2rem', '4rem']}>
+										{page.folders
+											// if not translated, don't show
+											.filter((folder) => folder.title)
+											.map((folder) => (
+												<Folder {...folder} key={folder.title} />
+											))}
+									</TheSwitcher>
+									<Box>
+										<Styled.h2>{page.topics.title}</Styled.h2>
+										<Box
+											sx={{
+												display: 'flex',
+												flexDirection: ['column', 'row'],
+												gap: ['1rem', '3rem'],
+												'& > *': {
+													flex: 1,
+												},
+											}}
 										>
-											{title}
-										</StyledLink>
-									))}
-								</Box>
+											{page.topics.topics.map(({ href, icon, title }) => (
+												<StyledLink
+													styledAs="button-large"
+													href={href}
+													icon={icon}
+													key={href}
+												>
+													{title}
+												</StyledLink>
+											))}
+										</Box>
+									</Box>
+								</Stack>
 							</Retain>
 						</Box>
 					</Container>
