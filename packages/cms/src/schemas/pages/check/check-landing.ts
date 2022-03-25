@@ -28,6 +28,22 @@ export default {
 					name: 'subtitle',
 					type: 'localeString',
 				},
+
+				{
+					title: 'Situatie titel',
+					name: 'currentSituation',
+					type: 'localeString',
+				},
+				{
+					title: 'Maatregelen titel',
+					name: 'measuresTitle',
+					type: 'localeString',
+				},
+				{
+					title: 'Maatregelen tekst',
+					name: 'measuresText',
+					type: 'localeString',
+				},
 				{
 					title: 'Advies Title',
 					name: 'adviceTitle',

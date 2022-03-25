@@ -75,6 +75,8 @@ export const theme: Theme = {
 		chapeau: '16px',
 		h2: '29px',
 		h2Mobile: '26px',
+		h3: '1.25rem',
+		h3Mobile: '1rem',
 		body: '20px',
 		bodyMobile: '19px',
 		smallText: '16px',
@@ -123,6 +125,10 @@ export const theme: Theme = {
 			color: 'header',
 			margin: '0',
 			marginBottom: 'h2Spacing',
+		},
+		h3: {
+			color: 'header',
+			fontSize: ['h3Mobile', 'h3'],
 		},
 		p: {
 			fontSize: ['bodyMobile', 'body'],

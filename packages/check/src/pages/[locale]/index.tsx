@@ -9,14 +9,14 @@ import {
 	getPageQuery,
 	getLocaleProperty,
 	useSanityPageContent,
-	useSanitySiteSettings,
-	Hero,
 	Locales,
 	Retain,
 	Layer,
 	TheSwitcher,
 	TheSwitcherItem,
 	Header,
+	Stack,
+	TheThirds,
 } from '@quarantaine/common';
 import {
 	getJouwSituatiePageNoMatchProjection,
@@ -25,10 +25,11 @@ import {
 import {
 	Folder,
 	FolderProps,
-	Advice,
 	HulpPanel,
 	FeedbackPanel,
 	Masthead,
+	AdviceList,
+	AdviceProps,
 } from 'components/molecules';
 import { retainMaxWidth } from '@quarantaine/common/src/components/molecules/layout/retain';
 import GlobalContext from 'utilities/global-context';
@@ -42,12 +43,11 @@ export interface PageContent extends JouwSituatiePageNoMatchContent {
 		title: string;
 		chapeau: string;
 		subtitle: string;
+		currentSituation: string;
+		measuresTitle: string;
+		measuresText: string;
 		adviceTitle: string;
-		advice: {
-			title: string;
-			subtitle: string;
-			icon: string;
-		}[];
+		advice: AdviceProps[];
 	};
 	folders: FolderProps[];
 	uitleg: {
@@ -98,30 +98,33 @@ export default function LandingPage() {
 					<Styled.p>{page.header.subtitle}</Styled.p>
 				</Masthead>
 
-				<Layer backgroundColor="headerBackground">
-					<mark>@todo</mark>
-					<Box>
-						<Styled.h2>{page.header.adviceTitle}</Styled.h2>
+				<Layer backgroundColor="headerBackground" pullUpBy="2rem">
+					<Container>
 						<Box
-							as="ul"
 							sx={{
-								display: 'flex',
-								gap: '1.5rem',
-								flexFlow: 'row wrap',
-								paddingInlineStart: 0,
-								listStyle: 'none',
+								paddingX: ['mobilePadding', 'tabletPadding', 0],
 							}}
 						>
-							{page.header.advice.map(({ icon, title, subtitle }) => (
-								<Advice
-									key={icon}
-									icon={icon}
-									title={title}
-									subtitle={subtitle}
-								/>
-							))}
+							<Retain maxWidth={[retainMaxWidth, '100%']}>
+								<Stack>
+									<Styled.h2>{page.header.currentSituation}</Styled.h2>
+									<TheThirds
+										asideChildren={
+											<Stack spacing={['0.5rem']}>
+												<Styled.h3>{page.header.measuresTitle}</Styled.h3>
+												<Styled.p>{page.header.measuresText}</Styled.p>
+											</Stack>
+										}
+									>
+										<Stack spacing={['0.5rem']}>
+											<Styled.h3>{page.header.adviceTitle}</Styled.h3>
+											<AdviceList advices={page.header.advice} />
+										</Stack>
+									</TheThirds>
+								</Stack>
+							</Retain>
 						</Box>
-					</Box>
+					</Container>
 				</Layer>
 
 				<Layer>
@@ -182,6 +185,21 @@ export const getStaticProps = async ({
 			${getLocaleProperty({ name: 'title', path: 'header.title', locale })},
 			${getLocaleProperty({ name: 'chapeau', path: 'header.chapeau', locale })},
 			${getLocaleProperty({ name: 'subtitle', path: 'header.subtitle', locale })},
+			${getLocaleProperty({
+				name: 'currentSituation',
+				path: 'header.currentSituation',
+				locale,
+			})},
+			${getLocaleProperty({
+				name: 'measuresTitle',
+				path: 'header.measuresTitle',
+				locale,
+			})},
+			${getLocaleProperty({
+				name: 'measuresText',
+				path: 'header.measuresText',
+				locale,
+			})},
 			${getLocaleProperty({
 				name: 'adviceTitle',
 				path: 'header.adviceTitle',

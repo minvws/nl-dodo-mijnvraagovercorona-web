@@ -26,6 +26,7 @@ export const Masthead: React.FC<MastheadProps> = ({
 	return (
 		<Box
 			sx={{
+				position: 'relative',
 				background:
 					'linear-gradient(179.97deg, #858DFF 44.27%, #6459E7 99.97%);',
 				borderEndStartRadius: '2rem',
