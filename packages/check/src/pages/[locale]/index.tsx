@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React, { useContext, useEffect } from 'react';
-import { jsx, Styled, Container, Box, Flex } from 'theme-ui';
+import { jsx, Styled, Container, Box, Flex, Image } from 'theme-ui';
 import { Page } from 'components/page';
 
 import {
@@ -54,6 +54,8 @@ export interface PageContent extends JouwSituatiePageNoMatchContent {
 		advice: AdviceProps[];
 	};
 	titleCases: string;
+	imageMobileCases: string;
+	imageDesktopCases: string;
 	cases: CaseProps[];
 	folders: FolderProps[];
 	uitleg: {
@@ -147,7 +149,51 @@ export default function LandingPage() {
 						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
 							<Retain maxWidth={[retainMaxWidth, '100%']}>
 								<Stack spacing={['2.25rem', '4rem']}>
-									<Styled.h2>{page.titleCases}</Styled.h2>
+									<Box
+										sx={{
+											position: 'relative',
+											paddingBlockStart: ['0', '10rem'],
+											paddingBlockEnd: ['0', '2.5rem'],
+										}}
+									>
+										<Styled.h2
+											sx={{
+												position: 'relative',
+												marginBlockEnd: ['2rem', 0],
+												fontSize: ['h1Mobile', 'h1'],
+												lineHeight: ['h1Mobile', 'h1'],
+												zIndex: 2,
+											}}
+										>
+											{page.titleCases}
+										</Styled.h2>
+										<Image
+											src={page.imageMobileCases}
+											alt=""
+											sx={{
+												display: ['block', 'none'],
+												marginInlineStart: 'auto',
+												marginInlineEnd: 'auto',
+											}}
+										/>
+										<Image
+											src={page.imageDesktopCases}
+											alt=""
+											sx={{
+												position: 'absolute',
+												zIndex: 1,
+												display: ['none', 'block'],
+												inlineSize: '100%',
+												blockSize: '100%',
+												insetBlockStart: 0,
+												insetBlockEnd: 0,
+												insetInlineStart: 0,
+												insetInlineEnd: 0,
+												objectFit: 'contain',
+												objectPosition: '100% 100%',
+											}}
+										/>
+									</Box>
 									<Box
 										sx={{
 											display: 'grid',
@@ -284,6 +330,8 @@ export const getStaticProps = async ({
 		},
 
 		${getLocaleProperty({ name: 'titleCases', locale })},
+		"imageMobileCases": "/images/sanity/" + imageMobileCases.asset->originalFilename,
+		"imageDesktopCases": "/images/sanity/" + imageDesktopCases.asset->originalFilename,
 		"cases": cases[]{
 			${getLocaleProperty({ name: 'title', locale })},
 			${getLocaleProperty({
