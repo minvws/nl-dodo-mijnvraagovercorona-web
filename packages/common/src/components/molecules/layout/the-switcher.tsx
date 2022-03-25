@@ -4,10 +4,12 @@ import { Flex, jsx } from 'theme-ui';
 
 interface OwnProps {
 	gap?: string | string[];
+	alignItems?: string | string[];
 }
 
 export const TheSwitcher: React.FC<OwnProps> = ({
 	gap = '2.25rem',
+	alignItems = 'stretch',
 	children,
 }) => {
 	return (
@@ -15,6 +17,7 @@ export const TheSwitcher: React.FC<OwnProps> = ({
 			sx={{
 				flexWrap: 'wrap',
 				gap: gap,
+				alignItems: alignItems,
 				'& > *': {
 					flex: ['0 0 100%', 1],
 				},

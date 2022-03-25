@@ -1,3 +1,4 @@
 export * from './folder';
 export * from './content';
-export { Advice } from './advice';
+export * from './masthead';
+export * from './advice';

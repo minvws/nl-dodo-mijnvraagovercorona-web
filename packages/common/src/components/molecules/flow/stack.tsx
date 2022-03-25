@@ -19,6 +19,7 @@ export const Stack: React.FC<OwnProps> = ({
 				// && is used to increase specificity with 1 by doubling up generated classes `.css-1o804hg.css-1o804hg`
 				'&& > *': {
 					marginBlockEnd: '0',
+					marginBlockStart: '0',
 					'& + *': {
 						marginBlockStart: spacing,
 					},

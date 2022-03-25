@@ -19,8 +19,29 @@ export default {
 					type: 'localeString',
 				},
 				{
+					title: 'Chapeau',
+					name: 'chapeau',
+					type: 'localeString',
+				},
+				{
 					title: 'Subtitel',
 					name: 'subtitle',
+					type: 'localeString',
+				},
+
+				{
+					title: 'Situatie titel',
+					name: 'currentSituation',
+					type: 'localeString',
+				},
+				{
+					title: 'Maatregelen titel',
+					name: 'measuresTitle',
+					type: 'localeString',
+				},
+				{
+					title: 'Maatregelen tekst',
+					name: 'measuresText',
 					type: 'localeString',
 				},
 				{

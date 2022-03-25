@@ -4,7 +4,7 @@ import { Box, Flex, jsx } from 'theme-ui';
 import { useSanitySiteSettings } from '@quarantaine/common';
 
 interface PageProps {
-	header: React.ReactNode;
+	header?: React.ReactNode | null;
 	footer: React.ReactNode;
 	// If true: hides DataProtectionPanel, Footer and Alleen Samen logo on mobile.
 	cleanPageOnMobile?: boolean;
