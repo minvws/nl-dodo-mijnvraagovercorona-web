@@ -89,19 +89,13 @@ export default function LandingPage() {
 			/>
 
 			<Page noHeader>
-				<Masthead headerSlot={<Header transparent />} />
-				<Hero title={page.header.title}>
-					<Styled.p
-						sx={{
-							fontWeight: 'light',
-							width: ['80%', '549px'],
-							marginTop: 0,
-							marginBottom: ['18px'],
-						}}
-					>
-						{page.header.subtitle}
-					</Styled.p>
-				</Hero>
+				<Masthead
+					headerSlot={<Header transparent noPadding />}
+					title={page.header.title}
+					chapeau="Chapeau"
+				>
+					<Styled.p>{page.header.subtitle}</Styled.p>
+				</Masthead>
 
 				<Layer backgroundColor="headerBackground">
 					<mark>@todo</mark>

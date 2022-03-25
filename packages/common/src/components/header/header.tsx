@@ -10,9 +10,14 @@ import {
 
 interface HeaderProps {
 	transparent?: boolean;
+	noPadding?: boolean;
 }
 
-export const Header: React.FC<HeaderProps> = ({ transparent, children }) => {
+export const Header: React.FC<HeaderProps> = ({
+	transparent,
+	noPadding,
+	children,
+}) => {
 	const siteSettings = useSanitySiteSettings();
 
 	return (
@@ -22,7 +27,7 @@ export const Header: React.FC<HeaderProps> = ({ transparent, children }) => {
 				color: 'header',
 				backgroundRepeat: 'no-repeat',
 				backgroundPosition: 'right top',
-				paddingBottom: '28px',
+				...(noPadding ? {} : { paddingBottom: '28px' }),
 			}}
 		>
 			<LocaleSelector />
