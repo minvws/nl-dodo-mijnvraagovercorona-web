@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React, { useMemo } from 'react';
-import { jsx, SxStyleProp } from 'theme-ui';
+import { jsx, SxStyleProp, Box } from 'theme-ui';
 
 import { ChevronIcon, RefreshIcon } from '@quarantaine/common';
 
@@ -9,13 +9,15 @@ interface StyledLinkPropsBase {
 	className?: string;
 	fontWeight?: 'lighter' | 'normal' | 'bold';
 	lang?: string;
+	icon?: string;
 	styledAs?:
 		| 'link'
 		| 'link-back'
 		| 'link-restart'
 		| 'button'
 		| 'button-secondary'
-		| 'button-disabled';
+		| 'button-disabled'
+		| 'button-large';
 }
 
 export interface StyledLinkPropsAsAnchor extends StyledLinkPropsBase {
@@ -161,11 +163,30 @@ export const useLinkStyles = ({
 			pointerEvents: 'none',
 		};
 
+		const buttonLargeStyling: SxStyleProp = {
+			...buttonStyling,
+			display: 'flex',
+			marginBlockStart: '2rem',
+			backgroundColor: 'headerBackground',
+			color: 'copyHeading',
+			fontSize: '1.375rem',
+			fontWeight: 'bold',
+			padding: '0.75rem',
+			boxShadow: '4px 12px 12px rgb(0 0 0 / 7%), 0px 4px 0px #eff7f9',
+			alignItems: 'center',
+			width: ['auto', '30%'],
+
+			':hover, :focus': {
+				backgroundColor: 'buttonSecondaryHover',
+			},
+		};
+
 		if (styledAs === 'link-back') return linkBackStyling;
 		if (styledAs === 'link-restart') return linkRestartStyling;
 		if (styledAs === 'button') return buttonStyling;
 		if (styledAs === 'button-secondary') return buttonSecondaryStyling;
 		if (styledAs === 'button-disabled') return buttonDisabledStyling;
+		if (styledAs === 'button-large') return buttonLargeStyling;
 
 		return linkStyling;
 	}, [styledAs, fontWeight]);
@@ -193,6 +214,7 @@ const StyledLinkBase = <T extends React.ElementType = 'a'>(
 		external,
 		styledAs = 'link',
 		as = 'a',
+		icon,
 		...remainingProps
 	} = props;
 
@@ -229,12 +251,22 @@ const StyledLinkBase = <T extends React.ElementType = 'a'>(
 			target={external ? '_blank' : undefined}
 			rel={external ? 'noopener noreferrer' : undefined}
 		>
+			{icon && (
+				<img src={icon} alt="" sx={{ width: '7.5rem', marginTop: '-2rem' }} />
+			)}
 			{props.styledAs === 'link-restart' ? (
 				<RefreshIcon className="chevron" />
 			) : (
 				withChevron && <ChevronIcon className="chevron" />
 			)}
-			{children}
+			{props.styledAs === 'button-large' ? (
+				<span sx={{ flex: 1 }}>{children}</span>
+			) : (
+				children
+			)}
+			{props.styledAs === 'button-large' && (
+				<ChevronIcon className="chevron" sx={{ width: '3.75rem' }} />
+			)}
 		</a>
 	);
 };

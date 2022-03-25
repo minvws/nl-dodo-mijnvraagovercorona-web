@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React, { useContext, useEffect } from 'react';
-import { jsx, Styled, Container, Box } from 'theme-ui';
+import { jsx, Styled, Container, Box, Flex } from 'theme-ui';
 import { Page } from 'components/page';
 
 import {
@@ -17,6 +17,7 @@ import {
 	Header,
 	Stack,
 	TheThirds,
+	StyledLink,
 } from '@quarantaine/common';
 import {
 	getJouwSituatiePageNoMatchProjection,
@@ -60,6 +61,14 @@ export interface PageContent extends JouwSituatiePageNoMatchContent {
 			usp: string;
 		};
 	}[];
+	topics: {
+		title: string;
+		topics: {
+			icon: string;
+			title: string;
+			href: string;
+		}[];
+	};
 	help: {
 		title: string;
 		openingHours: string;
@@ -132,14 +141,40 @@ export default function LandingPage() {
 						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
 						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
 							<Retain maxWidth={[retainMaxWidth, '100%']}>
-								<TheSwitcher gap={['2rem', '4rem']}>
-									{page.folders
-										// if not translated, don't show
-										.filter((folder) => folder.title)
-										.map((folder) => (
-											<Folder {...folder} key={folder.title} />
-										))}
-								</TheSwitcher>
+								<Stack spacing={['4.5rem', '6,75rem']}>
+									<TheSwitcher gap={['2rem', '4rem']}>
+										{page.folders
+											// if not translated, don't show
+											.filter((folder) => folder.title)
+											.map((folder) => (
+												<Folder {...folder} key={folder.title} />
+											))}
+									</TheSwitcher>
+									<Box>
+										<Styled.h2>{page.topics.title}</Styled.h2>
+										<Box
+											sx={{
+												display: 'flex',
+												flexDirection: ['column', 'row'],
+												gap: ['1rem', '3rem'],
+												'& > *': {
+													flex: 1,
+												},
+											}}
+										>
+											{page.topics.topics.map(({ href, icon, title }) => (
+												<StyledLink
+													styledAs="button-large"
+													href={href}
+													icon={icon}
+													key={href}
+												>
+													{title}
+												</StyledLink>
+											))}
+										</Box>
+									</Box>
+								</Stack>
 							</Retain>
 						</Box>
 					</Container>
@@ -256,6 +291,14 @@ export const getStaticProps = async ({
 			"linklist": {
 				${getLocaleProperty({ name: 'id', path: 'linklist.id', locale })},
 				${getLocaleProperty({ name: 'usp', path: 'linklist.usp', locale })},
+			},
+		},
+		"topics": {
+			${getLocaleProperty({ name: 'title', path: 'topics.title', locale })},
+			"topics": topics.topics[]{
+				"icon": "/images/sanity/" + icon.asset->originalFilename,
+				${getLocaleProperty({ name: 'title', locale })},
+				href,
 			},
 		},
 		"help": {

@@ -169,6 +169,31 @@ export default {
 			],
 		},
 		{
+			title: 'Onderwerpen',
+			name: 'topics',
+			type: 'object',
+			fields: [
+				{ title: 'Titel', name: 'title', type: 'localeString' },
+				{
+					title: 'Onderwerpen',
+					name: 'topics',
+					type: 'array',
+					of: [
+						{
+							title: 'Ondwerp',
+							name: 'topic',
+							type: 'object',
+							fields: [
+								{ title: 'Icoon', name: 'icon', type: 'image' },
+								{ title: 'Titel', name: 'title', type: 'localeString' },
+								{ title: 'Link', name: 'href', type: 'string' },
+							],
+						},
+					],
+				},
+			],
+		},
+		{
 			title: 'Hulp',
 			name: 'help',
 			type: 'object',
