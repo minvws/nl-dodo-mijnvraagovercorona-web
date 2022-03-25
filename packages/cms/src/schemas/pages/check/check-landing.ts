@@ -19,6 +19,11 @@ export default {
 					type: 'localeString',
 				},
 				{
+					title: 'Chapeau',
+					name: 'chapeau',
+					type: 'localeString',
+				},
+				{
 					title: 'Subtitel',
 					name: 'subtitle',
 					type: 'localeString',

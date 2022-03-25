@@ -40,6 +40,7 @@ export interface PageContent extends JouwSituatiePageNoMatchContent {
 	};
 	header: {
 		title: string;
+		chapeau: string;
 		subtitle: string;
 		adviceTitle: string;
 		advice: {
@@ -92,7 +93,7 @@ export default function LandingPage() {
 				<Masthead
 					headerSlot={<Header transparent noPadding />}
 					title={page.header.title}
-					chapeau="Chapeau"
+					chapeau={page.header.chapeau}
 				>
 					<Styled.p>{page.header.subtitle}</Styled.p>
 				</Masthead>
@@ -179,6 +180,7 @@ export const getStaticProps = async ({
 		},
 		"header": {
 			${getLocaleProperty({ name: 'title', path: 'header.title', locale })},
+			${getLocaleProperty({ name: 'chapeau', path: 'header.chapeau', locale })},
 			${getLocaleProperty({ name: 'subtitle', path: 'header.subtitle', locale })},
 			${getLocaleProperty({
 				name: 'adviceTitle',
