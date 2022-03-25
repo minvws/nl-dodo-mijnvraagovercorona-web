@@ -31,6 +31,9 @@ import {
 	Masthead,
 	AdviceList,
 	AdviceProps,
+	CaseProps,
+	Case,
+	ContentSituationBlock,
 } from 'components/molecules';
 import { retainMaxWidth } from '@quarantaine/common/src/components/molecules/layout/retain';
 import GlobalContext from 'utilities/global-context';
@@ -50,6 +53,8 @@ export interface PageContent extends JouwSituatiePageNoMatchContent {
 		adviceTitle: string;
 		advice: AdviceProps[];
 	};
+	titleCases: string;
+	cases: CaseProps[];
 	folders: FolderProps[];
 	uitleg: {
 		description: string;
@@ -141,15 +146,46 @@ export default function LandingPage() {
 						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
 						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
 							<Retain maxWidth={[retainMaxWidth, '100%']}>
-								<Stack spacing={['4.5rem', '6,75rem']}>
-									<TheSwitcher gap={['2rem', '4rem']}>
+								<Stack spacing={['2.25rem', '4rem']}>
+									<Styled.h2>{page.titleCases}</Styled.h2>
+									<Box
+										sx={{
+											display: 'grid',
+											gridTemplateColumns:
+												'repeat(auto-fit, minmax(min(28rem, 100%), 1fr))',
+											gap: ['1rem', '4rem'],
+											alignItems: 'start',
+											paddingInlineStart: 0,
+											listStyle: 'none',
+										}}
+									>
+										{page.cases
+											.filter((item) => item.title)
+											.map((item) => (
+												<Case
+													key={item.title}
+													title={item.title}
+													titleSuffix={item.titleSuffix}
+													intro={item.intro}
+													readMoreLabel={item.readMoreLabel}
+												>
+													{item.contentBlocks && (
+														<ContentSituationBlock
+															contentBlocks={item.contentBlocks}
+														/>
+													)}
+												</Case>
+											))}
+									</Box>
+
+									{/* <TheSwitcher gap={['2rem', '4rem']}>
 										{page.folders
 											// if not translated, don't show
 											.filter((folder) => folder.title)
 											.map((folder) => (
 												<Folder {...folder} key={folder.title} />
 											))}
-									</TheSwitcher>
+									</TheSwitcher> */}
 									<Box>
 										<Styled.h2>{page.topics.title}</Styled.h2>
 										<Box
@@ -246,6 +282,40 @@ export const getStaticProps = async ({
 				"icon": "/images/sanity/" + icon.asset->originalFilename,
 			}
 		},
+
+		${getLocaleProperty({ name: 'titleCases', locale })},
+		"cases": cases[]{
+			${getLocaleProperty({ name: 'title', locale })},
+			${getLocaleProperty({
+				name: 'titleSuffix',
+				locale,
+			})},
+			${getLocaleProperty({
+				name: 'intro',
+				locale,
+			})},
+			${getLocaleProperty({
+				name: 'readMoreLabel',
+				locale,
+			})},
+			"contentBlocks": contentBlocks[]{
+				${getLocaleProperty({
+					name: 'content',
+					path: '^',
+					locale,
+				})},
+				"situation": {
+					${getLocaleProperty({
+						name: 'situationLinkTitle',
+						locale,
+					})},
+					"url": situationReference->url,
+					"showDate": situationReference->showDate,
+					"showExceptions": situationReference->showExceptions,
+				}
+			}
+		},
+
 
 		"folders": folders[]{
 			${getLocaleProperty({ name: 'title', locale })},
