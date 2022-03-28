@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React, { useContext, useEffect } from 'react';
-import { jsx, Styled, Container, Box, Flex } from 'theme-ui';
+import { jsx, Styled, Container, Box, Flex, Image } from 'theme-ui';
 import { Page } from 'components/page';
 
 import {
@@ -31,6 +31,9 @@ import {
 	Masthead,
 	AdviceList,
 	AdviceProps,
+	CaseProps,
+	Case,
+	ContentSituationBlock,
 } from 'components/molecules';
 import { retainMaxWidth } from '@quarantaine/common/src/components/molecules/layout/retain';
 import GlobalContext from 'utilities/global-context';
@@ -50,6 +53,10 @@ export interface PageContent extends JouwSituatiePageNoMatchContent {
 		adviceTitle: string;
 		advice: AdviceProps[];
 	};
+	titleCases: string;
+	imageMobileCases: string;
+	imageDesktopCases: string;
+	cases: CaseProps[];
 	folders: FolderProps[];
 	uitleg: {
 		description: string;
@@ -141,15 +148,90 @@ export default function LandingPage() {
 						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
 						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
 							<Retain maxWidth={[retainMaxWidth, '100%']}>
-								<Stack spacing={['4.5rem', '6,75rem']}>
-									<TheSwitcher gap={['2rem', '4rem']}>
+								<Stack spacing={['2.25rem', '4rem']}>
+									<Box
+										sx={{
+											position: 'relative',
+											paddingBlockStart: ['0', '10rem'],
+											paddingBlockEnd: ['0', '2.5rem'],
+										}}
+									>
+										<Styled.h2
+											sx={{
+												position: 'relative',
+												marginBlockEnd: ['2rem', 0],
+												fontSize: ['h1Mobile', 'h1'],
+												lineHeight: ['h1Mobile', 'h1'],
+												zIndex: 2,
+											}}
+										>
+											{page.titleCases}
+										</Styled.h2>
+										<Image
+											src={page.imageMobileCases}
+											alt=""
+											sx={{
+												display: ['block', 'none'],
+												marginInlineStart: 'auto',
+												marginInlineEnd: 'auto',
+											}}
+										/>
+										<Image
+											src={page.imageDesktopCases}
+											alt=""
+											sx={{
+												position: 'absolute',
+												zIndex: 1,
+												display: ['none', 'block'],
+												inlineSize: '100%',
+												blockSize: '100%',
+												insetBlockStart: 0,
+												insetBlockEnd: 0,
+												insetInlineStart: 0,
+												insetInlineEnd: 0,
+												objectFit: 'contain',
+												objectPosition: '100% 100%',
+											}}
+										/>
+									</Box>
+									<Box
+										sx={{
+											display: 'grid',
+											gridTemplateColumns:
+												'repeat(auto-fit, minmax(min(28rem, 100%), 1fr))',
+											gap: ['1rem', '4rem'],
+											alignItems: 'start',
+											paddingInlineStart: 0,
+											listStyle: 'none',
+										}}
+									>
+										{page.cases
+											.filter((item) => item.title)
+											.map((item) => (
+												<Case
+													key={item.title}
+													title={item.title}
+													titleSuffix={item.titleSuffix}
+													intro={item.intro}
+													readMoreLabel={item.readMoreLabel}
+												>
+													{item.contentBlocks && (
+														<ContentSituationBlock
+															contentBlocks={item.contentBlocks}
+														/>
+													)}
+												</Case>
+											))}
+									</Box>
+
+									{/* <TheSwitcher gap={['2rem', '4rem']}>
 										{page.folders
 											// if not translated, don't show
 											.filter((folder) => folder.title)
 											.map((folder) => (
 												<Folder {...folder} key={folder.title} />
 											))}
-									</TheSwitcher>
+									</TheSwitcher> */}
 									<Box>
 										<Styled.h2>{page.topics.title}</Styled.h2>
 										<Box
@@ -246,6 +328,42 @@ export const getStaticProps = async ({
 				"icon": "/images/sanity/" + icon.asset->originalFilename,
 			}
 		},
+
+		${getLocaleProperty({ name: 'titleCases', locale })},
+		"imageMobileCases": "/images/sanity/" + imageMobileCases.asset->originalFilename,
+		"imageDesktopCases": "/images/sanity/" + imageDesktopCases.asset->originalFilename,
+		"cases": cases[]{
+			${getLocaleProperty({ name: 'title', locale })},
+			${getLocaleProperty({
+				name: 'titleSuffix',
+				locale,
+			})},
+			${getLocaleProperty({
+				name: 'intro',
+				locale,
+			})},
+			${getLocaleProperty({
+				name: 'readMoreLabel',
+				locale,
+			})},
+			"contentBlocks": contentBlocks[]{
+				${getLocaleProperty({
+					name: 'content',
+					path: '^',
+					locale,
+				})},
+				"situation": {
+					${getLocaleProperty({
+						name: 'situationLinkTitle',
+						locale,
+					})},
+					"url": situationReference->url,
+					"showDate": situationReference->showDate,
+					"showExceptions": situationReference->showExceptions,
+				}
+			}
+		},
+
 
 		"folders": folders[]{
 			${getLocaleProperty({ name: 'title', locale })},

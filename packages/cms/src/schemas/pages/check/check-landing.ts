@@ -2,6 +2,7 @@ export default {
 	title: 'Check Landing Pagina',
 	name: 'check-landing-page',
 	type: 'document',
+	fieldsets: [{ name: 'situations', title: 'Situaties' }],
 	fields: [
 		{
 			title: 'Meta data',
@@ -90,9 +91,10 @@ export default {
 			},
 		},
 		{
-			title: 'Cases',
+			title: 'Cases nieuw',
 			name: 'folders',
 			type: 'array',
+			hidden: true,
 			of: [
 				{
 					type: 'folder',
@@ -103,11 +105,25 @@ export default {
 			title: 'Cases titel',
 			name: 'titleCases',
 			type: 'localeString',
+			fieldset: 'situations',
+		},
+		{
+			title: 'Cases mobile afbeelding',
+			name: 'imageMobileCases',
+			type: 'image',
+			fieldset: 'situations',
+		},
+		{
+			title: 'Cases desktop afbeelding',
+			name: 'imageDesktopCases',
+			type: 'image',
+			fieldset: 'situations',
 		},
 		{
 			title: 'Cases',
 			name: 'cases',
 			type: 'array',
+			fieldset: 'situations',
 			of: [{ type: 'case' }],
 		},
 		{
