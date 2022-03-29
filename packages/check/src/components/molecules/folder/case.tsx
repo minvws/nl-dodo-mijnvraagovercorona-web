@@ -23,9 +23,9 @@ export const Case: React.FC<CaseProps> = ({
 		<Styled.div
 			sx={{
 				padding: '1rem',
-				border: `1px solid ${theme?.colors?.headerBackground}`,
-				borderRadius: '5px',
-				boxShadow: `4px 12px 12px rgba(0, 0, 0, 0.07), 0px 4px 0px ${theme?.colors?.headerBackground}`,
+				border: 'tile',
+				borderRadius: 'box',
+				boxShadow: 'tile',
 				backgroundColor: 'white',
 			}}
 		>

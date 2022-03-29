@@ -29,6 +29,11 @@ export default {
 					name: 'subtitle',
 					type: 'localeString',
 				},
+				{
+					title: 'Illustratie',
+					name: 'image',
+					type: 'image',
+				},
 
 				{
 					title: 'Situatie titel',

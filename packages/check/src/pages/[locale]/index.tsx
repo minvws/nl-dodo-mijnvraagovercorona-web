@@ -49,6 +49,7 @@ export interface PageContent extends JouwSituatiePageNoMatchContent {
 		title: string;
 		chapeau: string;
 		subtitle: string;
+		image: string;
 		currentSituation: string;
 		measuresTitle: string;
 		measuresText: string;
@@ -114,6 +115,7 @@ export default function LandingPage() {
 					headerSlot={<Header transparent noPadding />}
 					title={page.header.title}
 					chapeau={page.header.chapeau}
+					illustration={page.header.image}
 				>
 					<Styled.p>{page.header.subtitle}</Styled.p>
 				</Masthead>
@@ -309,6 +311,7 @@ export const getStaticProps = async ({
 			${getLocaleProperty({ name: 'title', path: 'header.title', locale })},
 			${getLocaleProperty({ name: 'chapeau', path: 'header.chapeau', locale })},
 			${getLocaleProperty({ name: 'subtitle', path: 'header.subtitle', locale })},
+			"image": "/images/sanity/" + header.image.asset->originalFilename,
 			${getLocaleProperty({
 				name: 'currentSituation',
 				path: 'header.currentSituation',
