@@ -60,6 +60,13 @@ export const theme: Theme = {
 	radii: {
 		button: '5px',
 		box: '8px',
+		tile: 'radii.box',
+	},
+	borders: {
+		tile: '1px solid #EFF7F9',
+	},
+	shadows: {
+		tile: '4px 12px 12px rgba(0, 0, 0, 0.07), 0px 4px 0px #EFF7F9',
 	},
 	fonts: {
 		body: 'RoSans, sans-serif',
