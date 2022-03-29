@@ -97,8 +97,6 @@ export default function LandingPage() {
 		setStartPoint && setStartPoint('');
 	}, []);
 
-	console.log('page.header', page.header);
-
 	return (
 		<>
 			<MetaTags
