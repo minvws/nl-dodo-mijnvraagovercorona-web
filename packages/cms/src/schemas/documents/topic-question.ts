@@ -54,6 +54,11 @@ export default {
 			],
 		},
 		{
+			title: 'Button',
+			name: 'button',
+			type: 'localeString',
+		},
+		{
 			title: 'Stappen',
 			name: 'steps',
 			type: 'object',
