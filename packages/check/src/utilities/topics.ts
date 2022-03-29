@@ -2,7 +2,7 @@ import { sanityClient, siteSettingsQuery, Locales } from '@quarantaine/common';
 
 export const getQuestions = async () => {
 	const questions = await sanityClient.fetch(
-		`*[_type=="topic-question-document" && metaData.site == "quarantaine-check"].slug.current`,
+		`*[_type=="topic-question-document"].slug.current`,
 	);
 
 	return questions;
@@ -17,13 +17,13 @@ export const getQuestionPageQuery = ({
 	locale: Locales;
 	question: string;
 }): string => `{
-	"page": *[_type == "topic-question-document" && metaData.site == "quarantaine-check" && slug.current=="${question}"][0]${pageProjection},
+	"page": *[_type == "topic-question-document" && slug.current=="${question}"][0]${pageProjection},
 	"siteSettings": ${siteSettingsQuery({ locale, site: 'quarantaine-check' })},
 }`;
 
 export const getResults = async () => {
 	const results = await sanityClient.fetch(
-		`*[_type=="topic-result-document" && metaData.site == "quarantaine-check"].slug.current`,
+		`*[_type=="topic-result-document"].slug.current`,
 	);
 
 	return results;
@@ -38,7 +38,7 @@ export const getResultPageQuery = ({
 	locale: Locales;
 	result: string;
 }): string => `{
-	"page": *[_type == "topic-result-document" && metaData.site == "quarantaine-check" && slug.current=="${result}"][0]${pageProjection},
+	"page": *[_type == "topic-result-document" && slug.current=="${result}"][0]${pageProjection},
 	"siteSettings": ${siteSettingsQuery({ locale, site: 'quarantaine-check' })},
 }`;
 

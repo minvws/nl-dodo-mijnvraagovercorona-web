@@ -1,15 +1,8 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 
-import {
-	getQuestionPageQuery,
-	getQuestions,
-	getTopics,
-} from 'utilities/topics';
-import { locales } from 'content/general-content';
-import { Page } from 'components/page';
 import {
 	Locales,
 	Link,
@@ -25,6 +18,14 @@ import {
 	RadioButton,
 	getHrefWithlocale,
 } from '@quarantaine/common';
+
+import {
+	getQuestionPageQuery,
+	getQuestions,
+	getTopics,
+} from 'utilities/topics';
+import { locales } from 'content/general-content';
+import { Page } from 'components/page';
 
 interface PageContent {
 	metaData: {
