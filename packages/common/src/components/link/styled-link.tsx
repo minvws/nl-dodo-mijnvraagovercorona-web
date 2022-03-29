@@ -172,7 +172,8 @@ export const useLinkStyles = ({
 			fontSize: '1.375rem',
 			fontWeight: 'bold',
 			padding: '0.75rem',
-			boxShadow: '4px 12px 12px rgb(0 0 0 / 7%), 0px 4px 0px #eff7f9',
+			boxShadow: 'tile',
+			border: 'tile',
 			alignItems: 'center',
 			width: ['auto', '30%'],
 
