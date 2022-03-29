@@ -196,14 +196,10 @@ export default {
 					type: 'array',
 					of: [
 						{
-							title: 'Ondwerp',
+							title: 'Onderwerp',
 							name: 'topic',
-							type: 'object',
-							fields: [
-								{ title: 'Icoon', name: 'icon', type: 'image' },
-								{ title: 'Titel', name: 'title', type: 'localeString' },
-								{ title: 'Link', name: 'href', type: 'string' },
-							],
+							type: 'reference',
+							to: [{ type: 'topic-document' }],
 						},
 					],
 				},

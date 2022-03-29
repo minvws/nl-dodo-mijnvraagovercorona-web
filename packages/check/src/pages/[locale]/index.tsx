@@ -18,6 +18,8 @@ import {
 	Stack,
 	TheThirds,
 	StyledLink,
+	getHrefWithlocale,
+	useCurrentLocale,
 } from '@quarantaine/common';
 import {
 	getJouwSituatiePageNoMatchProjection,
@@ -72,8 +74,9 @@ export interface PageContent extends JouwSituatiePageNoMatchContent {
 		title: string;
 		topics: {
 			icon: string;
-			title: string;
-			href: string;
+			name: string;
+			slug: string;
+			start: string;
 		}[];
 	};
 	help: {
@@ -90,6 +93,7 @@ export interface PageContent extends JouwSituatiePageNoMatchContent {
 
 export default function LandingPage() {
 	const page = useSanityPageContent<PageContent>();
+	const locale = useCurrentLocale();
 	const { startPoint, setStartPoint } = useContext(GlobalContext);
 
 	useEffect(() => {
@@ -244,14 +248,17 @@ export default function LandingPage() {
 												},
 											}}
 										>
-											{page.topics.topics.map(({ href, icon, title }) => (
+											{page.topics.topics.map(({ start, slug, icon, name }) => (
 												<StyledLink
 													styledAs="button-large"
-													href={href}
+													href={getHrefWithlocale(
+														`/vraag/${slug}/${start}`,
+														locale.urlPrefix,
+													)}
 													icon={icon}
-													key={href}
+													key={name}
 												>
-													{title}
+													{name}
 												</StyledLink>
 											))}
 										</Box>
@@ -413,10 +420,11 @@ export const getStaticProps = async ({
 		},
 		"topics": {
 			${getLocaleProperty({ name: 'title', path: 'topics.title', locale })},
-			"topics": topics.topics[]{
+			"topics": topics.topics[]->{
 				"icon": "/images/sanity/" + icon.asset->originalFilename,
-				${getLocaleProperty({ name: 'title', locale })},
-				href,
+				${getLocaleProperty({ name: 'name', locale })},
+				"start": start->slug.current,
+				"slug": slug.current,
 			},
 		},
 		"help": {
