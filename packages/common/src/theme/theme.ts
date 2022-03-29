@@ -67,6 +67,7 @@ export const theme: Theme = {
 	},
 	shadows: {
 		tile: '4px 12px 12px rgba(0, 0, 0, 0.07), 0px 4px 0px #EFF7F9',
+		focusRing: '0px 0px 1px 3px rgba(1, 104, 155, 0.3)',
 	},
 	fonts: {
 		body: 'RoSans, sans-serif',
