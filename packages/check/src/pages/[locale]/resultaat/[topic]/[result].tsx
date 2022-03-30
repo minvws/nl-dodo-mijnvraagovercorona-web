@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui';
+import { Image, Styled, Box, jsx } from 'theme-ui';
 import React, { useState } from 'react';
 
 import {
@@ -16,6 +16,9 @@ import {
 	Content,
 	RadioButton,
 	getHrefWithlocale,
+	Feedback,
+	getFeedbackUrl,
+	useSanitySiteSettings,
 } from '@quarantaine/common';
 
 import { getResultPageQuery, getResults, getTopics } from 'utilities/topics';
@@ -30,18 +33,22 @@ interface PageContent {
 	header: {
 		title: string;
 	};
-	answers: {
+	content: {
+		image: string;
+		title: string;
+		button: string;
+		href: string;
 		content: Object[];
-		next: string;
-		_key: string;
-	}[];
-	button: string;
+	};
 	topic: string;
 	slug: string;
 }
 
 export const Resultaat = ({ locale }: { locale: Locales }) => {
 	const page = useSanityPageContent<PageContent>();
+	const siteSettings = useSanitySiteSettings();
+
+	console.log(page);
 
 	return (
 		<>
@@ -53,7 +60,24 @@ export const Resultaat = ({ locale }: { locale: Locales }) => {
 
 			<Page>
 				<Hero title={page.header.title} />
-				<Content></Content>
+				<Content>
+					<Box sx={{ mt: '32px', display: 'flex', justifyContent: 'center' }}>
+						<Image src={page.content.image} alt="" />
+					</Box>
+					<Box sx={{ mt: '32px' }}>
+						<Styled.h2>{page.content.title}</Styled.h2>
+						<ContentBlock content={page.content.content} />
+						<Link styledAs="button" href={page.content.href} external>
+							{page.content.button}
+						</Link>
+						<Feedback
+							name="Ondewerp Resultaat"
+							feedbackUrl={getFeedbackUrl(siteSettings.feedback.url, {
+								source: 'topic-result',
+							})}
+						/>
+					</Box>
+				</Content>
 			</Page>
 		</>
 	);
@@ -93,18 +117,15 @@ export const getStaticProps = async ({
 		"header": {
 			${getLocaleProperty({ name: 'title', path: `header.title`, locale })},
 		},
-		"answers": answers[]{
-			_key,
-			${getLocaleProperty({ name: 'content', locale })},
-			"next": select(
-					next->_type == "topic-result-document" => "resultaat",
-					next->_type == "topic-question-document" => "vraag",
-				) + '/' + next->topic->slug.current + '/' + next->slug.current,
+		"content": {
+			"image": "/images/sanity/" + content.image.asset->originalFilename,
+			${getLocaleProperty({ name: 'title', path: `content.title`, locale })},
+			${getLocaleProperty({ name: 'content', path: `content.content`, locale })},
+			${getLocaleProperty({ name: 'href', path: `content.href`, locale })},
+			${getLocaleProperty({ name: 'button', path: `content.button`, locale })},
 		},
-		${getLocaleProperty({ name: 'button', locale })},
 		"slug": slug.current,
 		"topic": topic->slug.current,
-		steps,
 	}`;
 	const { page, siteSettings } = await sanityClient.fetch(
 		getResultPageQuery({
