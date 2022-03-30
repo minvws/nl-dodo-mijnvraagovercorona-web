@@ -56,7 +56,8 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 
 	const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		router.push(`/${getHrefWithlocale(`/${selectedOption}`, locale)}`);
+		if (selectedOption)
+			router.push(`/${getHrefWithlocale(`/${selectedOption}`, locale)}`);
 	};
 
 	return (
@@ -84,11 +85,14 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 							))}
 						</Fieldset>
 
-						{selectedOption && (
-							<Link as="button" styledAs="button" type="submit">
-								{page.button}
-							</Link>
-						)}
+						<Link
+							as="button"
+							type="submit"
+							disabled={selectedOption ? false : true}
+							styledAs={selectedOption ? 'button' : 'button-disabled'}
+						>
+							{page.button}
+						</Link>
 					</form>
 				</Content>
 			</Page>
