@@ -18,6 +18,7 @@ import {
 	Stack,
 	TheThirds,
 	StyledLink,
+	ContentBlock,
 } from '@quarantaine/common';
 import {
 	getJouwSituatiePageNoMatchProjection,
@@ -48,11 +49,19 @@ export interface PageContent extends JouwSituatiePageNoMatchContent {
 		chapeau: string;
 		subtitle: string;
 		image: string;
-		currentSituation: string;
-		measuresTitle: string;
-		measuresText: string;
-		adviceTitle: string;
-		advice: AdviceProps[];
+	};
+	currentSituation: {
+		title: string;
+		measures: {
+			title: string;
+			content: Array<Object>;
+			advice: AdviceProps[];
+		};
+		advice: {
+			title: string;
+			content: Array<Object>;
+			advice: AdviceProps[];
+		};
 	};
 	titleCases: string;
 	imageMobileCases: string;
@@ -125,18 +134,37 @@ export default function LandingPage() {
 						>
 							<Retain maxWidth={[retainMaxWidth, '100%']}>
 								<Stack>
-									<Styled.h2>{page.header.currentSituation}</Styled.h2>
+									<Styled.h2>{page.currentSituation.title}</Styled.h2>
 									<TheThirds
+										split={page.currentSituation.measures.advice.length > 0}
 										asideChildren={
-											<Stack spacing={['0.5rem']}>
-												<Styled.h3>{page.header.measuresTitle}</Styled.h3>
-												<Styled.p>{page.header.measuresText}</Styled.p>
+											<Stack spacing={['1rem']}>
+												<Styled.h3>
+													{page.currentSituation.measures.title}
+												</Styled.h3>
+												{page.currentSituation.measures.content ? (
+													<ContentBlock
+														content={page.currentSituation.measures.content}
+													/>
+												) : null}
+												<AdviceList
+													advices={page.currentSituation.measures.advice}
+												/>
 											</Stack>
 										}
 									>
-										<Stack spacing={['0.5rem']}>
-											<Styled.h3>{page.header.adviceTitle}</Styled.h3>
-											<AdviceList advices={page.header.advice} />
+										<Stack spacing={['1rem']}>
+											<Styled.h3>
+												{page.currentSituation.advice.title}
+											</Styled.h3>
+											{page.currentSituation.advice.content ? (
+												<ContentBlock
+													content={page.currentSituation.advice.content}
+												/>
+											) : null}
+											<AdviceList
+												advices={page.currentSituation.advice.advice}
+											/>
 										</Stack>
 									</TheThirds>
 								</Stack>
@@ -305,30 +333,43 @@ export const getStaticProps = async ({
 			${getLocaleProperty({ name: 'chapeau', path: 'header.chapeau', locale })},
 			${getLocaleProperty({ name: 'subtitle', path: 'header.subtitle', locale })},
 			"image": "/images/sanity/" + header.image.asset->originalFilename,
-			${getLocaleProperty({
-				name: 'currentSituation',
-				path: 'header.currentSituation',
-				locale,
-			})},
-			${getLocaleProperty({
-				name: 'measuresTitle',
-				path: 'header.measuresTitle',
-				locale,
-			})},
-			${getLocaleProperty({
-				name: 'measuresText',
-				path: 'header.measuresText',
-				locale,
-			})},
-			${getLocaleProperty({
-				name: 'adviceTitle',
-				path: 'header.adviceTitle',
-				locale,
-			})},
-			"advice": header.advice[]{
-				${getLocaleProperty({ name: 'title', locale })},
-				${getLocaleProperty({ name: 'subtitle', locale })},
-				"icon": "/images/sanity/" + icon.asset->originalFilename,
+		},
+
+		"currentSituation": {
+			${getLocaleProperty({ name: 'title', path: 'currentSituation.title', locale })},
+			"measures": {
+				${getLocaleProperty({
+					name: 'title',
+					path: 'currentSituation.measures.title',
+					locale,
+				})},
+				${getLocaleProperty({
+					name: 'content',
+					path: 'currentSituation.measures.content',
+					locale,
+				})},
+				"advice": currentSituation.measures.advice[]{
+					${getLocaleProperty({ name: 'title', locale })},
+					${getLocaleProperty({ name: 'subtitle', locale })},
+					"icon": "/images/sanity/" + icon.asset->originalFilename,
+				}
+			},
+			"advice": {
+				${getLocaleProperty({
+					name: 'title',
+					path: 'currentSituation.advice.title',
+					locale,
+				})},
+				${getLocaleProperty({
+					name: 'content',
+					path: 'currentSituation.advice.content',
+					locale,
+				})},
+				"advice": currentSituation.advice.advice[]{
+					${getLocaleProperty({ name: 'title', locale })},
+					${getLocaleProperty({ name: 'subtitle', locale })},
+					"icon": "/images/sanity/" + icon.asset->originalFilename,
+				}
 			}
 		},
 

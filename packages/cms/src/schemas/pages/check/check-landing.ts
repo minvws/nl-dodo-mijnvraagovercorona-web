@@ -34,66 +34,33 @@ export default {
 					name: 'image',
 					type: 'image',
 				},
-
-				{
-					title: 'Situatie titel',
-					name: 'currentSituation',
-					type: 'localeString',
-				},
-				{
-					title: 'Maatregelen titel',
-					name: 'measuresTitle',
-					type: 'localeString',
-				},
-				{
-					title: 'Maatregelen tekst',
-					name: 'measuresText',
-					type: 'localeString',
-				},
-				{
-					title: 'Advies Title',
-					name: 'adviceTitle',
-					type: 'localeString',
-				},
-				{
-					title: 'Adviezen',
-					name: 'advice',
-					type: 'array',
-					of: [
-						{
-							type: 'object',
-							fields: [
-								{
-									title: 'Titel',
-									name: 'title',
-									type: 'localeString',
-								},
-								{
-									title: 'Subtitel',
-									name: 'subtitle',
-									type: 'localeString',
-								},
-								{
-									title: 'Icoon',
-									name: 'icon',
-									type: 'image',
-								},
-							],
-							preview: {
-								select: {
-									title: 'title.nl',
-									subtitle: 'subtitle.nl',
-									media: 'icon',
-								},
-							},
-						},
-					],
-				},
 			],
 			options: {
 				collapsible: true,
 				collapsed: true,
 			},
+		},
+		{
+			title: 'Huidige situatie',
+			name: 'currentSituation',
+			type: 'object',
+			fields: [
+				{
+					title: 'Titel',
+					name: 'title',
+					type: 'localeString',
+				},
+				{
+					title: 'Maatregelen',
+					name: 'measures',
+					type: 'aid',
+				},
+				{
+					title: 'Adviezen',
+					name: 'advice',
+					type: 'aid',
+				},
+			],
 		},
 		{
 			title: 'Cases nieuw',
