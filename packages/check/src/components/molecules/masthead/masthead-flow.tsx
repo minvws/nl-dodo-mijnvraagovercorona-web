@@ -11,7 +11,7 @@ import { retainMaxWidth } from '@quarantaine/common/src/components/molecules/lay
 
 export interface MastheadFlowProps {
 	title: string | React.ReactNode;
-	illustration?: string;
+	illustration?: string | null;
 	prefixSlot?: React.ReactNode;
 	headerSlot?: React.ReactNode;
 }
@@ -41,18 +41,24 @@ export const MastheadFlow: React.FC<MastheadFlowProps> = ({
 						paddingX: ['mobilePadding', 'tabletPadding', 0],
 					}}
 				>
-					<TheSwitcher alignItems="center" gap={['2rem', '4rem']}>
+					<TheSwitcher
+						alignItems="end"
+						gap={['2rem', '4rem']}
+						minBlockSize={['11rem']}
+					>
 						<TheSwitcherItem>
-							<Image
-								src={illustration}
-								alt=""
-								sx={{
-									maxInlineSize: ['17rem', , '100%'],
-									marginInlineStart: 'auto',
-									marginInlineEnd: 'auto',
-									marginBlockEnd: [`-${mastheadFlowImageMargin}`, 'auto'],
-								}}
-							/>
+							{illustration ? (
+								<Image
+									src={illustration}
+									alt=""
+									sx={{
+										maxInlineSize: ['17rem', , '100%'],
+										marginInlineStart: 'auto',
+										marginInlineEnd: 'auto',
+										marginBlockEnd: [`-${mastheadFlowImageMargin}`, 'auto'],
+									}}
+								/>
+							) : null}
 						</TheSwitcherItem>
 						<Box
 							sx={{
