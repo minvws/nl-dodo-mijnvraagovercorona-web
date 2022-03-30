@@ -44,10 +44,10 @@ export const MastheadFlow: React.FC<MastheadFlowProps> = ({
 					<TheSwitcher
 						alignItems="end"
 						gap={['2rem', '4rem']}
-						minBlockSize={['11rem']}
+						minBlockSize={['0', '11rem']}
 					>
-						<TheSwitcherItem>
-							{illustration ? (
+						{illustration ? (
+							<TheSwitcherItem>
 								<Image
 									src={illustration}
 									alt=""
@@ -58,13 +58,14 @@ export const MastheadFlow: React.FC<MastheadFlowProps> = ({
 										marginBlockEnd: [`-${mastheadFlowImageMargin}`, 'auto'],
 									}}
 								/>
-							) : null}
-						</TheSwitcherItem>
+							</TheSwitcherItem>
+						) : null}
 						<Box
 							sx={{
 								textAlign: ['center', 'start'],
 								paddingBlockStart: ['1.25rem', '0'],
 								order: [-1],
+								maxInlineSize: illustration ? '100%' : ['100%', '50%'],
 							}}
 						>
 							<Stack
