@@ -96,15 +96,18 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 	);
 };
 
+type Question = { question: string; topic: string };
+
 export const getStaticPaths = async () => {
-	const topics = await getTopics();
-	const questions = await getQuestions();
+	const questions: Question[] = await getQuestions();
 
 	return {
-		paths: cartesianProduct(topics, questions, locales).map(
-			([topic, question, locale]: string[]) => ({
-				params: { topic, question, locale },
-			}),
+		paths: questions.reduce(
+			(paths: VraagStaticProps[], question: Question): VraagStaticProps[] => [
+				...paths,
+				...locales.map((locale) => ({ params: { ...question, locale } })),
+			],
+			[],
 		),
 
 		fallback: false,

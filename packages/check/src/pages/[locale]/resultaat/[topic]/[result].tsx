@@ -81,15 +81,21 @@ export const Resultaat = ({ locale }: { locale: Locales }) => {
 	);
 };
 
+type Result = { result: string; topic: string };
+
 export const getStaticPaths = async () => {
-	const topics = await getTopics();
-	const results = await getResults();
+	const results: Result[] = await getResults();
 
 	return {
-		paths: cartesianProduct(topics, results, locales).map(
-			([topic, result, locale]: string[]) => ({
-				params: { topic, result, locale },
-			}),
+		paths: results.reduce(
+			(
+				paths: ResultaatStaticProps[],
+				result: Result,
+			): ResultaatStaticProps[] => [
+				...paths,
+				...locales.map((locale) => ({ params: { ...result, locale } })),
+			],
+			[],
 		),
 
 		fallback: false,

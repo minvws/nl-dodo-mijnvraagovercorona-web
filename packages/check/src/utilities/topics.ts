@@ -2,7 +2,7 @@ import { sanityClient, siteSettingsQuery, Locales } from '@quarantaine/common';
 
 export const getQuestions = async () => {
 	const questions = await sanityClient.fetch(
-		`*[_type=="topic-question-document"].slug.current`,
+		`*[_type=="topic-question-document"]{"question": slug.current, "topic": topic->slug.current}`,
 	);
 
 	return questions;
@@ -25,7 +25,7 @@ export const getQuestionPageQuery = ({
 
 export const getResults = async () => {
 	const results = await sanityClient.fetch(
-		`*[_type=="topic-result-document"].slug.current`,
+		`*[_type=="topic-result-document"]{"result": slug.current, "topic": topic->slug.current}`,
 	);
 
 	return results;
