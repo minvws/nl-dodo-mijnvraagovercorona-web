@@ -75,11 +75,11 @@ export const getStaticPaths = async () => {
 };
 
 interface ResultaatStaticProps {
-	params: { result: string; locale: Locales };
+	params: { result: string; topic: string; locale: Locales };
 }
 
 export const getStaticProps = async ({
-	params: { result, locale },
+	params: { result, topic, locale },
 }: ResultaatStaticProps) => {
 	const pageProjection = `{
 		"metaData": {
@@ -111,6 +111,7 @@ export const getStaticProps = async ({
 			pageProjection,
 			locale,
 			result,
+			topic,
 		}),
 	);
 

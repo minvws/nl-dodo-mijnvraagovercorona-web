@@ -12,12 +12,14 @@ export const getQuestionPageQuery = ({
 	pageProjection,
 	locale,
 	question,
+	topic,
 }: {
 	pageProjection: string;
 	locale: Locales;
 	question: string;
+	topic: string;
 }): string => `{
-	"page": *[_type == "topic-question-document" && slug.current=="${question}"][0]${pageProjection},
+	"page": *[_type == "topic-question-document" && topic->slug.current == "${topic}" && slug.current=="${question}"][0]${pageProjection},
 	"siteSettings": ${siteSettingsQuery({ locale, site: 'quarantaine-check' })},
 }`;
 
@@ -33,12 +35,14 @@ export const getResultPageQuery = ({
 	pageProjection,
 	locale,
 	result,
+	topic,
 }: {
 	pageProjection: string;
 	locale: Locales;
 	result: string;
+	topic: string;
 }): string => `{
-	"page": *[_type == "topic-result-document" && slug.current=="${result}"][0]${pageProjection},
+	"page": *[_type == "topic-result-document" && topic->slug.current == "${topic}" && slug.current=="${result}"][0]${pageProjection},
 	"siteSettings": ${siteSettingsQuery({ locale, site: 'quarantaine-check' })},
 }`;
 

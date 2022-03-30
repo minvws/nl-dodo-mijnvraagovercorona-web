@@ -81,6 +81,7 @@ export default {
 			type: 'slug',
 			options: {
 				source: 'header.title.nl',
+				isUnique: () => true,
 			},
 		},
 	],
