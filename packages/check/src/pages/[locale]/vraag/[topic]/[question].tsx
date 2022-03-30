@@ -11,9 +11,7 @@ import {
 	sanityClient,
 	getLocaleProperty,
 	useSanityPageContent,
-	cartesianProduct,
 	ContentBlock,
-	Content,
 	RadioButton,
 	getHrefWithlocale,
 	Header,
@@ -24,11 +22,7 @@ import {
 	Retain,
 } from '@quarantaine/common';
 
-import {
-	getQuestionPageQuery,
-	getQuestions,
-	getTopics,
-} from 'utilities/topics';
+import { getQuestionPageQuery, getQuestions } from 'utilities/topics';
 import { locales } from 'content/general-content';
 import { Page } from 'components/page';
 import { MastheadFlow } from 'components/molecules';
@@ -41,6 +35,7 @@ interface PageContent {
 	};
 	header: {
 		title: string;
+		image: string;
 	};
 	answers: {
 		content: Object[];
@@ -79,6 +74,7 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 			<Page noHeader>
 				<MastheadFlow
 					title={page.header.title}
+					illustration={page.header.image}
 					headerSlot={<Header noPadding />}
 					prefixSlot={
 						<p>
@@ -166,6 +162,7 @@ export const getStaticProps = async ({
 		},
 		"header": {
 			${getLocaleProperty({ name: 'title', path: `header.title`, locale })},
+			"image": "/images/sanity/" + topic->icon.asset->originalFilename,
 		},
 		"answers": answers[]{
 			_key,
