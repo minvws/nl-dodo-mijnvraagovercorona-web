@@ -45,6 +45,7 @@ import travelCardObject from './objects/travelCard';
 import situationContentBlocksObject from './objects/situationContentBlocks';
 import caseObject from './objects/case';
 import folderObject from './objects/folder';
+import aidObject from './objects/aid';
 
 export default createSchema({
 	name: 'default',
@@ -117,5 +118,6 @@ export default createSchema({
 		situationContentBlocksObject,
 		caseObject,
 		folderObject,
+		aidObject,
 	]),
 });
