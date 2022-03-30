@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui';
+import { Box, Container, jsx } from 'theme-ui';
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 
@@ -7,7 +7,6 @@ import {
 	Locales,
 	Link,
 	MetaTags,
-	Hero,
 	Fieldset,
 	sanityClient,
 	getLocaleProperty,
@@ -17,6 +16,12 @@ import {
 	Content,
 	RadioButton,
 	getHrefWithlocale,
+	Header,
+	Layer,
+	TheSidebar,
+	BannerDataProtection,
+	useSanitySiteSettings,
+	Retain,
 } from '@quarantaine/common';
 
 import {
@@ -26,6 +31,8 @@ import {
 } from 'utilities/topics';
 import { locales } from 'content/general-content';
 import { Page } from 'components/page';
+import { MastheadFlow } from 'components/molecules';
+import { mastheadFlowImageMargin } from 'components/molecules/masthead/masthead-flow';
 
 interface PageContent {
 	metaData: {
@@ -48,6 +55,7 @@ interface PageContent {
 export const Vraag = ({ locale }: { locale: Locales }) => {
 	const router = useRouter();
 	const page = useSanityPageContent<PageContent>();
+	const siteSettings = useSanitySiteSettings();
 	const [selectedOption, setSelectedOption] = useState<string>();
 
 	const onRadioChange = (value: string) => {
@@ -68,33 +76,55 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 				url={`/vraag/${page.topic}/${page.slug}`}
 			/>
 
-			<Page>
-				<Hero title={page.header.title} />
-				<Content>
-					<form action="" onSubmit={onSubmit}>
-						<Fieldset>
-							{page.answers.map((answer) => (
-								<RadioButton
-									name={page.slug}
-									key={answer._key}
-									id={answer._key}
-									label={<ContentBlock content={answer.content} />}
-									value={answer.next}
-									onChange={onRadioChange}
-								/>
-							))}
-						</Fieldset>
-
-						<Link
-							as="button"
-							type="submit"
-							disabled={selectedOption ? false : true}
-							styledAs={selectedOption ? 'button' : 'button-disabled'}
+			<Page noHeader>
+				<MastheadFlow
+					title={page.header.title}
+					headerSlot={<Header noPadding />}
+					prefixSlot={
+						<p>
+							<mark>Vraag 1/2</mark>
+						</p>
+					}
+				/>
+				<Layer
+					backgroundColor="white"
+					paddingBlockStart={[mastheadFlowImageMargin, '2.5rem']}
+				>
+					<Container>
+						<TheSidebar
+							asideChildren={
+								<BannerDataProtection content={siteSettings.privacy} />
+							}
+							asideOffset={['0']}
 						>
-							{page.button}
-						</Link>
-					</form>
-				</Content>
+							<Retain>
+								<form action="" onSubmit={onSubmit}>
+									<Fieldset>
+										{page.answers.map((answer) => (
+											<RadioButton
+												name={page.slug}
+												key={answer._key}
+												id={answer._key}
+												label={<ContentBlock content={answer.content} />}
+												value={answer.next}
+												onChange={onRadioChange}
+											/>
+										))}
+									</Fieldset>
+
+									<Link
+										as="button"
+										type="submit"
+										disabled={selectedOption ? false : true}
+										styledAs={selectedOption ? 'button' : 'button-disabled'}
+									>
+										{page.button}
+									</Link>
+								</form>
+							</Retain>
+						</TheSidebar>
+					</Container>
+				</Layer>
 			</Page>
 		</>
 	);
