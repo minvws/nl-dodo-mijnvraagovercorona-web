@@ -21,7 +21,7 @@ export const Layer: React.FC<OwnProps> = ({
 			? paddingBlockStart.map(
 					(value) => `calc(${value} + ${pullUpBy || '0px'})`,
 			  )
-			: paddingBlockStart;
+			: `calc(${paddingBlockStart} + ${pullUpBy || '0px'})`;
 
 	return (
 		<Box
