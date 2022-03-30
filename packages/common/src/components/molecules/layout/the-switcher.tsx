@@ -5,11 +5,13 @@ import { Flex, jsx } from 'theme-ui';
 interface OwnProps {
 	gap?: string | string[];
 	alignItems?: string | string[];
+	minBlockSize?: string | string[];
 }
 
 export const TheSwitcher: React.FC<OwnProps> = ({
 	gap = '2.25rem',
 	alignItems = 'stretch',
+	minBlockSize = '0',
 	children,
 }) => {
 	return (
@@ -18,6 +20,7 @@ export const TheSwitcher: React.FC<OwnProps> = ({
 				flexWrap: 'wrap',
 				gap: gap,
 				alignItems: alignItems,
+				minBlockSize: minBlockSize,
 				'& > *': {
 					flex: ['0 0 100%', 1],
 				},

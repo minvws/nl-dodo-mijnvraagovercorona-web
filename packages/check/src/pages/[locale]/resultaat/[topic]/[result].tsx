@@ -1,29 +1,31 @@
 /** @jsx jsx */
-import { Image, Styled, Box, jsx } from 'theme-ui';
+import { Image, Styled, Box, jsx, Container } from 'theme-ui';
 import React, { useState } from 'react';
 
 import {
 	Locales,
 	Link,
 	MetaTags,
-	Hero,
-	Fieldset,
 	sanityClient,
 	getLocaleProperty,
 	useSanityPageContent,
-	cartesianProduct,
 	ContentBlock,
 	Content,
-	RadioButton,
-	getHrefWithlocale,
 	Feedback,
 	getFeedbackUrl,
 	useSanitySiteSettings,
+	Header,
+	Layer,
+	Retain,
+	TheSwitcher,
+	TheSwitcherItem,
+	Stack,
 } from '@quarantaine/common';
 
-import { getResultPageQuery, getResults, getTopics } from 'utilities/topics';
+import { getResultPageQuery, getResults } from 'utilities/topics';
 import { locales } from 'content/general-content';
 import { Page } from 'components/page';
+import { MastheadFlow } from 'components/molecules';
 
 interface PageContent {
 	metaData: {
@@ -56,26 +58,55 @@ export const Resultaat = ({ locale }: { locale: Locales }) => {
 				url={`/resultaat/${page.topic}/${page.slug}`}
 			/>
 
-			<Page>
-				<Hero title={page.header.title} />
-				<Content>
-					<Box sx={{ mt: '32px', display: 'flex', justifyContent: 'center' }}>
-						<Image src={page.content.image} alt="" />
-					</Box>
-					<Box sx={{ mt: '32px' }}>
-						<Styled.h2>{page.content.title}</Styled.h2>
-						<ContentBlock content={page.content.content} />
-						<Link styledAs="button" href={page.content.href} external>
-							{page.content.button}
-						</Link>
-						<Feedback
-							name="Ondewerp Resultaat"
-							feedbackUrl={getFeedbackUrl(siteSettings.feedback.url, {
-								source: 'topic-result',
-							})}
-						/>
-					</Box>
-				</Content>
+			<Page noHeader>
+				<MastheadFlow
+					title={page.header.title}
+					illustration={null}
+					headerSlot={<Header noPadding />}
+				/>
+				<Layer backgroundColor="white">
+					<Container>
+						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
+						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
+							<TheSwitcher gap={['2rem', '8rem']}>
+								<TheSwitcherItem>
+									<Image
+										src={page.content.image}
+										alt=""
+										sx={{
+											display: 'block',
+											inlineSize: ['32rem'],
+											maxInlineSize: ['14rem', '100%'],
+											marginInlineStart: 'auto',
+											marginInlineEnd: 'auto',
+										}}
+									/>
+								</TheSwitcherItem>
+								<Box
+									sx={{
+										order: [, -1],
+									}}
+								>
+									<Retain>
+										<Stack spacing={['1rem', '2rem']}>
+											<Styled.h2>{page.content.title}</Styled.h2>
+											<ContentBlock content={page.content.content} />
+											<Link styledAs="button" href={page.content.href} external>
+												{page.content.button}
+											</Link>
+											<Feedback
+												name="Ondewerp Resultaat"
+												feedbackUrl={getFeedbackUrl(siteSettings.feedback.url, {
+													source: 'topic-result',
+												})}
+											/>
+										</Stack>
+									</Retain>
+								</Box>
+							</TheSwitcher>
+						</Box>
+					</Container>
+				</Layer>
 			</Page>
 		</>
 	);
