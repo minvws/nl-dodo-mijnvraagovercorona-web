@@ -48,8 +48,6 @@ export const Resultaat = ({ locale }: { locale: Locales }) => {
 	const page = useSanityPageContent<PageContent>();
 	const siteSettings = useSanitySiteSettings();
 
-	console.log(page);
-
 	return (
 		<>
 			<MetaTags
