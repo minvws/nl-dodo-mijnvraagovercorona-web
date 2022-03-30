@@ -27,6 +27,7 @@ import { locales } from 'content/general-content';
 import { Page } from 'components/page';
 import { MastheadFlow } from 'components/molecules';
 import { mastheadFlowImageMargin } from 'components/molecules/masthead/masthead-flow';
+import { LinkBack } from 'components/link-back';
 
 interface PageContent {
 	metaData: {
@@ -75,7 +76,12 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 				<MastheadFlow
 					title={page.header.title}
 					illustration={page.header.image}
-					headerSlot={<Header noPadding />}
+					headerSlot={
+						<Header
+							noPadding
+							linkBackSlot={<LinkBack href="/" variant="back" />}
+						/>
+					}
 					prefixSlot={
 						<p>
 							<mark>Vraag 1/2</mark>

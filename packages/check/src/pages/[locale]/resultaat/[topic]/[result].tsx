@@ -26,6 +26,7 @@ import { getResultPageQuery, getResults } from 'utilities/topics';
 import { locales } from 'content/general-content';
 import { Page } from 'components/page';
 import { MastheadFlow } from 'components/molecules';
+import { LinkBack } from 'components/link-back';
 
 interface PageContent {
 	metaData: {
@@ -62,8 +63,14 @@ export const Resultaat = ({ locale }: { locale: Locales }) => {
 				<MastheadFlow
 					title={page.header.title}
 					illustration={null}
-					headerSlot={<Header noPadding />}
+					headerSlot={
+						<Header
+							noPadding
+							linkBackSlot={<LinkBack href="/" variant="restart" />}
+						/>
+					}
 				/>
+
 				<Layer backgroundColor="white">
 					<Container>
 						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
