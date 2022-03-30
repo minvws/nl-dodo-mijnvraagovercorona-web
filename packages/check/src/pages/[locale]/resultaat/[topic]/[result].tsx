@@ -19,6 +19,7 @@ import {
 	Retain,
 	TheSwitcher,
 	TheSwitcherItem,
+	Stack,
 } from '@quarantaine/common';
 
 import { getResultPageQuery, getResults } from 'utilities/topics';
@@ -87,17 +88,19 @@ export const Resultaat = ({ locale }: { locale: Locales }) => {
 									}}
 								>
 									<Retain>
-										<Styled.h2>{page.content.title}</Styled.h2>
-										<ContentBlock content={page.content.content} />
-										<Link styledAs="button" href={page.content.href} external>
-											{page.content.button}
-										</Link>
-										<Feedback
-											name="Ondewerp Resultaat"
-											feedbackUrl={getFeedbackUrl(siteSettings.feedback.url, {
-												source: 'topic-result',
-											})}
-										/>
+										<Stack spacing={['1rem', '2rem']}>
+											<Styled.h2>{page.content.title}</Styled.h2>
+											<ContentBlock content={page.content.content} />
+											<Link styledAs="button" href={page.content.href} external>
+												{page.content.button}
+											</Link>
+											<Feedback
+												name="Ondewerp Resultaat"
+												feedbackUrl={getFeedbackUrl(siteSettings.feedback.url, {
+													source: 'topic-result',
+												})}
+											/>
+										</Stack>
 									</Retain>
 								</Box>
 							</TheSwitcher>
