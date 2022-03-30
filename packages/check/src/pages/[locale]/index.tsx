@@ -373,8 +373,6 @@ export const getStaticProps = async ({
 				}
 			}
 		},
-
-
 		"folders": folders[]{
 			${getLocaleProperty({ name: 'title', locale })},
 			${getLocaleProperty({ name: 'content', locale })},
