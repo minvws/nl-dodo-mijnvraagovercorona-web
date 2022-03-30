@@ -50,6 +50,8 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 	const page = useSanityPageContent<PageContent>();
 	const [selectedOption, setSelectedOption] = useState<string>();
 
+	console.log(page);
+
 	const onRadioChange = (value: string) => {
 		setSelectedOption(value);
 	};
@@ -144,6 +146,7 @@ export const getStaticProps = async ({
 		${getLocaleProperty({ name: 'button', locale })},
 		"slug": slug.current,
 		"topic": topic->slug.current,
+		"image": "/images/sanity/" + topic->icon.asset->originalFilename,
 		steps,
 	}`;
 	const { page, siteSettings } = await sanityClient.fetch(
