@@ -230,9 +230,10 @@ export const getStaticProps = async ({
 			_key,
 			${getLocaleProperty({ name: 'content', locale })},
 			"next": select(
-					next->_type == "topic-result-document" => "resultaat",
-					next->_type == "topic-question-document" => "vraag",
-				) + '/' + next->topic->slug.current + '/' + next->slug.current,
+					next->_type == "topic-result-document" => 'resultaat/' + next->topic->slug.current + '/' + next->slug.current,
+					next->_type == "topic-question-document" => 'vraag/' + next->topic->slug.current + '/' + next->slug.current,
+					next->_type == "situation-document" => next->url,
+				),
 		},
 		${getLocaleProperty({ name: 'button', locale })},
 		"slug": slug.current,

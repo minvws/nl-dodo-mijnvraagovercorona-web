@@ -41,6 +41,7 @@ export default {
 							to: [
 								{ type: 'topic-question-document' },
 								{ type: 'topic-result-document' },
+								{ type: 'situation-document' },
 							],
 						},
 					],
