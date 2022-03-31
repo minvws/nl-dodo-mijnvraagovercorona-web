@@ -66,7 +66,7 @@ export const Resultaat = ({ locale }: { locale: Locales }) => {
 					headerSlot={
 						<Header
 							noPadding
-							linkBackSlot={<LinkBack href="/" variant="restart" />}
+							linkBackSlot={<LinkBack href="" variant="restart" />}
 						/>
 					}
 				/>

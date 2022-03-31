@@ -79,7 +79,7 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 					headerSlot={
 						<Header
 							noPadding
-							linkBackSlot={<LinkBack href="/" variant="back" />}
+							linkBackSlot={<LinkBack href="" variant="back" />}
 						/>
 					}
 					prefixSlot={
