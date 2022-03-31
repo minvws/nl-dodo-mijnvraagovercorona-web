@@ -19,15 +19,21 @@ const CheckApp = ({ Component, pageProps }: AppProps) => {
 	const localGlobalTranslations =
 		pageProps.locale === 'en' ? generalContentEn : generalContentNl;
 	const [startPoint, setStartPointState] = useState(defaultState.startPoint);
+	const [history, setHistoryState] = useState(defaultState.history);
 	const setStartPoint = (value: string) => {
 		setStartPointState(value);
+	};
+	const setHistory = (value: string[]) => {
+		setHistoryState(value);
 	};
 
 	return (
 		<GlobalContext.Provider
 			value={{
 				startPoint,
+				history,
 				setStartPoint,
+				setHistory,
 			}}
 		>
 			<App

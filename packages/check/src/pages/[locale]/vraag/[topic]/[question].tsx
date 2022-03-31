@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { Box, Container, jsx } from 'theme-ui';
-import React, { useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useRouter } from 'next/router';
 
 import {
@@ -20,6 +20,7 @@ import {
 	BannerDataProtection,
 	useSanitySiteSettings,
 	Retain,
+	ProgressMarker,
 } from '@quarantaine/common';
 
 import { getQuestionPageQuery, getQuestions } from 'utilities/topics';
@@ -28,6 +29,7 @@ import { Page } from 'components/page';
 import { MastheadFlow } from 'components/molecules';
 import { mastheadFlowImageMargin } from 'components/molecules/masthead/masthead-flow';
 import { LinkBack } from 'components/link-back';
+import GlobalContext from 'utilities/global-context';
 
 interface PageContent {
 	metaData: {
@@ -43,16 +45,42 @@ interface PageContent {
 		next: string;
 		_key: string;
 	}[];
+	steps: {
+		current: number;
+		total: number;
+	};
 	button: string;
 	topic: string;
 	slug: string;
 }
 
+const createHistory = ({
+	history,
+	total,
+	current,
+	url,
+}: {
+	history: string[];
+	total: number;
+	current: number;
+	url: string;
+}): string[] => {
+	const nextHistory = Array(total).fill('');
+
+	nextHistory[current - 1] = url;
+
+	return nextHistory;
+};
+
 export const Vraag = ({ locale }: { locale: Locales }) => {
 	const router = useRouter();
 	const page = useSanityPageContent<PageContent>();
 	const siteSettings = useSanitySiteSettings();
+
+	const { history, setHistory } = useContext(GlobalContext);
 	const [selectedOption, setSelectedOption] = useState<string>();
+
+	const url = `/vraag/${page.topic}/${page.slug}`;
 
 	const onRadioChange = (value: string) => {
 		setSelectedOption(value);
@@ -64,12 +92,31 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 			router.push(`/${getHrefWithlocale(`/${selectedOption}`, locale)}`);
 	};
 
+	const updateHistory = () => {
+		setHistory && setHistory(createHistory({ ...page.steps, history, url }));
+	};
+
+	useEffect(() => {
+		const handleRouteChange = () => {
+			updateHistory();
+			setSelectedOption(undefined);
+		};
+
+		if (!history[0]) updateHistory();
+
+		router.events.on('routeChangeStart', handleRouteChange);
+
+		return () => {
+			router.events.off('routeChangeStart', handleRouteChange);
+		};
+	}, []);
+
 	return (
 		<>
 			<MetaTags
 				title={page.metaData.title}
 				description={page.metaData.title}
-				url={`/vraag/${page.topic}/${page.slug}`}
+				url={url}
 			/>
 
 			<Page noHeader>
@@ -79,13 +126,22 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 					headerSlot={
 						<Header
 							noPadding
-							linkBackSlot={<LinkBack href="/" variant="back" />}
+							linkBackSlot={
+								<LinkBack
+									href={history[page.steps.current - 2] || '/'}
+									variant="back"
+								/>
+							}
 						/>
 					}
 					prefixSlot={
-						<p>
-							<mark>Vraag 1/2</mark>
-						</p>
+						history.length > 1 && (
+							<ProgressMarker
+								currentStage={page.steps.current}
+								stageLinks={history}
+								currentStageLabel={page.header.title}
+							/>
+						)
 					}
 				/>
 				<Layer
