@@ -182,7 +182,7 @@ export default function LandingPage() {
 						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
 						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
 							<Retain maxWidth={[retainMaxWidth, '100%']}>
-								<Stack spacing={['2.25rem', '4rem']}>
+								<Stack spacing={['2.25rem', '4rem']} id="situaties">
 									<Box
 										sx={{
 											position: 'relative',
@@ -266,7 +266,7 @@ export default function LandingPage() {
 												<Folder {...folder} key={folder.title} />
 											))}
 									</TheSwitcher> */}
-									<Box>
+									<Box id="onderwerpen">
 										<Styled.h2>{page.topics.title}</Styled.h2>
 										<Box
 											sx={{
