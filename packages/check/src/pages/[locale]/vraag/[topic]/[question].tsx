@@ -65,7 +65,7 @@ const createHistory = ({
 	current: number;
 	url: string;
 }): string[] => {
-	const nextHistory = Array(total).fill('/#onderwerpen');
+	const nextHistory = Array(total).fill('#onderwerpen');
 
 	nextHistory[current - 1] = url;
 
@@ -128,7 +128,7 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 							noPadding
 							linkBackSlot={
 								<LinkBack
-									href={history[page.steps.current - 2] || '/#onderwerpen'}
+									href={history[page.steps.current - 2] || '#onderwerpen'}
 									variant="back"
 								/>
 							}
