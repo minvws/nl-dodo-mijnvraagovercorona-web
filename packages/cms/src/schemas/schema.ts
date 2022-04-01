@@ -8,6 +8,9 @@ import countryDocument from './documents/country';
 import riskCategoryDocument from './documents/riskCategory';
 import travelFaseDocument from './documents/travelFase';
 import situationDocument from './documents/situation';
+import topicQuestionDocument from './documents/topic-question';
+import topicResultDocument from './documents/topic-result';
+import topicDocument from './documents/topic';
 
 import privacyPage from './pages/common/privacy';
 import cookiesPage from './pages/common/cookies';
@@ -94,6 +97,9 @@ export default createSchema({
 		riskCategoryDocument,
 		travelFaseDocument,
 		situationDocument,
+		topicQuestionDocument,
+		topicResultDocument,
+		topicDocument,
 
 		/**
 		 * Objects

@@ -18,11 +18,10 @@ export const ProgressMarker = ({
 	return (
 		<ol
 			sx={{
-				position: 'absolute',
-				top: '-50px',
 				paddingTop: 0,
 				marginTop: 0,
 				paddingLeft: 0,
+				paddingBottom: '16px',
 				fontSize: '16px',
 				fontWeight: 'bold',
 			}}
@@ -74,6 +73,10 @@ export const ProgressMarker = ({
 							a: {
 								color: isCurrentStage ? 'white' : 'header',
 								textDecoration: 'none',
+							},
+
+							'&:last-child': {
+								marginRight: 0,
 							},
 						}}
 						key={stageNumber}

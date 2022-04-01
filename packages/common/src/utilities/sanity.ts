@@ -109,7 +109,7 @@ export const faqDocumentsQuery = ({
 		${getLocaleProperty({ name: 'antwoord', locale })},
 	} | order(order asc)`;
 
-const siteSettingsQuery = ({
+export const siteSettingsQuery = ({
 	locale,
 	site,
 }: {
