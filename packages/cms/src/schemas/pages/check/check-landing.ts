@@ -2,7 +2,16 @@ export default {
 	title: 'Check Landing Pagina',
 	name: 'check-landing-page',
 	type: 'document',
-	fieldsets: [{ name: 'situations', title: 'Situaties' }],
+	fieldsets: [
+		{
+			name: 'situations',
+			title: 'Situaties',
+			options: {
+				collapsible: true,
+				collapsed: true,
+			},
+		},
+	],
 	fields: [
 		{
 			title: 'Meta data',
@@ -44,6 +53,10 @@ export default {
 			title: 'Huidige situatie',
 			name: 'currentSituation',
 			type: 'object',
+			options: {
+				collapsible: true,
+				collapsed: true,
+			},
 			fields: [
 				{
 					title: 'Titel',
@@ -102,6 +115,7 @@ export default {
 			title: 'Uitleg',
 			name: 'uitleg',
 			type: 'array',
+			hidden: true,
 			of: [
 				{
 					title: 'Onderdeel',
@@ -160,6 +174,10 @@ export default {
 			title: 'Onderwerpen',
 			name: 'topics',
 			type: 'object',
+			options: {
+				collapsible: true,
+				collapsed: true,
+			},
 			fields: [
 				{ title: 'Titel', name: 'title', type: 'localeString' },
 				{
@@ -181,6 +199,10 @@ export default {
 			title: 'Hulp',
 			name: 'help',
 			type: 'object',
+			options: {
+				collapsible: true,
+				collapsed: true,
+			},
 			fields: [
 				{ title: 'Titel', name: 'title', type: 'localeString' },
 				{ title: 'Stel je vraag', name: 'question', type: 'localeString' },
@@ -191,6 +213,10 @@ export default {
 			title: 'Feedback',
 			name: 'feedback',
 			type: 'object',
+			options: {
+				collapsible: true,
+				collapsed: true,
+			},
 			fields: [
 				{ title: 'Titel', name: 'title', type: 'localeString' },
 				{ title: 'Button', name: 'button', type: 'localeString' },
