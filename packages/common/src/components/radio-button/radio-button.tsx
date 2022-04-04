@@ -87,6 +87,11 @@ export const RadioButton = <ValueOptions extends string>({
 					'input:checked + &::before': {
 						backgroundColor: 'currentColor',
 					},
+
+					// Correct possible children
+					'> *': {
+						marginBlockEnd: 0,
+					},
 				}}
 			>
 				{label}
