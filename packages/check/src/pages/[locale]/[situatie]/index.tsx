@@ -41,6 +41,7 @@ import { locales } from 'content/general-content';
 import { LinkBack } from 'components/link-back';
 import GlobalContext from 'utilities/global-context';
 import { useContext } from 'react';
+import { WarningPanel } from 'components/warning-panel';
 
 const getDateSinceEvent = ({
 	day,
@@ -121,6 +122,7 @@ interface PageContent {
 	header: {
 		title: string;
 	};
+	policy: Object[];
 	pretitle: string;
 	quarantinePlan: QuarantainePlan;
 	quarantinePlanTitle: string;
@@ -187,6 +189,8 @@ export default function Situatie({ locale, date, situatie }: SituatieProps) {
 				</Hero>
 				<Content>
 					<section sx={{ paddingRight: [, '165px'] }}>
+						{page.policy && <WarningPanel content={page.policy} />}
+
 						<Styled.h2>{page.quarantinePlanTitle}</Styled.h2>
 
 						{quarantainePlan.map((day) => (
@@ -346,6 +350,7 @@ export const getStaticProps = async ({
 			${getLocaleProperty({ name: 'subtitle', path: 'header.subtitle', locale })},
 			${getLocaleProperty({ name: 'title', path: 'header.title', locale })},
 		},
+		${getLocaleProperty({ name: 'policy', locale })},
 		${getLocaleProperty({ name: 'pretitle', locale })},
 		"quarantinePlan": quarantinePlan[]{
 			day,
