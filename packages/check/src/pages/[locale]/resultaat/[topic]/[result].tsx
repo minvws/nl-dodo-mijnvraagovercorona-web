@@ -102,9 +102,11 @@ export const Resultaat = ({ locale }: { locale: Locales }) => {
 												{page.content.button}
 											</Link>
 											<Feedback
-												name="Ondewerp Resultaat"
+												name="Onderwerp Resultaat"
 												feedbackUrl={getFeedbackUrl(siteSettings.feedback.url, {
 													source: 'topic-result',
+													topic: page.topic,
+													result: page.slug,
 												})}
 											/>
 										</Stack>

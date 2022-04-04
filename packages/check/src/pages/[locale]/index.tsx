@@ -266,34 +266,45 @@ export default function LandingPage() {
 												<Folder {...folder} key={folder.title} />
 											))}
 									</TheSwitcher> */}
-									<Box id="onderwerpen">
-										<Styled.h2>{page.topics.title}</Styled.h2>
-										<Box
-											sx={{
-												display: 'flex',
-												flexDirection: ['column', 'row'],
-												gap: ['1rem', '3rem'],
-												'& > *': {
-													flex: 1,
-												},
-											}}
-										>
-											{page.topics.topics.map(({ start, slug, icon, name }) => (
-												<StyledLink
-													styledAs="button-large"
-													href={getHrefWithlocale(
-														`/vraag/${slug}/${start}`,
-														locale.urlPrefix,
-													)}
-													icon={icon}
-													key={name}
-												>
-													{name}
-												</StyledLink>
-											))}
-										</Box>
-									</Box>
 								</Stack>
+								<Box
+									marginBottom={['2.25rem', '4rem']}
+									marginTop={['4.75rem', '6.5rem']}
+									id="onderwerpen"
+								>
+									<Styled.h2
+										sx={{
+											fontSize: ['h1Mobile', 'h1'],
+											lineHeight: ['h1Mobile', 'h1'],
+										}}
+									>
+										{page.topics.title}
+									</Styled.h2>
+									<Box
+										sx={{
+											display: 'flex',
+											flexDirection: ['column', 'row'],
+											gap: ['1rem', '3rem'],
+											'& > *': {
+												flex: 1,
+											},
+										}}
+									>
+										{page.topics.topics.map(({ start, slug, icon, name }) => (
+											<StyledLink
+												styledAs="button-large"
+												href={getHrefWithlocale(
+													`/vraag/${slug}/${start}`,
+													locale.urlPrefix,
+												)}
+												icon={icon}
+												key={name}
+											>
+												{name}
+											</StyledLink>
+										))}
+									</Box>
+								</Box>
 							</Retain>
 						</Box>
 					</Container>
