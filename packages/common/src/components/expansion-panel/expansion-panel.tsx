@@ -97,15 +97,17 @@ export const ExpansionPanel = ({
 				},
 			}}
 		>
-			<a
-				id={hrefID}
-				sx={{
-					display: 'block',
-					position: 'relative',
-					top: '-40px',
-					visibility: 'hidden',
-				}}
-			/>
+			{deepLinkAble ? (
+				<a
+					id={hrefID}
+					sx={{
+						display: 'block',
+						position: 'relative',
+						top: '-40px',
+						visibility: 'hidden',
+					}}
+				/>
+			) : null}
 			<Disclosure onChange={handleChange} open={open}>
 				<dl
 					sx={{
