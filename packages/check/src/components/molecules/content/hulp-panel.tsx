@@ -49,9 +49,9 @@ export const HulpPanel = () => {
 						margin: 0,
 						padding: 0,
 					}}
-					href="tel:08007707707"
+					href="tel:08001351"
 				>
-					0800-7707707
+					0800-1351
 				</Styled.a>
 			</Box>
 			<Styled.p>{page.help.openingHours}</Styled.p>
