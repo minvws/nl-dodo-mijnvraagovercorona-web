@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Box, Container, jsx } from 'theme-ui';
+import { Container, jsx } from 'theme-ui';
 import React, { useEffect, useState, useContext } from 'react';
 import { useRouter } from 'next/router';
 
@@ -12,7 +12,6 @@ import {
 	getLocaleProperty,
 	useSanityPageContent,
 	ContentBlock,
-	RadioButton,
 	getHrefWithlocale,
 	Header,
 	Layer,
@@ -21,6 +20,7 @@ import {
 	useSanitySiteSettings,
 	Retain,
 	ProgressMarker,
+	Control,
 } from '@quarantaine/common';
 
 import { getQuestionPageQuery, getQuestions } from 'utilities/topics';
@@ -159,7 +159,8 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 								<form action="" onSubmit={onSubmit}>
 									<Fieldset>
 										{page.answers.map((answer) => (
-											<RadioButton
+											<Control
+												type="radio"
 												name={page.slug}
 												key={answer._key}
 												id={answer._key}
