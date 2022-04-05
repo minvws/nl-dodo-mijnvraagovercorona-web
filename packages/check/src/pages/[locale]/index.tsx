@@ -268,8 +268,10 @@ export default function LandingPage() {
 									</TheSwitcher> */}
 								</Stack>
 								<Box
-									marginBottom={['2.25rem', '4rem']}
-									marginTop={['4.75rem', '6.5rem']}
+									sx={{
+										marginBlockStart: ['4.75rem', '6.5rem'],
+										marginBlockEnd: ['2.25rem', '4rem'],
+									}}
 									id="onderwerpen"
 								>
 									<Styled.h2
