@@ -39,7 +39,7 @@ export const HulpPanel = () => {
 			<Box
 				sx={{ display: 'flex', alignItems: 'center', marginBottom: '1.25rem' }}
 			>
-				<img src="/icons/phone.svg" />
+				<img src="/icons/phone.svg" alt="" />
 				<Styled.a
 					sx={{
 						color: 'secondary',

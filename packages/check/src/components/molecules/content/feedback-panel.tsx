@@ -26,7 +26,7 @@ export const FeedbackPanel = () => {
 				textAlign: 'center',
 			}}
 		>
-			<img width="150px" src="/images/questions.svg" />
+			<img width="150px" src="/images/questions.svg" alt="" />
 			<Styled.p
 				sx={{
 					fontSize: ['h2Mobile', 'h2'],
