@@ -36,7 +36,6 @@ export const getLocaleProperty = ({
 			markDefs[]{
 				...,
 				_type == "dialog" => {
-					...,
 					"content": @.modal_ref->content.${locale},
 					"title": @.modal_ref->title.${locale},
 				}

@@ -356,7 +356,7 @@ export const getStaticProps = async ({
 			day,
 			showOn,
 			${getLocaleProperty({ name: 'title', locale })},
-			${getLocaleProperty({ name: 'bullets', locale, array: true })},
+			${getLocaleProperty({ name: 'bullets', locale, array: true, block: true })},
 		},
 		${getLocaleProperty({ name: 'quarantinePlanTitle', locale })},
 		showPrintAndCalendar,
