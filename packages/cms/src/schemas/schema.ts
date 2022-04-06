@@ -9,6 +9,9 @@ import riskCategoryDocument from './documents/riskCategory';
 import travelFaseDocument from './documents/travelFase';
 import situationDocument from './documents/situation';
 import modalsDocument from './documents/modals';
+import topicQuestionDocument from './documents/topic-question';
+import topicResultDocument from './documents/topic-result';
+import topicDocument from './documents/topic';
 
 import privacyPage from './pages/common/privacy';
 import cookiesPage from './pages/common/cookies';
@@ -44,6 +47,9 @@ import situatiePageObject from './objects/situatiePage';
 import conditionsObject from './objects/conditions';
 import travelCardObject from './objects/travelCard';
 import situationContentBlocksObject from './objects/situationContentBlocks';
+import caseObject from './objects/case';
+import folderObject from './objects/folder';
+import aidObject from './objects/aid';
 
 export default createSchema({
 	name: 'default',
@@ -96,6 +102,9 @@ export default createSchema({
 		travelFaseDocument,
 		situationDocument,
 		modalsDocument,
+		topicQuestionDocument,
+		topicResultDocument,
+		topicDocument,
 
 		/**
 		 * Objects
@@ -113,5 +122,8 @@ export default createSchema({
 		conditionsObject,
 		travelCardObject,
 		situationContentBlocksObject,
+		caseObject,
+		folderObject,
+		aidObject,
 	]),
 });

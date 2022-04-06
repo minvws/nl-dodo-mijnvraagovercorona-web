@@ -124,7 +124,7 @@ export const faqDocumentsQuery = ({
 		${getLocaleProperty({ name: 'antwoord', locale, block: true })},
 	} | order(order asc)`;
 
-const siteSettingsQuery = ({
+export const siteSettingsQuery = ({
 	locale,
 	site,
 }: {

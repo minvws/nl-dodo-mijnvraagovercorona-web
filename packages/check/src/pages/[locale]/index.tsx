@@ -1,10 +1,9 @@
 /** @jsx jsx */
 import React, { useContext, useEffect } from 'react';
-import { jsx, Styled, Container } from 'theme-ui';
+import { jsx, Styled, Container, Box, Image } from 'theme-ui';
 import { Page } from 'components/page';
 
 import {
-	SectionInformational,
 	MetaTags,
 	sanityClient,
 	getPageQuery,
@@ -14,45 +13,66 @@ import {
 	Hero,
 	getFeedbackUrl,
 	Locales,
-	ContentBlock,
-	BannerDataProtection,
-	Stack,
-	Module,
-	TheSidebar,
 	Retain,
 	Layer,
+	TheSwitcher,
+	TheSwitcherItem,
+	Header,
+	Stack,
+	TheThirds,
 	StyledLink,
+	getHrefWithlocale,
+	useCurrentLocale,
+	ContentBlock,
 } from '@quarantaine/common';
 import {
 	getJouwSituatiePageNoMatchProjection,
 	JouwSituatiePageNoMatchContent,
 } from './jouw-situatie';
 import {
+	Folder,
+	FolderProps,
+	HulpPanel,
+	FeedbackPanel,
+	Masthead,
+	AdviceList,
+	AdviceProps,
+	CaseProps,
 	Case,
 	ContentSituationBlock,
-	ContentSituationBlockProps,
 } from 'components/molecules';
+import { retainMaxWidth } from '@quarantaine/common/src/components/molecules/layout/retain';
 import GlobalContext from 'utilities/global-context';
 
-interface PageContent extends JouwSituatiePageNoMatchContent {
+export interface PageContent extends JouwSituatiePageNoMatchContent {
 	metaData: {
 		title: string;
 		description: string;
 	};
 	header: {
-		button: string;
-		pretitle: string;
-		subtitle: string;
 		title: string;
+		chapeau: string;
+		subtitle: string;
+		image: string;
+	};
+	currentSituation: {
+		title: string;
+		measures: {
+			title: string;
+			content: Array<Object>;
+			advice: AdviceProps[];
+		};
+		advice: {
+			title: string;
+			content: Array<Object>;
+			advice: AdviceProps[];
+		};
 	};
 	titleCases: string;
-	cases: {
-		title: string;
-		titleSuffix?: string;
-		intro?: string;
-		readMoreLabel?: string;
-		contentBlocks: ContentSituationBlockProps[];
-	}[];
+	imageMobileCases: string;
+	imageDesktopCases: string;
+	cases: CaseProps[];
+	folders: FolderProps[];
 	uitleg: {
 		description: string;
 		image: string;
@@ -63,25 +83,35 @@ interface PageContent extends JouwSituatiePageNoMatchContent {
 			usp: string;
 		};
 	}[];
+	topics: {
+		title: string;
+		topics: {
+			icon: string;
+			name: string;
+			slug: string;
+			start: string;
+		}[];
+	};
+	help: {
+		title: string;
+		openingHours: string;
+		question: string;
+	};
+	feedback: {
+		title: string;
+		button: string;
+	};
 	url: string;
 }
 
 export default function LandingPage() {
 	const page = useSanityPageContent<PageContent>();
-	const siteSettings = useSanitySiteSettings();
-
+	const locale = useCurrentLocale();
 	const { startPoint, setStartPoint } = useContext(GlobalContext);
 
 	useEffect(() => {
 		setStartPoint && setStartPoint('');
 	}, []);
-
-	// Only show first uitleg
-	const uitleg = page.uitleg[0];
-	// Only show cases when a title is present (case is translated)
-	const cases = page.cases.filter((item) => item.title);
-
-	console.log(page);
 
 	return (
 		<>
@@ -92,102 +122,212 @@ export default function LandingPage() {
 				skipPageSuffix
 			/>
 
-			<Page>
-				<Hero title={page.header.title}>
-					<Styled.p
-						sx={{
-							fontWeight: 'light',
-							width: ['80%', '549px'],
-							fontSize: '26px',
-							lineHeight: ['30px', '36px'],
-							marginTop: 0,
-							marginBottom: ['18px'],
-							color: 'roHighlight',
-						}}
-					>
-						{page.header.subtitle}
-					</Styled.p>
-				</Hero>
+			<Page noHeader>
+				<Masthead
+					headerSlot={<Header transparent noPadding />}
+					title={page.header.title}
+					chapeau={page.header.chapeau}
+					illustration={page.header.image}
+				>
+					<Styled.p>{page.header.subtitle}</Styled.p>
+				</Masthead>
 
-				<Layer backgroundColor="headerBackground" noPaddingBlockStart>
+				<Layer backgroundColor="headerBackground" pullUpBy="2rem">
 					<Container>
-						<TheSidebar
-							hideAsideOnMobile
-							asideChildren={
-								<BannerDataProtection content={siteSettings.privacy} />
-							}
+						<Box
+							sx={{
+								paddingX: ['mobilePadding', 'tabletPadding', 0],
+							}}
 						>
-							<Retain>
-								<Stack spacing={['36px']}>
-									<Stack spacing={['16px']}>
-										<Styled.h2
-											sx={{
-												color: 'secondary',
-												fontSize: ['chapeau', 'chapeau'],
-												lineHeight: ['chapeau', 'chapeau'],
-											}}
-										>
-											{page.titleCases}
-										</Styled.h2>
-										{cases.map((item) => (
-											<Case
-												key={item.title}
-												title={item.title}
-												titleSuffix={item.titleSuffix}
-												intro={item.intro}
-												readMoreLabel={item.readMoreLabel}
-											>
-												<ContentSituationBlock
-													contentBlocks={item.contentBlocks}
+							<Retain maxWidth={[retainMaxWidth, '100%']}>
+								<Stack>
+									<Styled.h2>{page.currentSituation.title}</Styled.h2>
+									<TheThirds
+										split={page.currentSituation.measures.advice.length > 0}
+										asideChildren={
+											<Stack spacing={['1rem']}>
+												<Styled.h3>
+													{page.currentSituation.measures.title}
+												</Styled.h3>
+												{page.currentSituation.measures.content ? (
+													<ContentBlock
+														content={page.currentSituation.measures.content}
+													/>
+												) : null}
+												<AdviceList
+													advices={page.currentSituation.measures.advice}
 												/>
-											</Case>
-										))}
-									</Stack>
+											</Stack>
+										}
+									>
+										<Stack spacing={['1rem']}>
+											<Styled.h3>
+												{page.currentSituation.advice.title}
+											</Styled.h3>
+											{page.currentSituation.advice.content ? (
+												<ContentBlock
+													content={page.currentSituation.advice.content}
+												/>
+											) : null}
+											<AdviceList
+												advices={page.currentSituation.advice.advice}
+											/>
+										</Stack>
+									</TheThirds>
 								</Stack>
 							</Retain>
-						</TheSidebar>
+						</Box>
 					</Container>
 				</Layer>
 
 				<Layer>
 					<Container>
-						<TheSidebar
-							hideAsideOnTablet
-							asideChildren={
-								<BannerDataProtection content={siteSettings.privacy} />
-							}
-						>
-							<Retain>
-								<Stack spacing={['44px']}>
-									<Module>
-										<Styled.h2>{page.noMatch.title}</Styled.h2>
-										<Container mb={'28px'}>
-											<StyledLink
-												styledAs="button"
-												external
-												href={getFeedbackUrl(siteSettings.feedback.url, {
-													source: 'your-situation',
-												})}
-											>
-												{page.noMatch.button}
-											</StyledLink>
-										</Container>
-										<ContentBlock content={page.noMatch.content} />
-									</Module>
-
-									<SectionInformational
-										imageUrl={uitleg.image}
-										imageAlignment="right"
-										key={uitleg.title}
-										id={uitleg.linklist.id}
-										chapeau={uitleg.pretitle}
-										title={uitleg.title}
+						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
+						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
+							<Retain maxWidth={[retainMaxWidth, '100%']}>
+								<Stack spacing={['2.25rem', '4rem']} id="situaties">
+									<Box
+										sx={{
+											position: 'relative',
+											paddingBlockStart: ['0', '10rem'],
+											paddingBlockEnd: ['0', '2.5rem'],
+										}}
 									>
-										<Styled.p>{uitleg.description}</Styled.p>
-									</SectionInformational>
+										<Styled.h2
+											sx={{
+												position: 'relative',
+												marginBlockEnd: ['2rem', 0],
+												fontSize: ['h1Mobile', 'h1'],
+												lineHeight: ['h1Mobile', 'h1'],
+												zIndex: 2,
+											}}
+										>
+											{page.titleCases}
+										</Styled.h2>
+										<Image
+											src={page.imageMobileCases}
+											alt=""
+											sx={{
+												display: ['block', 'none'],
+												marginInlineStart: 'auto',
+												marginInlineEnd: 'auto',
+											}}
+										/>
+										<Image
+											src={page.imageDesktopCases}
+											alt=""
+											sx={{
+												position: 'absolute',
+												zIndex: 1,
+												display: ['none', 'block'],
+												inlineSize: '100%',
+												blockSize: '100%',
+												insetBlockStart: 0,
+												insetBlockEnd: 0,
+												insetInlineStart: 0,
+												insetInlineEnd: 0,
+												objectFit: 'contain',
+												objectPosition: '100% 100%',
+											}}
+										/>
+									</Box>
+									<Box
+										sx={{
+											display: 'grid',
+											gridTemplateColumns:
+												'repeat(auto-fit, minmax(min(28rem, 100%), 1fr))',
+											gap: ['1rem', '4rem'],
+											alignItems: 'start',
+											paddingInlineStart: 0,
+											listStyle: 'none',
+										}}
+									>
+										{page.cases
+											.filter((item) => item.title)
+											.map((item) => (
+												<Case
+													key={item.title}
+													title={item.title}
+													titleSuffix={item.titleSuffix}
+													intro={item.intro}
+													readMoreLabel={item.readMoreLabel}
+												>
+													{item.contentBlocks && (
+														<ContentSituationBlock
+															contentBlocks={item.contentBlocks}
+														/>
+													)}
+												</Case>
+											))}
+									</Box>
+
+									{/* <TheSwitcher gap={['2rem', '4rem']}>
+										{page.folders
+											// if not translated, don't show
+											.filter((folder) => folder.title)
+											.map((folder) => (
+												<Folder {...folder} key={folder.title} />
+											))}
+									</TheSwitcher> */}
 								</Stack>
+								<Box
+									sx={{
+										marginBlockStart: ['4.75rem', '6.5rem'],
+										marginBlockEnd: ['2.25rem', '4rem'],
+									}}
+									id="onderwerpen"
+								>
+									<Styled.h2
+										sx={{
+											fontSize: ['h1Mobile', 'h1'],
+											lineHeight: ['h1Mobile', 'h1'],
+										}}
+									>
+										{page.topics.title}
+									</Styled.h2>
+									<Box
+										sx={{
+											display: 'flex',
+											flexDirection: ['column', 'row'],
+											gap: ['1rem', '3rem'],
+											'& > *': {
+												flex: 1,
+											},
+										}}
+									>
+										{page.topics.topics.map(({ start, slug, icon, name }) => (
+											<StyledLink
+												styledAs="button-large"
+												href={getHrefWithlocale(
+													`/vraag/${slug}/${start}`,
+													locale.urlPrefix,
+												)}
+												icon={icon}
+												key={name}
+											>
+												{name}
+											</StyledLink>
+										))}
+									</Box>
+								</Box>
 							</Retain>
-						</TheSidebar>
+						</Box>
+					</Container>
+				</Layer>
+
+				<Layer backgroundColor="headerBackground">
+					<Container>
+						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
+						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
+							<TheSwitcher gap={['4rem', '4rem']}>
+								<TheSwitcherItem blockAlign="center">
+									<FeedbackPanel />
+								</TheSwitcherItem>
+								<TheSwitcherItem blockAlign="center">
+									<HulpPanel />
+								</TheSwitcherItem>
+							</TheSwitcher>
+						</Box>
 					</Container>
 				</Layer>
 			</Page>
@@ -212,12 +352,53 @@ export const getStaticProps = async ({
 			})},
 		},
 		"header": {
-			${getLocaleProperty({ name: 'button', path: 'header.button', locale })},
-			${getLocaleProperty({ name: 'pretitle', path: 'header.pretitle', locale })},
-			${getLocaleProperty({ name: 'subtitle', path: 'header.subtitle', locale })},
 			${getLocaleProperty({ name: 'title', path: 'header.title', locale })},
+			${getLocaleProperty({ name: 'chapeau', path: 'header.chapeau', locale })},
+			${getLocaleProperty({ name: 'subtitle', path: 'header.subtitle', locale })},
+			"image": "/images/sanity/" + header.image.asset->originalFilename,
 		},
+
+		"currentSituation": {
+			${getLocaleProperty({ name: 'title', path: 'currentSituation.title', locale })},
+			"measures": {
+				${getLocaleProperty({
+					name: 'title',
+					path: 'currentSituation.measures.title',
+					locale,
+				})},
+				${getLocaleProperty({
+					name: 'content',
+					path: 'currentSituation.measures.content',
+					locale,
+				})},
+				"advice": currentSituation.measures.advice[]{
+					${getLocaleProperty({ name: 'title', locale })},
+					${getLocaleProperty({ name: 'subtitle', locale })},
+					"icon": "/images/sanity/" + icon.asset->originalFilename,
+				}
+			},
+			"advice": {
+				${getLocaleProperty({
+					name: 'title',
+					path: 'currentSituation.advice.title',
+					locale,
+				})},
+				${getLocaleProperty({
+					name: 'content',
+					path: 'currentSituation.advice.content',
+					locale,
+				})},
+				"advice": currentSituation.advice.advice[]{
+					${getLocaleProperty({ name: 'title', locale })},
+					${getLocaleProperty({ name: 'subtitle', locale })},
+					"icon": "/images/sanity/" + icon.asset->originalFilename,
+				}
+			}
+		},
+
 		${getLocaleProperty({ name: 'titleCases', locale })},
+		"imageMobileCases": "/images/sanity/" + imageMobileCases.asset->originalFilename,
+		"imageDesktopCases": "/images/sanity/" + imageDesktopCases.asset->originalFilename,
 		"cases": cases[]{
 			${getLocaleProperty({ name: 'title', locale })},
 			${getLocaleProperty({
@@ -250,6 +431,42 @@ export const getStaticProps = async ({
 				}
 			}
 		},
+		"folders": folders[]{
+			${getLocaleProperty({ name: 'title', locale })},
+			${getLocaleProperty({ name: 'content', locale })},
+			"image": "/images/sanity/" + image.asset->originalFilename,
+			"cases": cases[]{
+				${getLocaleProperty({ name: 'title', locale })},
+				${getLocaleProperty({
+					name: 'titleSuffix',
+					locale,
+				})},
+				${getLocaleProperty({
+					name: 'intro',
+					locale,
+				})},
+				${getLocaleProperty({
+					name: 'readMoreLabel',
+					locale,
+				})},
+				"contentBlocks": contentBlocks[]{
+					${getLocaleProperty({
+						name: 'content',
+						path: '^',
+						locale,
+					})},
+					"situation": {
+						${getLocaleProperty({
+							name: 'situationLinkTitle',
+							locale,
+						})},
+						"url": situationReference->url,
+						"showDate": situationReference->showDate,
+						"showExceptions": situationReference->showExceptions,
+					}
+				}
+			}
+		},
 		"uitleg": uitleg[]{
 			"image": "/images/sanity/" + image.asset->originalFilename,
 			${getLocaleProperty({ name: 'description', locale })},
@@ -259,6 +476,28 @@ export const getStaticProps = async ({
 				${getLocaleProperty({ name: 'id', path: 'linklist.id', locale })},
 				${getLocaleProperty({ name: 'usp', path: 'linklist.usp', locale })},
 			},
+		},
+		"topics": {
+			${getLocaleProperty({ name: 'title', path: 'topics.title', locale })},
+			"topics": topics.topics[]->{
+				"icon": "/images/sanity/" + icon.asset->originalFilename,
+				${getLocaleProperty({ name: 'name', locale })},
+				"start": start->slug.current,
+				"slug": slug.current,
+			},
+		},
+		"help": {
+			${getLocaleProperty({ name: 'title', path: 'help.title', locale })},
+			${getLocaleProperty({ name: 'question', path: 'help.question', locale })},
+			${getLocaleProperty({
+				name: 'openingHours',
+				path: 'help.openingHours',
+				locale,
+			})},
+		},
+		"feedback": {
+			${getLocaleProperty({ name: 'title', path: 'feedback.title', locale })},
+			${getLocaleProperty({ name: 'button', path: 'feedback.button', locale })},
 		},
 		url,
 	}`;

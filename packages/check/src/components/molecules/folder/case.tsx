@@ -1,16 +1,18 @@
 /** @jsx jsx */
 import React from 'react';
 import { jsx, Styled } from 'theme-ui';
-import { ExpansionPanel, Stack, trackEvent } from '@quarantaine/common';
+import { ExpansionPanel, Stack, theme, trackEvent } from '@quarantaine/common';
+import { ContentSituationBlockProps } from '../content';
 
-interface OwnProps {
+export interface CaseProps {
 	title: string;
 	titleSuffix?: string;
 	intro?: string;
 	readMoreLabel?: string;
+	contentBlocks?: ContentSituationBlockProps[];
 }
 
-export const Case: React.FC<OwnProps> = ({
+export const Case: React.FC<CaseProps> = ({
 	title,
 	titleSuffix,
 	intro,
@@ -20,11 +22,14 @@ export const Case: React.FC<OwnProps> = ({
 	return (
 		<Styled.div
 			sx={{
+				padding: '1rem',
+				border: 'tile',
+				borderRadius: 'box',
+				boxShadow: 'tile',
 				backgroundColor: 'white',
-				padding: '16px',
 			}}
 		>
-			<Stack spacing={['16px']}>
+			<Stack spacing={['1rem']}>
 				<Styled.h3
 					sx={{
 						marginBlockStart: 0,

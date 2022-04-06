@@ -6,6 +6,7 @@ interface OwnProps {
 	asideChildren?: React.ReactNode;
 	hideAsideOnMobile?: boolean;
 	hideAsideOnTablet?: boolean;
+	asideOffset?: string | string[];
 }
 
 export const TheSidebar: React.FC<OwnProps> = ({
@@ -13,6 +14,7 @@ export const TheSidebar: React.FC<OwnProps> = ({
 	asideChildren,
 	hideAsideOnMobile,
 	hideAsideOnTablet,
+	asideOffset = [0, '3.25rem'],
 }) => {
 	return (
 		<Flex
@@ -36,9 +38,9 @@ export const TheSidebar: React.FC<OwnProps> = ({
 					sx={{
 						...(hideAsideOnTablet && { display: ['block', 'none'] }),
 						...(hideAsideOnMobile && { display: ['none', 'block'] }),
-						maxWidth: ['100%', '21.25rem'], // 340px
+						maxWidth: ['100%', '21.25rem'],
 						// Offset from first heading
-						marginBlockStart: [0, '3.25rem'], // 52px
+						marginBlockStart: asideOffset,
 					}}
 				>
 					{asideChildren}

@@ -2,6 +2,16 @@ export default {
 	title: 'Check Landing Pagina',
 	name: 'check-landing-page',
 	type: 'document',
+	fieldsets: [
+		{
+			name: 'situations',
+			title: 'Situaties',
+			options: {
+				collapsible: true,
+				collapsed: true,
+			},
+		},
+	],
 	fields: [
 		{
 			title: 'Meta data',
@@ -14,13 +24,13 @@ export default {
 			type: 'object',
 			fields: [
 				{
-					title: 'Voorloper titel',
-					name: 'pretitle',
+					title: 'Titel',
+					name: 'title',
 					type: 'localeString',
 				},
 				{
-					title: 'Titel',
-					name: 'title',
+					title: 'Chapeau',
+					name: 'chapeau',
 					type: 'localeString',
 				},
 				{
@@ -29,9 +39,9 @@ export default {
 					type: 'localeString',
 				},
 				{
-					title: 'Button',
-					name: 'button',
-					type: 'localeString',
+					title: 'Illustratie',
+					name: 'image',
+					type: 'image',
 				},
 			],
 			options: {
@@ -40,60 +50,72 @@ export default {
 			},
 		},
 		{
+			title: 'Huidige situatie',
+			name: 'currentSituation',
+			type: 'object',
+			options: {
+				collapsible: true,
+				collapsed: true,
+			},
+			fields: [
+				{
+					title: 'Titel',
+					name: 'title',
+					type: 'localeString',
+				},
+				{
+					title: 'Maatregelen',
+					name: 'measures',
+					type: 'aid',
+				},
+				{
+					title: 'Adviezen',
+					name: 'advice',
+					type: 'aid',
+				},
+			],
+		},
+		{
+			title: 'Cases nieuw',
+			name: 'folders',
+			type: 'array',
+			hidden: true,
+			of: [
+				{
+					type: 'folder',
+				},
+			],
+		},
+		{
 			title: 'Cases titel',
 			name: 'titleCases',
 			type: 'localeString',
+			fieldset: 'situations',
+		},
+		{
+			title: 'Cases mobile afbeelding',
+			name: 'imageMobileCases',
+			type: 'image',
+			fieldset: 'situations',
+		},
+		{
+			title: 'Cases desktop afbeelding',
+			name: 'imageDesktopCases',
+			type: 'image',
+			fieldset: 'situations',
 		},
 		{
 			title: 'Cases',
 			name: 'cases',
 			type: 'array',
-			of: [
-				{
-					title: 'Case',
-					name: 'case',
-					type: 'object',
-					preview: {
-						select: {
-							title: 'title.nl',
-							subtitle: 'pretitle.nl',
-							media: 'image',
-						},
-					},
-					fields: [
-						{
-							title: 'Titel',
-							name: 'title',
-							type: 'localeString',
-						},
-						{
-							title: 'Titel suffix',
-							name: 'titleSuffix',
-							type: 'localeString',
-						},
-						{
-							title: 'Intro',
-							name: 'intro',
-							type: 'localeString',
-						},
-						{
-							title: 'Lees meer knop',
-							name: 'readMoreLabel',
-							type: 'localeString',
-						},
-						{
-							title: 'ContentBlocks',
-							name: 'contentBlocks',
-							type: 'contentBlocks',
-						},
-					],
-				},
-			],
+			fieldset: 'situations',
+			of: [{ type: 'case' }],
 		},
 		{
 			title: 'Uitleg',
 			name: 'uitleg',
 			type: 'array',
+			hidden: true,
 			of: [
 				{
 					title: 'Onderdeel',
@@ -146,6 +168,58 @@ export default {
 						},
 					],
 				},
+			],
+		},
+		{
+			title: 'Onderwerpen',
+			name: 'topics',
+			type: 'object',
+			options: {
+				collapsible: true,
+				collapsed: true,
+			},
+			fields: [
+				{ title: 'Titel', name: 'title', type: 'localeString' },
+				{
+					title: 'Onderwerpen',
+					name: 'topics',
+					type: 'array',
+					of: [
+						{
+							title: 'Onderwerp',
+							name: 'topic',
+							type: 'reference',
+							to: [{ type: 'topic-document' }],
+						},
+					],
+				},
+			],
+		},
+		{
+			title: 'Hulp',
+			name: 'help',
+			type: 'object',
+			options: {
+				collapsible: true,
+				collapsed: true,
+			},
+			fields: [
+				{ title: 'Titel', name: 'title', type: 'localeString' },
+				{ title: 'Stel je vraag', name: 'question', type: 'localeString' },
+				{ title: 'Openingstijden', name: 'openingHours', type: 'localeString' },
+			],
+		},
+		{
+			title: 'Feedback',
+			name: 'feedback',
+			type: 'object',
+			options: {
+				collapsible: true,
+				collapsed: true,
+			},
+			fields: [
+				{ title: 'Titel', name: 'title', type: 'localeString' },
+				{ title: 'Button', name: 'button', type: 'localeString' },
 			],
 		},
 		{

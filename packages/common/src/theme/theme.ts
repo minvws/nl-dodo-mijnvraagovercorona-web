@@ -5,6 +5,7 @@ export const theme: Theme = {
 	colors: {
 		primary: '#01689B',
 		secondary: '#CA005D',
+		highlight: '#4A2CB1',
 		white: '#ffffff',
 
 		text: '#000000',
@@ -59,6 +60,14 @@ export const theme: Theme = {
 	radii: {
 		button: '5px',
 		box: '8px',
+		tile: 'radii.box',
+	},
+	borders: {
+		tile: '1px solid #EFF7F9',
+	},
+	shadows: {
+		tile: '4px 12px 12px rgba(0, 0, 0, 0.07), 0px 4px 0px #EFF7F9',
+		focusRing: '0px 0px 1px 3px rgba(1, 104, 155, 0.3)',
 	},
 	fonts: {
 		body: 'RoSans, sans-serif',
@@ -74,6 +83,8 @@ export const theme: Theme = {
 		chapeau: '16px',
 		h2: '29px',
 		h2Mobile: '26px',
+		h3: '1.25rem',
+		h3Mobile: '1rem',
 		body: '20px',
 		bodyMobile: '19px',
 		smallText: '16px',
@@ -122,6 +133,10 @@ export const theme: Theme = {
 			color: 'header',
 			margin: '0',
 			marginBottom: 'h2Spacing',
+		},
+		h3: {
+			color: 'header',
+			fontSize: ['h3Mobile', 'h3'],
 		},
 		p: {
 			fontSize: ['bodyMobile', 'body'],

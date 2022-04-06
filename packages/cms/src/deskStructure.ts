@@ -23,6 +23,8 @@ import { FaRegCopyright, FaAccessibleIcon } from 'react-icons/fa';
 import { SiGnuprivacyguard } from 'react-icons/si';
 import { GrVulnerability } from 'react-icons/gr';
 import { VscScreenFull } from 'react-icons/vsc';
+import { RiQuestionLine, RiQuestionAnswerLine } from 'react-icons/ri';
+import { MdOutlineTopic } from 'react-icons/md';
 
 import { getPage } from './utilities/getSingleton';
 import { getDocumentList, getPageList } from './utilities/getDocumentList';
@@ -172,13 +174,28 @@ const checkPagesConfig = [
 const checkMultiDocumentsConfig = [
 	{
 		schemaType: 'situation-document',
-		title: 'Situatie Documenten',
+		title: `Situatie Pagina's`,
 		icon: GiHelp,
 	},
 	{
 		schemaType: 'modals-document',
 		title: 'Modal Documenten',
 		icon: VscScreenFull,
+	},
+	{
+		schemaType: 'topic-document',
+		title: 'Onderwerp Documenten',
+		icon: MdOutlineTopic,
+	},
+	{
+		schemaType: 'topic-question-document',
+		title: `Onderwerp Vraag Pagina's`,
+		icon: RiQuestionLine,
+	},
+	{
+		schemaType: 'topic-result-document',
+		title: `Onderwerp Resultaat Pagina's`,
+		icon: RiQuestionAnswerLine,
 	},
 ];
 

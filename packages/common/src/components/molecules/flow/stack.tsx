@@ -1,28 +1,33 @@
 /** @jsx jsx */
 import React from 'react';
-import { jsx } from 'theme-ui';
+import { jsx, SxStyleProp } from 'theme-ui';
 
 interface OwnProps {
 	spacing?: string | string[] | number;
+	styles?: SxStyleProp;
+	id?: string;
 }
 
 export const Stack: React.FC<OwnProps> = ({
 	children,
-	spacing = ['24px', '28px'],
-}) => {
-	return (
-		<div
-			sx={{
-				// && is used to increase specificity with 1 by doubling up generated classes `.css-1o804hg.css-1o804hg`
-				'&& > *': {
-					marginBlockEnd: '0',
-					'& + *': {
-						marginBlockStart: spacing,
-					},
+	spacing = ['1.5rem', '1.75rem'],
+	styles,
+	id,
+}) => (
+	<div
+		sx={{
+			...styles,
+			// && is used to increase specificity with 1 by doubling up generated classes `.css-1o804hg.css-1o804hg`
+			'&& > *': {
+				marginBlockEnd: '0',
+				marginBlockStart: '0',
+				'& + *': {
+					marginBlockStart: spacing,
 				},
-			}}
-		>
-			{children}
-		</div>
-	);
-};
+			},
+		}}
+		id={id}
+	>
+		{children}
+	</div>
+);

@@ -38,35 +38,59 @@ export const RadioButton = <ValueOptions extends string>({
 			<label
 				htmlFor={id}
 				sx={{
-					display: 'block',
-					cursor: 'pointer',
-					fontSize: '18px',
-					paddingY: '4px',
 					position: 'relative',
-					paddingLeft: '32px',
+					display: 'block',
+					// Calc initial padding + indicator width + spacing
+					paddingInlineStart: 'calc(1.5rem + 1.625rem + 1rem)',
+					paddingBlockStart: '1.5rem',
+					paddingBlockEnd: '1.5rem',
+					paddingInlineEnd: '1.5rem',
+					borderRadius: 'button',
+					border: 'tile',
+					boxShadow: 'tile',
+					fontSize: '1.125rem',
+					color: 'copyHeading',
+					cursor: 'pointer',
+
+					// indicator
 					'::before, ::after': {
-						content: '""',
-						display: 'block',
 						position: 'absolute',
-						borderRadius: '20px',
+						insetInlineStart: '1.5rem',
+						insetBlockStart: 'calc(50% - 1.625rem/2)',
+						display: 'block',
+						width: '1.625rem',
+						height: '1.625rem',
+						borderRadius: '50%',
+						border: '1px solid currentColor',
+						content: '""',
 					},
 					'::before': {
-						width: '20px',
-						height: '20px',
 						backgroundColor: 'white',
-						border: '1px solid black',
-						left: 0,
-						top: 3,
 					},
-					'input:focus + &::before': {
-						boxShadow: '0px 0px 1px 3px rgba(1, 104, 155, 0.3)',
+					'::after': {
+						borderColor: 'transparent',
+						background: `url("data:image/svg+xml,%3Csvg width='14' height='14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M13.332.44a1.074 1.074 0 0 0-1.44.146L5.607 7.619 1.827 4.346A1.072 1.072 0 0 0 .204 5.708l4.578 7.64c.193.322.54.52.916.521h.004c.374 0 .722-.195.917-.515l6.99-11.495a1.073 1.073 0 0 0-.277-1.42Z' fill='%23fff'/%3E%3C/svg%3E")`,
+						backgroundRepeat: 'no-repeat',
+						backgroundPosition: 'center center',
 					},
-					'input:checked + &::after': {
-						width: '14px',
-						height: '14px',
-						backgroundColor: 'black',
-						left: 4,
-						top: 7,
+
+					// Focus state
+					'input:focus + &': {
+						borderColor: 'copyHeading',
+						// indicator
+						'&::before': {
+							boxShadow: 'focusRing',
+						},
+					},
+
+					// Checked state
+					'input:checked + &::before': {
+						backgroundColor: 'currentColor',
+					},
+
+					// Correct possible children
+					'> *': {
+						marginBlockEnd: 0,
 					},
 				}}
 			>

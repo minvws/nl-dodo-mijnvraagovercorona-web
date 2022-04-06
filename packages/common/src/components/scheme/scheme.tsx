@@ -15,29 +15,24 @@ export const SchemeBlock: React.FC<SchemeBlockProps> = ({
 }) => (
 	<Box
 		sx={{
-			backgroundColor: 'white',
-			border: '1px solid #CDD7E0',
-			borderRadius: 'box',
-			padding: 'box',
 			position: 'relative',
+			padding: 'box',
+			borderRadius: 'box',
+			border: 'tile',
+			boxShadow: 'tile',
 			fontSize: ['bodyMobile', 'body'],
-			marginBottom: '12px',
+			backgroundColor: 'white',
 			'& + &': {
-				marginTop: '32px',
+				marginTop: '1.5rem',
 				'::before': {
-					content: '""',
-					display: 'block',
-					color: 'green',
-					width: '22px',
-					height: '13px',
 					position: 'absolute',
-					left: '50%',
-					transform: 'translateX(-50%)',
-					top: '-24px',
-					backgroundImage: 'url(/icons/chevron.svg)',
-					backgroundRepeat: 'no-repeat',
-					backgroundPosition: 'center',
-					backgroundSize: '22px 13px',
+					insetBlockStart: '-1.5rem',
+					insetInlineStart: 'calc(50% - 1px)',
+					zIndex: '-1',
+					blockSize: '1.5rem',
+					inlineSize: '2px',
+					backgroundColor: 'stepElement',
+					content: '""',
 				},
 			},
 			'@media print': {
@@ -58,7 +53,7 @@ export const SchemeBlock: React.FC<SchemeBlockProps> = ({
 				sx={{
 					justifyContent: 'space-between',
 					alignItems: 'center',
-					'& + div': { mt: '16px' },
+					'& + div': { marginBlockStart: '1rem' },
 					'@media print': {
 						mt: '0 !important',
 					},
@@ -106,11 +101,11 @@ export const SchemeBlock: React.FC<SchemeBlockProps> = ({
 						},
 					},
 					'p:last-child': {
-						marginBottom: 0,
+						marginBlockEnd: 0,
 					},
 					'@media print': {
 						p: {
-							marginBottom: '6px',
+							marginBlockEnd: '0.375rem',
 						},
 					},
 				}}
