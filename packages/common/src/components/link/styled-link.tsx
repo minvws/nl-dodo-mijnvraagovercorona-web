@@ -2,7 +2,7 @@
 import React, { useMemo } from 'react';
 import { jsx, SxStyleProp } from 'theme-ui';
 
-import { ChevronIcon } from '@quarantaine/common';
+import { ChevronIcon, RefreshIcon } from '@quarantaine/common';
 
 interface StyledLinkPropsBase {
 	withChevron?: boolean;
@@ -12,6 +12,7 @@ interface StyledLinkPropsBase {
 	styledAs?:
 		| 'link'
 		| 'link-back'
+		| 'link-restart'
 		| 'button'
 		| 'button-secondary'
 		| 'button-disabled';
@@ -101,6 +102,21 @@ export const useLinkStyles = ({
 			},
 		};
 
+		const linkRestartStyling: SxStyleProp = {
+			...linkStyling,
+			position: 'absolute',
+			top: '-50px',
+			fontWeight: 'bold',
+			'&:hover, &:focus': {
+				color: 'linkHover',
+			},
+			'.chevron': {
+				...chevronStyling,
+				width: '1.5em',
+				minWidth: '1.5em',
+			},
+		};
+
 		const buttonStyling: SxStyleProp = {
 			paddingTop: '15px',
 			paddingBottom: '15px',
@@ -146,6 +162,7 @@ export const useLinkStyles = ({
 		};
 
 		if (styledAs === 'link-back') return linkBackStyling;
+		if (styledAs === 'link-restart') return linkRestartStyling;
 		if (styledAs === 'button') return buttonStyling;
 		if (styledAs === 'button-secondary') return buttonSecondaryStyling;
 		if (styledAs === 'button-disabled') return buttonDisabledStyling;
@@ -167,13 +184,14 @@ const StyledLinkBase = <T extends React.ElementType = 'a'>(
 		// If styled as a button, the default for the chevron is false, vice versa for the link.
 		withChevron = props.styledAs === 'link' ||
 		props.styledAs === 'link-back' ||
+		props.styledAs === 'link-restart' ||
 		!props.styledAs
 			? true
 			: false,
 		children,
-		styledAs = 'link',
 		lang,
 		external,
+		styledAs = 'link',
 		as = 'a',
 		...remainingProps
 	} = props;
@@ -188,7 +206,11 @@ const StyledLinkBase = <T extends React.ElementType = 'a'>(
 				ref={ref as React.Ref<HTMLButtonElement>}
 				onClick={props.onClick}
 			>
-				{withChevron && <ChevronIcon className="chevron" />}
+				{props.styledAs === 'link-restart' ? (
+					<RefreshIcon className="chevron" />
+				) : (
+					withChevron && <ChevronIcon className="chevron" />
+				)}
 				{children}
 			</button>
 		);
@@ -207,7 +229,11 @@ const StyledLinkBase = <T extends React.ElementType = 'a'>(
 			target={external ? '_blank' : undefined}
 			rel={external ? 'noopener noreferrer' : undefined}
 		>
-			{withChevron && <ChevronIcon className="chevron" />}
+			{props.styledAs === 'link-restart' ? (
+				<RefreshIcon className="chevron" />
+			) : (
+				withChevron && <ChevronIcon className="chevron" />
+			)}
 			{children}
 		</a>
 	);

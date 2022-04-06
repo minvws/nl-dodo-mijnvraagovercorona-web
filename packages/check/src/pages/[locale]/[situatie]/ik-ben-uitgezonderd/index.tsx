@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { Box, jsx } from 'theme-ui';
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { Page } from 'components/page';
 
@@ -21,6 +21,8 @@ import {
 import { getSituations } from 'utilities/situations';
 import { GGDSpecialInstructions } from 'components/ggd-special-instructions';
 import { locales } from 'content/general-content';
+import { LinkBack } from 'components/link-back';
+import GlobalContext from 'utilities/global-context';
 interface PageContent {
 	metaData: {
 		title: string;
@@ -39,6 +41,7 @@ interface PageContent {
 
 export default function IsUitgezonderd() {
 	const page = useSanityPageContent<PageContent>();
+	const { startPoint } = useContext(GlobalContext);
 
 	return (
 		<>
@@ -48,12 +51,14 @@ export default function IsUitgezonderd() {
 				url={`/${page.url}`}
 			/>
 
-			<Page showRetryLink>
+			<Page>
 				<Hero
 					title={page.uitgezonderdTitle}
 					titlePrefix={page.pretitle}
 					illustrationUrl="/images/illustration-door.svg"
-				/>
+				>
+					<LinkBack href={startPoint} variant="restart" />
+				</Hero>
 				<Content>
 					<section sx={{ paddingRight: [, '165px'] }}>
 						<SchemeBlock>

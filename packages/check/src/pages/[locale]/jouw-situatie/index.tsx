@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Box, jsx, Styled } from 'theme-ui';
 
 import { Page } from 'components/page';
@@ -28,6 +28,7 @@ import {
 	ContentSituationBlock,
 	ContentSituationBlockProps,
 } from 'components/molecules';
+import GlobalContext from 'utilities/global-context';
 
 export interface SituationContent {
 	title: string;
@@ -91,6 +92,12 @@ export const renderPanel = (
 export default function JouwSituatie({ locale }: { locale: string }) {
 	const page = useSanityPageContent<JouwSituatiePageContent>();
 	const siteSettings = useSanitySiteSettings();
+
+	const { startPoint, setStartPoint } = useContext(GlobalContext);
+
+	useEffect(() => {
+		setStartPoint && setStartPoint('/jouw-situatie');
+	}, []);
 
 	return (
 		<>

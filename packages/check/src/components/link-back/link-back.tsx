@@ -1,10 +1,30 @@
-import { StyledLink, useTranslation } from '@quarantaine/common';
+import {
+	StyledLink,
+	useCurrentLocale,
+	useTranslation,
+	getHrefWithlocale,
+	useSanitySiteSettings,
+} from '@quarantaine/common';
 
-export const LinkBack = ({ href }: { href: string }) => {
+interface OwnProps {
+	href: string;
+	variant?: 'back' | 'restart';
+}
+
+export const LinkBack = ({ href, variant = 'back' }: OwnProps) => {
+	const siteSettings = useSanitySiteSettings();
+
 	const { t } = useTranslation();
+	const { urlPrefix } = useCurrentLocale();
+	const hrefWithLocale = getHrefWithlocale(href, urlPrefix);
+	{
+		siteSettings.header.opnieuw;
+	}
 	return (
-		<StyledLink href={href} styledAs="link-back">
-			{t('general__vorige')}
+		<StyledLink href={hrefWithLocale} styledAs={`link-${variant}`}>
+			{variant === 'restart'
+				? siteSettings.header.opnieuw
+				: t('general__vorige')}
 		</StyledLink>
 	);
 };

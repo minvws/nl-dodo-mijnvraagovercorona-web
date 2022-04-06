@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React from 'react';
+import React, { useContext } from 'react';
 import { jsx } from 'theme-ui';
 
 import { Page } from 'components/page';
@@ -16,6 +16,8 @@ import {
 	Locales,
 } from '@quarantaine/common';
 import { locales } from 'content/general-content';
+import { LinkBack } from 'components/link-back';
+import GlobalContext from 'utilities/global-context';
 
 interface GeenAdviesPageContent {
 	metaData: {
@@ -32,6 +34,7 @@ interface GeenAdviesPageContent {
 
 export default function GeenAdvies() {
 	const page = useSanityPageContent<GeenAdviesPageContent>();
+	const { startPoint } = useContext(GlobalContext);
 
 	return (
 		<>
@@ -40,8 +43,10 @@ export default function GeenAdvies() {
 				description={page.metaData.description}
 				url={page.url}
 			/>
-			<Page showRetryLink>
-				<Hero title={page.header.title} titlePrefix={page.header.pretitle} />
+			<Page>
+				<Hero title={page.header.title} titlePrefix={page.header.pretitle}>
+					<LinkBack href={startPoint} variant="restart" />
+				</Hero>
 				<Content>
 					<ContentBlock content={page.content} />
 				</Content>

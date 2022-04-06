@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { jsx, Styled, Container } from 'theme-ui';
 import { Page } from 'components/page';
 
@@ -32,6 +32,7 @@ import {
 	ContentSituationBlock,
 	ContentSituationBlockProps,
 } from 'components/molecules';
+import GlobalContext from 'utilities/global-context';
 
 interface PageContent extends JouwSituatiePageNoMatchContent {
 	metaData: {
@@ -68,6 +69,12 @@ interface PageContent extends JouwSituatiePageNoMatchContent {
 export default function LandingPage() {
 	const page = useSanityPageContent<PageContent>();
 	const siteSettings = useSanitySiteSettings();
+
+	const { startPoint, setStartPoint } = useContext(GlobalContext);
+
+	useEffect(() => {
+		setStartPoint && setStartPoint('');
+	}, []);
 
 	// Only show first uitleg
 	const uitleg = page.uitleg[0];

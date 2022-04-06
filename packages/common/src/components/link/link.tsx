@@ -10,7 +10,7 @@ import {
 /**
  * Small helper method that prefixes the requested url with a locale.
  */
-const getHrefWithlocale = (href: string, urlPrefix: string) =>
+export const getHrefWithlocale = (href: string, urlPrefix: string) =>
 	!href.includes('/nl') && !href.includes('/en') && !href.includes('/es')
 		? `${urlPrefix}${href}`
 		: href;

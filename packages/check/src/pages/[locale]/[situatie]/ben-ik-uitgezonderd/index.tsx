@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import { Page } from 'components/page';
 
@@ -27,6 +27,7 @@ import { useRouter } from 'next/router';
 import { Situation } from 'config/situaties';
 import { LinkBack } from 'components/link-back';
 import { locales } from 'content/general-content';
+import GlobalContext from 'utilities/global-context';
 
 interface PageContent {
 	metaData: {
@@ -88,6 +89,8 @@ export default function Uitgezonderd({
 		router.push(getNextStepUrl());
 	};
 
+	const { startPoint } = useContext(GlobalContext);
+
 	return (
 		<>
 			<MetaTags
@@ -98,7 +101,7 @@ export default function Uitgezonderd({
 
 			<Page>
 				<Hero title={page.header.title}>
-					<LinkBack href={`/${locale}/jouw-situatie`} />
+					<LinkBack href={startPoint} />
 				</Hero>
 				<Content>
 					<form action="" onSubmit={onSubmit}>
