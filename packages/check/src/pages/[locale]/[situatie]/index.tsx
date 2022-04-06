@@ -156,8 +156,6 @@ export default function Situatie({ locale, date, situatie }: SituatieProps) {
 		todayDay: todayDay || parseDateFromUrl(date),
 	});
 
-	console.log(page.quarantinePlan);
-
 	return (
 		<>
 			<MetaTags
