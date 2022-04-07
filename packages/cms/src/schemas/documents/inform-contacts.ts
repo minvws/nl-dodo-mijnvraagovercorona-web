@@ -23,5 +23,52 @@ export default {
 			name: 'preButtonContent',
 			type: 'localeBlock',
 		},
+		{
+			title: 'Knoppen',
+			name: 'buttons',
+			type: 'object',
+			fields: [
+				{
+					title: 'Situatie link',
+					name: 'situationReference',
+					type: 'reference',
+					to: [{ type: 'situation-document' }],
+				},
+				{
+					title: 'Deel knop',
+					name: 'shareButton',
+					type: 'object',
+					fields: [
+						{
+							title: 'Label',
+							name: 'label',
+							type: 'localeString',
+						},
+						{
+							title: 'Bericht',
+							name: 'message',
+							type: 'localeString',
+						},
+					],
+				},
+				{
+					title: 'Kopiëren knop',
+					name: 'copyButton',
+					type: 'object',
+					fields: [
+						{
+							title: 'Label',
+							name: 'label',
+							type: 'localeString',
+						},
+						{
+							title: 'Label copied',
+							name: 'labelCopied',
+							type: 'localeString',
+						},
+					],
+				},
+			],
+		},
 	],
 };
