@@ -330,6 +330,22 @@ export async function getStaticPaths() {
 	};
 }
 
+const extractLocaleBullets = ({
+	page,
+	locale,
+}: {
+	page: any;
+	locale: string;
+}) => ({
+	...page,
+	quarantinePlan: page.quarantinePlan?.map((planItem: any) => ({
+		...planItem,
+		bullets: planItem.bullets
+			? planItem.bullets.map((bullet: any) => bullet[locale])
+			: null,
+	})),
+});
+
 export const getStaticProps = async ({
 	params: { locale, situatie, date },
 }: SituatieStaticProps) => {
@@ -354,7 +370,7 @@ export const getStaticProps = async ({
 			day,
 			showOn,
 			${getLocaleProperty({ name: 'title', locale })},
-			${getLocaleProperty({ name: 'bullets', locale, array: true, block: true })},
+			${getLocaleProperty({ name: 'bullets', locale, array: true, block: true })}
 		},
 		${getLocaleProperty({ name: 'quarantinePlanTitle', locale })},
 		showPrintAndCalendar,
@@ -375,7 +391,7 @@ export const getStaticProps = async ({
 
 	return {
 		props: {
-			page,
+			page: extractLocaleBullets({ page, locale }),
 			siteSettings,
 			locale,
 			situatie,

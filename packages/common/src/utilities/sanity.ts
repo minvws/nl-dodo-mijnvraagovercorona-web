@@ -14,6 +14,17 @@ const options: ClientConfig = {
 	apiVersion: '2022-03-23',
 };
 
+const followModals = (locale: string) => `{
+		...,
+		markDefs[]{
+			...,
+			_type == "dialog" => {
+				"content": @.modal_ref->content.${locale},
+				"title": @.modal_ref->title.${locale},
+			}
+		},
+	}`;
+
 /**
  * This helper function allows us to automatically extract the correct locale from a localized piece of content
  */
@@ -29,19 +40,21 @@ export const getLocaleProperty = ({
 	array?: boolean;
 	locale: string;
 	block?: boolean;
-}): string =>
-	block
-		? `"${name}": ${path || name}${array ? '[]' : ''}.${locale}[]{
-			...,
-			markDefs[]{
-				...,
-				_type == "dialog" => {
-					"content": @.modal_ref->content.${locale},
-					"title": @.modal_ref->title.${locale},
-				}
-			}
-		}`
-		: `"${name}": ${path || name}${array ? '[]' : ''}.${locale}`;
+}): string => {
+	if (block) {
+		if (array) {
+			return `"${name}": ${path || name}[]{
+				"nl": nl[]${followModals('nl')},
+				"en": en[]${followModals('en')},
+				"es": es[]${followModals('es')}
+			}`;
+		}
+
+		return `"${name}": ${path || name}.${locale}[]${followModals(locale)}`;
+	}
+
+	return `"${name}": ${path || name}${array ? '[]' : ''}.${locale}`;
+};
 
 /**
  * These props contain all the data returned by a content page query
