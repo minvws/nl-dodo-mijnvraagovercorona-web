@@ -87,13 +87,11 @@ const filterQuarantinePlan = ({
 	quarantinePlan
 		? quarantinePlan
 				/* Remove any blocks that should not be visible on todayDay */
-				.filter(
-					({ showOn }) => showOn === undefined || showOn.includes(todayDay),
-				)
+				.filter(({ showOn }) => !showOn || showOn.includes(todayDay))
 				/** Replace the day number with todayDay if the number is not set */
 				.map((day) => ({
 					...day,
-					day: day.day === undefined ? todayDay : day.day,
+					day: !day.day ? todayDay : day.day,
 				}))
 				/** Add difference property containing the difference (in days) between this block and the previous one. */
 				.map((day, index, plan) => ({
@@ -332,6 +330,22 @@ export async function getStaticPaths() {
 	};
 }
 
+const extractLocaleBullets = ({
+	page,
+	locale,
+}: {
+	page: any;
+	locale: string;
+}) => ({
+	...page,
+	quarantinePlan: page.quarantinePlan?.map((planItem: any) => ({
+		...planItem,
+		bullets: planItem.bullets
+			? planItem.bullets.map((bullet: any) => bullet[locale])
+			: null,
+	})),
+});
+
 export const getStaticProps = async ({
 	params: { locale, situatie, date },
 }: SituatieStaticProps) => {
@@ -356,7 +370,7 @@ export const getStaticProps = async ({
 			day,
 			showOn,
 			${getLocaleProperty({ name: 'title', locale })},
-			${getLocaleProperty({ name: 'bullets', locale, array: true })},
+			${getLocaleProperty({ name: 'bullets', locale, array: true, block: true })}
 		},
 		${getLocaleProperty({ name: 'quarantinePlanTitle', locale })},
 		showPrintAndCalendar,
@@ -377,7 +391,7 @@ export const getStaticProps = async ({
 
 	return {
 		props: {
-			page,
+			page: extractLocaleBullets({ page, locale }),
 			siteSettings,
 			locale,
 			situatie,
