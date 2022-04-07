@@ -39,6 +39,12 @@ export default {
 			type: 'quarantinePlan',
 		},
 		{
+			title: 'Informeer Contacten',
+			name: 'informContactsReference',
+			type: 'reference',
+			to: [{ type: 'inform-contacts-document' }],
+		},
+		{
 			title: 'Toon print & agenda',
 			name: 'showPrintAndCalendar',
 			type: 'boolean',
