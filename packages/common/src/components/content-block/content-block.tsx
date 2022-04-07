@@ -34,8 +34,8 @@ interface MarkProps {
 interface DialogProps {
 	children: React.ReactNode;
 	mark: {
-		modal_title: string;
-		modal_content: Array<Object>;
+		title: string;
+		content: Array<Object>;
 	};
 }
 
@@ -136,10 +136,10 @@ const getSerializers = (contentVariables?: ContentVariables) => ({
 		dialog: ({ children, mark }: DialogProps) => {
 			return (
 				<InlineDialog
-					title={mark.modal_title}
+					title={mark.title}
 					buttonText={`${Array.isArray(children) ? children[0] : children}`}
 				>
-					<ContentBlock content={mark.modal_content} />
+					<ContentBlock content={mark.content} />
 				</InlineDialog>
 			);
 		},

@@ -5,7 +5,7 @@
 	"scripts": {
 		"start": "sanity start",
 		"test": "true",
-    "test:e2e": "true",
+		"test:e2e": "true",
 		"build": "sanity build",
 		"deploy": "sanity deploy"
 	},
@@ -24,7 +24,7 @@
 		"prop-types": "^15.7",
 		"react": "^17.0",
 		"react-dom": "^17.0",
-		"react-icons": "^4.2.0",
+		"react-icons": "^4.3.1",
 		"sanity-plugin-order-documents": "^0.0.18",
 		"topojson-client": "^3.1.0"
 	},

@@ -11,8 +11,19 @@ const options: ClientConfig = {
 	dataset: 'production',
 	projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '',
 	useCdn: process.env.NODE_ENV === 'production' || false,
-	apiVersion: 'v1',
+	apiVersion: '2022-03-23',
 };
+
+const followModals = (locale: string) => `{
+		...,
+		markDefs[]{
+			...,
+			_type == "dialog" => {
+				"content": @.modal_ref->content.${locale},
+				"title": @.modal_ref->title.${locale},
+			}
+		},
+	}`;
 
 /**
  * This helper function allows us to automatically extract the correct locale from a localized piece of content
@@ -22,12 +33,28 @@ export const getLocaleProperty = ({
 	path,
 	array,
 	locale,
+	block,
 }: {
 	name: string;
 	path?: string;
 	array?: boolean;
 	locale: string;
-}): string => `"${name}": ${path || name}${array ? '[]' : ''}.${locale}`;
+	block?: boolean;
+}): string => {
+	if (block) {
+		if (array) {
+			return `"${name}": ${path || name}[]{
+				"nl": nl[]${followModals('nl')},
+				"en": en[]${followModals('en')},
+				"es": es[]${followModals('es')}
+			}`;
+		}
+
+		return `"${name}": ${path || name}.${locale}[]${followModals(locale)}`;
+	}
+
+	return `"${name}": ${path || name}${array ? '[]' : ''}.${locale}`;
+};
 
 /**
  * These props contain all the data returned by a content page query
@@ -71,7 +98,7 @@ export const getContentPageQuery = async ({
 			})},
 		},
 		${getLocaleProperty({ name: 'title', locale })},
-		${getLocaleProperty({ name: 'content', locale })},
+		${getLocaleProperty({ name: 'content', locale, block: true })},
 		url
 	}`;
 
@@ -106,7 +133,7 @@ export const faqDocumentsQuery = ({
 		reference,
 		reisfase,
 		${getLocaleProperty({ name: 'vraag', locale })},
-		${getLocaleProperty({ name: 'antwoord', locale })},
+		${getLocaleProperty({ name: 'antwoord', locale, block: true })},
 	} | order(order asc)`;
 
 export const siteSettingsQuery = ({
@@ -161,6 +188,7 @@ export const siteSettingsQuery = ({
 				name: 'footerText',
 				path: 'footer.footerText',
 				locale,
+				block: true,
 			})},
 			${getLocaleProperty({ name: 'title', path: 'footer.title', locale })},
 			"items": footer.items[]{
@@ -170,14 +198,24 @@ export const siteSettingsQuery = ({
 		},
 		"feedback": {
 			${getLocaleProperty({ name: 'button', path: 'feedback.button', locale })},
-			${getLocaleProperty({ name: 'content', path: 'feedback.content', locale })},
+			${getLocaleProperty({
+				name: 'content',
+				path: 'feedback.content',
+				locale,
+				block: true,
+			})},
 			${getLocaleProperty({ name: 'title', path: 'feedback.title', locale })},
 			${getLocaleProperty({ name: 'url', path: 'feedback.url', locale })},
 			${getLocaleProperty({ name: 'thanks', path: 'feedback.thanks', locale })},
 		},
 		"ctaBlock": {
 			${getLocaleProperty({ name: 'title', path: 'ctaBlock.title', locale })},
-			${getLocaleProperty({ name: 'content', path: 'ctaBlock.content', locale })},
+			${getLocaleProperty({
+				name: 'content',
+				path: 'ctaBlock.content',
+				locale,
+				block: true,
+			})},
 			${getLocaleProperty({ name: 'label', path: 'ctaBlock.label', locale })},
 			"url": ctaBlock.url
 		},
