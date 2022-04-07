@@ -42,6 +42,7 @@ import { LinkBack } from 'components/link-back';
 import GlobalContext from 'utilities/global-context';
 import { useContext } from 'react';
 import { WarningPanel } from 'components/warning-panel';
+import { InformContacts, InformContactsProps } from 'components/molecules';
 
 const getDateSinceEvent = ({
 	day,
@@ -124,9 +125,7 @@ interface PageContent {
 	pretitle: string;
 	quarantinePlan: QuarantainePlan;
 	quarantinePlanTitle: string;
-	informContacts: {
-		title: string;
-	};
+	informContacts: InformContactsProps;
 	showPrintAndCalendar: boolean;
 	quarantaineDuration?: number;
 	url: string;
@@ -227,6 +226,9 @@ export default function Situatie({ locale, date, situatie }: SituatieProps) {
 						<Box sx={{ mt: 'box' }}>
 							<GGDSpecialInstructions />
 						</Box>
+					</section>
+					<section sx={{ mt: '32px' }}>
+						<InformContacts {...page.informContacts} />
 					</section>
 					<section sx={{ mt: '32px', '@media print': { display: 'none' } }}>
 						<Box
@@ -392,11 +394,34 @@ export const getStaticProps = async ({
 				}
 			},
 			${getLocaleProperty({
-				name: 'title',
+				name: 'preButtonContent',
 				path: 'informContactsReference->preButtonContent',
 				locale,
 				block: true,
 			})},
+			"buttons": informContactsReference->buttons {
+				"situation": {
+					"url": situationReference->url,
+					"showDate": situationReference->showDate,
+					"showExceptions": situationReference->showExceptions,
+				},
+				"shareButton": {
+					${getLocaleProperty({ name: 'label', path: 'shareButton.label', locale })},
+					${getLocaleProperty({
+						name: 'message',
+						path: 'shareButton.message',
+						locale,
+					})},
+				},
+				"copyButton": {
+					${getLocaleProperty({ name: 'label', path: 'copyButton.label', locale })},
+					${getLocaleProperty({
+						name: 'labelCopied',
+						path: 'copyButton.labelCopied',
+						locale,
+					})},
+				}
+			}
 		},
 		${getLocaleProperty({ name: 'quarantinePlanTitle', locale })},
 		showPrintAndCalendar,
