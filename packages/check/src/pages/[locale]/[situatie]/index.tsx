@@ -124,6 +124,9 @@ interface PageContent {
 	pretitle: string;
 	quarantinePlan: QuarantainePlan;
 	quarantinePlanTitle: string;
+	informContacts: {
+		title: string;
+	};
 	showPrintAndCalendar: boolean;
 	quarantaineDuration?: number;
 	url: string;
@@ -142,6 +145,8 @@ export default function Situatie({ locale, date, situatie }: SituatieProps) {
 	const siteSettings = useSanitySiteSettings<SiteSettings>();
 	const router = useRouter();
 	const { startPoint } = useContext(GlobalContext);
+
+	console.log('informContacts', page.informContacts);
 
 	const selectedLastEventDate = router.query.event
 		? parse(`${router.query.event}`, 'dd-MM-yyyy', new Date())
@@ -371,6 +376,27 @@ export const getStaticProps = async ({
 			showOn,
 			${getLocaleProperty({ name: 'title', locale })},
 			${getLocaleProperty({ name: 'bullets', locale, array: true, block: true })}
+		},
+		"informContacts": {
+			${getLocaleProperty({
+				name: 'title',
+				path: 'informContactsReference->title',
+				locale,
+			})},
+			"steps": informContactsReference->steps[] {
+				${getLocaleProperty({ name: 'title', locale })},
+				${getLocaleProperty({ name: 'content', locale })},
+				"points": points[] {
+					${getLocaleProperty({ name: 'title', locale })},
+					${getLocaleProperty({ name: 'content', locale })},
+				}
+			},
+			${getLocaleProperty({
+				name: 'title',
+				path: 'informContactsReference->preButtonContent',
+				locale,
+				block: true,
+			})},
 		},
 		${getLocaleProperty({ name: 'quarantinePlanTitle', locale })},
 		showPrintAndCalendar,
