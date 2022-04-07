@@ -21,6 +21,7 @@ import {
 	GiTrail,
 	GiCarWheel,
 	GiShieldReflect,
+	GiShare,
 } from 'react-icons/gi';
 import { BiError } from 'react-icons/bi';
 import { FaRegCopyright, FaAccessibleIcon } from 'react-icons/fa';
@@ -179,6 +180,11 @@ const checkMultiDocumentsConfig = [
 		schemaType: 'situation-document',
 		title: `Situatie Pagina's`,
 		icon: GiHelp,
+	},
+	{
+		schemaType: 'inform-contacts-document',
+		title: 'Informeer contacten Documenten',
+		icon: GiShare,
 	},
 	{
 		schemaType: 'topic-document',
