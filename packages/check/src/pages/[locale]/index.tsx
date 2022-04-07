@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React, { useContext, useEffect } from 'react';
-import { jsx, Styled, Container, Box, Flex, Image } from 'theme-ui';
+import { jsx, Styled, Container, Box, Image } from 'theme-ui';
 import { Page } from 'components/page';
 
 import {
@@ -9,6 +9,9 @@ import {
 	getPageQuery,
 	getLocaleProperty,
 	useSanityPageContent,
+	useSanitySiteSettings,
+	Hero,
+	getFeedbackUrl,
 	Locales,
 	Retain,
 	Layer,
@@ -413,8 +416,9 @@ export const getStaticProps = async ({
 			"contentBlocks": contentBlocks[]{
 				${getLocaleProperty({
 					name: 'content',
-					path: '^',
+					path: '@',
 					locale,
+					block: true,
 				})},
 				"situation": {
 					${getLocaleProperty({

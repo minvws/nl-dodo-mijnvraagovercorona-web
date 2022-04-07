@@ -24,11 +24,6 @@ export default {
 			type: 'header',
 		},
 		{
-			title: 'Beleidswijziging',
-			name: 'policy',
-			type: 'localeBlock',
-		},
-		{
 			title: 'Voorloper titel',
 			name: 'pretitle',
 			type: 'localeString',

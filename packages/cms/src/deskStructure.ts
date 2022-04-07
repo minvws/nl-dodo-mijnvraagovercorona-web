@@ -3,7 +3,6 @@ import S from '@sanity/desk-tool/structure-builder';
 import {
 	GiHouse,
 	GiTestTubes,
-	GiJumpAcross,
 	GiCookie,
 	GiSettingsKnobs,
 	GiHelp,
@@ -12,14 +11,11 @@ import {
 	GiClosedDoors,
 	GiFlagObjective,
 	GiCalendar,
-	GiCommercialAirplane,
 	GiLightBulb,
 	GiPeriscope,
 	GiThumbDown,
-	GiThumbUp,
 	GiRadioactive,
 	GiTrail,
-	GiCarWheel,
 	GiShieldReflect,
 	GiShare,
 } from 'react-icons/gi';
@@ -27,6 +23,7 @@ import { BiError } from 'react-icons/bi';
 import { FaRegCopyright, FaAccessibleIcon } from 'react-icons/fa';
 import { SiGnuprivacyguard } from 'react-icons/si';
 import { GrVulnerability } from 'react-icons/gr';
+import { VscScreenFull } from 'react-icons/vsc';
 import { RiQuestionLine, RiQuestionAnswerLine } from 'react-icons/ri';
 import { MdOutlineTopic } from 'react-icons/md';
 
@@ -180,6 +177,11 @@ const checkMultiDocumentsConfig = [
 		schemaType: 'situation-document',
 		title: `Situatie Pagina's`,
 		icon: GiHelp,
+	},
+	{
+		schemaType: 'modals-document',
+		title: 'Modal Documenten',
+		icon: VscScreenFull,
 	},
 	{
 		schemaType: 'inform-contacts-document',
