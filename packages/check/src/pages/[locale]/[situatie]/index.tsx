@@ -226,7 +226,7 @@ export default function Situatie({ locale, date, situatie }: SituatieProps) {
 							<GGDSpecialInstructions />
 						</Box>
 					</section>
-					{page.showInformContacts && (
+					{page.informContacts.title && (
 						<section sx={{ mt: '32px', '@media print': { display: 'none' } }}>
 							<InformContacts {...page.informContacts} />
 						</section>
@@ -431,7 +431,6 @@ export const getStaticProps = async ({
 		url,
     	showExceptions,
     	showDate,
-		showInformContacts,
 	}`;
 
 	const { page, siteSettings } = await sanityClient.fetch(
