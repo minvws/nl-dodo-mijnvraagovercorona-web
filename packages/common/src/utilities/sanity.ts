@@ -225,6 +225,11 @@ export const siteSettingsQuery = ({
 		},
 		"quarantaineGids": {
 			${getLocaleProperty({
+				name: 'title',
+				path: 'quarantaineGids.title',
+				locale,
+			})},
+			${getLocaleProperty({
 				name: 'button',
 				path: 'quarantaineGids.button',
 				locale,

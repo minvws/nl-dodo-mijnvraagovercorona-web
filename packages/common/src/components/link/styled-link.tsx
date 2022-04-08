@@ -162,6 +162,7 @@ export const useLinkStyles = ({
 			...buttonStyling,
 			backgroundColor: 'buttonTertiary',
 			color: 'white',
+			cursor: 'pointer',
 
 			':hover, :focus': {
 				backgroundColor: 'buttonTertiaryHover',

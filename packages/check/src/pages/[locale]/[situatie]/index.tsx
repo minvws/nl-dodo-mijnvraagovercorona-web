@@ -131,6 +131,7 @@ interface PageContent {
 	url: string;
 	showExceptions?: boolean;
 	showDate?: boolean;
+	showInformContacts?: boolean;
 }
 
 interface SituatieProps {
@@ -225,9 +226,11 @@ export default function Situatie({ locale, date, situatie }: SituatieProps) {
 							<GGDSpecialInstructions />
 						</Box>
 					</section>
-					<section sx={{ mt: '32px', '@media print': { display: 'none' } }}>
-						<InformContacts {...page.informContacts} />
-					</section>
+					{page.showInformContacts && (
+						<section sx={{ mt: '32px', '@media print': { display: 'none' } }}>
+							<InformContacts {...page.informContacts} />
+						</section>
+					)}
 					<section sx={{ mt: '32px', '@media print': { display: 'none' } }}>
 						<Box
 							sx={{
@@ -427,7 +430,8 @@ export const getStaticProps = async ({
    		quarantaineDuration,
 		url,
     	showExceptions,
-    	showDate
+    	showDate,
+		showInformContacts,
 	}`;
 
 	const { page, siteSettings } = await sanityClient.fetch(

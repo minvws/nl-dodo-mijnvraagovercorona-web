@@ -1,8 +1,14 @@
 /** @jsx jsx */
-import { ContentBlock, StyledLink } from '@quarantaine/common';
-import { urlObjectKeys } from 'next/dist/next-server/lib/utils';
-import React from 'react';
+import {
+	ContentBlock,
+	getHrefWithlocale,
+	isBrowser,
+	StyledLink,
+	useCurrentLocale,
+} from '@quarantaine/common';
+import React, { useEffect, useState } from 'react';
 import { jsx, Box, Styled } from 'theme-ui';
+import useCopyToClipboard from 'utilities/use-copy-to-clipboard';
 
 export type InformContactsProps = {
 	title: string;
@@ -38,8 +44,37 @@ export const InformContacts: React.FC<InformContactsProps> = ({
 	steps,
 	buttons,
 }) => {
+	const locale = useCurrentLocale();
+	const [canShare, setCanShare] = useState(false);
+	const [value, copy] = useCopyToClipboard();
+	const shareLink = `${
+		isBrowser()
+			? window.location.origin
+			: 'https://quarantainecheck.rijksoverheid.nl/'
+	}/${getHrefWithlocale(
+		'/ik-ben-misschien-besmet/ben-ik-uitgezonderd',
+		locale.id,
+	)}`;
+
+	const triggerShareDialog = () => {
+		if (isBrowser()) {
+			window.navigator
+				.share({
+					title: buttons.shareButton.message,
+					url: shareLink,
+				})
+				.catch(() => {
+					return;
+				});
+		}
+	};
+
+	useEffect(() => {
+		if (isBrowser()) setCanShare('share' in window.navigator);
+	}, []);
+
 	return (
-		<Box>
+		<Box sx={{ marginBottom: '58px' }}>
 			<Styled.h2>{title}</Styled.h2>
 			{steps ? (
 				<ol
@@ -121,20 +156,18 @@ export const InformContacts: React.FC<InformContactsProps> = ({
 				</ol>
 			) : null}
 			{preButtonContent ? <ContentBlock content={preButtonContent} /> : null}
-			{
-				/*navigator && navigator['share'] dit werkt niet 🤦🏻‍♂️ moet even omheen gebouwd worden */ true ? (
-					<StyledLink
-						styledAs="button-tertiary"
-						onClick={() => console.log('test')}
-					>
-						{buttons.shareButton.label}
-					</StyledLink>
-				) : (
-					<StyledLink styledAs="button-tertiary">
-						{buttons.copyButton.label}
-					</StyledLink>
-				)
-			}
+			{canShare ? (
+				<StyledLink
+					styledAs="button-tertiary"
+					onClick={() => triggerShareDialog()}
+				>
+					{buttons.shareButton.label}
+				</StyledLink>
+			) : (
+				<StyledLink styledAs="button-tertiary" onClick={() => copy(shareLink)}>
+					{buttons.copyButton.label}
+				</StyledLink>
+			)}
 		</Box>
 	);
 };

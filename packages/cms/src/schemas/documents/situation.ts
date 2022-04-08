@@ -91,5 +91,10 @@ export default {
 			name: 'dateHeader',
 			type: 'header',
 		},
+		{
+			title: 'Informeer contacten tonen?',
+			name: 'showInformContacts',
+			type: 'boolean',
+		},
 	],
 };
