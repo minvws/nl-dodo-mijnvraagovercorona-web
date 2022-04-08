@@ -145,8 +145,6 @@ export default function Situatie({ locale, date, situatie }: SituatieProps) {
 	const router = useRouter();
 	const { startPoint } = useContext(GlobalContext);
 
-	console.log('informContacts', page.informContacts);
-
 	const selectedLastEventDate = router.query.event
 		? parse(`${router.query.event}`, 'dd-MM-yyyy', new Date())
 		: undefined;
@@ -227,7 +225,7 @@ export default function Situatie({ locale, date, situatie }: SituatieProps) {
 							<GGDSpecialInstructions />
 						</Box>
 					</section>
-					<section sx={{ mt: '32px' }}>
+					<section sx={{ mt: '32px', '@media print': { display: 'none' } }}>
 						<InformContacts {...page.informContacts} />
 					</section>
 					<section sx={{ mt: '32px', '@media print': { display: 'none' } }}>
@@ -261,6 +259,7 @@ export default function Situatie({ locale, date, situatie }: SituatieProps) {
 								},
 							}}
 						>
+							<Styled.h2>{siteSettings.quarantaineGids.title}</Styled.h2>
 							<Link
 								styledAs="button"
 								href={siteSettings.quarantaineGids.url}
@@ -387,10 +386,10 @@ export const getStaticProps = async ({
 			})},
 			"steps": informContactsReference->steps[] {
 				${getLocaleProperty({ name: 'title', locale })},
-				${getLocaleProperty({ name: 'content', locale })},
+				${getLocaleProperty({ name: 'content', locale, block: true })},
 				"points": points[] {
 					${getLocaleProperty({ name: 'title', locale })},
-					${getLocaleProperty({ name: 'content', locale })},
+					${getLocaleProperty({ name: 'content', locale, block: true })},
 				}
 			},
 			${getLocaleProperty({
