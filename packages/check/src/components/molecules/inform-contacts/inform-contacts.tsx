@@ -165,7 +165,7 @@ export const InformContacts: React.FC<InformContactsProps> = ({
 				</StyledLink>
 			) : (
 				<StyledLink styledAs="button-tertiary" onClick={() => copy(shareLink)}>
-					{buttons.copyButton.label}
+					{value ? buttons.copyButton.labelCopied : buttons.copyButton.label}
 				</StyledLink>
 			)}
 		</Box>
