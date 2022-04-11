@@ -38,6 +38,8 @@ export type InformContactsProps = {
 	};
 };
 
+const bulletSize = '1.75rem';
+
 export const InformContacts: React.FC<InformContactsProps> = ({
 	title,
 	preButtonContent,
@@ -74,7 +76,7 @@ export const InformContacts: React.FC<InformContactsProps> = ({
 	}, []);
 
 	return (
-		<Box sx={{ marginBottom: '58px' }}>
+		<Box>
 			<Styled.h2>{title}</Styled.h2>
 			{steps ? (
 				<ol
@@ -91,7 +93,7 @@ export const InformContacts: React.FC<InformContactsProps> = ({
 							key={step.title}
 							sx={{
 								position: 'relative',
-								paddingLeft: '40px',
+								paddingLeft: '2.5rem',
 								counterIncrement: 'customList',
 
 								'&::before': {
@@ -99,9 +101,9 @@ export const InformContacts: React.FC<InformContactsProps> = ({
 									position: 'absolute',
 									width: '2px',
 									backgroundColor: 'secondary',
-									left: '13px',
-									top: '24px',
-									bottom: '-28px',
+									left: `calc(${bulletSize} / 2 - 1px)`,
+									top: bulletSize,
+									bottom: `-${bulletSize}`,
 								},
 
 								'&:last-child::before': {
@@ -119,13 +121,21 @@ export const InformContacts: React.FC<InformContactsProps> = ({
 									borderRadius: '50%',
 									backgroundColor: 'secondary',
 									color: 'white',
-									width: '28px',
-									height: '28px',
+									width: bulletSize,
+									height: bulletSize,
 									fontWeight: 'bold',
 								},
 							}}
 						>
-							<Styled.h3 sx={{ color: 'secondary', fontSize: '19px' }}>
+							<Styled.h3
+								sx={{
+									color: 'secondary',
+									fontSize: '1.1875rem',
+									marginBlockStart: '0',
+									// adjust heading with bullet
+									paddingBlockStart: '0.1875rem',
+								}}
+							>
 								{step.title}
 							</Styled.h3>
 							<ContentBlock content={step.content} />
@@ -140,8 +150,8 @@ export const InformContacts: React.FC<InformContactsProps> = ({
 											<Styled.h4
 												sx={{
 													color: 'copyHeading',
-													fontSize: '19px',
-													marginBottom: '4px',
+													fontSize: '1.1875rem',
+													marginBlockEnd: '0.25rem',
 												}}
 											>
 												{point.title}
