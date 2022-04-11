@@ -36,6 +36,12 @@ export default {
 			],
 		},
 		{
+			title: 'Uitleg',
+			name: 'explanation',
+			type: 'array',
+			of: [{ type: 'explanation' }],
+		},
+		{
 			title: 'Slug',
 			name: 'slug',
 			type: 'slug',

@@ -51,6 +51,8 @@ export const Resultaat = ({ locale }: { locale: Locales }) => {
 	const page = useSanityPageContent<PageContent>();
 	const siteSettings = useSanitySiteSettings();
 
+	console.log('page', page);
+
 	return (
 		<>
 			<MetaTags
@@ -167,6 +169,16 @@ export const getStaticProps = async ({
 			${getLocaleProperty({ name: 'content', path: `content.content`, locale })},
 			${getLocaleProperty({ name: 'href', path: `content.href`, locale })},
 			${getLocaleProperty({ name: 'button', path: `content.button`, locale })},
+		},
+		"explanation": explanation[]{
+			${getLocaleProperty({ name: 'chapeau', locale })},
+			${getLocaleProperty({ name: 'title', locale })},
+			${getLocaleProperty({ name: 'content', locale, block: true })},
+			"button": {
+				${getLocaleProperty({ name: 'label', path: 'button.label', locale })},
+				${getLocaleProperty({ name: 'href', path: 'button.href', locale })},
+			},
+			"image": "/images/sanity/" + image.asset->originalFilename,
 		},
 		"slug": slug.current,
 		"topic": topic->slug.current,
