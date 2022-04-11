@@ -191,114 +191,120 @@ export default function Situatie({ locale, date, situatie }: SituatieProps) {
 					<LinkBack href={startPoint} variant="restart" />
 				</Hero>
 				<Content>
-					<section sx={{ paddingInlineEnd: [, '10rem'] }}>
-						{page.policy && <WarningPanel content={page.policy} />}
+					<Stack
+						spacing={['2rem', '4rem']}
+						styles={{
+							paddingInlineEnd: [, '10rem'],
+						}}
+					>
+						<section>
+							{page.policy && <WarningPanel content={page.policy} />}
 
-						<Styled.h2>{page.quarantinePlanTitle}</Styled.h2>
+							<Styled.h2>{page.quarantinePlanTitle}</Styled.h2>
 
-						{quarantainePlan.map((day) => (
-							<SchemeBlock
-								key={day.title}
-								/**
-								 * If no date is provided we show the "laatste contact", "vandaag" values as the main title.
-								 */
-								title={
-									selectedLastEventDate && typeof todayDay !== 'undefined'
-										? getDateSinceEvent({
-												day: day.day,
-												todayDay,
-												eventDate: selectedLastEventDate,
-												locale,
-										  })
-										: day.title
-								}
-								subtitle={selectedLastEventDate ? `(${day.title})` : ''}
-								day={`dag ${day.day}`}
+							{quarantainePlan.map((day) => (
+								<SchemeBlock
+									key={day.title}
+									/**
+									 * If no date is provided we show the "laatste contact", "vandaag" values as the main title.
+									 */
+									title={
+										selectedLastEventDate && typeof todayDay !== 'undefined'
+											? getDateSinceEvent({
+													day: day.day,
+													todayDay,
+													eventDate: selectedLastEventDate,
+													locale,
+											  })
+											: day.title
+									}
+									subtitle={selectedLastEventDate ? `(${day.title})` : ''}
+									day={`dag ${day.day}`}
+								>
+									{day.bullets &&
+										day.bullets.map((content, index) => (
+											<SchemeBullet key={index}>
+												<ContentBlock content={content} />
+											</SchemeBullet>
+										))}
+								</SchemeBlock>
+							))}
+
+							<Box sx={{ marginBlockStart: '1rem' }}>
+								<GGDSpecialInstructions />
+							</Box>
+						</section>
+
+						{page.informContacts.title && (
+							<section
+								sx={{
+									'@media print': { display: 'none' },
+								}}
 							>
-								{day.bullets &&
-									day.bullets.map((content, index) => (
-										<SchemeBullet key={index}>
-											<ContentBlock content={content} />
-										</SchemeBullet>
-									))}
-							</SchemeBlock>
-						))}
+								<InformContacts {...page.informContacts} />
+							</section>
+						)}
 
-						<Box sx={{ marginBlockStart: '1rem' }}>
-							<GGDSpecialInstructions />
-						</Box>
-					</section>
-					{page.informContacts.title && (
 						<section
 							sx={{
-								marginBlockStart: '2rem',
-								paddingInlineEnd: [, '10rem'],
 								'@media print': { display: 'none' },
 							}}
 						>
-							<InformContacts {...page.informContacts} />
+							<Styled.h2>{siteSettings.quarantaineGids.title}</Styled.h2>
+							<Link
+								styledAs="button"
+								href={siteSettings.quarantaineGids.url}
+								external
+							>
+								{siteSettings.quarantaineGids.button}
+							</Link>
+
+							<Text variant="small">{siteSettings.quarantaineGids.text}</Text>
+
+							{page.showPrintAndCalendar && selectedLastEventDate && (
+								<Stack spacing={['1rem']}>
+									<SaveInCalendar
+										locale={locale}
+										content={{
+											tot_en_met:
+												siteSettings.quarantaineCalendar.dateSeperator,
+											other_calendar:
+												siteSettings.quarantaineCalendar.otherCalendar,
+										}}
+										modalTitle={siteSettings.quarantaineCalendar.modalTitle}
+										modalBody={siteSettings.quarantaineCalendar.modalBody}
+										inviteTitle={siteSettings.quarantaineCalendar.inviteTitle}
+										inviteText={siteSettings.quarantaineCalendar.inviteText}
+										fromDate={startOfDay(selectedLastEventDate)}
+										toDate={endOfDay(
+											addDays(
+												selectedLastEventDate,
+												page.quarantaineDuration || 10,
+											),
+										)}
+									>
+										{siteSettings.quarantaineCalendar.title}
+									</SaveInCalendar>
+									<StyledLink
+										as="button"
+										styledAs="button-secondary"
+										onClick={() => window.print()}
+									>
+										<PrinterIcon sx={{ marginInlineEnd: '0.75rem' }} />
+										{siteSettings.printCta}
+									</StyledLink>
+								</Stack>
+							)}
+							<Feedback
+								name="Quarantaine Check Result"
+								feedbackUrl={getFeedbackUrl(siteSettings.feedback.url, {
+									situation: situatie,
+									day: todayDay?.toString(),
+									source: 'result',
+								})}
+							/>
 						</section>
-					)}
-					<section
-						sx={{
-							marginBlockStart: '2rem',
-							paddingInlineEnd: [, '10rem'],
-							'@media print': { display: 'none' },
-						}}
-					>
-						<Styled.h2>{siteSettings.quarantaineGids.title}</Styled.h2>
-						<Link
-							styledAs="button"
-							href={siteSettings.quarantaineGids.url}
-							external
-						>
-							{siteSettings.quarantaineGids.button}
-						</Link>
-
-						<Text variant="small">{siteSettings.quarantaineGids.text}</Text>
-
-						{page.showPrintAndCalendar && selectedLastEventDate && (
-							<Stack spacing={['1rem']}>
-								<SaveInCalendar
-									locale={locale}
-									content={{
-										tot_en_met: siteSettings.quarantaineCalendar.dateSeperator,
-										other_calendar:
-											siteSettings.quarantaineCalendar.otherCalendar,
-									}}
-									modalTitle={siteSettings.quarantaineCalendar.modalTitle}
-									modalBody={siteSettings.quarantaineCalendar.modalBody}
-									inviteTitle={siteSettings.quarantaineCalendar.inviteTitle}
-									inviteText={siteSettings.quarantaineCalendar.inviteText}
-									fromDate={startOfDay(selectedLastEventDate)}
-									toDate={endOfDay(
-										addDays(
-											selectedLastEventDate,
-											page.quarantaineDuration || 10,
-										),
-									)}
-								>
-									{siteSettings.quarantaineCalendar.title}
-								</SaveInCalendar>
-								<StyledLink
-									as="button"
-									styledAs="button-secondary"
-									onClick={() => window.print()}
-								>
-									<PrinterIcon sx={{ marginInlineEnd: '0.75rem' }} />
-									{siteSettings.printCta}
-								</StyledLink>
-							</Stack>
-						)}
-						<Feedback
-							name="Quarantaine Check Result"
-							feedbackUrl={getFeedbackUrl(siteSettings.feedback.url, {
-								situation: situatie,
-								day: todayDay?.toString(),
-								source: 'result',
-							})}
-						/>
-					</section>
+					</Stack>
 				</Content>
 			</Page>
 		</>
