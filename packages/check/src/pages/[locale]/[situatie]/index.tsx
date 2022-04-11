@@ -29,6 +29,8 @@ import {
 	PrinterIcon,
 	getSituationPageQuery,
 	Locales,
+	StyledLink,
+	Stack,
 } from '@quarantaine/common';
 
 import { SiteSettings } from 'content/site-settings';
@@ -244,77 +246,50 @@ export default function Situatie({ locale, date, situatie }: SituatieProps) {
 							'@media print': { display: 'none' },
 						}}
 					>
-						<Box
-							sx={{
-								maxInlineSize: '100%',
-								button: {
-									background: 'transparent',
-									padding: 0,
-									border: 0,
-									marginBlockEnd: '1rem',
-									':hover, :focus': {
-										'> span': {
-											backgroundColor: '#fcfeff',
-										},
-									},
-									'> span': {
-										border: 'none',
-										backgroundColor: '#eef7fB',
-										transition: 'background 300ms ease-in-out',
-										p: { fontWeight: 'normal', fontSize: '19px' },
-										backgroundImage: 'none',
-										padding: '0.875rem',
-									},
-									svg: {
-										width: '1.5rem',
-										height: '1.125rem',
-									},
-								},
-							}}
+						<Styled.h2>{siteSettings.quarantaineGids.title}</Styled.h2>
+						<Link
+							styledAs="button"
+							href={siteSettings.quarantaineGids.url}
+							external
 						>
-							<Styled.h2>{siteSettings.quarantaineGids.title}</Styled.h2>
-							<Link
-								styledAs="button"
-								href={siteSettings.quarantaineGids.url}
-								external
-							>
-								{siteSettings.quarantaineGids.button}
-							</Link>
+							{siteSettings.quarantaineGids.button}
+						</Link>
 
-							<Text variant="small">{siteSettings.quarantaineGids.text}</Text>
+						<Text variant="small">{siteSettings.quarantaineGids.text}</Text>
 
-							{page.showPrintAndCalendar && selectedLastEventDate && (
-								<>
-									<SaveInCalendar
-										locale={locale}
-										content={{
-											tot_en_met:
-												siteSettings.quarantaineCalendar.dateSeperator,
-											other_calendar:
-												siteSettings.quarantaineCalendar.otherCalendar,
-										}}
-										modalTitle={siteSettings.quarantaineCalendar.modalTitle}
-										modalBody={siteSettings.quarantaineCalendar.modalBody}
-										inviteTitle={siteSettings.quarantaineCalendar.inviteTitle}
-										inviteText={siteSettings.quarantaineCalendar.inviteText}
-										fromDate={startOfDay(selectedLastEventDate)}
-										toDate={endOfDay(
-											addDays(
-												selectedLastEventDate,
-												page.quarantaineDuration || 10,
-											),
-										)}
-									>
-										{siteSettings.quarantaineCalendar.title}
-									</SaveInCalendar>
-									<button onClick={() => window.print()}>
-										<CallToAction icon={PrinterIcon}>
-											<p>{siteSettings.printCta}</p>
-										</CallToAction>
-									</button>
-								</>
-							)}
-						</Box>
+						{page.showPrintAndCalendar && selectedLastEventDate && (
+							<Stack spacing={['1rem']}>
+								<SaveInCalendar
+									locale={locale}
+									content={{
+										tot_en_met: siteSettings.quarantaineCalendar.dateSeperator,
+										other_calendar:
+											siteSettings.quarantaineCalendar.otherCalendar,
+									}}
+									modalTitle={siteSettings.quarantaineCalendar.modalTitle}
+									modalBody={siteSettings.quarantaineCalendar.modalBody}
+									inviteTitle={siteSettings.quarantaineCalendar.inviteTitle}
+									inviteText={siteSettings.quarantaineCalendar.inviteText}
+									fromDate={startOfDay(selectedLastEventDate)}
+									toDate={endOfDay(
+										addDays(
+											selectedLastEventDate,
+											page.quarantaineDuration || 10,
+										),
+									)}
+								>
+									{siteSettings.quarantaineCalendar.title}
+								</SaveInCalendar>
+								<StyledLink
+									as="button"
+									styledAs="button-secondary"
+									onClick={() => window.print()}
+								>
+									<PrinterIcon sx={{ marginInlineEnd: '0.75rem' }} />
+									{siteSettings.printCta}
+								</StyledLink>
+							</Stack>
+						)}
 						<Feedback
 							name="Quarantaine Check Result"
 							feedbackUrl={getFeedbackUrl(siteSettings.feedback.url, {
