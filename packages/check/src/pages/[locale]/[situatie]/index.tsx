@@ -189,7 +189,7 @@ export default function Situatie({ locale, date, situatie }: SituatieProps) {
 					<LinkBack href={startPoint} variant="restart" />
 				</Hero>
 				<Content>
-					<section sx={{ paddingRight: [, '165px'] }}>
+					<section sx={{ paddingInlineEnd: [, '10rem'] }}>
 						{page.policy && <WarningPanel content={page.policy} />}
 
 						<Styled.h2>{page.quarantinePlanTitle}</Styled.h2>
@@ -222,26 +222,36 @@ export default function Situatie({ locale, date, situatie }: SituatieProps) {
 							</SchemeBlock>
 						))}
 
-						<Box sx={{ mt: 'box' }}>
+						<Box sx={{ marginBlockStart: '1rem' }}>
 							<GGDSpecialInstructions />
 						</Box>
 					</section>
 					{page.informContacts.title && (
-						<section sx={{ mt: '32px', '@media print': { display: 'none' } }}>
+						<section
+							sx={{
+								marginBlockStart: '2rem',
+								paddingInlineEnd: [, '10rem'],
+								'@media print': { display: 'none' },
+							}}
+						>
 							<InformContacts {...page.informContacts} />
 						</section>
 					)}
-					<section sx={{ mt: '32px', '@media print': { display: 'none' } }}>
+					<section
+						sx={{
+							marginBlockStart: '2rem',
+							paddingInlineEnd: [, '10rem'],
+							'@media print': { display: 'none' },
+						}}
+					>
 						<Box
 							sx={{
-								width: '380px',
-								maxWidth: '100%',
+								maxInlineSize: '100%',
 								button: {
 									background: 'transparent',
-									p: 0,
+									padding: 0,
 									border: 0,
-									width: '100%',
-									mb: 'box',
+									marginBlockEnd: '1rem',
 									':hover, :focus': {
 										'> span': {
 											backgroundColor: '#fcfeff',
@@ -253,11 +263,11 @@ export default function Situatie({ locale, date, situatie }: SituatieProps) {
 										transition: 'background 300ms ease-in-out',
 										p: { fontWeight: 'normal', fontSize: '19px' },
 										backgroundImage: 'none',
-										padding: '14px',
+										padding: '0.875rem',
 									},
 									svg: {
-										width: '24px',
-										height: '18px',
+										width: '1.5rem',
+										height: '1.125rem',
 									},
 								},
 							}}

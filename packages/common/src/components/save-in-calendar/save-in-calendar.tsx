@@ -139,7 +139,6 @@ export const SaveInCalendar: React.FC<SingleDayProps | MultiDayProps> = (
 						textDecoration: 'none !important',
 						textAlign: 'left',
 						color: '#01689B !important',
-						width: '100%',
 					}}
 				>
 					<span
