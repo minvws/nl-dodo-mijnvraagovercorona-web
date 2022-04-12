@@ -94,7 +94,7 @@ const filterQuarantinePlan = ({
 				/** Replace the day number with todayDay if the number is not set */
 				.map((day) => ({
 					...day,
-					day: !day.day ? todayDay : day.day,
+					day: !day.day && day.day !== 0 ? todayDay : day.day,
 				}))
 				/** Add difference property containing the difference (in days) between this block and the previous one. */
 				.map((day, index, plan) => ({
