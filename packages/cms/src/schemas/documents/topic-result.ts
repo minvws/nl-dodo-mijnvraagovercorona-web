@@ -36,10 +36,10 @@ export default {
 			],
 		},
 		{
-			title: 'Uitleg',
-			name: 'explanation',
+			title: 'Verhalen',
+			name: 'stories',
 			type: 'array',
-			of: [{ type: 'explanation' }],
+			of: [{ type: 'story' }],
 		},
 		{
 			title: 'Slug',

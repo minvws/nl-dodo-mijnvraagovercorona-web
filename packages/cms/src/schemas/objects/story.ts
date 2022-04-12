@@ -1,6 +1,6 @@
 export default {
-	title: 'Uitleg',
-	name: 'explanation',
+	title: 'Verhaal',
+	name: 'story',
 	type: 'object',
 	preview: {
 		select: {
