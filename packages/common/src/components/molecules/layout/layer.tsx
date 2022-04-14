@@ -7,6 +7,7 @@ interface OwnProps {
 	pullUpBy?: string;
 	paddingBlockStart?: string | string[];
 	paddingBlockEnd?: string | string[];
+	id?: string;
 }
 
 export const Layer: React.FC<OwnProps> = ({
@@ -15,6 +16,7 @@ export const Layer: React.FC<OwnProps> = ({
 	pullUpBy,
 	paddingBlockStart = '2.5rem',
 	paddingBlockEnd = '2.5rem',
+	id,
 }) => {
 	const calcPaddingBlockStart =
 		typeof paddingBlockStart === 'object'
@@ -25,6 +27,7 @@ export const Layer: React.FC<OwnProps> = ({
 
 	return (
 		<Box
+			id={id}
 			sx={{
 				paddingBlockStart: calcPaddingBlockStart,
 				paddingBlockEnd: paddingBlockEnd,
