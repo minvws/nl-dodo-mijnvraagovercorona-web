@@ -11,7 +11,7 @@ module.exports = {
 	testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec).[jt]s?(x)'],
 	testPathIgnorePatterns: ['/node_modules/', '/.next/', '/.storybook/'],
 	transform: {
-		'^.+\\.(js|jsx|ts|tsx)$': '<rootDir>/../../node_modules/babel-jest',
+		'^.+\\.(js|jsx|ts|tsx)$': 'babel-jest',
 	},
 	transformIgnorePatterns: ['/node_modules/'],
 	moduleDirectories: [
