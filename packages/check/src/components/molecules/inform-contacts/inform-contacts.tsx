@@ -9,6 +9,8 @@ import {
 import React, { useEffect, useState } from 'react';
 import { jsx, Box, Styled } from 'theme-ui';
 import useCopyToClipboard from 'utilities/use-copy-to-clipboard';
+import { getUrlBySituation } from '../content/content-situation-block';
+import { Situation } from 'config/situaties';
 
 export type InformContactsProps = {
 	title: string;
@@ -22,11 +24,7 @@ export type InformContactsProps = {
 		}[];
 	}[];
 	buttons: {
-		situation: {
-			url: string;
-			showDate: boolean;
-			showExceptions: boolean;
-		};
+		situation: Situation;
 		copyButton: {
 			label: string;
 			labelCopied: string;
@@ -52,9 +50,9 @@ export const InformContacts: React.FC<InformContactsProps> = ({
 	const shareLink = `${
 		isBrowser()
 			? window.location.origin
-			: 'https://quarantainecheck.rijksoverheid.nl/'
+			: 'https://quarantainecheck.rijksoverheid.nl'
 	}/${getHrefWithlocale(
-		'/ik-ben-misschien-besmet/ben-ik-uitgezonderd',
+		buttons.situation.url ? getUrlBySituation(buttons.situation) : '#situaties',
 		locale.id,
 	)}`;
 

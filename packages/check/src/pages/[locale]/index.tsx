@@ -187,6 +187,7 @@ export default function LandingPage() {
 							<Retain maxWidth={[retainMaxWidth, '100%']}>
 								<Stack spacing={['2.25rem', '4rem']} id="situaties">
 									<Box
+										id="situaties"
 										sx={{
 											position: 'relative',
 											paddingBlockStart: ['0', '10rem'],
