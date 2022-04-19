@@ -44,7 +44,7 @@ export const Story: React.FC<StoryProps> = ({
 							</Text>
 						)}
 						<Styled.h2>{title}</Styled.h2>
-						<Stack>{children}</Stack>
+						{children}
 					</Stack>
 				</Retain>
 			</Box>
