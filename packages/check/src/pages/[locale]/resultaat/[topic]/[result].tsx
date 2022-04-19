@@ -43,6 +43,16 @@ interface PageContent {
 		href: string;
 		content: Object[];
 	};
+	stories: {
+		chapeau: string;
+		title: string;
+		content: Object[];
+		image: string;
+		button: {
+			href: string;
+			label: string;
+		};
+	}[];
 	topic: string;
 	slug: string;
 }
@@ -170,7 +180,7 @@ export const getStaticProps = async ({
 			${getLocaleProperty({ name: 'href', path: `content.href`, locale })},
 			${getLocaleProperty({ name: 'button', path: `content.button`, locale })},
 		},
-		"explanation": explanation[]{
+		"stories": stories[]{
 			${getLocaleProperty({ name: 'chapeau', locale })},
 			${getLocaleProperty({ name: 'title', locale })},
 			${getLocaleProperty({ name: 'content', locale, block: true })},
