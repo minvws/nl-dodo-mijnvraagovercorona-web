@@ -20,6 +20,8 @@ import {
 	TheSwitcher,
 	TheSwitcherItem,
 	Stack,
+	SectionInformational,
+	Story,
 } from '@quarantaine/common';
 
 import { getResultPageQuery, getResults } from 'utilities/topics';
@@ -61,8 +63,6 @@ export const Resultaat = ({ locale }: { locale: Locales }) => {
 	const page = useSanityPageContent<PageContent>();
 	const siteSettings = useSanitySiteSettings();
 
-	console.log('page', page);
-
 	return (
 		<>
 			<MetaTags
@@ -87,44 +87,44 @@ export const Resultaat = ({ locale }: { locale: Locales }) => {
 					<Container>
 						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
 						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
-							<TheSwitcher gap={['2rem', '8rem']}>
-								<TheSwitcherItem>
-									<Image
-										src={page.content.image}
-										alt=""
-										sx={{
-											display: 'block',
-											inlineSize: ['32rem'],
-											maxInlineSize: ['14rem', '100%'],
-											marginInlineStart: 'auto',
-											marginInlineEnd: 'auto',
-										}}
-									/>
-								</TheSwitcherItem>
-								<Box
-									sx={{
-										order: [, -1],
-									}}
-								>
-									<Retain>
-										<Stack spacing={['1rem', '2rem']}>
-											<Styled.h2>{page.content.title}</Styled.h2>
-											<ContentBlock content={page.content.content} />
-											<Link styledAs="button" href={page.content.href} external>
-												{page.content.button}
-											</Link>
-											<Feedback
-												name="Onderwerp Resultaat"
-												feedbackUrl={getFeedbackUrl(siteSettings.feedback.url, {
-													source: 'topic-result',
-													topic: page.topic,
-													result: page.slug,
-												})}
+							<Stack spacing={['5rem']}>
+								{page.stories.map((story, index) => (
+									<Story
+										media={
+											<Image
+												src={story.image}
+												alt=""
+												sx={{
+													display: 'block',
+													inlineSize: ['32rem'],
+													maxInlineSize: ['14rem', '100%'],
+													marginInlineStart: 'auto',
+													marginInlineEnd: 'auto',
+												}}
 											/>
-										</Stack>
-									</Retain>
-								</Box>
-							</TheSwitcher>
+										}
+										mediaAlignment={index % 2 === 0 ? 'end' : 'start'}
+										key={story.title}
+										chapeau={story.chapeau}
+										title={story.title}
+									>
+										<ContentBlock content={story.content} />
+										<Link styledAs="button" href={story.button.href} external>
+											{story.button.label}
+										</Link>
+									</Story>
+								))}
+							</Stack>
+							<Retain>
+								<Feedback
+									name="Onderwerp Resultaat"
+									feedbackUrl={getFeedbackUrl(siteSettings.feedback.url, {
+										source: 'topic-result',
+										topic: page.topic,
+										result: page.slug,
+									})}
+								/>
+							</Retain>
 						</Box>
 					</Container>
 				</Layer>
