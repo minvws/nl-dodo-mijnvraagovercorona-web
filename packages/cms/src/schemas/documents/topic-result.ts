@@ -20,22 +20,6 @@ export default {
 			to: [{ type: 'topic-document' }],
 		},
 		{
-			title: 'Content',
-			name: 'content',
-			type: 'object',
-			fields: [
-				{ title: 'Afbeelding', name: 'image', type: 'image' },
-				{ title: 'Titel', name: 'title', type: 'localeString' },
-				{
-					title: 'Content',
-					name: 'content',
-					type: 'localeBlock',
-				},
-				{ title: 'Href', name: 'href', type: 'localeString' },
-				{ title: 'Button', name: 'button', type: 'localeString' },
-			],
-		},
-		{
 			title: 'Verhalen',
 			name: 'stories',
 			type: 'array',
