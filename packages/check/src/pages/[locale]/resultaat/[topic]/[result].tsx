@@ -5,23 +5,21 @@ import React, { useState } from 'react';
 import {
 	Locales,
 	Link,
+	StyledLinkPropsAsAnchor,
 	MetaTags,
 	sanityClient,
 	getLocaleProperty,
 	useSanityPageContent,
 	ContentBlock,
-	Content,
 	Feedback,
 	getFeedbackUrl,
 	useSanitySiteSettings,
 	Header,
 	Layer,
 	Retain,
-	TheSwitcher,
-	TheSwitcherItem,
 	Stack,
-	SectionInformational,
 	Story,
+	LayoutFit,
 } from '@quarantaine/common';
 
 import { getResultPageQuery, getResults } from 'utilities/topics';
@@ -29,6 +27,13 @@ import { locales } from 'content/general-content';
 import { Page } from 'components/page';
 import { MastheadFlow } from 'components/molecules';
 import { LinkBack } from 'components/link-back';
+
+interface ButtonProps {
+	external: boolean;
+	href: string;
+	label: string;
+	variant: StyledLinkPropsAsAnchor['styledAs'];
+}
 
 interface PageContent {
 	metaData: {
@@ -54,6 +59,7 @@ interface PageContent {
 			href: string;
 			label: string;
 		};
+		buttons: ButtonProps[];
 	}[];
 	topic: string;
 	slug: string;
@@ -62,6 +68,8 @@ interface PageContent {
 export const Resultaat = ({ locale }: { locale: Locales }) => {
 	const page = useSanityPageContent<PageContent>();
 	const siteSettings = useSanitySiteSettings();
+
+	console.log('page', page);
 
 	return (
 		<>
@@ -109,9 +117,25 @@ export const Resultaat = ({ locale }: { locale: Locales }) => {
 										title={story.title}
 									>
 										<ContentBlock content={story.content} />
-										<Link styledAs="button" href={story.button.href} external>
-											{story.button.label}
-										</Link>
+										{story.button.href ? (
+											<Link styledAs="button" href={story.button.href} external>
+												{story.button.label}
+											</Link>
+										) : null}
+										{story.buttons ? (
+											<LayoutFit>
+												{story.buttons.map((button) => (
+													<Link
+														key={button.label}
+														styledAs={button.variant}
+														href={button.href}
+														external={button.external}
+													>
+														{button.label}
+													</Link>
+												))}
+											</LayoutFit>
+										) : null}
 									</Story>
 								))}
 							</Stack>
@@ -187,6 +211,12 @@ export const getStaticProps = async ({
 			"button": {
 				${getLocaleProperty({ name: 'label', path: 'button.label', locale })},
 				${getLocaleProperty({ name: 'href', path: 'button.href', locale })},
+			},
+			"buttons": buttons[]{
+				${getLocaleProperty({ name: 'label', locale })},
+				${getLocaleProperty({ name: 'href', locale })},
+				external,
+				variant,
 			},
 			"image": "/images/sanity/" + image.asset->originalFilename,
 		},
