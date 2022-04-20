@@ -47,6 +47,12 @@ export default {
 			],
 		},
 		{
+			title: 'Buttons',
+			name: 'buttons',
+			type: 'array',
+			of: [{ type: 'button' }],
+		},
+		{
 			title: 'Afbeelding',
 			name: 'image',
 			type: 'image',
