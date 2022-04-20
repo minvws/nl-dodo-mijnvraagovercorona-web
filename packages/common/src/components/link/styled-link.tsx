@@ -1,8 +1,9 @@
 /** @jsx jsx */
 import React, { useMemo } from 'react';
-import { jsx, SxStyleProp, Box } from 'theme-ui';
+import { jsx, SxStyleProp, Box, Image } from 'theme-ui';
 
 import { ChevronIcon, RefreshIcon } from '@quarantaine/common';
+import VisuallyHidden from '@reach/visually-hidden';
 
 interface StyledLinkPropsBase {
 	withChevron?: boolean;
@@ -18,7 +19,9 @@ interface StyledLinkPropsBase {
 		| 'button-secondary'
 		| 'button-tertiary'
 		| 'button-disabled'
-		| 'button-large';
+		| 'button-large'
+		| 'play-store'
+		| 'app-store';
 }
 
 export interface StyledLinkPropsAsAnchor extends StyledLinkPropsBase {
@@ -194,6 +197,10 @@ export const useLinkStyles = ({
 			},
 		};
 
+		const buttonStoreBase: SxStyleProp = {
+			display: 'inline-flex',
+		};
+
 		if (styledAs === 'link-back') return linkBackStyling;
 		if (styledAs === 'link-restart') return linkRestartStyling;
 		if (styledAs === 'button') return buttonStyling;
@@ -201,6 +208,8 @@ export const useLinkStyles = ({
 		if (styledAs === 'button-tertiary') return buttonTertiaryStyling;
 		if (styledAs === 'button-disabled') return buttonDisabledStyling;
 		if (styledAs === 'button-large') return buttonLargeStyling;
+		if (styledAs === 'play-store') return buttonStoreBase;
+		if (styledAs === 'app-store') return buttonStoreBase;
 
 		return linkStyling;
 	}, [styledAs, fontWeight]);
@@ -275,12 +284,20 @@ const StyledLinkBase = <T extends React.ElementType = 'a'>(
 			)}
 			{props.styledAs === 'button-large' ? (
 				<span sx={{ flex: 1 }}>{children}</span>
+			) : props.styledAs === 'play-store' || props.styledAs === 'app-store' ? (
+				<VisuallyHidden>{children}</VisuallyHidden>
 			) : (
 				children
 			)}
 			{props.styledAs === 'button-large' && (
 				<ChevronIcon className="chevron" sx={{ width: '3.75rem' }} />
 			)}
+			{props.styledAs === 'play-store' ? (
+				<Image src="/images/stores/play-store.svg" alt="" />
+			) : null}
+			{props.styledAs === 'app-store' ? (
+				<Image src="/images/stores/app-store.svg" alt="" />
+			) : null}
 		</a>
 	);
 };
