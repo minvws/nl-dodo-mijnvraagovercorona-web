@@ -250,50 +250,51 @@ export default function Situatie({ locale, date, situatie }: SituatieProps) {
 								'@media print': { display: 'none' },
 							}}
 						>
-							<Styled.h2>{siteSettings.quarantaineGids.title}</Styled.h2>
-							<Link
-								styledAs="button"
-								href={siteSettings.quarantaineGids.url}
-								external
-							>
-								{siteSettings.quarantaineGids.button}
-							</Link>
-
-							<Text variant="small">{siteSettings.quarantaineGids.text}</Text>
-
 							{page.showPrintAndCalendar && selectedLastEventDate && (
-								<Stack spacing={['1rem']}>
-									<SaveInCalendar
-										locale={locale}
-										content={{
-											tot_en_met:
-												siteSettings.quarantaineCalendar.dateSeperator,
-											other_calendar:
-												siteSettings.quarantaineCalendar.otherCalendar,
-										}}
-										modalTitle={siteSettings.quarantaineCalendar.modalTitle}
-										modalBody={siteSettings.quarantaineCalendar.modalBody}
-										inviteTitle={siteSettings.quarantaineCalendar.inviteTitle}
-										inviteText={siteSettings.quarantaineCalendar.inviteText}
-										fromDate={startOfDay(selectedLastEventDate)}
-										toDate={endOfDay(
-											addDays(
-												selectedLastEventDate,
-												page.quarantaineDuration || 10,
-											),
-										)}
-									>
-										{siteSettings.quarantaineCalendar.title}
-									</SaveInCalendar>
-									<StyledLink
-										as="button"
-										styledAs="button-secondary"
-										onClick={() => window.print()}
-									>
-										<PrinterIcon sx={{ marginInlineEnd: '0.75rem' }} />
-										{siteSettings.printCta}
-									</StyledLink>
-								</Stack>
+								<>
+									<Styled.h2>{siteSettings.quarantaineGids.title}</Styled.h2>
+									{/* <Link
+									styledAs="button"
+									href={siteSettings.quarantaineGids.url}
+									external
+								>
+									{siteSettings.quarantaineGids.button}
+								</Link>
+
+								<Text variant="small">{siteSettings.quarantaineGids.text}</Text> */}
+									<Stack spacing={['1rem']}>
+										<SaveInCalendar
+											locale={locale}
+											content={{
+												tot_en_met:
+													siteSettings.quarantaineCalendar.dateSeperator,
+												other_calendar:
+													siteSettings.quarantaineCalendar.otherCalendar,
+											}}
+											modalTitle={siteSettings.quarantaineCalendar.modalTitle}
+											modalBody={siteSettings.quarantaineCalendar.modalBody}
+											inviteTitle={siteSettings.quarantaineCalendar.inviteTitle}
+											inviteText={siteSettings.quarantaineCalendar.inviteText}
+											fromDate={startOfDay(selectedLastEventDate)}
+											toDate={endOfDay(
+												addDays(
+													selectedLastEventDate,
+													page.quarantaineDuration || 10,
+												),
+											)}
+										>
+											{siteSettings.quarantaineCalendar.title}
+										</SaveInCalendar>
+										<StyledLink
+											as="button"
+											styledAs="button-secondary"
+											onClick={() => window.print()}
+										>
+											<PrinterIcon sx={{ marginInlineEnd: '0.75rem' }} />
+											{siteSettings.printCta}
+										</StyledLink>
+									</Stack>
+								</>
 							)}
 							<Feedback
 								name="Quarantaine Check Result"
