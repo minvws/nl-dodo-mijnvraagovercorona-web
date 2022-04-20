@@ -29,6 +29,8 @@ import {
 	PrinterIcon,
 	getSituationPageQuery,
 	Locales,
+	StyledLink,
+	Stack,
 } from '@quarantaine/common';
 
 import { SiteSettings } from 'content/site-settings';
@@ -42,6 +44,7 @@ import { LinkBack } from 'components/link-back';
 import GlobalContext from 'utilities/global-context';
 import { useContext } from 'react';
 import { WarningPanel } from 'components/warning-panel';
+import { InformContacts, InformContactsProps } from 'components/molecules';
 
 const getDateSinceEvent = ({
 	day,
@@ -87,13 +90,11 @@ const filterQuarantinePlan = ({
 	quarantinePlan
 		? quarantinePlan
 				/* Remove any blocks that should not be visible on todayDay */
-				.filter(
-					({ showOn }) => showOn === undefined || showOn.includes(todayDay),
-				)
+				.filter(({ showOn }) => !showOn || showOn.includes(todayDay))
 				/** Replace the day number with todayDay if the number is not set */
 				.map((day) => ({
 					...day,
-					day: day.day === undefined ? todayDay : day.day,
+					day: !day.day && day.day !== 0 ? todayDay : day.day,
 				}))
 				/** Add difference property containing the difference (in days) between this block and the previous one. */
 				.map((day, index, plan) => ({
@@ -126,11 +127,13 @@ interface PageContent {
 	pretitle: string;
 	quarantinePlan: QuarantainePlan;
 	quarantinePlanTitle: string;
+	informContacts: InformContactsProps;
 	showPrintAndCalendar: boolean;
 	quarantaineDuration?: number;
 	url: string;
 	showExceptions?: boolean;
 	showDate?: boolean;
+	showInformContacts?: boolean;
 }
 
 interface SituatieProps {
@@ -188,74 +191,66 @@ export default function Situatie({ locale, date, situatie }: SituatieProps) {
 					<LinkBack href={startPoint} variant="restart" />
 				</Hero>
 				<Content>
-					<section sx={{ paddingRight: [, '165px'] }}>
-						{page.policy && <WarningPanel content={page.policy} />}
+					<Stack
+						spacing={['2rem', '4rem']}
+						styles={{
+							paddingInlineEnd: [, '10rem'],
+						}}
+					>
+						<section>
+							{page.policy && <WarningPanel content={page.policy} />}
 
-						<Styled.h2>{page.quarantinePlanTitle}</Styled.h2>
+							<Styled.h2>{page.quarantinePlanTitle}</Styled.h2>
 
-						{quarantainePlan.map((day) => (
-							<SchemeBlock
-								key={day.title}
-								/**
-								 * If no date is provided we show the "laatste contact", "vandaag" values as the main title.
-								 */
-								title={
-									selectedLastEventDate && typeof todayDay !== 'undefined'
-										? getDateSinceEvent({
-												day: day.day,
-												todayDay,
-												eventDate: selectedLastEventDate,
-												locale,
-										  })
-										: day.title
-								}
-								subtitle={selectedLastEventDate ? `(${day.title})` : ''}
-								day={`dag ${day.day}`}
+							{quarantainePlan.map((day) => (
+								<SchemeBlock
+									key={day.title}
+									/**
+									 * If no date is provided we show the "laatste contact", "vandaag" values as the main title.
+									 */
+									title={
+										selectedLastEventDate && typeof todayDay !== 'undefined'
+											? getDateSinceEvent({
+													day: day.day,
+													todayDay,
+													eventDate: selectedLastEventDate,
+													locale,
+											  })
+											: day.title
+									}
+									subtitle={selectedLastEventDate ? `(${day.title})` : ''}
+									day={`dag ${day.day}`}
+								>
+									{day.bullets &&
+										day.bullets.map((content, index) => (
+											<SchemeBullet key={index}>
+												<ContentBlock content={content} />
+											</SchemeBullet>
+										))}
+								</SchemeBlock>
+							))}
+
+							<Box sx={{ marginBlockStart: '1rem' }}>
+								<GGDSpecialInstructions />
+							</Box>
+						</section>
+
+						{page.informContacts.title && (
+							<section
+								sx={{
+									'@media print': { display: 'none' },
+								}}
 							>
-								{day.bullets &&
-									day.bullets.map((content, index) => (
-										<SchemeBullet key={index}>
-											<ContentBlock content={content} />
-										</SchemeBullet>
-									))}
-							</SchemeBlock>
-						))}
+								<InformContacts {...page.informContacts} />
+							</section>
+						)}
 
-						<Box sx={{ mt: 'box' }}>
-							<GGDSpecialInstructions />
-						</Box>
-					</section>
-					<section sx={{ mt: '32px', '@media print': { display: 'none' } }}>
-						<Box
+						<section
 							sx={{
-								width: '380px',
-								maxWidth: '100%',
-								button: {
-									background: 'transparent',
-									p: 0,
-									border: 0,
-									width: '100%',
-									mb: 'box',
-									':hover, :focus': {
-										'> span': {
-											backgroundColor: '#fcfeff',
-										},
-									},
-									'> span': {
-										border: 'none',
-										backgroundColor: '#eef7fB',
-										transition: 'background 300ms ease-in-out',
-										p: { fontWeight: 'normal', fontSize: '19px' },
-										backgroundImage: 'none',
-										padding: '14px',
-									},
-									svg: {
-										width: '24px',
-										height: '18px',
-									},
-								},
+								'@media print': { display: 'none' },
 							}}
 						>
+							<Styled.h2>{siteSettings.quarantaineGids.title}</Styled.h2>
 							<Link
 								styledAs="button"
 								href={siteSettings.quarantaineGids.url}
@@ -267,7 +262,7 @@ export default function Situatie({ locale, date, situatie }: SituatieProps) {
 							<Text variant="small">{siteSettings.quarantaineGids.text}</Text>
 
 							{page.showPrintAndCalendar && selectedLastEventDate && (
-								<>
+								<Stack spacing={['1rem']}>
 									<SaveInCalendar
 										locale={locale}
 										content={{
@@ -290,23 +285,26 @@ export default function Situatie({ locale, date, situatie }: SituatieProps) {
 									>
 										{siteSettings.quarantaineCalendar.title}
 									</SaveInCalendar>
-									<button onClick={() => window.print()}>
-										<CallToAction icon={PrinterIcon}>
-											<p>{siteSettings.printCta}</p>
-										</CallToAction>
-									</button>
-								</>
+									<StyledLink
+										as="button"
+										styledAs="button-secondary"
+										onClick={() => window.print()}
+									>
+										<PrinterIcon sx={{ marginInlineEnd: '0.75rem' }} />
+										{siteSettings.printCta}
+									</StyledLink>
+								</Stack>
 							)}
-						</Box>
-						<Feedback
-							name="Quarantaine Check Result"
-							feedbackUrl={getFeedbackUrl(siteSettings.feedback.url, {
-								situation: situatie,
-								day: todayDay?.toString(),
-								source: 'result',
-							})}
-						/>
-					</section>
+							<Feedback
+								name="Quarantaine Check Result"
+								feedbackUrl={getFeedbackUrl(siteSettings.feedback.url, {
+									situation: situatie,
+									day: todayDay?.toString(),
+									source: 'result',
+								})}
+							/>
+						</section>
+					</Stack>
 				</Content>
 			</Page>
 		</>
@@ -332,6 +330,22 @@ export async function getStaticPaths() {
 	};
 }
 
+const extractLocaleBullets = ({
+	page,
+	locale,
+}: {
+	page: any;
+	locale: string;
+}) => ({
+	...page,
+	quarantinePlan: page.quarantinePlan?.map((planItem: any) => ({
+		...planItem,
+		bullets: planItem.bullets
+			? planItem.bullets.map((bullet: any) => bullet[locale])
+			: null,
+	})),
+});
+
 export const getStaticProps = async ({
 	params: { locale, situatie, date },
 }: SituatieStaticProps) => {
@@ -356,14 +370,58 @@ export const getStaticProps = async ({
 			day,
 			showOn,
 			${getLocaleProperty({ name: 'title', locale })},
-			${getLocaleProperty({ name: 'bullets', locale, array: true })},
+			${getLocaleProperty({ name: 'bullets', locale, array: true, block: true })}
+		},
+		"informContacts": {
+			${getLocaleProperty({
+				name: 'title',
+				path: 'informContactsReference->title',
+				locale,
+			})},
+			"steps": informContactsReference->steps[] {
+				${getLocaleProperty({ name: 'title', locale })},
+				${getLocaleProperty({ name: 'content', locale, block: true })},
+				"points": points[] {
+					${getLocaleProperty({ name: 'title', locale })},
+					${getLocaleProperty({ name: 'content', locale, block: true })},
+				}
+			},
+			${getLocaleProperty({
+				name: 'preButtonContent',
+				path: 'informContactsReference->preButtonContent',
+				locale,
+				block: true,
+			})},
+			"buttons": informContactsReference->buttons {
+				"situation": {
+					"url": situationReference->url,
+					"showDate": situationReference->showDate,
+					"showExceptions": situationReference->showExceptions,
+				},
+				"shareButton": {
+					${getLocaleProperty({ name: 'label', path: 'shareButton.label', locale })},
+					${getLocaleProperty({
+						name: 'message',
+						path: 'shareButton.message',
+						locale,
+					})},
+				},
+				"copyButton": {
+					${getLocaleProperty({ name: 'label', path: 'copyButton.label', locale })},
+					${getLocaleProperty({
+						name: 'labelCopied',
+						path: 'copyButton.labelCopied',
+						locale,
+					})},
+				}
+			}
 		},
 		${getLocaleProperty({ name: 'quarantinePlanTitle', locale })},
 		showPrintAndCalendar,
    		quarantaineDuration,
 		url,
     	showExceptions,
-    	showDate
+    	showDate,
 	}`;
 
 	const { page, siteSettings } = await sanityClient.fetch(
@@ -377,7 +435,7 @@ export const getStaticProps = async ({
 
 	return {
 		props: {
-			page,
+			page: extractLocaleBullets({ page, locale }),
 			siteSettings,
 			locale,
 			situatie,

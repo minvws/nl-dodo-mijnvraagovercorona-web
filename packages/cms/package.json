@@ -5,18 +5,19 @@
 	"scripts": {
 		"start": "sanity start",
 		"test": "true",
-    "test:e2e": "true",
+		"test:e2e": "true",
 		"build": "sanity build",
 		"deploy": "sanity deploy"
 	},
 	"dependencies": {
-		"@sanity/base": "^2.10.2",
-		"@sanity/components": "^2.2.6",
-		"@sanity/core": "^2.10.2",
-		"@sanity/default-layout": "^2.10.2",
-		"@sanity/default-login": "^2.8.0",
-		"@sanity/desk-tool": "^2.10.4",
-		"@sanity/vision": "^2.10.0",
+		"@sanity/base": "^2.29.5",
+		"@sanity/components": "^2.14.0",
+		"@sanity/core": "^2.29.5",
+		"@sanity/default-layout": "^2.29.5",
+		"@sanity/default-login": "^2.29.5",
+		"@sanity/desk-tool": "^2.29.5",
+		"@sanity/eslint-config-studio": "^2.0.0",
+		"@sanity/vision": "^2.29.5",
 		"@visx/event": "^1.7.0",
 		"@visx/geo": "^1.17.1",
 		"@visx/tooltip": "^1.17.1",
@@ -24,12 +25,12 @@
 		"prop-types": "^15.7",
 		"react": "^17.0",
 		"react-dom": "^17.0",
-		"react-icons": "^4.2.0",
-		"sanity-plugin-order-documents": "^0.0.18",
+		"react-icons": "^4.3.1",
+		"styled-components": "^5.2.0",
 		"topojson-client": "^3.1.0"
 	},
 	"devDependencies": {
-		"@sanity/cli": "^2.10.0",
+		"@sanity/cli": "^2.29.5",
 		"@types/topojson-client": "^3.1.0"
 	}
 }

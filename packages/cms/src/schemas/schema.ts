@@ -8,9 +8,11 @@ import countryDocument from './documents/country';
 import riskCategoryDocument from './documents/riskCategory';
 import travelFaseDocument from './documents/travelFase';
 import situationDocument from './documents/situation';
+import modalsDocument from './documents/modals';
 import topicQuestionDocument from './documents/topic-question';
 import topicResultDocument from './documents/topic-result';
 import topicDocument from './documents/topic';
+import informContactsDocument from './documents/inform-contacts';
 
 import privacyPage from './pages/common/privacy';
 import cookiesPage from './pages/common/cookies';
@@ -33,7 +35,10 @@ import wanneerPage from './pages/check/wanneer';
 import geenAdviesPage from './pages/check/geen-advies';
 
 import localeStringObject from './objects/localeString';
-import localeBlockObject from './objects/localeBlock';
+import {
+	localeBlockObject,
+	localeBlockWithoutModalObject,
+} from './objects/localeBlock';
 import localeUrlObject from './objects/localeUrl';
 import localeTextObject from './objects/localeText';
 import pageMetaDataObject from './objects/pageMetaData';
@@ -46,6 +51,8 @@ import situationContentBlocksObject from './objects/situationContentBlocks';
 import caseObject from './objects/case';
 import folderObject from './objects/folder';
 import aidObject from './objects/aid';
+import stepsObject from './objects/steps';
+import storyObject from './objects/story';
 
 export default createSchema({
 	name: 'default',
@@ -97,9 +104,11 @@ export default createSchema({
 		riskCategoryDocument,
 		travelFaseDocument,
 		situationDocument,
+		modalsDocument,
 		topicQuestionDocument,
 		topicResultDocument,
 		topicDocument,
+		informContactsDocument,
 
 		/**
 		 * Objects
@@ -107,6 +116,7 @@ export default createSchema({
 		 */
 		localeStringObject,
 		localeBlockObject,
+		localeBlockWithoutModalObject,
 		localeUrlObject,
 		localeTextObject,
 		pageMetaDataObject,
@@ -119,5 +129,7 @@ export default createSchema({
 		caseObject,
 		folderObject,
 		aidObject,
+		stepsObject,
+		storyObject,
 	]),
 });

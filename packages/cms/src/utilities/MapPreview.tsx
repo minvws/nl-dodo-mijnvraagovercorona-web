@@ -77,7 +77,7 @@ export const MapPreview = () => {
 		);
 
 		fetch(
-			'https://6h7384ur.api.sanity.io/v1/data/query/production?query=' + query,
+			'https://yiy91tbc.api.sanity.io/v1/data/query/production?query=' + query,
 		)
 			.then((res) => res.json())
 			.then((res) => {

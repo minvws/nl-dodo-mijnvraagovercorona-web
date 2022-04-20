@@ -2,6 +2,7 @@ import { CommonSiteSettings } from '@quarantaine/common';
 
 export interface SiteSettings extends CommonSiteSettings {
 	quarantaineGids: {
+		title: string;
 		button: string;
 		text: string;
 		url: string;

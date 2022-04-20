@@ -31,6 +31,8 @@ export const theme: Theme = {
 		buttonHover: '#A00057',
 		buttonSecondary: '#eef7fb',
 		buttonSecondaryHover: '#fcfeff',
+		buttonTertiary: '#0e6999',
+		buttonTertiaryHover: '#094666',
 
 		link: '#01689B',
 		linkHover: '#002783',

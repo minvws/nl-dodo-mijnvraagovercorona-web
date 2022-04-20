@@ -24,11 +24,6 @@ export default {
 			type: 'header',
 		},
 		{
-			title: 'Beleidswijziging',
-			name: 'policy',
-			type: 'localeBlock',
-		},
-		{
 			title: 'Voorloper titel',
 			name: 'pretitle',
 			type: 'localeString',
@@ -42,6 +37,12 @@ export default {
 			title: 'Quarantaine plan',
 			name: 'quarantinePlan',
 			type: 'quarantinePlan',
+		},
+		{
+			title: 'Informeer Contacten',
+			name: 'informContactsReference',
+			type: 'reference',
+			to: [{ type: 'inform-contacts-document' }],
 		},
 		{
 			title: 'Toon print & agenda',

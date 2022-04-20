@@ -16,6 +16,7 @@ interface StyledLinkPropsBase {
 		| 'link-restart'
 		| 'button'
 		| 'button-secondary'
+		| 'button-tertiary'
 		| 'button-disabled'
 		| 'button-large';
 }
@@ -157,6 +158,17 @@ export const useLinkStyles = ({
 			},
 		};
 
+		const buttonTertiaryStyling: SxStyleProp = {
+			...buttonStyling,
+			backgroundColor: 'buttonTertiary',
+			color: 'white',
+			cursor: 'pointer',
+
+			':hover, :focus': {
+				backgroundColor: 'buttonTertiaryHover',
+			},
+		};
+
 		const buttonDisabledStyling: SxStyleProp = {
 			...buttonStyling,
 			opacity: 0.4,
@@ -186,6 +198,7 @@ export const useLinkStyles = ({
 		if (styledAs === 'link-restart') return linkRestartStyling;
 		if (styledAs === 'button') return buttonStyling;
 		if (styledAs === 'button-secondary') return buttonSecondaryStyling;
+		if (styledAs === 'button-tertiary') return buttonTertiaryStyling;
 		if (styledAs === 'button-disabled') return buttonDisabledStyling;
 		if (styledAs === 'button-large') return buttonLargeStyling;
 

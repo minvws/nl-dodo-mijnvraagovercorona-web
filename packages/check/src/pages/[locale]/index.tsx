@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React, { useContext, useEffect } from 'react';
-import { jsx, Styled, Container, Box, Flex, Image } from 'theme-ui';
+import { jsx, Styled, Container, Box, Image } from 'theme-ui';
 import { Page } from 'components/page';
 
 import {
@@ -9,6 +9,9 @@ import {
 	getPageQuery,
 	getLocaleProperty,
 	useSanityPageContent,
+	useSanitySiteSettings,
+	Hero,
+	getFeedbackUrl,
 	Locales,
 	Retain,
 	Layer,
@@ -184,6 +187,7 @@ export default function LandingPage() {
 							<Retain maxWidth={[retainMaxWidth, '100%']}>
 								<Stack spacing={['2.25rem', '4rem']} id="situaties">
 									<Box
+										id="situaties"
 										sx={{
 											position: 'relative',
 											paddingBlockStart: ['0', '10rem'],
@@ -413,8 +417,9 @@ export const getStaticProps = async ({
 			"contentBlocks": contentBlocks[]{
 				${getLocaleProperty({
 					name: 'content',
-					path: '^',
+					path: '@',
 					locale,
+					block: true,
 				})},
 				"situation": {
 					${getLocaleProperty({

@@ -53,6 +53,7 @@ export const Dialog: React.FC<DialogProps> = ({
 			}}
 		>
 			<DialogContent
+				aria-label={title}
 				sx={{
 					backgroundColor: 'white',
 					width: '100%',
