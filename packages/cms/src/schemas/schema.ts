@@ -52,6 +52,7 @@ import caseObject from './objects/case';
 import folderObject from './objects/folder';
 import aidObject from './objects/aid';
 import stepsObject from './objects/steps';
+import buttonObject from './objects/button';
 import storyObject from './objects/story';
 
 export default createSchema({
@@ -130,6 +131,7 @@ export default createSchema({
 		folderObject,
 		aidObject,
 		stepsObject,
+		buttonObject,
 		storyObject,
 	]),
 });
