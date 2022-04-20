@@ -117,11 +117,6 @@ export const Resultaat = ({ locale }: { locale: Locales }) => {
 										title={story.title}
 									>
 										<ContentBlock content={story.content} />
-										{story.button.href ? (
-											<Link styledAs="button" href={story.button.href} external>
-												{story.button.label}
-											</Link>
-										) : null}
 										{story.buttons ? (
 											<LayoutFit>
 												{story.buttons.map((button) => (
