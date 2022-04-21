@@ -17,11 +17,19 @@ export default {
 			title: 'Onderwerp',
 			name: 'topic',
 			type: 'reference',
-			to: [{ type: 'topic-document' }],
+			to: [{ type: 'situation-flow-document' }],
+		},
+		{
+			title: 'Type vraag',
+			name: 'type',
+			type: 'string',
+			options: {
+				list: ['datepicker', 'single', 'multiple'],
+			},
 		},
 		{
 			title: 'Antwoorden',
-			name: 'answers',
+			name: 'answersSingle',
 			type: 'array',
 			of: [
 				{
@@ -39,9 +47,8 @@ export default {
 							name: 'next',
 							type: 'reference',
 							to: [
-								{ type: 'topic-question-document' },
-								{ type: 'topic-result-document' },
-								{ type: 'situation-document' },
+								{ type: 'situation-question-document' },
+								{ type: 'situation-result-document' },
 							],
 						},
 					],
@@ -53,6 +60,54 @@ export default {
 					},
 				},
 			],
+			hidden: ({ document }: { document: { type: string } }) =>
+				document?.type !== 'single',
+		},
+		{
+			title: 'Antwoorden',
+			name: 'answersMultiple',
+			type: 'array',
+			of: [
+				{
+					title: 'Antwoord',
+					name: 'answer',
+					type: 'object',
+					fields: [
+						{
+							title: 'Content',
+							name: 'content',
+							type: 'localeBlock',
+						},
+					],
+					preview: {
+						select: {
+							title: 'content.nl',
+							subtitle: 'content.next.header.title',
+						},
+					},
+				},
+			],
+			hidden: ({ document }: { document: { type: string } }) =>
+				document?.type !== 'multiple',
+		},
+		{
+			title: 'Toon meer',
+			name: 'showMore',
+			type: 'object',
+			fields: [
+				{
+					title: 'Maximum aantal antwoorden',
+					name: 'max',
+					type: 'number',
+				},
+				{
+					title: 'Text',
+					name: 'text',
+					type: 'localeString',
+				},
+			],
+			hidden: ({ document }: { document: { type: string } }) =>
+				document?.type !== 'multiple',
 		},
 		{
 			title: 'Buttons',
@@ -70,23 +125,6 @@ export default {
 							type: 'localeString',
 						},
 					],
-				},
-			],
-		},
-		{
-			title: 'Stappen',
-			name: 'steps',
-			type: 'object',
-			fields: [
-				{
-					title: 'Huidige',
-					name: 'current',
-					type: 'number',
-				},
-				{
-					title: 'Totaal',
-					name: 'total',
-					type: 'number',
 				},
 			],
 		},

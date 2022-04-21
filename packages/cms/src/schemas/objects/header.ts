@@ -14,6 +14,11 @@ export default {
 			type: 'localeBlock',
 		},
 		{
+			title: 'Afbeelding',
+			name: 'image',
+			type: 'image',
+		},
+		{
 			title: 'Modal',
 			name: 'modal',
 			type: 'object',

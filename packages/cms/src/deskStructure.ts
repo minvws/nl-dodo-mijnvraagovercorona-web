@@ -203,6 +203,21 @@ const checkMultiDocumentsConfig = [
 		title: `Onderwerp Resultaat Pagina's`,
 		icon: RiQuestionAnswerLine,
 	},
+	{
+		schemaType: 'situation-flow-document',
+		title: `Situatie Documenten`,
+		icon: RiQuestionAnswerLine,
+	},
+	{
+		schemaType: 'situation-question-document',
+		title: `Situatie Vraag Pagina's`,
+		icon: RiQuestionLine,
+	},
+	{
+		schemaType: 'situation-result-document',
+		title: `Situatie Resultaat Pagina's`,
+		icon: MdOutlineTopic,
+	},
 ];
 
 export default () =>

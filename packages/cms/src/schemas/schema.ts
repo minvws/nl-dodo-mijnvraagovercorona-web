@@ -13,6 +13,9 @@ import topicQuestionDocument from './documents/topic-question';
 import topicResultDocument from './documents/topic-result';
 import topicDocument from './documents/topic';
 import informContactsDocument from './documents/inform-contacts';
+import situationQuestionDocument from './documents/situation-question';
+import situationFlowDocument from './documents/situation-flow';
+import situationResultDocument from './documents/situation-result';
 
 import privacyPage from './pages/common/privacy';
 import cookiesPage from './pages/common/cookies';
@@ -109,6 +112,9 @@ export default createSchema({
 		topicResultDocument,
 		topicDocument,
 		informContactsDocument,
+		situationQuestionDocument,
+		situationFlowDocument,
+		situationResultDocument,
 
 		/**
 		 * Objects
