@@ -58,7 +58,7 @@ export const MetaTags = ({
 			)}
 
 			<meta property="og:url" content={completeURl} />
-			<meta property="og:image" content={`${baseUrl}/share.png`} />
+			<meta property="og:image" content={`${baseUrl}/share.png?v=2`} />
 			<link rel="canonical" href={completeURl} />
 
 			<meta property="og:title" content={pageTitle} />
@@ -68,7 +68,7 @@ export const MetaTags = ({
 			<meta property="twitter:url" content={completeURl} />
 			<meta property="twitter:title" content={pageTitle} />
 			<meta property="twitter:description" content={description} />
-			<meta property="twitter:image" content={`${baseUrl}/share.png`} />
+			<meta property="twitter:image" content={`${baseUrl}/share.png?v=2`} />
 
 			{noIndex && <meta name="robots" content="noindex" />}
 		</Head>
