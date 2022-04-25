@@ -239,8 +239,9 @@ export const getStaticProps = async ({
 				})},
 				${getLocaleProperty({
 					name: 'content',
-					path: `dateHeader.modal.content`,
+					path: 'dateHeader.modal.content',
 					locale,
+					block: true,
 				})},
 				${getLocaleProperty({
 					name: 'title',

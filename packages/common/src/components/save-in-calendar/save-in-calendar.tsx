@@ -133,27 +133,16 @@ export const SaveInCalendar: React.FC<SingleDayProps | MultiDayProps> = (
 				<MenuButton
 					sx={{
 						...styles,
-						// These important styles are needed because
-						// in SchemeBlocks these styles would otherwise be overridden
-						// for all anchors and buttons.
-						textDecoration: 'none !important',
-						textAlign: 'left',
-						color: '#01689B !important',
-						width: '100%',
 					}}
 				>
-					<span
+					<Appointment
 						sx={{
-							display: 'flex',
-							alignItems: 'center',
-							justifyContent: 'left',
+							inlineSize: '20px',
+							blockSize: 'auto',
+							marginInlineEnd: '0.75rem',
 						}}
-					>
-						<span sx={{ mr: 12, svg: { width: 20, height: 18 } }}>
-							<Appointment />
-						</span>
-						<span>{props.children}</span>
-					</span>
+					/>
+					{props.children}
 				</MenuButton>
 				<MenuList
 					sx={{

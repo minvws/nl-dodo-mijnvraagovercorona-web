@@ -221,6 +221,11 @@ export default {
 			options: { collapsible: true },
 			fields: [
 				{
+					title: 'Quarantainegids onderdeel titel',
+					name: 'title',
+					type: 'localeString',
+				},
+				{
 					title: 'Quarantainegids button',
 					name: 'button',
 					type: 'localeString',
