@@ -124,6 +124,20 @@ export default {
 							name: 'text',
 							type: 'localeString',
 						},
+						{
+							title: 'Standaard actie',
+							name: 'standard',
+							type: 'boolean',
+						},
+						{
+							title: 'Volgende',
+							name: 'next',
+							type: 'reference',
+							to: [
+								{ type: 'situation-question-document' },
+								{ type: 'situation-result-document' },
+							],
+						},
 					],
 				},
 			],
