@@ -253,15 +253,17 @@ export default function Situatie({ locale, date, situatie }: SituatieProps) {
 							{page.showPrintAndCalendar && selectedLastEventDate && (
 								<>
 									<Styled.h2>{siteSettings.quarantaineGids.title}</Styled.h2>
-									{/* <Link
-									styledAs="button"
-									href={siteSettings.quarantaineGids.url}
-									external
-								>
-									{siteSettings.quarantaineGids.button}
-								</Link>
+									<Link
+										styledAs="button"
+										href={siteSettings.quarantaineGids.url}
+										external
+									>
+										{siteSettings.quarantaineGids.button}
+									</Link>
 
-								<Text variant="small">{siteSettings.quarantaineGids.text}</Text> */}
+									<Text variant="small">
+										{siteSettings.quarantaineGids.text}
+									</Text>
 									<Stack spacing={['1rem']}>
 										<SaveInCalendar
 											locale={locale}
