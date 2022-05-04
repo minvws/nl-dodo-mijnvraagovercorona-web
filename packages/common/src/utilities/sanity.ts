@@ -45,8 +45,7 @@ export const getLocaleProperty = ({
 		if (array) {
 			return `"${name}": ${path || name}[]{
 				"nl": nl[]${followModals('nl')},
-				"en": en[]${followModals('en')},
-				"es": es[]${followModals('es')}
+				"en": en[]${followModals('en')}
 			}`;
 		}
 
