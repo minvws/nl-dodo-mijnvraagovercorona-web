@@ -7,7 +7,6 @@ export interface Locale {
 export const supportedLocales: Locale[] = [
 	{ id: 'nl', title: 'Nederlands', isDefault: true },
 	{ id: 'en', title: 'Engels' },
-	{ id: 'es', title: 'Spaans' },
 ];
 
 export const baseLocale: Locale | undefined = supportedLocales.find(
