@@ -34,7 +34,7 @@ image: harbor.cicd.s15m.nl/vws-reis/tool-box:1.2
 
 .label-image: &label-image
   environment:
-    name: overheid-test2
+    name: overheid-test4
   stage: label
   image: harbor.cicd.s15m.nl/vws-reis/tool-box:1.2
   script:
