@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
 
-interface RadioButtonProps<ValueOptions> {
+interface ControlProps<ValueOptions> {
+	type: 'radio' | 'checkbox';
 	name: string;
 	label: string | React.ReactElement;
 	value: ValueOptions;
@@ -10,19 +11,20 @@ interface RadioButtonProps<ValueOptions> {
 	checked?: boolean;
 }
 
-export const RadioButton = <ValueOptions extends string>({
+export const Control = <ValueOptions extends string>({
+	type,
 	name,
 	label,
 	value,
 	onChange,
 	checked,
 	id,
-}: RadioButtonProps<ValueOptions>) => {
+}: ControlProps<ValueOptions>) => {
 	return (
 		<div sx={{ '& + &': { marginTop: 'mobilePadding' } }}>
 			<input
 				id={id}
-				type="radio"
+				type={type}
 				name={name}
 				value={value}
 				onChange={(ev) => onChange(ev.target.value as ValueOptions)}
@@ -60,7 +62,7 @@ export const RadioButton = <ValueOptions extends string>({
 						display: 'block',
 						width: '1.625rem',
 						height: '1.625rem',
-						borderRadius: '50%',
+						borderRadius: type === 'radio' ? '50%' : '0',
 						border: '1px solid currentColor',
 						content: '""',
 					},
