@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 import { jsx, Styled } from 'theme-ui';
+import slugify from 'slugify';
 import { ExpansionPanel, Stack, theme, trackEvent } from '@quarantaine/common';
 import { ContentSituationBlockProps } from '../content';
 
@@ -19,6 +20,10 @@ export const Case: React.FC<CaseProps> = ({
 	readMoreLabel,
 	children,
 }) => {
+	const id = slugify(title, {
+		lower: true,
+		strict: true,
+	});
 	return (
 		<Styled.div
 			sx={{
@@ -29,6 +34,15 @@ export const Case: React.FC<CaseProps> = ({
 				backgroundColor: 'white',
 			}}
 		>
+			<a
+				id={id}
+				sx={{
+					display: 'block',
+					position: 'relative',
+					top: '-40px',
+					visibility: 'hidden',
+				}}
+			/>
 			<Stack spacing={['1rem']}>
 				<Styled.h3
 					sx={{
@@ -47,6 +61,9 @@ export const Case: React.FC<CaseProps> = ({
 					<ExpansionPanel
 						variant="plusinline"
 						title={readMoreLabel}
+						deepLinkAble
+						linkToPanel={false}
+						id={id}
 						toggleEvent={(state: string) =>
 							state === 'open' && trackEvent('Situation', 'Open', title)
 						}
