@@ -7,7 +7,7 @@ interface ControlProps<ValueOptions> {
 	label: string | React.ReactElement;
 	value: ValueOptions;
 	id: string;
-	onChange: (value: ValueOptions) => void;
+	onChange?: (value: ValueOptions) => void;
 	checked?: boolean;
 }
 
@@ -21,13 +21,17 @@ export const Control = <ValueOptions extends string>({
 	id,
 }: ControlProps<ValueOptions>) => {
 	return (
-		<div sx={{ '& + &': { marginTop: 'mobilePadding' } }}>
+		<div sx={{ '& + &': { marginBlockStart: '1rem' } }}>
 			<input
 				id={id}
 				type={type}
 				name={name}
 				value={value}
-				onChange={(ev) => onChange(ev.target.value as ValueOptions)}
+				onChange={
+					onChange
+						? (ev) => onChange(ev.target.value as ValueOptions)
+						: undefined
+				}
 				checked={checked}
 				sx={{
 					position: 'absolute',
