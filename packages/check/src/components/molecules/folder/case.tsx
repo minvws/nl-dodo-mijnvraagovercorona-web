@@ -62,7 +62,7 @@ export const Case: React.FC<CaseProps> = ({
 						variant="plusinline"
 						title={readMoreLabel}
 						deepLinkAble
-						linkToPanel={false}
+						anchorToPanel={false}
 						id={id}
 						toggleEvent={(state: string) =>
 							state === 'open' && trackEvent('Situation', 'Open', title)

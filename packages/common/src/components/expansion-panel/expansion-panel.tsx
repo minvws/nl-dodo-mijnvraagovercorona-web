@@ -29,7 +29,7 @@ type ExpansionPanelProps = {
 	variant?: ExpansionPanelVariant;
 	toggleEvent?: Function;
 	deepLinkAble?: boolean;
-	linkToPanel?: boolean;
+	anchorToPanel?: boolean;
 	id?: string;
 	children: React.ReactNode;
 };
@@ -41,7 +41,7 @@ export const ExpansionPanel = ({
 	toggleEvent,
 	variant,
 	deepLinkAble,
-	linkToPanel = true,
+	anchorToPanel = true,
 	id,
 }: ExpansionPanelProps) => {
 	const [open, setOpen] = useState(false);
@@ -103,7 +103,7 @@ export const ExpansionPanel = ({
 				},
 			}}
 		>
-			{deepLinkAble && linkToPanel ? (
+			{deepLinkAble && anchorToPanel ? (
 				<a
 					id={hrefID}
 					sx={{
