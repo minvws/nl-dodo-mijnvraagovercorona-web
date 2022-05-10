@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import {
 	Locales,
 	Link,
+	StyledLink,
 	MetaTags,
 	Fieldset,
 	sanityClient,
@@ -95,6 +96,15 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 	const siteSettings = useSanitySiteSettings();
 
 	const [selectedOption, setSelectedOption] = useState<string>();
+	const [answersMultiple, setAnswersMultiple] = useState<
+		{
+			content: string;
+			_key: string;
+		}[]
+	>(page.answersMultiple.slice(0, page.showMore.max));
+	const [showShowMore, setShowShowMore] = useState<boolean>(true);
+
+	console.log(answersMultiple);
 
 	const url = `/situatie/${page.situation}/${page.slug}`;
 
@@ -138,13 +148,29 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 							<Retain>
 								<form action="" onSubmit={onSubmit}>
 									{page.type === 'multiple' && (
-										<Fieldset>
-											{page.answersMultiple?.map((answer) => (
-												<Label key={answer._key}>
-													<Checkbox /> {answer.content}
-												</Label>
-											))}
-										</Fieldset>
+										<>
+											<Fieldset>
+												{answersMultiple?.map((answer) => (
+													<Label key={answer._key}>
+														<Checkbox /> {answer.content}
+													</Label>
+												))}
+											</Fieldset>
+											{showShowMore && (
+												<StyledLink
+													as="button"
+													styledAs="show-more"
+													withChevron={false}
+													icon="/icons/plus.svg"
+													onClick={() => {
+														setAnswersMultiple(page.answersMultiple);
+														setShowShowMore(false);
+													}}
+												>
+													{page.showMore.text}
+												</StyledLink>
+											)}
+										</>
 									)}
 									{page.type === 'single' && (
 										<Fieldset>
@@ -245,7 +271,11 @@ export const getStaticProps = async ({
         },
 		"showMore": {
 			"max": showMore.max,
-            ${getLocaleProperty({ name: 'text', locale })},
+            ${getLocaleProperty({
+							name: 'text',
+							path: 'showMore.text',
+							locale,
+						})},
 		},
 		"buttons": buttons[]{
 			_key,

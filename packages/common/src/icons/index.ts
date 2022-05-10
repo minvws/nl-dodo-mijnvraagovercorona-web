@@ -5,3 +5,4 @@ export * from './printer';
 export * from './thumb';
 export * from './external';
 export * from './refresh';
+export * from './plus';

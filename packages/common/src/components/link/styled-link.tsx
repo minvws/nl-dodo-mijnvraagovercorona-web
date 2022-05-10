@@ -21,7 +21,8 @@ interface StyledLinkPropsBase {
 		| 'button-disabled'
 		| 'button-large'
 		| 'play-store'
-		| 'app-store';
+		| 'app-store'
+		| 'show-more';
 }
 
 export interface StyledLinkPropsAsAnchor extends StyledLinkPropsBase {
@@ -197,6 +198,12 @@ export const useLinkStyles = ({
 			},
 		};
 
+		const buttonShowMore: SxStyleProp = {
+			...linkStyling,
+			color: 'copyHeading',
+			fontWeight: 'bold',
+		};
+
 		const buttonStoreBase: SxStyleProp = {
 			display: 'inline-flex',
 		};
@@ -210,6 +217,7 @@ export const useLinkStyles = ({
 		if (styledAs === 'button-large') return buttonLargeStyling;
 		if (styledAs === 'play-store') return buttonStoreBase;
 		if (styledAs === 'app-store') return buttonStoreBase;
+		if (styledAs === 'show-more') return buttonShowMore;
 
 		return linkStyling;
 	}, [styledAs, fontWeight]);
@@ -257,6 +265,7 @@ const StyledLinkBase = <T extends React.ElementType = 'a'>(
 					withChevron && <ChevronIcon className="chevron" />
 				)}
 				{children}
+				{icon && <img src={icon} alt="" sx={{ marginLeft: '8px' }} />}
 			</button>
 		);
 	}
