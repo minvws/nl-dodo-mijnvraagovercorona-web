@@ -94,7 +94,6 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 	const page = useSanityPageContent<PageContent>();
 	const siteSettings = useSanitySiteSettings();
 
-	const { history, setHistory } = useContext(GlobalContext);
 	const [selectedOption, setSelectedOption] = useState<string>();
 
 	const url = `/situatie/${page.situation}/${page.slug}`;
@@ -108,25 +107,6 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 		if (selectedOption)
 			router.push(`/${getHrefWithlocale(`/${selectedOption}`, locale)}`);
 	};
-
-	// const updateHistory = () => {
-	// 	setHistory && setHistory(createHistory({ ...page.steps, history, url }));
-	// };
-
-	// useEffect(() => {
-	// 	const handleRouteChange = () => {
-	// 		updateHistory();
-	// 		setSelectedOption(undefined);
-	// 	};
-
-	// 	if (!history[0]) updateHistory();
-
-	// 	router.events.on('routeChangeStart', handleRouteChange);
-
-	// 	return () => {
-	// 		router.events.off('routeChangeStart', handleRouteChange);
-	// 	};
-	// }, []);
 
 	console.log(page);
 
@@ -142,26 +122,7 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 				<MastheadFlow
 					title={page.header.title}
 					illustration={page.header.image}
-					// headerSlot={
-					// 	<Header
-					// 		noPadding
-					// 		linkBackSlot={
-					// 			<LinkBack
-					// 				href={history[page.steps.current - 2] || '#situaties'}
-					// 				variant="back"
-					// 			/>
-					// 		}
-					// 	/>
-					// }
-					prefixSlot={
-						history.length > 1 && (
-							<ProgressMarker
-								currentStage={page.steps.current}
-								stageLinks={history}
-								currentStageLabel={page.header.title}
-							/>
-						)
-					}
+					headerSlot={<Header noPadding />}
 				/>
 				<Layer
 					backgroundColor="white"
@@ -235,8 +196,6 @@ type Question = { question: string; situation: string };
 
 export const getStaticPaths = async () => {
 	const questions: Question[] = await getSituationQuestions();
-
-	console.log(questions);
 
 	return {
 		paths: questions.reduce(
