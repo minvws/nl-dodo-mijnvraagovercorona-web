@@ -41,7 +41,6 @@ interface PageContent {
 
 export default function IsUitgezonderd() {
 	const page = useSanityPageContent<PageContent>();
-	const { startPoint } = useContext(GlobalContext);
 
 	return (
 		<>
@@ -57,7 +56,7 @@ export default function IsUitgezonderd() {
 					titlePrefix={page.pretitle}
 					illustrationUrl="/images/illustration-door.svg"
 				>
-					<LinkBack href={startPoint} variant="restart" />
+					<LinkBack href="/" variant="restart" />
 				</Hero>
 				<Content>
 					<section sx={{ paddingRight: [, '165px'] }}>

@@ -29,6 +29,8 @@ type ExpansionPanelProps = {
 	variant?: ExpansionPanelVariant;
 	toggleEvent?: Function;
 	deepLinkAble?: boolean;
+	anchorToPanel?: boolean;
+	id?: string;
 	children: React.ReactNode;
 };
 
@@ -39,14 +41,18 @@ export const ExpansionPanel = ({
 	toggleEvent,
 	variant,
 	deepLinkAble,
+	anchorToPanel = true,
+	id,
 }: ExpansionPanelProps) => {
 	const [open, setOpen] = useState(false);
 	const contentRef = useRef<HTMLDivElement>(null);
-	const id = useExpansionPanelId();
-	const hrefID = slugify(title, {
-		lower: true,
-		strict: true,
-	});
+	const internalID = useExpansionPanelId();
+	const hrefID =
+		id ||
+		slugify(title, {
+			lower: true,
+			strict: true,
+		});
 
 	// Panel group will only be set and used if it is indeed wrapped inside a group
 	// Otherwise this won't have any effect.
@@ -57,7 +63,7 @@ export const ExpansionPanel = ({
 	};
 
 	useEffect(() => {
-		if (expandedPanel && expandedPanel !== id) {
+		if (expandedPanel && expandedPanel !== internalID) {
 			setOpen(false);
 		}
 	}, [expandedPanel]);
@@ -74,8 +80,8 @@ export const ExpansionPanel = ({
 				window.history.pushState(null, '', `#${hrefID}`);
 			}
 		}
-		if (open && typeof setExpandedPanel === 'function' && id) {
-			setExpandedPanel(id);
+		if (open && typeof setExpandedPanel === 'function' && internalID) {
+			setExpandedPanel(internalID);
 		}
 	}, [open]);
 
@@ -97,7 +103,7 @@ export const ExpansionPanel = ({
 				},
 			}}
 		>
-			{deepLinkAble ? (
+			{deepLinkAble && anchorToPanel ? (
 				<a
 					id={hrefID}
 					sx={{

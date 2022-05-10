@@ -146,8 +146,6 @@ export default function Situatie({ locale, date, situatie }: SituatieProps) {
 	const page = useSanityPageContent<PageContent>();
 	const siteSettings = useSanitySiteSettings<SiteSettings>();
 	const router = useRouter();
-	const { startPoint } = useContext(GlobalContext);
-
 	const selectedLastEventDate = router.query.event
 		? parse(`${router.query.event}`, 'dd-MM-yyyy', new Date())
 		: undefined;
@@ -188,7 +186,7 @@ export default function Situatie({ locale, date, situatie }: SituatieProps) {
 					titlePrefix={page.pretitle}
 					illustrationUrl="/images/illustration-couch.svg"
 				>
-					<LinkBack href={startPoint} variant="restart" />
+					<LinkBack href="/" variant="restart" />
 				</Hero>
 				<Content>
 					<Stack

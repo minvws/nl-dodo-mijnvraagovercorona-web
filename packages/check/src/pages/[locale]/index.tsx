@@ -26,10 +26,6 @@ import {
 	ContentBlock,
 } from '@quarantaine/common';
 import {
-	getJouwSituatiePageNoMatchProjection,
-	JouwSituatiePageNoMatchContent,
-} from './jouw-situatie';
-import {
 	Folder,
 	FolderProps,
 	HulpPanel,
@@ -44,7 +40,7 @@ import {
 import { retainMaxWidth } from '@quarantaine/common/src/components/molecules/layout/retain';
 import GlobalContext from 'utilities/global-context';
 
-export interface PageContent extends JouwSituatiePageNoMatchContent {
+export interface PageContent {
 	metaData: {
 		title: string;
 		description: string;
@@ -72,17 +68,6 @@ export interface PageContent extends JouwSituatiePageNoMatchContent {
 	imageMobileCases: string;
 	imageDesktopCases: string;
 	cases: CaseProps[];
-	folders: FolderProps[];
-	uitleg: {
-		description: string;
-		image: string;
-		pretitle: string;
-		title: string;
-		linklist: {
-			id: string;
-			usp: string;
-		};
-	}[];
 	topics: {
 		title: string;
 		topics: {
@@ -107,11 +92,6 @@ export interface PageContent extends JouwSituatiePageNoMatchContent {
 export default function LandingPage() {
 	const page = useSanityPageContent<PageContent>();
 	const locale = useCurrentLocale();
-	const { startPoint, setStartPoint } = useContext(GlobalContext);
-
-	useEffect(() => {
-		setStartPoint && setStartPoint('');
-	}, []);
 
 	return (
 		<>
@@ -261,15 +241,6 @@ export default function LandingPage() {
 												</Case>
 											))}
 									</Box>
-
-									{/* <TheSwitcher gap={['2rem', '4rem']}>
-										{page.folders
-											// if not translated, don't show
-											.filter((folder) => folder.title)
-											.map((folder) => (
-												<Folder {...folder} key={folder.title} />
-											))}
-									</TheSwitcher> */}
 								</Stack>
 								<Box
 									sx={{
@@ -432,52 +403,6 @@ export const getStaticProps = async ({
 				}
 			}
 		},
-		"folders": folders[]{
-			${getLocaleProperty({ name: 'title', locale })},
-			${getLocaleProperty({ name: 'content', locale })},
-			"image": "/images/sanity/" + image.asset->originalFilename,
-			"cases": cases[]{
-				${getLocaleProperty({ name: 'title', locale })},
-				${getLocaleProperty({
-					name: 'titleSuffix',
-					locale,
-				})},
-				${getLocaleProperty({
-					name: 'intro',
-					locale,
-				})},
-				${getLocaleProperty({
-					name: 'readMoreLabel',
-					locale,
-				})},
-				"contentBlocks": contentBlocks[]{
-					${getLocaleProperty({
-						name: 'content',
-						path: '^',
-						locale,
-					})},
-					"situation": {
-						${getLocaleProperty({
-							name: 'situationLinkTitle',
-							locale,
-						})},
-						"url": situationReference->url,
-						"showDate": situationReference->showDate,
-						"showExceptions": situationReference->showExceptions,
-					}
-				}
-			}
-		},
-		"uitleg": uitleg[]{
-			"image": "/images/sanity/" + image.asset->originalFilename,
-			${getLocaleProperty({ name: 'description', locale })},
-			${getLocaleProperty({ name: 'pretitle', locale })},
-			${getLocaleProperty({ name: 'title', locale })},
-			"linklist": {
-				${getLocaleProperty({ name: 'id', path: 'linklist.id', locale })},
-				${getLocaleProperty({ name: 'usp', path: 'linklist.usp', locale })},
-			},
-		},
 		"topics": {
 			${getLocaleProperty({ name: 'title', path: 'topics.title', locale })},
 			"topics": topics.topics[]->{
@@ -512,22 +437,9 @@ export const getStaticProps = async ({
 		}),
 	);
 
-	const jouwSituatiePageProjection = `{${getJouwSituatiePageNoMatchProjection(
-		locale,
-	)}}`;
-
-	const { page: jouwSituatiePage } = await sanityClient.fetch(
-		getPageQuery({
-			site: 'quarantaine-check',
-			type: 'jouw-situatie-page',
-			pageProjection: jouwSituatiePageProjection,
-			locale,
-		}),
-	);
-
 	return {
 		props: {
-			page: { ...page, ...jouwSituatiePage },
+			page,
 			siteSettings,
 			locale,
 		},

@@ -151,11 +151,6 @@ const checkPagesConfig = [
 		icon: GiHouse,
 	},
 	{
-		schemaType: 'jouw-situatie-page',
-		title: 'Check Jouw Situatie Pagina',
-		icon: GiPeriscope,
-	},
-	{
 		schemaType: 'check-ben-ik-uitgezonderd-page',
 		title: 'Check Ben ik uitgezonderd Pagina',
 		icon: GiShieldReflect,
