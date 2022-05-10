@@ -13,7 +13,7 @@ import {
 	getLocaleProperty,
 	useSanityPageContent,
 	ContentBlock,
-	RadioButton,
+	Control,
 	getHrefWithlocale,
 	Header,
 	Layer,
@@ -104,7 +104,7 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 	>(page.answersMultiple.slice(0, page.showMore.max));
 	const [showShowMore, setShowShowMore] = useState<boolean>(true);
 
-	console.log(answersMultiple);
+	console.log('answersMultiple', answersMultiple);
 
 	const url = `/situatie/${page.situation}/${page.slug}`;
 
@@ -118,7 +118,7 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 			router.push(`/${getHrefWithlocale(`/${selectedOption}`, locale)}`);
 	};
 
-	console.log(page);
+	console.log('page', page);
 
 	return (
 		<>
@@ -151,9 +151,14 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 										<>
 											<Fieldset>
 												{answersMultiple?.map((answer) => (
-													<Label key={answer._key}>
-														<Checkbox /> {answer.content}
-													</Label>
+													<Control
+														type="checkbox"
+														name={page.slug}
+														key={answer._key}
+														id={answer._key}
+														label={answer.content}
+														value={answer.content}
+													/>
 												))}
 											</Fieldset>
 											{showShowMore && (
@@ -175,7 +180,8 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 									{page.type === 'single' && (
 										<Fieldset>
 											{page.answersSingle.map((answer) => (
-												<RadioButton
+												<Control
+													type="radio"
 													name={page.slug}
 													key={answer._key}
 													id={answer._key}
