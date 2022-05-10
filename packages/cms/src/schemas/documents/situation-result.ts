@@ -14,8 +14,8 @@ export default {
 			type: 'header',
 		},
 		{
-			title: 'Onderwerp',
-			name: 'topic',
+			title: 'Situatie',
+			name: 'situation',
 			type: 'reference',
 			to: [{ type: 'situation-flow-document' }],
 		},

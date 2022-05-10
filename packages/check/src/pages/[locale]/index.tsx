@@ -68,6 +68,14 @@ export interface PageContent {
 	imageMobileCases: string;
 	imageDesktopCases: string;
 	cases: CaseProps[];
+	situations: {
+		title: string;
+		situations: {
+			name: string;
+			slug: string;
+			start: string;
+		}[];
+	};
 	topics: {
 		title: string;
 		topics: {
@@ -242,6 +250,37 @@ export default function LandingPage() {
 											))}
 									</Box>
 								</Stack>
+
+								<Box
+									sx={{
+										marginBlockStart: ['4.75rem', '6.5rem'],
+										marginBlockEnd: ['2.25rem', '4rem'],
+									}}
+								>
+									<Styled.h2
+										sx={{
+											fontSize: ['h1Mobile', 'h1'],
+											lineHeight: ['h1Mobile', 'h1'],
+										}}
+									>
+										{page.situations.title}
+									</Styled.h2>
+									<Box>
+										{page.situations.situations.map(({ start, slug, name }) => (
+											<StyledLink
+												styledAs="button-large"
+												href={getHrefWithlocale(
+													`/situatie/${slug}/${start}`,
+													locale.urlPrefix,
+												)}
+												key={name}
+											>
+												{name}
+											</StyledLink>
+										))}
+									</Box>
+								</Box>
+
 								<Box
 									sx={{
 										marginBlockStart: ['4.75rem', '6.5rem'],
@@ -329,7 +368,6 @@ export const getStaticProps = async ({
 			${getLocaleProperty({ name: 'subtitle', path: 'header.subtitle', locale })},
 			"image": "/images/sanity/" + header.image.asset->originalFilename,
 		},
-
 		"currentSituation": {
 			${getLocaleProperty({ name: 'title', path: 'currentSituation.title', locale })},
 			"measures": {
@@ -367,7 +405,6 @@ export const getStaticProps = async ({
 				}
 			}
 		},
-
 		${getLocaleProperty({ name: 'titleCases', locale })},
 		"imageMobileCases": "/images/sanity/" + imageMobileCases.asset->originalFilename,
 		"imageDesktopCases": "/images/sanity/" + imageDesktopCases.asset->originalFilename,
@@ -401,6 +438,14 @@ export const getStaticProps = async ({
 					"showDate": situationReference->showDate,
 					"showExceptions": situationReference->showExceptions,
 				}
+			}
+		},
+		"situations": {
+			${getLocaleProperty({ name: 'title', path: 'situations.title', locale })},
+			"situations": situations.situations[]->{
+				${getLocaleProperty({ name: 'name', locale })},
+				"start": start->slug.current,
+				"slug": slug.current,
 			}
 		},
 		"topics": {

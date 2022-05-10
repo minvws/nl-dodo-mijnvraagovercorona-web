@@ -14,8 +14,8 @@ export default {
 			type: 'header',
 		},
 		{
-			title: 'Onderwerp',
-			name: 'topic',
+			title: 'Situatie',
+			name: 'situation',
 			type: 'reference',
 			to: [{ type: 'situation-flow-document' }],
 		},
@@ -26,6 +26,35 @@ export default {
 			options: {
 				list: ['datepicker', 'single', 'multiple'],
 			},
+		},
+		{
+			title: 'Vraag content',
+			name: 'questionContent',
+			type: 'object',
+			fields: [
+				{
+					title: 'Content Links',
+					name: 'contentLeft',
+					type: 'localeBlock',
+				},
+				{
+					title: 'Afbeelding Links',
+					name: 'imageLeft',
+					type: 'image',
+				},
+				{
+					title: 'Content Rechts',
+					name: 'contentRight',
+					type: 'localeBlock',
+				},
+				{
+					title: 'Afbeelding Rechts',
+					name: 'imageRight',
+					type: 'image',
+				},
+			],
+			hidden: ({ document }: { document: { type: string } }) =>
+				document?.type !== 'single',
 		},
 		{
 			title: 'Antwoorden',
@@ -76,7 +105,7 @@ export default {
 						{
 							title: 'Content',
 							name: 'content',
-							type: 'localeBlock',
+							type: 'localeString',
 						},
 					],
 					preview: {
@@ -139,6 +168,11 @@ export default {
 							],
 						},
 					],
+					preview: {
+						select: {
+							title: 'text.nl',
+						},
+					},
 				},
 			],
 		},
@@ -155,7 +189,7 @@ export default {
 	preview: {
 		select: {
 			title: 'header.title.nl',
-			subtitle: 'topic.name.nl',
+			subtitle: 'situation.name.nl',
 		},
 	},
 };

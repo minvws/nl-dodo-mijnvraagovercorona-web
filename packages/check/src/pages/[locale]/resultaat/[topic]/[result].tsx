@@ -22,7 +22,7 @@ import {
 	LayoutFit,
 } from '@quarantaine/common';
 
-import { getResultPageQuery, getResults } from 'utilities/topics';
+import { getTopicResultPageQuery, getTopicResults } from 'utilities/topics';
 import { locales } from 'content/general-content';
 import { Page } from 'components/page';
 import { MastheadFlow } from 'components/molecules';
@@ -153,7 +153,7 @@ export const Resultaat = ({ locale }: { locale: Locales }) => {
 type Result = { result: string; topic: string };
 
 export const getStaticPaths = async () => {
-	const results: Result[] = await getResults();
+	const results: Result[] = await getTopicResults();
 
 	return {
 		paths: results.reduce(
@@ -217,7 +217,7 @@ export const getStaticProps = async ({
 		"topic": topic->slug.current,
 	}`;
 	const { page, siteSettings } = await sanityClient.fetch(
-		getResultPageQuery({
+		getTopicResultPageQuery({
 			pageProjection,
 			locale,
 			result,

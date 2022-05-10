@@ -23,7 +23,7 @@ import {
 	ProgressMarker,
 } from '@quarantaine/common';
 
-import { getQuestionPageQuery, getQuestions } from 'utilities/topics';
+import { getTopicQuestionPageQuery, getTopicQuestions } from 'utilities/topics';
 import { locales } from 'content/general-content';
 import { Page } from 'components/page';
 import { MastheadFlow } from 'components/molecules';
@@ -191,7 +191,7 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 type Question = { question: string; topic: string };
 
 export const getStaticPaths = async () => {
-	const questions: Question[] = await getQuestions();
+	const questions: Question[] = await getTopicQuestions();
 
 	return {
 		paths: questions.reduce(
@@ -242,7 +242,7 @@ export const getStaticProps = async ({
 		steps,
 	}`;
 	const { page, siteSettings } = await sanityClient.fetch(
-		getQuestionPageQuery({
+		getTopicQuestionPageQuery({
 			pageProjection,
 			locale,
 			question,
