@@ -76,17 +76,6 @@ export default {
 			],
 		},
 		{
-			title: 'Cases nieuw',
-			name: 'folders',
-			type: 'array',
-			hidden: true,
-			of: [
-				{
-					type: 'folder',
-				},
-			],
-		},
-		{
 			title: 'Cases titel',
 			name: 'titleCases',
 			type: 'localeString',
@@ -110,65 +99,6 @@ export default {
 			type: 'array',
 			fieldset: 'situations',
 			of: [{ type: 'case' }],
-		},
-		{
-			title: 'Uitleg',
-			name: 'uitleg',
-			type: 'array',
-			hidden: true,
-			of: [
-				{
-					title: 'Onderdeel',
-					name: 'item',
-					type: 'object',
-					preview: {
-						select: {
-							title: 'title.nl',
-							subtitle: 'pretitle.nl',
-							media: 'image',
-						},
-					},
-					fields: [
-						{
-							title: 'Voortitel',
-							name: 'pretitle',
-							type: 'localeString',
-						},
-						{
-							title: 'Titel',
-							name: 'title',
-							type: 'localeString',
-						},
-						{
-							title: 'Omschrijving',
-							name: 'description',
-							type: 'localeText',
-						},
-						{
-							title: 'Afbeelding',
-							name: 'image',
-							type: 'image',
-						},
-						{
-							title: 'Linklijstje',
-							name: 'linklist',
-							type: 'object',
-							fields: [
-								{
-									title: 'id',
-									name: 'id',
-									type: 'localeString',
-								},
-								{
-									title: 'USP',
-									name: 'usp',
-									type: 'localeString',
-								},
-							],
-						},
-					],
-				},
-			],
 		},
 		{
 			title: 'Onderwerpen',
