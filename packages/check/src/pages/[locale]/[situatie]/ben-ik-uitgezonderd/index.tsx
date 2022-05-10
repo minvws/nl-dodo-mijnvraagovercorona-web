@@ -89,8 +89,6 @@ export default function Uitgezonderd({
 		router.push(getNextStepUrl());
 	};
 
-	const { startPoint } = useContext(GlobalContext);
-
 	return (
 		<>
 			<MetaTags
@@ -101,7 +99,7 @@ export default function Uitgezonderd({
 
 			<Page>
 				<Hero title={page.header.title}>
-					<LinkBack href={startPoint} />
+					<LinkBack href="/" />
 				</Hero>
 				<Content>
 					<form action="" onSubmit={onSubmit}>

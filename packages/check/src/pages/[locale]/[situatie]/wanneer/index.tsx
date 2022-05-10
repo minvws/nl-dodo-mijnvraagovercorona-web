@@ -106,8 +106,6 @@ export default function Wanneer({
 		return differenceInDays(startOfDay(new Date()), startOfDay(selectedDate));
 	}, [selectedDate]);
 
-	const { startPoint } = useContext(GlobalContext);
-
 	return (
 		<>
 			<MetaTags
@@ -122,7 +120,7 @@ export default function Wanneer({
 						href={
 							currentSituation.showExceptions
 								? `/${locale}/${currentSituation.url}/ben-ik-uitgezonderd`
-								: startPoint
+								: `/${locale}`
 						}
 					/>
 					<Link fontWeight="lighter" as="button" onClick={openDialog}>

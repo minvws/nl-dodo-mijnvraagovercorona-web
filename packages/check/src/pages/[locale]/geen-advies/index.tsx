@@ -34,8 +34,6 @@ interface GeenAdviesPageContent {
 
 export default function GeenAdvies() {
 	const page = useSanityPageContent<GeenAdviesPageContent>();
-	const { startPoint } = useContext(GlobalContext);
-
 	return (
 		<>
 			<MetaTags
@@ -45,7 +43,7 @@ export default function GeenAdvies() {
 			/>
 			<Page>
 				<Hero title={page.header.title} titlePrefix={page.header.pretitle}>
-					<LinkBack href={startPoint} variant="restart" />
+					<LinkBack href={`/`} variant="restart" />
 				</Hero>
 				<Content>
 					<ContentBlock content={page.content} />
