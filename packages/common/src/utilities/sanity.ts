@@ -56,6 +56,21 @@ export const getLocaleProperty = ({
 };
 
 /**
+ * This helper function allows us to get the unique file name of a sanity image
+ */
+export const getImage = ({
+	name,
+	path,
+}: {
+	name: string;
+	path?: string;
+}): string => {
+	return `"${name}": "/images/sanity/" + ${
+		path || name
+	}.asset->sha1hash + "-" + ${path || name}.asset->originalFilename`;
+};
+
+/**
  * These props contain all the data returned by a content page query
  */
 export type ContentPageProps = {
