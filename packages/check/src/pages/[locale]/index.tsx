@@ -24,6 +24,7 @@ import {
 	getHrefWithlocale,
 	useCurrentLocale,
 	ContentBlock,
+	getImage,
 } from '@quarantaine/common';
 import {
 	Folder,
@@ -366,7 +367,7 @@ export const getStaticProps = async ({
 			${getLocaleProperty({ name: 'title', path: 'header.title', locale })},
 			${getLocaleProperty({ name: 'chapeau', path: 'header.chapeau', locale })},
 			${getLocaleProperty({ name: 'subtitle', path: 'header.subtitle', locale })},
-			"image": "/images/sanity/" + header.image.asset->originalFilename,
+			${getImage({ name: 'image', path: 'header.image' })},
 		},
 		"currentSituation": {
 			${getLocaleProperty({ name: 'title', path: 'currentSituation.title', locale })},
@@ -384,7 +385,7 @@ export const getStaticProps = async ({
 				"advice": currentSituation.measures.advice[]{
 					${getLocaleProperty({ name: 'title', locale })},
 					${getLocaleProperty({ name: 'subtitle', locale })},
-					"icon": "/images/sanity/" + icon.asset->originalFilename,
+					${getImage({ name: 'icon' })},
 				}
 			},
 			"advice": {
@@ -401,13 +402,13 @@ export const getStaticProps = async ({
 				"advice": currentSituation.advice.advice[]{
 					${getLocaleProperty({ name: 'title', locale })},
 					${getLocaleProperty({ name: 'subtitle', locale })},
-					"icon": "/images/sanity/" + icon.asset->originalFilename,
+					${getImage({ name: 'icon' })},
 				}
 			}
 		},
 		${getLocaleProperty({ name: 'titleCases', locale })},
-		"imageMobileCases": "/images/sanity/" + imageMobileCases.asset->originalFilename,
-		"imageDesktopCases": "/images/sanity/" + imageDesktopCases.asset->originalFilename,
+		${getImage({ name: 'imageMobileCases' })},
+		${getImage({ name: 'imageDesktopCases' })},
 		"cases": cases[]{
 			${getLocaleProperty({ name: 'title', locale })},
 			${getLocaleProperty({
@@ -451,7 +452,7 @@ export const getStaticProps = async ({
 		"topics": {
 			${getLocaleProperty({ name: 'title', path: 'topics.title', locale })},
 			"topics": topics.topics[]->{
-				"icon": "/images/sanity/" + icon.asset->originalFilename,
+				${getImage({ name: 'icon' })},
 				${getLocaleProperty({ name: 'name', locale })},
 				"start": start->slug.current,
 				"slug": slug.current,

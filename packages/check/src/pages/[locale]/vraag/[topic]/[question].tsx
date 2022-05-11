@@ -21,6 +21,7 @@ import {
 	Retain,
 	ProgressMarker,
 	Control,
+	getImage,
 } from '@quarantaine/common';
 
 import { getTopicQuestionPageQuery, getTopicQuestions } from 'utilities/topics';
@@ -225,7 +226,7 @@ export const getStaticProps = async ({
 		},
 		"header": {
 			${getLocaleProperty({ name: 'title', path: `header.title`, locale })},
-			"image": "/images/sanity/" + topic->icon.asset->originalFilename,
+			${getImage({ name: 'image', path: 'topic->icon' })},
 		},
 		"answers": answers[]{
 			_key,

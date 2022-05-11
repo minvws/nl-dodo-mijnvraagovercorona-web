@@ -20,6 +20,7 @@ import {
 	Stack,
 	Story,
 	LayoutFit,
+	getImage,
 } from '@quarantaine/common';
 
 import { getTopicResultPageQuery, getTopicResults } from 'utilities/topics';
@@ -191,7 +192,7 @@ export const getStaticProps = async ({
 			${getLocaleProperty({ name: 'title', path: `header.title`, locale })},
 		},
 		"content": {
-			"image": "/images/sanity/" + content.image.asset->originalFilename,
+			${getImage({ name: 'image', path: 'content.image' })},
 			${getLocaleProperty({ name: 'title', path: `content.title`, locale })},
 			${getLocaleProperty({ name: 'content', path: `content.content`, locale })},
 			${getLocaleProperty({ name: 'href', path: `content.href`, locale })},
@@ -211,7 +212,7 @@ export const getStaticProps = async ({
 				external,
 				variant,
 			},
-			"image": "/images/sanity/" + image.asset->originalFilename,
+			${getImage({ name: 'image' })},
 		},
 		"slug": slug.current,
 		"topic": topic->slug.current,
