@@ -101,10 +101,8 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 			content: string;
 			_key: string;
 		}[]
-	>(page.answersMultiple.slice(0, page.showMore.max));
+	>();
 	const [showShowMore, setShowShowMore] = useState<boolean>(true);
-
-	console.log(answersMultiple);
 
 	const url = `/situatie/${page.situation}/${page.slug}`;
 
@@ -118,7 +116,10 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 			router.push(`/${getHrefWithlocale(`/${selectedOption}`, locale)}`);
 	};
 
-	console.log(page);
+	useEffect(() => {
+		if (page.answersMultiple)
+			setAnswersMultiple(page.answersMultiple.slice(0, page.showMore.max));
+	}, [page.answersMultiple]);
 
 	return (
 		<>
@@ -147,7 +148,7 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 						>
 							<Retain>
 								<form action="" onSubmit={onSubmit}>
-									{page.type === 'multiple' && (
+									{page.type === 'multiple' && answersMultiple && (
 										<>
 											<Fieldset>
 												{answersMultiple?.map((answer) => (
@@ -160,6 +161,7 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 												<StyledLink
 													as="button"
 													styledAs="show-more"
+													type="button"
 													withChevron={false}
 													icon="/icons/plus.svg"
 													onClick={() => {
@@ -187,27 +189,48 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 										</Fieldset>
 									)}
 									{page.type === 'datepicker'}
-									{page.buttons.map((button) =>
-										button.standard ? (
-											<Link
+									<Box
+										as="ul"
+										sx={{ marginTop: '16px', marginLeft: 0, padding: 0 }}
+									>
+										{page.buttons.map((button, index) => (
+											<li
 												key={button._key}
-												as="button"
-												type="submit"
-												styledAs={'button'}
+												sx={{
+													listStyle: 'none',
+													margin: 0,
+													paddingTop: '16px',
+												}}
 											>
-												{button.text}
-											</Link>
-										) : (
-											<Link
-												key={button._key}
-												as="a"
-												href="#"
-												styledAs="button-tertiary"
-											>
-												{button.text}
-											</Link>
-										),
-									)}
+												{button.standard ? (
+													<Link
+														key={button._key}
+														as="button"
+														type="submit"
+														styledAs={
+															index === 0 ? 'button' : 'button-tertiary'
+														}
+													>
+														{button.text}
+													</Link>
+												) : (
+													<Link
+														key={button._key}
+														as="a"
+														href={`/${getHrefWithlocale(
+															`/${button.next}`,
+															locale,
+														)}`}
+														styledAs={
+															index === 0 ? 'button' : 'button-tertiary'
+														}
+													>
+														{button.text}
+													</Link>
+												)}
+											</li>
+										))}
+									</Box>
 								</form>
 							</Retain>
 						</TheSidebar>
