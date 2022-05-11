@@ -22,6 +22,7 @@ import {
 	useSanitySiteSettings,
 	Retain,
 	ProgressMarker,
+	getImage,
 } from '@quarantaine/common';
 
 import {
@@ -283,7 +284,7 @@ export const getStaticProps = async ({
 		},
 		"header": {
 			${getLocaleProperty({ name: 'title', path: `header.title`, locale })},
-			"image": "/images/sanity/" + header.image.asset->originalFilename,
+			${getImage({ name: 'image', path: `header.image` })},
 		},
         type,
 		"answersSingle": answersSingle[]{
