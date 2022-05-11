@@ -35,6 +35,7 @@ import { MastheadFlow } from 'components/molecules';
 import { mastheadFlowImageMargin } from 'components/molecules/masthead/masthead-flow';
 import { LinkBack } from 'components/link-back';
 import GlobalContext from 'utilities/global-context';
+import { markAssetError } from 'next/dist/client/route-loader';
 
 interface PageContent {
 	metaData: {
@@ -136,6 +137,13 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 					illustration={page.header.image}
 					headerSlot={<Header noPadding />}
 				/>
+				{page.type === 'multiple' && answersMultiple ? (
+					<mark>RenderMultiple</mark>
+				) : page.type === 'single' ? (
+					<mark>RenderSingle</mark>
+				) : (
+					<mark>RenderDatepicker</mark>
+				)}
 				<Layer
 					backgroundColor="white"
 					paddingBlockStart={[mastheadFlowImageMargin, '2.5rem']}
