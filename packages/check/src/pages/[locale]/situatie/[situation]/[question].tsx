@@ -13,7 +13,7 @@ import {
 	getLocaleProperty,
 	useSanityPageContent,
 	ContentBlock,
-	RadioButton,
+	Control,
 	getHrefWithlocale,
 	Header,
 	Layer,
@@ -152,9 +152,14 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 										<>
 											<Fieldset>
 												{answersMultiple?.map((answer) => (
-													<Label key={answer._key}>
-														<Checkbox /> {answer.content}
-													</Label>
+													<Control
+														type="checkbox"
+														name={page.slug}
+														key={answer._key}
+														id={answer._key}
+														label={answer.content}
+														value={answer.content}
+													/>
 												))}
 											</Fieldset>
 											{showShowMore && (
@@ -177,7 +182,8 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 									{page.type === 'single' && (
 										<Fieldset>
 											{page.answersSingle.map((answer) => (
-												<RadioButton
+												<Control
+													type="radio"
 													name={page.slug}
 													key={answer._key}
 													id={answer._key}

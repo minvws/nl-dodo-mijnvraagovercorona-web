@@ -16,7 +16,7 @@ import {
 	cartesianProduct,
 	ContentBlock,
 	Content,
-	RadioButton,
+	Control,
 	Locales,
 } from '@quarantaine/common';
 
@@ -105,14 +105,16 @@ export default function Uitgezonderd({
 					<form action="" onSubmit={onSubmit}>
 						<Fieldset legend={page.uitgezonderdLabel}>
 							<ContentBlock content={page.uitgezonderdHelpText} />
-							<RadioButton
+							<Control
+								type="radio"
 								name="exception"
 								id="uitgezonderdYesLabel"
 								label={<ContentBlock content={page.uitgezonderdYesLabel} />}
 								value="yes"
 								onChange={onRadioChange}
 							/>
-							<RadioButton
+							<Control
+								type="radio"
 								name="exception"
 								id="uitgezonderdNoLabel"
 								label={<ContentBlock content={page.uitgezonderdNoLabel} />}
