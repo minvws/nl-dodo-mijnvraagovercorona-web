@@ -143,51 +143,6 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 								) : (
 									<FormAnswersDate buttons={page.buttons} locale={locale} />
 								)}
-								<form action="">
-									{page.type === 'datepicker'}
-									<Box
-										as="ul"
-										sx={{ marginTop: '16px', marginLeft: 0, padding: 0 }}
-									>
-										{page.buttons.map((button, index) => (
-											<li
-												key={button._key}
-												sx={{
-													listStyle: 'none',
-													margin: 0,
-													paddingTop: '16px',
-												}}
-											>
-												{button.standard ? (
-													<Link
-														key={button._key}
-														as="button"
-														type="submit"
-														styledAs={
-															index === 0 ? 'button' : 'button-tertiary'
-														}
-													>
-														{button.text}
-													</Link>
-												) : (
-													<Link
-														key={button._key}
-														as="a"
-														href={`/${getHrefWithlocale(
-															`/${button.next}`,
-															locale,
-														)}`}
-														styledAs={
-															index === 0 ? 'button' : 'button-tertiary'
-														}
-													>
-														{button.text}
-													</Link>
-												)}
-											</li>
-										))}
-									</Box>
-								</form>
 							</Retain>
 						</TheSidebar>
 					</Container>
