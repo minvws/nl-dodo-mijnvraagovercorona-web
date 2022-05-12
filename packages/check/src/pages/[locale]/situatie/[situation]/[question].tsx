@@ -1,27 +1,20 @@
 /** @jsx jsx */
-import { Box, Checkbox, Container, jsx, Label } from 'theme-ui';
-import React, { useEffect, useState, useContext } from 'react';
+import { Container, jsx } from 'theme-ui';
+import React from 'react';
 import { useRouter } from 'next/router';
 
 import {
 	Locales,
-	Link,
-	StyledLink,
 	MetaTags,
-	Fieldset,
 	sanityClient,
 	getLocaleProperty,
 	useSanityPageContent,
-	ContentBlock,
-	Control,
-	getHrefWithlocale,
 	Header,
 	Layer,
 	TheSidebar,
 	BannerDataProtection,
 	useSanitySiteSettings,
 	Retain,
-	ProgressMarker,
 	getImage,
 } from '@quarantaine/common';
 
@@ -42,8 +35,6 @@ import {
 } from 'components/molecules';
 import { mastheadFlowImageMargin } from 'components/molecules/masthead/masthead-flow';
 import { LinkBack } from 'components/link-back';
-import GlobalContext from 'utilities/global-context';
-import { markAssetError } from 'next/dist/client/route-loader';
 
 interface PageContent {
 	metaData: {
