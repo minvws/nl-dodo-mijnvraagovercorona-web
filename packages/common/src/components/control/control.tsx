@@ -21,7 +21,7 @@ export const Control = <ValueOptions extends string>({
 	id,
 }: ControlProps<ValueOptions>) => {
 	return (
-		<div sx={{ '& + &': { marginBlockStart: '1rem' } }}>
+		<div>
 			<input
 				id={id}
 				type={type}
