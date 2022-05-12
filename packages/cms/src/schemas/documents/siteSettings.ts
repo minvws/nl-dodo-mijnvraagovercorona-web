@@ -284,5 +284,34 @@ export default {
 			name: 'GGDSpecialInstructions',
 			type: 'localeString',
 		},
+		{
+			title: 'Datum kiestekst',
+			name: 'datumKiesTekst',
+			type: 'localeString',
+		},
+		{
+			title: 'Maanden',
+			name: 'maanden',
+			type: 'array',
+			of: [
+				{
+					title: 'Maand',
+					name: 'maand',
+					type: 'localeString',
+				},
+			],
+		},
+		{
+			title: 'Dagen',
+			name: 'dagen',
+			type: 'array',
+			of: [
+				{
+					title: 'Dag',
+					name: 'dag',
+					type: 'localeString',
+				},
+			],
+		},
 	],
 };

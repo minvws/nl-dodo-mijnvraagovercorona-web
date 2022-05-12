@@ -141,7 +141,7 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 										locale={locale}
 									/>
 								) : (
-									<FormAnswersDate />
+									<FormAnswersDate buttons={page.buttons} locale={locale} />
 								)}
 								<form action="">
 									{page.type === 'datepicker'}
