@@ -22,6 +22,7 @@ import {
 	ProgressMarker,
 	Control,
 	getImage,
+	Stack,
 } from '@quarantaine/common';
 
 import { getTopicQuestionPageQuery, getTopicQuestions } from 'utilities/topics';
@@ -159,17 +160,19 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 							<Retain>
 								<form action="" onSubmit={onSubmit}>
 									<Fieldset>
-										{page.answers.map((answer) => (
-											<Control
-												type="radio"
-												name={page.slug}
-												key={answer._key}
-												id={answer._key}
-												label={<ContentBlock content={answer.content} />}
-												value={answer.next}
-												onChange={onRadioChange}
-											/>
-										))}
+										<Stack spacing={['1rem']}>
+											{page.answers.map((answer) => (
+												<Control
+													type="radio"
+													name={page.slug}
+													key={answer._key}
+													id={answer._key}
+													label={<ContentBlock content={answer.content} />}
+													value={answer.next}
+													onChange={onRadioChange}
+												/>
+											))}
+										</Stack>
 									</Fieldset>
 
 									<Link

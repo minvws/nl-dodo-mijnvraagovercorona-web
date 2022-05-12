@@ -18,6 +18,7 @@ import {
 	Content,
 	Control,
 	Locales,
+	Stack,
 } from '@quarantaine/common';
 
 import { getSituations } from 'utilities/situations';
@@ -105,22 +106,24 @@ export default function Uitgezonderd({
 					<form action="" onSubmit={onSubmit}>
 						<Fieldset legend={page.uitgezonderdLabel}>
 							<ContentBlock content={page.uitgezonderdHelpText} />
-							<Control
-								type="radio"
-								name="exception"
-								id="uitgezonderdYesLabel"
-								label={<ContentBlock content={page.uitgezonderdYesLabel} />}
-								value="yes"
-								onChange={onRadioChange}
-							/>
-							<Control
-								type="radio"
-								name="exception"
-								id="uitgezonderdNoLabel"
-								label={<ContentBlock content={page.uitgezonderdNoLabel} />}
-								value="no"
-								onChange={onRadioChange}
-							/>
+							<Stack spacing={['1rem']}>
+								<Control
+									type="radio"
+									name="exception"
+									id="uitgezonderdYesLabel"
+									label={<ContentBlock content={page.uitgezonderdYesLabel} />}
+									value="yes"
+									onChange={onRadioChange}
+								/>
+								<Control
+									type="radio"
+									name="exception"
+									id="uitgezonderdNoLabel"
+									label={<ContentBlock content={page.uitgezonderdNoLabel} />}
+									value="no"
+									onChange={onRadioChange}
+								/>
+							</Stack>
 						</Fieldset>
 
 						{selectedOption && (
