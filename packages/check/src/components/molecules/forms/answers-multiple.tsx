@@ -9,7 +9,7 @@ import {
 } from '@quarantaine/common';
 import { Box, jsx } from 'theme-ui';
 import { FormSubmit, FormSubmitProps } from './submit';
-import router from 'next/router';
+import { useRouter } from 'next/router';
 
 export interface FormAnswersMultipleProps {
 	answers: {
@@ -30,6 +30,7 @@ export const FormAnswersMultiple: React.FC<FormAnswersMultipleProps> = ({
 	showMoreLabel,
 	limit = 6,
 }) => {
+	const router = useRouter();
 	const [visibleAnswers, setVisibleAnswers] = useState<
 		FormAnswersMultipleProps['answers']
 	>();

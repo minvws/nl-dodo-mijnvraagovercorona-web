@@ -36,6 +36,7 @@ import {
 	FormAnswersMultiple,
 	FormAnswersMultipleProps,
 	FormAnswersSingle,
+	FormAnswersSingleProps,
 	FormSubmitProps,
 	MastheadFlow,
 } from 'components/molecules';
@@ -58,11 +59,7 @@ interface PageContent {
 		max: number;
 		text: string;
 	};
-	answersSingle: {
-		content: Object[];
-		next: string;
-		_key: string;
-	}[];
+	answersSingle: FormAnswersSingleProps['answers'];
 	steps: {
 		current: number;
 		total: number;
@@ -96,19 +93,7 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 	const page = useSanityPageContent<PageContent>();
 	const siteSettings = useSanitySiteSettings();
 
-	const [selectedOption, setSelectedOption] = useState<string>();
-
 	const url = `/situatie/${page.situation}/${page.slug}`;
-
-	const onRadioChange = (value: string) => {
-		setSelectedOption(value);
-	};
-
-	const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-		event.preventDefault();
-		if (selectedOption)
-			router.push(`/${getHrefWithlocale(`/${selectedOption}`, locale)}`);
-	};
 
 	const layerPaddingBlockStart =
 		page.type === 'datepicker' ? ['0'] : [mastheadFlowImageMargin, '2.5rem'];
@@ -149,27 +134,16 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 										limit={page.showMore.max}
 										locale={locale}
 									/>
-								) : page.type === 'single' ? (
-									<FormAnswersSingle />
+								) : page.type === 'single' && page.answersSingle ? (
+									<FormAnswersSingle
+										answers={page.answersSingle}
+										buttons={page.buttons}
+										locale={locale}
+									/>
 								) : (
 									<FormAnswersDate />
 								)}
-								<form action="" onSubmit={onSubmit}>
-									{page.type === 'single' && (
-										<Fieldset>
-											{page.answersSingle.map((answer) => (
-												<Control
-													type="radio"
-													name={page.slug}
-													key={answer._key}
-													id={answer._key}
-													label={<ContentBlock content={answer.content} />}
-													value={answer.next}
-													onChange={onRadioChange}
-												/>
-											))}
-										</Fieldset>
-									)}
+								<form action="">
 									{page.type === 'datepicker'}
 									<Box
 										as="ul"
