@@ -34,7 +34,9 @@ import { Page } from 'components/page';
 import {
 	FormAnswersDate,
 	FormAnswersMultiple,
+	FormAnswersMultipleProps,
 	FormAnswersSingle,
+	FormSubmitProps,
 	MastheadFlow,
 } from 'components/molecules';
 import { mastheadFlowImageMargin } from 'components/molecules/masthead/masthead-flow';
@@ -51,10 +53,7 @@ interface PageContent {
 		title: string;
 		image: string;
 	};
-	answersMultiple: {
-		content: string;
-		_key: string;
-	}[];
+	answersMultiple: FormAnswersMultipleProps['answers'];
 	showMore: {
 		max: number;
 		text: string;
@@ -69,12 +68,7 @@ interface PageContent {
 		total: number;
 	};
 	type: 'multiple' | 'single' | 'datepicker';
-	buttons: {
-		_key: string;
-		standard: boolean;
-		text: string;
-		next: string;
-	}[];
+	buttons: FormSubmitProps['buttons'];
 	situation: string;
 	slug: string;
 }
@@ -103,13 +97,6 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 	const siteSettings = useSanitySiteSettings();
 
 	const [selectedOption, setSelectedOption] = useState<string>();
-	const [answersMultiple, setAnswersMultiple] = useState<
-		{
-			content: string;
-			_key: string;
-		}[]
-	>();
-	const [showShowMore, setShowShowMore] = useState<boolean>(true);
 
 	const url = `/situatie/${page.situation}/${page.slug}`;
 
@@ -122,11 +109,6 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 		if (selectedOption)
 			router.push(`/${getHrefWithlocale(`/${selectedOption}`, locale)}`);
 	};
-
-	useEffect(() => {
-		if (page.answersMultiple)
-			setAnswersMultiple(page.answersMultiple.slice(0, page.showMore.max));
-	}, [page.answersMultiple]);
 
 	const layerPaddingBlockStart =
 		page.type === 'datepicker' ? ['0'] : [mastheadFlowImageMargin, '2.5rem'];
@@ -159,45 +141,20 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 							asideOffset={asideOffset}
 						>
 							<Retain>
-								{page.type === 'multiple' && answersMultiple ? (
-									<FormAnswersMultiple />
+								{page.type === 'multiple' && page.answersMultiple ? (
+									<FormAnswersMultiple
+										answers={page.answersMultiple}
+										buttons={page.buttons}
+										showMoreLabel={page.showMore.text}
+										limit={page.showMore.max}
+										locale={locale}
+									/>
 								) : page.type === 'single' ? (
 									<FormAnswersSingle />
 								) : (
 									<FormAnswersDate />
 								)}
 								<form action="" onSubmit={onSubmit}>
-									{page.type === 'multiple' && answersMultiple && (
-										<>
-											<Fieldset>
-												{answersMultiple?.map((answer) => (
-													<Control
-														type="checkbox"
-														name={page.slug}
-														key={answer._key}
-														id={answer._key}
-														label={answer.content}
-														value={answer.content}
-													/>
-												))}
-											</Fieldset>
-											{showShowMore && (
-												<StyledLink
-													as="button"
-													styledAs="show-more"
-													type="button"
-													withChevron={false}
-													icon="/icons/plus.svg"
-													onClick={() => {
-														setAnswersMultiple(page.answersMultiple);
-														setShowShowMore(false);
-													}}
-												>
-													{page.showMore.text}
-												</StyledLink>
-											)}
-										</>
-									)}
 									{page.type === 'single' && (
 										<Fieldset>
 											{page.answersSingle.map((answer) => (
