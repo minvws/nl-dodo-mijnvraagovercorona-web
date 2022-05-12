@@ -15,7 +15,7 @@ import { startOfDay } from 'date-fns';
 import { jsx } from 'theme-ui';
 
 import { FormSubmit, FormSubmitProps } from './submit';
-import router from 'next/router';
+import { useRouter } from 'next/router';
 
 import 'react-day-picker/lib/style.css';
 
@@ -28,6 +28,7 @@ export const FormAnswersDate: React.FC<FormAnswersDateProps> = ({
 	buttons,
 	locale,
 }) => {
+	const router = useRouter();
 	const [canSubmit, setCanSubmit] = useState<boolean>(false);
 	const [selectedDate, setSelectedDate] = useState<Date>();
 	const siteSettings = useSanitySiteSettings();
