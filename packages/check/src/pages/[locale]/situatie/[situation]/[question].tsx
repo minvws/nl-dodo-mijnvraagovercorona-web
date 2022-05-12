@@ -152,7 +152,7 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 								) : page.type === 'single' ? (
 									<FormAnswersSingle />
 								) : (
-									<FormAnswersDate />
+									<FormAnswersDate buttons={page.buttons} locale={locale} />
 								)}
 								<form action="" onSubmit={onSubmit}>
 									{page.type === 'single' && (

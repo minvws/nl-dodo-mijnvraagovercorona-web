@@ -324,6 +324,9 @@ export const siteSettingsQuery = ({
 		${getLocaleProperty({ name: 'checkAgainCta', locale })},
 		${getLocaleProperty({ name: 'favoriteCta', locale })},
 		${getLocaleProperty({ name: 'GGDSpecialInstructions', locale })},
+		${getLocaleProperty({ name: 'datumKiesTekst', locale })},
+		${getLocaleProperty({ name: 'maanden', locale, array: true })},
+		${getLocaleProperty({ name: 'dagen', locale, array: true })},
 	}`;
 
 /**

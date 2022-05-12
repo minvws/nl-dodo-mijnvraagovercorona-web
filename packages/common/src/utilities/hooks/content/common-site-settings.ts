@@ -56,4 +56,7 @@ export interface CommonSiteSettings {
 	printCta: string;
 	checkAgainCta: string;
 	agendaCta: string;
+	dagen: string[];
+	datumKiesTekst: string;
+	maanden: string[];
 }
