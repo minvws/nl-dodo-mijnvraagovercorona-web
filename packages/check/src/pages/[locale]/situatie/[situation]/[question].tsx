@@ -128,6 +128,11 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 			setAnswersMultiple(page.answersMultiple.slice(0, page.showMore.max));
 	}, [page.answersMultiple]);
 
+	const layerPaddingBlockStart =
+		page.type === 'datepicker' ? ['0'] : [mastheadFlowImageMargin, '2.5rem'];
+
+	const asideOffset = page.type === 'datepicker' ? [0, '3.25rem'] : [0];
+
 	return (
 		<>
 			<MetaTags
@@ -142,25 +147,25 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 					illustration={page.header.image}
 					headerSlot={<Header noPadding />}
 				/>
-				{page.type === 'multiple' && answersMultiple ? (
-					<FormAnswersMultiple />
-				) : page.type === 'single' ? (
-					<FormAnswersSingle />
-				) : (
-					<FormAnswersDate />
-				)}
 				<Layer
 					backgroundColor="white"
-					paddingBlockStart={[mastheadFlowImageMargin, '2.5rem']}
+					paddingBlockStart={layerPaddingBlockStart}
 				>
 					<Container>
 						<TheSidebar
 							asideChildren={
 								<BannerDataProtection content={siteSettings.privacy} />
 							}
-							asideOffset={['0']}
+							asideOffset={asideOffset}
 						>
 							<Retain>
+								{page.type === 'multiple' && answersMultiple ? (
+									<FormAnswersMultiple />
+								) : page.type === 'single' ? (
+									<FormAnswersSingle />
+								) : (
+									<FormAnswersDate />
+								)}
 								<form action="" onSubmit={onSubmit}>
 									{page.type === 'multiple' && answersMultiple && (
 										<>
