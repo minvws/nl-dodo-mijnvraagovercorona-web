@@ -31,7 +31,12 @@ import {
 } from 'utilities/situations-flow';
 import { locales } from 'content/general-content';
 import { Page } from 'components/page';
-import { MastheadFlow } from 'components/molecules';
+import {
+	FormAnswersDate,
+	FormAnswersMultiple,
+	FormAnswersSingle,
+	MastheadFlow,
+} from 'components/molecules';
 import { mastheadFlowImageMargin } from 'components/molecules/masthead/masthead-flow';
 import { LinkBack } from 'components/link-back';
 import GlobalContext from 'utilities/global-context';
@@ -138,11 +143,11 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 					headerSlot={<Header noPadding />}
 				/>
 				{page.type === 'multiple' && answersMultiple ? (
-					<mark>RenderMultiple</mark>
+					<FormAnswersMultiple />
 				) : page.type === 'single' ? (
-					<mark>RenderSingle</mark>
+					<FormAnswersSingle />
 				) : (
-					<mark>RenderDatepicker</mark>
+					<FormAnswersDate />
 				)}
 				<Layer
 					backgroundColor="white"
