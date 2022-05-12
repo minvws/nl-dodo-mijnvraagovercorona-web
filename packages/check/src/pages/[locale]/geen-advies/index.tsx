@@ -43,7 +43,7 @@ export default function GeenAdvies() {
 			/>
 			<Page>
 				<Hero title={page.header.title} titlePrefix={page.header.pretitle}>
-					<LinkBack href={`/`} variant="restart" />
+					<LinkBack href="" variant="restart" />
 				</Hero>
 				<Content>
 					<ContentBlock content={page.content} />
