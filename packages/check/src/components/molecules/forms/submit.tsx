@@ -9,16 +9,12 @@ export interface FormSubmitProps {
 		standard: boolean;
 		text: string;
 		next: string;
+		disabled?: boolean;
 	}[];
 	locale: Locales;
-	canSubmit: boolean;
 }
 
-export const FormSubmit: React.FC<FormSubmitProps> = ({
-	buttons,
-	locale,
-	canSubmit,
-}) => {
+export const FormSubmit: React.FC<FormSubmitProps> = ({ buttons, locale }) => {
 	return (
 		<Box
 			sx={{
@@ -40,7 +36,14 @@ export const FormSubmit: React.FC<FormSubmitProps> = ({
 						key={button._key}
 						as="button"
 						type="submit"
-						styledAs={index === 0 ? 'button' : 'button-tertiary'}
+						disabled={button.disabled}
+						styledAs={
+							button.disabled
+								? 'button-disabled'
+								: index === 0
+								? 'button'
+								: 'button-tertiary'
+						}
 					>
 						{button.text}
 					</Link>

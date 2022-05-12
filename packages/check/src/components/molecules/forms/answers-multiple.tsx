@@ -1,8 +1,15 @@
 /** @jsx jsx */
 import React, { useState, useEffect } from 'react';
-import { Control, Locales, Stack, StyledLink } from '@quarantaine/common';
+import {
+	Control,
+	getHrefWithlocale,
+	Locales,
+	Stack,
+	StyledLink,
+} from '@quarantaine/common';
 import { Box, jsx } from 'theme-ui';
 import { FormSubmit, FormSubmitProps } from './submit';
+import router from 'next/router';
 
 export interface FormAnswersMultipleProps {
 	answers: {
@@ -26,25 +33,31 @@ export const FormAnswersMultiple: React.FC<FormAnswersMultipleProps> = ({
 	const [visibleAnswers, setVisibleAnswers] = useState<
 		FormAnswersMultipleProps['answers']
 	>();
-	const [showMore, setShowMore] = useState<boolean>(true);
 	const [checkedAnswers, setCheckedAnswers] = useState(answers);
+	const [showMore, setShowMore] = useState<boolean>(true);
 	const [canSubmit, setCanSubmit] = useState<boolean>(false);
 
+	// Only display a subset of answers
 	useEffect(() => {
 		if (answers) setVisibleAnswers(answers.slice(0, limit));
 	}, [answers]);
 
+	// check if there is atleast one answer checked, so we enable submit action
 	useEffect(() => {
 		setCanSubmit(
 			checkedAnswers.filter((answer) => answer.checked).length ? true : false,
 		);
 	}, [checkedAnswers]);
 
+	// Form submit action
 	const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		console.log('submit');
+		// trigger main button action
+		if (buttons[0].next && canSubmit)
+			router.push(`/${getHrefWithlocale(`/${buttons[0].next}`, locale)}`);
 	};
 
+	// Checkbox onchange action
 	const onChange = (value: string) => {
 		setCheckedAnswers(
 			checkedAnswers.map((answer) =>
@@ -54,6 +67,13 @@ export const FormAnswersMultiple: React.FC<FormAnswersMultipleProps> = ({
 			),
 		);
 	};
+
+	// Loop though buttons and add a disabled prop when we cannot submit
+	const parsedButtons = buttons.map((button, index) =>
+		index === 0 && button.standard
+			? { ...button, disabled: !canSubmit }
+			: { ...button },
+	);
 
 	return (
 		<form action="" onSubmit={onSubmit}>
@@ -90,7 +110,7 @@ export const FormAnswersMultiple: React.FC<FormAnswersMultipleProps> = ({
 						</StyledLink>
 					</Box>
 				) : null}
-				<FormSubmit buttons={buttons} locale={locale} canSubmit={canSubmit} />
+				<FormSubmit buttons={parsedButtons} locale={locale} />
 			</Stack>
 		</form>
 	);
