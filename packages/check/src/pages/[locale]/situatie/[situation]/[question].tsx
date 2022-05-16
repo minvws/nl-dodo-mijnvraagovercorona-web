@@ -45,6 +45,7 @@ interface PageContent {
 		title: string;
 		image: string;
 	};
+	questionContent: FormAnswersSingleProps['content'];
 	answersMultiple: FormAnswersMultipleProps['answers'];
 	showMore: {
 		max: number;
@@ -132,6 +133,7 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 										answers={page.answersSingle}
 										buttons={page.buttons}
 										locale={locale}
+										content={page.questionContent}
 									/>
 								) : (
 									<FormAnswersDate buttons={page.buttons} locale={locale} />
@@ -184,6 +186,22 @@ export const getStaticProps = async ({
 			${getImage({ name: 'image', path: `header.image` })},
 		},
 		type,
+		"questionContent": {
+			${getLocaleProperty({
+				name: 'contentLeft',
+				path: `questionContent.contentLeft`,
+				locale,
+				block: true,
+			})},
+			${getImage({ name: 'imageLeft', path: `questionContent.imageLeft` })},
+			${getLocaleProperty({
+				name: 'contentRight',
+				path: `questionContent.contentRight`,
+				locale,
+				block: true,
+			})},
+			${getImage({ name: 'imageRight', path: `questionContent.imageRight` })},
+		},
 		"answersSingle": answersSingle[]{
 			_key,
 			${getLocaleProperty({ name: 'content', locale })},
