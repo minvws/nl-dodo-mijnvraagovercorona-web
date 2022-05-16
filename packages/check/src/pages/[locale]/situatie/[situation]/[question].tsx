@@ -181,36 +181,36 @@ export const getStaticProps = async ({
 			${getLocaleProperty({ name: 'title', path: `header.title`, locale })},
 			${getImage({ name: 'image', path: `header.image` })},
 		},
-        type,
+		type,
 		"answersSingle": answersSingle[]{
 			_key,
 			${getLocaleProperty({ name: 'content', locale })},
 			"next": select(
-                next->_type == "situation-question-document" => 'situatie/' + next->situation->slug.current + '/' + next->slug.current,
-                next->_type == "situation-result-document" => 'advies/' + next->situation->slug.current + '/' + next->slug.current,
+				next->_type == "situation-question-document" => 'situatie/' + next->situation->slug.current + '/' + next->slug.current,
+				next->_type == "situation-result-document" => 'advies/' + next->situation->slug.current + '/' + next->slug.current,
 			),
 		},
-        "answersMultiple": answersMultiple[]{
-            _key,
-            ${getLocaleProperty({ name: 'content', locale })},
-        },
+		"answersMultiple": answersMultiple[]{
+			_key,
+			${getLocaleProperty({ name: 'content', locale })},
+		},
 		"showMore": {
 			"max": showMore.max,
-            ${getLocaleProperty({
-							name: 'text',
-							path: 'showMore.text',
-							locale,
-						})},
+			${getLocaleProperty({
+				name: 'text',
+				path: 'showMore.text',
+				locale,
+			})},
 		},
 		"buttons": buttons[]{
 			_key,
-            ${getLocaleProperty({ name: 'text', locale })},
-            standard,
+			${getLocaleProperty({ name: 'text', locale })},
+			standard,
 			"next": select(
-                next->_type == "situation-question-document" => 'situatie/' + next->situation->slug.current + '/' + next->slug.current,
-                next->_type == "situation-result-document" => 'advies/' + next->situation->slug.current + '/' + next->slug.current,
+				next->_type == "situation-question-document" => 'situatie/' + next->situation->slug.current + '/' + next->slug.current,
+				next->_type == "situation-result-document" => 'advies/' + next->situation->slug.current + '/' + next->slug.current,
 			),
-        },
+		},
 		"slug": slug.current,
 		"situation": situation->slug.current,
 	}`;
