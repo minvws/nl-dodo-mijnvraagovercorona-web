@@ -1,8 +1,9 @@
 /** @jsx jsx */
 import React, { useState } from 'react';
-import { jsx } from 'theme-ui';
+import { Box, Flex, Image, jsx } from 'theme-ui';
 import { useRouter } from 'next/router';
 import {
+	Content,
 	ContentBlock,
 	Control,
 	getHrefWithlocale,
@@ -10,6 +11,7 @@ import {
 	Stack,
 } from '@quarantaine/common';
 import { FormSubmit, FormSubmitProps } from './submit';
+import { DualImage, DualImageProps } from '../content';
 
 export interface FormAnswersSingleProps {
 	locale: Locales;
@@ -19,11 +21,13 @@ export interface FormAnswersSingleProps {
 		_key: string;
 	}[];
 	buttons: FormSubmitProps['buttons'];
+	content: DualImageProps;
 }
 
 export const FormAnswersSingle: React.FC<FormAnswersSingleProps> = ({
 	answers,
 	buttons,
+	content,
 	locale,
 }) => {
 	const router = useRouter();
@@ -54,6 +58,10 @@ export const FormAnswersSingle: React.FC<FormAnswersSingleProps> = ({
 	return (
 		<form action="" onSubmit={onSubmit}>
 			<Stack>
+				{(content.contentLeft && content.imageLeft) ||
+				(content.contentRight && content.imageRight) ? (
+					<DualImage {...content} />
+				) : null}
 				<Stack spacing={['1rem']}>
 					{answers.map((answer) => (
 						<Control
