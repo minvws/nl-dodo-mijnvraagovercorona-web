@@ -87,7 +87,9 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 	const url = `/situatie/${page.situation}/${page.slug}`;
 
 	const layerPaddingBlockStart =
-		page.type === 'datepicker' ? ['0'] : [mastheadFlowImageMargin, '2.5rem'];
+		page.type === 'datepicker'
+			? ['0']
+			: [page.header.image ? mastheadFlowImageMargin : '2.5rem', '2.5rem'];
 
 	const asideOffset = page.type === 'datepicker' ? [0, '3.25rem'] : [0];
 
