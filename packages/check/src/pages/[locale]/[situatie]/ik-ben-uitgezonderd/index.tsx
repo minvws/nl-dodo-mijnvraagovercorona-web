@@ -56,7 +56,7 @@ export default function IsUitgezonderd() {
 					titlePrefix={page.pretitle}
 					illustrationUrl="/images/illustration-door.svg"
 				>
-					<LinkBack href="/" variant="restart" />
+					<LinkBack href="" variant="restart" />
 				</Hero>
 				<Content>
 					<section sx={{ paddingRight: [, '165px'] }}>
