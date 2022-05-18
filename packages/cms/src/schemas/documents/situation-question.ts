@@ -27,34 +27,20 @@ export default {
 				list: ['datepicker', 'single', 'multiple'],
 			},
 		},
+		// {
+		// 	title: 'Vraag content',
+		// 	name: 'questionContent',
+		// 	type: 'questionContent',
+		// 	hidden: ({ document }: { document: { type: string } }) =>
+		// 		document?.type !== 'single',
+		// },
 		{
-			title: 'Vraag content',
-			name: 'questionContent',
-			type: 'object',
-			fields: [
-				{
-					title: 'Content Links',
-					name: 'contentLeft',
-					type: 'localeBlock',
-				},
-				{
-					title: 'Afbeelding Links',
-					name: 'imageLeft',
-					type: 'image',
-				},
-				{
-					title: 'Content Rechts',
-					name: 'contentRight',
-					type: 'localeBlock',
-				},
-				{
-					title: 'Afbeelding Rechts',
-					name: 'imageRight',
-					type: 'image',
-				},
-			],
+			title: 'Content',
+			name: 'contentReference',
+			type: 'reference',
+			to: [{ type: 'content-feed-document' }],
 			hidden: ({ document }: { document: { type: string } }) =>
-				document?.type !== 'single',
+				document?.type === 'datepicker',
 		},
 		{
 			title: 'Antwoorden',

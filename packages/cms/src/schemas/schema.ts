@@ -16,6 +16,7 @@ import informContactsDocument from './documents/inform-contacts';
 import situationQuestionDocument from './documents/situation-question';
 import situationFlowDocument from './documents/situation-flow';
 import situationResultDocument from './documents/situation-result';
+import contentFeedDocument from './documents/content-feed';
 
 import privacyPage from './pages/common/privacy';
 import cookiesPage from './pages/common/cookies';
@@ -56,6 +57,7 @@ import aidObject from './objects/aid';
 import stepsObject from './objects/steps';
 import buttonObject from './objects/button';
 import storyObject from './objects/story';
+import questionContentObject from './objects/questionContent';
 
 export default createSchema({
 	name: 'default',
@@ -114,6 +116,7 @@ export default createSchema({
 		situationQuestionDocument,
 		situationFlowDocument,
 		situationResultDocument,
+		contentFeedDocument,
 
 		/**
 		 * Objects
@@ -137,5 +140,6 @@ export default createSchema({
 		stepsObject,
 		buttonObject,
 		storyObject,
+		questionContentObject,
 	]),
 });
