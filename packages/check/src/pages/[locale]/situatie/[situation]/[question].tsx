@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { Container, jsx } from 'theme-ui';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import {
@@ -61,29 +61,10 @@ interface PageContent {
 	slug: string;
 }
 
-const createHistory = ({
-	history,
-	total,
-	current,
-	url,
-}: {
-	history: string[];
-	total: number;
-	current: number;
-	url: string;
-}): string[] => {
-	const nextHistory = Array(total).fill('#situaties');
-
-	nextHistory[current - 1] = url;
-
-	return nextHistory;
-};
-
 export const Vraag = ({ locale }: { locale: Locales }) => {
 	const router = useRouter();
 	const page = useSanityPageContent<PageContent>();
 	const siteSettings = useSanitySiteSettings();
-
 	const url = `/situatie/${page.situation}/${page.slug}`;
 
 	const layerPaddingBlockStart =

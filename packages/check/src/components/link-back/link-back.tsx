@@ -16,10 +16,8 @@ export const LinkBack = ({ href, variant = 'back' }: OwnProps) => {
 
 	const { t } = useTranslation();
 	const { urlPrefix } = useCurrentLocale();
-	const hrefWithLocale = getHrefWithlocale(href, urlPrefix);
-	{
-		siteSettings.header.opnieuw;
-	}
+	const hrefWithLocale = href && getHrefWithlocale(href, urlPrefix);
+
 	return (
 		<StyledLink href={hrefWithLocale} styledAs={`link-${variant}`}>
 			{variant === 'restart'
