@@ -55,7 +55,10 @@ export const MastheadFlow: React.FC<MastheadFlowProps> = ({
 										maxInlineSize: ['17rem', , '100%'],
 										marginInlineStart: 'auto',
 										marginInlineEnd: 'auto',
-										marginBlockEnd: [`-${mastheadFlowImageMargin}`, 'auto'],
+										marginBlockEnd: [
+											illustration ? `-${mastheadFlowImageMargin}` : 'auto',
+											'auto',
+										],
 									}}
 								/>
 							</TheSwitcherItem>

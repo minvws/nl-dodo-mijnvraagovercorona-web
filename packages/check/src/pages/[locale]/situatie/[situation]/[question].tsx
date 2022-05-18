@@ -45,6 +45,7 @@ interface PageContent {
 		title: string;
 		image: string;
 	};
+	questionContent: FormAnswersSingleProps['content'];
 	answersMultiple: FormAnswersMultipleProps['answers'];
 	showMore: {
 		max: number;
@@ -68,7 +69,9 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 	const url = `/situatie/${page.situation}/${page.slug}`;
 
 	const layerPaddingBlockStart =
-		page.type === 'datepicker' ? ['0'] : [mastheadFlowImageMargin, '2.5rem'];
+		page.type === 'datepicker'
+			? ['0']
+			: [page.header.image ? mastheadFlowImageMargin : '2.5rem', '2.5rem'];
 
 	const asideOffset = page.type === 'datepicker' ? [0, '3.25rem'] : [0];
 
@@ -111,6 +114,7 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 										answers={page.answersSingle}
 										buttons={page.buttons}
 										locale={locale}
+										content={page.questionContent}
 									/>
 								) : (
 									<FormAnswersDate buttons={page.buttons} locale={locale} />
@@ -162,36 +166,52 @@ export const getStaticProps = async ({
 			${getLocaleProperty({ name: 'title', path: `header.title`, locale })},
 			${getImage({ name: 'image', path: `header.image` })},
 		},
-        type,
+		type,
+		"questionContent": {
+			${getLocaleProperty({
+				name: 'contentLeft',
+				path: `questionContent.contentLeft`,
+				locale,
+				block: true,
+			})},
+			${getImage({ name: 'imageLeft', path: `questionContent.imageLeft` })},
+			${getLocaleProperty({
+				name: 'contentRight',
+				path: `questionContent.contentRight`,
+				locale,
+				block: true,
+			})},
+			${getImage({ name: 'imageRight', path: `questionContent.imageRight` })},
+		},
 		"answersSingle": answersSingle[]{
 			_key,
 			${getLocaleProperty({ name: 'content', locale })},
 			"next": select(
-                next->_type == "situation-question-document" => 'situatie/' + next->situation->slug.current + '/' + next->slug.current,
-                next->_type == "situation-result-document" => 'advies/' + next->situation->slug.current + '/' + next->slug.current,
+				next->_type == "situation-question-document" => 'situatie/' + next->situation->slug.current + '/' + next->slug.current,
+				next->_type == "situation-result-document" => 'advies/' + next->situation->slug.current + '/' + next->slug.current,
 			),
 		},
-        "answersMultiple": answersMultiple[]{
-            _key,
-            ${getLocaleProperty({ name: 'content', locale })},
-        },
+		"answersMultiple": answersMultiple[]{
+			_key,
+			${getLocaleProperty({ name: 'content', locale })},
+		},
 		"showMore": {
 			"max": showMore.max,
-            ${getLocaleProperty({
-							name: 'text',
-							path: 'showMore.text',
-							locale,
-						})},
+			${getLocaleProperty({
+				name: 'text',
+				path: 'showMore.text',
+				locale,
+			})},
 		},
 		"buttons": buttons[]{
 			_key,
-            ${getLocaleProperty({ name: 'text', locale })},
-            standard,
+			${getLocaleProperty({ name: 'text', locale })},
+			standard,
 			"next": select(
-                next->_type == "situation-question-document" => 'situatie/' + next->situation->slug.current + '/' + next->slug.current,
-                next->_type == "situation-result-document" => 'advies/' + next->situation->slug.current + '/' + next->slug.current,
+				next->_type == "situation-question-document" => 'situatie/' + next->situation->slug.current + '/' + next->slug.current,
+				next->_type == "situation-result-document" => 'advies/' + next->situation->slug.current + '/' + next->slug.current,
 			),
-        },
+		},
 		"slug": slug.current,
 		"situation": situation->slug.current,
 	}`;
