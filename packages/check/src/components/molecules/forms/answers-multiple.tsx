@@ -10,6 +10,7 @@ import {
 import { Box, jsx } from 'theme-ui';
 import { FormSubmit, FormSubmitProps } from './submit';
 import { useRouter } from 'next/router';
+import { ContentStream, ContentStreamProps } from '../content';
 
 export interface FormAnswersMultipleProps {
 	answers: {
@@ -18,6 +19,7 @@ export interface FormAnswersMultipleProps {
 		checked?: boolean;
 	}[];
 	buttons: FormSubmitProps['buttons'];
+	content: ContentStreamProps;
 	locale: Locales;
 	showMoreLabel: string;
 	limit?: number;
@@ -26,6 +28,7 @@ export interface FormAnswersMultipleProps {
 export const FormAnswersMultiple: React.FC<FormAnswersMultipleProps> = ({
 	answers,
 	buttons,
+	content,
 	locale,
 	showMoreLabel,
 	limit = 6,
@@ -79,6 +82,7 @@ export const FormAnswersMultiple: React.FC<FormAnswersMultipleProps> = ({
 	return (
 		<form action="" onSubmit={onSubmit}>
 			<Stack>
+				<ContentStream {...content} />
 				{answers ? (
 					<Stack spacing={['1rem']}>
 						{visibleAnswers?.map((answer) => (

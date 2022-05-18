@@ -45,7 +45,7 @@ interface PageContent {
 		title: string;
 		image: string;
 	};
-	questionContent: FormAnswersSingleProps['content'];
+	content: FormAnswersSingleProps['content'];
 	answersMultiple: FormAnswersMultipleProps['answers'];
 	showMore: {
 		max: number;
@@ -108,13 +108,14 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 										showMoreLabel={page.showMore.text}
 										limit={page.showMore.max}
 										locale={locale}
+										content={page.content}
 									/>
 								) : page.type === 'single' && page.answersSingle ? (
 									<FormAnswersSingle
 										answers={page.answersSingle}
 										buttons={page.buttons}
 										locale={locale}
-										content={page.questionContent}
+										content={page.content}
 									/>
 								) : (
 									<FormAnswersDate buttons={page.buttons} locale={locale} />
@@ -167,21 +168,27 @@ export const getStaticProps = async ({
 			${getImage({ name: 'image', path: `header.image` })},
 		},
 		type,
-		"questionContent": {
+		"content": {
 			${getLocaleProperty({
-				name: 'contentLeft',
-				path: `questionContent.contentLeft`,
+				name: 'contentPrimary',
+				path: `contentReference->content.contentPrimary`,
 				locale,
 				block: true,
 			})},
-			${getImage({ name: 'imageLeft', path: `questionContent.imageLeft` })},
+			${getImage({
+				name: 'imagePrimary',
+				path: `contentReference->content.imagePrimary`,
+			})},
 			${getLocaleProperty({
-				name: 'contentRight',
-				path: `questionContent.contentRight`,
+				name: 'contentSecondary',
+				path: `contentReference->content.contentSecondary`,
 				locale,
 				block: true,
 			})},
-			${getImage({ name: 'imageRight', path: `questionContent.imageRight` })},
+			${getImage({
+				name: 'imageSecondary',
+				path: `contentReference->content.imageSecondary`,
+			})},
 		},
 		"answersSingle": answersSingle[]{
 			_key,
