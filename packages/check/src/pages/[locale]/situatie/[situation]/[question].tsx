@@ -32,8 +32,8 @@ import {
 	FormAnswersSingleProps,
 	FormSubmitProps,
 	MastheadFlow,
+	calculateFlowImageMargin,
 } from 'components/molecules';
-import { mastheadFlowImageMargin } from 'components/molecules/masthead/masthead-flow';
 import { LinkBack } from 'components/link-back';
 
 interface PageContent {
@@ -43,7 +43,14 @@ interface PageContent {
 	};
 	header: {
 		title: string;
-		image: string;
+		image: {
+			src: string;
+			dimensions: {
+				aspectRatio: number;
+				width: number;
+				height: number;
+			};
+		};
 	};
 	content: FormAnswersSingleProps['content'];
 	answersMultiple: FormAnswersMultipleProps['answers'];
@@ -71,7 +78,12 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 	const layerPaddingBlockStart =
 		page.type === 'datepicker'
 			? ['0']
-			: [page.header.image ? mastheadFlowImageMargin : '2.5rem', '2.5rem'];
+			: [
+					page.header.image
+						? calculateFlowImageMargin({ ...page.header.image.dimensions })
+						: '2.5rem',
+					'2.5rem',
+			  ];
 
 	const asideOffset = page.type === 'datepicker' ? [0, '3.25rem'] : [0];
 
@@ -166,6 +178,7 @@ export const getStaticProps = async ({
 		"header": {
 			${getLocaleProperty({ name: 'title', path: `header.title`, locale })},
 			${getImage({ name: 'image', path: `header.image` })},
+			${getImage({ name: 'image', path: `header.image`, full: true })},
 		},
 		type,
 		"content": {

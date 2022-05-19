@@ -28,8 +28,7 @@ import {
 import { getTopicQuestionPageQuery, getTopicQuestions } from 'utilities/topics';
 import { locales } from 'content/general-content';
 import { Page } from 'components/page';
-import { MastheadFlow } from 'components/molecules';
-import { mastheadFlowImageMargin } from 'components/molecules/masthead/masthead-flow';
+import { MastheadFlow, calculateFlowImageMargin } from 'components/molecules';
 import { LinkBack } from 'components/link-back';
 import GlobalContext from 'utilities/global-context';
 
@@ -40,7 +39,14 @@ interface PageContent {
 	};
 	header: {
 		title: string;
-		image: string;
+		image: {
+			src: string;
+			dimensions: {
+				aspectRatio: number;
+				width: number;
+				height: number;
+			};
+		};
 	};
 	answers: {
 		content: Object[];
@@ -148,7 +154,10 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 				/>
 				<Layer
 					backgroundColor="white"
-					paddingBlockStart={[mastheadFlowImageMargin, '2.5rem']}
+					paddingBlockStart={[
+						calculateFlowImageMargin({ ...page.header.image.dimensions }),
+						'2.5rem',
+					]}
 				>
 					<Container>
 						<TheSidebar
@@ -229,7 +238,7 @@ export const getStaticProps = async ({
 		},
 		"header": {
 			${getLocaleProperty({ name: 'title', path: `header.title`, locale })},
-			${getImage({ name: 'image', path: 'topic->icon' })},
+			${getImage({ name: 'image', path: 'topic->icon', full: true })},
 		},
 		"answers": answers[]{
 			_key,

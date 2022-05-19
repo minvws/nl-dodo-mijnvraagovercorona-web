@@ -81,7 +81,6 @@ export const Resultaat = ({ locale }: { locale: Locales }) => {
 			<Page noHeader>
 				<MastheadFlow
 					title={page.header.title}
-					illustration={null}
 					headerSlot={
 						<Header
 							noPadding
