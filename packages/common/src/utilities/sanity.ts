@@ -61,13 +61,27 @@ export const getLocaleProperty = ({
 export const getImage = ({
 	name,
 	path,
+	full,
 }: {
 	name: string;
 	path?: string;
+	full?: boolean;
 }): string => {
-	return `"${name}": "/images/sanity/" + ${
+	const src = `"/images/sanity/" + ${path || name}.asset->sha1hash + "-" + ${
 		path || name
-	}.asset->sha1hash + "-" + ${path || name}.asset->originalFilename`;
+	}.asset->originalFilename`;
+
+	if (full)
+		return `"${name}": {
+			"src": ${src},
+			"dimensions": {
+				"aspectRatio": ${path || name}.asset->metadata.dimensions.aspectRatio,
+				"width": ${path || name}.asset->metadata.dimensions.width,
+				"height": ${path || name}.asset->metadata.dimensions.height,
+			},
+		}`;
+
+	return `"${name}": ${src}`;
 };
 
 /**
