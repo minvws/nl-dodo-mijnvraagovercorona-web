@@ -11,7 +11,7 @@ import {
 	Stack,
 } from '@quarantaine/common';
 import { FormSubmit, FormSubmitProps } from './submit';
-import { DualImage, DualImageProps } from '../content';
+import { ContentStream, ContentStreamProps } from '../content';
 
 export interface FormAnswersSingleProps {
 	locale: Locales;
@@ -21,7 +21,7 @@ export interface FormAnswersSingleProps {
 		_key: string;
 	}[];
 	buttons: FormSubmitProps['buttons'];
-	content: DualImageProps;
+	content: ContentStreamProps;
 }
 
 export const FormAnswersSingle: React.FC<FormAnswersSingleProps> = ({
@@ -58,10 +58,7 @@ export const FormAnswersSingle: React.FC<FormAnswersSingleProps> = ({
 	return (
 		<form action="" onSubmit={onSubmit}>
 			<Stack>
-				{(content.contentLeft && content.imageLeft) ||
-				(content.contentRight && content.imageRight) ? (
-					<DualImage {...content} />
-				) : null}
+				<ContentStream {...content} />
 				<Stack spacing={['1rem']}>
 					{answers.map((answer) => (
 						<Control

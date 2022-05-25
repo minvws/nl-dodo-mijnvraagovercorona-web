@@ -23,7 +23,7 @@ import { BiError } from 'react-icons/bi';
 import { FaRegCopyright, FaAccessibleIcon } from 'react-icons/fa';
 import { SiGnuprivacyguard } from 'react-icons/si';
 import { GrVulnerability } from 'react-icons/gr';
-import { VscScreenFull } from 'react-icons/vsc';
+import { VscScreenFull, VscCopy } from 'react-icons/vsc';
 import { RiQuestionLine, RiQuestionAnswerLine } from 'react-icons/ri';
 import { MdOutlineTopic } from 'react-icons/md';
 
@@ -182,6 +182,11 @@ const checkMultiDocumentsConfig = [
 		schemaType: 'inform-contacts-document',
 		title: 'Informeer contacten Documenten',
 		icon: GiShare,
+	},
+	{
+		schemaType: 'content-feed-document',
+		title: 'Content feed Documenten',
+		icon: VscCopy,
 	},
 	{
 		schemaType: 'topic-document',

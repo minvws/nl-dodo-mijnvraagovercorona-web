@@ -32,8 +32,8 @@ import {
 	FormAnswersSingleProps,
 	FormSubmitProps,
 	MastheadFlow,
+	calculateFlowImageMargin,
 } from 'components/molecules';
-import { mastheadFlowImageMargin } from 'components/molecules/masthead/masthead-flow';
 import { LinkBack } from 'components/link-back';
 
 interface PageContent {
@@ -43,9 +43,16 @@ interface PageContent {
 	};
 	header: {
 		title: string;
-		image: string;
+		image: {
+			src: string;
+			dimensions: {
+				aspectRatio: number;
+				width: number;
+				height: number;
+			};
+		};
 	};
-	questionContent: FormAnswersSingleProps['content'];
+	content: FormAnswersSingleProps['content'];
 	answersMultiple: FormAnswersMultipleProps['answers'];
 	showMore: {
 		max: number;
@@ -70,7 +77,12 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 	const layerPaddingBlockStart =
 		page.type === 'datepicker'
 			? ['0']
-			: [page.header.image ? mastheadFlowImageMargin : '2.5rem', '2.5rem'];
+			: [
+					page.header.image
+						? calculateFlowImageMargin({ ...page.header.image.dimensions })
+						: '2.5rem',
+					'2.5rem',
+			  ];
 
 	const asideOffset = page.type === 'datepicker' ? [0, '3.25rem'] : [0];
 
@@ -107,13 +119,14 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 										showMoreLabel={page.showMore.text}
 										limit={page.showMore.max}
 										locale={locale}
+										content={page.content}
 									/>
 								) : page.type === 'single' && page.answersSingle ? (
 									<FormAnswersSingle
 										answers={page.answersSingle}
 										buttons={page.buttons}
 										locale={locale}
-										content={page.questionContent}
+										content={page.content}
 									/>
 								) : (
 									<FormAnswersDate buttons={page.buttons} locale={locale} />
@@ -164,23 +177,30 @@ export const getStaticProps = async ({
 		"header": {
 			${getLocaleProperty({ name: 'title', path: `header.title`, locale })},
 			${getImage({ name: 'image', path: `header.image` })},
+			${getImage({ name: 'image', path: `header.image`, full: true })},
 		},
 		type,
-		"questionContent": {
+		"content": {
 			${getLocaleProperty({
-				name: 'contentLeft',
-				path: `questionContent.contentLeft`,
+				name: 'contentPrimary',
+				path: `contentReference->content.contentPrimary`,
 				locale,
 				block: true,
 			})},
-			${getImage({ name: 'imageLeft', path: `questionContent.imageLeft` })},
+			${getImage({
+				name: 'imagePrimary',
+				path: `contentReference->content.imagePrimary`,
+			})},
 			${getLocaleProperty({
-				name: 'contentRight',
-				path: `questionContent.contentRight`,
+				name: 'contentSecondary',
+				path: `contentReference->content.contentSecondary`,
 				locale,
 				block: true,
 			})},
-			${getImage({ name: 'imageRight', path: `questionContent.imageRight` })},
+			${getImage({
+				name: 'imageSecondary',
+				path: `contentReference->content.imageSecondary`,
+			})},
 		},
 		"answersSingle": answersSingle[]{
 			_key,

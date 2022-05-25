@@ -11,16 +11,42 @@ import { retainMaxWidth } from '@quarantaine/common/src/components/molecules/lay
 
 export interface MastheadFlowProps {
 	title: string | React.ReactNode;
-	illustration?: string | null;
+	illustration?: {
+		src: string;
+		dimensions: {
+			aspectRatio: number;
+			width: number;
+			height: number;
+		};
+	};
 	prefixSlot?: React.ReactNode;
 	headerSlot?: React.ReactNode;
 }
 
-export const mastheadFlowImageMargin = '12rem';
+const mastheadMobileMaxSize = 272; /* 17rem */
+
+export const calculateFlowImageMargin = ({
+	width,
+	height,
+}: {
+	width: number;
+	height: number;
+}) => {
+	if (!width && !height)
+		return '12rem'; /* safe value when dimensions are not known */
+
+	// Check which width we need to calculate with, the max size or the width of
+	// the image
+	const widthToCalcWith =
+		mastheadMobileMaxSize <= width ? mastheadMobileMaxSize : width;
+
+	// Return a calculation based off the width and the ratio
+	return `calc(${widthToCalcWith / 16}rem * ${height / width})`;
+};
 
 export const MastheadFlow: React.FC<MastheadFlowProps> = ({
 	title,
-	illustration = '/images/default-illustration.svg',
+	illustration,
 	children,
 	headerSlot,
 	prefixSlot,
@@ -49,14 +75,22 @@ export const MastheadFlow: React.FC<MastheadFlowProps> = ({
 						{illustration ? (
 							<TheSwitcherItem>
 								<Image
-									src={illustration}
+									src={illustration.src}
 									alt=""
 									sx={{
-										maxInlineSize: ['17rem', , '100%'],
+										maxInlineSize: [
+											`${mastheadMobileMaxSize / 16}rem`,
+											,
+											'100%',
+										],
 										marginInlineStart: 'auto',
 										marginInlineEnd: 'auto',
 										marginBlockEnd: [
-											illustration ? `-${mastheadFlowImageMargin}` : 'auto',
+											illustration
+												? `calc(${calculateFlowImageMargin({
+														...illustration.dimensions,
+												  })} * -1)`
+												: 'auto',
 											'auto',
 										],
 									}}
