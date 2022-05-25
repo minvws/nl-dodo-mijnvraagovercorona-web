@@ -23,26 +23,26 @@ export const getSituationQuestionPageQuery = ({
 	"siteSettings": ${siteSettingsQuery({ locale, site: 'quarantaine-check' })},
 }`;
 
-export const getSituationResults = async () => {
-	const results = await sanityClient.fetch(
-		`*[_type=="situation-result-document"]{"result": slug.current, "situation": situation->slug.current}`,
+export const getSituationAdvice = async () => {
+	const advice = await sanityClient.fetch(
+		`*[_type=="situation-result-document"]{"advice": slug.current, "situation": situation->slug.current}`,
 	);
 
-	return results;
+	return advice;
 };
 
-export const getSituationResultPageQuery = ({
+export const getSituationAdvicePageQuery = ({
 	pageProjection,
 	locale,
-	result,
+	advice,
 	situation,
 }: {
 	pageProjection: string;
 	locale: Locales;
-	result: string;
+	advice: string;
 	situation: string;
 }): string => `{
-	"page": *[_type == "situation-result-document" && situation->slug.current == "${situation}" && slug.current=="${result}"][0]${pageProjection},
+	"page": *[_type == "situation-result-document" && situation->slug.current == "${situation}" && slug.current=="${advice}"][0]${pageProjection},
 	"siteSettings": ${siteSettingsQuery({ locale, site: 'quarantaine-check' })},
 }`;
 

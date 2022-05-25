@@ -10,7 +10,6 @@ import {
 } from 'date-fns';
 
 import {
-	CallToAction,
 	Link,
 	SaveInCalendar,
 	MetaTags,
@@ -41,8 +40,6 @@ import { Situaties } from 'config/situaties';
 import Head from 'next/head';
 import { locales } from 'content/general-content';
 import { LinkBack } from 'components/link-back';
-import GlobalContext from 'utilities/global-context';
-import { useContext } from 'react';
 import { WarningPanel } from 'components/warning-panel';
 import { InformContacts, InformContactsProps } from 'components/molecules';
 

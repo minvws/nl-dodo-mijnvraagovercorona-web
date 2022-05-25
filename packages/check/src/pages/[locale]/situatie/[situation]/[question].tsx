@@ -63,7 +63,6 @@ interface PageContent {
 }
 
 export const Vraag = ({ locale }: { locale: Locales }) => {
-	const router = useRouter();
 	const page = useSanityPageContent<PageContent>();
 	const siteSettings = useSanitySiteSettings();
 	const url = `/situatie/${page.situation}/${page.slug}`;

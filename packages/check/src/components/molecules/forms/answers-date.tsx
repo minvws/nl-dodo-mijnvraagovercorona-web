@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
 	Datepicker,
 	getHrefWithlocale,
@@ -11,7 +11,7 @@ import {
 	DatepickerTopbarTitle,
 	formatShortDate,
 } from '@quarantaine/common';
-import { startOfDay } from 'date-fns';
+import { format, startOfDay } from 'date-fns';
 import { jsx } from 'theme-ui';
 
 import { FormSubmit, FormSubmitProps } from './submit';
@@ -41,9 +41,13 @@ export const FormAnswersDate: React.FC<FormAnswersDateProps> = ({
 	// Form submit action
 	const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
+
 		// trigger main button action
-		if (buttons[0].next && canSubmit)
-			router.push(`/${getHrefWithlocale(`/${buttons[0].next}`, locale)}`);
+		if (buttons[0].next && selectedDate && canSubmit)
+			router.push({
+				pathname: `/${getHrefWithlocale(`/${buttons[0].next}`, locale)}`,
+				query: `datum=${format(selectedDate, 'dd-MM-yyyy')}`,
+			});
 	};
 
 	// Loop though buttons and add a disabled prop when we cannot submit

@@ -146,6 +146,11 @@ export default {
 									type: 'number',
 								},
 								{
+									title: 'Titel',
+									name: 'title',
+									type: 'localeString',
+								},
+								{
 									title: 'Content',
 									name: 'content',
 									type: 'localeBlock',
