@@ -23,6 +23,7 @@ import {
 	Control,
 	getImage,
 	Stack,
+	SanityImageFullProps,
 } from '@quarantaine/common';
 
 import { getTopicQuestionPageQuery, getTopicQuestions } from 'utilities/topics';
@@ -39,14 +40,7 @@ interface PageContent {
 	};
 	header: {
 		title: string;
-		image: {
-			src: string;
-			dimensions: {
-				aspectRatio: number;
-				width: number;
-				height: number;
-			};
-		};
+		image: SanityImageFullProps;
 	};
 	answers: {
 		content: Object[];

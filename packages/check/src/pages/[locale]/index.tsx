@@ -25,6 +25,7 @@ import {
 	useCurrentLocale,
 	ContentBlock,
 	getImage,
+	SanityImageFullProps,
 } from '@quarantaine/common';
 import {
 	Folder,
@@ -50,7 +51,7 @@ export interface PageContent {
 		title: string;
 		chapeau: string;
 		subtitle: string;
-		image: string;
+		image: SanityImageFullProps;
 	};
 	currentSituation: {
 		title: string;
@@ -367,7 +368,7 @@ export const getStaticProps = async ({
 			${getLocaleProperty({ name: 'title', path: 'header.title', locale })},
 			${getLocaleProperty({ name: 'chapeau', path: 'header.chapeau', locale })},
 			${getLocaleProperty({ name: 'subtitle', path: 'header.subtitle', locale })},
-			${getImage({ name: 'image', path: 'header.image' })},
+			${getImage({ name: 'image', path: 'header.image', full: true })},
 		},
 		"currentSituation": {
 			${getLocaleProperty({ name: 'title', path: 'currentSituation.title', locale })},

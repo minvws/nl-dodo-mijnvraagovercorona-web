@@ -16,6 +16,7 @@ import {
 	useSanitySiteSettings,
 	Retain,
 	getImage,
+	SanityImageFullProps,
 } from '@quarantaine/common';
 
 import {
@@ -43,14 +44,7 @@ interface PageContent {
 	};
 	header: {
 		title: string;
-		image: {
-			src: string;
-			dimensions: {
-				aspectRatio: number;
-				width: number;
-				height: number;
-			};
-		};
+		image: SanityImageFullProps;
 	};
 	content: FormAnswersSingleProps['content'];
 	answersMultiple: FormAnswersMultipleProps['answers'];
@@ -176,7 +170,6 @@ export const getStaticProps = async ({
 		},
 		"header": {
 			${getLocaleProperty({ name: 'title', path: `header.title`, locale })},
-			${getImage({ name: 'image', path: `header.image` })},
 			${getImage({ name: 'image', path: `header.image`, full: true })},
 		},
 		type,
