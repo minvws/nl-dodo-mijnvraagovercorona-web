@@ -271,7 +271,7 @@ export const getStaticProps = async ({
 		"header": {
 			${getLocaleProperty({ name: 'title', path: 'header.title', locale })},
 			${getImage({ name: 'image', path: `header.image`, full: true })},
-			showSeriousSymptoms,
+			"showSeriousSymptoms": header.showSeriousSymptoms,
 		},
 		"answer": answer[]{
 			showOn,
