@@ -59,4 +59,5 @@ export interface CommonSiteSettings {
 	dagen: string[];
 	datumKiesTekst: string;
 	maanden: string[];
+	updatedAt: string;
 }

@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { Image, Styled, Box, jsx, Container } from 'theme-ui';
 import React, { useContext } from 'react';
+import { DateTime } from 'luxon';
 
 import {
 	Locales,
@@ -21,6 +22,8 @@ import {
 	formatShortDate,
 	TheSidebar,
 	BannerDataProtection,
+	getImage,
+	SanityImageFullProps,
 } from '@quarantaine/common';
 
 import { locales } from 'content/general-content';
@@ -29,6 +32,7 @@ import {
 	Answer,
 	InformContacts,
 	InformContactsProps,
+	Masthead,
 	MastheadFlow,
 } from 'components/molecules';
 import { LinkBack } from 'components/link-back';
@@ -68,6 +72,7 @@ interface PageContent {
 	};
 	header: {
 		title: string;
+		image: SanityImageFullProps;
 		showSeriousSymptoms: boolean;
 	};
 	answer: AnswerProps[];
@@ -75,6 +80,7 @@ interface PageContent {
 	informContacts: InformContactsProps;
 	slug: string;
 	situation: string;
+	updatedAt: string;
 }
 
 const getDifferenceInDays = (date: Date) => {
@@ -132,6 +138,8 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 	const answer = getMostRelevantAnswer({ answers: page.answer, todayDay });
 	const advice = filterAdvice({ advice: page.advice, todayDay, date, locale });
 
+	console.log('updated at');
+
 	return (
 		<>
 			<MetaTags
@@ -141,16 +149,32 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 			/>
 
 			<Page noHeader>
-				<MastheadFlow
+				<Masthead
 					title={page.header.title}
-					illustration={undefined}
+					illustration={page.header.image}
+					variant="default"
+					prefixSlot={
+						<Styled.p
+							sx={{
+								fontSize: ['1rem', '1rem'],
+								lineHeight: ['smallTextMobile', 'smallText'],
+								color: 'detailText',
+							}}
+						>
+							{`${siteSettings.updatedAt} ${DateTime.fromISO(
+								page.updatedAt,
+							).toLocaleString()}`}
+						</Styled.p>
+					}
 					headerSlot={
 						<Header
 							noPadding
 							linkBackSlot={<LinkBack href="#situaties" variant="restart" />}
 						/>
 					}
-				/>
+				>
+					<mark>Ernstige klachten?</mark>
+				</Masthead>
 
 				<Layer backgroundColor="transparant">
 					<Container>
@@ -241,6 +265,7 @@ export const getStaticProps = async ({
 		},
 		"header": {
 			${getLocaleProperty({ name: 'title', path: 'header.title', locale })},
+			${getImage({ name: 'image', path: `header.image`, full: true })},
 			showSeriousSymptoms,
 		},
 		"answer": answer[]{
@@ -305,6 +330,7 @@ export const getStaticProps = async ({
 				}
 			}
 		},
+		"updatedAt": _updatedAt,
 		"slug": slug.current,
 		"situation": situation->slug.current,
 	}`;

@@ -350,6 +350,7 @@ export const siteSettingsQuery = ({
 		${getLocaleProperty({ name: 'datumKiesTekst', locale })},
 		${getLocaleProperty({ name: 'maanden', locale, array: true })},
 		${getLocaleProperty({ name: 'dagen', locale, array: true })},
+		${getLocaleProperty({ name: 'updatedAt', locale })},
 	}`;
 
 /**

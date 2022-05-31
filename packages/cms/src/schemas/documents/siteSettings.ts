@@ -313,5 +313,10 @@ export default {
 				},
 			],
 		},
+		{
+			title: 'Laatst bijgewerkt',
+			name: 'updatedAt',
+			type: 'localeString',
+		},
 	],
 };
