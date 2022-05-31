@@ -1,8 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
-import { Box, Container, Image, jsx, Styled } from 'theme-ui';
+import { Box, Image, jsx, Styled } from 'theme-ui';
 import {
-	Retain,
 	SanityImageFullProps,
 	Stack,
 	TheSwitcher,

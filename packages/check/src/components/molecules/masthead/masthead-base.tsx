@@ -1,14 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
-import { Box, Container, Image, jsx, Styled } from 'theme-ui';
-import {
-	Retain,
-	Stack,
-	theme,
-	TheSwitcher,
-	TheSwitcherItem,
-} from '@quarantaine/common';
-import { retainMaxWidth } from '@quarantaine/common/src/components/molecules/layout/retain';
+import { Box, Container, jsx } from 'theme-ui';
+import { theme } from '@quarantaine/common';
 
 export interface MastheadProps {
 	variant?: 'default' | 'highlight';
