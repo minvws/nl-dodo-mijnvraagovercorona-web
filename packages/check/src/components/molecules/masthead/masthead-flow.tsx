@@ -3,22 +3,17 @@ import React from 'react';
 import { Box, Container, Image, jsx, Styled } from 'theme-ui';
 import {
 	Retain,
+	SanityImageFullProps,
 	Stack,
 	TheSwitcher,
 	TheSwitcherItem,
 } from '@quarantaine/common';
 import { retainMaxWidth } from '@quarantaine/common/src/components/molecules/layout/retain';
+import { MastheadBase } from './masthead-base';
 
 export interface MastheadFlowProps {
 	title: string | React.ReactNode;
-	illustration?: {
-		src: string;
-		dimensions: {
-			aspectRatio: number;
-			width: number;
-			height: number;
-		};
-	};
+	illustration?: SanityImageFullProps;
 	prefixSlot?: React.ReactNode;
 	headerSlot?: React.ReactNode;
 }
@@ -52,75 +47,55 @@ export const MastheadFlow: React.FC<MastheadFlowProps> = ({
 	prefixSlot,
 }) => {
 	return (
-		<Box
-			sx={{
-				position: 'relative',
-				backgroundColor: 'headerBackground',
-				color: 'header',
-			}}
-		>
-			{headerSlot}
-			<Container>
+		<MastheadBase variant="default" headerSlot={headerSlot}>
+			<TheSwitcher
+				alignItems="end"
+				gap={['2rem', '4rem']}
+				minBlockSize={['0', '11rem']}
+			>
+				{illustration ? (
+					<TheSwitcherItem>
+						<Image
+							src={illustration.src}
+							alt=""
+							sx={{
+								maxInlineSize: [`${mastheadMobileMaxSize / 16}rem`, , '100%'],
+								marginInlineStart: 'auto',
+								marginInlineEnd: 'auto',
+								marginBlockEnd: [
+									illustration
+										? `calc(${calculateFlowImageMargin({
+												...illustration.dimensions,
+										  })} * -1)`
+										: 'auto',
+									'auto',
+								],
+							}}
+						/>
+					</TheSwitcherItem>
+				) : null}
 				<Box
 					sx={{
-						paddingBlockEnd: ['2rem', '3.5rem'],
-						paddingX: ['mobilePadding', 'tabletPadding', 0],
+						textAlign: ['center', 'start'],
+						paddingBlockStart: ['1.25rem', '0'],
+						order: [-1],
+						maxInlineSize: illustration ? '100%' : ['100%', '50%'],
 					}}
 				>
-					<TheSwitcher
-						alignItems="end"
-						gap={['2rem', '4rem']}
-						minBlockSize={['0', '11rem']}
+					<Stack
+						spacing={['1rem']}
+						styles={{
+							maxInlineSize: [retainMaxWidth],
+							marginInlineStart: 'auto',
+							marginInlineEnd: 'auto',
+						}}
 					>
-						{illustration ? (
-							<TheSwitcherItem>
-								<Image
-									src={illustration.src}
-									alt=""
-									sx={{
-										maxInlineSize: [
-											`${mastheadMobileMaxSize / 16}rem`,
-											,
-											'100%',
-										],
-										marginInlineStart: 'auto',
-										marginInlineEnd: 'auto',
-										marginBlockEnd: [
-											illustration
-												? `calc(${calculateFlowImageMargin({
-														...illustration.dimensions,
-												  })} * -1)`
-												: 'auto',
-											'auto',
-										],
-									}}
-								/>
-							</TheSwitcherItem>
-						) : null}
-						<Box
-							sx={{
-								textAlign: ['center', 'start'],
-								paddingBlockStart: ['1.25rem', '0'],
-								order: [-1],
-								maxInlineSize: illustration ? '100%' : ['100%', '50%'],
-							}}
-						>
-							<Stack
-								spacing={['1rem']}
-								styles={{
-									maxInlineSize: [retainMaxWidth],
-									marginInlineStart: 'auto',
-									marginInlineEnd: 'auto',
-								}}
-							>
-								{prefixSlot ? prefixSlot : null}
-								<Styled.h1>{title}</Styled.h1>
-								{children}
-							</Stack>
-						</Box>
-					</TheSwitcher>
+						{prefixSlot ? prefixSlot : null}
+						<Styled.h1>{title}</Styled.h1>
+						{children}
+					</Stack>
 				</Box>
-			</Container>
-		</Box>
+			</TheSwitcher>
+		</MastheadBase>
 	);
 };
