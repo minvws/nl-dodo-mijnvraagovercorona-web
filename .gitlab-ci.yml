@@ -56,9 +56,6 @@ before_script:
   - echo ${CD_APP_TAG}
   - unset ${HISTFILE} # Disable shell cache for security purposes
 
-after_script:
-  - echo "Ended by ${GITLAB_USER_LOGIN} at $(date +%Y-%m-%d'-'%H-%M-%S)"
-
 test common:
   image: harbor.cicd.s15m.nl/vws-reis-docker-hub/library/node:14-alpine
   stage: test
