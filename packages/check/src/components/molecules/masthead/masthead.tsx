@@ -26,7 +26,7 @@ export const Masthead: React.FC<MastheadProps> = ({
 	children,
 }) => {
 	return (
-		<MastheadBase variant="default" headerSlot={headerSlot}>
+		<MastheadBase variant="highlight" headerSlot={headerSlot}>
 			<TheSwitcher alignItems="center" gap={['2rem', '4rem']}>
 				{illustration ? (
 					<TheSwitcherItem>

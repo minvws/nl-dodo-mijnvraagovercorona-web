@@ -13,17 +13,11 @@ import { retainMaxWidth } from '@quarantaine/common/src/components/molecules/lay
 export interface MastheadProps {
 	variant?: 'default' | 'highlight';
 	headerSlot?: React.ReactNode;
-	// title: string | React.ReactNode;
-	// chapeau?: string | React.ReactNode;
-	// illustration?: string;
 }
 
 export const MastheadBase: React.FC<MastheadProps> = ({
 	variant = 'default',
 	headerSlot,
-	// title,
-	// chapeau,
-	// illustration = '/images/default-illustration.svg',
 	children,
 }) => {
 	return (
