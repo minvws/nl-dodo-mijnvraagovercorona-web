@@ -19,6 +19,8 @@ import {
 	Stack,
 	SchemeBlock,
 	formatShortDate,
+	TheSidebar,
+	BannerDataProtection,
 } from '@quarantaine/common';
 
 import { locales } from 'content/general-content';
@@ -141,7 +143,7 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 			<Page noHeader>
 				<MastheadFlow
 					title={page.header.title}
-					illustration={null}
+					illustration={undefined}
 					headerSlot={
 						<Header
 							noPadding
@@ -152,43 +154,47 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 
 				<Layer backgroundColor="transparant">
 					<Container>
-						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
-						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
-							<Stack spacing={['5rem']}>
-								{answer && (
-									<Answer title={answer.title} content={answer.content} />
-								)}
-
-								<Box>
-									<Styled.h2>{advice.title}</Styled.h2>
-									{advice.plan.map(({ day, title, content, date }) => (
-										<SchemeBlock key={title} day={date} title={title}>
-											<ContentBlock content={content} />
-										</SchemeBlock>
-									))}
-								</Box>
-
-								{page.informContacts.title && (
-									<section
-										sx={{
-											'@media print': { display: 'none' },
-										}}
-									>
-										<InformContacts {...page.informContacts} />
-									</section>
-								)}
-							</Stack>
+						<TheSidebar
+							asideChildren={
+								<BannerDataProtection content={siteSettings.privacy} />
+							}
+							asideOffset={[0]}
+						>
 							<Retain>
-								<Feedback
-									name="Situatie Advies"
-									feedbackUrl={getFeedbackUrl(siteSettings.feedback.url, {
-										source: 'situation-advice',
-										situation: page.situation,
-										advice: page.slug,
-									})}
-								/>
+								<Stack spacing={['5rem']}>
+									{answer && (
+										<Answer title={answer.title} content={answer.content} />
+									)}
+
+									<Box>
+										<Styled.h2>{advice.title}</Styled.h2>
+										{advice.plan.map(({ day, title, content, date }) => (
+											<SchemeBlock key={title} day={date} title={title}>
+												<ContentBlock content={content} />
+											</SchemeBlock>
+										))}
+									</Box>
+
+									{page.informContacts.title && (
+										<section
+											sx={{
+												'@media print': { display: 'none' },
+											}}
+										>
+											<InformContacts {...page.informContacts} />
+										</section>
+									)}
+									<Feedback
+										name="Situatie Advies"
+										feedbackUrl={getFeedbackUrl(siteSettings.feedback.url, {
+											source: 'situation-advice',
+											situation: page.situation,
+											advice: page.slug,
+										})}
+									/>
+								</Stack>
 							</Retain>
-						</Box>
+						</TheSidebar>
 					</Container>
 				</Layer>
 			</Page>
