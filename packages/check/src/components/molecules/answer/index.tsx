@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { ContentBlock } from '@quarantaine/common';
+import { ContentBlock, Stack } from '@quarantaine/common';
 import React from 'react';
 import { jsx, Styled, Box } from 'theme-ui';
 
@@ -13,11 +13,13 @@ export const Answer: React.FC<AnswerProps> = ({ title, content }) => (
 		sx={{
 			backgroundColor: 'headerBackground',
 			color: 'header',
-			borderRadius: '11px',
-			padding: '24px',
+			borderRadius: 'box',
+			padding: '1.5rem',
 		}}
 	>
-		<Styled.h2>{title}</Styled.h2>
-		<ContentBlock content={content} />
+		<Stack spacing={['0.5rem', '1rem']}>
+			<Styled.h2>{title}</Styled.h2>
+			<ContentBlock content={content} />
+		</Stack>
 	</Box>
 );
