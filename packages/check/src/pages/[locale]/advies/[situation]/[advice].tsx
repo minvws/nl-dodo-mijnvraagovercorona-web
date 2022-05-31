@@ -29,6 +29,7 @@ import {
 import { locales } from 'content/general-content';
 import { Page } from 'components/page';
 import {
+	Advice,
 	Answer,
 	InformContacts,
 	InformContactsProps,
@@ -138,8 +139,6 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 	const answer = getMostRelevantAnswer({ answers: page.answer, todayDay });
 	const advice = filterAdvice({ advice: page.advice, todayDay, date, locale });
 
-	console.log('updated at');
-
 	return (
 		<>
 			<MetaTags
@@ -173,7 +172,13 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 						/>
 					}
 				>
-					<mark>Ernstige klachten?</mark>
+					{page.header.showSeriousSymptoms ? (
+						<Advice
+							title={siteSettings.severeSymptomsAdvice.title}
+							subtitle={siteSettings.severeSymptomsAdvice.subtitle}
+							icon={siteSettings.severeSymptomsAdvice.icon.src}
+						/>
+					) : null}
 				</Masthead>
 
 				<Layer backgroundColor="transparant">

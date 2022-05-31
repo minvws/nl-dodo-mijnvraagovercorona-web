@@ -351,6 +351,19 @@ export const siteSettingsQuery = ({
 		${getLocaleProperty({ name: 'maanden', locale, array: true })},
 		${getLocaleProperty({ name: 'dagen', locale, array: true })},
 		${getLocaleProperty({ name: 'updatedAt', locale })},
+		"severeSymptomsAdvice": {
+			${getLocaleProperty({
+				name: 'title',
+				path: 'severeSymptomsAdvice.title',
+				locale,
+			})},
+			${getLocaleProperty({
+				name: 'subtitle',
+				path: 'severeSymptomsAdvice.subtitle',
+				locale,
+			})},
+			${getImage({ name: 'icon', path: `severeSymptomsAdvice.icon`, full: true })},
+		},
 	}`;
 
 /**

@@ -19,7 +19,9 @@ export const AdviceList: React.FC<AdviceListProps> = ({ advices }) => (
 		}}
 	>
 		{advices.map((advice) => (
-			<Advice key={advice.icon} {...advice} />
+			<li key={advice.icon}>
+				<Advice {...advice} />
+			</li>
 		))}
 	</Box>
 );

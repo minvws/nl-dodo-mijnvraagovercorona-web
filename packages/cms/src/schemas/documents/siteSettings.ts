@@ -318,5 +318,27 @@ export default {
 			name: 'updatedAt',
 			type: 'localeString',
 		},
+		{
+			title: 'Advies ernstige klachten',
+			name: 'severeSymptomsAdvice',
+			type: 'object',
+			fields: [
+				{
+					title: 'Titel',
+					name: 'title',
+					type: 'localeString',
+				},
+				{
+					title: 'Subtitel',
+					name: 'subtitle',
+					type: 'localeString',
+				},
+				{
+					title: 'Icoon',
+					name: 'icon',
+					type: 'image',
+				},
+			],
+		},
 	],
 };

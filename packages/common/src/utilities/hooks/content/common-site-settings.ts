@@ -1,3 +1,5 @@
+import { SanityImageFullProps } from 'utilities/sanity';
+
 export interface CommonSiteSettings {
 	baseUrl: string;
 	pageTitleSuffix: string;
@@ -60,4 +62,9 @@ export interface CommonSiteSettings {
 	datumKiesTekst: string;
 	maanden: string[];
 	updatedAt: string;
+	severeSymptomsAdvice: {
+		title: string;
+		subtitle: string;
+		icon: SanityImageFullProps;
+	};
 }
