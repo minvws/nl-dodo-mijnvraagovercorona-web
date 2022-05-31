@@ -13,19 +13,23 @@ import { MastheadBase } from './masthead-base';
 export interface MastheadProps {
 	title: string | React.ReactNode;
 	chapeau?: string | React.ReactNode;
+	prefixSlot?: React.ReactNode;
 	illustration?: SanityImageFullProps;
 	headerSlot?: React.ReactNode;
+	variant?: 'default' | 'highlight';
 }
 
 export const Masthead: React.FC<MastheadProps> = ({
-	headerSlot,
 	title,
 	chapeau,
+	prefixSlot,
 	illustration,
+	headerSlot,
+	variant,
 	children,
 }) => {
 	return (
-		<MastheadBase variant="highlight" headerSlot={headerSlot}>
+		<MastheadBase variant={variant} headerSlot={headerSlot}>
 			<TheSwitcher alignItems="center" gap={['2rem', '4rem']}>
 				{illustration ? (
 					<TheSwitcherItem>
@@ -49,18 +53,7 @@ export const Masthead: React.FC<MastheadProps> = ({
 							marginInlineEnd: 'auto',
 						}}
 					>
-						{chapeau && (
-							<Styled.p
-								sx={{
-									fontSize: ['h2Mobile', 'h2'],
-									lineHeight: ['h2Mobile', 'h2'],
-									fontWeight: 'bold',
-									color: 'highlight',
-								}}
-							>
-								{chapeau}
-							</Styled.p>
-						)}
+						{prefixSlot ? prefixSlot : null}
 						<Styled.h1>{title}</Styled.h1>
 						{children}
 					</Stack>

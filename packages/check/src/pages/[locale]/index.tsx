@@ -116,8 +116,20 @@ export default function LandingPage() {
 				<Masthead
 					headerSlot={<Header transparent noPadding />}
 					title={page.header.title}
-					chapeau={page.header.chapeau}
+					prefixSlot={
+						<Styled.p
+							sx={{
+								fontSize: ['h2Mobile', 'h2'],
+								lineHeight: ['h2Mobile', 'h2'],
+								fontWeight: 'bold',
+								color: 'highlight',
+							}}
+						>
+							{page.header.chapeau}
+						</Styled.p>
+					}
 					illustration={page.header.image}
+					variant="highlight"
 				>
 					<Styled.p>{page.header.subtitle}</Styled.p>
 				</Masthead>
