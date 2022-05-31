@@ -241,27 +241,27 @@ export const getStaticProps = async ({
 		},
 		"header": {
 			${getLocaleProperty({ name: 'title', path: 'header.title', locale })},
-            showSeriousSymptoms,
+			showSeriousSymptoms,
 		},
-        "answer": answer[]{
-            showOn,
-            ${getLocaleProperty({ name: 'title', locale })},
-            ${getLocaleProperty({ name: 'content', locale, block: true })},
-        },
-        "advice": {
-            ${getLocaleProperty({
-							name: 'title',
-							path: 'advice.title',
-							locale,
-						})},
-            "plan": advice.plan[]{
-                showOn,
+		"answer": answer[]{
+			showOn,
+			${getLocaleProperty({ name: 'title', locale })},
+			${getLocaleProperty({ name: 'content', locale, block: true })},
+		},
+		"advice": {
+			${getLocaleProperty({
+				name: 'title',
+				path: 'advice.title',
+				locale,
+			})},
+			"plan": advice.plan[]{
+				showOn,
 				day,
 				${getLocaleProperty({ name: 'title', locale })},
-                ${getLocaleProperty({ name: 'content', locale, block: true })},
-            },
-        },
-        "informContacts": {
+				${getLocaleProperty({ name: 'content', locale, block: true })},
+			},
+		},
+		"informContacts": {
 			${getLocaleProperty({
 				name: 'title',
 				path: 'informContactsReference->title',
