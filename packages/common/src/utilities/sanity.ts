@@ -55,6 +55,15 @@ export const getLocaleProperty = ({
 	return `"${name}": ${path || name}${array ? '[]' : ''}.${locale}`;
 };
 
+export interface SanityImageFullProps {
+	src: string;
+	dimensions: {
+		aspectRatio: number;
+		width: number;
+		height: number;
+	};
+}
+
 /**
  * This helper function allows us to get the unique file name of a sanity image
  */
