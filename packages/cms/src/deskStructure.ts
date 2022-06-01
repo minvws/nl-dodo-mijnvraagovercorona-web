@@ -12,19 +12,23 @@ import {
 	GiFlagObjective,
 	GiCalendar,
 	GiLightBulb,
-	GiPeriscope,
 	GiThumbDown,
 	GiRadioactive,
 	GiTrail,
 	GiShieldReflect,
 	GiShare,
 } from 'react-icons/gi';
-import { BiError } from 'react-icons/bi';
+import { BiError, BiSitemap } from 'react-icons/bi';
 import { FaRegCopyright, FaAccessibleIcon } from 'react-icons/fa';
-import { SiGnuprivacyguard } from 'react-icons/si';
+import { SiGnuprivacyguard, SiYourtraveldottv } from 'react-icons/si';
 import { GrVulnerability } from 'react-icons/gr';
 import { VscScreenFull, VscCopy } from 'react-icons/vsc';
-import { RiQuestionLine, RiQuestionAnswerLine } from 'react-icons/ri';
+import { IoDocumentOutline, IoHelpBuoyOutline } from 'react-icons/io5';
+import {
+	RiQuestionLine,
+	RiQuestionAnswerLine,
+	RiPagesLine,
+} from 'react-icons/ri';
 import { MdOutlineTopic } from 'react-icons/md';
 
 import { getFolder } from './utilities/getFolder';
@@ -228,16 +232,19 @@ export default () =>
 		.items([
 			getFolder({
 				title: 'Common',
+				icon: BiSitemap,
 				items: [
 					...siteSettingsConfig.map((config) => getDocumentList(config)),
 					S.divider(),
 					getFolder({
 						title: 'Pagina’s',
+						icon: RiPagesLine,
 						items: [...genericPagesConfig.map((config) => getPageList(config))],
 					}),
 
 					getFolder({
 						title: 'Documenten',
+						icon: IoDocumentOutline,
 						items: [
 							...multiDocumentsConfig.map((config) => getDocumentList(config)),
 						],
@@ -247,14 +254,17 @@ export default () =>
 
 			getFolder({
 				title: 'CoronaHulp',
+				icon: IoHelpBuoyOutline,
 				items: [
 					getFolder({
 						title: 'Pagina’s',
+						icon: RiPagesLine,
 						items: [...checkPagesConfig.map((config) => getPage(config))],
 					}),
 
 					getFolder({
 						title: 'Situaties',
+						icon: RiQuestionAnswerLine,
 						items: [
 							...checkSituationDocumentsConfig.map((config) =>
 								getDocumentList(config),
@@ -264,6 +274,7 @@ export default () =>
 
 					getFolder({
 						title: 'Onderwerpen',
+						icon: MdOutlineTopic,
 						items: [
 							...checkTopicDocumentsConfig.map((config) =>
 								getDocumentList(config),
@@ -273,6 +284,7 @@ export default () =>
 
 					getFolder({
 						title: 'Situaties (Oud)',
+						icon: GiHelp,
 						items: [
 							...checkSituationOldDocumentsConfig.map((config) =>
 								getDocumentList(config),
@@ -284,13 +296,16 @@ export default () =>
 
 			getFolder({
 				title: 'Reizen',
+				icon: SiYourtraveldottv,
 				items: [
 					getFolder({
 						title: 'Pagina’s',
+						icon: RiPagesLine,
 						items: [...reizenPagesConfig.map((config) => getPage(config))],
 					}),
 					getFolder({
 						title: 'Documenten',
+						icon: IoDocumentOutline,
 						items: [
 							...reizenMultiDocumentsConfig.map((config) =>
 								getDocumentList(config),

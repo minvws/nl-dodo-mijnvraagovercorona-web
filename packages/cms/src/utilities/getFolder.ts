@@ -1,4 +1,15 @@
 import S from '@sanity/desk-tool/structure-builder';
 
-export const getFolder = ({ title, items }: { title: string; items: any }) =>
-	S.listItem().title(title).child(S.list().title(title).items(items));
+export const getFolder = ({
+	title,
+	items,
+	icon,
+}: {
+	title: string;
+	items: any;
+	icon?: any;
+}) =>
+	S.listItem()
+		.title(title)
+		.icon(icon)
+		.child(S.list().title(title).items(items));
