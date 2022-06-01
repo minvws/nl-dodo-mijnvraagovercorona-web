@@ -36,8 +36,14 @@ export const FormAnswersSingle: React.FC<FormAnswersSingleProps> = ({
 	// submit the chosen answer
 	const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
+		const queryString = router.query.datum
+			? `?datum=${router.query.datum}`
+			: '';
+
 		if (selectedOption)
-			router.push(`/${getHrefWithlocale(`/${selectedOption}`, locale)}`);
+			router.push(
+				`/${getHrefWithlocale(`/${selectedOption}${queryString}`, locale)}`,
+			);
 	};
 
 	// onchange radio & set selectedOption
