@@ -185,8 +185,8 @@ export default {
 	],
 	preview: {
 		select: {
-			title: 'header.title.nl',
-			subtitle: 'topic.name.nl',
+			title: 'slug.current',
+			subtitle: 'situation.name.nl',
 		},
 	},
 };

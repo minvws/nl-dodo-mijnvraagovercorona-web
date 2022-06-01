@@ -174,7 +174,7 @@ export default {
 	],
 	preview: {
 		select: {
-			title: 'header.title.nl',
+			title: 'slug.current',
 			subtitle: 'situation.name.nl',
 		},
 	},
