@@ -88,7 +88,7 @@ const reizenPagesConfig = [
 	},
 	{
 		schemaType: 'voorbereiding-page',
-		title: 'Voorbereiding pagina',
+		title: 'Voorbereiding',
 		icon: GiClosedDoors,
 	},
 	{
@@ -131,7 +131,7 @@ const reizenMultiDocumentsConfig = [
 	},
 	{
 		schemaType: 'voorbereiding-document',
-		title: 'Voorbereiding document',
+		title: 'Voorbereiding',
 		icon: GiJumpingDog,
 	},
 	{
