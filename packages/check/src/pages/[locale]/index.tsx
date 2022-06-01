@@ -443,6 +443,14 @@ export const getStaticProps = async ({
 					locale,
 					block: true,
 				})},
+				"situationNew": {
+					${getLocaleProperty({
+						name: 'situationLinkTitle',
+						locale,
+					})},
+					"start": situationReference->start->slug.current,
+					"slug": situationReference->slug.current,
+				},
 				"situation": {
 					${getLocaleProperty({
 						name: 'situationLinkTitle',
@@ -451,7 +459,8 @@ export const getStaticProps = async ({
 					"url": situationReference->url,
 					"showDate": situationReference->showDate,
 					"showExceptions": situationReference->showExceptions,
-				}
+				},
+
 			}
 		},
 		"situations": {

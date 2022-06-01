@@ -8,6 +8,30 @@ export default {
 	of: [
 		{
 			title: 'Situatiebutton',
+			name: 'situationNew',
+			type: 'object',
+			icon: BiLinkAlt,
+			preview: {
+				select: {
+					title: 'situationReference.slug.current',
+				},
+			},
+			fields: [
+				{
+					title: 'Link titel',
+					name: 'situationLinkTitle',
+					type: 'localeString',
+				},
+				{
+					title: 'Link naar situatiepagina',
+					name: 'situationReference',
+					type: 'reference',
+					to: [{ type: 'situation-flow-document' }],
+				},
+			],
+		},
+		{
+			title: 'Situatiebutton (oud)',
 			name: 'situation',
 			type: 'object',
 			icon: BiLinkAlt,
