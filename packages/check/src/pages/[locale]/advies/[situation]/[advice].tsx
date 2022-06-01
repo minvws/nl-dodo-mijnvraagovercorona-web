@@ -109,7 +109,10 @@ const filterAdvice = ({
 				content,
 				day,
 				title,
-				date: formatShortDate(addDays(date, day), locale, true),
+				date:
+					day === null || day === undefined
+						? formatShortDate(new Date(), locale, true)
+						: formatShortDate(addDays(date, day), locale, true),
 			})),
 	};
 };
@@ -199,7 +202,7 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 										<Styled.h2>{advice.title}</Styled.h2>
 										{advice.plan.map(({ day, title, content, date }) => (
 											<SchemeBlock key={title} day={date} title={title}>
-												<ContentBlock content={content} />
+												{content && <ContentBlock content={content} />}
 											</SchemeBlock>
 										))}
 									</Box>
