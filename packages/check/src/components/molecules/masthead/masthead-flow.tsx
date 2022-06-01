@@ -15,6 +15,7 @@ export interface MastheadFlowProps {
 	illustration?: SanityImageFullProps;
 	prefixSlot?: React.ReactNode;
 	headerSlot?: React.ReactNode;
+	noIllustrationMobile?: boolean;
 }
 
 const mastheadMobileMaxSize = 272; /* 17rem */
@@ -44,6 +45,7 @@ export const MastheadFlow: React.FC<MastheadFlowProps> = ({
 	children,
 	headerSlot,
 	prefixSlot,
+	noIllustrationMobile,
 }) => {
 	return (
 		<MastheadBase variant="default" headerSlot={headerSlot}>
@@ -53,7 +55,11 @@ export const MastheadFlow: React.FC<MastheadFlowProps> = ({
 				minBlockSize={['0', '11rem']}
 			>
 				{illustration ? (
-					<TheSwitcherItem>
+					<TheSwitcherItem
+						styles={{
+							display: noIllustrationMobile ? ['none', 'flex'] : 'flex',
+						}}
+					>
 						<Image
 							src={illustration.src}
 							alt=""

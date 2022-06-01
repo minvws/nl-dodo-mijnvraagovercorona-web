@@ -17,6 +17,7 @@ import {
 	Retain,
 	getImage,
 	SanityImageFullProps,
+	ContentBlock,
 } from '@quarantaine/common';
 
 import {
@@ -44,6 +45,7 @@ interface PageContent {
 	};
 	header: {
 		title: string;
+		content: Object[];
 		image: SanityImageFullProps;
 	};
 	content: FormAnswersSingleProps['content'];
@@ -93,7 +95,12 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 					title={page.header.title}
 					illustration={page.header.image}
 					headerSlot={<Header noPadding />}
-				/>
+					noIllustrationMobile={page.type === 'datepicker'}
+				>
+					{page.header.content ? (
+						<ContentBlock content={page.header.content} />
+					) : null}
+				</MastheadFlow>
 				<Layer
 					backgroundColor="white"
 					paddingBlockStart={layerPaddingBlockStart}
@@ -170,6 +177,12 @@ export const getStaticProps = async ({
 		},
 		"header": {
 			${getLocaleProperty({ name: 'title', path: `header.title`, locale })},
+			${getLocaleProperty({
+				name: 'content',
+				path: `header.content`,
+				locale,
+				block: true,
+			})},
 			${getImage({ name: 'image', path: `header.image`, full: true })},
 		},
 		type,
