@@ -1,4 +1,4 @@
-import { SanityImageFullProps } from 'utilities/sanity';
+import { SanityImageFullProps } from '../../sanity';
 
 export interface CommonSiteSettings {
 	baseUrl: string;

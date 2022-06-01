@@ -139,7 +139,9 @@ export default function Wanneer({
 						<DatepickerTopbarTitle
 							title={page.page.datumKiesTekst}
 							subtitle={
-								selectedDate ? formatShortDate(selectedDate, locale) : undefined
+								selectedDate
+									? formatShortDate(selectedDate, locale, false)
+									: undefined
 							}
 						/>
 					</DatepickerTopbar>

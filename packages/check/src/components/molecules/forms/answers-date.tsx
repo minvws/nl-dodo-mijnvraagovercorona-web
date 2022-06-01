@@ -63,7 +63,9 @@ export const FormAnswersDate: React.FC<FormAnswersDateProps> = ({
 				<DatepickerTopbarTitle
 					title={siteSettings.datumKiesTekst}
 					subtitle={
-						selectedDate ? formatShortDate(selectedDate, locale) : undefined
+						selectedDate
+							? formatShortDate(selectedDate, locale, false)
+							: undefined
 					}
 				/>
 			</DatepickerTopbar>
