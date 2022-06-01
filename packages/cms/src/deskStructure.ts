@@ -232,19 +232,19 @@ export default () =>
 			...genericPagesConfig.map((config) => getPageList(config)),
 			S.divider(),
 
-			/** Reizen Pages */
-			...reizenPagesConfig.map((config) => getPage(config)),
-			S.divider(),
-
-			/** Reizen Multiple Documents */
-			...reizenMultiDocumentsConfig.map((config) => getDocumentList(config)),
-			S.divider(),
-
 			/** Check Pages */
 			...checkPagesConfig.map((config) => getPage(config)),
 			S.divider(),
 
 			/** Check Multiple Documents */
 			...checkMultiDocumentsConfig.map((config) => getDocumentList(config)),
+			S.divider(),
+
+			/** Reizen Pages */
+			...reizenPagesConfig.map((config) => getPage(config)),
+			S.divider(),
+
+			/** Reizen Multiple Documents */
+			...reizenMultiDocumentsConfig.map((config) => getDocumentList(config)),
 			S.divider(),
 		]);
