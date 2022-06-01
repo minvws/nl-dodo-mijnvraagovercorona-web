@@ -270,36 +270,6 @@ export default function LandingPage() {
 										marginBlockStart: ['4.75rem', '6.5rem'],
 										marginBlockEnd: ['2.25rem', '4rem'],
 									}}
-								>
-									<Styled.h2
-										sx={{
-											fontSize: ['h1Mobile', 'h1'],
-											lineHeight: ['h1Mobile', 'h1'],
-										}}
-									>
-										{page.situations.title}
-									</Styled.h2>
-									<Box>
-										{page.situations.situations.map(({ start, slug, name }) => (
-											<StyledLink
-												styledAs="button-large"
-												href={getHrefWithlocale(
-													`/situatie/${slug}/${start}`,
-													locale.urlPrefix,
-												)}
-												key={name}
-											>
-												{name}
-											</StyledLink>
-										))}
-									</Box>
-								</Box>
-
-								<Box
-									sx={{
-										marginBlockStart: ['4.75rem', '6.5rem'],
-										marginBlockEnd: ['2.25rem', '4rem'],
-									}}
 									id="onderwerpen"
 								>
 									<Styled.h2
@@ -461,14 +431,6 @@ export const getStaticProps = async ({
 					"showExceptions": situationReference->showExceptions,
 				},
 
-			}
-		},
-		"situations": {
-			${getLocaleProperty({ name: 'title', path: 'situations.title', locale })},
-			"situations": situations.situations[]->{
-				${getLocaleProperty({ name: 'name', locale })},
-				"start": start->slug.current,
-				"slug": slug.current,
 			}
 		},
 		"topics": {

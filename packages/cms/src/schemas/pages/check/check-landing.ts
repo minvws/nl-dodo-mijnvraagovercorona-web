@@ -101,31 +101,6 @@ export default {
 			of: [{ type: 'case' }],
 		},
 		{
-			title: 'Situaties',
-			name: 'situations',
-			type: 'object',
-			options: {
-				collapsible: true,
-				collapsed: true,
-			},
-			fields: [
-				{ title: 'Titel', name: 'title', type: 'localeString' },
-				{
-					title: 'situaties',
-					name: 'situations',
-					type: 'array',
-					of: [
-						{
-							title: 'Situatie',
-							name: 'situation',
-							type: 'reference',
-							to: [{ type: 'situation-flow-document' }],
-						},
-					],
-				},
-			],
-		},
-		{
 			title: 'Onderwerpen',
 			name: 'topics',
 			type: 'object',
