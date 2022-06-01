@@ -140,7 +140,15 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 		: new Date();
 	const todayDay = getDifferenceInDays(date);
 	const answer = getMostRelevantAnswer({ answers: page.answer, todayDay });
-	const advice = filterAdvice({ advice: page.advice, todayDay, date, locale });
+	const advice =
+		page.advice.plan &&
+		page.advice.title &&
+		filterAdvice({
+			advice: page.advice,
+			todayDay,
+			date,
+			locale,
+		});
 
 	return (
 		<>
@@ -198,14 +206,16 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 										<Answer title={answer.title} content={answer.content} />
 									)}
 
-									<Box>
-										<Styled.h2>{advice.title}</Styled.h2>
-										{advice.plan.map(({ day, title, content, date }) => (
-											<SchemeBlock key={title} day={date} title={title}>
-												{content && <ContentBlock content={content} />}
-											</SchemeBlock>
-										))}
-									</Box>
+									{advice && (
+										<Box>
+											<Styled.h2>{advice.title}</Styled.h2>
+											{advice.plan.map(({ day, title, content, date }) => (
+												<SchemeBlock key={title} day={date} title={title}>
+													{content && <ContentBlock content={content} />}
+												</SchemeBlock>
+											))}
+										</Box>
+									)}
 
 									{page.informContacts.title && (
 										<section
