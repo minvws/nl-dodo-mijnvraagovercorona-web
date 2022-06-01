@@ -193,7 +193,7 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 							asideOffset={[0]}
 						>
 							<Retain>
-								<Stack spacing={['5rem']}>
+								<Stack spacing={['2.5rem', '5rem']}>
 									{answer && (
 										<Answer title={answer.title} content={answer.content} />
 									)}
