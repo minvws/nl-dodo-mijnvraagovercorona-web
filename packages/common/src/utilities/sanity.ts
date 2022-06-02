@@ -19,8 +19,9 @@ const followModals = (locale: string) => `{
 		markDefs[]{
 			...,
 			_type == "dialog" => {
-				"content": @.modal_ref->content.${locale},
 				"title": @.modal_ref->title.${locale},
+				${getImage({ name: 'image', path: '@.modal_ref->image', full: true })},
+				"content": @.modal_ref->content.${locale},
 			}
 		},
 	}`;

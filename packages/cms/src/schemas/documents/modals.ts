@@ -14,6 +14,11 @@ export default {
 			type: 'localeString',
 		},
 		{
+			title: 'Afbeelding',
+			name: 'image',
+			type: 'image',
+		},
+		{
 			title: 'Content',
 			name: 'content',
 			type: 'localeBlockWithoutModal',
