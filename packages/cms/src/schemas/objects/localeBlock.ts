@@ -68,17 +68,17 @@ export const generateBlock = (
 													type: 'reference',
 													to: [{ type: 'modals-document' }],
 												},
-												{
-													title: 'Modal title',
-													name: 'modal_title',
-													type: 'string',
-												},
-												{
-													title: 'Modal content',
-													name: 'modal_content',
-													type: 'array',
-													of: [{ type: 'block' }],
-												},
+												// {
+												// 	title: 'Modal title',
+												// 	name: 'modal_title',
+												// 	type: 'string',
+												// },
+												// {
+												// 	title: 'Modal content',
+												// 	name: 'modal_content',
+												// 	type: 'array',
+												// 	of: [{ type: 'block' }],
+												// },
 											],
 										},
 								  ]
