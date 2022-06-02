@@ -166,13 +166,18 @@ export const InformContacts: React.FC<InformContactsProps> = ({
 			{preButtonContent ? <ContentBlock content={preButtonContent} /> : null}
 			{canShare ? (
 				<StyledLink
+					as="button"
 					styledAs="button-tertiary"
 					onClick={() => triggerShareDialog()}
 				>
 					{buttons.shareButton.label}
 				</StyledLink>
 			) : (
-				<StyledLink styledAs="button-tertiary" onClick={() => copy(shareLink)}>
+				<StyledLink
+					as="button"
+					styledAs="button-tertiary"
+					onClick={() => copy(shareLink)}
+				>
 					{value ? buttons.copyButton.labelCopied : buttons.copyButton.label}
 				</StyledLink>
 			)}
