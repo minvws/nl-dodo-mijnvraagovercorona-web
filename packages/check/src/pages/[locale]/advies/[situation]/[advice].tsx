@@ -142,7 +142,6 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 	const answer = getMostRelevantAnswer({ answers: page.answer, todayDay });
 	const advice =
 		page.advice.plan &&
-		page.advice.title &&
 		filterAdvice({
 			advice: page.advice,
 			todayDay,
@@ -206,7 +205,7 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 										<Answer title={answer.title} content={answer.content} />
 									)}
 
-									{advice && (
+									{!!advice.plan.length && (
 										<Box>
 											<Styled.h2>{advice.title}</Styled.h2>
 											{advice.plan.map(({ day, title, content, date }) => (
@@ -217,7 +216,7 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 										</Box>
 									)}
 
-									{page.informContacts.title && (
+									{!!advice.plan.length && page.informContacts.title && (
 										<section
 											sx={{
 												'@media print': { display: 'none' },
