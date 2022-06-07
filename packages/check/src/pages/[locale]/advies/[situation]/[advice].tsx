@@ -170,9 +170,10 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 								color: 'detailText',
 							}}
 						>
-							{`${siteSettings.updatedAt} ${DateTime.fromISO(
-								page.updatedAt,
-							).toLocaleString()}`}
+							{siteSettings.updatedAt}
+							<time dateTime={page.updatedAt}>
+								{DateTime.fromISO(page.updatedAt).toLocaleString()}
+							</time>
 						</Styled.p>
 					}
 					headerSlot={
