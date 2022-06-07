@@ -205,7 +205,7 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 										<Answer title={answer.title} content={answer.content} />
 									)}
 
-									{!!advice.plan.length && (
+									{!!advice?.plan.length && (
 										<Box>
 											<Styled.h2>{advice.title}</Styled.h2>
 											{advice.plan.map(({ day, title, content, date }) => (
@@ -216,7 +216,7 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 										</Box>
 									)}
 
-									{!!advice.plan.length && page.informContacts.title && (
+									{!!advice?.plan.length && page.informContacts.title && (
 										<section
 											sx={{
 												'@media print': { display: 'none' },
