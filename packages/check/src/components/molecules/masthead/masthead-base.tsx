@@ -33,7 +33,11 @@ export const MastheadBase: React.FC<MastheadProps> = ({
 			}}
 		>
 			{headerSlot}
-			<Container>
+			<Container
+				sx={{
+					marginBlockStart: '1.5rem',
+				}}
+			>
 				<Box
 					sx={{
 						paddingBlockEnd: ['2rem', '3.5rem'],
