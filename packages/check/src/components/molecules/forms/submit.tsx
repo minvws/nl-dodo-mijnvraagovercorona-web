@@ -25,8 +25,10 @@ export const FormSubmit: React.FC<FormSubmitProps> = ({ buttons, locale }) => {
 				justifyContent: 'flex-start',
 				alignItems: 'center',
 				listStyle: 'none',
+				flexDirection: 'row-reverse',
 				'& > *': {
 					flex: '1',
+					maxInlineSize: 'calc(50% - 0.5rem)',
 				},
 			}}
 		>
