@@ -175,7 +175,8 @@ export const useLinkStyles = ({
 
 		const buttonDisabledStyling: SxStyleProp = {
 			...buttonStyling,
-			opacity: 0.4,
+			// opacity: 0.4,
+			backgroundColor: 'buttonDisabled',
 			pointerEvents: 'none',
 		};
 

@@ -80,7 +80,13 @@ export const FormAnswersMultiple: React.FC<FormAnswersMultipleProps> = ({
 	);
 
 	return (
-		<form action="" onSubmit={onSubmit}>
+		<form
+			action=""
+			onSubmit={onSubmit}
+			sx={{
+				position: 'relative',
+			}}
+		>
 			<Stack>
 				<ContentStream {...content} />
 				{answers ? (

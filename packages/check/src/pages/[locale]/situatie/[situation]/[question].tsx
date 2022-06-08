@@ -74,7 +74,7 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 		page.type === 'datepicker'
 			? ['0']
 			: [
-					page.header.image
+					page.header.image && page.header.image.src
 						? calculateFlowImageMargin({ ...page.header.image.dimensions })
 						: '2.5rem',
 					'2.5rem',

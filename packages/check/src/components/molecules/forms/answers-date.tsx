@@ -58,7 +58,13 @@ export const FormAnswersDate: React.FC<FormAnswersDateProps> = ({
 	);
 
 	return (
-		<form action="" onSubmit={onSubmit}>
+		<form
+			action=""
+			onSubmit={onSubmit}
+			sx={{
+				position: 'relative',
+			}}
+		>
 			<DatepickerTopbar>
 				<DatepickerTopbarTitle
 					title={siteSettings.datumKiesTekst}

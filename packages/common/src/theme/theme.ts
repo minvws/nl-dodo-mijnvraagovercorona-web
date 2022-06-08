@@ -33,6 +33,7 @@ export const theme: Theme = {
 		buttonSecondaryHover: '#fcfeff',
 		buttonTertiary: '#0e6999',
 		buttonTertiaryHover: '#094666',
+		buttonDisabled: '#ccc',
 
 		link: '#01689B',
 		linkHover: '#002783',

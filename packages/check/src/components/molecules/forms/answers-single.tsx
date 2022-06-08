@@ -62,7 +62,13 @@ export const FormAnswersSingle: React.FC<FormAnswersSingleProps> = ({
 	);
 
 	return (
-		<form action="" onSubmit={onSubmit}>
+		<form
+			action=""
+			onSubmit={onSubmit}
+			sx={{
+				position: 'relative',
+			}}
+		>
 			<Stack>
 				<ContentStream {...content} />
 				<Stack spacing={['1rem']}>

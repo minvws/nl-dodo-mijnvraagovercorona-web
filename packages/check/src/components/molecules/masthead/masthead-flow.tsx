@@ -47,6 +47,7 @@ export const MastheadFlow: React.FC<MastheadFlowProps> = ({
 	prefixSlot,
 	noIllustrationMobile,
 }) => {
+	const hasIllustration = !!(illustration && illustration.src);
 	return (
 		<MastheadBase variant="default" headerSlot={headerSlot}>
 			<TheSwitcher
@@ -54,7 +55,7 @@ export const MastheadFlow: React.FC<MastheadFlowProps> = ({
 				gap={['2rem', '4rem']}
 				minBlockSize={['0', '11rem']}
 			>
-				{illustration ? (
+				{hasIllustration ? (
 					<TheSwitcherItem
 						styles={{
 							display: noIllustrationMobile ? ['none', 'flex'] : 'flex',
@@ -84,7 +85,7 @@ export const MastheadFlow: React.FC<MastheadFlowProps> = ({
 						textAlign: ['center', 'start'],
 						paddingBlockStart: ['1.25rem', '0'],
 						order: [-1],
-						maxInlineSize: illustration ? '100%' : ['100%', '50%'],
+						maxInlineSize: hasIllustration ? '100%' : ['100%', '50%'],
 					}}
 				>
 					<Stack

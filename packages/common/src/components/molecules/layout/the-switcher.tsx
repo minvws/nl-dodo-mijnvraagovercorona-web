@@ -20,6 +20,7 @@ export const TheSwitcher: React.FC<OwnProps> = ({
 				flexWrap: 'wrap',
 				gap: gap,
 				alignItems: alignItems,
+				justifyContent: 'start',
 				minBlockSize: minBlockSize,
 				'& > *': {
 					flex: ['0 0 100%', 1],
