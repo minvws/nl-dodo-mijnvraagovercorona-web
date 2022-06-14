@@ -76,6 +76,27 @@ export default {
 			],
 		},
 		{
+			title: 'Themas',
+			name: 'themes',
+			type: 'object',
+			options: {
+				collapsible: true,
+				collapsed: true,
+			},
+			fields: [
+				{
+					title: 'Titel',
+					name: 'title',
+					type: 'localeString',
+				},
+				{
+					title: 'Thema’s',
+					name: 'themeSelector',
+					type: 'themeSelector',
+				},
+			],
+		},
+		{
 			title: 'Cases titel',
 			name: 'titleCases',
 			type: 'localeString',
