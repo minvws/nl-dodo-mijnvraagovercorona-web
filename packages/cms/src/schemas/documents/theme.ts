@@ -18,15 +18,9 @@ export default {
 		},
 		{ title: 'Icoon', name: 'icon', type: 'image' },
 		{
-			title: 'Startpunten',
-			name: 'entryPoints',
-			type: 'array',
-			of: [
-				{
-					type: 'reference',
-					to: [{ type: 'situation-question-document' }],
-				},
-			],
+			title: 'Vraag startpunten',
+			name: 'questionSelector',
+			type: 'questionSelector',
 		},
 	],
 	preview: {
