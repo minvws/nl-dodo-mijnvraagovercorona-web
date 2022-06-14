@@ -4,8 +4,8 @@ export default {
 	type: 'document',
 	fields: [
 		{
-			title: 'Naam',
-			name: 'name',
+			title: 'Titel',
+			name: 'title',
 			type: 'localeString',
 		},
 		{
@@ -13,7 +13,7 @@ export default {
 			name: 'slug',
 			type: 'slug',
 			options: {
-				source: 'name.nl',
+				source: 'title.nl',
 			},
 		},
 		{ title: 'Icoon', name: 'icon', type: 'image' },
@@ -25,7 +25,7 @@ export default {
 	],
 	preview: {
 		select: {
-			title: 'name.nl',
+			title: 'title.nl',
 			subtitle: 'slug.current',
 			media: 'icon',
 		},
