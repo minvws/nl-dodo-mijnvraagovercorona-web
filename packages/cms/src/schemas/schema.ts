@@ -59,6 +59,8 @@ import stepsObject from './objects/steps';
 import buttonObject from './objects/button';
 import storyObject from './objects/story';
 import questionContentObject from './objects/questionContent';
+import questionSelectorObject from './objects/questionSelector';
+import themeSelectorObject from './objects/themeSelector';
 
 export default createSchema({
 	name: 'default',
@@ -143,5 +145,7 @@ export default createSchema({
 		buttonObject,
 		storyObject,
 		questionContentObject,
+		questionSelectorObject,
+		themeSelectorObject,
 	]),
 });
