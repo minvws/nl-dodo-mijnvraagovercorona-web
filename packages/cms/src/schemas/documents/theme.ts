@@ -17,6 +17,17 @@ export default {
 			},
 		},
 		{ title: 'Icoon', name: 'icon', type: 'image' },
+		{
+			title: 'Startpunten',
+			name: 'entryPoints',
+			type: 'array',
+			of: [
+				{
+					type: 'reference',
+					to: [{ type: 'situation-question-document' }],
+				},
+			],
+		},
 	],
 	preview: {
 		select: {
