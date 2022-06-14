@@ -36,7 +36,9 @@ export const getUrlBySituation = (situation: Situation) => {
 
 export const getUrlBySituationNew = (situation: SituationNew) => {
 	const prefix = '/situatie';
-	if (situation.start) return `${prefix}/${situation.slug}/${situation.start}`;
+
+	if (situation.start) return `${prefix}/${situation.start}`;
+
 	return `${prefix}/${situation.slug}`;
 };
 

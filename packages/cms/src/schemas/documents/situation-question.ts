@@ -24,16 +24,9 @@ export default {
 			name: 'type',
 			type: 'string',
 			options: {
-				list: ['datepicker', 'single', 'multiple'],
+				list: ['datepicker', 'single', 'multiple', 'buttons', 'age'],
 			},
 		},
-		// {
-		// 	title: 'Vraag content',
-		// 	name: 'questionContent',
-		// 	type: 'questionContent',
-		// 	hidden: ({ document }: { document: { type: string } }) =>
-		// 		document?.type !== 'single',
-		// },
 		{
 			title: 'Content',
 			name: 'contentReference',
@@ -41,6 +34,25 @@ export default {
 			to: [{ type: 'content-feed-document' }],
 			hidden: ({ document }: { document: { type: string } }) =>
 				document?.type === 'datepicker',
+		},
+		{
+			title: 'Leeftijdsvraag',
+			name: 'ageInput',
+			type: 'object',
+			fields: [
+				{
+					title: 'Label',
+					name: 'label',
+					type: 'localeString',
+				},
+				{
+					title: 'Placeholder',
+					name: 'placeholder',
+					type: 'localeString',
+				},
+			],
+			hidden: ({ document }: { document: { type: string } }) =>
+				document?.type !== 'age',
 		},
 		{
 			title: 'Antwoorden',

@@ -1,11 +1,10 @@
 /** @jsx jsx */
-import { Image, Styled, Box, jsx, Container } from 'theme-ui';
-import React, { useContext } from 'react';
+import { Styled, Box, jsx, Container } from 'theme-ui';
+import React from 'react';
 import { DateTime } from 'luxon';
 
 import {
 	Locales,
-	StyledLinkPropsAsAnchor,
 	MetaTags,
 	sanityClient,
 	getLocaleProperty,
@@ -34,20 +33,13 @@ import {
 	InformContacts,
 	InformContactsProps,
 	Masthead,
-	MastheadFlow,
 } from 'components/molecules';
 import { LinkBack } from 'components/link-back';
 import {
 	getSituationAdvicePageQuery,
 	getSituationAdvice,
 } from 'utilities/situations-flow';
-import {
-	differenceInDays,
-	startOfDay,
-	parse,
-	subDays,
-	addDays,
-} from 'date-fns';
+import { differenceInDays, startOfDay, parse, addDays } from 'date-fns';
 import { useRouter } from 'next/router';
 
 interface AnswerProps {
@@ -80,7 +72,6 @@ interface PageContent {
 	advice: AdviceProps;
 	informContacts: InformContactsProps;
 	slug: string;
-	situation: string;
 	updatedAt: string;
 }
 
@@ -154,7 +145,7 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 			<MetaTags
 				title={page.metaData.title}
 				description={page.metaData.title}
-				url={`/resultaat/${page.situation}/${page.slug}`}
+				url={`/advies/${page.slug}`}
 			/>
 
 			<Page noHeader>
@@ -230,7 +221,6 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 										name="Situatie Advies"
 										feedbackUrl={getFeedbackUrl(siteSettings.feedback.url, {
 											source: 'situation-advice',
-											situation: page.situation,
 											advice: page.slug,
 										})}
 									/>
@@ -266,11 +256,11 @@ export const getStaticPaths = async () => {
 };
 
 interface AdviesResultaatProps {
-	params: { advice: string; situation: string; locale: Locales };
+	params: { advice: string; locale: Locales };
 }
 
 export const getStaticProps = async ({
-	params: { advice, situation, locale },
+	params: { advice, locale },
 }: AdviesResultaatProps) => {
 	const pageProjection = `{
 		"metaData": {
@@ -350,14 +340,12 @@ export const getStaticProps = async ({
 		},
 		"updatedAt": _updatedAt,
 		"slug": slug.current,
-		"situation": situation->slug.current,
 	}`;
 	const { page, siteSettings } = await sanityClient.fetch(
 		getSituationAdvicePageQuery({
 			pageProjection,
 			locale,
 			advice,
-			situation,
 		}),
 	);
 

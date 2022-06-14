@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { Container, jsx } from 'theme-ui';
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import React from 'react';
 
 import {
 	Locales,
@@ -36,7 +35,6 @@ import {
 	MastheadFlow,
 	calculateFlowImageMargin,
 } from 'components/molecules';
-import { LinkBack } from 'components/link-back';
 
 interface PageContent {
 	metaData: {
@@ -61,14 +59,13 @@ interface PageContent {
 	};
 	type: 'multiple' | 'single' | 'datepicker';
 	buttons: FormSubmitProps['buttons'];
-	situation: string;
 	slug: string;
 }
 
 export const Vraag = ({ locale }: { locale: Locales }) => {
 	const page = useSanityPageContent<PageContent>();
 	const siteSettings = useSanitySiteSettings();
-	const url = `/situatie/${page.situation}/${page.slug}`;
+	const url = `/situatie/${page.slug}`;
 
 	const layerPaddingBlockStart =
 		page.type === 'datepicker'
@@ -141,10 +138,12 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 	);
 };
 
-type Question = { question: string; situation: string };
+type Question = { question: string };
 
 export const getStaticPaths = async () => {
 	const questions: Question[] = await getSituationQuestions();
+
+	console.log(questions);
 
 	return {
 		paths: questions.reduce(
@@ -160,11 +159,11 @@ export const getStaticPaths = async () => {
 };
 
 interface VraagStaticProps {
-	params: { question: string; situation: string; locale: Locales };
+	params: { question: string; locale: Locales };
 }
 
 export const getStaticProps = async ({
-	params: { question, situation, locale },
+	params: { question, locale },
 }: VraagStaticProps) => {
 	const pageProjection = `{
 		"metaData": {
@@ -212,8 +211,8 @@ export const getStaticProps = async ({
 			_key,
 			${getLocaleProperty({ name: 'content', locale })},
 			"next": select(
-				next->_type == "situation-question-document" => 'situatie/' + next->situation->slug.current + '/' + next->slug.current,
-				next->_type == "situation-result-document" => 'advies/' + next->situation->slug.current + '/' + next->slug.current,
+				next->_type == "situation-question-document" => 'situatie/' + next->slug.current,
+				next->_type == "situation-result-document" => 'advies/' + next->slug.current,
 			),
 		},
 		"answersMultiple": answersMultiple[]{
@@ -233,19 +232,17 @@ export const getStaticProps = async ({
 			${getLocaleProperty({ name: 'text', locale })},
 			standard,
 			"next": select(
-				next->_type == "situation-question-document" => 'situatie/' + next->situation->slug.current + '/' + next->slug.current,
-				next->_type == "situation-result-document" => 'advies/' + next->situation->slug.current + '/' + next->slug.current,
+				next->_type == "situation-question-document" => 'situatie/' + next->slug.current,
+				next->_type == "situation-result-document" => 'advies/' + next->slug.current,
 			),
 		},
 		"slug": slug.current,
-		"situation": situation->slug.current,
 	}`;
 	const { page, siteSettings } = await sanityClient.fetch(
 		getSituationQuestionPageQuery({
 			pageProjection,
 			locale,
 			question,
-			situation,
 		}),
 	);
 

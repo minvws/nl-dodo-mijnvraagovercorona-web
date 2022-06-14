@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import { jsx, Styled, Container, Box, Image } from 'theme-ui';
 import { Page } from 'components/page';
 
@@ -9,9 +9,6 @@ import {
 	getPageQuery,
 	getLocaleProperty,
 	useSanityPageContent,
-	useSanitySiteSettings,
-	Hero,
-	getFeedbackUrl,
 	Locales,
 	Retain,
 	Layer,
@@ -28,8 +25,6 @@ import {
 	SanityImageFullProps,
 } from '@quarantaine/common';
 import {
-	Folder,
-	FolderProps,
 	HulpPanel,
 	FeedbackPanel,
 	Masthead,
@@ -40,7 +35,6 @@ import {
 	ContentSituationBlock,
 } from 'components/molecules';
 import { retainMaxWidth } from '@quarantaine/common/src/components/molecules/layout/retain';
-import GlobalContext from 'utilities/global-context';
 
 export interface PageContent {
 	metaData: {
