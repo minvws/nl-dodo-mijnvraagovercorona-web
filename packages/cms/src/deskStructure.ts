@@ -19,7 +19,7 @@ import {
 	GiShare,
 } from 'react-icons/gi';
 import { BiError, BiSitemap } from 'react-icons/bi';
-import { FaRegCopyright, FaAccessibleIcon } from 'react-icons/fa';
+import { FaRegCopyright, FaAccessibleIcon, FaFeatherAlt } from 'react-icons/fa';
 import { SiGnuprivacyguard, SiYourtraveldottv } from 'react-icons/si';
 import { GrVulnerability } from 'react-icons/gr';
 import { VscScreenFull, VscCopy } from 'react-icons/vsc';
@@ -168,6 +168,11 @@ const multiDocumentsConfig = [
 ];
 
 const checkSituationDocumentsConfig = [
+	{
+		schemaType: 'theme-document',
+		title: `Thema`,
+		icon: FaFeatherAlt,
+	},
 	{
 		schemaType: 'situation-flow-document',
 		title: `Situatie Flow`,
