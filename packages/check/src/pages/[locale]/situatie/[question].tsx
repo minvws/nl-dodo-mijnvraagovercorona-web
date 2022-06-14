@@ -27,6 +27,8 @@ import { locales } from 'content/general-content';
 import { Page } from 'components/page';
 import {
 	FormAnswersDate,
+	FormAnswersAge,
+	FormAnswersButtons,
 	FormAnswersMultiple,
 	FormAnswersMultipleProps,
 	FormAnswersSingle,
@@ -57,7 +59,7 @@ interface PageContent {
 		current: number;
 		total: number;
 	};
-	type: 'multiple' | 'single' | 'datepicker';
+	type: 'multiple' | 'single' | 'datepicker' | 'buttons' | 'age';
 	buttons: FormSubmitProps['buttons'];
 	slug: string;
 }
@@ -126,9 +128,13 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 										locale={locale}
 										content={page.content}
 									/>
-								) : (
+								) : page.type === 'datepicker' ? (
 									<FormAnswersDate buttons={page.buttons} locale={locale} />
-								)}
+								) : page.type === 'buttons' ? (
+									<FormAnswersButtons buttons={page.buttons} locale={locale} />
+								) : page.type === 'age' ? (
+									<FormAnswersAge buttons={page.buttons} locale={locale} />
+								) : null}
 							</Retain>
 						</TheSidebar>
 					</Container>

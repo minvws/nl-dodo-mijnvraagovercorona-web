@@ -62,7 +62,7 @@ export const MastheadFlow: React.FC<MastheadFlowProps> = ({
 						}}
 					>
 						<Image
-							src={illustration.src}
+							src={illustration?.src}
 							alt=""
 							sx={{
 								maxInlineSize: [`${mastheadMobileMaxSize / 16}rem`, , '100%'],
