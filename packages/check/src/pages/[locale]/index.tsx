@@ -23,6 +23,7 @@ import {
 	ContentBlock,
 	getImage,
 	SanityImageFullProps,
+	Link,
 } from '@quarantaine/common';
 import {
 	HulpPanel,
@@ -35,6 +36,11 @@ import {
 	ContentSituationBlock,
 } from 'components/molecules';
 import { retainMaxWidth } from '@quarantaine/common/src/components/molecules/layout/retain';
+import { getThemeCollection, ThemeCollectionProps } from 'utilities/theme';
+
+interface ThemesProps extends ThemeCollectionProps {
+	title: string;
+}
 
 export interface PageContent {
 	metaData: {
@@ -60,6 +66,7 @@ export interface PageContent {
 			advice: AdviceProps[];
 		};
 	};
+	themes: ThemesProps;
 	titleCases: string;
 	imageMobileCases: string;
 	imageDesktopCases: string;
@@ -171,6 +178,34 @@ export default function LandingPage() {
 										</Stack>
 									</TheThirds>
 								</Stack>
+							</Retain>
+						</Box>
+					</Container>
+				</Layer>
+
+				<Layer>
+					<Container>
+						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
+						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
+							<Retain maxWidth={[retainMaxWidth, '100%']}>
+								<Styled.h2>{page.themes.title}</Styled.h2>
+								{page.themes.themeCollection?.map((theme) => (
+									<Box key={theme.title}>
+										<Styled.h3>
+											{theme.title} - {theme.slug}
+										</Styled.h3>
+
+										{theme.questionCollection?.map((question) => (
+											<Box key={question.header.title}>
+												<Styled.h4>
+													<Link href={`/situatie/${question.slug}`}>
+														{question.header.title}
+													</Link>
+												</Styled.h4>
+											</Box>
+										))}
+									</Box>
+								))}
 							</Retain>
 						</Box>
 					</Container>
@@ -382,6 +417,10 @@ export const getStaticProps = async ({
 					${getImage({ name: 'icon' })},
 				}
 			}
+		},
+		"themes": {
+			${getLocaleProperty({ name: 'title', path: 'themes.title', locale })},
+			${getThemeCollection({ path: 'themes', locale })},
 		},
 		${getLocaleProperty({ name: 'titleCases', locale })},
 		${getImage({ name: 'imageMobileCases' })},
