@@ -15,11 +15,13 @@ import { ContentStream, ContentStreamProps } from '../content';
 
 export interface FormAnswersAgeProps {
 	locale: Locales;
+	content: ContentStreamProps;
 	buttons: FormSubmitProps['buttons'];
 }
 
 export const FormAnswersAge: React.FC<FormAnswersAgeProps> = ({
 	buttons,
+	content,
 	locale,
 }) => {
 	const router = useRouter();
@@ -62,6 +64,7 @@ export const FormAnswersAge: React.FC<FormAnswersAgeProps> = ({
 			}}
 		>
 			<Stack>
+				<ContentStream {...content} />
 				<Stack spacing={['1rem']}></Stack>
 				<FormSubmit buttons={parsedButtons} locale={locale} />
 			</Stack>

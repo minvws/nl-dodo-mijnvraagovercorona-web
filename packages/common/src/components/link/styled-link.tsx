@@ -5,7 +5,7 @@ import { jsx, SxStyleProp, Box, Image } from 'theme-ui';
 import { ChevronIcon, RefreshIcon } from '@quarantaine/common';
 import VisuallyHidden from '@reach/visually-hidden';
 
-interface StyledLinkPropsBase {
+export interface StyledLinkPropsBase {
 	withChevron?: boolean;
 	className?: string;
 	fontWeight?: 'lighter' | 'normal' | 'bold';

@@ -131,9 +131,17 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 								) : page.type === 'datepicker' ? (
 									<FormAnswersDate buttons={page.buttons} locale={locale} />
 								) : page.type === 'buttons' ? (
-									<FormAnswersButtons buttons={page.buttons} locale={locale} />
+									<FormAnswersButtons
+										buttons={page.buttons}
+										locale={locale}
+										content={page.content}
+									/>
 								) : page.type === 'age' ? (
-									<FormAnswersAge buttons={page.buttons} locale={locale} />
+									<FormAnswersAge
+										buttons={page.buttons}
+										locale={locale}
+										content={page.content}
+									/>
 								) : null}
 							</Retain>
 						</TheSidebar>

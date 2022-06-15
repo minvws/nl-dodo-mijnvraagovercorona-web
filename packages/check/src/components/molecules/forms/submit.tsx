@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { getHrefWithlocale, Link, Locales } from '@quarantaine/common';
+import { StyledLinkPropsBase } from '@quarantaine/common/src/components/link/styled-link';
 import React from 'react';
 import { Box, jsx } from 'theme-ui';
 
@@ -9,6 +10,7 @@ export interface FormSubmitProps {
 		standard: boolean;
 		text: string;
 		next: string;
+		styledAs?: string;
 		disabled?: boolean;
 	}[];
 	locale: Locales;
@@ -76,7 +78,13 @@ export const FormSubmit: React.FC<FormSubmitProps> = ({ buttons, locale }) => {
 						key={button._key}
 						as="a"
 						href={`/${getHrefWithlocale(`/${button.next}`, locale)}`}
-						styledAs={index === 0 ? 'button' : 'button-tertiary'}
+						styledAs={
+							button.styledAs
+								? (button.styledAs as StyledLinkPropsBase['styledAs'])
+								: index === 0
+								? 'button'
+								: 'button-tertiary'
+						}
 					>
 						{button.text}
 					</Link>
