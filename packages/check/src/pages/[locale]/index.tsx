@@ -195,13 +195,14 @@ export default function LandingPage() {
 											{theme.title} - {theme.slug}
 										</Styled.h3>
 
-										{theme.questionCollection?.map((question) => (
-											<Box key={question.header.title}>
-												<Styled.h4>
-													<Link href={`/situatie/${question.slug}`}>
-														{question.header.title}
+										{theme.questionCollection?.map((item) => (
+											<Box key={item.title}>
+												<Styled.h5>{item.title}</Styled.h5>
+												<Styled.h5>
+													<Link href={`/situatie/${item.question.slug}`}>
+														{item.question.header.title}
 													</Link>
-												</Styled.h4>
+												</Styled.h5>
 											</Box>
 										))}
 									</Box>

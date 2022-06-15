@@ -7,15 +7,28 @@ export interface QuestionProps {
 	slug: string;
 }
 export interface QuestionCollectionProps {
-	questionCollection: QuestionProps[];
+	questionCollection: {
+		title: string;
+		question: QuestionProps;
+	}[];
 }
 
-const getQuestion = ({ locale }: { locale: string }): string => {
+const getQuestion = ({
+	path,
+	locale,
+}: {
+	path?: string;
+	locale: string;
+}): string => {
 	return `
 		"header": {
-			${getLocaleProperty({ name: 'title', path: 'header.title', locale })},
+			${getLocaleProperty({
+				name: 'title',
+				path: `${path}header.title`,
+				locale,
+			})},
 		},
-		"slug": slug.current,
+		"slug": ${path}slug.current,
 	`;
 };
 
@@ -26,7 +39,10 @@ export const getQuestionCollection = ({
 	path?: string;
 	locale: string;
 }): string => {
-	return `"questionCollection": ${path ? `${path}.` : ''}questionSelector[]->{
-		${getQuestion({ locale })}
+	return `"questionCollection": ${path ? `${path}.` : ''}questionSelector[]{
+		${getLocaleProperty({ name: 'title', locale })},
+		"question": {
+			${getQuestion({ locale, path: 'questionReference->' })}
+		},
 	}`;
 };

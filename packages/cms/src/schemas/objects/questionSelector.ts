@@ -4,8 +4,28 @@ export default {
 	type: 'array',
 	of: [
 		{
-			type: 'reference',
-			to: [{ type: 'situation-question-document' }],
+			title: 'Vraag overzicht',
+			name: 'questionOverview',
+			type: 'object',
+			fields: [
+				{
+					title: 'Titel',
+					name: 'title',
+					type: 'localeString',
+				},
+				{
+					title: 'Vraag referentie',
+					name: 'questionReference',
+					type: 'reference',
+					to: [{ type: 'situation-question-document' }],
+				},
+			],
+			preview: {
+				select: {
+					title: 'title.nl',
+					subtitle: 'questionReference.slug.current',
+				},
+			},
 		},
 	],
 };
