@@ -26,7 +26,7 @@ export default {
 					title: 'Link naar situatiepagina',
 					name: 'situationReference',
 					type: 'reference',
-					to: [{ type: 'situation-flow-document' }],
+					to: [{ type: 'situation-question-document' }],
 				},
 			],
 		},

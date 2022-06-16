@@ -7,6 +7,7 @@ import {
 	ContentBlock,
 	Control,
 	getHrefWithlocale,
+	Input,
 	Locales,
 	Stack,
 } from '@quarantaine/common';
@@ -15,11 +16,13 @@ import { ContentStream, ContentStreamProps } from '../content';
 
 export interface FormAnswersAgeProps {
 	locale: Locales;
+	content: ContentStreamProps;
 	buttons: FormSubmitProps['buttons'];
 }
 
 export const FormAnswersAge: React.FC<FormAnswersAgeProps> = ({
 	buttons,
+	content,
 	locale,
 }) => {
 	const router = useRouter();
@@ -62,7 +65,16 @@ export const FormAnswersAge: React.FC<FormAnswersAgeProps> = ({
 			}}
 		>
 			<Stack>
-				<Stack spacing={['1rem']}></Stack>
+				<ContentStream {...content} />
+				<Stack spacing={['1rem']}>
+					<Input
+						type="number"
+						name="test"
+						label="Test"
+						id="test"
+						onChange={onChange}
+					/>
+				</Stack>
 				<FormSubmit buttons={parsedButtons} locale={locale} />
 			</Stack>
 		</form>

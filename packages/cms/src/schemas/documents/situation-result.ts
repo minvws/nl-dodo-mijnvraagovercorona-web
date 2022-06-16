@@ -31,12 +31,6 @@ export default {
 			],
 		},
 		{
-			title: 'Situatie',
-			name: 'situation',
-			type: 'reference',
-			to: [{ type: 'situation-flow-document' }],
-		},
-		{
 			title: 'Antwoord',
 			name: 'answer',
 			type: 'array',
@@ -185,8 +179,8 @@ export default {
 	],
 	preview: {
 		select: {
-			title: 'slug.current',
-			subtitle: 'situation.name.nl',
+			title: 'header.title.nl',
+			subtitle: 'slug.current',
 		},
 	},
 };

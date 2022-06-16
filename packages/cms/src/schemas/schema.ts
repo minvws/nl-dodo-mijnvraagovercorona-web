@@ -15,7 +15,6 @@ import topicDocument from './documents/topic';
 import themeDocument from './documents/theme';
 import informContactsDocument from './documents/inform-contacts';
 import situationQuestionDocument from './documents/situation-question';
-import situationFlowDocument from './documents/situation-flow';
 import situationResultDocument from './documents/situation-result';
 import contentFeedDocument from './documents/content-feed';
 
@@ -118,7 +117,6 @@ export default createSchema({
 		themeDocument,
 		informContactsDocument,
 		situationQuestionDocument,
-		situationFlowDocument,
 		situationResultDocument,
 		contentFeedDocument,
 
