@@ -174,11 +174,6 @@ const checkSituationDocumentsConfig = [
 		icon: FaFeatherAlt,
 	},
 	{
-		schemaType: 'situation-flow-document',
-		title: `Situatie Flow`,
-		icon: RiQuestionAnswerLine,
-	},
-	{
 		schemaType: 'situation-question-document',
 		title: `Situatie Vraag`,
 		icon: RiQuestionLine,
