@@ -19,7 +19,7 @@ export default {
 		{ title: 'Icoon', name: 'icon', type: 'image' },
 		{
 			title: 'Vraag startpunten',
-			name: 'questionSelector',
+			name: 'questionCollection',
 			type: 'questionSelector',
 		},
 	],

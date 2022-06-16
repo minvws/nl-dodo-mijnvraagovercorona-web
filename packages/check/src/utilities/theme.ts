@@ -17,7 +17,7 @@ export const getThemeCollection = ({
 	path?: string;
 	locale: string;
 }): string => {
-	return `"themeCollection": ${path ? `${path}.` : ''}themeSelector[]->{
+	return `"themeCollection": ${path ? `${path}.` : ''}themeCollection[]->{
 		${getLocaleProperty({ name: 'title', locale })},
 		"slug": slug.current,
 		${getQuestionCollection({ locale })},

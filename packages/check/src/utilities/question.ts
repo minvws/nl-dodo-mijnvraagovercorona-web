@@ -39,7 +39,7 @@ export const getQuestionCollection = ({
 	path?: string;
 	locale: string;
 }): string => {
-	return `"questionCollection": ${path ? `${path}.` : ''}questionSelector[]{
+	return `"questionCollection": ${path ? `${path}.` : ''}questionCollection[]{
 		${getLocaleProperty({ name: 'title', locale })},
 		"question": {
 			${getQuestion({ locale, path: 'questionReference->' })}

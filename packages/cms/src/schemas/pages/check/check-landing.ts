@@ -76,6 +76,27 @@ export default {
 			],
 		},
 		{
+			title: 'Nu belangrijk',
+			name: 'important',
+			type: 'object',
+			options: {
+				collapsible: true,
+				collapsed: true,
+			},
+			fields: [
+				{
+					title: 'Titel',
+					name: 'title',
+					type: 'localeString',
+				},
+				{
+					title: 'Vraag startpunten',
+					name: 'questionCollection',
+					type: 'questionSelector',
+				},
+			],
+		},
+		{
 			title: 'Themas',
 			name: 'themes',
 			type: 'object',
@@ -91,7 +112,7 @@ export default {
 				},
 				{
 					title: 'Thema’s',
-					name: 'themeSelector',
+					name: 'themeCollection',
 					type: 'themeSelector',
 				},
 			],

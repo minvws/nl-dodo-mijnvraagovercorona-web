@@ -37,8 +37,16 @@ import {
 } from 'components/molecules';
 import { retainMaxWidth } from '@quarantaine/common/src/components/molecules/layout/retain';
 import { getThemeCollection, ThemeCollectionProps } from 'utilities/theme';
+import {
+	getQuestionCollection,
+	QuestionCollectionProps,
+} from 'utilities/question';
 
 interface ThemesProps extends ThemeCollectionProps {
+	title: string;
+}
+
+interface ImportantProps extends QuestionCollectionProps {
 	title: string;
 }
 
@@ -66,6 +74,7 @@ export interface PageContent {
 			advice: AdviceProps[];
 		};
 	};
+	important: ImportantProps;
 	themes: ThemesProps;
 	titleCases: string;
 	imageMobileCases: string;
@@ -103,6 +112,8 @@ export interface PageContent {
 export default function LandingPage() {
 	const page = useSanityPageContent<PageContent>();
 	const locale = useCurrentLocale();
+
+	console.log('page', page);
 
 	return (
 		<>
@@ -178,6 +189,27 @@ export default function LandingPage() {
 										</Stack>
 									</TheThirds>
 								</Stack>
+							</Retain>
+						</Box>
+					</Container>
+				</Layer>
+
+				<Layer>
+					<Container>
+						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
+						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
+							<Retain maxWidth={[retainMaxWidth, '100%']}>
+								<Styled.h2>{page.important.title}</Styled.h2>
+								{page.important.questionCollection?.map((item) => (
+									<Box key={item.title}>
+										<Styled.h5>{item.title}</Styled.h5>
+										<Styled.h5>
+											<Link href={`/situatie/${item.question.slug}`}>
+												{item.question.header.title}
+											</Link>
+										</Styled.h5>
+									</Box>
+								))}
 							</Retain>
 						</Box>
 					</Container>
@@ -418,6 +450,10 @@ export const getStaticProps = async ({
 					${getImage({ name: 'icon' })},
 				}
 			}
+		},
+		"important": {
+			${getLocaleProperty({ name: 'title', path: 'important.title', locale })},
+			${getQuestionCollection({ path: 'important', locale })}
 		},
 		"themes": {
 			${getLocaleProperty({ name: 'title', path: 'themes.title', locale })},
