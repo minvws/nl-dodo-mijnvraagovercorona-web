@@ -7,6 +7,7 @@ import {
 	ContentBlock,
 	Control,
 	getHrefWithlocale,
+	Input,
 	Locales,
 	Stack,
 } from '@quarantaine/common';
@@ -65,7 +66,15 @@ export const FormAnswersAge: React.FC<FormAnswersAgeProps> = ({
 		>
 			<Stack>
 				<ContentStream {...content} />
-				<Stack spacing={['1rem']}></Stack>
+				<Stack spacing={['1rem']}>
+					<Input
+						type="number"
+						name="test"
+						label="Test"
+						id="test"
+						onChange={onChange}
+					/>
+				</Stack>
 				<FormSubmit buttons={parsedButtons} locale={locale} />
 			</Stack>
 		</form>

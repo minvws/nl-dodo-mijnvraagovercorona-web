@@ -157,8 +157,6 @@ type Question = { question: string };
 export const getStaticPaths = async () => {
 	const questions: Question[] = await getSituationQuestions();
 
-	console.log(questions);
-
 	return {
 		paths: questions.reduce(
 			(paths: VraagStaticProps[], question: Question): VraagStaticProps[] => [
