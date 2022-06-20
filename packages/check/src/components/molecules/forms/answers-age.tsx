@@ -1,22 +1,16 @@
 /** @jsx jsx */
 import React, { useState } from 'react';
-import { Box, Flex, Image, jsx } from 'theme-ui';
+import { jsx } from 'theme-ui';
 import { useRouter } from 'next/router';
-import {
-	Content,
-	ContentBlock,
-	Control,
-	getHrefWithlocale,
-	Input,
-	Locales,
-	Stack,
-} from '@quarantaine/common';
+import { getHrefWithlocale, Input, Locales, Stack } from '@quarantaine/common';
 import { FormSubmit, FormSubmitProps } from './submit';
 import { ContentStream, ContentStreamProps } from '../content';
 
 export interface FormAnswersAgeProps {
 	locale: Locales;
 	content: ContentStreamProps;
+	placeholder: string;
+	label: string;
 	buttons: FormSubmitProps['buttons'];
 }
 
@@ -24,26 +18,23 @@ export const FormAnswersAge: React.FC<FormAnswersAgeProps> = ({
 	buttons,
 	content,
 	locale,
+	label,
+	placeholder,
 }) => {
 	const router = useRouter();
-	const [selectedOption, setSelectedOption] = useState<string>();
+	const [age, setAge] = useState<number>();
 
 	// submit the chosen answer
 	const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		const queryString = router.query.datum
-			? `?datum=${router.query.datum}`
-			: '';
+		const next = buttons.find((button) => button.standard)?.next;
 
-		if (selectedOption)
-			router.push(
-				`/${getHrefWithlocale(`/${selectedOption}${queryString}`, locale)}`,
-			);
+		if (age && age > 0)
+			router.push(`/${getHrefWithlocale(`/${next}?leeftijd=${age}`, locale)}`);
 	};
 
-	// onchange radio & set selectedOption
-	const onChange = (value: string) => {
-		setSelectedOption(value);
+	const onChange = (event: React.KeyboardEvent<HTMLInputElement>) => {
+		setAge(parseInt(event.currentTarget.value, 10));
 	};
 
 	// Loop though buttons and add a disabled prop when we cannot submit
@@ -51,7 +42,7 @@ export const FormAnswersAge: React.FC<FormAnswersAgeProps> = ({
 		index === 0 && button.standard
 			? {
 					...button,
-					disabled: selectedOption && selectedOption !== '' ? false : true,
+					disabled: !age,
 			  }
 			: { ...button },
 	);
@@ -69,9 +60,10 @@ export const FormAnswersAge: React.FC<FormAnswersAgeProps> = ({
 				<Stack spacing={['1rem']}>
 					<Input
 						type="number"
-						name="test"
-						label="Test"
-						id="test"
+						name={label}
+						label={label}
+						placeholder={placeholder}
+						id={label}
 						onChange={onChange}
 					/>
 				</Stack>
