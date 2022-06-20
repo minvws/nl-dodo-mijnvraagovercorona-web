@@ -134,14 +134,13 @@ export default function LandingPage() {
 								fontSize: ['h2Mobile', 'h2'],
 								lineHeight: ['h2Mobile', 'h2'],
 								fontWeight: 'bold',
-								color: 'highlight',
+								color: 'smallText',
 							}}
 						>
 							{page.header.chapeau}
 						</Styled.p>
 					}
 					illustration={page.header.image}
-					variant="highlight"
 				>
 					<Styled.p>{page.header.subtitle}</Styled.p>
 				</Masthead>
