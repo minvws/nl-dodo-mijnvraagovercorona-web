@@ -145,7 +145,7 @@ export default function LandingPage() {
 					<Styled.p>{page.header.subtitle}</Styled.p>
 				</Masthead>
 
-				<Layer backgroundColor="headerBackground" pullUpBy="2rem">
+				{/* <Layer backgroundColor="headerBackground" pullUpBy="2rem">
 					<Container>
 						<Box
 							sx={{
@@ -191,7 +191,7 @@ export default function LandingPage() {
 							</Retain>
 						</Box>
 					</Container>
-				</Layer>
+				</Layer> */}
 
 				<Layer>
 					<Container>
@@ -214,7 +214,7 @@ export default function LandingPage() {
 					</Container>
 				</Layer>
 
-				<Layer>
+				<Layer backgroundColor="headerBackground">
 					<Container>
 						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
 						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
@@ -243,9 +243,8 @@ export default function LandingPage() {
 					</Container>
 				</Layer>
 
-				<Layer>
+				{/* <Layer>
 					<Container>
-						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
 						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
 							<Retain maxWidth={[retainMaxWidth, '100%']}>
 								<Stack spacing={['2.25rem', '4rem']} id="situaties">
@@ -369,9 +368,9 @@ export default function LandingPage() {
 							</Retain>
 						</Box>
 					</Container>
-				</Layer>
+				</Layer> */}
 
-				<Layer backgroundColor="headerBackground">
+				<Layer>
 					<Container>
 						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
 						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
