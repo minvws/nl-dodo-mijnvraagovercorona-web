@@ -1,35 +1,63 @@
 /** @jsx jsx */
 import { Input as ThemeInput, Label, jsx } from 'theme-ui';
 
-interface InputProps<ValueOptions> {
+interface InputProps {
 	type: 'number';
 	name: string;
-	label: string | React.ReactElement;
+	label: string;
+	placeholder: string;
 	id: string;
-	onChange?: (value: ValueOptions) => void;
+	onChange: (event: any) => void;
 }
 
-export const Input = <ValueOptions extends string>({
+export const Input = ({
 	type,
 	name,
 	label,
+	placeholder,
 	onChange,
 	id,
-}: InputProps<ValueOptions>) => {
+}: InputProps) => {
 	return (
 		<div>
-			<Label htmlFor={id} sx={{}}>
+			<Label
+				htmlFor={id}
+				sx={{
+					fontFamily: 'body',
+					fontSize: ['h3Mobile', 'h3'],
+					lineHeight: ['h3Mobile', 'h3'],
+					color: 'header',
+					margin: '0',
+					marginBottom: 'h2Spacing',
+					fontWeight: 'bold',
+				}}
+			>
 				{label}
 			</Label>
 			<ThemeInput
 				id={id}
 				type={type}
 				name={name}
-				onChange={
-					onChange
-						? (ev) => onChange(ev.target.value as ValueOptions)
-						: undefined
-				}
+				placeholder={placeholder}
+				onChange={onChange}
+				sx={{
+					margin: 0,
+
+					border: '1px solid',
+					borderColor: 'inputBorder',
+					borderRadius: '5px',
+					width: '100%',
+					height: '55px',
+					padding: '15px 17px',
+					fontSize: ['bodyMobile', 'body'],
+					lineHeight: ['bodyMobile', 'body'],
+					fontFamily: 'body',
+					color: 'black',
+
+					'&::placeholder': {
+						color: 'detailText',
+					},
+				}}
 			/>
 		</div>
 	);

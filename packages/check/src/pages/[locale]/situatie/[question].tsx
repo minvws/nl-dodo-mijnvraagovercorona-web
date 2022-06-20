@@ -55,6 +55,10 @@ interface PageContent {
 		text: string;
 	};
 	answersSingle: FormAnswersSingleProps['answers'];
+	ageInput: {
+		label: string;
+		placeholder: string;
+	};
 	steps: {
 		current: number;
 		total: number;
@@ -140,6 +144,8 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 									<FormAnswersAge
 										buttons={page.buttons}
 										locale={locale}
+										placeholder={page.ageInput.placeholder}
+										label={page.ageInput.label}
 										content={page.content}
 									/>
 								) : null}
@@ -230,6 +236,14 @@ export const getStaticProps = async ({
 		"answersMultiple": answersMultiple[]{
 			_key,
 			${getLocaleProperty({ name: 'content', locale })},
+		},
+		"ageInput": {
+			${getLocaleProperty({ name: 'label', path: 'ageInput.label', locale })},
+			${getLocaleProperty({
+				name: 'placeholder',
+				path: 'ageInput.placeholder',
+				locale,
+			})},
 		},
 		"showMore": {
 			"max": showMore.max,
