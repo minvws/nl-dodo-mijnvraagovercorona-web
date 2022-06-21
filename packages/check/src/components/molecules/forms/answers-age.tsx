@@ -30,7 +30,14 @@ export const FormAnswersAge: React.FC<FormAnswersAgeProps> = ({
 		const next = buttons.find((button) => button.standard)?.next;
 
 		if (age && age > 0)
-			router.push(`/${getHrefWithlocale(`/${next}?leeftijd=${age}`, locale)}`);
+			router.push(
+				`/${getHrefWithlocale(
+					`/${next}${
+						window.location.search ? `${window.location.search}&` : '?'
+					}leeftijd=${age}`,
+					locale,
+				)}`,
+			);
 	};
 
 	const onChange = (event: React.KeyboardEvent<HTMLInputElement>) => {

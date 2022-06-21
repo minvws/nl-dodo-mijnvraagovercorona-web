@@ -7,6 +7,7 @@ import {
 	ContentBlock,
 	Control,
 	getHrefWithlocale,
+	isBrowser,
 	Locales,
 	Stack,
 } from '@quarantaine/common';
@@ -33,16 +34,15 @@ export const FormAnswersSingle: React.FC<FormAnswersSingleProps> = ({
 	const router = useRouter();
 	const [selectedOption, setSelectedOption] = useState<string>();
 
-	// submit the chosen answer
 	const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		const queryString = router.query.datum
-			? `?datum=${router.query.datum}`
-			: '';
 
 		if (selectedOption)
 			router.push(
-				`/${getHrefWithlocale(`/${selectedOption}${queryString}`, locale)}`,
+				`/${getHrefWithlocale(
+					`/${selectedOption}${window.location.search}`,
+					locale,
+				)}`,
 			);
 	};
 
@@ -58,7 +58,12 @@ export const FormAnswersSingle: React.FC<FormAnswersSingleProps> = ({
 					...button,
 					disabled: selectedOption && selectedOption !== '' ? false : true,
 			  }
-			: { ...button },
+			: {
+					...button,
+					next: isBrowser()
+						? `${button.next}${window.location.search}`
+						: button.next,
+			  },
 	);
 
 	return (
