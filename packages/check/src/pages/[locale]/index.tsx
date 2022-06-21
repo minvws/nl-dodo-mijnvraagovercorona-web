@@ -134,13 +134,14 @@ export default function LandingPage() {
 								fontSize: ['h2Mobile', 'h2'],
 								lineHeight: ['h2Mobile', 'h2'],
 								fontWeight: 'bold',
-								color: 'smallText',
+								color: 'headerTertiary',
 							}}
 						>
 							{page.header.chapeau}
 						</Styled.p>
 					}
 					illustration={page.header.image}
+					variant="highlight"
 				>
 					<Styled.p>{page.header.subtitle}</Styled.p>
 				</Masthead>
@@ -193,7 +194,7 @@ export default function LandingPage() {
 					</Container>
 				</Layer> */}
 
-				<Layer>
+				<Layer backgroundColor="headerBackground" pullUpBy="2rem">
 					<Container>
 						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
 						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
@@ -214,7 +215,7 @@ export default function LandingPage() {
 					</Container>
 				</Layer>
 
-				<Layer backgroundColor="headerBackground">
+				<Layer>
 					<Container>
 						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
 						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
@@ -370,7 +371,7 @@ export default function LandingPage() {
 					</Container>
 				</Layer> */}
 
-				<Layer>
+				<Layer backgroundColor="headerBackground">
 					<Container>
 						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
 						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
