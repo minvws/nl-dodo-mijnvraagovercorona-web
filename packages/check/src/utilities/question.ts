@@ -8,7 +8,7 @@ export interface QuestionProps {
 }
 export interface QuestionCollectionProps {
 	questionCollection: {
-		title: string;
+		title: Array<Object>;
 		question: QuestionProps;
 	}[];
 }
@@ -40,7 +40,7 @@ export const getQuestionCollection = ({
 	locale: string;
 }): string => {
 	return `"questionCollection": ${path ? `${path}.` : ''}questionCollection[]{
-		${getLocaleProperty({ name: 'title', locale })},
+		${getLocaleProperty({ name: 'title', locale, block: true })},
 		"question": {
 			${getQuestion({ locale, path: 'questionReference->' })}
 		},

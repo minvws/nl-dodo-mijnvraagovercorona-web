@@ -111,6 +111,11 @@ export default {
 					type: 'localeString',
 				},
 				{
+					title: 'Uitleg',
+					name: 'content',
+					type: 'localeBlock',
+				},
+				{
 					title: 'Thema’s',
 					name: 'themeCollection',
 					type: 'themeSelector',

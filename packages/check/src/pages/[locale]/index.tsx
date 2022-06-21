@@ -24,6 +24,8 @@ import {
 	getImage,
 	SanityImageFullProps,
 	Link,
+	Content,
+	TheGrid,
 } from '@quarantaine/common';
 import {
 	HulpPanel,
@@ -44,6 +46,7 @@ import {
 
 interface ThemesProps extends ThemeCollectionProps {
 	title: string;
+	content: Array<Object>;
 }
 
 interface ImportantProps extends QuestionCollectionProps {
@@ -200,14 +203,16 @@ export default function LandingPage() {
 						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
 							<Retain maxWidth={[retainMaxWidth, '100%']}>
 								<Styled.h2>{page.important.title}</Styled.h2>
-								{page.important.questionCollection?.map((item) => (
-									<Box key={item.title}>
-										<Styled.h5>{item.title}</Styled.h5>
-										<Styled.h5>
+								{page.important.questionCollection?.map((item, index) => (
+									<Box key={index}>
+										<Styled.h3>
+											<ContentBlock content={item.title} />
+										</Styled.h3>
+										<Styled.h4>
 											<Link href={`/situatie/${item.question.slug}`}>
 												{item.question.header.title}
 											</Link>
-										</Styled.h5>
+										</Styled.h4>
 									</Box>
 								))}
 							</Retain>
@@ -221,24 +226,30 @@ export default function LandingPage() {
 						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
 							<Retain maxWidth={[retainMaxWidth, '100%']}>
 								<Styled.h2>{page.themes.title}</Styled.h2>
-								{page.themes.themeCollection?.map((theme) => (
-									<Box key={theme.title}>
-										<Styled.h3>
-											{theme.title} - {theme.slug}
-										</Styled.h3>
-
-										{theme.questionCollection?.map((item) => (
-											<Box key={item.title}>
-												<Styled.h5>{item.title}</Styled.h5>
-												<Styled.h5>
-													<Link href={`/situatie/${item.question.slug}`}>
-														{item.question.header.title}
-													</Link>
-												</Styled.h5>
-											</Box>
-										))}
-									</Box>
-								))}
+								{page.themes.content ? (
+									<ContentBlock content={page.themes.content} />
+								) : null}
+								<TheGrid minItemSize="24rem" gap={['3rem', '3.75rem']}>
+									{page.themes.themeCollection?.map((theme) => (
+										<Stack key={theme.title}>
+											<Image src={theme.icon.src} />
+											<Styled.h3>
+												{theme.title} - {theme.slug}
+											</Styled.h3>
+											<Stack spacing={['1rem']}>
+												{theme.questionCollection?.map((item, index) => (
+													<StyledLink
+														styledAs="button"
+														key={index}
+														href={`/situatie/${item.question.slug}`}
+													>
+														<ContentBlock content={item.title} />
+													</StyledLink>
+												))}
+											</Stack>
+										</Stack>
+									))}
+								</TheGrid>
 							</Retain>
 						</Box>
 					</Container>
@@ -456,6 +467,12 @@ export const getStaticProps = async ({
 		},
 		"themes": {
 			${getLocaleProperty({ name: 'title', path: 'themes.title', locale })},
+			${getLocaleProperty({
+				name: 'content',
+				path: 'themes.content',
+				locale,
+				block: true,
+			})},
 			${getThemeCollection({ path: 'themes', locale })},
 		},
 		${getLocaleProperty({ name: 'titleCases', locale })},

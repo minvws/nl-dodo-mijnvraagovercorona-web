@@ -11,7 +11,7 @@ export default {
 				{
 					title: 'Titel',
 					name: 'title',
-					type: 'localeString',
+					type: 'localeBlock',
 				},
 				{
 					title: 'Vraag referentie',

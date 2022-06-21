@@ -1,8 +1,13 @@
-import { getLocaleProperty } from '@quarantaine/common';
+import {
+	getImage,
+	getLocaleProperty,
+	SanityImageFullProps,
+} from '@quarantaine/common';
 import { getQuestionCollection, QuestionCollectionProps } from './question';
 
 export interface ThemeProps extends QuestionCollectionProps {
 	title: string;
+	icon: SanityImageFullProps;
 	slug: string;
 }
 
@@ -19,7 +24,8 @@ export const getThemeCollection = ({
 }): string => {
 	return `"themeCollection": ${path ? `${path}.` : ''}themeCollection[]->{
 		${getLocaleProperty({ name: 'title', locale })},
-		"slug": slug.current,
+		${getImage({ name: 'icon', full: true })},
 		${getQuestionCollection({ locale })},
+		"slug": slug.current,
 	}`;
 };
