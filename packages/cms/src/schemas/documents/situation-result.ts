@@ -159,6 +159,68 @@ export default {
 						},
 					],
 				},
+				{
+					title: 'Cards',
+					name: 'cards',
+					type: 'array',
+					of: [
+						{
+							title: 'Card',
+							name: 'card',
+							type: 'object',
+							fields: [
+								{
+									title: 'Titel',
+									name: 'title',
+									type: 'localeString',
+								},
+								{
+									title: 'Chapeau',
+									name: 'chapeau',
+									type: 'localeString',
+								},
+								{
+									title: 'Content',
+									name: 'content',
+									type: 'localeBlock',
+								},
+								{
+									title: 'Buttons',
+									name: 'buttons',
+									type: 'array',
+									of: [
+										{
+											title: 'Button',
+											name: 'button',
+											type: 'object',
+											fields: [
+												{
+													title: 'Text',
+													name: 'text',
+													type: 'localeString',
+												},
+												{
+													title: 'Situatie',
+													name: 'situation',
+													type: 'reference',
+													to: [
+														{ type: 'situation-question-document' },
+														{ type: 'situation-result-document' },
+													],
+												},
+												{
+													title: 'Link',
+													name: 'link',
+													type: 'localeString',
+												},
+											],
+										},
+									],
+								},
+							],
+						},
+					],
+				},
 			],
 		},
 		{
@@ -166,6 +228,12 @@ export default {
 			name: 'informContactsReference',
 			type: 'reference',
 			to: [{ type: 'inform-contacts-document' }],
+		},
+		{
+			title: 'Hulp',
+			name: 'assistanceReference',
+			type: 'reference',
+			to: [{ type: 'assistance-document' }],
 		},
 		{
 			title: 'Slug',

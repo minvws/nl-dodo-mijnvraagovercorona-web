@@ -19,7 +19,11 @@ import {
 	GiShare,
 } from 'react-icons/gi';
 import { BiError, BiSitemap } from 'react-icons/bi';
-import { FaRegCopyright, FaAccessibleIcon } from 'react-icons/fa';
+import {
+	FaRegCopyright,
+	FaAccessibleIcon,
+	FaHandsHelping,
+} from 'react-icons/fa';
 import { SiGnuprivacyguard, SiYourtraveldottv } from 'react-icons/si';
 import { GrVulnerability } from 'react-icons/gr';
 import { VscScreenFull, VscCopy } from 'react-icons/vsc';
@@ -154,6 +158,11 @@ const multiDocumentsConfig = [
 		schemaType: 'modals-document',
 		title: 'Modals',
 		icon: VscScreenFull,
+	},
+	{
+		schemaType: 'assistance-document',
+		title: 'Hulp',
+		icon: FaHandsHelping,
 	},
 	{
 		schemaType: 'inform-contacts-document',

@@ -12,6 +12,7 @@ import modalsDocument from './documents/modals';
 import topicQuestionDocument from './documents/topic-question';
 import topicResultDocument from './documents/topic-result';
 import topicDocument from './documents/topic';
+import assistanceDocument from './documents/assistance';
 import informContactsDocument from './documents/inform-contacts';
 import situationQuestionDocument from './documents/situation-question';
 import situationResultDocument from './documents/situation-result';
@@ -111,6 +112,7 @@ export default createSchema({
 		topicQuestionDocument,
 		topicResultDocument,
 		topicDocument,
+		assistanceDocument,
 		informContactsDocument,
 		situationQuestionDocument,
 		situationResultDocument,
