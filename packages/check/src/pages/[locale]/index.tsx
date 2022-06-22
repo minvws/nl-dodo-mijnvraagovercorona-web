@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from 'react';
-import { jsx, Styled, Container, Box, Image } from 'theme-ui';
+import { jsx, Styled, Container, Box, Image, Flex } from 'theme-ui';
 import { Page } from 'components/page';
 
 import {
@@ -26,6 +26,7 @@ import {
 	Link,
 	Content,
 	TheGrid,
+	SectionHeadingGroup,
 } from '@quarantaine/common';
 import {
 	HulpPanel,
@@ -36,6 +37,7 @@ import {
 	CaseProps,
 	Case,
 	ContentSituationBlock,
+	ThemeOverview,
 } from 'components/molecules';
 import { retainMaxWidth } from '@quarantaine/common/src/components/molecules/layout/retain';
 import { getThemeCollection, ThemeCollectionProps } from 'utilities/theme';
@@ -202,19 +204,23 @@ export default function LandingPage() {
 						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
 						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
 							<Retain maxWidth={[retainMaxWidth, '100%']}>
-								<Styled.h2>{page.important.title}</Styled.h2>
-								{page.important.questionCollection?.map((item, index) => (
-									<Box key={index}>
-										<Styled.h3>
-											<ContentBlock content={item.title} />
-										</Styled.h3>
-										<Styled.h4>
-											<Link href={`/situatie/${item.question.slug}`}>
-												{item.question.header.title}
-											</Link>
-										</Styled.h4>
-									</Box>
-								))}
+								<Stack spacing={'3rem'}>
+									<SectionHeadingGroup
+										title={page.important.title}
+										align="start"
+									/>
+									<TheGrid minItemSize="24rem" gap={['3rem', '3.75rem']}>
+										{page.important.questionCollection?.map((item, index) => (
+											<StyledLink
+												key={index}
+												styledAs="button-tile"
+												href={`/situatie/${item.question.slug}`}
+											>
+												<ContentBlock content={item.title} />
+											</StyledLink>
+										))}
+									</TheGrid>
+								</Stack>
 							</Retain>
 						</Box>
 					</Container>
@@ -225,31 +231,17 @@ export default function LandingPage() {
 						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
 						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
 							<Retain maxWidth={[retainMaxWidth, '100%']}>
-								<Styled.h2>{page.themes.title}</Styled.h2>
-								{page.themes.content ? (
-									<ContentBlock content={page.themes.content} />
-								) : null}
-								<TheGrid minItemSize="24rem" gap={['3rem', '3.75rem']}>
-									{page.themes.themeCollection?.map((theme) => (
-										<Stack key={theme.title}>
-											<Image src={theme.icon.src} />
-											<Styled.h3>
-												{theme.title} - {theme.slug}
-											</Styled.h3>
-											<Stack spacing={['1rem']}>
-												{theme.questionCollection?.map((item, index) => (
-													<StyledLink
-														styledAs="button"
-														key={index}
-														href={`/situatie/${item.question.slug}`}
-													>
-														<ContentBlock content={item.title} />
-													</StyledLink>
-												))}
-											</Stack>
-										</Stack>
-									))}
-								</TheGrid>
+								<Stack spacing={'3rem'}>
+									<SectionHeadingGroup title={page.themes.title} align="center">
+										{page.themes.content ? (
+											<ContentBlock content={page.themes.content} />
+										) : null}
+									</SectionHeadingGroup>
+
+									<ThemeOverview
+										themeCollection={page.themes.themeCollection}
+									/>
+								</Stack>
 							</Retain>
 						</Box>
 					</Container>
