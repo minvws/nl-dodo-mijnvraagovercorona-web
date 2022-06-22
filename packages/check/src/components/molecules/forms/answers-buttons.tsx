@@ -1,9 +1,10 @@
 /** @jsx jsx */
 import React from 'react';
 import { jsx } from 'theme-ui';
-import { Locales, Stack } from '@quarantaine/common';
+import { isBrowser, Locales, Stack } from '@quarantaine/common';
 import { FormSubmit, FormSubmitProps } from './submit';
 import { ContentStream, ContentStreamProps } from '../content';
+import { useRouter } from 'next/router';
 
 export interface FormAnswersButtonsProps {
 	locale: Locales;
@@ -18,6 +19,7 @@ export const FormAnswersButtons: React.FC<FormAnswersButtonsProps> = ({
 }) => {
 	const parsedButtons = buttons.map((button) => ({
 		...button,
+		next: isBrowser() ? `${button.next}${window.location.search}` : button.next,
 		styledAs: 'button',
 	}));
 

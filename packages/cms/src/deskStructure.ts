@@ -19,7 +19,12 @@ import {
 	GiShare,
 } from 'react-icons/gi';
 import { BiError, BiSitemap } from 'react-icons/bi';
-import { FaRegCopyright, FaAccessibleIcon, FaFeatherAlt } from 'react-icons/fa';
+import {
+	FaRegCopyright,
+	FaAccessibleIcon,
+	FaHandsHelping,
+	FaFeatherAlt,
+} from 'react-icons/fa';
 import { SiGnuprivacyguard, SiYourtraveldottv } from 'react-icons/si';
 import { GrVulnerability } from 'react-icons/gr';
 import { VscScreenFull, VscCopy } from 'react-icons/vsc';
@@ -156,6 +161,11 @@ const multiDocumentsConfig = [
 		icon: VscScreenFull,
 	},
 	{
+		schemaType: 'assistance-document',
+		title: 'Hulp',
+		icon: FaHandsHelping,
+	},
+	{
 		schemaType: 'inform-contacts-document',
 		title: 'Informeer contacten',
 		icon: GiShare,
@@ -163,6 +173,11 @@ const multiDocumentsConfig = [
 	{
 		schemaType: 'content-feed-document',
 		title: 'Content feed',
+		icon: VscCopy,
+	},
+	{
+		schemaType: 'content-card-document',
+		title: 'Content card',
 		icon: VscCopy,
 	},
 ];

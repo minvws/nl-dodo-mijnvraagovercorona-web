@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import {
 	Control,
 	getHrefWithlocale,
+	isBrowser,
 	Locales,
 	Stack,
 	StyledLink,
@@ -48,17 +49,20 @@ export const FormAnswersMultiple: React.FC<FormAnswersMultipleProps> = ({
 
 	// check if there is atleast one answer checked, so we enable submit action
 	useEffect(() => {
-		setCanSubmit(
-			checkedAnswers.filter((answer) => answer.checked).length ? true : false,
-		);
+		setCanSubmit(!!checkedAnswers.filter((answer) => answer.checked).length);
 	}, [checkedAnswers]);
 
 	// Form submit action
 	const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		// trigger main button action
+
 		if (buttons[0].next && canSubmit)
-			router.push(`/${getHrefWithlocale(`/${buttons[0].next}`, locale)}`);
+			router.push(
+				`/${getHrefWithlocale(
+					`/${buttons[0].next}${window.location.search}`,
+					locale,
+				)}`,
+			);
 	};
 
 	// Checkbox onchange action
@@ -66,7 +70,7 @@ export const FormAnswersMultiple: React.FC<FormAnswersMultipleProps> = ({
 		setCheckedAnswers(
 			checkedAnswers.map((answer) =>
 				answer.content === value
-					? { ...answer, checked: answer.checked ? false : true }
+					? { ...answer, checked: !answer.checked }
 					: answer,
 			),
 		);
@@ -76,7 +80,12 @@ export const FormAnswersMultiple: React.FC<FormAnswersMultipleProps> = ({
 	const parsedButtons = buttons.map((button, index) =>
 		index === 0 && button.standard
 			? { ...button, disabled: !canSubmit }
-			: { ...button },
+			: {
+					...button,
+					next: isBrowser()
+						? `${button.next}${window.location.search}`
+						: button.next,
+			  },
 	);
 
 	return (

@@ -26,8 +26,6 @@ export const getSituationAdvice = async () => {
 		`*[_type=="situation-result-document"]{"advice": slug.current}`,
 	);
 
-	console.log(advice);
-
 	return advice;
 };
 

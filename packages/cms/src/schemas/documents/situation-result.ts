@@ -159,6 +159,19 @@ export default {
 						},
 					],
 				},
+				{
+					title: 'Cards',
+					name: 'cards',
+					type: 'array',
+					of: [
+						{
+							title: 'Card',
+							name: 'card',
+							type: 'reference',
+							to: [{ type: 'content-card-document' }],
+						},
+					],
+				},
 			],
 		},
 		{
@@ -166,6 +179,12 @@ export default {
 			name: 'informContactsReference',
 			type: 'reference',
 			to: [{ type: 'inform-contacts-document' }],
+		},
+		{
+			title: 'Hulp',
+			name: 'assistanceReference',
+			type: 'reference',
+			to: [{ type: 'assistance-document' }],
 		},
 		{
 			title: 'Slug',

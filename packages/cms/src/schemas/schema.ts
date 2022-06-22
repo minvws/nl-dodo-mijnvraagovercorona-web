@@ -13,10 +13,12 @@ import topicQuestionDocument from './documents/topic-question';
 import topicResultDocument from './documents/topic-result';
 import topicDocument from './documents/topic';
 import themeDocument from './documents/theme';
+import assistanceDocument from './documents/assistance';
 import informContactsDocument from './documents/inform-contacts';
 import situationQuestionDocument from './documents/situation-question';
 import situationResultDocument from './documents/situation-result';
 import contentFeedDocument from './documents/content-feed';
+import contentCardDocument from './documents/content-card';
 
 import privacyPage from './pages/common/privacy';
 import cookiesPage from './pages/common/cookies';
@@ -115,6 +117,8 @@ export default createSchema({
 		topicResultDocument,
 		topicDocument,
 		themeDocument,
+		contentCardDocument,
+		assistanceDocument,
 		informContactsDocument,
 		situationQuestionDocument,
 		situationResultDocument,

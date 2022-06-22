@@ -10,6 +10,7 @@ import {
 	DatepickerTopbar,
 	DatepickerTopbarTitle,
 	formatShortDate,
+	isBrowser,
 } from '@quarantaine/common';
 import { format, startOfDay } from 'date-fns';
 import { jsx } from 'theme-ui';
@@ -44,17 +45,26 @@ export const FormAnswersDate: React.FC<FormAnswersDateProps> = ({
 
 		// trigger main button action
 		if (buttons[0].next && selectedDate && canSubmit)
-			router.push({
-				pathname: `/${getHrefWithlocale(`/${buttons[0].next}`, locale)}`,
-				query: `datum=${format(selectedDate, 'dd-MM-yyyy')}`,
-			});
+			router.push(
+				`/${getHrefWithlocale(
+					`/${buttons[0].next}${
+						window.location.search ? `${window.location.search}&` : '?'
+					}datum=${format(selectedDate, 'dd-MM-yyyy')}`,
+					locale,
+				)}`,
+			);
 	};
 
 	// Loop though buttons and add a disabled prop when we cannot submit
 	const parsedButtons = buttons.map((button, index) =>
 		index === 0 && button.standard
 			? { ...button, disabled: !canSubmit }
-			: { ...button },
+			: {
+					...button,
+					next: isBrowser()
+						? `${button.next}${window.location.search}`
+						: button.next,
+			  },
 	);
 
 	return (
