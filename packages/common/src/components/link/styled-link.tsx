@@ -195,6 +195,11 @@ export const useLinkStyles = ({
 			':hover, :focus': {
 				backgroundColor: '#DDEFF8',
 			},
+			// Content block can output a span or a p tag. In case of a p tag, strip margins & reset font
+			p: {
+				marginBlock: 0,
+				font: 'inherit',
+			},
 		};
 
 		const buttonLargeStyling: SxStyleProp = {
