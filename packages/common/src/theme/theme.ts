@@ -16,8 +16,8 @@ export const theme: Theme = {
 		disabledCalendar: '#BFBFBF',
 		stepElement: '#AEC1D1',
 		background: '#FFFFFF',
-		headerBackground: '#EFF7F9',
-		expansionPanel: '#EFF7F9',
+		headerBackground: '#EEF7Fb',
+		expansionPanel: '#EEF7Fb',
 
 		hoverSecondary: '#931e55',
 		structureBackground: '#f0d5e2',
@@ -26,12 +26,13 @@ export const theme: Theme = {
 		roHighlight: '#21416F',
 		internalLink: '#3D7AA3',
 		inputBorder: '#CECECE',
+		cardBorder: '#8FCAE7',
 
 		button: '#CD005A',
 		buttonHover: '#A00057',
-		buttonSecondary: '#eef7fb',
-		buttonSecondaryHover: '#fcfeff',
-		buttonTertiary: '#0e6999',
+		buttonSecondary: '#EEF7Fb',
+		buttonSecondaryHover: '#FCFEFF',
+		buttonTertiary: '#0E6999',
 		buttonTertiaryHover: '#094666',
 		buttonDisabled: '#ccc',
 
@@ -67,7 +68,7 @@ export const theme: Theme = {
 	},
 	borders: {
 		tile: '1px solid #EFF7F9',
-		card: '1px solid #8FCAE7 ',
+		card: '1px solid #8FCAE7',
 	},
 	shadows: {
 		tile: '4px 12px 12px rgba(0, 0, 0, 0.07), 0px 4px 0px #EFF7F9',

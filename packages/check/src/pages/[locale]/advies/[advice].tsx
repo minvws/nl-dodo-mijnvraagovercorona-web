@@ -17,7 +17,7 @@ import {
 	Retain,
 	Stack,
 	SchemeBlock,
-	formatShortDate,
+	formatDate,
 	TheSidebar,
 	BannerDataProtection,
 	getImage,
@@ -111,8 +111,8 @@ const filterPlan = ({
 			title,
 			date:
 				day === null || day === undefined
-					? formatShortDate(new Date(), locale, true)
-					: formatShortDate(addDays(date, day), locale, true),
+					? formatDate(new Date(), locale)
+					: formatDate(addDays(date, day), locale),
 		}));
 
 const getMostRelevantAnswer = ({

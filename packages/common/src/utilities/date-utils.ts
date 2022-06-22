@@ -21,6 +21,17 @@ export const formatShortDate = (
 				.replace('.', '')
 		: '';
 
+export const formatDate = (date: Date, locale: string): string =>
+	date
+		? date
+				.toLocaleDateString(locale.replace('_', '-'), {
+					month: 'long',
+					day: 'numeric',
+					weekday: 'long',
+				})
+				.replace('.', '')
+		: '';
+
 export const formatLongDate = (date: Date, locale: string) =>
 	date.toLocaleDateString(locale.replace('_', '-'), {
 		day: 'numeric',
