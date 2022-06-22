@@ -18,6 +18,7 @@ export interface StyledLinkPropsBase {
 		| 'button'
 		| 'button-secondary'
 		| 'button-tertiary'
+		| 'button-tile'
 		| 'button-disabled'
 		| 'button-large'
 		| 'play-store'
@@ -180,6 +181,22 @@ export const useLinkStyles = ({
 			pointerEvents: 'none',
 		};
 
+		const buttonTileStyling: SxStyleProp = {
+			...buttonStyling,
+			display: 'flex',
+			alignItems: 'center',
+			inlineSize: '100%',
+			paddingInline: '1rem',
+			boxShadow: 'tile',
+			border: 'tile',
+			backgroundColor: 'white',
+			color: 'copyHeading',
+			textAlign: 'start',
+			':hover, :focus': {
+				backgroundColor: '#DDEFF8',
+			},
+		};
+
 		const buttonLargeStyling: SxStyleProp = {
 			...buttonStyling,
 			display: 'flex',
@@ -215,6 +232,7 @@ export const useLinkStyles = ({
 		if (styledAs === 'button-secondary') return buttonSecondaryStyling;
 		if (styledAs === 'button-tertiary') return buttonTertiaryStyling;
 		if (styledAs === 'button-disabled') return buttonDisabledStyling;
+		if (styledAs === 'button-tile') return buttonTileStyling;
 		if (styledAs === 'button-large') return buttonLargeStyling;
 		if (styledAs === 'play-store') return buttonStoreBase;
 		if (styledAs === 'app-store') return buttonStoreBase;
@@ -292,16 +310,21 @@ const StyledLinkBase = <T extends React.ElementType = 'a'>(
 			) : (
 				withChevron && <ChevronIcon className="chevron" />
 			)}
-			{props.styledAs === 'button-large' ? (
+			{props.styledAs === 'button-large' || props.styledAs === 'button-tile' ? (
 				<span sx={{ flex: 1 }}>{children}</span>
 			) : props.styledAs === 'play-store' || props.styledAs === 'app-store' ? (
 				<VisuallyHidden>{children}</VisuallyHidden>
 			) : (
 				children
 			)}
-			{props.styledAs === 'button-large' && (
-				<ChevronIcon className="chevron" sx={{ width: '3.75rem' }} />
-			)}
+			{props.styledAs === 'button-large' || props.styledAs === 'button-tile' ? (
+				<ChevronIcon
+					className="chevron"
+					sx={{
+						inlineSize: props.styledAs === 'button-large' ? '3.75rem' : 'auto',
+					}}
+				/>
+			) : null}
 			{props.styledAs === 'play-store' ? (
 				<Image src="/images/stores/play-store.svg" alt="" />
 			) : null}
