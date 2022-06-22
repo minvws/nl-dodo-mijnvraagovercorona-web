@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { Styled, Box, jsx, Container } from 'theme-ui';
 import React from 'react';
-import { DateTime } from 'luxon';
 
 import {
 	Locales,
@@ -23,6 +22,8 @@ import {
 	BannerDataProtection,
 	getImage,
 	SanityImageFullProps,
+	Card,
+	formatLongDate,
 } from '@quarantaine/common';
 
 import { locales } from 'content/general-content';
@@ -55,6 +56,16 @@ interface AdviceProps {
 		title: string;
 		content: Object[];
 	}[];
+	cards: {
+		title: string;
+		chapeau: string;
+		content: Object[];
+		buttons: {
+			link?: string;
+			situation?: string;
+			text: string;
+		}[];
+	}[];
 	title: string;
 }
 
@@ -81,32 +92,28 @@ const getDifferenceInDays = (date: Date) => {
 	return difference > 0 ? difference : 0;
 };
 
-const filterAdvice = ({
-	advice,
+const filterPlan = ({
+	plan,
 	todayDay,
 	date,
 	locale,
 }: {
-	advice: AdviceProps;
+	plan: AdviceProps['plan'];
 	todayDay: number;
 	date: Date;
 	locale: Locales;
-}) => {
-	return {
-		...advice,
-		plan: advice.plan
-			.filter(({ showOn }) => !showOn || showOn.includes(todayDay))
-			.map(({ content, day, title }) => ({
-				content,
-				day,
-				title,
-				date:
-					day === null || day === undefined
-						? formatShortDate(new Date(), locale, true)
-						: formatShortDate(addDays(date, day), locale, true),
-			})),
-	};
-};
+}) =>
+	plan
+		.filter(({ showOn }) => !showOn || showOn.includes(todayDay))
+		.map(({ content, day, title }) => ({
+			content,
+			day,
+			title,
+			date:
+				day === null || day === undefined
+					? formatShortDate(new Date(), locale, true)
+					: formatShortDate(addDays(date, day), locale, true),
+		}));
 
 const getMostRelevantAnswer = ({
 	answers,
@@ -130,11 +137,16 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 		? parse(`${router.query.datum}`, 'dd-MM-yyyy', new Date())
 		: new Date();
 	const todayDay = getDifferenceInDays(date);
-	const answer = getMostRelevantAnswer({ answers: page.answer, todayDay });
-	const advice =
+	const answer =
+		page.answer &&
+		getMostRelevantAnswer({
+			answers: page.answer,
+			todayDay,
+		});
+	const plan =
 		page.advice.plan &&
-		filterAdvice({
-			advice: page.advice,
+		filterPlan({
+			plan: page.advice.plan,
 			todayDay,
 			date,
 			locale,
@@ -161,9 +173,9 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 								color: 'detailText',
 							}}
 						>
-							{siteSettings.updatedAt}
+							{siteSettings.updatedAt}{' '}
 							<time dateTime={page.updatedAt}>
-								{DateTime.fromISO(page.updatedAt).toLocaleString()}
+								{formatLongDate(new Date(page.updatedAt), locale)}
 							</time>
 						</Styled.p>
 					}
@@ -197,10 +209,10 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 										<Answer title={answer.title} content={answer.content} />
 									)}
 
-									{!!advice?.plan.length && (
+									{!!plan?.length && (
 										<Box>
-											<Styled.h2>{advice.title}</Styled.h2>
-											{advice.plan.map(({ day, title, content, date }) => (
+											<Styled.h2>{page.advice.title}</Styled.h2>
+											{plan.map(({ day, title, content, date }) => (
 												<SchemeBlock key={title} day={date} title={title}>
 													{content && <ContentBlock content={content} />}
 												</SchemeBlock>
@@ -208,7 +220,15 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 										</Box>
 									)}
 
-									{!!advice?.plan.length && page.informContacts.title && (
+									{!!page.advice?.cards?.length && (
+										<Box>
+											{page.advice.cards.map((card) => (
+												<Card {...card} />
+											))}
+										</Box>
+									)}
+
+									{!!plan?.length && page.informContacts.title && (
 										<section
 											sx={{
 												'@media print': { display: 'none' },
@@ -293,6 +313,19 @@ export const getStaticProps = async ({
 				${getLocaleProperty({ name: 'title', locale })},
 				${getLocaleProperty({ name: 'content', locale, block: true })},
 			},
+			"cards": advice.cards[]->{
+				${getLocaleProperty({ name: 'title', locale })},
+				${getLocaleProperty({ name: 'chapeau', locale })},
+				${getLocaleProperty({ name: 'content', locale, block: true })},
+				"buttons": buttons[]{
+					${getLocaleProperty({ name: 'text', locale })},
+					${getLocaleProperty({ name: 'link', locale })},
+					"situation": select(
+						situation->_type == "situation-question-document" => 'situatie/' + situation->slug.current,
+						situation->_type == "situation-result-document" => 'advies/' + situation->slug.current,
+					),
+				}
+			}
 		},
 		"informContacts": {
 			${getLocaleProperty({
@@ -315,10 +348,10 @@ export const getStaticProps = async ({
 				block: true,
 			})},
 			"buttons": informContactsReference->buttons {
-				"situation": {
-					"slug": situationReference->slug.current,
-					"type": situationReference->_type,
-				},
+				"situation": select(
+					situationReference->_type == "situation-question-document" => 'situatie/' + situationReference->slug.current,
+					situationReference->_type == "situation-result-document" => 'advies/' + situationReference->slug.current,
+				),
 				"shareButton": {
 					${getLocaleProperty({ name: 'label', path: 'shareButton.label', locale })},
 					${getLocaleProperty({

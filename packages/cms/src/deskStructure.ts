@@ -174,6 +174,11 @@ const multiDocumentsConfig = [
 		title: 'Content feed',
 		icon: VscCopy,
 	},
+	{
+		schemaType: 'content-card-document',
+		title: 'Content card',
+		icon: VscCopy,
+	},
 ];
 
 const checkSituationDocumentsConfig = [

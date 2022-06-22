@@ -17,6 +17,7 @@ import informContactsDocument from './documents/inform-contacts';
 import situationQuestionDocument from './documents/situation-question';
 import situationResultDocument from './documents/situation-result';
 import contentFeedDocument from './documents/content-feed';
+import contentCardDocument from './documents/content-card';
 
 import privacyPage from './pages/common/privacy';
 import cookiesPage from './pages/common/cookies';
@@ -112,6 +113,7 @@ export default createSchema({
 		topicQuestionDocument,
 		topicResultDocument,
 		topicDocument,
+		contentCardDocument,
 		assistanceDocument,
 		informContactsDocument,
 		situationQuestionDocument,

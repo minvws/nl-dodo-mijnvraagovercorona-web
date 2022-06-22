@@ -167,57 +167,8 @@ export default {
 						{
 							title: 'Card',
 							name: 'card',
-							type: 'object',
-							fields: [
-								{
-									title: 'Titel',
-									name: 'title',
-									type: 'localeString',
-								},
-								{
-									title: 'Chapeau',
-									name: 'chapeau',
-									type: 'localeString',
-								},
-								{
-									title: 'Content',
-									name: 'content',
-									type: 'localeBlock',
-								},
-								{
-									title: 'Buttons',
-									name: 'buttons',
-									type: 'array',
-									of: [
-										{
-											title: 'Button',
-											name: 'button',
-											type: 'object',
-											fields: [
-												{
-													title: 'Text',
-													name: 'text',
-													type: 'localeString',
-												},
-												{
-													title: 'Situatie',
-													name: 'situation',
-													type: 'reference',
-													to: [
-														{ type: 'situation-question-document' },
-														{ type: 'situation-result-document' },
-													],
-												},
-												{
-													title: 'Link',
-													name: 'link',
-													type: 'localeString',
-												},
-											],
-										},
-									],
-								},
-							],
+							type: 'reference',
+							to: [{ type: 'content-card-document' }],
 						},
 					],
 				},

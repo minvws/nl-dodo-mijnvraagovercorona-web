@@ -1,68 +1,61 @@
 /** @jsx jsx */
-import React, { useRef } from 'react';
-import { jsx, Styled, Box } from 'theme-ui';
+import React from 'react';
+import { jsx, Styled, Box, Text } from 'theme-ui';
 
-import { useTranslation, Link } from '@quarantaine/common';
-
+import { ContentBlock, StyledLink } from '@quarantaine/common';
 interface CardProps {
 	title: string;
-	href: string;
-	image: string;
-	external?: boolean;
-	imagePosition: {
-		backgroundPositionX?: string;
-		backgroundPositionY?: string;
-	};
+	chapeau: string;
+	content: Object[];
+	buttons: {
+		link?: string;
+		situation?: string;
+		text: string;
+	}[];
 }
 
 export const Card: React.FC<CardProps> = ({
 	title,
-	href,
-	image,
-	imagePosition,
-	external,
+	chapeau,
+	content,
+	buttons,
 }) => {
-	const linkElement = useRef<HTMLAnchorElement>(null);
-	const { t } = useTranslation();
-	const handleClick = () => {
-		const isTextSelected:
-			| string
-			| undefined = window?.getSelection()?.toString();
-
-		if (!isTextSelected) {
-			linkElement?.current?.click();
-		}
-	};
-
 	return (
 		<Box
 			sx={{
-				borderRadius: '11px',
-				boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.2)',
-				marginBottom: '10px',
-				paddingTop: '11px',
-				paddingBottom: '13px',
-				paddingLeft: '115px',
-				paddingRight: '13px',
-				backgroundImage: `url(${image})`,
-				backgroundRepeat: 'no-repeat',
-				...imagePosition,
-				cursor: 'pointer',
-				maxWidth: 'widgetMaxWidth',
-			}}
-			onClick={handleClick}
-		>
-			<Styled.h3
-				sx={{
-					color: 'secondaryHeader',
-				}}
-			>
-				{title}
-			</Styled.h3>
+				position: 'relative',
+				padding: 'box',
+				borderRadius: 'box',
+				border: 'card',
+				fontSize: ['bodyMobile', 'body'],
+				backgroundColor: 'white',
+				marginBlockStart: '2rem',
 
-			<Link href={href} ref={linkElement} external={external}>
-				{t('general__more_information')}
-			</Link>
+				'p:last-child': {
+					marginBottom: 0,
+				},
+			}}
+		>
+			{chapeau && (
+				<Text variant="chapeau" as="p" sx={{ marginBlockStart: 0 }}>
+					{chapeau}
+				</Text>
+			)}
+			<Styled.h2>{title}</Styled.h2>
+
+			<ContentBlock content={content} />
+
+			{!!buttons?.length &&
+				buttons.map(({ text, link, situation }) => (
+					<StyledLink
+						styledAs="button"
+						href={link || `/${situation}`}
+						key={text}
+						external={!!link}
+					>
+						{text}
+					</StyledLink>
+				))}
 		</Box>
 	);
 };

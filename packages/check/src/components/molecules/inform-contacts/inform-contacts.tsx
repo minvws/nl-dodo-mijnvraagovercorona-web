@@ -23,10 +23,7 @@ export type InformContactsProps = {
 		}[];
 	}[];
 	buttons: {
-		situation: {
-			type: string;
-			slug: string;
-		};
+		situation: string;
 		copyButton: {
 			label: string;
 			labelCopied: string;
@@ -54,16 +51,7 @@ export const InformContacts: React.FC<InformContactsProps> = ({
 		isBrowser()
 			? window.location.origin
 			: 'https://quarantainecheck.rijksoverheid.nl'
-	}/${getHrefWithlocale(
-		buttons.situation.slug
-			? `${
-					buttons.situation.type === 'situation-result-document'
-						? '/advies/'
-						: '/situatie/'
-			  }${buttons.situation.slug}`
-			: '#situaties',
-		locale.id,
-	)}`;
+	}/${getHrefWithlocale(buttons.situation || '#situaties', locale.id)}`;
 
 	const triggerShareDialog = () => {
 		if (isBrowser()) {
