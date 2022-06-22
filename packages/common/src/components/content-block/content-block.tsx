@@ -141,7 +141,7 @@ const getSerializers = (contentVariables?: ContentVariables) => ({
 					buttonText={`${Array.isArray(children) ? children[0] : children}`}
 				>
 					<Stack>
-						{mark.image.src ? (
+						{mark.image?.src ? (
 							<Image
 								src={mark.image.src}
 								alt=""

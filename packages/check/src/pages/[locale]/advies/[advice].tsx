@@ -316,9 +316,8 @@ export const getStaticProps = async ({
 			})},
 			"buttons": informContactsReference->buttons {
 				"situation": {
-					"url": situationReference->url,
-					"showDate": situationReference->showDate,
-					"showExceptions": situationReference->showExceptions,
+					"slug": situationReference->slug.current,
+					"type": situationReference->_type,
 				},
 				"shareButton": {
 					${getLocaleProperty({ name: 'label', path: 'shareButton.label', locale })},

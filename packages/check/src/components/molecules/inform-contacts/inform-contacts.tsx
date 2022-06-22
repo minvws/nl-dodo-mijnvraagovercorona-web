@@ -9,7 +9,6 @@ import {
 import React, { useEffect, useState } from 'react';
 import { jsx, Box, Styled } from 'theme-ui';
 import useCopyToClipboard from 'utilities/use-copy-to-clipboard';
-import { getUrlBySituation } from '../content/content-situation-block';
 import { Situation } from 'config/situaties';
 
 export type InformContactsProps = {
@@ -24,7 +23,10 @@ export type InformContactsProps = {
 		}[];
 	}[];
 	buttons: {
-		situation: Situation;
+		situation: {
+			type: string;
+			slug: string;
+		};
 		copyButton: {
 			label: string;
 			labelCopied: string;
@@ -34,6 +36,7 @@ export type InformContactsProps = {
 			message: string;
 		};
 	};
+	url: string;
 };
 
 const bulletSize = '1.75rem';
@@ -52,7 +55,13 @@ export const InformContacts: React.FC<InformContactsProps> = ({
 			? window.location.origin
 			: 'https://quarantainecheck.rijksoverheid.nl'
 	}/${getHrefWithlocale(
-		buttons.situation.url ? getUrlBySituation(buttons.situation) : '#situaties',
+		buttons.situation.slug
+			? `${
+					buttons.situation.type === 'situation-result-document'
+						? '/advies/'
+						: '/situatie/'
+			  }${buttons.situation.slug}`
+			: '#situaties',
 		locale.id,
 	)}`;
 
