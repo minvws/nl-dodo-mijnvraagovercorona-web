@@ -20,7 +20,7 @@ export const TheGrid: React.FC<OwnProps> = ({
 				display: 'grid',
 				gridTemplateColumns: `repeat(
 					${placement},
-					minmax(${minItemSize || '16rem'}, 1fr)
+					minmax(min(${minItemSize || '16rem'}, 100%), 1fr)
 				)`,
 				gap: gap,
 			}}
