@@ -209,7 +209,7 @@ export default function LandingPage() {
 										title={page.important.title}
 										align="start"
 									/>
-									<TheGrid minItemSize="24rem" gap={['3rem', '3.75rem']}>
+									<TheGrid minItemSize="24rem" gap={['1rem']}>
 										{page.important.questionCollection?.map((item, index) => (
 											<StyledLink
 												key={index}
