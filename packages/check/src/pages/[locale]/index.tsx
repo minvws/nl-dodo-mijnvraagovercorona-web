@@ -24,13 +24,12 @@ import {
 	TheGrid,
 	SectionHeadingGroup,
 	SectionHeadingGroupWithIcon,
+	getHrefWithlocale,
 } from '@quarantaine/common';
 import {
 	HulpPanel,
 	FeedbackPanel,
 	Masthead,
-	AdviceProps,
-	CaseProps,
 	ThemeOverview,
 } from 'components/molecules';
 import { retainMaxWidth } from '@quarantaine/common/src/components/molecules/layout/retain';
@@ -62,42 +61,8 @@ export interface PageContent {
 		subtitle: string;
 		image: SanityImageFullProps;
 	};
-	currentSituation: {
-		title: string;
-		measures: {
-			title: string;
-			content: Array<Object>;
-			advice: AdviceProps[];
-		};
-		advice: {
-			title: string;
-			content: Array<Object>;
-			advice: AdviceProps[];
-		};
-	};
 	important: ImportantProps;
 	themes: ThemesProps;
-	titleCases: string;
-	imageMobileCases: string;
-	imageDesktopCases: string;
-	cases: CaseProps[];
-	situations: {
-		title: string;
-		situations: {
-			name: string;
-			slug: string;
-			start: string;
-		}[];
-	};
-	topics: {
-		title: string;
-		topics: {
-			icon: string;
-			name: string;
-			slug: string;
-			start: string;
-		}[];
-	};
 	help: {
 		title: string;
 		openingHours: string;
@@ -110,7 +75,7 @@ export interface PageContent {
 	url: string;
 }
 
-export default function LandingPage() {
+export default function LandingPage({ locale }: { locale: Locales }) {
 	const page = useSanityPageContent<PageContent>();
 
 	return (
@@ -166,15 +131,17 @@ export default function LandingPage() {
 										) : null}
 									</SectionHeadingGroupWithIcon>
 									<TheGrid minItemSize="24rem" gap={['1rem']}>
-										{page.important.questionCollection?.map((item, index) => (
-											<StyledLink
-												key={index}
-												styledAs="button-tile"
-												href={`/situatie/${item.question.slug}`}
-											>
-												<ContentBlock content={item.title} />
-											</StyledLink>
-										))}
+										{page.important.questionCollection?.map(
+											({ path, title }, index) => (
+												<StyledLink
+													key={index}
+													styledAs="button-tile"
+													href={getHrefWithlocale(`/${path}`, locale)}
+												>
+													<ContentBlock content={title} />
+												</StyledLink>
+											),
+										)}
 									</TheGrid>
 								</Stack>
 							</Retain>
@@ -250,43 +217,6 @@ export const getStaticProps = async ({
 			${getLocaleProperty({ name: 'subtitle', path: 'header.subtitle', locale })},
 			${getImage({ name: 'image', path: 'header.image', full: true })},
 		},
-		"currentSituation": {
-			${getLocaleProperty({ name: 'title', path: 'currentSituation.title', locale })},
-			"measures": {
-				${getLocaleProperty({
-					name: 'title',
-					path: 'currentSituation.measures.title',
-					locale,
-				})},
-				${getLocaleProperty({
-					name: 'content',
-					path: 'currentSituation.measures.content',
-					locale,
-				})},
-				"advice": currentSituation.measures.advice[]{
-					${getLocaleProperty({ name: 'title', locale })},
-					${getLocaleProperty({ name: 'subtitle', locale })},
-					${getImage({ name: 'icon' })},
-				}
-			},
-			"advice": {
-				${getLocaleProperty({
-					name: 'title',
-					path: 'currentSituation.advice.title',
-					locale,
-				})},
-				${getLocaleProperty({
-					name: 'content',
-					path: 'currentSituation.advice.content',
-					locale,
-				})},
-				"advice": currentSituation.advice.advice[]{
-					${getLocaleProperty({ name: 'title', locale })},
-					${getLocaleProperty({ name: 'subtitle', locale })},
-					${getImage({ name: 'icon' })},
-				}
-			}
-		},
 		"important": {
 			${getLocaleProperty({ name: 'title', path: 'important.title', locale })},
 			${getLocaleProperty({
@@ -296,7 +226,7 @@ export const getStaticProps = async ({
 				block: true,
 			})},
 			${getImage({ name: 'icon', path: 'important.icon', full: true })},
-			${getQuestionCollection({ path: 'important', locale })}
+			${getQuestionCollection({ path: 'important', locale })},
 		},
 		"themes": {
 			${getLocaleProperty({ name: 'title', path: 'themes.title', locale })},
@@ -307,59 +237,6 @@ export const getStaticProps = async ({
 				block: true,
 			})},
 			${getThemeCollection({ path: 'themes', locale })},
-		},
-		${getLocaleProperty({ name: 'titleCases', locale })},
-		${getImage({ name: 'imageMobileCases' })},
-		${getImage({ name: 'imageDesktopCases' })},
-		"cases": cases[]{
-			${getLocaleProperty({ name: 'title', locale })},
-			${getLocaleProperty({
-				name: 'titleSuffix',
-				locale,
-			})},
-			${getLocaleProperty({
-				name: 'intro',
-				locale,
-			})},
-			${getLocaleProperty({
-				name: 'readMoreLabel',
-				locale,
-			})},
-			"contentBlocks": contentBlocks[]{
-				${getLocaleProperty({
-					name: 'content',
-					path: '@',
-					locale,
-					block: true,
-				})},
-				"situationNew": {
-					${getLocaleProperty({
-						name: 'situationLinkTitle',
-						locale,
-					})},
-					"start": situationReference->start->slug.current,
-					"slug": situationReference->slug.current,
-				},
-				"situation": {
-					${getLocaleProperty({
-						name: 'situationLinkTitle',
-						locale,
-					})},
-					"url": situationReference->url,
-					"showDate": situationReference->showDate,
-					"showExceptions": situationReference->showExceptions,
-				},
-
-			}
-		},
-		"topics": {
-			${getLocaleProperty({ name: 'title', path: 'topics.title', locale })},
-			"topics": topics.topics[]->{
-				${getImage({ name: 'icon' })},
-				${getLocaleProperty({ name: 'name', locale })},
-				"start": start->slug.current,
-				"slug": slug.current,
-			},
 		},
 		"help": {
 			${getLocaleProperty({ name: 'title', path: 'help.title', locale })},

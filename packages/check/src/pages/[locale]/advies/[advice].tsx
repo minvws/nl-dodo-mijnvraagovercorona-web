@@ -249,6 +249,8 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 						</TheSidebar>
 					</Container>
 				</Layer>
+
+				<Box>Test</Box>
 			</Page>
 		</>
 	);

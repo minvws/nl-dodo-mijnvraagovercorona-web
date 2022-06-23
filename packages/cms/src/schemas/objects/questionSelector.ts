@@ -15,15 +15,18 @@ export default {
 				},
 				{
 					title: 'Vraag referentie',
-					name: 'questionReference',
+					name: 'situationReference',
 					type: 'reference',
-					to: [{ type: 'situation-question-document' }],
+					to: [
+						{ type: 'situation-question-document' },
+						{ type: 'situation-result-document' },
+					],
 				},
 			],
 			preview: {
 				select: {
 					title: 'title.nl',
-					subtitle: 'questionReference.slug.current',
+					subtitle: 'situationReference.slug.current',
 				},
 			},
 		},
