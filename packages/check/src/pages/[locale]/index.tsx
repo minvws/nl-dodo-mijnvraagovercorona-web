@@ -16,27 +16,21 @@ import {
 	TheSwitcherItem,
 	Header,
 	Stack,
-	TheThirds,
 	StyledLink,
-	getHrefWithlocale,
 	useCurrentLocale,
 	ContentBlock,
 	getImage,
 	SanityImageFullProps,
-	Link,
-	Content,
 	TheGrid,
 	SectionHeadingGroup,
+	SectionHeadingGroupWithIcon,
 } from '@quarantaine/common';
 import {
 	HulpPanel,
 	FeedbackPanel,
 	Masthead,
-	AdviceList,
 	AdviceProps,
 	CaseProps,
-	Case,
-	ContentSituationBlock,
 	ThemeOverview,
 } from 'components/molecules';
 import { retainMaxWidth } from '@quarantaine/common/src/components/molecules/layout/retain';
@@ -53,6 +47,8 @@ interface ThemesProps extends ThemeCollectionProps {
 
 interface ImportantProps extends QuestionCollectionProps {
 	title: string;
+	content: Array<Object>;
+	icon: SanityImageFullProps;
 }
 
 export interface PageContent {
@@ -205,10 +201,14 @@ export default function LandingPage() {
 						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
 							<Retain maxWidth={[retainMaxWidth, '100%']}>
 								<Stack spacing={'3rem'}>
-									<SectionHeadingGroup
+									<SectionHeadingGroupWithIcon
 										title={page.important.title}
-										align="start"
-									/>
+										icon={page.important.icon.src}
+									>
+										{page.important.content ? (
+											<ContentBlock content={page.themes.content} />
+										) : null}
+									</SectionHeadingGroupWithIcon>
 									<TheGrid minItemSize="24rem" gap={['1rem']}>
 										{page.important.questionCollection?.map((item, index) => (
 											<StyledLink
