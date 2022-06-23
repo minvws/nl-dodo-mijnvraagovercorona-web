@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import React from 'react';
+import slugify from 'slugify';
 import { jsx, Styled, Container, Box, Image, Flex } from 'theme-ui';
 import { Page } from 'components/page';
 
@@ -195,7 +196,14 @@ export default function LandingPage() {
 					</Container>
 				</Layer> */}
 
-				<Layer backgroundColor="headerBackground" pullUpBy="2rem">
+				<Layer
+					backgroundColor="headerBackground"
+					pullUpBy="2rem"
+					id={slugify(page.important.title, {
+						strict: true,
+						lower: true,
+					})}
+				>
 					<Container>
 						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
 						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
@@ -226,7 +234,12 @@ export default function LandingPage() {
 					</Container>
 				</Layer>
 
-				<Layer>
+				<Layer
+					id={slugify(page.themes.title, {
+						strict: true,
+						lower: true,
+					})}
+				>
 					<Container>
 						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
 						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
