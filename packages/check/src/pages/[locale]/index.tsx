@@ -165,7 +165,7 @@ export default function LandingPage() {
 											<ContentBlock content={page.themes.content} />
 										) : null}
 									</SectionHeadingGroupWithIcon>
-									<TheGrid minItemSize="24rem" gap={['1rem']}>
+									<TheGrid minItemSize="25rem" gap={['1rem']}>
 										{page.important.questionCollection?.map((item, index) => (
 											<StyledLink
 												key={index}
