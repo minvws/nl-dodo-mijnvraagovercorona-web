@@ -28,12 +28,13 @@ export const theme: Theme = {
 		roHighlight: '#21416F',
 		internalLink: '#3D7AA3',
 		inputBorder: '#CECECE',
+		cardBorder: '#8FCAE7',
 
 		button: '#CD005A',
 		buttonHover: '#A00057',
-		buttonSecondary: '#eef7fb',
-		buttonSecondaryHover: '#fcfeff',
-		buttonTertiary: '#0e6999',
+		buttonSecondary: '#EEF7Fb',
+		buttonSecondaryHover: '#FCFEFF',
+		buttonTertiary: '#0E6999',
 		buttonTertiaryHover: '#094666',
 		buttonDisabled: '#ccc',
 
