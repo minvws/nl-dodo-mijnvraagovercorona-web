@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React from 'react';
+import React, { useState } from 'react';
 import slugify from 'slugify';
 import { Styled, jsx, Flex, Image } from 'theme-ui';
 import {
@@ -61,8 +61,8 @@ export const ThemeOverview: React.FC<ThemeCollectionProps> = ({
 							{theme.questionCollection ? (
 								<div sx={{ color: 'primary' }}>
 									{theme.questionCollection.length > 1
-										? `${theme.questionCollection.length} ${siteSettings.situationPlural.plural}`
-										: `${theme.questionCollection.length} ${siteSettings.situationPlural.singular}`}
+										? `${theme.questionCollection.length} ${siteSettings.situationPlural.that}`
+										: `${theme.questionCollection.length} ${siteSettings.situationPlural.this}`}
 								</div>
 							) : null}
 						</Flex>
@@ -82,6 +82,8 @@ const QuestionList: React.FC<QuestionCollectionProps> = ({
 }) => {
 	const siteSettings = useSanitySiteSettings<SiteSettings>();
 	if (!questionCollection.length) return null;
+
+	const [panelState, setPanelState] = useState('close');
 
 	const split = 3;
 
@@ -108,11 +110,14 @@ const QuestionList: React.FC<QuestionCollectionProps> = ({
 			{secondGroup.length ? (
 				<ExpansionPanel
 					title={
-						secondGroup.length > 1
-							? `${secondGroup.length} ${siteSettings.situationPlural.plural}`
-							: `${secondGroup.length} ${siteSettings.situationPlural.singular}`
+						panelState === 'open'
+							? `${siteSettings.seeMoreExpand.that} ${siteSettings.situationPlural.that}`
+							: secondGroup.length > 1
+							? `${siteSettings.seeMoreExpand.this} ${secondGroup.length} ${siteSettings.situationPlural.that}`
+							: `${siteSettings.seeMoreExpand.this} ${secondGroup.length} ${siteSettings.situationPlural.this}`
 					}
 					variant="plusinline"
+					toggleEvent={(value: string) => setPanelState(value)}
 				>
 					<Stack spacing={['1rem']}>
 						{secondGroup.map((item, index) => (
