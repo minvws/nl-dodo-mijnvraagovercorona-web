@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 import slugify from 'slugify';
-import { jsx, Styled, Container, Box, Image, Flex } from 'theme-ui';
+import { jsx, Styled, Container, Box } from 'theme-ui';
 import { Page } from 'components/page';
 
 import {
@@ -18,7 +18,6 @@ import {
 	Header,
 	Stack,
 	StyledLink,
-	useCurrentLocale,
 	ContentBlock,
 	getImage,
 	SanityImageFullProps,
@@ -113,9 +112,6 @@ export interface PageContent {
 
 export default function LandingPage() {
 	const page = useSanityPageContent<PageContent>();
-	const locale = useCurrentLocale();
-
-	console.log('page', page);
 
 	return (
 		<>
@@ -147,54 +143,6 @@ export default function LandingPage() {
 				>
 					<Styled.p>{page.header.subtitle}</Styled.p>
 				</Masthead>
-
-				{/* <Layer backgroundColor="headerBackground" pullUpBy="2rem">
-					<Container>
-						<Box
-							sx={{
-								paddingX: ['mobilePadding', 'tabletPadding', 0],
-							}}
-						>
-							<Retain maxWidth={[retainMaxWidth, '100%']}>
-								<Stack>
-									<Styled.h2>{page.currentSituation.title}</Styled.h2>
-									<TheThirds
-										split={page.currentSituation.measures.advice.length > 0}
-										asideChildren={
-											<Stack spacing={['1rem']}>
-												<Styled.h3>
-													{page.currentSituation.measures.title}
-												</Styled.h3>
-												{page.currentSituation.measures.content ? (
-													<ContentBlock
-														content={page.currentSituation.measures.content}
-													/>
-												) : null}
-												<AdviceList
-													advices={page.currentSituation.measures.advice}
-												/>
-											</Stack>
-										}
-									>
-										<Stack spacing={['1rem']}>
-											<Styled.h3>
-												{page.currentSituation.advice.title}
-											</Styled.h3>
-											{page.currentSituation.advice.content ? (
-												<ContentBlock
-													content={page.currentSituation.advice.content}
-												/>
-											) : null}
-											<AdviceList
-												advices={page.currentSituation.advice.advice}
-											/>
-										</Stack>
-									</TheThirds>
-								</Stack>
-							</Retain>
-						</Box>
-					</Container>
-				</Layer> */}
 
 				<Layer
 					backgroundColor="headerBackground"
@@ -259,133 +207,6 @@ export default function LandingPage() {
 						</Box>
 					</Container>
 				</Layer>
-
-				{/* <Layer>
-					<Container>
-						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
-							<Retain maxWidth={[retainMaxWidth, '100%']}>
-								<Stack spacing={['2.25rem', '4rem']} id="situaties">
-									<Box
-										id="situaties"
-										sx={{
-											position: 'relative',
-											paddingBlockStart: ['0', '10rem'],
-											paddingBlockEnd: ['0', '2.5rem'],
-										}}
-									>
-										<Styled.h2
-											sx={{
-												position: 'relative',
-												marginBlockEnd: ['2rem', 0],
-												fontSize: ['h1Mobile', 'h1'],
-												lineHeight: ['h1Mobile', 'h1'],
-												zIndex: 2,
-											}}
-										>
-											{page.titleCases}
-										</Styled.h2>
-										<Image
-											src={page.imageMobileCases}
-											alt=""
-											sx={{
-												display: ['block', 'none'],
-												marginInlineStart: 'auto',
-												marginInlineEnd: 'auto',
-											}}
-										/>
-										<Image
-											src={page.imageDesktopCases}
-											alt=""
-											sx={{
-												position: 'absolute',
-												zIndex: 1,
-												display: ['none', 'block'],
-												inlineSize: '100%',
-												blockSize: '100%',
-												insetBlockStart: 0,
-												insetBlockEnd: 0,
-												insetInlineStart: 0,
-												insetInlineEnd: 0,
-												objectFit: 'contain',
-												objectPosition: '100% 100%',
-											}}
-										/>
-									</Box>
-									<Box
-										sx={{
-											display: 'grid',
-											gridTemplateColumns:
-												'repeat(auto-fit, minmax(min(28rem, 100%), 1fr))',
-											gap: ['1rem', '4rem'],
-											alignItems: 'start',
-											paddingInlineStart: 0,
-											listStyle: 'none',
-										}}
-									>
-										{page.cases
-											.filter((item) => item.title)
-											.map((item) => (
-												<Case
-													key={item.title}
-													title={item.title}
-													titleSuffix={item.titleSuffix}
-													intro={item.intro}
-													readMoreLabel={item.readMoreLabel}
-												>
-													{item.contentBlocks && (
-														<ContentSituationBlock
-															contentBlocks={item.contentBlocks}
-														/>
-													)}
-												</Case>
-											))}
-									</Box>
-								</Stack>
-
-								<Box
-									sx={{
-										marginBlockStart: ['4.75rem', '6.5rem'],
-										marginBlockEnd: ['2.25rem', '4rem'],
-									}}
-									id="onderwerpen"
-								>
-									<Styled.h2
-										sx={{
-											fontSize: ['h1Mobile', 'h1'],
-											lineHeight: ['h1Mobile', 'h1'],
-										}}
-									>
-										{page.topics.title}
-									</Styled.h2>
-									<Box
-										sx={{
-											display: 'flex',
-											flexDirection: ['column', 'row'],
-											gap: ['1rem', '3rem'],
-											'& > *': {
-												flex: 1,
-											},
-										}}
-									>
-										{page.topics.topics.map(({ start, slug, icon, name }) => (
-											<StyledLink
-												styledAs="button-large"
-												href={getHrefWithlocale(
-													`/vraag/${slug}/${start}`,
-													locale.urlPrefix,
-												)}
-												icon={icon}
-												key={name}
-											>
-												{name}
-											</StyledLink>
-										))}
-									</Box>
-								</Box>
-							</Retain>
-						</Box>
-					</Container>
-				</Layer> */}
 
 				<Layer backgroundColor="headerBackground">
 					<Container>
