@@ -4,6 +4,7 @@ import slugify from 'slugify';
 import { Styled, jsx, Flex, Image } from 'theme-ui';
 import {
 	ContentBlock,
+	ExpansionPanel,
 	Stack,
 	StyledLink,
 	TheGrid,
@@ -11,6 +12,7 @@ import {
 } from '@quarantaine/common';
 import { ThemeCollectionProps } from 'utilities/theme';
 import { SiteSettings } from 'content/site-settings';
+import { QuestionCollectionProps } from 'utilities/question';
 
 export const ThemeOverview: React.FC<ThemeCollectionProps> = ({
 	themeCollection,
@@ -67,20 +69,64 @@ export const ThemeOverview: React.FC<ThemeCollectionProps> = ({
 					</Flex>
 
 					{theme.questionCollection ? (
-						<Stack spacing={['1rem']}>
-							{theme.questionCollection?.map((item, index) => (
-								<StyledLink
-									styledAs="button-tile"
-									key={index}
-									href={`/situatie/${item.question.slug}`}
-								>
-									<ContentBlock content={item.title} />
-								</StyledLink>
-							))}
-						</Stack>
+						<QuestionList questionCollection={theme.questionCollection} />
 					) : null}
 				</Stack>
 			))}
 		</TheGrid>
+	);
+};
+
+const QuestionList: React.FC<QuestionCollectionProps> = ({
+	questionCollection,
+}) => {
+	const siteSettings = useSanitySiteSettings<SiteSettings>();
+	if (!questionCollection.length) return null;
+
+	const split = 3;
+
+	// Split items into 2 groups
+	const firstGroup = questionCollection.slice(
+		0,
+		split ? split : questionCollection.length,
+	);
+	const secondGroup = questionCollection.slice(
+		split ? split : questionCollection.length,
+		questionCollection.length,
+	);
+	return (
+		<Stack spacing={['1rem']}>
+			{firstGroup.map((item, index) => (
+				<StyledLink
+					styledAs="button-tile"
+					key={index}
+					href={`/situatie/${item.question.slug}`}
+				>
+					<ContentBlock content={item.title} />
+				</StyledLink>
+			))}
+			{secondGroup.length ? (
+				<ExpansionPanel
+					title={
+						secondGroup.length > 1
+							? `${secondGroup.length} ${siteSettings.situationPlural.plural}`
+							: `${secondGroup.length} ${siteSettings.situationPlural.singular}`
+					}
+					variant="plusinline"
+				>
+					<Stack spacing={['1rem']}>
+						{secondGroup.map((item, index) => (
+							<StyledLink
+								styledAs="button-tile"
+								key={index}
+								href={`/situatie/${item.question.slug}`}
+							>
+								<ContentBlock content={item.title} />
+							</StyledLink>
+						))}
+					</Stack>
+				</ExpansionPanel>
+			) : null}
+		</Stack>
 	);
 };
