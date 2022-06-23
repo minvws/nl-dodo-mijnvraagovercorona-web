@@ -1,17 +1,17 @@
 export default {
 	title: 'Tekst met vertalingen in enkelvoud/meervoud',
-	name: 'pluralLocaleString',
+	name: 'thisOrThatLocaleString',
 	type: 'object',
 	options: { collapsible: true },
 	fields: [
 		{
-			title: 'Enkelvoud',
-			name: 'singular',
+			title: 'This',
+			name: 'this',
 			type: 'localeString',
 		},
 		{
-			title: 'Meervoud',
-			name: 'plural',
+			title: 'That',
+			name: 'that',
 			type: 'localeString',
 		},
 	],

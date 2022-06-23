@@ -354,13 +354,25 @@ export const siteSettingsQuery = ({
 		${getLocaleProperty({ name: 'updatedAt', locale })},
 		"situationPlural": {
 			${getLocaleProperty({
-				name: 'singular',
-				path: 'situationPlural.singular',
+				name: 'this',
+				path: 'situationPlural.this',
 				locale,
 			})},
 			${getLocaleProperty({
-				name: 'plural',
-				path: 'situationPlural.plural',
+				name: 'that',
+				path: 'situationPlural.that',
+				locale,
+			})},
+		},
+		"seeMoreExpand": {
+			${getLocaleProperty({
+				name: 'this',
+				path: 'seeMoreExpand.this',
+				locale,
+			})},
+			${getLocaleProperty({
+				name: 'that',
+				path: 'seeMoreExpand.that',
 				locale,
 			})},
 		},

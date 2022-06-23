@@ -343,7 +343,12 @@ export default {
 		{
 			title: 'Situatie enkelvoud/meervoud',
 			name: 'situationPlural',
-			type: 'pluralLocaleString',
+			type: 'thisOrThatLocaleString',
+		},
+		{
+			title: 'Bekijk nog X',
+			name: 'seeMoreExpand',
+			type: 'thisOrThatLocaleString',
 		},
 	],
 };
