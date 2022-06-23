@@ -50,6 +50,32 @@ export default {
 			},
 		},
 		{
+			title: 'Huidige situatie',
+			name: 'currentSituation',
+			type: 'object',
+			options: {
+				collapsible: true,
+				collapsed: true,
+			},
+			fields: [
+				{
+					title: 'Titel',
+					name: 'title',
+					type: 'localeString',
+				},
+				{
+					title: 'Maatregelen',
+					name: 'measures',
+					type: 'aid',
+				},
+				{
+					title: 'Adviezen',
+					name: 'advice',
+					type: 'aid',
+				},
+			],
+		},
+		{
 			title: 'Nu belangrijk',
 			name: 'important',
 			type: 'object',
@@ -103,6 +129,56 @@ export default {
 					title: 'Thema’s',
 					name: 'themeCollection',
 					type: 'themeSelector',
+				},
+			],
+		},
+		{
+			title: 'Cases titel',
+			name: 'titleCases',
+			type: 'localeString',
+			fieldset: 'situations',
+		},
+		{
+			title: 'Cases mobile afbeelding',
+			name: 'imageMobileCases',
+			type: 'image',
+			fieldset: 'situations',
+		},
+		{
+			title: 'Cases desktop afbeelding',
+			name: 'imageDesktopCases',
+			type: 'image',
+			fieldset: 'situations',
+		},
+		{
+			title: 'Cases',
+			name: 'cases',
+			type: 'array',
+			fieldset: 'situations',
+			of: [{ type: 'case' }],
+		},
+		{
+			title: 'Onderwerpen',
+			name: 'topics',
+			type: 'object',
+			options: {
+				collapsible: true,
+				collapsed: true,
+			},
+			fields: [
+				{ title: 'Titel', name: 'title', type: 'localeString' },
+				{
+					title: 'Onderwerpen',
+					name: 'topics',
+					type: 'array',
+					of: [
+						{
+							title: 'Onderwerp',
+							name: 'topic',
+							type: 'reference',
+							to: [{ type: 'topic-document' }],
+						},
+					],
 				},
 			],
 		},

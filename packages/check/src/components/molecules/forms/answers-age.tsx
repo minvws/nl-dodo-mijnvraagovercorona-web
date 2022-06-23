@@ -45,7 +45,7 @@ export const FormAnswersAge: React.FC<FormAnswersAgeProps> = ({
 	};
 
 	// Loop though buttons and add a disabled prop when we cannot submit
-	const parsedButtons = buttons.map((button, index) =>
+	const parsedButtons = buttons?.map((button, index) =>
 		index === 0 && button.standard
 			? {
 					...button,

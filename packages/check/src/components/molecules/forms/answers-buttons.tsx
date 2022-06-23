@@ -17,7 +17,7 @@ export const FormAnswersButtons: React.FC<FormAnswersButtonsProps> = ({
 	content,
 	locale,
 }) => {
-	const parsedButtons = buttons.map((button) => ({
+	const parsedButtons = buttons?.map((button) => ({
 		...button,
 		next: isBrowser() ? `${button.next}${window.location.search}` : button.next,
 		styledAs: 'button',
