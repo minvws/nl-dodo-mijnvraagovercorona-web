@@ -62,6 +62,10 @@ export interface CommonSiteSettings {
 	datumKiesTekst: string;
 	maanden: string[];
 	updatedAt: string;
+	situationPlural: {
+		singular: string;
+		plural: string;
+	};
 	severeSymptomsAdvice: {
 		title: string;
 		subtitle: string;
