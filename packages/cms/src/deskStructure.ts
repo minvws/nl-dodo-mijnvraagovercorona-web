@@ -23,6 +23,7 @@ import {
 	FaRegCopyright,
 	FaAccessibleIcon,
 	FaHandsHelping,
+	FaFeatherAlt,
 } from 'react-icons/fa';
 import { SiGnuprivacyguard, SiYourtraveldottv } from 'react-icons/si';
 import { GrVulnerability } from 'react-icons/gr';
@@ -182,6 +183,11 @@ const multiDocumentsConfig = [
 ];
 
 const checkSituationDocumentsConfig = [
+	{
+		schemaType: 'theme-document',
+		title: `Thema`,
+		icon: FaFeatherAlt,
+	},
 	{
 		schemaType: 'situation-question-document',
 		title: `Situatie Vraag`,

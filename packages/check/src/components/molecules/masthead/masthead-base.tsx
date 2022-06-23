@@ -19,11 +19,10 @@ export const MastheadBase: React.FC<MastheadProps> = ({
 				position: 'relative',
 				...(variant === 'highlight'
 					? {
-							background:
-								'linear-gradient(179.97deg, #858DFF 44.27%, #6459E7 99.97%)',
+							background: theme?.colors?.headerBackgroundHighlight,
 							borderEndStartRadius: '2rem',
 							borderEndEndRadius: '2rem',
-							color: 'white',
+							color: 'header',
 					  }
 					: {
 							// weird hack to get the background from theme, 'headerBackground' doesnt work here.

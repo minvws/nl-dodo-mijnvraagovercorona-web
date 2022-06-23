@@ -76,6 +76,63 @@ export default {
 			],
 		},
 		{
+			title: 'Nu belangrijk',
+			name: 'important',
+			type: 'object',
+			options: {
+				collapsible: true,
+				collapsed: true,
+			},
+			fields: [
+				{
+					title: 'Titel',
+					name: 'title',
+					type: 'localeString',
+				},
+				{
+					title: 'Uitleg',
+					name: 'content',
+					type: 'localeBlock',
+				},
+				{
+					title: 'Icoon',
+					name: 'icon',
+					type: 'image',
+				},
+				{
+					title: 'Vraag startpunten',
+					name: 'questionCollection',
+					type: 'questionSelector',
+				},
+			],
+		},
+		{
+			title: 'Themas',
+			name: 'themes',
+			type: 'object',
+			options: {
+				collapsible: true,
+				collapsed: true,
+			},
+			fields: [
+				{
+					title: 'Titel',
+					name: 'title',
+					type: 'localeString',
+				},
+				{
+					title: 'Uitleg',
+					name: 'content',
+					type: 'localeBlock',
+				},
+				{
+					title: 'Thema’s',
+					name: 'themeCollection',
+					type: 'themeSelector',
+				},
+			],
+		},
+		{
 			title: 'Cases titel',
 			name: 'titleCases',
 			type: 'localeString',

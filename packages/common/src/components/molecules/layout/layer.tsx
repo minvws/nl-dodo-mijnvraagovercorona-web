@@ -28,6 +28,7 @@ export const Layer: React.FC<OwnProps> = ({
 	return (
 		<Box
 			id={id}
+			as="section"
 			sx={{
 				paddingBlockStart: calcPaddingBlockStart,
 				paddingBlockEnd: paddingBlockEnd,

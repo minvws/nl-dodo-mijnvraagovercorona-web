@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
-import { jsx, Styled, Container, Box, Image } from 'theme-ui';
+import slugify from 'slugify';
+import { jsx, Styled, Container, Box } from 'theme-ui';
 import { Page } from 'components/page';
 
 import {
@@ -16,25 +17,39 @@ import {
 	TheSwitcherItem,
 	Header,
 	Stack,
-	TheThirds,
 	StyledLink,
-	getHrefWithlocale,
-	useCurrentLocale,
 	ContentBlock,
 	getImage,
 	SanityImageFullProps,
+	TheGrid,
+	SectionHeadingGroup,
+	SectionHeadingGroupWithIcon,
 } from '@quarantaine/common';
 import {
 	HulpPanel,
 	FeedbackPanel,
 	Masthead,
-	AdviceList,
 	AdviceProps,
 	CaseProps,
-	Case,
-	ContentSituationBlock,
+	ThemeOverview,
 } from 'components/molecules';
 import { retainMaxWidth } from '@quarantaine/common/src/components/molecules/layout/retain';
+import { getThemeCollection, ThemeCollectionProps } from 'utilities/theme';
+import {
+	getQuestionCollection,
+	QuestionCollectionProps,
+} from 'utilities/question';
+
+interface ThemesProps extends ThemeCollectionProps {
+	title: string;
+	content: Array<Object>;
+}
+
+interface ImportantProps extends QuestionCollectionProps {
+	title: string;
+	content: Array<Object>;
+	icon: SanityImageFullProps;
+}
 
 export interface PageContent {
 	metaData: {
@@ -60,6 +75,8 @@ export interface PageContent {
 			advice: AdviceProps[];
 		};
 	};
+	important: ImportantProps;
+	themes: ThemesProps;
 	titleCases: string;
 	imageMobileCases: string;
 	imageDesktopCases: string;
@@ -95,7 +112,6 @@ export interface PageContent {
 
 export default function LandingPage() {
 	const page = useSanityPageContent<PageContent>();
-	const locale = useCurrentLocale();
 
 	return (
 		<>
@@ -116,7 +132,7 @@ export default function LandingPage() {
 								fontSize: ['h2Mobile', 'h2'],
 								lineHeight: ['h2Mobile', 'h2'],
 								fontWeight: 'bold',
-								color: 'highlight',
+								color: 'headerTertiary',
 							}}
 						>
 							{page.header.chapeau}
@@ -128,177 +144,65 @@ export default function LandingPage() {
 					<Styled.p>{page.header.subtitle}</Styled.p>
 				</Masthead>
 
-				<Layer backgroundColor="headerBackground" pullUpBy="2rem">
+				<Layer
+					backgroundColor="headerBackground"
+					pullUpBy="2rem"
+					id={slugify(page.important.title, {
+						strict: true,
+						lower: true,
+					})}
+				>
 					<Container>
-						<Box
-							sx={{
-								paddingX: ['mobilePadding', 'tabletPadding', 0],
-							}}
-						>
+						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
+						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
 							<Retain maxWidth={[retainMaxWidth, '100%']}>
-								<Stack>
-									<Styled.h2>{page.currentSituation.title}</Styled.h2>
-									<TheThirds
-										split={page.currentSituation.measures.advice.length > 0}
-										asideChildren={
-											<Stack spacing={['1rem']}>
-												<Styled.h3>
-													{page.currentSituation.measures.title}
-												</Styled.h3>
-												{page.currentSituation.measures.content ? (
-													<ContentBlock
-														content={page.currentSituation.measures.content}
-													/>
-												) : null}
-												<AdviceList
-													advices={page.currentSituation.measures.advice}
-												/>
-											</Stack>
-										}
+								<Stack spacing={'3rem'}>
+									<SectionHeadingGroupWithIcon
+										title={page.important.title}
+										icon={page.important.icon.src}
 									>
-										<Stack spacing={['1rem']}>
-											<Styled.h3>
-												{page.currentSituation.advice.title}
-											</Styled.h3>
-											{page.currentSituation.advice.content ? (
-												<ContentBlock
-													content={page.currentSituation.advice.content}
-												/>
-											) : null}
-											<AdviceList
-												advices={page.currentSituation.advice.advice}
-											/>
-										</Stack>
-									</TheThirds>
+										{page.important.content ? (
+											<ContentBlock content={page.themes.content} />
+										) : null}
+									</SectionHeadingGroupWithIcon>
+									<TheGrid minItemSize="24rem" gap={['1rem']}>
+										{page.important.questionCollection?.map((item, index) => (
+											<StyledLink
+												key={index}
+												styledAs="button-tile"
+												href={`/situatie/${item.question.slug}`}
+											>
+												<ContentBlock content={item.title} />
+											</StyledLink>
+										))}
+									</TheGrid>
 								</Stack>
 							</Retain>
 						</Box>
 					</Container>
 				</Layer>
 
-				<Layer>
+				<Layer
+					id={slugify(page.themes.title, {
+						strict: true,
+						lower: true,
+					})}
+				>
 					<Container>
 						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
 						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
 							<Retain maxWidth={[retainMaxWidth, '100%']}>
-								<Stack spacing={['2.25rem', '4rem']} id="situaties">
-									<Box
-										id="situaties"
-										sx={{
-											position: 'relative',
-											paddingBlockStart: ['0', '10rem'],
-											paddingBlockEnd: ['0', '2.5rem'],
-										}}
-									>
-										<Styled.h2
-											sx={{
-												position: 'relative',
-												marginBlockEnd: ['2rem', 0],
-												fontSize: ['h1Mobile', 'h1'],
-												lineHeight: ['h1Mobile', 'h1'],
-												zIndex: 2,
-											}}
-										>
-											{page.titleCases}
-										</Styled.h2>
-										<Image
-											src={page.imageMobileCases}
-											alt=""
-											sx={{
-												display: ['block', 'none'],
-												marginInlineStart: 'auto',
-												marginInlineEnd: 'auto',
-											}}
-										/>
-										<Image
-											src={page.imageDesktopCases}
-											alt=""
-											sx={{
-												position: 'absolute',
-												zIndex: 1,
-												display: ['none', 'block'],
-												inlineSize: '100%',
-												blockSize: '100%',
-												insetBlockStart: 0,
-												insetBlockEnd: 0,
-												insetInlineStart: 0,
-												insetInlineEnd: 0,
-												objectFit: 'contain',
-												objectPosition: '100% 100%',
-											}}
-										/>
-									</Box>
-									<Box
-										sx={{
-											display: 'grid',
-											gridTemplateColumns:
-												'repeat(auto-fit, minmax(min(28rem, 100%), 1fr))',
-											gap: ['1rem', '4rem'],
-											alignItems: 'start',
-											paddingInlineStart: 0,
-											listStyle: 'none',
-										}}
-									>
-										{page.cases
-											.filter((item) => item.title)
-											.map((item) => (
-												<Case
-													key={item.title}
-													title={item.title}
-													titleSuffix={item.titleSuffix}
-													intro={item.intro}
-													readMoreLabel={item.readMoreLabel}
-												>
-													{item.contentBlocks && (
-														<ContentSituationBlock
-															contentBlocks={item.contentBlocks}
-														/>
-													)}
-												</Case>
-											))}
-									</Box>
-								</Stack>
+								<Stack spacing={'3rem'}>
+									<SectionHeadingGroup title={page.themes.title} align="center">
+										{page.themes.content ? (
+											<ContentBlock content={page.themes.content} />
+										) : null}
+									</SectionHeadingGroup>
 
-								<Box
-									sx={{
-										marginBlockStart: ['4.75rem', '6.5rem'],
-										marginBlockEnd: ['2.25rem', '4rem'],
-									}}
-									id="onderwerpen"
-								>
-									<Styled.h2
-										sx={{
-											fontSize: ['h1Mobile', 'h1'],
-											lineHeight: ['h1Mobile', 'h1'],
-										}}
-									>
-										{page.topics.title}
-									</Styled.h2>
-									<Box
-										sx={{
-											display: 'flex',
-											flexDirection: ['column', 'row'],
-											gap: ['1rem', '3rem'],
-											'& > *': {
-												flex: 1,
-											},
-										}}
-									>
-										{page.topics.topics.map(({ start, slug, icon, name }) => (
-											<StyledLink
-												styledAs="button-large"
-												href={getHrefWithlocale(
-													`/vraag/${slug}/${start}`,
-													locale.urlPrefix,
-												)}
-												icon={icon}
-												key={name}
-											>
-												{name}
-											</StyledLink>
-										))}
-									</Box>
-								</Box>
+									<ThemeOverview
+										themeCollection={page.themes.themeCollection}
+									/>
+								</Stack>
 							</Retain>
 						</Box>
 					</Container>
@@ -382,6 +286,27 @@ export const getStaticProps = async ({
 					${getImage({ name: 'icon' })},
 				}
 			}
+		},
+		"important": {
+			${getLocaleProperty({ name: 'title', path: 'important.title', locale })},
+			${getLocaleProperty({
+				name: 'content',
+				path: 'important.content',
+				locale,
+				block: true,
+			})},
+			${getImage({ name: 'icon', path: 'important.icon', full: true })},
+			${getQuestionCollection({ path: 'important', locale })}
+		},
+		"themes": {
+			${getLocaleProperty({ name: 'title', path: 'themes.title', locale })},
+			${getLocaleProperty({
+				name: 'content',
+				path: 'themes.content',
+				locale,
+				block: true,
+			})},
+			${getThemeCollection({ path: 'themes', locale })},
 		},
 		${getLocaleProperty({ name: 'titleCases', locale })},
 		${getImage({ name: 'imageMobileCases' })},

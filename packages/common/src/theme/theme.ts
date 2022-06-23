@@ -11,13 +11,15 @@ export const theme: Theme = {
 		text: '#000000',
 		header: '#21426F',
 		secondaryHeader: '#BC285C',
+		headerTertiary: '#01689B',
 		hover: '#092a7e',
 		detailText: '#6A6A6A',
 		disabledCalendar: '#BFBFBF',
 		stepElement: '#AEC1D1',
 		background: '#FFFFFF',
-		headerBackground: '#EEF7Fb',
-		expansionPanel: '#EEF7Fb',
+		headerBackground: '#EFF7F9',
+		headerBackgroundHighlight: '#DDEFF8',
+		expansionPanel: '#EFF7F9',
 
 		hoverSecondary: '#931e55',
 		structureBackground: '#f0d5e2',
@@ -47,6 +49,7 @@ export const theme: Theme = {
 	sizes: {
 		container: '1200px',
 		maxWidthBody: ['665px'],
+		maxInlineSizeText: '41.5rem',
 		buttonHeight: '55px',
 		buttonSecondaryHeight: '45px',
 		widgetMaxWidth: '450px',
@@ -67,11 +70,11 @@ export const theme: Theme = {
 		tile: 'radii.box',
 	},
 	borders: {
-		tile: '1px solid #EFF7F9',
-		card: '1px solid #8FCAE7',
+		tile: '1px solid #DDEFF8',
+		card: '1px solid #8FCAE7 ',
 	},
 	shadows: {
-		tile: '4px 12px 12px rgba(0, 0, 0, 0.07), 0px 4px 0px #EFF7F9',
+		tile: '4px 12px 12px rgba(0, 0, 0, 0.07), 0px 4px 0px #DDEFF8',
 		focusRing: '0px 0px 1px 3px rgba(1, 104, 155, 0.3)',
 	},
 	fonts: {

@@ -12,6 +12,7 @@ import modalsDocument from './documents/modals';
 import topicQuestionDocument from './documents/topic-question';
 import topicResultDocument from './documents/topic-result';
 import topicDocument from './documents/topic';
+import themeDocument from './documents/theme';
 import assistanceDocument from './documents/assistance';
 import informContactsDocument from './documents/inform-contacts';
 import situationQuestionDocument from './documents/situation-question';
@@ -59,6 +60,8 @@ import stepsObject from './objects/steps';
 import buttonObject from './objects/button';
 import storyObject from './objects/story';
 import questionContentObject from './objects/questionContent';
+import questionSelectorObject from './objects/questionSelector';
+import themeSelectorObject from './objects/themeSelector';
 
 export default createSchema({
 	name: 'default',
@@ -113,6 +116,7 @@ export default createSchema({
 		topicQuestionDocument,
 		topicResultDocument,
 		topicDocument,
+		themeDocument,
 		contentCardDocument,
 		assistanceDocument,
 		informContactsDocument,
@@ -143,5 +147,7 @@ export default createSchema({
 		buttonObject,
 		storyObject,
 		questionContentObject,
+		questionSelectorObject,
+		themeSelectorObject,
 	]),
 });
