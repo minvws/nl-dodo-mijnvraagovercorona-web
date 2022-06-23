@@ -340,5 +340,10 @@ export default {
 				},
 			],
 		},
+		{
+			title: 'Situatie enkelvoud/meervoud',
+			name: 'situationPlural',
+			type: 'pluralLocaleString',
+		},
 	],
 };
