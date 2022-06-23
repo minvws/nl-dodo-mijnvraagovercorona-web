@@ -223,7 +223,7 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 									{!!page.advice?.cards?.length && (
 										<Box>
 											{page.advice.cards.map((card) => (
-												<Card {...card} />
+												<Card key={card.title} {...card} />
 											))}
 										</Box>
 									)}

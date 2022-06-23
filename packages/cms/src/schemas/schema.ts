@@ -46,6 +46,7 @@ import {
 } from './objects/localeBlock';
 import localeUrlObject from './objects/localeUrl';
 import localeTextObject from './objects/localeText';
+import thisOrThatLocaleStringObject from './objects/thisOrThatLocaleString';
 import pageMetaDataObject from './objects/pageMetaData';
 import headerObject from './objects/header';
 import quarantinePlanObject from './objects/quarantinePlan';
@@ -133,6 +134,7 @@ export default createSchema({
 		localeBlockWithoutModalObject,
 		localeUrlObject,
 		localeTextObject,
+		thisOrThatLocaleStringObject,
 		pageMetaDataObject,
 		headerObject,
 		quarantinePlanObject,

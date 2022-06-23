@@ -150,9 +150,7 @@ export const ExpansionPanel = ({
 										? 'secondary'
 										: 'text',
 								fontWeight:
-									variant === 'plus' ||
-									variant === 'plusalt' ||
-									variant === 'plusinline'
+									variant === 'plus' || variant === 'plusalt'
 										? 'bold'
 										: 'normal',
 								...(variant === 'plusinline'
@@ -248,7 +246,9 @@ export const ExpansionPanel = ({
 							<div
 								sx={{
 									padding:
-										variant === 'plus' || variant === 'plusalt'
+										variant === 'plusinline'
+											? '0 0 1rem 0'
+											: variant === 'plus' || variant === 'plusalt'
 											? '0 48px 15px 15px'
 											: '0 48px 15px 0',
 									fontSize: ['bodyMobile', 'body'],

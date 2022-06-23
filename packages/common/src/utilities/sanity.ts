@@ -352,6 +352,30 @@ export const siteSettingsQuery = ({
 		${getLocaleProperty({ name: 'maanden', locale, array: true })},
 		${getLocaleProperty({ name: 'dagen', locale, array: true })},
 		${getLocaleProperty({ name: 'updatedAt', locale })},
+		"situationPlural": {
+			${getLocaleProperty({
+				name: 'this',
+				path: 'situationPlural.this',
+				locale,
+			})},
+			${getLocaleProperty({
+				name: 'that',
+				path: 'situationPlural.that',
+				locale,
+			})},
+		},
+		"seeMoreExpand": {
+			${getLocaleProperty({
+				name: 'this',
+				path: 'seeMoreExpand.this',
+				locale,
+			})},
+			${getLocaleProperty({
+				name: 'that',
+				path: 'seeMoreExpand.that',
+				locale,
+			})},
+		},
 		"severeSymptomsAdvice": {
 			${getLocaleProperty({
 				name: 'title',
