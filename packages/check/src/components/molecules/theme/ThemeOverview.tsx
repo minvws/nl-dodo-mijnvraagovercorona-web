@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import React from 'react';
+import slugify from 'slugify';
 import { Styled, jsx, Flex, Image } from 'theme-ui';
 import { ContentBlock, Stack, StyledLink, TheGrid } from '@quarantaine/common';
 import { ThemeCollectionProps } from 'utilities/theme';
@@ -9,7 +10,13 @@ export const ThemeOverview: React.FC<ThemeCollectionProps> = ({
 }) => (
 	<TheGrid minItemSize="24rem" gap={['3rem', '3.75rem']}>
 		{themeCollection?.map((theme) => (
-			<Stack key={theme.title}>
+			<Stack
+				id={`thema-${slugify(theme.title, {
+					strict: true,
+					lower: true,
+				})}`}
+				key={theme.title}
+			>
 				<Flex sx={{ alignItems: 'center', gap: '1.5rem' }}>
 					<Image
 						src={theme.icon.src}
