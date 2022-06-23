@@ -184,6 +184,7 @@ export const useLinkStyles = ({
 		const buttonTileStyling: SxStyleProp = {
 			...buttonStyling,
 			display: 'flex',
+			gap: '1rem',
 			alignItems: 'center',
 			inlineSize: '100%',
 			paddingInline: '1rem',
