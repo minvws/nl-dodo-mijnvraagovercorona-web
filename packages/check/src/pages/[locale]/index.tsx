@@ -455,6 +455,13 @@ export const getStaticProps = async ({
 		},
 		"important": {
 			${getLocaleProperty({ name: 'title', path: 'important.title', locale })},
+			${getLocaleProperty({
+				name: 'content',
+				path: 'important.content',
+				locale,
+				block: true,
+			})},
+			${getImage({ name: 'icon', path: 'important.icon', full: true })},
 			${getQuestionCollection({ path: 'important', locale })}
 		},
 		"themes": {

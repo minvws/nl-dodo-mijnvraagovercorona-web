@@ -90,6 +90,16 @@ export default {
 					type: 'localeString',
 				},
 				{
+					title: 'Uitleg',
+					name: 'content',
+					type: 'localeBlock',
+				},
+				{
+					title: 'Icoon',
+					name: 'icon',
+					type: 'image',
+				},
+				{
 					title: 'Vraag startpunten',
 					name: 'questionCollection',
 					type: 'questionSelector',
