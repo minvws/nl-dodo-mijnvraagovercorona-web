@@ -127,7 +127,7 @@ export default function LandingPage({ locale }: { locale: Locales }) {
 										icon={page.important.icon.src}
 									>
 										{page.important.content ? (
-											<ContentBlock content={page.themes.content} />
+											<ContentBlock content={page.important.content} />
 										) : null}
 									</SectionHeadingGroupWithIcon>
 									<TheGrid minItemSize="25rem" gap={['1rem']}>
