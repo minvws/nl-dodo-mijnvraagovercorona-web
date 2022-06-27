@@ -22,14 +22,14 @@ export const HulpPanel = () => {
 		>
 			<Styled.h2
 				sx={{
-					fontSize: ['h1Mobile', 'h1'],
+					fontSize: ['h2Mobile', 'h2'],
 				}}
 			>
 				{page.help.title}
 			</Styled.h2>
 			<Styled.p
 				sx={{
-					fontSize: ['h2Mobile', 'h2'],
+					fontSize: ['h1Mobile', 'h1'],
 					fontWeight: 'bold',
 					color: 'header',
 				}}
@@ -49,9 +49,9 @@ export const HulpPanel = () => {
 						margin: 0,
 						padding: 0,
 					}}
-					href="tel:08001351"
+					href="tel:08007707707"
 				>
-					0800-1351
+					0800-7707707
 				</Styled.a>
 			</Box>
 			<Styled.p>{page.help.openingHours}</Styled.p>
