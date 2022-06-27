@@ -160,6 +160,11 @@ export default {
 					],
 				},
 				{
+					title: 'Bekijk ook',
+					name: 'seeAlsoTitle',
+					type: 'localeString',
+				},
+				{
 					title: 'Cards',
 					name: 'cards',
 					type: 'array',

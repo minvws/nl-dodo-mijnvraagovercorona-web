@@ -29,9 +29,8 @@ export const Card: React.FC<CardProps> = ({
 				border: 'card',
 				fontSize: ['bodyMobile', 'body'],
 				backgroundColor: 'white',
-				marginBlockStart: '2rem',
 
-				'p:last-child': {
+				'*:last-child': {
 					marginBottom: 0,
 				},
 			}}

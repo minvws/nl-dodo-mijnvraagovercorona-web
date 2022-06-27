@@ -68,6 +68,7 @@ interface AdviceProps {
 		}[];
 	}[];
 	title: string;
+	seeAlsoTitle: string;
 }
 
 interface PageContent {
@@ -153,8 +154,6 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 			locale,
 		});
 
-	console.log(page);
-
 	return (
 		<>
 			<MetaTags
@@ -226,9 +225,14 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 											)}
 											{!!page.advice?.cards?.length && (
 												<Box as="section">
-													{page.advice.cards.map((card) => (
-														<Card key={card.title} {...card} />
-													))}
+													{!!plan?.length && page.advice.seeAlsoTitle ? (
+														<Styled.h2>{page.advice.seeAlsoTitle}</Styled.h2>
+													) : null}
+													<Stack spacing={['2rem']}>
+														{page.advice.cards.map((card) => (
+															<Card key={card.title} {...card} />
+														))}
+													</Stack>
 												</Box>
 											)}
 										</Stack>
@@ -323,6 +327,11 @@ export const getStaticProps = async ({
 				${getLocaleProperty({ name: 'title', locale })},
 				${getLocaleProperty({ name: 'content', locale, block: true })},
 			},
+			${getLocaleProperty({
+				name: 'seeAlsoTitle',
+				path: 'advice.seeAlsoTitle',
+				locale,
+			})},
 			"cards": advice.cards[]->{
 				${getLocaleProperty({ name: 'title', locale })},
 				${getLocaleProperty({ name: 'chapeau', locale })},

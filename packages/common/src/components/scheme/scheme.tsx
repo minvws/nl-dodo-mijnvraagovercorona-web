@@ -98,7 +98,7 @@ export const SchemeBlock: React.FC<SchemeBlockProps> = ({
 							color: 'inherit',
 						},
 					},
-					'p:last-child': {
+					'*:last-child': {
 						marginBlockEnd: 0,
 					},
 					'@media print': {
