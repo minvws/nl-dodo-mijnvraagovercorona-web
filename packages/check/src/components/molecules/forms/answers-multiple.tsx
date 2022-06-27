@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import React, { useState, useEffect } from 'react';
 import {
+	CommonSiteSettings,
 	Control,
 	ExpansionPanel,
 	getHrefWithlocale,
@@ -8,6 +9,7 @@ import {
 	Locales,
 	Stack,
 	StyledLink,
+	useSanitySiteSettings,
 } from '@quarantaine/common';
 import { Box, jsx } from 'theme-ui';
 import { FormSubmit, FormSubmitProps } from './submit';
@@ -23,7 +25,10 @@ export interface FormAnswersMultipleProps {
 	buttons: FormSubmitProps['buttons'];
 	content: ContentStreamProps;
 	locale: Locales;
-	showMoreLabel: string;
+	showMoreLabel: {
+		this: string;
+		that: string;
+	};
 	limit?: number;
 }
 
@@ -35,12 +40,14 @@ export const FormAnswersMultiple: React.FC<FormAnswersMultipleProps> = ({
 	showMoreLabel,
 	limit = 6,
 }) => {
+	const siteSettings = useSanitySiteSettings<CommonSiteSettings>();
 	const router = useRouter();
 	const [visibleAnswers, setVisibleAnswers] = useState<
 		FormAnswersMultipleProps['answers']
 	>();
 	const [checkedAnswers, setCheckedAnswers] = useState(answers);
 	const [canSubmit, setCanSubmit] = useState<boolean>(false);
+	const [panelState, setPanelState] = useState('close');
 
 	const split = 6;
 
@@ -119,11 +126,13 @@ export const FormAnswersMultiple: React.FC<FormAnswersMultipleProps> = ({
 						</Stack>
 					) : null}
 					<ExpansionPanel
-						title={showMoreLabel}
+						title={
+							panelState === 'open' ? showMoreLabel.that : showMoreLabel.this
+						}
 						variant="plusinline"
 						anchorToPanel={false}
-						hideLabelWhenExpanded={true}
-						// toggleEvent={(value: string) => setPanelState(value)}
+						// hideLabelWhenExpanded={true}
+						toggleEvent={(value: string) => setPanelState(value)}
 					>
 						<Stack spacing={['1rem']}>
 							{secondGroup?.map((answer) => (

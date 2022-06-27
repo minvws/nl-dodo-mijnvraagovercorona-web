@@ -52,7 +52,10 @@ interface PageContent {
 	answersMultiple: FormAnswersMultipleProps['answers'];
 	showMore: {
 		max: number;
-		text: string;
+		label: {
+			this: string;
+			that: string;
+		};
 	};
 	answersSingle: FormAnswersSingleProps['answers'];
 	ageInput: {
@@ -120,7 +123,7 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 									<FormAnswersMultiple
 										answers={page.answersMultiple}
 										buttons={page.buttons}
-										showMoreLabel={page.showMore.text}
+										showMoreLabel={page.showMore.label}
 										limit={page.showMore.max}
 										locale={locale}
 										content={page.content}
@@ -247,11 +250,18 @@ export const getStaticProps = async ({
 		},
 		"showMore": {
 			"max": showMore.max,
-			${getLocaleProperty({
-				name: 'text',
-				path: 'showMore.text',
-				locale,
-			})},
+			"label": {
+				${getLocaleProperty({
+					name: 'this',
+					path: 'showMore.label.this',
+					locale,
+				})},
+				${getLocaleProperty({
+					name: 'that',
+					path: 'showMore.label.that',
+					locale,
+				})},
+			}
 		},
 		"buttons": buttons[]{
 			_key,
