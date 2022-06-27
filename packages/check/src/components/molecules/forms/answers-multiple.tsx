@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import {
 	Control,
+	ExpansionPanel,
 	getHrefWithlocale,
 	isBrowser,
 	Locales,
@@ -39,13 +40,16 @@ export const FormAnswersMultiple: React.FC<FormAnswersMultipleProps> = ({
 		FormAnswersMultipleProps['answers']
 	>();
 	const [checkedAnswers, setCheckedAnswers] = useState(answers);
-	const [showMore, setShowMore] = useState<boolean>(true);
 	const [canSubmit, setCanSubmit] = useState<boolean>(false);
 
-	// Only display a subset of answers
-	useEffect(() => {
-		if (answers) setVisibleAnswers(answers.slice(0, limit));
-	}, [answers]);
+	const split = 6;
+
+	// Split items into 2 groups
+	const firstGroup = answers.slice(0, split ? split : answers.length);
+	const secondGroup = answers.slice(
+		split ? split : answers.length,
+		answers.length,
+	);
 
 	// check if there is atleast one answer checked, so we enable submit action
 	useEffect(() => {
@@ -98,38 +102,44 @@ export const FormAnswersMultiple: React.FC<FormAnswersMultipleProps> = ({
 		>
 			<Stack>
 				<ContentStream {...content} />
-				{answers ? (
-					<Stack spacing={['1rem']}>
-						{visibleAnswers?.map((answer) => (
-							<Control
-								type="checkbox"
-								name="answersMultiple"
-								key={answer._key}
-								id={answer._key}
-								label={answer.content}
-								value={answer.content}
-								onChange={onChange}
-							/>
-						))}
-					</Stack>
-				) : null}
-				{showMore && answers ? (
-					<Box sx={{ marginInlineStart: '1.5rem' }}>
-						<StyledLink
-							as="button"
-							styledAs="show-more"
-							type="button"
-							withChevron={false}
-							icon="/icons/plus.svg"
-							onClick={() => {
-								setVisibleAnswers(answers);
-								setShowMore(false);
-							}}
-						>
-							{showMoreLabel}
-						</StyledLink>
-					</Box>
-				) : null}
+				<Stack spacing={['1rem']}>
+					{answers ? (
+						<Stack spacing={['1rem']}>
+							{firstGroup?.map((answer) => (
+								<Control
+									type="checkbox"
+									name="answersMultiple"
+									key={answer._key}
+									id={answer._key}
+									label={answer.content}
+									value={answer.content}
+									onChange={onChange}
+								/>
+							))}
+						</Stack>
+					) : null}
+					<ExpansionPanel
+						title={showMoreLabel}
+						variant="plusinline"
+						anchorToPanel={false}
+						hideLabelWhenExpanded={true}
+						// toggleEvent={(value: string) => setPanelState(value)}
+					>
+						<Stack spacing={['1rem']}>
+							{secondGroup?.map((answer) => (
+								<Control
+									type="checkbox"
+									name="answersMultiple"
+									key={answer._key}
+									id={answer._key}
+									label={answer.content}
+									value={answer.content}
+									onChange={onChange}
+								/>
+							))}
+						</Stack>
+					</ExpansionPanel>
+				</Stack>
 				<FormSubmit buttons={parsedButtons} locale={locale} />
 			</Stack>
 		</form>
