@@ -131,7 +131,6 @@ export const FormAnswersMultiple: React.FC<FormAnswersMultipleProps> = ({
 						}
 						variant="plusinline"
 						anchorToPanel={false}
-						// hideLabelWhenExpanded={true}
 						toggleEvent={(value: string) => setPanelState(value)}
 					>
 						<Stack spacing={['1rem']}>
