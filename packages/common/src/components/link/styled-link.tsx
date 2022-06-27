@@ -191,13 +191,16 @@ export const useLinkStyles = ({
 			boxShadow: 'tile',
 			border: 'tile',
 			backgroundColor: 'white',
-			color: 'copyHeading',
+			color: 'primary',
 			textAlign: 'start',
+			outline: 'none',
 			':hover, :focus': {
-				backgroundColor: '#DDEFF8',
+				backgroundColor: 'white',
+				boxShadow: 'tileInteraction',
+				border: 'tileInteraction',
 			},
 			// Content block can output a span or a p tag. In case of a p tag, strip margins & reset font
-			p: {
+			'p, && p': {
 				marginBlock: 0,
 				font: 'inherit',
 			},

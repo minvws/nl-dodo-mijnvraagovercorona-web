@@ -106,7 +106,7 @@ export default function LandingPage({ locale }: { locale: Locales }) {
 					illustration={page.header.image}
 					variant="highlight"
 				>
-					<Styled.p>{page.header.subtitle}</Styled.p>
+					<Styled.p sx={{ color: 'primary' }}>{page.header.subtitle}</Styled.p>
 				</Masthead>
 
 				<Layer

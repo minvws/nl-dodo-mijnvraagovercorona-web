@@ -12,7 +12,6 @@ import { MastheadBase } from './masthead-base';
 
 export interface MastheadProps {
 	title: string | React.ReactNode;
-	chapeau?: string | React.ReactNode;
 	prefixSlot?: React.ReactNode;
 	illustration?: SanityImageFullProps;
 	headerSlot?: React.ReactNode;
@@ -21,7 +20,6 @@ export interface MastheadProps {
 
 export const Masthead: React.FC<MastheadProps> = ({
 	title,
-	chapeau,
 	prefixSlot,
 	illustration,
 	headerSlot,
@@ -37,9 +35,14 @@ export const Masthead: React.FC<MastheadProps> = ({
 							src={illustration.src}
 							alt=""
 							sx={{
-								maxInlineSize: ['17rem', , '100%'],
+								blockSize: [
+									'10rem',
+									variant === 'highlight' ? '25rem' : '14rem',
+								],
+								maxInlineSize: ['17rem', '100%'],
 								marginInlineStart: 'auto',
 								marginInlineEnd: 'auto',
+								objectFit: 'contain',
 							}}
 						/>
 					</TheSwitcherItem>

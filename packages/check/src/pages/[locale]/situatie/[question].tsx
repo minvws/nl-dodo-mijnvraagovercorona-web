@@ -35,7 +35,7 @@ import {
 	FormAnswersSingleProps,
 	FormSubmitProps,
 	MastheadFlow,
-	calculateFlowImageMargin,
+	mastheadMobileImageBlockSize,
 } from 'components/molecules';
 
 interface PageContent {
@@ -78,7 +78,7 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 			? ['0']
 			: [
 					page.header.image && page.header.image.src
-						? calculateFlowImageMargin({ ...page.header.image.dimensions })
+						? mastheadMobileImageBlockSize
 						: '3.75rem',
 					'3.75rem',
 			  ];

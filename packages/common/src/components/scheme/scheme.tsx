@@ -76,7 +76,6 @@ export const SchemeBlock: React.FC<SchemeBlockProps> = ({
 						sx={{
 							margin: 0,
 							color: 'link',
-							fontWeight: 'normal',
 						}}
 					>
 						{day}
