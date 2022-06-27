@@ -14,8 +14,8 @@ export const Layer: React.FC<OwnProps> = ({
 	children,
 	backgroundColor,
 	pullUpBy,
-	paddingBlockStart = '2rem',
-	paddingBlockEnd = '2rem',
+	paddingBlockStart = ['2rem', '3.75rem'],
+	paddingBlockEnd = ['2rem', '3.75rem'],
 	id,
 }) => {
 	const calcPaddingBlockStart =

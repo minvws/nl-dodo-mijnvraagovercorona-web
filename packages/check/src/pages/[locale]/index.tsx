@@ -111,8 +111,6 @@ export default function LandingPage({ locale }: { locale: Locales }) {
 
 				<Layer
 					backgroundColor="headerBackground"
-					paddingBlockStart={['2rem', '3.75rem']}
-					paddingBlockEnd={['2rem', '3.75rem']}
 					pullUpBy="2rem"
 					id={slugify(page.important.title, {
 						strict: true,
@@ -154,8 +152,6 @@ export default function LandingPage({ locale }: { locale: Locales }) {
 						strict: true,
 						lower: true,
 					})}
-					paddingBlockStart={['2rem', '3.75rem']}
-					paddingBlockEnd={['2rem', '3.75rem']}
 				>
 					<Container>
 						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
@@ -177,11 +173,7 @@ export default function LandingPage({ locale }: { locale: Locales }) {
 					</Container>
 				</Layer>
 
-				<Layer
-					backgroundColor="headerBackground"
-					paddingBlockStart={['2rem', '3.75rem']}
-					paddingBlockEnd={['2rem', '3.75rem']}
-				>
+				<Layer backgroundColor="headerBackground">
 					<Container>
 						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
 						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
