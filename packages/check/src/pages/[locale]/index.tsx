@@ -72,6 +72,18 @@ export interface PageContent {
 		title: string;
 		button: string;
 	};
+	assistance: {
+		chat: string;
+		image: SanityImageFullProps;
+		open: string;
+		openingHours: string;
+		phonenumber: string;
+		situationButton: string;
+		situationQuestion: string;
+		tekstWithChat: string;
+		tekstWithoutChat: string;
+		title: string;
+	};
 	url: string;
 }
 
@@ -178,12 +190,7 @@ export default function LandingPage({ locale }: { locale: Locales }) {
 						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
 						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
 							<TheSwitcher gap={['4rem', '4rem']}>
-								<TheSwitcherItem blockAlign="center">
-									<FeedbackPanel />
-								</TheSwitcherItem>
-								<TheSwitcherItem blockAlign="center">
-									<HulpPanel />
-								</TheSwitcherItem>
+								<HulpPanel />
 							</TheSwitcher>
 						</Box>
 					</Container>
@@ -248,6 +255,18 @@ export const getStaticProps = async ({
 		"feedback": {
 			${getLocaleProperty({ name: 'title', path: 'feedback.title', locale })},
 			${getLocaleProperty({ name: 'button', path: 'feedback.button', locale })},
+		},
+		"assistance": assistanceReference->{
+			${getLocaleProperty({ name: 'chat', locale })},
+			${getImage({ name: 'image', full: true })},
+			${getLocaleProperty({ name: 'open', locale })},
+			${getLocaleProperty({ name: 'openingHours', locale })},
+			phonenumber,
+			${getLocaleProperty({ name: 'situationButton', locale })},
+			${getLocaleProperty({ name: 'situationQuestion', locale })},
+			${getLocaleProperty({ name: 'tekstWithChat', locale })},
+			${getLocaleProperty({ name: 'tekstWithoutChat', locale })},
+			${getLocaleProperty({ name: 'title', locale })},
 		},
 		url,
 	}`;

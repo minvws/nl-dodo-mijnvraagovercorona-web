@@ -184,17 +184,9 @@ export default {
 		},
 		{
 			title: 'Hulp',
-			name: 'help',
-			type: 'object',
-			options: {
-				collapsible: true,
-				collapsed: true,
-			},
-			fields: [
-				{ title: 'Titel', name: 'title', type: 'localeString' },
-				{ title: 'Stel je vraag', name: 'question', type: 'localeString' },
-				{ title: 'Openingstijden', name: 'openingHours', type: 'localeString' },
-			],
+			name: 'assistanceReference',
+			type: 'reference',
+			to: [{ type: 'assistance-document' }],
 		},
 		{
 			title: 'Feedback',

@@ -31,6 +31,7 @@ import { Page } from 'components/page';
 import {
 	Advice,
 	Answer,
+	HulpPanel,
 	InformContacts,
 	InformContactsProps,
 	Masthead,
@@ -152,6 +153,8 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 			locale,
 		});
 
+	console.log(page);
+
 	return (
 		<>
 			<MetaTags
@@ -250,7 +253,9 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 					</Container>
 				</Layer>
 
-				<Box>Test</Box>
+				<Box>
+					<HulpPanel />
+				</Box>
 			</Page>
 		</>
 	);
@@ -371,6 +376,16 @@ export const getStaticProps = async ({
 					})},
 				}
 			}
+		},
+		"assistance": assistanceReference->{
+			${getLocaleProperty({ name: 'chat', locale })},
+			${getImage({ name: 'image', full: true })},
+			${getLocaleProperty({ name: 'open', locale })},
+			${getLocaleProperty({ name: 'openingHours', locale })},
+			phonenumber,
+			${getLocaleProperty({ name: 'tekstWithChat', locale })},
+			${getLocaleProperty({ name: 'tekstWithoutChat', locale })},
+			${getLocaleProperty({ name: 'title', locale })},
 		},
 		"updatedAt": _updatedAt,
 		"slug": slug.current,

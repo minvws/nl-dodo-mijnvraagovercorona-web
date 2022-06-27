@@ -19,8 +19,13 @@ export default {
 			type: 'image',
 		},
 		{
-			title: 'Tekst',
-			name: 'tekst',
+			title: 'Tekst zonder chat',
+			name: 'tekstWithoutChat',
+			type: 'localeString',
+		},
+		{
+			title: 'Tekst met chat',
+			name: 'tekstWithChat',
 			type: 'localeString',
 		},
 		{
@@ -29,9 +34,29 @@ export default {
 			type: 'string',
 		},
 		{
+			title: 'Chat',
+			name: 'chat',
+			type: 'localeString',
+		},
+		{
 			title: 'Openingstijden',
-			name: 'openingHouts',
-			type: 'localeBlock',
+			name: 'openingHours',
+			type: 'localeString',
+		},
+		{
+			title: 'Open',
+			name: 'open',
+			type: 'localeString',
+		},
+		{
+			title: 'Situatie vraag',
+			name: 'situationQuestion',
+			type: 'localeString',
+		},
+		{
+			title: 'Situatie button',
+			name: 'situationButton',
+			type: 'localeString',
 		},
 	],
 };
