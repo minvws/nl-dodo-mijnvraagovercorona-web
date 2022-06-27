@@ -200,7 +200,7 @@ export const useLinkStyles = ({
 				border: 'tileInteraction',
 			},
 			// Content block can output a span or a p tag. In case of a p tag, strip margins & reset font
-			p: {
+			'p, && p': {
 				marginBlock: 0,
 				font: 'inherit',
 			},
