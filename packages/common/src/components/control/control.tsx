@@ -55,7 +55,7 @@ export const Control = <ValueOptions extends string>({
 					border: 'tile',
 					boxShadow: 'tile',
 					fontSize: '1.125rem',
-					color: 'copyHeading',
+					color: 'primary',
 					cursor: 'pointer',
 
 					// indicator
@@ -82,7 +82,8 @@ export const Control = <ValueOptions extends string>({
 
 					// Focus state
 					'input:focus + &': {
-						borderColor: 'copyHeading',
+						borderColor: 'tileInteraction',
+						boxShadow: 'tileInteraction',
 						// indicator
 						'&::before': {
 							boxShadow: 'focusRing',

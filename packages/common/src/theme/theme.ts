@@ -71,10 +71,12 @@ export const theme: Theme = {
 	},
 	borders: {
 		tile: '1px solid #DDEFF8',
+		tileInteraction: '1px solid #8FCAE7',
 		card: '1px solid #8FCAE7 ',
 	},
 	shadows: {
-		tile: '4px 12px 12px rgba(0, 0, 0, 0.07), 0px 4px 0px #DDEFF8',
+		tile: '0px 4px 0px #DDEFF8',
+		tileInteraction: '0px 4px 0px #8FCAE7',
 		focusRing: '0px 0px 1px 3px rgba(1, 104, 155, 0.3)',
 	},
 	fonts: {
