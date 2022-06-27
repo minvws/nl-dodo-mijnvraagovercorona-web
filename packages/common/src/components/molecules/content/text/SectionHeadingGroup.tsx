@@ -21,6 +21,9 @@ export const SectionHeadingGroup: React.FC<OwnProps> = ({
 			textAlign: align === 'start' ? 'start' : ['start', 'center'],
 			maxInlineSize: maxInlineSize || 'maxInlineSizeText',
 			marginInline: align === 'start' ? 0 : 'auto',
+			'> p': {
+				color: 'copyHeading',
+			},
 		}}
 	>
 		<Styled.h2

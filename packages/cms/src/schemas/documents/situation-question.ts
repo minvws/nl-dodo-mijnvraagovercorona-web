@@ -122,9 +122,9 @@ export default {
 					type: 'number',
 				},
 				{
-					title: 'Text',
-					name: 'text',
-					type: 'localeString',
+					title: 'Label',
+					name: 'label',
+					type: 'thisOrThatLocaleString',
 				},
 			],
 			hidden: ({ document }: { document: { type: string } }) =>

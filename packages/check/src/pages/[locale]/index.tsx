@@ -170,7 +170,7 @@ export default function LandingPage({ locale }: { locale: Locales }) {
 						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
 							<Retain maxWidth={[retainMaxWidth, '100%']}>
 								<Stack spacing={'3rem'}>
-									<SectionHeadingGroup title={page.themes.title} align="center">
+									<SectionHeadingGroup title={page.themes.title}>
 										{page.themes.content ? (
 											<ContentBlock content={page.themes.content} />
 										) : null}

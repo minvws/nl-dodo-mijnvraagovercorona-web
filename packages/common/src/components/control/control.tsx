@@ -81,7 +81,7 @@ export const Control = <ValueOptions extends string>({
 					},
 
 					// Focus state
-					'input:focus + &': {
+					'input:focus + &, input:hover + &': {
 						borderColor: 'tileInteraction',
 						boxShadow: 'tileInteraction',
 						// indicator
