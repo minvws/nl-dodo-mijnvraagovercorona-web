@@ -210,7 +210,7 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 									)}
 
 									{!!plan?.length && (
-										<Box>
+										<Box as="section">
 											<Styled.h2>{page.advice.title}</Styled.h2>
 											{plan.map(({ day, title, content, date }) => (
 												<SchemeBlock key={title} day={date} title={title}>
@@ -221,7 +221,7 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 									)}
 
 									{!!page.advice?.cards?.length && (
-										<Box>
+										<Box as="section">
 											{page.advice.cards.map((card) => (
 												<Card key={card.title} {...card} />
 											))}
