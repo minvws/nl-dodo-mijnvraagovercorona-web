@@ -18,26 +18,7 @@ export interface MastheadFlowProps {
 	noIllustrationMobile?: boolean;
 }
 
-const mastheadMobileMaxSize = 272; /* 17rem */
-
-export const calculateFlowImageMargin = ({
-	width,
-	height,
-}: {
-	width: number;
-	height: number;
-}) => {
-	if (!width && !height)
-		return '12rem'; /* safe value when dimensions are not known */
-
-	// Check which width we need to calculate with, the max size or the width of
-	// the image
-	const widthToCalcWith =
-		mastheadMobileMaxSize <= width ? mastheadMobileMaxSize : width;
-
-	// Return a calculation based off the width and the ratio
-	return `calc(${widthToCalcWith / 16}rem * ${height / width})`;
-};
+export const mastheadMobileImageBlockSize = '10rem'; /* 160px */
 
 export const MastheadFlow: React.FC<MastheadFlowProps> = ({
 	title,
@@ -65,14 +46,14 @@ export const MastheadFlow: React.FC<MastheadFlowProps> = ({
 							src={illustration?.src}
 							alt=""
 							sx={{
-								maxInlineSize: [`${mastheadMobileMaxSize / 16}rem`, , '100%'],
+								blockSize: [mastheadMobileImageBlockSize, '14rem'],
+								maxInlineSize: ['17rem', '100%'],
 								marginInlineStart: 'auto',
 								marginInlineEnd: 'auto',
+								objectFit: 'contain',
 								marginBlockEnd: [
 									illustration
-										? `calc(${calculateFlowImageMargin({
-												...illustration.dimensions,
-										  })} * -1)`
+										? `calc(${mastheadMobileImageBlockSize} * -1)`
 										: 'auto',
 									'auto',
 								],
