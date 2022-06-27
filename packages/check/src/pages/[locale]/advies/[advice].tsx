@@ -139,13 +139,13 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 		: new Date();
 	const todayDay = getDifferenceInDays(date);
 	const answer =
-		page.answer &&
+		page?.answer &&
 		getMostRelevantAnswer({
 			answers: page.answer,
 			todayDay,
 		});
 	const plan =
-		page.advice.plan &&
+		page?.advice.plan &&
 		filterPlan({
 			plan: page.advice.plan,
 			todayDay,
