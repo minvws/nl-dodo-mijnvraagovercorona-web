@@ -205,20 +205,22 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 						>
 							<Retain>
 								<Stack spacing={['2.5rem', '5rem']}>
-									{answer && (
-										<Answer title={answer.title} content={answer.content} />
-									)}
+									<Stack spacing={['2rem']}>
+										{answer && (
+											<Answer title={answer.title} content={answer.content} />
+										)}
 
-									{!!plan?.length && (
-										<Box as="section">
-											<Styled.h2>{page.advice.title}</Styled.h2>
-											{plan.map(({ day, title, content, date }) => (
-												<SchemeBlock key={title} day={date} title={title}>
-													{content && <ContentBlock content={content} />}
-												</SchemeBlock>
-											))}
-										</Box>
-									)}
+										{!!plan?.length && (
+											<Box as="section">
+												<Styled.h2>{page.advice.title}</Styled.h2>
+												{plan.map(({ day, title, content, date }) => (
+													<SchemeBlock key={title} day={date} title={title}>
+														{content && <ContentBlock content={content} />}
+													</SchemeBlock>
+												))}
+											</Box>
+										)}
+									</Stack>
 
 									{!!page.advice?.cards?.length && (
 										<Box as="section">
