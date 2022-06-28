@@ -82,7 +82,7 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 			: [
 					page.header.image && page.header.image.src
 						? mastheadMobileImageBlockSize
-						: '3.75rem',
+						: '2rem',
 					'3.75rem',
 			  ];
 
