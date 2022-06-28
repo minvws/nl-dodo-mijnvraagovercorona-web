@@ -270,14 +270,16 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 						</TheSidebar>
 					</Container>
 				</Layer>
-				<Layer backgroundColor="headerBackground">
-					<Container>
-						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
-						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
-							<AssistanceRow feedback={false} />
-						</Box>
-					</Container>
-				</Layer>{' '}
+				{page.assistance && (
+					<Layer backgroundColor="headerBackground">
+						<Container>
+							{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
+							<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
+								<AssistanceRow feedback={false} />
+							</Box>
+						</Container>
+					</Layer>
+				)}
 			</Page>
 		</>
 	);
