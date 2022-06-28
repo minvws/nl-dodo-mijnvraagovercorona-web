@@ -85,6 +85,18 @@ interface PageContent {
 	advice: AdviceProps;
 	informContacts: InformContactsProps;
 	slug: string;
+	assistance: {
+		chat: string;
+		image: SanityImageFullProps;
+		open: string;
+		openingHours: string;
+		phonenumber: string;
+		situationButton: string;
+		situationQuestion: string;
+		tekstWithChat: string;
+		tekstWithoutChat: string;
+		title: string;
+	};
 	updatedAt: string;
 }
 
