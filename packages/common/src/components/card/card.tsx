@@ -31,7 +31,7 @@ export const Card: React.FC<CardProps> = ({
 				backgroundColor: 'white',
 
 				'*:last-child': {
-					marginBottom: 0,
+					marginBlockEnd: 0,
 				},
 			}}
 		>
