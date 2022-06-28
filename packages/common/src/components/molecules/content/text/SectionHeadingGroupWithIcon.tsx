@@ -15,8 +15,8 @@ export const SectionHeadingGroupWithIcon: React.FC<OwnProps> = ({
 }) => (
 	<Flex
 		sx={{
-			alignItems: 'center',
-			gap: '2rem',
+			alignItems: ['start', 'center'],
+			gap: ['1.5rem', '2rem'],
 		}}
 	>
 		{icon ? (
@@ -24,7 +24,8 @@ export const SectionHeadingGroupWithIcon: React.FC<OwnProps> = ({
 				src={icon}
 				alt=""
 				sx={{
-					inlineSize: '3.25rem',
+					flex: '0 0 auto',
+					inlineSize: ['2.25rem', '3.25rem'],
 				}}
 			/>
 		) : null}

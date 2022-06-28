@@ -68,7 +68,7 @@ interface AdviceProps {
 		}[];
 	}[];
 	title: string;
-	seeAlsoTitle: string;
+	secondaryTitle: string;
 }
 
 interface PageContent {
@@ -224,8 +224,8 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 											)}
 											{!!page.advice?.cards?.length && (
 												<Box as="section">
-													{!!plan?.length && page.advice.seeAlsoTitle ? (
-														<Styled.h2>{page.advice.seeAlsoTitle}</Styled.h2>
+													{page.advice.secondaryTitle ? (
+														<Styled.h2>{page.advice.secondaryTitle}</Styled.h2>
 													) : null}
 													<Stack spacing={['2rem']}>
 														{page.advice.cards.map((card) => (
@@ -331,8 +331,8 @@ export const getStaticProps = async ({
 				${getLocaleProperty({ name: 'content', locale, block: true })},
 			},
 			${getLocaleProperty({
-				name: 'seeAlsoTitle',
-				path: 'advice.seeAlsoTitle',
+				name: 'secondaryTitle',
+				path: 'advice.secondaryTitle',
 				locale,
 			})},
 			"cards": advice.cards[]->{

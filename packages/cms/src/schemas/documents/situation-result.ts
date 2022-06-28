@@ -160,8 +160,8 @@ export default {
 					],
 				},
 				{
-					title: 'Bekijk ook',
-					name: 'seeAlsoTitle',
+					title: 'Cards titel',
+					name: 'secondaryTitle',
 					type: 'localeString',
 				},
 				{
