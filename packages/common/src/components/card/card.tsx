@@ -50,6 +50,7 @@ export const Card: React.FC<CardProps> = ({
 					<Styled.h3
 						sx={{
 							fontSize: ['h2Mobile', 'h2'],
+							lineHeight: ['h2Mobile', 'h2'],
 						}}
 					>
 						{title}
