@@ -26,12 +26,7 @@ import {
 	SectionHeadingGroupWithIcon,
 	getHrefWithlocale,
 } from '@quarantaine/common';
-import {
-	HulpPanel,
-	FeedbackPanel,
-	Masthead,
-	ThemeOverview,
-} from 'components/molecules';
+import { AssistanceRow, Masthead, ThemeOverview } from 'components/molecules';
 import { retainMaxWidth } from '@quarantaine/common/src/components/molecules/layout/retain';
 import { getThemeCollection, ThemeCollectionProps } from 'utilities/theme';
 import {
@@ -189,9 +184,7 @@ export default function LandingPage({ locale }: { locale: Locales }) {
 					<Container>
 						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
 						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
-							<TheSwitcher gap={['4rem', '4rem']}>
-								<HulpPanel />
-							</TheSwitcher>
+							<AssistanceRow feedback />
 						</Box>
 					</Container>
 				</Layer>

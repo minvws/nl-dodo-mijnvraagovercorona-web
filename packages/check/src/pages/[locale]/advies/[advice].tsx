@@ -31,7 +31,7 @@ import { Page } from 'components/page';
 import {
 	Advice,
 	Answer,
-	HulpPanel,
+	AssistanceRow,
 	InformContacts,
 	InformContactsProps,
 	Masthead,
@@ -85,6 +85,18 @@ interface PageContent {
 	advice: AdviceProps;
 	informContacts: InformContactsProps;
 	slug: string;
+	assistance: {
+		chat: string;
+		image: SanityImageFullProps;
+		open: string;
+		openingHours: string;
+		phonenumber: string;
+		situationButton: string;
+		situationQuestion: string;
+		tekstWithChat: string;
+		tekstWithoutChat: string;
+		title: string;
+	};
 	updatedAt: string;
 }
 
@@ -196,7 +208,6 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 						/>
 					) : null}
 				</Masthead>
-
 				<Layer backgroundColor="transparant">
 					<Container>
 						<TheSidebar
@@ -259,10 +270,16 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 						</TheSidebar>
 					</Container>
 				</Layer>
-
-				<Box>
-					<HulpPanel />
-				</Box>
+				{page.assistance && (
+					<Layer backgroundColor="headerBackground">
+						<Container>
+							{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
+							<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
+								<AssistanceRow feedback={false} />
+							</Box>
+						</Container>
+					</Layer>
+				)}
 			</Page>
 		</>
 	);
