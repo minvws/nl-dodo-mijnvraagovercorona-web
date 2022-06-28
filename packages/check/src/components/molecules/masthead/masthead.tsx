@@ -3,11 +3,11 @@ import React from 'react';
 import { Box, Image, jsx, Styled } from 'theme-ui';
 import {
 	SanityImageFullProps,
+	Retain,
 	Stack,
 	TheSwitcher,
 	TheSwitcherItem,
 } from '@quarantaine/common';
-import { retainMaxWidth } from '@quarantaine/common/src/components/molecules/layout/retain';
 import { MastheadBase } from './masthead-base';
 
 export interface MastheadProps {
@@ -48,18 +48,13 @@ export const Masthead: React.FC<MastheadProps> = ({
 					</TheSwitcherItem>
 				) : null}
 				<Box sx={{ order: [, -1] }}>
-					<Stack
-						spacing={['1rem']}
-						styles={{
-							maxInlineSize: [retainMaxWidth],
-							marginInlineStart: 'auto',
-							marginInlineEnd: 'auto',
-						}}
-					>
-						{prefixSlot ? prefixSlot : null}
-						<Styled.h1>{title}</Styled.h1>
-						{children}
-					</Stack>
+					<Retain>
+						<Stack spacing={['1rem']}>
+							{prefixSlot ? prefixSlot : null}
+							<Styled.h1>{title}</Styled.h1>
+							{children}
+						</Stack>
+					</Retain>
 				</Box>
 			</TheSwitcher>
 		</MastheadBase>

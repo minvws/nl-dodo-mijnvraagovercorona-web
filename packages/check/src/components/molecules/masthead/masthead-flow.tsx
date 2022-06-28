@@ -6,8 +6,8 @@ import {
 	Stack,
 	TheSwitcher,
 	TheSwitcherItem,
+	Retain,
 } from '@quarantaine/common';
-import { retainMaxWidth } from '@quarantaine/common/src/components/molecules/layout/retain';
 import { MastheadBase } from './masthead-base';
 
 export interface MastheadFlowProps {
@@ -69,18 +69,13 @@ export const MastheadFlow: React.FC<MastheadFlowProps> = ({
 						maxInlineSize: hasIllustration ? '100%' : ['100%', '50%'],
 					}}
 				>
-					<Stack
-						spacing={['1rem']}
-						styles={{
-							maxInlineSize: [retainMaxWidth],
-							marginInlineStart: 'auto',
-							marginInlineEnd: 'auto',
-						}}
-					>
-						{prefixSlot ? prefixSlot : null}
-						<Styled.h1>{title}</Styled.h1>
-						{children}
-					</Stack>
+					<Retain>
+						<Stack spacing={['1rem']}>
+							{prefixSlot ? prefixSlot : null}
+							<Styled.h1>{title}</Styled.h1>
+							{children}
+						</Stack>
+					</Retain>
 				</Box>
 			</TheSwitcher>
 		</MastheadBase>
