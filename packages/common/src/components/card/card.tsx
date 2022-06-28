@@ -23,10 +23,13 @@ export const Card: React.FC<CardProps> = ({
 }) => {
 	return (
 		<Box
-			id={slugify(title, {
-				strict: true,
-				lower: true,
-			})}
+			id={
+				title &&
+				slugify(title, {
+					strict: true,
+					lower: true,
+				})
+			}
 			sx={{
 				position: 'relative',
 				padding: 'box',
