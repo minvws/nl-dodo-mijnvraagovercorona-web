@@ -10,6 +10,8 @@ export type AnswerProps = {
 
 export const Answer: React.FC<AnswerProps> = ({ title, content }) => (
 	<Box
+		as="section"
+		id="antwoord"
 		sx={{
 			backgroundColor: 'headerBackground',
 			color: 'header',
@@ -17,7 +19,7 @@ export const Answer: React.FC<AnswerProps> = ({ title, content }) => (
 			padding: '1.5rem',
 		}}
 	>
-		<Stack spacing={['0.5rem', '1rem']}>
+		<Stack spacing={['1rem']}>
 			<Styled.h2>{title}</Styled.h2>
 			<ContentBlock content={content} />
 		</Stack>
