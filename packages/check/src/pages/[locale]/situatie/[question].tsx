@@ -35,7 +35,6 @@ import {
 	FormAnswersSingleProps,
 	FormSubmitProps,
 	MastheadFlow,
-	mastheadMobileImageBlockSize,
 } from 'components/molecules';
 
 interface PageContent {
@@ -77,14 +76,7 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 	const url = `/situatie/${page.slug}`;
 
 	const layerPaddingBlockStart =
-		page.type === 'datepicker'
-			? ['0']
-			: [
-					page.header.image && page.header.image.src
-						? mastheadMobileImageBlockSize
-						: '2rem',
-					'3.75rem',
-			  ];
+		page.type === 'datepicker' ? ['0'] : ['2rem', '3.75rem'];
 
 	const asideOffset = page.type === 'datepicker' ? [0, '3.25rem'] : [0];
 
@@ -99,9 +91,7 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 			<Page noHeader>
 				<MastheadFlow
 					title={page.header.title}
-					illustration={page.header.image}
 					headerSlot={<Header noPadding />}
-					noIllustrationMobile={page.type === 'datepicker'}
 				>
 					{page.header.content ? (
 						<ContentBlock content={page.header.content} />
@@ -203,7 +193,6 @@ export const getStaticProps = async ({
 				locale,
 				block: true,
 			})},
-			${getImage({ name: 'image', path: `header.image`, full: true })},
 		},
 		type,
 		"content": {

@@ -1,83 +1,45 @@
 /** @jsx jsx */
 import React from 'react';
-import { Box, Image, jsx, Styled } from 'theme-ui';
-import {
-	SanityImageFullProps,
-	Stack,
-	TheSwitcher,
-	TheSwitcherItem,
-	Retain,
-} from '@quarantaine/common';
+import { Box, jsx, Styled } from 'theme-ui';
+import { Stack, Retain } from '@quarantaine/common';
 import { MastheadBase } from './masthead-base';
 
 export interface MastheadFlowProps {
 	title: string | React.ReactNode;
-	illustration?: SanityImageFullProps;
 	prefixSlot?: React.ReactNode;
 	headerSlot?: React.ReactNode;
-	noIllustrationMobile?: boolean;
 }
-
-export const mastheadMobileImageBlockSize = '10rem'; /* 160px */
 
 export const MastheadFlow: React.FC<MastheadFlowProps> = ({
 	title,
-	illustration,
 	children,
 	headerSlot,
 	prefixSlot,
-	noIllustrationMobile,
 }) => {
-	const hasIllustration = !!(illustration && illustration.src);
 	return (
 		<MastheadBase variant="default" headerSlot={headerSlot}>
-			<TheSwitcher
-				alignItems="end"
-				gap={['2rem', '4rem']}
-				minBlockSize={['0', '11rem']}
+			<Box
+				sx={{
+					textAlign: ['center', 'start'],
+					paddingBlockStart: ['1.25rem', '1.5rem'],
+					maxInlineSize: '100%',
+				}}
 			>
-				{hasIllustration ? (
-					<TheSwitcherItem
-						styles={{
-							display: noIllustrationMobile ? ['none', 'flex'] : 'flex',
-						}}
-					>
-						<Image
-							src={illustration?.src}
-							alt=""
+				<Retain>
+					<Stack spacing={['1rem']}>
+						{prefixSlot ? prefixSlot : null}
+						<Styled.h1
 							sx={{
-								blockSize: [mastheadMobileImageBlockSize, '14rem'],
-								maxInlineSize: ['17rem', '100%'],
-								marginInlineStart: 'auto',
-								marginInlineEnd: 'auto',
-								objectFit: 'contain',
-								marginBlockEnd: [
-									illustration
-										? `calc(${mastheadMobileImageBlockSize} * -1)`
-										: 'auto',
-									'auto',
-								],
+								fontSize: ['h2Mobile', 'h2'],
+								lineHeight: ['h2Mobile', 'h2'],
 							}}
-						/>
-					</TheSwitcherItem>
-				) : null}
-				<Box
-					sx={{
-						textAlign: ['center', 'start'],
-						paddingBlockStart: ['1.25rem', '0'],
-						order: [-1],
-						maxInlineSize: hasIllustration ? '100%' : ['100%', '50%'],
-					}}
-				>
-					<Retain>
-						<Stack spacing={['1rem']}>
-							{prefixSlot ? prefixSlot : null}
-							<Styled.h1>{title}</Styled.h1>
-							{children}
-						</Stack>
-					</Retain>
-				</Box>
-			</TheSwitcher>
+						>
+							{title}
+						</Styled.h1>
+						{children}
+					</Stack>
+				</Retain>
+			</Box>
 		</MastheadBase>
 	);
 };
