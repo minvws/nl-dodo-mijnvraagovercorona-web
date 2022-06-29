@@ -107,7 +107,9 @@ const getSerializers = (contentVariables?: ContentVariables) => ({
 				href={replaceContentVariables(mark!.href, contentVariables) as string}
 				withChevron={mark?.chevron || false}
 				external={!mark?.internal}
-				styledAs={mark?.button ? 'button' : undefined}
+				styledAs={
+					mark?.button ? 'button' : mark?.chevron ? undefined : 'link-inline'
+				}
 				sx={
 					!mark?.button
 						? {
