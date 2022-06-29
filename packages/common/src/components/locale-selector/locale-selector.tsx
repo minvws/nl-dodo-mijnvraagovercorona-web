@@ -62,7 +62,7 @@ export const LocaleSelector = () => {
 			className="locale-selector"
 			sx={{
 				position: 'absolute',
-				top: '2rem',
+				top: ['1.25rem', '2rem'],
 				right: 'mobilePadding',
 				left: 'inherit',
 				fontSize: '16px',

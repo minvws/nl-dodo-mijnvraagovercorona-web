@@ -36,7 +36,7 @@ export const Masthead: React.FC<MastheadProps> = ({
 							alt=""
 							sx={{
 								blockSize: [
-									'10rem',
+									variant === 'highlight' ? '15rem' : '10rem',
 									variant === 'highlight' ? '25rem' : '14rem',
 								],
 								maxInlineSize: ['17rem', '100%'],

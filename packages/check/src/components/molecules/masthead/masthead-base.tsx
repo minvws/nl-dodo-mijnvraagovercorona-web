@@ -34,7 +34,10 @@ export const MastheadBase: React.FC<MastheadProps> = ({
 			{headerSlot}
 			<Container
 				sx={{
-					marginBlockStart: ['1.5rem', headerSlot ? 0 : '1.5rem'],
+					marginBlockStart: [
+						variant === 'highlight' ? 0 : '1.5rem',
+						headerSlot ? 0 : '1.5rem',
+					],
 				}}
 			>
 				<Box
