@@ -302,6 +302,7 @@ const StyledLinkBase = <T extends React.ElementType = 'a'>(
 				) : (
 					withChevron && <ChevronIcon className="chevron" />
 				)}
+				{children}
 				{icon && <img src={icon} alt="" sx={{ marginLeft: '8px' }} />}
 			</button>
 		);
