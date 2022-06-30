@@ -17,7 +17,7 @@ export const getStaticProps = async ({
 	params: { locale: Locales };
 }) => {
 	const { page, siteSettings } = await getContentPageQuery({
-		site: 'quarantaine-check',
+		site: 'mijn-vraag-over-corona',
 		type: 'toegankelijkheid-page',
 		locale,
 	});
