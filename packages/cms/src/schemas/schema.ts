@@ -12,7 +12,13 @@ import modalsDocument from './documents/modals';
 import topicQuestionDocument from './documents/topic-question';
 import topicResultDocument from './documents/topic-result';
 import topicDocument from './documents/topic';
+import themeDocument from './documents/theme';
+import assistanceDocument from './documents/assistance';
 import informContactsDocument from './documents/inform-contacts';
+import situationQuestionDocument from './documents/situation-question';
+import situationResultDocument from './documents/situation-result';
+import contentFeedDocument from './documents/content-feed';
+import contentCardDocument from './documents/content-card';
 
 import privacyPage from './pages/common/privacy';
 import cookiesPage from './pages/common/cookies';
@@ -40,6 +46,7 @@ import {
 } from './objects/localeBlock';
 import localeUrlObject from './objects/localeUrl';
 import localeTextObject from './objects/localeText';
+import thisOrThatLocaleStringObject from './objects/thisOrThatLocaleString';
 import pageMetaDataObject from './objects/pageMetaData';
 import headerObject from './objects/header';
 import quarantinePlanObject from './objects/quarantinePlan';
@@ -53,6 +60,9 @@ import aidObject from './objects/aid';
 import stepsObject from './objects/steps';
 import buttonObject from './objects/button';
 import storyObject from './objects/story';
+import questionContentObject from './objects/questionContent';
+import questionSelectorObject from './objects/questionSelector';
+import themeSelectorObject from './objects/themeSelector';
 
 export default createSchema({
 	name: 'default',
@@ -107,7 +117,13 @@ export default createSchema({
 		topicQuestionDocument,
 		topicResultDocument,
 		topicDocument,
+		themeDocument,
+		contentCardDocument,
+		assistanceDocument,
 		informContactsDocument,
+		situationQuestionDocument,
+		situationResultDocument,
+		contentFeedDocument,
 
 		/**
 		 * Objects
@@ -118,6 +134,7 @@ export default createSchema({
 		localeBlockWithoutModalObject,
 		localeUrlObject,
 		localeTextObject,
+		thisOrThatLocaleStringObject,
 		pageMetaDataObject,
 		headerObject,
 		quarantinePlanObject,
@@ -131,5 +148,8 @@ export default createSchema({
 		stepsObject,
 		buttonObject,
 		storyObject,
+		questionContentObject,
+		questionSelectorObject,
+		themeSelectorObject,
 	]),
 });

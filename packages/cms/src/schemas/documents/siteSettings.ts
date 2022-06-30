@@ -284,5 +284,71 @@ export default {
 			name: 'GGDSpecialInstructions',
 			type: 'localeString',
 		},
+		{
+			title: 'Datum kiestekst',
+			name: 'datumKiesTekst',
+			type: 'localeString',
+		},
+		{
+			title: 'Maanden',
+			name: 'maanden',
+			type: 'array',
+			of: [
+				{
+					title: 'Maand',
+					name: 'maand',
+					type: 'localeString',
+				},
+			],
+		},
+		{
+			title: 'Dagen',
+			name: 'dagen',
+			type: 'array',
+			of: [
+				{
+					title: 'Dag',
+					name: 'dag',
+					type: 'localeString',
+				},
+			],
+		},
+		{
+			title: 'Laatst bijgewerkt',
+			name: 'updatedAt',
+			type: 'localeString',
+		},
+		{
+			title: 'Advies ernstige klachten',
+			name: 'severeSymptomsAdvice',
+			type: 'object',
+			fields: [
+				{
+					title: 'Titel',
+					name: 'title',
+					type: 'localeString',
+				},
+				{
+					title: 'Subtitel',
+					name: 'subtitle',
+					type: 'localeString',
+				},
+				{
+					title: 'Icoon',
+					name: 'icon',
+					type: 'image',
+				},
+			],
+		},
+		{
+			title: 'Situatie enkelvoud/meervoud',
+			name: 'situationPlural',
+			type: 'thisOrThatLocaleString',
+		},
+		{
+			title: 'Bekijk nog X',
+			name: 'seeMoreExpand',
+			type: 'thisOrThatLocaleString',
+		},
 	],
 };

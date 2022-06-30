@@ -32,7 +32,10 @@ export default {
 					title: 'Situatie link',
 					name: 'situationReference',
 					type: 'reference',
-					to: [{ type: 'situation-document' }],
+					to: [
+						{ type: 'situation-question-document' },
+						{ type: 'situation-result-document' },
+					],
 				},
 				{
 					title: 'Deel knop',

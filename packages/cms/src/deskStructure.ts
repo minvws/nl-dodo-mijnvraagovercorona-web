@@ -12,88 +12,33 @@ import {
 	GiFlagObjective,
 	GiCalendar,
 	GiLightBulb,
-	GiPeriscope,
 	GiThumbDown,
 	GiRadioactive,
 	GiTrail,
 	GiShieldReflect,
 	GiShare,
 } from 'react-icons/gi';
-import { BiError } from 'react-icons/bi';
-import { FaRegCopyright, FaAccessibleIcon } from 'react-icons/fa';
-import { SiGnuprivacyguard } from 'react-icons/si';
+import { BiError, BiSitemap } from 'react-icons/bi';
+import {
+	FaRegCopyright,
+	FaAccessibleIcon,
+	FaHandsHelping,
+	FaFeatherAlt,
+} from 'react-icons/fa';
+import { SiGnuprivacyguard, SiYourtraveldottv } from 'react-icons/si';
 import { GrVulnerability } from 'react-icons/gr';
-import { VscScreenFull } from 'react-icons/vsc';
-import { RiQuestionLine, RiQuestionAnswerLine } from 'react-icons/ri';
+import { VscScreenFull, VscCopy } from 'react-icons/vsc';
+import { IoDocumentOutline, IoHelpBuoyOutline } from 'react-icons/io5';
+import {
+	RiQuestionLine,
+	RiQuestionAnswerLine,
+	RiPagesLine,
+} from 'react-icons/ri';
 import { MdOutlineTopic } from 'react-icons/md';
 
+import { getFolder } from './utilities/getFolder';
 import { getPage } from './utilities/getSingleton';
 import { getDocumentList, getPageList } from './utilities/getDocumentList';
-
-const genericPagesConfig = [
-	{
-		schemaType: 'privacy-page',
-		title: 'Common Privacy Pagina',
-		icon: SiGnuprivacyguard,
-	},
-	{
-		schemaType: 'cookies-page',
-		title: 'Common Cookies Pagina',
-		icon: GiCookie,
-	},
-	{
-		schemaType: 'copyright-page',
-		title: 'Common Copyright Pagina',
-		icon: FaRegCopyright,
-	},
-	{
-		schemaType: 'toegankelijkheid-page',
-		title: 'Common Toegankelijkheid Pagina',
-		icon: FaAccessibleIcon,
-	},
-	{
-		schemaType: 'kwetsbaarheid-melden-page',
-		title: 'Common Kwetsbaarheid Melden Pagina',
-		icon: GrVulnerability,
-	},
-	{
-		schemaType: 'error-404-page',
-		title: 'Common 404 Pagina',
-		icon: BiError,
-	},
-];
-
-/**
- * A list of all pages editable inside the CMS.
- * Only one of these documents will be visible.
- */
-const reizenPagesConfig = [
-	{
-		schemaType: 'landing-page',
-		title: 'Reizen Landing Pagina',
-		icon: GiHouse,
-	},
-	{
-		schemaType: 'voorbereiding-page',
-		title: 'Reizen Voorbereiding Pagina',
-		icon: GiClosedDoors,
-	},
-	{
-		schemaType: 'bestemming-page',
-		title: 'Reizen Bestemming Pagina',
-		icon: GiFlagObjective,
-	},
-	{
-		schemaType: 'periode-page',
-		title: 'Reizen Periode Pagina',
-		icon: GiCalendar,
-	},
-	{
-		schemaType: 'faq-page',
-		title: 'Reizen FAQ Pagina',
-		icon: GiLightBulb,
-	},
-];
 
 /**
  * A list of all document types which should be rendered as a singleton.
@@ -102,44 +47,101 @@ const reizenPagesConfig = [
 const siteSettingsConfig = [
 	{
 		schemaType: 'site-settings-document',
-		title: 'Site Settings Document',
+		title: 'Site Settings',
 		icon: GiSettingsKnobs,
 	},
 ];
 
-/**
- * A list of all document types which can contain multiple versions.
- * These will be rendered as a list inside the CMS.
- */
+const genericPagesConfig = [
+	{
+		schemaType: 'privacy-page',
+		title: 'Privacy',
+		icon: SiGnuprivacyguard,
+	},
+	{
+		schemaType: 'cookies-page',
+		title: 'Cookies',
+		icon: GiCookie,
+	},
+	{
+		schemaType: 'copyright-page',
+		title: 'Copyright',
+		icon: FaRegCopyright,
+	},
+	{
+		schemaType: 'toegankelijkheid-page',
+		title: 'Toegankelijkheid',
+		icon: FaAccessibleIcon,
+	},
+	{
+		schemaType: 'kwetsbaarheid-melden-page',
+		title: 'Kwetsbaarheid Melden',
+		icon: GrVulnerability,
+	},
+	{
+		schemaType: 'error-404-page',
+		title: '404',
+		icon: BiError,
+	},
+];
+
+const reizenPagesConfig = [
+	{
+		schemaType: 'landing-page',
+		title: 'Landing',
+		icon: GiHouse,
+	},
+	{
+		schemaType: 'voorbereiding-page',
+		title: 'Voorbereiding',
+		icon: GiClosedDoors,
+	},
+	{
+		schemaType: 'bestemming-page',
+		title: 'Bestemming',
+		icon: GiFlagObjective,
+	},
+	{
+		schemaType: 'periode-page',
+		title: 'Periode',
+		icon: GiCalendar,
+	},
+	{
+		schemaType: 'faq-page',
+		title: 'FAQ',
+		icon: GiLightBulb,
+	},
+];
+
 const reizenMultiDocumentsConfig = [
 	{
 		schemaType: 'faq-document',
-		title: 'Reizen FAQ Documenten',
+		title: 'FAQ',
 		icon: GiHelp,
 	},
 	{
 		schemaType: 'land-document',
-		title: 'Reizen Land Documenten',
+		title: 'Land',
 		icon: GiWorld,
 	},
 	{
 		schemaType: 'risk-category-document',
-		title: 'Reizen Risico Categorie Documenten',
+		title: 'Risico Categorie',
 		icon: GiRadioactive,
 	},
 	{
 		schemaType: 'travel-fase-document',
-		title: 'Reizen Reisfase Documenten',
+		title: 'Reisfase',
 		icon: GiTrail,
 	},
 	{
 		schemaType: 'voorbereiding-document',
-		title: 'Reizen Voorbereiding Documenten',
+		title: 'Voorbereiding',
 		icon: GiJumpingDog,
 	},
 	{
 		schemaType: 'resultaat-page',
-		title: 'Reizen Resultaat Pagina',
+		title: 'Resultaat',
 		icon: GiTestTubes,
 	},
 ];
@@ -147,55 +149,94 @@ const reizenMultiDocumentsConfig = [
 const checkPagesConfig = [
 	{
 		schemaType: 'check-landing-page',
-		title: 'Check Landing Pagina',
+		title: 'Landing',
 		icon: GiHouse,
+	},
+];
+
+const multiDocumentsConfig = [
+	{
+		schemaType: 'modals-document',
+		title: 'Modals',
+		icon: VscScreenFull,
+	},
+	{
+		schemaType: 'assistance-document',
+		title: 'Hulp',
+		icon: FaHandsHelping,
+	},
+	{
+		schemaType: 'inform-contacts-document',
+		title: 'Informeer contacten',
+		icon: GiShare,
+	},
+	{
+		schemaType: 'content-feed-document',
+		title: 'Content feed',
+		icon: VscCopy,
+	},
+	{
+		schemaType: 'content-card-document',
+		title: 'Content card',
+		icon: VscCopy,
+	},
+];
+
+const checkSituationDocumentsConfig = [
+	{
+		schemaType: 'theme-document',
+		title: `Thema`,
+		icon: FaFeatherAlt,
+	},
+	{
+		schemaType: 'situation-question-document',
+		title: `Situatie Vraag`,
+		icon: RiQuestionLine,
+	},
+	{
+		schemaType: 'situation-result-document',
+		title: `Situatie Resultaat`,
+		icon: MdOutlineTopic,
+	},
+];
+
+const checkSituationOldDocumentsConfig = [
+	{
+		schemaType: 'situation-document',
+		title: `Situatie`,
+		icon: GiHelp,
 	},
 	{
 		schemaType: 'check-ben-ik-uitgezonderd-page',
-		title: 'Check Ben ik uitgezonderd Pagina',
+		title: 'Ben ik uitgezonderd',
 		icon: GiShieldReflect,
 	},
 	{
 		schemaType: 'wanneer-page',
-		title: 'Check Wanneer Pagina',
+		title: 'Wanneer',
 		icon: GiCalendar,
 	},
 	{
 		schemaType: 'geen-advies-page',
-		title: 'Check Geen Advies Pagina',
+		title: 'Geen Advies',
 		icon: GiThumbDown,
 	},
 ];
 
-const checkMultiDocumentsConfig = [
-	{
-		schemaType: 'situation-document',
-		title: `Situatie Pagina's`,
-		icon: GiHelp,
-	},
-	{
-		schemaType: 'modals-document',
-		title: 'Modal Documenten',
-		icon: VscScreenFull,
-	},
-	{
-		schemaType: 'inform-contacts-document',
-		title: 'Informeer contacten Documenten',
-		icon: GiShare,
-	},
+const checkTopicDocumentsConfig = [
 	{
 		schemaType: 'topic-document',
-		title: 'Onderwerp Documenten',
+		title: 'Onderwerp Flow',
 		icon: MdOutlineTopic,
 	},
 	{
 		schemaType: 'topic-question-document',
-		title: `Onderwerp Vraag Pagina's`,
+		title: `Onderwerp Vraag`,
 		icon: RiQuestionLine,
 	},
 	{
 		schemaType: 'topic-result-document',
-		title: `Onderwerp Resultaat Pagina's`,
+		title: `Onderwerp Resultaat`,
 		icon: RiQuestionAnswerLine,
 	},
 ];
@@ -204,27 +245,88 @@ export default () =>
 	S.list()
 		.title('Content')
 		.items([
-			/** Primary Documents */
-			...siteSettingsConfig.map((config) => getDocumentList(config)),
-			S.divider(),
+			getFolder({
+				title: 'Common',
+				icon: BiSitemap,
+				items: [
+					...siteSettingsConfig.map((config) => getDocumentList(config)),
+					S.divider(),
+					getFolder({
+						title: 'Pagina’s',
+						icon: RiPagesLine,
+						items: [...genericPagesConfig.map((config) => getPageList(config))],
+					}),
 
-			/** Generic Pages */
-			...genericPagesConfig.map((config) => getPageList(config)),
-			S.divider(),
+					getFolder({
+						title: 'Documenten',
+						icon: IoDocumentOutline,
+						items: [
+							...multiDocumentsConfig.map((config) => getDocumentList(config)),
+						],
+					}),
+				],
+			}),
 
-			/** Reizen Pages */
-			...reizenPagesConfig.map((config) => getPage(config)),
-			S.divider(),
+			getFolder({
+				title: 'CoronaHulp',
+				icon: IoHelpBuoyOutline,
+				items: [
+					getFolder({
+						title: 'Pagina’s',
+						icon: RiPagesLine,
+						items: [...checkPagesConfig.map((config) => getPage(config))],
+					}),
 
-			/** Reizen Multiple Documents */
-			...reizenMultiDocumentsConfig.map((config) => getDocumentList(config)),
-			S.divider(),
+					getFolder({
+						title: 'Situaties',
+						icon: RiQuestionAnswerLine,
+						items: [
+							...checkSituationDocumentsConfig.map((config) =>
+								getDocumentList(config),
+							),
+						],
+					}),
 
-			/** Check Pages */
-			...checkPagesConfig.map((config) => getPage(config)),
-			S.divider(),
+					getFolder({
+						title: 'Onderwerpen',
+						icon: MdOutlineTopic,
+						items: [
+							...checkTopicDocumentsConfig.map((config) =>
+								getDocumentList(config),
+							),
+						],
+					}),
 
-			/** Check Multiple Documents */
-			...checkMultiDocumentsConfig.map((config) => getDocumentList(config)),
-			S.divider(),
+					getFolder({
+						title: 'Situaties (Oud)',
+						icon: GiHelp,
+						items: [
+							...checkSituationOldDocumentsConfig.map((config) =>
+								getDocumentList(config),
+							),
+						],
+					}),
+				],
+			}),
+
+			getFolder({
+				title: 'Reizen',
+				icon: SiYourtraveldottv,
+				items: [
+					getFolder({
+						title: 'Pagina’s',
+						icon: RiPagesLine,
+						items: [...reizenPagesConfig.map((config) => getPage(config))],
+					}),
+					getFolder({
+						title: 'Documenten',
+						icon: IoDocumentOutline,
+						items: [
+							...reizenMultiDocumentsConfig.map((config) =>
+								getDocumentList(config),
+							),
+						],
+					}),
+				],
+			}),
 		]);

@@ -1,68 +1,91 @@
 /** @jsx jsx */
-import React, { useRef } from 'react';
-import { jsx, Styled, Box } from 'theme-ui';
+import React from 'react';
+import { jsx, Styled, Box, Text, Flex } from 'theme-ui';
 
-import { useTranslation, Link } from '@quarantaine/common';
-
+import { ContentBlock, StyledLink, Stack } from '@quarantaine/common';
+import slugify from 'slugify';
 interface CardProps {
 	title: string;
-	href: string;
-	image: string;
-	external?: boolean;
-	imagePosition: {
-		backgroundPositionX?: string;
-		backgroundPositionY?: string;
-	};
+	chapeau: string;
+	content: Object[];
+	buttons: {
+		link?: string;
+		situation?: string;
+		text: string;
+	}[];
 }
 
 export const Card: React.FC<CardProps> = ({
 	title,
-	href,
-	image,
-	imagePosition,
-	external,
+	chapeau,
+	content,
+	buttons,
 }) => {
-	const linkElement = useRef<HTMLAnchorElement>(null);
-	const { t } = useTranslation();
-	const handleClick = () => {
-		const isTextSelected:
-			| string
-			| undefined = window?.getSelection()?.toString();
-
-		if (!isTextSelected) {
-			linkElement?.current?.click();
-		}
-	};
-
 	return (
 		<Box
+			id={
+				title &&
+				slugify(title, {
+					strict: true,
+					lower: true,
+				})
+			}
 			sx={{
-				borderRadius: '11px',
-				boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.2)',
-				marginBottom: '10px',
-				paddingTop: '11px',
-				paddingBottom: '13px',
-				paddingLeft: '115px',
-				paddingRight: '13px',
-				backgroundImage: `url(${image})`,
-				backgroundRepeat: 'no-repeat',
-				...imagePosition,
-				cursor: 'pointer',
-				maxWidth: 'widgetMaxWidth',
-			}}
-			onClick={handleClick}
-		>
-			<Styled.h3
-				sx={{
-					color: 'secondaryHeader',
-				}}
-			>
-				{title}
-			</Styled.h3>
+				position: 'relative',
+				padding: 'box',
+				borderRadius: 'box',
+				border: 'card',
+				fontSize: ['bodyMobile', 'body'],
+				backgroundColor: 'white',
 
-			<Link href={href} ref={linkElement} external={external}>
-				{t('general__more_information')}
-			</Link>
+				'*:last-child': {
+					marginBlockEnd: 0,
+				},
+			}}
+		>
+			<Stack spacing={['1rem']}>
+				<Stack spacing={['0.5rem']}>
+					{chapeau && (
+						<Text variant="chapeau" as="p" sx={{ marginBlockStart: 0 }}>
+							{chapeau}
+						</Text>
+					)}
+					<Styled.h3
+						sx={{
+							fontSize: ['h2Mobile', 'h2'],
+							lineHeight: ['h2Mobile', 'h2'],
+						}}
+					>
+						{title}
+					</Styled.h3>
+				</Stack>
+
+				<ContentBlock content={content} />
+
+				{!!buttons?.length ? (
+					<Flex
+						as="ul"
+						sx={{
+							flexDirection: 'column',
+							gap: ['1rem'],
+							listStyle: 'none',
+							paddingInlineStart: 0,
+						}}
+					>
+						{buttons.map(({ text, link, situation }) => (
+							<li key={text}>
+								<StyledLink
+									styledAs="button"
+									href={link || `/${situation}`}
+									external={!!link}
+								>
+									{text}
+								</StyledLink>
+							</li>
+						))}
+					</Flex>
+				) : null}
+			</Stack>
 		</Box>
 	);
 };

@@ -10,7 +10,6 @@ export type AdviceProps = {
 
 export const Advice: React.FC<AdviceProps> = ({ icon, title, subtitle }) => (
 	<Flex
-		as="li"
 		sx={{
 			gap: '0.5rem',
 			alignItems: 'center',

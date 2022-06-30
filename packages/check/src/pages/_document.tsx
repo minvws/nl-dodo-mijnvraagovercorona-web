@@ -36,7 +36,7 @@ class CheckDocument extends Document {
 					<script src="/piwik.js"></script>
 					<noscript>
 						<iframe
-							src="//statistiek.rijksoverheid.nl/containers/93e942cf-a2f0-45dc-babf-ad9c16c46d4b/noscript.html"
+							src="//statistiek.rijksoverheid.nl/containers/c754ca66-1c06-4247-ac2d-3b4efb60dcac/noscript.html"
 							height="0"
 							width="0"
 							style={{ border: '0', display: 'none', visibility: 'hidden' }}

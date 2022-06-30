@@ -27,6 +27,7 @@ const getGenericList = ({
 		.title(title)
 		.icon(icon)
 		.schemaType(schemaType)
+		.id(schemaType)
 		.child(
 			S.documentTypeList(schemaType).child((documentId: string) =>
 				S.document()

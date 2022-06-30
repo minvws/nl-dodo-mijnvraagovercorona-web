@@ -2,10 +2,10 @@
 import React, { useMemo } from 'react';
 import { jsx, SxStyleProp, Box, Image } from 'theme-ui';
 
-import { ChevronIcon, RefreshIcon } from '@quarantaine/common';
+import { ChevronIcon, RefreshIcon, ExternalIcon } from '@quarantaine/common';
 import VisuallyHidden from '@reach/visually-hidden';
 
-interface StyledLinkPropsBase {
+export interface StyledLinkPropsBase {
 	withChevron?: boolean;
 	className?: string;
 	fontWeight?: 'lighter' | 'normal' | 'bold';
@@ -13,15 +13,18 @@ interface StyledLinkPropsBase {
 	icon?: string;
 	styledAs?:
 		| 'link'
+		| 'link-inline'
 		| 'link-back'
 		| 'link-restart'
 		| 'button'
 		| 'button-secondary'
 		| 'button-tertiary'
+		| 'button-tile'
 		| 'button-disabled'
 		| 'button-large'
 		| 'play-store'
-		| 'app-store';
+		| 'app-store'
+		| 'show-more';
 }
 
 export interface StyledLinkPropsAsAnchor extends StyledLinkPropsBase {
@@ -66,29 +69,37 @@ export const useLinkStyles = ({
 			width: 9,
 			minWidth: 9,
 		};
+
 		const linkStyling: SxStyleProp = {
-			fontSize: ['linkMobile', 'link'],
-			fontWeight: fontWeight,
-			lineHeight: ['linkMobile', 'link'],
-			fontFamily: 'body',
 			display: 'inline-flex',
 			alignItems: 'center',
-			color: 'link',
-			textDecoration: 'none',
+			padding: '0',
 			border: 'none',
+			fontFamily: 'body',
+			fontSize: ['linkMobile', 'link'],
+			lineHeight: ['linkMobile', 'link'],
+			fontWeight: fontWeight,
+			textDecoration: 'none',
+			color: 'link',
 			backgroundColor: 'transparent',
 			transition: '300ms ease-in-out',
 			transitionProperty: 'color',
-			padding: '0',
+
 			'&:hover, &:focus': {
 				color: 'linkHover',
 				'.chevron': {
 					transform: 'translateX(3px)',
 				},
 			},
+
 			'.chevron': {
 				...chevronStyling,
 			},
+		};
+
+		const linkInlineStyling: SxStyleProp = {
+			...linkStyling,
+			display: 'inline',
 		};
 
 		const linkBackStyling: SxStyleProp = {
@@ -124,23 +135,23 @@ export const useLinkStyles = ({
 		};
 
 		const buttonStyling: SxStyleProp = {
+			display: 'inline-block',
+			minWidth: ['100%', '0'],
+			minHeight: 'buttonHeight',
 			paddingTop: '15px',
 			paddingBottom: '15px',
 			paddingRight: 'buttonPadding',
 			paddingLeft: 'buttonPadding',
-			margin: '0',
-			borderRadius: '5px',
-			display: 'inline-block',
-			textDecoration: 'none',
 			border: 'none',
-			minWidth: ['100%', '0'],
-			minHeight: 'buttonHeight',
-			fontSize: ['buttonMobile', 'button'],
+			borderRadius: '5px',
+			margin: '0',
 			fontFamily: 'heading',
-			backgroundColor: 'button',
-			color: 'white',
-			transition: 'background-color 300ms ease-in-out',
+			fontSize: ['buttonMobile', 'button'],
+			textDecoration: 'none',
 			textAlign: 'center',
+			color: 'white',
+			backgroundColor: 'button',
+			transition: 'background-color 300ms ease-in-out',
 
 			':hover, :focus': {
 				backgroundColor: 'buttonHover',
@@ -149,13 +160,13 @@ export const useLinkStyles = ({
 
 		const buttonSecondaryStyling: SxStyleProp = {
 			...buttonStyling,
-			backgroundColor: 'buttonSecondary',
-			color: 'link',
 			height: 'auto',
 			minHeight: 'buttonSecondaryHeight',
 			py: '8px',
 			px: '12px',
 			lineHeight: '1.2',
+			color: 'link',
+			backgroundColor: 'buttonSecondary',
 			':hover, :focus': {
 				backgroundColor: 'buttonSecondaryHover',
 			},
@@ -163,8 +174,8 @@ export const useLinkStyles = ({
 
 		const buttonTertiaryStyling: SxStyleProp = {
 			...buttonStyling,
-			backgroundColor: 'buttonTertiary',
 			color: 'white',
+			backgroundColor: 'buttonTertiary',
 			cursor: 'pointer',
 
 			':hover, :focus': {
@@ -174,13 +185,40 @@ export const useLinkStyles = ({
 
 		const buttonDisabledStyling: SxStyleProp = {
 			...buttonStyling,
-			opacity: 0.4,
+			// opacity: 0.4,
+			backgroundColor: 'buttonDisabled',
 			pointerEvents: 'none',
+		};
+
+		const buttonTileStyling: SxStyleProp = {
+			...buttonStyling,
+			display: 'flex',
+			gap: '1rem',
+			alignItems: 'center',
+			inlineSize: '100%',
+			paddingInline: '1rem',
+			border: 'tile',
+			boxShadow: 'tile',
+			textAlign: 'start',
+			backgroundColor: 'white',
+			color: 'primary',
+			outline: 'none',
+			':hover, :focus': {
+				border: 'tileInteraction',
+				boxShadow: 'tileInteraction',
+				backgroundColor: 'white',
+			},
+			// Content block can output a span or a p tag. In case of a p tag, strip margins & reset font
+			'p, && p': {
+				marginBlock: 0,
+				font: 'inherit',
+			},
 		};
 
 		const buttonLargeStyling: SxStyleProp = {
 			...buttonStyling,
 			display: 'flex',
+			alignItems: 'center',
 			marginBlockStart: '2rem',
 			backgroundColor: 'headerBackground',
 			color: 'copyHeading',
@@ -189,7 +227,6 @@ export const useLinkStyles = ({
 			padding: '0.75rem',
 			boxShadow: 'tile',
 			border: 'tile',
-			alignItems: 'center',
 			width: ['auto', '30%'],
 
 			':hover, :focus': {
@@ -197,19 +234,28 @@ export const useLinkStyles = ({
 			},
 		};
 
+		const buttonShowMore: SxStyleProp = {
+			...linkStyling,
+			color: 'copyHeading',
+			fontWeight: 'bold',
+		};
+
 		const buttonStoreBase: SxStyleProp = {
 			display: 'inline-flex',
 		};
 
+		if (styledAs === 'link-inline') return linkInlineStyling;
 		if (styledAs === 'link-back') return linkBackStyling;
 		if (styledAs === 'link-restart') return linkRestartStyling;
 		if (styledAs === 'button') return buttonStyling;
 		if (styledAs === 'button-secondary') return buttonSecondaryStyling;
 		if (styledAs === 'button-tertiary') return buttonTertiaryStyling;
 		if (styledAs === 'button-disabled') return buttonDisabledStyling;
+		if (styledAs === 'button-tile') return buttonTileStyling;
 		if (styledAs === 'button-large') return buttonLargeStyling;
 		if (styledAs === 'play-store') return buttonStoreBase;
 		if (styledAs === 'app-store') return buttonStoreBase;
+		if (styledAs === 'show-more') return buttonShowMore;
 
 		return linkStyling;
 	}, [styledAs, fontWeight]);
@@ -257,9 +303,17 @@ const StyledLinkBase = <T extends React.ElementType = 'a'>(
 					withChevron && <ChevronIcon className="chevron" />
 				)}
 				{children}
+				{icon && <img src={icon} alt="" sx={{ marginLeft: '8px' }} />}
 			</button>
 		);
 	}
+
+	const ChildrenComponent = (
+		<span>
+			{children}
+			{external ? <ExternalIcon /> : null}
+		</span>
+	);
 
 	// Anchor
 	return (
@@ -277,24 +331,34 @@ const StyledLinkBase = <T extends React.ElementType = 'a'>(
 			{icon && (
 				<img src={icon} alt="" sx={{ width: '7.5rem', marginTop: '-2rem' }} />
 			)}
+
 			{props.styledAs === 'link-restart' ? (
 				<RefreshIcon className="chevron" />
 			) : (
 				withChevron && <ChevronIcon className="chevron" />
 			)}
-			{props.styledAs === 'button-large' ? (
-				<span sx={{ flex: 1 }}>{children}</span>
+
+			{props.styledAs === 'button-large' || props.styledAs === 'button-tile' ? (
+				<span sx={{ flex: 1 }}>{ChildrenComponent}</span>
 			) : props.styledAs === 'play-store' || props.styledAs === 'app-store' ? (
 				<VisuallyHidden>{children}</VisuallyHidden>
 			) : (
-				children
+				ChildrenComponent
 			)}
-			{props.styledAs === 'button-large' && (
-				<ChevronIcon className="chevron" sx={{ width: '3.75rem' }} />
-			)}
+
+			{props.styledAs === 'button-large' || props.styledAs === 'button-tile' ? (
+				<ChevronIcon
+					className="chevron"
+					sx={{
+						inlineSize: props.styledAs === 'button-large' ? '3.75rem' : 'auto',
+					}}
+				/>
+			) : null}
+
 			{props.styledAs === 'play-store' ? (
 				<Image src="/images/stores/play-store.svg" alt="" />
 			) : null}
+
 			{props.styledAs === 'app-store' ? (
 				<Image src="/images/stores/app-store.svg" alt="" />
 			) : null}

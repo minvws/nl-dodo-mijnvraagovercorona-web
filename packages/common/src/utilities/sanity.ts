@@ -19,8 +19,9 @@ const followModals = (locale: string) => `{
 		markDefs[]{
 			...,
 			_type == "dialog" => {
-				"content": @.modal_ref->content.${locale},
 				"title": @.modal_ref->title.${locale},
+				${getImage({ name: 'image', path: '@.modal_ref->image', full: true })},
+				"content": @.modal_ref->content.${locale},
 			}
 		},
 	}`;
@@ -55,19 +56,42 @@ export const getLocaleProperty = ({
 	return `"${name}": ${path || name}${array ? '[]' : ''}.${locale}`;
 };
 
+export interface SanityImageFullProps {
+	src: string;
+	dimensions: {
+		aspectRatio: number;
+		width: number;
+		height: number;
+	};
+}
+
 /**
  * This helper function allows us to get the unique file name of a sanity image
  */
 export const getImage = ({
 	name,
 	path,
+	full,
 }: {
 	name: string;
 	path?: string;
+	full?: boolean;
 }): string => {
-	return `"${name}": "/images/sanity/" + ${
+	const src = `"/images/sanity/" + ${path || name}.asset->sha1hash + "-" + ${
 		path || name
-	}.asset->sha1hash + "-" + ${path || name}.asset->originalFilename`;
+	}.asset->originalFilename`;
+
+	if (full)
+		return `"${name}": {
+			"src": ${src},
+			"dimensions": {
+				"aspectRatio": ${path || name}.asset->metadata.dimensions.aspectRatio,
+				"width": ${path || name}.asset->metadata.dimensions.width,
+				"height": ${path || name}.asset->metadata.dimensions.height,
+			},
+		}`;
+
+	return `"${name}": ${src}`;
 };
 
 /**
@@ -324,6 +348,47 @@ export const siteSettingsQuery = ({
 		${getLocaleProperty({ name: 'checkAgainCta', locale })},
 		${getLocaleProperty({ name: 'favoriteCta', locale })},
 		${getLocaleProperty({ name: 'GGDSpecialInstructions', locale })},
+		${getLocaleProperty({ name: 'datumKiesTekst', locale })},
+		${getLocaleProperty({ name: 'maanden', locale, array: true })},
+		${getLocaleProperty({ name: 'dagen', locale, array: true })},
+		${getLocaleProperty({ name: 'updatedAt', locale })},
+		"situationPlural": {
+			${getLocaleProperty({
+				name: 'this',
+				path: 'situationPlural.this',
+				locale,
+			})},
+			${getLocaleProperty({
+				name: 'that',
+				path: 'situationPlural.that',
+				locale,
+			})},
+		},
+		"seeMoreExpand": {
+			${getLocaleProperty({
+				name: 'this',
+				path: 'seeMoreExpand.this',
+				locale,
+			})},
+			${getLocaleProperty({
+				name: 'that',
+				path: 'seeMoreExpand.that',
+				locale,
+			})},
+		},
+		"severeSymptomsAdvice": {
+			${getLocaleProperty({
+				name: 'title',
+				path: 'severeSymptomsAdvice.title',
+				locale,
+			})},
+			${getLocaleProperty({
+				name: 'subtitle',
+				path: 'severeSymptomsAdvice.subtitle',
+				locale,
+			})},
+			${getImage({ name: 'icon', path: `severeSymptomsAdvice.icon`, full: true })},
+		},
 	}`;
 
 /**

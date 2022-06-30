@@ -1,6 +1,7 @@
 /** @jsx jsx */
-import React, { useContext, useEffect } from 'react';
-import { jsx, Styled, Container, Box, Image } from 'theme-ui';
+import React from 'react';
+import slugify from 'slugify';
+import { jsx, Styled, Container, Box } from 'theme-ui';
 import { Page } from 'components/page';
 
 import {
@@ -9,9 +10,6 @@ import {
 	getPageQuery,
 	getLocaleProperty,
 	useSanityPageContent,
-	useSanitySiteSettings,
-	Hero,
-	getFeedbackUrl,
 	Locales,
 	Retain,
 	Layer,
@@ -19,27 +17,33 @@ import {
 	TheSwitcherItem,
 	Header,
 	Stack,
-	TheThirds,
 	StyledLink,
-	getHrefWithlocale,
-	useCurrentLocale,
 	ContentBlock,
 	getImage,
+	SanityImageFullProps,
+	TheGrid,
+	SectionHeadingGroup,
+	SectionHeadingGroupWithIcon,
+	getHrefWithlocale,
 } from '@quarantaine/common';
-import {
-	Folder,
-	FolderProps,
-	HulpPanel,
-	FeedbackPanel,
-	Masthead,
-	AdviceList,
-	AdviceProps,
-	CaseProps,
-	Case,
-	ContentSituationBlock,
-} from 'components/molecules';
+import { AssistanceRow, Masthead, ThemeOverview } from 'components/molecules';
 import { retainMaxWidth } from '@quarantaine/common/src/components/molecules/layout/retain';
-import GlobalContext from 'utilities/global-context';
+import { getThemeCollection, ThemeCollectionProps } from 'utilities/theme';
+import {
+	getQuestionCollection,
+	QuestionCollectionProps,
+} from 'utilities/question';
+
+interface ThemesProps extends ThemeCollectionProps {
+	title: string;
+	content: Array<Object>;
+}
+
+interface ImportantProps extends QuestionCollectionProps {
+	title: string;
+	content: Array<Object>;
+	icon: SanityImageFullProps;
+}
 
 export interface PageContent {
 	metaData: {
@@ -50,34 +54,10 @@ export interface PageContent {
 		title: string;
 		chapeau: string;
 		subtitle: string;
-		image: string;
+		image: SanityImageFullProps;
 	};
-	currentSituation: {
-		title: string;
-		measures: {
-			title: string;
-			content: Array<Object>;
-			advice: AdviceProps[];
-		};
-		advice: {
-			title: string;
-			content: Array<Object>;
-			advice: AdviceProps[];
-		};
-	};
-	titleCases: string;
-	imageMobileCases: string;
-	imageDesktopCases: string;
-	cases: CaseProps[];
-	topics: {
-		title: string;
-		topics: {
-			icon: string;
-			name: string;
-			slug: string;
-			start: string;
-		}[];
-	};
+	important: ImportantProps;
+	themes: ThemesProps;
 	help: {
 		title: string;
 		openingHours: string;
@@ -87,12 +67,23 @@ export interface PageContent {
 		title: string;
 		button: string;
 	};
+	assistance: {
+		chat: string;
+		image: SanityImageFullProps;
+		open: string;
+		openingHours: string;
+		phonenumber: string;
+		situationButton: string;
+		situationQuestion: string;
+		tekstWithChat: string;
+		tekstWithoutChat: string;
+		title: string;
+	};
 	url: string;
 }
 
-export default function LandingPage() {
+export default function LandingPage({ locale }: { locale: Locales }) {
 	const page = useSanityPageContent<PageContent>();
-	const locale = useCurrentLocale();
 
 	return (
 		<>
@@ -107,182 +98,83 @@ export default function LandingPage() {
 				<Masthead
 					headerSlot={<Header transparent noPadding />}
 					title={page.header.title}
-					chapeau={page.header.chapeau}
-					illustration={page.header.image}
-				>
-					<Styled.p>{page.header.subtitle}</Styled.p>
-				</Masthead>
-
-				<Layer backgroundColor="headerBackground" pullUpBy="2rem">
-					<Container>
-						<Box
+					prefixSlot={
+						<Styled.p
 							sx={{
-								paddingX: ['mobilePadding', 'tabletPadding', 0],
+								fontSize: ['h2Mobile', 'h2'],
+								lineHeight: ['h2Mobile', 'h2'],
+								fontWeight: 'bold',
+								color: 'headerTertiary',
 							}}
 						>
+							{page.header.chapeau}
+						</Styled.p>
+					}
+					illustration={page.header.image}
+					variant="highlight"
+				>
+					<Styled.p sx={{ color: 'primary' }}>{page.header.subtitle}</Styled.p>
+				</Masthead>
+
+				<Layer
+					backgroundColor="headerBackground"
+					pullUpBy="2rem"
+					id={slugify(page.important.title, {
+						strict: true,
+						lower: true,
+					})}
+				>
+					<Container>
+						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
+						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
 							<Retain maxWidth={[retainMaxWidth, '100%']}>
-								<Stack>
-									<Styled.h2>{page.currentSituation.title}</Styled.h2>
-									<TheThirds
-										split={page.currentSituation.measures.advice.length > 0}
-										asideChildren={
-											<Stack spacing={['1rem']}>
-												<Styled.h3>
-													{page.currentSituation.measures.title}
-												</Styled.h3>
-												{page.currentSituation.measures.content ? (
-													<ContentBlock
-														content={page.currentSituation.measures.content}
-													/>
-												) : null}
-												<AdviceList
-													advices={page.currentSituation.measures.advice}
-												/>
-											</Stack>
-										}
+								<Stack spacing={'3rem'}>
+									<SectionHeadingGroupWithIcon
+										title={page.important.title}
+										icon={page.important.icon.src}
 									>
-										<Stack spacing={['1rem']}>
-											<Styled.h3>
-												{page.currentSituation.advice.title}
-											</Styled.h3>
-											{page.currentSituation.advice.content ? (
-												<ContentBlock
-													content={page.currentSituation.advice.content}
-												/>
-											) : null}
-											<AdviceList
-												advices={page.currentSituation.advice.advice}
-											/>
-										</Stack>
-									</TheThirds>
+										{page.important.content ? (
+											<ContentBlock content={page.important.content} />
+										) : null}
+									</SectionHeadingGroupWithIcon>
+									<TheGrid minItemSize="25rem" gap={['1rem']}>
+										{page.important.questionCollection?.map((item, index) => (
+											<StyledLink
+												key={index}
+												styledAs="button-tile"
+												href={getHrefWithlocale(`/${item.path}`, locale)}
+											>
+												<ContentBlock content={item.title} />
+											</StyledLink>
+										))}
+									</TheGrid>
 								</Stack>
 							</Retain>
 						</Box>
 					</Container>
 				</Layer>
 
-				<Layer>
+				<Layer
+					id={slugify(page.themes.title, {
+						strict: true,
+						lower: true,
+					})}
+				>
 					<Container>
 						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
 						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
 							<Retain maxWidth={[retainMaxWidth, '100%']}>
-								<Stack spacing={['2.25rem', '4rem']} id="situaties">
-									<Box
-										id="situaties"
-										sx={{
-											position: 'relative',
-											paddingBlockStart: ['0', '10rem'],
-											paddingBlockEnd: ['0', '2.5rem'],
-										}}
-									>
-										<Styled.h2
-											sx={{
-												position: 'relative',
-												marginBlockEnd: ['2rem', 0],
-												fontSize: ['h1Mobile', 'h1'],
-												lineHeight: ['h1Mobile', 'h1'],
-												zIndex: 2,
-											}}
-										>
-											{page.titleCases}
-										</Styled.h2>
-										<Image
-											src={page.imageMobileCases}
-											alt=""
-											sx={{
-												display: ['block', 'none'],
-												marginInlineStart: 'auto',
-												marginInlineEnd: 'auto',
-											}}
-										/>
-										<Image
-											src={page.imageDesktopCases}
-											alt=""
-											sx={{
-												position: 'absolute',
-												zIndex: 1,
-												display: ['none', 'block'],
-												inlineSize: '100%',
-												blockSize: '100%',
-												insetBlockStart: 0,
-												insetBlockEnd: 0,
-												insetInlineStart: 0,
-												insetInlineEnd: 0,
-												objectFit: 'contain',
-												objectPosition: '100% 100%',
-											}}
-										/>
-									</Box>
-									<Box
-										sx={{
-											display: 'grid',
-											gridTemplateColumns:
-												'repeat(auto-fit, minmax(min(28rem, 100%), 1fr))',
-											gap: ['1rem', '4rem'],
-											alignItems: 'start',
-											paddingInlineStart: 0,
-											listStyle: 'none',
-										}}
-									>
-										{page.cases
-											.filter((item) => item.title)
-											.map((item) => (
-												<Case
-													key={item.title}
-													title={item.title}
-													titleSuffix={item.titleSuffix}
-													intro={item.intro}
-													readMoreLabel={item.readMoreLabel}
-												>
-													{item.contentBlocks && (
-														<ContentSituationBlock
-															contentBlocks={item.contentBlocks}
-														/>
-													)}
-												</Case>
-											))}
-									</Box>
+								<Stack spacing={'3rem'}>
+									<SectionHeadingGroup title={page.themes.title}>
+										{page.themes.content ? (
+											<ContentBlock content={page.themes.content} />
+										) : null}
+									</SectionHeadingGroup>
+
+									<ThemeOverview
+										themeCollection={page.themes.themeCollection}
+									/>
 								</Stack>
-								<Box
-									sx={{
-										marginBlockStart: ['4.75rem', '6.5rem'],
-										marginBlockEnd: ['2.25rem', '4rem'],
-									}}
-									id="onderwerpen"
-								>
-									<Styled.h2
-										sx={{
-											fontSize: ['h1Mobile', 'h1'],
-											lineHeight: ['h1Mobile', 'h1'],
-										}}
-									>
-										{page.topics.title}
-									</Styled.h2>
-									<Box
-										sx={{
-											display: 'flex',
-											flexDirection: ['column', 'row'],
-											gap: ['1rem', '3rem'],
-											'& > *': {
-												flex: 1,
-											},
-										}}
-									>
-										{page.topics.topics.map(({ start, slug, icon, name }) => (
-											<StyledLink
-												styledAs="button-large"
-												href={getHrefWithlocale(
-													`/vraag/${slug}/${start}`,
-													locale.urlPrefix,
-												)}
-												icon={icon}
-												key={name}
-											>
-												{name}
-											</StyledLink>
-										))}
-									</Box>
-								</Box>
 							</Retain>
 						</Box>
 					</Container>
@@ -292,14 +184,7 @@ export default function LandingPage() {
 					<Container>
 						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
 						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
-							<TheSwitcher gap={['4rem', '4rem']}>
-								<TheSwitcherItem blockAlign="center">
-									<FeedbackPanel />
-								</TheSwitcherItem>
-								<TheSwitcherItem blockAlign="center">
-									<HulpPanel />
-								</TheSwitcherItem>
-							</TheSwitcher>
+							<AssistanceRow feedback />
 						</Box>
 					</Container>
 				</Layer>
@@ -328,90 +213,28 @@ export const getStaticProps = async ({
 			${getLocaleProperty({ name: 'title', path: 'header.title', locale })},
 			${getLocaleProperty({ name: 'chapeau', path: 'header.chapeau', locale })},
 			${getLocaleProperty({ name: 'subtitle', path: 'header.subtitle', locale })},
-			${getImage({ name: 'image', path: 'header.image' })},
+			${getImage({ name: 'image', path: 'header.image', full: true })},
 		},
-
-		"currentSituation": {
-			${getLocaleProperty({ name: 'title', path: 'currentSituation.title', locale })},
-			"measures": {
-				${getLocaleProperty({
-					name: 'title',
-					path: 'currentSituation.measures.title',
-					locale,
-				})},
-				${getLocaleProperty({
-					name: 'content',
-					path: 'currentSituation.measures.content',
-					locale,
-				})},
-				"advice": currentSituation.measures.advice[]{
-					${getLocaleProperty({ name: 'title', locale })},
-					${getLocaleProperty({ name: 'subtitle', locale })},
-					${getImage({ name: 'icon' })},
-				}
-			},
-			"advice": {
-				${getLocaleProperty({
-					name: 'title',
-					path: 'currentSituation.advice.title',
-					locale,
-				})},
-				${getLocaleProperty({
-					name: 'content',
-					path: 'currentSituation.advice.content',
-					locale,
-				})},
-				"advice": currentSituation.advice.advice[]{
-					${getLocaleProperty({ name: 'title', locale })},
-					${getLocaleProperty({ name: 'subtitle', locale })},
-					${getImage({ name: 'icon' })},
-				}
-			}
+		"important": {
+			${getLocaleProperty({ name: 'title', path: 'important.title', locale })},
+			${getLocaleProperty({
+				name: 'content',
+				path: 'important.content',
+				locale,
+				block: true,
+			})},
+			${getImage({ name: 'icon', path: 'important.icon', full: true })},
+			${getQuestionCollection({ path: 'important', locale })},
 		},
-
-		${getLocaleProperty({ name: 'titleCases', locale })},
-		${getImage({ name: 'imageMobileCases' })},
-		${getImage({ name: 'imageDesktopCases' })},
-		"cases": cases[]{
-			${getLocaleProperty({ name: 'title', locale })},
+		"themes": {
+			${getLocaleProperty({ name: 'title', path: 'themes.title', locale })},
 			${getLocaleProperty({
-				name: 'titleSuffix',
+				name: 'content',
+				path: 'themes.content',
 				locale,
+				block: true,
 			})},
-			${getLocaleProperty({
-				name: 'intro',
-				locale,
-			})},
-			${getLocaleProperty({
-				name: 'readMoreLabel',
-				locale,
-			})},
-			"contentBlocks": contentBlocks[]{
-				${getLocaleProperty({
-					name: 'content',
-					path: '@',
-					locale,
-					block: true,
-				})},
-				"situation": {
-					${getLocaleProperty({
-						name: 'situationLinkTitle',
-						locale,
-					})},
-					"url": situationReference->url,
-					"showDate": situationReference->showDate,
-					"showExceptions": situationReference->showExceptions,
-				}
-			}
-		},
-		"topics": {
-			${getLocaleProperty({ name: 'title', path: 'topics.title', locale })},
-			"topics": topics.topics[]->{
-				${getImage({ name: 'icon' })},
-				${getLocaleProperty({ name: 'name', locale })},
-				"start": start->slug.current,
-				"slug": slug.current,
-			},
+			${getThemeCollection({ path: 'themes', locale })},
 		},
 		"help": {
 			${getLocaleProperty({ name: 'title', path: 'help.title', locale })},
@@ -425,6 +248,18 @@ export const getStaticProps = async ({
 		"feedback": {
 			${getLocaleProperty({ name: 'title', path: 'feedback.title', locale })},
 			${getLocaleProperty({ name: 'button', path: 'feedback.button', locale })},
+		},
+		"assistance": assistanceReference->{
+			${getLocaleProperty({ name: 'chat', locale })},
+			${getImage({ name: 'image', full: true })},
+			${getLocaleProperty({ name: 'open', locale })},
+			${getLocaleProperty({ name: 'openingHours', locale })},
+			phonenumber,
+			${getLocaleProperty({ name: 'situationButton', locale })},
+			${getLocaleProperty({ name: 'situationQuestion', locale })},
+			${getLocaleProperty({ name: 'tekstWithChat', locale })},
+			${getLocaleProperty({ name: 'tekstWithoutChat', locale })},
+			${getLocaleProperty({ name: 'title', locale })},
 		},
 		url,
 	}`;

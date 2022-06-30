@@ -18,20 +18,19 @@ export const SchemeBlock: React.FC<SchemeBlockProps> = ({
 			position: 'relative',
 			padding: 'box',
 			borderRadius: 'box',
-			border: 'tile',
-			boxShadow: 'tile',
+			border: 'card',
 			fontSize: ['bodyMobile', 'body'],
 			backgroundColor: 'white',
 			'& + &': {
 				marginTop: '1.5rem',
 				'::before': {
 					position: 'absolute',
-					insetBlockStart: '-1.5rem',
+					insetBlockStart: 'calc(-1.5rem - 1px);',
 					insetInlineStart: 'calc(50% - 1px)',
 					zIndex: '-1',
 					blockSize: '1.5rem',
 					inlineSize: '2px',
-					backgroundColor: 'stepElement',
+					backgroundColor: 'cardBorder',
 					content: '""',
 				},
 			},
@@ -76,8 +75,7 @@ export const SchemeBlock: React.FC<SchemeBlockProps> = ({
 						as="span"
 						sx={{
 							margin: 0,
-							color: 'copyHeading',
-							fontWeight: 'normal',
+							color: 'link',
 						}}
 					>
 						{day}
@@ -100,7 +98,7 @@ export const SchemeBlock: React.FC<SchemeBlockProps> = ({
 							color: 'inherit',
 						},
 					},
-					'p:last-child': {
+					'*:last-child': {
 						marginBlockEnd: 0,
 					},
 					'@media print': {

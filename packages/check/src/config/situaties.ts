@@ -5,6 +5,11 @@ export interface Situation {
 	url: string;
 }
 
+export interface SituationNew {
+	slug: string;
+	start: string;
+}
+
 export type Situaties =
 	| 'ik-kan-geen-afstand-houden-en-huisgenoot-heeft-geen-klachten'
 	| 'ik-kan-afstand-houden'

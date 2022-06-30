@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from 'react';
-import { Flex, jsx } from 'theme-ui';
+import { Flex, jsx, SxStyleProp } from 'theme-ui';
 
 interface OwnProps {
 	gap?: string | string[];
@@ -20,6 +20,7 @@ export const TheSwitcher: React.FC<OwnProps> = ({
 				flexWrap: 'wrap',
 				gap: gap,
 				alignItems: alignItems,
+				justifyContent: 'start',
 				minBlockSize: minBlockSize,
 				'& > *': {
 					flex: ['0 0 100%', 1],
@@ -34,16 +35,19 @@ export const TheSwitcher: React.FC<OwnProps> = ({
 interface TheSwitcherItemProps {
 	blockAlign?: 'start' | 'center' | 'end';
 	gap?: string | string[];
+	styles?: SxStyleProp;
 }
 
 export const TheSwitcherItem: React.FC<TheSwitcherItemProps> = ({
 	children,
 	blockAlign = 'start',
 	gap = '2.25rem',
+	styles,
 }) => {
 	return (
 		<Flex
 			sx={{
+				...styles,
 				flexDirection: 'column',
 				gap: gap,
 				justifyContent:

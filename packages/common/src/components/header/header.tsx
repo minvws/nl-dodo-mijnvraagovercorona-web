@@ -37,7 +37,7 @@ export const Header: React.FC<HeaderProps> = ({
 				<Box
 					sx={{
 						position: 'absolute',
-						insetBlockStart: '2.5rem',
+						insetBlockStart: ['1.75rem', '2.5rem'],
 						insetInlineStart: ['1rem', '2rem'],
 						'&& > *': {
 							position: 'static',

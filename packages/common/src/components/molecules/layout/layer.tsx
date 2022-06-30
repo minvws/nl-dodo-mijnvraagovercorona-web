@@ -14,8 +14,8 @@ export const Layer: React.FC<OwnProps> = ({
 	children,
 	backgroundColor,
 	pullUpBy,
-	paddingBlockStart = '2.5rem',
-	paddingBlockEnd = '2.5rem',
+	paddingBlockStart = ['2rem', '3.75rem'],
+	paddingBlockEnd = ['2rem', '3.75rem'],
 	id,
 }) => {
 	const calcPaddingBlockStart =
@@ -28,6 +28,7 @@ export const Layer: React.FC<OwnProps> = ({
 	return (
 		<Box
 			id={id}
+			as="section"
 			sx={{
 				paddingBlockStart: calcPaddingBlockStart,
 				paddingBlockEnd: paddingBlockEnd,

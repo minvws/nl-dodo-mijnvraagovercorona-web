@@ -1,14 +1,14 @@
 /** @jsx jsx */
 import React, { useContext, useMemo } from 'react';
-import { jsx, Styled } from 'theme-ui';
+import { Image, jsx, Styled } from 'theme-ui';
 
-import { Link } from '@quarantaine/common';
+import { Link, Stack } from '@quarantaine/common';
 
 /** @ts-ignore Types would be nice */
 import SanityContentBlock from '@sanity/block-content-to-react';
 import { InlineDialog } from '../dialog';
 import { SaveInCalendar } from '../save-in-calendar';
-import { useSanitySiteSettings } from '../../utilities';
+import { SanityImageFullProps, useSanitySiteSettings } from '../../utilities';
 
 export type ContentVariables = { [key: string]: string };
 
@@ -35,6 +35,7 @@ interface DialogProps {
 	children: React.ReactNode;
 	mark: {
 		title: string;
+		image: SanityImageFullProps;
 		content: Array<Object>;
 	};
 }
@@ -106,7 +107,9 @@ const getSerializers = (contentVariables?: ContentVariables) => ({
 				href={replaceContentVariables(mark!.href, contentVariables) as string}
 				withChevron={mark?.chevron || false}
 				external={!mark?.internal}
-				styledAs={mark?.button ? 'button' : undefined}
+				styledAs={
+					mark?.button ? 'button' : mark?.chevron ? undefined : 'link-inline'
+				}
 				sx={
 					!mark?.button
 						? {
@@ -139,7 +142,20 @@ const getSerializers = (contentVariables?: ContentVariables) => ({
 					title={mark.title}
 					buttonText={`${Array.isArray(children) ? children[0] : children}`}
 				>
-					<ContentBlock content={mark.content} />
+					<Stack>
+						{mark.image?.src ? (
+							<Image
+								src={mark.image.src}
+								alt=""
+								sx={{
+									display: 'block',
+									maxInlineSize: '100%',
+									marginInline: 'auto',
+								}}
+							/>
+						) : null}
+						<ContentBlock content={mark.content} />
+					</Stack>
 				</InlineDialog>
 			);
 		},

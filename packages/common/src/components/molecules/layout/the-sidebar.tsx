@@ -1,12 +1,12 @@
 /** @jsx jsx */
 import React from 'react';
-import { Flex, jsx } from 'theme-ui';
+import { Flex, jsx, SxStyleProp } from 'theme-ui';
 
 interface OwnProps {
 	asideChildren?: React.ReactNode;
 	hideAsideOnMobile?: boolean;
 	hideAsideOnTablet?: boolean;
-	asideOffset?: string | string[];
+	asideOffset?: SxStyleProp;
 }
 
 export const TheSidebar: React.FC<OwnProps> = ({

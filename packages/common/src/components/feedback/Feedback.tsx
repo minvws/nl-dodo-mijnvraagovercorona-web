@@ -68,7 +68,6 @@ export const Feedback: React.FC<OwnProps> = ({ name, feedbackUrl }) => {
 				sx={{
 					color: 'header',
 					fontSize: ['h2Mobile', 'h2'],
-					paddingTop: ['36px', '44px'],
 				}}
 			>
 				{siteSettings.feedback.title}
