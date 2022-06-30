@@ -28,13 +28,13 @@ import {
 import { SiGnuprivacyguard, SiYourtraveldottv } from 'react-icons/si';
 import { GrVulnerability } from 'react-icons/gr';
 import { VscScreenFull, VscCopy } from 'react-icons/vsc';
-import { IoDocumentOutline, IoHelpBuoyOutline } from 'react-icons/io5';
+import { IoDocumentOutline } from 'react-icons/io5';
 import {
 	RiQuestionLine,
 	RiQuestionAnswerLine,
 	RiPagesLine,
 } from 'react-icons/ri';
-import { MdOutlineTopic } from 'react-icons/md';
+import { MdOutlineTopic, MdLiveHelp } from 'react-icons/md';
 
 import { getFolder } from './utilities/getFolder';
 import { getPage } from './utilities/getSingleton';
@@ -269,7 +269,7 @@ export default () =>
 
 			getFolder({
 				title: 'MijnVraagOverCorona',
-				icon: IoHelpBuoyOutline,
+				icon: MdLiveHelp,
 				items: [
 					getFolder({
 						title: 'Pagina’s',
