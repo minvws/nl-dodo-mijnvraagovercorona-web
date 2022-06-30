@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Container, jsx } from 'theme-ui';
+import { jsx } from 'theme-ui';
 import React from 'react';
 
 import {
@@ -9,11 +9,6 @@ import {
 	getLocaleProperty,
 	useSanityPageContent,
 	Header,
-	Layer,
-	TheSidebar,
-	BannerDataProtection,
-	useSanitySiteSettings,
-	Retain,
 	getImage,
 	SanityImageFullProps,
 	ContentBlock,
@@ -26,60 +21,31 @@ import {
 import { locales } from 'content/general-content';
 import { Page } from 'components/page';
 import {
-	FormAnswersDate,
-	FormAnswersAge,
-	FormAnswersButtons,
-	FormAnswersMultiple,
-	FormAnswersMultipleProps,
-	FormAnswersSingle,
-	FormAnswersSingleProps,
-	FormSubmitProps,
 	MastheadFlow,
+	AnswerSwitchProps,
+	AnswerSwitch,
 } from 'components/molecules';
 
-interface PageContent {
-	metaData: {
-		title: string;
-		description: string;
-		socialShareImage: SanityImageFullProps;
-	};
+export interface QuestionPageContent extends AnswerSwitchProps {
 	header: {
 		title: string;
 		content: Object[];
 		image: SanityImageFullProps;
 	};
-	content: FormAnswersSingleProps['content'];
-	answersMultiple: FormAnswersMultipleProps['answers'];
-	showMore: {
-		max: number;
-		label: {
-			this: string;
-			that: string;
-		};
+}
+
+interface PageContent extends QuestionPageContent {
+	metaData: {
+		title: string;
+		description: string;
+		socialShareImage: SanityImageFullProps;
 	};
-	answersSingle: FormAnswersSingleProps['answers'];
-	ageInput: {
-		label: string;
-		placeholder: string;
-	};
-	steps: {
-		current: number;
-		total: number;
-	};
-	type: 'multiple' | 'single' | 'datepicker' | 'buttons' | 'age';
-	buttons: FormSubmitProps['buttons'];
 	slug: string;
 }
 
 export const Vraag = ({ locale }: { locale: Locales }) => {
 	const page = useSanityPageContent<PageContent>();
-	const siteSettings = useSanitySiteSettings();
 	const url = `/situatie/${page.slug}`;
-
-	const layerPaddingBlockStart =
-		page.type === 'datepicker' ? ['0'] : ['2rem', '3.75rem'];
-
-	const asideOffset = page.type === 'datepicker' ? [0, '3.25rem'] : [0];
 
 	return (
 		<>
@@ -99,55 +65,8 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 						<ContentBlock content={page.header.content} />
 					) : null}
 				</MastheadFlow>
-				<Layer
-					backgroundColor="white"
-					paddingBlockStart={layerPaddingBlockStart}
-				>
-					<Container>
-						<TheSidebar
-							asideChildren={
-								<BannerDataProtection content={siteSettings.privacy} />
-							}
-							asideOffset={asideOffset}
-						>
-							<Retain>
-								{page.type === 'multiple' && page.answersMultiple ? (
-									<FormAnswersMultiple
-										answers={page.answersMultiple}
-										buttons={page.buttons}
-										showMoreLabel={page.showMore.label}
-										limit={page.showMore.max}
-										locale={locale}
-										content={page.content}
-									/>
-								) : page.type === 'single' && page.answersSingle ? (
-									<FormAnswersSingle
-										answers={page.answersSingle}
-										buttons={page.buttons}
-										locale={locale}
-										content={page.content}
-									/>
-								) : page.type === 'datepicker' ? (
-									<FormAnswersDate buttons={page.buttons} locale={locale} />
-								) : page.type === 'buttons' ? (
-									<FormAnswersButtons
-										buttons={page.buttons}
-										locale={locale}
-										content={page.content}
-									/>
-								) : page.type === 'age' ? (
-									<FormAnswersAge
-										buttons={page.buttons}
-										locale={locale}
-										placeholder={page.ageInput.placeholder}
-										label={page.ageInput.label}
-										content={page.content}
-									/>
-								) : null}
-							</Retain>
-						</TheSidebar>
-					</Container>
-				</Layer>
+
+				<AnswerSwitch locale={locale} {...page} />
 			</Page>
 		</>
 	);
@@ -175,23 +94,12 @@ interface VraagStaticProps {
 	params: { question: string; locale: Locales };
 }
 
-export const getStaticProps = async ({
-	params: { question, locale },
-}: VraagStaticProps) => {
-	const pageProjection = `{
-		"metaData": {
-			${getLocaleProperty({ name: 'title', path: 'metaData.title', locale })},
-			${getLocaleProperty({
-				name: 'description',
-				path: 'metaData.description',
-				locale,
-			})},
-			${getImage({
-				name: 'socialShareImage',
-				path: 'metaData.socialShareImage',
-				full: true,
-			})},
-		},
+export const essentialQuestionPageProjection = ({
+	locale,
+}: {
+	locale: string;
+}) => {
+	return `
 		"header": {
 			${getLocaleProperty({ name: 'title', path: `header.title`, locale })},
 			${getLocaleProperty({
@@ -267,7 +175,28 @@ export const getStaticProps = async ({
 				next->_type == "situation-question-document" => 'situatie/' + next->slug.current,
 				next->_type == "situation-result-document" => 'advies/' + next->slug.current,
 			),
+		}
+	`;
+};
+
+export const getStaticProps = async ({
+	params: { question, locale },
+}: VraagStaticProps) => {
+	const pageProjection = `{
+		"metaData": {
+			${getLocaleProperty({ name: 'title', path: 'metaData.title', locale })},
+			${getLocaleProperty({
+				name: 'description',
+				path: 'metaData.description',
+				locale,
+			})},
+			${getImage({
+				name: 'socialShareImage',
+				path: 'metaData.socialShareImage',
+				full: true,
+			})},
 		},
+		${essentialQuestionPageProjection({ locale: locale })},
 		"slug": slug.current,
 	}`;
 	const { page, siteSettings } = await sanityClient.fetch(
