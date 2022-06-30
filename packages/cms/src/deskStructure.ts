@@ -268,7 +268,7 @@ export default () =>
 			}),
 
 			getFolder({
-				title: 'CoronaHulp',
+				title: 'MijnVraagOverCorona',
 				icon: IoHelpBuoyOutline,
 				items: [
 					getFolder({
