@@ -126,7 +126,7 @@ export const getContentPageQuery = async ({
 }: {
 	type: string;
 	locale: Locales;
-	site: 'reizen-tijdens-corona' | 'quarantaine-check';
+	site: 'reizen-tijdens-corona' | 'mijn-vraag-over-corona';
 }): Promise<ContentPageProps> => {
 	const pageProjection = `{
 		"metaData": {
@@ -186,7 +186,7 @@ export const siteSettingsQuery = ({
 	site,
 }: {
 	locale: string;
-	site: 'reizen-tijdens-corona' | 'quarantaine-check';
+	site: 'reizen-tijdens-corona' | 'mijn-vraag-over-corona';
 }): string => `
 	*[_type == "site-settings-document" && site == "${site}"][0]{
 		baseUrl,
@@ -407,7 +407,7 @@ export const getSiteSettingsQuery = async ({
 	site,
 }: {
 	locale: string;
-	site: 'reizen-tijdens-corona' | 'quarantaine-check';
+	site: 'reizen-tijdens-corona' | 'mijn-vraag-over-corona';
 }) => await sanityClient.fetch(siteSettingsQuery({ locale, site }));
 
 /**
@@ -442,7 +442,7 @@ export const getPageQuery = ({
 	pageProjection: string;
 	documentsQuery?: string;
 	locale: string;
-	site: 'reizen-tijdens-corona' | 'quarantaine-check';
+	site: 'reizen-tijdens-corona' | 'mijn-vraag-over-corona';
 	faqs?: {
 		include?: string[];
 		exclude?: string[];
@@ -496,8 +496,11 @@ export const getSituationPageQuery = ({
 	locale: Locales;
 	situationSlug: string;
 }): string => `{
-	"page": *[_type == "${type}" && metaData.site == "quarantaine-check" && url=="${situationSlug}"][0]${pageProjection},
-	"siteSettings": ${siteSettingsQuery({ locale, site: 'quarantaine-check' })},
+	"page": *[_type == "${type}" && metaData.site == "mijn-vraag-over-corona" && url=="${situationSlug}"][0]${pageProjection},
+	"siteSettings": ${siteSettingsQuery({
+		locale,
+		site: 'mijn-vraag-over-corona',
+	})},
 }`;
 
 /**

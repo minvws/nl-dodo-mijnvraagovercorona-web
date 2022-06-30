@@ -8,7 +8,7 @@ export default {
 			name: 'site',
 			type: 'string',
 			options: {
-				list: ['reizen-tijdens-corona', 'quarantaine-check'],
+				list: ['reizen-tijdens-corona', 'mijn-vraag-over-corona'],
 			},
 		},
 		{ title: 'Titel', name: 'title', type: 'localeString' },
