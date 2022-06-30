@@ -43,7 +43,7 @@ export const AssistanceRow = ({ feedback }: AssistanceRowProps) => {
 				<Box>
 					<Styled.h2
 						sx={{
-							fontSize: ['h2Mobile', 'h2'],
+							fontSize: ['h1Mobile', 'h1'],
 						}}
 					>
 						{page.assistance.title}
@@ -125,12 +125,7 @@ export const AssistanceRow = ({ feedback }: AssistanceRowProps) => {
 					</Styled.p>
 				</Box>
 				{feedback && (
-					<Stack
-						styles={{
-							display: 'flex',
-							flexDirection: 'column',
-						}}
-					>
+					<Box>
 						<img
 							src="/images/questions.svg"
 							alt=""
@@ -145,6 +140,7 @@ export const AssistanceRow = ({ feedback }: AssistanceRowProps) => {
 								fontSize: ['h2Mobile', 'h2'],
 								fontWeight: 'bold',
 								color: 'header',
+								marginTop: '1.25rem',
 							}}
 						>
 							{page.assistance.situationQuestion}
@@ -158,7 +154,7 @@ export const AssistanceRow = ({ feedback }: AssistanceRowProps) => {
 						>
 							{page.assistance.situationButton}
 						</StyledLink>
-					</Stack>
+					</Box>
 				)}
 			</TheGrid>
 		</Retain>
