@@ -157,6 +157,17 @@ build mvoc image:
     - if: '$CI_COMMIT_TAG =~ /^staging/'
       when: always
 
+build check image:
+  <<: *build-image
+  variables:
+    CD_APP_NAME: quarantaine-check-website
+    CD_APP_FOLDER: mvoc
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^development/'
+      when: always
+    - if: '$CI_COMMIT_TAG =~ /^staging/'
+      when: always
+
 deploy reizen image latest:
   variables:
     CD_APP_NAME: travel-during-corona-website
@@ -196,6 +207,18 @@ deploy reizen image staging:
 deploy mvoc image staging:
   variables:
     CD_APP_NAME: mijn-vraag-over-corona-website
+    CD_WEBSITE_COMMIT_TAG: $CI_COMMIT_TAG
+    CD_ENVIRONMENT: staging
+  stage: deploy
+  trigger: vws/reis/nl-covid19-travel-during-corona-deploy
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^staging/'
+      when: on_success
+    - when: never
+
+deploy check image staging:
+  variables:
+    CD_APP_NAME: quarantaine-check-website
     CD_WEBSITE_COMMIT_TAG: $CI_COMMIT_TAG
     CD_ENVIRONMENT: staging
   stage: deploy
