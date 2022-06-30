@@ -19,12 +19,16 @@ import {
 
 import { locales } from 'content/general-content';
 import { Page } from 'components/page';
-import { Masthead } from 'components/molecules';
+import { AnswerSwitch, Masthead } from 'components/molecules';
 import {
 	getLandingSituationPageQuery,
 	getLandingSituations,
 } from 'utilities/landing-situations';
 import { retainMaxWidth } from '@quarantaine/common/src/components/molecules/layout/retain';
+import {
+	essentialQuestionPageProjection,
+	QuestionPageContent,
+} from './situatie/[question]';
 
 interface PageContent {
 	metaData: {
@@ -38,17 +42,12 @@ interface PageContent {
 		content: Array<Object>;
 		image: SanityImageFullProps;
 	};
-	question: {
-		title: string;
-	};
+	question: QuestionPageContent;
 	slug: string;
 }
 
 export const LandingSituation = ({ locale }: { locale: Locales }) => {
 	const page = useSanityPageContent<PageContent>();
-
-	console.log('page', page);
-
 	return (
 		<>
 			<MetaTags
@@ -88,22 +87,14 @@ export const LandingSituation = ({ locale }: { locale: Locales }) => {
 						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
 							<Retain maxWidth={[retainMaxWidth, '100%']}>
 								<Stack>
-									<Styled.h2>{page.question.title}</Styled.h2>
+									<Styled.h2>{page.question.header.title}</Styled.h2>
 								</Stack>
 							</Retain>
 						</Box>
 					</Container>
 				</Layer>
 
-				<Layer>
-					<Container>
-						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
-							<Retain maxWidth={[retainMaxWidth, '100%']}>
-								<mark>Vraag</mark>
-							</Retain>
-						</Box>
-					</Container>
-				</Layer>
+				<AnswerSwitch locale={locale} {...page.question} />
 			</Page>
 		</>
 	);
@@ -164,12 +155,8 @@ export const getStaticProps = async ({
 			})},
 			${getImage({ name: 'image', path: 'header.image', full: true })},
 		},
-		"question": {
-			${getLocaleProperty({
-				name: 'title',
-				path: 'situationReference->header.title',
-				locale,
-			})},
+		"question": situationReference->{
+			${essentialQuestionPageProjection({ locale: locale })}
 		},
 		"slug": slug.current,
 	}`;
