@@ -3,6 +3,7 @@ import { SanityImageFullProps } from '../../sanity';
 export interface CommonSiteSettings {
 	baseUrl: string;
 	pageTitleSuffix: string;
+	socialShareImage: SanityImageFullProps;
 	feedback: {
 		button: string;
 		content: string;

@@ -22,6 +22,12 @@ export default {
 			type: 'localeString',
 		},
 		{
+			title: 'Social share image',
+			name: 'socialShareImage',
+			description: '1200x632, geen SVG',
+			type: 'image',
+		},
+		{
 			title: 'Header',
 			name: 'header',
 			type: 'object',
