@@ -18,7 +18,10 @@ export const getSituationQuestionPageQuery = ({
 	question: string;
 }): string => `{
 	"page": *[_type == "situation-question-document" && slug.current=="${question}"][0]${pageProjection},
-	"siteSettings": ${siteSettingsQuery({ locale, site: 'quarantaine-check' })},
+	"siteSettings": ${siteSettingsQuery({
+		locale,
+		site: 'mijn-vraag-over-corona',
+	})},
 }`;
 
 export const getSituationAdvice = async () => {
@@ -39,5 +42,8 @@ export const getSituationAdvicePageQuery = ({
 	advice: string;
 }): string => `{
 	"page": *[_type == "situation-result-document" && slug.current=="${advice}"][0]${pageProjection},
-	"siteSettings": ${siteSettingsQuery({ locale, site: 'quarantaine-check' })},
+	"siteSettings": ${siteSettingsQuery({
+		locale,
+		site: 'mijn-vraag-over-corona',
+	})},
 }`;

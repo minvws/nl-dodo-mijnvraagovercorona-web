@@ -5,7 +5,7 @@
 		"dataset": "production"
 	},
 	"project": {
-		"name": "coronahulp.rijksoverheid.nl"
+		"name": "mijnvraagovercorona.nl"
 	},
 	"plugins": [
 		"@sanity/base",

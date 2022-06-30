@@ -15,7 +15,11 @@
 		"resolveJsonModule": true,
 		"baseUrl": ".",
 		"rootDir": ".",
-    "typeRoots": ["<rootDir>/packages/*/types", "<rootDir>/node_modules/@types", "./node_modules/@types"],
+		"typeRoots": [
+			"<rootDir>/packages/*/types",
+			"<rootDir>/node_modules/@types",
+			"./node_modules/@types"
+		],
 		"paths": {
 			"@quarantaine/*": ["./packages/*/src"]
 		}

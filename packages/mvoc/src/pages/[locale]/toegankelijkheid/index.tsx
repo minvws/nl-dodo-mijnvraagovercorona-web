@@ -1,13 +1,13 @@
+import { ContentPage } from 'components/content-page';
+
 import {
 	ContentPageProps,
 	getContentPageQuery,
 	Locales,
 } from '@quarantaine/common';
-
-import { ContentPage } from 'components/content-page';
 import { locales } from 'content/general-content';
 
-const Privacy = ({ page, siteSettings, locale }: ContentPageProps) => (
+const Toegankelijkheid = ({ page, siteSettings, locale }: ContentPageProps) => (
 	<ContentPage page={page} siteSettings={siteSettings} locale={locale} />
 );
 
@@ -17,8 +17,8 @@ export const getStaticProps = async ({
 	params: { locale: Locales };
 }) => {
 	const { page, siteSettings } = await getContentPageQuery({
-		site: 'quarantaine-check',
-		type: 'privacy-page',
+		site: 'mijn-vraag-over-corona',
+		type: 'toegankelijkheid-page',
 		locale,
 	});
 
@@ -38,4 +38,4 @@ export const getStaticPaths = () => ({
 	fallback: false,
 });
 
-export default Privacy;
+export default Toegankelijkheid;

@@ -48,9 +48,7 @@ export const InformContacts: React.FC<InformContactsProps> = ({
 	const [canShare, setCanShare] = useState(false);
 	const [value, copy] = useCopyToClipboard();
 	const shareLink = `${
-		isBrowser()
-			? window.location.origin
-			: 'https://quarantainecheck.rijksoverheid.nl'
+		isBrowser() ? window.location.origin : 'https://mijnvraagovercorona.nl'
 	}/${getHrefWithlocale(buttons.situation || '#situaties', locale.id)}`;
 
 	const triggerShareDialog = () => {
