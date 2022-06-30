@@ -5,12 +5,14 @@ import {
 	useCurrentLocale,
 	useSanitySiteSettings,
 	TranslationContext,
+	SanityImageFullProps,
 } from '@quarantaine/common';
 
 type Props = {
 	title: string;
 	description: string;
 	url: string;
+	shareImage?: SanityImageFullProps;
 	noIndex?: boolean;
 	skipPageSuffix?: boolean;
 };
@@ -19,6 +21,7 @@ export const MetaTags = ({
 	title,
 	description,
 	url,
+	shareImage,
 	noIndex,
 	skipPageSuffix,
 }: Props) => {
@@ -32,7 +35,9 @@ export const MetaTags = ({
 
 	const completeURl = `${baseUrl}/${locale.id}${url}`;
 	const pageTitle = `${title}${skipPageSuffix ? '' : pageTitleSuffix}`;
-	const ogImage = `${baseUrl}${socialShareImage.src}`;
+	const ogImage = `${baseUrl}${
+		shareImage && shareImage.src ? shareImage.src : socialShareImage.src
+	}`;
 
 	return (
 		<Head>

@@ -102,6 +102,7 @@ export type ContentPageProps = {
 		metaData: {
 			title: string;
 			description: string;
+			socialShareImage: SanityImageFullProps;
 		};
 		title: string;
 		content: Array<Object>;
@@ -134,6 +135,11 @@ export const getContentPageQuery = async ({
 				name: 'description',
 				path: 'metaData.description',
 				locale,
+			})},
+			${getImage({
+				name: 'socialShareImage',
+				path: 'metaData.socialShareImage',
+				full: true,
 			})},
 		},
 		${getLocaleProperty({ name: 'title', locale })},

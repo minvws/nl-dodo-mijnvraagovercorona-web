@@ -49,6 +49,7 @@ export interface PageContent {
 	metaData: {
 		title: string;
 		description: string;
+		socialShareImage: SanityImageFullProps;
 	};
 	header: {
 		title: string;
@@ -90,6 +91,7 @@ export default function LandingPage({ locale }: { locale: Locales }) {
 			<MetaTags
 				title={page.metaData.title}
 				description={page.metaData.description}
+				shareImage={page.metaData.socialShareImage}
 				url={page.url}
 				skipPageSuffix
 			/>
@@ -207,6 +209,11 @@ export const getStaticProps = async ({
 				name: 'description',
 				path: 'metaData.description',
 				locale,
+			})},
+			${getImage({
+				name: 'socialShareImage',
+				path: 'metaData.socialShareImage',
+				full: true,
 			})},
 		},
 		"header": {

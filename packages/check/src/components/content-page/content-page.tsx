@@ -13,6 +13,7 @@ export const ContentPage = ({ page }: ContentPageProps) => (
 		<MetaTags
 			title={page.metaData.title}
 			description={page.metaData.description}
+			shareImage={page.metaData.socialShareImage}
 			url={page.url}
 		/>
 
