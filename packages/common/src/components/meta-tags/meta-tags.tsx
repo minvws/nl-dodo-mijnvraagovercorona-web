@@ -5,12 +5,14 @@ import {
 	useCurrentLocale,
 	useSanitySiteSettings,
 	TranslationContext,
+	SanityImageFullProps,
 } from '@quarantaine/common';
 
 type Props = {
 	title: string;
 	description: string;
 	url: string;
+	shareImage?: SanityImageFullProps;
 	noIndex?: boolean;
 	skipPageSuffix?: boolean;
 };
@@ -19,15 +21,23 @@ export const MetaTags = ({
 	title,
 	description,
 	url,
+	shareImage,
 	noIndex,
 	skipPageSuffix,
 }: Props) => {
 	const locale = useCurrentLocale();
 	const { locales } = useContext(TranslationContext);
-	const { pageTitleSuffix, baseUrl } = useSanitySiteSettings();
-	const completeURl = `${baseUrl}/${locale.id}${url}`;
+	const {
+		pageTitleSuffix,
+		baseUrl,
+		socialShareImage,
+	} = useSanitySiteSettings();
 
+	const completeURl = `${baseUrl}/${locale.id}${url}`;
 	const pageTitle = `${title}${skipPageSuffix ? '' : pageTitleSuffix}`;
+	const ogImage = `${baseUrl}${
+		shareImage && shareImage.src ? shareImage.src : socialShareImage.src
+	}`;
 
 	return (
 		<Head>
@@ -44,6 +54,10 @@ export const MetaTags = ({
 				/>
 			))}
 
+			<meta property="og:title" content={pageTitle} />
+			<meta property="og:description" content={description} />
+			<meta property="og:url" content={completeURl} />
+			<meta property="og:image" content={ogImage} />
 			<meta property="og:type" content="website" />
 			<meta property="og:locale" content={locale.locale} />
 			{locales.map(
@@ -57,18 +71,13 @@ export const MetaTags = ({
 					),
 			)}
 
-			<meta property="og:url" content={completeURl} />
-			<meta property="og:image" content={`${baseUrl}/share.png?v=2`} />
-			<link rel="canonical" href={completeURl} />
-
-			<meta property="og:title" content={pageTitle} />
-			<meta property="og:description" content={description} />
-
-			<meta property="twitter:card" content="summary_large_image" />
-			<meta property="twitter:url" content={completeURl} />
 			<meta property="twitter:title" content={pageTitle} />
 			<meta property="twitter:description" content={description} />
-			<meta property="twitter:image" content={`${baseUrl}/share.png?v=2`} />
+			<meta property="twitter:url" content={completeURl} />
+			<meta property="twitter:image" content={ogImage} />
+			<meta property="twitter:card" content="summary_large_image" />
+
+			<link rel="canonical" href={completeURl} />
 
 			{noIndex && <meta name="robots" content="noindex" />}
 		</Head>

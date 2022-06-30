@@ -14,6 +14,12 @@ export default {
 		{ title: 'Titel', name: 'title', type: 'localeString' },
 		{ title: 'Omschrijving', name: 'description', type: 'localeString' },
 		{
+			title: 'Social share image',
+			name: 'socialShareImage',
+			description: '1200x632, geen SVG',
+			type: 'image',
+		},
+		{
 			title: 'Geen geldig zoekresultaat',
 			name: 'noIndex',
 			type: 'boolean',

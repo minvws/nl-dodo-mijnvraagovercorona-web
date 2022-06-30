@@ -102,6 +102,7 @@ export type ContentPageProps = {
 		metaData: {
 			title: string;
 			description: string;
+			socialShareImage: SanityImageFullProps;
 		};
 		title: string;
 		content: Array<Object>;
@@ -110,6 +111,7 @@ export type ContentPageProps = {
 	siteSettings: {
 		pageTitleSuffix: string;
 		url: string;
+		socialShareImage: SanityImageFullProps;
 	};
 	locale: Locales;
 };
@@ -133,6 +135,11 @@ export const getContentPageQuery = async ({
 				name: 'description',
 				path: 'metaData.description',
 				locale,
+			})},
+			${getImage({
+				name: 'socialShareImage',
+				path: 'metaData.socialShareImage',
+				full: true,
 			})},
 		},
 		${getLocaleProperty({ name: 'title', locale })},
@@ -184,6 +191,7 @@ export const siteSettingsQuery = ({
 	*[_type == "site-settings-document" && site == "${site}"][0]{
 		baseUrl,
 		${getLocaleProperty({ name: 'pageTitleSuffix', locale })},
+		${getImage({ name: 'socialShareImage', full: true })},
 		"privacy": {
 			${getLocaleProperty({ name: 'id', path: 'privacy.id', locale })},
 			${getLocaleProperty({ name: 'usp', path: 'privacy.usp', locale })},
