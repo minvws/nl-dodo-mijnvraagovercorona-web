@@ -110,6 +110,7 @@ export type ContentPageProps = {
 	siteSettings: {
 		pageTitleSuffix: string;
 		url: string;
+		socialShareImage: SanityImageFullProps;
 	};
 	locale: Locales;
 };
@@ -184,6 +185,7 @@ export const siteSettingsQuery = ({
 	*[_type == "site-settings-document" && site == "${site}"][0]{
 		baseUrl,
 		${getLocaleProperty({ name: 'pageTitleSuffix', locale })},
+		${getImage({ name: 'socialShareImage', full: true })},
 		"privacy": {
 			${getLocaleProperty({ name: 'id', path: 'privacy.id', locale })},
 			${getLocaleProperty({ name: 'usp', path: 'privacy.usp', locale })},
