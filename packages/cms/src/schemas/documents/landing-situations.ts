@@ -53,7 +53,7 @@ export default {
 			name: 'slug',
 			type: 'slug',
 			description:
-				'Pas op! Wanneer je wijzigt hebben we geen redirect vanuit de vorige url',
+				'Pas op! Wanneer je dit veld wijzigt hebben we geen redirect vanuit de vorige url.',
 			options: {
 				source: 'header.title.nl',
 			},
