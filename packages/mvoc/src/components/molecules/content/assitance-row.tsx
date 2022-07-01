@@ -52,13 +52,12 @@ export const AssistanceRow = ({ feedback }: AssistanceRowProps) => {
 						src="/images/questions.svg"
 						alt=""
 						sx={{
-							marginInlineEnd: 'auto',
-							marginInlineStart: 'auto',
 							display: ['block', feedback ? 'none' : ''],
 							marginBottom: '1.25rem',
+							width: '240px',
 						}}
 					/>
-					<Styled.p
+					<Styled.h2
 						sx={{
 							fontWeight: 'bold',
 							color: 'header',
@@ -67,7 +66,7 @@ export const AssistanceRow = ({ feedback }: AssistanceRowProps) => {
 						{isChatOpen
 							? page.assistance.tekstWithChat
 							: page.assistance.tekstWithoutChat}
-					</Styled.p>
+					</Styled.h2>
 					<Box
 						sx={{
 							display: 'flex',
