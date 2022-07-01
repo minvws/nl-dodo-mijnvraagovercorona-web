@@ -17,6 +17,7 @@ import {
 	GiTrail,
 	GiShieldReflect,
 	GiShare,
+	GiAirplaneArrival,
 } from 'react-icons/gi';
 import { BiError, BiSitemap } from 'react-icons/bi';
 import {
@@ -197,6 +198,11 @@ const checkSituationDocumentsConfig = [
 		schemaType: 'situation-result-document',
 		title: `Situatie Resultaat`,
 		icon: MdOutlineTopic,
+	},
+	{
+		schemaType: 'landing-situations-document',
+		title: `Landingpagina situaties`,
+		icon: GiAirplaneArrival,
 	},
 ];
 

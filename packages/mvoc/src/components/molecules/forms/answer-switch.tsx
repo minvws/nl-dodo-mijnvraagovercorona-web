@@ -1,0 +1,117 @@
+/** @jsx jsx */
+import React, { useState } from 'react';
+import { Container, jsx } from 'theme-ui';
+import { useRouter } from 'next/router';
+import {
+	BannerDataProtection,
+	Layer,
+	Locales,
+	Retain,
+	Stack,
+	TheSidebar,
+	useSanitySiteSettings,
+} from '@quarantaine/common';
+import { FormSubmitProps } from './submit';
+import { FormAnswersSingle, FormAnswersSingleProps } from './answers-single';
+import {
+	FormAnswersMultiple,
+	FormAnswersMultipleProps,
+} from './answers-multiple';
+import { FormAnswersDate } from './answers-date';
+import { FormAnswersButtons } from './answers-buttons';
+import { FormAnswersAge } from './answers-age';
+
+export interface AnswerSwitchProps {
+	content: FormAnswersSingleProps['content'];
+	answersMultiple: FormAnswersMultipleProps['answers'];
+	showMore: {
+		max: number;
+		label: {
+			this: string;
+			that: string;
+		};
+	};
+	answersSingle: FormAnswersSingleProps['answers'];
+	ageInput: {
+		label: string;
+		placeholder: string;
+	};
+	steps: {
+		current: number;
+		total: number;
+	};
+	type: 'multiple' | 'single' | 'datepicker' | 'buttons' | 'age';
+	buttons: FormSubmitProps['buttons'];
+}
+
+interface OwnProps extends AnswerSwitchProps {
+	locale: Locales;
+}
+
+export const AnswerSwitch: React.FC<OwnProps> = ({
+	content,
+	answersMultiple,
+	answersSingle,
+	showMore,
+	ageInput,
+	steps,
+	buttons,
+	type,
+	locale,
+}) => {
+	const siteSettings = useSanitySiteSettings();
+
+	const layerPaddingBlockStart =
+		type === 'datepicker' ? ['0'] : ['2rem', '3.75rem'];
+
+	const asideOffset = type === 'datepicker' ? [0, '3.25rem'] : [0];
+
+	return (
+		<Layer backgroundColor="white" paddingBlockStart={layerPaddingBlockStart}>
+			<Container>
+				<TheSidebar
+					asideChildren={
+						<BannerDataProtection content={siteSettings.privacy} />
+					}
+					asideOffset={asideOffset}
+				>
+					<Retain>
+						{type === 'multiple' && answersMultiple ? (
+							<FormAnswersMultiple
+								answers={answersMultiple}
+								buttons={buttons}
+								showMoreLabel={showMore.label}
+								limit={showMore.max}
+								locale={locale}
+								content={content}
+							/>
+						) : type === 'single' && answersSingle ? (
+							<FormAnswersSingle
+								answers={answersSingle}
+								buttons={buttons}
+								locale={locale}
+								content={content}
+							/>
+						) : type === 'datepicker' ? (
+							<FormAnswersDate buttons={buttons} locale={locale} />
+						) : type === 'buttons' ? (
+							<FormAnswersButtons
+								buttons={buttons}
+								locale={locale}
+								content={content}
+							/>
+						) : type === 'age' ? (
+							<FormAnswersAge
+								buttons={buttons}
+								locale={locale}
+								placeholder={ageInput.placeholder}
+								label={ageInput.label}
+								content={content}
+							/>
+						) : null}
+					</Retain>
+				</TheSidebar>
+			</Container>
+		</Layer>
+	);
+};
