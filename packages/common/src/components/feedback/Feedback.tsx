@@ -77,9 +77,10 @@ export const Feedback: React.FC<OwnProps> = ({ name, feedbackUrl }) => {
 				<Button
 					sx={buttonStyles}
 					onClick={() => {
+						setFeedback('like');
+
 						if (!feedback) {
 							setShowFeedback(true);
-							setFeedback('like');
 							trackEvent('Button', 'Click', `${name} Like`);
 						}
 					}}
@@ -96,9 +97,10 @@ export const Feedback: React.FC<OwnProps> = ({ name, feedbackUrl }) => {
 				<Button
 					sx={buttonStyles}
 					onClick={() => {
+						setFeedback('dislike');
+
 						if (!feedback) {
 							setShowFeedback(true);
-							setFeedback('dislike');
 							trackEvent('Button', 'Click', `${name} Dislike`);
 						}
 					}}
