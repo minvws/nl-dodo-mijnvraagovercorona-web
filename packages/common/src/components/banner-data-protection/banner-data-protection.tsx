@@ -32,9 +32,6 @@ export const BannerDataProtection = ({
 							'url("/icons/Privacy Protection.svg") no-repeat left top',
 						paddingLeft: '40px',
 						paddingBottom: '16px',
-						':last-child': {
-							paddingBottom: 0,
-						},
 					},
 				}}
 			>
