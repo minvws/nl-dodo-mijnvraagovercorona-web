@@ -265,6 +265,7 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 										feedbackUrl={getFeedbackUrl(siteSettings.feedback.url, {
 											source: 'situation-advice',
 											advice: page.slug,
+											day: `${todayDay}`,
 										})}
 									/>
 								</Stack>
