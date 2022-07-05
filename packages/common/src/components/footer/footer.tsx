@@ -15,6 +15,7 @@ export const FooterColumn: React.FC<{ title: string }> = ({
 export const Footer: React.FC = ({ children, ...props }) => {
 	return (
 		<footer
+			role="contentinfo"
 			{...props}
 			sx={{
 				backgroundColor: 'footerBackground',
