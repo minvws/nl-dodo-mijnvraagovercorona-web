@@ -20,15 +20,19 @@ export const ThemeOverview: React.FC<ThemeCollectionProps> = ({
 	themeCollection,
 }) => {
 	const siteSettings = useSanitySiteSettings<SiteSettings>();
+	const currentLocale = useCurrentLocale();
 
 	return (
 		<TheGrid minItemSize="24rem" gap={['3rem', '3.75rem']}>
 			{themeCollection?.map((theme) => (
 				<Stack
-					id={`thema-${slugify(theme.title, {
-						strict: true,
-						lower: true,
-					})}`}
+					id={`${currentLocale.id === 'nl' ? 'thema' : 'theme'}-${slugify(
+						theme.title,
+						{
+							strict: true,
+							lower: true,
+						},
+					)}`}
 					key={theme.title}
 				>
 					<Flex sx={{ alignItems: 'center', gap: '1.5rem' }}>
