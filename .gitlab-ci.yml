@@ -251,3 +251,15 @@ deploy mvoc image production:
     - if: '$CI_COMMIT_TAG =~ /^production/'
       when: manual
     - when: never
+
+deploy check image production:
+  variables:
+    CD_APP_NAME: travel-during-corona-website
+    CD_WEBSITE_COMMIT_TAG: $CI_COMMIT_TAG
+    CD_ENVIRONMENT: production
+  stage: deploy
+  trigger: vws/reis/nl-covid19-travel-during-corona-deploy
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^production/'
+      when: manual
+    - when: never
