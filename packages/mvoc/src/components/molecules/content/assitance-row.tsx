@@ -44,6 +44,7 @@ export const AssistanceRow = ({ feedback }: AssistanceRowProps) => {
 					<Styled.h2
 						sx={{
 							fontSize: ['h1Mobile', 'h1'],
+							lineHeight: ['h1Mobile', 'h1'],
 						}}
 					>
 						{page.assistance.title}
@@ -57,16 +58,18 @@ export const AssistanceRow = ({ feedback }: AssistanceRowProps) => {
 							width: '240px',
 						}}
 					/>
-					<Styled.h2
+					<Styled.h3
 						sx={{
-							fontWeight: 'bold',
+							fontSize: ['h2Mobile', 'h2'],
+							lineHeight: ['h2Mobile', 'h2'],
+							// fontWeight: 'bold',
 							color: 'header',
 						}}
 					>
 						{isChatOpen
 							? page.assistance.tekstWithChat
 							: page.assistance.tekstWithoutChat}
-					</Styled.h2>
+					</Styled.h3>
 					<Box
 						sx={{
 							display: 'flex',
@@ -134,7 +137,7 @@ export const AssistanceRow = ({ feedback }: AssistanceRowProps) => {
 								display: ['none', 'block'],
 							}}
 						/>
-						<Styled.p
+						<Styled.h3
 							sx={{
 								fontSize: ['h2Mobile', 'h2'],
 								fontWeight: 'bold',
@@ -143,7 +146,7 @@ export const AssistanceRow = ({ feedback }: AssistanceRowProps) => {
 							}}
 						>
 							{page.assistance.situationQuestion}
-						</Styled.p>
+						</Styled.h3>
 						<StyledLink
 							styledAs="button"
 							external
