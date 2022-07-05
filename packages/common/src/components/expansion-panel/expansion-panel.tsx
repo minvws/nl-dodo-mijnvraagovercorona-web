@@ -124,16 +124,19 @@ export const ExpansionPanel = ({
 						margin: 0,
 					}}
 				>
-					{variant !== 'plusinline' ? (
-						<dt>
-							<ExpansionPanelButton
-								variant={variant}
-								title={title}
-								titleSuffix={titleSuffix}
-							/>
-						</dt>
-					) : null}
-					<dd sx={{ padding: 0, margin: 0 }}>
+					<dt
+						sx={{
+							order: variant === 'plusinline' ? 2 : 1,
+						}}
+					>
+						<ExpansionPanelButton
+							variant={variant}
+							title={title}
+							titleSuffix={titleSuffix}
+						/>
+					</dt>
+
+					<dd sx={{ padding: 0, margin: 0, order: 1 }}>
 						<DisclosurePanel>
 							<div
 								sx={{
@@ -152,15 +155,6 @@ export const ExpansionPanel = ({
 							</div>
 						</DisclosurePanel>
 					</dd>
-					{variant === 'plusinline' ? (
-						<dt>
-							<ExpansionPanelButton
-								variant={variant}
-								title={title}
-								titleSuffix={titleSuffix}
-							/>
-						</dt>
-					) : null}
 				</dl>
 			</Disclosure>
 		</Container>
