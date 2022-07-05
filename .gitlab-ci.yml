@@ -254,7 +254,7 @@ deploy mvoc image production:
 
 deploy check image production:
   variables:
-    CD_APP_NAME: travel-during-corona-website
+    CD_APP_NAME: quarantaine-check-website
     CD_WEBSITE_COMMIT_TAG: $CI_COMMIT_TAG
     CD_ENVIRONMENT: production
   stage: deploy
