@@ -33,6 +33,7 @@ import {
 	getQuestionCollection,
 	QuestionCollectionProps,
 } from 'utilities/question';
+import { useHashRedirectService } from 'utilities/use-hash-redirect-service';
 
 interface ThemesProps extends ThemeCollectionProps {
 	title: string;
@@ -85,6 +86,8 @@ export interface PageContent {
 
 export default function LandingPage({ locale }: { locale: Locales }) {
 	const page = useSanityPageContent<PageContent>();
+
+	useHashRedirectService();
 
 	return (
 		<>
