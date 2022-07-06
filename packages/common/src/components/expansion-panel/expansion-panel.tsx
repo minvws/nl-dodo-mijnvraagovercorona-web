@@ -117,45 +117,37 @@ export const ExpansionPanel = ({
 				/>
 			) : null}
 			<Disclosure onChange={handleChange} open={open}>
-				<dl
-					sx={{
-						display: 'flex',
-						flexDirection: 'column',
-						margin: 0,
-					}}
-				>
-					<dt
+				{variant !== 'plusinline' ? (
+					<ExpansionPanelButton
+						variant={variant}
+						title={title}
+						titleSuffix={titleSuffix}
+					/>
+				) : null}
+				<DisclosurePanel>
+					<div
 						sx={{
-							order: variant === 'plusinline' ? 2 : 1,
+							padding:
+								variant === 'plusinline'
+									? '0 0 1rem 0'
+									: variant === 'plus' || variant === 'plusalt'
+									? '0 48px 15px 15px'
+									: '0 48px 15px 0',
+							fontSize: ['bodyMobile', 'body'],
+							lineHeight: ['bodyMobile', 'body'],
 						}}
+						ref={contentRef}
 					>
-						<ExpansionPanelButton
-							variant={variant}
-							title={title}
-							titleSuffix={titleSuffix}
-						/>
-					</dt>
-
-					<dd sx={{ padding: 0, margin: 0, order: 1 }}>
-						<DisclosurePanel>
-							<div
-								sx={{
-									padding:
-										variant === 'plusinline'
-											? '0 0 1rem 0'
-											: variant === 'plus' || variant === 'plusalt'
-											? '0 48px 15px 15px'
-											: '0 48px 15px 0',
-									fontSize: ['bodyMobile', 'body'],
-									lineHeight: ['bodyMobile', 'body'],
-								}}
-								ref={contentRef}
-							>
-								{children}
-							</div>
-						</DisclosurePanel>
-					</dd>
-				</dl>
+						{children}
+					</div>
+				</DisclosurePanel>
+				{variant === 'plusinline' ? (
+					<ExpansionPanelButton
+						variant={variant}
+						title={title}
+						titleSuffix={titleSuffix}
+					/>
+				) : null}
 			</Disclosure>
 		</Container>
 	);
