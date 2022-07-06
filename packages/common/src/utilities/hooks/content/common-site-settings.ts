@@ -76,4 +76,7 @@ export interface CommonSiteSettings {
 		subtitle: string;
 		icon: SanityImageFullProps;
 	};
+	accessibility: {
+		labelExternalLink: string;
+	};
 }
