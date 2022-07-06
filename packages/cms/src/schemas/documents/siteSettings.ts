@@ -356,5 +356,17 @@ export default {
 			name: 'seeMoreExpand',
 			type: 'thisOrThatLocaleString',
 		},
+		{
+			title: 'Toegankelijkheid',
+			name: 'accessibility',
+			type: 'object',
+			fields: [
+				{
+					title: 'Onzichtbaar label bij externe links',
+					name: 'labelExternalLink',
+					type: 'localeString',
+				},
+			],
+		},
 	],
 };

@@ -397,6 +397,13 @@ export const siteSettingsQuery = ({
 			})},
 			${getImage({ name: 'icon', path: `severeSymptomsAdvice.icon`, full: true })},
 		},
+		"accessibility": {
+			${getLocaleProperty({
+				name: 'labelExternalLink',
+				path: 'accessibility.labelExternalLink',
+				locale,
+			})},
+		}
 	}`;
 
 /**
