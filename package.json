@@ -13,7 +13,8 @@
 		"dev:common": "yarn workspace @quarantaine/common storybook",
 		"dev:cms": "yarn workspace @quarantaine/cms start",
 		"build:reizen": "yarn workspace @quarantaine/reizen build",
-		"build:mvoc": "yarn workspace @quarantaine/mvoc build"
+		"build:mvoc": "yarn workspace @quarantaine/mvoc build",
+		"deploy:cms": "yarn workspace @quarantaine/cms deploy"
 	},
 	"workspaces": [
 		"packages/*"
