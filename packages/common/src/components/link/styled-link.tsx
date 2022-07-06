@@ -2,7 +2,12 @@
 import React, { useMemo } from 'react';
 import { jsx, SxStyleProp, Box, Image } from 'theme-ui';
 
-import { ChevronIcon, RefreshIcon, ExternalIcon } from '@quarantaine/common';
+import {
+	useSanitySiteSettings,
+	ChevronIcon,
+	RefreshIcon,
+	ExternalIcon,
+} from '@quarantaine/common';
 import VisuallyHidden from '@reach/visually-hidden';
 
 export interface StyledLinkPropsBase {
@@ -267,6 +272,7 @@ const StyledLinkBase = <T extends React.ElementType = 'a'>(
 	props: StyledLinkProps<T>,
 	ref: React.Ref<any>,
 ) => {
+	const siteSettings = useSanitySiteSettings();
 	const styles = useLinkStyles(props);
 
 	const {
@@ -309,10 +315,23 @@ const StyledLinkBase = <T extends React.ElementType = 'a'>(
 	}
 
 	const ChildrenComponent = (
-		<span>
-			{children}
-			{external ? <ExternalIcon /> : null}
-		</span>
+		<>
+			<span
+				sx={{
+					marginInlineEnd: external ? '0.25em' : 0,
+				}}
+			>
+				{children}
+			</span>
+			{external ? (
+				<>
+					<ExternalIcon width="0.8em" height="0.8em" />
+					<VisuallyHidden>
+						({siteSettings.accessibility.labelExternalLink})
+					</VisuallyHidden>
+				</>
+			) : null}
+		</>
 	);
 
 	// Anchor
