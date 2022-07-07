@@ -1,5 +1,7 @@
 /** @jsx jsx */
-import { Box, Flex, jsx, Text } from 'theme-ui';
+import VisuallyHidden from '@reach/visually-hidden';
+import { Stack } from '@quarantaine/common';
+import { Box, jsx, Styled, Text } from 'theme-ui';
 
 export interface SchemeBlockProps {
 	title?: string;
@@ -47,70 +49,75 @@ export const SchemeBlock: React.FC<SchemeBlockProps> = ({
 			},
 		}}
 	>
-		{(title || day) && (
-			<Flex
-				sx={{
-					justifyContent: 'space-between',
-					alignItems: 'center',
-					'& + div': { marginBlockStart: '1rem' },
-					'@media print': {
-						mt: '0 !important',
-					},
-				}}
-			>
-				{title && (
-					<p sx={{ margin: 0, color: 'smallText', fontWeight: 'bold' }}>
-						{title}
-						{subtitle && (
-							<>
-								{' '}
-								<span sx={{ fontWeight: 'normal' }}>{subtitle}</span>
-							</>
-						)}
-					</p>
-				)}
-				{day && (
-					<Text
-						variant="chapeau"
-						as="span"
-						sx={{
-							margin: 0,
-							color: 'link',
-						}}
-					>
-						{day}
-					</Text>
-				)}
-			</Flex>
-		)}
-		{children && (
-			<Box
-				sx={{
-					'a, button': {
-						color: 'text',
-						textDecoration: 'underline',
-						fontSize: 'inherit',
-						fontWeight: 'inherit',
-						'.chevron': {
-							display: 'none',
+		<Stack spacing={['1rem']}>
+			{title || day ? (
+				<Styled.h3
+					sx={{
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'space-between',
+						margin: 0,
+						fontSize: ['h3'],
+						lineHeight: ['h3'],
+					}}
+				>
+					{title ? (
+						<span sx={{ color: 'smallText' }}>
+							{title}
+							{subtitle && (
+								<>
+									{' '}
+									<span sx={{ fontWeight: 'normal' }}>{subtitle}</span>
+								</>
+							)}
+						</span>
+					) : null}
+					{day && (
+						<Text
+							variant="chapeau"
+							as="span"
+							sx={{
+								margin: 0,
+								color: 'link',
+							}}
+						>
+							<VisuallyHidden>(</VisuallyHidden>
+							{day}
+							<VisuallyHidden>)</VisuallyHidden>
+						</Text>
+					)}
+				</Styled.h3>
+			) : null}
+
+			{children && (
+				<Box
+					sx={{
+						'a, button': {
+							color: 'text',
+							textDecoration: 'underline',
+							fontSize: 'inherit',
+							fontWeight: 'inherit',
+							'.chevron': {
+								display: 'none',
+							},
+							'&:hover, &:focus': {
+								color: 'inherit',
+							},
 						},
-						'&:hover, &:focus': {
-							color: 'inherit',
+						'*:last-child': {
+							marginBlockEnd: 0,
 						},
-					},
-					'*:last-child': {
-						marginBlockEnd: 0,
-					},
-					'@media print': {
-						p: {
-							marginBlockEnd: '0.375rem',
+						'@media print': {
+							p: {
+								marginBlockEnd: '0.375rem',
+							},
 						},
-					},
-				}}
-			>
-				{children}
-			</Box>
-		)}
+					}}
+				>
+					{children}
+				</Box>
+			)}
+		</Stack>
 	</Box>
 );
 
