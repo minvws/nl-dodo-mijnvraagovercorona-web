@@ -71,6 +71,7 @@ export interface CommonSiteSettings {
 		this: string;
 		that: string;
 	};
+	sources: string;
 	severeSymptomsAdvice: {
 		title: string;
 		subtitle: string;

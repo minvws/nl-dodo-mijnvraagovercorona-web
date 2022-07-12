@@ -384,6 +384,10 @@ export const siteSettingsQuery = ({
 				locale,
 			})},
 		},
+		${getLocaleProperty({
+			name: 'sources',
+			locale,
+		})},
 		"severeSymptomsAdvice": {
 			${getLocaleProperty({
 				name: 'title',

@@ -357,6 +357,11 @@ export default {
 			type: 'thisOrThatLocaleString',
 		},
 		{
+			title: 'Bronnen',
+			name: 'sources',
+			type: 'localeString',
+		},
+		{
 			title: 'Toegankelijkheid',
 			name: 'accessibility',
 			type: 'object',
