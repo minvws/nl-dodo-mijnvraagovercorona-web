@@ -147,11 +147,19 @@ const reizenMultiDocumentsConfig = [
 	},
 ];
 
-const checkPagesConfig = [
+const mvocPagesConfig = [
 	{
 		schemaType: 'check-landing-page',
 		title: 'Landing',
 		icon: GiHouse,
+	},
+];
+
+const mvocPagesDocumentsConfig = [
+	{
+		schemaType: 'tip-document',
+		title: `Tips`,
+		icon: GiLightBulb,
 	},
 ];
 
@@ -183,7 +191,7 @@ const multiDocumentsConfig = [
 	},
 ];
 
-const checkSituationDocumentsConfig = [
+const mvocSituationDocumentsConfig = [
 	{
 		schemaType: 'theme-document',
 		title: `Thema`,
@@ -206,7 +214,7 @@ const checkSituationDocumentsConfig = [
 	},
 ];
 
-const checkSituationOldDocumentsConfig = [
+const mvocSituationOldDocumentsConfig = [
 	{
 		schemaType: 'situation-document',
 		title: `Situatie`,
@@ -229,7 +237,7 @@ const checkSituationOldDocumentsConfig = [
 	},
 ];
 
-const checkTopicDocumentsConfig = [
+const mvocTopicDocumentsConfig = [
 	{
 		schemaType: 'topic-document',
 		title: 'Onderwerp Flow',
@@ -280,14 +288,19 @@ export default () =>
 					getFolder({
 						title: 'Pagina’s',
 						icon: RiPagesLine,
-						items: [...checkPagesConfig.map((config) => getPage(config))],
+						items: [
+							...mvocPagesConfig.map((config) => getPage(config)),
+							...mvocPagesDocumentsConfig.map((config) =>
+								getDocumentList(config),
+							),
+						],
 					}),
 
 					getFolder({
 						title: 'Situaties',
 						icon: RiQuestionAnswerLine,
 						items: [
-							...checkSituationDocumentsConfig.map((config) =>
+							...mvocSituationDocumentsConfig.map((config) =>
 								getDocumentList(config),
 							),
 						],
@@ -297,7 +310,7 @@ export default () =>
 						title: 'Onderwerpen',
 						icon: MdOutlineTopic,
 						items: [
-							...checkTopicDocumentsConfig.map((config) =>
+							...mvocTopicDocumentsConfig.map((config) =>
 								getDocumentList(config),
 							),
 						],
@@ -307,7 +320,7 @@ export default () =>
 						title: 'Situaties (Oud)',
 						icon: GiHelp,
 						items: [
-							...checkSituationOldDocumentsConfig.map((config) =>
+							...mvocSituationOldDocumentsConfig.map((config) =>
 								getDocumentList(config),
 							),
 						],
