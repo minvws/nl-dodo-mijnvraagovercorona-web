@@ -1,6 +1,7 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui';
 import React from 'react';
+import slugify from 'slugify';
+import { Box, Container, jsx, Styled } from 'theme-ui';
 
 import {
 	Locales,
@@ -12,6 +13,12 @@ import {
 	getImage,
 	SanityImageFullProps,
 	ContentBlock,
+	useSanitySiteSettings,
+	formatLongDate,
+	Layer,
+	TheSidebar,
+	BannerDataProtection,
+	Retain,
 } from '@quarantaine/common';
 
 import { locales } from 'content/general-content';
@@ -29,12 +36,29 @@ interface PageContent {
 		title: string;
 		content: Array<Object>;
 		image: SanityImageFullProps;
+		showTOC: boolean;
 	};
+	stories: {
+		title: string;
+		content: Array<Object>;
+		overview: {
+			title: string;
+			icon: SanityImageFullProps;
+		};
+	}[];
+	updatedAt: string;
 	slug: string;
 }
 
 export const Tip = ({ locale }: { locale: Locales }) => {
 	const page = useSanityPageContent<PageContent>();
+	const siteSettings = useSanitySiteSettings();
+
+	console.log('page', page);
+
+	const translatedStories = page.stories.filter((story) => story.title);
+	const tocStories = translatedStories.filter((story) => story.overview.title);
+
 	return (
 		<>
 			<MetaTags
@@ -49,11 +73,65 @@ export const Tip = ({ locale }: { locale: Locales }) => {
 					headerSlot={<Header transparent noPadding />}
 					title={page.header.title}
 					illustration={page.header.image}
-					variant="highlight"
+					prefixSlot={
+						<Styled.p
+							sx={{
+								fontSize: ['1rem', '1rem'],
+								lineHeight: ['smallTextMobile', 'smallText'],
+								color: 'detailText',
+							}}
+						>
+							{siteSettings.updatedAt}{' '}
+							<time dateTime={page.updatedAt}>
+								{formatLongDate(new Date(page.updatedAt), locale)}
+							</time>
+						</Styled.p>
+					}
 				>
 					<ContentBlock content={page.header.content} />
+					{page.header.showTOC ? (
+						<ul>
+							{tocStories.map((story, index) => (
+								<li key={index}>
+									<a
+										href={`#${slugify(story.title, {
+											strict: true,
+											lower: true,
+										})}`}
+									>
+										{story.overview.title}
+									</a>
+								</li>
+							))}
+						</ul>
+					) : null}
 				</Masthead>
-				<mark>Tips content</mark>
+				<Layer backgroundColor="transparant">
+					<Container>
+						<TheSidebar
+							asideChildren={
+								<BannerDataProtection content={siteSettings.privacy} />
+							}
+							asideOffset={[0]}
+						>
+							<Retain>
+								{translatedStories.map((story, index) => (
+									<Box
+										as="section"
+										id={slugify(story.title, {
+											strict: true,
+											lower: true,
+										})}
+										key={index}
+									>
+										<Styled.h2>{story.title}</Styled.h2>
+										<ContentBlock content={story.content} />
+									</Box>
+								))}
+							</Retain>
+						</TheSidebar>
+					</Container>
+				</Layer>
 			</Page>
 		</>
 	);
@@ -109,7 +187,17 @@ export const getStaticProps = async ({
 				block: true,
 			})},
 			${getImage({ name: 'image', path: 'header.image', full: true })},
+			"showTOC": header.showTOC
 		},
+		"stories": stories[] {
+			${getLocaleProperty({ name: 'title', locale })},
+			${getLocaleProperty({ name: 'content', locale, block: true })},
+			"overview": {
+				${getLocaleProperty({ name: 'title', path: 'overview.title', locale })},
+				${getImage({ name: 'icon', path: 'overview.icon', full: true })},
+			}
+		},
+		"updatedAt": _updatedAt,
 		"slug": slug.current,
 	}`;
 	const { page, siteSettings } = await sanityClient.fetch(
