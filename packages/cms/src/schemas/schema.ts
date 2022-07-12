@@ -20,6 +20,7 @@ import situationResultDocument from './documents/situation-result';
 import contentFeedDocument from './documents/content-feed';
 import contentCardDocument from './documents/content-card';
 import landingSituationsDocument from './documents/landing-situations';
+import tipDocument from './documents/tip';
 
 import privacyPage from './pages/common/privacy';
 import cookiesPage from './pages/common/cookies';
@@ -47,6 +48,7 @@ import {
 } from './objects/localeBlock';
 import localeUrlObject from './objects/localeUrl';
 import localeTextObject from './objects/localeText';
+import videoObject from './objects/video';
 import thisOrThatLocaleStringObject from './objects/thisOrThatLocaleString';
 import pageMetaDataObject from './objects/pageMetaData';
 import headerObject from './objects/header';
@@ -61,9 +63,11 @@ import aidObject from './objects/aid';
 import stepsObject from './objects/steps';
 import buttonObject from './objects/button';
 import storyObject from './objects/story';
+import storyExtendedObject from './objects/storyExtended';
 import questionContentObject from './objects/questionContent';
 import questionSelectorObject from './objects/questionSelector';
 import themeSelectorObject from './objects/themeSelector';
+import tipSelectorObject from './objects/tipSelector';
 
 export default createSchema({
 	name: 'default',
@@ -126,6 +130,7 @@ export default createSchema({
 		situationResultDocument,
 		contentFeedDocument,
 		landingSituationsDocument,
+		tipDocument,
 
 		/**
 		 * Objects
@@ -136,6 +141,7 @@ export default createSchema({
 		localeBlockWithoutModalObject,
 		localeUrlObject,
 		localeTextObject,
+		videoObject,
 		thisOrThatLocaleStringObject,
 		pageMetaDataObject,
 		headerObject,
@@ -150,8 +156,10 @@ export default createSchema({
 		stepsObject,
 		buttonObject,
 		storyObject,
+		storyExtendedObject,
 		questionContentObject,
 		questionSelectorObject,
 		themeSelectorObject,
+		tipSelectorObject,
 	]),
 });
