@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 import slugify from 'slugify';
-import { Box, Container, jsx, Styled } from 'theme-ui';
+import { Box, Container, Image, jsx, Styled } from 'theme-ui';
 
 import {
 	Locales,
@@ -21,12 +21,30 @@ import {
 	Retain,
 	StyledLink,
 	ListAnchor,
+	Stack,
 } from '@quarantaine/common';
 
 import { locales } from 'content/general-content';
 import { Page } from 'components/page';
 import { Masthead } from 'components/molecules';
 import { getTipPageQuery, getTips } from 'utilities/tips';
+import {
+	getQuestionCollection,
+	QuestionCollectionProps,
+} from 'utilities/question';
+
+interface StoryProps extends QuestionCollectionProps {
+	title: string;
+	content: Array<Object>;
+	image: SanityImageFullProps;
+	video: {
+		url: string;
+	};
+	overview: {
+		title: string;
+		icon: SanityImageFullProps;
+	};
+}
 
 interface PageContent {
 	metaData: {
@@ -40,14 +58,11 @@ interface PageContent {
 		image: SanityImageFullProps;
 		showTOC: boolean;
 	};
-	stories: {
+	stories: StoryProps[];
+	sources: {
 		title: string;
 		content: Array<Object>;
-		overview: {
-			title: string;
-			icon: SanityImageFullProps;
-		};
-	}[];
+	};
 	updatedAt: string;
 	slug: string;
 }
@@ -97,7 +112,7 @@ export const Tip = ({ locale }: { locale: Locales }) => {
 							items={tocStories.map((story) => ({
 								label: story.overview.title,
 								href: `#${slugify(story.title, { strict: true, lower: true })}`,
-								image: story.overview.icon.src,
+								image: story.overview.icon?.src,
 							}))}
 						/>
 					) : null}
@@ -106,19 +121,65 @@ export const Tip = ({ locale }: { locale: Locales }) => {
 					<Container>
 						<TheSidebar asideChildren={<mark>Sidebar</mark>} asideOffset={[0]}>
 							<Retain>
-								{translatedStories.map((story, index) => (
-									<Box
-										as="section"
-										id={slugify(story.title, {
-											strict: true,
-											lower: true,
-										})}
-										key={index}
-									>
-										<Styled.h2>{story.title}</Styled.h2>
-										<ContentBlock content={story.content} />
+								<Stack spacing={['3.5rem']}>
+									{translatedStories.map((story, index) => (
+										<Box
+											as="section"
+											id={slugify(story.title, {
+												strict: true,
+												lower: true,
+											})}
+											key={index}
+										>
+											<Stack spacing={['1rem']}>
+												<Styled.h2>{story.title}</Styled.h2>
+												<ContentBlock content={story.content} />
+												{story.image?.src ? (
+													<Image src={story.image.src} alt="" />
+												) : null}
+												{story.questionCollection
+													? story.questionCollection.map((question, index) => (
+															<StyledLink
+																key={index}
+																href={question.path}
+																styledAs="button"
+															>
+																<ContentBlock content={question.title} />
+															</StyledLink>
+													  ))
+													: null}
+												{story.video.url ? (
+													<mark>Video component: {story.video.url}</mark>
+												) : null}
+											</Stack>
+										</Box>
+									))}
+
+									<Box>
+										<mark>More tips</mark>
 									</Box>
-								))}
+
+									{page.sources.content ? (
+										<Box
+											as="footer"
+											sx={{
+												backgroundColor: 'headerBackground',
+												color: 'header',
+												borderRadius: 'box',
+												padding: '1.5rem',
+											}}
+										>
+											<Stack spacing={['1rem']}>
+												<Styled.h2>
+													{page.sources.title
+														? page.sources.title
+														: siteSettings.sources}
+												</Styled.h2>
+												<ContentBlock content={page.sources.content} />
+											</Stack>
+										</Box>
+									) : null}
+								</Stack>
 							</Retain>
 						</TheSidebar>
 					</Container>
@@ -183,10 +244,24 @@ export const getStaticProps = async ({
 		"stories": stories[] {
 			${getLocaleProperty({ name: 'title', locale })},
 			${getLocaleProperty({ name: 'content', locale, block: true })},
+			${getImage({ name: 'image', full: true })},
 			"overview": {
 				${getLocaleProperty({ name: 'title', path: 'overview.title', locale })},
 				${getImage({ name: 'icon', path: 'overview.icon', full: true })},
-			}
+			},
+			${getQuestionCollection({ locale })},
+			"video": {
+				"url":video.url,
+			},
+		},
+		"sources": {
+			${getLocaleProperty({ name: 'title', path: 'sources.title', locale })},
+			${getLocaleProperty({
+				name: 'content',
+				path: 'sources.content',
+				locale,
+				block: true,
+			})},
 		},
 		"updatedAt": _updatedAt,
 		"slug": slug.current,
