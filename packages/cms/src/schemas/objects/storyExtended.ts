@@ -32,7 +32,7 @@ export default {
 		},
 		{
 			title: 'Situaties',
-			name: 'situations',
+			name: 'questionCollection',
 			type: 'questionSelector',
 		},
 		{
