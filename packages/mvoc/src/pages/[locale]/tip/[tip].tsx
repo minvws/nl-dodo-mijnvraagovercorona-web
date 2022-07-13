@@ -19,6 +19,8 @@ import {
 	TheSidebar,
 	BannerDataProtection,
 	Retain,
+	StyledLink,
+	ListAnchor,
 } from '@quarantaine/common';
 
 import { locales } from 'content/general-content';
@@ -90,30 +92,19 @@ export const Tip = ({ locale }: { locale: Locales }) => {
 				>
 					<ContentBlock content={page.header.content} />
 					{page.header.showTOC ? (
-						<ul>
-							{tocStories.map((story, index) => (
-								<li key={index}>
-									<a
-										href={`#${slugify(story.title, {
-											strict: true,
-											lower: true,
-										})}`}
-									>
-										{story.overview.title}
-									</a>
-								</li>
-							))}
-						</ul>
+						<ListAnchor
+							as="ol"
+							items={tocStories.map((story) => ({
+								label: story.overview.title,
+								href: `#${slugify(story.title, { strict: true, lower: true })}`,
+								image: story.overview.icon.src,
+							}))}
+						/>
 					) : null}
 				</Masthead>
 				<Layer backgroundColor="transparant">
 					<Container>
-						<TheSidebar
-							asideChildren={
-								<BannerDataProtection content={siteSettings.privacy} />
-							}
-							asideOffset={[0]}
-						>
+						<TheSidebar asideChildren={<mark>Sidebar</mark>} asideOffset={[0]}>
 							<Retain>
 								{translatedStories.map((story, index) => (
 									<Box
