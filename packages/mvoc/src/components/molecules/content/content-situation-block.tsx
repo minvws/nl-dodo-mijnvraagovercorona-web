@@ -17,14 +17,6 @@ interface OwnProps {
 	contentBlocks: ContentSituationBlockProps[];
 }
 
-export const getUrlBySituation = (situation: Situation) => {
-	const prefix = '/situatie';
-
-	if (situation.start) return `${prefix}/${situation.start}`;
-
-	return `${prefix}/${situation.slug}`;
-};
-
 export const ContentSituationBlock: React.FC<OwnProps> = ({
 	contentBlocks,
 }) => {
