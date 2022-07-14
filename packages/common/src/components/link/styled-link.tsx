@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import React, { useMemo } from 'react';
 import { jsx, SxStyleProp, Box, Image } from 'theme-ui';
+import { keyframes } from '@emotion/react';
 
 import {
 	useSanitySiteSettings,
@@ -60,6 +61,13 @@ type MergeElementProps<
 export type StyledLinkProps<P extends React.ElementType = 'a' | 'button'> = {
 	as?: P;
 } & MergeElementProps<P, StyledLinkPropsAsAnchor | StyledLinkPropsAsButton>;
+
+const slide = keyframes({
+	'0%': { transform: 'translateX(0)' },
+	'25%': { transform: 'translateX(2px)' },
+	'75%': { transform: 'translateX(-2px)' },
+	'100%': { transform: 'translateX(0)' },
+});
 
 export const useLinkStyles = ({
 	fontWeight,
@@ -208,10 +216,14 @@ export const useLinkStyles = ({
 			backgroundColor: 'white',
 			color: 'primary',
 			outline: 'none',
+
 			':hover, :focus': {
 				border: 'tileInteraction',
 				boxShadow: 'tileInteraction',
 				backgroundColor: 'white',
+				'.chevron': {
+					animation: `${slide} 1s infinite linear`,
+				},
 			},
 			// Content block can output a span or a p tag. In case of a p tag, strip margins & reset font
 			'p, && p': {
@@ -236,14 +248,18 @@ export const useLinkStyles = ({
 			backgroundColor: 'white',
 			outline: 'none',
 
+			'.chevron': {
+				color: 'secondary',
+			},
+
 			':hover, :focus': {
 				border: 'tileInteraction',
 				boxShadow: 'tileInteraction',
 				backgroundColor: 'white',
-			},
 
-			'.chevron': {
-				color: 'secondary',
+				'.chevron': {
+					animation: `${slide} 1s infinite linear`,
+				},
 			},
 		};
 

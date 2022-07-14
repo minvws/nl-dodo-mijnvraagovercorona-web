@@ -21,8 +21,6 @@ import {
 	ListAnchor,
 	Stack,
 	StyledLink,
-	getHrefWithlocale,
-	TheSwitcher,
 } from '@quarantaine/common';
 
 import { locales } from 'content/general-content';
@@ -76,8 +74,6 @@ interface PageContent extends TipCollectionProps {
 export const Tip = ({ locale }: { locale: Locales }) => {
 	const page = useSanityPageContent<PageContent>();
 	const siteSettings = useSanitySiteSettings();
-
-	console.log('page', page);
 
 	const translatedStories = page.stories.filter((story) => story.title);
 	const translatedTips = page.tipCollection.filter((tip) => tip.title);

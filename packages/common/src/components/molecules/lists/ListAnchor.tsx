@@ -44,7 +44,7 @@ export const ListAnchor: React.FC<OwnProps> = ({ items, as = 'ul' }) => {
 							gap: '1rem',
 							inlineSize: '100%',
 							paddingBlock: ['0.75rem', '1rem'],
-							paddingInline: ['1.5rem', '2rem'],
+							paddingInline: ['1rem'],
 							borderRadius: '5px',
 							border: 'tile',
 							boxShadow: 'tile',
