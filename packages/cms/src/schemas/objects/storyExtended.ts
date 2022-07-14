@@ -16,9 +16,9 @@ export default {
 			type: 'localeString',
 		},
 		{
-			title: 'Content',
-			name: 'content',
-			type: 'localeBlock',
+			title: 'Content Blocks',
+			name: 'contentBlocks',
+			type: 'contentBlocks',
 		},
 		{
 			title: 'Afbeelding',
@@ -29,11 +29,6 @@ export default {
 			title: 'Video',
 			name: 'video',
 			type: 'video',
-		},
-		{
-			title: 'Situaties',
-			name: 'questionCollection',
-			type: 'questionSelector',
 		},
 		{
 			title: 'Overzicht',
