@@ -117,7 +117,7 @@ export const Tip = ({ locale }: { locale: Locales }) => {
 				</Masthead>
 				<Layer backgroundColor="transparant">
 					<Container>
-						<TheSidebar asideChildren={<mark>Sidebar</mark>} asideOffset={[0]}>
+						<TheSidebar asideOffset={[0]}>
 							<Retain>
 								<Stack spacing={['3.5rem']}>
 									{translatedStories.map((story, index) => (
