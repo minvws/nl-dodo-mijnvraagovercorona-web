@@ -8,7 +8,7 @@ export default {
 	of: [
 		{
 			title: 'Situatiebutton',
-			name: 'situationNew',
+			name: 'situation',
 			type: 'object',
 			icon: BiLinkAlt,
 			preview: {
@@ -30,30 +30,6 @@ export default {
 						{ type: 'situation-question-document' },
 						{ type: 'situation-result-document' },
 					],
-				},
-			],
-		},
-		{
-			title: 'Situatiebutton (oud)',
-			name: 'situation',
-			type: 'object',
-			icon: BiLinkAlt,
-			preview: {
-				select: {
-					title: 'situationReference.url',
-				},
-			},
-			fields: [
-				{
-					title: 'Link titel',
-					name: 'situationLinkTitle',
-					type: 'localeString',
-				},
-				{
-					title: 'Link naar situatiepagina',
-					name: 'situationReference',
-					type: 'reference',
-					to: [{ type: 'situation-document' }],
 				},
 			],
 		},
