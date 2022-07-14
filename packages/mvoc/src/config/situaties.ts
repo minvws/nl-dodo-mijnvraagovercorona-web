@@ -1,13 +1,5 @@
 export interface Situation {
-	maxDays: number;
-	showDate: boolean;
-	showExceptions: boolean;
-	url: string;
-}
-
-export interface SituationNew {
-	slug: string;
-	start: string;
+	path: string;
 }
 
 export type Situaties =
