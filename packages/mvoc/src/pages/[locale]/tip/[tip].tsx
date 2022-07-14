@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 import slugify from 'slugify';
-import { Box, Container, Image, jsx, Styled } from 'theme-ui';
+import { Box, Container, jsx, Styled } from 'theme-ui';
 
 import {
 	Locales,
@@ -20,8 +20,6 @@ import {
 	Retain,
 	ListAnchor,
 	Stack,
-	StyledLink,
-	getHrefWithlocale,
 	useCurrentLocale,
 } from '@quarantaine/common';
 
@@ -31,6 +29,7 @@ import {
 	ContentSituationBlock,
 	ContentSituationBlockProps,
 	Masthead,
+	MoreTips,
 } from 'components/molecules';
 import {
 	getTipPageQuery,
@@ -156,28 +155,10 @@ export const Tip = () => {
 									))}
 
 									{translatedTips.length ? (
-										<Stack>
-											<Styled.h2>
-												{page.moreTips.title
-													? page.moreTips.title
-													: siteSettings.moreTips}
-											</Styled.h2>
-											<Stack spacing={['1rem']}>
-												{translatedTips.map((tip, index) => (
-													<StyledLink
-														styledAs="button-large"
-														href={getHrefWithlocale(
-															`/tip/${tip.slug}`,
-															locale.urlPrefix,
-														)}
-														icon={tip.icon.src}
-														key={index}
-													>
-														{tip.title}
-													</StyledLink>
-												))}
-											</Stack>
-										</Stack>
+										<MoreTips
+											tipCollection={translatedTips}
+											title={page.moreTips.title}
+										/>
 									) : null}
 
 									{page.sources.content ? (

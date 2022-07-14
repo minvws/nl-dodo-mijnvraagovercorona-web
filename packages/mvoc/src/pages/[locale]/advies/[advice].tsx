@@ -24,6 +24,7 @@ import {
 	SanityImageFullProps,
 	Card,
 	formatLongDate,
+	useCurrentLocale,
 } from '@quarantaine/common';
 
 import { locales } from 'content/general-content';
@@ -35,6 +36,7 @@ import {
 	InformContacts,
 	InformContactsProps,
 	Masthead,
+	MoreTips,
 } from 'components/molecules';
 import { LinkBack } from 'components/link-back';
 import {
@@ -43,6 +45,7 @@ import {
 } from 'utilities/situations-flow';
 import { differenceInDays, startOfDay, parse, addDays } from 'date-fns';
 import { useRouter } from 'next/router';
+import { getTipsCollection, TipCollectionProps } from 'utilities/tips';
 
 interface AnswerProps {
 	showOn?: Array<number>;
@@ -71,6 +74,10 @@ interface AdviceProps {
 	secondaryTitle: string;
 }
 
+interface MoreTipsProps extends TipCollectionProps {
+	title: string;
+}
+
 interface PageContent {
 	metaData: {
 		title: string;
@@ -86,6 +93,7 @@ interface PageContent {
 	advice: AdviceProps;
 	informContacts: InformContactsProps;
 	slug: string;
+	moreTips: MoreTipsProps;
 	assistance: {
 		chat: string;
 		image: SanityImageFullProps;
@@ -166,6 +174,10 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 			date,
 			locale,
 		});
+
+	const translatedTips = page.moreTips.tipCollection
+		? page.moreTips.tipCollection.filter((tip) => tip.title)
+		: [];
 
 	return (
 		<>
@@ -260,6 +272,12 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 											<InformContacts {...page.informContacts} />
 										</section>
 									)}
+									{translatedTips.length ? (
+										<MoreTips
+											tipCollection={translatedTips}
+											title={page.moreTips.title}
+										/>
+									) : null}
 									<Feedback
 										name="Situatie Advies"
 										feedbackUrl={getFeedbackUrl(siteSettings.feedback.url, {
@@ -413,6 +431,10 @@ export const getStaticProps = async ({
 					})},
 				}
 			}
+		},
+		"moreTips": {
+			${getLocaleProperty({ name: 'title', path: 'moreTips.title', locale })},
+			${getTipsCollection({ path: 'moreTips', locale })},
 		},
 		"assistance": assistanceReference->{
 			${getLocaleProperty({ name: 'chat', locale })},

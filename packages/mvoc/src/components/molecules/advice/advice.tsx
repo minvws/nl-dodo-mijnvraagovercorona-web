@@ -3,7 +3,7 @@ import React from 'react';
 import { jsx, Styled, Box, Flex } from 'theme-ui';
 
 export type AdviceProps = {
-	icon: string;
+	icon?: string;
 	title: string;
 	subtitle?: string;
 };
@@ -15,21 +15,23 @@ export const Advice: React.FC<AdviceProps> = ({ icon, title, subtitle }) => (
 			alignItems: 'center',
 		}}
 	>
-		<Box
-			sx={{
-				display: 'flex',
-				padding: '1rem',
-				borderRadius: '50%',
-				background: 'white',
-				'& > img': {
-					blockSize: '1.75rem',
-					inlineSize: '1.75rem',
-					objectFit: 'contain',
-				},
-			}}
-		>
-			<img src={icon} alt="" />
-		</Box>
+		{icon ? (
+			<Box
+				sx={{
+					display: 'flex',
+					padding: '1rem',
+					borderRadius: '50%',
+					background: 'white',
+					'& > img': {
+						blockSize: '1.75rem',
+						inlineSize: '1.75rem',
+						objectFit: 'contain',
+					},
+				}}
+			>
+				<img src={icon} alt="" />
+			</Box>
+		) : null}
 		<Box sx={{ flex: 1 }}>
 			<Styled.p
 				sx={{

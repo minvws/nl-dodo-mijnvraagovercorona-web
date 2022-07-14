@@ -68,6 +68,7 @@ import questionContentObject from './objects/questionContent';
 import questionSelectorObject from './objects/questionSelector';
 import themeSelectorObject from './objects/themeSelector';
 import tipSelectorObject from './objects/tipSelector';
+import moreTipsObject from './objects/moreTips';
 
 export default createSchema({
 	name: 'default',
@@ -161,5 +162,6 @@ export default createSchema({
 		questionSelectorObject,
 		themeSelectorObject,
 		tipSelectorObject,
+		moreTipsObject,
 	]),
 });

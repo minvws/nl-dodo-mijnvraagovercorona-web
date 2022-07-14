@@ -186,6 +186,11 @@ export default {
 			to: [{ type: 'inform-contacts-document' }],
 		},
 		{
+			title: 'Meer tips',
+			name: 'moreTips',
+			type: 'moreTips',
+		},
+		{
 			title: 'Hulp',
 			name: 'assistanceReference',
 			type: 'reference',
