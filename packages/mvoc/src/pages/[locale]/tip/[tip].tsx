@@ -21,6 +21,8 @@ import {
 	ListAnchor,
 	Stack,
 	StyledLink,
+	getHrefWithlocale,
+	useCurrentLocale,
 } from '@quarantaine/common';
 
 import { locales } from 'content/general-content';
@@ -76,9 +78,10 @@ interface PageContent {
 	slug: string;
 }
 
-export const Tip = ({ locale }: { locale: Locales }) => {
+export const Tip = () => {
 	const page = useSanityPageContent<PageContent>();
 	const siteSettings = useSanitySiteSettings();
+	const locale = useCurrentLocale();
 
 	const translatedStories = page.stories.filter((story) => story.title);
 	const translatedTips = page.moreTips.tipCollection
@@ -110,7 +113,7 @@ export const Tip = ({ locale }: { locale: Locales }) => {
 						>
 							{siteSettings.updatedAt}{' '}
 							<time dateTime={page.updatedAt}>
-								{formatLongDate(new Date(page.updatedAt), locale)}
+								{formatLongDate(new Date(page.updatedAt), locale.id)}
 							</time>
 						</Styled.p>
 					}
@@ -163,7 +166,10 @@ export const Tip = ({ locale }: { locale: Locales }) => {
 												{translatedTips.map((tip, index) => (
 													<StyledLink
 														styledAs="button-large"
-														href={`/tip/${tip.slug}`}
+														href={getHrefWithlocale(
+															`/tip/${tip.slug}`,
+															locale.urlPrefix,
+														)}
 														icon={tip.icon.src}
 														key={index}
 													>
