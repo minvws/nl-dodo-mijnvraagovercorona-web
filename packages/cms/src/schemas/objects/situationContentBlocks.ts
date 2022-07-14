@@ -1,5 +1,5 @@
 import { BiLinkAlt } from 'react-icons/bi';
-import { BsCardText } from 'react-icons/bs';
+import { BsCardText, BsCardImage, BsCameraVideo } from 'react-icons/bs';
 
 export default {
 	title: 'Content',
@@ -38,6 +38,18 @@ export default {
 			name: 'content',
 			type: 'localeBlock',
 			icon: BsCardText,
+		},
+		{
+			title: 'Afbeelding',
+			name: 'image',
+			type: 'image',
+			icon: BsCardImage,
+		},
+		{
+			title: 'Video',
+			name: 'video',
+			type: 'video',
+			icon: BsCameraVideo,
 		},
 	],
 };
