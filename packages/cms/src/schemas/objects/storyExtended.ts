@@ -21,16 +21,6 @@ export default {
 			type: 'contentBlocks',
 		},
 		{
-			title: 'Afbeelding',
-			name: 'image',
-			type: 'image',
-		},
-		{
-			title: 'Video',
-			name: 'video',
-			type: 'video',
-		},
-		{
 			title: 'Overzicht',
 			name: 'overview',
 			type: 'object',
