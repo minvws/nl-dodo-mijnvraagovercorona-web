@@ -20,6 +20,9 @@ import {
 	Retain,
 	ListAnchor,
 	Stack,
+	StyledLink,
+	getHrefWithlocale,
+	TheSwitcher,
 } from '@quarantaine/common';
 
 import { locales } from 'content/general-content';
@@ -29,7 +32,12 @@ import {
 	ContentSituationBlockProps,
 	Masthead,
 } from 'components/molecules';
-import { getTipPageQuery, getTips } from 'utilities/tips';
+import {
+	getTipPageQuery,
+	getTips,
+	getTipsCollection,
+	TipCollectionProps,
+} from 'utilities/tips';
 
 interface StoryProps {
 	title: string;
@@ -44,7 +52,7 @@ interface StoryProps {
 	};
 }
 
-interface PageContent {
+interface PageContent extends TipCollectionProps {
 	metaData: {
 		title: string;
 		description: string;
@@ -72,6 +80,7 @@ export const Tip = ({ locale }: { locale: Locales }) => {
 	console.log('page', page);
 
 	const translatedStories = page.stories.filter((story) => story.title);
+	const translatedTips = page.tipCollection.filter((tip) => tip.title);
 	const tocStories = translatedStories.filter((story) => story.overview.title);
 
 	return (
@@ -140,9 +149,23 @@ export const Tip = ({ locale }: { locale: Locales }) => {
 										</Box>
 									))}
 
-									<Box>
-										<mark>More tips</mark>
-									</Box>
+									{translatedTips ? (
+										<Stack>
+											<Styled.h2>Meer tips</Styled.h2>
+											<Stack spacing={['1rem']}>
+												{translatedTips.map((tip, index) => (
+													<StyledLink
+														styledAs="button-large"
+														href={`/tip/${tip.slug}`}
+														icon={tip.icon.src}
+														key={index}
+													>
+														{tip.title}
+													</StyledLink>
+												))}
+											</Stack>
+										</Stack>
+									) : null}
 
 									{page.sources.content ? (
 										<Box
@@ -255,6 +278,7 @@ export const getStaticProps = async ({
 				},
 			},
 		},
+		${getTipsCollection({ locale })},
 		"sources": {
 			${getLocaleProperty({ name: 'title', path: 'sources.title', locale })},
 			${getLocaleProperty({

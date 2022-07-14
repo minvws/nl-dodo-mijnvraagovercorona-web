@@ -45,7 +45,7 @@ export default {
 		},
 		{
 			title: 'Meer tips',
-			name: 'moreTips',
+			name: 'tipCollection',
 			type: 'tipSelector',
 		},
 		{
