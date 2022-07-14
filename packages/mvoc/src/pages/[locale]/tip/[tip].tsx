@@ -17,25 +17,23 @@ import {
 	formatLongDate,
 	Layer,
 	TheSidebar,
-	BannerDataProtection,
 	Retain,
-	StyledLink,
 	ListAnchor,
 	Stack,
 } from '@quarantaine/common';
 
 import { locales } from 'content/general-content';
 import { Page } from 'components/page';
-import { Masthead } from 'components/molecules';
-import { getTipPageQuery, getTips } from 'utilities/tips';
 import {
-	getQuestionCollection,
-	QuestionCollectionProps,
-} from 'utilities/question';
+	ContentSituationBlock,
+	ContentSituationBlockProps,
+	Masthead,
+} from 'components/molecules';
+import { getTipPageQuery, getTips } from 'utilities/tips';
 
-interface StoryProps extends QuestionCollectionProps {
+interface StoryProps {
 	title: string;
-	content: Array<Object>;
+	contentBlocks?: ContentSituationBlockProps[];
 	image: SanityImageFullProps;
 	video: {
 		url: string;
@@ -133,21 +131,15 @@ export const Tip = ({ locale }: { locale: Locales }) => {
 										>
 											<Stack spacing={['1rem']}>
 												<Styled.h2>{story.title}</Styled.h2>
-												<ContentBlock content={story.content} />
+												{story.contentBlocks && (
+													<ContentSituationBlock
+														contentBlocks={story.contentBlocks}
+													/>
+												)}
+
 												{story.image?.src ? (
 													<Image src={story.image.src} alt="" />
 												) : null}
-												{story.questionCollection
-													? story.questionCollection.map((question, index) => (
-															<StyledLink
-																key={index}
-																href={question.path}
-																styledAs="button"
-															>
-																<ContentBlock content={question.title} />
-															</StyledLink>
-													  ))
-													: null}
 												{story.video.url ? (
 													<mark>Video component: {story.video.url}</mark>
 												) : null}
@@ -243,13 +235,29 @@ export const getStaticProps = async ({
 		},
 		"stories": stories[] {
 			${getLocaleProperty({ name: 'title', locale })},
-			${getLocaleProperty({ name: 'content', locale, block: true })},
+			"contentBlocks": contentBlocks[]{
+				${getLocaleProperty({
+					name: 'content',
+					path: '@',
+					locale,
+					block: true,
+				})},
+				"situation": {
+					${getLocaleProperty({
+						name: 'situationLinkTitle',
+						locale,
+					})},
+					"path": select(
+						situationReference->_type == "situation-question-document" => 'situatie/' + situationReference->slug.current,
+						situationReference->_type == "situation-result-document" => 'advies/' + situationReference->slug.current,
+					),
+				},
+			},
 			${getImage({ name: 'image', full: true })},
 			"overview": {
 				${getLocaleProperty({ name: 'title', path: 'overview.title', locale })},
 				${getImage({ name: 'icon', path: 'overview.icon', full: true })},
 			},
-			${getQuestionCollection({ locale })},
 			"video": {
 				"url":video.url,
 			},
