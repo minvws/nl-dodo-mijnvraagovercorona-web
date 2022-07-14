@@ -50,7 +50,11 @@ interface StoryProps {
 	};
 }
 
-interface PageContent extends TipCollectionProps {
+interface MoreTipsProps extends TipCollectionProps {
+	title: string;
+}
+
+interface PageContent {
 	metaData: {
 		title: string;
 		description: string;
@@ -63,6 +67,7 @@ interface PageContent extends TipCollectionProps {
 		showTOC: boolean;
 	};
 	stories: StoryProps[];
+	moreTips: MoreTipsProps;
 	sources: {
 		title: string;
 		content: Array<Object>;
@@ -76,7 +81,9 @@ export const Tip = ({ locale }: { locale: Locales }) => {
 	const siteSettings = useSanitySiteSettings();
 
 	const translatedStories = page.stories.filter((story) => story.title);
-	const translatedTips = page.tipCollection.filter((tip) => tip.title);
+	const translatedTips = page.moreTips.tipCollection
+		? page.moreTips.tipCollection.filter((tip) => tip.title)
+		: [];
 	const tocStories = translatedStories.filter((story) => story.overview.title);
 
 	return (
@@ -145,9 +152,13 @@ export const Tip = ({ locale }: { locale: Locales }) => {
 										</Box>
 									))}
 
-									{translatedTips ? (
+									{translatedTips.length ? (
 										<Stack>
-											<Styled.h2>Meer tips</Styled.h2>
+											<Styled.h2>
+												{page.moreTips.title
+													? page.moreTips.title
+													: siteSettings.moreTips}
+											</Styled.h2>
 											<Stack spacing={['1rem']}>
 												{translatedTips.map((tip, index) => (
 													<StyledLink
@@ -274,7 +285,10 @@ export const getStaticProps = async ({
 				},
 			},
 		},
-		${getTipsCollection({ locale })},
+		"moreTips": {
+			${getLocaleProperty({ name: 'title', path: 'moreTips.title', locale })},
+			${getTipsCollection({ path: 'moreTips', locale })},
+		},
 		"sources": {
 			${getLocaleProperty({ name: 'title', path: 'sources.title', locale })},
 			${getLocaleProperty({

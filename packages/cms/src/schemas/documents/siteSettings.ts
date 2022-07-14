@@ -362,6 +362,11 @@ export default {
 			type: 'localeString',
 		},
 		{
+			title: 'Meer Tips',
+			name: 'moreTips',
+			type: 'localeString',
+		},
+		{
 			title: 'Toegankelijkheid',
 			name: 'accessibility',
 			type: 'object',
