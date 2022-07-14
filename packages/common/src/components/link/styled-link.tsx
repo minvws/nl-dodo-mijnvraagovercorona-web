@@ -223,19 +223,27 @@ export const useLinkStyles = ({
 		const buttonLargeStyling: SxStyleProp = {
 			...buttonStyling,
 			display: 'flex',
+			gap: '0.5rem',
 			alignItems: 'center',
-			marginBlockStart: '2rem',
-			backgroundColor: 'headerBackground',
-			color: 'copyHeading',
+			inlineSize: ['100%'],
+			padding: '0.75rem',
+			border: 'tile',
+			boxShadow: 'tile',
 			fontSize: '1.375rem',
 			fontWeight: 'bold',
-			padding: '0.75rem',
-			boxShadow: 'tile',
-			border: 'tile',
-			width: ['auto', '30%'],
+			textAlign: 'start',
+			color: 'primary',
+			backgroundColor: 'white',
+			outline: 'none',
 
 			':hover, :focus': {
-				backgroundColor: 'buttonSecondaryHover',
+				border: 'tileInteraction',
+				boxShadow: 'tileInteraction',
+				backgroundColor: 'white',
+			},
+
+			'.chevron': {
+				color: 'secondary',
 			},
 		};
 
@@ -348,7 +356,16 @@ const StyledLinkBase = <T extends React.ElementType = 'a'>(
 			rel={external ? 'noopener noreferrer' : undefined}
 		>
 			{icon && (
-				<img src={icon} alt="" sx={{ width: '7.5rem', marginTop: '-2rem' }} />
+				<img
+					src={icon}
+					alt=""
+					sx={{
+						inlineSize: ['3rem', '5.8rem'],
+						aspectRatio: '5.8/4',
+						objectFit: 'contain',
+						objectPosition: 'center center',
+					}}
+				/>
 			)}
 
 			{props.styledAs === 'link-restart' ? (
