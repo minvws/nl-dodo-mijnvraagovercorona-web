@@ -136,13 +136,6 @@ export const Tip = ({ locale }: { locale: Locales }) => {
 														contentBlocks={story.contentBlocks}
 													/>
 												)}
-
-												{story.image?.src ? (
-													<Image src={story.image.src} alt="" />
-												) : null}
-												{story.video.url ? (
-													<mark>Video component: {story.video.url}</mark>
-												) : null}
 											</Stack>
 										</Box>
 									))}
@@ -235,6 +228,10 @@ export const getStaticProps = async ({
 		},
 		"stories": stories[] {
 			${getLocaleProperty({ name: 'title', locale })},
+			"overview": {
+				${getLocaleProperty({ name: 'title', path: 'overview.title', locale })},
+				${getImage({ name: 'icon', path: 'overview.icon', full: true })},
+			},
 			"contentBlocks": contentBlocks[]{
 				${getLocaleProperty({
 					name: 'content',
@@ -242,6 +239,10 @@ export const getStaticProps = async ({
 					locale,
 					block: true,
 				})},
+				${getImage({ name: 'image', path: '@', full: true })},
+				"video": {
+					"url": @.url,
+				},
 				"situation": {
 					${getLocaleProperty({
 						name: 'situationLinkTitle',
@@ -252,14 +253,6 @@ export const getStaticProps = async ({
 						situationReference->_type == "situation-result-document" => 'advies/' + situationReference->slug.current,
 					),
 				},
-			},
-			${getImage({ name: 'image', full: true })},
-			"overview": {
-				${getLocaleProperty({ name: 'title', path: 'overview.title', locale })},
-				${getImage({ name: 'icon', path: 'overview.icon', full: true })},
-			},
-			"video": {
-				"url":video.url,
 			},
 		},
 		"sources": {

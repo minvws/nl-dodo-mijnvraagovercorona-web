@@ -1,8 +1,15 @@
 /** @jsx jsx */
-import { ContentBlock, Link, Stack } from '@quarantaine/common';
+import {
+	ContentBlock,
+	Link,
+	SanityImageFullProps,
+	Stack,
+} from '@quarantaine/common';
 import { Situation } from 'config/situaties';
 import React from 'react';
-import { jsx } from 'theme-ui';
+import { Box, Image, jsx } from 'theme-ui';
+import getYouTubeId from 'get-youtube-id';
+import YouTube from 'react-youtube';
 
 interface SituationAsLink extends Situation {
 	situationLinkTitle: string;
@@ -11,6 +18,10 @@ interface SituationAsLink extends Situation {
 export interface ContentSituationBlockProps {
 	content?: Array<Object>;
 	situation?: SituationAsLink;
+	video?: {
+		url: string;
+	};
+	image?: SanityImageFullProps;
 }
 
 interface OwnProps {
@@ -29,6 +40,32 @@ export const ContentSituationBlock: React.FC<OwnProps> = ({
 				(contentBlock: ContentSituationBlockProps, key: number) => {
 					if (contentBlock.content) {
 						return <ContentBlock key={key} content={contentBlock.content} />;
+					} else if (contentBlock.image?.src) {
+						return (
+							<Image
+								sx={{ maxInlineSize: '100%', marginInline: 'auto' }}
+								key={key}
+								src={contentBlock.image?.src}
+								alt=""
+							/>
+						);
+					} else if (contentBlock.video?.url) {
+						const id = getYouTubeId(contentBlock.video?.url);
+						return (
+							<Box
+								key={key}
+								sx={{
+									inlineSize: '100%',
+									'& > .youtube-wrap > iframe': {
+										inlineSize: '100%',
+										blockSize: 'auto',
+										aspectRatio: '16/9',
+									},
+								}}
+							>
+								<YouTube className="youtube-wrap" videoId={id || undefined} />
+							</Box>
+						);
 					} else if (contentBlock.situation?.path) {
 						return (
 							<Link

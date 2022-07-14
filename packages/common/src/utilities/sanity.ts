@@ -57,11 +57,11 @@ export const getLocaleProperty = ({
 };
 
 export interface SanityImageFullProps {
-	src: string;
+	src?: string;
 	dimensions: {
-		aspectRatio: number;
-		width: number;
-		height: number;
+		aspectRatio?: number;
+		width?: number;
+		height?: number;
 	};
 }
 
