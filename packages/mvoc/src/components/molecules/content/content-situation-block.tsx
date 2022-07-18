@@ -4,6 +4,7 @@ import {
 	Link,
 	SanityImageFullProps,
 	Stack,
+	Video,
 } from '@quarantaine/common';
 import { Situation } from 'config/situaties';
 import React from 'react';
@@ -20,6 +21,8 @@ export interface ContentSituationBlockProps {
 	situation?: SituationAsLink;
 	video?: {
 		url: string;
+		title: string;
+		image: SanityImageFullProps;
 	};
 	image?: SanityImageFullProps;
 }
@@ -49,22 +52,18 @@ export const ContentSituationBlock: React.FC<OwnProps> = ({
 								alt=""
 							/>
 						);
-					} else if (contentBlock.video?.url) {
-						const id = getYouTubeId(contentBlock.video?.url);
+					} else if (
+						contentBlock.video?.url ||
+						contentBlock.video?.title ||
+						contentBlock.video?.image?.src
+					) {
 						return (
-							<Box
+							<Video
 								key={key}
-								sx={{
-									inlineSize: '100%',
-									'& > .youtube-wrap > iframe': {
-										inlineSize: '100%',
-										blockSize: 'auto',
-										aspectRatio: '16/9',
-									},
-								}}
-							>
-								<YouTube className="youtube-wrap" videoId={id || undefined} />
-							</Box>
+								title={contentBlock.video?.title}
+								url={contentBlock.video?.url}
+								image={contentBlock.video?.image}
+							/>
 						);
 					} else if (contentBlock.situation?.path) {
 						return (

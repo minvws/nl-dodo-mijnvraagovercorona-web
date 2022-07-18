@@ -1,26 +1,3 @@
-import React from 'react';
-import getYouTubeId from 'get-youtube-id';
-import YouTube from 'react-youtube';
-
-type PreviewProps = { value: { url: string } };
-
-const Preview: React.FC<PreviewProps> = ({ value }) => {
-	const { url } = value;
-	const id = getYouTubeId(url);
-	return (
-		<>
-			<YouTube className="aspect-ratio" videoId={id || undefined} />
-			<style>{`
-				.aspect-ratio > iframe {
-					inline-size: 100%;
-					block-size: auto;
-					aspect-ratio: 16/9;
-				}
-			`}</style>
-		</>
-	);
-};
-
 export default {
 	title: 'Video',
 	name: 'video',
@@ -31,11 +8,23 @@ export default {
 			name: 'url',
 			type: 'url',
 		},
+		{
+			title: 'Cover image',
+			name: 'image',
+			type: 'image',
+		},
+		{
+			title: 'Titel',
+			name: 'title',
+			type: 'localeString',
+			description: 'Word getoond/voorgelezen aan screenreader gebruikers',
+		},
 	],
 	preview: {
 		select: {
-			url: 'url',
+			title: 'title.nl',
+			subtitle: 'url',
+			icon: 'image',
 		},
-		component: Preview,
 	},
 };

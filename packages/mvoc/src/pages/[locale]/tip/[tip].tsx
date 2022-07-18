@@ -44,6 +44,8 @@ interface StoryProps {
 	image: SanityImageFullProps;
 	video: {
 		url: string;
+		title: string;
+		image: SanityImageFullProps;
 	};
 	overview: {
 		title: string;
@@ -259,6 +261,12 @@ export const getStaticProps = async ({
 				${getImage({ name: 'image', path: '@', full: true })},
 				"video": {
 					"url": @.url,
+					${getLocaleProperty({
+						name: 'title',
+						path: '@.title',
+						locale,
+					})},
+					${getImage({ name: 'image', path: '@.image', full: true })},
 				},
 				"situation": {
 					${getLocaleProperty({
