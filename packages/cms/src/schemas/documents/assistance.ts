@@ -5,6 +5,7 @@ export default {
 	preview: {
 		select: {
 			title: 'title.nl',
+			subtitle: 'phonenumber',
 		},
 	},
 	fields: [
