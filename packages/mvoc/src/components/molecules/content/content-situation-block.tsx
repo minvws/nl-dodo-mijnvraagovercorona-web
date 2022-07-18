@@ -50,6 +50,7 @@ export const ContentSituationBlock: React.FC<OwnProps> = ({
 								key={key}
 								src={contentBlock.image?.src}
 								alt=""
+								loading="lazy"
 							/>
 						);
 					} else if (

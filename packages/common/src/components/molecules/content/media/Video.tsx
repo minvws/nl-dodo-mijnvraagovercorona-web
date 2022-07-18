@@ -34,6 +34,7 @@ export const Video: React.FC<OwnProps> = ({ title, url, image }) => (
 				blockSize: 'auto',
 				aspectRatio: '16/9',
 			}}
+			loading="lazy"
 		/>
 		<svg
 			sx={{
