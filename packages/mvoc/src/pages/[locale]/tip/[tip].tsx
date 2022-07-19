@@ -41,12 +41,6 @@ import {
 interface StoryProps {
 	title: string;
 	contentBlocks?: ContentSituationBlockProps[];
-	image: SanityImageFullProps;
-	video: {
-		url: string;
-		title: string;
-		image: SanityImageFullProps;
-	};
 	overview: {
 		title: string;
 		icon: SanityImageFullProps;
