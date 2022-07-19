@@ -20,6 +20,7 @@ export default {
 					to: [
 						{ type: 'situation-question-document' },
 						{ type: 'situation-result-document' },
+						{ type: 'tip-document' },
 					],
 				},
 			],

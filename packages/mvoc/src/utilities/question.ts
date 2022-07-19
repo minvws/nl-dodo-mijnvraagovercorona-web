@@ -19,6 +19,7 @@ export const getQuestionCollection = ({
 		"path": select(
 			situationReference->_type == "situation-question-document" => 'situatie/' + situationReference->slug.current,
 			situationReference->_type == "situation-result-document" => 'advies/' + situationReference->slug.current,
+			situationReference->_type == "tip-document" => 'tip/' + situationReference->slug.current,
 		),
 	}`;
 };
