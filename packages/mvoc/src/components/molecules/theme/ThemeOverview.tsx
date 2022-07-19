@@ -86,23 +86,25 @@ export const ThemeOverview: React.FC<ThemeCollectionProps> = ({
 const QuestionList: React.FC<QuestionCollectionProps> = ({
 	questionCollection,
 }) => {
+	if (!questionCollection.length) return null;
 	const siteSettings = useSanitySiteSettings<SiteSettings>();
 	const locale = useCurrentLocale();
-	if (!questionCollection.length) return null;
-
 	const [panelState, setPanelState] = useState('close');
-
 	const split = 3;
 
+	// Filter out untranslated stuff
+	const translatedCollection = questionCollection.filter((item) => item.title);
+
 	// Split items into 2 groups
-	const firstGroup = questionCollection.slice(
+	const firstGroup = translatedCollection.slice(
 		0,
-		split ? split : questionCollection.length,
+		split ? split : translatedCollection.length,
 	);
-	const secondGroup = questionCollection.slice(
-		split ? split : questionCollection.length,
-		questionCollection.length,
+	const secondGroup = translatedCollection.slice(
+		split ? split : translatedCollection.length,
+		translatedCollection.length,
 	);
+
 	return (
 		<Stack spacing={['1rem']}>
 			{firstGroup.map((item, index) => (

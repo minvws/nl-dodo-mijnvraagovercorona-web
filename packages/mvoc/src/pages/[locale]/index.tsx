@@ -143,15 +143,17 @@ export default function LandingPage({ locale }: { locale: Locales }) {
 										) : null}
 									</SectionHeadingGroupWithIcon>
 									<TheGrid minItemSize="25rem" gap={['1rem']}>
-										{page.important.questionCollection?.map((item, index) => (
-											<StyledLink
-												key={index}
-												styledAs="button-tile"
-												href={getHrefWithlocale(`/${item.path}`, locale)}
-											>
-												<ContentBlock content={item.title} />
-											</StyledLink>
-										))}
+										{page.important.questionCollection
+											?.filter((item) => item.title)
+											.map((item, index) => (
+												<StyledLink
+													key={index}
+													styledAs="button-tile"
+													href={getHrefWithlocale(`/${item.path}`, locale)}
+												>
+													<ContentBlock content={item.title} />
+												</StyledLink>
+											))}
 									</TheGrid>
 								</Stack>
 							</Retain>
