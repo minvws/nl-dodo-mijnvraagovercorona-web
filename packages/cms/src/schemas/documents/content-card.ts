@@ -25,6 +25,11 @@ export default {
 			type: 'localeBlock',
 		},
 		{
+			title: 'Onthulling',
+			name: 'disclosure',
+			type: 'disclosure',
+		},
+		{
 			title: 'Buttons',
 			name: 'buttons',
 			type: 'array',

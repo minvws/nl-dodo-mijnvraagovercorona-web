@@ -50,6 +50,7 @@ import localeUrlObject from './objects/localeUrl';
 import localeTextObject from './objects/localeText';
 import videoObject from './objects/video';
 import thisOrThatLocaleStringObject from './objects/thisOrThatLocaleString';
+import disclosureObject from './objects/disclosure';
 import pageMetaDataObject from './objects/pageMetaData';
 import headerObject from './objects/header';
 import quarantinePlanObject from './objects/quarantinePlan';
@@ -144,6 +145,7 @@ export default createSchema({
 		localeTextObject,
 		videoObject,
 		thisOrThatLocaleStringObject,
+		disclosureObject,
 		pageMetaDataObject,
 		headerObject,
 		quarantinePlanObject,

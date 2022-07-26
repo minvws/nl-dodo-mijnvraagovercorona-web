@@ -25,6 +25,7 @@ import {
 	Card,
 	formatLongDate,
 	useCurrentLocale,
+	CardProps,
 } from '@quarantaine/common';
 
 import { locales } from 'content/general-content';
@@ -60,16 +61,7 @@ interface AdviceProps {
 		title: string;
 		content: Object[];
 	}[];
-	cards: {
-		title: string;
-		chapeau: string;
-		content: Object[];
-		buttons: {
-			link?: string;
-			situation?: string;
-			text: string;
-		}[];
-	}[];
+	cards: CardProps[];
 	title: string;
 	secondaryTitle: string;
 }
@@ -379,6 +371,18 @@ export const getStaticProps = async ({
 				${getLocaleProperty({ name: 'title', locale })},
 				${getLocaleProperty({ name: 'chapeau', locale })},
 				${getLocaleProperty({ name: 'content', locale, block: true })},
+				"disclosure": {
+					"label": {
+						${getLocaleProperty({ name: 'this', path: 'disclosure.label.this', locale })},
+						${getLocaleProperty({ name: 'that', path: 'disclosure.label.that', locale })},
+					},
+					${getLocaleProperty({
+						name: 'content',
+						path: 'disclosure.content',
+						locale,
+						block: true,
+					})},
+				},
 				"buttons": buttons[]{
 					${getLocaleProperty({ name: 'text', locale })},
 					${getLocaleProperty({ name: 'link', locale })},

@@ -1,13 +1,25 @@
 /** @jsx jsx */
-import React from 'react';
+import React, { useState } from 'react';
 import { jsx, Styled, Box, Text, Flex } from 'theme-ui';
 
-import { ContentBlock, StyledLink, Stack } from '@quarantaine/common';
+import {
+	ContentBlock,
+	StyledLink,
+	Stack,
+	ExpansionPanel,
+} from '@quarantaine/common';
 import slugify from 'slugify';
-interface CardProps {
+export interface CardProps {
 	title: string;
 	chapeau: string;
 	content: Object[];
+	disclosure: {
+		label: {
+			this: string;
+			that: string;
+		};
+		content: Object[];
+	};
 	buttons: {
 		link?: string;
 		situation?: string;
@@ -19,8 +31,10 @@ export const Card: React.FC<CardProps> = ({
 	title,
 	chapeau,
 	content,
+	disclosure,
 	buttons,
 }) => {
+	const [panelState, setPanelState] = useState('close');
 	return (
 		<Box
 			id={
@@ -61,6 +75,22 @@ export const Card: React.FC<CardProps> = ({
 				</Stack>
 
 				<ContentBlock content={content} />
+
+				{disclosure.content &&
+				disclosure.label.this &&
+				disclosure.label.that ? (
+					<ExpansionPanel
+						title={
+							panelState === 'open'
+								? disclosure.label.that
+								: disclosure.label.this
+						}
+						variant="plusinline"
+						toggleEvent={(value: string) => setPanelState(value)}
+					>
+						<ContentBlock content={disclosure.content} />
+					</ExpansionPanel>
+				) : null}
 
 				{!!buttons?.length ? (
 					<Flex
