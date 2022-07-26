@@ -30,6 +30,11 @@ export default {
 			type: 'disclosure',
 		},
 		{
+			title: 'Tips',
+			name: 'tipCollection',
+			type: 'tipSelector',
+		},
+		{
 			title: 'Buttons',
 			name: 'buttons',
 			type: 'array',

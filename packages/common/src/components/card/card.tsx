@@ -33,6 +33,7 @@ export const Card: React.FC<CardProps> = ({
 	content,
 	disclosure,
 	buttons,
+	children,
 }) => {
 	const [panelState, setPanelState] = useState('close');
 	return (
@@ -115,6 +116,7 @@ export const Card: React.FC<CardProps> = ({
 						))}
 					</Flex>
 				) : null}
+				{children}
 			</Stack>
 		</Box>
 	);
