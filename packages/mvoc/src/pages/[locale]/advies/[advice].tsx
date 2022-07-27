@@ -25,6 +25,9 @@ import {
 	Card,
 	formatLongDate,
 	useCurrentLocale,
+	CardProps,
+	StyledLink,
+	getHrefWithlocale,
 } from '@quarantaine/common';
 
 import { locales } from 'content/general-content';
@@ -53,6 +56,8 @@ interface AnswerProps {
 	content: Object[];
 }
 
+interface ExtendedCardProps extends CardProps, TipCollectionProps {}
+
 interface AdviceProps {
 	plan: {
 		showOn?: Array<number>;
@@ -60,16 +65,7 @@ interface AdviceProps {
 		title: string;
 		content: Object[];
 	}[];
-	cards: {
-		title: string;
-		chapeau: string;
-		content: Object[];
-		buttons: {
-			link?: string;
-			situation?: string;
-			text: string;
-		}[];
-	}[];
+	cards: ExtendedCardProps[];
 	title: string;
 	secondaryTitle: string;
 }
@@ -156,6 +152,7 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 	const router = useRouter();
 	const page = useSanityPageContent<PageContent>();
 	const siteSettings = useSanitySiteSettings();
+	const currentLocale = useCurrentLocale();
 	const date = router.query.datum
 		? parse(`${router.query.datum}`, 'dd-MM-yyyy', new Date())
 		: new Date();
@@ -255,7 +252,25 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 													) : null}
 													<Stack spacing={['2rem']}>
 														{page.advice.cards.map((card) => (
-															<Card key={card.title} {...card} />
+															<Card key={card.title} {...card}>
+																{card.tipCollection
+																	? card.tipCollection
+																			.filter((tip) => tip.title)
+																			.map((tip, index) => (
+																				<StyledLink
+																					styledAs="button-large"
+																					href={getHrefWithlocale(
+																						`/tip/${tip.slug}`,
+																						currentLocale.urlPrefix,
+																					)}
+																					icon={tip.icon.src}
+																					key={index}
+																				>
+																					{tip.title}
+																				</StyledLink>
+																			))
+																	: null}
+															</Card>
 														))}
 													</Stack>
 												</Box>
@@ -379,6 +394,19 @@ export const getStaticProps = async ({
 				${getLocaleProperty({ name: 'title', locale })},
 				${getLocaleProperty({ name: 'chapeau', locale })},
 				${getLocaleProperty({ name: 'content', locale, block: true })},
+				"disclosure": {
+					"label": {
+						${getLocaleProperty({ name: 'this', path: 'disclosure.label.this', locale })},
+						${getLocaleProperty({ name: 'that', path: 'disclosure.label.that', locale })},
+					},
+					${getLocaleProperty({
+						name: 'content',
+						path: 'disclosure.content',
+						locale,
+						block: true,
+					})},
+				},
+				${getTipsCollection({ locale })},
 				"buttons": buttons[]{
 					${getLocaleProperty({ name: 'text', locale })},
 					${getLocaleProperty({ name: 'link', locale })},

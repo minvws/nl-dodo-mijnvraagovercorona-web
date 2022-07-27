@@ -25,6 +25,16 @@ export default {
 			type: 'localeBlock',
 		},
 		{
+			title: 'Onthulling',
+			name: 'disclosure',
+			type: 'disclosure',
+		},
+		{
+			title: 'Tips',
+			name: 'tipCollection',
+			type: 'tipSelector',
+		},
+		{
 			title: 'Buttons',
 			name: 'buttons',
 			type: 'array',
