@@ -217,6 +217,7 @@ export const useLinkStyles = ({
 			backgroundColor: 'white',
 			color: 'primary',
 			outline: 'none',
+			transition: 'all 300ms ease-in-out',
 
 			':hover, :focus': {
 				border: 'tileInteraction',
@@ -241,13 +242,15 @@ export const useLinkStyles = ({
 			inlineSize: ['100%'],
 			padding: '0.75rem',
 			border: 'tile',
+			borderRadius: 'tile',
 			boxShadow: 'tile',
 			fontSize: '1.375rem',
 			fontWeight: 'bold',
 			textAlign: 'start',
 			color: 'primary',
-			backgroundColor: 'white',
+			backgroundColor: 'buttonSecondary',
 			outline: 'none',
+			transition: 'all 300ms ease-in-out',
 
 			'.chevron': {
 				color: 'secondary',
@@ -256,7 +259,7 @@ export const useLinkStyles = ({
 			':hover, :focus': {
 				border: 'tileInteraction',
 				boxShadow: 'tileInteraction',
-				backgroundColor: 'white',
+				backgroundColor: '#DDEFF8',
 
 				'.chevron': {
 					animation: `${slide} 1s infinite linear`,
