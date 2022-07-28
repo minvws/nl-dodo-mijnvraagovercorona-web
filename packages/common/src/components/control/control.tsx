@@ -51,7 +51,7 @@ export const Control = <ValueOptions extends string>({
 					paddingBlockStart: '1.5rem',
 					paddingBlockEnd: '1.5rem',
 					paddingInlineEnd: '1.5rem',
-					borderRadius: 'button',
+					borderRadius: 'tile',
 					border: 'tile',
 					boxShadow: 'tile',
 					fontSize: '1.125rem',
@@ -82,7 +82,7 @@ export const Control = <ValueOptions extends string>({
 
 					// Focus state
 					'input:focus + &, input:hover + &': {
-						borderColor: 'tileInteraction',
+						border: 'tileInteraction',
 						boxShadow: 'tileInteraction',
 						// indicator
 						'&::before': {

@@ -67,16 +67,16 @@ export const theme: Theme = {
 	radii: {
 		button: '5px',
 		box: '8px',
-		tile: 'radii.box',
+		tile: '8px',
 	},
 	borders: {
 		tile: '1px solid #DDEFF8',
-		tileInteraction: '1px solid #8FCAE7',
+		tileInteraction: '1px solid #01689B',
 		card: '1px solid #8FCAE7 ',
 	},
 	shadows: {
 		tile: '0px 4px 0px #DDEFF8',
-		tileInteraction: '0px 4px 0px #8FCAE7',
+		tileInteraction: '0px 4px 0px #01689B',
 		focusRing: '0px 0px 1px 3px rgba(1, 104, 155, 0.3)',
 	},
 	fonts: {
