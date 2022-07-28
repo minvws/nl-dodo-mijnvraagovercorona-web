@@ -203,6 +203,7 @@ export const useLinkStyles = ({
 			inlineSize: '100%',
 			paddingInline: '1rem',
 			border: 'tile',
+			borderRadius: 'tile',
 			boxShadow: 'tile',
 			textAlign: 'start',
 			backgroundColor: 'white',
