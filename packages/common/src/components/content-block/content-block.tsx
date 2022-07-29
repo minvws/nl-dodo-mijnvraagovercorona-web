@@ -75,6 +75,7 @@ export const replaceContentVariablesInReactChildren = (
 
 const Block = ({ node, children, contentVariables }: MarkProps) => {
 	if (node?.style === 'h2') return <Styled.h2>{children}</Styled.h2>;
+	if (node?.style === 'h3') return <Styled.h3>{children}</Styled.h3>;
 	if (node?.style === 'span') return <span>{children}</span>;
 	return (
 		<Styled.p>

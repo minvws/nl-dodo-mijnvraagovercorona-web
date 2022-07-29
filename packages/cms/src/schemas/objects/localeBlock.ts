@@ -32,6 +32,10 @@ export const generateBlock = (
 							value: 'h2',
 						},
 						{
+							title: 'Heading 3',
+							value: 'h3',
+						},
+						{
 							title: 'Span',
 							value: 'span',
 						},
