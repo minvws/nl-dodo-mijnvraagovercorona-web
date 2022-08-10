@@ -93,7 +93,6 @@ export const SchemeBlock: React.FC<SchemeBlockProps> = ({
 				<Box
 					sx={{
 						'a, button': {
-							color: 'text',
 							textDecoration: 'underline',
 							fontSize: 'inherit',
 							fontWeight: 'inherit',
