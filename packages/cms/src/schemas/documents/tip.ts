@@ -72,6 +72,12 @@ export default {
 			],
 		},
 		{
+			title: 'Hulp',
+			name: 'assistanceReference',
+			type: 'reference',
+			to: [{ type: 'assistance-document' }],
+		},
+		{
 			title: 'Slug',
 			name: 'slug',
 			type: 'slug',

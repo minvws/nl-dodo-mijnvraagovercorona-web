@@ -21,11 +21,14 @@ import {
 	ListAnchor,
 	Stack,
 	useCurrentLocale,
+	Feedback,
+	getFeedbackUrl,
 } from '@quarantaine/common';
 
 import { locales } from 'content/general-content';
 import { Page } from 'components/page';
 import {
+	AssistanceRow,
 	ContentSituationBlock,
 	ContentSituationBlockProps,
 	Masthead,
@@ -70,6 +73,18 @@ interface PageContent {
 		content: Array<Object>;
 	};
 	updatedAt: string;
+	assistance: {
+		chat: string;
+		image: SanityImageFullProps;
+		open: string;
+		openingHours: string;
+		phonenumber: string;
+		situationButton: string;
+		situationQuestion: string;
+		tekstWithChat: string;
+		tekstWithoutChat: string;
+		title: string;
+	};
 	slug: string;
 }
 
@@ -177,11 +192,29 @@ export const Tip = () => {
 											</Stack>
 										</Box>
 									) : null}
+
+									<Feedback
+										name="Situatie Advies"
+										feedbackUrl={getFeedbackUrl(siteSettings.feedback.url, {
+											source: 'tip',
+											advice: page.slug,
+										})}
+									/>
 								</Stack>
 							</Retain>
 						</TheSidebar>
 					</Container>
 				</Layer>
+				{page.assistance && (
+					<Layer backgroundColor="headerBackground">
+						<Container>
+							{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
+							<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
+								<AssistanceRow feedback={false} />
+							</Box>
+						</Container>
+					</Layer>
+				)}
 			</Page>
 		</>
 	);
@@ -286,6 +319,16 @@ export const getStaticProps = async ({
 				locale,
 				block: true,
 			})},
+		},
+		"assistance": assistanceReference->{
+			${getLocaleProperty({ name: 'chat', locale })},
+			${getImage({ name: 'image', full: true })},
+			${getLocaleProperty({ name: 'open', locale })},
+			${getLocaleProperty({ name: 'openingHours', locale })},
+			phonenumber,
+			${getLocaleProperty({ name: 'tekstWithChat', locale })},
+			${getLocaleProperty({ name: 'tekstWithoutChat', locale })},
+			${getLocaleProperty({ name: 'title', locale })},
 		},
 		"updatedAt": _updatedAt,
 		"slug": slug.current,
