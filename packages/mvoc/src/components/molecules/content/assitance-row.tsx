@@ -152,6 +152,7 @@ export const AssistanceRow = ({ feedback }: AssistanceRowProps) => {
 							external
 							href={getFeedbackUrl(siteSettings.feedback.url, {
 								source: 'home',
+								advice: 'home',
 							})}
 						>
 							{page.assistance.situationButton}
