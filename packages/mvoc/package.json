@@ -4,6 +4,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "yarn run download-images && next dev",
+		"preview": "yarn run download-images && next build",
 		"build": "yarn run download-images && next build && next-sitemap && next export",
 		"download-images": "node ./downloadSanityImages.js",
 		"start": "NODE_ENV=production next start",
