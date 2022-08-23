@@ -20,9 +20,6 @@ export const FormSubmit: React.FC<FormSubmitProps> = ({ buttons, locale }) => {
 	return (
 		<Box
 			sx={{
-				position: ['sticky', 'relative'],
-				insetBlockEnd: ['env(safe-area-inset-bottom)', 0],
-
 				display: 'flex',
 				flexWrap: 'wrap',
 				gap: '1rem',
