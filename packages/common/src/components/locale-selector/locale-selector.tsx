@@ -67,27 +67,28 @@ export const LocaleSelector = () => {
 				left: 'inherit',
 				fontSize: '16px',
 				backgroundColor: 'white',
-				borderRadius: 'box',
+				borderRadius: 'tile',
 				flexDirection: 'column',
 				padding: '8px 12px',
-				':focus-within::before': {
-					opacity: 1,
-				},
 				zIndex: '3',
 				'&::before': {
-					pointerEvents: 'none',
-					opacity: dropdownExpanded ? 1 : 0,
-					transition: 'opacity 300ms ease-in-out',
-					borderRadius: 'box',
-					content: '""',
-					display: 'block',
 					position: 'absolute',
-					width: '100%',
-					height: '100%',
-					boxShadow: '0px 0px 10px rgba(21, 66, 115, 0.2)',
-					left: 0,
-					top: 0,
+					insetBlockStart: 0,
+					insetInlineStart: 0,
+					inlineSize: '100%',
+					blockSize: '100%',
+					transition: 'all 300ms ease-in-out',
+					borderRadius: 'tile',
+					border: dropdownExpanded ? 'tileInteraction' : 'tile',
+					boxShadow: dropdownExpanded ? 'tileInteraction' : 'tile',
+					content: '""',
+					pointerEvents: 'none',
 				},
+				':focus-within::before': {
+					border: 'tileInteraction',
+					boxShadow: 'tileInteraction',
+				},
+
 				a: {
 					':hover, :focus': {
 						textDecoration: 'underline',
@@ -113,7 +114,6 @@ export const LocaleSelector = () => {
 					padding: 0,
 					':hover, :focus': {
 						outline: 'none',
-						textDecoration: 'underline',
 					},
 				}}
 			>
@@ -124,7 +124,12 @@ export const LocaleSelector = () => {
 						key={dropdownExpanded ? 'expanded' : 'shorthand'}
 						transition={{ duration: 0.3 }}
 						animate={{ width: 'auto', opacity: 1 }}
-						sx={{ whiteSpace: 'nowrap', overflow: 'hidden' }}
+						sx={{
+							whiteSpace: 'nowrap',
+							overflow: 'hidden',
+							// nudge the label a tad bit down for better visual alignment
+							marginBlockStart: '0.2em',
+						}}
 						initial={{ width: 0, opacity: 0 }}
 						exit={{ width: 0, opacity: 0 }}
 					>
@@ -140,6 +145,9 @@ export const LocaleSelector = () => {
 						minHeight: '22px',
 						marginLeft: 8,
 						path: { fill: 'copyHeading' },
+						svg: {
+							display: 'block',
+						},
 					}}
 					aria-hidden
 				>
