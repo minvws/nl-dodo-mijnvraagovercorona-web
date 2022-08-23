@@ -47,8 +47,8 @@ export const Header: React.FC<HeaderProps> = ({
 					{linkBackSlot}
 				</Box>
 			) : null}
-			<LocaleSelector />
 			<Logo alt={siteSettings.header.logoAlt} />
+			<LocaleSelector />
 			{children && (
 				<Container sx={{ paddingX: ['mobilePadding', , 0] }}>
 					{children}
