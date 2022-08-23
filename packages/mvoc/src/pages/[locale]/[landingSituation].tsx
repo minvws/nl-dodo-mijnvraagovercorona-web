@@ -8,7 +8,6 @@ import {
 	sanityClient,
 	getLocaleProperty,
 	useSanityPageContent,
-	Header,
 	getImage,
 	SanityImageFullProps,
 	ContentBlock,
@@ -57,9 +56,12 @@ export const LandingSituation = ({ locale }: { locale: Locales }) => {
 				url={`/${page.slug}`}
 				skipPageSuffix
 			/>
-			<Page noHeader>
+			<Page
+				headerProps={{
+					variant: 'highlight',
+				}}
+			>
 				<Masthead
-					headerSlot={<Header transparent noPadding />}
 					title={page.header.title}
 					prefixSlot={
 						page.header.chapeau ? (

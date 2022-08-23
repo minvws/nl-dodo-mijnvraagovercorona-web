@@ -1,2 +1,3 @@
 export { Header } from './header';
-export { SkipLink } from './skip-link';
+export { SkipLink, skipLinkID } from './skip-link';
+export type { HeaderProps } from './header';

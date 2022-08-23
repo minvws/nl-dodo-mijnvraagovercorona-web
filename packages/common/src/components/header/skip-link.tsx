@@ -23,8 +23,9 @@ export const SkipLink: React.FC<OwnProps> = ({}) => {
 		<Box
 			sx={{
 				position: 'absolute',
-				insetBlockStart: '2rem',
-				insetInlineStart: '2rem',
+				insetBlockStart: ['1rem', '2rem'],
+				insetInlineStart: ['1rem', '2rem'],
+				zIndex: 4,
 				'&:not(:focus-within)': {
 					clip: 'rect(0 0 0 0)',
 					clipPath: 'inset(50%)',

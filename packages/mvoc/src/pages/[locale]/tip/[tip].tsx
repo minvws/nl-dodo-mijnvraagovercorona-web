@@ -9,7 +9,6 @@ import {
 	sanityClient,
 	getLocaleProperty,
 	useSanityPageContent,
-	Header,
 	getImage,
 	SanityImageFullProps,
 	ContentBlock,
@@ -108,9 +107,12 @@ export const Tip = () => {
 				url={`/${page.slug}`}
 				skipPageSuffix
 			/>
-			<Page noHeader>
+			<Page
+				headerProps={{
+					noPadding: true,
+				}}
+			>
 				<Masthead
-					headerSlot={<Header transparent noPadding />}
 					title={page.header.title}
 					illustration={page.header.image}
 					prefixSlot={

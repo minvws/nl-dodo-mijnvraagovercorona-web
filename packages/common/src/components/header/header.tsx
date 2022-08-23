@@ -9,14 +9,14 @@ import {
 	SkipLink,
 } from '@quarantaine/common';
 
-interface HeaderProps {
-	transparent?: boolean;
+export interface HeaderProps {
+	variant?: 'default' | 'highlight';
 	noPadding?: boolean;
 	linkBackSlot?: React.ReactNode;
 }
 
 export const Header: React.FC<HeaderProps> = ({
-	transparent,
+	variant,
 	noPadding,
 	children,
 	linkBackSlot,
@@ -27,7 +27,10 @@ export const Header: React.FC<HeaderProps> = ({
 		<header
 			sx={{
 				position: 'relative',
-				backgroundColor: transparent ? 'transparent' : 'headerBackground',
+				backgroundColor:
+					variant === 'highlight'
+						? 'headerBackgroundHighlight'
+						: 'headerBackground',
 				color: 'header',
 				backgroundRepeat: 'no-repeat',
 				backgroundPosition: 'right top',
