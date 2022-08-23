@@ -67,6 +67,13 @@ export default {
 			options: { collapsible: true },
 			fields: [
 				{
+					title: 'Footer hoofdtitel',
+					name: 'footerMainTitle',
+					description:
+						'Deze titel word alleen getoond voor screenreader gebruikers',
+					type: 'localeString',
+				},
+				{
 					title: 'Titel',
 					name: 'title',
 					type: 'localeString',

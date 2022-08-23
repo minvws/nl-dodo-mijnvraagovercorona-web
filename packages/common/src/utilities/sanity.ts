@@ -212,6 +212,11 @@ export const siteSettingsQuery = ({
 		},
 		"footer": {
 			${getLocaleProperty({
+				name: 'footerMainTitle',
+				path: 'footer.footerMainTitle',
+				locale,
+			})},
+			${getLocaleProperty({
 				name: 'alleenSamenAlt',
 				path: 'footer.alleenSamenAlt',
 				locale,

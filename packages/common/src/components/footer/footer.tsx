@@ -7,7 +7,7 @@ export const FooterColumn: React.FC<{ title: string }> = ({
 	...props
 }) => (
 	<div {...props}>
-		<h2>{title}</h2>
+		<h3>{title}</h3>
 		{children}
 	</div>
 );
@@ -21,7 +21,7 @@ export const Footer: React.FC = ({ children, ...props }) => {
 				backgroundColor: 'footerBackground',
 				color: 'white',
 				fontSize: 'footerText',
-				h2: {
+				h3: {
 					marginBottom: '6px',
 					marginTop: 0,
 					fontSize: 'footerText',

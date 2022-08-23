@@ -18,6 +18,7 @@ export interface CommonSiteSettings {
 		url: string;
 	};
 	footer: {
+		footerMainTitle: string;
 		alleenSamenAlt: string;
 		items: {
 			url: string;
