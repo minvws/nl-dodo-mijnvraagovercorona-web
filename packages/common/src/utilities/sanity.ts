@@ -208,6 +208,7 @@ export const siteSettingsQuery = ({
 			${getLocaleProperty({ name: 'opnieuw', path: 'header.opnieuw', locale })},
 			${getLocaleProperty({ name: 'terug', path: 'header.terug', locale })},
 			${getLocaleProperty({ name: 'resultaat', path: 'header.resultaat', locale })},
+			${getLocaleProperty({ name: 'skipLink', path: 'header.skipLink', locale })},
 		},
 		"footer": {
 			${getLocaleProperty({

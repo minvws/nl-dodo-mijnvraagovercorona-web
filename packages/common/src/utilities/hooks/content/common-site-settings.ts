@@ -34,6 +34,7 @@ export interface CommonSiteSettings {
 		opnieuw: string;
 		terug: string;
 		resultaat: string;
+		skipLink: string;
 	};
 	privacy: {
 		id: string;

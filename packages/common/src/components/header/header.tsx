@@ -6,6 +6,7 @@ import {
 	Logo,
 	useSanitySiteSettings,
 	LocaleSelector,
+	SkipLink,
 } from '@quarantaine/common';
 
 interface HeaderProps {
@@ -33,6 +34,7 @@ export const Header: React.FC<HeaderProps> = ({
 				...(noPadding ? {} : { paddingBlockEnd: '1.75rem' }),
 			}}
 		>
+			<SkipLink />
 			{linkBackSlot ? (
 				<Box
 					sx={{

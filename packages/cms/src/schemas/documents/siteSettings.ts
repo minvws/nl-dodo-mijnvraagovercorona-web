@@ -53,6 +53,11 @@ export default {
 					name: 'logoAlt',
 					type: 'localeString',
 				},
+				{
+					title: 'Skiplink',
+					name: 'skipLink',
+					type: 'localeString',
+				},
 			],
 		},
 		{
