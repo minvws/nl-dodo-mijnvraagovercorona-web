@@ -59,5 +59,10 @@ export default {
 			},
 			validation: (Rule: any) => Rule.required(),
 		},
+		{
+			title: 'URL',
+			name: 'url',
+			type: 'string',
+		},
 	],
 };

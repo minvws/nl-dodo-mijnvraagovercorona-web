@@ -5,15 +5,17 @@ import React from 'react';
 import {
 	Locales,
 	MetaTags,
-	sanityClient,
 	getLocaleProperty,
+	Header,
 	useSanityPageContent,
 	getImage,
+	getClient,
 	SanityImageFullProps,
 	ContentBlock,
 	Layer,
 	Retain,
 	Stack,
+	usePreviewSubscription,
 } from '@quarantaine/common';
 
 import { locales } from 'content/general-content';
@@ -28,6 +30,7 @@ import {
 	essentialQuestionPageProjection,
 	QuestionPageContent,
 } from './situatie/[question]';
+import { SiteSettings } from 'content/site-settings';
 
 interface PageContent {
 	metaData: {
@@ -45,8 +48,31 @@ interface PageContent {
 	slug: string;
 }
 
-export const LandingSituation = ({ locale }: { locale: Locales }) => {
-	const page = useSanityPageContent<PageContent>();
+interface LandingSituationProps {
+	preview: boolean;
+	page: PageContent;
+	siteSettings: SiteSettings;
+	locale: Locales;
+	query: string;
+}
+
+export const LandingSituation = ({
+	locale,
+	query,
+	page: serverPage,
+	siteSettings,
+	preview,
+}: LandingSituationProps) => {
+	const {
+		data: { page: previewPage },
+	} = usePreviewSubscription(query, {
+		params: { locale },
+		initialData: { page: serverPage, siteSettings },
+		enabled: preview,
+	});
+
+	const page: PageContent = previewPage || serverPage;
+
 	return (
 		<>
 			<MetaTags
@@ -102,17 +128,21 @@ export const LandingSituation = ({ locale }: { locale: Locales }) => {
 	);
 };
 
-type LandingSituationProps = { landingSituation: string };
+type LandingSituationQueryParam = { landingSituation: string };
+
+type LandingSituationParams = {
+	params: { landingSituation: string; locale: Locales };
+};
 
 export const getStaticPaths = async () => {
-	const landingSituations: LandingSituationProps[] = await getLandingSituations();
+	const landingSituations: LandingSituationQueryParam[] = await getLandingSituations();
 
 	return {
 		paths: landingSituations.reduce(
 			(
-				paths: LandingSituationStaticProps[],
-				landingSituation: LandingSituationProps,
-			): LandingSituationStaticProps[] => [
+				paths: LandingSituationParams[],
+				landingSituation: LandingSituationQueryParam,
+			): LandingSituationParams[] => [
 				...paths,
 				...locales.map((locale) => ({
 					params: { ...landingSituation, locale },
@@ -120,17 +150,18 @@ export const getStaticPaths = async () => {
 			],
 			[],
 		),
-
 		fallback: false,
 	};
 };
 
 interface LandingSituationStaticProps {
 	params: { landingSituation: string; locale: Locales };
+	preview: boolean;
 }
 
 export const getStaticProps = async ({
 	params: { landingSituation, locale },
+	preview = false,
 }: LandingSituationStaticProps) => {
 	const pageProjection = `{
 		"metaData": {
@@ -162,19 +193,20 @@ export const getStaticProps = async ({
 		},
 		"slug": slug.current,
 	}`;
-	const { page, siteSettings } = await sanityClient.fetch(
-		getLandingSituationPageQuery({
-			pageProjection,
-			locale,
-			landingSituation,
-		}),
-	);
+	const query = getLandingSituationPageQuery({
+		pageProjection,
+		locale,
+		landingSituation,
+	});
+	const { page, siteSettings } = await getClient(preview).fetch(query);
 
 	return {
 		props: {
+			preview,
 			page,
 			siteSettings,
 			locale,
+			query,
 		},
 	};
 };

@@ -177,6 +177,11 @@ export default {
 				isUnique: () => true,
 			},
 		},
+		{
+			title: 'URL',
+			name: 'url',
+			type: 'string',
+		},
 	],
 	preview: {
 		select: {

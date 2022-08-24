@@ -161,6 +161,21 @@ const mvocPagesDocumentsConfig = [
 		title: `Tips`,
 		icon: GiLightBulb,
 	},
+	{
+		schemaType: 'situation-question-document',
+		title: `Situatie Vraag`,
+		icon: RiQuestionLine,
+	},
+	{
+		schemaType: 'situation-result-document',
+		title: `Situatie Resultaat`,
+		icon: MdOutlineTopic,
+	},
+	{
+		schemaType: 'landing-situations-document',
+		title: `Landingpagina situaties`,
+		icon: GiAirplaneArrival,
+	},
 ];
 
 const multiDocumentsConfig = [
@@ -196,21 +211,6 @@ const mvocSituationDocumentsConfig = [
 		schemaType: 'theme-document',
 		title: `Thema`,
 		icon: FaFeatherAlt,
-	},
-	{
-		schemaType: 'situation-question-document',
-		title: `Situatie Vraag`,
-		icon: RiQuestionLine,
-	},
-	{
-		schemaType: 'situation-result-document',
-		title: `Situatie Resultaat`,
-		icon: MdOutlineTopic,
-	},
-	{
-		schemaType: 'landing-situations-document',
-		title: `Landingpagina situaties`,
-		icon: GiAirplaneArrival,
 	},
 ];
 
@@ -290,9 +290,7 @@ export default () =>
 						icon: RiPagesLine,
 						items: [
 							...mvocPagesConfig.map((config) => getPage(config)),
-							...mvocPagesDocumentsConfig.map((config) =>
-								getDocumentList(config),
-							),
+							...mvocPagesDocumentsConfig.map((config) => getPageList(config)),
 						],
 					}),
 

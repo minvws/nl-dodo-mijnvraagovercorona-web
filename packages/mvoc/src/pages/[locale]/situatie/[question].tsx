@@ -5,12 +5,12 @@ import React from 'react';
 import {
 	Locales,
 	MetaTags,
-	sanityClient,
 	getLocaleProperty,
 	useSanityPageContent,
 	getImage,
 	SanityImageFullProps,
 	ContentBlock,
+	getClient,
 } from '@quarantaine/common';
 
 import {
@@ -79,7 +79,7 @@ export const getStaticPaths = async () => {
 
 	return {
 		paths: questions.reduce(
-			(paths: VraagStaticProps[], question: Question): VraagStaticProps[] => [
+			(paths: VraagStaticParams[], question: Question): VraagStaticParams[] => [
 				...paths,
 				...locales.map((locale) => ({ params: { ...question, locale } })),
 			],
@@ -90,8 +90,13 @@ export const getStaticPaths = async () => {
 	};
 };
 
+type VraagStaticParams = {
+	params: { question: string; locale: Locales };
+};
+
 interface VraagStaticProps {
 	params: { question: string; locale: Locales };
+	preview: boolean;
 }
 
 export const essentialQuestionPageProjection = ({
@@ -181,6 +186,7 @@ export const essentialQuestionPageProjection = ({
 
 export const getStaticProps = async ({
 	params: { question, locale },
+	preview = false,
 }: VraagStaticProps) => {
 	const pageProjection = `{
 		"metaData": {
@@ -199,7 +205,7 @@ export const getStaticProps = async ({
 		${essentialQuestionPageProjection({ locale: locale })},
 		"slug": slug.current,
 	}`;
-	const { page, siteSettings } = await sanityClient.fetch(
+	const { page, siteSettings } = await getClient(preview).fetch(
 		getSituationQuestionPageQuery({
 			pageProjection,
 			locale,

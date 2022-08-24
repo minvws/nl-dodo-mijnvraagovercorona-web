@@ -4,6 +4,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "yarn run download-images && next dev",
+		"preview": "yarn run download-images && next build",
 		"build": "yarn run download-images && next build && next-sitemap && next export",
 		"download-images": "node ./downloadSanityImages.js",
 		"start": "NODE_ENV=production next start",
@@ -21,6 +22,7 @@
 		"date-fns": "^2.21.3",
 		"luxon": "^2.4.0",
 		"next": "10.2.0",
+		"next-sanity": "^0.6.0",
 		"theme-ui": "^0.3.5",
 		"get-youtube-id": "^1.0.1",
 		"react-youtube": "^9.0.3"

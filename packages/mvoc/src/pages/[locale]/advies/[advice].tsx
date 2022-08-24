@@ -5,7 +5,6 @@ import React from 'react';
 import {
 	Locales,
 	MetaTags,
-	sanityClient,
 	getLocaleProperty,
 	useSanityPageContent,
 	ContentBlock,
@@ -24,6 +23,7 @@ import {
 	SanityImageFullProps,
 	Card,
 	formatLongDate,
+	getClient,
 	useCurrentLocale,
 	CardProps,
 	StyledLink,
@@ -328,9 +328,9 @@ export const getStaticPaths = async () => {
 	return {
 		paths: adviceList.reduce(
 			(
-				paths: AdviesResultaatProps[],
+				paths: AdviesResultaatParams[],
 				advice: Advice,
-			): AdviesResultaatProps[] => [
+			): AdviesResultaatParams[] => [
 				...paths,
 				...locales.map((locale) => ({ params: { ...advice, locale } })),
 			],
@@ -341,12 +341,18 @@ export const getStaticPaths = async () => {
 	};
 };
 
+type AdviesResultaatParams = {
+	params: { advice: string; locale: Locales };
+};
+
 interface AdviesResultaatProps {
 	params: { advice: string; locale: Locales };
+	preview: boolean;
 }
 
 export const getStaticProps = async ({
 	params: { advice, locale },
+	preview = false,
 }: AdviesResultaatProps) => {
 	const pageProjection = `{
 		"metaData": {
@@ -477,19 +483,20 @@ export const getStaticProps = async ({
 		"updatedAt": _updatedAt,
 		"slug": slug.current,
 	}`;
-	const { page, siteSettings } = await sanityClient.fetch(
-		getSituationAdvicePageQuery({
-			pageProjection,
-			locale,
-			advice,
-		}),
-	);
+	const query = getSituationAdvicePageQuery({
+		pageProjection,
+		locale,
+		advice,
+	});
+	const { page, siteSettings } = await getClient(preview).fetch(query);
 
 	return {
 		props: {
+			query,
 			page,
 			siteSettings,
 			locale,
+			preview,
 		},
 	};
 };
