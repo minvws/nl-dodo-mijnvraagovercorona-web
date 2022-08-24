@@ -1,7 +1,7 @@
-import { sanityClient, siteSettingsQuery, Locales } from '@quarantaine/common';
+import { getClient, siteSettingsQuery, Locales } from '@quarantaine/common';
 
 export const getSituationQuestions = async () => {
-	const questions = await sanityClient.fetch(
+	const questions = await getClient(false).fetch(
 		`*[_type=="situation-question-document"]{"question": slug.current}`,
 	);
 
@@ -25,7 +25,7 @@ export const getSituationQuestionPageQuery = ({
 }`;
 
 export const getSituationAdvice = async () => {
-	const advice = await sanityClient.fetch(
+	const advice = await getClient(false).fetch(
 		`*[_type=="situation-result-document"]{"advice": slug.current}`,
 	);
 

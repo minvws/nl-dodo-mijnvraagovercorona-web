@@ -2,6 +2,7 @@ import {
 	ContentPageProps,
 	getContentPageQuery,
 	Locales,
+	getClient,
 } from '@quarantaine/common';
 
 import { ContentPage } from 'components/content-page';
@@ -11,26 +12,39 @@ const KwetsbaarheidMelden = ({
 	page,
 	siteSettings,
 	locale,
+	query,
+	preview,
 }: ContentPageProps) => (
-	<ContentPage page={page} siteSettings={siteSettings} locale={locale} />
+	<ContentPage
+		page={page}
+		siteSettings={siteSettings}
+		locale={locale}
+		preview={preview}
+		query={query}
+	/>
 );
 
 export const getStaticProps = async ({
 	params: { locale },
+	preview = false,
 }: {
 	params: { locale: Locales };
+	preview: boolean;
 }) => {
-	const { page, siteSettings } = await getContentPageQuery({
+	const query = getContentPageQuery({
 		site: 'mijn-vraag-over-corona',
 		type: 'kwetsbaarheid-melden-page',
 		locale,
 	});
+	const { page, siteSettings } = await getClient(preview).fetch(query);
 
 	return {
 		props: {
+			query,
 			page,
 			siteSettings,
 			locale,
+			preview,
 		},
 	};
 };

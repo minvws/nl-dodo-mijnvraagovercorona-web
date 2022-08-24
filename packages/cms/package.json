@@ -17,6 +17,7 @@
 		"@sanity/default-login": "^2.29.5",
 		"@sanity/desk-tool": "^2.29.5",
 		"@sanity/eslint-config-studio": "^2.0.0",
+		"@sanity/production-preview": "^2.29.3",
 		"@sanity/vision": "^2.29.5",
 		"@visx/event": "^1.7.0",
 		"@visx/geo": "^1.17.1",

@@ -1,4 +1,8 @@
-import client, { ClientConfig } from '@sanity/client';
+import {
+	createPreviewSubscriptionHook,
+	createCurrentUserHook,
+	createClient,
+} from 'next-sanity';
 import { Locales } from './hooks';
 
 /**
@@ -7,13 +11,34 @@ import { Locales } from './hooks';
  * projectID is the id for the project we want to use the content from
  * useCDN whether to use the sanity CDN for api calls
  */
-const options: ClientConfig = {
+const options = {
 	dataset: 'production',
 	projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '',
 	useCdn: process.env.NODE_ENV === 'production' || false,
 	apiVersion: '2022-03-23',
 };
 
+/**
+ * This will initialize the Sanity client
+ */
+const sanityClient = createClient(options);
+
+const previewClient = createClient({
+	...options,
+	useCdn: false,
+	token: process.env.SANITY_API_TOKEN,
+});
+
+export const getClient = (usePreview: boolean): any =>
+	usePreview ? previewClient : sanityClient;
+
+export const usePreviewSubscription = createPreviewSubscriptionHook(options);
+
+export const useCurrentUser = createCurrentUserHook(options);
+
+/**
+ * This helper function will transfer modals into content
+ */
 const followModals = (locale: string) => `{
 		...,
 		markDefs[]{
@@ -114,12 +139,14 @@ export type ContentPageProps = {
 		socialShareImage: SanityImageFullProps;
 	};
 	locale: Locales;
+	query: string;
+	preview: boolean;
 };
 
 /**
  * This api call includes all the data for a content page including the generic site settings
  */
-export const getContentPageQuery = async ({
+export const getContentPageQuery = ({
 	type,
 	locale,
 	site,
@@ -127,7 +154,7 @@ export const getContentPageQuery = async ({
 	type: string;
 	locale: Locales;
 	site: 'reizen-tijdens-corona' | 'mijn-vraag-over-corona';
-}): Promise<ContentPageProps> => {
+}): string => {
 	const pageProjection = `{
 		"metaData": {
 			${getLocaleProperty({ name: 'title', path: 'metaData.title', locale })},
@@ -147,14 +174,12 @@ export const getContentPageQuery = async ({
 		url
 	}`;
 
-	return await sanityClient.fetch(
-		getPageQuery({
-			type,
-			pageProjection,
-			locale,
-			site,
-		}),
-	);
+	return getPageQuery({
+		type,
+		pageProjection,
+		locale,
+		site,
+	});
 };
 
 const toStringArray = (array: Array<string>): string =>
@@ -423,18 +448,18 @@ export const siteSettingsQuery = ({
 /**
  * This query will only return the global site settings
  */
-export const getSiteSettingsQuery = async ({
+export const getSiteSettingsQuery = ({
 	locale,
 	site,
 }: {
 	locale: string;
 	site: 'reizen-tijdens-corona' | 'mijn-vraag-over-corona';
-}) => await sanityClient.fetch(siteSettingsQuery({ locale, site }));
+}) => siteSettingsQuery({ locale, site });
 
 /**
  * This query will return the global site settings and a list of requested faqs
  */
-export const getFaqsQuery = async ({
+export const getFaqsQuery = ({
 	locale,
 	include,
 	exclude,
@@ -442,11 +467,10 @@ export const getFaqsQuery = async ({
 	locale: string;
 	include?: string[];
 	exclude?: string[];
-}) =>
-	await sanityClient.fetch(`{
+}): string => `{
 		"siteSettings": ${siteSettingsQuery({ locale, site: 'reizen-tijdens-corona' })},
 		"faqs": ${faqDocumentsQuery({ locale, include, exclude })},
-	}`);
+	}`;
 
 /**
  * This will create a Sanity GROQ Query for a specific page type
@@ -523,8 +547,3 @@ export const getSituationPageQuery = ({
 		site: 'mijn-vraag-over-corona',
 	})},
 }`;
-
-/**
- * This will initialize the Sanity client
- */
-export const sanityClient = client(options);

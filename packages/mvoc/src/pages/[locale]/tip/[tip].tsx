@@ -6,7 +6,7 @@ import { Box, Container, jsx, Styled } from 'theme-ui';
 import {
 	Locales,
 	MetaTags,
-	sanityClient,
+	getClient,
 	getLocaleProperty,
 	useSanityPageContent,
 	getImage,
@@ -229,7 +229,7 @@ export const getStaticPaths = async () => {
 
 	return {
 		paths: tips.reduce(
-			(paths: TipStaticProps[], tip: TipProps): TipStaticProps[] => [
+			(paths: TipStaticParams[], tip: TipProps): TipStaticParams[] => [
 				...paths,
 				...locales.map((locale) => ({
 					params: { ...tip, locale },
@@ -242,12 +242,17 @@ export const getStaticPaths = async () => {
 	};
 };
 
-interface TipStaticProps {
+interface TipStaticParams {
 	params: { tip: string; locale: Locales };
+} 
+
+interface TipStaticProps extends TipStaticParams  {
+	preview: boolean;
 }
 
 export const getStaticProps = async ({
 	params: { tip, locale },
+	preview = false,
 }: TipStaticProps) => {
 	const pageProjection = `{
 		"metaData": {
@@ -336,7 +341,7 @@ export const getStaticProps = async ({
 		"updatedAt": _updatedAt,
 		"slug": slug.current,
 	}`;
-	const { page, siteSettings } = await sanityClient.fetch(
+	const { page, siteSettings } = await getClient(preview).fetch(
 		getTipPageQuery({
 			pageProjection,
 			locale,
@@ -346,6 +351,7 @@ export const getStaticProps = async ({
 
 	return {
 		props: {
+			preview,
 			page,
 			siteSettings,
 			locale,
