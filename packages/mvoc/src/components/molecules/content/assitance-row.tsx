@@ -117,37 +117,41 @@ export const AssistanceRow = ({ feedback }: AssistanceRowProps) => {
 							)}
 						</Styled.p>
 					)}
-					<Box
-						sx={{
-							display: 'flex',
-							alignItems: 'center',
-							marginBottom: '1.25rem',
-						}}
-					>
-						<img src="/icons/chat.svg" alt="" />
-						<Styled.a
-							sx={{
-								color: 'secondary',
-								fontWeight: 'bold',
-								textDecoration: 'none',
-								fontSize: '2rem',
-								margin: 0,
-								padding: 0,
-							}}
-							href="https://chat.vragenovercorona.nl/"
-						>
-							{page.assistance.chat}
-						</Styled.a>
-					</Box>
-					<Styled.p sx={{ marginBottom: 0 }}>
-						{page.assistance.openingHours}
-						{isChatOpen && (
-							<>
-								<br />
-								<span sx={{ color: 'green' }}>{page.assistance.open}</span>
-							</>
-						)}
-					</Styled.p>
+					{page.assistance.chat && (
+						<>
+							<Box
+								sx={{
+									display: 'flex',
+									alignItems: 'center',
+									marginBottom: '1.25rem',
+								}}
+							>
+								<img src="/icons/chat.svg" alt="" />
+								<Styled.a
+									sx={{
+										color: 'secondary',
+										fontWeight: 'bold',
+										textDecoration: 'none',
+										fontSize: '2rem',
+										margin: 0,
+										padding: 0,
+									}}
+									href="https://chat.vragenovercorona.nl/"
+								>
+									{page.assistance.chat}
+								</Styled.a>
+							</Box>
+							<Styled.p sx={{ marginBottom: 0 }}>
+								{page.assistance.openingHours}
+								{isChatOpen && (
+									<>
+										<br />
+										<span sx={{ color: 'green' }}>{page.assistance.open}</span>
+									</>
+								)}
+							</Styled.p>
+						</>
+					)}
 				</Box>
 				{feedback && (
 					<Box>
