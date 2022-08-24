@@ -9,7 +9,8 @@ export const FooterColumn: React.FC<{ title: string }> = ({
 	<div
 		{...props}
 		sx={{
-			a: {
+			// bump specificity by one
+			'a,a': {
 				':hover, :focus': {
 					textDecoration: 'underline',
 					boxShadow: 'none',
