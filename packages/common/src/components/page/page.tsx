@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { Box, Flex, jsx } from 'theme-ui';
 
-import { useSanitySiteSettings } from '@quarantaine/common';
+import { useSanitySiteSettings, skipLinkID } from '@quarantaine/common';
 
 interface PageProps {
 	header?: React.ReactNode | null;
@@ -38,6 +38,7 @@ export const Page: React.FC<PageProps> = ({
 			>
 				{header}
 				<main
+					id={skipLinkID}
 					sx={{
 						aside: cleanPageOnMobile ? { display: ['none', 'inherit'] } : {},
 					}}

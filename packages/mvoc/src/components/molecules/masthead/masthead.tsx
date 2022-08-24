@@ -14,7 +14,6 @@ export interface MastheadProps {
 	title: string | React.ReactNode;
 	prefixSlot?: React.ReactNode;
 	illustration?: SanityImageFullProps;
-	headerSlot?: React.ReactNode;
 	variant?: 'default' | 'highlight';
 }
 
@@ -22,12 +21,11 @@ export const Masthead: React.FC<MastheadProps> = ({
 	title,
 	prefixSlot,
 	illustration,
-	headerSlot,
 	variant,
 	children,
 }) => {
 	return (
-		<MastheadBase variant={variant} headerSlot={headerSlot}>
+		<MastheadBase variant={variant}>
 			<TheSwitcher alignItems="center" gap={['2rem', '4rem']}>
 				{illustration ? (
 					<TheSwitcherItem>

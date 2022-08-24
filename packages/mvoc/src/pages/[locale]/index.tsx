@@ -13,9 +13,6 @@ import {
 	Locales,
 	Retain,
 	Layer,
-	TheSwitcher,
-	TheSwitcherItem,
-	Header,
 	Stack,
 	StyledLink,
 	ContentBlock,
@@ -100,9 +97,13 @@ export default function LandingPage({ locale }: { locale: Locales }) {
 				skipPageSuffix
 			/>
 
-			<Page noHeader>
+			<Page
+				headerProps={{
+					variant: 'highlight',
+					noPadding: true,
+				}}
+			>
 				<Masthead
-					headerSlot={<Header transparent noPadding />}
 					title={page.header.title}
 					prefixSlot={
 						<Styled.p

@@ -185,7 +185,12 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 				url={`/advies/${page.slug}`}
 			/>
 
-			<Page noHeader>
+			<Page
+				headerProps={{
+					noPadding: true,
+					linkBackSlot: <LinkBack href="#situaties" variant="restart" />,
+				}}
+			>
 				<Masthead
 					title={page.header.title}
 					illustration={page.header.image}
@@ -203,12 +208,6 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 								{formatLongDate(new Date(page.updatedAt), locale)}
 							</time>
 						</Styled.p>
-					}
-					headerSlot={
-						<Header
-							noPadding
-							linkBackSlot={<LinkBack href="#situaties" variant="restart" />}
-						/>
 					}
 				>
 					{page.header.showSeriousSymptoms ? (

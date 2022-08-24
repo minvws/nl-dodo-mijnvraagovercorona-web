@@ -6,8 +6,18 @@ export const FooterColumn: React.FC<{ title: string }> = ({
 	children,
 	...props
 }) => (
-	<div {...props}>
-		<h2>{title}</h2>
+	<div
+		{...props}
+		sx={{
+			a: {
+				':hover, :focus': {
+					textDecoration: 'underline',
+					boxShadow: 'none',
+				},
+			},
+		}}
+	>
+		<h3>{title}</h3>
 		{children}
 	</div>
 );
@@ -21,7 +31,7 @@ export const Footer: React.FC = ({ children, ...props }) => {
 				backgroundColor: 'footerBackground',
 				color: 'white',
 				fontSize: 'footerText',
-				h2: {
+				h3: {
 					marginBottom: '6px',
 					marginTop: 0,
 					fontSize: 'footerText',
@@ -30,6 +40,8 @@ export const Footer: React.FC = ({ children, ...props }) => {
 					color: 'white',
 					':hover, :focus': {
 						color: 'white',
+						outline: 'none',
+						boxShadow: 'focusRing',
 					},
 				},
 				ul: {

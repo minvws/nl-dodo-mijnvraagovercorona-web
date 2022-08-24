@@ -7,17 +7,15 @@ import { MastheadBase } from './masthead-base';
 export interface MastheadFlowProps {
 	title: string | React.ReactNode;
 	prefixSlot?: React.ReactNode;
-	headerSlot?: React.ReactNode;
 }
 
 export const MastheadFlow: React.FC<MastheadFlowProps> = ({
 	title,
 	children,
-	headerSlot,
 	prefixSlot,
 }) => {
 	return (
-		<MastheadBase variant="default" headerSlot={headerSlot}>
+		<MastheadBase variant="default">
 			<Box
 				sx={{
 					textAlign: ['center', 'start'],
