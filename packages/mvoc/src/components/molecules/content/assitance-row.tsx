@@ -18,11 +18,26 @@ type AssistanceRowProps = {
 	feedback?: boolean;
 };
 
+/**
+ * This specific function will check only if the current time is between 08:00 and 18:00 on a weekday
+ */
+const getIsPhonenumberOpen = () => {
+	const now = new Date();
+	const hours = now.getHours();
+	const day = now.getDay();
+
+	const isValidHours = hours >= 8 && hours < 18;
+	const isValidDay = day > 0 && day < 6;
+
+	return isValidHours && isValidDay;
+};
+
 export const AssistanceRow = ({ feedback }: AssistanceRowProps) => {
 	const page = useSanityPageContent<PageContent>();
 	const siteSettings = useSanitySiteSettings();
 
 	const [isChatOpen, setIsChatOpen] = useState(false);
+	const isPhonenumberOpen = getIsPhonenumberOpen();
 
 	const fetchChatData = async () => {
 		const response = await fetch(
@@ -92,7 +107,15 @@ export const AssistanceRow = ({ feedback }: AssistanceRowProps) => {
 						</Styled.a>
 					</Box>
 					{page.assistance.openingHoursPhonenumber && (
-						<Styled.p>{page.assistance.openingHoursPhonenumber}</Styled.p>
+						<Styled.p>
+							{page.assistance.openingHoursPhonenumber}
+							{isPhonenumberOpen && (
+								<>
+									<br />
+									<span sx={{ color: 'green' }}>{page.assistance.open}</span>
+								</>
+							)}
+						</Styled.p>
 					)}
 					<Box
 						sx={{
