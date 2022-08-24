@@ -325,6 +325,7 @@ export const getStaticProps = async ({
 			${getImage({ name: 'image', full: true })},
 			${getLocaleProperty({ name: 'open', locale })},
 			${getLocaleProperty({ name: 'openingHours', locale })},
+			${getLocaleProperty({ name: 'openingHoursPhonenumber', locale })},
 			phonenumber,
 			${getLocaleProperty({ name: 'tekstWithChat', locale })},
 			${getLocaleProperty({ name: 'tekstWithoutChat', locale })},

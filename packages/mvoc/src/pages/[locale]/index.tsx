@@ -74,6 +74,7 @@ export interface PageContent {
 		image: SanityImageFullProps;
 		open: string;
 		openingHours: string;
+		openingHoursPhonenumber: string;
 		phonenumber: string;
 		situationButton: string;
 		situationQuestion: string;
@@ -266,6 +267,7 @@ export const getStaticProps = async ({
 			${getImage({ name: 'image', full: true })},
 			${getLocaleProperty({ name: 'open', locale })},
 			${getLocaleProperty({ name: 'openingHours', locale })},
+			${getLocaleProperty({ name: 'openingHoursPhonenumber', locale })},			
 			phonenumber,
 			${getLocaleProperty({ name: 'situationButton', locale })},
 			${getLocaleProperty({ name: 'situationQuestion', locale })},

@@ -35,6 +35,11 @@ export default {
 			type: 'string',
 		},
 		{
+			title: 'Openingstijden Telefoonnummer',
+			name: 'openingHoursPhonenumber',
+			type: 'localeString',
+		},
+		{
 			title: 'Chat',
 			name: 'chat',
 			type: 'localeString',
