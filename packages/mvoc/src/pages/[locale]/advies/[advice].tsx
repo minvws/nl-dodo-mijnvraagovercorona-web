@@ -1,6 +1,7 @@
 /** @jsx jsx */
-import { Styled, Box, jsx, Container } from 'theme-ui';
 import React from 'react';
+import slugify from 'slugify';
+import { Styled, Box, jsx, Container } from 'theme-ui';
 
 import {
 	Locales,
@@ -28,6 +29,7 @@ import {
 	CardProps,
 	StyledLink,
 	getHrefWithlocale,
+	getPageQuery,
 } from '@quarantaine/common';
 
 import { locales } from 'content/general-content';
@@ -101,6 +103,9 @@ interface PageContent {
 		tekstWithChat: string;
 		tekstWithoutChat: string;
 		title: string;
+	};
+	themes: {
+		title: 'string';
 	};
 	updatedAt: string;
 }
@@ -188,7 +193,15 @@ export const Advies = ({ locale }: { locale: Locales }) => {
 			<Page
 				headerProps={{
 					noPadding: true,
-					linkBackSlot: <LinkBack href="#situaties" variant="restart" />,
+					linkBackSlot: (
+						<LinkBack
+							href={`#${slugify(page.themes.title, {
+								strict: true,
+								lower: true,
+							})}`}
+							variant="restart"
+						/>
+					),
 				}}
 			>
 				<Masthead
@@ -477,13 +490,30 @@ export const getStaticProps = async ({
 		"updatedAt": _updatedAt,
 		"slug": slug.current,
 	}`;
-	const { page, siteSettings } = await sanityClient.fetch(
+	const { page: advicePage, siteSettings } = await sanityClient.fetch(
 		getSituationAdvicePageQuery({
 			pageProjection,
 			locale,
 			advice,
 		}),
 	);
+
+	const landingPageProjection = `{
+		"themes": {
+			${getLocaleProperty({ name: 'title', path: 'themes.title', locale })},
+		},
+	}`;
+
+	const { page: landingPage } = await sanityClient.fetch(
+		getPageQuery({
+			site: 'mijn-vraag-over-corona',
+			type: 'check-landing-page',
+			pageProjection: landingPageProjection,
+			locale,
+		}),
+	);
+
+	const page = { ...advicePage, ...landingPage };
 
 	return {
 		props: {
