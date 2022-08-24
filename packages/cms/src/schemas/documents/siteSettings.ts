@@ -53,6 +53,11 @@ export default {
 					name: 'logoAlt',
 					type: 'localeString',
 				},
+				{
+					title: 'Skiplink',
+					name: 'skipLink',
+					type: 'localeString',
+				},
 			],
 		},
 		{
@@ -61,6 +66,13 @@ export default {
 			type: 'object',
 			options: { collapsible: true },
 			fields: [
+				{
+					title: 'Footer hoofdtitel',
+					name: 'footerMainTitle',
+					description:
+						'Deze titel word alleen getoond voor screenreader gebruikers',
+					type: 'localeString',
+				},
 				{
 					title: 'Titel',
 					name: 'title',

@@ -24,10 +24,13 @@ export const Logo = ({ alt }: HeaderLogoProps) => {
 	const { urlPrefix } = useCurrentLocale();
 
 	return (
-		<Container className="logo" sx={{ textAlign: 'center' }}>
+		<Container
+			className="logo"
+			sx={{ textAlign: 'center', display: 'flex', justifyContent: 'center' }}
+		>
 			<a href={urlPrefix}>
 				<Image
-					sx={{ width: ['54px', '68px'], height: 'auto' }}
+					sx={{ display: 'block', width: ['54px', '68px'], height: 'auto' }}
 					src="/icons/RO logo.svg"
 					alt={alt}
 				/>

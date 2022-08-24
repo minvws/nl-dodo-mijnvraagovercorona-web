@@ -8,7 +8,6 @@ import {
 	sanityClient,
 	getLocaleProperty,
 	useSanityPageContent,
-	Header,
 	getImage,
 	SanityImageFullProps,
 	ContentBlock,
@@ -56,11 +55,12 @@ export const Vraag = ({ locale }: { locale: Locales }) => {
 				url={url}
 			/>
 
-			<Page noHeader>
-				<MastheadFlow
-					title={page.header.title}
-					headerSlot={<Header noPadding />}
-				>
+			<Page
+				headerProps={{
+					noPadding: true,
+				}}
+			>
+				<MastheadFlow title={page.header.title}>
 					{page.header.content ? (
 						<ContentBlock content={page.header.content} />
 					) : null}

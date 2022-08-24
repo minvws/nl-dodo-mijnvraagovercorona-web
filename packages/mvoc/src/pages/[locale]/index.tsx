@@ -13,9 +13,6 @@ import {
 	Locales,
 	Retain,
 	Layer,
-	TheSwitcher,
-	TheSwitcherItem,
-	Header,
 	Stack,
 	StyledLink,
 	ContentBlock,
@@ -74,6 +71,7 @@ export interface PageContent {
 		image: SanityImageFullProps;
 		open: string;
 		openingHours: string;
+		openingHoursPhonenumber: string;
 		phonenumber: string;
 		situationButton: string;
 		situationQuestion: string;
@@ -99,9 +97,13 @@ export default function LandingPage({ locale }: { locale: Locales }) {
 				skipPageSuffix
 			/>
 
-			<Page noHeader>
+			<Page
+				headerProps={{
+					variant: 'highlight',
+					noPadding: true,
+				}}
+			>
 				<Masthead
-					headerSlot={<Header transparent noPadding />}
 					title={page.header.title}
 					prefixSlot={
 						<Styled.p
@@ -266,6 +268,7 @@ export const getStaticProps = async ({
 			${getImage({ name: 'image', full: true })},
 			${getLocaleProperty({ name: 'open', locale })},
 			${getLocaleProperty({ name: 'openingHours', locale })},
+			${getLocaleProperty({ name: 'openingHoursPhonenumber', locale })},			
 			phonenumber,
 			${getLocaleProperty({ name: 'situationButton', locale })},
 			${getLocaleProperty({ name: 'situationQuestion', locale })},

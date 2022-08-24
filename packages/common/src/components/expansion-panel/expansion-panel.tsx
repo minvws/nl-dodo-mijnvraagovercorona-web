@@ -169,6 +169,7 @@ export const ExpansionPanelButton: React.FC<ExpansionPanelButtonProps> = ({
 	titleSuffix,
 }) => (
 	<DisclosureButton
+		type="button"
 		sx={{
 			position: 'relative',
 			textAlign: 'left',

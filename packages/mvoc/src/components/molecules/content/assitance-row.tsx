@@ -18,11 +18,26 @@ type AssistanceRowProps = {
 	feedback?: boolean;
 };
 
+/**
+ * This specific function will check only if the current time is between 08:00 and 18:00 on a weekday
+ */
+const getIsPhonenumberOpen = () => {
+	const now = new Date();
+	const hours = now.getHours();
+	const day = now.getDay();
+
+	const isValidHours = hours >= 8 && hours < 18;
+	const isValidDay = day > 0 && day < 6;
+
+	return isValidHours && isValidDay;
+};
+
 export const AssistanceRow = ({ feedback }: AssistanceRowProps) => {
 	const page = useSanityPageContent<PageContent>();
 	const siteSettings = useSanitySiteSettings();
 
 	const [isChatOpen, setIsChatOpen] = useState(false);
+	const isPhonenumberOpen = getIsPhonenumberOpen();
 
 	const fetchChatData = async () => {
 		const response = await fetch(
@@ -62,7 +77,6 @@ export const AssistanceRow = ({ feedback }: AssistanceRowProps) => {
 						sx={{
 							fontSize: ['h2Mobile', 'h2'],
 							lineHeight: ['h2Mobile', 'h2'],
-							// fontWeight: 'bold',
 							color: 'header',
 						}}
 					>
@@ -92,30 +106,39 @@ export const AssistanceRow = ({ feedback }: AssistanceRowProps) => {
 							{page.assistance.phonenumber}
 						</Styled.a>
 					</Box>
-					{isChatOpen && (
-						<Box
-							sx={{
-								display: 'flex',
-								alignItems: 'center',
-								marginBottom: '1.25rem',
-							}}
-						>
-							<img src="/icons/chat.svg" alt="" />
-							<Styled.a
-								sx={{
-									color: 'secondary',
-									fontWeight: 'bold',
-									textDecoration: 'none',
-									fontSize: '2rem',
-									margin: 0,
-									padding: 0,
-								}}
-								href="https://chat.vragenovercorona.nl/"
-							>
-								{page.assistance.chat}
-							</Styled.a>
-						</Box>
+					{page.assistance.openingHoursPhonenumber && (
+						<Styled.p>
+							{page.assistance.openingHoursPhonenumber}
+							{isPhonenumberOpen && (
+								<>
+									<br />
+									<span sx={{ color: 'green' }}>{page.assistance.open}</span>
+								</>
+							)}
+						</Styled.p>
 					)}
+					<Box
+						sx={{
+							display: 'flex',
+							alignItems: 'center',
+							marginBottom: '1.25rem',
+						}}
+					>
+						<img src="/icons/chat.svg" alt="" />
+						<Styled.a
+							sx={{
+								color: 'secondary',
+								fontWeight: 'bold',
+								textDecoration: 'none',
+								fontSize: '2rem',
+								margin: 0,
+								padding: 0,
+							}}
+							href="https://chat.vragenovercorona.nl/"
+						>
+							{page.assistance.chat}
+						</Styled.a>
+					</Box>
 					<Styled.p sx={{ marginBottom: 0 }}>
 						{page.assistance.openingHours}
 						{isChatOpen && (

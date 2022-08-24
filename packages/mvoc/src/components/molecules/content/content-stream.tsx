@@ -23,9 +23,11 @@ export const ContentStream: React.FC<ContentStreamProps> = ({
 		return null;
 
 	if (contentPrimary && !imagePrimary && !contentSecondary && !imageSecondary)
-		<Box sx={{ fontSize: ['bodyMobile', 'body'] }}>
-			<ContentBlock content={contentPrimary} />
-		</Box>;
+		return (
+			<Box sx={{ fontSize: ['bodyMobile', 'body'] }}>
+				<ContentBlock content={contentPrimary} />
+			</Box>
+		);
 
 	if (contentPrimary && imagePrimary)
 		items.push({

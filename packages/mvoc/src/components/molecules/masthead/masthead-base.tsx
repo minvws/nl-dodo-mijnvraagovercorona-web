@@ -5,12 +5,10 @@ import { theme } from '@quarantaine/common';
 
 export interface MastheadProps {
 	variant?: 'default' | 'highlight';
-	headerSlot?: React.ReactNode;
 }
 
 export const MastheadBase: React.FC<MastheadProps> = ({
 	variant = 'default',
-	headerSlot,
 	children,
 }) => {
 	return (
@@ -31,13 +29,9 @@ export const MastheadBase: React.FC<MastheadProps> = ({
 					  }),
 			}}
 		>
-			{headerSlot}
 			<Container
 				sx={{
-					marginBlockStart: [
-						variant === 'highlight' ? 0 : '1.5rem',
-						headerSlot ? 0 : '1.5rem',
-					],
+					paddingBlockStart: [variant === 'highlight' ? 0 : '1.5rem'],
 				}}
 			>
 				<Box

@@ -9,7 +9,6 @@ import {
 	sanityClient,
 	getLocaleProperty,
 	useSanityPageContent,
-	Header,
 	getImage,
 	SanityImageFullProps,
 	ContentBlock,
@@ -108,9 +107,12 @@ export const Tip = () => {
 				url={`/${page.slug}`}
 				skipPageSuffix
 			/>
-			<Page noHeader>
+			<Page
+				headerProps={{
+					noPadding: true,
+				}}
+			>
 				<Masthead
-					headerSlot={<Header transparent noPadding />}
 					title={page.header.title}
 					illustration={page.header.image}
 					prefixSlot={
@@ -325,6 +327,7 @@ export const getStaticProps = async ({
 			${getImage({ name: 'image', full: true })},
 			${getLocaleProperty({ name: 'open', locale })},
 			${getLocaleProperty({ name: 'openingHours', locale })},
+			${getLocaleProperty({ name: 'openingHoursPhonenumber', locale })},
 			phonenumber,
 			${getLocaleProperty({ name: 'tekstWithChat', locale })},
 			${getLocaleProperty({ name: 'tekstWithoutChat', locale })},
