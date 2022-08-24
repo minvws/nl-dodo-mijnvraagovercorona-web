@@ -99,6 +99,26 @@ test mvoc:
 #     - yarn
 #     - yarn e2e:reizen
 
+deploy reizen cms preview environment:
+  image: harbor.cicd.s15m.nl/vws-reis-docker-hub/library/node:14-alpine
+  stage: deploy
+  script:
+    - yarn
+    - yarn run vercel --yes --name reizen-tijdens-corona --env SANITY_PREVIEW_SECRET=cb168779e1d80d47b6d28a585bd157f95f1b40fa --prod --token=$VERCEL_DEPLOY
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^staging/'
+      when: always
+
+deploy mvoc cms preview environment:
+  image: harbor.cicd.s15m.nl/vws-reis-docker-hub/library/node:14-alpine
+  stage: deploy
+  script:
+    - yarn
+    - yarn run vercel --yes --name mijn-vraag-over-corona --env SANITY_PREVIEW_SECRET=cb168779e1d80d47b6d28a585bd157f95f1b40fa --prod --token=$VERCEL_DEPLOY
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^staging/'
+      when: always
+
 label reizen image staging:
   <<: *label-image
   variables:
@@ -157,17 +177,6 @@ build mvoc image:
     - if: '$CI_COMMIT_TAG =~ /^staging/'
       when: always
 
-build check image:
-  <<: *build-image
-  variables:
-    CD_APP_NAME: quarantaine-check-website
-    CD_APP_FOLDER: mvoc
-  rules:
-    - if: '$CI_COMMIT_TAG =~ /^development/'
-      when: always
-    - if: '$CI_COMMIT_TAG =~ /^staging/'
-      when: always
-
 deploy reizen image latest:
   variables:
     CD_APP_NAME: travel-during-corona-website
@@ -216,18 +225,6 @@ deploy mvoc image staging:
       when: on_success
     - when: never
 
-deploy check image staging:
-  variables:
-    CD_APP_NAME: quarantaine-check-website
-    CD_WEBSITE_COMMIT_TAG: $CI_COMMIT_TAG
-    CD_ENVIRONMENT: staging
-  stage: deploy
-  trigger: vws/reis/nl-covid19-travel-during-corona-deploy
-  rules:
-    - if: '$CI_COMMIT_TAG =~ /^staging/'
-      when: on_success
-    - when: never
-
 deploy reizen image production:
   variables:
     CD_APP_NAME: travel-during-corona-website
@@ -243,18 +240,6 @@ deploy reizen image production:
 deploy mvoc image production:
   variables:
     CD_APP_NAME: mijn-vraag-over-corona-website
-    CD_WEBSITE_COMMIT_TAG: $CI_COMMIT_TAG
-    CD_ENVIRONMENT: production
-  stage: deploy
-  trigger: vws/reis/nl-covid19-travel-during-corona-deploy
-  rules:
-    - if: '$CI_COMMIT_TAG =~ /^production/'
-      when: manual
-    - when: never
-
-deploy check image production:
-  variables:
-    CD_APP_NAME: quarantaine-check-website
     CD_WEBSITE_COMMIT_TAG: $CI_COMMIT_TAG
     CD_ENVIRONMENT: production
   stage: deploy

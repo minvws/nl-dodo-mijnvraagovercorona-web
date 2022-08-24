@@ -6,13 +6,12 @@ import { Page } from 'components/page';
 
 import {
 	MetaTags,
-	sanityClient,
 	getPageQuery,
 	getLocaleProperty,
-	useSanityPageContent,
 	Locales,
 	Retain,
 	Layer,
+	Header,
 	Stack,
 	StyledLink,
 	ContentBlock,
@@ -22,6 +21,8 @@ import {
 	SectionHeadingGroup,
 	SectionHeadingGroupWithIcon,
 	getHrefWithlocale,
+	usePreviewSubscription,
+	getClient,
 } from '@quarantaine/common';
 import { AssistanceRow, Masthead, ThemeOverview } from 'components/molecules';
 import { retainMaxWidth } from '@quarantaine/common/src/components/molecules/layout/retain';
@@ -31,6 +32,8 @@ import {
 	QuestionCollectionProps,
 } from 'utilities/question';
 import { useHashRedirectService } from 'utilities/use-hash-redirect-service';
+import { locales } from 'content/general-content';
+import { SiteSettings } from 'content/site-settings';
 
 interface ThemesProps extends ThemeCollectionProps {
 	title: string;
@@ -82,8 +85,30 @@ export interface PageContent {
 	url: string;
 }
 
-export default function LandingPage({ locale }: { locale: Locales }) {
-	const page = useSanityPageContent<PageContent>();
+interface LandingPageProps {
+	preview: boolean;
+	page: PageContent;
+	siteSettings: SiteSettings;
+	locale: Locales;
+	query: string;
+}
+
+export default function LandingPage({
+	preview,
+	page: serverPage,
+	siteSettings,
+	locale,
+	query,
+}: LandingPageProps) {
+	const {
+		data: { page: previewPage },
+	} = usePreviewSubscription(query, {
+		params: { locale },
+		initialData: { page: serverPage, siteSettings },
+		enabled: preview,
+	});
+
+	const page: PageContent = previewPage || serverPage;
 
 	useHashRedirectService();
 
@@ -204,10 +229,12 @@ export default function LandingPage({ locale }: { locale: Locales }) {
 
 interface LandingStaticProps {
 	params: { locale: Locales };
+	preview: boolean;
 }
 
 export const getStaticProps = async ({
 	params: { locale },
+	preview = false,
 }: LandingStaticProps) => {
 	const pageProjection = `{
 		"metaData": {
@@ -278,27 +305,28 @@ export const getStaticProps = async ({
 		},
 		url,
 	}`;
+	const query = getPageQuery({
+		site: 'mijn-vraag-over-corona',
+		type: 'check-landing-page',
+		pageProjection,
+		locale,
+	});
 
-	const { page, siteSettings } = await sanityClient.fetch(
-		getPageQuery({
-			site: 'mijn-vraag-over-corona',
-			type: 'check-landing-page',
-			pageProjection,
-			locale,
-		}),
-	);
+	const { page, siteSettings } = await getClient(preview).fetch(query);
 
 	return {
 		props: {
+			preview,
 			page,
 			siteSettings,
 			locale,
+			query,
 		},
 	};
 };
 
 export const getStaticPaths = () => ({
-	paths: ['nl', 'en'].map((locale) => ({
+	paths: locales.map((locale) => ({
 		params: { locale },
 	})),
 	fallback: false,

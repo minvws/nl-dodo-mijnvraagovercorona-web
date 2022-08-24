@@ -14,11 +14,15 @@
 		"dev:cms": "yarn workspace @quarantaine/cms start",
 		"build:reizen": "yarn workspace @quarantaine/reizen build",
 		"build:mvoc": "yarn workspace @quarantaine/mvoc build",
+		"preview:reizen": "yarn workspace @quarantaine/reizen preview",
+		"preview:mvoc": "yarn workspace @quarantaine/mvoc preview",
 		"deploy:cms": "yarn workspace @quarantaine/cms deploy"
 	},
 	"workspaces": [
 		"packages/*"
 	],
-	"devDependencies": {},
+	"devDependencies": {
+		"vercel": "^28.1.0"
+	},
 	"dependencies": {}
 }

@@ -16,13 +16,7 @@ interface GenericListProps extends DocumentListProps {
 /**
  * Generic function to render a list of documents
  */
-const getGenericList = ({
-	schemaType,
-	title,
-	icon,
-	type,
-	...rest
-}: GenericListProps) =>
+const getGenericList = ({ schemaType, title, icon, type }: GenericListProps) =>
 	S.listItem()
 		.title(title)
 		.icon(icon)
