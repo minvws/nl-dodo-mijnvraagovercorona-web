@@ -70,7 +70,7 @@ export const LocaleSelector = () => {
 				borderRadius: 'tile',
 				flexDirection: 'column',
 				padding: '8px 12px',
-				zIndex: '3',
+				zIndex: '2',
 				'&::before': {
 					position: 'absolute',
 					insetBlockStart: 0,
