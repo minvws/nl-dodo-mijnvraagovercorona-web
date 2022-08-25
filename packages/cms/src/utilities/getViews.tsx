@@ -9,7 +9,8 @@ export const getViews = (type: 'page' | 'document', schemaType: string) => {
 		S.view.component(DocumentJsonPreview).title('JSON'),
 	];
 
-	if (type === 'page') views.push(S.view.component(WebPreview).title('Web'));
+	if (type === 'page')
+		views.push(S.view.component(WebPreview).title('Preview'));
 	if (schemaType === 'land-document')
 		views.push(S.view.component(MapPreview).title('Risicokaart'));
 

@@ -12,7 +12,8 @@
 		"@sanity/components",
 		"@sanity/default-layout",
 		"@sanity/default-login",
-		"@sanity/desk-tool"
+		"@sanity/desk-tool",
+		"@sanity/production-preview"
 	],
 	"env": {
 		"development": {
@@ -31,6 +32,10 @@
 		{
 			"implements": "part:@sanity/base/document-actions/resolver",
 			"path": "./src/resolveDocumentActions"
+		},
+		{
+			"implements": "part:@sanity/production-preview/resolve-production-url",
+			"path": "./src/resolveProductionUrl"
 		}
 	]
 }

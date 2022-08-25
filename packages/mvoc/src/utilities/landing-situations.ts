@@ -1,7 +1,7 @@
-import { sanityClient, siteSettingsQuery, Locales } from '@quarantaine/common';
+import { getClient, siteSettingsQuery, Locales } from '@quarantaine/common';
 
 export const getLandingSituations = async () => {
-	const questions = await sanityClient.fetch(
+	const questions = await getClient(false).fetch(
 		`*[_type=="landing-situations-document"]{"landingSituation": slug.current}`,
 	);
 

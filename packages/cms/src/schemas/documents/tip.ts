@@ -85,6 +85,11 @@ export default {
 				source: 'header.title.nl',
 			},
 		},
+		{
+			title: 'URL',
+			name: 'url',
+			type: 'string',
+		},
 	],
 	preview: {
 		select: {

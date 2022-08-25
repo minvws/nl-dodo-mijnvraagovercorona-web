@@ -1,12 +1,13 @@
 /** @jsx jsx */
 import type { AppProps } from 'next/app';
-import { jsx } from 'theme-ui';
+import { jsx, Box } from 'theme-ui';
 
 import {
 	locales,
 	App,
 	generalContentNl,
 	generalContentEn,
+	StyledLink,
 } from '@quarantaine/common';
 
 import '@quarantaine/common/src/theme/global.css';
@@ -37,6 +38,16 @@ const CheckApp = ({ Component, pageProps }: AppProps) => {
 				siteSettings={pageProps.siteSettings}
 				content={{ ...localGlobalTranslations }}
 			>
+				{pageProps.preview && (
+					<Box sx={{ padding: '12px', textAlign: 'right' }}>
+						<StyledLink
+							href={`/api/exit-preview?slug=${pageProps.page?.url}`}
+							styledAs="button"
+						>
+							Verlaat preview modus
+						</StyledLink>
+					</Box>
+				)}
 				<Component {...pageProps} />
 			</App>
 		</GlobalContext.Provider>

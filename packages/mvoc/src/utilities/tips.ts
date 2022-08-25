@@ -1,5 +1,5 @@
 import {
-	sanityClient,
+	getClient,
 	siteSettingsQuery,
 	Locales,
 	getLocaleProperty,
@@ -8,7 +8,7 @@ import {
 } from '@quarantaine/common';
 
 export const getTips = async () => {
-	const questions = await sanityClient.fetch(
+	const questions = await getClient(false).fetch(
 		`*[_type=="tip-document"]{"tip": slug.current}`,
 	);
 
