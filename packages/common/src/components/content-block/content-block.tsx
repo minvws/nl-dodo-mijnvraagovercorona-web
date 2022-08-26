@@ -20,6 +20,7 @@ interface ContentProps {
 interface MarkProps {
 	children: React.ReactNode;
 	contentVariables?: ContentVariables;
+	type: string;
 	node?: {
 		style: string;
 	};
@@ -90,7 +91,9 @@ const getSerializers = (contentVariables?: ContentVariables) => ({
 			<Block {...props} contentVariables={contentVariables} />
 		),
 	},
-	list: ({ children }: MarkProps) => <Styled.ul>{children}</Styled.ul>,
+	// list: ({ children }: MarkProps) => <Styled.ul>{children}</Styled.ul>,
+	list: ({ children, type }: MarkProps) =>
+		type === 'number' ? <ol>{children}</ol> : <ul>{children}</ul>,
 	container: ({ children }: MarkProps) => <>{children}</>,
 	marks: {
 		strong: ({ children }: MarkProps) => (
