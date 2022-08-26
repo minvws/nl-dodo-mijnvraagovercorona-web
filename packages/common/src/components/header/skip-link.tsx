@@ -2,12 +2,7 @@
 import React from 'react';
 import { Box, jsx } from 'theme-ui';
 
-import {
-	useSanitySiteSettings,
-	StyledLink,
-	useCurrentLocale,
-} from '@quarantaine/common';
-import { useRouter } from 'next/router';
+import { useSanitySiteSettings, StyledLink } from '@quarantaine/common';
 
 interface OwnProps {}
 
@@ -15,9 +10,6 @@ export const skipLinkID = 'main';
 
 export const SkipLink: React.FC<OwnProps> = ({}) => {
 	const siteSettings = useSanitySiteSettings();
-	const { asPath } = useRouter();
-
-	const link = `${asPath}#${skipLinkID}`;
 
 	return (
 		<Box
@@ -37,7 +29,7 @@ export const SkipLink: React.FC<OwnProps> = ({}) => {
 				},
 			}}
 		>
-			<StyledLink href={link} styledAs="button-tertiary">
+			<StyledLink href={`#${skipLinkID}`} styledAs="button-tertiary">
 				{siteSettings.header.skipLink}
 			</StyledLink>
 		</Box>

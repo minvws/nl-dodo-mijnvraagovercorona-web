@@ -20,7 +20,6 @@ export const Dialog: React.FC<DialogProps> = ({
 }) => {
 	return (
 		<DialogOverlay
-			aria-label={title}
 			isOpen={isVisible}
 			onDismiss={closeDialog}
 			sx={{

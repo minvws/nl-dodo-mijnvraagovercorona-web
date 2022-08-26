@@ -59,21 +59,38 @@ export const Card: React.FC<CardProps> = ({
 			}}
 		>
 			<Stack spacing={['1rem']}>
-				<Stack spacing={['0.5rem']}>
-					{chapeau && (
-						<Text variant="chapeau" as="p" sx={{ marginBlockStart: 0 }}>
-							{chapeau}
-						</Text>
-					)}
+				<Flex
+					sx={{
+						display: 'flex',
+						flexDirection: 'column',
+						gap: ['0.5rem'],
+						// && is used to increase specificity with 1 by doubling up generated classes `.css-1o804hg.css-1o804hg`
+						'&& > *': {
+							marginBlockEnd: '0',
+							marginBlockStart: '0',
+						},
+					}}
+				>
 					<Styled.h3
 						sx={{
+							order: 2,
 							fontSize: ['h2Mobile', 'h2'],
 							lineHeight: ['h2Mobile', 'h2'],
 						}}
 					>
 						{title}
 					</Styled.h3>
-				</Stack>
+					{chapeau && (
+						<Text
+							variant="chapeau"
+							as="p"
+							sx={{ order: 1, marginBlockStart: 0 }}
+							role="presentation"
+						>
+							{chapeau}
+						</Text>
+					)}
+				</Flex>
 
 				<ContentBlock content={content} />
 
