@@ -27,7 +27,7 @@ export const Masthead: React.FC<MastheadProps> = ({
 	return (
 		<MastheadBase variant={variant}>
 			<TheSwitcher alignItems="center" gap={['2rem', '4rem']}>
-				{illustration ? (
+				{illustration && illustration.src ? (
 					<TheSwitcherItem>
 						<Image
 							src={illustration.src}
