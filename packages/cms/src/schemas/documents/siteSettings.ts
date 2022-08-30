@@ -388,6 +388,16 @@ export default {
 					name: 'labelExternalLink',
 					type: 'localeString',
 				},
+				{
+					title: 'Onzichtbaar label bij inline modals',
+					name: 'labelModal',
+					type: 'localeString',
+				},
+				{
+					title: 'Onzichtbaar "Sluit" label in modals',
+					name: 'labelModalClose',
+					type: 'localeString',
+				},
 			],
 		},
 	],

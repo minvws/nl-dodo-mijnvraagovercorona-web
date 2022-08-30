@@ -4,6 +4,7 @@ import { jsx } from 'theme-ui';
 
 import { DialogOverlay, DialogContent } from '@reach/dialog';
 import VisuallyHidden from '@reach/visually-hidden';
+import { useSanitySiteSettings } from '@quarantaine/common';
 
 interface DialogProps {
 	closeDialog: () => void;
@@ -18,6 +19,7 @@ export const Dialog: React.FC<DialogProps> = ({
 	title,
 	children,
 }) => {
+	const siteSettings = useSanitySiteSettings();
 	return (
 		<DialogOverlay
 			isOpen={isVisible}
@@ -93,7 +95,9 @@ export const Dialog: React.FC<DialogProps> = ({
 						/>
 					</svg>
 
-					<VisuallyHidden>Close</VisuallyHidden>
+					<VisuallyHidden>
+						{siteSettings.accessibility.labelModalClose}
+					</VisuallyHidden>
 				</button>
 				<h2>{title}</h2>
 				{children}
