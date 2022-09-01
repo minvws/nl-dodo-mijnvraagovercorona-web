@@ -442,6 +442,16 @@ export const siteSettingsQuery = ({
 				path: 'accessibility.labelExternalLink',
 				locale,
 			})},
+			${getLocaleProperty({
+				name: 'labelModal',
+				path: 'accessibility.labelModal',
+				locale,
+			})},
+			${getLocaleProperty({
+				name: 'labelModalClose',
+				path: 'accessibility.labelModalClose',
+				locale,
+			})},
 		}
 	}`;
 

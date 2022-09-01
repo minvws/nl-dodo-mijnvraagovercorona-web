@@ -4,14 +4,16 @@ import { Dialog } from './dialog';
 import { Link } from '../link';
 import { QuestionIcon } from '../../icons/question';
 import { useState } from 'react';
+import VisuallyHidden from '@reach/visually-hidden';
+import { useSanitySiteSettings } from '@quarantaine/common';
 
 export const InlineDialog: React.FC<{ title: string; buttonText: string }> = ({
 	buttonText,
 	title,
 	children,
 }) => {
+	const siteSettings = useSanitySiteSettings();
 	const [isVisible, setIsVisible] = useState(false);
-
 	return (
 		<>
 			<Link
@@ -40,6 +42,9 @@ export const InlineDialog: React.FC<{ title: string; buttonText: string }> = ({
 					{buttonText}
 				</span>{' '}
 				<QuestionIcon />
+				<VisuallyHidden>
+					({siteSettings.accessibility.labelModal})
+				</VisuallyHidden>
 			</Link>
 			<Dialog
 				closeDialog={() => setIsVisible(false)}

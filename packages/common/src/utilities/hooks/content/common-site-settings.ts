@@ -82,5 +82,7 @@ export interface CommonSiteSettings {
 	};
 	accessibility: {
 		labelExternalLink: string;
+		labelModal: string;
+		labelModalClose: string;
 	};
 }

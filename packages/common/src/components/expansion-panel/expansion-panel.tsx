@@ -117,37 +117,29 @@ export const ExpansionPanel = ({
 				/>
 			) : null}
 			<Disclosure onChange={handleChange} open={open}>
-				{variant !== 'plusinline' ? (
-					<ExpansionPanelButton
-						variant={variant}
-						title={title}
-						titleSuffix={titleSuffix}
-					/>
-				) : null}
+				<ExpansionPanelButton
+					variant={variant}
+					title={title}
+					titleSuffix={titleSuffix}
+				/>
 				<DisclosurePanel>
 					<div
 						sx={{
 							padding:
 								variant === 'plusinline'
-									? '0 0 1rem 0'
+									? '1rem 0 1rem 0'
 									: variant === 'plus' || variant === 'plusalt'
 									? '0 48px 15px 15px'
 									: '0 48px 15px 0',
 							fontSize: ['bodyMobile', 'body'],
 							lineHeight: ['bodyMobile', 'body'],
+							outline: 'none',
 						}}
 						ref={contentRef}
 					>
 						{children}
 					</div>
 				</DisclosurePanel>
-				{variant === 'plusinline' ? (
-					<ExpansionPanelButton
-						variant={variant}
-						title={title}
-						titleSuffix={titleSuffix}
-					/>
-				) : null}
 			</Disclosure>
 		</Container>
 	);
