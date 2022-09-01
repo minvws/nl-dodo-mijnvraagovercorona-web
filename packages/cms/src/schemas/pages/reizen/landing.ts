@@ -93,6 +93,21 @@ export default {
 			],
 		},
 		{
+			title: 'Placeholder',
+			name: 'placeholder',
+			type: 'localeString',
+		},
+		{
+			title: 'Zoekveld label',
+			name: 'searchLabel',
+			type: 'localeString',
+		},
+		{
+			title: 'Niet gevonden',
+			name: 'nietGevonden',
+			type: 'localeString',
+		},
+		{
 			title: 'URL',
 			name: 'url',
 			type: 'string',
