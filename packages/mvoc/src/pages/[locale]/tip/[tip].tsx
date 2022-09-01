@@ -8,20 +8,18 @@ import {
 	MetaTags,
 	getClient,
 	getLocaleProperty,
-	useSanityPageContent,
 	getImage,
 	SanityImageFullProps,
 	ContentBlock,
-	useSanitySiteSettings,
 	formatLongDate,
 	Layer,
 	TheSidebar,
 	Retain,
 	ListAnchor,
 	Stack,
-	useCurrentLocale,
 	Feedback,
 	getFeedbackUrl,
+	usePreviewSubscription,
 } from '@quarantaine/common';
 
 import { locales } from 'content/general-content';
@@ -39,6 +37,7 @@ import {
 	getTipsCollection,
 	TipCollectionProps,
 } from 'utilities/tips';
+import { SiteSettings } from 'content/site-settings';
 
 interface StoryProps {
 	title: string;
@@ -87,10 +86,30 @@ interface PageContent {
 	slug: string;
 }
 
-export const Tip = () => {
-	const page = useSanityPageContent<PageContent>();
-	const siteSettings = useSanitySiteSettings();
-	const locale = useCurrentLocale();
+interface TipPageProps {
+	preview: boolean;
+	page: PageContent;
+	siteSettings: SiteSettings;
+	locale: Locales;
+	query: string;
+}
+
+export const Tip = ({
+	preview,
+	page: serverPage,
+	siteSettings,
+	locale,
+	query,
+}: TipPageProps) => {
+	const {
+		data: { page: previewPage },
+	} = usePreviewSubscription(query, {
+		params: { locale },
+		initialData: { page: serverPage, siteSettings },
+		enabled: preview,
+	});
+
+	const page: PageContent = previewPage || serverPage;
 
 	const translatedStories = page.stories.filter((story) => story.title);
 	const translatedTips = page.moreTips.tipCollection
@@ -125,7 +144,7 @@ export const Tip = () => {
 						>
 							{siteSettings.updatedAt}{' '}
 							<time dateTime={page.updatedAt}>
-								{formatLongDate(new Date(page.updatedAt), locale.id)}
+								{formatLongDate(new Date(page.updatedAt), locale)}
 							</time>
 						</Styled.p>
 					}
@@ -244,9 +263,9 @@ export const getStaticPaths = async () => {
 
 interface TipStaticParams {
 	params: { tip: string; locale: Locales };
-} 
+}
 
-interface TipStaticProps extends TipStaticParams  {
+interface TipStaticProps extends TipStaticParams {
 	preview: boolean;
 }
 
@@ -341,13 +360,12 @@ export const getStaticProps = async ({
 		"updatedAt": _updatedAt,
 		"slug": slug.current,
 	}`;
-	const { page, siteSettings } = await getClient(preview).fetch(
-		getTipPageQuery({
-			pageProjection,
-			locale,
-			tip,
-		}),
-	);
+	const query = getTipPageQuery({
+		pageProjection,
+		locale,
+		tip,
+	});
+	const { page, siteSettings } = await getClient(preview).fetch(query);
 
 	return {
 		props: {
@@ -355,6 +373,7 @@ export const getStaticProps = async ({
 			page,
 			siteSettings,
 			locale,
+			query,
 		},
 	};
 };

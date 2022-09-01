@@ -6,11 +6,11 @@ import {
 	Locales,
 	MetaTags,
 	getLocaleProperty,
-	useSanityPageContent,
 	getImage,
 	SanityImageFullProps,
 	ContentBlock,
 	getClient,
+	usePreviewSubscription,
 } from '@quarantaine/common';
 
 import {
@@ -24,6 +24,7 @@ import {
 	AnswerSwitchProps,
 	AnswerSwitch,
 } from 'components/molecules';
+import { SiteSettings } from 'content/site-settings';
 
 export interface QuestionPageContent extends AnswerSwitchProps {
 	header: {
@@ -42,8 +43,31 @@ interface PageContent extends QuestionPageContent {
 	slug: string;
 }
 
-export const Vraag = ({ locale }: { locale: Locales }) => {
-	const page = useSanityPageContent<PageContent>();
+interface QuestionPageProps {
+	preview: boolean;
+	page: PageContent;
+	siteSettings: SiteSettings;
+	locale: Locales;
+	query: string;
+}
+
+export const Vraag = ({
+	preview,
+	page: serverPage,
+	siteSettings,
+	locale,
+	query,
+}: QuestionPageProps) => {
+	const {
+		data: { page: previewPage },
+	} = usePreviewSubscription(query, {
+		params: { locale },
+		initialData: { page: serverPage, siteSettings },
+		enabled: preview,
+	});
+
+	const page: PageContent = previewPage || serverPage;
+
 	const url = `/situatie/${page.slug}`;
 
 	return (
@@ -205,19 +229,20 @@ export const getStaticProps = async ({
 		${essentialQuestionPageProjection({ locale: locale })},
 		"slug": slug.current,
 	}`;
-	const { page, siteSettings } = await getClient(preview).fetch(
-		getSituationQuestionPageQuery({
-			pageProjection,
-			locale,
-			question,
-		}),
-	);
+	const query = getSituationQuestionPageQuery({
+		pageProjection,
+		locale,
+		question,
+	});
+	const { page, siteSettings } = await getClient(preview).fetch(query);
 
 	return {
 		props: {
+			preview,
 			page,
 			siteSettings,
 			locale,
+			query,
 		},
 	};
 };

@@ -7,11 +7,9 @@ import {
 	Locales,
 	MetaTags,
 	getLocaleProperty,
-	useSanityPageContent,
 	ContentBlock,
 	Feedback,
 	getFeedbackUrl,
-	useSanitySiteSettings,
 	Layer,
 	Retain,
 	Stack,
@@ -29,6 +27,7 @@ import {
 	StyledLink,
 	getHrefWithlocale,
 	getPageQuery,
+	usePreviewSubscription,
 } from '@quarantaine/common';
 
 import { locales } from 'content/general-content';
@@ -50,6 +49,7 @@ import {
 import { differenceInDays, startOfDay, parse, addDays } from 'date-fns';
 import { useRouter } from 'next/router';
 import { getTipsCollection, TipCollectionProps } from 'utilities/tips';
+import { SiteSettings } from 'content/site-settings';
 
 interface AnswerProps {
 	showOn?: Array<number>;
@@ -109,6 +109,14 @@ interface PageContent {
 	updatedAt: string;
 }
 
+interface AdvicePageProps {
+	preview: boolean;
+	page: PageContent;
+	siteSettings: SiteSettings;
+	locale: Locales;
+	query: string;
+}
+
 const getDifferenceInDays = (date: Date) => {
 	const difference = differenceInDays(startOfDay(new Date()), startOfDay(date));
 
@@ -152,10 +160,24 @@ const getMostRelevantAnswer = ({
 	return answer || answers[answers.length - 1];
 };
 
-export const Advies = ({ locale }: { locale: Locales }) => {
+export const Advies = ({
+	preview,
+	page: serverPage,
+	siteSettings,
+	locale,
+	query,
+}: AdvicePageProps) => {
+	const {
+		data: { page: previewPage },
+	} = usePreviewSubscription(query, {
+		params: { locale },
+		initialData: { page: serverPage, siteSettings },
+		enabled: preview,
+	});
+
+	const page: PageContent = { ...serverPage, ...previewPage } || serverPage;
+
 	const router = useRouter();
-	const page = useSanityPageContent<PageContent>();
-	const siteSettings = useSanitySiteSettings();
 	const currentLocale = useCurrentLocale();
 	const date = router.query.datum
 		? parse(`${router.query.datum}`, 'dd-MM-yyyy', new Date())
