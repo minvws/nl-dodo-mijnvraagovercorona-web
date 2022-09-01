@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import React, { useState, useEffect } from 'react';
 import { jsx, Styled } from 'theme-ui';
 
 import {

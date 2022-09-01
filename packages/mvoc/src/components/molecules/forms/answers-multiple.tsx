@@ -8,10 +8,9 @@ import {
 	isBrowser,
 	Locales,
 	Stack,
-	StyledLink,
 	useSanitySiteSettings,
 } from '@quarantaine/common';
-import { Box, jsx } from 'theme-ui';
+import { jsx } from 'theme-ui';
 import { FormSubmit, FormSubmitProps } from './submit';
 import { useRouter } from 'next/router';
 import { ContentStream, ContentStreamProps } from '../content';

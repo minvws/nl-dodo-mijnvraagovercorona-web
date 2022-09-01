@@ -1,13 +1,11 @@
 /** @jsx jsx */
-import React, { useState } from 'react';
+import React from 'react';
 import { Container, jsx } from 'theme-ui';
-import { useRouter } from 'next/router';
 import {
 	BannerDataProtection,
 	Layer,
 	Locales,
 	Retain,
-	Stack,
 	TheSidebar,
 	useSanitySiteSettings,
 } from '@quarantaine/common';
@@ -36,10 +34,6 @@ export interface AnswerSwitchProps {
 		label: string;
 		placeholder: string;
 	};
-	steps: {
-		current: number;
-		total: number;
-	};
 	type: 'multiple' | 'single' | 'datepicker' | 'buttons' | 'age';
 	buttons: FormSubmitProps['buttons'];
 }
@@ -54,7 +48,6 @@ export const AnswerSwitch: React.FC<OwnProps> = ({
 	answersSingle,
 	showMore,
 	ageInput,
-	steps,
 	buttons,
 	type,
 	locale,

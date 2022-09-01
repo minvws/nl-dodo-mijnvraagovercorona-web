@@ -4,7 +4,6 @@ import { jsx } from 'theme-ui';
 import { isBrowser, Locales, Stack } from '@quarantaine/common';
 import { FormSubmit, FormSubmitProps } from './submit';
 import { ContentStream, ContentStreamProps } from '../content';
-import { useRouter } from 'next/router';
 
 export interface FormAnswersButtonsProps {
 	locale: Locales;

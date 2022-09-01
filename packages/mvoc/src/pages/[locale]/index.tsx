@@ -11,7 +11,6 @@ import {
 	Locales,
 	Retain,
 	Layer,
-	Header,
 	Stack,
 	StyledLink,
 	ContentBlock,

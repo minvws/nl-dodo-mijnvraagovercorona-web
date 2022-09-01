@@ -1,9 +1,8 @@
 /** @jsx jsx */
 import React, { useState } from 'react';
-import { Box, Flex, Image, jsx } from 'theme-ui';
+import { jsx } from 'theme-ui';
 import { useRouter } from 'next/router';
 import {
-	Content,
 	ContentBlock,
 	Control,
 	getHrefWithlocale,

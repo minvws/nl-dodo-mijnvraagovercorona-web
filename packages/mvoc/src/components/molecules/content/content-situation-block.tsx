@@ -8,9 +8,7 @@ import {
 } from '@quarantaine/common';
 import { Situation } from 'config/situaties';
 import React from 'react';
-import { Box, Image, jsx } from 'theme-ui';
-import getYouTubeId from 'get-youtube-id';
-import YouTube from 'react-youtube';
+import { Image, jsx } from 'theme-ui';
 
 interface SituationAsLink extends Situation {
 	situationLinkTitle: string;

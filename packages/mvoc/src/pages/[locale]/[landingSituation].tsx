@@ -6,8 +6,6 @@ import {
 	Locales,
 	MetaTags,
 	getLocaleProperty,
-	Header,
-	useSanityPageContent,
 	getImage,
 	getClient,
 	SanityImageFullProps,

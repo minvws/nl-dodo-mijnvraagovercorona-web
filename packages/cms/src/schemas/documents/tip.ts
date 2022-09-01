@@ -95,6 +95,7 @@ export default {
 		select: {
 			title: 'header.title.nl',
 			subtitle: 'slug.current',
+			media: 'header.image',
 		},
 	},
 };

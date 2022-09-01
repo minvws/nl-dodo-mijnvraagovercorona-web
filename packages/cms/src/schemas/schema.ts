@@ -7,11 +7,7 @@ import voorbereidingDocument from './documents/voorbereiding';
 import countryDocument from './documents/country';
 import riskCategoryDocument from './documents/riskCategory';
 import travelFaseDocument from './documents/travelFase';
-import situationDocument from './documents/situation';
 import modalsDocument from './documents/modals';
-import topicQuestionDocument from './documents/topic-question';
-import topicResultDocument from './documents/topic-result';
-import topicDocument from './documents/topic';
 import themeDocument from './documents/theme';
 import assistanceDocument from './documents/assistance';
 import informContactsDocument from './documents/inform-contacts';
@@ -37,9 +33,6 @@ import faqPage from './pages/reizen/faq';
 import resultaatPage from './pages/reizen/resultaat';
 
 import checkLandingPage from './pages/check/check-landing';
-import benIkUitgezonderdPage from './pages/check/ben-ik-uitgezonderd';
-import wanneerPage from './pages/check/wanneer';
-import geenAdviesPage from './pages/check/geen-advies';
 
 import localeStringObject from './objects/localeString';
 import {
@@ -100,9 +93,6 @@ export default createSchema({
 		 * Check pages
 		 */
 		checkLandingPage,
-		benIkUitgezonderdPage,
-		wanneerPage,
-		geenAdviesPage,
 
 		/**
 		 * Site settings
@@ -119,11 +109,7 @@ export default createSchema({
 		countryDocument,
 		riskCategoryDocument,
 		travelFaseDocument,
-		situationDocument,
 		modalsDocument,
-		topicQuestionDocument,
-		topicResultDocument,
-		topicDocument,
 		themeDocument,
 		contentCardDocument,
 		assistanceDocument,

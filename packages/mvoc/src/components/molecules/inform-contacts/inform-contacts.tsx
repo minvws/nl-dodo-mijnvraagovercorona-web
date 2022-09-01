@@ -9,7 +9,6 @@ import {
 import React, { useEffect, useState } from 'react';
 import { jsx, Box, Styled } from 'theme-ui';
 import useCopyToClipboard from 'utilities/use-copy-to-clipboard';
-import { Situation } from 'config/situaties';
 
 export type InformContactsProps = {
 	title: string;

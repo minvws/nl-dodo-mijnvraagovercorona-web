@@ -12,7 +12,6 @@ import {
 	Feedback,
 	getFeedbackUrl,
 	useSanitySiteSettings,
-	Header,
 	Layer,
 	Retain,
 	Stack,

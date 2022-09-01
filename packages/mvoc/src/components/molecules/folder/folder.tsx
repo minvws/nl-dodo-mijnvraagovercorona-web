@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from 'react';
-import { Box, jsx, Styled } from 'theme-ui';
+import { jsx, Styled } from 'theme-ui';
 import { ContentBlock, Stack } from '@quarantaine/common';
 import { Case, CaseProps } from './case';
 import { ContentSituationBlock } from '../content';

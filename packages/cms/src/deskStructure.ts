@@ -12,10 +12,8 @@ import {
 	GiFlagObjective,
 	GiCalendar,
 	GiLightBulb,
-	GiThumbDown,
 	GiRadioactive,
 	GiTrail,
-	GiShieldReflect,
 	GiShare,
 	GiAirplaneArrival,
 } from 'react-icons/gi';
@@ -214,47 +212,6 @@ const mvocSituationDocumentsConfig = [
 	},
 ];
 
-const mvocSituationOldDocumentsConfig = [
-	{
-		schemaType: 'situation-document',
-		title: `Situatie`,
-		icon: GiHelp,
-	},
-	{
-		schemaType: 'check-ben-ik-uitgezonderd-page',
-		title: 'Ben ik uitgezonderd',
-		icon: GiShieldReflect,
-	},
-	{
-		schemaType: 'wanneer-page',
-		title: 'Wanneer',
-		icon: GiCalendar,
-	},
-	{
-		schemaType: 'geen-advies-page',
-		title: 'Geen Advies',
-		icon: GiThumbDown,
-	},
-];
-
-const mvocTopicDocumentsConfig = [
-	{
-		schemaType: 'topic-document',
-		title: 'Onderwerp Flow',
-		icon: MdOutlineTopic,
-	},
-	{
-		schemaType: 'topic-question-document',
-		title: `Onderwerp Vraag`,
-		icon: RiQuestionLine,
-	},
-	{
-		schemaType: 'topic-result-document',
-		title: `Onderwerp Resultaat`,
-		icon: RiQuestionAnswerLine,
-	},
-];
-
 export default () =>
 	S.list()
 		.title('Content')
@@ -299,26 +256,6 @@ export default () =>
 						icon: RiQuestionAnswerLine,
 						items: [
 							...mvocSituationDocumentsConfig.map((config) =>
-								getDocumentList(config),
-							),
-						],
-					}),
-
-					getFolder({
-						title: 'Onderwerpen',
-						icon: MdOutlineTopic,
-						items: [
-							...mvocTopicDocumentsConfig.map((config) =>
-								getDocumentList(config),
-							),
-						],
-					}),
-
-					getFolder({
-						title: 'Situaties (Oud)',
-						icon: GiHelp,
-						items: [
-							...mvocSituationOldDocumentsConfig.map((config) =>
 								getDocumentList(config),
 							),
 						],

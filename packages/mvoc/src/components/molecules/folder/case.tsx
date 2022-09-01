@@ -2,7 +2,7 @@
 import React from 'react';
 import { jsx, Styled } from 'theme-ui';
 import slugify from 'slugify';
-import { ExpansionPanel, Stack, theme, trackEvent } from '@quarantaine/common';
+import { ExpansionPanel, Stack, trackEvent } from '@quarantaine/common';
 import { ContentSituationBlockProps } from '../content';
 
 export interface CaseProps {
