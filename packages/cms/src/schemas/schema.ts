@@ -3,7 +3,6 @@ import schemaTypes from 'all:part:@sanity/base/schema-type';
 
 import siteSettingsDocument from './documents/siteSettings';
 import faqDocument from './documents/faq';
-import voorbereidingDocument from './documents/voorbereiding';
 import countryDocument from './documents/country';
 import riskCategoryDocument from './documents/riskCategory';
 import travelFaseDocument from './documents/travelFase';
@@ -26,13 +25,9 @@ import toegankelijkheidPage from './pages/common/toegankelijkheid';
 import error404Page from './pages/common/404page';
 
 import landingPage from './pages/reizen/landing';
-import voorbereidingPage from './pages/reizen/voorbereiding';
-import bestemmingPage from './pages/reizen/bestemming';
-import periodePage from './pages/reizen/periode';
-import faqPage from './pages/reizen/faq';
 import resultaatPage from './pages/reizen/resultaat';
 
-import checkLandingPage from './pages/check/check-landing';
+import checkLandingPage from './pages/mvoc/check-landing';
 
 import localeStringObject from './objects/localeString';
 import {
@@ -83,14 +78,10 @@ export default createSchema({
 		 * Reizen pages
 		 */
 		landingPage,
-		voorbereidingPage,
-		bestemmingPage,
-		periodePage,
-		faqPage,
 		resultaatPage,
 
 		/**
-		 * Check pages
+		 * Mvoc pages
 		 */
 		checkLandingPage,
 
@@ -105,7 +96,6 @@ export default createSchema({
 		 * Documents are types which need to be created to have multiple versions.
 		 */
 		faqDocument,
-		voorbereidingDocument,
 		countryDocument,
 		riskCategoryDocument,
 		travelFaseDocument,

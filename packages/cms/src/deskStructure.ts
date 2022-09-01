@@ -5,12 +5,7 @@ import {
 	GiTestTubes,
 	GiCookie,
 	GiSettingsKnobs,
-	GiHelp,
 	GiWorld,
-	GiJumpingDog,
-	GiClosedDoors,
-	GiFlagObjective,
-	GiCalendar,
 	GiLightBulb,
 	GiRadioactive,
 	GiTrail,
@@ -90,34 +85,9 @@ const reizenPagesConfig = [
 		title: 'Landing',
 		icon: GiHouse,
 	},
-	{
-		schemaType: 'voorbereiding-page',
-		title: 'Voorbereiding',
-		icon: GiClosedDoors,
-	},
-	{
-		schemaType: 'bestemming-page',
-		title: 'Bestemming',
-		icon: GiFlagObjective,
-	},
-	{
-		schemaType: 'periode-page',
-		title: 'Periode',
-		icon: GiCalendar,
-	},
-	{
-		schemaType: 'faq-page',
-		title: 'FAQ',
-		icon: GiLightBulb,
-	},
 ];
 
 const reizenMultiDocumentsConfig = [
-	{
-		schemaType: 'faq-document',
-		title: 'FAQ',
-		icon: GiHelp,
-	},
 	{
 		schemaType: 'land-document',
 		title: 'Land',
@@ -132,11 +102,6 @@ const reizenMultiDocumentsConfig = [
 		schemaType: 'travel-fase-document',
 		title: 'Reisfase',
 		icon: GiTrail,
-	},
-	{
-		schemaType: 'voorbereiding-document',
-		title: 'Voorbereiding',
-		icon: GiJumpingDog,
 	},
 	{
 		schemaType: 'resultaat-page',
