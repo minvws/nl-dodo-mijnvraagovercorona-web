@@ -153,7 +153,7 @@ export const Theme = ({
 											<StyledLink
 												key={index}
 												styledAs="button-tile"
-												href={getHrefWithlocale(`/${item.path}`, locale)}
+												href={getHrefWithlocale(`/${item.path}`, `/${locale}`)}
 											>
 												<ContentBlock content={item.title} />
 											</StyledLink>
