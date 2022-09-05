@@ -139,6 +139,11 @@ const mvocPagesDocumentsConfig = [
 		title: `Landingpagina situaties`,
 		icon: GiAirplaneArrival,
 	},
+	{
+		schemaType: 'theme-document',
+		title: `Thema`,
+		icon: FaFeatherAlt,
+	},
 ];
 
 const multiDocumentsConfig = [
@@ -166,14 +171,6 @@ const multiDocumentsConfig = [
 		schemaType: 'content-card-document',
 		title: 'Content card',
 		icon: VscCopy,
-	},
-];
-
-const mvocSituationDocumentsConfig = [
-	{
-		schemaType: 'theme-document',
-		title: `Thema`,
-		icon: FaFeatherAlt,
 	},
 ];
 
@@ -207,24 +204,8 @@ export default () =>
 				title: 'MijnVraagOverCorona',
 				icon: MdLiveHelp,
 				items: [
-					getFolder({
-						title: 'Pagina’s',
-						icon: RiPagesLine,
-						items: [
-							...mvocPagesConfig.map((config) => getPage(config)),
-							...mvocPagesDocumentsConfig.map((config) => getPageList(config)),
-						],
-					}),
-
-					getFolder({
-						title: 'Situaties',
-						icon: RiQuestionAnswerLine,
-						items: [
-							...mvocSituationDocumentsConfig.map((config) =>
-								getDocumentList(config),
-							),
-						],
-					}),
+					...mvocPagesConfig.map((config) => getPage(config)),
+					...mvocPagesDocumentsConfig.map((config) => getPageList(config)),
 				],
 			}),
 
