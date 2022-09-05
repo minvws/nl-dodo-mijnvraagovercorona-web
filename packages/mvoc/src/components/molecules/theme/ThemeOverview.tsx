@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import React, { useState } from 'react';
-import slugify from 'slugify';
 import { Styled, jsx, Flex, Image } from 'theme-ui';
 import {
 	ContentBlock,
@@ -20,24 +19,15 @@ export const ThemeOverview: React.FC<ThemeCollectionProps> = ({
 	themeCollection,
 }) => {
 	const siteSettings = useSanitySiteSettings<SiteSettings>();
-	const currentLocale = useCurrentLocale();
+	const locale = useCurrentLocale();
 
 	return (
 		<TheGrid minItemSize="24rem" gap={['3rem', '3.75rem']}>
 			{themeCollection?.map((theme) => (
-				<Stack
-					id={`${currentLocale.id === 'nl' ? 'thema' : 'theme'}-${slugify(
-						theme.title,
-						{
-							strict: true,
-							lower: true,
-						},
-					)}`}
-					key={theme.title}
-				>
+				<Stack id={`thema-${theme.slug}`} key={theme.overview.title}>
 					<Flex sx={{ alignItems: 'center', gap: '1.5rem' }}>
 						<Image
-							src={theme.icon.src}
+							src={theme.overview.icon.src}
 							alt=""
 							sx={{
 								flex: '0 0 auto',
@@ -62,7 +52,11 @@ export const ThemeOverview: React.FC<ThemeCollectionProps> = ({
 									lineHeight: ['h2Mobile', 'h2'],
 								}}
 							>
-								{theme.title}
+								<StyledLink
+									href={getHrefWithlocale(`/thema/${theme.slug}`, locale.id)}
+								>
+									{theme.overview.title}
+								</StyledLink>
 							</Styled.h3>
 							{theme.questionCollection ? (
 								<div sx={{ color: 'primary' }}>
