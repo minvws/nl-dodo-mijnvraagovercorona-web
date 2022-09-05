@@ -18,8 +18,6 @@ import {
 	StyledLink,
 	getHrefWithlocale,
 	Retain,
-	CardProps,
-	Card,
 	useCurrentLocale,
 } from '@quarantaine/common';
 
@@ -30,7 +28,6 @@ import {
 	ContentSituationBlock,
 	ContentSituationBlockProps,
 	Masthead,
-	QuestionList,
 } from 'components/molecules';
 import { getThemePageQuery, getThemes } from 'utilities/theme';
 import { SiteSettings } from 'content/site-settings';
@@ -38,7 +35,6 @@ import {
 	getQuestionCollection,
 	QuestionCollectionProps,
 } from 'utilities/question';
-import { TipCollectionProps } from 'utilities/tips';
 
 interface StoryProps {
 	title: string;
