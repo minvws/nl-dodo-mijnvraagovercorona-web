@@ -104,7 +104,6 @@ export const Theme = ({
 	const translatedStories = page.stories
 		? page.stories.filter((story) => story.title)
 		: [];
-	console.log('page', page);
 
 	return (
 		<>

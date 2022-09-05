@@ -10,6 +10,7 @@ import {
 	StyledLink,
 	TheGrid,
 	useSanitySiteSettings,
+	Link,
 } from '@quarantaine/common';
 import { ThemeCollectionProps } from 'utilities/theme';
 import { SiteSettings } from 'content/site-settings';
@@ -52,11 +53,15 @@ export const ThemeOverview: React.FC<ThemeCollectionProps> = ({
 									lineHeight: ['h2Mobile', 'h2'],
 								}}
 							>
-								<StyledLink
-									href={getHrefWithlocale(`/thema/${theme.slug}`, locale.id)}
+								<Link
+									withChevron={false}
+									href={getHrefWithlocale(
+										`/thema/${theme.slug}`,
+										locale.urlPrefix,
+									)}
 								>
 									{theme.overview.title}
-								</StyledLink>
+								</Link>
 							</Styled.h3>
 							{theme.questionCollection ? (
 								<div sx={{ color: 'primary' }}>
