@@ -61,6 +61,12 @@ export default {
 			type: 'questionSelector',
 		},
 		{
+			title: 'Content Blocks',
+			name: 'stories',
+			type: 'array',
+			of: [{ type: 'storyExtended' }],
+		},
+		{
 			title: 'Hulp',
 			name: 'assistanceReference',
 			type: 'reference',

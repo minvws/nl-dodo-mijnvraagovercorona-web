@@ -24,6 +24,7 @@ export default {
 			title: 'Overzicht',
 			name: 'overview',
 			type: 'object',
+			description: 'wordt alleen weergegeven op pagina’s met een TOC',
 			fields: [
 				{
 					title: 'Titel',

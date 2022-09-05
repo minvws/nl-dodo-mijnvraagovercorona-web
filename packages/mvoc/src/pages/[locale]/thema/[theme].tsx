@@ -17,17 +17,37 @@ import {
 	TheGrid,
 	StyledLink,
 	getHrefWithlocale,
+	Retain,
+	CardProps,
+	Card,
+	useCurrentLocale,
 } from '@quarantaine/common';
 
 import { locales } from 'content/general-content';
 import { Page } from 'components/page';
-import { AssistanceRow, Masthead, QuestionList } from 'components/molecules';
+import {
+	AssistanceRow,
+	ContentSituationBlock,
+	ContentSituationBlockProps,
+	Masthead,
+	QuestionList,
+} from 'components/molecules';
 import { getThemePageQuery, getThemes } from 'utilities/theme';
 import { SiteSettings } from 'content/site-settings';
 import {
 	getQuestionCollection,
 	QuestionCollectionProps,
 } from 'utilities/question';
+import { TipCollectionProps } from 'utilities/tips';
+
+interface StoryProps {
+	title: string;
+	contentBlocks?: ContentSituationBlockProps[];
+	overview: {
+		title: string;
+		icon: SanityImageFullProps;
+	};
+}
 
 interface PageContent extends QuestionCollectionProps {
 	metaData: {
@@ -42,6 +62,7 @@ interface PageContent extends QuestionCollectionProps {
 		image: SanityImageFullProps;
 	};
 	titleFlow: string;
+	stories: StoryProps[];
 	updatedAt: string;
 	assistance: {
 		chat: string;
@@ -82,6 +103,12 @@ export const Theme = ({
 	});
 
 	const page: PageContent = previewPage || serverPage;
+	const currentLocale = useCurrentLocale();
+
+	const translatedStories = page.stories
+		? page.stories.filter((story) => story.title)
+		: [];
+	console.log('page', page);
 
 	return (
 		<>
@@ -135,7 +162,13 @@ export const Theme = ({
 						<ContentBlock content={page.header.content} />
 					</Box>
 				</Masthead>
-				<Layer backgroundColor="transparant">
+
+				<Layer
+					backgroundColor={
+						// change background color based on the availability of stories
+						translatedStories.length > 0 ? 'headerBackground' : 'transparent'
+					}
+				>
 					<Container>
 						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
 						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
@@ -153,7 +186,10 @@ export const Theme = ({
 											<StyledLink
 												key={index}
 												styledAs="button-tile"
-												href={getHrefWithlocale(`/${item.path}`, `/${locale}`)}
+												href={getHrefWithlocale(
+													`/${item.path}`,
+													currentLocale.urlPrefix,
+												)}
 											>
 												<ContentBlock content={item.title} />
 											</StyledLink>
@@ -163,6 +199,30 @@ export const Theme = ({
 						</Box>
 					</Container>
 				</Layer>
+
+				{translatedStories.length > 0 ? (
+					<Layer backgroundColor="transparent">
+						<Container>
+							<Retain>
+								<Stack spacing={['3.5rem']}>
+									{translatedStories.map((story, index) => (
+										<Box as="section" key={index}>
+											<Stack spacing={['1rem']}>
+												<Styled.h2>{story.title}</Styled.h2>
+												{story.contentBlocks && (
+													<ContentSituationBlock
+														contentBlocks={story.contentBlocks}
+													/>
+												)}
+											</Stack>
+										</Box>
+									))}
+								</Stack>
+							</Retain>
+						</Container>
+					</Layer>
+				) : null}
+
 				{page.assistance && (
 					<Layer backgroundColor="headerBackground">
 						<Container>
@@ -240,6 +300,41 @@ export const getStaticProps = async ({
 			locale,
 		})},
 		${getQuestionCollection({ locale })},
+		"stories": stories[] {
+			${getLocaleProperty({ name: 'title', locale })},
+			"overview": {
+				${getLocaleProperty({ name: 'title', path: 'overview.title', locale })},
+				${getImage({ name: 'icon', path: 'overview.icon', full: true })},
+			},
+			"contentBlocks": contentBlocks[]{
+				${getLocaleProperty({
+					name: 'content',
+					path: '@',
+					locale,
+					block: true,
+				})},
+				${getImage({ name: 'image', path: '@', full: true })},
+				"video": {
+					"url": @.url,
+					${getLocaleProperty({
+						name: 'title',
+						path: '@.title',
+						locale,
+					})},
+					${getImage({ name: 'image', path: '@.image', full: true })},
+				},
+				"situation": {
+					${getLocaleProperty({
+						name: 'situationLinkTitle',
+						locale,
+					})},
+					"path": select(
+						situationReference->_type == "situation-question-document" => 'situatie/' + situationReference->slug.current,
+						situationReference->_type == "situation-result-document" => 'advies/' + situationReference->slug.current,
+					),
+				},
+			},
+		},
 		"assistance": assistanceReference->{
 			${getLocaleProperty({ name: 'chat', locale })},
 			${getImage({ name: 'image', full: true })},
