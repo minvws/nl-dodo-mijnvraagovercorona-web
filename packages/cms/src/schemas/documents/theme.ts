@@ -60,11 +60,24 @@ export default {
 			name: 'questionCollection',
 			type: 'questionSelector',
 		},
+		// {
+		// 	title: 'Content Blocks',
+		// 	name: 'stories',
+		// 	type: 'array',
+		// 	of: [{ type: 'storyExtended' }],
+		// },
 		{
-			title: 'Content Blocks',
+			title: 'Verhalen',
 			name: 'stories',
 			type: 'array',
-			of: [{ type: 'storyExtended' }],
+			of: [
+				{
+					title: 'Verhaal',
+					name: 'story',
+					type: 'reference',
+					to: [{ type: 'story-document' }],
+				},
+			],
 		},
 		{
 			title: 'Hulp',

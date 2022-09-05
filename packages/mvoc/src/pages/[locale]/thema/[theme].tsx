@@ -300,7 +300,7 @@ export const getStaticProps = async ({
 			locale,
 		})},
 		${getQuestionCollection({ locale })},
-		"stories": stories[] {
+		"stories": stories[]-> {
 			${getLocaleProperty({ name: 'title', locale })},
 			"overview": {
 				${getLocaleProperty({ name: 'title', path: 'overview.title', locale })},

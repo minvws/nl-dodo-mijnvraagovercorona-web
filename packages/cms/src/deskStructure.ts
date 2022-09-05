@@ -172,6 +172,11 @@ const multiDocumentsConfig = [
 		title: 'Content card',
 		icon: VscCopy,
 	},
+	{
+		schemaType: 'story-document',
+		title: 'Verhaal',
+		icon: VscCopy,
+	},
 ];
 
 export default () =>
