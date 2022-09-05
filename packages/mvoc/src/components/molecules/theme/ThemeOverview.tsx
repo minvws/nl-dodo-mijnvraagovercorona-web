@@ -77,7 +77,7 @@ export const ThemeOverview: React.FC<ThemeCollectionProps> = ({
 	);
 };
 
-const QuestionList: React.FC<QuestionCollectionProps> = ({
+export const QuestionList: React.FC<QuestionCollectionProps> = ({
 	questionCollection,
 }) => {
 	if (!questionCollection.length) return null;

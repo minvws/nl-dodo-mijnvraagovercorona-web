@@ -9,6 +9,19 @@ export default {
 			type: 'pageMetaData',
 		},
 		{
+			title: 'Overzicht',
+			name: 'overview',
+			type: 'object',
+			fields: [
+				{
+					title: 'Titel',
+					name: 'title',
+					type: 'localeString',
+				},
+				{ title: 'Icoon', name: 'icon', type: 'image' },
+			],
+		},
+		{
 			title: 'Header',
 			name: 'header',
 			type: 'object',
@@ -35,18 +48,12 @@ export default {
 				},
 			],
 		},
+
 		{
-			title: 'Overzicht',
-			name: 'overview',
-			type: 'object',
-			fields: [
-				{
-					title: 'Titel',
-					name: 'title',
-					type: 'localeString',
-				},
-				{ title: 'Icoon', name: 'icon', type: 'image' },
-			],
+			title: 'Flow titel',
+			name: 'titleFlow',
+			type: 'localeString',
+			description: 'Deze titel komt na `X situatie(s)` boven de startpunten',
 		},
 		{
 			title: 'Vraag startpunten',

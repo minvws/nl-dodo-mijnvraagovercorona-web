@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import React from 'react';
-import slugify from 'slugify';
 import { Box, Container, jsx, Styled } from 'theme-ui';
 
 import {
@@ -13,37 +12,24 @@ import {
 	ContentBlock,
 	formatLongDate,
 	Layer,
-	TheSidebar,
-	Retain,
-	ListAnchor,
 	Stack,
-	Feedback,
-	getFeedbackUrl,
 	usePreviewSubscription,
+	TheGrid,
+	StyledLink,
+	getHrefWithlocale,
 } from '@quarantaine/common';
 
 import { locales } from 'content/general-content';
 import { Page } from 'components/page';
-import {
-	AssistanceRow,
-	ContentSituationBlock,
-	ContentSituationBlockProps,
-	Masthead,
-	MoreTips,
-} from 'components/molecules';
+import { AssistanceRow, Masthead, QuestionList } from 'components/molecules';
 import { getThemePageQuery, getThemes } from 'utilities/theme';
 import { SiteSettings } from 'content/site-settings';
+import {
+	getQuestionCollection,
+	QuestionCollectionProps,
+} from 'utilities/question';
 
-interface StoryProps {
-	title: string;
-	contentBlocks?: ContentSituationBlockProps[];
-	overview: {
-		title: string;
-		icon: SanityImageFullProps;
-	};
-}
-
-interface PageContent {
+interface PageContent extends QuestionCollectionProps {
 	metaData: {
 		title: string;
 		description: string;
@@ -51,10 +37,11 @@ interface PageContent {
 	};
 	header: {
 		title: string;
+		chapeau: string;
 		content: Array<Object>;
 		image: SanityImageFullProps;
-		showTOC: boolean;
 	};
+	titleFlow: string;
 	updatedAt: string;
 	assistance: {
 		chat: string;
@@ -108,35 +95,72 @@ export const Theme = ({
 			<Page
 				headerProps={{
 					noPadding: true,
+					variant: 'highlight',
 				}}
 			>
 				<Masthead
 					title={page.header.title}
 					illustration={page.header.image}
+					variant="highlight"
 					prefixSlot={
-						<Styled.p
-							sx={{
-								fontSize: ['1rem', '1rem'],
-								lineHeight: ['smallTextMobile', 'smallText'],
-								color: 'detailText',
-							}}
-						>
-							{siteSettings.updatedAt}{' '}
-							<time dateTime={page.updatedAt}>
-								{formatLongDate(new Date(page.updatedAt), locale)}
-							</time>
-						</Styled.p>
+						<Stack spacing={['0.5rem']}>
+							<Styled.p
+								sx={{
+									fontSize: ['1rem', '1rem'],
+									lineHeight: ['smallTextMobile', 'smallText'],
+									color: 'detailText',
+								}}
+							>
+								{siteSettings.updatedAt}{' '}
+								<time dateTime={page.updatedAt}>
+									{formatLongDate(new Date(page.updatedAt), locale)}
+								</time>
+							</Styled.p>
+							{page.header.chapeau ? (
+								<Styled.p
+									sx={{
+										fontSize: ['h2Mobile', 'h2'],
+										lineHeight: ['h2Mobile', 'h2'],
+										fontWeight: 'bold',
+										color: 'headerTertiary',
+									}}
+								>
+									{page.header.chapeau}
+								</Styled.p>
+							) : null}
+						</Stack>
 					}
 				>
-					<ContentBlock content={page.header.content} />
+					<Box sx={{ color: 'primary' }}>
+						<ContentBlock content={page.header.content} />
+					</Box>
 				</Masthead>
 				<Layer backgroundColor="transparant">
 					<Container>
-						<TheSidebar asideOffset={[0]}>
-							<Retain>
-								<Stack spacing={['3.5rem']}></Stack>
-							</Retain>
-						</TheSidebar>
+						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
+						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
+							<Stack>
+								<Styled.h2>
+									{page.questionCollection.length > 1
+										? `${page.questionCollection.length} ${siteSettings.situationPlural.that}`
+										: `${page.questionCollection.length} ${siteSettings.situationPlural.this}`}{' '}
+									{page.titleFlow}
+								</Styled.h2>
+								<TheGrid minItemSize="25rem" gap={['1rem']}>
+									{page.questionCollection
+										?.filter((item) => item.title)
+										.map((item, index) => (
+											<StyledLink
+												key={index}
+												styledAs="button-tile"
+												href={getHrefWithlocale(`/${item.path}`, locale)}
+											>
+												<ContentBlock content={item.title} />
+											</StyledLink>
+										))}
+								</TheGrid>
+							</Stack>
+						</Box>
 					</Container>
 				</Layer>
 				{page.assistance && (
@@ -202,6 +226,7 @@ export const getStaticProps = async ({
 		},
 		"header": {
 			${getLocaleProperty({ name: 'title', path: 'header.title', locale })},
+			${getLocaleProperty({ name: 'chapeau', path: 'header.chapeau', locale })},
 			${getLocaleProperty({
 				name: 'content',
 				path: 'header.content',
@@ -210,6 +235,11 @@ export const getStaticProps = async ({
 			})},
 			${getImage({ name: 'image', path: 'header.image', full: true })},
 		},
+		${getLocaleProperty({
+			name: 'titleFlow',
+			locale,
+		})},
+		${getQuestionCollection({ locale })},
 		"assistance": assistanceReference->{
 			${getLocaleProperty({ name: 'chat', locale })},
 			${getImage({ name: 'image', full: true })},
