@@ -4,30 +4,75 @@ export default {
 	type: 'document',
 	fields: [
 		{
-			title: 'Titel',
-			name: 'title',
-			type: 'localeString',
+			title: 'Meta data',
+			name: 'metaData',
+			type: 'pageMetaData',
+		},
+		{
+			title: 'Header',
+			name: 'header',
+			type: 'object',
+			fields: [
+				{
+					title: 'Titel',
+					name: 'title',
+					type: 'localeString',
+				},
+				{
+					title: 'Chapeau',
+					name: 'chapeau',
+					type: 'localeString',
+				},
+				{
+					title: 'Content',
+					name: 'content',
+					type: 'localeBlock',
+				},
+				{
+					title: 'Illustratie',
+					name: 'image',
+					type: 'image',
+				},
+			],
+		},
+		{
+			title: 'Overzicht',
+			name: 'overview',
+			type: 'object',
+			fields: [
+				{
+					title: 'Titel',
+					name: 'title',
+					type: 'localeString',
+				},
+				{ title: 'Icoon', name: 'icon', type: 'image' },
+			],
+		},
+		{
+			title: 'Vraag startpunten',
+			name: 'questionCollection',
+			type: 'questionSelector',
+		},
+		{
+			title: 'Hulp',
+			name: 'assistanceReference',
+			type: 'reference',
+			to: [{ type: 'assistance-document' }],
 		},
 		{
 			title: 'Slug',
 			name: 'slug',
 			type: 'slug',
 			options: {
-				source: 'title.nl',
+				source: 'header.title.nl',
 			},
-		},
-		{ title: 'Icoon', name: 'icon', type: 'image' },
-		{
-			title: 'Vraag startpunten',
-			name: 'questionCollection',
-			type: 'questionSelector',
 		},
 	],
 	preview: {
 		select: {
-			title: 'title.nl',
+			title: 'overview.title.nl',
 			subtitle: 'slug.current',
-			media: 'icon',
+			media: 'overview.icon',
 		},
 	},
 };
