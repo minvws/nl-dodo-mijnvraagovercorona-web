@@ -154,6 +154,7 @@ export const Theme = ({
 						// change background color based on the availability of stories
 						translatedStories.length > 0 ? 'headerBackground' : 'transparent'
 					}
+					pullUpBy="2rem"
 				>
 					<Container>
 						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
