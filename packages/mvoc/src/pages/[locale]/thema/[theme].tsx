@@ -25,9 +25,9 @@ import { locales } from 'content/general-content';
 import { Page } from 'components/page';
 import {
 	AssistanceRow,
-	MultiContentBlock,
-	MultiContentBlockProps,
 	Masthead,
+	StoryProps,
+	Story,
 } from 'components/molecules';
 import { getThemePageQuery, getThemes } from 'utilities/theme';
 import { SiteSettings } from 'content/site-settings';
@@ -35,15 +35,6 @@ import {
 	getQuestionCollection,
 	QuestionCollectionProps,
 } from 'utilities/question';
-
-interface StoryProps {
-	title: string;
-	contentBlocks?: MultiContentBlockProps[];
-	overview: {
-		title: string;
-		icon: SanityImageFullProps;
-	};
-}
 
 interface PageContent extends QuestionCollectionProps {
 	metaData: {
@@ -201,16 +192,7 @@ export const Theme = ({
 							<Retain>
 								<Stack spacing={['3.5rem']}>
 									{translatedStories.map((story, index) => (
-										<Box as="section" key={index}>
-											<Stack spacing={['1rem']}>
-												<Styled.h2>{story.title}</Styled.h2>
-												{story.contentBlocks && (
-													<MultiContentBlock
-														contentBlocks={story.contentBlocks}
-													/>
-												)}
-											</Stack>
-										</Box>
+										<Story key={index} {...story} />
 									))}
 								</Stack>
 							</Retain>

@@ -26,10 +26,10 @@ import { locales } from 'content/general-content';
 import { Page } from 'components/page';
 import {
 	AssistanceRow,
-	MultiContentBlock,
-	MultiContentBlockProps,
 	Masthead,
 	MoreTips,
+	StoryProps,
+	Story,
 } from 'components/molecules';
 import {
 	getTipPageQuery,
@@ -38,15 +38,6 @@ import {
 	TipCollectionProps,
 } from 'utilities/tips';
 import { SiteSettings } from 'content/site-settings';
-
-interface StoryProps {
-	title: string;
-	contentBlocks?: MultiContentBlockProps[];
-	overview: {
-		title: string;
-		icon: SanityImageFullProps;
-	};
-}
 
 interface MoreTipsProps extends TipCollectionProps {
 	title: string;
@@ -167,23 +158,7 @@ export const Tip = ({
 							<Retain>
 								<Stack spacing={['3.5rem']}>
 									{translatedStories.map((story, index) => (
-										<Box
-											as="section"
-											id={slugify(story.title, {
-												strict: true,
-												lower: true,
-											})}
-											key={index}
-										>
-											<Stack spacing={['1rem']}>
-												<Styled.h2>{story.title}</Styled.h2>
-												{story.contentBlocks && (
-													<MultiContentBlock
-														contentBlocks={story.contentBlocks}
-													/>
-												)}
-											</Stack>
-										</Box>
+										<Story key={index} {...story} />
 									))}
 
 									{translatedTips.length ? (
