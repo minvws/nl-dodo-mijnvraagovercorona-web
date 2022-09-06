@@ -51,6 +51,12 @@ export const ThemeOverview: React.FC<ThemeCollectionProps> = ({
 									marginBlock: 0,
 									fontSize: ['h2Mobile', 'h2'],
 									lineHeight: ['h2Mobile', 'h2'],
+									a: {
+										outline: 'none',
+										'&:hover, &:focus': {
+											textDecoration: 'underline',
+										},
+									},
 								}}
 							>
 								<Link
