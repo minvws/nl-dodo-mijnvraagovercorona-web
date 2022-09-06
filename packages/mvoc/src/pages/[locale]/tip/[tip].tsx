@@ -26,8 +26,8 @@ import { locales } from 'content/general-content';
 import { Page } from 'components/page';
 import {
 	AssistanceRow,
-	ContentSituationBlock,
-	ContentSituationBlockProps,
+	MultiContentBlock,
+	MultiContentBlockProps,
 	Masthead,
 	MoreTips,
 } from 'components/molecules';
@@ -41,7 +41,7 @@ import { SiteSettings } from 'content/site-settings';
 
 interface StoryProps {
 	title: string;
-	contentBlocks?: ContentSituationBlockProps[];
+	contentBlocks?: MultiContentBlockProps[];
 	overview: {
 		title: string;
 		icon: SanityImageFullProps;
@@ -178,7 +178,7 @@ export const Tip = ({
 											<Stack spacing={['1rem']}>
 												<Styled.h2>{story.title}</Styled.h2>
 												{story.contentBlocks && (
-													<ContentSituationBlock
+													<MultiContentBlock
 														contentBlocks={story.contentBlocks}
 													/>
 												)}

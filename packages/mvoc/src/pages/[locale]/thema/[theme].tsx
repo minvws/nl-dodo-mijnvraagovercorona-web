@@ -25,8 +25,8 @@ import { locales } from 'content/general-content';
 import { Page } from 'components/page';
 import {
 	AssistanceRow,
-	ContentSituationBlock,
-	ContentSituationBlockProps,
+	MultiContentBlock,
+	MultiContentBlockProps,
 	Masthead,
 } from 'components/molecules';
 import { getThemePageQuery, getThemes } from 'utilities/theme';
@@ -38,7 +38,7 @@ import {
 
 interface StoryProps {
 	title: string;
-	contentBlocks?: ContentSituationBlockProps[];
+	contentBlocks?: MultiContentBlockProps[];
 	overview: {
 		title: string;
 		icon: SanityImageFullProps;
@@ -205,7 +205,7 @@ export const Theme = ({
 											<Stack spacing={['1rem']}>
 												<Styled.h2>{story.title}</Styled.h2>
 												{story.contentBlocks && (
-													<ContentSituationBlock
+													<MultiContentBlock
 														contentBlocks={story.contentBlocks}
 													/>
 												)}
