@@ -62,7 +62,7 @@ export default {
 		},
 		{
 			title: 'Verhalen',
-			name: 'stories',
+			name: 'storiesCollection',
 			type: 'array',
 			of: [
 				{

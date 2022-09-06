@@ -38,6 +38,7 @@ import {
 	TipCollectionProps,
 } from 'utilities/tips';
 import { SiteSettings } from 'content/site-settings';
+import { getStories } from 'utilities/story';
 
 interface MoreTipsProps extends TipCollectionProps {
 	title: string;
@@ -273,41 +274,7 @@ export const getStaticProps = async ({
 			${getImage({ name: 'image', path: 'header.image', full: true })},
 			"showTOC": header.showTOC
 		},
-		"stories": stories[] {
-			${getLocaleProperty({ name: 'title', locale })},
-			"overview": {
-				${getLocaleProperty({ name: 'title', path: 'overview.title', locale })},
-				${getImage({ name: 'icon', path: 'overview.icon', full: true })},
-			},
-			"contentBlocks": contentBlocks[]{
-				${getLocaleProperty({
-					name: 'content',
-					path: '@',
-					locale,
-					block: true,
-				})},
-				${getImage({ name: 'image', path: '@', full: true })},
-				"video": {
-					"url": @.url,
-					${getLocaleProperty({
-						name: 'title',
-						path: '@.title',
-						locale,
-					})},
-					${getImage({ name: 'image', path: '@.image', full: true })},
-				},
-				"situation": {
-					${getLocaleProperty({
-						name: 'situationLinkTitle',
-						locale,
-					})},
-					"path": select(
-						situationReference->_type == "situation-question-document" => 'situatie/' + situationReference->slug.current,
-						situationReference->_type == "situation-result-document" => 'advies/' + situationReference->slug.current,
-					),
-				},
-			},
-		},
+		${getStories({ locale })},
 		"moreTips": {
 			${getLocaleProperty({ name: 'title', path: 'moreTips.title', locale })},
 			${getTipsCollection({ path: 'moreTips', locale })},

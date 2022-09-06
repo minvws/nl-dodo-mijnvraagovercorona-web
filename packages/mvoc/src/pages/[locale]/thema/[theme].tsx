@@ -35,6 +35,7 @@ import {
 	getQuestionCollection,
 	QuestionCollectionProps,
 } from 'utilities/question';
+import { getStories } from 'utilities/story';
 
 interface PageContent extends QuestionCollectionProps {
 	metaData: {
@@ -278,41 +279,7 @@ export const getStaticProps = async ({
 			locale,
 		})},
 		${getQuestionCollection({ locale })},
-		"stories": stories[]-> {
-			${getLocaleProperty({ name: 'title', locale })},
-			"overview": {
-				${getLocaleProperty({ name: 'title', path: 'overview.title', locale })},
-				${getImage({ name: 'icon', path: 'overview.icon', full: true })},
-			},
-			"contentBlocks": contentBlocks[]{
-				${getLocaleProperty({
-					name: 'content',
-					path: '@',
-					locale,
-					block: true,
-				})},
-				${getImage({ name: 'image', path: '@', full: true })},
-				"video": {
-					"url": @.url,
-					${getLocaleProperty({
-						name: 'title',
-						path: '@.title',
-						locale,
-					})},
-					${getImage({ name: 'image', path: '@.image', full: true })},
-				},
-				"situation": {
-					${getLocaleProperty({
-						name: 'situationLinkTitle',
-						locale,
-					})},
-					"path": select(
-						situationReference->_type == "situation-question-document" => 'situatie/' + situationReference->slug.current,
-						situationReference->_type == "situation-result-document" => 'advies/' + situationReference->slug.current,
-					),
-				},
-			},
-		},
+		${getStories({ locale })},
 		"assistance": assistanceReference->{
 			${getLocaleProperty({ name: 'chat', locale })},
 			${getImage({ name: 'image', full: true })},

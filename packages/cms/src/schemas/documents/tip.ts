@@ -44,6 +44,19 @@ export default {
 			of: [{ type: 'storyExtended' }],
 		},
 		{
+			title: 'Verhalen',
+			name: 'storiesCollection',
+			type: 'array',
+			of: [
+				{
+					title: 'Verhaal',
+					name: 'story',
+					type: 'reference',
+					to: [{ type: 'story-document' }],
+				},
+			],
+		},
+		{
 			title: 'Meer tips',
 			name: 'moreTips',
 			type: 'moreTips',
