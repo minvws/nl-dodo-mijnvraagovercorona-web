@@ -60,12 +60,6 @@ export default {
 			name: 'questionCollection',
 			type: 'questionSelector',
 		},
-		// {
-		// 	title: 'Content Blocks',
-		// 	name: 'stories',
-		// 	type: 'array',
-		// 	of: [{ type: 'storyExtended' }],
-		// },
 		{
 			title: 'Verhalen',
 			name: 'stories',
