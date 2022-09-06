@@ -38,12 +38,6 @@ export default {
 			],
 		},
 		{
-			title: 'Content Blocks',
-			name: 'stories',
-			type: 'array',
-			of: [{ type: 'storyExtended' }],
-		},
-		{
 			title: 'Verhalen',
 			name: 'storiesCollection',
 			type: 'array',
