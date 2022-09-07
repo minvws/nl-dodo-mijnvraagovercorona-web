@@ -145,9 +145,11 @@ export const Theme = ({
 						</Stack>
 					}
 				>
-					<Box sx={{ color: 'primary' }}>
-						<ContentBlock content={page.header.content} />
-					</Box>
+					{page.header.content ? (
+						<Box sx={{ color: 'primary' }}>
+							<ContentBlock content={page.header.content} />
+						</Box>
+					) : null}
 				</Masthead>
 
 				<Layer
@@ -207,7 +209,7 @@ export const Theme = ({
 						<Container>
 							{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
 							<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
-								<AssistanceRow feedback={false} />
+								<AssistanceRow feedback />
 							</Box>
 						</Container>
 					</Layer>
@@ -287,6 +289,8 @@ export const getStaticProps = async ({
 			${getLocaleProperty({ name: 'openingHours', locale })},
 			${getLocaleProperty({ name: 'openingHoursPhonenumber', locale })},
 			phonenumber,
+			${getLocaleProperty({ name: 'situationButton', locale })},
+			${getLocaleProperty({ name: 'situationQuestion', locale })},
 			${getLocaleProperty({ name: 'tekstWithChat', locale })},
 			${getLocaleProperty({ name: 'tekstWithoutChat', locale })},
 			${getLocaleProperty({ name: 'title', locale })},
