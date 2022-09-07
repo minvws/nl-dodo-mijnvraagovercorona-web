@@ -16,6 +16,7 @@ import contentFeedDocument from './documents/content-feed';
 import contentCardDocument from './documents/content-card';
 import landingSituationsDocument from './documents/landing-situations';
 import tipDocument from './documents/tip';
+import storyDocument from './documents/story';
 
 import privacyPage from './pages/common/privacy';
 import cookiesPage from './pages/common/cookies';
@@ -102,6 +103,7 @@ export default createSchema({
 		modalsDocument,
 		themeDocument,
 		contentCardDocument,
+		storyDocument,
 		assistanceDocument,
 		informContactsDocument,
 		situationQuestionDocument,

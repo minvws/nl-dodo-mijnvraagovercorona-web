@@ -38,10 +38,17 @@ export default {
 			],
 		},
 		{
-			title: 'Content Blocks',
-			name: 'stories',
+			title: 'Verhalen',
+			name: 'storiesCollection',
 			type: 'array',
-			of: [{ type: 'storyExtended' }],
+			of: [
+				{
+					title: 'Verhaal',
+					name: 'story',
+					type: 'reference',
+					to: [{ type: 'story-document' }],
+				},
+			],
 		},
 		{
 			title: 'Meer tips',

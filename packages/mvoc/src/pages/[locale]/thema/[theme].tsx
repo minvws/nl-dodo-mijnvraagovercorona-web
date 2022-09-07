@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import React from 'react';
-import slugify from 'slugify';
 import { Box, Container, jsx, Styled } from 'theme-ui';
 
 import {
@@ -13,13 +12,13 @@ import {
 	ContentBlock,
 	formatLongDate,
 	Layer,
-	TheSidebar,
-	Retain,
-	ListAnchor,
 	Stack,
-	Feedback,
-	getFeedbackUrl,
 	usePreviewSubscription,
+	TheGrid,
+	StyledLink,
+	getHrefWithlocale,
+	Retain,
+	useCurrentLocale,
 } from '@quarantaine/common';
 
 import { locales } from 'content/general-content';
@@ -27,24 +26,18 @@ import { Page } from 'components/page';
 import {
 	AssistanceRow,
 	Masthead,
-	MoreTips,
 	StoryProps,
 	Story,
 } from 'components/molecules';
-import {
-	getTipPageQuery,
-	getTips,
-	getTipsCollection,
-	TipCollectionProps,
-} from 'utilities/tips';
+import { getThemePageQuery, getThemes } from 'utilities/theme';
 import { SiteSettings } from 'content/site-settings';
+import {
+	getQuestionCollection,
+	QuestionCollectionProps,
+} from 'utilities/question';
 import { getStories } from 'utilities/story';
 
-interface MoreTipsProps extends TipCollectionProps {
-	title: string;
-}
-
-interface PageContent {
+interface PageContent extends QuestionCollectionProps {
 	metaData: {
 		title: string;
 		description: string;
@@ -52,16 +45,12 @@ interface PageContent {
 	};
 	header: {
 		title: string;
+		chapeau: string;
 		content: Array<Object>;
 		image: SanityImageFullProps;
-		showTOC: boolean;
 	};
+	titleFlow: string;
 	stories: StoryProps[];
-	moreTips: MoreTipsProps;
-	sources: {
-		title: string;
-		content: Array<Object>;
-	};
 	updatedAt: string;
 	assistance: {
 		chat: string;
@@ -78,7 +67,7 @@ interface PageContent {
 	slug: string;
 }
 
-interface TipPageProps {
+interface ThemePageProps {
 	preview: boolean;
 	page: PageContent;
 	siteSettings: SiteSettings;
@@ -86,13 +75,13 @@ interface TipPageProps {
 	query: string;
 }
 
-export const Tip = ({
+export const Theme = ({
 	preview,
 	page: serverPage,
 	siteSettings,
 	locale,
 	query,
-}: TipPageProps) => {
+}: ThemePageProps) => {
 	const {
 		data: { page: previewPage },
 	} = usePreviewSubscription(query, {
@@ -102,12 +91,11 @@ export const Tip = ({
 	});
 
 	const page: PageContent = previewPage || serverPage;
+	const currentLocale = useCurrentLocale();
 
-	const translatedStories = page.stories.filter((story) => story.title);
-	const translatedTips = page.moreTips.tipCollection
-		? page.moreTips.tipCollection.filter((tip) => tip.title)
+	const translatedStories = page.stories
+		? page.stories.filter((story) => story.title)
 		: [];
-	const tocStories = translatedStories.filter((story) => story.overview.title);
 
 	return (
 		<>
@@ -121,87 +109,99 @@ export const Tip = ({
 			<Page
 				headerProps={{
 					noPadding: true,
+					variant: 'highlight',
 				}}
 			>
 				<Masthead
 					title={page.header.title}
 					illustration={page.header.image}
+					variant="highlight"
 					prefixSlot={
-						<Styled.p
-							sx={{
-								fontSize: ['1rem', '1rem'],
-								lineHeight: ['smallTextMobile', 'smallText'],
-								color: 'detailText',
-							}}
-						>
-							{siteSettings.updatedAt}{' '}
-							<time dateTime={page.updatedAt}>
-								{formatLongDate(new Date(page.updatedAt), locale)}
-							</time>
-						</Styled.p>
+						<Stack spacing={['0.5rem']}>
+							<Styled.p
+								sx={{
+									fontSize: ['1rem', '1rem'],
+									lineHeight: ['smallTextMobile', 'smallText'],
+									color: 'detailText',
+								}}
+							>
+								{siteSettings.updatedAt}{' '}
+								<time dateTime={page.updatedAt}>
+									{formatLongDate(new Date(page.updatedAt), locale)}
+								</time>
+							</Styled.p>
+							{page.header.chapeau ? (
+								<Styled.p
+									sx={{
+										fontSize: ['h2Mobile', 'h2'],
+										lineHeight: ['h2Mobile', 'h2'],
+										fontWeight: 'bold',
+										color: 'headerTertiary',
+									}}
+								>
+									{page.header.chapeau}
+								</Styled.p>
+							) : null}
+						</Stack>
 					}
 				>
-					<ContentBlock content={page.header.content} />
-					{page.header.showTOC ? (
-						<ListAnchor
-							as="ol"
-							items={tocStories.map((story) => ({
-								label: story.overview.title,
-								href: `#${slugify(story.title, { strict: true, lower: true })}`,
-								image: story.overview.icon?.src,
-							}))}
-						/>
-					) : null}
+					<Box sx={{ color: 'primary' }}>
+						<ContentBlock content={page.header.content} />
+					</Box>
 				</Masthead>
-				<Layer backgroundColor="transparant">
+
+				<Layer
+					backgroundColor={
+						// change background color based on the availability of stories
+						translatedStories.length > 0 ? 'headerBackground' : 'transparent'
+					}
+					pullUpBy="2rem"
+				>
 					<Container>
-						<TheSidebar asideOffset={[0]}>
+						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
+						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
+							<Stack>
+								<Styled.h2>
+									{page.questionCollection.length > 1
+										? `${page.questionCollection.length} ${siteSettings.situationPlural.that}`
+										: `${page.questionCollection.length} ${siteSettings.situationPlural.this}`}{' '}
+									{page.titleFlow}
+								</Styled.h2>
+								<TheGrid minItemSize="25rem" gap={['1rem']}>
+									{page.questionCollection
+										?.filter((item) => item.title)
+										.map((item, index) => (
+											<StyledLink
+												key={index}
+												styledAs="button-tile"
+												href={getHrefWithlocale(
+													`/${item.path}`,
+													currentLocale.urlPrefix,
+												)}
+											>
+												<ContentBlock content={item.title} />
+											</StyledLink>
+										))}
+								</TheGrid>
+							</Stack>
+						</Box>
+					</Container>
+				</Layer>
+
+				{translatedStories.length > 0 ? (
+					<Layer backgroundColor="transparent">
+						<Container>
 							<Retain>
 								<Stack spacing={['3.5rem']}>
 									{translatedStories.map((story, index) => (
 										<Story key={index} {...story} />
 									))}
-
-									{translatedTips.length ? (
-										<MoreTips
-											tipCollection={translatedTips}
-											title={page.moreTips.title}
-										/>
-									) : null}
-
-									{page.sources.content ? (
-										<Box
-											as="footer"
-											sx={{
-												backgroundColor: 'headerBackground',
-												color: 'header',
-												borderRadius: 'box',
-												padding: '1.5rem',
-											}}
-										>
-											<Stack spacing={['1rem']}>
-												<Styled.h2>
-													{page.sources.title
-														? page.sources.title
-														: siteSettings.sources}
-												</Styled.h2>
-												<ContentBlock content={page.sources.content} />
-											</Stack>
-										</Box>
-									) : null}
-
-									<Feedback
-										name="Situatie Advies"
-										feedbackUrl={getFeedbackUrl(siteSettings.feedback.url, {
-											source: 'tip',
-											advice: page.slug,
-										})}
-									/>
 								</Stack>
 							</Retain>
-						</TheSidebar>
-					</Container>
-				</Layer>
+						</Container>
+					</Layer>
+				) : null}
+
 				{page.assistance && (
 					<Layer backgroundColor="headerBackground">
 						<Container>
@@ -217,17 +217,17 @@ export const Tip = ({
 	);
 };
 
-type TipProps = { tip: string };
+type ThemeProps = { theme: string };
 
 export const getStaticPaths = async () => {
-	const tips: TipProps[] = await getTips();
+	const themes: ThemeProps[] = await getThemes();
 
 	return {
-		paths: tips.reduce(
-			(paths: TipStaticParams[], tip: TipProps): TipStaticParams[] => [
+		paths: themes.reduce(
+			(paths: ThemeStaticParams[], theme: ThemeProps): ThemeStaticParams[] => [
 				...paths,
 				...locales.map((locale) => ({
-					params: { ...tip, locale },
+					params: { ...theme, locale },
 				})),
 			],
 			[],
@@ -237,18 +237,18 @@ export const getStaticPaths = async () => {
 	};
 };
 
-interface TipStaticParams {
-	params: { tip: string; locale: Locales };
+interface ThemeStaticParams {
+	params: { theme: string; locale: Locales };
 }
 
-interface TipStaticProps extends TipStaticParams {
+interface ThemeStaticProps extends ThemeStaticParams {
 	preview: boolean;
 }
 
 export const getStaticProps = async ({
-	params: { tip, locale },
+	params: { theme, locale },
 	preview = false,
-}: TipStaticProps) => {
+}: ThemeStaticProps) => {
 	const pageProjection = `{
 		"metaData": {
 			${getLocaleProperty({ name: 'title', path: 'metaData.title', locale })},
@@ -265,6 +265,7 @@ export const getStaticProps = async ({
 		},
 		"header": {
 			${getLocaleProperty({ name: 'title', path: 'header.title', locale })},
+			${getLocaleProperty({ name: 'chapeau', path: 'header.chapeau', locale })},
 			${getLocaleProperty({
 				name: 'content',
 				path: 'header.content',
@@ -272,22 +273,13 @@ export const getStaticProps = async ({
 				block: true,
 			})},
 			${getImage({ name: 'image', path: 'header.image', full: true })},
-			"showTOC": header.showTOC
 		},
+		${getLocaleProperty({
+			name: 'titleFlow',
+			locale,
+		})},
+		${getQuestionCollection({ locale })},
 		${getStories({ locale })},
-		"moreTips": {
-			${getLocaleProperty({ name: 'title', path: 'moreTips.title', locale })},
-			${getTipsCollection({ path: 'moreTips', locale })},
-		},
-		"sources": {
-			${getLocaleProperty({ name: 'title', path: 'sources.title', locale })},
-			${getLocaleProperty({
-				name: 'content',
-				path: 'sources.content',
-				locale,
-				block: true,
-			})},
-		},
 		"assistance": assistanceReference->{
 			${getLocaleProperty({ name: 'chat', locale })},
 			${getImage({ name: 'image', full: true })},
@@ -302,10 +294,10 @@ export const getStaticProps = async ({
 		"updatedAt": _updatedAt,
 		"slug": slug.current,
 	}`;
-	const query = getTipPageQuery({
+	const query = getThemePageQuery({
 		pageProjection,
 		locale,
-		tip,
+		theme,
 	});
 	const { page, siteSettings } = await getClient(preview).fetch(query);
 
@@ -320,4 +312,4 @@ export const getStaticProps = async ({
 	};
 };
 
-export default Tip;
+export default Theme;

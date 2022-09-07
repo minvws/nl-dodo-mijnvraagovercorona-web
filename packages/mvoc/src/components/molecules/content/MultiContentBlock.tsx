@@ -14,7 +14,7 @@ interface SituationAsLink extends Situation {
 	situationLinkTitle: string;
 }
 
-export interface ContentSituationBlockProps {
+export interface MultiContentBlockProps {
 	content?: Array<Object>;
 	situation?: SituationAsLink;
 	video?: {
@@ -26,19 +26,17 @@ export interface ContentSituationBlockProps {
 }
 
 interface OwnProps {
-	contentBlocks: ContentSituationBlockProps[];
+	contentBlocks: MultiContentBlockProps[];
 }
 
-export const ContentSituationBlock: React.FC<OwnProps> = ({
-	contentBlocks,
-}) => {
+export const MultiContentBlock: React.FC<OwnProps> = ({ contentBlocks }) => {
 	return (
 		<Stack
 			spacing={['1rem']}
 			styles={{ display: 'flex', flexDirection: 'column', alignItems: 'start' }}
 		>
 			{contentBlocks.map(
-				(contentBlock: ContentSituationBlockProps, key: number) => {
+				(contentBlock: MultiContentBlockProps, key: number) => {
 					if (contentBlock.content) {
 						return (
 							<Stack

@@ -1,14 +1,7 @@
 export default {
-	title: 'Verhaal uitgebreid',
-	name: 'storyExtended',
-	type: 'object',
-	preview: {
-		select: {
-			title: 'title.nl',
-			subtitle: 'overview.title.nl',
-			media: 'overview.icon',
-		},
-	},
+	title: 'Story',
+	name: 'story-document',
+	type: 'document',
 	fields: [
 		{
 			title: 'Titel',
@@ -39,4 +32,11 @@ export default {
 			],
 		},
 	],
+	preview: {
+		select: {
+			title: 'title.nl',
+			subtitle: 'overview.title.nl',
+			media: 'overview.icon',
+		},
+	},
 };

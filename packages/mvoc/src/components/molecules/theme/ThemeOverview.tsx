@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import React, { useState } from 'react';
-import slugify from 'slugify';
 import { Styled, jsx, Flex, Image } from 'theme-ui';
 import {
 	ContentBlock,
@@ -11,6 +10,7 @@ import {
 	StyledLink,
 	TheGrid,
 	useSanitySiteSettings,
+	Link,
 } from '@quarantaine/common';
 import { ThemeCollectionProps } from 'utilities/theme';
 import { SiteSettings } from 'content/site-settings';
@@ -20,24 +20,15 @@ export const ThemeOverview: React.FC<ThemeCollectionProps> = ({
 	themeCollection,
 }) => {
 	const siteSettings = useSanitySiteSettings<SiteSettings>();
-	const currentLocale = useCurrentLocale();
+	const locale = useCurrentLocale();
 
 	return (
 		<TheGrid minItemSize="24rem" gap={['3rem', '3.75rem']}>
 			{themeCollection?.map((theme) => (
-				<Stack
-					id={`${currentLocale.id === 'nl' ? 'thema' : 'theme'}-${slugify(
-						theme.title,
-						{
-							strict: true,
-							lower: true,
-						},
-					)}`}
-					key={theme.title}
-				>
+				<Stack id={`thema-${theme.slug}`} key={theme.overview.title}>
 					<Flex sx={{ alignItems: 'center', gap: '1.5rem' }}>
 						<Image
-							src={theme.icon.src}
+							src={theme.overview.icon.src}
 							alt=""
 							sx={{
 								flex: '0 0 auto',
@@ -60,9 +51,23 @@ export const ThemeOverview: React.FC<ThemeCollectionProps> = ({
 									marginBlock: 0,
 									fontSize: ['h2Mobile', 'h2'],
 									lineHeight: ['h2Mobile', 'h2'],
+									a: {
+										outline: 'none',
+										'&:hover, &:focus': {
+											textDecoration: 'underline',
+										},
+									},
 								}}
 							>
-								{theme.title}
+								<Link
+									withChevron={false}
+									href={getHrefWithlocale(
+										`/thema/${theme.slug}`,
+										locale.urlPrefix,
+									)}
+								>
+									{theme.overview.title}
+								</Link>
 							</Styled.h3>
 							{theme.questionCollection ? (
 								<div sx={{ color: 'primary' }}>
@@ -83,7 +88,7 @@ export const ThemeOverview: React.FC<ThemeCollectionProps> = ({
 	);
 };
 
-const QuestionList: React.FC<QuestionCollectionProps> = ({
+export const QuestionList: React.FC<QuestionCollectionProps> = ({
 	questionCollection,
 }) => {
 	if (!questionCollection.length) return null;
