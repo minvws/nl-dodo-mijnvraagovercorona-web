@@ -65,7 +65,7 @@ export const AssistanceRow = ({ feedback }: AssistanceRowProps) => {
 						{page.assistance.title}
 					</Styled.h2>
 					<img
-						src="/images/questions.svg"
+						src={page.assistance.image?.src || '/images/questions.svg'}
 						alt=""
 						sx={{
 							display: ['block', feedback ? 'none' : ''],
@@ -156,7 +156,7 @@ export const AssistanceRow = ({ feedback }: AssistanceRowProps) => {
 				{feedback && (
 					<Box>
 						<img
-							src="/images/questions.svg"
+							src={page.assistance.image?.src || '/images/questions.svg'}
 							alt=""
 							sx={{
 								marginInlineEnd: 'auto',
