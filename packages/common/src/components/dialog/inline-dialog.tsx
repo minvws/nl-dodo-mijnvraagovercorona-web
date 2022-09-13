@@ -1,9 +1,10 @@
+/** @jsxRuntime classic /
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
 import { Dialog } from './dialog';
 import { Link } from '../link';
 import { QuestionIcon } from '../../icons/question';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import VisuallyHidden from '@reach/visually-hidden';
 import { useSanitySiteSettings } from '@quarantaine/common';
 

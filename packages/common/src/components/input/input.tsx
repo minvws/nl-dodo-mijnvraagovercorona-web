@@ -1,3 +1,4 @@
+/** @jsxRuntime classic /
 /** @jsx jsx */
 import { Input as ThemeInput, Label, jsx } from 'theme-ui';
 

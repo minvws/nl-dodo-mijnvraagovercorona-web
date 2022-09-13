@@ -1,3 +1,4 @@
+/** @jsxRuntime classic /
 /** @jsx jsx */
 import React, { useMemo, useState } from 'react';
 import { Container, jsx } from 'theme-ui';

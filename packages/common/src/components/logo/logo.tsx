@@ -1,3 +1,4 @@
+/** @jsxRuntime classic /
 /** @jsx jsx */
 import { Image, Container, jsx, SxStyleProp } from 'theme-ui';
 

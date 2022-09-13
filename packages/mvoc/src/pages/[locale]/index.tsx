@@ -1,3 +1,4 @@
+/** @jsxRuntime classic /
 /** @jsx jsx */
 import React from 'react';
 import slugify from 'slugify';
@@ -294,7 +295,7 @@ export const getStaticProps = async ({
 			${getImage({ name: 'image', full: true })},
 			${getLocaleProperty({ name: 'open', locale })},
 			${getLocaleProperty({ name: 'openingHours', locale })},
-			${getLocaleProperty({ name: 'openingHoursPhonenumber', locale })},			
+			${getLocaleProperty({ name: 'openingHoursPhonenumber', locale })},
 			phonenumber,
 			${getLocaleProperty({ name: 'situationButton', locale })},
 			${getLocaleProperty({ name: 'situationQuestion', locale })},

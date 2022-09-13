@@ -1,5 +1,6 @@
+/** @jsxRuntime classic /
 /** @jsx jsx */
-import type { AppProps } from 'next/app';
+// import type { AppProps } from 'next/app';
 import { jsx, Box } from 'theme-ui';
 
 import {
@@ -16,7 +17,7 @@ import '@reach/menu-button/styles.css';
 import GlobalContext, { defaultState } from 'utilities/global-context';
 import { useState } from 'react';
 
-const CheckApp = ({ Component, pageProps }: AppProps) => {
+const CheckApp = ({ Component, pageProps }) => {
 	const localGlobalTranslations =
 		pageProps.locale === 'en' ? generalContentEn : generalContentNl;
 	const [history, setHistoryState] = useState(defaultState.history);

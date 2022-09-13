@@ -1,3 +1,4 @@
+/** @jsxRuntime classic /
 /** @jsx jsx */
 import { ChevronIcon } from '../../../icons';
 import { NavbarElementProps } from 'react-day-picker';

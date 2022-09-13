@@ -1,3 +1,4 @@
+/** @jsxRuntime classic /
 /** @jsx jsx */
 import { Box, Styled, jsx } from 'theme-ui';
 

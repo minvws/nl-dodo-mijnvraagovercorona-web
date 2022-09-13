@@ -1,3 +1,4 @@
+/** @jsxRuntime classic /
 /** @jsx jsx */
 import VisuallyHidden from '@reach/visually-hidden';
 import { Stack } from '@quarantaine/common';

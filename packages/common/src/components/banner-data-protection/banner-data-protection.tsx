@@ -1,3 +1,4 @@
+/** @jsxRuntime classic /
 /** @jsx jsx */
 import { Tile } from '@quarantaine/common';
 import { Styled, jsx } from 'theme-ui';
