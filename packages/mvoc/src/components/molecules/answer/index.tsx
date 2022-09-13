@@ -1,3 +1,4 @@
+/** @jsxRuntime classic /
 /** @jsx jsx */
 import { ContentBlock, Stack } from '@quarantaine/common';
 import React from 'react';

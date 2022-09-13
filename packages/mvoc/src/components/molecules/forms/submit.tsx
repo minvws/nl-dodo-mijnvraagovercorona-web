@@ -1,3 +1,4 @@
+/** @jsxRuntime classic /
 /** @jsx jsx */
 import { getHrefWithlocale, Link, Locales } from '@quarantaine/common';
 import { StyledLinkPropsBase } from '@quarantaine/common/src/components/link/styled-link';

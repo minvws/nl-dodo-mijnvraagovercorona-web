@@ -1,3 +1,4 @@
+/** @jsxRuntime classic /
 /** @jsx jsx */
 import React, { useState } from 'react';
 import { jsx } from 'theme-ui';

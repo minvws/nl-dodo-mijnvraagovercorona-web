@@ -1,3 +1,4 @@
+/** @jsxRuntime classic /
 /** @jsx jsx */
 import { Flex, jsx, Text } from 'theme-ui';
 import { useSanitySiteSettings } from '@quarantaine/common';

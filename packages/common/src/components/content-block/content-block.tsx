@@ -1,3 +1,4 @@
+/** @jsxRuntime classic /
 /** @jsx jsx */
 import React, { useContext, useMemo } from 'react';
 import { Image, jsx, Styled } from 'theme-ui';

@@ -1,3 +1,4 @@
+/** @jsxRuntime classic /
 /** @jsx jsx */
 import React from 'react';
 import { Container, Box, Styled, Text, jsx } from 'theme-ui';

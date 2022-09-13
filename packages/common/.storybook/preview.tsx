@@ -1,3 +1,4 @@
+/** @jsxRuntime classic /
 /** @jsx jsx */
 import { addDecorator } from '@storybook/react';
 import { ThemeProvider, jsx } from 'theme-ui';

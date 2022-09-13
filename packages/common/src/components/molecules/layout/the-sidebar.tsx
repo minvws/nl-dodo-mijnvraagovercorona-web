@@ -1,3 +1,4 @@
+/** @jsxRuntime classic /
 /** @jsx jsx */
 import React from 'react';
 import { Flex, jsx, SxStyleProp } from 'theme-ui';
