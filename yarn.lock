@@ -5607,11 +5607,6 @@
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.168.tgz#fe24632e79b7ade3f132891afff86caa5e5ce008"
   integrity sha512-oVfRvqHV/V6D1yifJbVRU3TMp8OT6o6BG+U9MkwuJ3U8/CsDHvalRpsxBqivn71ztOFZBTfJMvETbqHiaNSj7Q==
 
-"@types/luxon@^2.0.8":
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/@types/luxon/-/luxon-2.3.2.tgz#8a3f2cdd4858ce698b56cd8597d9243b8e9d3c65"
-  integrity sha512-WOehptuhKIXukSUUkRgGbj2c997Uv/iUgYgII8U7XLJqq9W2oF0kQ6frEznRQbdurioz+L/cdaIm4GutTQfgmA==
-
 "@types/markdown-to-jsx@^6.11.3":
   version "6.11.3"
   resolved "https://registry.yarnpkg.com/@types/markdown-to-jsx/-/markdown-to-jsx-6.11.3.tgz#cdd1619308fecbc8be7e6a26f3751260249b020e"
@@ -9259,6 +9254,11 @@ date-fns@^2.21.3:
   version "2.21.3"
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.21.3.tgz#8f5f6889d7a96bbcc1f0ea50239b397a83357f9b"
   integrity sha512-HeYdzCaFflc1i4tGbj7JKMjM4cKGYoyxwcIIkHzNgCkX8xXDNJDZXgDDVchIWpN4eQc3lH37WarduXFZJOtxfw==
+
+date-fns@^2.29.3:
+  version "2.29.3"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.29.3.tgz#27402d2fc67eb442b511b70bbdf98e6411cd68a8"
+  integrity sha512-dDCnyH2WnnKusqvZZ6+jA1O51Ibt8ZMRNkDZdyAyK4YfbDwa/cEmuztzG5pk6hqlp9aSBPYcjOlktquahGwGeA==
 
 date-now@1.0.1:
   version "1.0.1"
@@ -14443,11 +14443,6 @@ lru-cache@^6.0.0:
   integrity sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==
   dependencies:
     yallist "^4.0.0"
-
-luxon@^2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/luxon/-/luxon-2.4.0.tgz#9435806545bb32d4234dab766ab8a3d54847a765"
-  integrity sha512-w+NAwWOUL5hO0SgwOHsMBAmZ15SoknmQXhSO0hIbJCAmPKSsGeK8MlmhYh2w6Iib38IxN2M+/ooXWLbeis7GuA==
 
 lz-string@^1.4.4:
   version "1.4.4"
