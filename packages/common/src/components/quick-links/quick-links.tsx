@@ -1,5 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import { Container, jsx } from 'theme-ui';
 
 export const QuickLinks: React.FC = ({ children, ...props }) => (

@@ -1,5 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import { Box, Themed, jsx } from 'theme-ui';
 
 type OwnProps = {

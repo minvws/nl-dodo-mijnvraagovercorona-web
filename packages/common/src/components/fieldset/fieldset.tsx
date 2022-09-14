@@ -1,5 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import { jsx, Text } from 'theme-ui';
 
 interface FieldsetProps<ValueOptions> {

@@ -1,5 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import React from 'react';
 import { Box, jsx, Themed } from 'theme-ui';
 import { Stack, Retain } from '@quarantaine/common';

@@ -1,5 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import { useEffect, useMemo, useState } from 'react';
 import DayPicker, {
 	DateUtils,

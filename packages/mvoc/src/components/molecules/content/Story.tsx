@@ -1,5 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import React from 'react';
 import slugify from 'slugify';
 import { SanityImageFullProps, Stack } from '@quarantaine/common';

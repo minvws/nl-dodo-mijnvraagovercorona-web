@@ -1,5 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import VisuallyHidden from '@reach/visually-hidden';
 import { Stack } from '@quarantaine/common';
 import { Box, jsx, Themed, Text } from 'theme-ui';

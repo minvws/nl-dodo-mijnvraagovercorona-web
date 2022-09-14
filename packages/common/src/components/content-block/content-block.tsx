@@ -1,5 +1,5 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
+
 import React, { useContext, useMemo } from 'react';
 import { Image, jsx, Themed } from 'theme-ui';
 
@@ -94,7 +94,11 @@ const getSerializers = (contentVariables?: ContentVariables) => ({
 	},
 	// list: ({ children }: MarkProps) => <Themed.ul>{children}</Themed.ul>,
 	list: ({ children, type }: MarkProps) =>
-		type === 'number' ? <ol>{children}</ol> : <ul>{children}</ul>,
+		type === 'number' ? (
+			<Themed.ol>{children}</Themed.ol>
+		) : (
+			<Themed.ul>{children}</Themed.ul>
+		),
 	container: ({ children }: MarkProps) => <>{children}</>,
 	marks: {
 		strong: ({ children }: MarkProps) => (

@@ -1,5 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import { jsx } from 'theme-ui';
 
 export const PlusIcon = ({ fill = 'currentColor', ...svgProps }) => (

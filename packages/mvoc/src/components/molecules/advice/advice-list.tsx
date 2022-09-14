@@ -1,5 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import React from 'react';
 import { jsx, Box } from 'theme-ui';
 import { Advice, AdviceProps } from './advice';

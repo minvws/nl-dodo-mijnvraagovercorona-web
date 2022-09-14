@@ -1,5 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import { Tile } from '@quarantaine/common';
 import { Themed, jsx } from 'theme-ui';
 

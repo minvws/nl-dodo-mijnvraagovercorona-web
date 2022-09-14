@@ -1,5 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import React from 'react';
 import { Container, Text, Themed, jsx } from 'theme-ui';
 import { Module } from '@quarantaine/common';
@@ -45,7 +44,7 @@ export const SectionInformational: React.FC<SectionInformationalProps> = ({
 			alt=""
 		/>
 		<Module
-			sx={{
+			styles={{
 				[`margin${imageAlignment === 'left' ? 'Left' : 'Right'}`]: [
 					undefined,
 					'30px',

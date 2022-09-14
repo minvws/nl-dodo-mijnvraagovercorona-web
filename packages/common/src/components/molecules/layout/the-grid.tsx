@@ -1,5 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import React, { ElementType } from 'react';
 import { Box, jsx, ThemeUIStyleObject } from 'theme-ui';
 

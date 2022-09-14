@@ -1,5 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import React, { useMemo } from 'react';
 import { jsx, ThemeUIStyleObject, Image } from 'theme-ui';
 import { keyframes } from '@emotion/react';

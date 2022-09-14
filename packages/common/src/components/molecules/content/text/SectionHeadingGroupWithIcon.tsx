@@ -1,5 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import React from 'react';
 import { Box, Flex, Image, jsx } from 'theme-ui';
 import { SectionHeadingGroup } from '@quarantaine/common';

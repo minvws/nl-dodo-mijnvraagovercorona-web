@@ -1,5 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import { Box, Button, jsx, Themed, ThemeUIStyleObject } from 'theme-ui';
 
 import {

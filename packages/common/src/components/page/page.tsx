@@ -1,5 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import { Box, Flex, jsx } from 'theme-ui';
 
 import { useSanitySiteSettings, skipLinkID } from '@quarantaine/common';

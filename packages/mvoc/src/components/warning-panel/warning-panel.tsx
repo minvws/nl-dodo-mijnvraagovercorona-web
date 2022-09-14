@@ -1,5 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import { jsx, Box, Themed } from 'theme-ui';
 
 import { ContentBlock } from '@quarantaine/common';

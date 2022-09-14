@@ -1,5 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import { Image, Container, jsx, ThemeUIStyleObject } from 'theme-ui';
 
 import { useCurrentLocale } from '@quarantaine/common';

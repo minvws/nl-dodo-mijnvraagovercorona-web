@@ -1,5 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import { Input as ThemeInput, Label, jsx } from 'theme-ui';
 
 interface InputProps {

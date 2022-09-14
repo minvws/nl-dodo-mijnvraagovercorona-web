@@ -1,5 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import React, { useEffect } from 'react';
 import Head from 'next/head';
 import { jsx, Box } from 'theme-ui';
@@ -34,8 +33,6 @@ export const App: React.FC<AppProps> = ({
 	useEffect(() => {
 		document.documentElement.lang = locale;
 	}, [locale]);
-
-	console.log('theme', theme);
 
 	return (
 		<>

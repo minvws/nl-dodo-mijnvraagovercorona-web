@@ -1,5 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import { useEffect, useRef, useState } from 'react';
 import { jsx, Container } from 'theme-ui';
 import {

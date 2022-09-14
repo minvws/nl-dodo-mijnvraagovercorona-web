@@ -1,5 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import React from 'react';
 import slugify from 'slugify';
 import { jsx, Themed, Container, Box } from 'theme-ui';
