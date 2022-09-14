@@ -8,7 +8,7 @@ import {
 	useCurrentLocale,
 } from '@quarantaine/common';
 import React, { useEffect, useState } from 'react';
-import { jsx, Box, Styled } from 'theme-ui';
+import { jsx, Box, Themed } from 'theme-ui';
 import useCopyToClipboard from 'utilities/use-copy-to-clipboard';
 
 export type InformContactsProps = {
@@ -70,7 +70,7 @@ export const InformContacts: React.FC<InformContactsProps> = ({
 
 	return (
 		<Box>
-			<Styled.h2>{title}</Styled.h2>
+			<Themed.h2>{title}</Themed.h2>
 			{steps ? (
 				<ol
 					sx={{
@@ -120,7 +120,7 @@ export const InformContacts: React.FC<InformContactsProps> = ({
 								},
 							}}
 						>
-							<Styled.h3
+							<Themed.h3
 								sx={{
 									color: 'secondary',
 									fontSize: '1.1875rem',
@@ -130,7 +130,7 @@ export const InformContacts: React.FC<InformContactsProps> = ({
 								}}
 							>
 								{step.title}
-							</Styled.h3>
+							</Themed.h3>
 							<ContentBlock content={step.content} />
 							{step.points ? (
 								<ul
@@ -140,7 +140,7 @@ export const InformContacts: React.FC<InformContactsProps> = ({
 								>
 									{step.points.map((point) => (
 										<li key={point.title}>
-											<Styled.h4
+											<Themed.h4
 												sx={{
 													color: 'copyHeading',
 													fontSize: '1.1875rem',
@@ -148,7 +148,7 @@ export const InformContacts: React.FC<InformContactsProps> = ({
 												}}
 											>
 												{point.title}
-											</Styled.h4>
+											</Themed.h4>
 											<ContentBlock content={point.content} />
 										</li>
 									))}

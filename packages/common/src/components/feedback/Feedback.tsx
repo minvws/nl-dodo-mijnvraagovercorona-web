@@ -1,6 +1,6 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
-import { Box, Button, jsx, Styled, SxStyleProp } from 'theme-ui';
+import { Box, Button, jsx, Themed, ThemeUIStyleObject } from 'theme-ui';
 
 import {
 	useSanitySiteSettings,
@@ -36,7 +36,7 @@ export const Feedback: React.FC<OwnProps> = ({ name, feedbackUrl }) => {
 		undefined,
 	);
 
-	const buttonStyles: SxStyleProp = {
+	const buttonStyles: ThemeUIStyleObject = {
 		paddingTop: '15px',
 		paddingBottom: '15px',
 		paddingRight: 'buttonPadding',
@@ -73,7 +73,7 @@ export const Feedback: React.FC<OwnProps> = ({ name, feedbackUrl }) => {
 			>
 				{siteSettings.feedback.title}
 			</h2>
-			<Styled.p>{siteSettings.feedback.content}</Styled.p>
+			<Themed.p>{siteSettings.feedback.content}</Themed.p>
 			<Box sx={{ display: 'flex', gap: '1em' }}>
 				<Button
 					sx={buttonStyles}
@@ -126,9 +126,9 @@ export const Feedback: React.FC<OwnProps> = ({ name, feedbackUrl }) => {
 						marginTop: '16px',
 					}}
 				>
-					<Styled.p sx={{ marginBottom: '16px' }}>
+					<Themed.p sx={{ marginBottom: '16px' }}>
 						{siteSettings.feedback.thanks}
-					</Styled.p>
+					</Themed.p>
 					<Link
 						styledAs="button"
 						href={`${feedbackUrl}&feedback=${feedback}`}

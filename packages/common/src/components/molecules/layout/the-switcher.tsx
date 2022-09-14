@@ -1,7 +1,7 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
 import React from 'react';
-import { Flex, jsx, SxStyleProp } from 'theme-ui';
+import { Flex, jsx, ThemeUIStyleObject } from 'theme-ui';
 
 interface OwnProps {
 	gap?: string | string[];
@@ -36,7 +36,7 @@ export const TheSwitcher: React.FC<OwnProps> = ({
 interface TheSwitcherItemProps {
 	blockAlign?: 'start' | 'center' | 'end';
 	gap?: string | string[];
-	styles?: SxStyleProp;
+	styles?: ThemeUIStyleObject;
 }
 
 export const TheSwitcherItem: React.FC<TheSwitcherItemProps> = ({

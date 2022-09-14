@@ -3,7 +3,7 @@
 import React from 'react';
 import slugify from 'slugify';
 import { SanityImageFullProps, Stack } from '@quarantaine/common';
-import { Box, jsx, Styled } from 'theme-ui';
+import { Box, jsx, Themed } from 'theme-ui';
 import { MultiContentBlock, MultiContentBlockProps } from './MultiContentBlock';
 
 export interface StoryProps {
@@ -25,7 +25,7 @@ export const Story: React.FC<StoryProps> = ({ title, contentBlocks }) => {
 			})}
 		>
 			<Stack spacing={['1rem']}>
-				<Styled.h2>{title}</Styled.h2>
+				<Themed.h2>{title}</Themed.h2>
 				{contentBlocks && <MultiContentBlock contentBlocks={contentBlocks} />}
 			</Stack>
 		</Box>

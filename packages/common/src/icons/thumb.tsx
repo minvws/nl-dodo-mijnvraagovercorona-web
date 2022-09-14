@@ -1,14 +1,8 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import { SVGAttributes } from 'react';
 
-interface ThumbIconProps extends SVGAttributes<SVGElement> {}
-
-export const ThumbIcon = ({
-	fill = 'currentColor',
-	...svgProps
-}: ThumbIconProps) => (
+export const ThumbIcon = ({ fill = 'currentColor', ...svgProps }) => (
 	<svg
 		width="20"
 		height="19"

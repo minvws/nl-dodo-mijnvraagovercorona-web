@@ -1,14 +1,8 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
-import { SVGAttributes } from 'react';
 
-interface AppointmentProps extends SVGAttributes<SVGElement> {}
-
-export const Appointment = ({
-	fill = 'currentColor',
-	...svgProps
-}: AppointmentProps) => (
+export const Appointment = ({ fill = 'currentColor', ...svgProps }) => (
 	<svg
 		width="42"
 		height="42"

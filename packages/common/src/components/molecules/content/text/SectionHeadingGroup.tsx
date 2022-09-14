@@ -1,7 +1,7 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
 import React from 'react';
-import { Styled, jsx } from 'theme-ui';
+import { Themed, jsx } from 'theme-ui';
 import { Stack } from '@quarantaine/common';
 
 type OwnProps = {
@@ -27,14 +27,14 @@ export const SectionHeadingGroup: React.FC<OwnProps> = ({
 			},
 		}}
 	>
-		<Styled.h2
+		<Themed.h2
 			sx={{
 				fontSize: ['h1Mobile', 'h1'],
 				lineHeight: ['h1Mobile', 'h1'],
 			}}
 		>
 			{title}
-		</Styled.h2>
+		</Themed.h2>
 		{children}
 	</Stack>
 );

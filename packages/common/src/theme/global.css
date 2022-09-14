@@ -14,9 +14,24 @@
 	font-style: normal;
 }
 
+*,
+*::after,
+*::before {
+	box-sizing: border-box;
+}
+
 html {
 	scroll-behavior: smooth;
 	-webkit-font-smoothing: antialiased;
+	font-family: RoSans, sans-serif;
+}
+
+body {
+	margin: 0;
+}
+
+button {
+	cursor: pointer;
 }
 
 input[type='number']::-webkit-inner-spin-button,

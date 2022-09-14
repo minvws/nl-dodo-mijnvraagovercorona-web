@@ -1,6 +1,6 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
-import { jsx, Styled } from 'theme-ui';
+import { jsx, Themed } from 'theme-ui';
 
 import {
 	Stack,
@@ -20,7 +20,7 @@ export const MoreTips = ({ title, tipCollection }: OwnProps) => {
 	const currentLocale = useCurrentLocale();
 	return (
 		<Stack>
-			<Styled.h2>{title ? title : siteSettings.moreTips}</Styled.h2>
+			<Themed.h2>{title ? title : siteSettings.moreTips}</Themed.h2>
 			<Stack spacing={['1rem']}>
 				{tipCollection.map((tip, index) => (
 					<StyledLink

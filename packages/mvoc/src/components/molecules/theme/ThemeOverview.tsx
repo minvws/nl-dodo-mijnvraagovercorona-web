@@ -1,7 +1,7 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
 import React, { useState } from 'react';
-import { Styled, jsx, Flex, Image } from 'theme-ui';
+import { Themed, jsx, Flex, Image } from 'theme-ui';
 import {
 	ContentBlock,
 	getHrefWithlocale,
@@ -47,7 +47,7 @@ export const ThemeOverview: React.FC<ThemeCollectionProps> = ({
 								flexWrap: 'wrap',
 							}}
 						>
-							<Styled.h3
+							<Themed.h3
 								sx={{
 									marginBlock: 0,
 									fontSize: ['h2Mobile', 'h2'],
@@ -69,7 +69,7 @@ export const ThemeOverview: React.FC<ThemeCollectionProps> = ({
 								>
 									{theme.overview.title}
 								</Link>
-							</Styled.h3>
+							</Themed.h3>
 							{theme.questionCollection ? (
 								<div sx={{ color: 'primary' }}>
 									{theme.questionCollection.length > 1

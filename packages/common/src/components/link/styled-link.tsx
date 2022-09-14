@@ -1,7 +1,7 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
 import React, { useMemo } from 'react';
-import { jsx, SxStyleProp, Box, Image } from 'theme-ui';
+import { jsx, ThemeUIStyleObject, Image } from 'theme-ui';
 import { keyframes } from '@emotion/react';
 
 import {
@@ -18,6 +18,7 @@ export interface StyledLinkPropsBase {
 	fontWeight?: 'lighter' | 'normal' | 'bold';
 	lang?: string;
 	icon?: string;
+	sx?: ThemeUIStyleObject;
 	styledAs?:
 		| 'link'
 		| 'link-inline'
@@ -75,7 +76,7 @@ export const useLinkStyles = ({
 	styledAs,
 }: StyledLinkPropsBase) => {
 	const styles = useMemo(() => {
-		const chevronStyling: SxStyleProp = {
+		const chevronStyling: ThemeUIStyleObject = {
 			transform: 'translateX(0)',
 			transition: '300ms ease-in-out',
 			transitionProperty: 'transform',
@@ -84,7 +85,7 @@ export const useLinkStyles = ({
 			minWidth: 9,
 		};
 
-		const linkStyling: SxStyleProp = {
+		const linkStyling: ThemeUIStyleObject = {
 			display: 'inline-flex',
 			alignItems: 'center',
 			padding: '0',
@@ -111,12 +112,12 @@ export const useLinkStyles = ({
 			},
 		};
 
-		const linkInlineStyling: SxStyleProp = {
+		const linkInlineStyling: ThemeUIStyleObject = {
 			...linkStyling,
 			display: 'inline',
 		};
 
-		const linkBackStyling: SxStyleProp = {
+		const linkBackStyling: ThemeUIStyleObject = {
 			...linkStyling,
 			position: 'absolute',
 			top: '-50px',
@@ -133,7 +134,7 @@ export const useLinkStyles = ({
 			},
 		};
 
-		const linkRestartStyling: SxStyleProp = {
+		const linkRestartStyling: ThemeUIStyleObject = {
 			...linkStyling,
 			position: 'absolute',
 			top: '-50px',
@@ -148,7 +149,7 @@ export const useLinkStyles = ({
 			},
 		};
 
-		const buttonStyling: SxStyleProp = {
+		const buttonStyling: ThemeUIStyleObject = {
 			display: 'inline-block',
 			minWidth: ['100%', '0'],
 			minHeight: 'buttonHeight',
@@ -172,7 +173,7 @@ export const useLinkStyles = ({
 			},
 		};
 
-		const buttonSecondaryStyling: SxStyleProp = {
+		const buttonSecondaryStyling: ThemeUIStyleObject = {
 			...buttonStyling,
 			height: 'auto',
 			minHeight: 'buttonSecondaryHeight',
@@ -186,7 +187,7 @@ export const useLinkStyles = ({
 			},
 		};
 
-		const buttonTertiaryStyling: SxStyleProp = {
+		const buttonTertiaryStyling: ThemeUIStyleObject = {
 			...buttonStyling,
 			color: 'white',
 			backgroundColor: 'buttonTertiary',
@@ -197,14 +198,14 @@ export const useLinkStyles = ({
 			},
 		};
 
-		const buttonDisabledStyling: SxStyleProp = {
+		const buttonDisabledStyling: ThemeUIStyleObject = {
 			...buttonStyling,
 			// opacity: 0.4,
 			backgroundColor: 'buttonDisabled',
 			pointerEvents: 'none',
 		};
 
-		const buttonTileStyling: SxStyleProp = {
+		const buttonTileStyling: ThemeUIStyleObject = {
 			...buttonStyling,
 			display: 'flex',
 			gap: '1rem',
@@ -235,7 +236,7 @@ export const useLinkStyles = ({
 			},
 		};
 
-		const buttonLargeStyling: SxStyleProp = {
+		const buttonLargeStyling: ThemeUIStyleObject = {
 			...buttonStyling,
 			display: 'flex',
 			gap: '0.5rem',
@@ -268,13 +269,13 @@ export const useLinkStyles = ({
 			},
 		};
 
-		const buttonShowMore: SxStyleProp = {
+		const buttonShowMore: ThemeUIStyleObject = {
 			...linkStyling,
 			color: 'copyHeading',
 			fontWeight: 'bold',
 		};
 
-		const buttonStoreBase: SxStyleProp = {
+		const buttonStoreBase: ThemeUIStyleObject = {
 			display: 'inline-flex',
 		};
 

@@ -1,7 +1,7 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
 import React from 'react';
-import { Box, Image, jsx, Styled } from 'theme-ui';
+import { Box, Image, jsx, Themed } from 'theme-ui';
 import {
 	SanityImageFullProps,
 	Retain,
@@ -50,7 +50,7 @@ export const Masthead: React.FC<MastheadProps> = ({
 					<Retain>
 						<Stack spacing={['1rem']}>
 							{prefixSlot ? prefixSlot : null}
-							<Styled.h1>{title}</Styled.h1>
+							<Themed.h1>{title}</Themed.h1>
 							{children}
 						</Stack>
 					</Retain>

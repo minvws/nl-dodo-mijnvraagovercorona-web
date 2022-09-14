@@ -1,5 +1,5 @@
 import { default as NextLink } from 'next/link';
-import { useCurrentLocale, ExternalIcon } from '@quarantaine/common';
+import { useCurrentLocale } from '@quarantaine/common';
 
 import {
 	StyledLink,

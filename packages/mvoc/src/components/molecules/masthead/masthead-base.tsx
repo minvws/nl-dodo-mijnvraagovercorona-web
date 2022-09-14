@@ -18,14 +18,13 @@ export const MastheadBase: React.FC<MastheadProps> = ({
 				position: 'relative',
 				...(variant === 'highlight'
 					? {
-							background: theme?.colors?.headerBackgroundHighlight,
+							backgroundColor: 'headerBackgroundHighlight',
 							borderEndStartRadius: '2rem',
 							borderEndEndRadius: '2rem',
 							color: 'header',
 					  }
 					: {
-							// weird hack to get the background from theme, 'headerBackground' doesnt work here.
-							background: theme?.colors?.headerBackground,
+							backgroundColor: 'headerBackground',
 							color: 'header',
 					  }),
 			}}

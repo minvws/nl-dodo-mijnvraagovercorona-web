@@ -2,7 +2,7 @@
 /** @jsx jsx */
 import React from 'react';
 import slugify from 'slugify';
-import { jsx, Styled, Container, Box } from 'theme-ui';
+import { jsx, Themed, Container, Box } from 'theme-ui';
 import { Page } from 'components/page';
 
 import {
@@ -131,7 +131,7 @@ export default function LandingPage({
 				<Masthead
 					title={page.header.title}
 					prefixSlot={
-						<Styled.p
+						<Themed.p
 							sx={{
 								fontSize: ['h2Mobile', 'h2'],
 								lineHeight: ['h2Mobile', 'h2'],
@@ -140,12 +140,12 @@ export default function LandingPage({
 							}}
 						>
 							{page.header.chapeau}
-						</Styled.p>
+						</Themed.p>
 					}
 					illustration={page.header.image}
 					variant="highlight"
 				>
-					<Styled.p sx={{ color: 'primary' }}>{page.header.subtitle}</Styled.p>
+					<Themed.p sx={{ color: 'primary' }}>{page.header.subtitle}</Themed.p>
 				</Masthead>
 
 				<Layer

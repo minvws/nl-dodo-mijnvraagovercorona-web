@@ -1,14 +1,14 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
 import React, { ElementType } from 'react';
-import { Box, jsx, SxStyleProp } from 'theme-ui';
+import { Box, jsx, ThemeUIStyleObject } from 'theme-ui';
 
 interface OwnProps {
 	as?: ElementType;
 	gap?: string | string[];
 	minItemSize?: string;
 	placement?: 'auto-fill' | 'auto-fit';
-	styles?: SxStyleProp;
+	styles?: ThemeUIStyleObject;
 }
 
 export const TheGrid: React.FC<OwnProps> = ({

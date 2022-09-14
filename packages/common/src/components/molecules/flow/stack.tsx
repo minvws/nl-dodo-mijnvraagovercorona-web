@@ -1,11 +1,11 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
 import React from 'react';
-import { jsx, SxStyleProp } from 'theme-ui';
+import { jsx, ThemeUIStyleObject } from 'theme-ui';
 
 interface OwnProps {
 	spacing?: string | string[] | number;
-	styles?: SxStyleProp;
+	styles?: ThemeUIStyleObject;
 	id?: string;
 }
 

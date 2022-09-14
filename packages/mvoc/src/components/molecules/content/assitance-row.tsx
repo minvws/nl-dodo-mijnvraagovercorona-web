@@ -1,7 +1,7 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
 import React, { useState, useEffect } from 'react';
-import { jsx, Box, Styled } from 'theme-ui';
+import { jsx, Box, Themed } from 'theme-ui';
 
 import type { PageContent } from 'pages/[locale]/index';
 import {
@@ -57,14 +57,14 @@ export const AssistanceRow = ({ feedback }: AssistanceRowProps) => {
 		<Retain maxWidth={[retainMaxWidth, '100%']}>
 			<TheGrid minItemSize="25rem" gap={['1rem']}>
 				<Box>
-					<Styled.h2
+					<Themed.h2
 						sx={{
 							fontSize: ['h1Mobile', 'h1'],
 							lineHeight: ['h1Mobile', 'h1'],
 						}}
 					>
 						{page.assistance.title}
-					</Styled.h2>
+					</Themed.h2>
 					<img
 						src={page.assistance.image?.src || '/images/questions.svg'}
 						alt=""
@@ -74,7 +74,7 @@ export const AssistanceRow = ({ feedback }: AssistanceRowProps) => {
 							width: '240px',
 						}}
 					/>
-					<Styled.h3
+					<Themed.h3
 						sx={{
 							fontSize: ['h2Mobile', 'h2'],
 							lineHeight: ['h2Mobile', 'h2'],
@@ -84,7 +84,7 @@ export const AssistanceRow = ({ feedback }: AssistanceRowProps) => {
 						{isChatOpen
 							? page.assistance.tekstWithChat
 							: page.assistance.tekstWithoutChat}
-					</Styled.h3>
+					</Themed.h3>
 					<Box
 						sx={{
 							display: 'flex',
@@ -93,7 +93,7 @@ export const AssistanceRow = ({ feedback }: AssistanceRowProps) => {
 						}}
 					>
 						<img src="/icons/phone.svg" alt="" />
-						<Styled.a
+						<Themed.a
 							sx={{
 								color: 'secondary',
 								fontWeight: 'bold',
@@ -105,10 +105,10 @@ export const AssistanceRow = ({ feedback }: AssistanceRowProps) => {
 							href={`tel:${page.assistance.phonenumber.replace(/\D/g, '')}`}
 						>
 							{page.assistance.phonenumber}
-						</Styled.a>
+						</Themed.a>
 					</Box>
 					{page.assistance.openingHoursPhonenumber && (
-						<Styled.p>
+						<Themed.p>
 							{page.assistance.openingHoursPhonenumber}
 							{isPhonenumberOpen && (
 								<>
@@ -116,7 +116,7 @@ export const AssistanceRow = ({ feedback }: AssistanceRowProps) => {
 									<span sx={{ color: 'green' }}>{page.assistance.open}</span>
 								</>
 							)}
-						</Styled.p>
+						</Themed.p>
 					)}
 					{page.assistance.chat && (
 						<>
@@ -128,7 +128,7 @@ export const AssistanceRow = ({ feedback }: AssistanceRowProps) => {
 								}}
 							>
 								<img src="/icons/chat.svg" alt="" />
-								<Styled.a
+								<Themed.a
 									sx={{
 										color: 'secondary',
 										fontWeight: 'bold',
@@ -140,9 +140,9 @@ export const AssistanceRow = ({ feedback }: AssistanceRowProps) => {
 									href="https://chat.vragenovercorona.nl/"
 								>
 									{page.assistance.chat}
-								</Styled.a>
+								</Themed.a>
 							</Box>
-							<Styled.p sx={{ marginBottom: 0 }}>
+							<Themed.p sx={{ marginBottom: 0 }}>
 								{page.assistance.openingHours}
 								{isChatOpen && (
 									<>
@@ -150,7 +150,7 @@ export const AssistanceRow = ({ feedback }: AssistanceRowProps) => {
 										<span sx={{ color: 'green' }}>{page.assistance.open}</span>
 									</>
 								)}
-							</Styled.p>
+							</Themed.p>
 						</>
 					)}
 				</Box>
@@ -165,7 +165,7 @@ export const AssistanceRow = ({ feedback }: AssistanceRowProps) => {
 								display: ['none', 'block'],
 							}}
 						/>
-						<Styled.h3
+						<Themed.h3
 							sx={{
 								fontSize: ['h2Mobile', 'h2'],
 								fontWeight: 'bold',
@@ -174,7 +174,7 @@ export const AssistanceRow = ({ feedback }: AssistanceRowProps) => {
 							}}
 						>
 							{page.assistance.situationQuestion}
-						</Styled.h3>
+						</Themed.h3>
 						<StyledLink
 							styledAs="button"
 							external

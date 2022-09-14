@@ -1,7 +1,7 @@
 /** @jsxRuntime classic /
 /** @jsx jsx */
 import React, { useState } from 'react';
-import { jsx, Styled, Box, Text, Flex } from 'theme-ui';
+import { jsx, Themed, Box, Text, Flex } from 'theme-ui';
 
 import {
 	ContentBlock,
@@ -72,7 +72,7 @@ export const Card: React.FC<CardProps> = ({
 						},
 					}}
 				>
-					<Styled.h3
+					<Themed.h3
 						sx={{
 							order: 2,
 							fontSize: ['h2Mobile', 'h2'],
@@ -80,7 +80,7 @@ export const Card: React.FC<CardProps> = ({
 						}}
 					>
 						{title}
-					</Styled.h3>
+					</Themed.h3>
 					{chapeau && (
 						<Text
 							variant="chapeau"
