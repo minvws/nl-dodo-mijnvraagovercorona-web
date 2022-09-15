@@ -49,9 +49,9 @@ export const ThemeOverview: React.FC<ThemeCollectionProps> = ({
 							<Themed.h3
 								sx={{
 									marginBlock: 0,
-									fontSize: ['h2Mobile', 'h2'],
-									lineHeight: ['h2Mobile', 'h2'],
 									a: {
+										fontSize: ['h2Mobile', 'h2'],
+										lineHeight: ['h2Mobile', 'h2'],
 										outline: 'none',
 										'&:hover, &:focus': {
 											textDecoration: 'underline',
