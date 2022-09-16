@@ -1,8 +1,7 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import VisuallyHidden from '@reach/visually-hidden';
 import { Stack } from '@quarantaine/common';
-import { Box, jsx, Styled, Text } from 'theme-ui';
+import { Box, jsx, Themed, Text } from 'theme-ui';
 
 export interface SchemeBlockProps {
 	title?: string;
@@ -52,7 +51,7 @@ export const SchemeBlock: React.FC<SchemeBlockProps> = ({
 	>
 		<Stack spacing={['1rem']}>
 			{title || day ? (
-				<Styled.h3
+				<Themed.h3
 					sx={{
 						display: 'flex',
 						alignItems: 'center',
@@ -87,7 +86,7 @@ export const SchemeBlock: React.FC<SchemeBlockProps> = ({
 							<VisuallyHidden>)</VisuallyHidden>
 						</Text>
 					)}
-				</Styled.h3>
+				</Themed.h3>
 			) : null}
 
 			{children && (

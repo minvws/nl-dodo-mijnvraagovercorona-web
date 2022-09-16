@@ -1,5 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import { getHrefWithlocale, Link, Locales } from '@quarantaine/common';
 import { StyledLinkPropsBase } from '@quarantaine/common/src/components/link/styled-link';
 import React from 'react';

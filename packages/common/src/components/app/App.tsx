@@ -1,8 +1,9 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import React, { useEffect } from 'react';
 import Head from 'next/head';
-import { jsx, Box, ThemeProvider } from 'theme-ui';
+import { jsx, Box } from 'theme-ui';
+
+import { ThemeProvider } from '@theme-ui/core';
 
 import {
 	theme,

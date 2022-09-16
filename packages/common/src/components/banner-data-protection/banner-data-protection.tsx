@@ -1,7 +1,6 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import { Tile } from '@quarantaine/common';
-import { Styled, jsx } from 'theme-ui';
+import { Themed, jsx } from 'theme-ui';
 
 type BannerDataProtectionProps = {
 	content: {
@@ -15,13 +14,13 @@ export const BannerDataProtection = ({
 }: BannerDataProtectionProps) => {
 	return (
 		<Tile>
-			<Styled.h2
+			<Themed.h2
 				sx={{
 					color: 'copyHeading',
 				}}
 			>
 				{content.title}
-			</Styled.h2>
+			</Themed.h2>
 			<ul
 				sx={{
 					fontSize: 'asideText',

@@ -1,6 +1,5 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
-import { Box, Styled, jsx } from 'theme-ui';
+/** @jsxImportSource theme-ui */
+import { Box, Themed, jsx } from 'theme-ui';
 
 type OwnProps = {
 	children: React.ReactNode;

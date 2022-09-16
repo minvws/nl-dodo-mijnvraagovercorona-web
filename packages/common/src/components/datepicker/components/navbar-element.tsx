@@ -1,5 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import { ChevronIcon } from '../../../icons';
 import { NavbarElementProps } from 'react-day-picker';
 import { ScreenReaderOnly } from '../../screen-reader-only';

@@ -1,14 +1,16 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import React from 'react';
-import { jsx } from 'theme-ui';
+import { jsx, ThemeUIStyleObject } from 'theme-ui';
 
-interface OwnProps {}
+interface OwnProps {
+	styles?: ThemeUIStyleObject;
+}
 
-export const Module: React.FC<OwnProps> = ({ children }) => {
+export const Module: React.FC<OwnProps> = ({ children, styles }) => {
 	return (
 		<div
 			sx={{
+				...styles,
 				' > :last-child': {
 					marginBlockEnd: '0',
 				},

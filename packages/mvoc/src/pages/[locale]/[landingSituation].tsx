@@ -1,6 +1,5 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
-import { Box, Container, jsx, Styled } from 'theme-ui';
+/** @jsxImportSource theme-ui */
+import { Box, Container, jsx, Themed } from 'theme-ui';
 import React from 'react';
 
 import {
@@ -90,7 +89,7 @@ export const LandingSituation = ({
 					title={page.header.title}
 					prefixSlot={
 						page.header.chapeau ? (
-							<Styled.p
+							<Themed.p
 								sx={{
 									fontSize: ['h2Mobile', 'h2'],
 									lineHeight: ['h2Mobile', 'h2'],
@@ -99,7 +98,7 @@ export const LandingSituation = ({
 								}}
 							>
 								{page.header.chapeau}
-							</Styled.p>
+							</Themed.p>
 						) : null
 					}
 					illustration={page.header.image}
@@ -114,7 +113,7 @@ export const LandingSituation = ({
 						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
 							<Retain maxWidth={[retainMaxWidth, '100%']}>
 								<Stack>
-									<Styled.h2>{page.question.header.title}</Styled.h2>
+									<Themed.h2>{page.question.header.title}</Themed.h2>
 								</Stack>
 							</Retain>
 						</Box>

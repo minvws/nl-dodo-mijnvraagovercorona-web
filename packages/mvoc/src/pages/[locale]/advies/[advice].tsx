@@ -1,8 +1,7 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import React from 'react';
 import slugify from 'slugify';
-import { Styled, Box, jsx, Container } from 'theme-ui';
+import { Themed, Box, jsx, Container } from 'theme-ui';
 
 import {
 	Locales,
@@ -231,7 +230,7 @@ export const Advies = ({
 					illustration={page.header.image}
 					variant="default"
 					prefixSlot={
-						<Styled.p
+						<Themed.p
 							sx={{
 								fontSize: ['1rem', '1rem'],
 								lineHeight: ['smallTextMobile', 'smallText'],
@@ -242,7 +241,7 @@ export const Advies = ({
 							<time dateTime={page.updatedAt}>
 								{formatLongDate(new Date(page.updatedAt), locale)}
 							</time>
-						</Styled.p>
+						</Themed.p>
 					}
 				>
 					{page.header.showSeriousSymptoms ? (
@@ -271,7 +270,7 @@ export const Advies = ({
 										<Stack spacing={['2.5rem', '5rem']}>
 											{!!plan?.length && (
 												<Box as="section">
-													<Styled.h2>{page.advice.title}</Styled.h2>
+													<Themed.h2>{page.advice.title}</Themed.h2>
 													{plan.map(({ day, title, content, date }) => (
 														<SchemeBlock key={title} day={date} title={title}>
 															{content && <ContentBlock content={content} />}
@@ -282,7 +281,7 @@ export const Advies = ({
 											{!!page.advice?.cards?.length && (
 												<Box as="section">
 													{page.advice.secondaryTitle ? (
-														<Styled.h2>{page.advice.secondaryTitle}</Styled.h2>
+														<Themed.h2>{page.advice.secondaryTitle}</Themed.h2>
 													) : null}
 													<Stack spacing={['2rem']}>
 														{page.advice.cards.map((card) => (

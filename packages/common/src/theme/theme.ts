@@ -1,7 +1,11 @@
 import { Theme } from 'theme-ui';
+import { makeTheme } from '@theme-ui/css/utils';
 
-export const theme: Theme = {
-	useCustomProperties: false,
+export const theme: Theme = makeTheme({
+	config: {
+		useCustomProperties: false,
+		useRootStyles: false,
+	},
 	colors: {
 		primary: '#01689B',
 		secondary: '#CA005D',
@@ -121,16 +125,6 @@ export const theme: Theme = {
 		detail: '20px',
 	},
 	styles: {
-		root: {
-			fontFamily: 'body',
-			scrollBehavior: 'smooth',
-			a: {
-				color: 'copyHeading',
-			},
-			button: {
-				cursor: 'pointer',
-			},
-		},
 		h1: {
 			fontFamily: 'heading',
 			fontSize: ['h1Mobile', 'h1'],
@@ -187,4 +181,4 @@ export const theme: Theme = {
 			padding: 0,
 		},
 	},
-};
+});

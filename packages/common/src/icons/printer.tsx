@@ -1,14 +1,7 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import { jsx } from 'theme-ui';
-import { SVGAttributes } from 'react';
 
-interface PrinterIconProps extends SVGAttributes<SVGElement> {}
-
-export const PrinterIcon = ({
-	fill = 'currentColor',
-	...svgProps
-}: PrinterIconProps) => (
+export const PrinterIcon = ({ fill = 'currentColor', ...svgProps }) => (
 	<svg
 		width="20"
 		height="18"

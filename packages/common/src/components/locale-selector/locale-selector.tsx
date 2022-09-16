@@ -1,5 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import { useContext, useState, useRef } from 'react';
 
 import { useRouter } from 'next/router';

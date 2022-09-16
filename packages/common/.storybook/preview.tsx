@@ -1,5 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import { addDecorator } from '@storybook/react';
 import { ThemeProvider, jsx } from 'theme-ui';
 import { withNextRouter } from 'storybook-addon-next-router';

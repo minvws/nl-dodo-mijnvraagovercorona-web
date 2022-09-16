@@ -1,7 +1,6 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import React from 'react';
-import { Container, Box, Styled, Text, jsx } from 'theme-ui';
+import { Container, Box, Themed, Text, jsx } from 'theme-ui';
 
 export interface DatepickerTopbarTitleProps {
 	title?: string;
@@ -13,7 +12,7 @@ export const DatepickerTopbarTitle = ({
 	subtitle,
 }: DatepickerTopbarTitleProps) => (
 	<>
-		<Styled.h2
+		<Themed.h2
 			sx={{
 				fontSize: ['20px', '20px'],
 				marginBottom: 0,
@@ -22,9 +21,10 @@ export const DatepickerTopbarTitle = ({
 			}}
 		>
 			{title}
-		</Styled.h2>
+		</Themed.h2>
 		{subtitle && (
 			<Text
+				as="div"
 				sx={{
 					fontSize: '18px',
 					marginTop: '2px',

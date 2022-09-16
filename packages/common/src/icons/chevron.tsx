@@ -1,14 +1,7 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import { jsx } from 'theme-ui';
-import { SVGAttributes } from 'react';
 
-interface ChevronIconProps extends SVGAttributes<SVGElement> {}
-
-export const ChevronIcon = ({
-	fill = 'currentColor',
-	...svgProps
-}: ChevronIconProps) => (
+export const ChevronIcon = ({ fill = 'currentColor', ...svgProps }) => (
 	<svg
 		width="12"
 		height="19"

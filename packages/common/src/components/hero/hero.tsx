@@ -1,7 +1,6 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import React from 'react';
-import { Container, jsx, Styled } from 'theme-ui';
+import { Container, jsx, Themed } from 'theme-ui';
 
 import { BodyContainer } from '@quarantaine/common';
 
@@ -61,7 +60,7 @@ export const Hero: React.FC<HeroProps> = ({
 						{titlePrefix}
 					</span>
 				)}
-				<Styled.h1
+				<Themed.h1
 					sx={{
 						marginTop: 0,
 						marginBottom: 12,
@@ -70,7 +69,7 @@ export const Hero: React.FC<HeroProps> = ({
 					}}
 				>
 					{title}
-				</Styled.h1>
+				</Themed.h1>
 				{children}
 			</BodyContainer>
 		</Container>

@@ -1,14 +1,7 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import { jsx } from 'theme-ui';
-import { SVGAttributes } from 'react';
 
-interface ExternalIconProps extends SVGAttributes<SVGElement> {}
-
-export const ExternalIcon = ({
-	fill = 'currentColor',
-	...svgProps
-}: ExternalIconProps) => (
+export const ExternalIcon = ({ fill = 'currentColor', ...svgProps }) => (
 	<svg
 		viewBox="0 0 24 24"
 		width="24"

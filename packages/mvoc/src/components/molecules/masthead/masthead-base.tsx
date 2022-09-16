@@ -1,5 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import React from 'react';
 import { Box, Container, jsx } from 'theme-ui';
 import { theme } from '@quarantaine/common';
@@ -18,14 +17,13 @@ export const MastheadBase: React.FC<MastheadProps> = ({
 				position: 'relative',
 				...(variant === 'highlight'
 					? {
-							background: theme?.colors?.headerBackgroundHighlight,
+							backgroundColor: 'headerBackgroundHighlight',
 							borderEndStartRadius: '2rem',
 							borderEndEndRadius: '2rem',
 							color: 'header',
 					  }
 					: {
-							// weird hack to get the background from theme, 'headerBackground' doesnt work here.
-							background: theme?.colors?.headerBackground,
+							backgroundColor: 'headerBackground',
 							color: 'header',
 					  }),
 			}}

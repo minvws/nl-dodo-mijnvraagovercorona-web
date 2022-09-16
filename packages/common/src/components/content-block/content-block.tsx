@@ -1,7 +1,7 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
+
 import React, { useContext, useMemo } from 'react';
-import { Image, jsx, Styled } from 'theme-ui';
+import { Image, jsx, Themed } from 'theme-ui';
 
 import { Link, Stack } from '@quarantaine/common';
 
@@ -76,13 +76,13 @@ export const replaceContentVariablesInReactChildren = (
 	);
 
 const Block = ({ node, children, contentVariables }: MarkProps) => {
-	if (node?.style === 'h2') return <Styled.h2>{children}</Styled.h2>;
-	if (node?.style === 'h3') return <Styled.h3>{children}</Styled.h3>;
+	if (node?.style === 'h2') return <Themed.h2>{children}</Themed.h2>;
+	if (node?.style === 'h3') return <Themed.h3>{children}</Themed.h3>;
 	if (node?.style === 'span') return <span>{children}</span>;
 	return (
-		<Styled.p>
+		<Themed.p>
 			{replaceContentVariablesInReactChildren(children, contentVariables)}
-		</Styled.p>
+		</Themed.p>
 	);
 };
 
@@ -92,9 +92,13 @@ const getSerializers = (contentVariables?: ContentVariables) => ({
 			<Block {...props} contentVariables={contentVariables} />
 		),
 	},
-	// list: ({ children }: MarkProps) => <Styled.ul>{children}</Styled.ul>,
+	// list: ({ children }: MarkProps) => <Themed.ul>{children}</Themed.ul>,
 	list: ({ children, type }: MarkProps) =>
-		type === 'number' ? <ol>{children}</ol> : <ul>{children}</ul>,
+		type === 'number' ? (
+			<Themed.ol>{children}</Themed.ol>
+		) : (
+			<Themed.ul>{children}</Themed.ul>
+		),
 	container: ({ children }: MarkProps) => <>{children}</>,
 	marks: {
 		strong: ({ children }: MarkProps) => (

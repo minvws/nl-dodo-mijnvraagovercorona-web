@@ -1,5 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 // import type { AppProps } from 'next/app';
 import { jsx, Box } from 'theme-ui';
 

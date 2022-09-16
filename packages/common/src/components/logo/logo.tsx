@@ -1,6 +1,5 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
-import { Image, Container, jsx, SxStyleProp } from 'theme-ui';
+/** @jsxImportSource theme-ui */
+import { Image, Container, jsx, ThemeUIStyleObject } from 'theme-ui';
 
 import { useCurrentLocale } from '@quarantaine/common';
 
@@ -8,7 +7,7 @@ type HeaderLogoProps = {
 	alt: string;
 };
 
-export const alignLogoRightOnMobileStyles: SxStyleProp = {
+export const alignLogoRightOnMobileStyles: ThemeUIStyleObject = {
 	'.logo': {
 		textAlign: ['right', 'center'],
 		paddingRight: ['34px', 0],

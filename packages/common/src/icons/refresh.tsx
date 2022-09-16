@@ -1,14 +1,6 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import { jsx } from 'theme-ui';
-import { SVGAttributes } from 'react';
-
-interface RefreshIconProps extends SVGAttributes<SVGElement> {}
-
-export const RefreshIcon = ({
-	fill = 'currentColor',
-	...svgProps
-}: RefreshIconProps) => (
+export const RefreshIcon = ({ fill = 'currentColor', ...svgProps }) => (
 	<svg
 		width="19"
 		height="23"

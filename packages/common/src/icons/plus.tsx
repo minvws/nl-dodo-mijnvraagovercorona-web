@@ -1,14 +1,7 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import { jsx } from 'theme-ui';
-import { SVGAttributes } from 'react';
 
-interface PLusIconProps extends SVGAttributes<SVGElement> {}
-
-export const PlusIcon = ({
-	fill = 'currentColor',
-	...svgProps
-}: PLusIconProps) => (
+export const PlusIcon = ({ fill = 'currentColor', ...svgProps }) => (
 	<svg
 		width="18"
 		height="18"

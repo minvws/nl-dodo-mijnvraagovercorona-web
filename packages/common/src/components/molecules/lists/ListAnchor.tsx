@@ -1,5 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import React from 'react';
 import { Image, jsx } from 'theme-ui';
 import { keyframes } from '@emotion/react';

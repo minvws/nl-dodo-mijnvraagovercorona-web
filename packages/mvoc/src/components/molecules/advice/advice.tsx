@@ -1,7 +1,6 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import React from 'react';
-import { jsx, Styled, Box, Flex } from 'theme-ui';
+import { jsx, Themed, Box, Flex } from 'theme-ui';
 
 export type AdviceProps = {
 	icon?: string;
@@ -34,7 +33,7 @@ export const Advice: React.FC<AdviceProps> = ({ icon, title, subtitle }) => (
 			</Box>
 		) : null}
 		<Box sx={{ flex: 1 }}>
-			<Styled.p
+			<Themed.p
 				sx={{
 					color: 'header',
 					fontSize: ['bodyMobile', 'body'],
@@ -43,9 +42,9 @@ export const Advice: React.FC<AdviceProps> = ({ icon, title, subtitle }) => (
 				}}
 			>
 				{title}
-			</Styled.p>
+			</Themed.p>
 			{subtitle && (
-				<Styled.p
+				<Themed.p
 					sx={{
 						color: 'secondary',
 						fontWeight: 'bold',
@@ -54,7 +53,7 @@ export const Advice: React.FC<AdviceProps> = ({ icon, title, subtitle }) => (
 					}}
 				>
 					{subtitle}
-				</Styled.p>
+				</Themed.p>
 			)}
 		</Box>
 	</Flex>

@@ -1,8 +1,7 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import { ContentBlock, Stack } from '@quarantaine/common';
 import React from 'react';
-import { jsx, Styled, Box } from 'theme-ui';
+import { jsx, Themed, Box } from 'theme-ui';
 
 export type AnswerProps = {
 	title: string;
@@ -21,7 +20,7 @@ export const Answer: React.FC<AnswerProps> = ({ title, content }) => (
 		}}
 	>
 		<Stack spacing={['1rem']}>
-			<Styled.h2>{title}</Styled.h2>
+			<Themed.h2>{title}</Themed.h2>
 			<ContentBlock content={content} />
 		</Stack>
 	</Box>

@@ -1,7 +1,6 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import React from 'react';
-import { Box, Container, jsx, Styled } from 'theme-ui';
+import { Box, Container, jsx, Themed } from 'theme-ui';
 
 import {
 	Locales,
@@ -119,7 +118,7 @@ export const Theme = ({
 					variant="highlight"
 					prefixSlot={
 						<Stack spacing={['0.5rem']}>
-							<Styled.p
+							<Themed.p
 								sx={{
 									fontSize: ['1rem', '1rem'],
 									lineHeight: ['smallTextMobile', 'smallText'],
@@ -130,9 +129,9 @@ export const Theme = ({
 								<time dateTime={page.updatedAt}>
 									{formatLongDate(new Date(page.updatedAt), locale)}
 								</time>
-							</Styled.p>
+							</Themed.p>
 							{page.header.chapeau ? (
-								<Styled.p
+								<Themed.p
 									sx={{
 										fontSize: ['h2Mobile', 'h2'],
 										lineHeight: ['h2Mobile', 'h2'],
@@ -141,7 +140,7 @@ export const Theme = ({
 									}}
 								>
 									{page.header.chapeau}
-								</Styled.p>
+								</Themed.p>
 							) : null}
 						</Stack>
 					}
@@ -164,12 +163,12 @@ export const Theme = ({
 						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
 						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
 							<Stack>
-								<Styled.h2>
+								<Themed.h2>
 									{page.questionCollection.length > 1
 										? `${page.questionCollection.length} ${siteSettings.situationPlural.that}`
 										: `${page.questionCollection.length} ${siteSettings.situationPlural.this}`}{' '}
 									{page.titleFlow}
-								</Styled.h2>
+								</Themed.h2>
 								<TheGrid minItemSize="25rem" gap={['1rem']}>
 									{page.questionCollection
 										?.filter((item) => item.title)

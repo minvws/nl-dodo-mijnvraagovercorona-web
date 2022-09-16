@@ -1,6 +1,5 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
-import { jsx, Box, Styled } from 'theme-ui';
+/** @jsxImportSource theme-ui */
+import { jsx, Box, Themed } from 'theme-ui';
 
 import { ContentBlock } from '@quarantaine/common';
 
@@ -16,7 +15,7 @@ export const WarningPanel = ({ content }: { content: Array<Object> }) => {
 				marginBottom: '36px',
 			}}
 		>
-			<Styled.p
+			<Themed.p
 				sx={{
 					margin: 0,
 					paddingLeft: '30px',
@@ -26,7 +25,7 @@ export const WarningPanel = ({ content }: { content: Array<Object> }) => {
 				}}
 			>
 				<ContentBlock content={content} />
-			</Styled.p>
+			</Themed.p>
 		</Box>
 	);
 };

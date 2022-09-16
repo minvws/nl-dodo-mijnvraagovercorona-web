@@ -1,7 +1,6 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import React from 'react';
-import { Box, jsx, Styled } from 'theme-ui';
+import { Box, jsx, Themed } from 'theme-ui';
 import { Stack, Retain } from '@quarantaine/common';
 import { MastheadBase } from './masthead-base';
 
@@ -27,14 +26,14 @@ export const MastheadFlow: React.FC<MastheadFlowProps> = ({
 				<Retain>
 					<Stack spacing={['1rem']}>
 						{prefixSlot ? prefixSlot : null}
-						<Styled.h1
+						<Themed.h1
 							sx={{
 								fontSize: ['h2Mobile', 'h2'],
 								lineHeight: ['h2Mobile', 'h2'],
 							}}
 						>
 							{title}
-						</Styled.h1>
+						</Themed.h1>
 						{children}
 					</Stack>
 				</Retain>

@@ -1,6 +1,5 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
-import { jsx, Styled } from 'theme-ui';
+/** @jsxImportSource theme-ui */
+import { jsx, Themed } from 'theme-ui';
 
 import VisuallyHidden from '@reach/visually-hidden';
 
@@ -18,7 +17,7 @@ export const Footer = () => {
 		<FooterComponent>
 			<div sx={{ order: [3, 'inherit'], marginTop: ['50px', 0] }}>
 				<VisuallyHidden>
-					<Styled.h2>{siteSettings.footer.footerMainTitle}</Styled.h2>
+					<Themed.h2>{siteSettings.footer.footerMainTitle}</Themed.h2>
 				</VisuallyHidden>
 				<ContentBlock content={siteSettings.footer.footerText} />
 			</div>

@@ -1,5 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import React, { useMemo, useState } from 'react';
 import { Container, jsx } from 'theme-ui';
 import { getAllCalendarInvites } from './utils';

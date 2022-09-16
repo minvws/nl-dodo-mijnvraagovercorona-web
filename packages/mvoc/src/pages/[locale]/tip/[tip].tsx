@@ -1,8 +1,7 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import React from 'react';
 import slugify from 'slugify';
-import { Box, Container, jsx, Styled } from 'theme-ui';
+import { Box, Container, jsx, Themed } from 'theme-ui';
 
 import {
 	Locales,
@@ -128,7 +127,7 @@ export const Tip = ({
 					title={page.header.title}
 					illustration={page.header.image}
 					prefixSlot={
-						<Styled.p
+						<Themed.p
 							sx={{
 								fontSize: ['1rem', '1rem'],
 								lineHeight: ['smallTextMobile', 'smallText'],
@@ -139,7 +138,7 @@ export const Tip = ({
 							<time dateTime={page.updatedAt}>
 								{formatLongDate(new Date(page.updatedAt), locale)}
 							</time>
-						</Styled.p>
+						</Themed.p>
 					}
 				>
 					<ContentBlock content={page.header.content} />
@@ -181,11 +180,11 @@ export const Tip = ({
 											}}
 										>
 											<Stack spacing={['1rem']}>
-												<Styled.h2>
+												<Themed.h2>
 													{page.sources.title
 														? page.sources.title
 														: siteSettings.sources}
-												</Styled.h2>
+												</Themed.h2>
 												<ContentBlock content={page.sources.content} />
 											</Stack>
 										</Box>

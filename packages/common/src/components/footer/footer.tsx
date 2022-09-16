@@ -1,5 +1,4 @@
-/** @jsxRuntime classic /
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import { jsx, Container } from 'theme-ui';
 
 export const FooterColumn: React.FC<{ title: string }> = ({
