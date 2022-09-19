@@ -76,14 +76,14 @@ export const replaceContentVariablesInReactChildren = (
 	);
 
 const Block = ({ node, children, contentVariables }: MarkProps) => {
-	if (node?.style === 'h2') return <Themed.h2>{children}</Themed.h2>;
-	if (node?.style === 'h3') return <Themed.h3>{children}</Themed.h3>;
-	if (node?.style === 'span') return <span>{children}</span>;
-	return (
-		<Themed.p>
-			{replaceContentVariablesInReactChildren(children, contentVariables)}
-		</Themed.p>
+	const parsedChildren = replaceContentVariablesInReactChildren(
+		children,
+		contentVariables,
 	);
+	if (node?.style === 'h2') return <Themed.h2>{parsedChildren}</Themed.h2>;
+	if (node?.style === 'h3') return <Themed.h3>{parsedChildren}</Themed.h3>;
+	if (node?.style === 'span') return <span>{parsedChildren}</span>;
+	return <Themed.p>{parsedChildren}</Themed.p>;
 };
 
 const getSerializers = (contentVariables?: ContentVariables) => ({
