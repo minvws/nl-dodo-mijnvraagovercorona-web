@@ -35,6 +35,7 @@ export const getStories = ({
 					name: 'situationLinkTitle',
 					locale,
 				})},
+				variant,
 				"path": select(
 					situationReference->_type == "situation-question-document" => 'situatie/' + situationReference->slug.current,
 					situationReference->_type == "situation-result-document" => 'advies/' + situationReference->slug.current,

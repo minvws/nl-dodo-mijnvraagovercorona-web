@@ -16,11 +16,22 @@ export default {
 					title: 'situationReference.slug.current',
 				},
 			},
+			initialValue: {
+				variant: 'button',
+			},
 			fields: [
 				{
 					title: 'Link titel',
 					name: 'situationLinkTitle',
 					type: 'localeString',
+				},
+				{
+					title: 'Variant',
+					name: 'variant',
+					type: 'string',
+					options: {
+						list: ['button', 'button-tertiary'],
+					},
 				},
 				{
 					title: 'Link naar situatiepagina',

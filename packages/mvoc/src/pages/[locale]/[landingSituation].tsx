@@ -14,11 +14,17 @@ import {
 	Retain,
 	Stack,
 	usePreviewSubscription,
+	TheSidebar,
 } from '@quarantaine/common';
 
 import { locales } from 'content/general-content';
 import { Page } from 'components/page';
-import { AnswerSwitch, Masthead } from 'components/molecules';
+import {
+	AnswerSwitch,
+	Masthead,
+	Story,
+	StoryProps,
+} from 'components/molecules';
 import {
 	getLandingSituationPageQuery,
 	getLandingSituations,
@@ -29,6 +35,7 @@ import {
 	QuestionPageContent,
 } from './situatie/[question]';
 import { SiteSettings } from 'content/site-settings';
+import { getStories } from 'utilities/story';
 
 interface PageContent {
 	metaData: {
@@ -42,6 +49,8 @@ interface PageContent {
 		content: Array<Object>;
 		image: SanityImageFullProps;
 	};
+	titleCustom: string;
+	stories: StoryProps[];
 	question: QuestionPageContent;
 	slug: string;
 }
@@ -70,6 +79,9 @@ export const LandingSituation = ({
 	});
 
 	const page: PageContent = previewPage || serverPage;
+	const translatedStories = page.stories
+		? page.stories.filter((story) => story.title || story.contentBlocks.length)
+		: [];
 
 	return (
 		<>
@@ -113,14 +125,34 @@ export const LandingSituation = ({
 						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
 							<Retain maxWidth={[retainMaxWidth, '100%']}>
 								<Stack>
-									<Themed.h2>{page.question.header.title}</Themed.h2>
+									<Themed.h2>
+										{page.titleCustom || page.question.header.title}
+									</Themed.h2>
 								</Stack>
 							</Retain>
 						</Box>
 					</Container>
 				</Layer>
 
-				<AnswerSwitch locale={locale} {...page.question} />
+				{translatedStories.length ? (
+					<Layer backgroundColor="transparant">
+						<Container>
+							<TheSidebar asideOffset={[0]}>
+								<Retain>
+									<Stack spacing={['3.5rem']}>
+										{translatedStories.map((story, index) => (
+											<Story key={index} {...story} />
+										))}
+									</Stack>
+								</Retain>
+							</TheSidebar>
+						</Container>
+					</Layer>
+				) : null}
+
+				{page && page.question ? (
+					<AnswerSwitch locale={locale} {...page.question} />
+				) : null}
 			</Page>
 		</>
 	);
@@ -186,6 +218,8 @@ export const getStaticProps = async ({
 			})},
 			${getImage({ name: 'image', path: 'header.image', full: true })},
 		},
+		${getLocaleProperty({ name: 'titleCustom', path: 'titleCustom', locale })},
+		${getStories({ locale })},
 		"question": situationReference->{
 			${essentialQuestionPageProjection({ locale: locale })}
 		},

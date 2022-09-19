@@ -12,6 +12,7 @@ import { Image, jsx } from 'theme-ui';
 
 interface SituationAsLink extends Situation {
 	situationLinkTitle: string;
+	variant?: 'button' | 'button-tertiary';
 }
 
 export interface MultiContentBlockProps {
@@ -107,7 +108,7 @@ export const MultiContentBlock: React.FC<OwnProps> = ({ contentBlocks }) => {
 						return (
 							<Link
 								key={key}
-								styledAs="button"
+								styledAs={contentBlock.situation.variant || 'button'}
 								href={`/${contentBlock.situation.path}`}
 							>
 								{contentBlock.situation.situationLinkTitle}
