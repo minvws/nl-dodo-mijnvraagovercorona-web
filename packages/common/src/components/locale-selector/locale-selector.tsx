@@ -33,7 +33,14 @@ const LocaleLink = ({ locale, currentPath }: LocaleLinkProps) => {
 			withChevron={false}
 			href={getCurrentUrlForLocale(currentPath, locale, currentLocale)}
 			lang={locale.id}
-			sx={{ textDecoration: 'none', mt: 8 }}
+			sx={{
+				textDecoration: 'none',
+				mt: 8,
+				color: 'copyHeading',
+				':hover, :focus': {
+					color: 'inherit',
+				},
+			}}
 		>
 			{locale.fullName}{' '}
 		</NavLink>
