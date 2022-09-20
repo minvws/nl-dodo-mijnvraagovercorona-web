@@ -1,5 +1,6 @@
 /** @jsxImportSource theme-ui */
 // import type { AppProps } from 'next/app';
+import { useEffect } from 'react';
 import { jsx, Box } from 'theme-ui';
 
 import {
@@ -20,16 +21,23 @@ import { useState } from 'react';
 const CheckApp = ({ Component, pageProps }) => {
 	const localGlobalTranslations =
 		pageProps.locale === 'en' ? generalContentEn : generalContentNl;
+	const [contentVariables, setContentVariables] = useState({});
 	const [history, setHistoryState] = useState(defaultState.history);
 	const setHistory = (value: string[]) => {
 		setHistoryState(value);
 	};
 
-	const contentVariables = pageProps.siteSettings?.contentVariables
-		? {
-				...pageProps.siteSettings.contentVariables,
-		  }
-		: {};
+	useEffect(() => {
+		const fetchData = async () => {
+			const { contentVariables } = await fetch(
+				'/data/v1/content-variables.json',
+			).then((response) => response.json());
+
+			setContentVariables(contentVariables);
+		};
+
+		fetchData();
+	}, []);
 
 	return (
 		<GlobalContext.Provider
