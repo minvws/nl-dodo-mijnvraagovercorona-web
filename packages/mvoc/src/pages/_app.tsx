@@ -8,6 +8,7 @@ import {
 	generalContentNl,
 	generalContentEn,
 	StyledLink,
+	ContentBlockDataProvider,
 } from '@quarantaine/common';
 
 import '@quarantaine/common/src/theme/global.css';
@@ -22,6 +23,10 @@ const CheckApp = ({ Component, pageProps }) => {
 	const [history, setHistoryState] = useState(defaultState.history);
 	const setHistory = (value: string[]) => {
 		setHistoryState(value);
+	};
+
+	const contentVariables = {
+		...pageProps.siteSettings.contentVariables,
 	};
 
 	return (
@@ -48,7 +53,9 @@ const CheckApp = ({ Component, pageProps }) => {
 						</StyledLink>
 					</Box>
 				)}
-				<Component {...pageProps} />
+				<ContentBlockDataProvider contentVariables={contentVariables}>
+					<Component {...pageProps} />
+				</ContentBlockDataProvider>
 			</App>
 		</GlobalContext.Provider>
 	);
