@@ -15,6 +15,8 @@ import {
 	Stack,
 	usePreviewSubscription,
 	TheSidebar,
+	useContentBlockData,
+	replaceContentVariables,
 } from '@quarantaine/common';
 
 import { locales } from 'content/general-content';
@@ -83,6 +85,8 @@ export const LandingSituation = ({
 		? page.stories.filter((story) => story.title || story.contentBlocks.length)
 		: [];
 
+	const { contentVariables } = useContentBlockData();
+
 	return (
 		<>
 			<MetaTags
@@ -119,20 +123,25 @@ export const LandingSituation = ({
 					<ContentBlock content={page.header.content} />
 				</Masthead>
 
-				<Layer backgroundColor="headerBackground" pullUpBy="2rem">
-					<Container>
-						{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
-						<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
-							<Retain maxWidth={[retainMaxWidth, '100%']}>
-								<Stack>
-									<Themed.h2>
-										{page.titleCustom || page.question.header.title}
-									</Themed.h2>
-								</Stack>
-							</Retain>
-						</Box>
-					</Container>
-				</Layer>
+				{page.titleCustom || page.question.header.title ? (
+					<Layer backgroundColor="headerBackground" pullUpBy="2rem">
+						<Container>
+							{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
+							<Box sx={{ paddingX: ['mobilePadding', 'tabletPadding', 0] }}>
+								<Retain maxWidth={[retainMaxWidth, '100%']}>
+									<Stack>
+										<Themed.h2>
+											{replaceContentVariables(
+												page.titleCustom || page.question.header.title,
+												contentVariables,
+											)}
+										</Themed.h2>
+									</Stack>
+								</Retain>
+							</Box>
+						</Container>
+					</Layer>
+				) : null}
 
 				{translatedStories.length ? (
 					<Layer backgroundColor="transparant">
