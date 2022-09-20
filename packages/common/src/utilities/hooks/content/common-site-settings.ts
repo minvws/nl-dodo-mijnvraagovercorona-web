@@ -80,6 +80,9 @@ export interface CommonSiteSettings {
 		subtitle: string;
 		icon: SanityImageFullProps;
 	};
+	contentVariables: {
+		vaccinatiejaar: string;
+	};
 	accessibility: {
 		labelExternalLink: string;
 		labelModal: string;

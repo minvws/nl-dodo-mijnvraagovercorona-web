@@ -436,6 +436,9 @@ export const siteSettingsQuery = ({
 			})},
 			${getImage({ name: 'icon', path: `severeSymptomsAdvice.icon`, full: true })},
 		},
+		"contentVariables": {
+			"vaccinatiejaar": contentVariables.vaccinatiejaar,
+		},
 		"accessibility": {
 			${getLocaleProperty({
 				name: 'labelExternalLink',
