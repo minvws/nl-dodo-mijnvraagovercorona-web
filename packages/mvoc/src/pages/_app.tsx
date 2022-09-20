@@ -25,9 +25,11 @@ const CheckApp = ({ Component, pageProps }) => {
 		setHistoryState(value);
 	};
 
-	const contentVariables = {
-		...pageProps.siteSettings.contentVariables,
-	};
+	const contentVariables = pageProps.siteSettings?.contentVariables
+		? {
+				...pageProps.siteSettings.contentVariables,
+		  }
+		: {};
 
 	return (
 		<GlobalContext.Provider

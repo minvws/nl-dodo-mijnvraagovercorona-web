@@ -123,7 +123,7 @@ export const LandingSituation = ({
 					<ContentBlock content={page.header.content} />
 				</Masthead>
 
-				{page.titleCustom || page.question.header.title ? (
+				{page.titleCustom || page.question?.header.title ? (
 					<Layer backgroundColor="headerBackground" pullUpBy="2rem">
 						<Container>
 							{/* @TODO: This box is needed to create padding around the content, which was previously done by TheSidebar, needs to be fixed */}
