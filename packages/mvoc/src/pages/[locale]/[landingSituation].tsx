@@ -17,6 +17,7 @@ import {
 	TheSidebar,
 	useContentBlockData,
 	replaceContentVariables,
+	BannerDataProtection,
 } from '@quarantaine/common';
 
 import { locales } from 'content/general-content';
@@ -94,7 +95,6 @@ export const LandingSituation = ({
 				description={page.metaData.description}
 				shareImage={page.metaData.socialShareImage}
 				url={`/${page.slug}`}
-				skipPageSuffix
 			/>
 			<Page
 				headerProps={{
@@ -146,7 +146,12 @@ export const LandingSituation = ({
 				{translatedStories.length ? (
 					<Layer backgroundColor="transparant">
 						<Container>
-							<TheSidebar asideOffset={[0]}>
+							<TheSidebar
+								asideOffset={[0]}
+								asideChildren={
+									<BannerDataProtection content={siteSettings.privacy} />
+								}
+							>
 								<Retain>
 									<Stack spacing={['3.5rem']}>
 										{translatedStories.map((story, index) => (
@@ -160,7 +165,11 @@ export const LandingSituation = ({
 				) : null}
 
 				{page && page.question ? (
-					<AnswerSwitch locale={locale} {...page.question} />
+					<AnswerSwitch
+						locale={locale}
+						{...page.question}
+						showAside={translatedStories.length ? false : true}
+					/>
 				) : null}
 			</Page>
 		</>

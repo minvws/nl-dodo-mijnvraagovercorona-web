@@ -40,6 +40,7 @@ export interface AnswerSwitchProps {
 
 interface OwnProps extends AnswerSwitchProps {
 	locale: Locales;
+	showAside?: boolean;
 }
 
 export const AnswerSwitch: React.FC<OwnProps> = ({
@@ -51,6 +52,7 @@ export const AnswerSwitch: React.FC<OwnProps> = ({
 	buttons,
 	type,
 	locale,
+	showAside = true,
 }) => {
 	const siteSettings = useSanitySiteSettings();
 
@@ -64,7 +66,9 @@ export const AnswerSwitch: React.FC<OwnProps> = ({
 			<Container>
 				<TheSidebar
 					asideChildren={
-						<BannerDataProtection content={siteSettings.privacy} />
+						showAside ? (
+							<BannerDataProtection content={siteSettings.privacy} />
+						) : null
 					}
 					asideOffset={asideOffset}
 				>
