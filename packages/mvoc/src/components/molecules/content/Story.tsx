@@ -18,13 +18,17 @@ export const Story: React.FC<StoryProps> = ({ title, contentBlocks }) => {
 	return (
 		<Box
 			as="section"
-			id={slugify(title, {
-				strict: true,
-				lower: true,
-			})}
+			id={
+				title
+					? slugify(title, {
+							strict: true,
+							lower: true,
+					  })
+					: null
+			}
 		>
 			<Stack spacing={['1rem']}>
-				<Themed.h2>{title}</Themed.h2>
+				{title ? <Themed.h2>{title}</Themed.h2> : null}
 				{contentBlocks && <MultiContentBlock contentBlocks={contentBlocks} />}
 			</Stack>
 		</Box>

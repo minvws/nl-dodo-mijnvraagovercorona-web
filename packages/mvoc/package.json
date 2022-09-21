@@ -3,10 +3,11 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "yarn run download-images && next dev",
-		"preview": "yarn run download-images && next build",
+		"dev": "yarn run download-images && yarn run download-content-variables && next dev",
+		"preview": "yarn run download-images && yarn run download-content-variables && next build",
 		"build": "yarn run download-images && next build && next-sitemap && next export",
 		"download-images": "node ./downloadSanityImages.js",
+		"download-content-variables": "node ./downloadLatestContentVariables.js",
 		"start": "NODE_ENV=production next start",
 		"test": "true"
 	},

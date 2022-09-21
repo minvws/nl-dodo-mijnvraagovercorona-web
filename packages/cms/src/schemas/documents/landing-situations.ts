@@ -43,6 +43,27 @@ export default {
 			],
 		},
 		{
+			title: 'Custom titel',
+			name: 'titleCustom',
+			type: 'localeString',
+			description:
+				'Standaard word de titel van de gekoppelde vraag getoond. Indien gevuld vervangt dit veld die titel.',
+		},
+		{
+			title: 'Verhalen',
+			name: 'storiesCollection',
+			type: 'array',
+			description: 'Deze verhalen worden boven de vraag getoond',
+			of: [
+				{
+					title: 'Verhaal',
+					name: 'story',
+					type: 'reference',
+					to: [{ type: 'story-document' }],
+				},
+			],
+		},
+		{
 			title: 'Vraag referentie',
 			name: 'situationReference',
 			type: 'reference',

@@ -1,5 +1,6 @@
 /** @jsxImportSource theme-ui */
 // import type { AppProps } from 'next/app';
+import { useEffect } from 'react';
 import { jsx, Box } from 'theme-ui';
 
 import {
@@ -8,6 +9,7 @@ import {
 	generalContentNl,
 	generalContentEn,
 	StyledLink,
+	ContentBlockDataProvider,
 } from '@quarantaine/common';
 
 import '@quarantaine/common/src/theme/global.css';
@@ -19,10 +21,23 @@ import { useState } from 'react';
 const CheckApp = ({ Component, pageProps }) => {
 	const localGlobalTranslations =
 		pageProps.locale === 'en' ? generalContentEn : generalContentNl;
+	const [contentVariables, setContentVariables] = useState({});
 	const [history, setHistoryState] = useState(defaultState.history);
 	const setHistory = (value: string[]) => {
 		setHistoryState(value);
 	};
+
+	useEffect(() => {
+		const fetchData = async () => {
+			const { contentVariables } = await fetch(
+				'/data/v1/content-variables.json',
+			).then((response) => response.json());
+
+			setContentVariables(contentVariables);
+		};
+
+		fetchData();
+	}, []);
 
 	return (
 		<GlobalContext.Provider
@@ -48,7 +63,9 @@ const CheckApp = ({ Component, pageProps }) => {
 						</StyledLink>
 					</Box>
 				)}
-				<Component {...pageProps} />
+				<ContentBlockDataProvider contentVariables={contentVariables}>
+					<Component {...pageProps} />
+				</ContentBlockDataProvider>
 			</App>
 		</GlobalContext.Provider>
 	);

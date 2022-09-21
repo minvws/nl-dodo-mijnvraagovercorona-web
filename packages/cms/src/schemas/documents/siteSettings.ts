@@ -379,6 +379,18 @@ export default {
 			type: 'localeString',
 		},
 		{
+			title: 'Vervangende variabelen',
+			name: 'contentVariables',
+			type: 'object',
+			fields: [
+				{
+					title: 'Vaccinatie jaartal',
+					name: 'vaccinatiejaar',
+					type: 'string',
+				},
+			],
+		},
+		{
 			title: 'Toegankelijkheid',
 			name: 'accessibility',
 			type: 'object',

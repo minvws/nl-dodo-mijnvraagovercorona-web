@@ -95,8 +95,8 @@ export const Control = <ValueOptions extends string>({
 						backgroundColor: 'currentColor',
 					},
 
-					// Correct possible children
-					'> *': {
+					// Correct possible children like `p` tags, `&&` is used to battle specificity by 1
+					'&& > *': {
 						marginBlockEnd: 0,
 					},
 				}}

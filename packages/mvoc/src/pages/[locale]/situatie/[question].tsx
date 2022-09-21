@@ -11,6 +11,8 @@ import {
 	ContentBlock,
 	getClient,
 	usePreviewSubscription,
+	replaceContentVariables,
+	useContentBlockData,
 } from '@quarantaine/common';
 
 import {
@@ -68,12 +70,19 @@ export const Vraag = ({
 
 	const page: PageContent = previewPage || serverPage;
 
+	const { contentVariables } = useContentBlockData();
+
 	const url = `/situatie/${page.slug}`;
 
 	return (
 		<>
 			<MetaTags
-				title={page.metaData.title}
+				title={
+					replaceContentVariables(
+						page.metaData.title,
+						contentVariables,
+					) as string
+				}
 				description={page.metaData.title}
 				shareImage={page.metaData.socialShareImage}
 				url={url}
@@ -84,7 +93,9 @@ export const Vraag = ({
 					noPadding: true,
 				}}
 			>
-				<MastheadFlow title={page.header.title}>
+				<MastheadFlow
+					title={replaceContentVariables(page.header.title, contentVariables)}
+				>
 					{page.header.content ? (
 						<ContentBlock content={page.header.content} />
 					) : null}
