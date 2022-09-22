@@ -4,7 +4,7 @@ const got = require('got');
 (async () => {
 	try {
 		const result = await got(
-			'https://mijnvraagovercorona.rijksoverheid.nl/data/v1/content-variables.json',
+			'https://mijnvraagovercorona.nl/data/v1/content-variables.json',
 			{
 				headers: {
 					'user-agent': undefined,
