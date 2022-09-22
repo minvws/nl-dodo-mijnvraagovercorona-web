@@ -211,10 +211,22 @@ export const essentialQuestionPageProjection = ({
 			_key,
 			${getLocaleProperty({ name: 'text', locale })},
 			standard,
+			assistanceDialog,
 			"next": select(
 				next->_type == "situation-question-document" => 'situatie/' + next->slug.current,
 				next->_type == "situation-result-document" => 'advies/' + next->slug.current,
 			),
+		},
+		"assistance": assistanceReference->{
+			${getLocaleProperty({ name: 'chat', locale })},
+			${getImage({ name: 'image', full: true })},
+			${getLocaleProperty({ name: 'open', locale })},
+			${getLocaleProperty({ name: 'openingHours', locale })},
+			${getLocaleProperty({ name: 'openingHoursPhonenumber', locale })},
+			phonenumber,
+			${getLocaleProperty({ name: 'tekstWithChat', locale })},
+			${getLocaleProperty({ name: 'tekstWithoutChat', locale })},
+			${getLocaleProperty({ name: 'title', locale })},
 		}
 	`;
 };
