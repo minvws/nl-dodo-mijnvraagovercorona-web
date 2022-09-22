@@ -1,13 +1,22 @@
 /** @jsxImportSource theme-ui */
-import { getHrefWithlocale, Link, Locales } from '@quarantaine/common';
+import type { PageContent } from 'pages/[locale]/index';
+import {
+	Dialog,
+	getHrefWithlocale,
+	Link,
+	Locales,
+	useSanityPageContent,
+} from '@quarantaine/common';
 import { StyledLinkPropsBase } from '@quarantaine/common/src/components/link/styled-link';
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, jsx } from 'theme-ui';
+import { AssistanceRow } from '../content';
 
 export interface FormSubmitProps {
 	buttons: {
 		_key: string;
 		standard: boolean;
+		assistanceDialog: boolean;
 		text: string;
 		next: string;
 		styledAs?: string;
@@ -17,6 +26,10 @@ export interface FormSubmitProps {
 }
 
 export const FormSubmit: React.FC<FormSubmitProps> = ({ buttons, locale }) => {
+	const [isDialogVisible, setIsDialogVisible] = useState(false);
+
+	const page = useSanityPageContent<PageContent>();
+
 	return (
 		<Box
 			sx={{
@@ -70,6 +83,29 @@ export const FormSubmit: React.FC<FormSubmitProps> = ({ buttons, locale }) => {
 					>
 						{button.text}
 					</Link>
+				) : button.assistanceDialog && page.assistance.title ? (
+					<>
+						<Link
+							as="button"
+							onClick={() => setIsDialogVisible(true)}
+							styledAs={
+								button.styledAs
+									? (button.styledAs as StyledLinkPropsBase['styledAs'])
+									: index === 0
+									? 'button'
+									: 'button-tertiary'
+							}
+						>
+							{button.text}
+						</Link>
+						<Dialog
+							closeDialog={() => setIsDialogVisible(false)}
+							isVisible={isDialogVisible}
+							title={page.assistance.title}
+						>
+							<AssistanceRow feedback={false} inDialog={true} />
+						</Dialog>
+					</>
 				) : (
 					<Link
 						key={button._key}

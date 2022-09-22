@@ -159,6 +159,13 @@ export default {
 								{ type: 'situation-result-document' },
 							],
 						},
+						{
+							title: 'Modal kom je er niet uit',
+							name: 'assistanceDialog',
+							type: 'boolean',
+							description:
+								'Er moet een "Hulp" blok gekoppeld zijn aan deze pagina',
+						},
 					],
 					preview: {
 						select: {
@@ -167,6 +174,12 @@ export default {
 					},
 				},
 			],
+		},
+		{
+			title: 'Hulp',
+			name: 'assistanceReference',
+			type: 'reference',
+			to: [{ type: 'assistance-document' }],
 		},
 		{
 			title: 'Slug',

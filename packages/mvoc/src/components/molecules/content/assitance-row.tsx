@@ -16,6 +16,7 @@ import { retainMaxWidth } from '@quarantaine/common/src/components/molecules/lay
 
 type AssistanceRowProps = {
 	feedback?: boolean;
+	inDialog?: boolean;
 };
 
 /**
@@ -32,7 +33,7 @@ const getIsPhonenumberOpen = () => {
 	return isValidHours && isValidDay;
 };
 
-export const AssistanceRow = ({ feedback }: AssistanceRowProps) => {
+export const AssistanceRow = ({ feedback, inDialog }: AssistanceRowProps) => {
 	const page = useSanityPageContent<PageContent>();
 	const siteSettings = useSanitySiteSettings();
 
@@ -56,34 +57,46 @@ export const AssistanceRow = ({ feedback }: AssistanceRowProps) => {
 		<Retain maxWidth={[retainMaxWidth, '100%']}>
 			<TheGrid minItemSize="25rem" gap={['1rem']}>
 				<Box>
-					<Themed.h2
-						sx={{
-							fontSize: ['h1Mobile', 'h1'],
-							lineHeight: ['h1Mobile', 'h1'],
-						}}
-					>
-						{page.assistance.title}
-					</Themed.h2>
-					<img
-						src={page.assistance.image?.src || '/images/questions.svg'}
-						alt=""
-						sx={{
-							display: ['block', feedback ? 'none' : ''],
-							marginBottom: '1.25rem',
-							width: '240px',
-						}}
-					/>
-					<Themed.h3
-						sx={{
-							fontSize: ['h2Mobile', 'h2'],
-							lineHeight: ['h2Mobile', 'h2'],
-							color: 'header',
-						}}
-					>
-						{isChatOpen
-							? page.assistance.tekstWithChat
-							: page.assistance.tekstWithoutChat}
-					</Themed.h3>
+					{!inDialog ? (
+						<Themed.h2
+							sx={{
+								fontSize: ['h1Mobile', 'h1'],
+								lineHeight: ['h1Mobile', 'h1'],
+							}}
+						>
+							{page.assistance.title}
+						</Themed.h2>
+					) : null}
+					{!inDialog ? (
+						<img
+							src={page.assistance.image?.src || '/images/questions.svg'}
+							alt=""
+							sx={{
+								display: ['block', feedback ? 'none' : ''],
+								marginBottom: '1.25rem',
+								width: '240px',
+							}}
+						/>
+					) : null}
+					{inDialog ? (
+						<Themed.p>
+							{isChatOpen
+								? page.assistance.tekstWithChat
+								: page.assistance.tekstWithoutChat}
+						</Themed.p>
+					) : (
+						<Themed.h3
+							sx={{
+								fontSize: ['h2Mobile', 'h2'],
+								lineHeight: ['h2Mobile', 'h2'],
+								color: 'header',
+							}}
+						>
+							{isChatOpen
+								? page.assistance.tekstWithChat
+								: page.assistance.tekstWithoutChat}
+						</Themed.h3>
+					)}
 					<Box
 						sx={{
 							display: 'flex',
