@@ -27,3 +27,5 @@ export const locales: { [key: string]: Locale } = {
 		locale: 'en_gb',
 	},
 };
+
+export const availableLocales = [locales.dutch, locales.english];

@@ -1,19 +1,32 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import Layout from '../../../layouts/Layout.astro';
 import { availableLocales } from 'src/utilities/locale/translation';
-import { getDataHome, PageHomeProps } from 'src/utilities/api';
+import {
+	getSituationQuestions,
+	getDataSituationQuestion,
+	PageSituationQuestionProps,
+} from 'src/utilities/api';
 
 export async function getStaticPaths() {
-	return availableLocales.map((locale) => ({
-		params: { locale: locale.id },
-		props: {
-			locale,
-		},
-	}));
+	const questions = await getSituationQuestions();
+	return questions.reduce(
+		(paths, question) => [
+			...paths,
+			...availableLocales.map((locale) => ({
+				params: { ...question, locale: locale.id },
+				props: { slug: question.slug, locale },
+			})),
+		],
+		[],
+	);
 }
 
-const { locale } = Astro.props;
-const page: PageHomeProps = await getDataHome({ locale });
+const { slug, locale } = Astro.props;
+const page: PageSituationQuestionProps = await getDataSituationQuestion({
+	locale,
+	slug,
+});
+// console.log('page', page);
 ---
 
 <Layout title={page.metaData.title}>
