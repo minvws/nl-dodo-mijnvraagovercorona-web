@@ -24,13 +24,17 @@ export const pageQuery = ({
 	projection,
 	locale,
 	site = 'mijn-vraag-over-corona',
+	slug,
 }: {
 	type: string;
 	projection: string;
 	locale: Locale;
 	site?: 'mijn-vraag-over-corona';
+	slug?: string;
 }): string => `{
-	...*[_type == "${type}" && metaData.site == "${site}"][0]{
+	...*[_type == "${type}" && metaData.site == "${site}"${
+	slug ? ` && slug.current=="${slug}"` : ``
+}][0]{
 		...${projection},
 		"metaData": {
 			${localePropertyQuery({ name: 'title', path: 'metaData.title', locale })},
