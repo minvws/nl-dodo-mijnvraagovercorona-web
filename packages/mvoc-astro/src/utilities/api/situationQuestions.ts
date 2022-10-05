@@ -47,10 +47,12 @@ export async function getDataSituationQuestion({
 	return data;
 }
 
-export async function getSituationQuestions() {
+export const getSituationQuestions = async (
+	site = 'mijn-vraag-over-corona',
+) => {
 	const questions = await useSanityClient().fetch(
-		`*[_type=="situation-question-document"]{"slug": slug.current}`,
+		`*[_type=="situation-question-document" && metaData.site == "${site}"]{"slug": slug.current}`,
 	);
 
 	return questions;
-}
+};
