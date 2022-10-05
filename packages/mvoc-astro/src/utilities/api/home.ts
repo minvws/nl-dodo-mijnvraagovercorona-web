@@ -1,29 +1,38 @@
 import { useSanityClient } from 'astro-sanity';
-import { getImage, getLocaleProperty, SanityImageProps } from './base';
+import { Locale } from '../locale/translation';
+import {
+	pageQuery,
+	PageProps,
+	imageQuery,
+	localePropertyQuery,
+	ImageProps,
+} from './queries';
 
-export interface PageContentHome {
-	metaData: {
+export interface PageHomeProps extends PageProps {
+	header: {
 		title: string;
-		description: 'string';
-		socialShareImage: SanityImageProps;
+		chapeau: string;
+		subtitle: string;
+		image: ImageProps;
 	};
 }
 
-export async function getDataHome({ locale }) {
-	const query = `{"pageContent": *[_type == "check-landing-page"][0]{
-		"metaData": {
-			${getLocaleProperty({ name: 'title', path: 'metaData.title', locale })},
-			${getLocaleProperty({
-				name: 'description',
-				path: 'metaData.description',
-				locale,
-			})},
-			${getImage({
-				name: 'socialShareImage',
-				path: 'metaData.socialShareImage',
-			})},
+export async function getDataHome({ locale }: { locale: Locale }) {
+	const projection = `{
+		"header": {
+			${localePropertyQuery({ name: 'title', path: 'header.title', locale })},
+			${localePropertyQuery({ name: 'chapeau', path: 'header.chapeau', locale })},
+			${localePropertyQuery({ name: 'subtitle', path: 'header.subtitle', locale })},
+			${imageQuery({ name: 'image', path: 'header.image' })},
 		},
-	}}`;
+	}`;
+
+	const query = pageQuery({
+		type: 'check-landing-page',
+		projection,
+		locale,
+	});
+
 	const data = await useSanityClient().fetch(query);
 	return data;
 }

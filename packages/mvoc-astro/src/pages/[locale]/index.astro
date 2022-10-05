@@ -2,25 +2,27 @@
 import Layout from '../../layouts/Layout.astro';
 import Card from '../../components/Card.astro';
 import { locales } from 'src/utilities/locale/translation';
-import { getDataHome, PageContentHome } from 'src/utilities/api';
+import { getDataHome, PageHomeProps } from 'src/utilities/api';
 
 export async function getStaticPaths() {
 	const localesParsed = [locales.dutch, locales.english];
 	return localesParsed.map((locale) => ({
 		params: { locale: locale.id },
 		props: {
-			locale
-		}
+			locale,
+		},
 	}));
-};
+}
 
 const { locale } = Astro.props;
-const page: {"pageContent": PageContentHome} = await getDataHome({locale: locale.id});
+const page: PageHomeProps = await getDataHome({ locale });
 ---
 
-<Layout title={page.pageContent.metaData.title}>
+<Layout title={page.metaData.title}>
 	<main>
-		<h1>Welcome to <span class="text-gradient">Astro</span> {locale.fullName}</h1>
+		<h1>
+			<span class="text-gradient">{page.header.title}</span> in Astro
+		</h1>
 		<p class="instructions">
 			Check out the <code>src/pages</code> directory to get started.<br />
 			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
