@@ -25,29 +25,34 @@ export const pageQuery = ({
 	locale,
 	site = 'mijn-vraag-over-corona',
 	slug,
+	multiple = false,
 }: {
 	type: string;
 	projection: string;
 	locale: Locale;
 	site?: 'mijn-vraag-over-corona';
 	slug?: string;
-}): string => `{
-	...*[_type == "${type}" && metaData.site == "${site}"${
-	slug ? ` && slug.current=="${slug}"` : ``
-}][0]{
-		...${projection},
-		"metaData": {
-			${localePropertyQuery({ name: 'title', path: 'metaData.title', locale })},
-			${localePropertyQuery({
-				name: 'description',
-				path: 'metaData.description',
-				locale,
-			})},
-			${imageQuery({
-				name: 'socialShareImage',
-				path: 'metaData.socialShareImage',
-			})},
+	multiple?: boolean;
+}): string => {
+	const slugConditional = slug ? ` && slug.current=="${slug}"` : '';
+
+	// prettier-ignore
+	return `{
+		"${multiple ? 'pages' : 'pageData'}": *[_type == "${type}" && metaData.site == "${site}"${slugConditional}]${multiple ? '' : '[0]'} {
+			...${projection},
+			"metaData": {
+				${localePropertyQuery({ name: 'title', path: 'metaData.title', locale })},
+				${localePropertyQuery({
+					name: 'description',
+					path: 'metaData.description',
+					locale,
+				})},
+				${imageQuery({
+					name: 'socialShareImage',
+					path: 'metaData.socialShareImage',
+				})},
+			},
 		},
-	},
-	"siteSettings": ${siteSettingsQuery({ locale, site })},
-}`;
+		"siteSettings": ${siteSettingsQuery({ locale, site })},
+	}`;
+};

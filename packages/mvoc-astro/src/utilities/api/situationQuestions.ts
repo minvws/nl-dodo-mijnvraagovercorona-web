@@ -16,12 +16,12 @@ export interface PageSituationQuestionProps extends PageProps {
 	slug: string;
 }
 
-export async function getDataSituationQuestion({
+export async function getDataSituationQuestions({
 	locale,
 	slug,
 }: {
 	locale: Locale;
-	slug: string;
+	slug?: string;
 }) {
 	const projection = `{
 		"header": {
@@ -41,18 +41,8 @@ export async function getDataSituationQuestion({
 		projection,
 		locale,
 		slug,
+		multiple: true,
 	});
 
-	const data = await useSanityClient().fetch(query);
-	return data;
+	return await useSanityClient().fetch(query);
 }
-
-export const getSituationQuestions = async (
-	site = 'mijn-vraag-over-corona',
-) => {
-	const questions = await useSanityClient().fetch(
-		`*[_type=="situation-question-document" && metaData.site == "${site}"]{"slug": slug.current}`,
-	);
-
-	return questions;
-};

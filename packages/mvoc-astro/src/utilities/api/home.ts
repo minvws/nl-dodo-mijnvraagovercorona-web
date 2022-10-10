@@ -33,6 +33,5 @@ export async function getDataHome({ locale }: { locale: Locale }) {
 		locale,
 	});
 
-	const data = await useSanityClient().fetch(query);
-	return data;
+	return await useSanityClient().fetch(query);
 }

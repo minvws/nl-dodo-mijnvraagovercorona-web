@@ -1,7 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { availableLocales } from 'src/utilities/locale/translation';
+import { availableLocales, Locale } from 'src/utilities/locale/translation';
 import { getDataHome, PageHomeProps } from 'src/utilities/api';
+import { SiteSettingsProps } from 'src/utilities/api/queries';
 
 export async function getStaticPaths() {
 	return availableLocales.map((locale) => ({
@@ -12,15 +13,23 @@ export async function getStaticPaths() {
 	}));
 }
 
+interface HomeProps {
+	pageData: PageHomeProps;
+	siteSettings: SiteSettingsProps;
+	locale: Locale;
+}
+
 const { locale } = Astro.props;
-const page: PageHomeProps = await getDataHome({ locale });
+const { pageData, siteSettings }: HomeProps = await getDataHome({ locale });
 ---
 
-<Layout title={page.metaData.title}>
+<Layout title={pageData.metaData.title}>
 	<main>
 		<h1>
-			<span class="text-gradient">{page.header.title}</span> in Astro
+			<span class="text-gradient">{pageData.header.title}</span> in Astro
 		</h1>
+		<p><mark>{siteSettings.baseUrl}</mark></p>
+		<p><mark>{locale.fullName}</mark></p>
 	</main>
 </Layout>
 

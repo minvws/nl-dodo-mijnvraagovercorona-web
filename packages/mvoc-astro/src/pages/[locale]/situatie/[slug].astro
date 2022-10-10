@@ -1,39 +1,45 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
-import { availableLocales } from 'src/utilities/locale/translation';
+import { availableLocales, Locale } from 'src/utilities/locale/translation';
 import {
-	getSituationQuestions,
-	getDataSituationQuestion,
 	PageSituationQuestionProps,
+	getDataSituationQuestions,
 } from 'src/utilities/api';
+import { SiteSettingsProps } from 'src/utilities/api/queries';
 
 export async function getStaticPaths() {
-	const questions = await getSituationQuestions();
-	return questions.reduce(
-		(paths, question) => [
-			...paths,
-			...availableLocales.map((locale) => ({
-				params: { ...question, locale: locale.id },
-				props: { slug: question.slug, locale },
+	return await availableLocales.reduce(async (paths, locale) => {
+		const collection = await getDataSituationQuestions({ locale });
+		return [
+			...(await paths),
+			collection.pages.map((page) => ({
+				params: { slug: page.slug, locale: locale.id },
+				props: {
+					pageData: page,
+					siteSettings: collection.siteSettings,
+					locale,
+				},
 			})),
-		],
-		[],
-	);
+		];
+	}, Promise.resolve([]));
 }
 
-const { slug, locale } = Astro.props;
-const page: PageSituationQuestionProps = await getDataSituationQuestion({
-	locale,
-	slug,
-});
-// console.log('page', page);
+interface Props {
+	pageData: PageSituationQuestionProps;
+	siteSettings: SiteSettingsProps;
+	locale: Locale;
+}
+
+const { pageData, siteSettings, locale } = Astro.props;
 ---
 
-<Layout title={page.metaData.title}>
+<Layout title={pageData.metaData.title}>
 	<main>
 		<h1>
-			<span class="text-gradient">{page.header.title}</span> in Astro
+			<span class="text-gradient">{pageData.header.title}</span> in Astro
 		</h1>
+		<p><mark>{siteSettings.baseUrl}</mark></p>
+		<p><mark>{locale.fullName}</mark></p>
 	</main>
 </Layout>
 
