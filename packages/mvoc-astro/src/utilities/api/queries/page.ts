@@ -3,17 +3,14 @@ import {
 	imageQuery,
 	siteSettingsQuery,
 	localePropertyQuery,
-	ImageProps,
 	SiteSettingsProps,
+	metaDataQuery,
+	MetaDataProps,
 } from '.';
 
 export interface PageProps {
 	siteSettings: SiteSettingsProps;
-	metaData: {
-		title: string;
-		description: 'string';
-		socialShareImage: ImageProps;
-	};
+	metaData: MetaDataProps;
 }
 
 /**
@@ -40,18 +37,7 @@ export const pageQuery = ({
 	return `{
 		"${multiple ? 'pages' : 'pageData'}": *[_type == "${type}" && metaData.site == "${site}"${slugConditional}]${multiple ? '' : '[0]'} {
 			...${projection},
-			"metaData": {
-				${localePropertyQuery({ name: 'title', path: 'metaData.title', locale })},
-				${localePropertyQuery({
-					name: 'description',
-					path: 'metaData.description',
-					locale,
-				})},
-				${imageQuery({
-					name: 'socialShareImage',
-					path: 'metaData.socialShareImage',
-				})},
-			},
+			${metaDataQuery({locale})},
 		},
 		"siteSettings": ${siteSettingsQuery({ locale, site })},
 	}`;

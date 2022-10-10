@@ -1,0 +1,64 @@
+---
+import { MetaDataProps } from 'src/utilities/api/queries';
+import { availableLocales, Locale } from 'src/utilities/locale/translation';
+
+export interface Props extends MetaDataProps {
+	locale: Locale;
+}
+
+const { title, description, image, locale } = Astro.props;
+const currentUrl = Astro.url.toString();
+const urlWithLocale = currentUrl.includes(`/${locale.id}`)
+	? currentUrl
+	: `${currentUrl}${locale.id}`;
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<meta name="generator" content={Astro.generator} />
+
+<title>{title}</title>
+<meta property="og:title" content={title} />
+<meta name="twitter:title" content={title} />
+
+{
+	description ? (
+		<>
+			<meta name="description" content={description} />
+			<meta name="twitter:description" content={description} />
+			<meta property="og:description" content={description} />
+		</>
+	) : null
+}
+
+{
+	image.src ? (
+		<>
+			<meta name="twitter:card" content="summary_large_image" />
+			<meta property="og:image" content={image.src} />
+			<meta name="twitter:image" content={image.src} />
+		</>
+	) : null
+}
+
+<meta property="og:type" content="website" />
+<meta property="og:url" content={urlWithLocale} />
+<link rel="canonical" href={urlWithLocale} />
+<meta property="og:locale" content={locale.locale} />
+{
+	availableLocales
+		.filter((language) => language.id !== locale.id)
+		.map((language) => (
+			<>
+				<link
+					rel="alternate"
+					hreflang={language.id}
+					href={urlWithLocale.replace(`/${locale.id}`, `/${language.id}`)}
+				/>
+				<meta property="og:locale:alternate" content={language.locale} />
+			</>
+		))
+}
+
+{/* TODO: manifest */}

@@ -33,49 +33,10 @@ interface Props {
 const { pageData, siteSettings, locale } = Astro.props;
 ---
 
-<Layout title={pageData.metaData.title}>
+<Layout locale={locale} metaData={pageData.metaData}>
 	<main>
-		<h1>
-			<span class="text-gradient">{pageData.header.title}</span> in Astro
-		</h1>
+		<h1>{pageData.header.title}</h1>
 		<p><mark>{siteSettings.baseUrl}</mark></p>
 		<p><mark>{locale.fullName}</mark></p>
 	</main>
 </Layout>
-
-<style>
-	:root {
-		--astro-gradient: linear-gradient(0deg, #4f39fa, #da62c4);
-	}
-
-	h1 {
-		margin: 2rem 0;
-	}
-
-	main {
-		margin: auto;
-		padding: 1em;
-		max-width: 60ch;
-	}
-
-	.text-gradient {
-		font-weight: 900;
-		background-image: var(--astro-gradient);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-size: 100% 200%;
-		background-position-y: 100%;
-		border-radius: 0.4rem;
-		animation: pulse 4s ease-in-out infinite;
-	}
-
-	@keyframes pulse {
-		0%,
-		100% {
-			background-position-y: 0%;
-		}
-		50% {
-			background-position-y: 80%;
-		}
-	}
-</style>
