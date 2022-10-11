@@ -2,7 +2,6 @@
 import Layout from '../../layouts/Layout.astro';
 import { availableLocales, Locale } from 'src/utilities/locale/translation';
 import { getDataHome, PageHomeProps } from 'src/utilities/api';
-import { SiteSettingsProps } from 'src/utilities/api/queries';
 
 export async function getStaticPaths() {
 	return availableLocales.map((locale) => ({
@@ -15,18 +14,16 @@ export async function getStaticPaths() {
 
 interface HomeProps {
 	pageData: PageHomeProps;
-	siteSettings: SiteSettingsProps;
 	locale: Locale;
 }
 
 const { locale } = Astro.props;
-const { pageData, siteSettings }: HomeProps = await getDataHome({ locale });
+const { pageData }: HomeProps = await getDataHome({ locale });
 ---
 
 <Layout locale={locale} metaData={pageData.metaData}>
 	<main>
 		<h1>{pageData.header.title}</h1>
-		<p><mark>{siteSettings.baseUrl}</mark></p>
 		<p><mark>{locale.fullName}</mark></p>
 	</main>
 </Layout>

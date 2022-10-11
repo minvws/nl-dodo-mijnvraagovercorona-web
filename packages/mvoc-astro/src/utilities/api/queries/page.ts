@@ -1,15 +1,7 @@
 import { Locale } from '../../locale/translation';
-import {
-	imageQuery,
-	siteSettingsQuery,
-	localePropertyQuery,
-	SiteSettingsProps,
-	metaDataQuery,
-	MetaDataProps,
-} from '.';
+import { metaDataQuery, MetaDataProps } from '.';
 
 export interface PageProps {
-	siteSettings: SiteSettingsProps;
 	metaData: MetaDataProps;
 }
 
@@ -39,6 +31,5 @@ export const pageQuery = ({
 			...${projection},
 			${metaDataQuery({locale})},
 		},
-		"siteSettings": ${siteSettingsQuery({ locale, site })},
 	}`;
 };

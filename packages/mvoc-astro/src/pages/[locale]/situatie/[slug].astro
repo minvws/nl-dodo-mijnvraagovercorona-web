@@ -5,7 +5,6 @@ import {
 	PageSituationQuestionProps,
 	getDataSituationQuestions,
 } from 'src/utilities/api';
-import { SiteSettingsProps } from 'src/utilities/api/queries';
 
 export async function getStaticPaths() {
 	return await availableLocales.reduce(async (paths, locale) => {
@@ -16,7 +15,6 @@ export async function getStaticPaths() {
 				params: { slug: page.slug, locale: locale.id },
 				props: {
 					pageData: page,
-					siteSettings: collection.siteSettings,
 					locale,
 				},
 			})),
@@ -26,17 +24,15 @@ export async function getStaticPaths() {
 
 interface Props {
 	pageData: PageSituationQuestionProps;
-	siteSettings: SiteSettingsProps;
 	locale: Locale;
 }
 
-const { pageData, siteSettings, locale } = Astro.props;
+const { pageData, locale } = Astro.props;
 ---
 
 <Layout locale={locale} metaData={pageData.metaData}>
 	<main>
 		<h1>{pageData.header.title}</h1>
-		<p><mark>{siteSettings.baseUrl}</mark></p>
 		<p><mark>{locale.fullName}</mark></p>
 	</main>
 </Layout>

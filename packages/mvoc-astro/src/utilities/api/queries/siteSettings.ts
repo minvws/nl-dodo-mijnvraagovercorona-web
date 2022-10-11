@@ -1,3 +1,4 @@
+import { useSanityClient } from 'astro-sanity';
 import { Locale } from 'src/utilities/locale/translation';
 import { localePropertyQuery, imageQuery, ImageProps } from './';
 
@@ -342,3 +343,28 @@ export const siteSettingsQuery = ({
 			})},
 		}
 	}`;
+
+/**
+ * Function to use global siteSettings inside components
+ *
+ * Usage:
+ * const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+ */
+let siteSettings;
+export async function useSiteSettings({
+	locale,
+	site = 'mijn-vraag-over-corona',
+}: {
+	locale: Locale;
+	site?: 'mijn-vraag-over-corona';
+}) {
+	if (siteSettings) {
+		return siteSettings;
+	}
+
+	siteSettings = await useSanityClient().fetch(
+		siteSettingsQuery({ locale, site }),
+	);
+
+	return siteSettings;
+}

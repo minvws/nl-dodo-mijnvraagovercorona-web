@@ -1,5 +1,9 @@
 ---
-import { MetaDataProps } from 'src/utilities/api/queries';
+import {
+	MetaDataProps,
+	SiteSettingsProps,
+	useSiteSettings,
+} from 'src/utilities/api/queries';
 import { availableLocales, Locale } from 'src/utilities/locale/translation';
 
 export interface Props extends MetaDataProps {
@@ -11,6 +15,8 @@ const currentUrl = Astro.url.toString();
 const urlWithLocale = currentUrl.includes(`/${locale.id}`)
 	? currentUrl
 	: `${currentUrl}${locale.id}`;
+
+const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 ---
 
 <meta charset="UTF-8" />
@@ -18,7 +24,7 @@ const urlWithLocale = currentUrl.includes(`/${locale.id}`)
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <meta name="generator" content={Astro.generator} />
 
-<title>{title}</title>
+<title>{title}{siteSettings.pageTitleSuffix}</title>
 <meta property="og:title" content={title} />
 <meta name="twitter:title" content={title} />
 
