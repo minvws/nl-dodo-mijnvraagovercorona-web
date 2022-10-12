@@ -1,0 +1,39 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { availableLocales, Locale } from 'src/utilities/locale/translation';
+import {
+	getDataSituationAdvice,
+	PageSituationAdviceProps,
+} from 'src/utilities/api';
+
+export async function getStaticPaths() {
+	return await availableLocales.reduce(async (paths, locale) => {
+		const collection = await getDataSituationAdvice({ locale });
+		return [
+			...(await paths),
+			collection.pages.map((page) => ({
+				params: { slug: page.slug, locale: locale.id },
+				props: {
+					pageData: page,
+					locale,
+				},
+			})),
+		];
+	}, Promise.resolve([]));
+}
+
+interface Props {
+	pageData: PageSituationAdviceProps;
+	locale: Locale;
+}
+
+const { pageData, locale } = Astro.props;
+console.log('pageData', pageData);
+---
+
+<Layout locale={locale} metaData={pageData.metaData}>
+	<main>
+		<h1>{pageData.header.title}</h1>
+		<p><mark>{locale.fullName}</mark></p>
+	</main>
+</Layout>
