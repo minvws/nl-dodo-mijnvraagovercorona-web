@@ -5,6 +5,7 @@ export interface MetaDataProps {
 	title: string;
 	description: 'string';
 	image: ImageProps;
+	noIndex?: boolean;
 }
 
 export const metaDataQuery = ({ locale }: { locale: Locale }): string => {
@@ -19,5 +20,6 @@ export const metaDataQuery = ({ locale }: { locale: Locale }): string => {
 			name: 'image',
 			path: 'metaData.socialShareImage',
 		})},
+		"noIndex": metaData.noIndex,
 	}`;
 };

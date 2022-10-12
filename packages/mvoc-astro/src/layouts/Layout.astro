@@ -6,15 +6,17 @@ import { Locale } from 'src/utilities/locale/translation';
 export interface Props {
 	locale: Locale;
 	metaData: MetaDataProps;
+	skipPageSuffix?: boolean;
 }
 
-const { locale, metaData } = Astro.props;
+const { locale, metaData, skipPageSuffix } = Astro.props;
+console.log(metaData);
 ---
 
 <!DOCTYPE html>
 <html lang={locale.id}>
 	<head>
-		<MetaData {...metaData} locale={locale} />
+		<MetaData {...metaData} locale={locale} skipPageSuffix={skipPageSuffix} />
 	</head>
 	<body>
 		<slot />

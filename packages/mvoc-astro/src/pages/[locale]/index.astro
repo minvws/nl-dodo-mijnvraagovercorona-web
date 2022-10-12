@@ -21,7 +21,7 @@ const { locale } = Astro.props;
 const { pageData }: HomeProps = await getDataHome({ locale });
 ---
 
-<Layout locale={locale} metaData={pageData.metaData}>
+<Layout locale={locale} metaData={pageData.metaData} skipPageSuffix>
 	<main>
 		<h1>{pageData.header.title}</h1>
 		<p><mark>{locale.fullName}</mark></p>
