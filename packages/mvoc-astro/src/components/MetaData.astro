@@ -23,6 +23,10 @@ const urlWithLocale = currentUrl.includes(locale.urlPrefix)
 const pageTitle = `${title}${
 	skipPageSuffix ? '' : siteSettings.pageTitleSuffix
 }`;
+
+const ogImage = `${Astro.url.origin}${
+	image.src || siteSettings.socialShareImage.src
+}`;
 ---
 
 <meta charset="UTF-8" />
@@ -44,15 +48,9 @@ const pageTitle = `${title}${
 	) : null
 }
 
-{
-	image.src ? (
-		<>
-			<meta name="twitter:card" content="summary_large_image" />
-			<meta property="og:image" content={image.src} />
-			<meta name="twitter:image" content={image.src} />
-		</>
-	) : null
-}
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="og:image" content={ogImage} />
+<meta name="twitter:image" content={ogImage} />
 
 <meta property="og:type" content="website" />
 <meta property="og:url" content={urlWithLocale} />
