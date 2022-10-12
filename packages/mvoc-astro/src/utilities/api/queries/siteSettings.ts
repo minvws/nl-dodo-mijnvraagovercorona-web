@@ -1,5 +1,5 @@
 import { useSanityClient } from 'astro-sanity';
-import { Locale } from 'src/utilities/locale/translation';
+import { Locale, locales } from 'src/utilities/locale/translation';
 import { localePropertyQuery, imageQuery, ImageProps } from './';
 
 export interface SiteSettingsProps {
@@ -359,12 +359,18 @@ export async function useSiteSettings({
 	site?: 'mijn-vraag-over-corona';
 }) {
 	if (siteSettings) {
-		return siteSettings;
+		return siteSettings[locale.id];
 	}
 
-	siteSettings = await useSanityClient().fetch(
-		siteSettingsQuery({ locale, site }),
+	siteSettings = await Object.entries(locales).reduce(
+		async (acc, [, value]) => ({
+			...(await acc),
+			[value.id]: await useSanityClient().fetch(
+				siteSettingsQuery({ locale: value, site }),
+			),
+		}),
+		{},
 	);
 
-	return siteSettings;
+	return siteSettings[locale.id];
 }
