@@ -16,7 +16,7 @@ const { title, description, image, locale, skipPageSuffix, noIndex } =
 const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 
 const currentUrl = Astro.url.toString();
-const urlWithLocale = currentUrl.includes(`/${locale.id}`)
+const urlWithLocale = currentUrl.includes(locale.urlPrefix)
 	? currentUrl
 	: `${currentUrl}${locale.id}`;
 
@@ -66,7 +66,7 @@ const pageTitle = `${title}${
 				<link
 					rel="alternate"
 					hreflang={language.id}
-					href={urlWithLocale.replace(`/${locale.id}`, `/${language.id}`)}
+					href={urlWithLocale.replace(locale.urlPrefix, language.urlPrefix)}
 				/>
 				<meta property="og:locale:alternate" content={language.locale} />
 			</>
