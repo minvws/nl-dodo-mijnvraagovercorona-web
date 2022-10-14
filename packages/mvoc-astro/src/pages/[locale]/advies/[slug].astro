@@ -11,13 +11,28 @@ export async function getStaticPaths() {
 		const collection = await getDataSituationAdvice({ locale });
 		return [
 			...(await paths),
-			collection.pages.map((page) => ({
-				params: { slug: page.slug, locale: locale.id },
-				props: {
-					pageData: page,
-					locale,
-				},
-			})),
+			collection.pages.map((page) => {
+				const daysToGenerate =
+					page.answer &&
+					page.answer.filter(
+						(answer) => !!answer.showOn && answer.showOn.length > 0,
+					).length
+						? [
+								...new Set(
+									[].concat(...page.answer.map((answer) => answer.showOn)),
+								),
+						  ]
+						: [];
+				console.log('days to generate', daysToGenerate);
+
+				return {
+					params: { slug: page.slug, locale: locale.id },
+					props: {
+						pageData: page,
+						locale,
+					},
+				};
+			}),
 		];
 	}, Promise.resolve([]));
 }
