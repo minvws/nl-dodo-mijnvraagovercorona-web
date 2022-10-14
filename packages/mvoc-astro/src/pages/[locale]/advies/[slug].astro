@@ -5,50 +5,69 @@ import {
 	getDataSituationAdvice,
 	PageSituationAdviceProps,
 } from 'src/utilities/api';
+import ContentBlock from 'src/components/ContentBlock.astro';
 
 export async function getStaticPaths() {
 	return await availableLocales.reduce(async (paths, locale) => {
-		const collection = await getDataSituationAdvice({ locale });
-		return [
-			...(await paths),
-			collection.pages.map((page) => {
-				const daysToGenerate =
-					page.answer &&
-					page.answer.filter(
-						(answer) => !!answer.showOn && answer.showOn.length > 0,
-					).length
-						? [
-								...new Set(
-									[].concat(...page.answer.map((answer) => answer.showOn)),
-								),
-						  ]
-						: [0];
-				console.log('days to generate', daysToGenerate);
+		const { pages } = await getDataSituationAdvice({ locale });
 
-				return {
-					params: { slug: page.slug, locale: locale.id },
-					props: {
-						pageData: page,
-						locale,
-					},
-				};
-			}),
-		];
+		// loop over pages to get days to generate
+		const newPaths = pages.map((page) => {
+			const daysToGenerate =
+				page.answer &&
+				page.answer.filter(
+					(answer) => !!answer.showOn && answer.showOn.length > 0,
+				).length
+					? [
+							...new Set(
+								[].concat(...page.answer.map((answer) => answer.showOn)),
+							),
+					  ]
+					: [0];
+
+			return daysToGenerate.map((day) => ({
+				params: {
+					slug: `${page.slug}${day === 0 ? '' : `-dag-${day}`}`,
+					locale: locale.id,
+				},
+				props: {
+					pageData: page,
+					day,
+					locale,
+				},
+			}));
+		});
+
+		return [...(await paths), newPaths.flat()];
 	}, Promise.resolve([]));
 }
 
 interface Props {
 	pageData: PageSituationAdviceProps;
 	locale: Locale;
+	day: number;
 }
 
-const { pageData, locale } = Astro.props;
+const { pageData, locale, day } = Astro.props;
 console.log('pageData', pageData);
+console.log('day', day);
 ---
 
 <Layout locale={locale} metaData={pageData.metaData}>
 	<main>
 		<h1>{pageData.header.title}</h1>
 		<p><mark>{locale.fullName}</mark></p>
+
+		{
+			pageData.answer.map((answer) => {
+				if (!answer.showOn.includes(day)) return null;
+				return (
+					<>
+						<h2>{answer.title}</h2>
+						<ContentBlock portableText={answer.content} />
+					</>
+				);
+			})
+		}
 	</main>
 </Layout>
