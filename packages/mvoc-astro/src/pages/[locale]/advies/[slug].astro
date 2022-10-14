@@ -22,7 +22,7 @@ export async function getStaticPaths() {
 									[].concat(...page.answer.map((answer) => answer.showOn)),
 								),
 						  ]
-						: [];
+						: [0];
 				console.log('days to generate', daysToGenerate);
 
 				return {
