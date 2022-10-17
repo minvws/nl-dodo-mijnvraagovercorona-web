@@ -4,3 +4,4 @@ export * from './modals';
 export * from './localeProperty';
 export * from './siteSettings';
 export * from './metaData';
+export * from './tip';
