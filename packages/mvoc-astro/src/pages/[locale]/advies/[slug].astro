@@ -1,10 +1,13 @@
 ---
-import Layout from '../../../layouts/Layout.astro';
+import { addDays, subDays } from 'date-fns';
+import { formatDate } from 'src/utilities/locale/date';
 import { availableLocales, Locale } from 'src/utilities/locale/translation';
 import {
 	getDataSituationAdvice,
 	PageSituationAdviceProps,
 } from 'src/utilities/api';
+
+import Layout from '../../../layouts/Layout.astro';
 import ContentBlock from 'src/components/ContentBlock.astro';
 
 export async function getStaticPaths() {
@@ -13,7 +16,7 @@ export async function getStaticPaths() {
 
 		// loop over pages to get days to generate
 		const newPaths = pages.map((page) => {
-			const daysToGenerate =
+			const answerDays =
 				page.answer &&
 				page.answer.filter(
 					(answer) => !!answer.showOn && answer.showOn.length > 0,
@@ -25,6 +28,18 @@ export async function getStaticPaths() {
 					  ]
 					: [0];
 
+			const planDays =
+				page?.advice.plan &&
+				page.advice.plan.filter(({ showOn }) => !!showOn).length
+					? [
+							...new Set(
+								[].concat(...page.advice.plan.map(({ showOn }) => showOn)),
+							),
+					  ]
+					: [0];
+
+			const daysToGenerate = [...new Set(answerDays.concat(planDays))];
+
 			return daysToGenerate.map((day) => ({
 				params: {
 					slug: `${page.slug}${day === 0 ? '' : `-dag-${day}`}`,
@@ -32,7 +47,7 @@ export async function getStaticPaths() {
 				},
 				props: {
 					pageData: page,
-					day,
+					pageDay: day,
 					locale,
 				},
 			}));
@@ -45,12 +60,34 @@ export async function getStaticPaths() {
 interface Props {
 	pageData: PageSituationAdviceProps;
 	locale: Locale;
-	day: number;
+	pageDay: number;
 }
 
-const { pageData, locale, day } = Astro.props;
+const { pageData, locale, pageDay } = Astro.props;
+
+const today = new Date();
+
+// Filter advice plan based on current day
+const plan =
+	pageData?.advice.plan &&
+	pageData.advice.plan
+		.filter(({ showOn }) => !showOn || showOn.includes(pageDay))
+		.map(({ content, day: planDay, title }) => ({
+			content,
+			day: planDay,
+			title,
+			date:
+				planDay === null || planDay === undefined
+					? formatDate(today, locale.locale)
+					: formatDate(
+							planDay > pageDay
+								? addDays(today, planDay - pageDay)
+								: subDays(today, pageDay - planDay),
+							locale.locale,
+					  ),
+		}));
+
 console.log('pageData', pageData);
-console.log('day', day);
 ---
 
 <Layout locale={locale} metaData={pageData.metaData}>
@@ -60,11 +97,24 @@ console.log('day', day);
 
 		{
 			pageData.answer.map((answer) => {
-				if (!answer.showOn.includes(day)) return null;
+				if (!answer.showOn.includes(pageDay)) return null;
 				return (
 					<>
 						<h2>{answer.title}</h2>
 						<ContentBlock portableText={answer.content} />
+					</>
+				);
+			})
+		}
+
+		<h2>{pageData.advice.title}</h2>
+		{
+			plan.map(({ date, title, content }) => {
+				return (
+					<>
+						<h3>{title}</h3>
+						<p>Dag: {date}</p>
+						{content && <ContentBlock portableText={content} />}
 					</>
 				);
 			})
