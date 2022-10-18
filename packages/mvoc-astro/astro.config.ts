@@ -1,10 +1,12 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import sanity from 'astro-sanity';
+import compress from 'astro-compress';
 
 export default defineConfig({
 	site: 'https://mijnvraagovercorona.nl/',
 	integrations: [
+		compress(),
 		sitemap(),
 		sanity({
 			projectId: 'yiy91tbc',
