@@ -16,7 +16,7 @@ interface AnswerProps {
 }
 
 interface AdviceProps {
-	plan: {
+	plan?: {
 		showOn?: Array<number>;
 		day?: number;
 		title: string;

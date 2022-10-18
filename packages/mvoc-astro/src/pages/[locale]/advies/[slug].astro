@@ -11,34 +11,24 @@ import Layout from '../../../layouts/Layout.astro';
 import ContentBlock from 'src/components/ContentBlock.astro';
 
 export async function getStaticPaths() {
+	function getShowOnDays(collection: { showOn: Array<number> }[]) {
+		return collection && collection.filter(({ showOn }) => !!showOn).length
+			? [...new Set([].concat(...collection.map((answer) => answer.showOn)))]
+			: [0];
+	}
+
 	return await availableLocales.reduce(async (paths, locale) => {
 		const { pages } = await getDataSituationAdvice({ locale });
 
-		// loop over pages to get days to generate
+		// loop over pages
 		const newPaths = pages.map((page) => {
-			const answerDays =
-				page.answer &&
-				page.answer.filter(
-					(answer) => !!answer.showOn && answer.showOn.length > 0,
-				).length
-					? [
-							...new Set(
-								[].concat(...page.answer.map((answer) => answer.showOn)),
-							),
-					  ]
-					: [0];
-
-			const planDays =
-				page?.advice.plan &&
-				page.advice.plan.filter(({ showOn }) => !!showOn).length
-					? [
-							...new Set(
-								[].concat(...page.advice.plan.map(({ showOn }) => showOn)),
-							),
-					  ]
-					: [0];
-
-			const daysToGenerate = [...new Set(answerDays.concat(planDays))];
+			// Get days to generate
+			const answerShowOnDays = getShowOnDays(page.answer);
+			const planShowOnDays = getShowOnDays(page?.advice.plan);
+			// combine answer & plan days
+			const daysToGenerate = [
+				...new Set(answerShowOnDays.concat(planShowOnDays)),
+			];
 
 			return daysToGenerate.map((day) => ({
 				params: {
@@ -63,9 +53,15 @@ interface Props {
 	pageDay: number;
 }
 
+const today = new Date();
 const { pageData, locale, pageDay } = Astro.props;
 
-const today = new Date();
+// Get most relevant answer
+const answer = pageData?.answer
+	? pageData.answer.filter(
+			({ showOn }) => !showOn || showOn.includes(pageDay),
+	  )[0] || pageData.answer[pageData.answer.length - 1]
+	: null;
 
 // Filter advice plan based on current day
 const plan =
@@ -86,38 +82,53 @@ const plan =
 							locale.locale,
 					  ),
 		}));
-
-console.log('pageData', pageData);
 ---
 
 <Layout locale={locale} metaData={pageData.metaData}>
 	<main>
 		<h1>{pageData.header.title}</h1>
-		<p><mark>{locale.fullName}</mark></p>
 
 		{
-			pageData.answer.map((answer) => {
-				if (!answer.showOn.includes(pageDay)) return null;
-				return (
-					<>
-						<h2>{answer.title}</h2>
-						<ContentBlock portableText={answer.content} />
-					</>
-				);
-			})
+			answer && (
+				<>
+					<h2>{answer.title}</h2>
+					<ContentBlock portableText={answer.content} />
+				</>
+			)
 		}
 
-		<h2>{pageData.advice.title}</h2>
 		{
-			plan.map(({ date, title, content }) => {
-				return (
-					<>
-						<h3>{title}</h3>
-						<p>Dag: {date}</p>
-						{content && <ContentBlock portableText={content} />}
-					</>
-				);
-			})
+			!!plan?.length && (
+				<>
+					<h2>{pageData.advice.title}</h2>
+					{plan.map(({ date, title, content }) => {
+						return (
+							<>
+								<h3>{title}</h3>
+								<p>Dag: {date}</p>
+								{content && <ContentBlock portableText={content} />}
+							</>
+						);
+					})}
+				</>
+			)
+		}
+
+		{
+			!!pageData.advice?.cards?.length && (
+				<>
+					{pageData.advice.secondaryTitle ? (
+						<h2>{pageData.advice.secondaryTitle}</h2>
+					) : null}
+					{pageData.advice.cards.map((card) => (
+						<>
+							<h3>{card.title}</h3>
+							{card.chapeau && <p>{card.chapeau}</p>}
+							<ContentBlock portableText={card.content} />
+						</>
+					))}
+				</>
+			)
 		}
 	</main>
 </Layout>
