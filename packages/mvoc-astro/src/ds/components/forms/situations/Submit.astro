@@ -1,0 +1,18 @@
+---
+import { Locale } from 'src/utilities/locale/translation';
+
+export interface Props {
+	buttons: {
+		_key: string;
+		standard: boolean;
+		assistanceDialog: boolean;
+		text: string;
+		next: string;
+		styledAs?: string;
+		disabled?: boolean;
+	}[];
+	locale: Locale;
+}
+---
+
+<mark>Submit</mark>

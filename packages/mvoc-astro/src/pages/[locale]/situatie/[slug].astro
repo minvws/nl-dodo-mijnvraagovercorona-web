@@ -5,6 +5,7 @@ import {
 	PageSituationQuestionProps,
 	getDataSituationQuestions,
 } from 'src/utilities/api';
+import FormSwitch from 'src/ds/components/forms/situations/FormSwitch.astro';
 
 export async function getStaticPaths() {
 	return await availableLocales.reduce(async (paths, locale) => {
@@ -33,6 +34,12 @@ const { pageData, locale } = Astro.props;
 <Layout locale={locale} metaData={pageData.metaData}>
 	<main>
 		<h1>{pageData.header.title}</h1>
-		<p><mark>{locale.fullName}</mark></p>
+		<FormSwitch
+			locale={locale}
+			type={pageData.type}
+			answersSingle={pageData.answersSingle}
+			answersMultiple={pageData.answersMultiple}
+			buttons={pageData.buttons}
+		/>
 	</main>
 </Layout>

@@ -1,0 +1,56 @@
+---
+import ContentBlock from 'src/components/ContentBlock.astro';
+import { Locale } from 'src/utilities/locale/translation';
+import type { Props as SubmitProps } from './Submit.astro';
+
+export interface Props {
+	locale: Locale;
+	answers: {
+		content: Object[];
+		next: string;
+		_key: string;
+	}[];
+	buttons: SubmitProps['buttons'];
+	// content: ContentStreamProps;
+}
+
+const { answers, buttons, locale } = Astro.props;
+---
+
+<script>
+	const form = document.querySelector('form');
+	form.addEventListener('submit', (event) => {
+		event.preventDefault();
+		const formData = new FormData(form);
+		(window as Window).location = formData.get('answersSingle').toString();
+	});
+</script>
+
+<mark>AnswersSingle</mark>
+
+<form action="">
+	{
+		answers.map(({ content, next, _key }) => (
+			<>
+				<input
+					name="answersSingle"
+					id={_key}
+					type="radio"
+					value={`${locale.urlPrefix}/${next}` || ''}
+				/>
+				<label for={_key}>
+					<ContentBlock portableText={content} />
+				</label>
+			</>
+		))
+	}
+	{
+		buttons.map((button, index) =>
+			button.standard ? (
+				<button type="submit">{button.text}</button>
+			) : (
+				<a href={button.next}>{button.text}</a>
+			),
+		)
+	}
+</form>

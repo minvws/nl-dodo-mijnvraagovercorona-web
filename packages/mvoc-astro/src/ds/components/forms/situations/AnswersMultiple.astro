@@ -1,0 +1,22 @@
+---
+import { Locale } from 'src/utilities/locale/translation';
+import type { Props as SubmitProps } from './Submit.astro';
+
+export interface Props {
+	locale: Locale;
+	answers: {
+		_key: string;
+		content: string;
+		checked?: boolean;
+	}[];
+	buttons: SubmitProps['buttons'];
+	// content: ContentStreamProps;
+	showMoreLabel: {
+		this: string;
+		that: string;
+	};
+	limit?: number;
+}
+---
+
+<mark>AnswersMultiple</mark>
