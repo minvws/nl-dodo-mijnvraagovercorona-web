@@ -3,6 +3,7 @@ import type { Props as SubmitProps } from './Submit.astro';
 import type { Props as AnswersSingleProps } from './AnswersSingle.astro';
 import type { Props as AnswersMultipleProps } from './AnswersMultiple.astro';
 import AnswersSingle from './AnswersSingle.astro';
+import AnswersMultiple from './AnswersMultiple.astro';
 
 export interface Props {
 	// content: AnswersSingleProps['content'];
@@ -23,13 +24,15 @@ export interface Props {
 	buttons: SubmitProps['buttons'];
 }
 
-const { type, answersSingle, buttons } = Astro.props;
+const { type, answersSingle, answersMultiple, buttons } = Astro.props;
 ---
 
 <>
 	{
 		type === 'single' && answersSingle ? (
 			<AnswersSingle answers={answersSingle} buttons={buttons} />
+		) : type === 'multiple' && answersMultiple ? (
+			<AnswersMultiple answers={answersMultiple} buttons={buttons} />
 		) : null
 	}
 </>

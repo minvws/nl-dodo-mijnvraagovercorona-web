@@ -10,14 +10,40 @@ export interface Props {
 	}[];
 	buttons: SubmitProps['buttons'];
 	// content: ContentStreamProps;
-	showMoreLabel: {
-		this: string;
-		that: string;
-	};
-	limit?: number;
+	// showMoreLabel: {
+	// 	this: string;
+	// 	that: string;
+	// };
+	// limit?: number;
 }
 
+const { answers, buttons } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
 ---
 
 <mark>AnswersMultiple</mark>
+
+<form action="" data-module="AnswersMultiple-form">
+	{
+		answers.map(({ content, _key }) => (
+			<>
+				<input
+					type="checkbox"
+					name="answersMultiple"
+					id={_key}
+					value={content}
+				/>
+				<label for={_key}>{content}</label>
+			</>
+		))
+	}
+	{
+		buttons.map((button, index) =>
+			button.standard ? (
+				<button type="submit">{button.text}</button>
+			) : (
+				<a href={button.next}>{button.text}</a>
+			),
+		)
+	}
+</form>
