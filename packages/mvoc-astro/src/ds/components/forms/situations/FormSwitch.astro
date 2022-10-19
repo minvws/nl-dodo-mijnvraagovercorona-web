@@ -1,12 +1,10 @@
 ---
-import { Locale } from 'src/utilities/locale/translation';
 import type { Props as SubmitProps } from './Submit.astro';
 import type { Props as AnswersSingleProps } from './AnswersSingle.astro';
 import type { Props as AnswersMultipleProps } from './AnswersMultiple.astro';
 import AnswersSingle from './AnswersSingle.astro';
 
 export interface Props {
-	locale: Locale;
 	// content: AnswersSingleProps['content'];
 	answersSingle?: AnswersSingleProps['answers'];
 	answersMultiple?: AnswersMultipleProps['answers'];
@@ -25,17 +23,13 @@ export interface Props {
 	buttons: SubmitProps['buttons'];
 }
 
-const { type, answersSingle, buttons, locale } = Astro.props;
+const { type, answersSingle, buttons } = Astro.props;
 ---
 
 <>
 	{
 		type === 'single' && answersSingle ? (
-			<AnswersSingle
-				answers={answersSingle}
-				buttons={buttons}
-				locale={locale}
-			/>
+			<AnswersSingle answers={answersSingle} buttons={buttons} />
 		) : null
 	}
 </>

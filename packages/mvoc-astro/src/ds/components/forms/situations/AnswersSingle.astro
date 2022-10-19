@@ -1,10 +1,9 @@
 ---
 import ContentBlock from 'src/components/ContentBlock.astro';
-import { Locale } from 'src/utilities/locale/translation';
+import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import type { Props as SubmitProps } from './Submit.astro';
 
 export interface Props {
-	locale: Locale;
 	answers: {
 		content: Object[];
 		next: string;
@@ -14,7 +13,8 @@ export interface Props {
 	// content: ContentStreamProps;
 }
 
-const { answers, buttons, locale } = Astro.props;
+const { answers, buttons } = Astro.props;
+const locale = getLocaleFromURL(Astro.url.pathname);
 ---
 
 <script>

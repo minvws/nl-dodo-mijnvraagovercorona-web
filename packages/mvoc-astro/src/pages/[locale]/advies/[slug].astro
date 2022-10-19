@@ -1,7 +1,11 @@
 ---
 import { addDays, subDays } from 'date-fns';
 import { formatDate } from 'src/utilities/locale/date';
-import { availableLocales, Locale } from 'src/utilities/locale/translation';
+import {
+	availableLocales,
+	getLocaleFromURL,
+	Locale,
+} from 'src/utilities/locale/translation';
 import {
 	getDataSituationAdvice,
 	PageSituationAdviceProps,
@@ -38,7 +42,6 @@ export async function getStaticPaths() {
 				props: {
 					pageData: page,
 					pageDay: day,
-					locale,
 				},
 			}));
 		});
@@ -49,12 +52,12 @@ export async function getStaticPaths() {
 
 interface Props {
 	pageData: PageSituationAdviceProps;
-	locale: Locale;
 	pageDay: number;
 }
 
 const today = new Date();
-const { pageData, locale, pageDay } = Astro.props;
+const { pageData, pageDay } = Astro.props;
+const locale = getLocaleFromURL(Astro.url.pathname);
 
 // Get most relevant answer
 const answer = pageData?.answer

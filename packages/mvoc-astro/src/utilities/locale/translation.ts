@@ -29,3 +29,10 @@ export const locales: { [key: string]: Locale } = {
 };
 
 export const availableLocales = [locales.dutch, locales.english];
+
+export const langPathRegex = /\/([a-z]{2}-?[A-Z]{0,2})\//;
+export const getLocaleFromURL = (pathname: string) => {
+	const langCodeMatch = pathname.match(langPathRegex);
+	const langCode = langCodeMatch ? langCodeMatch[1] : 'nl';
+	return availableLocales.filter((locale) => locale.id === langCode)[0];
+};

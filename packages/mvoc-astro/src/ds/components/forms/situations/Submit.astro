@@ -1,5 +1,5 @@
 ---
-import { Locale } from 'src/utilities/locale/translation';
+import { getLocaleFromURL } from 'src/utilities/locale/translation';
 
 export interface Props {
 	buttons: {
@@ -11,8 +11,9 @@ export interface Props {
 		styledAs?: string;
 		disabled?: boolean;
 	}[];
-	locale: Locale;
 }
+
+const locale = getLocaleFromURL(Astro.url.pathname);
 ---
 
 <mark>Submit</mark>
