@@ -1,5 +1,5 @@
 ---
-import Layout from '../../../layouts/Layout.astro';
+import Layout from '@layouts/Layout.astro';
 import {
 	availableLocales,
 	getLocaleFromURL,
@@ -9,7 +9,7 @@ import {
 	PageSituationQuestionProps,
 	getDataSituationQuestions,
 } from 'src/utilities/api';
-import FormSwitch from 'src/ds/components/forms/situations/FormSwitch.astro';
+import FormSwitch from '@modules/forms/situations/FormSwitch.astro';
 
 export async function getStaticPaths() {
 	return await availableLocales.reduce(async (paths, locale) => {

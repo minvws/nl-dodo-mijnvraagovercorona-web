@@ -4,7 +4,9 @@
 		"moduleResolution": "node",
 		"experimentalDecorators": true,
 		"paths": {
-			"@quarantine/*": ["../../packages/*/src"]
+			"@design-system/*": ["./src/ds/*"],
+			"@modules/*": ["./src/components/*"],
+			"@layouts/*": ["./src/layouts/*"]
 		}
 	},
 	"exclude": ["**/node_modules", "**/dist"]

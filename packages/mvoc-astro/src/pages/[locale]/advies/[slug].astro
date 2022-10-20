@@ -4,15 +4,14 @@ import { formatDate } from 'src/utilities/locale/date';
 import {
 	availableLocales,
 	getLocaleFromURL,
-	Locale,
 } from 'src/utilities/locale/translation';
 import {
 	getDataSituationAdvice,
 	PageSituationAdviceProps,
 } from 'src/utilities/api';
 
-import Layout from '../../../layouts/Layout.astro';
-import ContentBlock from 'src/components/ContentBlock.astro';
+import Layout from '@layouts/Layout.astro';
+import ContentBlock from '@modules/ContentBlock.astro';
 
 export async function getStaticPaths() {
 	function getShowOnDays(collection: { showOn: Array<number> }[]) {

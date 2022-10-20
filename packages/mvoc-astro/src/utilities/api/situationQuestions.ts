@@ -7,7 +7,7 @@ import {
 	ImageProps,
 } from './queries';
 
-import type { Props as FormSwitchProps } from '../../ds/components/forms/situations/FormSwitch.astro';
+import type { Props as FormSwitchProps } from '@modules/forms/situations/FormSwitch.astro';
 
 export interface PageSituationQuestionProps extends PageProps {
 	header: {
