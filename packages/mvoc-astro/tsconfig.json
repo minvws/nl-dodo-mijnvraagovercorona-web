@@ -1,5 +1,9 @@
 {
+	"extends": "astro/tsconfigs/base",
 	"compilerOptions": {
+		"jsx": "react",
+		"jsxFactory": "h",
+		"jsxFragmentFactory": "Fragment",
 		"baseUrl": ".",
 		"moduleResolution": "node",
 		"experimentalDecorators": true,
