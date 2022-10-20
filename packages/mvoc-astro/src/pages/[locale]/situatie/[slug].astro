@@ -10,6 +10,7 @@ import {
 	getDataSituationQuestions,
 } from 'src/utilities/api';
 import FormSwitch from '@modules/forms/situations/FormSwitch.astro';
+import { Heading } from '@design-system/elements/typography';
 
 export async function getStaticPaths() {
 	return await availableLocales.reduce(async (paths, locale) => {
@@ -37,7 +38,7 @@ const locale = getLocaleFromURL(Astro.url.pathname);
 
 <Layout locale={locale} metaData={pageData.metaData}>
 	<main>
-		<h1>{pageData.header.title}</h1>
+		<Heading level={1}>{pageData.header.title}</Heading>
 		<FormSwitch
 			type={pageData.type}
 			answersSingle={pageData.answersSingle}
