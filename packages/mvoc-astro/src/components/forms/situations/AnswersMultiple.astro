@@ -1,7 +1,8 @@
 ---
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import type { Props as SubmitProps } from './Submit.astro';
-
+import Submit from './Submit.astro';
+import { moduleName as AnswersMultipleModuleName } from './AnswersMultiple';
 export interface Props {
 	answers: {
 		_key: string;
@@ -19,17 +20,23 @@ export interface Props {
 
 const { answers, buttons } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
+
+const parsedButtons = buttons?.map((button, index) =>
+	index === 0 && button.standard
+		? { ...button, disabled: true }
+		: {
+				...button,
+		  },
+);
 ---
 
-<mark>AnswersMultiple</mark>
-
-<form action="" data-module="AnswersMultiple-form">
+<form method="post" data-module={AnswersMultipleModuleName}>
 	{
 		answers.map(({ content, _key }) => (
 			<>
 				<input
 					type="checkbox"
-					name="answersMultiple"
+					name={AnswersMultipleModuleName}
 					id={_key}
 					value={content}
 				/>
@@ -37,13 +44,10 @@ const locale = getLocaleFromURL(Astro.url.pathname);
 			</>
 		))
 	}
-	{
-		buttons.map((button, index) =>
-			button.standard ? (
-				<button type="submit">{button.text}</button>
-			) : (
-				<a href={button.next}>{button.text}</a>
-			),
-		)
-	}
+	<Submit buttons={parsedButtons} />
 </form>
+
+<script>
+	import { initAnswersMultiple } from './AnswersMultiple';
+	initAnswersMultiple();
+</script>
