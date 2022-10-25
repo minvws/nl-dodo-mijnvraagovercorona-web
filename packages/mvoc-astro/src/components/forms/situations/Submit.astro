@@ -21,10 +21,8 @@ const locale = getLocaleFromURL(Astro.url.pathname);
 ---
 
 {
-	buttons.map((button, index) => {
-		console.log('button', button);
-
-		return button.standard ? (
+	buttons.map((button, index) =>
+		button.standard ? (
 			<button
 				type="submit"
 				disabled={button.disabled}
@@ -38,6 +36,6 @@ const locale = getLocaleFromURL(Astro.url.pathname);
 			<mark>dialog: {button.text}</mark>
 		) : (
 			<a href={prefixUrlWithlocale(button.next, locale)}>{button.text}</a>
-		);
-	})
+		),
+	)
 }
