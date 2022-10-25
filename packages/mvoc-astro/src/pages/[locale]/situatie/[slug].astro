@@ -10,7 +10,7 @@ import {
 	getDataSituationQuestions,
 } from 'src/utilities/api';
 import FormSwitch from '@modules/forms/situations/FormSwitch.astro';
-import { Heading } from '@design-system/elements/typography';
+import Heading from '@design-system/elements/typography/Heading.astro';
 
 export async function getStaticPaths() {
 	return await availableLocales.reduce(async (paths, locale) => {
