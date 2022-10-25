@@ -1,5 +1,8 @@
 ---
-import { getLocaleFromURL } from 'src/utilities/locale/translation';
+import {
+	getLocaleFromURL,
+	prefixUrlWithlocale,
+} from 'src/utilities/locale/translation';
 
 export interface Props {
 	buttons: {
@@ -13,7 +16,28 @@ export interface Props {
 	}[];
 }
 
+const { buttons } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
 ---
 
-<mark>Submit</mark>
+{
+	buttons.map((button, index) => {
+		console.log('button', button);
+
+		return button.standard ? (
+			<button
+				type="submit"
+				disabled={button.disabled}
+				formaction={
+					button.next ? prefixUrlWithlocale(button.next, locale) : null
+				}
+			>
+				{button.text}
+			</button>
+		) : button.assistanceDialog /* TODO: && page.assistance.title */ ? (
+			<mark>dialog: {button.text}</mark>
+		) : (
+			<a href={prefixUrlWithlocale(button.next, locale)}>{button.text}</a>
+		);
+	})
+}
