@@ -2,12 +2,10 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import sanity from 'astro-sanity';
 import compress from 'astro-compress';
-import preact from '@astrojs/preact';
 
 export default defineConfig({
 	site: 'https://mijnvraagovercorona.nl/',
 	integrations: [
-		preact({ compat: true }),
 		compress(),
 		sitemap(),
 		sanity({
