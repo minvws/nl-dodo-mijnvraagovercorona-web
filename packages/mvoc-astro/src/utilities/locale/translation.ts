@@ -36,3 +36,12 @@ export const getLocaleFromURL = (pathname: string) => {
 	const langCode = langCodeMatch ? langCodeMatch[1] : 'nl';
 	return availableLocales.filter((locale) => locale.id === langCode)[0];
 };
+
+/**
+ * Small helper method that prefixes the requested url with a locale.
+ */
+export const prefixUrlWithlocale = (href: string, locale: Locale) =>
+	availableLocales.filter((locale) => href.includes(locale.urlPrefix))
+		.length === 0
+		? `${locale.urlPrefix}/${href.replace(/^\//, '')}`
+		: href;
