@@ -8,7 +8,7 @@
 		"moduleResolution": "node",
 		"experimentalDecorators": true,
 		"paths": {
-			"@design-system/*": ["./src/ds/*"],
+			"@design-system/*": ["./src/design-system/*"],
 			"@modules/*": ["./src/components/*"],
 			"@layouts/*": ["./src/layouts/*"]
 		}
