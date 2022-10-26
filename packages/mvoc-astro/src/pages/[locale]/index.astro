@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import { availableLocales, Locale } from 'src/utilities/locale/translation';
 import { getDataHome, PageHomeProps } from 'src/utilities/api';
+import Heading from '@design-system/elements/typography/Heading.astro';
 
 export async function getStaticPaths() {
 	return availableLocales.map((locale) => ({
@@ -23,7 +24,7 @@ const { pageData }: HomeProps = await getDataHome({ locale });
 
 <Layout locale={locale} metaData={pageData.metaData} skipPageSuffix>
 	<main>
-		<h1>{pageData.header.title}</h1>
+		<Heading level={1}>{pageData.header.title}</Heading>
 		<p><mark>{locale.fullName}</mark></p>
 	</main>
 </Layout>

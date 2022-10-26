@@ -1,0 +1,26 @@
+:root {
+	// Grayscale
+	--color-white: #ffffff;
+	--color-black: #222222;
+	--color-grijs: #bfbfbf;
+	--color-donkergrijs: #6a6a6a;
+	// Bluescale
+	--color-ijsblauw: #eef7fb;
+	--color-poolblauw: #ddeff8;
+	--color-lichtblauw: #8fcae7;
+	--color-hemelblauw: #007bc7;
+	--color-donkerblauw: #01689b;
+	// Accent
+	--color-accent-okergeel: #ffb612;
+	--color-accent-robijnrood: #ca005d;
+	--color-accent-violet: #a90061;
+	--color-accent-safarigroen: #39870c;
+	--color-accent-vuurrood: #d52b1e;
+
+	// Gradients
+	--gradient-lichtblauw: linear-gradient(
+		360deg,
+		var(--color-ijsblauw) 0%,
+		var(--color-white) 74.88%
+	);
+}
