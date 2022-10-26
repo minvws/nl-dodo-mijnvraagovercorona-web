@@ -13,6 +13,26 @@ const Element = href ? 'a' : 'button';
 <style lang="scss">
 	.e-button {
 		display: inline-flex;
+		padding: var(--space-r-small);
+		border-radius: var(--radii-small);
+		text-align: center;
+		background-color: var(--color-accent-robijnrood);
+		color: var(--color-white);
+
+		&:hover {
+			background-color: var(--color-accent-violet);
+		}
+
+		&:focus {
+			outline: 2px solid var(--color-donkerblauw);
+			outline-offset: 2px;
+		}
+
+		&:disabled,
+		&.is-disabled {
+			background-color: var(--color-grijs);
+			cursor: not-allowed;
+		}
 	}
 </style>
 
