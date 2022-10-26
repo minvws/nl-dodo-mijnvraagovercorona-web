@@ -1,0 +1,26 @@
+---
+interface Props {
+	href?: 'string';
+	type: 'button' | 'reset' | 'submit';
+	disabled?: boolean;
+	formaction?: string;
+}
+
+const { href, type, disabled, formaction } = Astro.props;
+const Element = href ? 'a' : 'button';
+---
+
+<style lang="scss">
+	.e-button {
+		display: inline-flex;
+	}
+</style>
+
+<Element
+	class="e-button"
+	type={type}
+	disabled={disabled}
+	formaction={formaction}
+>
+	<slot />
+</Element>

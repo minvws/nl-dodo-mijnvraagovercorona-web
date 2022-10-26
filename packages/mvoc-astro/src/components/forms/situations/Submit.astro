@@ -1,4 +1,5 @@
 ---
+import Button from '@design-system/elements/button/Button.astro';
 import {
 	getLocaleFromURL,
 	prefixUrlWithlocale,
@@ -20,22 +21,24 @@ const { buttons } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
 ---
 
-{
-	buttons.map((button, index) =>
-		button.standard ? (
-			<button
-				type="submit"
-				disabled={button.disabled}
-				formaction={
-					button.next ? prefixUrlWithlocale(button.next, locale) : null
-				}
-			>
-				{button.text}
-			</button>
-		) : button.assistanceDialog /* TODO: && page.assistance.title */ ? (
-			<mark>dialog: {button.text}</mark>
-		) : (
-			<a href={prefixUrlWithlocale(button.next, locale)}>{button.text}</a>
-		),
-	)
-}
+<div>
+	{
+		buttons.map((button) =>
+			button.standard ? (
+				<Button
+					type="submit"
+					disabled={button.disabled}
+					formaction={
+						button.next ? prefixUrlWithlocale(button.next, locale) : undefined
+					}
+				>
+					{button.text}
+				</Button>
+			) : button.assistanceDialog ? (
+				<mark>dialog: {button.text}</mark>
+			) : (
+				<a href={prefixUrlWithlocale(button.next, locale)}>{button.text}</a>
+			),
+		)
+	}
+</div>
