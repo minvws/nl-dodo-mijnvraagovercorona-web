@@ -1,5 +1,9 @@
-:root {
+/* ==========================================================================
+		primitives.typography
+/ =========================================================================== */
+
+:where(html) {
 	--font-family: RoSans, sans-serif;
 	--font-size-root: 1.1875rem; // 19px
-	--font-lineheight-root: 1.3684210526; // 26px
+	--font-lineheight-root: 1.2631578947; // 26px
 }

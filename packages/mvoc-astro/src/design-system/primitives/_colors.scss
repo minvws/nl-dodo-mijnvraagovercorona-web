@@ -1,4 +1,9 @@
-:root {
+/* ==========================================================================
+		primitives.colors
+		All colors & gradients used in the project
+/ =========================================================================== */
+
+:where(html) {
 	// Grayscale
 	--color-white: #ffffff;
 	--color-black: #222222;
@@ -10,6 +15,7 @@
 	--color-lichtblauw: #8fcae7;
 	--color-hemelblauw: #007bc7;
 	--color-donkerblauw: #01689b;
+	--color-diepblauw: #154273;
 	// Accent
 	--color-accent-okergeel: #ffb612;
 	--color-accent-robijnrood: #ca005d;

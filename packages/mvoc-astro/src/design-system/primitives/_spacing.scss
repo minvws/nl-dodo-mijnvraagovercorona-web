@@ -1,4 +1,9 @@
-:root {
+/* ==========================================================================
+		primitives.spacing
+		Spacing variables used for padding, margin etc.
+/ =========================================================================== */
+
+:where(html) {
 	// Static spacing
 	--space-s-tiny: 8px;
 	--space-s-small: 16px;
