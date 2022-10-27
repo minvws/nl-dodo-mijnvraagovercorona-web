@@ -1,0 +1,18 @@
+---
+import { Sprite } from 'astro-icon';
+
+export type Props = {
+	name: 'refresh' | 'plus' | 'external';
+	size?: string | number;
+};
+
+const { name, size } = Astro.props;
+---
+
+<style lang="scss">
+	[astro-icon] {
+		block-size: 1em;
+		inline-size: 1em;
+	}
+</style>
+<Sprite name={name} size={size} optimize={false} />
