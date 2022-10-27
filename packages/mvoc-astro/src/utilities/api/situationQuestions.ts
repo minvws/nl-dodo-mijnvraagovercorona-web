@@ -1,5 +1,5 @@
 import { useSanityClient } from 'astro-sanity';
-import { Locale } from '../locale/translation';
+import type { Locale } from '../locale/translation';
 import {
 	pageQuery,
 	PageProps,

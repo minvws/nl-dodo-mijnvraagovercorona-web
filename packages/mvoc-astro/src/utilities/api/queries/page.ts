@@ -1,4 +1,4 @@
-import { Locale } from '../../locale/translation';
+import type { Locale } from '../../locale/translation';
 import { metaDataQuery, MetaDataProps } from '.';
 
 export interface PageProps {
