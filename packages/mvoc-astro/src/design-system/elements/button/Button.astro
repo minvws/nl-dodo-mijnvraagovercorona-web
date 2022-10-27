@@ -1,7 +1,12 @@
 ---
+import Icon, {
+	Props as IconProps,
+} from '@design-system/elements/icon/Icon.astro';
 interface Shared {
 	disabled?: boolean;
 	variant?: 'primary' | 'secondary' | 'tertiary';
+	icon?: IconProps['name'];
+	iconPosition?: 'leading' | 'trailing';
 }
 
 interface Button extends Shared {
@@ -17,8 +22,18 @@ interface Link extends Shared {
 
 type Props = Button | Link;
 
-const { href, type, disabled, formaction, variant, external, lang } =
-	Astro.props;
+const {
+	href,
+	type,
+	disabled,
+	formaction,
+	variant,
+	external,
+	lang,
+	icon,
+	iconPosition,
+} = Astro.props;
+
 const Element = href || href === '' ? 'a' : 'button';
 ---
 
@@ -29,6 +44,9 @@ const Element = href || href === '' ? 'a' : 'button';
 		--button-border-width: 1px;
 		--button-border-color: var(--button-background-color);
 		display: inline-flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--space-r-small);
 		padding: calc(var(--space-r-small) - var(--button-border-width));
 		border: var(--button-border-width) solid var(--button-border-color);
 		border-radius: var(--radii-small);
@@ -96,5 +114,23 @@ const Element = href || href === '' ? 'a' : 'button';
 	lang={href ? lang : undefined}
 	hreflang={href ? lang : undefined}
 >
+	{
+		iconPosition === 'leading' ? (
+			href && external ? (
+				<Icon name="external" />
+			) : icon ? (
+				<Icon name={icon} />
+			) : null
+		) : null
+	}
 	<slot />
+	{
+		iconPosition !== 'leading' ? (
+			href && external ? (
+				<Icon name="external" />
+			) : icon ? (
+				<Icon name={icon} />
+			) : null
+		) : null
+	}
 </Element>
