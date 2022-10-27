@@ -1,26 +1,47 @@
 ---
-interface Props {
-	href?: 'string';
-	type: 'button' | 'reset' | 'submit';
+interface Shared {
 	disabled?: boolean;
+	variant?: 'primary' | 'secondary' | 'tertiary';
+}
+
+interface Button extends Shared {
+	type: 'button' | 'reset' | 'submit';
 	formaction?: string;
 }
 
-const { href, type, disabled, formaction } = Astro.props;
-const Element = href ? 'a' : 'button';
+interface Link extends Shared {
+	href: string;
+	external?: boolean;
+	lang?: string;
+}
+
+type Props = Button | Link;
+
+const { href, type, disabled, formaction, variant, external, lang } =
+	Astro.props;
+const Element = href || href === '' ? 'a' : 'button';
 ---
 
 <style lang="scss">
 	.e-button {
+		--button-background-color: var(--color-accent-robijnrood);
+		--button-color: var(--color-white);
+		--button-border-width: 1px;
+		--button-border-color: var(--button-background-color);
 		display: inline-flex;
-		padding: var(--space-r-small);
+		padding: calc(var(--space-r-small) - var(--button-border-width));
+		border: var(--button-border-width) solid var(--button-border-color);
 		border-radius: var(--radii-small);
 		text-align: center;
-		background-color: var(--color-accent-robijnrood);
-		color: var(--color-white);
+		text-decoration: none;
+		background-color: var(--button-background-color);
+		color: var(--button-color);
+		transition: all 300ms ease-in-out;
+		cursor: pointer;
 
-		&:hover {
-			background-color: var(--color-accent-violet);
+		&:hover,
+		&:focus {
+			--button-background-color: var(--color-accent-violet);
 		}
 
 		&:focus {
@@ -28,19 +49,50 @@ const Element = href ? 'a' : 'button';
 			outline-offset: 2px;
 		}
 
+		// variants
+		&.e-button--secondary {
+			--button-background-color: var(--color-donkerblauw);
+
+			&:hover,
+			&:focus {
+				--button-background-color: var(--color-diepblauw);
+			}
+		}
+
+		&.e-button--tertiary {
+			--button-background-color: var(--color-white);
+			--button-color: var(--color-donkerblauw);
+			--button-border-color: var(--color-poolblauw);
+			box-shadow: var(--elevation-tile) var(--button-border-color);
+			outline: none;
+
+			&:hover,
+			&:focus {
+				--button-background-color: var(--color-white);
+				--button-border-color: var(--button-color);
+			}
+		}
+
 		&:disabled,
 		&.is-disabled {
-			background-color: var(--color-grijs);
+			--button-background-color: var(--color-grijs);
 			cursor: not-allowed;
 		}
 	}
 </style>
 
 <Element
-	class="e-button"
-	type={type}
-	disabled={disabled}
-	formaction={formaction}
+	class={`e-button${variant ? `  e-button--${variant}` : ''}${
+		disabled ? `  is-disabled` : ''
+	}`}
+	type={!href && type ? type : undefined}
+	disabled={!href && disabled ? disabled : undefined}
+	formaction={!href && formaction ? formaction : undefined}
+	href={href}
+	target={href && external ? '_blank' : undefined}
+	rel={href && external ? 'noopener noreferrer' : undefined}
+	lang={href ? lang : undefined}
+	hreflang={href ? lang : undefined}
 >
 	<slot />
 </Element>
