@@ -12,7 +12,6 @@ export interface Props {
 		assistanceDialog: boolean;
 		text: string;
 		next: string;
-		styledAs?: string;
 		disabled?: boolean;
 	}[];
 }
@@ -23,7 +22,7 @@ const locale = getLocaleFromURL(Astro.url.pathname);
 
 <div>
 	{
-		buttons.map((button) =>
+		buttons.map((button, index) =>
 			button.standard ? (
 				<Button
 					type="submit"
@@ -31,13 +30,19 @@ const locale = getLocaleFromURL(Astro.url.pathname);
 					formaction={
 						button.next ? prefixUrlWithlocale(button.next, locale) : undefined
 					}
+					variant={index === 0 ? 'primary' : 'secondary'}
 				>
 					{button.text}
 				</Button>
 			) : button.assistanceDialog ? (
 				<mark>dialog: {button.text}</mark>
 			) : (
-				<a href={prefixUrlWithlocale(button.next, locale)}>{button.text}</a>
+				<Button
+					href={prefixUrlWithlocale(button.next, locale)}
+					variant={index === 0 ? 'primary' : 'secondary'}
+				>
+					{button.text}
+				</Button>
 			),
 		)
 	}
