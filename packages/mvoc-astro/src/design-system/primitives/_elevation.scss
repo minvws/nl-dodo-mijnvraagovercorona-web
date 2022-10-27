@@ -1,0 +1,10 @@
+/* ==========================================================================
+		primitives.elevation
+/ =========================================================================== */
+
+:where(html) {
+	// tile
+	--elevation-tile: 0 4px 0;
+	--elevation-tile-base: var(--elevation-tile) var(--color-poolblauw);
+	--elevation-tile-interactive: var(--elevation-tile) var(--color-donkerblauw);
+}
