@@ -100,11 +100,11 @@ const Element = href || href === '' ? 'a' : 'button';
 			--button-background-color: var(--color-grijs-4);
 			cursor: not-allowed;
 		}
-	}
 
-	@media --mq-large {
-		.e-button {
-			inline-size: auto;
+		@media --mq-large {
+			& {
+				inline-size: auto;
+			}
 		}
 	}
 </style>
