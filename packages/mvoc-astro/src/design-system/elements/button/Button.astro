@@ -38,6 +38,7 @@ const Element = href || href === '' ? 'a' : 'button';
 ---
 
 <style lang="scss">
+	@use "../../primitives/responsive";
 	.e-button {
 		--button-background-color: var(--color-accent-robijnrood);
 		--button-color: var(--color-white);
@@ -47,6 +48,7 @@ const Element = href || href === '' ? 'a' : 'button';
 		align-items: center;
 		justify-content: space-between;
 		gap: var(--space-r-small);
+		inline-size: 100%;
 		padding: calc(var(--space-r-small) - var(--button-border-width));
 		border: var(--button-border-width) solid var(--button-border-color);
 		border-radius: var(--radii-small);
@@ -97,6 +99,12 @@ const Element = href || href === '' ? 'a' : 'button';
 		&.is-disabled {
 			--button-background-color: var(--color-grijs-4);
 			cursor: not-allowed;
+		}
+	}
+
+	@media --mq-large {
+		.e-button {
+			inline-size: auto;
 		}
 	}
 </style>
