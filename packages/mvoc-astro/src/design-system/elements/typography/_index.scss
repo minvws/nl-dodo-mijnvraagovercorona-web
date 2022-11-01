@@ -1,0 +1,21 @@
+/* ==========================================================================
+		elements.typography
+/ =========================================================================== */
+
+h1 {
+	font-size: var(--font-size-alpha);
+	line-height: var(--line-height-alpha);
+}
+
+h2 {
+	font-size: var(--font-size-beta);
+	line-height: var(--line-height-beta);
+}
+
+h3,
+h4,
+h5,
+h6 {
+	font-size: var(--font-size-gamma);
+	line-height: var(--line-height-gamma);
+}
