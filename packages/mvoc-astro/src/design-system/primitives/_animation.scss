@@ -1,0 +1,44 @@
+:where(html) {
+	--animation-slide: slide 1s infinite linear;
+	--animation-bounce: bounce 1s infinite linear;
+	--animation-rotate: rotate 500ms ease-in-out;
+}
+
+@keyframes slide {
+	0% {
+		transform: translateX(0);
+	}
+	25% {
+		transform: translateX(2px);
+	}
+	75% {
+		transform: translateX(-2px);
+	}
+	100% {
+		transform: translateX(0);
+	}
+}
+
+@keyframes bounce {
+	0% {
+		transform: translateY(0);
+	}
+	25% {
+		transform: translateY(2px);
+	}
+	75% {
+		transform: translateY(-2px);
+	}
+	100% {
+		transform: translateY(0);
+	}
+}
+
+@keyframes rotate {
+	0% {
+		transform: rotate(0);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
