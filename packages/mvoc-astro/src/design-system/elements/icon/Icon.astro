@@ -1,18 +1,19 @@
 ---
 import { Sprite } from 'astro-icon';
 
-export type Props = {
-	name: 'refresh' | 'plus' | 'external';
+export interface Props {
+	name: 'refresh' | 'plus' | 'external' | 'tooltip' | 'chevron-left';
 	size?: string | number;
-};
+}
 
 const { name, size } = Astro.props;
 ---
 
 <style lang="scss">
-	[astro-icon] {
-		block-size: 1em;
-		inline-size: 1em;
+	.e-icon {
+		--icon-size: var(--font-lineheight-root);
+		block-size: calc(var(--icon-size) * 1em);
+		inline-size: calc(var(--icon-size) * 1em);
 	}
 </style>
-<Sprite name={name} size={size} optimize={false} />
+<Sprite class="e-icon" name={name} size={size} optimize={false} />
