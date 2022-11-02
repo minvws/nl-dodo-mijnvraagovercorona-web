@@ -29,3 +29,8 @@ h6 {
 	--heading-font-size: var(--font-size-gamma);
 	--heading-line-height: var(--line-height-gamma);
 }
+
+small {
+	font-size: var(--font-size-milli);
+	line-height: var(--line-height-milli);
+}
