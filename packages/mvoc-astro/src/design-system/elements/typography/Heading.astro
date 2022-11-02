@@ -1,9 +1,11 @@
 ---
-interface Props {
+import { HTMLAttributes } from 'astro/types';
+interface Props
+	extends HTMLAttributes<'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'> {
 	level?: 1 | 2 | 3 | 4 | 5 | 6;
 	styledAs?: 1 | 2 | 3 | 4 | 5 | 6;
 }
-const { level = 2, styledAs } = Astro.props;
+const { level = 2, styledAs, ...attrs } = Astro.props;
 
 const Element =
 	level === 1
@@ -17,7 +19,13 @@ const Element =
 		: level === 5
 		? 'h5'
 		: 'h6';
+
+const combineClasses = styledAs
+	? `as-h${styledAs}${attrs.class ? `  ${attrs.class}` : ''}`
+	: attrs.class;
 ---
+
+<Element {...attrs} class={combineClasses}><slot /></Element>
 
 <style lang="scss">
 	.as-h1 {
@@ -38,5 +46,3 @@ const Element =
 		--heading-line-height: var(--line-height-gamma);
 	}
 </style>
-
-<Element class={styledAs ? `as-h${styledAs}` : ''}><slot /></Element>
