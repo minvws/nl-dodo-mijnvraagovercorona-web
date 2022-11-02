@@ -5,19 +5,25 @@
 
 :where(html) {
 	// Static spacing
-	--space-s-tiny: 8px;
+	--space-s-nano: 4px;
+	--space-s-milli: 8px;
+	--space-s-tiny: 12px;
 	--space-s-small: 16px;
 	--space-s-base: 24px;
 
 	// Relative spacing
-	--space-r-tiny: 0.4210526316rem; // 8px
+	--space-r-nano: 0.2105263158rem; // 4px
+	--space-r-milli: 0.4210526316rem; // 8px
+	--space-r-tiny: 0.6315789474rem; // 12px
 	--space-r-small: 0.8421052632rem; // 16px
 	--space-r-base: 1.2631578947rem; // 24px
 
 	@media --mq-large {
 		& {
 			// Relative spacing
-			--space-r-tiny: 0.4rem; // 8px
+			--space-r-nano: 0.2rem; // 4px
+			--space-r-milli: 0.4rem; // 8px
+			--space-r-tiny: 0.6rem; // 12px
 			--space-r-small: 0.8rem; // 16px
 			--space-r-base: 1.2rem; // 24px
 		}
