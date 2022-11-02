@@ -20,12 +20,12 @@ const Element =
 		? 'h5'
 		: 'h6';
 
-const combineClasses = styledAs
-	? `as-h${styledAs}${attrs.class ? `  ${attrs.class}` : ''}`
-	: attrs.class;
+const combinedClasses = `e-heading${styledAs ? ` as-h${styledAs}` : ''}${
+	attrs.class ? ` | ${attrs.class}` : ''
+}`;
 ---
 
-<Element {...attrs} class={combineClasses}><slot /></Element>
+<Element {...attrs} class={combinedClasses}><slot /></Element>
 
 <style lang="scss">
 	.as-h1 {
