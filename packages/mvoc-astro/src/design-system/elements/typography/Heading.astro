@@ -1,9 +1,42 @@
 ---
 interface Props {
 	level?: 1 | 2 | 3 | 4 | 5 | 6;
+	styledAs?: 1 | 2 | 3 | 4 | 5 | 6;
 }
-const { level } = Astro.props;
-const Element = `h${level}`;
+const { level = 2, styledAs } = Astro.props;
+
+const Element =
+	level === 1
+		? 'h1'
+		: level === 2
+		? 'h2'
+		: level === 3
+		? 'h3'
+		: level === 4
+		? 'h4'
+		: level === 5
+		? 'h5'
+		: 'h6';
 ---
 
-<Element><slot /></Element>
+<style lang="scss">
+	.as-h1 {
+		--heading-font-size: var(--font-size-alpha);
+		--heading-line-height: var(--line-height-alpha);
+	}
+
+	.as-h2 {
+		--heading-font-size: var(--font-size-beta);
+		--heading-line-height: var(--line-height-beta);
+	}
+
+	.as-h3,
+	.as-h4,
+	.as-h5,
+	.as-h6 {
+		--heading-font-size: var(--font-size-gamma);
+		--heading-line-height: var(--line-height-gamma);
+	}
+</style>
+
+<Element class={styledAs ? `as-h${styledAs}` : ''}><slot /></Element>
