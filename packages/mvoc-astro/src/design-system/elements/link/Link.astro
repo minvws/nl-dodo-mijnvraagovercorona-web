@@ -1,0 +1,161 @@
+---
+import { HTMLAttributes } from 'astro/types';
+import Icon, {
+	Props as IconProps,
+} from '@design-system/elements/icon/Icon.astro';
+import { Animations } from '@design-system/primitives/animation';
+
+interface Shared {
+	variant?: 'tooltip' | 'restart' | 'back';
+	icon?: IconProps['name'];
+	iconPosition?: 'leading' | 'trailing';
+	hoverIconAnimation?: Animations;
+}
+
+interface Button extends HTMLAttributes<'button'>, Shared {}
+
+interface Link extends HTMLAttributes<'a'>, Shared {
+	disabled?: boolean;
+	external?: boolean;
+}
+
+type Props = Button | Link;
+
+const {
+	disabled,
+	variant,
+	external,
+	icon,
+	iconPosition,
+	hoverIconAnimation,
+	...attrs
+} = Astro.props;
+
+const Element = attrs.href || attrs.href === '' ? 'a' : 'button';
+
+const combinedClasses = `e-link${variant ? ` e-link--${variant}` : ''}${
+	hoverIconAnimation ? ` animate-${hoverIconAnimation}` : ''
+}${attrs.href && disabled ? `  is-disabled` : ''}${
+	attrs.class ? ` | ${attrs.class}` : ''
+}`;
+
+const selectedIcon =
+	attrs.href && external
+		? 'external'
+		: variant === 'tooltip'
+		? 'tooltip'
+		: variant === 'restart'
+		? 'refresh'
+		: variant === 'back'
+		? 'chevron-left'
+		: icon
+		? icon
+		: undefined;
+---
+
+<Element
+	{...attrs}
+	class={combinedClasses}
+	type={!attrs.href && attrs.type ? (attrs.type as Button['type']) : undefined}
+	disabled={!attrs.href && disabled ? disabled : undefined}
+	formaction={!attrs.href && attrs.formaction ? attrs.formaction : undefined}
+	href={attrs.href}
+	target={attrs.href && external ? '_blank' : undefined}
+	rel={attrs.href && external ? 'noopener noreferrer' : undefined}
+	lang={attrs.href ? attrs.lang : undefined}
+	hreflang={attrs.href ? attrs.lang : undefined}
+>
+	{
+		iconPosition === 'leading' && selectedIcon ? (
+			<Icon name={selectedIcon} />
+		) : null
+	}
+	<span>
+		<slot />
+	</span>
+	{
+		iconPosition !== 'leading' && selectedIcon ? (
+			<Icon name={selectedIcon} />
+		) : null
+	}
+</Element>
+
+<style lang="scss">
+	.e-link {
+		--icon-animation: none;
+		--link-color: var(--color-donkerblauw);
+		--link-icon-spacing: 0px;
+		display: inline;
+		outline: none;
+		text-decoration: none;
+		color: var(--link-color);
+		transition-property: background-color, color, border, box-shadow;
+		transition-duration: 300ms;
+		transition-timing-function: ease-in-out;
+		cursor: pointer;
+
+		:global(> *) {
+			vertical-align: middle;
+		}
+
+		> span {
+			text-decoration: underline;
+			text-underline-position: under;
+		}
+
+		:global(> svg) {
+			animation: var(--icon-animation);
+			&:first-child {
+				margin-inline-end: var(--link-icon-spacing);
+			}
+			&:last-child {
+				margin-inline-start: var(--link-icon-spacing);
+			}
+		}
+
+		&:hover,
+		&:focus {
+			color: var(--color-diepblauw);
+		}
+
+		&:focus {
+			outline: 2px solid var(--color-donkerblauw);
+		}
+
+		// Variants
+		&.e-link--tooltip {
+			> span {
+				text-decoration: underline dotted;
+			}
+		}
+
+		&.e-link--restart,
+		&.e-link--back {
+			font-weight: bold;
+
+			> span {
+				text-decoration: none;
+			}
+		}
+
+		&.e-link--back,
+		&.animate-slide {
+			&:hover {
+				--icon-animation: var(--animation-slide);
+			}
+		}
+
+		&.e-link--restart,
+		&.animate-rotate {
+			&:hover {
+				--icon-animation: var(--animation-rotate);
+			}
+		}
+
+		&.animate-bounce {
+			&:hover {
+				--icon-animation: var(--animation-bounce);
+			}
+		}
+	}
+</style>
