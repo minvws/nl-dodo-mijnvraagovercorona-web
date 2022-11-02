@@ -1,56 +1,79 @@
 ---
+import { HTMLAttributes } from 'astro/types';
 import Icon, {
 	Props as IconProps,
 } from '@design-system/elements/icon/Icon.astro';
 
 interface Shared {
-	disabled?: boolean;
 	variant?: 'primary' | 'secondary' | 'tertiary';
 	icon?: IconProps['name'];
 	iconPosition?: 'leading' | 'trailing';
 }
 
-interface Button extends Shared {
-	type: 'button' | 'reset' | 'submit';
-	formaction?: string;
-}
+interface Button extends HTMLAttributes<'button'>, Shared {}
 
-interface Link extends Shared {
-	href: string;
+interface Link extends HTMLAttributes<'a'>, Shared {
+	disabled?: boolean;
 	external?: boolean;
-	lang?: string;
 }
 
 type Props = Button | Link;
 
-const {
-	href,
-	type,
-	disabled,
-	formaction,
-	variant,
-	external,
-	lang,
-	icon,
-	iconPosition,
-} = Astro.props;
+const { disabled, variant, external, icon, iconPosition, ...attrs } =
+	Astro.props;
 
-const Element = href || href === '' ? 'a' : 'button';
+const Element = attrs.href || attrs.href === '' ? 'a' : 'button';
 ---
+
+<Element
+	class={`e-button${variant ? `  e-button--${variant}` : ''}${
+		attrs.href && disabled ? `  is-disabled` : ''
+	}`}
+	type={!attrs.href && attrs.type ? (attrs.type as Button['type']) : undefined}
+	disabled={!attrs.href && disabled ? disabled : undefined}
+	formaction={!attrs.href && attrs.formaction ? attrs.formaction : undefined}
+	href={attrs.href}
+	target={attrs.href && external ? '_blank' : undefined}
+	rel={attrs.href && external ? 'noopener noreferrer' : undefined}
+	lang={attrs.href ? attrs.lang : undefined}
+	hreflang={attrs.href ? attrs.lang : undefined}
+>
+	{
+		iconPosition === 'leading' ? (
+			attrs.href && external ? (
+				<Icon name="external" />
+			) : icon ? (
+				<Icon name={icon} />
+			) : null
+		) : null
+	}
+	<slot />
+	{
+		iconPosition !== 'leading' ? (
+			attrs.href && external ? (
+				<Icon name="external" />
+			) : icon ? (
+				<Icon name={icon} />
+			) : null
+		) : null
+	}
+</Element>
 
 <style lang="scss">
 	@use "../../primitives/responsive";
 	.e-button {
-		--button-background-color: var(--color-accent-robijnrood);
-		--button-color: var(--color-white);
 		--button-border-width: 1px;
 		--button-border-color: var(--button-background-color);
+		--button-padding: var(--space-r-small);
+		--button-background-color: var(--color-accent-robijnrood);
+		--button-color: var(--color-white);
+
 		display: inline-flex;
 		align-items: center;
 		justify-content: space-between;
 		gap: var(--space-r-small);
 		inline-size: 100%;
-		padding: calc(var(--space-r-small) - var(--button-border-width));
+		padding: calc(var(--button-padding) - var(--button-border-width));
 		border: var(--button-border-width) solid var(--button-border-color);
 		border-radius: var(--radii-small);
 		text-align: center;
@@ -109,37 +132,3 @@ const Element = href || href === '' ? 'a' : 'button';
 		}
 	}
 </style>
-
-<Element
-	class={`e-button${variant ? `  e-button--${variant}` : ''}${
-		href && disabled ? `  is-disabled` : ''
-	}`}
-	type={!href && type ? type : undefined}
-	disabled={!href && disabled ? disabled : undefined}
-	formaction={!href && formaction ? formaction : undefined}
-	href={href}
-	target={href && external ? '_blank' : undefined}
-	rel={href && external ? 'noopener noreferrer' : undefined}
-	lang={href ? lang : undefined}
-	hreflang={href ? lang : undefined}
->
-	{
-		iconPosition === 'leading' ? (
-			href && external ? (
-				<Icon name="external" />
-			) : icon ? (
-				<Icon name={icon} />
-			) : null
-		) : null
-	}
-	<slot />
-	{
-		iconPosition !== 'leading' ? (
-			href && external ? (
-				<Icon name="external" />
-			) : icon ? (
-				<Icon name={icon} />
-			) : null
-		) : null
-	}
-</Element>
