@@ -1,1 +1,1 @@
-export type Animations = 'slide' | 'bounce' | 'rotate';
+export type Animations = 'swing' | 'bounce' | 'rotate';
