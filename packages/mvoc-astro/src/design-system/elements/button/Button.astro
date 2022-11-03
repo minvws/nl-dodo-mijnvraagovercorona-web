@@ -25,8 +25,8 @@ const { disabled, variant, external, icon, iconPosition, ...attrs } =
 const Element = attrs.href || attrs.href === '' ? 'a' : 'button';
 
 const combinedClasses = `e-button${variant ? ` e-button--${variant}` : ''}${
-	attrs.href && disabled ? `  is-disabled` : ''
-}${attrs.class ? ` | ${attrs.class}` : ''}`;
+	attrs.class ? ` | ${attrs.class}` : ''
+}`;
 ---
 
 <Element
@@ -34,6 +34,7 @@ const combinedClasses = `e-button${variant ? ` e-button--${variant}` : ''}${
 	class={combinedClasses}
 	type={!attrs.href && attrs.type ? (attrs.type as Button['type']) : undefined}
 	disabled={!attrs.href && disabled ? disabled : undefined}
+	data-disabled={attrs.href && disabled ? disabled : undefined}
 	formaction={!attrs.href && attrs.formaction ? attrs.formaction : undefined}
 	href={attrs.href}
 	target={attrs.href && external ? '_blank' : undefined}
@@ -123,7 +124,7 @@ const combinedClasses = `e-button${variant ? ` e-button--${variant}` : ''}${
 		}
 
 		&:disabled,
-		&.is-disabled {
+		&[data-disabled] {
 			--button-background-color: var(--color-grijs-4);
 			cursor: not-allowed;
 		}
