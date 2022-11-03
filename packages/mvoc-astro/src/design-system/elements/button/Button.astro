@@ -3,11 +3,14 @@ import { HTMLAttributes } from 'astro/types';
 import Icon, {
 	Props as IconProps,
 } from '@design-system/elements/icon/Icon.astro';
+import { Animations } from '@design-system/primitives/animation';
 
+// Interfaces
 interface Shared {
 	variant?: 'primary' | 'secondary' | 'tertiary';
 	icon?: IconProps['name'];
 	iconPosition?: 'leading' | 'trailing';
+	interactionIconAnimation?: Animations;
 }
 
 interface Button extends HTMLAttributes<'button'>, Shared {}
@@ -19,14 +22,25 @@ interface Link extends HTMLAttributes<'a'>, Shared {
 
 type Props = Button | Link;
 
-const { disabled, variant, external, icon, iconPosition, ...attrs } =
-	Astro.props;
+const {
+	disabled,
+	variant,
+	external,
+	icon,
+	iconPosition,
+	interactionIconAnimation,
+	...attrs
+} = Astro.props;
 
+// Which element should we render?
 const Element = attrs.href || attrs.href === '' ? 'a' : 'button';
 
+// Create class based on props
 const combinedClasses = `e-button${variant ? ` e-button--${variant}` : ''}${
-	attrs.class ? ` | ${attrs.class}` : ''
-}`;
+	interactionIconAnimation
+		? ` | u-animation-interaction--${interactionIconAnimation}`
+		: ''
+}${attrs.class ? ` | ${attrs.class}` : ''}`;
 ---
 
 <Element
@@ -88,6 +102,10 @@ const combinedClasses = `e-button${variant ? ` e-button--${variant}` : ''}${
 		transition-duration: 300ms;
 		transition-timing-function: ease-in-out;
 		cursor: pointer;
+
+		:global(> svg) {
+			animation: var(--u-animation-subscribe);
+		}
 
 		&:hover,
 		&:focus {

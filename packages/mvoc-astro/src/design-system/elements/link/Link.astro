@@ -10,7 +10,7 @@ interface Shared {
 	variant?: 'tooltip' | 'restart' | 'back';
 	icon?: IconProps['name'];
 	iconPosition?: 'leading' | 'trailing';
-	hoverIconAnimation?: Animations;
+	interactionIconAnimation?: Animations;
 }
 
 interface Button extends HTMLAttributes<'button'>, Shared {}
@@ -28,7 +28,7 @@ const {
 	external,
 	icon,
 	iconPosition,
-	hoverIconAnimation,
+	interactionIconAnimation,
 	...attrs
 } = Astro.props;
 
@@ -37,7 +37,9 @@ const Element = attrs.href || attrs.href === '' ? 'a' : 'button';
 
 // Create class based on props
 const combinedClasses = `e-link${variant ? ` e-link--${variant}` : ''}${
-	hoverIconAnimation ? ` e-link--animate-${hoverIconAnimation}` : ''
+	interactionIconAnimation
+		? ` | u-animation-interaction--${interactionIconAnimation}`
+		: ''
 }${attrs.class ? ` | ${attrs.class}` : ''}`;
 
 const iconPositionCalculated =
@@ -111,7 +113,7 @@ const selectedIcon =
 		}
 
 		:global(> svg) {
-			animation: var(--icon-animation);
+			animation: var(--u-animation-subscribe);
 			&:first-child {
 				margin-inline-end: var(--link-icon-spacing);
 			}
@@ -145,23 +147,15 @@ const selectedIcon =
 			}
 		}
 
-		&.e-link--back,
-		&.e-link--animate-swing {
+		&.e-link--back {
 			&:hover {
-				--icon-animation: var(--animation-swing);
+				--u-animation-subscribe: var(--animation-swing);
 			}
 		}
 
-		&.e-link--restart,
-		&.e-link--animate-rotate {
+		&.e-link--restart {
 			&:hover {
-				--icon-animation: var(--animation-rotate);
-			}
-		}
-
-		&.e-link--animate-bounce {
-			&:hover {
-				--icon-animation: var(--animation-bounce);
+				--u-animation-subscribe: var(--animation-rotate);
 			}
 		}
 	}
