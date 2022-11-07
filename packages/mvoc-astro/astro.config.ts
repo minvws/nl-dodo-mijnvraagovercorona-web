@@ -6,7 +6,6 @@ import compress from 'astro-compress';
 export default defineConfig({
 	site: 'https://mijnvraagovercorona.nl/',
 	integrations: [
-		compress(),
 		sitemap(),
 		sanity({
 			projectId: 'yiy91tbc',
@@ -14,6 +13,7 @@ export default defineConfig({
 			apiVersion: 'v2022-03-23',
 			useCdn: true,
 		}),
+		compress(),
 	],
 	vite: {
 		resolve: {
