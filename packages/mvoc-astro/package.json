@@ -3,9 +3,12 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "astro dev",
+		"dev": "yarn files && astro dev",
 		"start": "astro dev",
-		"build": "astro build"
+		"build": "yarn files && astro build",
+		"files:download-sanity-images": "node ./scripts/download-sanity-images.js",
+		"files:copy": "node ./scripts/copy-designsystem-files.js",
+		"files": "yarn files:copy && yarn files:download-sanity-images"
 	},
 	"devDependencies": {
 		"@astrojs/sitemap": "^1.0.0",
@@ -14,6 +17,7 @@
 		"astro-icon": "^0.8.0",
 		"astro-sanity": "^1.0.0",
 		"dotenv": "^16.0.3",
+		"fs-extra": "^10.1.0",
 		"postcss-custom-media": "^8.0.2",
 		"sass": "^1.55.0"
 	},

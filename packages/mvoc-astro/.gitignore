@@ -1,6 +1,10 @@
 # build output
 dist
 
+# build input
+**/src/icons
+**/public/fonts
+
 # environment variables
 .env
 .env.production
