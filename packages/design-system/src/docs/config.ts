@@ -1,7 +1,7 @@
 export const SITE = {
 	title: 'MVOC design system',
 	description: 'Design System documentatie voor MVOC',
-	defaultLanguage: 'nl',
+	defaultLanguage: 'en',
 };
 
 export const OPEN_GRAPH = {
@@ -26,7 +26,7 @@ export type Frontmatter = {
 };
 
 export const KNOWN_LANGUAGES = {
-	Dutch: 'nl',
+	English: 'en',
 } as const;
 export const KNOWN_LANGUAGE_CODES = Object.values(KNOWN_LANGUAGES);
 
@@ -47,12 +47,13 @@ export type Sidebar = Record<
 	Record<string, { text: string; link: string }[]>
 >;
 export const SIDEBAR: Sidebar = {
-	nl: {
-		'Section Header': [
-			{ text: 'Introduction', link: 'nl/introduction' },
-			{ text: 'Page 2', link: 'nl/page-2' },
-			{ text: 'Page 3', link: 'nl/page-3' },
+	en: {
+		'Getting started': [{ text: 'Introduction', link: 'en/introduction' }],
+		Primitives: [
+			{ text: 'Colors', link: 'en/primitives/colors' },
+			{ text: 'Typography', link: 'en/primitives/typography' },
 		],
-		'Another Section': [{ text: 'Page 4', link: 'nl/page-4' }],
+		Elements: [{ text: 'Button', link: 'en/elements/button' }],
+		Components: [{ text: 'Card', link: 'en/components/card' }],
 	},
 };

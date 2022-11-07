@@ -1,8 +1,6 @@
 ---
 import { HTMLAttributes } from 'astro/types';
-import Icon, {
-	Props as IconProps,
-} from '@design-system/elements/icon/Icon.astro';
+import Icon, { Props as IconProps } from '@design-system/elements/Icon.astro';
 import { Animations } from '@design-system/primitives/animation';
 
 // Interfaces
@@ -78,7 +76,7 @@ const combinedClasses = `e-button${variant ? ` e-button--${variant}` : ''}${
 </Element>
 
 <style lang="scss">
-	@use "../../primitives/responsive";
+	@use "@design-system-styles/primitives/_responsive.scss";
 	.e-button {
 		--button-border-width: 1px;
 		--button-border-color: var(--button-background-color);

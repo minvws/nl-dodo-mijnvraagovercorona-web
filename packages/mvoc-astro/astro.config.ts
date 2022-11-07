@@ -15,4 +15,11 @@ export default defineConfig({
 			useCdn: true,
 		}),
 	],
+	vite: {
+		resolve: {
+			alias: {
+				'@design-system-styles/': '../design-system/src/lib/',
+			},
+		},
+	},
 });
