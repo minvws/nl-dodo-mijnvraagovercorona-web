@@ -45,6 +45,10 @@ const title = frontmatter.title;
 		display: block;
 	}
 
+	:global(.main-section > * ~ *) {
+		margin-block-start: 1rem;
+	}
+
 	@media (min-width: 50em) {
 		.sm\:hidden {
 			display: none;

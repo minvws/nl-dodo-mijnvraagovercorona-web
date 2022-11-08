@@ -82,6 +82,7 @@ const githubEditUrl = `${CONFIG.GITHUB_EDIT_URL}/${currentFile}`;
 				.layout {
 					overflow: initial;
 					gap: 1em;
+					grid-template-columns: 20rem auto 20rem;
 				}
 
 				#grid-left {
@@ -89,6 +90,8 @@ const githubEditUrl = `${CONFIG.GITHUB_EDIT_URL}/${currentFile}`;
 					padding-left: 2rem;
 					position: sticky;
 					grid-column: 1;
+					max-width: 20rem;
+					border-inline-end: 1px solid;
 				}
 			}
 
