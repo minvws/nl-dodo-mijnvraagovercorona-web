@@ -1,0 +1,39 @@
+---
+title: Heading
+description: elements - Heading
+layout: ../../../docs/layouts/MainLayout.astro
+---
+
+import Heading from '@design-system/elements/typography/Heading.astro';
+
+<Heading>Heading label</Heading>
+
+```javascript
+<Heading>Heading label</Heading>
+```
+
+## level
+
+Passing in a `level` prop will render the heading at that specific level.
+By default it renders a `h2`.
+
+<Heading level={3}>Heading label level 3</Heading>
+
+```javascript
+<Heading level={3}>Heading label</Heading>
+```
+
+## styledAs
+
+Sometimes a heading needs to be semantically a `h2` but visually a `h3`.
+Passing in a `styledAs` prop will style the heading at that level.
+
+<Heading level={3} styledAs={1}>
+	Heading label level 3, styled as level 1
+</Heading>
+
+```javascript
+<Heading level={3} styledAs={1}>
+	Heading label
+</Heading>
+```

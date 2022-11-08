@@ -54,8 +54,9 @@ export const SIDEBAR: Sidebar = {
 			{ text: 'Typography', link: 'en/primitives/typography' },
 		],
 		Elements: [
-			{ text: 'Button', link: 'en/elements/button' },
+			{ text: 'Heading', link: 'en/elements/heading' },
 			{ text: 'Link', link: 'en/elements/link' },
+			{ text: 'Button', link: 'en/elements/button' },
 		],
 		Components: [{ text: 'Card', link: 'en/components/card' }],
 	},
