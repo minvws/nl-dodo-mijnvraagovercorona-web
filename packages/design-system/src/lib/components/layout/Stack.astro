@@ -1,0 +1,12 @@
+<div class="c-stack">
+	<slot />
+</div>
+
+<style lang="scss">
+	.c-stack {
+		--stack--gap: var(--space-r-base);
+		:global(> * + *) {
+			margin-block-start: var(--stack--gap);
+		}
+	}
+</style>
