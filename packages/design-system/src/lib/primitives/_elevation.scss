@@ -3,8 +3,6 @@
 / =========================================================================== */
 
 :where(html) {
-	// tile
-	--elevation-tile: 0 4px 0;
-	--elevation-tile-base: var(--elevation-tile) var(--color-poolblauw);
-	--elevation-tile-interactive: var(--elevation-tile) var(--color-donkerblauw);
+	// focusring
+	--elevation-focusring: 2px solid var(--color-donkerblauw);
 }

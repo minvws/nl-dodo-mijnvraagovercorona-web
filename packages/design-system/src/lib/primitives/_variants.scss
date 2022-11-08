@@ -1,0 +1,20 @@
+/* ==========================================================================
+		primitives.variants
+/ =========================================================================== */
+
+:where(html) {
+	// tile
+	--variant--tile-border-radius: var(--radii-small);
+	--variant--tile-border-color: var(--color-poolblauw);
+	--variant--tile-border-color-interactive: var(--color-donkerblauw);
+
+	--variant--tile-elevation-base: 0 4px 0;
+	--variant--tile-elevation: var(--variant--tile-elevation-base)
+		var(--variant--tile-border-color);
+	--variant--tile-elevation-interactive: var(--variant--tile-elevation-base)
+		var(--variant--tile-border-color-interactive);
+
+	--variant--tile-border: 1px solid var(--variant--tile-border-color);
+	--variant--tile-border-interactive: 1px solid
+		var(--variant--tile-border-color-interactive);
+}
