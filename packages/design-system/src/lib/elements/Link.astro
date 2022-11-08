@@ -16,6 +16,7 @@ interface Button extends HTMLAttributes<'button'>, Shared {}
 interface Link extends HTMLAttributes<'a'>, Shared {
 	disabled?: boolean;
 	external?: boolean;
+	hiddenLabel?: string;
 }
 
 type Props = Button | Link;
@@ -24,6 +25,7 @@ const {
 	disabled,
 	variant,
 	external,
+	hiddenLabel,
 	icon,
 	iconPosition,
 	interactionIconAnimation,
@@ -74,7 +76,7 @@ const selectedIcon =
 >
 	{
 		iconPositionCalculated === 'leading' && selectedIcon ? (
-			<Icon name={selectedIcon} />
+			<Icon name={selectedIcon} description={hiddenLabel} />
 		) : null
 	}
 	<span>
@@ -82,7 +84,7 @@ const selectedIcon =
 	</span>
 	{
 		iconPositionCalculated === 'trailing' && selectedIcon ? (
-			<Icon name={selectedIcon} />
+			<Icon name={selectedIcon} description={hiddenLabel} />
 		) : null
 	}
 </Element>
@@ -92,7 +94,8 @@ const selectedIcon =
 		--icon-animation: none;
 		--link-color: var(--color-donkerblauw);
 		--link-icon-spacing: 0px;
-		display: inline;
+		display: inline-flex;
+		gap: var(--link-icon-spacing);
 		outline: none;
 		text-decoration: none;
 		color: var(--link-color);
@@ -110,14 +113,14 @@ const selectedIcon =
 			text-underline-position: under;
 		}
 
-		:global(> svg) {
+		:global(> .e-icon) {
 			animation: var(--u-animation-subscribe);
-			&:first-child {
-				margin-inline-end: var(--link-icon-spacing);
-			}
-			&:last-child {
-				margin-inline-start: var(--link-icon-spacing);
-			}
+			// &:first-child {
+			// 	margin-inline-end: var(--link-icon-spacing);
+			// }
+			// &:last-child {
+			// 	margin-inline-start: var(--link-icon-spacing);
+			// }
 		}
 
 		&:hover,
@@ -138,6 +141,7 @@ const selectedIcon =
 
 		&.e-link--restart,
 		&.e-link--back {
+			--link-icon-spacing: 0.5em;
 			font-weight: bold;
 
 			> span {

@@ -16,6 +16,7 @@ interface Button extends HTMLAttributes<'button'>, Shared {}
 interface Link extends HTMLAttributes<'a'>, Shared {
 	disabled?: boolean;
 	external?: boolean;
+	hiddenLabel?: string;
 }
 
 type Props = Button | Link;
@@ -24,9 +25,11 @@ const {
 	disabled,
 	variant,
 	external,
+	hiddenLabel,
 	icon,
 	iconPosition,
 	interactionIconAnimation,
+
 	...attrs
 } = Astro.props;
 
@@ -39,6 +42,12 @@ const combinedClasses = `e-button${variant ? ` e-button--${variant}` : ''}${
 		? ` | u-animation-interaction--${interactionIconAnimation}`
 		: ''
 }${attrs.class ? ` | ${attrs.class}` : ''}`;
+
+const iconPositionCalculated =
+	iconPosition === 'leading' ? 'leading' : 'trailing';
+
+const selectedIcon =
+	attrs.href && external ? 'external' : icon ? icon : undefined;
 ---
 
 <Element
@@ -55,22 +64,14 @@ const combinedClasses = `e-button${variant ? ` e-button--${variant}` : ''}${
 	hreflang={attrs.href ? attrs.lang : undefined}
 >
 	{
-		iconPosition === 'leading' ? (
-			attrs.href && external ? (
-				<Icon name="external" />
-			) : icon ? (
-				<Icon name={icon} />
-			) : null
+		iconPositionCalculated === 'leading' && selectedIcon ? (
+			<Icon name={selectedIcon} description={hiddenLabel} />
 		) : null
 	}
 	<slot />
 	{
-		iconPosition !== 'leading' ? (
-			attrs.href && external ? (
-				<Icon name="external" />
-			) : icon ? (
-				<Icon name={icon} />
-			) : null
+		iconPositionCalculated === 'trailing' && selectedIcon ? (
+			<Icon name={selectedIcon} description={hiddenLabel} />
 		) : null
 	}
 </Element>
@@ -101,7 +102,7 @@ const combinedClasses = `e-button${variant ? ` e-button--${variant}` : ''}${
 		transition-timing-function: ease-in-out;
 		cursor: pointer;
 
-		:global(> svg) {
+		:global(> .e-icon) {
 			animation: var(--u-animation-subscribe);
 		}
 

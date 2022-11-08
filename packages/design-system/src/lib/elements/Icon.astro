@@ -3,17 +3,27 @@ import { Sprite } from 'astro-icon';
 
 export interface Props {
 	name: 'refresh' | 'plus' | 'external' | 'tooltip' | 'chevron-left';
+	description?: string;
 	size?: string | number;
 }
 
-const { name, size } = Astro.props;
+const { name, size, description } = Astro.props;
 ---
 
 <style lang="scss">
 	.e-icon {
+		display: inline-block;
+	}
+
+	.e-icon__visual {
 		--icon-size: var(--font-lineheight-root);
+		display: block;
 		block-size: calc(var(--icon-size) * 1em);
 		inline-size: calc(var(--icon-size) * 1em);
 	}
 </style>
-<Sprite class="e-icon" name={name} size={size} optimize={false} />
+
+<span class="e-icon">
+	{description ? <span class="u-visually-hidden">{description}</span> : null}
+	<Sprite class="e-icon__visual" name={name} size={size} optimize={false} />
+</span>
