@@ -4,6 +4,7 @@ import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import type { Props as SubmitProps } from './Submit.astro';
 import { moduleName as AnswersSingleModuleName } from './AnswersSingle';
 import Submit from './Submit.astro';
+import Control from '@design-system/elements/Control.astro';
 export interface Props {
 	answers: {
 		content: Object[];
@@ -32,17 +33,15 @@ const parsedButtons = buttons?.map((button, index) =>
 <form method="post" data-module={AnswersSingleModuleName}>
 	{
 		answers.map(({ content, next, _key }) => (
-			<>
-				<input
-					name={AnswersSingleModuleName}
-					id={_key}
-					type="radio"
-					value={`${locale.urlPrefix}/${next}` || ''}
-				/>
-				<label for={_key}>
-					<ContentBlock portableText={content} />
-				</label>
-			</>
+			<Control
+				type="radio"
+				name={AnswersSingleModuleName}
+				id={_key}
+				value={`${locale.urlPrefix}/${next}` || ''}
+				variant="tile"
+			>
+				<ContentBlock portableText={content} />
+			</Control>
 		))
 	}
 	<Submit buttons={parsedButtons} />

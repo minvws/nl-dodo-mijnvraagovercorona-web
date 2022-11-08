@@ -3,6 +3,8 @@ import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import type { Props as SubmitProps } from './Submit.astro';
 import Submit from './Submit.astro';
 import { moduleName as AnswersMultipleModuleName } from './AnswersMultiple';
+import Control from '@design-system/elements/Control.astro';
+
 export interface Props {
 	answers: {
 		_key: string;
@@ -33,15 +35,15 @@ const parsedButtons = buttons?.map((button, index) =>
 <form method="post" data-module={AnswersMultipleModuleName}>
 	{
 		answers.map(({ content, _key }) => (
-			<>
-				<input
-					type="checkbox"
-					name={AnswersMultipleModuleName}
-					id={_key}
-					value={content}
-				/>
-				<label for={_key}>{content}</label>
-			</>
+			<Control
+				type="checkbox"
+				name={AnswersMultipleModuleName}
+				id={_key}
+				value={content}
+				variant="tile"
+			>
+				{content}
+			</Control>
 		))
 	}
 	<Submit buttons={parsedButtons} />
