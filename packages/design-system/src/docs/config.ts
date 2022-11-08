@@ -57,6 +57,7 @@ export const SIDEBAR: Sidebar = {
 			{ text: 'Heading', link: 'en/elements/heading' },
 			{ text: 'Link', link: 'en/elements/link' },
 			{ text: 'Button', link: 'en/elements/button' },
+			{ text: 'Control', link: 'en/elements/control' },
 		],
 		Components: [{ text: 'Card', link: 'en/components/card' }],
 	},
