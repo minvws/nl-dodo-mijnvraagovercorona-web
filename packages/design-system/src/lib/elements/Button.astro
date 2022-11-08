@@ -129,14 +129,16 @@ const selectedIcon =
 		&.e-button--tertiary {
 			--button-background-color: var(--color-white);
 			--button-color: var(--color-donkerblauw);
-			--button-border-color: var(--color-poolblauw);
-			box-shadow: var(--elevation-tile) var(--button-border-color);
+			--button-border-color: var(--variant--tile-border-color);
+			--button-elevation: var(--variant--tile-elevation);
+			box-shadow: var(--button-elevation);
 			outline: none;
 
 			&:hover,
 			&:focus {
 				--button-background-color: var(--color-white);
-				--button-border-color: var(--button-color);
+				--button-border-color: var(--variant--tile-border-color-interactive);
+				--button-elevation: var(--variant--tile-elevation-interactive);
 			}
 		}
 
