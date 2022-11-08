@@ -4,6 +4,7 @@ import type { Props as SubmitProps } from './Submit.astro';
 import Submit from './Submit.astro';
 import { moduleName as AnswersMultipleModuleName } from './AnswersMultiple';
 import Control from '@design-system/elements/Control.astro';
+import Stack from '@design-system/components/layout/Stack.astro';
 
 export interface Props {
 	answers: {
@@ -33,19 +34,21 @@ const parsedButtons = buttons?.map((button, index) =>
 ---
 
 <form method="post" data-module={AnswersMultipleModuleName}>
-	{
-		answers.map(({ content, _key }) => (
-			<Control
-				type="checkbox"
-				name={AnswersMultipleModuleName}
-				id={_key}
-				value={content}
-				variant="tile"
-			>
-				{content}
-			</Control>
-		))
-	}
+	<Stack>
+		{
+			answers.map(({ content, _key }) => (
+				<Control
+					type="checkbox"
+					name={AnswersMultipleModuleName}
+					id={_key}
+					value={content}
+					variant="tile"
+				>
+					{content}
+				</Control>
+			))
+		}
+	</Stack>
 	<Submit buttons={parsedButtons} />
 </form>
 
