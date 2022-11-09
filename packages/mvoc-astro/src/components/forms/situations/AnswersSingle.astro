@@ -5,6 +5,7 @@ import type { Props as SubmitProps } from './Submit.astro';
 import { moduleName as AnswersSingleModuleName } from './AnswersSingle';
 import Submit from './Submit.astro';
 import Control from '@design-system/elements/Control.astro';
+import Stack from '@design-system/components/layout/Stack.astro';
 export interface Props {
 	answers: {
 		content: Object[];
@@ -31,19 +32,21 @@ const parsedButtons = buttons?.map((button, index) =>
 ---
 
 <form method="post" data-module={AnswersSingleModuleName}>
-	{
-		answers.map(({ content, next, _key }) => (
-			<Control
-				type="radio"
-				name={AnswersSingleModuleName}
-				id={_key}
-				value={`${locale.urlPrefix}/${next}` || ''}
-				variant="tile"
-			>
-				<ContentBlock portableText={content} />
-			</Control>
-		))
-	}
+	<Stack gap="small">
+		{
+			answers.map(({ content, next, _key }) => (
+				<Control
+					type="radio"
+					name={AnswersSingleModuleName}
+					id={_key}
+					value={`${locale.urlPrefix}/${next}` || ''}
+					variant="tile"
+				>
+					<ContentBlock portableText={content} />
+				</Control>
+			))
+		}
+	</Stack>
 	<Submit buttons={parsedButtons} />
 </form>
 
