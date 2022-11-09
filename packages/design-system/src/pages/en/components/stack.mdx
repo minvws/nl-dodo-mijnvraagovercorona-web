@@ -1,0 +1,47 @@
+---
+title: Stack
+description: components - Stack
+layout: ../../../docs/layouts/MainLayout.astro
+---
+
+import ComponentWrapper from '@docs/components/ComponentWrapper.astro';
+import Stack from '@design-system/components/layout/Stack.astro';
+
+Stack is used to evenly space out items between eachother.
+By default the `base` spacing is generated between elements.
+
+<ComponentWrapper>
+<Stack>
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum, maiores
+sed? Expedita rem commodi unde odit animi totam quisquam, vel debitis iure
+assumenda quo iste dolores mollitia laudantium velit blanditiis!
+
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum, maiores
+sed? Expedita rem commodi unde odit animi totam quisquam, vel debitis iure
+assumenda quo iste dolores mollitia laudantium velit blanditiis!
+
+</Stack>
+</ComponentWrapper>
+```javascript
+<Stack></Stack>
+```
+
+## gap
+
+You can provide another spacing variable in the `gap` prop.
+
+<ComponentWrapper>
+<Stack gap="tiny">
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum, maiores
+sed? Expedita rem commodi unde odit animi totam quisquam, vel debitis iure
+assumenda quo iste dolores mollitia laudantium velit blanditiis!
+
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum, maiores
+sed? Expedita rem commodi unde odit animi totam quisquam, vel debitis iure
+assumenda quo iste dolores mollitia laudantium velit blanditiis!
+
+</Stack>
+</ComponentWrapper>
+```javascript
+<Stack gap="tiny"></Stack>
+```
