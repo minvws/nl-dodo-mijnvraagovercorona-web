@@ -5,7 +5,8 @@
 		"jsx": "preserve",
 		"skipLibCheck": true,
 		"paths": {
-			"@design-system/*": ["./src/lib/*"]
+			"@design-system/*": ["./src/lib/*"],
+			"@docs/*": ["./src/docs/*"]
 		}
 	}
 }
