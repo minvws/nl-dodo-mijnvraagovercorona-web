@@ -99,6 +99,7 @@ const { type, name, value, id, checked, variant } = Astro.props;
 	.e-control--radio {
 		--control-indicator-border-radius: 50%;
 	}
+
 	.e-control--tile {
 		.e-control__label {
 			--control-indicator-inline-start: var(--control-spacing);
@@ -117,6 +118,10 @@ const { type, name, value, id, checked, variant } = Astro.props;
 		.e-control__label:hover {
 			--control--tile-border: var(--variant--tile-border-interactive);
 			--control--tile-elevation: var(--variant--tile-elevation-interactive);
+		}
+
+		input:hover:not(:focus) + .e-control__label::before {
+			outline: none;
 		}
 	}
 </style>
