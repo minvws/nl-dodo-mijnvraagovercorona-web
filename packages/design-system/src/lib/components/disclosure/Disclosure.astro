@@ -1,0 +1,149 @@
+---
+type Props = {
+	header: string;
+};
+const { header } = Astro.props;
+---
+
+<ul class="disclosure" role="list" data-module="disclosure">
+	<slot />
+</ul>
+
+<script type="module">
+	// variables
+	const items = [
+		...document.querySelectorAll('[data-module-bind="disclosure__item"]'),
+	];
+
+	// functions
+	const getPanelHeight = (item) => {
+		const inner = item.querySelector(
+			'[data-module-bind="disclosure__panel-inner"]',
+		);
+		return inner.getBoundingClientRect().height;
+	};
+
+	const openItem = (item) => {
+		const toggle = item.querySelector(
+			'[data-module-bind="disclosure__toggle"]',
+		);
+		const indicator = item.querySelector(
+			'[data-module-bind="disclosure__indicator"]',
+		);
+		const panel = item.querySelector('[data-module-bind="disclosure__panel"]');
+
+		panel.style.height = `${getPanelHeight(item)}px`;
+		item.classList.add('is-active');
+		toggle.setAttribute('aria-expanded', true);
+	};
+
+	const closeItem = (item) => {
+		const toggle = item.querySelector(
+			'[data-module-bind="disclosure__toggle"]',
+		);
+		const indicator = item.querySelector(
+			'[data-module-bind="disclosure__indicator"]',
+		);
+		const panel = item.querySelector('[data-module-bind="disclosure__panel"]');
+
+		item.classList.remove('is-active');
+		panel.style.height = 0;
+		toggle.focus();
+		toggle.setAttribute('aria-expanded', false);
+	};
+
+	const isOpen = (item) => {
+		return item.classList.contains('is-active');
+	};
+
+	function toggleAccordionItem() {
+		const item = event.target.closest('[data-module-bind="disclosure__item"]');
+		if (!item || event.target.closest('[data-module-bind="disclosure__panel"]'))
+			return;
+
+		isOpen(item) ? closeItem(item) : openItem(item);
+	}
+
+	function recalculateHeight() {
+		const toggledItems = items.filter((element) =>
+			element.classList.contains('is-active'),
+		);
+
+		toggledItems.forEach((toggledAccordionItem) => {
+			const panel = toggledAccordionItem.querySelector(
+				'[data-module-bind="disclosure__panel"]',
+			);
+			panel.style.height = `${getPanelHeight(toggledAccordionItem)}px`;
+		});
+	}
+
+	// execution
+	items.forEach((item, index) => {
+		const toggle = item.querySelector(
+			'[data-module-bind="disclosure__toggle"]',
+		);
+		const itemPanel = item.querySelector(
+			'[data-module-bind="disclosure__panel"]',
+		);
+
+		toggle.setAttribute('id', `accordion-item${index + 1}`);
+		itemPanel.setAttribute('id', `item${index + 1}`);
+
+		toggle.setAttribute('aria-controls', `item${index + 1}`);
+		itemPanel.setAttribute('aria-labelledby', `accordion-item${index + 1}`);
+	});
+
+	document.addEventListener('keydown', (event) => {
+		const item = event.target.closest('[data-module-bind="disclosure__item"]');
+
+		if (event.key !== 'Escape') return;
+		if (!item) return;
+
+		if (isOpen(item)) {
+			closeItem(item);
+		}
+	});
+
+	document.addEventListener('keydown', (event) => {
+		if (!event.target.closest('[data-module-bind="disclosure__toggle"]'))
+			return;
+
+		const accordionWrapper = event.target.closest('[data-module="disclosure"]');
+		const item = event.target.closest('[data-module-bind="disclosure__item"]');
+		const items = [
+			...accordionWrapper.querySelectorAll(
+				'[data-module-bind="disclosure__item"]',
+			),
+		];
+		const index = items.findIndex((element) => element === item);
+
+		const { key } = event;
+
+		let targetItem;
+
+		if (key === 'ArrowDown') {
+			targetItem = items[index + 1];
+		}
+
+		if (key === 'ArrowUp') {
+			targetItem = items[index - 1];
+		}
+
+		if (targetItem) {
+			event.preventDefault();
+			targetItem
+				.querySelector('[data-module-bind="disclosure__toggle"]')
+				.focus();
+		}
+	});
+
+	window.toggleAccordionItem = toggleAccordionItem;
+	window.onresize = recalculateHeight;
+</script>
+
+<style lang="scss">
+	.disclosure {
+		list-style: none;
+		padding: 0;
+	}
+</style>
