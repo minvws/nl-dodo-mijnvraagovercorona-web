@@ -31,19 +31,13 @@ const { type, name, value, id, checked, variant } = Astro.props;
 </div>
 
 <style lang="scss">
-	@use "@design-system-styles/primitives/_responsive.scss";
-
 	.e-control {
 		--control-color: var(--color-donkerblauw);
-		--control-indicator-size: 1.2631578947rem;
 		--control-spacing: var(--space-r-small);
+		--control-indicator-size: var(--space-r-base);
 		--control-indicator-inline-start: 0px;
 		--control-indicator-border-color: currentColor;
 		--control-indicator-border-radius: 0px;
-
-		@media --mq-large {
-			--control-indicator-size: 1.2rem;
-		}
 	}
 
 	.e-control__label {
