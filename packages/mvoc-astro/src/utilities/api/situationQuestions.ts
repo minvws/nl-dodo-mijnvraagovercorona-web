@@ -18,6 +18,7 @@ export interface PageSituationQuestionProps extends PageProps {
 	type: FormSwitchProps['type'];
 	answersSingle: FormSwitchProps['answersSingle'];
 	answersMultiple: FormSwitchProps['answersMultiple'];
+	showMore: FormSwitchProps['showMore'];
 	buttons: FormSwitchProps['buttons'];
 	slug: string;
 }
@@ -51,6 +52,21 @@ export async function getDataSituationQuestions({
 		"answersMultiple": answersMultiple[]{
 			_key,
 			${localePropertyQuery({ name: 'content', locale })},
+		},
+		"showMore": {
+			"max": showMore.max,
+			"label": {
+				${localePropertyQuery({
+					name: 'this',
+					path: 'showMore.label.this',
+					locale,
+				})},
+				${localePropertyQuery({
+					name: 'that',
+					path: 'showMore.label.that',
+					locale,
+				})},
+			},
 		},
 		"buttons": buttons[]{
 			_key,

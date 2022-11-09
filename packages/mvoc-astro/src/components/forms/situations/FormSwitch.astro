@@ -9,13 +9,13 @@ export interface Props {
 	// content: AnswersSingleProps['content'];
 	answersSingle?: AnswersSingleProps['answers'];
 	answersMultiple?: AnswersMultipleProps['answers'];
-	// showMore: {
-	// 	max: number;
-	// 	label: {
-	// 		this: string;
-	// 		that: string;
-	// 	};
-	// };
+	showMore: {
+		max: number;
+		label: {
+			this: string;
+			that: string;
+		};
+	};
 	// ageInput: {
 	// 	label: string;
 	// 	placeholder: string;
@@ -24,7 +24,9 @@ export interface Props {
 	buttons: SubmitProps['buttons'];
 }
 
-const { type, answersSingle, answersMultiple, buttons } = Astro.props;
+const { type, answersSingle, answersMultiple, buttons, showMore } = Astro.props;
+
+console.log('lalala', showMore);
 ---
 
 <>
@@ -32,7 +34,11 @@ const { type, answersSingle, answersMultiple, buttons } = Astro.props;
 		type === 'single' && answersSingle ? (
 			<AnswersSingle answers={answersSingle} buttons={buttons} />
 		) : type === 'multiple' && answersMultiple ? (
-			<AnswersMultiple answers={answersMultiple} buttons={buttons} />
+			<AnswersMultiple
+				showMoreLabel={showMore.label}
+				answers={answersMultiple}
+				buttons={buttons}
+			/>
 		) : null
 	}
 </>

@@ -40,6 +40,7 @@ const locale = getLocaleFromURL(Astro.url.pathname);
 	<main>
 		<Heading level={1}>{pageData.header.title}</Heading>
 		<FormSwitch
+			showMore={pageData.showMore}
 			type={pageData.type}
 			answersSingle={pageData.answersSingle}
 			answersMultiple={pageData.answersMultiple}
