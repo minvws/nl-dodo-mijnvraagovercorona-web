@@ -62,6 +62,7 @@ export const SIDEBAR: Sidebar = {
 		Components: [
 			{ text: 'Stack', link: 'en/components/stack' },
 			{ text: 'Accordion', link: 'en/components/accordion' },
+			{ text: 'Modal', link: 'en/components/modal' },
 			{ text: 'Card', link: 'en/components/card' },
 		],
 	},

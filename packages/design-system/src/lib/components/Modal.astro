@@ -1,0 +1,194 @@
+---
+import Icon from '@design-system/elements/Icon.astro';
+import Heading from '@design-system/elements/typography/Heading.astro';
+import Stack from './layout/Stack.astro';
+
+type Props = {
+	id: string;
+	title: string;
+	closeLabel?: string;
+};
+
+const { id, title, closeLabel = 'Sluiten' } = Astro.props;
+---
+
+<div class="modal" role="dialog" aria-labelledby={id} data-module="modal">
+	<div class="modal__inner">
+		<button
+			type="button"
+			class="modal__close-button"
+			data-module-bind="modal__close-button"
+		>
+			<Icon name="cross" class="modal__close-button-icon" />
+			<span class="u-visually-hidden">
+				{closeLabel}
+			</span>
+		</button>
+		<div class="modal__content" data-module-bind="modal__content">
+			<Stack>
+				<Heading class="modal__title" level={3} styledAs={2} tabindex="-1">
+					{title}
+				</Heading>
+				<Stack>
+					<slot>Modal description.</slot>
+				</Stack>
+			</Stack>
+		</div>
+	</div>
+</div>
+
+<script type="module">
+	// variables
+	const body = document.querySelector('body');
+	const modal = document.querySelector('[data-module="modal"]');
+	const modalId = modal.getAttribute('aria-labelledby');
+	const modalCloseButton = modal.querySelector(
+		'[data-module-bind="modal__close-button"]',
+	);
+	const modalTrigger = document.querySelector(`#${modalId}`);
+
+	// functions
+	const teleportToRoot = (element) => {
+		element.remove();
+		body.appendChild(element);
+	};
+
+	const getKeyboardFocusableElements = (element) => {
+		return [
+			...element.querySelectorAll(
+				'a, button, input, textarea, select, details,[tabindex]:not([tabindex="-1"])',
+			),
+		].filter((el) => !el.hasAttribute('disabled'));
+	};
+
+	const trapFocus = (event) => {
+		const focusables = getKeyboardFocusableElements(modal);
+		const firstFocusable = focusables[0];
+		const lastFocusable = focusables[focusables.length - 1];
+		if (
+			document.activeElement === lastFocusable &&
+			event.key === 'Tab' &&
+			!event.shiftKey
+		) {
+			event.preventDefault();
+			firstFocusable.focus();
+		}
+		if (
+			document.activeElement === firstFocusable &&
+			event.key === 'Tab' &&
+			event.shiftKey
+		) {
+			event.preventDefault();
+			lastFocusable.focus();
+		}
+	};
+
+	const openModal = (_) => {
+		const modalTitle = modal.querySelector('h3');
+		modal.classList.add('is-visible');
+		body.classList.add('modal-is-visible');
+		modalTitle.focus();
+		document.addEventListener('keydown', trapFocus);
+		modal.addEventListener('keydown', (event) => {
+			if (event.key === 'Escape') {
+				closeModal();
+			}
+		});
+	};
+
+	const closeModal = (_) => {
+		modal.classList.remove('is-visible');
+		body.classList.remove('modal-is-visible');
+		modalTrigger.focus({ preventScroll: true });
+		document.removeEventListener('keydown', trapFocus);
+	};
+
+	// execution
+	teleportToRoot(modal);
+	modalTrigger.addEventListener('click', openModal);
+	modalCloseButton.addEventListener('click', closeModal);
+	modal.addEventListener('click', (event) => {
+		if (!event.target.closest('[data-module-bind="modal__content"]')) {
+			closeModal();
+		}
+	});
+	window.closeModal = closeModal;
+</script>
+
+<style lang="scss" is:global>
+	body.modal-is-visible > *:not(.modal) {
+		filter: blur(6px);
+	}
+
+	.modal {
+		--modal-space: var(--space-r-base);
+		position: fixed;
+		z-index: -100;
+		block-size: 0;
+		visibility: hidden;
+
+		&.is-visible {
+			inset: 0;
+			z-index: 100;
+			display: grid;
+			place-items: center;
+			block-size: auto;
+			background-color: rgba(0, 0, 0, 0.5);
+			visibility: visible;
+
+			.modal__inner {
+				opacity: 1;
+			}
+		}
+	}
+
+	.modal__inner {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		inline-size: clamp(35ch, 70%, 55ch);
+		max-inline-size: calc(100% - var(--space-r-tiny) * 2);
+		max-block-size: calc(100vh - var(--space-r-tiny) * 2);
+		padding-block-start: var(--modal-space);
+		padding-block-end: var(--modal-space);
+		border-radius: var(--radii-large);
+		background-color: white;
+		opacity: 0;
+		transition: opacity 0.3s ease-in-out;
+	}
+
+	.modal__content {
+		padding-inline-start: var(--modal-space);
+		padding-inline-end: var(--modal-space);
+		max-inline-size: 100%;
+		overflow: auto;
+	}
+	.modal__title {
+		margin-inline-end: calc(
+			var(--font-lineheight-root) * 1rem + var(--space-r-nano) * 2 +
+				var(--space-r-tiny)
+		);
+	}
+	.modal__close-button,
+	.modal__close-button-icon {
+		display: block;
+	}
+	.modal__close-button {
+		position: absolute;
+		inset-inline-end: var(--modal-space);
+		inset-block-start: var(--modal-space);
+		padding: var(--space-r-nano);
+		border-radius: 50%;
+		border: 1px solid var(--color-grijs-3);
+		color: var(--color-diepblauw);
+		background-color: var(--color-white);
+		cursor: pointer;
+
+		&:hover {
+			color: var(--color-accent-robijnrood);
+		}
+		&:focus {
+			outline: var(--elevation-focusring);
+		}
+	}
+</style>
