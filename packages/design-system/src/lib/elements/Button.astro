@@ -53,7 +53,11 @@ const selectedIcon =
 <Element
 	{...attrs}
 	class={combinedClasses}
-	type={!attrs.href && attrs.type ? (attrs.type as Button['type']) : undefined}
+	type={!attrs.href
+		? attrs.type
+			? (attrs.type as Button['type'])
+			: 'button'
+		: undefined}
 	disabled={!attrs.href && disabled ? disabled : undefined}
 	data-disabled={attrs.href && disabled ? disabled : undefined}
 	formaction={!attrs.href && attrs.formaction ? attrs.formaction : undefined}
@@ -77,7 +81,7 @@ const selectedIcon =
 </Element>
 
 <style lang="scss">
-	@use "@design-system-styles/primitives/_responsive.scss";
+	@use '@design-system-styles/primitives/_responsive.scss';
 	.e-button {
 		--button-border-width: 1px;
 		--button-border-color: var(--button-background-color);
