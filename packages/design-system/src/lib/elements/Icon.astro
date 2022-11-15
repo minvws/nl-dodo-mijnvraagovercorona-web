@@ -3,7 +3,14 @@ import { HTMLAttributes } from 'astro/types';
 import { Sprite } from 'astro-icon';
 
 export interface Props extends HTMLAttributes<'span'> {
-	name: 'refresh' | 'plus' | 'minus' | 'external' | 'tooltip' | 'chevron-left';
+	name:
+		| 'refresh'
+		| 'plus'
+		| 'minus'
+		| 'cross'
+		| 'external'
+		| 'tooltip'
+		| 'chevron-left';
 	description?: string;
 	size?: string | number;
 }
