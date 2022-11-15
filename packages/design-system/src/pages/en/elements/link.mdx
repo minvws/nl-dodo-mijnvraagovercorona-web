@@ -4,13 +4,15 @@ description: elements - Link
 layout: ../../../docs/layouts/MainLayout.astro
 ---
 
+import ComponentWrapper from '@docs/components/ComponentWrapper.astro';
 import Link from '@design-system/elements/Link.astro';
 
 A link is used to show link style elements on the page. By default a Link is
 rendered as a `Link` element.
 
-<Link>Link label</Link>
-
+<ComponentWrapper>
+	<Link>Link label</Link>
+</ComponentWrapper>
 ```javascript
 <Link>Link label</Link>
 ```
@@ -18,8 +20,9 @@ rendered as a `Link` element.
 When you pass in the `href` prop it will
 convert to a anchor element.
 
-<Link href="#">Link label</Link>
-
+<ComponentWrapper>
+	<Link href="#">Link label</Link>
+</ComponentWrapper>
 ```javascript
 <Link href="#">Link label</Link>
 ```
@@ -28,32 +31,36 @@ convert to a anchor element.
 
 ### tooltip
 
-<Link variant="tooltip">Link label</Link>
-
+<ComponentWrapper>
+	<Link variant="tooltip">Link label</Link>
+</ComponentWrapper>
 ```javascript
 <Link variant="tooltip">Link label</Link>
 ```
 
 ### restart
 
-<Link variant="restart">Link label</Link>
-
+<ComponentWrapper>
+	<Link variant="restart">Link label</Link>
+</ComponentWrapper>
 ```javascript
 <Link variant="restart">Link label</Link>
 ```
 
-### restart
+### back
 
-<Link variant="back">Link label</Link>
-
+<ComponentWrapper>
+	<Link variant="back">Link label</Link>
+</ComponentWrapper>
 ```javascript
 <Link variant="back">Link label</Link>
 ```
 
 ## Disabled
 
-<Link disabled>Link label</Link>
-
+<ComponentWrapper>
+	<Link disabled>Link label</Link>
+</ComponentWrapper>
 ```javascript
 <Link disabled>Link label</Link>
 ```
@@ -62,9 +69,11 @@ convert to a anchor element.
 
 When you pass in the `href` prop you can also define if the link is `external`. This adds the external icon. Alternativeley you can also provide a `hiddenLabel` to explain where the link will be opened.
 
-<Link href="#" external hiddenLabel="opens in new tab">
-	Link label
-</Link>
+<ComponentWrapper>
+	<Link href="#" external hiddenLabel="opens in new tab">
+		Link label
+	</Link>
+</ComponentWrapper>
 
 ```javascript
 <Link href="#" external hiddenLabel="opens in new tab">
@@ -76,8 +85,9 @@ When you pass in the `href` prop you can also define if the link is `external`. 
 
 You can add an icon to the Link.
 
-<Link icon="refresh">Link label</Link>
-
+<ComponentWrapper>
+	<Link icon="refresh">Link label</Link>
+</ComponentWrapper>
 ```javascript
 <Link icon="refresh">Link label</Link>
 ```
@@ -87,10 +97,11 @@ You can add an icon to the Link.
 By default all icons are aligned `trailing` after the Link label.
 You can also align the icon before the label by passing in `leading` into `iconPosition`.
 
-<Link icon="external" iconPosition="leading">
-	Link label
-</Link>
-
+<ComponentWrapper>
+	<Link icon="external" iconPosition="leading">
+		Link label
+	</Link>
+</ComponentWrapper>
 ```javascript
 <Link icon="external" iconPosition="leading">
 	Link label
@@ -101,10 +112,11 @@ You can also align the icon before the label by passing in `leading` into `iconP
 
 You can animate the icon on interaction(`:hover, :focus`).
 
-<Link icon="external" interactionIconAnimation="swing">
-	Link label
-</Link>
-
+<ComponentWrapper>
+	<Link icon="external" interactionIconAnimation="swing">
+		Link label
+	</Link>
+</ComponentWrapper>
 ```javascript
 <Link icon="external" interactionIconAnimation="swing">
 	Link label

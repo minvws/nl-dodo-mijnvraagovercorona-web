@@ -4,6 +4,7 @@ description: elements - Button
 layout: ../../../docs/layouts/MainLayout.astro
 ---
 
+import ComponentWrapper from '@docs/components/ComponentWrapper.astro';
 import Button from '@design-system/elements/Button.astro';
 
 A button is used to enable interactivity on your page. By default a button is
@@ -14,32 +15,36 @@ convert to a anchor element.
 
 ### primary
 
-<Button>Button label</Button>
-
+<ComponentWrapper>
+	<Button>Button label</Button>
+</ComponentWrapper>
 ```javascript
 <Button>Button label</Button>
 ```
 
 ### secondary
 
-<Button variant="secondary">Button label</Button>
-
+<ComponentWrapper>
+	<Button variant="secondary">Button label</Button>
+</ComponentWrapper>
 ```javascript
 <Button variant="secondary">Button label</Button>
 ```
 
 ### tertiary
 
-<Button variant="tertiary">Button label</Button>
-
+<ComponentWrapper>
+	<Button variant="tertiary">Button label</Button>
+</ComponentWrapper>
 ```javascript
 <Button variant="tertiary">Button label</Button>
 ```
 
 ## Disabled
 
-<Button disabled>Button label</Button>
-
+<ComponentWrapper>
+	<Button disabled>Button label</Button>
+</ComponentWrapper>
 ```javascript
 <Button disabled>Button label</Button>
 ```
@@ -48,10 +53,11 @@ convert to a anchor element.
 
 When you pass in the `href` prop you can also define if the link is `external`. This adds the external icon. Alternativeley you can also provide a `hiddenLabel` to explain where the link will be opened.
 
-<Button href="#" external hiddenLabel="opens in new tab">
-	Button label
-</Button>
-
+<ComponentWrapper>
+	<Button href="#" external hiddenLabel="opens in new tab">
+		Button label
+	</Button>
+</ComponentWrapper>
 ```javascript
 <Button href="#" external hiddenLabel="opens in new tab">
 	Button label
@@ -62,8 +68,9 @@ When you pass in the `href` prop you can also define if the link is `external`. 
 
 You can add an icon to the button.
 
-<Button icon="refresh">Button label</Button>
-
+<ComponentWrapper>
+	<Button icon="refresh">Button label</Button>
+</ComponentWrapper>
 ```javascript
 <Button icon="refresh">Button label</Button>
 ```
@@ -73,10 +80,11 @@ You can add an icon to the button.
 By default all icons are aligned `trailing` after the button label.
 You can also align the icon before the label by passing in `leading` into `iconPosition`.
 
-<Button icon="refresh" iconPosition="leading">
-	Button label
-</Button>
-
+<ComponentWrapper>
+	<Button icon="refresh" iconPosition="leading">
+		Button label
+	</Button>
+</ComponentWrapper>
 ```javascript
 <Button icon="refresh" iconPosition="leading">
 	Button label
@@ -87,9 +95,11 @@ You can also align the icon before the label by passing in `leading` into `iconP
 
 You can animate the icon on interaction(`:hover, :focus`).
 
-<Button icon="refresh" interactionIconAnimation="rotate">
-	Button label
-</Button>
+<ComponentWrapper>
+	<Button icon="refresh" interactionIconAnimation="rotate">
+		Button label
+	</Button>
+</ComponentWrapper>
 
 ```javascript
 <Button icon="refresh" interactionIconAnimation="rotate">
