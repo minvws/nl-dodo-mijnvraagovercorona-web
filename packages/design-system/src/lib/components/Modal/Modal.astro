@@ -12,47 +12,43 @@ export interface Props {
 const { id, title, closeLabel = 'Sluiten' } = Astro.props;
 ---
 
-<div class="modal" role="dialog" aria-labelledby={id} data-module="modal">
-	<div class="modal__inner">
-		<div class="modal__content" data-module-bind="modal__content">
-			<Stack>
-				<Heading class="modal__title" level={3} styledAs={2} tabindex="-1">
-					{title}
-				</Heading>
-				<div class="modal__slot">
-					<slot>Modal description.</slot>
-				</div>
-			</Stack>
+<template data-module-bind="modal-root">
+	<div class="modal" role="dialog" aria-labelledby={id} data-module="modal">
+		<div class="modal__inner">
+			<div class="modal__content" data-module-bind="modal__content">
+				<Stack>
+					<Heading class="modal__title" level={3} styledAs={2} tabindex="-1">
+						{title}
+					</Heading>
+					<div class="modal__slot">
+						<slot>Modal description.</slot>
+					</div>
+				</Stack>
+			</div>
+			<button
+				type="button"
+				class="modal__close-button"
+				data-module-bind="modal__close-button"
+			>
+				<Icon name="cross" class="modal__close-button-icon" />
+				<span class="u-visually-hidden">
+					{closeLabel}
+				</span>
+			</button>
 		</div>
-		<button
-			type="button"
-			class="modal__close-button"
-			data-module-bind="modal__close-button"
-		>
-			<Icon name="cross" class="modal__close-button-icon" />
-			<span class="u-visually-hidden">
-				{closeLabel}
-			</span>
-		</button>
 	</div>
-</div>
+</template>
 
-<script type="module">
-	// variables
-	const body = document.querySelector('body');
-	const modal = document.querySelector('[data-module="modal"]');
-	const modalId = modal.getAttribute('aria-labelledby');
-	const modalCloseButton = modal.querySelector(
-		'[data-module-bind="modal__close-button"]',
-	);
-	const modalTrigger = document.querySelector(`#${modalId}`);
-
-	// functions
-	const teleportToRoot = (element) => {
+<script>
+	// Functions
+	// Clone templates to the body element and then remove the template
+	const transferModalToRoot = (element) => {
+		const clone = element.content.cloneNode(true);
+		document.body.appendChild(clone);
 		element.remove();
-		body.appendChild(element);
 	};
 
+	// Get all focusable elements within a given element
 	const getKeyboardFocusableElements = (element) => {
 		return [
 			...element.querySelectorAll(
@@ -61,7 +57,30 @@ const { id, title, closeLabel = 'Sluiten' } = Astro.props;
 		].filter((el) => !el.hasAttribute('disabled'));
 	};
 
-	const trapFocus = (event) => {
+	// Open our modal, duh!
+	const openModal = (modal, modalTrigger) => {
+		const modalTitle = modal.querySelector('h3');
+		modal.classList.add('is-visible');
+		document.body.classList.add('modal-is-visible');
+		modalTitle.focus();
+		document.addEventListener('keydown', trapFocus.bind(null, modal), false);
+		modal.addEventListener('keydown', (event) => {
+			if (event.key === 'Escape') {
+				closeModal(modal, modalTrigger);
+			}
+		});
+	};
+
+	// Close our modal obviously
+	const closeModal = (modal, modalTrigger) => {
+		modal.classList.remove('is-visible');
+		document.body.classList.remove('modal-is-visible');
+		modalTrigger.focus({ preventScroll: true });
+		document.removeEventListener('keydown', trapFocus.bind(null, modal));
+	};
+
+	// Trap the focus within the modal when opened
+	const trapFocus = (modal, event) => {
 		const focusables = getKeyboardFocusableElements(modal);
 		const firstFocusable = focusables[0];
 		const lastFocusable = focusables[focusables.length - 1];
@@ -83,36 +102,41 @@ const { id, title, closeLabel = 'Sluiten' } = Astro.props;
 		}
 	};
 
-	const openModal = (_) => {
-		const modalTitle = modal.querySelector('h3');
-		modal.classList.add('is-visible');
-		body.classList.add('modal-is-visible');
-		modalTitle.focus();
-		document.addEventListener('keydown', trapFocus);
-		modal.addEventListener('keydown', (event) => {
-			if (event.key === 'Escape') {
-				closeModal();
+	// execution
+	const modalTemplates = [
+		...document.querySelectorAll('[data-module-bind="modal-root"]'),
+	];
+
+	modalTemplates.forEach((modalTemplate) => {
+		transferModalToRoot(modalTemplate);
+	});
+
+	const modals = [...document.querySelectorAll('[data-module="modal"]')];
+
+	modals.forEach((modal) => {
+		const modalID = modal.getAttribute('aria-labelledby');
+		const modalCloseButton = modal.querySelector(
+			'[data-module-bind="modal__close-button"]',
+		);
+		const modalTrigger = document.querySelector(`#${modalID}`);
+
+		// event listeners
+		modalTrigger.addEventListener('click', () =>
+			openModal(modal, modalTrigger),
+		);
+		modalCloseButton.addEventListener('click', () =>
+			closeModal(modal, modalTrigger),
+		);
+		modal.addEventListener('click', (event) => {
+			if (
+				!(event.target as HTMLElement).closest(
+					'[data-module-bind="modal__content"]',
+				)
+			) {
+				closeModal(modal, modalTrigger);
 			}
 		});
-	};
-
-	const closeModal = (_) => {
-		modal.classList.remove('is-visible');
-		body.classList.remove('modal-is-visible');
-		modalTrigger.focus({ preventScroll: true });
-		document.removeEventListener('keydown', trapFocus);
-	};
-
-	// execution
-	teleportToRoot(modal);
-	modalTrigger.addEventListener('click', openModal);
-	modalCloseButton.addEventListener('click', closeModal);
-	modal.addEventListener('click', (event) => {
-		if (!event.target.closest('[data-module-bind="modal__content"]')) {
-			closeModal();
-		}
 	});
-	window.closeModal = closeModal;
 </script>
 
 <style lang="scss" is:global>
