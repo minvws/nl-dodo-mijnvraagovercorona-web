@@ -14,16 +14,6 @@ const { id, title, closeLabel = 'Sluiten' } = Astro.props;
 
 <div class="modal" role="dialog" aria-labelledby={id} data-module="modal">
 	<div class="modal__inner">
-		<button
-			type="button"
-			class="modal__close-button"
-			data-module-bind="modal__close-button"
-		>
-			<Icon name="cross" class="modal__close-button-icon" />
-			<span class="u-visually-hidden">
-				{closeLabel}
-			</span>
-		</button>
 		<div class="modal__content" data-module-bind="modal__content">
 			<Stack>
 				<Heading class="modal__title" level={3} styledAs={2} tabindex="-1">
@@ -34,6 +24,16 @@ const { id, title, closeLabel = 'Sluiten' } = Astro.props;
 				</Stack>
 			</Stack>
 		</div>
+		<button
+			type="button"
+			class="modal__close-button"
+			data-module-bind="modal__close-button"
+		>
+			<Icon name="cross" class="modal__close-button-icon" />
+			<span class="u-visually-hidden">
+				{closeLabel}
+			</span>
+		</button>
 	</div>
 </div>
 
@@ -143,18 +143,25 @@ const { id, title, closeLabel = 'Sluiten' } = Astro.props;
 	}
 
 	.modal__inner {
+		--modal-block-size: 100vh;
 		position: relative;
 		display: flex;
 		flex-direction: column;
 		inline-size: clamp(35ch, 70%, 55ch);
 		max-inline-size: calc(100% - var(--space-r-tiny) * 2);
-		max-block-size: calc(100vh - var(--space-r-tiny) * 2);
+		max-block-size: calc(var(--modal-block-size) - var(--space-r-tiny) * 2);
 		padding-block-start: var(--modal-space);
 		padding-block-end: var(--modal-space);
 		border-radius: var(--radii-large);
 		background-color: white;
 		opacity: 0;
 		transition: opacity 0.3s ease-in-out;
+
+		@supports (height: 100dvh) {
+			& {
+				--modal-block-size: 100dvh;
+			}
+		}
 	}
 
 	.modal__content {
