@@ -15,7 +15,7 @@ import { getLocaleFromURL } from 'src/utilities/locale/translation';
 type Props = Parameters<typeof Mark>[0];
 
 interface DialogProps {
-	children: any;
+	children: ContentBlockProps['value'];
 	mark: {
 		_key: string;
 		title: string;
