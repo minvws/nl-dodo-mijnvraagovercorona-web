@@ -20,7 +20,8 @@
 		"dotenv": "^16.0.3",
 		"fs-extra": "^10.1.0",
 		"postcss-custom-media": "^8.0.2",
-		"sass": "^1.56.1"
+		"sass": "^1.56.1",
+		"svgo": "^2.8.0"
 	},
 	"dependencies": {}
 }
