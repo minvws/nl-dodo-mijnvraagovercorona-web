@@ -1,5 +1,6 @@
 ---
 import Button from '@design-system/elements/Button.astro';
+import { Modal } from '@design-system/components/Modal';
 import {
 	getLocaleFromURL,
 	prefixUrlWithlocale,
@@ -35,7 +36,17 @@ const locale = getLocaleFromURL(Astro.url.pathname);
 					{button.text}
 				</Button>
 			) : button.assistanceDialog ? (
-				<mark>dialog: {button.text}</mark>
+				<>
+					<Button
+						id="assistance-dialog"
+						variant={index === 0 ? 'primary' : 'secondary'}
+					>
+						{button.text}
+					</Button>
+					<Modal id="assistance-dialog" title="TODO: title">
+						<mark>TODO: Assistance row</mark>
+					</Modal>
+				</>
 			) : (
 				<Button
 					href={prefixUrlWithlocale(button.next, locale)}

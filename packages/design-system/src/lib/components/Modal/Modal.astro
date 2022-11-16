@@ -1,13 +1,13 @@
 ---
 import Icon from '@design-system/elements/Icon.astro';
 import Heading from '@design-system/elements/typography/Heading.astro';
-import Stack from './layout/Stack.astro';
+import Stack from '@design-system/components/layout/Stack.astro';
 
-type Props = {
+export interface Props {
 	id: string;
 	title: string;
 	closeLabel?: string;
-};
+}
 
 const { id, title, closeLabel = 'Sluiten' } = Astro.props;
 ---
@@ -19,9 +19,9 @@ const { id, title, closeLabel = 'Sluiten' } = Astro.props;
 				<Heading class="modal__title" level={3} styledAs={2} tabindex="-1">
 					{title}
 				</Heading>
-				<Stack>
+				<div class="modal__slot">
 					<slot>Modal description.</slot>
-				</Stack>
+				</div>
 			</Stack>
 		</div>
 		<button
