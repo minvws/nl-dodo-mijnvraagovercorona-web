@@ -1,14 +1,15 @@
 ---
-import ContentBlock from 'src/components/ContentBlock.astro';
+import { ContentBlock, ContentBlockProps } from '@modules/ContentBlock';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import type { Props as SubmitProps } from './Submit.astro';
 import { moduleName as AnswersSingleModuleName } from './AnswersSingle';
 import Submit from './Submit.astro';
 import Control from '@design-system/elements/Control.astro';
 import Stack from '@design-system/components/layout/Stack.astro';
+
 export interface Props {
 	answers: {
-		content: Object[];
+		content: ContentBlockProps['value'];
 		next: string;
 		_key: string;
 	}[];
@@ -42,7 +43,7 @@ const parsedButtons = buttons?.map((button, index) =>
 					value={`${locale.urlPrefix}/${next}` || ''}
 					variant="tile"
 				>
-					<ContentBlock portableText={content} />
+					<ContentBlock value={content} />
 				</Control>
 			))
 		}

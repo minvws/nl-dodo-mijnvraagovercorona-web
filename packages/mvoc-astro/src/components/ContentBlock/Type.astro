@@ -1,0 +1,13 @@
+---
+import type { Props as ComponentProps } from 'astro-portabletext/types';
+import { usePortableText } from 'astro-portabletext/utils';
+
+export type Props = ComponentProps;
+
+const props = Astro.props;
+const { provideUnhandledTypeComponent } = usePortableText(props.node);
+
+const Cmp = provideUnhandledTypeComponent();
+---
+
+<Cmp {...props} />

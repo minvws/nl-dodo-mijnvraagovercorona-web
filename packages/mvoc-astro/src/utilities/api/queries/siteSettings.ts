@@ -2,6 +2,8 @@ import { useSanityClient } from 'astro-sanity';
 import { Locale, locales } from 'src/utilities/locale/translation';
 import { localePropertyQuery, imageQuery, ImageProps } from './';
 
+import type { ContentBlockProps } from '@modules/ContentBlock';
+
 export interface SiteSettingsProps {
 	baseUrl: string;
 	pageTitleSuffix: string;
@@ -30,7 +32,7 @@ export interface SiteSettingsProps {
 		rijksoverheidText: string;
 		rijksoverheidUrl: string;
 		title: string;
-		footerText: Object[];
+		footerText: ContentBlockProps['value'];
 	};
 	header: {
 		logoAlt: string;

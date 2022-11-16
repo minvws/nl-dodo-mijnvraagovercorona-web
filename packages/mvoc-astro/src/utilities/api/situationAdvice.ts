@@ -9,10 +9,12 @@ import {
 	tipsCollectionQuery,
 } from './queries';
 
+import type { ContentBlockProps } from '@modules/ContentBlock';
+
 interface AnswerProps {
 	showOn?: Array<number>;
 	title: string;
-	content: Object[];
+	content: ContentBlockProps['value'];
 }
 
 interface AdviceProps {
@@ -20,18 +22,18 @@ interface AdviceProps {
 		showOn?: Array<number>;
 		day?: number;
 		title: string;
-		content: Object[];
+		content: ContentBlockProps['value'];
 	}[];
 	cards: {
 		title: string;
 		chapeau: string;
-		content: Object[];
+		content: ContentBlockProps['value'];
 		disclosure: {
 			label: {
 				this: string;
 				that: string;
 			};
-			content: Object[];
+			content: ContentBlockProps['value'];
 		};
 		buttons: {
 			link?: string;

@@ -11,7 +11,7 @@ import {
 } from 'src/utilities/api';
 
 import Layout from '@layouts/Layout.astro';
-import ContentBlock from '@modules/ContentBlock.astro';
+import { ContentBlock } from '@modules/ContentBlock';
 
 export async function getStaticPaths() {
 	function getShowOnDays(collection: { showOn: Array<number> }[]) {
@@ -94,7 +94,7 @@ const plan =
 			answer && (
 				<>
 					<h2>{answer.title}</h2>
-					<ContentBlock portableText={answer.content} />
+					<ContentBlock value={answer.content} />
 				</>
 			)
 		}
@@ -108,7 +108,7 @@ const plan =
 							<>
 								<h3>{title}</h3>
 								<p>Dag: {date}</p>
-								{content && <ContentBlock portableText={content} />}
+								{content && <ContentBlock value={content} />}
 							</>
 						);
 					})}
@@ -126,7 +126,7 @@ const plan =
 						<>
 							<h3>{card.title}</h3>
 							{card.chapeau && <p>{card.chapeau}</p>}
-							<ContentBlock portableText={card.content} />
+							<ContentBlock value={card.content} />
 						</>
 					))}
 				</>
