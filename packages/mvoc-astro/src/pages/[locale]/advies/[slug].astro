@@ -12,6 +12,8 @@ import {
 
 import Layout from '@layouts/Layout.astro';
 import { ContentBlock } from '@modules/ContentBlock';
+import { Card } from '@design-system/components/Card';
+import { Stack } from '@design-system/components/Layout/Stack';
 
 export async function getStaticPaths() {
 	function getShowOnDays(collection: { showOn: Array<number> }[]) {
@@ -105,11 +107,9 @@ const plan =
 					<h2>{pageData.advice.title}</h2>
 					{plan.map(({ date, title, content }) => {
 						return (
-							<>
-								<h3>{title}</h3>
-								<p>Dag: {date}</p>
+							<Card title={title} chapeau={date}>
 								{content && <ContentBlock value={content} />}
-							</>
+							</Card>
 						);
 					})}
 				</>
@@ -122,13 +122,13 @@ const plan =
 					{pageData.advice.secondaryTitle ? (
 						<h2>{pageData.advice.secondaryTitle}</h2>
 					) : null}
-					{pageData.advice.cards.map((card) => (
-						<>
-							<h3>{card.title}</h3>
-							{card.chapeau && <p>{card.chapeau}</p>}
-							<ContentBlock value={card.content} />
-						</>
-					))}
+					<Stack>
+						{pageData.advice.cards.map((card) => (
+							<Card title={card.title} chapeau={card.chapeau}>
+								<ContentBlock value={card.content} />
+							</Card>
+						))}
+					</Stack>
 				</>
 			)
 		}

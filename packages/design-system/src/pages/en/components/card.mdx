@@ -1,0 +1,23 @@
+---
+title: Card
+description: components - Card
+layout: ../../../docs/layouts/MainLayout.astro
+---
+
+import ComponentWrapper from '@docs/components/ComponentWrapper.astro';
+import { Card } from '@design-system/components/Card';
+
+<ComponentWrapper>
+	<Card
+		title="Card title"
+		chapeau="Cool card yo"
+		disclosure={{ label: { this: 'more', that: 'less' } }}
+		buttons={[
+			{ text: 'Button link', link: '#' },
+			{ text: 'Button situation', situation: '#' },
+		]}
+	>
+		<p>lorem ipsum dolor sit amet</p>
+		<p slot="disclosure-content">Disclosure content: lorem ipsum dolor</p>
+	</Card>
+</ComponentWrapper>
