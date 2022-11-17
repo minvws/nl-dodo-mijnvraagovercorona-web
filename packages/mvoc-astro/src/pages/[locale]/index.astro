@@ -2,7 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import { availableLocales, Locale } from 'src/utilities/locale/translation';
 import { getDataHome, PageHomeProps } from 'src/utilities/api';
-import Heading from '@design-system/elements/typography/Heading.astro';
+import { Heading } from '@design-system/elements/Heading';
 
 export async function getStaticPaths() {
 	return availableLocales.map((locale) => ({

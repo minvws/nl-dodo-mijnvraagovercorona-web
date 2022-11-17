@@ -1,11 +1,11 @@
 ---
 import { HTMLAttributes } from 'astro/types';
-import Icon, { Props as IconProps } from '@design-system/elements/Icon.astro';
+import { Icon, IconProps } from '@design-system/elements/Icon';
 import { Animations } from '@design-system/primitives/animation';
 
 // Interfaces
 interface Shared {
-	variant?: 'tooltip' | 'restart' | 'back';
+	variant?: 'primary' | 'secondary' | 'tertiary';
 	icon?: IconProps['name'];
 	iconPosition?: 'leading' | 'trailing';
 	interactionIconAnimation?: Animations;
@@ -29,6 +29,7 @@ const {
 	icon,
 	iconPosition,
 	interactionIconAnimation,
+
 	...attrs
 } = Astro.props;
 
@@ -36,35 +37,27 @@ const {
 const Element = attrs.href || attrs.href === '' ? 'a' : 'button';
 
 // Create class based on props
-const combinedClasses = `e-link${variant ? ` e-link--${variant}` : ''}${
+const combinedClasses = `e-button${variant ? ` e-button--${variant}` : ''}${
 	interactionIconAnimation
 		? ` | u-animation-interaction--${interactionIconAnimation}`
 		: ''
 }${attrs.class ? ` | ${attrs.class}` : ''}`;
 
 const iconPositionCalculated =
-	variant === 'back' || variant === 'restart' || iconPosition === 'leading'
-		? 'leading'
-		: 'trailing';
+	iconPosition === 'leading' ? 'leading' : 'trailing';
 
 const selectedIcon =
-	attrs.href && external
-		? 'external'
-		: variant === 'tooltip'
-		? 'tooltip'
-		: variant === 'restart'
-		? 'refresh'
-		: variant === 'back'
-		? 'chevron-left'
-		: icon
-		? icon
-		: undefined;
+	attrs.href && external ? 'external' : icon ? icon : undefined;
 ---
 
 <Element
 	{...attrs}
 	class={combinedClasses}
-	type={!attrs.href && attrs.type ? (attrs.type as Button['type']) : undefined}
+	type={!attrs.href
+		? attrs.type
+			? (attrs.type as Button['type'])
+			: 'button'
+		: undefined}
 	disabled={!attrs.href && disabled ? disabled : undefined}
 	data-disabled={attrs.href && disabled ? disabled : undefined}
 	formaction={!attrs.href && attrs.formaction ? attrs.formaction : undefined}
@@ -79,9 +72,7 @@ const selectedIcon =
 			<Icon name={selectedIcon} description={hiddenLabel} />
 		) : null
 	}
-	<span>
-		<slot />
-	</span>
+	<slot />
 	{
 		iconPositionCalculated === 'trailing' && selectedIcon ? (
 			<Icon name={selectedIcon} description={hiddenLabel} />
@@ -90,74 +81,80 @@ const selectedIcon =
 </Element>
 
 <style lang="scss">
-	.e-link {
-		--icon-animation: none;
-		--link-color: var(--color-donkerblauw);
-		--link-icon-spacing: 0px;
+	@use '@design-system-styles/primitives/_responsive.scss';
+	.e-button {
+		--button-border-width: 1px;
+		--button-border-color: var(--button-background-color);
+		--button-padding: var(--space-r-small);
+		--button-background-color: var(--color-accent-robijnrood);
+		--button-color: var(--color-white);
+
 		display: inline-flex;
-		gap: var(--link-icon-spacing);
-		outline: none;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--space-r-small);
+		inline-size: 100%;
+		padding: calc(var(--button-padding) - var(--button-border-width));
+		border: var(--button-border-width) solid var(--button-border-color);
+		border-radius: var(--radii-small);
+		text-align: center;
 		text-decoration: none;
-		color: var(--link-color);
+		background-color: var(--button-background-color);
+		color: var(--button-color);
 		transition-property: background-color, color, border, box-shadow;
 		transition-duration: 300ms;
 		transition-timing-function: ease-in-out;
 		cursor: pointer;
 
-		:global(> *) {
-			vertical-align: middle;
-		}
-
-		> span {
-			text-decoration: underline;
-			text-underline-position: under;
-		}
-
 		:global(> .e-icon) {
 			animation: var(--u-animation-subscribe);
-			// &:first-child {
-			// 	margin-inline-end: var(--link-icon-spacing);
-			// }
-			// &:last-child {
-			// 	margin-inline-start: var(--link-icon-spacing);
-			// }
 		}
 
 		&:hover,
 		&:focus {
-			color: var(--color-diepblauw);
+			--button-background-color: var(--color-accent-violet);
 		}
 
 		&:focus {
 			outline: 2px solid var(--color-donkerblauw);
+			outline-offset: 2px;
 		}
 
-		// Variants
-		&.e-link--tooltip {
-			> span {
-				text-decoration: underline dotted;
+		// variants
+		&.e-button--secondary {
+			--button-background-color: var(--color-donkerblauw);
+
+			&:hover,
+			&:focus {
+				--button-background-color: var(--color-diepblauw);
 			}
 		}
 
-		&.e-link--restart,
-		&.e-link--back {
-			--link-icon-spacing: 0.5em;
-			font-weight: bold;
+		&.e-button--tertiary {
+			--button-background-color: var(--color-white);
+			--button-color: var(--color-donkerblauw);
+			--button-border-color: var(--variant--tile-border-color);
+			--button-elevation: var(--variant--tile-elevation);
+			box-shadow: var(--button-elevation);
+			outline: none;
 
-			> span {
-				text-decoration: none;
+			&:hover,
+			&:focus {
+				--button-background-color: var(--color-white);
+				--button-border-color: var(--variant--tile-border-color-interactive);
+				--button-elevation: var(--variant--tile-elevation-interactive);
 			}
 		}
 
-		&.e-link--back {
-			&:hover {
-				--u-animation-subscribe: var(--animation-swing);
-			}
+		&:disabled,
+		&[data-disabled] {
+			--button-background-color: var(--color-grijs-4);
+			cursor: not-allowed;
 		}
 
-		&.e-link--restart {
-			&:hover {
-				--u-animation-subscribe: var(--animation-rotate);
+		@media --mq-large {
+			& {
+				inline-size: auto;
 			}
 		}
 	}

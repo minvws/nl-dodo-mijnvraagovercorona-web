@@ -1,12 +1,8 @@
 ---
 import { Mark } from 'astro-portabletext/components';
-import Link from '@design-system/elements/Link.astro';
-import Button from '@design-system/elements/Button.astro';
-import {
-	ImageProps,
-	SiteSettingsProps,
-	useSiteSettings,
-} from 'src/utilities/api/queries';
+import { Button } from '@design-system/elements/Button';
+import { Link } from '@design-system/elements/Link';
+import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
 import { ContentBlockProps } from '..';
 import ContentBlock from '../ContentBlock.astro';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
