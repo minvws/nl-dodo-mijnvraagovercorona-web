@@ -4,9 +4,11 @@ import type { Props as SubmitProps } from './Submit.astro';
 import Submit from './Submit.astro';
 import { moduleName as AnswersMultipleModuleName } from './AnswersMultiple';
 import { Control } from '@design-system/elements/Control';
-import Stack from '@design-system/components/layout/Stack.astro';
-import Disclosure from '@design-system/components/disclosure/Disclosure.astro';
-import DisclosureItem from '@design-system/components/disclosure/DisclosureItem.astro';
+import { Stack } from '@design-system/components/Layout/Stack';
+import {
+	Disclosure,
+	DisclosureItem,
+} from '@design-system/components/Disclosure';
 
 export interface Props {
 	answers: {
