@@ -1,2 +1,2 @@
 export { default as Card } from './Card.astro';
-export { default as CardSteps } from './CardSteps.astro';
+export { default as Steps } from './Steps.astro';
