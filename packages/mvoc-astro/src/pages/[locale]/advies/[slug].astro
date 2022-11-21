@@ -12,7 +12,12 @@ import {
 
 import Layout from '@layouts/Layout.astro';
 import { ContentBlock } from '@modules/ContentBlock';
-import { CardBlock, CardDay, Steps } from '@design-system/components/Card';
+import {
+	CardAdvice,
+	CardBlock,
+	CardDay,
+	Steps,
+} from '@design-system/components/Card';
 import { Stack } from '@design-system/components/Layout/Stack';
 
 export async function getStaticPaths() {
@@ -95,10 +100,9 @@ const plan =
 		<Stack gap="large">
 			{
 				answer && (
-					<>
-						<h2>{answer.title}</h2>
+					<CardAdvice title={answer.title}>
 						<ContentBlock value={answer.content} />
-					</>
+					</CardAdvice>
 				)
 			}
 

@@ -1,18 +1,27 @@
 ---
-interface Props {}
+interface Props {
+	variant?: 'filled';
+}
 
-const {} = Astro.props;
+const { variant } = Astro.props;
 ---
 
-<div class={`c-card`}>
+<div class={`c-card${variant ? ` c-card--${variant}` : ''}`}>
 	<slot />
 </div>
 
 <style lang="scss">
 	.c-card {
+		--card-border-width: 1px;
 		--card-border-color: var(--color-lichtblauw);
-		padding: var(--space-r-small);
+		padding: calc(var(--space-r-small) - var(--card-border-width));
 		border-radius: var(--radii-base);
-		border: 1px solid var(--card-border-color);
+		border: var(--card-border-width) solid var(--card-border-color);
+	}
+
+	.c-card--filled {
+		--card-border-width: 0px;
+		background-color: var(--color-poolblauw);
+		color: var(--color-diepblauw);
 	}
 </style>
