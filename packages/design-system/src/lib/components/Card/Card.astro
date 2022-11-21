@@ -1,85 +1,20 @@
 ---
 import { HTMLAttributes } from 'astro/types';
-import {
-	Disclosure,
-	DisclosureItem,
-} from '@design-system/components/Disclosure';
-import { Heading } from '@design-system/elements/Heading';
-import { Button } from '@design-system/elements/Button';
-import { Stack } from '@design-system/components/Layout/Stack';
 
-interface Props extends HTMLAttributes<'div'> {
-	title: string;
-	chapeau: string;
-	disclosure?: {
-		label: {
-			this: string;
-			that: string;
-		};
-	};
-	buttons?: {
-		link?: string;
-		situation?: string;
-		text: string;
-	}[];
-}
+interface Props extends HTMLAttributes<'div'> {}
 
-const { title, chapeau, disclosure, buttons, ...attrs } = Astro.props;
+const { ...attrs } = Astro.props;
 ---
 
 <div {...attrs} class={`c-card`}>
-	<Stack>
-		<hgroup class="c-card__hgroup">
-			<Heading level={3} styledAs={2}>{title}</Heading>
-			{chapeau && <mark role="presentation">{chapeau}</mark>}
-		</hgroup>
-
-		<slot />
-
-		{
-			disclosure?.label.this && disclosure?.label.that ? (
-				<Disclosure>
-					<DisclosureItem
-						label={disclosure.label.this}
-						labelActive={disclosure.label.that}
-					>
-						<slot name="disclosure-content" />
-					</DisclosureItem>
-				</Disclosure>
-			) : null
-		}
-		{
-			!!buttons?.length ? (
-				<ul class="c-card__wrap-buttons" role="list">
-					{buttons.map(({ text, link, situation }) => (
-						<li>
-							<Button href={link || `/${situation}`} external={!!link}>
-								{text}
-							</Button>
-						</li>
-					))}
-				</ul>
-			) : null
-		}
-	</Stack>
+	<slot />
 </div>
 
 <style lang="scss">
 	.c-card {
+		--card-border-color: var(--color-lichtblauw);
 		padding: var(--space-r-small);
 		border-radius: var(--radii-base);
-		border: 1px solid #8fcae7;
-	}
-
-	.c-card__hgroup {
-		display: flex;
-		flex-direction: column-reverse;
-		gap: var(--space-r-milli);
-	}
-
-	.c-card__wrap-buttons {
-		display: flex;
-		flex-direction: column;
-		gap: var(--space-r-small);
+		border: 1px solid var(--card-border-color);
 	}
 </style>
