@@ -1,5 +1,4 @@
 ---
-import { HTMLAttributes } from 'astro/types';
 import {
 	Disclosure,
 	DisclosureItem,
@@ -7,10 +6,12 @@ import {
 import { Heading } from '@design-system/elements/Heading';
 import { Button } from '@design-system/elements/Button';
 import { Stack } from '@design-system/components/Layout/Stack';
+import { Card } from '.';
+import { Chapeau } from '@design-system/elements/Chapeau';
 
-interface Props extends HTMLAttributes<'div'> {
+interface Props {
 	title: string;
-	chapeau: string;
+	chapeau?: string;
 	disclosure?: {
 		label: {
 			this: string;
@@ -24,14 +25,14 @@ interface Props extends HTMLAttributes<'div'> {
 	}[];
 }
 
-const { title, chapeau, disclosure, buttons, ...attrs } = Astro.props;
+const { title, chapeau, disclosure, buttons } = Astro.props;
 ---
 
-<div {...attrs} class={`c-card`}>
-	<Stack>
-		<hgroup class="c-card__hgroup">
+<Card>
+	<Stack gap="small">
+		<hgroup class="c-card-block__hgroup">
 			<Heading level={3} styledAs={2}>{title}</Heading>
-			{chapeau && <mark role="presentation">{chapeau}</mark>}
+			{chapeau && <Chapeau role="presentation">{chapeau}</Chapeau>}
 		</hgroup>
 
 		<slot />
@@ -50,7 +51,7 @@ const { title, chapeau, disclosure, buttons, ...attrs } = Astro.props;
 		}
 		{
 			!!buttons?.length ? (
-				<ul class="c-card__wrap-buttons" role="list">
+				<ul class="c-card-block__wrap-buttons" role="list">
 					{buttons.map(({ text, link, situation }) => (
 						<li>
 							<Button href={link || `/${situation}`} external={!!link}>
@@ -61,17 +62,13 @@ const { title, chapeau, disclosure, buttons, ...attrs } = Astro.props;
 				</ul>
 			) : null
 		}
+
+		<slot name="appendix" />
 	</Stack>
-</div>
+</Card>
 
 <style lang="scss">
-	.c-card {
-		padding: var(--space-r-small);
-		border-radius: var(--radii-base);
-		border: 1px solid #8fcae7;
-	}
-
-	.c-card__hgroup {
+	.c-card-block__hgroup {
 		display: flex;
 		flex-direction: column-reverse;
 		gap: var(--space-r-milli);

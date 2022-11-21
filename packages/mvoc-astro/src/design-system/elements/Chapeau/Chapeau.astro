@@ -1,0 +1,18 @@
+---
+type Props = {
+	role?: 'presentation';
+};
+
+const { role } = Astro.props;
+---
+
+<span class="e-chapeau" role={role}>
+	<slot />
+</span>
+
+<style lang="scss">
+	.e-chapeau {
+		font-weight: bold;
+		color: var(--color-accent-robijnrood);
+	}
+</style>

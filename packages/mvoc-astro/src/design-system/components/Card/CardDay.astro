@@ -1,0 +1,47 @@
+---
+import { Heading } from '@design-system/elements/Heading';
+import { Stack } from '@design-system/components/Layout/Stack';
+import { Card } from '.';
+
+interface Props {
+	title: string;
+	day?: string;
+}
+
+const { title, day } = Astro.props;
+---
+
+<Card>
+	<Stack gap="small">
+		{
+			title || day ? (
+				<Heading level={3} class="c-card-day__title">
+					{title ? <span>{title}</span> : null}
+					{day && (
+						<span class="c-card-day__day">
+							<span class="u-visually-hidden">(</span>
+							{day}
+							<span class="u-visually-hidden">)</span>
+						</span>
+					)}
+				</Heading>
+			) : null
+		}
+		<slot />
+	</Stack>
+</Card>
+
+<style lang="scss">
+	.c-card-day__title {
+		display: flex;
+		flex-flow: row wrap;
+		align-items: center;
+		justify-content: space-between;
+		column-gap: var(--space-r-nano);
+		color: var(--color-accent-robijnrood);
+	}
+
+	.c-card-day__day {
+		color: var(--color-donkerblauw);
+	}
+</style>

@@ -10,6 +10,7 @@
 	--space-s-tiny: 12px;
 	--space-s-small: 16px;
 	--space-s-base: 24px;
+	--space-s-large: 32px;
 
 	// Relative spacing
 	--space-r-nano: 0.2105263158rem; // 4px
@@ -17,6 +18,7 @@
 	--space-r-tiny: 0.6315789474rem; // 12px
 	--space-r-small: 0.8421052632rem; // 16px
 	--space-r-base: 1.2631578947rem; // 24px
+	--space-r-large: 1.6842105263rem; // 32px
 
 	@media --mq-large {
 		& {
@@ -26,6 +28,7 @@
 			--space-r-tiny: 0.6rem; // 12px
 			--space-r-small: 0.8rem; // 16px
 			--space-r-base: 1.2rem; // 24px
+			--space-r-large: 1.6rem; // 32px
 		}
 	}
 }

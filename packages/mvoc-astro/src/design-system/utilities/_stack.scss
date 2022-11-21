@@ -2,7 +2,7 @@
 		utilities.stack
 / =========================================================================== */
 
-$spacings: ('nano', 'milli', 'tiny', 'small', 'base');
+$spacings: ('nano', 'milli', 'tiny', 'small', 'base', 'large');
 
 @each $space in $spacings {
 	.u-stack--#{$space} {

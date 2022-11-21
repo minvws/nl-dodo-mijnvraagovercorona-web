@@ -12,9 +12,8 @@ import {
 
 import Layout from '@layouts/Layout.astro';
 import { ContentBlock } from '@modules/ContentBlock';
-import { Card, Steps } from '@design-system/components/Card';
+import { CardBlock, CardDay, Steps } from '@design-system/components/Card';
 import { Stack } from '@design-system/components/Layout/Stack';
-import { Heading } from '@design-system/elements/Heading';
 
 export async function getStaticPaths() {
 	function getShowOnDays(collection: { showOn: Array<number> }[]) {
@@ -93,43 +92,62 @@ const plan =
 	<main>
 		<h1>{pageData.header.title}</h1>
 
-		{
-			answer && (
-				<>
-					<h2>{answer.title}</h2>
-					<ContentBlock value={answer.content} />
-				</>
-			)
-		}
+		<Stack gap="large">
+			{
+				answer && (
+					<>
+						<h2>{answer.title}</h2>
+						<ContentBlock value={answer.content} />
+					</>
+				)
+			}
 
-		{
-			!!plan?.length && (
-				<>
-					<h2>{pageData.advice.title}</h2>
-					<Steps>
-						{plan.map(({ date, title, content }) => {
-							return <Card>{content && <ContentBlock value={content} />}</Card>;
-						})}
-					</Steps>
-				</>
-			)
-		}
+			{
+				!!plan?.length && (
+					<section>
+						<Stack gap="small">
+							<h2>{pageData.advice.title}</h2>
+							<Steps>
+								{plan.map(({ date, title, content }) => {
+									return (
+										<CardDay title={title} day={date}>
+											{content && <ContentBlock value={content} />}
+										</CardDay>
+									);
+								})}
+							</Steps>
+						</Stack>
+					</section>
+				)
+			}
 
-		{
-			!!pageData.advice?.cards?.length && (
-				<>
-					{pageData.advice.secondaryTitle ? (
-						<h2>{pageData.advice.secondaryTitle}</h2>
-					) : null}
-					<Stack>
-						{pageData.advice.cards.map((card) => (
-							<Card>
-								<ContentBlock value={card.content} />
-							</Card>
-						))}
-					</Stack>
-				</>
-			)
-		}
+			{
+				!!pageData.advice?.cards?.length && (
+					<section>
+						<Stack gap="small">
+							{pageData.advice.secondaryTitle ? (
+								<h2>{pageData.advice.secondaryTitle}</h2>
+							) : null}
+							<div>
+								<Stack gap="large">
+									{pageData.advice.cards.map(
+										({ title, chapeau, content, buttons }) => (
+											<CardBlock
+												title={title}
+												chapeau={chapeau}
+												buttons={buttons}
+											>
+												<ContentBlock value={content} />
+												<mark slot="appendix">Links to Tips</mark>
+											</CardBlock>
+										),
+									)}
+								</Stack>
+							</div>
+						</Stack>
+					</section>
+				)
+			}
+		</Stack>
 	</main>
 </Layout>

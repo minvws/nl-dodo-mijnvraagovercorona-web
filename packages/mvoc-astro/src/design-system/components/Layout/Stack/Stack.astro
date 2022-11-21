@@ -1,10 +1,10 @@
 ---
 interface Props {
-	gap?: 'nano' | 'milli' | 'tiny' | 'small' | 'base';
+	gap?: 'nano' | 'milli' | 'tiny' | 'small' | 'base' | 'large';
 	style?: string;
 }
 
-const { gap, style } = Astro.props;
+const { gap = 'base', style } = Astro.props;
 ---
 
 <div
