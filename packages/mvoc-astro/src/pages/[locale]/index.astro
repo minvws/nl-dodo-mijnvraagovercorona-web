@@ -23,8 +23,6 @@ const { pageData }: HomeProps = await getDataHome({ locale });
 ---
 
 <Layout locale={locale} metaData={pageData.metaData} skipPageSuffix>
-	<main>
-		<Heading level={1}>{pageData.header.title}</Heading>
-		<p><mark>{locale.fullName}</mark></p>
-	</main>
+	<Heading level={1}>{pageData.header.title}</Heading>
+	<p><mark>{locale.fullName}</mark></p>
 </Layout>

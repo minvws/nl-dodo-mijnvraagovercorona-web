@@ -19,10 +19,23 @@ const { locale, metaData, skipPageSuffix } = Astro.props;
 <html lang={locale.id}>
 	<head>
 		<MetaData {...metaData} locale={locale} skipPageSuffix={skipPageSuffix} />
+		<style lang="scss" is:global>
+			:where(body) {
+				display: flex;
+				flex-direction: column;
+			}
+			:where(main) {
+				flex: 1;
+			}
+		</style>
 	</head>
 	<body>
 		<Sprite.Provider>
-			<slot />
+			<mark>masthead</mark>
+			<main>
+				<slot />
+			</main>
+			<mark>mastfoot</mark>
 		</Sprite.Provider>
 	</body>
 </html>
