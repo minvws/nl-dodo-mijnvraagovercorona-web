@@ -1,11 +1,11 @@
 /* ==========================================================================
-		utilities.spacing
+		utilities.stack
 / =========================================================================== */
 
 $spacings: ('nano', 'milli', 'tiny', 'small', 'base');
 
 @each $space in $spacings {
-	.u-spacing--gap-#{$space} {
-		--gap: var(--space-r-#{$space});
+	.u-stack--#{$space} {
+		--stack: var(--stack-#{$space});
 	}
 }

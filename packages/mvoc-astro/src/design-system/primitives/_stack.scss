@@ -1,0 +1,16 @@
+/* ==========================================================================
+		primitives.stack
+/ =========================================================================== */
+
+@use './responsive';
+
+:where(html) {
+	--stack-nano: var(--space-r-nano);
+	--stack-milli: var(--space-r-milli);
+	--stack-tiny: var(--space-r-tiny);
+	--stack-small: var(--space-r-small);
+	--stack-base: var(--space-r-base);
+
+	@media --mq-large {
+	}
+}

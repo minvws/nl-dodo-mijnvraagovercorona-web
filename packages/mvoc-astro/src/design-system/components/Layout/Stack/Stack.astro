@@ -1,17 +1,15 @@
 ---
-import { HTMLAttributes } from 'astro/types';
-
-interface Props extends HTMLAttributes<'div'> {
+interface Props {
 	gap?: 'nano' | 'milli' | 'tiny' | 'small' | 'base';
+	style?: string;
 }
 
-const { gap, ...attrs } = Astro.props;
+const { gap, style } = Astro.props;
 ---
 
 <div
-	{...attrs}
-	class={`c-stack${gap ? ` | u-spacing--gap-${gap}` : ''}${
-		attrs.class ? ` | ${attrs.class}` : ''
+	class={`c-stack${gap ? ` | u-stack--${gap}` : ''}${
+		style ? ` | ${style}` : ''
 	}`}
 >
 	<slot />
@@ -19,7 +17,7 @@ const { gap, ...attrs } = Astro.props;
 
 <style lang="scss">
 	.c-stack {
-		--stack-gap: var(--gap, var(--space-r-base));
+		--stack-gap: var(--stack, var(--stack-base));
 		:global(> * + *) {
 			margin-block-start: var(--stack-gap);
 		}
