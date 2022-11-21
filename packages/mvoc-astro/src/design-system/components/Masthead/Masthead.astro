@@ -1,0 +1,59 @@
+---
+import Icon from 'astro-icon';
+import { SkipLink } from '.';
+
+type Props = {
+	variant?: 'default' | 'highlight';
+	skipLinkLabel: string;
+};
+
+const { variant, skipLinkLabel } = Astro.props;
+---
+
+<header class={`c-masthead${variant ? ` c-masthead--highlight` : ''}`}>
+	<div>
+		<SkipLink label={skipLinkLabel} />
+	</div>
+	<a class="c-masthead__logo" href={'/'}>
+		<Icon class="c-masthead__logo-visual" name="ro-logo" />
+		<span class="u-visually-hidden">alt</span>
+	</a>
+	<div>
+		<mark>language</mark>
+	</div>
+</header>
+
+<style lang="scss">
+	@use '@design-system-styles/primitives/_responsive.scss';
+
+	.c-masthead {
+		--masthead-background: var(--color-ijsblauw);
+		display: grid;
+		grid-template-columns: 1fr auto 1fr;
+		align-items: center;
+		gap: var(--space-r-small);
+		padding-inline: var(--space-r-small);
+		background-color: var(--masthead-background);
+	}
+
+	.c-masthead__logo {
+		&:focus {
+			outline: var(--elevation-focusring);
+			outline-offset: 2px;
+		}
+	}
+	.c-masthead__logo-visual {
+		display: block;
+		inline-size: 2.8421052632rem;
+
+		@media --mq-large {
+			& {
+				inline-size: 3.4rem;
+			}
+		}
+	}
+
+	.c-masthead--highlight {
+		--masthead-background: var(--color-poolblauw);
+	}
+</style>

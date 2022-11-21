@@ -1,10 +1,15 @@
 ---
 import { Sprite } from 'astro-icon';
 import MetaData from 'src/components/MetaData.astro';
-import { MetaDataProps } from 'src/utilities/api/queries';
+import {
+	MetaDataProps,
+	SiteSettingsProps,
+	useSiteSettings,
+} from 'src/utilities/api/queries';
 import { Locale } from 'src/utilities/locale/translation';
 
 import '@design-system/globals.scss';
+import { Masthead } from '@design-system/components/Masthead';
 
 export interface Props {
 	locale: Locale;
@@ -13,6 +18,7 @@ export interface Props {
 }
 
 const { locale, metaData, skipPageSuffix } = Astro.props;
+const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 ---
 
 <!DOCTYPE html>
@@ -31,8 +37,8 @@ const { locale, metaData, skipPageSuffix } = Astro.props;
 	</head>
 	<body>
 		<Sprite.Provider>
-			<mark>masthead</mark>
-			<main>
+			<Masthead skipLinkLabel={siteSettings.header.skipLink} />
+			<main id="content">
 				<slot />
 			</main>
 			<mark>mastfoot</mark>

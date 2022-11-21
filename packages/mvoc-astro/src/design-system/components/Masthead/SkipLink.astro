@@ -1,0 +1,41 @@
+---
+import { Button } from '@design-system/elements/Button';
+
+type Props = {
+	label: string;
+};
+
+const { label } = Astro.props;
+---
+
+<Button href="#content" class="c-skiplink" variant={'secondary'}>
+	{label}
+</Button>
+
+<style lang="scss">
+	@use '@design-system-styles/primitives/_responsive.scss';
+
+	.c-skiplink {
+		position: absolute;
+		inset-block-start: var(--space-r-tiny);
+		inline-size: auto;
+
+		&:not(:focus) {
+			position: absolute;
+			width: 1px;
+			height: 1px;
+			padding: 0;
+			margin: -1px;
+			overflow: hidden;
+			clip: rect(0, 0, 0, 0);
+			white-space: nowrap;
+			border-width: 0;
+		}
+
+		@media --mq-large {
+			& {
+				inset-block-start: var(--space-r-base);
+			}
+		}
+	}
+</style>
