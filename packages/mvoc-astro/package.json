@@ -7,8 +7,7 @@
 		"start": "astro dev",
 		"build": "yarn files && astro build",
 		"files:download-sanity-images": "node ./scripts/download-sanity-images.js",
-		"files:copy": "node ./scripts/copy-designsystem-files.js",
-		"files": "yarn files:copy && yarn files:download-sanity-images"
+		"files": "yarn files:download-sanity-images"
 	},
 	"devDependencies": {
 		"@astrojs/sitemap": "^1.0.0",

@@ -18,7 +18,7 @@ export default defineConfig({
 	vite: {
 		resolve: {
 			alias: {
-				'@design-system-styles/': '../design-system/src/lib/',
+				'@design-system-styles/': './src/design-system/',
 			},
 		},
 	},
