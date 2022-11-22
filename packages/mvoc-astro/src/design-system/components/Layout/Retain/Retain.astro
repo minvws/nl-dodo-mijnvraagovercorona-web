@@ -1,0 +1,29 @@
+---
+interface Props {
+	as?: 'div' | 'section';
+}
+
+const { as = 'div' } = Astro.props;
+
+const Component = as;
+---
+
+<Component class="c-retain">
+	<slot />
+</Component>
+
+<style lang="scss">
+	@use '@design-system-styles/primitives/_responsive.scss';
+	.c-retain {
+		--retain-size: 36.6315789474rem; // 696px
+		--retain-padding: var(--space-s-small);
+		max-inline-size: var(--retain-size);
+		padding-inline: var(--retain-padding);
+		margin-inline: auto;
+
+		@media --mq-large {
+			--retain-size: 63.2rem; // 1264px
+			--retain-padding: var(--space-s-large);
+		}
+	}
+</style>
