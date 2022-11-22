@@ -43,6 +43,7 @@
 	line-height: var(--font-lineheight-root, 1.5); /* [3] */
 	text-size-adjust: none; /* [4] */
 	text-rendering: optimizespeed;
+	-webkit-font-smoothing: antialiased;
 }
 
 /**
