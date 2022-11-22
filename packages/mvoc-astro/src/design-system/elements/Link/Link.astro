@@ -91,6 +91,7 @@ const selectedIcon =
 
 <style lang="scss">
 	.e-link {
+		--link-interactive-outline: var(--color-donkerblauw);
 		--icon-animation: none;
 		--link-color: var(--color-donkerblauw);
 		--link-icon-spacing: 0px;
@@ -115,27 +116,20 @@ const selectedIcon =
 
 		:global(> .e-icon) {
 			animation: var(--u-animation-subscribe);
-			// &:first-child {
-			// 	margin-inline-end: var(--link-icon-spacing);
-			// }
-			// &:last-child {
-			// 	margin-inline-start: var(--link-icon-spacing);
-			// }
 		}
 
 		&:hover,
 		&:focus {
-			color: var(--color-diepblauw);
+			--link-color: var(--color-diepblauw);
 		}
 
 		&:focus {
-			outline: 2px solid var(--color-donkerblauw);
+			outline: 2px solid var(--link-interactive-outline);
 		}
 
 		// Variants
 		&.e-link--tooltip {
 			> span {
-				text-decoration: underline;
 				text-decoration-style: dotted;
 			}
 		}
