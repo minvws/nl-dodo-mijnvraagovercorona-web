@@ -9,7 +9,7 @@ import {
 import { Locale } from 'src/utilities/locale/translation';
 
 import '@design-system/globals.scss';
-import { Masthead } from '@design-system/components/Masthead';
+import { Masthead, SkipLink } from '@design-system/components/Masthead';
 
 export interface Props {
 	locale: Locale;
@@ -37,7 +37,10 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 	</head>
 	<body>
 		<Sprite.Provider>
-			<Masthead skipLinkLabel={siteSettings.header.skipLink} />
+			<Masthead logoUrl={locale.urlPrefix}>
+				<SkipLink label={siteSettings.header.skipLink} slot="start" />
+				<mark slot="end">language</mark>
+			</Masthead>
 			<main id="content">
 				<slot />
 			</main>

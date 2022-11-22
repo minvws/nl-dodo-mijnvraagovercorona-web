@@ -1,25 +1,24 @@
 ---
 import Icon from 'astro-icon';
-import { SkipLink } from '.';
 
 type Props = {
 	variant?: 'default' | 'highlight';
-	skipLinkLabel: string;
+	logoUrl: string;
 };
 
-const { variant, skipLinkLabel } = Astro.props;
+const { variant, logoUrl } = Astro.props;
 ---
 
 <header class={`c-masthead${variant ? ` c-masthead--highlight` : ''}`}>
 	<div>
-		<SkipLink label={skipLinkLabel} />
+		<slot name="start" />
 	</div>
-	<a class="c-masthead__logo" href={'/'}>
+	<a class="c-masthead__logo" href={logoUrl}>
 		<Icon class="c-masthead__logo-visual" name="ro-logo" />
 		<span class="u-visually-hidden">alt</span>
 	</a>
 	<div>
-		<mark>language</mark>
+		<slot name="end" />
 	</div>
 </header>
 
