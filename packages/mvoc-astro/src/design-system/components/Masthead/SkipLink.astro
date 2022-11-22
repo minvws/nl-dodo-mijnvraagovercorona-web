@@ -14,6 +14,7 @@ const { label } = Astro.props;
 
 <style lang="scss">
 	@use '@design-system-styles/primitives/_responsive.scss';
+	@use '@design-system-styles/tools/_a11y.scss';
 
 	.c-skiplink {
 		position: absolute;
@@ -21,15 +22,7 @@ const { label } = Astro.props;
 		inline-size: auto;
 
 		&:not(:focus) {
-			position: absolute;
-			width: 1px;
-			height: 1px;
-			padding: 0;
-			margin: -1px;
-			overflow: hidden;
-			clip: rect(0, 0, 0, 0);
-			white-space: nowrap;
-			border-width: 0;
+			@include a11y.visually-hidden;
 		}
 
 		@media --mq-large {

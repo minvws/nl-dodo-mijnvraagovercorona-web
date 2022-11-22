@@ -58,6 +58,23 @@ export default {
 					name: 'skipLink',
 					type: 'localeString',
 				},
+				{
+					title: 'Taal selector',
+					name: 'localeSelector',
+					type: 'object',
+					fields: [
+						{
+							title: 'Wissel van taal',
+							name: 'change',
+							type: 'localeString',
+						},
+						{
+							title: 'Huidige taal',
+							name: 'current',
+							type: 'localeString',
+						},
+					],
+				},
 			],
 		},
 		{

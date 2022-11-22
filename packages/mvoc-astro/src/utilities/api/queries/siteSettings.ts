@@ -40,6 +40,10 @@ export interface SiteSettingsProps {
 		terug: string;
 		resultaat: string;
 		skipLink: string;
+		localeSelector: {
+			change: string;
+			current: string;
+		};
 	};
 	privacy: {
 		id: string;
@@ -122,6 +126,18 @@ export const siteSettingsQuery = ({
 			${localePropertyQuery({ name: 'terug', path: 'header.terug', locale })},
 			${localePropertyQuery({ name: 'resultaat', path: 'header.resultaat', locale })},
 			${localePropertyQuery({ name: 'skipLink', path: 'header.skipLink', locale })},
+			"localeSelector": {
+				${localePropertyQuery({
+					name: 'change',
+					path: 'header.localeSelector.change',
+					locale,
+				})},
+				${localePropertyQuery({
+					name: 'current',
+					path: 'header.localeSelector.current',
+					locale,
+				})},
+			},
 		},
 		"footer": {
 			${localePropertyQuery({

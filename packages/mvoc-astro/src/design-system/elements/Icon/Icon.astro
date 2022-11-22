@@ -10,7 +10,8 @@ export interface Props extends HTMLAttributes<'span'> {
 		| 'cross'
 		| 'external'
 		| 'tooltip'
-		| 'chevron-left';
+		| 'chevron-left'
+		| 'world';
 	description?: string;
 	size?: string | number;
 }
@@ -33,5 +34,5 @@ const { name, size, description, ...attrs } = Astro.props;
 
 <span class={`e-icon${attrs.class ? ` | ${attrs.class}` : ''}`}>
 	{description ? <span class="u-visually-hidden">{description}</span> : null}
-	<Sprite class="e-icon__visual" name={name} size={size} optimize={false} />
+	<Sprite class="e-icon__visual" name={name} size={size} optimize={true} />
 </span>

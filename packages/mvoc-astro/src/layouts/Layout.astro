@@ -6,10 +6,11 @@ import {
 	SiteSettingsProps,
 	useSiteSettings,
 } from 'src/utilities/api/queries';
-import { Locale } from 'src/utilities/locale/translation';
+import { availableLocales, Locale } from 'src/utilities/locale/translation';
 
 import '@design-system/globals.scss';
 import { Masthead, SkipLink } from '@design-system/components/Masthead';
+import { LocaleSelector } from '@design-system/components/LocaleSelector';
 
 export interface Props {
 	locale: Locale;
@@ -37,9 +38,18 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 	</head>
 	<body>
 		<Sprite.Provider>
-			<Masthead logoUrl={locale.urlPrefix}>
+			<Masthead
+				logoUrl={locale.urlPrefix}
+				logoAlt={siteSettings.header.logoAlt}
+			>
 				<SkipLink label={siteSettings.header.skipLink} slot="start" />
-				<mark slot="end">language</mark>
+				<LocaleSelector
+					locales={availableLocales}
+					currentLocale={locale}
+					slot="end"
+					labelChange={siteSettings.header.localeSelector.change}
+					labelCurrent={siteSettings.header.localeSelector.current}
+				/>
 			</Masthead>
 			<main id="content">
 				<slot />

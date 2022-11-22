@@ -1,12 +1,13 @@
 ---
-import Icon from 'astro-icon';
+import Sprite from 'astro-icon';
 
 type Props = {
 	variant?: 'default' | 'highlight';
 	logoUrl: string;
+	logoAlt: string;
 };
 
-const { variant, logoUrl } = Astro.props;
+const { variant, logoUrl, logoAlt } = Astro.props;
 ---
 
 <header class={`c-masthead${variant ? ` c-masthead--highlight` : ''}`}>
@@ -14,10 +15,10 @@ const { variant, logoUrl } = Astro.props;
 		<slot name="start" />
 	</div>
 	<a class="c-masthead__logo" href={logoUrl}>
-		<Icon class="c-masthead__logo-visual" name="ro-logo" />
-		<span class="u-visually-hidden">alt</span>
+		<Sprite class="c-masthead__logo-visual" name="ro-logo" optimize={true} />
+		<span class="u-visually-hidden">{logoAlt}</span>
 	</a>
-	<div>
+	<div class="c-masthead__end">
 		<slot name="end" />
 	</div>
 </header>
@@ -35,6 +36,10 @@ const { variant, logoUrl } = Astro.props;
 		background-color: var(--masthead-background);
 	}
 
+	.c-masthead__end {
+		display: flex;
+	}
+
 	.c-masthead__logo {
 		&:focus {
 			outline: var(--elevation-focusring);
@@ -43,11 +48,11 @@ const { variant, logoUrl } = Astro.props;
 	}
 	.c-masthead__logo-visual {
 		display: block;
-		inline-size: 2.8421052632rem;
+		block-size: 4.2105263158rem;
 
 		@media --mq-large {
 			& {
-				inline-size: 3.4rem;
+				block-size: 5.1rem;
 			}
 		}
 	}
