@@ -28,6 +28,8 @@ const { logoUrl, logoAlt, highlight } = Astro.props;
 
 	.c-masthead {
 		--masthead-background: var(--theme-bg-base);
+		position: relative;
+		z-index: 50;
 		display: grid;
 		grid-template-columns: 1fr auto 1fr;
 		align-items: center;
