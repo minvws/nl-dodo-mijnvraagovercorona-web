@@ -17,9 +17,10 @@ export interface Props {
 	locale: Locale;
 	metaData: MetaDataProps;
 	skipPageSuffix?: boolean;
+	mastheadHighlight?: boolean;
 }
 
-const { locale, metaData, skipPageSuffix } = Astro.props;
+const { locale, metaData, skipPageSuffix, mastheadHighlight } = Astro.props;
 const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 ---
 
@@ -42,6 +43,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 			<Masthead
 				logoUrl={locale.urlPrefix}
 				logoAlt={siteSettings.header.logoAlt}
+				highlight={mastheadHighlight}
 			>
 				<SkipLink label={siteSettings.header.skipLink} slot="start" />
 				<LocaleSelector

@@ -1,0 +1,90 @@
+---
+import { Chapeau } from '@design-system/elements/Chapeau';
+import { Heading } from '@design-system/elements/Heading';
+import { ImageProps } from 'src/utilities/api/queries';
+import { Retain } from '@design-system/components/Layout/Retain';
+import { Stack } from '@design-system/components/Layout/Stack';
+import { Switcher } from '@design-system/components/Layout/Grid';
+
+interface Props {
+	title: string;
+	subTitle?: string;
+	chapeau?: string;
+	image?: ImageProps;
+	highlight?: boolean;
+}
+
+const { title, subTitle, chapeau, image, highlight } = Astro.props;
+---
+
+<header class={`c-hero${highlight ? ` c-hero--highlight` : ''}`}>
+	<Retain>
+		<Switcher class="c-hero__switcher">
+			<div class="c-hero__wrap-image">
+				{
+					image && image.src ? (
+						<img class="c-hero__image" src={image.src} alt="" />
+					) : null
+				}
+			</div>
+			<Stack gap={'small'}>
+				<hgroup>
+					<slot name="prefix" />
+					{chapeau ? <Chapeau role="presentation">{chapeau}</Chapeau> : null}
+					<Heading level={1}>{title}</Heading>
+				</hgroup>
+				{subTitle ? <p>{subTitle}</p> : null}
+				<slot />
+			</Stack>
+		</Switcher>
+	</Retain>
+</header>
+
+<style lang="scss">
+	@use '@design-system-styles/primitives/_responsive.scss';
+
+	.c-hero {
+		--hero-background: var(--theme-bg-base);
+		--hero-padding: var(--stack-hero);
+		padding-block-end: var(--hero-padding);
+		color: var(--color-donkerblauw);
+		background-color: var(--hero-background);
+	}
+
+	.c-hero__switcher {
+		--switcher-align-items: center;
+	}
+
+	.c-hero__wrap-image {
+		@media --mq-large {
+			order: 2;
+		}
+	}
+	.c-hero__image {
+		block-size: 8.4210526316rem; // 160px
+		max-inline-size: 14.3157894737rem; // 272px
+		margin-inline: auto;
+		object-fit: contain;
+
+		@media --mq-large {
+			block-size: 11.2rem; // 224px
+			max-inline-size: 100%;
+		}
+	}
+
+	// Variants
+	.c-hero--highlight {
+		--hero-background: var(--theme-bg-highlight);
+		--hero-border-radius: var(--radii-huge);
+		border-end-start-radius: var(--hero-border-radius);
+		border-end-end-radius: var(--hero-border-radius);
+
+		.c-hero__image {
+			block-size: 12rem; // 240px
+
+			@media --mq-large {
+				block-size: 20rem; // 400px
+			}
+		}
+	}
+</style>

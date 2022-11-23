@@ -2,15 +2,15 @@
 import Sprite from 'astro-icon';
 
 type Props = {
-	variant?: 'default' | 'highlight';
 	logoUrl: string;
 	logoAlt: string;
+	highlight?: boolean;
 };
 
-const { variant, logoUrl, logoAlt } = Astro.props;
+const { logoUrl, logoAlt, highlight } = Astro.props;
 ---
 
-<header class={`c-masthead${variant ? ` c-masthead--highlight` : ''}`}>
+<header class={`c-masthead${highlight ? ` c-masthead--highlight` : ''}`}>
 	<div>
 		<slot name="start" />
 	</div>
@@ -27,7 +27,7 @@ const { variant, logoUrl, logoAlt } = Astro.props;
 	@use '@design-system-styles/primitives/_responsive.scss';
 
 	.c-masthead {
-		--masthead-background: var(--color-ijsblauw);
+		--masthead-background: var(--theme-bg-base);
 		display: grid;
 		grid-template-columns: 1fr auto 1fr;
 		align-items: center;
@@ -58,6 +58,6 @@ const { variant, logoUrl, logoAlt } = Astro.props;
 	}
 
 	.c-masthead--highlight {
-		--masthead-background: var(--color-poolblauw);
+		--masthead-background: var(--theme-bg-highlight);
 	}
 </style>

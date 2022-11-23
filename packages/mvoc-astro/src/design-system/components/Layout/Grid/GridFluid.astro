@@ -1,0 +1,22 @@
+---
+import { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'div'> {}
+
+const { ...attrs } = Astro.props;
+---
+
+<div {...attrs} class={`c-grid-fluid${attrs.class ? ` | ${attrs.class}` : ''}`}>
+	<slot />
+</div>
+
+<style lang="scss">
+	.c-grid-fluid {
+		display: grid;
+		grid-template-columns: repeat(
+			var(--grid-placement, auto-fill),
+			minmax(min(var(--grid-min-item-size, 16rem), 100%), 1fr)
+		);
+		gap: var(--gutter, 1rem);
+	}
+</style>

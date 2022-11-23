@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import { availableLocales, Locale } from 'src/utilities/locale/translation';
 import { getDataHome, PageHomeProps } from 'src/utilities/api';
 import { Heading } from '@design-system/elements/Heading';
+import { Hero } from '@design-system/components/Hero';
 
 export async function getStaticPaths() {
 	return availableLocales.map((locale) => ({
@@ -20,9 +21,22 @@ interface HomeProps {
 
 const { locale } = Astro.props;
 const { pageData }: HomeProps = await getDataHome({ locale });
+
+console.log('pageData', pageData);
 ---
 
-<Layout locale={locale} metaData={pageData.metaData} skipPageSuffix>
-	<Heading level={1}>{pageData.header.title}</Heading>
+<Layout
+	locale={locale}
+	metaData={pageData.metaData}
+	skipPageSuffix
+	mastheadHighlight
+>
+	<Hero
+		title={pageData.header.title}
+		chapeau={pageData.header.chapeau}
+		subTitle={pageData.header.subtitle}
+		image={pageData.header.image}
+		highlight
+	/>
 	<p><mark>{locale.fullName}</mark></p>
 </Layout>
