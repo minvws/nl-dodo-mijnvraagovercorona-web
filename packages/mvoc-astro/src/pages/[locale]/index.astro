@@ -32,8 +32,6 @@ interface HomeProps {
 
 const { locale } = Astro.props;
 const { pageData }: HomeProps = await getDataHome({ locale });
-
-console.log('pageData', pageData);
 ---
 
 <Layout
