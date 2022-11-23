@@ -6,6 +6,9 @@ import { Hero } from '@design-system/components/Hero';
 import { Layer } from '@design-system/components/Layout/Layer';
 import { Heading } from '@design-system/elements/Heading';
 import { Retain } from '@design-system/components/Layout/Retain';
+import { Stack } from '@design-system/components/Layout/Stack';
+import { SectionHeadingGroup } from '@design-system/components/SectionHeadingGroup';
+import { ContentBlock } from '@modules/ContentBlock';
 
 export async function getStaticPaths() {
 	return availableLocales.map((locale) => ({
@@ -43,7 +46,14 @@ console.log('pageData', pageData);
 
 	<Layer pullUpBy="hero" background="ijsblauw">
 		<Retain>
-			<Heading><mark>Op dit moment belangrijk</mark></Heading>
+			<Stack>
+				<SectionHeadingGroup
+					title={pageData.important.title}
+					icon={pageData.important.icon}
+				>
+					<ContentBlock value={pageData.important.content} />
+				</SectionHeadingGroup>
+			</Stack>
 		</Retain>
 	</Layer>
 

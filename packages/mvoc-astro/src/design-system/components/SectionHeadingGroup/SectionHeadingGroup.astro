@@ -1,0 +1,47 @@
+---
+import { Heading } from '@design-system/elements/Heading';
+import { HTMLAttributes } from 'astro/types';
+import { ImageProps } from 'src/utilities/api/queries';
+import { Stack } from '@design-system/components/Layout/Stack';
+
+interface Props extends HTMLAttributes<'div'> {
+	title: string;
+	icon?: ImageProps;
+}
+
+const { title, icon, ...attrs } = Astro.props;
+---
+
+<hgroup
+	{...attrs}
+	class={`c-section-heading-group${attrs.class ? ` | ${attrs.class}` : ''}`}
+>
+	{
+		icon && icon.src ? (
+			<img class="c-section-heading-group__icon" src={icon.src} alt="" />
+		) : null
+	}
+	<Stack gap="small">
+		<Heading styledAs={1}>{title}</Heading>
+		<slot />
+	</Stack>
+</hgroup>
+
+<style lang="scss">
+	@use '@design-system-styles/primitives/_responsive.scss';
+
+	.c-section-heading-group {
+		--section-heading-group-icon-size: var(--space-r-large);
+		display: flex;
+		align-items: start;
+		gap: var(--stack-base);
+
+		@media --mq-large {
+			--section-heading-group-icon-size: var(--space-r-huge);
+		}
+	}
+
+	.c-section-heading-group__icon {
+		inline-size: var(--section-heading-group-icon-size);
+	}
+</style>
