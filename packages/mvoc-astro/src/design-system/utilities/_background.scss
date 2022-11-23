@@ -1,0 +1,18 @@
+/* ==========================================================================
+		utilities.background
+/ =========================================================================== */
+
+$backgrounds: (
+	'ijsblauw',
+	'poolblauw',
+	'lichtblauw',
+	'hemelblauw',
+	'donkerblauw',
+	'diepblauw'
+);
+
+@each $background in $backgrounds {
+	.u-background--#{$background} {
+		background-color: var(--color-#{$background});
+	}
+}
