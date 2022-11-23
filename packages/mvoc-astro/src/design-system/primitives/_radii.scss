@@ -6,9 +6,9 @@
 @use './responsive';
 
 :where(html) {
-	--radii-small: 5px;
-	--radii-base: 11px;
-	--radii-large: 20px;
+	--radii-small: var(--space-r-nano);
+	--radii-base: var(--space-r-tiny);
+	--radii-large: var(--space-r-base);
 	--radii-huge: var(--space-r-small);
 
 	@media --mq-large {
