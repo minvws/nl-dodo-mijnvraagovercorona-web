@@ -9,6 +9,7 @@ interface Shared {
 	icon?: IconProps['name'];
 	iconPosition?: 'leading' | 'trailing';
 	interactionIconAnimation?: Animations;
+	full?: boolean;
 }
 
 interface Button extends HTMLAttributes<'button'>, Shared {}
@@ -29,6 +30,7 @@ const {
 	icon,
 	iconPosition,
 	interactionIconAnimation,
+	full,
 
 	...attrs
 } = Astro.props;
@@ -38,6 +40,8 @@ const Element = attrs.href || attrs.href === '' ? 'a' : 'button';
 
 // Create class based on props
 const combinedClasses = `e-button${variant ? ` e-button--${variant}` : ''}${
+	full ? ` e-button--full` : ''
+}${
 	interactionIconAnimation
 		? ` | u-animation-interaction--${interactionIconAnimation}`
 		: ''
@@ -145,6 +149,10 @@ const selectedIcon =
 				--button-border-color: var(--variant--tile-border-color-interactive);
 				--button-elevation: var(--variant--tile-elevation-interactive);
 			}
+		}
+
+		&.e-button--full {
+			inline-size: 100%;
 		}
 
 		&:disabled,

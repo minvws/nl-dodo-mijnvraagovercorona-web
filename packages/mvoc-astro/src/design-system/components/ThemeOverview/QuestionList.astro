@@ -1,0 +1,76 @@
+---
+import { Button } from '@design-system/elements/Button';
+import { ContentBlock } from '@modules/ContentBlock';
+import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
+import { QuestionCollectionProps } from 'src/utilities/api/queries/question';
+import {
+	getLocaleFromURL,
+	Locale,
+	prefixUrlWithlocale,
+} from 'src/utilities/locale/translation';
+import { Disclosure, DisclosureItem } from '../Disclosure';
+import { Stack } from '../Layout/Stack';
+
+interface Props extends QuestionCollectionProps {}
+
+const { questionCollection } = Astro.props;
+const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
+const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+
+const translatedCollection = questionCollection.filter((item) => item.title);
+const split = 3;
+
+// Split items into 2 groups
+const firstGroup = translatedCollection.slice(
+	0,
+	split ? split : translatedCollection.length,
+);
+const secondGroup = translatedCollection.slice(
+	split ? split : translatedCollection.length,
+	translatedCollection.length,
+);
+---
+
+<Stack gap="small">
+	{
+		firstGroup.map((item) => (
+			<Button
+				variant="tertiary"
+				icon="chevron-small-right"
+				interactionIconAnimation="swing"
+				href={prefixUrlWithlocale(`/${item.path}`, locale)}
+				full
+			>
+				<ContentBlock value={item.title} />
+			</Button>
+		))
+	}
+	{
+		secondGroup.length ? (
+			<Disclosure>
+				<DisclosureItem
+					label={
+						secondGroup.length > 1
+							? `${siteSettings.seeMoreExpand.this} ${secondGroup.length} ${siteSettings.situationPlural.that}`
+							: `${siteSettings.seeMoreExpand.this} ${secondGroup.length} ${siteSettings.situationPlural.this}`
+					}
+					labelActive={`${siteSettings.seeMoreExpand.that} ${siteSettings.situationPlural.that}`}
+				>
+					<Stack gap="small">
+						{secondGroup.map((item) => (
+							<Button
+								variant="tertiary"
+								icon="chevron-small-right"
+								interactionIconAnimation="swing"
+								href={prefixUrlWithlocale(`/${item.path}`, locale)}
+								full
+							>
+								<ContentBlock value={item.title} />
+							</Button>
+						))}
+					</Stack>
+				</DisclosureItem>
+			</Disclosure>
+		) : null
+	}
+</Stack>

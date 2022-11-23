@@ -1,0 +1,21 @@
+/* ==========================================================================
+		utilitities.color
+/ =========================================================================== */
+
+$colors: (
+	'ijsblauw',
+	'poolblauw',
+	'lichtblauw',
+	'hemelblauw',
+	'donkerblauw',
+	'diepblauw'
+);
+
+@each $color in $colors {
+	.u-background--#{$color} {
+		background-color: var(--color-#{$color});
+	}
+	.u-color--#{$color} {
+		color: var(--color-#{$color});
+	}
+}

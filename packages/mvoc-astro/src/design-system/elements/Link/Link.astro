@@ -95,6 +95,7 @@ const selectedIcon =
 		--icon-animation: none;
 		--link-color: var(--color-donkerblauw);
 		--link-icon-spacing: 0px;
+		--link-text-decoration: underline;
 		display: inline-flex;
 		gap: var(--link-icon-spacing);
 		outline: none;
@@ -110,7 +111,7 @@ const selectedIcon =
 		}
 
 		> span {
-			text-decoration: underline;
+			text-decoration: var(--link-text-decoration);
 			text-underline-position: under;
 		}
 

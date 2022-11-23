@@ -12,11 +12,17 @@ import {
 	QuestionCollectionProps,
 	questionCollectionQuery,
 } from './queries/question';
+import { ThemeCollectionProps, themeCollectionQuery } from './queries/theme';
 
 interface ImportantProps extends QuestionCollectionProps {
 	title: string;
 	content: ContentBlockProps['value'];
 	icon: ImageProps;
+}
+
+interface ThemesProps extends ThemeCollectionProps {
+	title: string;
+	content: ContentBlockProps['value'];
 }
 
 export interface PageHomeProps extends PageProps {
@@ -27,6 +33,7 @@ export interface PageHomeProps extends PageProps {
 		image: ImageProps;
 	};
 	important: ImportantProps;
+	themes: ThemesProps;
 }
 
 export async function getDataHome({ locale }: { locale: Locale }) {
@@ -47,6 +54,16 @@ export async function getDataHome({ locale }: { locale: Locale }) {
 			})},
 			${imageQuery({ name: 'icon', path: 'important.icon' })},
 			${questionCollectionQuery({ path: 'important', locale })},
+		},
+		"themes": {
+			${localePropertyQuery({ name: 'title', path: 'themes.title', locale })},
+			${localePropertyQuery({
+				name: 'content',
+				path: 'themes.content',
+				locale,
+				block: true,
+			})},
+			${themeCollectionQuery({ path: 'themes', locale })},
 		},
 	}`;
 
