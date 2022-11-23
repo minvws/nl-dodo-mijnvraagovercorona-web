@@ -6,9 +6,12 @@
 @use './responsive';
 
 :where(html) {
-	--radii-small: var(--space-r-nano);
-	--radii-base: var(--space-r-tiny);
-	--radii-large: var(--space-r-base);
+	--radii-nano: var(--space-r-nano);
+	--radii-milli: var(--space-r-milli);
+	--radii-tiny: var(--space-r-tiny);
+	--radii-small: var(--space-r-small);
+	--radii-base: var(--space-r-base);
+	--radii-large: var(--space-r-large);
 	--radii-huge: var(--space-r-small);
 
 	@media --mq-large {

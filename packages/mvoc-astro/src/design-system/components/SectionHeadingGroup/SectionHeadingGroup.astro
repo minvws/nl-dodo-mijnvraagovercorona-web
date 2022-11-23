@@ -13,7 +13,6 @@ const { title, icon, ...attrs } = Astro.props;
 ---
 
 <hgroup
-	{...attrs}
 	class={`c-section-heading-group${attrs.class ? ` | ${attrs.class}` : ''}`}
 >
 	{

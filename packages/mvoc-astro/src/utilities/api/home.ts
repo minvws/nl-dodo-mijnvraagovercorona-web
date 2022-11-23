@@ -8,8 +8,12 @@ import {
 	localePropertyQuery,
 	ImageProps,
 } from './queries';
+import {
+	QuestionCollectionProps,
+	questionCollectionQuery,
+} from './queries/question';
 
-interface ImportantProps /*extends QuestionCollectionProps*/ {
+interface ImportantProps extends QuestionCollectionProps {
 	title: string;
 	content: ContentBlockProps['value'];
 	icon: ImageProps;
@@ -42,6 +46,7 @@ export async function getDataHome({ locale }: { locale: Locale }) {
 				block: true,
 			})},
 			${imageQuery({ name: 'icon', path: 'important.icon' })},
+			${questionCollectionQuery({ path: 'important', locale })},
 		},
 	}`;
 

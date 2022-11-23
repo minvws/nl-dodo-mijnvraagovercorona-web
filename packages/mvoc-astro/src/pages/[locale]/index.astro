@@ -1,6 +1,10 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { availableLocales, Locale } from 'src/utilities/locale/translation';
+import {
+	availableLocales,
+	Locale,
+	prefixUrlWithlocale,
+} from 'src/utilities/locale/translation';
 import { getDataHome, PageHomeProps } from 'src/utilities/api';
 import { Hero } from '@design-system/components/Hero';
 import { Layer } from '@design-system/components/Layout/Layer';
@@ -9,6 +13,8 @@ import { Retain } from '@design-system/components/Layout/Retain';
 import { Stack } from '@design-system/components/Layout/Stack';
 import { SectionHeadingGroup } from '@design-system/components/SectionHeadingGroup';
 import { ContentBlock } from '@modules/ContentBlock';
+import { GridFluid } from '@design-system/components/Layout/Grid';
+import { Button } from '@design-system/elements/Button';
 
 export async function getStaticPaths() {
 	return availableLocales.map((locale) => ({
@@ -26,8 +32,6 @@ interface HomeProps {
 
 const { locale } = Astro.props;
 const { pageData }: HomeProps = await getDataHome({ locale });
-
-console.log('pageData', pageData);
 ---
 
 <Layout
@@ -46,13 +50,29 @@ console.log('pageData', pageData);
 
 	<Layer pullUpBy="hero" background="ijsblauw">
 		<Retain>
-			<Stack>
+			<Stack gap="huge">
 				<SectionHeadingGroup
 					title={pageData.important.title}
 					icon={pageData.important.icon}
 				>
 					<ContentBlock value={pageData.important.content} />
 				</SectionHeadingGroup>
+				<GridFluid class="grid-important">
+					{
+						pageData.important.questionCollection
+							?.filter((item) => item.title)
+							.map((item, index) => (
+								<Button
+									variant="tertiary"
+									href={prefixUrlWithlocale(`/${item.path}`, locale)}
+									icon="chevron-small-right"
+									interactionIconAnimation="swing"
+								>
+									<ContentBlock value={item.title} />
+								</Button>
+							))
+					}
+				</GridFluid>
 			</Stack>
 		</Retain>
 	</Layer>
@@ -63,3 +83,16 @@ console.log('pageData', pageData);
 		</Retain>
 	</Layer>
 </Layout>
+
+<style lang="scss">
+	@use '@design-system-styles/primitives/_responsive.scss';
+
+	.grid-important {
+		--grid-fluid-min-item-size: 21.0526315789rem; // 400px
+		--grid-fluid-gap: var(--stack-small);
+
+		@media --mq-large {
+			--grid-fluid-min-item-size: 20rem; // 400px
+		}
+	}
+</style>
