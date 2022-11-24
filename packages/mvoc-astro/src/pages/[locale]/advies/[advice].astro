@@ -20,6 +20,11 @@ import {
 } from '@design-system/components/Card';
 import { Stack } from '@design-system/components/Layout/Stack';
 import { Retain } from '@design-system/components/Layout/Retain';
+import { Hero } from '@design-system/components/Hero';
+import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
+import { UpdatedAt } from '@design-system/elements/UpdatedAt';
+import { Advice } from '@design-system/components/Advice';
+import { Layer } from '@design-system/components/Layout/Layer';
 
 export async function getStaticPaths() {
 	function getShowOnDays(collection: { showOn: Array<number> }[]) {
@@ -43,7 +48,7 @@ export async function getStaticPaths() {
 
 			return daysToGenerate.map((day) => ({
 				params: {
-					slug: `${page.slug}${day === 0 ? '' : `-dag-${day}`}`,
+					advice: `${page.slug}${day === 0 ? '' : `-dag-${day}`}`,
 					locale: locale.id,
 				},
 				props: {
@@ -65,6 +70,7 @@ interface Props {
 const today = new Date();
 const { pageData, pageDay } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
+const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 
 // Get most relevant answer
 const answer = pageData?.answer
@@ -92,67 +98,84 @@ const plan =
 							locale.locale,
 					  ),
 		}));
+
+console.log('pageData', pageData);
 ---
 
 <Layout locale={locale} metaData={pageData.metaData}>
-	<Retain>
-		<h1>{pageData.header.title}</h1>
+	<Hero title={pageData.header.title} image={pageData.header.image}>
+		<UpdatedAt slot="prefix" time={pageData.updatedAt} />
+		{
+			pageData.header.showSeriousSymptoms ? (
+				<Advice
+					title={siteSettings.severeSymptomsAdvice.title}
+					subtitle={siteSettings.severeSymptomsAdvice.subtitle}
+					icon={siteSettings.severeSymptomsAdvice.icon}
+				/>
+			) : null
+		}
+	</Hero>
 
-		<Stack gap="large">
-			{
-				answer && (
-					<CardAdvice title={answer.title}>
-						<ContentBlock value={answer.content} />
-					</CardAdvice>
-				)
-			}
+	<Layer>
+		<Retain>
+			<h1>{pageData.header.title}</h1>
 
-			{
-				!!plan?.length && (
-					<section>
-						<Stack gap="small">
-							<h2>{pageData.advice.title}</h2>
-							<Steps>
-								{plan.map(({ date, title, content }) => {
-									return (
-										<CardDay title={title} day={date}>
-											{content && <ContentBlock value={content} />}
-										</CardDay>
-									);
-								})}
-							</Steps>
-						</Stack>
-					</section>
-				)
-			}
+			<Stack gap="large">
+				{
+					answer && (
+						<CardAdvice title={answer.title}>
+							<ContentBlock value={answer.content} />
+						</CardAdvice>
+					)
+				}
 
-			{
-				!!pageData.advice?.cards?.length && (
-					<section>
-						<Stack gap="small">
-							{pageData.advice.secondaryTitle ? (
-								<h2>{pageData.advice.secondaryTitle}</h2>
-							) : null}
-							<div>
-								<Stack gap="large">
-									{pageData.advice.cards.map(
-										({ title, chapeau, content, buttons }) => (
-											<CardBlock
-												title={title}
-												chapeau={chapeau}
-												buttons={buttons}
-											>
-												<ContentBlock value={content} />
-												<mark slot="appendix">Links to Tips</mark>
-											</CardBlock>
-										),
-									)}
-								</Stack>
-							</div>
-						</Stack>
-					</section>
-				)
-			}
-		</Stack>
-	</Retain>
+				{
+					!!plan?.length && (
+						<section>
+							<Stack gap="small">
+								<h2>{pageData.advice.title}</h2>
+								<Steps>
+									{plan.map(({ date, title, content }) => {
+										return (
+											<CardDay title={title} day={date}>
+												{content && <ContentBlock value={content} />}
+											</CardDay>
+										);
+									})}
+								</Steps>
+							</Stack>
+						</section>
+					)
+				}
+
+				{
+					!!pageData.advice?.cards?.length && (
+						<section>
+							<Stack gap="small">
+								{pageData.advice.secondaryTitle ? (
+									<h2>{pageData.advice.secondaryTitle}</h2>
+								) : null}
+								<div>
+									<Stack gap="large">
+										{pageData.advice.cards.map(
+											({ title, chapeau, content, buttons }) => (
+												<CardBlock
+													title={title}
+													chapeau={chapeau}
+													buttons={buttons}
+												>
+													<ContentBlock value={content} />
+													<mark slot="appendix">Links to Tips</mark>
+												</CardBlock>
+											),
+										)}
+									</Stack>
+								</div>
+							</Stack>
+						</section>
+					)
+				}
+			</Stack>
+		</Retain>
+	</Layer>
 </Layout>

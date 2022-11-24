@@ -54,6 +54,7 @@ export interface PageSituationAdviceProps extends PageProps {
 	answer: AnswerProps[];
 	advice: AdviceProps;
 	slug: string;
+	updatedAt: string;
 }
 
 export async function getDataSituationAdvice({
@@ -118,6 +119,7 @@ export async function getDataSituationAdvice({
 				}
 			}
 		},
+		"updatedAt": _updatedAt,
 		"slug": slug.current,
 	}`;
 

@@ -1,0 +1,24 @@
+---
+import { HTMLAttributes } from 'astro/types';
+import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
+import { formatLongDate } from 'src/utilities/locale/date';
+import { getLocaleFromURL } from 'src/utilities/locale/translation';
+
+interface Props extends HTMLAttributes<'small'> {
+	time: string;
+}
+
+const { time, class: className, ...attrs } = Astro.props;
+const locale = getLocaleFromURL(Astro.url.pathname);
+const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+---
+
+<small
+	class={`e-updated-at | u-color--grijs-6${className ? ` | className` : ''}`}
+	{...attrs}
+>
+	{siteSettings.updatedAt}{' '}
+	<time datetime={time}>
+		{formatLongDate(new Date(time), locale.locale)}
+	</time>
+</small>
