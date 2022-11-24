@@ -6,7 +6,7 @@ interface Props extends HTMLAttributes<'div'> {}
 const { class: className, ...attrs } = Astro.props;
 ---
 
-<div class={`c-sidebar${className ? ` | className` : ''}`} {...attrs}>
+<div class={`c-sidebar${className ? ` | ${className}` : ''}`} {...attrs}>
 	<div class="c-sidebar__body">
 		<slot />
 	</div>

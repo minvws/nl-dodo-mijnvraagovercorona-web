@@ -14,7 +14,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 ---
 
 <small
-	class={`e-updated-at | u-color--grijs-6${className ? ` | className` : ''}`}
+	class={`e-updated-at | u-color--grijs-6${className ? ` | ${className}` : ''}`}
 	{...attrs}
 >
 	{siteSettings.updatedAt}{' '}

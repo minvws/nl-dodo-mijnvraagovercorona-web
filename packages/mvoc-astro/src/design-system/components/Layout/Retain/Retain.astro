@@ -17,7 +17,7 @@ const Component = as;
 
 <Component
 	class={`c-retain${variant ? ` c-retain--${variant}` : ''}${
-		className ? ` | className` : ''
+		className ? ` | ${className}` : ''
 	}`}
 	{...attrs}
 >
