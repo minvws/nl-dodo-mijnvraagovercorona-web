@@ -1,0 +1,38 @@
+---
+import { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'div'> {}
+
+const { class: className, ...attrs } = Astro.props;
+---
+
+<div class={`c-sidebar${className ? ` | className` : ''}`} {...attrs}>
+	<div class="c-sidebar__body">
+		<slot />
+	</div>
+	<aside class="c-sidebar__side">
+		<slot name="aside" />
+	</aside>
+</div>
+
+<style lang="scss">
+	.c-sidebar {
+		--sidebar-gap: var(--stack-large);
+		--sidebar-side-inline-size: 18rem;
+		--sidebar-body-minimum-inline-size: 50%;
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--sidebar-gap);
+	}
+
+	.c-sidebar__side {
+		flex-basis: var(--sidebar-side-inline-size);
+		flex-grow: 1;
+	}
+
+	.c-sidebar__body {
+		flex-basis: 0;
+		flex-grow: 999;
+		min-inline-size: var(--sidebar-body-minimum-inline-size);
+	}
+</style>
