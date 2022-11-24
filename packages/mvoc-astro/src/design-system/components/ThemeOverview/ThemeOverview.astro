@@ -23,7 +23,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 <GridFluid class="c-theme-overview">
 	{
 		themeCollection?.map((theme) => (
-			<Stack>
+			<Stack id={`thema-${theme.slug}`}>
 				<div class="c-theme-overview__header">
 					{theme.overview.icon && theme.overview.icon.src ? (
 						<img

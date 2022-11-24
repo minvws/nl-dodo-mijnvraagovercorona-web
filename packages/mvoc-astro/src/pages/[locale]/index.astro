@@ -15,6 +15,7 @@ import { ContentBlock } from '@modules/ContentBlock';
 import { GridFluid } from '@design-system/components/Layout/Grid';
 import { Button } from '@design-system/elements/Button';
 import { ThemeOverview } from '@design-system/components/ThemeOverview';
+import { stringToSlug } from 'src/utilities/stringToSlug';
 
 export async function getStaticPaths() {
 	return availableLocales.map((locale) => ({
@@ -48,7 +49,11 @@ const { pageData }: HomeProps = await getDataHome({ locale });
 		highlight
 	/>
 
-	<Layer pullUpBy="hero" background="ijsblauw">
+	<Layer
+		pullUpBy="hero"
+		background="ijsblauw"
+		id={stringToSlug(pageData.important.title)}
+	>
 		<Retain>
 			<Stack gap="huge">
 				<SectionHeadingGroup
@@ -61,7 +66,7 @@ const { pageData }: HomeProps = await getDataHome({ locale });
 					{
 						pageData.important.questionCollection
 							?.filter((item) => item.title)
-							.map((item, index) => (
+							.map((item) => (
 								<Button
 									variant="tertiary"
 									href={prefixUrlWithlocale(`/${item.path}`, locale)}
@@ -77,7 +82,7 @@ const { pageData }: HomeProps = await getDataHome({ locale });
 		</Retain>
 	</Layer>
 
-	<Layer>
+	<Layer id={stringToSlug(pageData.themes.title)}>
 		<Retain>
 			<Stack gap="huge">
 				<SectionHeadingGroup title={pageData.themes.title}>
