@@ -1,14 +1,26 @@
 ---
-interface Props {
+import { HTMLAttributes } from 'astro/types';
+interface Props extends HTMLAttributes<'div' | 'section'> {
 	as?: 'div' | 'section';
+	variant?: 'base' | 'text';
 }
 
-const { as = 'div' } = Astro.props;
+const {
+	variant = 'base',
+	as = 'div',
+	class: className,
+	...attrs
+} = Astro.props;
 
 const Component = as;
 ---
 
-<Component class="c-retain">
+<Component
+	class={`c-retain${variant ? ` c-retain--${variant}` : ''}${
+		className ? ` | className` : ''
+	}`}
+	{...attrs}
+>
 	<slot />
 </Component>
 
@@ -24,6 +36,16 @@ const Component = as;
 		@media --mq-large {
 			--retain-size: 63.2rem; // 1264px
 			--retain-padding: var(--space-s-large);
+		}
+	}
+
+	.c-retain--text {
+		--retain-padding: 0px;
+		--retain-size: 35rem; // 665px
+		margin-inline-start: 0;
+
+		@media --mq-large {
+			--retain-size: 33.25rem; // 665px
 		}
 	}
 </style>
