@@ -1,12 +1,18 @@
 ---
-interface Props {
-	variant?: 'filled';
+import { HTMLAttributes } from 'astro/types';
+interface Props extends HTMLAttributes<'div'> {
+	variant?: 'base' | 'filled' | 'frost';
 }
 
-const { variant } = Astro.props;
+const { variant = 'base', class: className, ...attrs } = Astro.props;
 ---
 
-<div class={`c-card${variant ? ` c-card--${variant}` : ''}`}>
+<div
+	class={`c-card${variant ? ` c-card--${variant}` : ''}${
+		className ? ` | ${className}` : ''
+	}`}
+	{...attrs}
+>
 	<slot />
 </div>
 
@@ -14,7 +20,7 @@ const { variant } = Astro.props;
 	.c-card {
 		--card-border-width: 1px;
 		--card-border-color: var(--color-lichtblauw);
-		padding: calc(var(--space-r-small) - var(--card-border-width));
+		padding: calc(var(--space-r-base) - var(--card-border-width));
 		border-radius: var(--radii-tiny);
 		border: var(--card-border-width) solid var(--card-border-color);
 	}
@@ -23,5 +29,11 @@ const { variant } = Astro.props;
 		--card-border-width: 0px;
 		background-color: var(--color-poolblauw);
 		color: var(--color-diepblauw);
+	}
+
+	.c-card--frost {
+		--card-border-width: 0px;
+		background-image: var(--gradient-lichtblauw);
+		box-shadow: var(--elevation-frost);
 	}
 </style>
