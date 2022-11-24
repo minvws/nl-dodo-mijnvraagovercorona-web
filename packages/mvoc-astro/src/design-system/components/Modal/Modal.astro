@@ -194,16 +194,19 @@ const { id, title, closeLabel = 'Sluiten' } = Astro.props;
 		max-inline-size: 100%;
 		overflow: auto;
 	}
+
 	.modal__title {
 		margin-inline-end: calc(
 			var(--font-lineheight-root) * 1rem + var(--space-r-nano) * 2 +
 				var(--space-r-tiny)
 		);
 	}
+
 	.modal__close-button,
-	.modal__close-button-icon {
+	.modal__close-button-icon.modal__close-button-icon {
 		display: block;
 	}
+
 	.modal__close-button {
 		position: absolute;
 		inset-inline-end: var(--modal-space);
