@@ -16,6 +16,7 @@ import {
 	CardAdvice,
 	CardBlock,
 	CardDay,
+	CardPrivacy,
 	Steps,
 } from '@design-system/components/Card';
 import { Stack } from '@design-system/components/Layout/Stack';
@@ -25,6 +26,7 @@ import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
 import { UpdatedAt } from '@design-system/elements/UpdatedAt';
 import { Advice } from '@design-system/components/Advice';
 import { Layer } from '@design-system/components/Layout/Layer';
+import { Sidebar } from '@design-system/components/Layout/Sidebar';
 
 export async function getStaticPaths() {
 	function getShowOnDays(collection: { showOn: Array<number> }[]) {
@@ -118,64 +120,67 @@ console.log('pageData', pageData);
 
 	<Layer>
 		<Retain>
-			<h1>{pageData.header.title}</h1>
+			<Sidebar>
+				<Retain variant="text">
+					<Stack gap="large">
+						{
+							answer && (
+								<CardAdvice title={answer.title}>
+									<ContentBlock value={answer.content} />
+								</CardAdvice>
+							)
+						}
 
-			<Stack gap="large">
-				{
-					answer && (
-						<CardAdvice title={answer.title}>
-							<ContentBlock value={answer.content} />
-						</CardAdvice>
-					)
-				}
-
-				{
-					!!plan?.length && (
-						<section>
-							<Stack gap="small">
-								<h2>{pageData.advice.title}</h2>
-								<Steps>
-									{plan.map(({ date, title, content }) => {
-										return (
-											<CardDay title={title} day={date}>
-												{content && <ContentBlock value={content} />}
-											</CardDay>
-										);
-									})}
-								</Steps>
-							</Stack>
-						</section>
-					)
-				}
-
-				{
-					!!pageData.advice?.cards?.length && (
-						<section>
-							<Stack gap="small">
-								{pageData.advice.secondaryTitle ? (
-									<h2>{pageData.advice.secondaryTitle}</h2>
-								) : null}
-								<div>
-									<Stack gap="large">
-										{pageData.advice.cards.map(
-											({ title, chapeau, content, buttons }) => (
-												<CardBlock
-													title={title}
-													chapeau={chapeau}
-													buttons={buttons}
-												>
-													<ContentBlock value={content} />
-													<mark slot="appendix">Links to Tips</mark>
-												</CardBlock>
-											),
-										)}
+						{
+							!!plan?.length && (
+								<section>
+									<Stack gap="small">
+										<h2>{pageData.advice.title}</h2>
+										<Steps>
+											{plan.map(({ date, title, content }) => {
+												return (
+													<CardDay title={title} day={date}>
+														{content && <ContentBlock value={content} />}
+													</CardDay>
+												);
+											})}
+										</Steps>
 									</Stack>
-								</div>
-							</Stack>
-						</section>
-					)
-				}
-			</Stack>
+								</section>
+							)
+						}
+
+						{
+							!!pageData.advice?.cards?.length && (
+								<section>
+									<Stack gap="small">
+										{pageData.advice.secondaryTitle ? (
+											<h2>{pageData.advice.secondaryTitle}</h2>
+										) : null}
+										<div>
+											<Stack gap="large">
+												{pageData.advice.cards.map(
+													({ title, chapeau, content, buttons }) => (
+														<CardBlock
+															title={title}
+															chapeau={chapeau}
+															buttons={buttons}
+														>
+															<ContentBlock value={content} />
+															<mark slot="appendix">Links to Tips</mark>
+														</CardBlock>
+													),
+												)}
+											</Stack>
+										</div>
+									</Stack>
+								</section>
+							)
+						}
+					</Stack>
+				</Retain>
+				<CardPrivacy slot="aside" />
+			</Sidebar>
 		</Retain>
 	</Layer>
 </Layout>
