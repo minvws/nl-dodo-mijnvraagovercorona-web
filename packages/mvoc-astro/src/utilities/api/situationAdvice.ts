@@ -11,6 +11,31 @@ import {
 
 import type { ContentBlockProps } from '@modules/ContentBlock';
 
+export type InformContactsProps = {
+	title: string;
+	preButtonContent?: ContentBlockProps['value'];
+	steps?: {
+		title: string;
+		content: ContentBlockProps['value'];
+		points?: {
+			title: string;
+			content: ContentBlockProps['value'];
+		}[];
+	}[];
+	buttons: {
+		situation: string;
+		copyButton: {
+			label: string;
+			labelCopied: string;
+		};
+		shareButton: {
+			label: string;
+			message: string;
+		};
+	};
+	url: string;
+};
+
 interface AnswerProps {
 	showOn?: Array<number>;
 	title: string;
@@ -53,6 +78,7 @@ export interface PageSituationAdviceProps extends PageProps {
 	};
 	answer: AnswerProps[];
 	advice: AdviceProps;
+	informContacts: InformContactsProps;
 	slug: string;
 	updatedAt: string;
 }
@@ -119,6 +145,50 @@ export async function getDataSituationAdvice({
 				}
 			}
 		},
+		"informContacts": {
+			${localePropertyQuery({
+				name: 'title',
+				path: 'informContactsReference->title',
+				locale,
+			})},
+			"steps": informContactsReference->steps[] {
+				${localePropertyQuery({ name: 'title', locale })},
+				${localePropertyQuery({ name: 'content', locale, block: true })},
+				"points": points[] {
+					${localePropertyQuery({ name: 'title', locale })},
+					${localePropertyQuery({ name: 'content', locale, block: true })},
+				}
+			},
+			${localePropertyQuery({
+				name: 'preButtonContent',
+				path: 'informContactsReference->preButtonContent',
+				locale,
+				block: true,
+			})},
+			"buttons": informContactsReference->buttons {
+				"situation": select(
+					situationReference->_type == "situation-question-document" => 'situatie/' + situationReference->slug.current,
+					situationReference->_type == "situation-result-document" => 'advies/' + situationReference->slug.current,
+				),
+				"shareButton": {
+					${localePropertyQuery({ name: 'label', path: 'shareButton.label', locale })},
+					${localePropertyQuery({
+						name: 'message',
+						path: 'shareButton.message',
+						locale,
+					})},
+				},
+				"copyButton": {
+					${localePropertyQuery({ name: 'label', path: 'copyButton.label', locale })},
+					${localePropertyQuery({
+						name: 'labelCopied',
+						path: 'copyButton.labelCopied',
+						locale,
+					})},
+				}
+			}
+		},
+
 		"updatedAt": _updatedAt,
 		"slug": slug.current,
 	}`;

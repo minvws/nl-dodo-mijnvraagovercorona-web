@@ -74,7 +74,9 @@ const selectedIcon =
 			<Icon name={selectedIcon} description={hiddenLabel} />
 		) : null
 	}
-	<slot />
+	<span data-button-content>
+		<slot />
+	</span>
 	{
 		iconPositionCalculated === 'trailing' && selectedIcon ? (
 			<Icon name={selectedIcon} description={hiddenLabel} />

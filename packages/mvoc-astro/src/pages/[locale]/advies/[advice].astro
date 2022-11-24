@@ -27,6 +27,7 @@ import { UpdatedAt } from '@design-system/elements/UpdatedAt';
 import { Advice } from '@design-system/components/Advice';
 import { Layer } from '@design-system/components/Layout/Layer';
 import { Sidebar } from '@design-system/components/Layout/Sidebar';
+import { InformContacts } from '@design-system/components/InformContacts';
 
 export async function getStaticPaths() {
 	function getShowOnDays(collection: { showOn: Array<number> }[]) {
@@ -101,7 +102,7 @@ const plan =
 					  ),
 		}));
 
-console.log('pageData', pageData);
+// console.log('pageData', pageData);
 ---
 
 <Layout locale={locale} metaData={pageData.metaData}>
@@ -175,6 +176,12 @@ console.log('pageData', pageData);
 										</div>
 									</Stack>
 								</section>
+							)
+						}
+
+						{
+							!!plan?.length && pageData.informContacts.title && (
+								<InformContacts content={pageData.informContacts} />
 							)
 						}
 					</Stack>
