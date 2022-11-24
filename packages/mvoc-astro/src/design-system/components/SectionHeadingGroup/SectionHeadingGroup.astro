@@ -9,11 +9,12 @@ interface Props extends HTMLAttributes<'div'> {
 	icon?: ImageProps;
 }
 
-const { title, icon, ...attrs } = Astro.props;
+const { title, icon, class: className, ...attrs } = Astro.props;
 ---
 
 <hgroup
-	class={`c-section-heading-group${attrs.class ? ` | ${attrs.class}` : ''}`}
+	class={`c-section-heading-group${className ? ` | ${className}` : ''}`}
+	{...attrs}
 >
 	{
 		icon && icon.src ? (

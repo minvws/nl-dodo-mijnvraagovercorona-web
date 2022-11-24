@@ -1,5 +1,6 @@
 ---
-interface Props {
+import { HTMLAttributes } from 'astro/types';
+interface Props extends HTMLAttributes<'div'> {
 	gap?:
 		| 'nano'
 		| 'milli'
@@ -12,13 +13,15 @@ interface Props {
 	style?: string;
 }
 
-const { gap = 'base', style } = Astro.props;
+const { gap = 'base', style, id, class: className, ...attrs } = Astro.props;
 ---
 
 <div
+	id={id}
 	class={`c-stack${gap ? ` | u-stack--${gap}` : ''}${
 		style ? ` | ${style}` : ''
-	}`}
+	}${className ? ` | ${className}` : ''}`}
+	{...attrs}
 >
 	<slot />
 </div>

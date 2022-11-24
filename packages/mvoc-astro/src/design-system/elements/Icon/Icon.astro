@@ -20,7 +20,7 @@ export interface Props extends HTMLAttributes<'span'> {
 	size?: string | number;
 }
 
-const { name, size, description, ...attrs } = Astro.props;
+const { name, size, description, class: className, ...attrs } = Astro.props;
 ---
 
 <style lang="scss">
@@ -36,7 +36,7 @@ const { name, size, description, ...attrs } = Astro.props;
 	}
 </style>
 
-<span class={`e-icon${attrs.class ? ` | ${attrs.class}` : ''}`}>
+<span class={`e-icon${className ? ` | ${className}` : ''}`} {...attrs}>
 	{description ? <span class="u-visually-hidden">{description}</span> : null}
 	<Sprite class="e-icon__visual" name={name} size={size} optimize={true} />
 </span>

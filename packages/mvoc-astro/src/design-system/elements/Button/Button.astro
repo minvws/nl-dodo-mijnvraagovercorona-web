@@ -31,6 +31,8 @@ const {
 	iconPosition,
 	interactionIconAnimation,
 	full,
+	class: className,
+	type,
 
 	...attrs
 } = Astro.props;
@@ -45,7 +47,7 @@ const combinedClasses = `e-button${variant ? ` e-button--${variant}` : ''}${
 	interactionIconAnimation
 		? ` | u-animation-interaction--${interactionIconAnimation}`
 		: ''
-}${attrs.class ? ` | ${attrs.class}` : ''}`;
+}${className ? ` | ${className}` : ''}`;
 
 const iconPositionCalculated =
 	iconPosition === 'leading' ? 'leading' : 'trailing';
@@ -55,13 +57,8 @@ const selectedIcon =
 ---
 
 <Element
-	{...attrs}
 	class={combinedClasses}
-	type={!attrs.href
-		? attrs.type
-			? (attrs.type as Button['type'])
-			: 'button'
-		: undefined}
+	type={!attrs.href ? (type ? (type as Button['type']) : 'button') : undefined}
 	disabled={!attrs.href && disabled ? disabled : undefined}
 	data-disabled={attrs.href && disabled ? disabled : undefined}
 	formaction={!attrs.href && attrs.formaction ? attrs.formaction : undefined}
@@ -70,6 +67,7 @@ const selectedIcon =
 	rel={attrs.href && external ? 'noopener noreferrer' : undefined}
 	lang={attrs.href ? attrs.lang : undefined}
 	hreflang={attrs.href ? attrs.lang : undefined}
+	{...attrs}
 >
 	{
 		iconPositionCalculated === 'leading' && selectedIcon ? (

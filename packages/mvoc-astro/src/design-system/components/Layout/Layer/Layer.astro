@@ -7,16 +7,24 @@ interface Props extends HTMLAttributes<'div' | 'section' | 'footer'> {
 	background?: Backgrounds;
 }
 
-const { as = 'section', pullUpBy, background, ...attrs } = Astro.props;
+const {
+	as = 'section',
+	pullUpBy,
+	background,
+	id,
+	class: className,
+	...attrs
+} = Astro.props;
 
 const Component = as;
 ---
 
 <Component
-	{...attrs}
+	id={id}
 	class={`c-layer${pullUpBy ? ` c-layer--pull-up-by-${pullUpBy}` : ''}${
 		background ? ` | u-background--${background}` : ''
-	}${attrs.class ? ` | ${attrs.class}` : ''}`}
+	}${className ? ` | ${className}` : ''}`}
+	{...attrs}
 >
 	<slot />
 </Component>
