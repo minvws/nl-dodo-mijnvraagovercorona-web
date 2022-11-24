@@ -28,10 +28,10 @@ const { title, subTitle, chapeau, image, highlight } = Astro.props;
 				}
 			</div>
 			<Stack gap={'small'}>
-				<hgroup>
+				<hgroup class="c-hero__hgroup">
+					<Heading class="c-hero__title" level={1}>{title}</Heading>
 					<slot name="prefix" />
 					{chapeau ? <Chapeau role="presentation">{chapeau}</Chapeau> : null}
-					<Heading level={1}>{title}</Heading>
 				</hgroup>
 				{subTitle ? <p>{subTitle}</p> : null}
 				<slot />
@@ -71,6 +71,16 @@ const { title, subTitle, chapeau, image, highlight } = Astro.props;
 			block-size: 11.2rem; // 224px
 			max-inline-size: 100%;
 		}
+	}
+
+	.c-hero__hgroup {
+		display: flex;
+		flex-direction: column;
+		gap: var(--stack-small);
+	}
+
+	.c-hero__title {
+		order: 3;
 	}
 
 	// Variants
