@@ -97,8 +97,8 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 	}
 
 	.c-mastfoot__column {
-		&:global(a > span) {
-			text-decoration: none;
+		&:global(a) {
+			--link-text-decoration: none;
 		}
 		:global(a:hover > span),
 		:global(a:focus > span) {
