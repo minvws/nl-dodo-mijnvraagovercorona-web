@@ -15,7 +15,7 @@ const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 ---
 
 <ul
-	class={`c-tip-overview${className ? ` | className` : ''}`}
+	class={`c-tip-overview${className ? ` | ${className}` : ''}`}
 	{...attrs}
 	role="list"
 >

@@ -12,7 +12,7 @@ interface Props extends HTMLAttributes<'div'> {
 const { title, subtitle, icon, class: className, ...attrs } = Astro.props;
 ---
 
-<div class={`c-advice${className ? ` | className` : ''}`} {...attrs}>
+<div class={`c-advice${className ? ` | ${className}` : ''}`} {...attrs}>
 	<div class="c-advice__wrap-icon">
 		<img class="c-advice__icon" src={icon.src} alt="" />
 	</div>

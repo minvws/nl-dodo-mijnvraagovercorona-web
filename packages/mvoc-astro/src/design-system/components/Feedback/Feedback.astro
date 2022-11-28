@@ -19,7 +19,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 ---
 
 <section
-	class={`c-feedback${className ? ` | className` : ''}`}
+	class={`c-feedback${className ? ` | ${className}` : ''}`}
 	{...attrs}
 	data-module="feedback"
 	data-name={name}
