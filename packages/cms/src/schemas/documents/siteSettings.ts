@@ -214,6 +214,23 @@ export default {
 					name: 'url',
 					type: 'localeString',
 				},
+				{
+					title: 'labels',
+					name: 'labels',
+					type: 'object',
+					fields: [
+						{
+							title: 'Ja',
+							name: 'like',
+							type: 'localeString',
+						},
+						{
+							title: 'Nee',
+							name: 'dislike',
+							type: 'localeString',
+						},
+					],
+				},
 			],
 		},
 		{

@@ -30,6 +30,8 @@ import { Sidebar } from '@design-system/components/Layout/Sidebar';
 import { InformContacts } from '@design-system/components/InformContacts';
 import { TipOverview } from '@design-system/components/Tips';
 import { Heading } from '@design-system/elements/Heading';
+import { Feedback } from '@design-system/components/Feedback';
+import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
 
 export async function getStaticPaths() {
 	function getShowOnDays(collection: { showOn: Array<number> }[]) {
@@ -107,8 +109,6 @@ const plan =
 const translatedTips = pageData.moreTips.tipCollection
 	? pageData.moreTips.tipCollection.filter((tip) => tip.title)
 	: [];
-
-console.log('pageData', pageData);
 ---
 
 <Layout locale={locale} metaData={pageData.metaData}>
@@ -217,6 +217,14 @@ console.log('pageData', pageData);
 								</section>
 							) : null
 						}
+						<Feedback
+							name="Situatie Advies"
+							url={getFeedbackUrl(siteSettings.feedback.url, {
+								source: 'situation-advice',
+								advice: pageData.slug,
+								day: `${pageDay}`,
+							})}
+						/>
 					</Stack>
 				</Retain>
 

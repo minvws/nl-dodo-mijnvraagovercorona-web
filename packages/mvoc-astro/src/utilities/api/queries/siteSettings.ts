@@ -14,6 +14,10 @@ export interface SiteSettingsProps {
 		thanks: string;
 		title: string;
 		url: string;
+		labels: {
+			like: string;
+			dislike: string;
+		};
 	};
 	ctaBlock: {
 		title: string;
@@ -188,6 +192,14 @@ export const siteSettingsQuery = ({
 			${localePropertyQuery({ name: 'title', path: 'feedback.title', locale })},
 			${localePropertyQuery({ name: 'url', path: 'feedback.url', locale })},
 			${localePropertyQuery({ name: 'thanks', path: 'feedback.thanks', locale })},
+			"labels": {
+				${localePropertyQuery({ name: 'like', path: 'feedback.labels.like', locale })},
+				${localePropertyQuery({
+					name: 'dislike',
+					path: 'feedback.labels.dislike',
+					locale,
+				})},
+			},
 		},
 		"ctaBlock": {
 			${localePropertyQuery({ name: 'title', path: 'ctaBlock.title', locale })},
