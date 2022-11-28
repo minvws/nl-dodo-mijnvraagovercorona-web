@@ -22,7 +22,7 @@ const { class: className, label, href, icon, ...attrs } = Astro.props;
 	full
 >
 	<span class="c-tip-button__inner">
-		<img class="c-tip-button__icon" src={icon.src} alt="" />
+		<img class="c-tip-button__icon" src={icon.src} alt="" loading="lazy" />
 		{label}
 	</span>
 </Button>
