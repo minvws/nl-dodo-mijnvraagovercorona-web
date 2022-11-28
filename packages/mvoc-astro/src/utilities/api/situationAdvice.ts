@@ -11,6 +11,7 @@ import {
 } from './queries';
 
 import type { ContentBlockProps } from '@modules/ContentBlock';
+import { AssistanceProps, assistanceQuery } from './queries/assistance';
 
 export type InformContactsProps = {
 	title: string;
@@ -87,6 +88,7 @@ export interface PageSituationAdviceProps extends PageProps {
 	advice: AdviceProps;
 	informContacts: InformContactsProps;
 	moreTips: MoreTipsProps;
+	assistance: AssistanceProps;
 	slug: string;
 	updatedAt: string;
 }
@@ -200,6 +202,7 @@ export async function getDataSituationAdvice({
 			${localePropertyQuery({ name: 'title', path: 'moreTips.title', locale })},
 			${tipsCollectionQuery({ path: 'moreTips', locale })},
 		},
+		${assistanceQuery({ locale })},
 		"updatedAt": _updatedAt,
 		"slug": slug.current,
 	}`;

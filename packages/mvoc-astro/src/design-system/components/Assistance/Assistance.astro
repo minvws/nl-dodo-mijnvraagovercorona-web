@@ -1,0 +1,92 @@
+---
+import { Heading } from '@design-system/elements/Heading';
+import { Icon } from '@design-system/elements/Icon';
+import { HTMLAttributes } from 'astro/types';
+import { AssistanceProps } from 'src/utilities/api/queries/assistance';
+import GridFluid from '../Layout/Grid/GridFluid.astro';
+
+interface Props extends HTMLAttributes<'div'>, AssistanceProps {
+	feedback?: boolean;
+	inDialog?: boolean;
+}
+
+const {
+	class: className,
+	feedback,
+	inDialog,
+	title,
+	image,
+	open,
+	subTitle,
+	chat,
+	phone,
+	situation,
+	...attrs
+} = Astro.props;
+---
+
+<div class={`c-assistance${className ? ` | ${className}` : ''}`} {...attrs}>
+	<GridFluid class="c-assistance__grid">
+		<div>
+			{!inDialog ? <Heading>{title}</Heading> : null}
+			{
+				!inDialog ? (
+					<img
+						src={image?.src || '/images/questions.svg'}
+						alt=""
+						loading="lazy"
+					/>
+				) : null
+			}
+			{
+				inDialog ? (
+					<p>
+						<span class="is-chatopen">{subTitle.chatOpen}</span>
+						<span class="is-chatclosed">{subTitle.chatClosed}</span>
+					</p>
+				) : (
+					<Heading level={3} styledAs={2}>
+						<span class="is-chatopen">{subTitle.chatOpen}</span>
+						<span class="is-chatclosed">{subTitle.chatClosed}</span>
+					</Heading>
+				)
+			}
+
+			<div>
+				<Icon name="phone" />
+				<a href={`tel:${phone.number.replace(/\D/g, '')}`}>
+					{phone.number}
+				</a>
+			</div>
+
+			{
+				phone.openingHours && (
+					<p>
+						{phone.openingHours}
+						<span class="is-phoneopen">{open}</span>
+					</p>
+				)
+			}
+
+			{
+				chat.title ? (
+					<>
+						<div>
+							<Icon name="chat" />
+							<a href="https://chat.vragenovercorona.nl/">{chat.title}</a>
+						</div>
+						<p>
+							{chat.openingHours}
+							<span class="is-chatopen">{open}</span>
+						</p>
+					</>
+				) : null
+			}
+		</div>
+	</GridFluid>
+</div>
+
+<style lang="scss">
+	.c-assistance {
+	}
+</style>
