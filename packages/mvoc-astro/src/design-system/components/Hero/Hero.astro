@@ -46,8 +46,11 @@ const { title, subTitle, chapeau, image, highlight } = Astro.props;
 	.c-hero {
 		--hero-background: var(--theme-bg-base);
 		--hero-padding: var(--stack-hero);
+		--hero-padding-block-start: var(--hero-padding);
+		--hero-padding-block-end: var(--hero-padding);
 		position: relative;
-		padding-block-end: var(--hero-padding);
+		padding-block-start: var(--hero-padding-block-start);
+		padding-block-end: var(--hero-padding-block-end);
 		color: var(--color-donkerblauw);
 		background-color: var(--hero-background);
 	}
@@ -87,6 +90,7 @@ const { title, subTitle, chapeau, image, highlight } = Astro.props;
 	.c-hero--highlight {
 		--hero-background: var(--theme-bg-highlight);
 		--hero-border-radius: var(--radii-huge);
+		--hero-padding-block-start: 0px;
 		border-end-start-radius: var(--hero-border-radius);
 		border-end-end-radius: var(--hero-border-radius);
 
