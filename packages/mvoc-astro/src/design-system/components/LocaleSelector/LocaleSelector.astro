@@ -17,7 +17,6 @@ const { locales, currentLocale, labelChange, labelCurrent } = Astro.props;
 ---
 
 <div class="c-locale-selector" data-module="locale-selector">
-	<span class="u-visually-hidden">{labelChange}</span>
 	<button
 		type="button"
 		class="c-locale-selector__toggle"
@@ -26,8 +25,9 @@ const { locales, currentLocale, labelChange, labelCurrent } = Astro.props;
 		aria-expanded="false"
 		data-module-bind="locale-selector__toggle"
 	>
+		<span class="u-visually-hidden">{labelChange}</span>
 		<span class="u-visually-hidden">{labelCurrent}:</span>
-		<span class="c-locale-selector__show-inactive" aria-hidden="true">
+		<span class="c-locale-selector__short-name" aria-hidden="true">
 			{currentLocale.shortName.toUpperCase()}
 		</span>
 		<span class="c-locale-selector__full-name">{currentLocale.fullName}</span>
@@ -154,7 +154,19 @@ const { locales, currentLocale, labelChange, labelCurrent } = Astro.props;
 
 	.c-locale-selector__full-name {
 		:where(.c-locale-selector:not(.is-active)) & {
-			@include a11y.visually-hidden;
+			@media --mq-large-until {
+				@include a11y.visually-hidden;
+			}
+		}
+	}
+
+	.c-locale-selector__short-name {
+		:where(.c-locale-selector.is-active) & {
+			display: none;
+		}
+
+		@media --mq-large {
+			display: none;
 		}
 	}
 
@@ -187,12 +199,6 @@ const { locales, currentLocale, labelChange, labelCurrent } = Astro.props;
 			visibility 0s var(--c-locale-selector-duration);
 	}
 
-	.c-locale-selector__show-inactive {
-	}
-	.c-locale-selector__show-active {
-		display: none;
-	}
-
 	.c-locale-selector.is-active {
 		.c-locale-selector__panel {
 			visibility: visible;
@@ -200,12 +206,6 @@ const { locales, currentLocale, labelChange, labelCurrent } = Astro.props;
 			inline-size: auto;
 			transition: block-size var(--c-locale-selector-duration) ease-in-out,
 				visibility 0s 0s;
-		}
-		.c-locale-selector__show-inactive {
-			display: none;
-		}
-		.c-locale-selector__show-active {
-			display: block;
 		}
 	}
 </style>
