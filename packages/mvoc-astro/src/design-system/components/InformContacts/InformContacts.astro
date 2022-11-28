@@ -1,11 +1,11 @@
 ---
 import { Button } from '@design-system/elements/Button';
 import { Heading } from '@design-system/elements/Heading';
-import { Link } from '@design-system/elements/Link';
 import { ContentBlock } from '@modules/ContentBlock';
 import { HTMLAttributes } from 'astro/types';
 import { InformContactsProps } from 'src/utilities/api';
-import { Stack } from '../Layout/Stack';
+import { Stack } from '@design-system/components/Layout/Stack';
+import { ShareButton } from '@design-system/elements/ShareButton';
 
 interface Props extends HTMLAttributes<'div'> {
 	content: InformContactsProps;
@@ -53,51 +53,19 @@ const currentUrl = Astro.url.toString();
 			) : null
 		}
 		{preButtonContent ? <ContentBlock value={preButtonContent} /> : null}
-		<Button
-			variant="secondary"
-			data-module="share"
-			data-share-message={buttons.shareButton.message}
-			data-share-url={currentUrl}
-			data-copy-label={buttons.copyButton.label}
-			data-copy-copied={buttons.copyButton.labelCopied}
+
+		<ShareButton
+			url={currentUrl}
+			message={buttons.shareButton.message}
+			copy={{
+				label: buttons.copyButton.label,
+				labelCopied: buttons.copyButton.labelCopied,
+			}}
 		>
 			{buttons.shareButton.label}
-		</Button>
+		</ShareButton>
 	</Stack>
 </div>
-
-<script>
-	const shareButton = document.querySelector('[data-module="share"]');
-
-	if (shareButton) {
-		const message = shareButton.getAttribute('data-share-message') || '';
-		const url = shareButton.getAttribute('data-share-url') || '';
-		if ('share' in window.navigator) {
-			// share code
-			shareButton.addEventListener('click', (event) => {
-				window.navigator
-					.share({
-						title: message,
-						url: url,
-					})
-					.catch(() => {
-						return;
-					});
-			});
-		} else if ('clipboard' in window.navigator) {
-			const label = shareButton.getAttribute('data-copy-label') || '';
-			const copied = shareButton.getAttribute('data-copy-copied') || '';
-			const buttonContent = shareButton.querySelector('[data-button-content]');
-			if (buttonContent) buttonContent.innerHTML = label;
-
-			shareButton.addEventListener('click', (event) => {
-				navigator.clipboard.writeText(url).then(() => {
-					if (buttonContent) buttonContent.innerHTML = copied;
-				});
-			});
-		}
-	}
-</script>
 
 <style lang="scss">
 	@use '@design-system-styles/primitives/_responsive.scss';
