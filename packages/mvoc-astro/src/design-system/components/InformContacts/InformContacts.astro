@@ -7,7 +7,7 @@ import { InformContactsProps } from 'src/utilities/api';
 import { Stack } from '@design-system/components/Layout/Stack';
 import { ShareButton } from '@design-system/elements/ShareButton';
 
-interface Props extends HTMLAttributes<'div'> {
+interface Props extends HTMLAttributes<'section'> {
 	content: InformContactsProps;
 }
 
@@ -20,7 +20,7 @@ const {
 const currentUrl = Astro.url.toString();
 ---
 
-<div
+<section
 	class={`c-inform-contacts${className ? ` | ${className}` : ''}`}
 	{...attrs}
 >
@@ -65,7 +65,7 @@ const currentUrl = Astro.url.toString();
 			{buttons.shareButton.label}
 		</ShareButton>
 	</Stack>
-</div>
+</section>
 
 <style lang="scss">
 	@use '@design-system-styles/primitives/_responsive.scss';

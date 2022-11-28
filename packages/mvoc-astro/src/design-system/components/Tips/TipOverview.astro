@@ -1,0 +1,44 @@
+---
+import { HTMLAttributes } from 'astro/types';
+import { TipCollectionProps } from 'src/utilities/api/queries';
+import {
+	Locale,
+	getLocaleFromURL,
+	prefixUrlWithlocale,
+} from 'src/utilities/locale/translation';
+import { TipButton } from '.';
+
+interface Props extends HTMLAttributes<'div'>, TipCollectionProps {}
+
+const { class: className, tipCollection, ...attrs } = Astro.props;
+const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
+---
+
+<ul
+	class={`c-tip-overview${className ? ` | className` : ''}`}
+	{...attrs}
+	role="list"
+>
+	{
+		tipCollection.map((tip) => (
+			<li>
+				<TipButton
+					href={prefixUrlWithlocale(`/tip/${tip.slug}`, locale)}
+					icon={tip.icon}
+					label={tip.title}
+				/>
+			</li>
+		))
+	}
+</ul>
+
+<style lang="scss">
+	@use '@design-system-styles/primitives/_responsive.scss';
+	.c-tip-overview {
+		> li {
+			&:not(:first-of-type) {
+				margin-block-start: var(--stack-small);
+			}
+		}
+	}
+</style>

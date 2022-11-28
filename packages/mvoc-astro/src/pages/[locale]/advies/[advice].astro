@@ -28,6 +28,8 @@ import { Advice } from '@design-system/components/Advice';
 import { Layer } from '@design-system/components/Layout/Layer';
 import { Sidebar } from '@design-system/components/Layout/Sidebar';
 import { InformContacts } from '@design-system/components/InformContacts';
+import { TipOverview } from '@design-system/components/Tips';
+import { Heading } from '@design-system/elements/Heading';
 
 export async function getStaticPaths() {
 	function getShowOnDays(collection: { showOn: Array<number> }[]) {
@@ -102,7 +104,11 @@ const plan =
 					  ),
 		}));
 
-// console.log('pageData', pageData);
+const translatedTips = pageData.moreTips.tipCollection
+	? pageData.moreTips.tipCollection.filter((tip) => tip.title)
+	: [];
+
+console.log('pageData', pageData);
 ---
 
 <Layout locale={locale} metaData={pageData.metaData}>
@@ -123,7 +129,7 @@ const plan =
 		<Retain>
 			<Sidebar>
 				<Retain variant="text">
-					<Stack gap="large">
+					<Stack gap="huge">
 						{
 							answer && (
 								<CardAdvice title={answer.title}>
@@ -161,14 +167,26 @@ const plan =
 										<div>
 											<Stack gap="large">
 												{pageData.advice.cards.map(
-													({ title, chapeau, content, buttons }) => (
+													({
+														title,
+														chapeau,
+														content,
+														buttons,
+														tipCollection,
+													}) => (
 														<CardBlock
 															title={title}
 															chapeau={chapeau}
 															buttons={buttons}
 														>
 															<ContentBlock value={content} />
-															<mark slot="appendix">Links to Tips</mark>
+															{tipCollection ? (
+																<TipOverview
+																	tipCollection={tipCollection.filter(
+																		(tip) => tip.title,
+																	)}
+																/>
+															) : null}
 														</CardBlock>
 													),
 												)}
@@ -183,6 +201,21 @@ const plan =
 							!!plan?.length && pageData.informContacts.title && (
 								<InformContacts content={pageData.informContacts} />
 							)
+						}
+
+						{
+							translatedTips.length ? (
+								<section>
+									<Stack>
+										<Heading level={2}>
+											{pageData.moreTips.title
+												? pageData.moreTips.title
+												: siteSettings.moreTips}
+										</Heading>
+										<TipOverview tipCollection={translatedTips} />
+									</Stack>
+								</section>
+							) : null
 						}
 					</Stack>
 				</Retain>

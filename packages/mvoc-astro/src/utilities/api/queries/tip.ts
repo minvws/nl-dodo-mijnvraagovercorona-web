@@ -1,5 +1,15 @@
 import { Locale } from 'src/utilities/locale/translation';
-import { localePropertyQuery, imageQuery } from './';
+import { localePropertyQuery, imageQuery, ImageProps } from './';
+
+export interface TipProps {
+	title: string;
+	icon: ImageProps;
+	slug: string;
+}
+
+export interface TipCollectionProps {
+	tipCollection: TipProps[];
+}
 
 export const tipsCollectionQuery = ({
 	path,

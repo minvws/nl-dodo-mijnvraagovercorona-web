@@ -7,6 +7,7 @@ import {
 	ImageProps,
 	imageQuery,
 	tipsCollectionQuery,
+	TipCollectionProps,
 } from './queries';
 
 import type { ContentBlockProps } from '@modules/ContentBlock';
@@ -42,6 +43,24 @@ interface AnswerProps {
 	content: ContentBlockProps['value'];
 }
 
+interface CardProps extends TipCollectionProps {
+	title: string;
+	chapeau: string;
+	content: ContentBlockProps['value'];
+	disclosure: {
+		label: {
+			this: string;
+			that: string;
+		};
+		content: ContentBlockProps['value'];
+	};
+	buttons: {
+		link?: string;
+		situation?: string;
+		text: string;
+	}[];
+}
+
 interface AdviceProps {
 	plan?: {
 		showOn?: Array<number>;
@@ -49,25 +68,13 @@ interface AdviceProps {
 		title: string;
 		content: ContentBlockProps['value'];
 	}[];
-	cards: {
-		title: string;
-		chapeau: string;
-		content: ContentBlockProps['value'];
-		disclosure: {
-			label: {
-				this: string;
-				that: string;
-			};
-			content: ContentBlockProps['value'];
-		};
-		buttons: {
-			link?: string;
-			situation?: string;
-			text: string;
-		}[];
-	}[];
+	cards: CardProps[];
 	title: string;
 	secondaryTitle: string;
+}
+
+interface MoreTipsProps extends TipCollectionProps {
+	title: string;
 }
 
 export interface PageSituationAdviceProps extends PageProps {
@@ -79,6 +86,7 @@ export interface PageSituationAdviceProps extends PageProps {
 	answer: AnswerProps[];
 	advice: AdviceProps;
 	informContacts: InformContactsProps;
+	moreTips: MoreTipsProps;
 	slug: string;
 	updatedAt: string;
 }
@@ -188,7 +196,10 @@ export async function getDataSituationAdvice({
 				}
 			}
 		},
-
+		"moreTips": {
+			${localePropertyQuery({ name: 'title', path: 'moreTips.title', locale })},
+			${tipsCollectionQuery({ path: 'moreTips', locale })},
+		},
 		"updatedAt": _updatedAt,
 		"slug": slug.current,
 	}`;

@@ -5,7 +5,7 @@ import { Animations } from '@design-system/primitives/animation';
 
 // Interfaces
 interface Shared {
-	variant?: 'primary' | 'secondary' | 'tertiary';
+	variant?: 'primary' | 'secondary' | 'tertiary' | 'quaternary';
 	icon?: IconProps['name'];
 	iconPosition?: 'leading' | 'trailing';
 	interactionIconAnimation?: Animations;
@@ -92,6 +92,7 @@ const selectedIcon =
 		--button-padding: var(--space-r-small);
 		--button-background-color: var(--color-accent-robijnrood);
 		--button-color: var(--color-white);
+		--button-icon-color: currentColor;
 
 		display: inline-flex;
 		align-items: center;
@@ -111,6 +112,7 @@ const selectedIcon =
 		cursor: pointer;
 
 		:global(> .e-icon) {
+			color: var(--button-icon-color);
 			animation: var(--u-animation-subscribe);
 		}
 
@@ -134,8 +136,8 @@ const selectedIcon =
 			}
 		}
 
-		&.e-button--tertiary {
-			--button-background-color: var(--color-white);
+		&.e-button--tertiary,
+		&.e-button--quaternary {
 			--button-color: var(--color-donkerblauw);
 			--button-border-color: var(--variant--tile-border-color);
 			--button-elevation: var(--variant--tile-elevation);
@@ -145,9 +147,27 @@ const selectedIcon =
 
 			&:hover,
 			&:focus {
-				--button-background-color: var(--color-white);
 				--button-border-color: var(--variant--tile-border-color-interactive);
 				--button-elevation: var(--variant--tile-elevation-interactive);
+			}
+		}
+
+		&.e-button--tertiary {
+			--button-background-color: var(--color-white);
+			&:hover,
+			&:focus {
+				--button-background-color: var(--color-white);
+			}
+		}
+
+		&.e-button--quaternary {
+			--button-background-color: var(--color-ijsblauw);
+			--button-icon-color: var(--color-accent-robijnrood);
+			font-weight: bold;
+
+			&:hover,
+			&:focus {
+				--button-background-color: var(--color-ijsblauw);
 			}
 		}
 
