@@ -5,7 +5,7 @@ import { Animations } from '@design-system/primitives/animation';
 
 // Interfaces
 interface Shared {
-	variant?: 'tooltip' | 'restart' | 'back';
+	variant?: 'tooltip' | 'restart' | 'back' | 'cta';
 	icon?: IconProps['name'];
 	iconPosition?: 'leading' | 'trailing';
 	interactionIconAnimation?: Animations;
@@ -156,6 +156,24 @@ const selectedIcon =
 		&.e-link--restart {
 			&:hover {
 				--u-animation-subscribe: var(--animation-rotate);
+			}
+		}
+
+		&.e-link--cta {
+			--link-color: var(--color-accent-robijnrood);
+			--link-text-decoration: none;
+			--link-icon-spacing: var(--space-r-milli);
+			font-size: var(--font-size-beta);
+			line-height: var(--line-height-beta);
+			font-weight: bold;
+
+			:global(> .e-icon) {
+				color: var(--color-diepblauw);
+			}
+
+			&:hover,
+			&:focus {
+				--link-text-decoration: underline;
 			}
 		}
 	}

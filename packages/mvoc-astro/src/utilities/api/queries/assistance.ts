@@ -20,9 +20,7 @@ export interface AssistanceProps {
 	};
 	situation?: {
 		question: string;
-		button: {
-			label: string;
-		};
+		button: string;
 	};
 }
 
@@ -47,5 +45,9 @@ export const assistanceQuery = ({ locale }: { locale: Locale }): string => {
 			})},
 		},
 		${localePropertyQuery({ name: 'open', locale })},
+		"situation": {
+			${localePropertyQuery({ name: 'question', path: 'situationQuestion', locale })},
+			${localePropertyQuery({ name: 'button', path: 'situationButton', locale })},
+		},
 	}`;
 };
