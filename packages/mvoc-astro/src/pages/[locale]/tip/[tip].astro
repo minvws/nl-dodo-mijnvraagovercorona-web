@@ -1,0 +1,38 @@
+---
+import { availableLocales, Locale } from 'src/utilities/locale/translation';
+
+import Layout from '@layouts/Layout.astro';
+import { Hero } from '@design-system/components/Hero';
+import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
+import { getDataTips, TipPageProps } from 'src/utilities/api';
+
+export async function getStaticPaths() {
+	return await availableLocales.reduce(async (paths, locale) => {
+		const collection = await getDataTips({ locale });
+		console.log('collection', collection);
+
+		return [
+			...(await paths),
+			collection.pages.map((page) => ({
+				params: { tip: page.slug, locale: locale.id },
+				props: {
+					pageData: page,
+					locale,
+				},
+			})),
+		];
+	}, Promise.resolve([]));
+}
+
+interface Props {
+	pageData: TipPageProps;
+	locale: Locale;
+}
+
+const { pageData, locale } = Astro.props;
+const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+---
+
+<Layout locale={locale} metaData={pageData.metaData}>
+	<Hero title={pageData.header.title} image={pageData.header.image} />
+</Layout>
