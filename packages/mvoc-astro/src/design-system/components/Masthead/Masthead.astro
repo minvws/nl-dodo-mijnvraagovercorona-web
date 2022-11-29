@@ -10,7 +10,10 @@ type Props = {
 const { logoUrl, logoAlt, highlight } = Astro.props;
 ---
 
-<header class={`c-masthead${highlight ? ` c-masthead--highlight` : ''}`}>
+<header
+	class={`c-masthead${highlight ? ` c-masthead--highlight` : ''}`}
+	role="banner"
+>
 	<div>
 		<slot name="start" />
 	</div>

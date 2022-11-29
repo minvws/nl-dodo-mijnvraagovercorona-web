@@ -16,10 +16,10 @@ const { title, subtitle, icon, class: className, ...attrs } = Astro.props;
 	<div class="c-advice__wrap-icon">
 		<img class="c-advice__icon" src={icon.src} alt="" />
 	</div>
-	<hgroup>
+	<div>
 		<Heading level={2} styledAs={3}>{title}</Heading>
 		<p class="c-advice__subtitle | u-color--accent-robijnrood">{subtitle}</p>
-	</hgroup>
+	</div>
 </div>
 
 <style lang="scss">
