@@ -8,6 +8,7 @@ import {
 	localePropertyQuery,
 	ImageProps,
 } from './queries';
+import { AssistanceProps, assistanceQuery } from './queries/assistance';
 import {
 	QuestionCollectionProps,
 	questionCollectionQuery,
@@ -34,6 +35,7 @@ export interface PageHomeProps extends PageProps {
 	};
 	important: ImportantProps;
 	themes: ThemesProps;
+	assistance: AssistanceProps;
 }
 
 export async function getDataHome({ locale }: { locale: Locale }) {
@@ -65,6 +67,7 @@ export async function getDataHome({ locale }: { locale: Locale }) {
 			})},
 			${themeCollectionQuery({ path: 'themes', locale })},
 		},
+		${assistanceQuery({ locale })},
 	}`;
 
 	const query = pageQuery({

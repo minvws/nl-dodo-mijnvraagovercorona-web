@@ -16,6 +16,7 @@ import { GridFluid } from '@design-system/components/Layout/Grid';
 import { Button } from '@design-system/elements/Button';
 import { ThemeOverview } from '@design-system/components/ThemeOverview';
 import { stringToSlug } from 'src/utilities/stringToSlug';
+import { Assistance } from '@design-system/components/Assistance';
 
 export async function getStaticPaths() {
 	return availableLocales.map((locale) => ({
@@ -33,6 +34,8 @@ interface HomeProps {
 
 const { locale } = Astro.props;
 const { pageData }: HomeProps = await getDataHome({ locale });
+
+console.log('pageData', pageData);
 ---
 
 <Layout
@@ -92,6 +95,19 @@ const { pageData }: HomeProps = await getDataHome({ locale });
 			</Stack>
 		</Retain>
 	</Layer>
+
+	{
+		pageData.assistance && (
+			<Layer
+				background="ijsblauw"
+				id={stringToSlug(pageData.assistance.headline)}
+			>
+				<Retain>
+					<Assistance feedback {...pageData.assistance} />
+				</Retain>
+			</Layer>
+		)
+	}
 </Layout>
 
 <style lang="scss">
