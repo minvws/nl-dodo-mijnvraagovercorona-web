@@ -1,4 +1,4 @@
-import { ContentBlockProps } from '@modules/ContentBlock';
+import { ContentBlockProps } from '@design-system/components/ContentBlock';
 import { Locale } from 'src/utilities/locale/translation';
 import { localePropertyQuery } from './localeProperty';
 

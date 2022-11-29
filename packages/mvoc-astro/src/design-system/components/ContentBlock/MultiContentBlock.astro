@@ -1,0 +1,90 @@
+---
+import { Button } from '@design-system/elements/Button';
+import { ImageProps } from 'src/utilities/api/queries';
+import {
+	getLocaleFromURL,
+	prefixUrlWithlocale,
+} from 'src/utilities/locale/translation';
+import { ContentBlock, ContentBlockProps } from '.';
+import { Stack } from '../Layout/Stack';
+import { Video } from '../Video';
+
+export interface Situation {
+	path: string;
+}
+
+interface SituationAsLink extends Situation {
+	situationLinkTitle: string;
+	variant?: 'button' | 'button-tertiary';
+}
+
+export interface MultiContentBlockProps {
+	content?: ContentBlockProps['value'];
+	situation?: SituationAsLink;
+	video?: {
+		url: string;
+		title: string;
+		image: ImageProps;
+	};
+	image?: ImageProps;
+}
+
+interface Props {
+	contentBlocks: MultiContentBlockProps[];
+}
+
+const { contentBlocks } = Astro.props;
+const locale = getLocaleFromURL(Astro.url.pathname);
+---
+
+<Stack gap="small">
+	{
+		contentBlocks.map((contentBlock) => (
+			<>
+				{contentBlock.content ? (
+					<Stack gap="small">
+						<ContentBlock value={contentBlock.content} />
+					</Stack>
+				) : contentBlock.image?.src ? (
+					<img
+						class="c-content-block__image"
+						src={contentBlock.image?.src}
+						alt=""
+						loading="lazy"
+					/>
+				) : contentBlock.video?.url ||
+				  contentBlock.video?.title ||
+				  contentBlock.video?.image?.src ? (
+					<Video
+						title={contentBlock.video?.title}
+						url={contentBlock.video?.url}
+						image={contentBlock.video?.image}
+					/>
+				) : contentBlock.situation?.path ? (
+					<Button
+						href={prefixUrlWithlocale(
+							`/${contentBlock.situation.path}`,
+							locale,
+						)}
+						variant={
+							contentBlock.situation.variant === 'button'
+								? 'primary'
+								: contentBlock.situation.variant === 'button-tertiary'
+								? 'secondary'
+								: 'primary'
+						}
+					>
+						{contentBlock.situation.situationLinkTitle}
+					</Button>
+				) : null}
+			</>
+		))
+	}
+</Stack>
+
+<style lang="scss">
+	.c-content-block__image {
+		max-inline-size: 100%;
+		margin-inline: auto;
+	}
+</style>

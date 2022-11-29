@@ -2,7 +2,7 @@ import { useSanityClient } from 'astro-sanity';
 import { Locale, locales } from 'src/utilities/locale/translation';
 import { localePropertyQuery, imageQuery, ImageProps } from './';
 
-import type { ContentBlockProps } from '@modules/ContentBlock';
+import type { ContentBlockProps } from '@design-system/components/ContentBlock';
 
 export interface SiteSettingsProps {
 	baseUrl: string;

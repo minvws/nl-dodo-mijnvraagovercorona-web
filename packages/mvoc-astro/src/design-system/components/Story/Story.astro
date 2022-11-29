@@ -1,0 +1,33 @@
+---
+import { Heading } from '@design-system/elements/Heading';
+import { HTMLAttributes } from 'astro/types';
+import { StoryProps } from 'src/utilities/api/queries/stories';
+import { stringToSlug } from 'src/utilities/stringToSlug';
+import { MultiContentBlock } from '../ContentBlock';
+import { Stack } from '../Layout/Stack';
+
+interface Props extends HTMLAttributes<'section'>, StoryProps {}
+
+const {
+	headline,
+	contentBlocks,
+	overview,
+	class: className,
+	...attrs
+} = Astro.props;
+---
+
+<section
+	class={`c-story${className ? ` | ${className}` : ''}`}
+	id={stringToSlug(headline)}
+>
+	<Stack gap="small">
+		<Heading>{headline}</Heading>
+		<MultiContentBlock contentBlocks={contentBlocks} />
+	</Stack>
+</section>
+
+<style lang="scss">
+	.c-story {
+	}
+</style>

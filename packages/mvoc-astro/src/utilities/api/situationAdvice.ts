@@ -10,7 +10,7 @@ import {
 	TipCollectionProps,
 } from './queries';
 
-import type { ContentBlockProps } from '@modules/ContentBlock';
+import type { ContentBlockProps } from '@design-system/components/ContentBlock';
 import { AssistanceProps, assistanceQuery } from './queries/assistance';
 
 export type InformContactsProps = {

@@ -8,7 +8,7 @@ import {
 } from './queries';
 
 import type { Props as FormSwitchProps } from '@modules/forms/situations/FormSwitch.astro';
-import type { ContentBlockProps } from '@modules/ContentBlock';
+import type { ContentBlockProps } from '@design-system/components/ContentBlock';
 
 export interface PageSituationQuestionProps extends PageProps {
 	header: {

@@ -1,4 +1,4 @@
-import { ContentBlockProps } from '@modules/ContentBlock';
+import { ContentBlockProps } from '@design-system/components/ContentBlock';
 import { useSanityClient } from 'astro-sanity';
 import { Locale } from '../locale/translation';
 import {

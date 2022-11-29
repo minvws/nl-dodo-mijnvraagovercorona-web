@@ -5,12 +5,23 @@ import Layout from '@layouts/Layout.astro';
 import { Hero } from '@design-system/components/Hero';
 import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
 import { getDataTips, TipPageProps } from 'src/utilities/api';
+import { UpdatedAt } from '@design-system/elements/UpdatedAt';
+import { ContentBlock } from '@design-system/components/ContentBlock';
+import { Layer } from '@design-system/components/Layout/Layer';
+import { Retain } from '@design-system/components/Layout/Retain';
+import { Stack } from '@design-system/components/Layout/Stack';
+import { Assistance } from '@design-system/components/Assistance';
+import { Feedback } from '@design-system/components/Feedback';
+import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
+import { Card } from '@design-system/components/Card';
+import { Heading } from '@design-system/elements/Heading';
+import { TipOverview } from '@design-system/components/Tips';
+import { Story } from '@design-system/components/Story';
+import { stringToSlug } from 'src/utilities/stringToSlug';
 
 export async function getStaticPaths() {
 	return await availableLocales.reduce(async (paths, locale) => {
 		const collection = await getDataTips({ locale });
-		console.log('collection', collection);
-
 		return [
 			...(await paths),
 			collection.pages.map((page) => ({
@@ -31,8 +42,87 @@ interface Props {
 
 const { pageData, locale } = Astro.props;
 const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+
+const translatedStories = pageData.stories.filter((story) => story.headline);
+const tocStories = translatedStories.filter((story) => story.overview.title);
+
+const translatedTips = pageData.moreTips.tipCollection
+	? pageData.moreTips.tipCollection.filter((tip) => tip.title)
+	: [];
+
+// console.log('pageData', pageData);
 ---
 
 <Layout locale={locale} metaData={pageData.metaData}>
-	<Hero title={pageData.header.title} image={pageData.header.image} />
+	<Hero title={pageData.header.title} image={pageData.header.image}>
+		<UpdatedAt slot="prefix" time={pageData.updatedAt} />
+		<ContentBlock value={pageData.header.content} />
+		{pageData.header.showTOC ? <mark>TOC</mark> : null}
+	</Hero>
+
+	<Layer as="div">
+		<Retain>
+			<Retain variant="text">
+				<Stack gap="huge">
+					{translatedStories.map((story) => <Story {...story} />)}
+
+					{
+						translatedTips.length ? (
+							<section>
+								<Stack>
+									<Heading level={2}>
+										{pageData.moreTips.title
+											? pageData.moreTips.title
+											: siteSettings.moreTips}
+									</Heading>
+									<TipOverview tipCollection={translatedTips} />
+								</Stack>
+							</section>
+						) : null
+					}
+
+					{
+						pageData.sources.content ? (
+							<section
+								id={stringToSlug(
+									pageData.sources.title
+										? pageData.sources.title
+										: siteSettings.sources,
+								)}
+							>
+								<Card variant="filled">
+									<Stack>
+										<Heading level={2}>
+											{pageData.sources.title
+												? pageData.sources.title
+												: siteSettings.sources}
+										</Heading>
+										<ContentBlock value={pageData.sources.content} />
+									</Stack>
+								</Card>
+							</section>
+						) : null
+					}
+
+					<Feedback
+						name="Situatie Advies"
+						url={getFeedbackUrl(siteSettings.feedback.url, {
+							source: 'tip',
+							advice: pageData.slug,
+						})}
+					/>
+				</Stack>
+			</Retain>
+		</Retain>
+	</Layer>
+
+	{
+		pageData.assistance && (
+			<Layer background="ijsblauw">
+				<Retain>
+					<Assistance {...pageData.assistance} />
+				</Retain>
+			</Layer>
+		)
+	}
 </Layout>
