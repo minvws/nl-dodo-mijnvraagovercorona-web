@@ -1,9 +1,5 @@
 ---
-import {
-	availableLocales,
-	Locale,
-	prefixUrlWithlocale,
-} from 'src/utilities/locale/translation';
+import { availableLocales, Locale } from 'src/utilities/locale/translation';
 
 import Layout from '@layouts/Layout.astro';
 import { Hero } from '@design-system/components/Hero';
@@ -16,6 +12,9 @@ import { UpdatedAt } from '@design-system/elements/UpdatedAt';
 import { ContentBlock } from '@design-system/components/ContentBlock';
 import { Layer } from '@design-system/components/Layout/Layer';
 import { Retain } from '@design-system/components/Layout/Retain';
+import { Heading } from '@design-system/elements/Heading';
+import { Stack } from '@design-system/components/Layout/Stack';
+import { Story } from '@design-system/components/Story';
 
 export async function getStaticPaths() {
 	return await availableLocales.reduce(async (paths, locale) => {
@@ -40,6 +39,12 @@ interface Props {
 
 const { pageData, locale } = Astro.props;
 const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+
+const translatedStories = pageData.stories
+	? pageData.stories.filter(
+			(story) => story.headline || story.contentBlocks.length,
+	  )
+	: [];
 ---
 
 <Layout locale={locale} metaData={pageData.metaData} mastheadHighlight>
@@ -49,17 +54,34 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 		chapeau={pageData.header.chapeau}
 		highlight
 	>
-		<UpdatedAt slot="prefix" time={pageData.updatedAt} />
 		<ContentBlock value={pageData.header.content} />
 	</Hero>
 
-	<Layer pullUpBy="hero">
-		<Retain>
-			<p>
-				<mark>joejoe</mark>
-			</p>
-		</Retain>
-	</Layer>
+	{
+		pageData.titleCustom ? (
+			<Layer pullUpBy="hero" background="ijsblauw">
+				<Retain>
+					<Heading>{pageData.titleCustom}</Heading>
+				</Retain>
+			</Layer>
+		) : null
+	}
+
+	{
+		translatedStories.length ? (
+			<Layer>
+				<Retain>
+					<Retain variant="text">
+						<Stack gap="huge">
+							{translatedStories.map((story) => (
+								<Story {...story} />
+							))}
+						</Stack>
+					</Retain>
+				</Retain>
+			</Layer>
+		) : null
+	}
 </Layout>
 
 <style lang="scss"></style>
