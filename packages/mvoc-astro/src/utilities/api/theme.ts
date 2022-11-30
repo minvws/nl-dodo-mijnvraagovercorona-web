@@ -8,13 +8,23 @@ import {
 	ImageProps,
 	imageQuery,
 } from './queries';
+import { AssistanceProps, assistanceQuery } from './queries/assistance';
+import {
+	QuestionCollectionProps,
+	questionCollectionQuery,
+} from './queries/question';
+import { storiesQuery, StoryProps } from './queries/stories';
 
-export interface ThemePageProps extends PageProps {
+export interface ThemePageProps extends PageProps, QuestionCollectionProps {
 	header: {
 		title: string;
+		chapeau: string;
 		content: ContentBlockProps['value'];
 		image: ImageProps;
 	};
+	titleFlow: string;
+	stories: StoryProps[];
+	assistance: AssistanceProps;
 	slug: string;
 	updatedAt: string;
 }
@@ -29,6 +39,7 @@ export async function getDataThemes({
 	const projection = `{
 		"header": {
 			${localePropertyQuery({ name: 'title', path: 'header.title', locale })},
+			${localePropertyQuery({ name: 'chapeau', path: 'header.chapeau', locale })},
 			${localePropertyQuery({
 				name: 'content',
 				path: 'header.content',
@@ -37,6 +48,13 @@ export async function getDataThemes({
 			})},
 			${imageQuery({ name: 'image', path: 'header.image' })},
 		},
+		${localePropertyQuery({
+			name: 'titleFlow',
+			locale,
+		})},
+		${questionCollectionQuery({ locale })},
+		${storiesQuery({ locale })},
+		${assistanceQuery({ locale })},
 		"updatedAt": _updatedAt,
 		"slug": slug.current
 	}`;
