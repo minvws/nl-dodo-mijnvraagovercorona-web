@@ -4,23 +4,26 @@ import {
 	pageQuery,
 	PageProps,
 	localePropertyQuery,
-	ImageProps,
+	imageQuery,
 } from './queries';
 
+import type { Props as AnswersSingleProps } from '@modules/forms/situations/AnswersSingle.astro';
 import type { Props as FormSwitchProps } from '@modules/forms/situations/FormSwitch.astro';
 import type { ContentBlockProps } from '@design-system/components/ContentBlock';
+import { AssistanceProps, assistanceQuery } from './queries/assistance';
 
 export interface PageSituationQuestionProps extends PageProps {
 	header: {
 		title: string;
 		content: ContentBlockProps['value'];
-		image: ImageProps;
 	};
+	content: AnswersSingleProps['content'];
 	type: FormSwitchProps['type'];
 	answersSingle: FormSwitchProps['answersSingle'];
 	answersMultiple: FormSwitchProps['answersMultiple'];
 	showMore: FormSwitchProps['showMore'];
 	buttons: FormSwitchProps['buttons'];
+	assistance: AssistanceProps;
 	slug: string;
 }
 
@@ -42,6 +45,28 @@ export async function getDataSituationQuestions({
 			})},
 		},
 		type,
+		"content": {
+			${localePropertyQuery({
+				name: 'contentPrimary',
+				path: `contentReference->content.contentPrimary`,
+				locale,
+				block: true,
+			})},
+			${imageQuery({
+				name: 'imagePrimary',
+				path: `contentReference->content.imagePrimary`,
+			})},
+			${localePropertyQuery({
+				name: 'contentSecondary',
+				path: `contentReference->content.contentSecondary`,
+				locale,
+				block: true,
+			})},
+			${imageQuery({
+				name: 'imageSecondary',
+				path: `contentReference->content.imageSecondary`,
+			})},
+		},
 		"answersSingle": answersSingle[]{
 			_key,
 			${localePropertyQuery({ name: 'content', locale })},
@@ -79,6 +104,7 @@ export async function getDataSituationQuestions({
 				next->_type == "situation-result-document" => 'advies/' + next->slug.current,
 			),
 		},
+		${assistanceQuery({ locale })},
 		"slug": slug.current
 	}`;
 

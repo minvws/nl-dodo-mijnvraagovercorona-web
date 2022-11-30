@@ -98,7 +98,7 @@ const selectedIcon =
 		align-items: center;
 		justify-content: space-between;
 		gap: var(--space-r-small);
-		inline-size: 100%;
+		min-inline-size: 100%;
 		padding: calc(var(--button-padding) - var(--button-border-width));
 		border: var(--button-border-width) solid var(--button-border-color);
 		border-radius: var(--radii-milli);
@@ -183,7 +183,7 @@ const selectedIcon =
 
 		@media --mq-large {
 			& {
-				inline-size: auto;
+				min-inline-size: auto;
 			}
 		}
 	}

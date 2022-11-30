@@ -5,6 +5,8 @@ import {
 	getLocaleFromURL,
 	prefixUrlWithlocale,
 } from 'src/utilities/locale/translation';
+import { AssistanceProps } from 'src/utilities/api/queries/assistance';
+import { Assistance } from '@design-system/components/Assistance';
 
 export interface Props {
 	buttons: {
@@ -15,13 +17,14 @@ export interface Props {
 		next: string;
 		disabled?: boolean;
 	}[];
+	assistance?: AssistanceProps;
 }
 
-const { buttons } = Astro.props;
+const { buttons, assistance } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
 ---
 
-<div>
+<div class="c-submit">
 	{
 		buttons.map((button, index) =>
 			button.standard ? (
@@ -35,7 +38,7 @@ const locale = getLocaleFromURL(Astro.url.pathname);
 				>
 					{button.text}
 				</Button>
-			) : button.assistanceDialog ? (
+			) : button.assistanceDialog && assistance && assistance.headline ? (
 				<>
 					<Button
 						id="assistance-dialog"
@@ -43,8 +46,8 @@ const locale = getLocaleFromURL(Astro.url.pathname);
 					>
 						{button.text}
 					</Button>
-					<Modal id="assistance-dialog" title="TODO: title">
-						<mark>TODO: Assistance row</mark>
+					<Modal id="assistance-dialog" title={assistance.headline}>
+						<Assistance inDialog {...assistance} />
 					</Modal>
 				</>
 			) : (
@@ -58,3 +61,21 @@ const locale = getLocaleFromURL(Astro.url.pathname);
 		)
 	}
 </div>
+
+<style lang="scss">
+	.c-submit {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--stack-small);
+		justify-content: flex-start;
+		align-items: center;
+		flex-direction: row-reverse;
+
+		// adjust buttons
+		> * {
+			flex: 1;
+			max-inline-size: calc(50% - var(--stack-small) / 2);
+			justify-content: center;
+		}
+	}
+</style>
