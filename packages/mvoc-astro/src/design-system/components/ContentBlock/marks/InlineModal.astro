@@ -48,7 +48,11 @@ const { children, mark } = {
 	closeLabel={siteSettings.accessibility.labelModalClose}
 >
 	<Stack>
-		{mark.image?.src ? <img src={mark.image.src} alt="" /> : null}
+		{
+			mark.image?.src ? (
+				<img src={mark.image.src} alt="" loading="lazy" />
+			) : null
+		}
 		<ContentBlock value={mark.content} />
 	</Stack>
 </Modal>

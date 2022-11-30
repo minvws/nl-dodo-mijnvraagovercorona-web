@@ -18,7 +18,12 @@ const { title, icon, class: className, ...attrs } = Astro.props;
 >
 	{
 		icon && icon.src ? (
-			<img class="c-section-heading-group__icon" src={icon.src} alt="" />
+			<img
+				class="c-section-heading-group__icon"
+				src={icon.src}
+				alt=""
+				loading="lazy"
+			/>
 		) : null
 	}
 	<Stack gap="small">
