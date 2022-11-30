@@ -1,14 +1,22 @@
 ---
 import { HTMLAttributes } from 'astro/types';
 
-interface Props extends HTMLAttributes<'div'> {}
+interface Props extends HTMLAttributes<'div' | 'ul' | 'ol'> {
+	as?: 'div' | 'ul' | 'ol';
+}
 
-const { class: className, ...attrs } = Astro.props;
+const { class: className, as = 'div', ...attrs } = Astro.props;
+
+const Element = as;
 ---
 
-<div class={`c-grid-fluid${className ? ` | ${className}` : ''}`} {...attrs}>
+<Element
+	class={`c-grid-fluid${className ? ` | ${className}` : ''}`}
+	{...attrs}
+	role={as === 'ul' || as === 'ol' ? 'list' : undefined}
+>
 	<slot />
-</div>
+</Element>
 
 <style lang="scss">
 	.c-grid-fluid {

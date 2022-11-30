@@ -37,17 +37,17 @@ const { contentBlocks } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
 ---
 
-<Stack gap="small">
+<Stack class="c-multi-content-block" gap="small">
 	{
 		contentBlocks.map((contentBlock) => (
 			<>
 				{contentBlock.content ? (
-					<Stack gap="small">
+					<Stack class="c-multi-content-block__content" gap="small">
 						<ContentBlock value={contentBlock.content} />
 					</Stack>
 				) : contentBlock.image?.src ? (
 					<img
-						class="c-content-block__image"
+						class="c-multi-content-block__image"
 						src={contentBlock.image?.src}
 						alt=""
 						loading="lazy"
@@ -83,7 +83,16 @@ const locale = getLocaleFromURL(Astro.url.pathname);
 </Stack>
 
 <style lang="scss">
-	.c-content-block__image {
+	@use '@design-system-styles/tools/_list.scss';
+
+	.c-multi-content-block {
+	}
+
+	.c-multi-content-block__content {
+		@include list.steps;
+	}
+
+	.c-multi-content-block__image {
 		max-inline-size: 100%;
 		margin-inline: auto;
 	}

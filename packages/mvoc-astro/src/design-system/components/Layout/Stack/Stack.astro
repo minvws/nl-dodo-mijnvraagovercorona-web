@@ -10,17 +10,16 @@ interface Props extends HTMLAttributes<'div'> {
 		| 'large'
 		| 'huge'
 		| 'humongous';
-	style?: string;
 }
 
-const { gap = 'base', style, id, class: className, ...attrs } = Astro.props;
+const { gap = 'base', id, class: className, ...attrs } = Astro.props;
 ---
 
 <div
 	id={id}
 	class={`c-stack${gap ? ` | u-stack--${gap}` : ''}${
-		style ? ` | ${style}` : ''
-	}${className ? ` | ${className}` : ''}`}
+		className ? ` | ${className}` : ''
+	}`}
 	{...attrs}
 >
 	<slot />

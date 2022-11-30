@@ -1,10 +1,10 @@
 ---
-import { Backgrounds } from '@design-system/utilities/background';
+import { Colors } from '@design-system/utilities/color';
 import { HTMLAttributes } from 'astro/types';
 interface Props extends HTMLAttributes<'div' | 'section' | 'footer'> {
 	as?: 'div' | 'section' | 'footer';
 	pullUpBy?: 'layer' | 'hero';
-	background?: Backgrounds;
+	background?: Colors;
 }
 
 const {

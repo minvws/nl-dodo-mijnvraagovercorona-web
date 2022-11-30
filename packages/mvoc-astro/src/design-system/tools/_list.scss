@@ -1,0 +1,45 @@
+/* ==========================================================================
+		tools.list
+/ =========================================================================== */
+
+@mixin steps {
+	ol {
+		--list-steps-gap: var(--space-r-small);
+		--list-steps-icon-gap: var(--space-r-small);
+		--list-steps-icon-size: var(--space-r-base);
+		--list-steps-icon-font-size: var(--font-size-milli);
+		--list-steps-icon-line-height: var(--line-height-milli);
+		--list-steps-icon-color: var(--color-white);
+		--list-steps-icon-background: var(--color-accent-robijnrood);
+		list-style: none;
+		padding-inline-start: 0;
+		counter-reset: steps;
+
+		> li {
+			display: flex;
+			gap: var(--list-steps-icon-gap);
+			align-items: flex-start;
+			counter-increment: steps;
+
+			& + li {
+				margin-block-start: var(--list-steps-gap);
+			}
+
+			&::before {
+				display: flex;
+				flex: 0 0 auto;
+				align-items: center;
+				justify-content: center;
+				inline-size: var(--list-steps-icon-size);
+				aspect-ratio: 1 / 1;
+				border-radius: 50%;
+				font-size: var(--list-steps-icon-font-size);
+				line-height: var(--list-steps-icon-line-height);
+				font-weight: bold;
+				color: var(--list-steps-icon-color);
+				background-color: var(--list-steps-icon-background);
+				content: counter(steps);
+			}
+		}
+	}
+}
