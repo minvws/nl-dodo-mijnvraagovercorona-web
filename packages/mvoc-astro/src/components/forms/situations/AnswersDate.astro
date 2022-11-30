@@ -1,0 +1,42 @@
+---
+import { Stack } from '@design-system/components/Layout/Stack';
+import { HTMLAttributes } from 'astro/types';
+import type { Props as SubmitProps } from './Submit.astro';
+import Submit from './Submit.astro';
+
+interface Props extends HTMLAttributes<'form'> {
+	buttons: SubmitProps['buttons'];
+}
+
+const { class: className, buttons, ...attrs } = Astro.props;
+
+const parsedButtons = buttons?.map((button, index) =>
+	index === 0 && button.standard
+		? {
+				...button,
+				disabled: true,
+		  }
+		: {
+				...button,
+		  },
+);
+---
+
+<form
+	method="post"
+	class={`c-answers-date${className ? ` | ${className}` : ''}`}
+	{...attrs}
+>
+	<Stack>
+		<p>
+			<mark>datepicker</mark>
+		</p>
+
+		<Submit buttons={parsedButtons} />
+	</Stack>
+</form>
+
+<style lang="scss">
+	.c-answers-date {
+	}
+</style>
