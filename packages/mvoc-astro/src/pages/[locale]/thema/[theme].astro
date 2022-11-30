@@ -1,0 +1,51 @@
+---
+import { availableLocales, Locale } from 'src/utilities/locale/translation';
+
+import Layout from '@layouts/Layout.astro';
+import { Hero } from '@design-system/components/Hero';
+import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
+import { getDataThemes, ThemePageProps } from 'src/utilities/api';
+import { UpdatedAt } from '@design-system/elements/UpdatedAt';
+import { ContentBlock } from '@design-system/components/ContentBlock';
+import { Layer } from '@design-system/components/Layout/Layer';
+import { Retain } from '@design-system/components/Layout/Retain';
+
+export async function getStaticPaths() {
+	return await availableLocales.reduce(async (paths, locale) => {
+		const collection = await getDataThemes({ locale });
+		return [
+			...(await paths),
+			collection.pages.map((page) => ({
+				params: { theme: page.slug, locale: locale.id },
+				props: {
+					pageData: page,
+					locale,
+				},
+			})),
+		];
+	}, Promise.resolve([]));
+}
+
+interface Props {
+	pageData: ThemePageProps;
+	locale: Locale;
+}
+
+const { pageData, locale } = Astro.props;
+const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+---
+
+<Layout locale={locale} metaData={pageData.metaData}>
+	<Hero title={pageData.header.title} image={pageData.header.image}>
+		<UpdatedAt slot="prefix" time={pageData.updatedAt} />
+		<ContentBlock value={pageData.header.content} />
+	</Hero>
+
+	<Layer as="div">
+		<Retain>
+			<p>
+				<mark>joejoe</mark>
+			</p>
+		</Retain>
+	</Layer>
+</Layout>
