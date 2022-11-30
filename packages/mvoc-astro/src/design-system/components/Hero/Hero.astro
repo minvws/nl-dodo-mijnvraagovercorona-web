@@ -31,7 +31,17 @@ const { title, subTitle, chapeau, image, highlight } = Astro.props;
 				<hgroup class="c-hero__hgroup">
 					<Heading class="c-hero__title" level={1}>{title}</Heading>
 					<slot name="prefix" />
-					{chapeau ? <Chapeau role="presentation">{chapeau}</Chapeau> : null}
+					{
+						chapeau ? (
+							<Chapeau
+								class="c-hero__chapeau"
+								variant={highlight ? 'highlight' : 'base'}
+								role="presentation"
+							>
+								{chapeau}
+							</Chapeau>
+						) : null
+					}
 				</hgroup>
 				{subTitle ? <p>{subTitle}</p> : null}
 				<slot />
@@ -86,6 +96,9 @@ const { title, subTitle, chapeau, image, highlight } = Astro.props;
 		order: 3;
 	}
 
+	.c-hero__chapeau {
+	}
+
 	// Variants
 	.c-hero--highlight {
 		--hero-background: var(--theme-bg-highlight);
@@ -93,6 +106,11 @@ const { title, subTitle, chapeau, image, highlight } = Astro.props;
 		--hero-padding-block-start: 0px;
 		border-end-start-radius: var(--hero-border-radius);
 		border-end-end-radius: var(--hero-border-radius);
+
+		.c-hero__chapeau {
+			--chapeau-font-size: var(--font-size-beta);
+			--chapeau-line-height: var(--line-height-beta);
+		}
 
 		.c-hero__image {
 			block-size: 12rem; // 240px

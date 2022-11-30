@@ -1,18 +1,36 @@
 ---
-type Props = {
-	role?: 'presentation';
-};
+import { HTMLAttributes } from 'astro/types';
 
-const { role } = Astro.props;
+interface Props extends HTMLAttributes<'span'> {
+	variant?: 'base' | 'highlight';
+	role?: 'presentation';
+}
+
+const { class: className, role, variant = 'base', ...attrs } = Astro.props;
 ---
 
-<span class="e-chapeau" role={role}>
+<span
+	class={`e-chapeau${variant ? ` e-chapeau--${variant}` : ''}${
+		className ? ` | ${className}` : ''
+	}`}
+	role={role}
+	{...attrs}
+>
 	<slot />
 </span>
 
 <style lang="scss">
 	.e-chapeau {
+		--chapeau-color: var(--color-accent-robijnrood);
+		--chapeau-font-size: 1rem;
+		--chapeau-line-height: var(--font-lineheight-root);
+		font-size: var(--chapeau-font-size);
+		line-height: var(--chapeau-line-height);
 		font-weight: bold;
-		color: var(--color-accent-robijnrood);
+		color: var(--chapeau-color);
+	}
+
+	.e-chapeau--highlight {
+		--chapeau-color: var(--color-donkerblauw);
 	}
 </style>
