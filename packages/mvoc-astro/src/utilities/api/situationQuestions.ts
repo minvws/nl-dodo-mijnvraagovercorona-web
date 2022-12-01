@@ -24,6 +24,7 @@ export interface PageSituationQuestionProps extends PageProps {
 	showMore: FormSwitchProps['showMore'];
 	buttons: FormSwitchProps['buttons'];
 	assistance: AssistanceProps;
+	label: string;
 	slug: string;
 }
 
@@ -94,6 +95,10 @@ export async function getDataSituationQuestions({
 				})},
 			},
 		},
+		${localePropertyQuery({
+			name: 'label',
+			locale,
+		})},
 		"buttons": buttons[]{
 			_key,
 			${localePropertyQuery({ name: 'text', locale })},

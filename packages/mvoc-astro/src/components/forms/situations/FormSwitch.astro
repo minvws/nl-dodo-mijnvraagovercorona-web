@@ -25,6 +25,7 @@ export interface Props {
 	type: 'multiple' | 'single' | 'datepicker' | 'buttons' | 'age';
 	buttons: SubmitProps['buttons'];
 	assistance?: AssistanceProps;
+	label: string;
 }
 
 const {
@@ -35,6 +36,7 @@ const {
 	buttons,
 	showMore,
 	assistance,
+	label,
 } = Astro.props;
 ---
 
@@ -56,7 +58,7 @@ const {
 				assistance={assistance}
 			/>
 		) : type === 'datepicker' ? (
-			<AnswersDate buttons={buttons} />
+			<AnswersDate buttons={buttons} label={label} />
 		) : null
 	}
 </>

@@ -23,5 +23,7 @@
 		"slugify": "^1.6.5",
 		"svgo": "^2.8.0"
 	},
-	"dependencies": {}
+	"dependencies": {
+		"@duetds/date-picker": "^1.4.0"
+	}
 }
