@@ -1,6 +1,17 @@
 ---
+import { GridFluid } from '@design-system/components/Layout/Grid';
 import { Stack } from '@design-system/components/Layout/Stack';
+import { Button } from '@design-system/elements/Button';
 import { HTMLAttributes } from 'astro/types';
+import {
+	getDaySlug,
+	getShowOnDays,
+} from 'src/utilities/helpers/advice-helpers';
+import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
+import {
+	getLocaleFromURL,
+	prefixUrlWithlocale,
+} from 'src/utilities/locale/translation';
 import type { Props as SubmitProps } from './Submit.astro';
 import Submit from './Submit.astro';
 
@@ -9,32 +20,93 @@ interface Props extends HTMLAttributes<'form'> {
 }
 
 const { class: className, buttons, ...attrs } = Astro.props;
+const locale = getLocaleFromURL(Astro.url.pathname);
+const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 
-const parsedButtons = buttons?.map((button, index) =>
-	index === 0 && button.standard
+let daysToGenerate = [] as number[];
+let standardSlug = '';
+
+const parsedButtons = buttons?.map((button, index) => {
+	if (index === 0 && button.standard) {
+		const answerShowOnDays = getShowOnDays(button.next.answer);
+		const planShowOnDays = getShowOnDays(button.next?.plan);
+		daysToGenerate = [...new Set(answerShowOnDays.concat(planShowOnDays))];
+		standardSlug = button.next.slug;
+	}
+	return index === 0 && button.standard
 		? {
 				...button,
 				disabled: true,
 		  }
 		: {
 				...button,
-		  },
-);
+		  };
+});
 ---
 
 <form
 	method="post"
 	class={`c-answers-date${className ? ` | ${className}` : ''}`}
 	{...attrs}
+	data-module="answers-date"
+	data-locale={locale.locale}
 >
 	<Stack>
-		<p>
-			<mark>datepicker</mark>
-		</p>
+		{
+			daysToGenerate.length ? (
+				<GridFluid>
+					{daysToGenerate.map((day, index) => (
+						<Button
+							href={prefixUrlWithlocale(
+								getDaySlug({ slug: standardSlug, day }),
+								locale,
+							)}
+							variant="tertiary"
+							icon="chevron-small-right"
+							data-day={
+								day === 0 || index === daysToGenerate.length - 1
+									? undefined
+									: day
+							}
+							full
+						>
+							{day === 0
+								? siteSettings.today
+								: index === daysToGenerate.length - 1
+								? `${siteSettings.moreThan} ${day - 1} ${
+										siteSettings.dayAgo.that
+								  }`
+								: day === 1
+								? `${day} ${siteSettings.dayAgo.this}`
+								: `${day} ${siteSettings.dayAgo.that}`}
+						</Button>
+					))}
+				</GridFluid>
+			) : null
+		}
 
 		<Submit buttons={parsedButtons} />
 	</Stack>
 </form>
+
+<script>
+	import { subDays } from 'date-fns';
+	import { formatDate } from 'src/utilities/locale/date';
+
+	const today = new Date();
+	const parent = document.querySelector(
+		'[data-module="answers-date"]',
+	) as HTMLFormElement;
+	if (parent) {
+		const selectionButtons = parent.querySelectorAll('[data-day]');
+		const locale = parent.getAttribute('data-locale');
+		[...selectionButtons].forEach((button) => {
+			const day = parseInt(button.getAttribute('data-day'));
+			const inner = button.querySelector('[data-button-content]');
+			inner.innerHTML = formatDate(subDays(today, day), locale);
+		});
+	}
+</script>
 
 <style lang="scss">
 	.c-answers-date {

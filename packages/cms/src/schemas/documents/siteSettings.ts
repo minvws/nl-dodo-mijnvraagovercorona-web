@@ -366,6 +366,21 @@ export default {
 			],
 		},
 		{
+			title: 'Dag geleden',
+			name: 'dayAgo',
+			type: 'thisOrThatLocaleString',
+		},
+		{
+			title: 'Vandaag',
+			name: 'today',
+			type: 'localeString',
+		},
+		{
+			title: 'Meer dan',
+			name: 'moreThan',
+			type: 'localeString',
+		},
+		{
 			title: 'Laatst bijgewerkt',
 			name: 'updatedAt',
 			type: 'localeString',

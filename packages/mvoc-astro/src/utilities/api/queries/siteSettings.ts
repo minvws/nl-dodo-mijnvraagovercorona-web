@@ -74,6 +74,12 @@ export interface SiteSettingsProps {
 	checkAgainCta: string;
 	agendaCta: string;
 	dagen: string[];
+	moreThan: string;
+	today: string;
+	dayAgo: {
+		this: string;
+		that: string;
+	};
 	datumKiesTekst: string;
 	maanden: string[];
 	updatedAt: string;
@@ -306,6 +312,26 @@ export const siteSettingsQuery = ({
 		${localePropertyQuery({ name: 'datumKiesTekst', locale })},
 		${localePropertyQuery({ name: 'maanden', locale, array: true })},
 		${localePropertyQuery({ name: 'dagen', locale, array: true })},
+		${localePropertyQuery({
+			name: 'moreThan',
+			locale,
+		})},
+		${localePropertyQuery({
+			name: 'today',
+			locale,
+		})},
+		"dayAgo": {
+			${localePropertyQuery({
+				name: 'this',
+				path: 'dayAgo.this',
+				locale,
+			})},
+			${localePropertyQuery({
+				name: 'that',
+				path: 'dayAgo.that',
+				locale,
+			})},
+		},
 		${localePropertyQuery({ name: 'updatedAt', locale })},
 		"situationPlural": {
 			${localePropertyQuery({

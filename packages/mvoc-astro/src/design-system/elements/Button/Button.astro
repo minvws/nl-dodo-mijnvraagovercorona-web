@@ -74,7 +74,7 @@ const selectedIcon =
 			<Icon name={selectedIcon} description={hiddenLabel} />
 		) : null
 	}
-	<span data-button-content>
+	<span class="e-button__label" data-button-content>
 		<slot />
 	</span>
 	{
@@ -110,6 +110,10 @@ const selectedIcon =
 		transition-duration: 300ms;
 		transition-timing-function: ease-in-out;
 		cursor: pointer;
+
+		&[hidden] {
+			display: none;
+		}
 
 		:global(> .e-icon) {
 			color: var(--button-icon-color);
@@ -186,5 +190,9 @@ const selectedIcon =
 				min-inline-size: auto;
 			}
 		}
+	}
+
+	.e-button__label:first-letter {
+		text-transform: uppercase;
 	}
 </style>
