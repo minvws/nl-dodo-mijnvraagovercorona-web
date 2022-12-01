@@ -45,7 +45,7 @@ const parsedButtons = buttons?.map((button, index) => {
 ---
 
 <form
-	method="post"
+	method="get"
 	class={`c-answers-date${className ? ` | ${className}` : ''}`}
 	{...attrs}
 	data-module="answers-date"
@@ -74,11 +74,11 @@ const parsedButtons = buttons?.map((button, index) => {
 								? siteSettings.today
 								: index === daysToGenerate.length - 1
 								? `${siteSettings.moreThan} ${day - 1} ${
-										siteSettings.dayAgo.that
-								  }`
+										siteSettings.dayPlural.that
+								  } ${siteSettings.ago}`
 								: day === 1
-								? `${day} ${siteSettings.dayAgo.this}`
-								: `${day} ${siteSettings.dayAgo.that}`}
+								? `${day} ${siteSettings.dayPlural.this} ${siteSettings.ago}`
+								: `${day} ${siteSettings.dayPlural.that} ${siteSettings.ago}`}
 						</Button>
 					))}
 				</GridFluid>

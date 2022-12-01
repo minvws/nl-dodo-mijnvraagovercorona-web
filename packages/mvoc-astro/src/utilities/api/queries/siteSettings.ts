@@ -75,8 +75,10 @@ export interface SiteSettingsProps {
 	agendaCta: string;
 	dagen: string[];
 	moreThan: string;
+	in: string;
 	today: string;
-	dayAgo: {
+	ago: string;
+	dayPlural: {
 		this: string;
 		that: string;
 	};
@@ -320,15 +322,23 @@ export const siteSettingsQuery = ({
 			name: 'today',
 			locale,
 		})},
-		"dayAgo": {
+		${localePropertyQuery({
+			name: 'ago',
+			locale,
+		})},
+		${localePropertyQuery({
+			name: 'in',
+			locale,
+		})},
+		"dayPlural": {
 			${localePropertyQuery({
 				name: 'this',
-				path: 'dayAgo.this',
+				path: 'dayPlural.this',
 				locale,
 			})},
 			${localePropertyQuery({
 				name: 'that',
-				path: 'dayAgo.that',
+				path: 'dayPlural.that',
 				locale,
 			})},
 		},

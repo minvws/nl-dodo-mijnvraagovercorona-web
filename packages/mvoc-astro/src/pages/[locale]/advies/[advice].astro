@@ -1,6 +1,4 @@
 ---
-import { addDays, subDays } from 'date-fns';
-import { formatDate } from 'src/utilities/locale/date';
 import {
 	availableLocales,
 	getLocaleFromURL,
@@ -92,17 +90,13 @@ const plan =
 		.filter(({ showOn }) => !showOn || showOn.includes(pageDay))
 		.map(({ content, day: planDay, title }) => ({
 			content,
-			day: planDay,
 			title,
-			date:
+			day:
 				planDay === null || planDay === undefined
-					? formatDate(today, locale.locale)
-					: formatDate(
-							planDay > pageDay
-								? addDays(today, planDay - pageDay)
-								: subDays(today, pageDay - planDay),
-							locale.locale,
-					  ),
+					? 0
+					: planDay > pageDay
+					? planDay - pageDay
+					: (pageDay - planDay) * -1,
 		}));
 
 const translatedTips = pageData.moreTips.tipCollection
@@ -143,9 +137,9 @@ const translatedTips = pageData.moreTips.tipCollection
 									<Stack gap="small">
 										<h2>{pageData.advice.title}</h2>
 										<Steps>
-											{plan.map(({ date, title, content }) => {
+											{plan.map(({ title, content, day }) => {
 												return (
-													<CardDay title={title} day={date}>
+													<CardDay title={title} day={day}>
 														{content && <ContentBlock value={content} />}
 													</CardDay>
 												);

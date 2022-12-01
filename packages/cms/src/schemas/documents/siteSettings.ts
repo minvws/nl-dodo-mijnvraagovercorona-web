@@ -366,9 +366,19 @@ export default {
 			],
 		},
 		{
-			title: 'Dag geleden',
-			name: 'dayAgo',
+			title: 'Over',
+			name: 'in',
+			type: 'localeString',
+		},
+		{
+			title: 'Dag',
+			name: 'dayPlural',
 			type: 'thisOrThatLocaleString',
+		},
+		{
+			title: 'Geleden',
+			name: 'ago',
+			type: 'localeString',
 		},
 		{
 			title: 'Vandaag',
