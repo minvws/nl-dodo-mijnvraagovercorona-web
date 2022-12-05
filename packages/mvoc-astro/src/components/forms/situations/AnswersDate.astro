@@ -1,6 +1,4 @@
 ---
-import '@duetds/date-picker/dist/collection/themes/default.css';
-
 import { GridFluid } from '@design-system/components/Layout/Grid';
 import { Stack } from '@design-system/components/Layout/Stack';
 import { Button } from '@design-system/elements/Button';
@@ -16,7 +14,7 @@ import {
 } from 'src/utilities/locale/translation';
 import type { Props as SubmitProps } from './Submit.astro';
 import Submit from './Submit.astro';
-import { FieldWrapper } from '@design-system/components/Form';
+import { FieldDatePicker } from '@design-system/components/Form/FieldDatePicker';
 
 interface Props extends HTMLAttributes<'form'> {
 	buttons: SubmitProps['buttons'];
@@ -57,56 +55,49 @@ const parsedButtons = buttons?.map((button, index) => {
 	data-max-days={daysToGenerate.length}
 >
 	<Stack>
-		<FieldWrapper label={label} id="date">
-			<duet-date-picker identifier="date">
-				{
-					daysToGenerate.length ? (
-						<GridFluid
-							class="c-answers-date__alternative"
-							data-module-bind="answers-date__alternative"
-						>
-							{daysToGenerate.map((day, index) => (
-								<Button
-									href={prefixUrlWithlocale(
-										getDaySlug({ slug: standardSlug, day }),
-										locale,
-									)}
-									variant="tertiary"
-									icon="chevron-small-right"
-									data-day={
-										day === 0 || index === daysToGenerate.length - 1
-											? undefined
-											: day
-									}
-									full
-								>
-									{day === 0
-										? siteSettings.today
-										: index === daysToGenerate.length - 1
-										? `${siteSettings.moreThan} ${day - 1} ${
-												siteSettings.dayPlural.that
-										  } ${siteSettings.ago}`
-										: day === 1
-										? `${day} ${siteSettings.dayPlural.this} ${siteSettings.ago}`
-										: `${day} ${siteSettings.dayPlural.that} ${siteSettings.ago}`}
-								</Button>
-							))}
-						</GridFluid>
-					) : null
-				}
-			</duet-date-picker>
-		</FieldWrapper>
+		<FieldDatePicker label={label} id="date">
+			{
+				daysToGenerate.length ? (
+					<GridFluid>
+						{daysToGenerate.map((day, index) => (
+							<Button
+								href={prefixUrlWithlocale(
+									getDaySlug({ slug: standardSlug, day }),
+									locale,
+								)}
+								variant="tertiary"
+								icon="chevron-small-right"
+								data-day={
+									day === 0 || index === daysToGenerate.length - 1
+										? undefined
+										: day
+								}
+								full
+							>
+								{day === 0
+									? siteSettings.today
+									: index === daysToGenerate.length - 1
+									? `${siteSettings.moreThan} ${day - 1} ${
+											siteSettings.dayPlural.that
+									  } ${siteSettings.ago}`
+									: day === 1
+									? `${day} ${siteSettings.dayPlural.this} ${siteSettings.ago}`
+									: `${day} ${siteSettings.dayPlural.that} ${siteSettings.ago}`}
+							</Button>
+						))}
+					</GridFluid>
+				) : null
+			}
+		</FieldDatePicker>
 
 		<Submit buttons={parsedButtons} />
 	</Stack>
 </form>
 
 <script>
-	import { DuetDatePicker } from '@duetds/date-picker/custom-element';
 	import { subDays, differenceInCalendarDays } from 'date-fns';
 	import { getDaySlug } from 'src/utilities/helpers/advice-helpers';
 	import { formatDate } from 'src/utilities/locale/date';
-	import { adapter, datepickerTranslations } from './datepicker-helpers';
 
 	const today = new Date();
 	const parent = document.querySelector(
@@ -119,10 +110,7 @@ const parsedButtons = buttons?.map((button, index) => {
 		const submitButton = parent.querySelector(
 			'button[type="submit"]',
 		) as HTMLButtonElement;
-		const alternativeWrapper = parent.querySelector(
-			'[data-module-bind="answers-date__alternative"]',
-		);
-		const selectionButtons = alternativeWrapper.querySelectorAll('[data-day]');
+		const selectionButtons = parent.querySelectorAll('[data-day]');
 
 		[...selectionButtons].forEach((button) => {
 			const day = parseInt(button.getAttribute('data-day'));
@@ -130,9 +118,8 @@ const parsedButtons = buttons?.map((button, index) => {
 			inner.innerHTML = formatDate(subDays(today, day), locale);
 		});
 
-		// Initialise datepicker
+		// Configure datepicker & events
 		if ('customElements' in window) {
-			alternativeWrapper.remove();
 			let day = 0;
 
 			const picker = document.querySelector('duet-date-picker');
@@ -143,11 +130,6 @@ const parsedButtons = buttons?.map((button, index) => {
 					-2,
 				)}-${`0${today.getDate()}`.slice(-2)}`,
 			);
-
-			customElements.define('duet-date-picker', DuetDatePicker);
-
-			picker.dateAdapter = adapter;
-			picker.localization = datepickerTranslations[locale];
 
 			picker.addEventListener('duetChange', (event: any) => {
 				const diff = differenceInCalendarDays(event.detail.valueAsDate, today);
@@ -171,40 +153,3 @@ const parsedButtons = buttons?.map((button, index) => {
 		}
 	}
 </script>
-
-<style lang="scss">
-	.c-answers-date__alternative {
-		height: 0;
-		overflow: hidden;
-		animation: show-alternative 0s normal forwards ease-in-out;
-		animation-delay: 300ms;
-		animation-iteration-count: 1;
-	}
-
-	@keyframes show-alternative {
-		from {
-			height: 0;
-			overflow: hidden;
-		}
-		to {
-			height: auto;
-			overflow: visible;
-		}
-	}
-</style>
-
-<style lang="scss" is:global>
-	:root:root {
-		--duet-font: inherit;
-		--duet-color-border: var(--color-grijs-4);
-		--duet-radius: var(--radii-milli);
-		--duet-color-placeholder: var(--color-grijs-6);
-		--duet-color-button: transparent;
-		--duet-color-text: var(--color-black);
-		--duet-color-primary: var(--color-hemelblauw);
-	}
-
-	.duet-date__toggle.duet-date__toggle {
-		color: var(--color-diepblauw);
-	}
-</style>
