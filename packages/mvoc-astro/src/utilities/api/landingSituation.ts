@@ -9,6 +9,10 @@ import {
 	imageQuery,
 } from './queries';
 import { storiesQuery, StoryProps } from './queries/stories';
+import {
+	getEssentialQuestionPageProjection,
+	QuestionPageProps,
+} from './situationQuestions';
 
 export interface LandingSituationPageProps extends PageProps {
 	header: {
@@ -19,6 +23,7 @@ export interface LandingSituationPageProps extends PageProps {
 	};
 	titleCustom: string;
 	stories: StoryProps[];
+	question: QuestionPageProps;
 	slug: string;
 	updatedAt: string;
 }
@@ -44,6 +49,9 @@ export async function getDataLandingSituations({
 		},
 		${localePropertyQuery({ name: 'titleCustom', path: 'titleCustom', locale })},
 		${storiesQuery({ locale })},
+		"question": situationReference->{
+			${getEssentialQuestionPageProjection({ locale: locale })}
+		},
 		"updatedAt": _updatedAt,
 		"slug": slug.current
 	}`;

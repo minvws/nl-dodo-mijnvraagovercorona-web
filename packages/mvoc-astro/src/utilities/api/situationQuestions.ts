@@ -12,7 +12,7 @@ import type { Props as FormSwitchProps } from '@modules/forms/situations/FormSwi
 import type { ContentBlockProps } from '@design-system/components/ContentBlock';
 import { AssistanceProps, assistanceQuery } from './queries/assistance';
 
-export interface PageSituationQuestionProps extends PageProps {
+export interface QuestionPageProps {
 	header: {
 		title: string;
 		content: ContentBlockProps['value'];
@@ -25,17 +25,20 @@ export interface PageSituationQuestionProps extends PageProps {
 	buttons: FormSwitchProps['buttons'];
 	assistance: AssistanceProps;
 	label: string;
+}
+
+export interface PageSituationQuestionProps
+	extends PageProps,
+		QuestionPageProps {
 	slug: string;
 }
 
-export async function getDataSituationQuestions({
+export const getEssentialQuestionPageProjection = ({
 	locale,
-	slug,
 }: {
 	locale: Locale;
-	slug?: string;
-}) {
-	const projection = `{
+}) => {
+	return `
 		"header": {
 			${localePropertyQuery({ name: 'title', path: `header.title`, locale })},
 			${localePropertyQuery({
@@ -122,7 +125,19 @@ export async function getDataSituationQuestions({
 				},
 			),
 		},
-		${assistanceQuery({ locale })},
+		${assistanceQuery({ locale })}
+	`;
+};
+
+export async function getDataSituationQuestions({
+	locale,
+	slug,
+}: {
+	locale: Locale;
+	slug?: string;
+}) {
+	const projection = `{
+		${getEssentialQuestionPageProjection({ locale })},
 		"slug": slug.current
 	}`;
 

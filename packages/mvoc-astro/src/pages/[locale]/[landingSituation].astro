@@ -15,6 +15,9 @@ import { Retain } from '@design-system/components/Layout/Retain';
 import { Heading } from '@design-system/elements/Heading';
 import { Stack } from '@design-system/components/Layout/Stack';
 import { Story } from '@design-system/components/Story';
+import FormSwitch from '@modules/forms/situations/FormSwitch.astro';
+import { Sidebar } from '@design-system/components/Layout/Sidebar';
+import { CardPrivacy } from '@design-system/components/Card';
 
 export async function getStaticPaths() {
 	return await availableLocales.reduce(async (paths, locale) => {
@@ -58,10 +61,12 @@ const translatedStories = pageData.stories
 	</Hero>
 
 	{
-		pageData.titleCustom ? (
+		pageData.titleCustom || pageData.question?.header.title ? (
 			<Layer pullUpBy="hero" background="ijsblauw">
 				<Retain>
-					<Heading>{pageData.titleCustom}</Heading>
+					<Heading>
+						{pageData.titleCustom || pageData.question.header.title}
+					</Heading>
 				</Retain>
 			</Layer>
 		) : null
@@ -71,13 +76,41 @@ const translatedStories = pageData.stories
 		translatedStories.length ? (
 			<Layer>
 				<Retain>
-					<Retain variant="text">
-						<Stack gap="huge">
-							{translatedStories.map((story) => (
-								<Story {...story} />
-							))}
-						</Stack>
-					</Retain>
+					<Sidebar>
+						<Retain variant="text">
+							<Stack gap="huge">
+								{translatedStories.map((story) => (
+									<Story {...story} />
+								))}
+							</Stack>
+						</Retain>
+
+						<CardPrivacy slot="aside" />
+					</Sidebar>
+				</Retain>
+			</Layer>
+		) : null
+	}
+
+	{
+		pageData && pageData.question ? (
+			<Layer>
+				<Retain>
+					<Sidebar>
+						<Retain variant="text">
+							<FormSwitch
+								showMore={pageData.question.showMore}
+								type={pageData.question.type}
+								answersSingle={pageData.question.answersSingle}
+								answersMultiple={pageData.question.answersMultiple}
+								buttons={pageData.question.buttons}
+								content={pageData.question.content}
+								assistance={pageData.question.assistance}
+								label={pageData.question.label}
+							/>
+						</Retain>
+						{translatedStories.length ? null : <CardPrivacy slot="aside" />}
+					</Sidebar>
 				</Retain>
 			</Layer>
 		) : null
