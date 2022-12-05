@@ -8,7 +8,6 @@ import {
 	getDataLandingSituations,
 	LandingSituationPageProps,
 } from 'src/utilities/api';
-import { UpdatedAt } from '@design-system/elements/UpdatedAt';
 import { ContentBlock } from '@design-system/components/ContentBlock';
 import { Layer } from '@design-system/components/Layout/Layer';
 import { Retain } from '@design-system/components/Layout/Retain';
@@ -41,7 +40,6 @@ interface Props {
 }
 
 const { pageData, locale } = Astro.props;
-const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 
 const translatedStories = pageData.stories
 	? pageData.stories.filter(
