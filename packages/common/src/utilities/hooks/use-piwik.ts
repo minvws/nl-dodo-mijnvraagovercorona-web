@@ -6,7 +6,15 @@ import { isBrowser } from '@quarantaine/common';
 declare global {
 	interface Window {
 		Piwik?: {
-			getTracker?: () => { trackPageView?: () => void };
+			getTracker?: () => {
+				trackPageView?: () => void;
+				trackEvent?: (
+					category: string,
+					action: string,
+					name?: string,
+					value?: number,
+				) => void;
+			};
 		};
 		_paq?: Array<any>;
 	}
@@ -57,6 +65,6 @@ export const trackEvent = (
 	if (!isBrowser()) return;
 
 	try {
-		window?._paq?.push(['trackEvent', category, action, name, value]);
+		window?.Piwik?.getTracker?.().trackEvent?.(category, action, name, value);
 	} catch {}
 };

@@ -13,7 +13,7 @@ export const Answer: React.FC<AnswerProps> = ({ title, content }) => (
 		as="section"
 		id="antwoord"
 		sx={{
-			backgroundColor: 'headerBackground',
+			backgroundColor: 'headerBackgroundHighlight',
 			color: 'header',
 			borderRadius: 'box',
 			padding: '1.5rem',

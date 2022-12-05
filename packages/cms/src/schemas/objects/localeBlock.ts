@@ -50,7 +50,11 @@ export const generateBlock = (
 									icon: FiLink,
 								},
 								fields: [
-									{ name: 'href', type: 'string' },
+									{
+										name: 'href',
+										type: 'string',
+										validation: (Rule) => Rule.required(),
+									},
 									{ name: 'chevron', type: 'boolean' },
 									{ name: 'button', type: 'boolean' },
 									{ name: 'internal', type: 'boolean' },

@@ -8,6 +8,7 @@ import { ThemeProvider } from '@theme-ui/core';
 import {
 	theme,
 	usePiwik,
+	useMouseFlow,
 	TranslationProvider,
 	Locale,
 	Locales,
@@ -30,6 +31,7 @@ export const App: React.FC<AppProps> = ({
 	pageContent,
 }) => {
 	usePiwik();
+	useMouseFlow();
 	useEffect(() => {
 		document.documentElement.lang = locale;
 	}, [locale]);
