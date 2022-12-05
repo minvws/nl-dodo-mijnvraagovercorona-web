@@ -1,0 +1,58 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { availableLocales, Locale } from 'src/utilities/locale/translation';
+import { GenericPageProps, getDataGenericPages } from 'src/utilities/api';
+import { Hero } from '@design-system/components/Hero';
+import { Retain } from '@design-system/components/Layout/Retain';
+import { ContentBlock } from '@design-system/components/ContentBlock';
+import { Layer } from '@design-system/components/Layout/Layer';
+import { Sidebar } from '@design-system/components/Layout/Sidebar';
+import { CardPrivacy } from '@design-system/components/Card';
+import { Stack } from '@design-system/components/Layout/Stack';
+
+export async function getStaticPaths() {
+	return await availableLocales.reduce(async (paths, locale) => {
+		const collection = await getDataGenericPages({ locale });
+
+		return [
+			...(await paths),
+			await Promise.all(
+				collection.map(async (page) => {
+					const pageRendered = await page;
+					return {
+						params: { generic: pageRendered.slug, locale: locale.id },
+						props: {
+							pageData: pageRendered.data.pageData,
+							locale,
+						},
+					};
+				}),
+			),
+		];
+	}, Promise.resolve([]));
+}
+
+interface Props {
+	pageData: GenericPageProps;
+	locale: Locale;
+}
+
+const { pageData, locale } = Astro.props;
+---
+
+<Layout locale={locale} metaData={pageData.metaData}>
+	<Hero title={pageData.title} />
+	<Layer>
+		<Retain>
+			<Sidebar>
+				<Retain variant="text">
+					<Stack gap="small">
+						<ContentBlock value={pageData.content} />
+					</Stack>
+				</Retain>
+
+				<CardPrivacy slot="aside" />
+			</Sidebar>
+		</Retain>
+	</Layer>
+</Layout>
