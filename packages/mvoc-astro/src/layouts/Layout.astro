@@ -59,7 +59,9 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 			</main>
 			<MastFoot locale={locale} />
 		</Sprite.Provider>
-		<!-- <script src="/piwik.js" is:inline loading="lazy"></script>
+
+		<!-- <script src="/scripts/mouseflow.js" is:inline defer></script>
+		<script src="/scripts/piwik.js" is:inline defer></script>
 		<noscript>
 			<iframe
 				src="//statistiek.rijksoverheid.nl/containers/c754ca66-1c06-4247-ac2d-3b4efb60dcac/noscript.html"
