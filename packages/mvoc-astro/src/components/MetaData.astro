@@ -31,7 +31,6 @@ const ogImage = `${Astro.url.origin}${
 
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <meta name="generator" content={Astro.generator} />
 
 <title>{pageTitle}</title>
@@ -73,4 +72,13 @@ const ogImage = `${Astro.url.origin}${
 
 {noIndex && <meta name="robots" content="noindex" />}
 
-{/* TODO: manifest */}
+<link rel="icon" href="/images/meta/favicon.ico" sizes="any" />
+<link rel="apple-touch-icon" href="/images/meta/apple-touch-icon.png" />
+<link
+	rel="mask-icon"
+	href="/images/meta/safari-pinned-tab.svg"
+	color="#154273"
+/>
+<link rel="manifest" href="/site.webmanifest" />
+<meta name="msapplication-TileColor" content="#154273" />
+<meta name="theme-color" content="#ffffff" />
