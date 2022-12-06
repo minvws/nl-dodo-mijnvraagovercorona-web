@@ -166,12 +166,13 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 		const hasChat = parent.hasAttribute('data-has-chat');
 
 		if (hasChat) {
-			const response = await fetch(
+			fetch(
 				'https://server.vragenovercorona.nl/client/areaStatus/BXVIVGePHOZtcUQMz2vm.json',
-			);
-			const json = await response.json();
-
-			parent.classList.toggle('chat-open', json.isOpenToClients);
+			)
+				.then((response) => response.json())
+				.then((data) =>
+					parent.classList.toggle('chat-open', data.isOpenToClients),
+				);
 		}
 
 		parent.classList.toggle('phone-open', getIsPhonenumberOpen());

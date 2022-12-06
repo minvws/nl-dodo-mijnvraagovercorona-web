@@ -16,6 +16,7 @@
 		"astro-icon": "^0.8.0",
 		"astro-portabletext": "^0.7.0",
 		"astro-sanity": "^1.0.0",
+		"browserslist-to-esbuild": "^1.2.0",
 		"dotenv": "^16.0.3",
 		"fs-extra": "^10.1.0",
 		"postcss-custom-media": "^8.0.2",
