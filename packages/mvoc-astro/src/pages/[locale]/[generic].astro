@@ -1,6 +1,10 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { availableLocales, Locale } from 'src/utilities/locale/translation';
+import {
+	availableLocales,
+	Locale,
+	prefixUrlWithlocale,
+} from 'src/utilities/locale/translation';
 import { GenericPageProps, getDataGenericPages } from 'src/utilities/api';
 import { Hero } from '@design-system/components/Hero';
 import { Retain } from '@design-system/components/Layout/Retain';
@@ -9,6 +13,8 @@ import { Layer } from '@design-system/components/Layout/Layer';
 import { Sidebar } from '@design-system/components/Layout/Sidebar';
 import { CardPrivacy } from '@design-system/components/Card';
 import { Stack } from '@design-system/components/Layout/Stack';
+import { Link } from '@design-system/elements/Link';
+import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
 
 export async function getStaticPaths() {
 	return await availableLocales.reduce(async (paths, locale) => {
@@ -38,9 +44,14 @@ interface Props {
 }
 
 const { pageData, locale } = Astro.props;
+const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 ---
 
 <Layout locale={locale} metaData={pageData.metaData}>
+	<Link href={prefixUrlWithlocale(`/`, locale)} variant="back" slot="back"
+		>{siteSettings.header.terug}</Link
+	>
+
 	<Hero title={pageData.title} />
 	<Layer>
 		<Retain>
