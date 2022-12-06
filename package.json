@@ -5,6 +5,7 @@
 		"test": "yarn workspaces run test",
 		"test:reizen": "yarn workspace @quarantaine/reizen run test",
 		"test:mvoc": "yarn workspace @quarantaine/mvoc run test",
+		"test:mvoc-astro": "yarn workspace @quarantaine/mvoc-astro run test",
 		"test:common": "yarn workspace @quarantaine/common run test",
 		"e2e:reizen": "yarn workspace @quarantaine/reizen run test:e2e",
 		"e2e-open:reizen": "yarn workspace @quarantaine/reizen run e2e:open",

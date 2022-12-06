@@ -6,6 +6,7 @@
 		"dev": "yarn files && astro dev",
 		"start": "astro dev",
 		"build": "yarn files && astro build",
+		"test": "astro check",
 		"files:download-sanity-images": "node ./scripts/download-sanity-images.js",
 		"files": "yarn files:download-sanity-images"
 	},
