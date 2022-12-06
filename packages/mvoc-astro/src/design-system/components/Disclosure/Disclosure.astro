@@ -2,19 +2,11 @@
 	<slot />
 </ul>
 
-<script type="module">
+<script>
 	// variables
 	const items = [
 		...document.querySelectorAll('[data-module-bind="disclosure__item"]'),
 	];
-
-	// functions
-	// const getPanelHeight = (item) => {
-	// 	const inner = item.querySelector(
-	// 		'[data-module-bind="disclosure__panel-inner"]',
-	// 	);
-	// 	return inner.getBoundingClientRect().height;
-	// };
 
 	const openItem = (item) => {
 		const toggle = item.querySelector(
@@ -39,14 +31,6 @@
 		return item.classList.contains('is-active');
 	};
 
-	function toggleAccordionItem() {
-		const item = event.target.closest('[data-module-bind="disclosure__item"]');
-		if (!item || event.target.closest('[data-module-bind="disclosure__panel"]'))
-			return;
-
-		isOpen(item) ? closeItem(item) : openItem(item);
-	}
-
 	// execution
 	items.forEach((item, index) => {
 		const toggle = item.querySelector(
@@ -61,10 +45,16 @@
 
 		toggle.setAttribute('aria-controls', `item${index + 1}`);
 		itemPanel.setAttribute('aria-labelledby', `accordion-item${index + 1}`);
+
+		toggle.addEventListener('click', () => {
+			isOpen(item) ? closeItem(item) : openItem(item);
+		});
 	});
 
 	document.addEventListener('keydown', (event) => {
-		const item = event.target.closest('[data-module-bind="disclosure__item"]');
+		const item = (event.target as Element).closest(
+			'[data-module-bind="disclosure__item"]',
+		);
 
 		if (event.key !== 'Escape') return;
 		if (!item) return;
@@ -75,11 +65,19 @@
 	});
 
 	document.addEventListener('keydown', (event) => {
-		if (!event.target.closest('[data-module-bind="disclosure__toggle"]'))
+		if (
+			!(event.target as Element).closest(
+				'[data-module-bind="disclosure__toggle"]',
+			)
+		)
 			return;
 
-		const accordionWrapper = event.target.closest('[data-module="disclosure"]');
-		const item = event.target.closest('[data-module-bind="disclosure__item"]');
+		const accordionWrapper = (event.target as Element).closest(
+			'[data-module="disclosure"]',
+		);
+		const item = (event.target as Element).closest(
+			'[data-module-bind="disclosure__item"]',
+		);
 		const items = [
 			...accordionWrapper.querySelectorAll(
 				'[data-module-bind="disclosure__item"]',
@@ -106,8 +104,6 @@
 				.focus();
 		}
 	});
-
-	window.toggleAccordionItem = toggleAccordionItem;
 </script>
 
 <style lang="scss">

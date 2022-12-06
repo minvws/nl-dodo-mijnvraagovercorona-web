@@ -3,7 +3,6 @@ import { availableLocales, Locale } from 'src/utilities/locale/translation';
 
 import Layout from '@layouts/Layout.astro';
 import { Hero } from '@design-system/components/Hero';
-import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
 import {
 	getDataLandingSituations,
 	LandingSituationPageProps,
@@ -23,7 +22,7 @@ export async function getStaticPaths() {
 		const collection = await getDataLandingSituations({ locale });
 		return [
 			...(await paths),
-			collection.pages.map((page) => ({
+			collection.pages.map((page: LandingSituationPageProps) => ({
 				params: { landingSituation: page.slug, locale: locale.id },
 				props: {
 					pageData: page,

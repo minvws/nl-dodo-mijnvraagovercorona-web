@@ -8,13 +8,7 @@ import { Stack } from '../Layout/Stack';
 
 interface Props extends HTMLAttributes<'section'>, StoryProps {}
 
-const {
-	headline,
-	contentBlocks,
-	overview,
-	class: className,
-	...attrs
-} = Astro.props;
+const { headline, contentBlocks, overview, class: className } = Astro.props;
 ---
 
 <section

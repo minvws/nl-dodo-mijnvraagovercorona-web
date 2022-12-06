@@ -42,7 +42,7 @@ const { id, title, closeLabel = 'Sluiten' } = Astro.props;
 <script>
 	// Functions
 	// Clone templates to the body element and then remove the template
-	const transferModalToRoot = (element) => {
+	const transferModalToRoot = (element: HTMLTemplateElement) => {
 		const clone = element.content.cloneNode(true);
 		document.body.appendChild(clone);
 		element.remove();
@@ -107,7 +107,7 @@ const { id, title, closeLabel = 'Sluiten' } = Astro.props;
 		...document.querySelectorAll('[data-module-bind="modal-root"]'),
 	];
 
-	modalTemplates.forEach((modalTemplate) => {
+	modalTemplates.forEach((modalTemplate: HTMLTemplateElement) => {
 		transferModalToRoot(modalTemplate);
 	});
 

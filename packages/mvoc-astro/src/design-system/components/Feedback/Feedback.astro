@@ -110,7 +110,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 			event.preventDefault;
 		});
 
-		form.addEventListener('change', (event) => {
+		form.addEventListener('change', () => {
 			const formData = new FormData(form);
 
 			trackEvent(

@@ -2,7 +2,6 @@
 import { Mark } from 'astro-portabletext/components';
 import { Button } from '@design-system/elements/Button';
 import { Link } from '@design-system/elements/Link';
-import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
 import { ContentBlockProps } from '..';
 import ContentBlock from '../ContentBlock.astro';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
@@ -32,7 +31,6 @@ const { children, mark } = {
 } as MarkProps;
 
 const locale = getLocaleFromURL(Astro.url.pathname);
-const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 const Component = mark.button ? Button : Link;
 ---
 

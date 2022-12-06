@@ -10,7 +10,6 @@ import {
 	getDataSituationQuestions,
 } from 'src/utilities/api';
 import FormSwitch from '@modules/forms/situations/FormSwitch.astro';
-import { Heading } from '@design-system/elements/Heading';
 import { Hero } from '@design-system/components/Hero';
 import { ContentBlock } from '@design-system/components/ContentBlock';
 import { Layer } from '@design-system/components/Layout/Layer';
@@ -23,7 +22,7 @@ export async function getStaticPaths() {
 		const collection = await getDataSituationQuestions({ locale });
 		return [
 			...(await paths),
-			collection.pages.map((page) => ({
+			collection.pages.map((page: PageSituationQuestionProps) => ({
 				params: { question: page.slug, locale: locale.id },
 				props: {
 					pageData: page,

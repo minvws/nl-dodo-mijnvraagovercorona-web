@@ -46,7 +46,7 @@ export async function getStaticPaths() {
 		const { pages } = await getDataSituationAdvice({ locale });
 
 		// loop over pages
-		const newPaths = pages.map((page) => {
+		const newPaths = pages.map((page: PageSituationAdviceProps) => {
 			// Get days to generate
 			const answerShowOnDays = getShowOnDays(page.answer);
 			const planShowOnDays = getShowOnDays(page?.advice.plan);

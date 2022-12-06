@@ -28,7 +28,7 @@ const { url, message, copy } = Astro.props;
 		const message = shareButton.getAttribute('data-share-message') || '';
 		const url = shareButton.getAttribute('data-share-url') || '';
 		if ('share' in window.navigator) {
-			shareButton.addEventListener('click', (event) => {
+			shareButton.addEventListener('click', () => {
 				window.navigator
 					.share({
 						title: message,
@@ -44,7 +44,7 @@ const { url, message, copy } = Astro.props;
 			const buttonContent = shareButton.querySelector('[data-button-content]');
 			if (buttonContent) buttonContent.innerHTML = label;
 
-			shareButton.addEventListener('click', (event) => {
+			shareButton.addEventListener('click', () => {
 				navigator.clipboard.writeText(url).then(() => {
 					if (buttonContent) buttonContent.innerHTML = copied;
 				});

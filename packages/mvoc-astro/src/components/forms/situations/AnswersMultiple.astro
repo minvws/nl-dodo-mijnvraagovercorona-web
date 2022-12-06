@@ -1,5 +1,4 @@
 ---
-import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import type { Props as SubmitProps } from './Submit.astro';
 import Submit from './Submit.astro';
 import { moduleName as AnswersMultipleModuleName } from './AnswersMultiple';
@@ -26,11 +25,9 @@ export interface Props {
 		that: string;
 	};
 	assistance?: AssistanceProps;
-	// limit?: number;
 }
 
 const { answers, content, buttons, showMoreLabel, assistance } = Astro.props;
-const locale = getLocaleFromURL(Astro.url.pathname);
 
 const split = 6;
 
