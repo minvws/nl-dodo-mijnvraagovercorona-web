@@ -1,5 +1,5 @@
 # Stage 1: Build application
-FROM node:14-alpine as mvoc-build
+FROM node:16-alpine as mvoc-build
 WORKDIR /app
 
 COPY . .
