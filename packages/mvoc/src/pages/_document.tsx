@@ -33,7 +33,8 @@ class CheckDocument extends Document {
 					<Main />
 					<NextScript />
 
-					<script src="/piwik.js"></script>
+					<script src="/mouseflow.js" defer></script>
+					<script src="/piwik.js" defer></script>
 					<noscript>
 						<iframe
 							src="//statistiek.rijksoverheid.nl/containers/c754ca66-1c06-4247-ac2d-3b4efb60dcac/noscript.html"
