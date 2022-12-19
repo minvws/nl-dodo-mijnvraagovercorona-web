@@ -1,0 +1,155 @@
+---
+import { GridFluid } from '@design-system/components/Layout/Grid';
+import { Stack } from '@design-system/components/Layout/Stack';
+import { Button } from '@design-system/elements/Button';
+import { HTMLAttributes } from 'astro/types';
+import {
+	getDaySlug,
+	getShowOnDays,
+} from 'src/utilities/helpers/advice-helpers';
+import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
+import {
+	getLocaleFromURL,
+	prefixUrlWithlocale,
+} from 'src/utilities/locale/translation';
+import type { Props as SubmitProps } from './Submit.astro';
+import Submit from './Submit.astro';
+import { FieldDatePicker } from '@design-system/components/Form/FieldDatePicker';
+
+interface Props extends HTMLAttributes<'form'> {
+	buttons: SubmitProps['buttons'];
+	label: string;
+}
+
+const { class: className, label, buttons, ...attrs } = Astro.props;
+const locale = getLocaleFromURL(Astro.url.pathname);
+const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+
+let daysToGenerate = [] as number[];
+let standardSlug = '';
+
+const parsedButtons = buttons?.map((button, index) => {
+	if (index === 0 && button.standard) {
+		const answerShowOnDays = getShowOnDays(button.next.answer);
+		const planShowOnDays = getShowOnDays(button.next?.plan);
+		daysToGenerate = [...new Set(answerShowOnDays.concat(planShowOnDays))];
+		standardSlug = button.next.slug;
+	}
+	return index === 0 && button.standard
+		? {
+				...button,
+				disabled: true,
+		  }
+		: {
+				...button,
+		  };
+});
+---
+
+<form
+	method="get"
+	class={`c-answers-date${className ? ` | ${className}` : ''}`}
+	{...attrs}
+	data-module="answers-date"
+	data-locale={locale.locale}
+	data-max-days={daysToGenerate.length}
+>
+	<Stack>
+		<FieldDatePicker label={label} id="date">
+			{
+				daysToGenerate.length ? (
+					<GridFluid>
+						{daysToGenerate.map((day, index) => (
+							<Button
+								href={prefixUrlWithlocale(
+									getDaySlug({ slug: standardSlug, day }),
+									locale,
+								)}
+								variant="tertiary"
+								icon="chevron-small-right"
+								data-day={
+									day === 0 || index === daysToGenerate.length - 1
+										? undefined
+										: day
+								}
+								full
+							>
+								{day === 0
+									? siteSettings.today
+									: index === daysToGenerate.length - 1
+									? `${siteSettings.moreThan} ${day - 1} ${
+											siteSettings.dayPlural.that
+									  } ${siteSettings.ago}`
+									: day === 1
+									? `${day} ${siteSettings.dayPlural.this} ${siteSettings.ago}`
+									: `${day} ${siteSettings.dayPlural.that} ${siteSettings.ago}`}
+							</Button>
+						))}
+					</GridFluid>
+				) : null
+			}
+		</FieldDatePicker>
+
+		<Submit buttons={parsedButtons} />
+	</Stack>
+</form>
+
+<script>
+	import { subDays, differenceInCalendarDays } from 'date-fns';
+	import { getDaySlug } from 'src/utilities/helpers/advice-helpers';
+	import { formatDate } from 'src/utilities/locale/date';
+
+	const today = new Date();
+	const parent = document.querySelector(
+		'[data-module="answers-date"]',
+	) as HTMLFormElement;
+
+	if (parent) {
+		const locale = parent.getAttribute('data-locale');
+		const maxDays = parseInt(parent.getAttribute('data-max-days'));
+		const submitButton = parent.querySelector(
+			'button[type="submit"]',
+		) as HTMLButtonElement;
+		const selectionButtons = parent.querySelectorAll('[data-day]');
+
+		[...selectionButtons].forEach((button) => {
+			const day = parseInt(button.getAttribute('data-day'));
+			const inner = button.querySelector('[data-button-content]');
+			inner.innerHTML = formatDate(subDays(today, day), locale);
+		});
+
+		// Configure datepicker & events
+		if ('customElements' in window) {
+			let day = 0;
+
+			const picker = document.querySelector('duet-date-picker');
+
+			picker.setAttribute(
+				'max',
+				`${today.getFullYear()}-${`0${today.getMonth() + 1}`.slice(
+					-2,
+				)}-${`0${today.getDate()}`.slice(-2)}`,
+			);
+
+			picker.addEventListener('duetChange', (event: any) => {
+				const diff = differenceInCalendarDays(event.detail.valueAsDate, today);
+				day = diff < 0 ? (Math.abs(diff) < maxDays ? diff : -(maxDays - 1)) : 0;
+				diff < 1
+					? (submitButton.disabled = false)
+					: (submitButton.disabled = true);
+			});
+
+			parent.addEventListener('submit', (event) => {
+				const formData = new FormData(parent);
+				event.preventDefault();
+				if (formData.get('date')) {
+					const url = getDaySlug({
+						slug: submitButton.getAttribute('formaction'),
+						day: Math.abs(day),
+					});
+					(window as Window).location = url;
+				}
+			});
+		}
+	}
+</script>

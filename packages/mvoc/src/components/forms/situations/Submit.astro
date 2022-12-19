@@ -1,0 +1,93 @@
+---
+import { Button } from '@design-system/elements/Button';
+import { Modal } from '@design-system/components/Modal';
+import {
+	getLocaleFromURL,
+	prefixUrlWithlocale,
+} from 'src/utilities/locale/translation';
+import { AssistanceProps } from 'src/utilities/api/queries/assistance';
+import { Assistance } from '@design-system/components/Assistance';
+
+export interface Props {
+	buttons: {
+		_key: string;
+		standard: boolean;
+		assistanceDialog: boolean;
+		text: string;
+		next: {
+			type: string;
+			slug: string;
+			answer?: {
+				showOn?: Array<number>;
+			}[];
+			plan?: {
+				showOn?: Array<number>;
+				day?: number;
+			}[];
+		};
+		disabled?: boolean;
+	}[];
+	assistance?: AssistanceProps;
+}
+
+const { buttons, assistance } = Astro.props;
+const locale = getLocaleFromURL(Astro.url.pathname);
+---
+
+<div class="c-submit">
+	{
+		buttons.map((button, index) =>
+			button.standard ? (
+				<Button
+					type="submit"
+					disabled={button.disabled}
+					formaction={
+						button.next && button.next.slug
+							? prefixUrlWithlocale(button.next.slug, locale)
+							: undefined
+					}
+					variant={index === 0 ? 'primary' : 'secondary'}
+				>
+					{button.text}
+				</Button>
+			) : button.assistanceDialog && assistance && assistance.headline ? (
+				<>
+					<Button
+						id="assistance-dialog"
+						variant={index === 0 ? 'primary' : 'secondary'}
+					>
+						{button.text}
+					</Button>
+					<Modal id="assistance-dialog" title={assistance.headline}>
+						<Assistance inDialog {...assistance} />
+					</Modal>
+				</>
+			) : (
+				<Button
+					href={prefixUrlWithlocale(button.next.slug, locale)}
+					variant={index === 0 ? 'primary' : 'secondary'}
+				>
+					{button.text}
+				</Button>
+			),
+		)
+	}
+</div>
+
+<style lang="scss">
+	.c-submit {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--stack-small);
+		justify-content: flex-start;
+		align-items: center;
+		flex-direction: row-reverse;
+
+		// adjust buttons
+		> * {
+			flex: 1;
+			max-inline-size: calc(50% - var(--stack-small) / 2);
+			justify-content: center;
+		}
+	}
+</style>

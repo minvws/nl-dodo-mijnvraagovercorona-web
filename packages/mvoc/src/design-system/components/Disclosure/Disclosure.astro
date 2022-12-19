@@ -1,0 +1,114 @@
+<ul class="disclosure" role="list" data-module="disclosure">
+	<slot />
+</ul>
+
+<script>
+	// variables
+	const items = [
+		...document.querySelectorAll('[data-module-bind="disclosure__item"]'),
+	];
+
+	const openItem = (item) => {
+		const toggle = item.querySelector(
+			'[data-module-bind="disclosure__toggle"]',
+		);
+
+		item.classList.add('is-active');
+		toggle.setAttribute('aria-expanded', true);
+	};
+
+	const closeItem = (item) => {
+		const toggle = item.querySelector(
+			'[data-module-bind="disclosure__toggle"]',
+		);
+
+		item.classList.remove('is-active');
+		toggle.focus();
+		toggle.setAttribute('aria-expanded', false);
+	};
+
+	const isOpen = (item) => {
+		return item.classList.contains('is-active');
+	};
+
+	// execution
+	items.forEach((item, index) => {
+		const toggle = item.querySelector(
+			'[data-module-bind="disclosure__toggle"]',
+		);
+		const itemPanel = item.querySelector(
+			'[data-module-bind="disclosure__panel"]',
+		);
+
+		toggle.setAttribute('id', `accordion-item${index + 1}`);
+		itemPanel.setAttribute('id', `item${index + 1}`);
+
+		toggle.setAttribute('aria-controls', `item${index + 1}`);
+		itemPanel.setAttribute('aria-labelledby', `accordion-item${index + 1}`);
+
+		toggle.addEventListener('click', () => {
+			isOpen(item) ? closeItem(item) : openItem(item);
+		});
+	});
+
+	document.addEventListener('keydown', (event) => {
+		const item = (event.target as Element).closest(
+			'[data-module-bind="disclosure__item"]',
+		);
+
+		if (event.key !== 'Escape') return;
+		if (!item) return;
+
+		if (isOpen(item)) {
+			closeItem(item);
+		}
+	});
+
+	document.addEventListener('keydown', (event) => {
+		if (
+			!(event.target as Element).closest(
+				'[data-module-bind="disclosure__toggle"]',
+			)
+		)
+			return;
+
+		const accordionWrapper = (event.target as Element).closest(
+			'[data-module="disclosure"]',
+		);
+		const item = (event.target as Element).closest(
+			'[data-module-bind="disclosure__item"]',
+		);
+		const items = [
+			...accordionWrapper.querySelectorAll(
+				'[data-module-bind="disclosure__item"]',
+			),
+		];
+		const index = items.findIndex((element) => element === item);
+
+		const { key } = event;
+
+		let targetItem;
+
+		if (key === 'ArrowDown') {
+			targetItem = items[index + 1];
+		}
+
+		if (key === 'ArrowUp') {
+			targetItem = items[index - 1];
+		}
+
+		if (targetItem) {
+			event.preventDefault();
+			targetItem
+				.querySelector('[data-module-bind="disclosure__toggle"]')
+				.focus();
+		}
+	});
+</script>
+
+<style lang="scss">
+	.disclosure {
+		list-style: none;
+		padding: 0;
+	}
+</style>

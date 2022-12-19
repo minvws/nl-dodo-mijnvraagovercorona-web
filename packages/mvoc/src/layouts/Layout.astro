@@ -1,0 +1,74 @@
+---
+import { Sprite } from 'astro-icon';
+import MetaData from 'src/components/MetaData.astro';
+import {
+	MetaDataProps,
+	SiteSettingsProps,
+	useSiteSettings,
+} from 'src/utilities/api/queries';
+import { availableLocales, Locale } from 'src/utilities/locale/translation';
+
+import '@design-system/globals.scss';
+import { Masthead, SkipLink } from '@design-system/components/Masthead';
+import { LocaleSelector } from '@design-system/components/LocaleSelector';
+import { MastFoot } from '@design-system/components/MastFoot';
+
+export interface Props {
+	locale: Locale;
+	metaData: MetaDataProps;
+	skipPageSuffix?: boolean;
+	mastheadHighlight?: boolean;
+}
+
+const { locale, metaData, skipPageSuffix, mastheadHighlight } = Astro.props;
+const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+---
+
+<!DOCTYPE html>
+<html lang={locale.id}>
+	<head>
+		<MetaData {...metaData} locale={locale} skipPageSuffix={skipPageSuffix} />
+		<style lang="scss" is:global>
+			:where(body) {
+				display: flex;
+				flex-direction: column;
+			}
+			:where(main) {
+				flex: 1;
+			}
+		</style>
+	</head>
+	<body>
+		<Sprite.Provider>
+			<Masthead
+				logoUrl={locale.urlPrefix}
+				logoAlt={siteSettings.header.logoAlt}
+				highlight={mastheadHighlight}
+			>
+				<SkipLink label={siteSettings.header.skipLink} slot="start" />
+				<slot name="back" slot="start" />
+				<LocaleSelector
+					locales={availableLocales}
+					currentLocale={locale}
+					labelChange={siteSettings.header.localeSelector.change}
+					labelCurrent={siteSettings.header.localeSelector.current}
+					slot="end"
+				/>
+			</Masthead>
+			<main id="content">
+				<slot />
+			</main>
+			<MastFoot locale={locale} />
+		</Sprite.Provider>
+
+		<script src="/scripts/mouseflow.js" is:inline defer></script>
+		<script src="/scripts/piwik.js" is:inline defer></script>
+		<noscript>
+			<iframe
+				src="//statistiek.rijksoverheid.nl/containers/c754ca66-1c06-4247-ac2d-3b4efb60dcac/noscript.html"
+				height="0"
+				width="0"
+				style={{ border: '0', display: 'none', visibility: 'hidden' }}></iframe>
+		</noscript>
+	</body>
+</html>

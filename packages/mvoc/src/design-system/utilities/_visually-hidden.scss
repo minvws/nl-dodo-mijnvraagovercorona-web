@@ -1,0 +1,21 @@
+/* ==========================================================================
+		utilities.visually-hidden
+/ =========================================================================== */
+
+@use '../tools/a11y';
+
+.u-visually-hidden {
+	@include a11y.visually-hidden;
+}
+
+.focus\:not-visually-hidden:focus,
+.focus\:not-visually-hidden:focus-visible {
+	position: static;
+	width: auto;
+	height: auto;
+	padding: 0;
+	margin: 0;
+	overflow: visible;
+	clip: auto;
+	white-space: normal;
+}

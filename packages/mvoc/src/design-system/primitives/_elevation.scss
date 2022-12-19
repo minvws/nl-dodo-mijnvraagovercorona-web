@@ -1,0 +1,9 @@
+/* ==========================================================================
+		primitives.elevation
+/ =========================================================================== */
+
+:where(html) {
+	// focusring
+	--elevation-focusring: 2px solid var(--theme-focusring);
+	--elevation-frost: 0px 2px 8px rgba(0, 0, 0, 0.2);
+}

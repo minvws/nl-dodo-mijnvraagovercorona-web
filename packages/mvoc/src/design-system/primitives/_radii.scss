@@ -1,0 +1,20 @@
+/* ==========================================================================
+		primitives.radii
+		All kinds of standard border radii
+/ =========================================================================== */
+
+@use './responsive';
+
+:where(html) {
+	--radii-nano: var(--space-r-nano);
+	--radii-milli: var(--space-r-milli);
+	--radii-tiny: var(--space-r-tiny);
+	--radii-small: var(--space-r-small);
+	--radii-base: var(--space-r-base);
+	--radii-large: var(--space-r-large);
+	--radii-huge: var(--space-r-small);
+
+	@media --mq-large {
+		--radii-huge: var(--space-r-large);
+	}
+}

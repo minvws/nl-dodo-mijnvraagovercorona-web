@@ -49,6 +49,11 @@ export default {
 				document?.type !== 'age',
 		},
 		{
+			title: 'Label',
+			name: 'label',
+			type: 'localeString',
+		},
+		{
 			title: 'Antwoorden',
 			name: 'answersSingle',
 			type: 'array',

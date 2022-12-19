@@ -1,0 +1,102 @@
+---
+import type { Props as SubmitProps } from './Submit.astro';
+import Submit from './Submit.astro';
+import { moduleName as AnswersMultipleModuleName } from './AnswersMultiple';
+import { Control } from '@design-system/elements/Control';
+import { Stack } from '@design-system/components/Layout/Stack';
+import {
+	Disclosure,
+	DisclosureItem,
+} from '@design-system/components/Disclosure';
+import { ContentStreamProps } from '@design-system/components/ContentStream/ContentStream.astro';
+import { ContentStream } from '@design-system/components/ContentStream';
+import { AssistanceProps } from 'src/utilities/api/queries/assistance';
+
+export interface Props {
+	answers: {
+		_key: string;
+		content: string;
+		checked?: boolean;
+	}[];
+	buttons: SubmitProps['buttons'];
+	content: ContentStreamProps;
+	showMoreLabel: {
+		this: string;
+		that: string;
+	};
+	assistance?: AssistanceProps;
+}
+
+const { answers, content, buttons, showMoreLabel, assistance } = Astro.props;
+
+const split = 6;
+
+// Split items into 2 groups
+const firstGroup = answers.slice(0, split ? split : answers.length);
+const secondGroup = answers.slice(
+	split ? split : answers.length,
+	answers.length,
+);
+
+const parsedButtons = buttons?.map((button, index) =>
+	index === 0 && button.standard
+		? { ...button, disabled: true }
+		: {
+				...button,
+		  },
+);
+---
+
+<form method="get" data-module={AnswersMultipleModuleName}>
+	<Stack>
+		<ContentStream {...content} />
+		<div>
+			<Stack gap="small">
+				<Stack gap="small">
+					{
+						firstGroup.map(({ content, _key }) => (
+							<Control
+								type="checkbox"
+								name={AnswersMultipleModuleName}
+								id={_key}
+								value={content}
+								variant="tile"
+							>
+								{content}
+							</Control>
+						))
+					}
+				</Stack>
+				<Disclosure>
+					<DisclosureItem
+						label={showMoreLabel.this}
+						labelActive={showMoreLabel.that}
+					>
+						<Stack gap="small">
+							{
+								secondGroup.map(({ content, _key }) => (
+									<Control
+										type="checkbox"
+										name={AnswersMultipleModuleName}
+										id={_key}
+										value={content}
+										variant="tile"
+									>
+										{content}
+									</Control>
+								))
+							}
+						</Stack>
+					</DisclosureItem>
+				</Disclosure>
+			</Stack>
+		</div>
+
+		<Submit buttons={parsedButtons} assistance={assistance} />
+	</Stack>
+</form>
+
+<script>
+	import { initAnswersMultiple } from './AnswersMultiple';
+	initAnswersMultiple();
+</script>

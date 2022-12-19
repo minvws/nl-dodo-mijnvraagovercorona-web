@@ -1,0 +1,69 @@
+---
+import Layout from '@layouts/Layout.astro';
+import {
+	availableLocales,
+	getLocaleFromURL,
+	Locale,
+} from 'src/utilities/locale/translation';
+import {
+	PageSituationQuestionProps,
+	getDataSituationQuestions,
+} from 'src/utilities/api';
+import FormSwitch from '@modules/forms/situations/FormSwitch.astro';
+import { Hero } from '@design-system/components/Hero';
+import { ContentBlock } from '@design-system/components/ContentBlock';
+import { Layer } from '@design-system/components/Layout/Layer';
+import { Retain } from '@design-system/components/Layout/Retain';
+import { Sidebar } from '@design-system/components/Layout/Sidebar';
+import { CardPrivacy } from '@design-system/components/Card';
+
+export async function getStaticPaths() {
+	return await availableLocales.reduce(async (paths, locale) => {
+		const collection = await getDataSituationQuestions({ locale });
+		return [
+			...(await paths),
+			collection.pages.map((page: PageSituationQuestionProps) => ({
+				params: { question: page.slug, locale: locale.id },
+				props: {
+					pageData: page,
+				},
+			})),
+		];
+	}, Promise.resolve([]));
+}
+
+interface Props {
+	pageData: PageSituationQuestionProps;
+	locale: Locale;
+}
+
+const { pageData } = Astro.props;
+const locale = getLocaleFromURL(Astro.url.pathname);
+---
+
+<Layout locale={locale} metaData={pageData.metaData}>
+	<Hero title={pageData.header.title}>
+		<ContentBlock value={pageData.header.content} />
+	</Hero>
+
+	<Layer>
+		<Retain>
+			<Sidebar>
+				<Retain variant="text">
+					<FormSwitch
+						showMore={pageData.showMore}
+						type={pageData.type}
+						answersSingle={pageData.answersSingle}
+						answersMultiple={pageData.answersMultiple}
+						buttons={pageData.buttons}
+						content={pageData.content}
+						assistance={pageData.assistance}
+						label={pageData.label}
+					/>
+				</Retain>
+
+				<CardPrivacy slot="aside" />
+			</Sidebar>
+		</Retain>
+	</Layer>
+</Layout>

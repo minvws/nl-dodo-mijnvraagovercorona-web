@@ -1,0 +1,29 @@
+---
+import { Stack } from '@design-system/components/Layout/Stack';
+---
+
+<div class="c-steps">
+	<Stack>
+		<slot />
+	</Stack>
+</div>
+
+<style lang="scss">
+	.c-steps {
+		:global(:where(.c-card)) {
+			position: relative;
+		}
+
+		:global(:where(.c-card + .c-card)::before) {
+			--card-steps-spacing: var(--stack-gap);
+			position: absolute;
+			inset-block-start: calc(var(--card-steps-spacing) * -1 - 1px);
+			inset-inline-start: calc(50% - 1px);
+			z-index: -1;
+			block-size: var(--card-steps-spacing);
+			inline-size: 2px;
+			background-color: var(--card-border-color);
+			content: '';
+		}
+	}
+</style>

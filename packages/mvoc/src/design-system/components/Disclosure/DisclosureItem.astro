@@ -1,0 +1,100 @@
+---
+import { Icon } from '@design-system/elements/Icon';
+
+type Props = {
+	label: string;
+	labelActive?: string;
+	headingLevel?: 1 | 2 | 3 | 4 | 5 | 6;
+};
+const { label, labelActive, headingLevel = 3 } = Astro.props;
+// TODO fix any
+const HeadingElement = `h${headingLevel}` as any;
+---
+
+<li class="disclosure__item" data-module-bind="disclosure__item">
+	<HeadingElement class="disclosure__heading">
+		<button
+			type="button"
+			id="disclosure-header-1"
+			class="disclosure__toggle"
+			aria-expanded="false"
+			aria-controls="disclosure-panel-1"
+			data-module-bind="disclosure__toggle"
+		>
+			<Icon name="plus" class="disclosure__show-inactive" />
+			<Icon name="minus" class="disclosure__show-active" />
+			<span class={labelActive ? 'disclosure__show-inactive' : undefined}
+				>{label}
+			</span>
+			{
+				labelActive ? (
+					<span class="disclosure__show-active">{labelActive}</span>
+				) : null
+			}
+		</button>
+	</HeadingElement>
+	<div
+		id="disclosure-panel-1"
+		role="region"
+		class="disclosure__panel"
+		data-module-bind="disclosure__panel"
+		aria-labelledby="disclosure-header-1"
+	>
+		<div
+			class="disclosure__panel-inner"
+			data-module-bind="disclosure__panel-inner"
+		>
+			<slot />
+		</div>
+	</div>
+</li>
+
+<style lang="scss">
+	.disclosure__heading {
+		--heading-font-size: var(--font-size-gamma);
+		--heading-line-height: var(--line-height-gamma);
+		font-weight: normal;
+	}
+	.disclosure__item,
+	.disclosure__toggle {
+		width: 100%;
+	}
+
+	.disclosure__toggle {
+		display: flex;
+		align-items: center;
+		gap: var(--space-r-tiny);
+		color: var(--color-accent-robijnrood);
+		cursor: pointer;
+
+		&:focus {
+			outline: var(--elevation-focusring);
+		}
+	}
+
+	.disclosure__show-inactive {
+	}
+	.disclosure__show-active {
+		display: none;
+	}
+
+	.disclosure__panel {
+		display: none;
+	}
+
+	.disclosure__panel-inner {
+		padding-block-start: var(--space-r-small);
+	}
+
+	.disclosure__item.is-active {
+		.disclosure__panel {
+			display: block;
+		}
+		.disclosure__show-inactive {
+			display: none;
+		}
+		.disclosure__show-active {
+			display: block;
+		}
+	}
+</style>

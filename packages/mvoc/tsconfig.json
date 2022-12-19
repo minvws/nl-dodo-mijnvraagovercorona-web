@@ -1,15 +1,14 @@
 {
-  "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "baseUrl": "./src",
-    "jsx": "preserve"
-  },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+	"extends": "astro/tsconfigs/base",
+	"compilerOptions": {
+		"baseUrl": ".",
+		"moduleResolution": "node",
+		"experimentalDecorators": true,
+		"paths": {
+			"@design-system/*": ["./src/design-system/*"],
+			"@modules/*": ["./src/components/*"],
+			"@layouts/*": ["./src/layouts/*"]
+		}
+	},
+	"exclude": ["**/node_modules", "**/dist"]
 }

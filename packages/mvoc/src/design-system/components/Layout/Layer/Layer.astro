@@ -1,0 +1,57 @@
+---
+import { Colors } from '@design-system/utilities/color';
+import { HTMLAttributes } from 'astro/types';
+interface Props extends HTMLAttributes<'div' | 'section' | 'footer'> {
+	as?: 'div' | 'section' | 'footer';
+	pullUpBy?: 'layer' | 'hero';
+	background?: Colors;
+}
+
+const {
+	as = 'section',
+	pullUpBy,
+	background,
+	id,
+	class: className,
+	...attrs
+} = Astro.props;
+
+const Component = as;
+---
+
+<Component
+	id={id}
+	class={`c-layer${pullUpBy ? ` c-layer--pull-up-by-${pullUpBy}` : ''}${
+		background ? ` | u-background--${background}` : ''
+	}${className ? ` | ${className}` : ''}`}
+	{...attrs}
+>
+	<slot />
+</Component>
+
+<style lang="scss">
+	@use '@design-system-styles/primitives/_responsive.scss';
+	.c-layer {
+		--layer-padding: var(--stack-layer);
+		--layer-padding-block-start: var(--layer-padding);
+		--layer-padding-block-end: var(--layer-padding);
+		padding-block-start: var(--layer-padding-block-start);
+		padding-block-end: var(--layer-padding-block-end);
+	}
+
+	[class*='c-layer--pull-up-by'] {
+		--layer-pull-up: 0px;
+		padding-block-start: calc(
+			var(--layer-padding-block-start) + var(--layer-pull-up)
+		);
+		margin-block-start: calc(var(--layer-pull-up) * -1);
+	}
+
+	.c-layer--pull-up-by-layer {
+		--layer-pull-up: var(--stack-layer);
+	}
+
+	.c-layer--pull-up-by-hero {
+		--layer-pull-up: var(--stack-hero);
+	}
+</style>

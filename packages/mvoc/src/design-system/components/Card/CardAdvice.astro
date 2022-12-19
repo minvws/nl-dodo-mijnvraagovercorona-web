@@ -1,0 +1,20 @@
+---
+import { Heading } from '@design-system/elements/Heading';
+import { Stack } from '@design-system/components/Layout/Stack';
+import { Card } from '.';
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<Card variant="filled">
+	<Stack gap="small">
+		<Heading level={2}>
+			{title ? <span>{title}</span> : null}
+		</Heading>
+		<slot />
+	</Stack>
+</Card>

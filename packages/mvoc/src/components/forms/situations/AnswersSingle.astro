@@ -1,0 +1,69 @@
+---
+import {
+	ContentBlock,
+	ContentBlockProps,
+} from '@design-system/components/ContentBlock';
+import { getLocaleFromURL } from 'src/utilities/locale/translation';
+import type { Props as SubmitProps } from './Submit.astro';
+import { moduleName as AnswersSingleModuleName } from './AnswersSingle';
+import Submit from './Submit.astro';
+import { Control } from '@design-system/elements/Control';
+import { Stack } from '@design-system/components/Layout/Stack';
+import { ContentStream } from '@design-system/components/ContentStream';
+import type { ContentStreamProps } from '@design-system/components/ContentStream/ContentStream.astro';
+import { AssistanceProps } from 'src/utilities/api/queries/assistance';
+
+export interface Props {
+	answers: {
+		content: ContentBlockProps['value'];
+		next: string;
+		_key: string;
+	}[];
+	buttons: SubmitProps['buttons'];
+	content: ContentStreamProps;
+	assistance?: AssistanceProps;
+}
+
+const { answers, buttons, content, assistance } = Astro.props;
+const locale = getLocaleFromURL(Astro.url.pathname);
+
+const parsedButtons = buttons?.map((button, index) =>
+	index === 0 && button.standard
+		? {
+				...button,
+				disabled: true,
+		  }
+		: {
+				...button,
+		  },
+);
+---
+
+<form method="get" data-module={AnswersSingleModuleName}>
+	<Stack>
+		<ContentStream {...content} />
+		<div>
+			<Stack gap="small">
+				{
+					answers.map(({ content, next, _key }) => (
+						<Control
+							type="radio"
+							name={AnswersSingleModuleName}
+							id={_key}
+							value={`${locale.urlPrefix}/${next}` || ''}
+							variant="tile"
+						>
+							<ContentBlock value={content} />
+						</Control>
+					))
+				}
+			</Stack>
+		</div>
+		<Submit buttons={parsedButtons} assistance={assistance} />
+	</Stack>
+</form>
+
+<script>
+	import { initAnswersSingle } from './AnswersSingle';
+	initAnswersSingle();
+</script>

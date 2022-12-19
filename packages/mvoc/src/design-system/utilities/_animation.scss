@@ -1,0 +1,24 @@
+/* ==========================================================================
+		utilities.animation
+/ =========================================================================== */
+
+.u-animation-interaction--swing {
+	&:hover,
+	&:focus {
+		--u-animation-subscribe: var(--animation-swing);
+	}
+}
+
+.u-animation-interaction--bounce {
+	&:hover,
+	&:focus {
+		--u-animation-subscribe: var(--animation-bounce);
+	}
+}
+
+.u-animation-interaction--rotate {
+	&:hover,
+	&:focus {
+		--u-animation-subscribe: var(--animation-rotate);
+	}
+}

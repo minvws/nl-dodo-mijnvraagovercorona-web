@@ -1,0 +1,20 @@
+/* ==========================================================================
+		utilities.stack
+/ =========================================================================== */
+
+$spacings: (
+	'nano',
+	'milli',
+	'tiny',
+	'small',
+	'base',
+	'large',
+	'huge',
+	'humongous'
+);
+
+@each $space in $spacings {
+	.u-stack--#{$space} {
+		--stack: var(--stack-#{$space});
+	}
+}

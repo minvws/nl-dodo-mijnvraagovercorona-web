@@ -3,30 +3,31 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "yarn run download-images && yarn run download-content-variables && next dev",
-		"preview": "yarn run download-images && yarn run download-content-variables && next build",
-		"build": "yarn run download-images && next build && next-sitemap && next export",
-		"download-images": "node ./downloadSanityImages.js",
-		"download-content-variables": "node ./downloadLatestContentVariables.js",
-		"start": "NODE_ENV=production next start",
-		"test": "true"
-	},
-	"browserslist": [
-		"> 0.5% in NL",
-		"last 2 versions",
-		"Firefox ESR",
-		"not dead",
-		"edge <= 42"
-	],
-	"dependencies": {
-		"date-fns": "^2.29.3",
-		"next": "12.3.0",
-		"next-sanity": "^0.8.4",
-		"theme-ui": "^0.14.7"
+		"dev": "yarn files && astro dev",
+		"start": "astro dev",
+		"build": "yarn files && astro build",
+		"test": "astro check",
+		"files:download-sanity-images": "node ./scripts/download-sanity-images.js",
+		"files": "yarn files:download-sanity-images"
 	},
 	"devDependencies": {
-		"next-sitemap": "^3.1.22",
-		"next-transpile-modules": "^9.0.0",
-		"typescript": "^4.8.3"
+		"@astrojs/sitemap": "^1.0.0",
+		"astro": "^1.6.13",
+		"astro-compress": "^1.1.18",
+		"astro-icon": "^0.8.0",
+		"astro-portabletext": "^0.7.0",
+		"astro-sanity": "^1.0.0",
+		"browserslist-to-esbuild": "^1.2.0",
+		"dotenv": "^16.0.3",
+		"fs-extra": "^11.1.0",
+		"got": "^11.8.5",
+		"postcss-custom-media": "^8.0.2",
+		"sass": "^1.56.1",
+		"slugify": "^1.6.5",
+		"svgo": "^2.8.0",
+		"typescript": "^4.9.3"
+	},
+	"dependencies": {
+		"@duetds/date-picker": "^1.4.0"
 	}
 }

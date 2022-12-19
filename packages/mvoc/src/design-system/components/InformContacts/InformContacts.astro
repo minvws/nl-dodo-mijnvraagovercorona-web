@@ -1,0 +1,159 @@
+---
+import { Heading } from '@design-system/elements/Heading';
+import { ContentBlock } from '@design-system/components/ContentBlock';
+import { HTMLAttributes } from 'astro/types';
+import { InformContactsProps } from 'src/utilities/api';
+import { Stack } from '@design-system/components/Layout/Stack';
+import { ShareButton } from '@design-system/elements/ShareButton';
+
+interface Props extends HTMLAttributes<'section'> {
+	content: InformContactsProps;
+}
+
+const {
+	content: { title, preButtonContent, steps, buttons },
+	class: className,
+	...attrs
+} = Astro.props;
+
+const currentUrl = Astro.url.toString();
+---
+
+<section
+	class={`c-inform-contacts${className ? ` | ${className}` : ''}`}
+	{...attrs}
+>
+	<Stack>
+		<Heading>{title}</Heading>
+		{
+			steps ? (
+				<ol class="c-inform-contacts__steps" role="list">
+					{steps.map((step) => (
+						<li>
+							<Stack>
+								<Heading class="u-color--accent-robijnrood" level={3}>
+									{step.title}
+								</Heading>
+								<ContentBlock value={step.content} />
+								{step.points ? (
+									<ul class="c-inform-contacts__points" role="list">
+										{step.points.map((point) => (
+											<li>
+												<Heading level={4}>{point.title}</Heading>
+												<ContentBlock value={point.content} />
+											</li>
+										))}
+									</ul>
+								) : null}
+							</Stack>
+						</li>
+					))}
+				</ol>
+			) : null
+		}
+		{preButtonContent ? <ContentBlock value={preButtonContent} /> : null}
+
+		<ShareButton
+			url={currentUrl}
+			message={buttons.shareButton.message}
+			copy={{
+				label: buttons.copyButton.label,
+				labelCopied: buttons.copyButton.labelCopied,
+			}}
+		>
+			{buttons.shareButton.label}
+		</ShareButton>
+	</Stack>
+</section>
+
+<style lang="scss">
+	@use '@design-system-styles/primitives/_responsive.scss';
+
+	.c-inform-contacts {
+		--step-bullet-size: 1.4736842105rem; // 28px
+		--step-color: var(--color-accent-robijnrood);
+		--step-line-size: 2px;
+
+		--point-bullet-size: var(--space-r-tiny);
+		--point-color: var(--color-donkerblauw);
+
+		@media --mq-large {
+			--step-bullet-size: 1.4rem; // 28px
+		}
+	}
+
+	.c-inform-contacts__steps,
+	.c-inform-contacts__points {
+		> li:not(:first-of-type) {
+			margin-block-start: var(--space-r-base);
+		}
+	}
+
+	.c-inform-contacts__steps {
+		counter-reset: steps-list;
+
+		> li {
+			position: relative;
+			padding-inline-start: var(--space-r-gaint);
+			counter-increment: steps-list;
+
+			&::before {
+				position: absolute;
+				inline-size: var(--step-line-size);
+				background-color: var(--step-color);
+				inset-block-start: var(--step-bullet-size);
+				inset-block-end: calc(var(--step-bullet-size) * -1);
+				inset-inline-start: calc(
+					(var(--step-bullet-size) / 2) - (var(--step-line-size) / 2)
+				);
+				content: '';
+			}
+
+			&::after {
+				position: absolute;
+				inset-block-start: 0;
+				inset-inline-start: 0;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				inline-size: var(--step-bullet-size);
+				block-size: var(--step-bullet-size);
+				border-radius: 50%;
+				background-color: var(--step-color);
+				color: var(--color-white);
+				font-size: var(--font-size-milli);
+				line-height: var(--line-height-milli);
+				font-weight: bold;
+				content: counter(steps-list);
+			}
+
+			&:last-of-type {
+				&::before {
+					content: none;
+				}
+			}
+		}
+	}
+
+	.c-inform-contacts__points {
+		> li {
+			position: relative;
+			padding-inline-start: var(--space-r-base);
+
+			&::before {
+				position: absolute;
+				// align bullet with lineheid of heading
+				inset-block-start: calc(
+					(var(--line-height-gamma) / 2 * 1rem) - var(--point-bullet-size) / 2
+				);
+				inset-inline-start: 0;
+				display: block;
+				block-size: var(--point-bullet-size);
+				inline-size: var(--point-bullet-size);
+				border-radius: 50%;
+				background-color: var(--point-color);
+				content: '';
+			}
+		}
+	}
+</style>

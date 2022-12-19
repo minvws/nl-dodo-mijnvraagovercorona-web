@@ -1,0 +1,39 @@
+---
+import { Mark } from 'astro-portabletext/components';
+import { Button } from '@design-system/elements/Button';
+import { Link } from '@design-system/elements/Link';
+import { ContentBlockProps } from '..';
+import ContentBlock from '../ContentBlock.astro';
+import { getLocaleFromURL } from 'src/utilities/locale/translation';
+
+type Props = Parameters<typeof Mark>[0];
+
+interface MarkProps {
+	children: ContentBlockProps['value'];
+	type: string;
+	node?: {
+		style: string;
+	};
+	mark?: {
+		href: string;
+		chevron?: boolean;
+		internal?: boolean;
+		button?: boolean;
+	};
+}
+
+const props = Astro.props;
+
+const { children, mark } = {
+	children: props.node.children,
+	mark: props.node.markDef,
+	type: props.node.markType,
+} as MarkProps;
+
+const locale = getLocaleFromURL(Astro.url.pathname);
+const Component = mark.button ? Button : Link;
+---
+
+<Component href={mark.href ? mark.href : undefined} external={!mark?.internal}>
+	<ContentBlock value={children} />
+</Component>

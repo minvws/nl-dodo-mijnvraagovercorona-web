@@ -58,6 +58,23 @@ export default {
 					name: 'skipLink',
 					type: 'localeString',
 				},
+				{
+					title: 'Taal selector',
+					name: 'localeSelector',
+					type: 'object',
+					fields: [
+						{
+							title: 'Wissel van taal',
+							name: 'change',
+							type: 'localeString',
+						},
+						{
+							title: 'Huidige taal',
+							name: 'current',
+							type: 'localeString',
+						},
+					],
+				},
 			],
 		},
 		{
@@ -197,6 +214,23 @@ export default {
 					name: 'url',
 					type: 'localeString',
 				},
+				{
+					title: 'labels',
+					name: 'labels',
+					type: 'object',
+					fields: [
+						{
+							title: 'Ja',
+							name: 'like',
+							type: 'localeString',
+						},
+						{
+							title: 'Nee',
+							name: 'dislike',
+							type: 'localeString',
+						},
+					],
+				},
 			],
 		},
 		{
@@ -330,6 +364,31 @@ export default {
 					type: 'localeString',
 				},
 			],
+		},
+		{
+			title: 'Over',
+			name: 'in',
+			type: 'localeString',
+		},
+		{
+			title: 'Dag',
+			name: 'dayPlural',
+			type: 'thisOrThatLocaleString',
+		},
+		{
+			title: 'Geleden',
+			name: 'ago',
+			type: 'localeString',
+		},
+		{
+			title: 'Vandaag',
+			name: 'today',
+			type: 'localeString',
+		},
+		{
+			title: 'Meer dan',
+			name: 'moreThan',
+			type: 'localeString',
 		},
 		{
 			title: 'Laatst bijgewerkt',
