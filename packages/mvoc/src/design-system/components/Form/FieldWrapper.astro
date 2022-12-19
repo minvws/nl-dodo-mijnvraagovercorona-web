@@ -1,0 +1,28 @@
+---
+import { HTMLAttributes } from 'astro/types';
+import { Stack } from '../Layout/Stack';
+
+interface Props extends HTMLAttributes<'div'> {
+	label: string;
+	id: string;
+}
+
+const { class: className, label, id, ...attrs } = Astro.props;
+---
+
+<div class={`c-field-wrapper${className ? ` | className` : ''}`} {...attrs}>
+	<Stack gap="milli">
+		<label class="c-field-wrapper__label" for={id}>{label}</label>
+		<div>
+			<slot />
+		</div>
+	</Stack>
+</div>
+
+<style lang="scss">
+	.c-field-wrapper {
+	}
+	.c-field-wrapper__label {
+		color: var(--color-diepblauw);
+	}
+</style>

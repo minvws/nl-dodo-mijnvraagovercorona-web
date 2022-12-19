@@ -1,0 +1,228 @@
+---
+import { Heading } from '@design-system/elements/Heading';
+import { Icon } from '@design-system/elements/Icon';
+import { Stack } from '@design-system/components/Layout/Stack';
+
+export interface Props {
+	id: string;
+	title: string;
+	closeLabel?: string;
+}
+
+const { id, title, closeLabel = 'Sluiten' } = Astro.props;
+---
+
+<template data-module-bind="modal-root">
+	<div class="modal" role="dialog" aria-labelledby={id} data-module="modal">
+		<div class="modal__inner">
+			<div class="modal__content" data-module-bind="modal__content">
+				<Stack>
+					<Heading class="modal__title" level={3} styledAs={2} tabindex="-1">
+						{title}
+					</Heading>
+					<div class="modal__slot">
+						<slot>Modal description.</slot>
+					</div>
+				</Stack>
+			</div>
+			<button
+				type="button"
+				class="modal__close-button"
+				data-module-bind="modal__close-button"
+			>
+				<Icon name="cross" class="modal__close-button-icon" />
+				<span class="u-visually-hidden">
+					{closeLabel}
+				</span>
+			</button>
+		</div>
+	</div>
+</template>
+
+<script>
+	// Functions
+	// Clone templates to the body element and then remove the template
+	const transferModalToRoot = (element: HTMLTemplateElement) => {
+		const clone = element.content.cloneNode(true);
+		document.body.appendChild(clone);
+		element.remove();
+	};
+
+	// Get all focusable elements within a given element
+	const getKeyboardFocusableElements = (element) => {
+		return [
+			...element.querySelectorAll(
+				'a, button, input, textarea, select, details,[tabindex]:not([tabindex="-1"])',
+			),
+		].filter((el) => !el.hasAttribute('disabled'));
+	};
+
+	// Open our modal, duh!
+	const openModal = (modal, modalTrigger) => {
+		const modalTitle = modal.querySelector('h3');
+		modal.classList.add('is-visible');
+		document.body.classList.add('modal-is-visible');
+		modalTitle.focus();
+		document.addEventListener('keydown', trapFocus.bind(null, modal), false);
+		modal.addEventListener('keydown', (event) => {
+			if (event.key === 'Escape') {
+				closeModal(modal, modalTrigger);
+			}
+		});
+	};
+
+	// Close our modal obviously
+	const closeModal = (modal, modalTrigger) => {
+		modal.classList.remove('is-visible');
+		document.body.classList.remove('modal-is-visible');
+		modalTrigger.focus({ preventScroll: true });
+		document.removeEventListener('keydown', trapFocus.bind(null, modal));
+	};
+
+	// Trap the focus within the modal when opened
+	const trapFocus = (modal, event) => {
+		const focusables = getKeyboardFocusableElements(modal);
+		const firstFocusable = focusables[0];
+		const lastFocusable = focusables[focusables.length - 1];
+		if (
+			document.activeElement === lastFocusable &&
+			event.key === 'Tab' &&
+			!event.shiftKey
+		) {
+			event.preventDefault();
+			firstFocusable.focus();
+		}
+		if (
+			document.activeElement === firstFocusable &&
+			event.key === 'Tab' &&
+			event.shiftKey
+		) {
+			event.preventDefault();
+			lastFocusable.focus();
+		}
+	};
+
+	// execution
+	const modalTemplates = [
+		...document.querySelectorAll('[data-module-bind="modal-root"]'),
+	];
+
+	modalTemplates.forEach((modalTemplate: HTMLTemplateElement) => {
+		transferModalToRoot(modalTemplate);
+	});
+
+	const modals = [...document.querySelectorAll('[data-module="modal"]')];
+
+	modals.forEach((modal) => {
+		const modalID = modal.getAttribute('aria-labelledby');
+		const modalCloseButton = modal.querySelector(
+			'[data-module-bind="modal__close-button"]',
+		);
+		const modalTrigger = document.querySelector(`#${modalID}`);
+
+		// event listeners
+		modalTrigger.addEventListener('click', () =>
+			openModal(modal, modalTrigger),
+		);
+		modalCloseButton.addEventListener('click', () =>
+			closeModal(modal, modalTrigger),
+		);
+		modal.addEventListener('click', (event) => {
+			if (
+				!(event.target as HTMLElement).closest(
+					'[data-module-bind="modal__content"]',
+				)
+			) {
+				closeModal(modal, modalTrigger);
+			}
+		});
+	});
+</script>
+
+<style lang="scss" is:global>
+	body.modal-is-visible > *:not(.modal) {
+		filter: blur(6px);
+	}
+
+	.modal {
+		--modal-space: var(--space-r-base);
+		position: fixed;
+		z-index: -100;
+		block-size: 0;
+		visibility: hidden;
+
+		&.is-visible {
+			inset: 0;
+			z-index: 100;
+			display: grid;
+			place-items: center;
+			block-size: auto;
+			background-color: rgba(0, 0, 0, 0.5);
+			visibility: visible;
+
+			.modal__inner {
+				opacity: 1;
+			}
+		}
+	}
+
+	.modal__inner {
+		--modal-block-size: 100vh;
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		inline-size: clamp(35ch, 70%, 55ch);
+		max-inline-size: calc(100% - var(--space-r-tiny) * 2);
+		max-block-size: calc(var(--modal-block-size) - var(--space-r-tiny) * 2);
+		padding-block-start: var(--modal-space);
+		padding-block-end: var(--modal-space);
+		border-radius: var(--radii-base);
+		background-color: white;
+		opacity: 0;
+		transition: opacity 0.3s ease-in-out;
+
+		@supports (height: 100dvh) {
+			& {
+				--modal-block-size: 100dvh;
+			}
+		}
+	}
+
+	.modal__content {
+		padding-inline-start: var(--modal-space);
+		padding-inline-end: var(--modal-space);
+		max-inline-size: 100%;
+		overflow: auto;
+	}
+
+	.modal__title {
+		margin-inline-end: calc(
+			var(--font-lineheight-root) * 1rem + var(--space-r-nano) * 2 +
+				var(--space-r-tiny)
+		);
+	}
+
+	.modal__close-button,
+	.modal__close-button-icon.modal__close-button-icon {
+		display: block;
+	}
+
+	.modal__close-button {
+		position: absolute;
+		inset-inline-end: var(--modal-space);
+		inset-block-start: var(--modal-space);
+		padding: var(--space-r-nano);
+		border-radius: 50%;
+		border: 1px solid var(--color-grijs-3);
+		color: var(--color-diepblauw);
+		background-color: var(--color-white);
+		cursor: pointer;
+
+		&:hover {
+			color: var(--color-accent-robijnrood);
+		}
+		&:focus {
+			outline: var(--elevation-focusring);
+		}
+	}
+</style>

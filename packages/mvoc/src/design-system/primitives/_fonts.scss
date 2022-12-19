@@ -1,0 +1,19 @@
+/* ==========================================================================
+		primitives.fonts
+/ =========================================================================== */
+
+@font-face {
+	font-family: 'RoSans';
+	src: url('/fonts/ROsans/RO-SansWebText-Regular.woff2') format('woff2');
+	font-style: normal;
+	font-weight: normal;
+	font-display: fallback;
+}
+
+@font-face {
+	font-family: 'RoSans';
+	src: url('/fonts/ROsans/RO-SansWebText-Bold.woff2') format('woff2');
+	font-weight: bold;
+	font-style: normal;
+	font-display: fallback;
+}

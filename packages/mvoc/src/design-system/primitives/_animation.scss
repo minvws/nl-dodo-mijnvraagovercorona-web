@@ -1,0 +1,45 @@
+:where(html) {
+	--animation-swing: swing 1s infinite linear;
+	--animation-bounce: bounce 1s infinite linear;
+	--animation-rotate: rotate 500ms ease-in-out;
+	--animation-rotate-reverse: rotate 500ms ease-in-out reverse;
+}
+
+@keyframes swing {
+	0% {
+		transform: translateX(0);
+	}
+	25% {
+		transform: translateX(var(--animation-swing-distance, 2px));
+	}
+	75% {
+		transform: translateX(calc(var(--animation-swing-distance, 2px) * -1));
+	}
+	100% {
+		transform: translateX(0);
+	}
+}
+
+@keyframes bounce {
+	0% {
+		transform: translateY(0);
+	}
+	25% {
+		transform: translateY(var(--animation-bounce-distance, 2px));
+	}
+	75% {
+		transform: translateY(calc(var(--animation-bounce-distance, 2px) * -1));
+	}
+	100% {
+		transform: translateY(0);
+	}
+}
+
+@keyframes rotate {
+	0% {
+		transform: rotate(0);
+	}
+	100% {
+		transform: rotate(var(--animation-rotate-distance, 360deg));
+	}
+}

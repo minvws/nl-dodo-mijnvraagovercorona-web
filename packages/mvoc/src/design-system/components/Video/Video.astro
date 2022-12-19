@@ -1,0 +1,83 @@
+---
+import { Icon } from '@design-system/elements/Icon';
+import { HTMLAttributes } from 'astro/types';
+import {
+	ImageProps,
+	SiteSettingsProps,
+	useSiteSettings,
+} from 'src/utilities/api/queries';
+import { getLocaleFromURL } from 'src/utilities/locale/translation';
+
+interface Props extends HTMLAttributes<'a'> {
+	title: string;
+	url: string;
+	image: ImageProps;
+}
+
+const { class: className, title, url, image, ...attrs } = Astro.props;
+const locale = getLocaleFromURL(Astro.url.pathname);
+const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+---
+
+<a
+	href={url}
+	class={`c-video${className ? ` | ${className}` : ''}`}
+	{...attrs}
+	target="_blank"
+	rel="noopener noreferrer"
+>
+	<img class="c-video__image" src={image.src} alt="" loading="lazy" />
+	<Icon class="c-video__icon" name="video" />
+	<span class="u-visually-hidden">
+		{title}({siteSettings.accessibility.labelExternalLink})
+	</span>
+</a>
+
+<style lang="scss">
+	.c-video {
+		--video-color: var(--color-white);
+		position: relative;
+		display: block;
+		color: var(--video-color);
+		transition: 300ms ease-in-out;
+
+		&::after {
+			position: absolute;
+			inset-block: 0;
+			inset-inline: 0;
+			background-image: linear-gradient(
+				180deg,
+				rgba(0, 0, 0, 0.6) 0%,
+				rgba(0, 0, 0, 0) 100%
+			);
+			content: '';
+		}
+		&:focus,
+		&:hover {
+			--video-color: var(--color-accent-robijnrood);
+		}
+	}
+
+	.c-video__image {
+		display: block;
+		inline-size: 100%;
+		block-size: auto;
+		aspect-ratio: 16/9;
+		object-fit: cover;
+	}
+
+	.c-video__icon {
+		position: absolute;
+		inset-block: 50%;
+		inset-inline: 50%;
+		transform: translate(-50%, -50%);
+		inline-size: 25%;
+		aspect-ratio: 1/1;
+		z-index: 1;
+
+		:global(> svg) {
+			inline-size: 100%;
+			block-size: 100%;
+		}
+	}
+</style>

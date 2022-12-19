@@ -1,0 +1,202 @@
+---
+import { HTMLAttributes } from 'astro/types';
+import { Icon, IconProps } from '@design-system/elements/Icon';
+import { Animations } from '@design-system/primitives/animation';
+
+// Interfaces
+interface Shared {
+	variant?: 'primary' | 'secondary' | 'tertiary' | 'quaternary';
+	icon?: IconProps['name'];
+	iconPosition?: 'leading' | 'trailing';
+	interactionIconAnimation?: Animations;
+	full?: boolean;
+}
+
+interface Button extends HTMLAttributes<'button'>, Shared {}
+
+interface Link extends HTMLAttributes<'a'>, Shared {
+	disabled?: boolean;
+	external?: boolean;
+	hiddenLabel?: string;
+}
+
+type Props = Button | Link;
+
+const {
+	disabled,
+	variant,
+	external,
+	hiddenLabel,
+	icon,
+	iconPosition,
+	interactionIconAnimation,
+	full,
+	class: className,
+	type,
+
+	...attrs
+} = Astro.props;
+
+// Which element should we render?
+const Element = attrs.href || attrs.href === '' ? 'a' : 'button';
+
+// Create class based on props
+const combinedClasses = `e-button${variant ? ` e-button--${variant}` : ''}${
+	full ? ` e-button--full` : ''
+}${
+	interactionIconAnimation
+		? ` | u-animation-interaction--${interactionIconAnimation}`
+		: ''
+}${className ? ` | ${className}` : ''}`;
+
+const iconPositionCalculated =
+	iconPosition === 'leading' ? 'leading' : 'trailing';
+
+const selectedIcon =
+	attrs.href && external ? 'external' : icon ? icon : undefined;
+---
+
+<Element
+	class={combinedClasses}
+	type={!attrs.href ? (type ? (type as Button['type']) : 'button') : undefined}
+	disabled={!attrs.href && disabled ? disabled : undefined}
+	data-disabled={attrs.href && disabled ? disabled : undefined}
+	formaction={!attrs.href && attrs.formaction ? attrs.formaction : undefined}
+	href={attrs.href}
+	target={attrs.href && external ? '_blank' : undefined}
+	rel={attrs.href && external ? 'noopener noreferrer' : undefined}
+	lang={attrs.href ? attrs.lang : undefined}
+	hreflang={attrs.href ? attrs.lang : undefined}
+	{...attrs}
+>
+	{
+		iconPositionCalculated === 'leading' && selectedIcon ? (
+			<Icon name={selectedIcon} description={hiddenLabel} />
+		) : null
+	}
+	<span class="e-button__label" data-button-content>
+		<slot />
+	</span>
+	{
+		iconPositionCalculated === 'trailing' && selectedIcon ? (
+			<Icon name={selectedIcon} description={hiddenLabel} />
+		) : null
+	}
+</Element>
+
+<style lang="scss">
+	@use '@design-system-styles/primitives/_responsive.scss';
+	.e-button {
+		--button-border-width: 1px;
+		--button-border-color: var(--button-background-color);
+		--button-padding: var(--space-r-small);
+		--button-background-color: var(--color-accent-robijnrood);
+		--button-color: var(--color-white);
+		--button-icon-color: currentColor;
+
+		display: inline-flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--space-r-small);
+		min-inline-size: 100%;
+		padding: calc(var(--button-padding) - var(--button-border-width));
+		border: var(--button-border-width) solid var(--button-border-color);
+		border-radius: var(--radii-milli);
+		text-align: center;
+		text-decoration: none;
+		background-color: var(--button-background-color);
+		color: var(--button-color);
+		transition-property: background-color, color, border, box-shadow;
+		transition-duration: 300ms;
+		transition-timing-function: ease-in-out;
+		cursor: pointer;
+
+		&[hidden] {
+			display: none;
+		}
+
+		:global(> .e-icon) {
+			color: var(--button-icon-color);
+			animation: var(--u-animation-subscribe);
+		}
+
+		&:hover,
+		&:focus {
+			--button-background-color: var(--color-accent-violet);
+		}
+
+		&:focus {
+			outline: 2px solid var(--color-donkerblauw);
+			outline-offset: 2px;
+		}
+
+		&:disabled,
+		&[data-disabled] {
+			--button-background-color: var(--color-grijs-4);
+			cursor: not-allowed;
+		}
+
+		@media --mq-large {
+			& {
+				min-inline-size: auto;
+			}
+		}
+	}
+
+	.e-button__label {
+		word-wrap: break-word;
+		hyphens: auto;
+		&:first-letter {
+			text-transform: uppercase;
+		}
+	}
+
+	// variants
+	.e-button--secondary {
+		--button-background-color: var(--color-donkerblauw);
+
+		&:hover,
+		&:focus {
+			--button-background-color: var(--color-diepblauw);
+		}
+	}
+
+	.e-button--tertiary,
+	.e-button--quaternary {
+		--button-color: var(--color-donkerblauw);
+		--button-border-color: var(--variant--tile-border-color);
+		--button-elevation: var(--variant--tile-elevation);
+		box-shadow: var(--button-elevation);
+		outline: none;
+		text-align: left;
+
+		&:hover,
+		&:focus {
+			--button-border-color: var(--variant--tile-border-color-interactive);
+			--button-elevation: var(--variant--tile-elevation-interactive);
+		}
+	}
+
+	.e-button--tertiary {
+		--button-background-color: var(--color-white);
+		&:hover,
+		&:focus {
+			--button-background-color: var(--color-white);
+		}
+	}
+
+	.e-button--quaternary {
+		--button-background-color: var(--color-ijsblauw);
+		--button-icon-color: var(--color-accent-robijnrood);
+		font-weight: bold;
+
+		&:hover,
+		&:focus {
+			--button-background-color: var(--color-ijsblauw);
+		}
+	}
+
+	.e-button--full {
+		inline-size: 100%;
+	}
+</style>

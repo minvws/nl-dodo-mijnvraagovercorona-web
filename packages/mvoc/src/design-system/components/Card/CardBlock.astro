@@ -1,0 +1,82 @@
+---
+import {
+	Disclosure,
+	DisclosureItem,
+} from '@design-system/components/Disclosure';
+import { Heading } from '@design-system/elements/Heading';
+import { Button } from '@design-system/elements/Button';
+import { Stack } from '@design-system/components/Layout/Stack';
+import { Card } from '.';
+import { Chapeau } from '@design-system/elements/Chapeau';
+
+interface Props {
+	title: string;
+	chapeau?: string;
+	disclosure?: {
+		label: {
+			this: string;
+			that: string;
+		};
+	};
+	buttons?: {
+		link?: string;
+		situation?: string;
+		text: string;
+	}[];
+}
+
+const { title, chapeau, disclosure, buttons } = Astro.props;
+---
+
+<Card>
+	<Stack gap="small">
+		<hgroup class="c-card-block__hgroup">
+			<Heading level={3} styledAs={2}>{title}</Heading>
+			{chapeau && <Chapeau role="presentation">{chapeau}</Chapeau>}
+		</hgroup>
+
+		<slot />
+
+		{
+			disclosure?.label.this && disclosure?.label.that ? (
+				<Disclosure>
+					<DisclosureItem
+						label={disclosure.label.this}
+						labelActive={disclosure.label.that}
+					>
+						<slot name="disclosure-content" />
+					</DisclosureItem>
+				</Disclosure>
+			) : null
+		}
+		{
+			!!buttons?.length ? (
+				<ul class="c-card-block__wrap-buttons" role="list">
+					{buttons.map(({ text, link, situation }) => (
+						<li>
+							<Button href={link || `/${situation}`} external={!!link}>
+								{text}
+							</Button>
+						</li>
+					))}
+				</ul>
+			) : null
+		}
+
+		<slot name="appendix" />
+	</Stack>
+</Card>
+
+<style lang="scss">
+	.c-card-block__hgroup {
+		display: flex;
+		flex-direction: column-reverse;
+		gap: var(--space-r-milli);
+	}
+
+	.c-card__wrap-buttons {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-r-small);
+	}
+</style>

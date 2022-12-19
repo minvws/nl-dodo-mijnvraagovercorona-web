@@ -1,0 +1,108 @@
+---
+import { Heading } from '@design-system/elements/Heading';
+import { ContentBlock } from '@design-system/components/ContentBlock';
+import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
+import { Locale, prefixUrlWithlocale } from 'src/utilities/locale/translation';
+import { Layer } from '@design-system/components/Layout/Layer';
+import { Retain } from '@design-system/components/Layout/Retain';
+import { Stack } from '@design-system/components/Layout/Stack';
+import { LinkList } from '@design-system/components/Lists';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+---
+
+<Layer as="footer" class="c-mastfoot" role="contentinfo">
+	<Retain>
+		<div class="c-mastfoot__grid">
+			<div class="c-mastfoot__column-start">
+				<Heading class="u-visually-hidden">
+					{siteSettings.footer.footerMainTitle}
+				</Heading>
+				<ContentBlock value={siteSettings.footer.footerText} />
+			</div>
+
+			<div class="c-mastfoot__column">
+				<Stack gap="small">
+					<Heading level={3}>{siteSettings.footer.title}</Heading>
+					<LinkList
+						links={siteSettings.footer.items.map((item) => ({
+							label: item.content,
+							href: prefixUrlWithlocale(item.url, locale),
+						}))}
+					/>
+				</Stack>
+			</div>
+
+			<div class="c-mastfoot__column">
+				<Stack gap="small">
+					<Heading level={3}>{siteSettings.footer.meerInformatieTitle}</Heading>
+					<LinkList
+						links={[
+							{
+								label: siteSettings.footer.rijksoverheidText,
+								href: siteSettings.footer.rijksoverheidUrl,
+								external: true,
+							},
+						]}
+					/>
+				</Stack>
+			</div>
+		</div>
+	</Retain>
+</Layer>
+
+<style lang="scss">
+	@use '@design-system-styles/primitives/_responsive.scss';
+
+	.c-mastfoot {
+		background-color: var(--color-donkerblauw);
+		color: var(--color-white);
+
+		:global(h2),
+		:global(h3) {
+			color: currentColor;
+		}
+
+		:global(a) {
+			--link-interactive-outline: currentColor;
+
+			&,
+			&:hover,
+			&:focus {
+				--link-color: currentColor;
+			}
+		}
+	}
+
+	.c-mastfoot__grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: var(--stack-humongous);
+
+		@media --mq-large {
+			grid-template-columns: 1.25fr 1fr 1fr;
+		}
+	}
+
+	.c-mastfoot__column-start {
+		order: 3;
+		@media --mq-large {
+			order: initial;
+		}
+	}
+
+	.c-mastfoot__column {
+		&:global(a) {
+			--link-text-decoration: none;
+		}
+		:global(a:hover > span),
+		:global(a:focus > span) {
+			text-decoration: underline;
+		}
+	}
+</style>

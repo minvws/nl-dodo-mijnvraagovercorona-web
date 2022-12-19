@@ -1,0 +1,37 @@
+/* ==========================================================================
+		elements.typography
+/ =========================================================================== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-size: var(--heading-font-size, 1rem);
+	line-height: var(--heading-line-height, 1.1);
+	color: var(--color-diepblauw);
+}
+
+h1 {
+	--heading-font-size: var(--font-size-alpha);
+	--heading-line-height: var(--line-height-alpha);
+}
+
+h2 {
+	--heading-font-size: var(--font-size-beta);
+	--heading-line-height: var(--line-height-beta);
+}
+
+h3,
+h4,
+h5,
+h6 {
+	--heading-font-size: var(--font-size-gamma);
+	--heading-line-height: var(--line-height-gamma);
+}
+
+small {
+	font-size: var(--font-size-milli);
+	line-height: var(--line-height-milli);
+}

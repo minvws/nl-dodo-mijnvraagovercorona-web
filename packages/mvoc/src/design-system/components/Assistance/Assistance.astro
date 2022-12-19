@@ -1,0 +1,238 @@
+---
+import { Button } from '@design-system/elements/Button';
+import { Heading } from '@design-system/elements/Heading';
+import { Link } from '@design-system/elements/Link';
+import { HTMLAttributes } from 'astro/types';
+import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
+import { AssistanceProps } from 'src/utilities/api/queries/assistance';
+import { getLocaleFromURL } from 'src/utilities/locale/translation';
+import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
+import GridFluid from '../Layout/Grid/GridFluid.astro';
+import { Stack } from '../Layout/Stack';
+
+interface Props extends HTMLAttributes<'div'>, AssistanceProps {
+	feedback?: boolean;
+	inDialog?: boolean;
+}
+
+const {
+	class: className,
+	feedback,
+	inDialog,
+	headline,
+	image,
+	open,
+	subTitle,
+	chat,
+	phone,
+	situation,
+} = Astro.props;
+
+const locale = getLocaleFromURL(Astro.url.pathname);
+const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+---
+
+<div
+	class={`c-assistance${feedback ? ' c-assistance--feedback' : ''}${
+		className ? ` | ${className}` : ''
+	}`}
+	data-module="assistance"
+	data-has-chat={chat.title ? true : false}
+>
+	<GridFluid class="c-assistance__grid">
+		<Stack>
+			{!inDialog ? <Heading styledAs={1}>{headline}</Heading> : null}
+			{
+				!inDialog ? (
+					<img
+						src={image?.src || '/images/questions.svg'}
+						alt=""
+						loading="lazy"
+						class={`c-assistance__img c-assistance__img-contact`}
+					/>
+				) : null
+			}
+			{
+				inDialog ? (
+					<p>
+						<span class="c-assistance__show-chat-open">
+							{subTitle.chatOpen}
+						</span>
+						<span class="c-assistance__show-chat-closed">
+							{subTitle.chatClosed}
+						</span>
+					</p>
+				) : (
+					<Heading level={3} styledAs={2}>
+						<span class="c-assistance__show-chat-open">
+							{subTitle.chatOpen}
+						</span>
+						<span class="c-assistance__show-chat-closed">
+							{subTitle.chatClosed}
+						</span>
+					</Heading>
+				)
+			}
+
+			<div>
+				<Link
+					href={`tel:${phone.number.replace(/\D/g, '')}`}
+					icon="phone"
+					iconPosition="leading"
+					variant="cta"
+				>
+					{phone.number}
+				</Link>
+
+				{
+					phone.openingHours && (
+						<p>
+							{phone.openingHours}
+							<br />
+							<span class="c-assistance__show-phone-open | u-color--accent-safarigroen">
+								{open}
+							</span>
+						</p>
+					)
+				}
+			</div>
+
+			{
+				chat.title ? (
+					<div>
+						<Link
+							href="https://chat.vragenovercorona.nl/"
+							icon="chat"
+							iconPosition="leading"
+							variant="cta"
+						>
+							{chat.title}
+						</Link>
+
+						<p>
+							{chat.openingHours}
+							<br />
+							<span class="c-assistance__show-chat-open | u-color--accent-safarigroen">
+								{open}
+							</span>
+						</p>
+					</div>
+				) : null
+			}
+		</Stack>
+
+		{
+			feedback ? (
+				<Stack>
+					<img
+						src={image?.src || '/images/questions.svg'}
+						alt=""
+						loading="lazy"
+						class={`c-assistance__img c-assistance__img-feedback`}
+					/>
+					<Heading level={3} styledAs={2}>
+						{situation.question}
+					</Heading>
+					<Button
+						external
+						href={getFeedbackUrl(siteSettings.feedback.url, {
+							source: 'home',
+							advice: 'home',
+						})}
+					>
+						{situation.button}
+					</Button>
+				</Stack>
+			) : null
+		}
+	</GridFluid>
+</div>
+
+<script>
+	const getIsPhonenumberOpen = () => {
+		const now = new Date();
+		const hours = now.getHours();
+		const day = now.getDay();
+
+		const isValidHours = hours >= 8 && hours < 18;
+		const isValidDay = day > 0 && day < 6;
+
+		return isValidHours && isValidDay;
+	};
+
+	const parent = document.querySelector('[data-module="assistance"]');
+
+	if (parent) {
+		const hasChat = parent.hasAttribute('data-has-chat');
+
+		if (hasChat) {
+			fetch(
+				'https://server.vragenovercorona.nl/client/areaStatus/BXVIVGePHOZtcUQMz2vm.json',
+			)
+				.then((response) => response.json())
+				.then((data) =>
+					parent.classList.toggle('chat-open', data.isOpenToClients),
+				);
+		}
+
+		parent.classList.toggle('phone-open', getIsPhonenumberOpen());
+	}
+</script>
+
+<style lang="scss">
+	@use '@design-system-styles/primitives/_responsive.scss';
+
+	.c-assistance {
+	}
+
+	.c-assistance__grid {
+		--grid-fluid-min-item-size: 21.0526315789rem; // 400px
+		--grid-fluid-gap: var(--stack-small);
+		align-items: center;
+	}
+
+	.c-assistance__img {
+	}
+
+	.c-assistance__img-contact {
+		display: block;
+		inline-size: 12.6315789474rem; // 240px
+	}
+
+	.c-assistance__img-feedback {
+		display: none;
+		margin-inline: auto;
+	}
+
+	.c-assistance__show-chat-open {
+		display: none;
+		.chat-open & {
+			display: initial;
+		}
+	}
+	.c-assistance__show-chat-closed {
+		display: initial;
+
+		.chat-open & {
+			display: none;
+		}
+	}
+
+	.c-assistance__show-phone-open {
+		display: none;
+		.phone-open & {
+			display: initial;
+		}
+	}
+
+	.c-assistance--feedback {
+		@media --mq-large {
+			.c-assistance__img-contact {
+				display: none;
+			}
+			.c-assistance__img-feedback {
+				display: block;
+			}
+		}
+	}
+</style>

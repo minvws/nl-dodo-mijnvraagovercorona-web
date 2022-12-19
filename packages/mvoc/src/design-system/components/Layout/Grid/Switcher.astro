@@ -1,0 +1,34 @@
+---
+import { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'div'> {}
+
+const { class: className, ...attrs } = Astro.props;
+---
+
+<div class={`c-switcher${className ? ` | ${className}` : ''}`} {...attrs}>
+	<slot />
+</div>
+
+<style lang="scss">
+	.c-switcher {
+		--switcher-gap: var(--space-r-base);
+		--switcher-threshold: 35rem;
+		--switcher-align-items: stretch;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: var(--switcher-align-items);
+		gap: var(--switcher-gap);
+
+		:global(> *) {
+			flex-grow: 1;
+			flex-basis: calc((var(--switcher-threshold) - 100%) * 999);
+			max-inline-size: 100%;
+		}
+
+		:global(> :nth-last-child(n + 3)),
+		:global(> :nth-last-child(n + 3) ~ *) {
+			flex-basis: 100%;
+		}
+	}
+</style>

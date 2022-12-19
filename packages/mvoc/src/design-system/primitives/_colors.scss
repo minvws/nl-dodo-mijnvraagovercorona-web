@@ -1,0 +1,38 @@
+/* ==========================================================================
+		primitives.colors
+		All colors & gradients used in the project
+/ =========================================================================== */
+
+:where(html) {
+	// Grayscale
+	--color-white: #ffffff;
+	--color-grijs-1: #f3f3f3;
+	--color-grijs-2: #e6e6e6;
+	--color-grijs-3: #cccccc;
+	--color-grijs-4: #b4b4b4;
+	--color-grijs-5: #999999;
+	--color-grijs-6: #696969;
+	--color-grijs-7: #535353;
+	--color-black: #222222;
+	// Bluescale
+	--color-ijsblauw: #eef7fb;
+	--color-poolblauw: #ddeff8;
+	--color-lichtblauw: #8fcae7;
+	--color-hemelblauw: #007bc7;
+	--color-donkerblauw: #01689b;
+	--color-diepblauw: #154273;
+	// Accent
+	--color-accent-okergeel: #ffb612;
+	--color-accent-robijnrood: #ca005d;
+	--color-accent-violet: #a90061;
+	--color-accent-safarigroen: #367f0b;
+	--color-accent-gifgroen: #34c759;
+	--color-accent-vuurrood: #d52b1e;
+
+	// Gradients
+	--gradient-lichtblauw: linear-gradient(
+		360deg,
+		var(--color-ijsblauw) 0%,
+		var(--color-white) 75%
+	);
+}

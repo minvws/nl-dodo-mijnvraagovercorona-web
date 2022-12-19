@@ -1,0 +1,123 @@
+---
+import { Button } from '@design-system/elements/Button';
+import { Control } from '@design-system/elements/Control';
+import { Heading } from '@design-system/elements/Heading';
+import { HTMLAttributes } from 'astro/types';
+import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
+import { getLocaleFromURL } from 'src/utilities/locale/translation';
+import { Card } from '../Card';
+import { Stack } from '../Layout/Stack';
+
+interface Props extends HTMLAttributes<'section'> {
+	url: string;
+	name: string;
+}
+
+const { class: className, url, name, ...attrs } = Astro.props;
+const locale = getLocaleFromURL(Astro.url.pathname);
+const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+---
+
+<section
+	class={`c-feedback${className ? ` | ${className}` : ''}`}
+	{...attrs}
+	data-module="feedback"
+	data-name={name}
+	id="feedback"
+>
+	<Stack>
+		<Heading>{siteSettings.feedback.title}</Heading>
+		{
+			siteSettings.feedback.content ? (
+				<p>{siteSettings.feedback.content}</p>
+			) : null
+		}
+		<form class="c-feedback__form" action="" data-module-bind="feedback__form">
+			<fieldset>
+				<legend class="u-visually-hidden">{siteSettings.feedback.title}</legend>
+				<div class="c-feedback__wrap-controls">
+					<Control
+						type="radio"
+						value="Like"
+						name="feedback-choice"
+						id="feedback-choice-yes"
+						required
+					>
+						{siteSettings.feedback.labels.like}
+					</Control>
+					<Control
+						type="radio"
+						value="Dislike"
+						name="feedback-choice"
+						id="feedback-choice-no"
+					>
+						{siteSettings.feedback.labels.dislike}
+					</Control>
+				</div>
+			</fieldset>
+
+			<div role="status">
+				<Card
+					class="c-feedback__message"
+					variant="filled"
+					data-module-bind="feedback__message"
+				>
+					<Stack>
+						<p>{siteSettings.feedback.thanks}</p>
+						<Button href={url} external data-module-bind="feedback__button">
+							{siteSettings.feedback.button}
+						</Button>
+					</Stack>
+				</Card>
+			</div>
+		</form>
+	</Stack>
+</section>
+
+<style lang="scss">
+	.c-feedback {
+	}
+
+	.c-feedback__wrap-controls {
+		display: flex;
+		gap: var(--stack-base);
+	}
+
+	.c-feedback__message {
+		margin-block-start: var(--stack-base);
+		display: none;
+
+		.c-feedback__form:valid & {
+			display: block;
+		}
+	}
+</style>
+
+<script>
+	import { trackEvent } from 'src/utilities/tracking/piwik';
+
+	const parent = document.querySelector(
+		'[data-module="feedback"]',
+	) as HTMLElement;
+
+	if (parent) {
+		const name = parent.dataset.name;
+		const form = parent.querySelector(
+			'[data-module-bind="feedback__form"]',
+		) as HTMLFormElement;
+
+		form.addEventListener('submit', (event) => {
+			event.preventDefault;
+		});
+
+		form.addEventListener('change', () => {
+			const formData = new FormData(form);
+
+			trackEvent(
+				'Button',
+				'Click',
+				`${name} ${formData.get('feedback-choice')}`,
+			);
+		});
+	}
+</script>

@@ -1,0 +1,39 @@
+---
+import { Icon } from '@design-system/elements/Icon';
+import { Link } from '@design-system/elements/Link';
+
+type Props = {
+	links: {
+		label: string;
+		href: string;
+		external?: boolean;
+	}[];
+};
+
+const { links } = Astro.props;
+---
+
+<ul class="c-link-list" role="list">
+	{
+		links.map((link) => (
+			<li>
+				<Icon name="chevron-small-right" class="c-mastfoot__icon" />
+				<Link href={link.href} external={link.external}>
+					{link.label}
+				</Link>
+			</li>
+		))
+	}
+</ul>
+
+<style lang="scss">
+	.c-link-list {
+		> li {
+			display: flex;
+			gap: var(--space-r-nano);
+			&:not(:first-of-type) {
+				margin-block-start: var(--stack-small);
+			}
+		}
+	}
+</style>

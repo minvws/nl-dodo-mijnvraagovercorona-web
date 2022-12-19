@@ -1,0 +1,84 @@
+---
+import {
+	MetaDataProps,
+	SiteSettingsProps,
+	useSiteSettings,
+} from 'src/utilities/api/queries';
+import { availableLocales, Locale } from 'src/utilities/locale/translation';
+
+export interface Props extends MetaDataProps {
+	locale: Locale;
+	skipPageSuffix?: boolean;
+}
+
+const { title, description, image, locale, skipPageSuffix, noIndex } =
+	Astro.props;
+const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+
+const currentUrl = Astro.url.toString();
+const urlWithLocale = currentUrl.includes(locale.urlPrefix)
+	? currentUrl
+	: `${currentUrl}${locale.id}`;
+
+const pageTitle = `${title}${
+	skipPageSuffix ? '' : siteSettings.pageTitleSuffix
+}`;
+
+const ogImage = `${Astro.url.origin}${
+	image.src || siteSettings.socialShareImage.src
+}`;
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="generator" content={Astro.generator} />
+
+<title>{pageTitle}</title>
+<meta property="og:title" content={pageTitle} />
+<meta name="twitter:title" content={pageTitle} />
+
+{
+	description ? (
+		<>
+			<meta name="description" content={description} />
+			<meta name="twitter:description" content={description} />
+			<meta property="og:description" content={description} />
+		</>
+	) : null
+}
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="og:image" content={ogImage} />
+<meta name="twitter:image" content={ogImage} />
+
+<meta property="og:type" content="website" />
+<meta property="og:url" content={urlWithLocale} />
+<link rel="canonical" href={urlWithLocale} />
+<meta property="og:locale" content={locale.locale} />
+{
+	availableLocales
+		.filter((language) => language.id !== locale.id)
+		.map((language) => (
+			<>
+				<link
+					rel="alternate"
+					hreflang={language.id}
+					href={urlWithLocale.replace(locale.urlPrefix, language.urlPrefix)}
+				/>
+				<meta property="og:locale:alternate" content={language.locale} />
+			</>
+		))
+}
+
+{noIndex && <meta name="robots" content="noindex" />}
+
+<link rel="icon" href="/images/meta/favicon.ico" sizes="any" />
+<link rel="apple-touch-icon" href="/images/meta/apple-touch-icon.png" />
+<link
+	rel="mask-icon"
+	href="/images/meta/safari-pinned-tab.svg"
+	color="#154273"
+/>
+<link rel="manifest" href="/site.webmanifest" />
+<meta name="msapplication-TileColor" content="#154273" />
+<meta name="theme-color" content="#ffffff" />

@@ -1,0 +1,45 @@
+---
+import { HTMLAttributes } from 'astro/types';
+import { Sprite } from 'astro-icon';
+
+export interface Props extends HTMLAttributes<'span'> {
+	name:
+		| 'refresh'
+		| 'plus'
+		| 'minus'
+		| 'cross'
+		| 'external'
+		| 'tooltip'
+		| 'chevron-large-left'
+		| 'chevron-large-right'
+		| 'chevron-small-left'
+		| 'chevron-small-right'
+		| 'chevron-small-down'
+		| 'world'
+		| 'phone'
+		| 'chat'
+		| 'video';
+	description?: string;
+	size?: string | number;
+}
+
+const { name, size, description, class: className, ...attrs } = Astro.props;
+---
+
+<style lang="scss">
+	.e-icon {
+		display: inline-block;
+	}
+
+	.e-icon__visual {
+		--icon-size: var(--font-lineheight-root);
+		display: block;
+		block-size: calc(var(--icon-size) * 1em);
+		inline-size: calc(var(--icon-size) * 1em);
+	}
+</style>
+
+<span class={`e-icon${className ? ` | ${className}` : ''}`} {...attrs}>
+	{description ? <span class="u-visually-hidden">{description}</span> : null}
+	<Sprite class="e-icon__visual" name={name} size={size} optimize={true} />
+</span>

@@ -1,0 +1,88 @@
+---
+import { HTMLAttributes } from 'astro/types';
+import { ImageProps } from 'src/utilities/api/queries';
+import { ContentBlock, ContentBlockProps } from '../ContentBlock';
+import { Stack } from '../Layout/Stack';
+
+export interface ContentStreamProps {
+	contentPrimary?: ContentBlockProps['value'];
+	imagePrimary?: ImageProps;
+	contentSecondary?: ContentBlockProps['value'];
+	imageSecondary?: ImageProps;
+}
+
+interface Props extends HTMLAttributes<'div'>, ContentStreamProps {}
+
+const {
+	class: className,
+	contentPrimary,
+	imagePrimary,
+	contentSecondary,
+	imageSecondary,
+	...attrs
+} = Astro.props;
+
+const items = [];
+
+const hasImagePrimary = !!(imagePrimary && imagePrimary.src);
+const hasImageSecondary = !!(imageSecondary && imageSecondary.src);
+
+// Only primary content
+if (
+	contentPrimary &&
+	!hasImagePrimary &&
+	!contentSecondary &&
+	!hasImageSecondary
+)
+	items.push({ content: contentPrimary, image: null });
+
+// Primary content & image
+if (contentPrimary && hasImagePrimary)
+	items.push({
+		content: contentPrimary,
+		image: imagePrimary,
+	});
+
+// Secondary content & image
+if (contentSecondary && hasImageSecondary)
+	items.push({
+		content: contentSecondary,
+		image: imageSecondary,
+	});
+---
+
+{
+	items.length ? (
+		<div
+			class={`c-content-stream${className ? ` | ${className}` : ''}`}
+			{...attrs}
+		>
+			{items.map((item) => (
+				<Stack>
+					<ContentBlock value={item.content} />
+					{item.image ? (
+						<img
+							class="c-content-stream__image"
+							src={item.image.src}
+							loading="lazy"
+						/>
+					) : null}
+				</Stack>
+			))}
+		</div>
+	) : null
+}
+
+<style lang="scss">
+	.c-content-stream {
+		display: flex;
+		justify-content: space-evenly;
+		gap: var(stack-base);
+	}
+
+	.c-content-stream__image {
+		display: block;
+		max-inline-size: 100%;
+		margin-inline: auto;
+	}
+</style>

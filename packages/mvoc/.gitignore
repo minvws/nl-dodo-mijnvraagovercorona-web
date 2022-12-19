@@ -1,1 +1,6 @@
-out
+# build output
+dist
+
+# environment variables
+.env
+.env.production

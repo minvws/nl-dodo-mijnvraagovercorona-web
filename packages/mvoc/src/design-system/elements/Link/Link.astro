@@ -1,0 +1,176 @@
+---
+import { HTMLAttributes } from 'astro/types';
+import { Icon, IconProps } from '@design-system/elements/Icon';
+import { Animations } from '@design-system/primitives/animation';
+
+// Interfaces
+interface Shared {
+	variant?: 'tooltip' | 'restart' | 'back' | 'cta';
+	icon?: IconProps['name'];
+	iconPosition?: 'leading' | 'trailing';
+	interactionIconAnimation?: Animations;
+}
+
+interface Button extends HTMLAttributes<'button'>, Shared {}
+
+interface Link extends HTMLAttributes<'a'>, Shared {
+	disabled?: boolean;
+	external?: boolean;
+	hiddenLabel?: string;
+}
+
+type Props = Button | Link;
+
+const {
+	disabled,
+	variant,
+	external,
+	hiddenLabel,
+	icon,
+	iconPosition,
+	interactionIconAnimation,
+	type,
+	class: className,
+	...attrs
+} = Astro.props;
+
+// Which element should we render?
+const Element = attrs.href || attrs.href === '' ? 'a' : 'button';
+
+// Create class based on props
+const combinedClasses = `e-link${variant ? ` e-link--${variant}` : ''}${
+	interactionIconAnimation
+		? ` | u-animation-interaction--${interactionIconAnimation}`
+		: ''
+}${className ? ` | ${className}` : ''}`;
+
+const iconPositionCalculated =
+	variant === 'back' || variant === 'restart' || iconPosition === 'leading'
+		? 'leading'
+		: 'trailing';
+
+const selectedIcon =
+	attrs.href && external
+		? 'external'
+		: variant === 'tooltip'
+		? 'tooltip'
+		: variant === 'restart'
+		? 'refresh'
+		: variant === 'back'
+		? 'chevron-large-left'
+		: icon
+		? icon
+		: undefined;
+---
+
+<Element
+	class={combinedClasses}
+	type={!attrs.href && type ? (type as Button['type']) : undefined}
+	disabled={!attrs.href && disabled ? disabled : undefined}
+	data-disabled={attrs.href && disabled ? disabled : undefined}
+	formaction={!attrs.href && attrs.formaction ? attrs.formaction : undefined}
+	href={attrs.href}
+	target={attrs.href && external ? '_blank' : undefined}
+	rel={attrs.href && external ? 'noopener noreferrer' : undefined}
+	lang={attrs.href ? attrs.lang : undefined}
+	hreflang={attrs.href ? attrs.lang : undefined}
+	{...attrs}
+>
+	{
+		iconPositionCalculated === 'leading' && selectedIcon ? (
+			<Icon name={selectedIcon} description={hiddenLabel} />
+		) : null
+	}
+	<span class="e-link__label">
+		<slot />
+	</span>
+	{
+		iconPositionCalculated === 'trailing' && selectedIcon ? (
+			<Icon name={selectedIcon} description={hiddenLabel} />
+		) : null
+	}
+</Element>
+
+<style lang="scss">
+	.e-link {
+		--link-interactive-outline: var(--color-donkerblauw);
+		--icon-animation: none;
+		--link-color: var(--color-donkerblauw);
+		--link-text-decoration: underline;
+		display: inline;
+		outline: none;
+		text-decoration: none;
+		color: var(--link-color);
+		transition-property: background-color, color, border, box-shadow;
+		transition-duration: 300ms;
+		transition-timing-function: ease-in-out;
+		cursor: pointer;
+
+		:global(> *) {
+			vertical-align: middle;
+		}
+
+		:global(> .e-icon) {
+			animation: var(--u-animation-subscribe);
+		}
+
+		&:hover,
+		&:focus {
+			--link-color: var(--color-diepblauw);
+		}
+
+		&:focus {
+			outline: 2px solid var(--link-interactive-outline);
+		}
+	}
+
+	.e-link__label {
+		text-decoration: var(--link-text-decoration);
+		text-underline-position: under;
+	}
+
+	// Variants
+	.e-link--tooltip {
+		.e-link__label {
+			text-decoration-style: dotted;
+		}
+	}
+
+	.e-link--restart,
+	.e-link--back {
+		--link-text-decoration: none;
+		display: inline-flex;
+		gap: 0.5rem;
+		font-weight: bold;
+	}
+
+	.e-link--back {
+		&:hover {
+			--u-animation-subscribe: var(--animation-swing);
+		}
+	}
+
+	.e-link--restart {
+		&:hover {
+			--u-animation-subscribe: var(--animation-rotate-reverse);
+		}
+	}
+
+	.e-link--cta {
+		--link-color: var(--color-accent-robijnrood);
+		--link-text-decoration: none;
+		--link-icon-spacing: var(--space-r-milli);
+		font-size: var(--font-size-beta);
+		line-height: var(--line-height-beta);
+		font-weight: bold;
+
+		:global(> .e-icon) {
+			color: var(--color-diepblauw);
+		}
+
+		&:hover,
+		&:focus {
+			--link-text-decoration: underline;
+		}
+	}
+</style>
