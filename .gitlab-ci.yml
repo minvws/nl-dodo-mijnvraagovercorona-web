@@ -61,7 +61,7 @@ test mvoc:
   stage: test
   script:
     - yarn
-    - yarn test:mvoc-astro
+    - yarn mvoc:test
   rules:
     - if: '$CI_COMMIT_TAG =~ /^development/'
       when: always
@@ -101,7 +101,7 @@ build mvoc image:
   <<: *build-image
   variables:
     CD_APP_NAME: mijn-vraag-over-corona-website
-    CD_APP_FOLDER: mvoc-astro
+    CD_APP_FOLDER: mvoc
   rules:
     - if: '$CI_COMMIT_TAG =~ /^development/'
       when: always

@@ -3,23 +3,11 @@
 	"private": true,
 	"scripts": {
 		"test": "yarn workspaces run test",
-		"test:reizen": "yarn workspace @quarantaine/reizen run test",
-		"test:mvoc": "yarn workspace @quarantaine/mvoc run test",
-		"test:mvoc-astro": "yarn workspace @quarantaine/mvoc-astro run test",
-		"test:common": "yarn workspace @quarantaine/common run test",
-		"e2e:reizen": "yarn workspace @quarantaine/reizen run test:e2e",
-		"e2e-open:reizen": "yarn workspace @quarantaine/reizen run e2e:open",
-		"dev:reizen": "yarn workspace @quarantaine/reizen dev",
-		"dev:mvoc-astro": "yarn workspace @quarantaine/mvoc-astro dev",
-		"dev:mvoc": "yarn workspace @quarantaine/mvoc dev",
-		"dev:common": "yarn workspace @quarantaine/common storybook",
-		"dev:cms": "yarn workspace @quarantaine/cms start",
-		"build:mvoc-astro": "yarn workspace @quarantaine/mvoc-astro build",
-		"build:reizen": "yarn workspace @quarantaine/reizen build",
-		"build:mvoc": "yarn workspace @quarantaine/mvoc build",
-		"preview:reizen": "yarn workspace @quarantaine/reizen preview",
-		"preview:mvoc": "yarn workspace @quarantaine/mvoc preview",
-		"deploy:cms": "yarn workspace @quarantaine/cms deploy"
+		"mvoc:test": "yarn workspace @quarantaine/mvoc run test",
+		"mvoc:dev": "yarn workspace @quarantaine/mvoc dev",
+		"mvoc:build": "yarn workspace @quarantaine/mvoc build",
+		"cms:dev": "yarn workspace @quarantaine/cms start",
+		"cms:deploy": "yarn workspace @quarantaine/cms deploy"
 	},
 	"workspaces": [
 		"packages/*"
