@@ -130,55 +130,6 @@ const selectedIcon =
 			outline-offset: 2px;
 		}
 
-		// variants
-		&.e-button--secondary {
-			--button-background-color: var(--color-donkerblauw);
-
-			&:hover,
-			&:focus {
-				--button-background-color: var(--color-diepblauw);
-			}
-		}
-
-		&.e-button--tertiary,
-		&.e-button--quaternary {
-			--button-color: var(--color-donkerblauw);
-			--button-border-color: var(--variant--tile-border-color);
-			--button-elevation: var(--variant--tile-elevation);
-			box-shadow: var(--button-elevation);
-			outline: none;
-			text-align: left;
-
-			&:hover,
-			&:focus {
-				--button-border-color: var(--variant--tile-border-color-interactive);
-				--button-elevation: var(--variant--tile-elevation-interactive);
-			}
-		}
-
-		&.e-button--tertiary {
-			--button-background-color: var(--color-white);
-			&:hover,
-			&:focus {
-				--button-background-color: var(--color-white);
-			}
-		}
-
-		&.e-button--quaternary {
-			--button-background-color: var(--color-ijsblauw);
-			--button-icon-color: var(--color-accent-robijnrood);
-			font-weight: bold;
-
-			&:hover,
-			&:focus {
-				--button-background-color: var(--color-ijsblauw);
-			}
-		}
-
-		&.e-button--full {
-			inline-size: 100%;
-		}
-
 		&:disabled,
 		&[data-disabled] {
 			--button-background-color: var(--color-grijs-4);
@@ -192,7 +143,60 @@ const selectedIcon =
 		}
 	}
 
-	.e-button__label:first-letter {
-		text-transform: uppercase;
+	.e-button__label {
+		word-wrap: break-word;
+		hyphens: auto;
+		&:first-letter {
+			text-transform: uppercase;
+		}
+	}
+
+	// variants
+	.e-button--secondary {
+		--button-background-color: var(--color-donkerblauw);
+
+		&:hover,
+		&:focus {
+			--button-background-color: var(--color-diepblauw);
+		}
+	}
+
+	.e-button--tertiary,
+	.e-button--quaternary {
+		--button-color: var(--color-donkerblauw);
+		--button-border-color: var(--variant--tile-border-color);
+		--button-elevation: var(--variant--tile-elevation);
+		box-shadow: var(--button-elevation);
+		outline: none;
+		text-align: left;
+
+		&:hover,
+		&:focus {
+			--button-border-color: var(--variant--tile-border-color-interactive);
+			--button-elevation: var(--variant--tile-elevation-interactive);
+		}
+	}
+
+	.e-button--tertiary {
+		--button-background-color: var(--color-white);
+		&:hover,
+		&:focus {
+			--button-background-color: var(--color-white);
+		}
+	}
+
+	.e-button--quaternary {
+		--button-background-color: var(--color-ijsblauw);
+		--button-icon-color: var(--color-accent-robijnrood);
+		font-weight: bold;
+
+		&:hover,
+		&:focus {
+			--button-background-color: var(--color-ijsblauw);
+		}
+	}
+
+	.e-button--full {
+		inline-size: 100%;
 	}
 </style>
