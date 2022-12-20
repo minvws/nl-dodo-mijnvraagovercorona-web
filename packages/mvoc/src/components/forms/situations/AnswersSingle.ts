@@ -1,3 +1,7 @@
+import { differenceInCalendarDays } from 'date-fns';
+import { calculateDay, getDaySlug } from 'src/utilities/helpers/advice-helpers';
+import { getDatePickerValue } from 'src/utilities/state/datePicker';
+
 export const moduleName = 'answers-single';
 
 export const initAnswersSingle = () => {
@@ -10,6 +14,12 @@ export const initAnswersSingle = () => {
 
 	if (!submitButtons && !controls) return false;
 
+	let day = 0;
+	const today = new Date();
+	const diff = getDatePickerValue()
+		? differenceInCalendarDays(new Date(getDatePickerValue()), today)
+		: undefined;
+
 	// Enable/disable submit buttons
 	const toggleSubmitButtons = () => {
 		const formData = new FormData(form);
@@ -20,7 +30,10 @@ export const initAnswersSingle = () => {
 	};
 
 	// Handle checkbox select
-	const handleChange = () => {
+	const handleChange = (event) => {
+		const input = event.target;
+		const maxDays = parseInt(input.getAttribute('data-max-days'));
+		if (diff) day = calculateDay(diff, maxDays);
 		toggleSubmitButtons();
 	};
 
@@ -28,7 +41,11 @@ export const initAnswersSingle = () => {
 	form.addEventListener('submit', (event) => {
 		event.preventDefault();
 		const formData = new FormData(form);
-		(window as Window).location = formData.get(moduleName).toString();
+		const url = getDaySlug({
+			slug: formData.get(moduleName).toString(),
+			day: Math.abs(day),
+		});
+		(window as Window).location = url;
 	});
 
 	// bind change event to controls

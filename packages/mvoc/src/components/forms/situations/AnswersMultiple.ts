@@ -1,3 +1,7 @@
+import { differenceInCalendarDays } from 'date-fns';
+import { calculateDay, getDaySlug } from 'src/utilities/helpers/advice-helpers';
+import { getDatePickerValue } from 'src/utilities/state/datePicker';
+
 export const moduleName = 'answers-multiple';
 
 export const initAnswersMultiple = () => {
@@ -9,6 +13,12 @@ export const initAnswersMultiple = () => {
 	const checkboxes = form.querySelectorAll('[type="checkbox"]');
 
 	if (!submitButtons && !checkboxes) return false;
+
+	const maxDays = parseInt(form.getAttribute('data-max-days'));
+	let day = 0;
+	const diff = getDatePickerValue()
+		? differenceInCalendarDays(new Date(getDatePickerValue()), new Date())
+		: undefined;
 
 	// Enable/disable submit buttons
 	const toggleSubmitButtons = () => {
@@ -26,9 +36,17 @@ export const initAnswersMultiple = () => {
 
 	// handle form submit event
 	form.addEventListener('submit', (event) => {
+		event.preventDefault();
+		const button = event.submitter;
 		const formData = new FormData(form);
-		if (!formData.get(moduleName)) {
-			event.preventDefault();
+
+		if (formData.get(moduleName) && button) {
+			if (diff) day = calculateDay(diff, maxDays);
+			const url = getDaySlug({
+				slug: button.getAttribute('formaction'),
+				day: Math.abs(day),
+			});
+			(window as Window).location = url;
 		}
 	});
 

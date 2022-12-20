@@ -12,11 +12,22 @@ import { Stack } from '@design-system/components/Layout/Stack';
 import { ContentStream } from '@design-system/components/ContentStream';
 import type { ContentStreamProps } from '@design-system/components/ContentStream/ContentStream.astro';
 import { AssistanceProps } from 'src/utilities/api/queries/assistance';
+import { getDaysToGenerate } from 'src/utilities/helpers/advice-helpers';
 
 export interface Props {
 	answers: {
 		content: ContentBlockProps['value'];
-		next: string;
+		next: {
+			type: string;
+			slug: string;
+			answer?: {
+				showOn?: Array<number>;
+			}[];
+			plan?: {
+				showOn?: Array<number>;
+				day?: number;
+			}[];
+		};
 		_key: string;
 	}[];
 	buttons: SubmitProps['buttons'];
@@ -50,8 +61,9 @@ const parsedButtons = buttons?.map((button, index) =>
 							type="radio"
 							name={AnswersSingleModuleName}
 							id={_key}
-							value={`${locale.urlPrefix}/${next}` || ''}
+							value={`${locale.urlPrefix}/${next.slug}` || ''}
 							variant="tile"
+							data-max-days={getDaysToGenerate(next).length}
 						>
 							<ContentBlock value={content} />
 						</Control>

@@ -10,7 +10,8 @@ type Props = {
 	variant?: 'tile';
 };
 
-const { type, name, value, id, checked, required, variant } = Astro.props;
+const { type, name, value, id, checked, required, variant, ...attrs } =
+	Astro.props;
 ---
 
 <div
@@ -26,6 +27,7 @@ const { type, name, value, id, checked, required, variant } = Astro.props;
 		value={value}
 		checked={checked}
 		required={required}
+		{...attrs}
 	/>
 	<label class="e-control__label" for={id}><slot /></label>
 </div>
