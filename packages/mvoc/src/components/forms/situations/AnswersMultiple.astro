@@ -11,6 +11,7 @@ import {
 import { ContentStreamProps } from '@design-system/components/ContentStream/ContentStream.astro';
 import { ContentStream } from '@design-system/components/ContentStream';
 import { AssistanceProps } from 'src/utilities/api/queries/assistance';
+import { getDaysToGenerate } from 'src/utilities/helpers/advice-helpers';
 
 export interface Props {
 	answers: {
@@ -38,16 +39,27 @@ const secondGroup = answers.slice(
 	answers.length,
 );
 
-const parsedButtons = buttons?.map((button, index) =>
-	index === 0 && button.standard
+let daysToGenerate = [] as number[];
+let standardSlug = '';
+
+const parsedButtons = buttons?.map((button, index) => {
+	if (index === 0 && button.standard) {
+		daysToGenerate = getDaysToGenerate(button.next);
+		standardSlug = button.next.slug;
+	}
+	return index === 0 && button.standard
 		? { ...button, disabled: true }
 		: {
 				...button,
-		  },
-);
+		  };
+});
 ---
 
-<form method="get" data-module={AnswersMultipleModuleName}>
+<form
+	method="get"
+	data-module={AnswersMultipleModuleName}
+	data-max-days={daysToGenerate.length}
+>
 	<Stack>
 		<ContentStream {...content} />
 		<div>

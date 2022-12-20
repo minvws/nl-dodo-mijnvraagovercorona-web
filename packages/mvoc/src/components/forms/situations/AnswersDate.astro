@@ -5,7 +5,7 @@ import { Button } from '@design-system/elements/Button';
 import { HTMLAttributes } from 'astro/types';
 import {
 	getDaySlug,
-	getShowOnDays,
+	getDaysToGenerate,
 } from 'src/utilities/helpers/advice-helpers';
 import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
 import {
@@ -30,9 +30,7 @@ let standardSlug = '';
 
 const parsedButtons = buttons?.map((button, index) => {
 	if (index === 0 && button.standard) {
-		const answerShowOnDays = getShowOnDays(button.next.answer);
-		const planShowOnDays = getShowOnDays(button.next?.plan);
-		daysToGenerate = [...new Set(answerShowOnDays.concat(planShowOnDays))];
+		daysToGenerate = getDaysToGenerate(button.next);
 		standardSlug = button.next.slug;
 	}
 	return index === 0 && button.standard
@@ -96,15 +94,24 @@ const parsedButtons = buttons?.map((button, index) => {
 
 <script>
 	import { subDays, differenceInCalendarDays } from 'date-fns';
-	import { getDaySlug } from 'src/utilities/helpers/advice-helpers';
-	import { formatDate } from 'src/utilities/locale/date';
+	import {
+		calculateDay,
+		getDaySlug,
+	} from 'src/utilities/helpers/advice-helpers';
+	import { formatDate, formatToISO } from 'src/utilities/locale/date';
+	import {
+		removeDatePickerValue,
+		setDatePickerValue,
+	} from 'src/utilities/state/datePicker';
 
-	const today = new Date();
 	const parent = document.querySelector(
 		'[data-module="answers-date"]',
 	) as HTMLFormElement;
 
 	if (parent) {
+		// clear sessionstorage
+		removeDatePickerValue();
+		const today = new Date();
 		const locale = parent.getAttribute('data-locale');
 		const maxDays = parseInt(parent.getAttribute('data-max-days'));
 		const submitButton = parent.querySelector(
@@ -124,16 +131,12 @@ const parsedButtons = buttons?.map((button, index) => {
 
 			const picker = document.querySelector('duet-date-picker');
 
-			picker.setAttribute(
-				'max',
-				`${today.getFullYear()}-${`0${today.getMonth() + 1}`.slice(
-					-2,
-				)}-${`0${today.getDate()}`.slice(-2)}`,
-			);
+			picker.setAttribute('max', formatToISO(today));
 
 			picker.addEventListener('duetChange', (event: any) => {
+				setDatePickerValue(formatToISO(event.detail.valueAsDate));
 				const diff = differenceInCalendarDays(event.detail.valueAsDate, today);
-				day = diff < 0 ? (Math.abs(diff) < maxDays ? diff : -(maxDays - 1)) : 0;
+				day = calculateDay(diff, maxDays);
 				diff < 1
 					? (submitButton.disabled = false)
 					: (submitButton.disabled = true);

@@ -75,8 +75,21 @@ export const getEssentialQuestionPageProjection = ({
 			_key,
 			${localePropertyQuery({ name: 'content', locale })},
 			"next": select(
-				next->_type == "situation-question-document" => 'situatie/' + next->slug.current,
-				next->_type == "situation-result-document" => 'advies/' + next->slug.current,
+				next->_type == "situation-question-document" => {
+					"type": next->_type,
+					"slug": 'situatie/' + next->slug.current,
+				},
+				next->_type == "situation-result-document" => {
+					"type": next->_type,
+					"slug": 'advies/' + next->slug.current,
+					"answer": next->answer[]{
+						showOn,
+					},
+					"plan": next->advice.plan[]{
+						showOn,
+						day,
+					},
+				},
 			),
 		},
 		"answersMultiple": answersMultiple[]{
