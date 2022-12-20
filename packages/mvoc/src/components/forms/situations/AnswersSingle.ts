@@ -15,9 +15,8 @@ export const initAnswersSingle = () => {
 	if (!submitButtons && !controls) return false;
 
 	let day = 0;
-	const today = new Date();
 	const diff = getDatePickerValue()
-		? differenceInCalendarDays(new Date(getDatePickerValue()), today)
+		? differenceInCalendarDays(new Date(getDatePickerValue()), new Date())
 		: undefined;
 
 	// Enable/disable submit buttons
