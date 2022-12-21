@@ -3,10 +3,10 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "yarn files && astro dev",
-		"start": "astro dev",
-		"build": "yarn files && astro build",
-		"test": "astro check",
+		"dev": "yarn files && astro telemetry disable && astro dev",
+		"start": "yarn dev",
+		"build": "yarn files && astro telemetry disable && astro build",
+		"test": "astro telemetry disable && astro check",
 		"files:download-sanity-images": "node ./scripts/download-sanity-images.js",
 		"files": "yarn files:download-sanity-images"
 	},
