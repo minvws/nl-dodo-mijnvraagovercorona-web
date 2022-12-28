@@ -24,7 +24,7 @@ export const getTranslatedSingleton = ({
 							type: 'create',
 							params: {
 								type: type,
-								id: `general-document`,
+								id: type,
 								template: type,
 							},
 						})

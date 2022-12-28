@@ -182,7 +182,7 @@ export default () =>
 		.items([
 			getFolder({
 				title: 'Nieuwe structuur MVOC',
-				icon: BiSitemap,
+				icon: MdLiveHelp,
 				items: [
 					getTranslatedSingleton({
 						title: 'Site Settings',
@@ -192,6 +192,8 @@ export default () =>
 					S.divider(),
 				],
 			}),
+
+			S.divider(),
 
 			getFolder({
 				title: 'Common',
