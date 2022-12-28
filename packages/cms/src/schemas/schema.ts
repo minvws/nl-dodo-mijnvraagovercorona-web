@@ -1,6 +1,7 @@
 import createSchema from 'part:@sanity/base/schema-creator';
 import schemaTypes from 'all:part:@sanity/base/schema-type';
 
+import siteSettingsTranslatedDocument from './documents/translated/siteSettings';
 import siteSettingsDocument from './documents/siteSettings';
 import faqDocument from './documents/faq';
 import countryDocument from './documents/country';
@@ -91,6 +92,7 @@ export default createSchema({
 		 * Site settings is a single document with config for all pages
 		 */
 		siteSettingsDocument,
+		siteSettingsTranslatedDocument,
 
 		/**
 		 * Documents
