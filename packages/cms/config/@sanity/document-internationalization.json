@@ -1,0 +1,12 @@
+{
+	"languages": [
+		{
+			"id": "nl",
+			"title": "Nederlands"
+		},
+		{
+			"id": "en",
+			"title": "English"
+		}
+	]
+}
