@@ -36,6 +36,7 @@ import {
 	localeBlockObject,
 	localeBlockWithoutModalObject,
 } from './objects/localeBlock';
+import customBlockObject from './objects/customBlock';
 import localeUrlObject from './objects/localeUrl';
 import localeTextObject from './objects/localeText';
 import videoObject from './objects/video';
@@ -121,6 +122,7 @@ export default createSchema({
 		localeStringObject,
 		localeBlockObject,
 		localeBlockWithoutModalObject,
+		customBlockObject,
 		localeUrlObject,
 		localeTextObject,
 		videoObject,
