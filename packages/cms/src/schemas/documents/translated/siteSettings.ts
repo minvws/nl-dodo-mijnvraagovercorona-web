@@ -31,17 +31,9 @@ export default {
 							type: 'string',
 						},
 						{
-							title: 'Links',
-							name: 'links',
-							type: 'array',
-							of: [
-								{
-									title: 'Link',
-									name: 'pageReference',
-									type: 'reference',
-									to: [{ type: 'theme-document' }],
-								},
-							],
+							title: 'Interne links',
+							name: 'internalPageCollection',
+							type: 'internalPageSelector',
 						},
 					],
 				},
@@ -90,18 +82,9 @@ export default {
 									type: 'customBlock',
 								},
 								{
-									title: 'Links',
-									name: 'links',
-									type: 'array',
-									of: [
-										{
-											title: 'Link',
-											name: 'pageReference',
-											type: 'reference',
-											// TODO: add links to generic pages
-											to: [{ type: 'theme-document' }],
-										},
-									],
+									title: 'Interne links',
+									name: 'internalPageCollection',
+									type: 'internalPageSelector',
 								},
 							],
 						},
