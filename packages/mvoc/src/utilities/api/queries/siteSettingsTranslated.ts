@@ -5,6 +5,7 @@ import {
 	ImageProps,
 	internalPageReferenceQuery,
 	InternalPageCollectionProps,
+	customBlockQuery,
 } from '.';
 import type { ContentBlockProps } from '@design-system/components/ContentBlock';
 
@@ -19,7 +20,7 @@ export interface SiteSettingsTranslatedProps {
 		title: string;
 		columns: {
 			title: string;
-			// content: ContentBlockProps['value'];
+			content: ContentBlockProps['value'] | null;
 			internalPageCollection: InternalPageCollectionProps['internalPageCollection'];
 		}[];
 	};
@@ -41,6 +42,7 @@ export const siteSettingsTranslatedQuery = ({
 			title,
 			columns[]{
 				title,
+				${customBlockQuery({ name: 'content', locale })},
 				${internalPageReferenceQuery({ locale })},
 			}
 		},

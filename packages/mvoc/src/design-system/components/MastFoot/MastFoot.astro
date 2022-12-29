@@ -21,48 +21,31 @@ const { locale } = Astro.props;
 const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 const siteSettingsTranslated: SiteSettingsTranslatedProps =
 	await useSiteSettingsTranslated({ locale });
-console.log(
-	'translated',
-	siteSettingsTranslated.mastfoot.columns[0].internalPageCollection,
-);
+console.log('translated', siteSettingsTranslated.mastfoot);
 ---
 
 <Layer as="footer" class="c-mastfoot" role="contentinfo">
 	<Retain>
+		<Heading class="u-visually-hidden">
+			{siteSettingsTranslated.mastfoot.title}
+		</Heading>
 		<div class="c-mastfoot__grid">
-			<div class="c-mastfoot__column-start">
-				<Heading class="u-visually-hidden">
-					{siteSettings.footer.footerMainTitle}
-				</Heading>
-				<ContentBlock value={siteSettings.footer.footerText} />
-			</div>
-
-			<div class="c-mastfoot__column">
-				<Stack gap="small">
-					<Heading level={3}>{siteSettings.footer.title}</Heading>
-					<LinkList
-						links={siteSettings.footer.items.map((item) => ({
-							label: item.content,
-							href: prefixUrlWithlocale(item.url, locale),
-						}))}
-					/>
-				</Stack>
-			</div>
-
-			<div class="c-mastfoot__column">
-				<Stack gap="small">
-					<Heading level={3}>{siteSettings.footer.meerInformatieTitle}</Heading>
-					<LinkList
-						links={[
-							{
-								label: siteSettings.footer.rijksoverheidText,
-								href: siteSettings.footer.rijksoverheidUrl,
-								external: true,
-							},
-						]}
-					/>
-				</Stack>
-			</div>
+			{
+				siteSettingsTranslated.mastfoot.columns.map((column) => (
+					<Stack gap="small">
+						<Heading level={3}>{column.title}</Heading>
+						{column.content ? <ContentBlock value={column.content} /> : null}
+						{column.internalPageCollection ? (
+							<LinkList
+								links={column.internalPageCollection.map((item) => ({
+									label: item.link.label,
+									href: prefixUrlWithlocale(item.link.slug, locale),
+								}))}
+							/>
+						) : null}
+					</Stack>
+				))
+			}
 		</div>
 	</Retain>
 </Layer>
@@ -96,7 +79,7 @@ console.log(
 		gap: var(--stack-humongous);
 
 		@media --mq-large {
-			grid-template-columns: 1.25fr 1fr 1fr;
+			grid-template-columns: 1fr 1fr 1fr;
 		}
 	}
 
