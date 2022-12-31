@@ -44,7 +44,9 @@ interface Props {
 const { pageData, locale } = Astro.props;
 const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 
-const translatedStories = pageData.stories.filter((story) => story.headline);
+const translatedStories = pageData.stories.filter(
+	(story) => story.headline || story.contentBlocks,
+);
 const tocStories = translatedStories.filter((story) => story.overview.title);
 
 const translatedTips = pageData.moreTips.tipCollection
