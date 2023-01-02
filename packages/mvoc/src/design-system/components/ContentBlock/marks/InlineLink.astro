@@ -4,7 +4,10 @@ import { Button } from '@design-system/elements/Button';
 import { Link } from '@design-system/elements/Link';
 import { ContentBlockProps } from '..';
 import ContentBlock from '../ContentBlock.astro';
-import { getLocaleFromURL } from 'src/utilities/locale/translation';
+import {
+	getLocaleFromURL,
+	prefixUrlWithlocale,
+} from 'src/utilities/locale/translation';
 
 type Props = Parameters<typeof Mark>[0];
 
@@ -34,6 +37,9 @@ const locale = getLocaleFromURL(Astro.url.pathname);
 const Component = mark.button ? Button : Link;
 ---
 
-<Component href={mark.href ? mark.href : undefined} external={!mark?.internal}>
+<Component
+	href={mark.href ? prefixUrlWithlocale(mark.href, locale) : undefined}
+	external={!mark?.internal}
+>
 	<ContentBlock value={children} />
 </Component>

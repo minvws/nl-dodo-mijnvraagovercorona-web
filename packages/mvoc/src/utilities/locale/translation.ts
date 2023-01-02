@@ -42,7 +42,7 @@ export const getLocaleFromURL = (pathname: string) => {
  */
 export const prefixUrlWithlocale = (href: string, locale: Locale) =>
 	availableLocales.filter((locale) => href.includes(locale.urlPrefix))
-		.length === 0
+		.length === 0 && !href.includes('://')
 		? `${locale.urlPrefix}/${href.replace(/^\//, '')}`
 		: href;
 
