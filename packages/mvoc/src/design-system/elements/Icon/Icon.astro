@@ -28,14 +28,14 @@ const { name, size, description, class: className, ...attrs } = Astro.props;
 
 <style lang="scss">
 	.e-icon {
-		--icon-size: 1.2; // 24px
+		--icon-size: 1.2em; // 24px
 		display: inline-block;
 	}
 
 	.e-icon,
 	.e-icon__visual {
-		block-size: calc(var(--icon-size) * 1em);
-		inline-size: calc(var(--icon-size) * 1em);
+		block-size: var(--icon-size);
+		inline-size: var(--icon-size);
 	}
 
 	.e-icon__visual {

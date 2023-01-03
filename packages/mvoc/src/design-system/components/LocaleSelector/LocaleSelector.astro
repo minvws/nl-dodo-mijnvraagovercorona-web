@@ -130,10 +130,8 @@ const { locales, currentLocale, labelChange, labelCurrent } = Astro.props;
 		box-shadow: var(--locale-selector-box-shadow);
 		background-color: var(--color-white);
 
-		&:focus-within,
-		&.is-active {
-			--locale-selector-border: var(--variant--tile-border-interactive);
-			--locale-selector-box-shadow: var(--variant--tile-elevation-interactive);
+		&:focus-within {
+			@include a11y.focusring;
 		}
 
 		@media --mq-large {

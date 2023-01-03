@@ -86,6 +86,8 @@ const selectedIcon =
 
 <style lang="scss">
 	@use '@design-system-styles/primitives/_responsive.scss';
+	@use '@design-system-styles/tools/_a11y.scss';
+
 	.e-button {
 		--button-border-width: 1px;
 		--button-border-color: var(--button-background-color);
@@ -120,14 +122,12 @@ const selectedIcon =
 			animation: var(--u-animation-subscribe);
 		}
 
-		&:hover,
-		&:focus {
+		&:hover {
 			--button-background-color: var(--color-accent-violet);
 		}
 
 		&:focus {
-			outline: 2px solid var(--color-donkerblauw);
-			outline-offset: 2px;
+			@include a11y.focusring;
 		}
 
 		&:disabled,
@@ -167,11 +167,9 @@ const selectedIcon =
 		--button-border-color: var(--variant--tile-border-color);
 		--button-elevation: var(--variant--tile-elevation);
 		box-shadow: var(--button-elevation);
-		outline: none;
 		text-align: left;
 
-		&:hover,
-		&:focus {
+		&:hover {
 			outline: none;
 			--button-border-color: var(--variant--tile-border-color-interactive);
 			--button-elevation: var(--variant--tile-elevation-interactive);

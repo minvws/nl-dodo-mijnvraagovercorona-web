@@ -34,12 +34,14 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 </a>
 
 <style lang="scss">
+	@use '@design-system-styles/tools/_a11y.scss';
+
 	.c-video {
 		--video-color: var(--color-white);
 		position: relative;
 		display: block;
 		color: var(--video-color);
-		transition: 300ms ease-in-out;
+		transition: color 300ms ease-in-out;
 
 		&::after {
 			position: absolute;
@@ -52,7 +54,11 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 			);
 			content: '';
 		}
-		&:focus,
+
+		&:focus {
+			@include a11y.focusring;
+		}
+
 		&:hover {
 			--video-color: var(--color-accent-robijnrood);
 		}
@@ -74,10 +80,6 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 		inline-size: 25%;
 		aspect-ratio: 1/1;
 		z-index: 1;
-
-		:global(> svg) {
-			inline-size: 100%;
-			block-size: 100%;
-		}
+		--icon-size: 100%;
 	}
 </style>
