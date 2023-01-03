@@ -55,22 +55,11 @@ console.log('translated', siteSettingsTranslated.mastfoot);
 
 	.c-mastfoot {
 		background-color: var(--color-ijsblauw);
-		// color: var(--color-white);
 
 		:global(h2),
 		:global(h3) {
 			color: currentColor;
 		}
-
-		// :global(a) {
-		// 	--link-interactive-outline: currentColor;
-
-		// 	&,
-		// 	&:hover,
-		// 	&:focus {
-		// 		--link-color: currentColor;
-		// 	}
-		// }
 	}
 
 	.c-mastfoot__grid {
@@ -81,22 +70,5 @@ console.log('translated', siteSettingsTranslated.mastfoot);
 		@media --mq-large {
 			grid-template-columns: 1fr 1fr 1fr;
 		}
-	}
-
-	.c-mastfoot__column-start {
-		order: 3;
-		@media --mq-large {
-			order: initial;
-		}
-	}
-
-	.c-mastfoot__column {
-		// &:global(a) {
-		// 	--link-text-decoration: none;
-		// }
-		// :global(a:hover > span),
-		// :global(a:focus > span) {
-		// 	text-decoration: underline;
-		// }
 	}
 </style>
