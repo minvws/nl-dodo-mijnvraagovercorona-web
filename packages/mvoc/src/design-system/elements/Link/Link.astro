@@ -52,17 +52,18 @@ const iconPositionCalculated =
 
 const isExternal = attrs.href && isExternalUrl(attrs.href);
 
-const selectedIcon = isExternal
-	? 'external'
-	: variant === 'tooltip'
-	? 'tooltip'
-	: variant === 'restart'
-	? 'refresh'
-	: variant === 'back'
-	? 'chevron-large-left'
-	: icon
-	? icon
-	: undefined;
+const selectedIcon =
+	variant === 'tooltip'
+		? 'tooltip'
+		: variant === 'restart'
+		? 'refresh'
+		: variant === 'back'
+		? 'chevron-large-left'
+		: icon
+		? icon
+		: isExternal
+		? 'external'
+		: undefined;
 ---
 
 <Element
