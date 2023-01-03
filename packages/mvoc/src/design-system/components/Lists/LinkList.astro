@@ -17,8 +17,11 @@ const { links } = Astro.props;
 	{
 		links.map((link) => (
 			<li>
-				<Icon name="chevron-small-right" class="c-mastfoot__icon" />
-				<Link href={link.href} external={link.external}>
+				<Link
+					href={link.href}
+					icon={'chevron-small-right'}
+					iconPosition={'leading'}
+				>
 					{link.label}
 				</Link>
 			</li>

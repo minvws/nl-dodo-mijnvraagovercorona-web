@@ -54,23 +54,23 @@ console.log('translated', siteSettingsTranslated.mastfoot);
 	@use '@design-system-styles/primitives/_responsive.scss';
 
 	.c-mastfoot {
-		background-color: var(--color-donkerblauw);
-		color: var(--color-white);
+		background-color: var(--color-ijsblauw);
+		// color: var(--color-white);
 
 		:global(h2),
 		:global(h3) {
 			color: currentColor;
 		}
 
-		:global(a) {
-			--link-interactive-outline: currentColor;
+		// :global(a) {
+		// 	--link-interactive-outline: currentColor;
 
-			&,
-			&:hover,
-			&:focus {
-				--link-color: currentColor;
-			}
-		}
+		// 	&,
+		// 	&:hover,
+		// 	&:focus {
+		// 		--link-color: currentColor;
+		// 	}
+		// }
 	}
 
 	.c-mastfoot__grid {
@@ -91,12 +91,12 @@ console.log('translated', siteSettingsTranslated.mastfoot);
 	}
 
 	.c-mastfoot__column {
-		&:global(a) {
-			--link-text-decoration: none;
-		}
-		:global(a:hover > span),
-		:global(a:focus > span) {
-			text-decoration: underline;
-		}
+		// &:global(a) {
+		// 	--link-text-decoration: none;
+		// }
+		// :global(a:hover > span),
+		// :global(a:focus > span) {
+		// 	text-decoration: underline;
+		// }
 	}
 </style>

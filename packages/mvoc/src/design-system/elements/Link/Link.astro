@@ -2,6 +2,7 @@
 import { HTMLAttributes } from 'astro/types';
 import { Icon, IconProps } from '@design-system/elements/Icon';
 import { Animations } from '@design-system/primitives/animation';
+import { isExternalUrl } from 'src/utilities/helpers/external-url';
 
 // Interfaces
 interface Shared {
@@ -49,18 +50,19 @@ const iconPositionCalculated =
 		? 'leading'
 		: 'trailing';
 
-const selectedIcon =
-	attrs.href && external
-		? 'external'
-		: variant === 'tooltip'
-		? 'tooltip'
-		: variant === 'restart'
-		? 'refresh'
-		: variant === 'back'
-		? 'chevron-large-left'
-		: icon
-		? icon
-		: undefined;
+const isExternal = attrs.href && isExternalUrl(attrs.href);
+
+const selectedIcon = isExternal
+	? 'external'
+	: variant === 'tooltip'
+	? 'tooltip'
+	: variant === 'restart'
+	? 'refresh'
+	: variant === 'back'
+	? 'chevron-large-left'
+	: icon
+	? icon
+	: undefined;
 ---
 
 <Element
@@ -70,8 +72,8 @@ const selectedIcon =
 	data-disabled={attrs.href && disabled ? disabled : undefined}
 	formaction={!attrs.href && attrs.formaction ? attrs.formaction : undefined}
 	href={attrs.href}
-	target={attrs.href && external ? '_blank' : undefined}
-	rel={attrs.href && external ? 'noopener noreferrer' : undefined}
+	target={isExternal ? '_blank' : undefined}
+	rel={isExternal ? 'noopener noreferrer' : undefined}
 	lang={attrs.href ? attrs.lang : undefined}
 	hreflang={attrs.href ? attrs.lang : undefined}
 	{...attrs}
@@ -121,6 +123,10 @@ const selectedIcon =
 
 		&:focus {
 			outline: 2px solid var(--link-interactive-outline);
+		}
+
+		&:visited {
+			--link-color: var(--color-accent-visited);
 		}
 	}
 
