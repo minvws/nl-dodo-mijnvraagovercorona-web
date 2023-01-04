@@ -119,5 +119,20 @@ export default {
 				},
 			],
 		},
+
+		// logo
+		{
+			title: 'Logo',
+			name: 'logo',
+			type: 'object',
+			options: { collapsible: true },
+			fields: [
+				{
+					title: 'Alternatief',
+					name: 'alt',
+					type: 'string',
+				},
+			],
+		},
 	],
 };
