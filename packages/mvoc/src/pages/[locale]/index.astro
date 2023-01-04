@@ -112,11 +112,7 @@ const { pageData }: HomeProps = await getDataHome({ locale });
 	@use '@design-system-styles/primitives/_responsive.scss';
 
 	.grid-important {
-		--grid-fluid-min-item-size: 21.0526315789rem; // 400px
+		--grid-fluid-min-item-size: 20rem; // 400px
 		--grid-fluid-gap: var(--stack-small);
-
-		@media --mq-large {
-			--grid-fluid-min-item-size: 20rem; // 400px
-		}
 	}
 </style>
