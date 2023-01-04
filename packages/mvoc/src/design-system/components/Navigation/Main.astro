@@ -1,0 +1,38 @@
+---
+import { HTMLAttributes } from 'astro/types';
+import {
+	SiteSettingsTranslatedProps,
+	useSiteSettingsTranslated,
+} from 'src/utilities/api/queries';
+import {
+	getLocaleFromURL,
+	prefixUrlWithlocale,
+} from 'src/utilities/locale/translation';
+
+interface Props extends HTMLAttributes<'nav'> {}
+
+const { class: className, ...attrs } = Astro.props;
+const locale = getLocaleFromURL(Astro.url.pathname);
+const { masthead }: SiteSettingsTranslatedProps =
+	await useSiteSettingsTranslated({ locale });
+---
+
+<nav class={`c-nav-main${className ? ` | ${className}` : ''}`} {...attrs}>
+	<ul>
+		<li><a href={locale.urlPrefix}>{masthead.menu.homeLabel}</a></li>
+		{
+			masthead.menu.internalPageCollection.map((page) => (
+				<li>
+					<a href={prefixUrlWithlocale(page.link.slug, locale)}>
+						{page.link.label}
+					</a>
+				</li>
+			))
+		}
+	</ul>
+</nav>
+
+<style lang="scss">
+	.c-nav-main {
+	}
+</style>

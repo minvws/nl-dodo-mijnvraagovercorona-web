@@ -12,6 +12,7 @@ import '@design-system/globals.scss';
 import { Masthead, SkipLink } from '@design-system/components/Masthead';
 import { LocaleSelector } from '@design-system/components/LocaleSelector';
 import { MastFoot } from '@design-system/components/MastFoot';
+import { NavigationMain } from '@design-system/components/Navigation';
 
 export interface Props {
 	locale: Locale;
@@ -45,15 +46,16 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 				logoAlt={siteSettings.header.logoAlt}
 				highlight={mastheadHighlight}
 			>
-				<SkipLink label={siteSettings.header.skipLink} slot="start" />
+				<NavigationMain slot="start" />
 				<slot name="back" slot="start" />
-				<LocaleSelector
+				<SkipLink label={siteSettings.header.skipLink} slot="end" />
+				<!-- <LocaleSelector
 					locales={availableLocales}
 					currentLocale={locale}
 					labelChange={siteSettings.header.localeSelector.change}
 					labelCurrent={siteSettings.header.localeSelector.current}
 					slot="end"
-				/>
+				/> -->
 			</Masthead>
 			<main id="content">
 				<slot />

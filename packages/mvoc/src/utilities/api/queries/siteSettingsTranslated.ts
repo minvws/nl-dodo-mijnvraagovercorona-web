@@ -14,6 +14,7 @@ export interface SiteSettingsTranslatedProps {
 		skiplink: string;
 		menu: {
 			homeLabel: string;
+			internalPageCollection: InternalPageCollectionProps['internalPageCollection'];
 		};
 	};
 	mastfoot: {
@@ -39,6 +40,7 @@ export const siteSettingsTranslatedQuery = ({
 			skipLink,
 			menu{
 				homeLabel,
+				${internalPageReferenceQuery({ locale })},
 			},
 		},
 		mastfoot{
