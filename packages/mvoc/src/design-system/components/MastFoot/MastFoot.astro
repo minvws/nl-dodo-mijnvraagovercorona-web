@@ -1,10 +1,9 @@
 ---
+import Sprite from 'astro-icon';
 import { Heading } from '@design-system/elements/Heading';
 import { ContentBlock } from '@design-system/components/ContentBlock';
 import {
-	SiteSettingsProps,
 	SiteSettingsTranslatedProps,
-	useSiteSettings,
 	useSiteSettingsTranslated,
 } from 'src/utilities/api/queries';
 import { Locale, prefixUrlWithlocale } from 'src/utilities/locale/translation';
@@ -19,37 +18,50 @@ interface Props {
 }
 
 const { locale } = Astro.props;
-const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 const siteSettingsTranslated: SiteSettingsTranslatedProps =
 	await useSiteSettingsTranslated({ locale });
 console.log('translated', siteSettingsTranslated.mastfoot);
 ---
 
-<Layer as="footer" class="c-mastfoot" role="contentinfo">
+<footer class="c-mastfoot" role="contentinfo">
 	<Retain>
-		<Heading class="u-visually-hidden">
-			{siteSettingsTranslated.mastfoot.title}
-		</Heading>
-		<GridFluid class="c-mastfoot__grid">
-			{
-				siteSettingsTranslated.mastfoot.columns.map((column) => (
-					<Stack gap="small">
-						<Heading level={3}>{column.title}</Heading>
-						{column.content ? <ContentBlock value={column.content} /> : null}
-						{column.internalPageCollection ? (
-							<LinkList
-								links={column.internalPageCollection.map((item) => ({
-									label: item.link.label,
-									href: prefixUrlWithlocale(item.link.slug, locale),
-								}))}
-							/>
-						) : null}
-					</Stack>
-				))
-			}
-		</GridFluid>
+		<div class="c-mastfoot__wrap-logo">
+			<a class="c-mastfoot__logo" href={locale.urlPrefix}>
+				<Sprite
+					class="c-mastfoot__logo-visual"
+					name="logo-vws"
+					optimize={true}
+				/>
+				<!-- <span class="u-visually-hidden">{logoAlt}</span> -->
+			</a>
+		</div>
 	</Retain>
-</Layer>
+	<Layer as="div" class="c-mastfoot__layer">
+		<Retain>
+			<Heading class="u-visually-hidden">
+				{siteSettingsTranslated.mastfoot.title}
+			</Heading>
+			<GridFluid class="c-mastfoot__grid">
+				{
+					siteSettingsTranslated.mastfoot.columns.map((column) => (
+						<Stack gap="small">
+							<Heading level={3}>{column.title}</Heading>
+							{column.content ? <ContentBlock value={column.content} /> : null}
+							{column.internalPageCollection ? (
+								<LinkList
+									links={column.internalPageCollection.map((item) => ({
+										label: item.link.label,
+										href: prefixUrlWithlocale(item.link.slug, locale),
+									}))}
+								/>
+							) : null}
+						</Stack>
+					))
+				}
+			</GridFluid>
+		</Retain>
+	</Layer>
+</footer>
 
 <style lang="scss">
 	@use '@design-system-styles/primitives/_responsive.scss';
@@ -63,8 +75,51 @@ console.log('translated', siteSettingsTranslated.mastfoot);
 		}
 	}
 
+	.c-mastfoot__layer {
+		--layer-padding-block-start: var(--stack-giant);
+
+		@media --mq-large {
+			--layer-padding-block-start: var(--stack-huge);
+		}
+	}
+
 	.c-mastfoot__grid {
-		gap: var(--stack-humongous);
 		--grid-fluid-min-item-size: 15.1rem; // 302px
+		--grid-fluid-gap: var(--stack-giant);
+
+		@media --mq-large {
+			--grid-fluid-gap: var(--stack-humongous);
+		}
+	}
+
+	// Logo
+	.c-mastfoot__wrap-logo {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+	}
+
+	/**
+	 * 1. The banner width is a percentage of the whole image, we need to pull the
+	 *    banner in the center.
+	 */
+	.c-mastfoot__logo {
+		--logo-banner-percentage: 19.15%; /* [1] */
+		grid-column-start: 2;
+		justify-self: start;
+		inline-size: 100%;
+		max-inline-size: 9.65rem; // 193px
+		transform: translateX(
+			calc(var(--logo-banner-percentage) / 2 * -1)
+		); /* [1] */
+
+		&:focus {
+			outline: var(--elevation-focusring);
+			outline-offset: 2px;
+		}
+	}
+
+	.c-mastfoot__logo-visual {
+		display: block;
+		inline-size: 100%;
 	}
 </style>
