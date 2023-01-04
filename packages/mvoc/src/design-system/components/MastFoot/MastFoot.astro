@@ -12,6 +12,7 @@ import { Layer } from '@design-system/components/Layout/Layer';
 import { Retain } from '@design-system/components/Layout/Retain';
 import { Stack } from '@design-system/components/Layout/Stack';
 import { LinkList } from '@design-system/components/Lists';
+import { GridFluid } from '../Layout/Grid';
 
 interface Props {
 	locale: Locale;
@@ -29,7 +30,7 @@ console.log('translated', siteSettingsTranslated.mastfoot);
 		<Heading class="u-visually-hidden">
 			{siteSettingsTranslated.mastfoot.title}
 		</Heading>
-		<div class="c-mastfoot__grid">
+		<GridFluid class="c-mastfoot__grid">
 			{
 				siteSettingsTranslated.mastfoot.columns.map((column) => (
 					<Stack gap="small">
@@ -46,7 +47,7 @@ console.log('translated', siteSettingsTranslated.mastfoot);
 					</Stack>
 				))
 			}
-		</div>
+		</GridFluid>
 	</Retain>
 </Layer>
 
@@ -63,12 +64,7 @@ console.log('translated', siteSettingsTranslated.mastfoot);
 	}
 
 	.c-mastfoot__grid {
-		display: grid;
-		grid-template-columns: 1fr;
 		gap: var(--stack-humongous);
-
-		@media --mq-large {
-			grid-template-columns: 1fr 1fr 1fr;
-		}
+		--grid-fluid-min-item-size: 15.1rem; // 302px
 	}
 </style>
