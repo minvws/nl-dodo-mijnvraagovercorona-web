@@ -27,6 +27,11 @@ export interface SiteSettingsTranslatedProps {
 			internalPageCollection: InternalPageCollectionProps['internalPageCollection'];
 		}[];
 	};
+	localeSelector: {
+		title: string;
+		change: string;
+		current: string;
+	};
 	logo: {
 		alt: string;
 	};
@@ -54,6 +59,11 @@ export const siteSettingsTranslatedQuery = ({
 				${customBlockQuery({ name: 'content', locale })},
 				${internalPageReferenceQuery({ locale })},
 			}
+		},
+		localeSelector{
+			title,
+			change,
+			current,
 		},
 		logo{
 			alt,

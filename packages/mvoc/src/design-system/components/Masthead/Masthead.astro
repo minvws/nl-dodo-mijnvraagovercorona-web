@@ -1,5 +1,6 @@
 ---
 import Sprite from 'astro-icon';
+import { Retain } from '../Layout/Retain';
 
 type Props = {
 	logoUrl: string;
@@ -14,12 +15,9 @@ const { logoUrl, logoAlt, highlight } = Astro.props;
 	class={`c-masthead${highlight ? ` c-masthead--highlight` : ''}`}
 	role="banner"
 >
-	<div>
-		<slot name="start" />
-	</div>
-	<div>
-		<slot name="end" />
-	</div>
+	<Retain>
+		<slot />
+	</Retain>
 </header>
 
 <style lang="scss">
@@ -27,14 +25,8 @@ const { logoUrl, logoAlt, highlight } = Astro.props;
 
 	.c-masthead {
 		--masthead-background: var(--color-white);
-		--masthead-inline-padding: var(--space-r-small);
 		position: relative;
 		z-index: 50;
-		padding-inline: var(--masthead-inline-padding);
 		background-color: var(--masthead-background);
-
-		@media --mq-large {
-			--masthead-inline-padding: var(--space-r-large);
-		}
 	}
 </style>

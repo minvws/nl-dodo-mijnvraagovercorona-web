@@ -41,14 +41,14 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 	</head>
 	<body>
 		<Sprite.Provider>
+			<SkipLink label={siteSettings.header.skipLink} />
 			<Masthead
 				logoUrl={locale.urlPrefix}
 				logoAlt={siteSettings.header.logoAlt}
 				highlight={mastheadHighlight}
 			>
-				<SkipLink label={siteSettings.header.skipLink} slot="start" />
-				<slot name="back" slot="start" />
-				<NavigationMain slot="end" />
+				<NavigationMain />
+				<slot name="back" slot="end" />
 				<!-- <LocaleSelector
 					locales={availableLocales}
 					currentLocale={locale}

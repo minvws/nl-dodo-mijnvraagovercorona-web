@@ -8,7 +8,7 @@ type Props = {
 const { label } = Astro.props;
 ---
 
-<Button href="#content" class="c-skiplink" variant={'secondary'}>
+<Button href="#content" class="c-skiplink" full variant={'secondary'}>
 	{label}
 </Button>
 
@@ -17,14 +17,8 @@ const { label } = Astro.props;
 	@use '@design-system-styles/tools/_a11y.scss';
 
 	.c-skiplink {
-		position: absolute;
-		inline-size: auto;
-
-		// increase specificity by one
-		&.c-skiplink {
-			min-inline-size: auto;
-		}
-
+		justify-content: center;
+		border-radius: 0;
 		&:not(:focus) {
 			@include a11y.visually-hidden;
 		}

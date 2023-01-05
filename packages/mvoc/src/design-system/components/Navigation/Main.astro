@@ -1,4 +1,5 @@
 ---
+import { Link } from '@design-system/elements/Link';
 import { HTMLAttributes } from 'astro/types';
 import {
 	SiteSettingsTranslatedProps,
@@ -8,6 +9,7 @@ import {
 	getLocaleFromURL,
 	prefixUrlWithlocale,
 } from 'src/utilities/locale/translation';
+import { LocaleSelectorList } from '../LocaleSelector';
 
 interface Props extends HTMLAttributes<'div'> {}
 
@@ -15,102 +17,53 @@ const { class: className, ...attrs } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
 const { masthead }: SiteSettingsTranslatedProps =
 	await useSiteSettingsTranslated({ locale });
-
-console.log('Current path', Astro.url.pathname);
 ---
 
-<nav
-	id="nav-main"
+<div
 	class={`c-nav-main${className ? ` | ${className}` : ''}`}
 	data-module="nav-main"
-	aria-label={masthead.menu.landmarkLabel}
 	{...attrs}
 >
 	<div class="c-nav-main__drawer" data-module-bind="nav-main__drawer">
-		<strong>Onderwerpen</strong>
-		<ul class="c-nav-main__list" role="list">
-			<li>
-				<a
-					href={locale.urlPrefix}
-					aria-current={Astro.url.pathname === locale.urlPrefix
-						? 'page'
-						: undefined}>{masthead.menu.homeLabel}</a
-				>
-			</li>
-			{
-				masthead.menu.internalPageCollection.map((page) => {
-					const url = prefixUrlWithlocale(page.link.slug, locale);
-					return (
-						<li>
-							<a
-								href={url}
-								aria-current={
-									Astro.url.pathname.startsWith(url) ? 'page' : undefined
-								}
-							>
-								{page.link.label}
-							</a>
-						</li>
-					);
-				})
-			}
-		</ul>
+		<p><mark>Onderwerpen</mark></p>
+		<nav class="c-nav-main__nav" aria-label={masthead.menu.landmarkLabel}>
+			<ul class="c-nav-main__list" role="list">
+				<li>
+					<Link
+						href={locale.urlPrefix}
+						aria-current={Astro.url.pathname === locale.urlPrefix ||
+						`${Astro.url.pathname}/` === `${locale.urlPrefix}/`
+							? 'page'
+							: undefined}
+					>
+						{masthead.menu.homeLabel}
+					</Link>
+				</li>
+				{
+					masthead.menu.internalPageCollection.map((page) => {
+						const url = prefixUrlWithlocale(page.link.slug, locale);
+						return (
+							<li>
+								<Link
+									href={url}
+									aria-current={
+										Astro.url.pathname.startsWith(url) ? 'page' : undefined
+									}
+								>
+									{page.link.label}
+								</Link>
+							</li>
+						);
+					})
+				}
+			</ul>
+		</nav>
 
-		<strong>Talen</strong>
-		<ul class="c-nav-main__list" role="list">
-			<li>
-				<a
-					href={locale.urlPrefix}
-					aria-current={Astro.url.pathname === locale.urlPrefix
-						? 'page'
-						: undefined}>{masthead.menu.homeLabel}</a
-				>
-			</li>
-			{
-				masthead.menu.internalPageCollection.map((page) => {
-					const url = prefixUrlWithlocale(page.link.slug, locale);
-					return (
-						<li>
-							<a
-								href={url}
-								aria-current={
-									Astro.url.pathname.startsWith(url) ? 'page' : undefined
-								}
-							>
-								{page.link.label}
-							</a>
-						</li>
-					);
-				})
-			}
-		</ul>
-		<ul class="c-nav-main__list" role="list">
-			<li>
-				<a
-					href={locale.urlPrefix}
-					aria-current={Astro.url.pathname === locale.urlPrefix
-						? 'page'
-						: undefined}>{masthead.menu.homeLabel}</a
-				>
-			</li>
-			{
-				masthead.menu.internalPageCollection.map((page) => {
-					const url = prefixUrlWithlocale(page.link.slug, locale);
-					return (
-						<li>
-							<a
-								href={url}
-								aria-current={
-									Astro.url.pathname.startsWith(url) ? 'page' : undefined
-								}
-							>
-								{page.link.label}
-							</a>
-						</li>
-					);
-				})
-			}
-		</ul>
+		<LocaleSelectorList class="c-nav-main__nav c-nav-main__hide-large" />
+
+		<div class="c-nav-main__nav c-nav-main__hide-large">
+			<p><mark>Extra paginas</mark></p>
+		</div>
 	</div>
 
 	<template data-module-bind="nav-main__menu-button-template">
@@ -127,7 +80,7 @@ console.log('Current path', Astro.url.pathname);
 			</svg>
 		</button>
 	</template>
-</nav>
+</div>
 
 <script>
 	// select dom nodes
@@ -165,11 +118,43 @@ console.log('Current path', Astro.url.pathname);
 	@use '@design-system-styles/tools/_a11y.scss';
 
 	.c-nav-main {
+		--nav-main--padding-inline: var(--stack-base);
 		position: var(--nav-main-position, fixed);
-		inset-block-start: var(--stack-base);
-		inset-inline-start: var(--stack-base);
+		inset-block-start: var(--nav-main-inset, var(--stack-small));
+		inset-inline-end: var(--nav-main-inset, var(--stack-small));
 		font-size: var(--font-size-milli);
 		line-height: var(--line-height-milli);
+
+		:global(a),
+		:global(p) {
+			display: block;
+			padding-block: var(--nav-main__link-padding-block, 0.5rem); // 10px
+			padding-inline: var(
+				--nav-main__link-padding-inline,
+				var(--nav-main--padding-inline)
+			);
+		}
+
+		:global(p) {
+			display: var(--nav-main__title-display, block);
+			font-weight: bold;
+		}
+
+		:global(a) {
+			--link-text-decoration: none;
+			--link-color: currentColor;
+			position: relative;
+			&[aria-current] {
+				background-color: var(
+					--nav-main__link-bg-color,
+					var(--color-poolblauw)
+				);
+			}
+
+			&:focus {
+				z-index: 1;
+			}
+		}
 	}
 
 	.c-nav-main__button {
@@ -182,6 +167,7 @@ console.log('Current path', Astro.url.pathname);
 		inline-size: 2.4rem; // 48px
 		aspect-ratio: 1/1;
 		outline: none;
+		box-shadow: var(--elevation-frost);
 
 		&:focus {
 			@include a11y.focusring();
@@ -197,7 +183,10 @@ console.log('Current path', Astro.url.pathname);
 		padding-block: var(--nav-main__drawer-padding, var(--stack-base));
 		background-color: var(--color-white);
 		visibility: var(--nav-main__drawer-visibility, visible);
-		transition: transform 0.3s ease-in-out, visibility 0.3s linear;
+		// @TODO: fix animation on page load issue
+		// transition: transform 0.3s ease-in-out, visibility 0.3s linear;
+		overflow: var(--nav-main__drawer-overflow, auto);
+		box-shadow: var(--nav-main__drawer-elevation, var(--elevation-frost));
 
 		[aria-expanded='false'] + & {
 			transform: var(--nav-main__drawer-transform, translateX(-100%));
@@ -205,17 +194,24 @@ console.log('Current path', Astro.url.pathname);
 		}
 	}
 
-	.c-nav-main__list {
-		display: flex;
-		flex-direction: var(--nav-main__list-layout, column);
-		flex-wrap: wrap;
-
+	.c-nav-main__nav {
 		&:not(:last-child) {
+			margin-block-end: var(
+				--nav-main__nav-margin-block-end,
+				var(--space-r-small)
+			);
 			border-block-end: var(
-				--nav-main__list-separator,
+				--nav-main__nav-separator,
 				1px solid var(--color-lichtblauw)
 			);
 		}
+	}
+
+	.c-nav-main__list {
+		display: flex;
+		flex-direction: var(--nav-main__list-layout, column);
+		gap: var(--nav-main__list-gap, 0);
+		flex-wrap: wrap;
 	}
 
 	@media --mq-large {
@@ -223,12 +219,43 @@ console.log('Current path', Astro.url.pathname);
 			--nav-main-position: static;
 			--nav-main__button-display: none;
 			--nav-main__list-layout: row;
+			--nav-main__list-gap: var(--stack-large);
 			--nav-main__drawer-position: static;
 			--nav-main__drawer-block-size: auto;
 			--nav-main__drawer-inline-size: 100%;
 			--nav-main__drawer-padding: 0;
 			--nav-main__drawer-visibility: visible;
 			--nav-main__drawer-transform: none;
+			--nav-main__drawer-elevation: none;
+			--nav-main__drawer-overflow: visible;
+			--nav-main__nav-separator: none;
+			--nav-main__nav-margin-block-end: 0;
+			--nav-main__link-bg-color: transparent;
+			--nav-main__link-padding-inline: 0;
+			--nav-main__link-padding-block: var(--stack-base);
+			--nav-main__title-display: none;
+
+			.c-nav-main__hide-large {
+				display: none;
+			}
+
+			:global(a) {
+				padding-block-end: calc(var(--nav-main__link-padding-block) - 4px);
+				border-block-end: 4px solid
+					var(--nav-main__link-border-color, transparent);
+
+				&:hover,
+				&:focus {
+					--link-color: currentColor;
+					--nav-main__link-border-color: var(--color-accent-robijnrood);
+					// outline: none;
+				}
+
+				&[aria-current] {
+					--nav-main__link-border-color: currentColor;
+					--link-color: var(--color-diepblauw);
+				}
+			}
 		}
 	}
 </style>
