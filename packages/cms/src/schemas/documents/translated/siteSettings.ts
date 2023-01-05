@@ -26,6 +26,18 @@ export default {
 					type: 'object',
 					fields: [
 						{
+							title: 'Landmark label',
+							name: 'landmarkLabel',
+							description:
+								'Word alleen voorgelezen door screenreaders, vermijd het woord "navigatie" of "menu".',
+							type: 'string',
+						},
+						{
+							title: 'Menu label',
+							name: 'menuLabel',
+							type: 'string',
+						},
+						{
 							title: 'Home label',
 							name: 'homeLabel',
 							type: 'string',

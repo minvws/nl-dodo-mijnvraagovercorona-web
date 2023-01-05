@@ -13,6 +13,8 @@ export interface SiteSettingsTranslatedProps {
 	masthead: {
 		skiplink: string;
 		menu: {
+			landmarkLabel: string;
+			menuLabel: string;
 			homeLabel: string;
 			internalPageCollection: InternalPageCollectionProps['internalPageCollection'];
 		};
@@ -39,6 +41,8 @@ export const siteSettingsTranslatedQuery = ({
 		masthead{
 			skipLink,
 			menu{
+				landmarkLabel,
+				menuLabel,
 				homeLabel,
 				${internalPageReferenceQuery({ locale })},
 			},

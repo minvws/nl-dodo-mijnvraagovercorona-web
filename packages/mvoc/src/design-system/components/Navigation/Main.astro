@@ -9,30 +9,226 @@ import {
 	prefixUrlWithlocale,
 } from 'src/utilities/locale/translation';
 
-interface Props extends HTMLAttributes<'nav'> {}
+interface Props extends HTMLAttributes<'div'> {}
 
 const { class: className, ...attrs } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
 const { masthead }: SiteSettingsTranslatedProps =
 	await useSiteSettingsTranslated({ locale });
+
+console.log('Current path', Astro.url.pathname);
 ---
 
-<nav class={`c-nav-main${className ? ` | ${className}` : ''}`} {...attrs}>
-	<ul>
-		<li><a href={locale.urlPrefix}>{masthead.menu.homeLabel}</a></li>
-		{
-			masthead.menu.internalPageCollection.map((page) => (
-				<li>
-					<a href={prefixUrlWithlocale(page.link.slug, locale)}>
-						{page.link.label}
-					</a>
-				</li>
-			))
-		}
-	</ul>
+<nav
+	id="nav-main"
+	class={`c-nav-main${className ? ` | ${className}` : ''}`}
+	data-module="nav-main"
+	aria-label={masthead.menu.landmarkLabel}
+	{...attrs}
+>
+	<div class="c-nav-main__drawer" data-module-bind="nav-main__drawer">
+		<strong>Onderwerpen</strong>
+		<ul class="c-nav-main__list" role="list">
+			<li>
+				<a
+					href={locale.urlPrefix}
+					aria-current={Astro.url.pathname === locale.urlPrefix
+						? 'page'
+						: undefined}>{masthead.menu.homeLabel}</a
+				>
+			</li>
+			{
+				masthead.menu.internalPageCollection.map((page) => {
+					const url = prefixUrlWithlocale(page.link.slug, locale);
+					return (
+						<li>
+							<a
+								href={url}
+								aria-current={
+									Astro.url.pathname.startsWith(url) ? 'page' : undefined
+								}
+							>
+								{page.link.label}
+							</a>
+						</li>
+					);
+				})
+			}
+		</ul>
+
+		<strong>Talen</strong>
+		<ul class="c-nav-main__list" role="list">
+			<li>
+				<a
+					href={locale.urlPrefix}
+					aria-current={Astro.url.pathname === locale.urlPrefix
+						? 'page'
+						: undefined}>{masthead.menu.homeLabel}</a
+				>
+			</li>
+			{
+				masthead.menu.internalPageCollection.map((page) => {
+					const url = prefixUrlWithlocale(page.link.slug, locale);
+					return (
+						<li>
+							<a
+								href={url}
+								aria-current={
+									Astro.url.pathname.startsWith(url) ? 'page' : undefined
+								}
+							>
+								{page.link.label}
+							</a>
+						</li>
+					);
+				})
+			}
+		</ul>
+		<ul class="c-nav-main__list" role="list">
+			<li>
+				<a
+					href={locale.urlPrefix}
+					aria-current={Astro.url.pathname === locale.urlPrefix
+						? 'page'
+						: undefined}>{masthead.menu.homeLabel}</a
+				>
+			</li>
+			{
+				masthead.menu.internalPageCollection.map((page) => {
+					const url = prefixUrlWithlocale(page.link.slug, locale);
+					return (
+						<li>
+							<a
+								href={url}
+								aria-current={
+									Astro.url.pathname.startsWith(url) ? 'page' : undefined
+								}
+							>
+								{page.link.label}
+							</a>
+						</li>
+					);
+				})
+			}
+		</ul>
+	</div>
+
+	<template data-module-bind="nav-main__menu-button-template">
+		<button
+			type="button"
+			class="c-nav-main__button"
+			aria-expanded="false"
+			aria-label={masthead.menu.menuLabel}
+			aria-controls="nav-main"
+			data-module-bind="nav-main__menu-button"
+		>
+			<svg width="24" height="24" aria-hidden="true">
+				<path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"> </path>
+			</svg>
+		</button>
+	</template>
 </nav>
 
+<script>
+	// select dom nodes
+	const nav = document.querySelector('[data-module="nav-main"]');
+	const drawer = nav.querySelector('[data-module-bind="nav-main__drawer"]');
+	const menuButtonTemplate = nav.querySelector(
+		'[data-module-bind="nav-main__menu-button-template"]',
+	) as HTMLTemplateElement;
+	const menuButtonClone = menuButtonTemplate.content.cloneNode(
+		true,
+	) as DocumentFragment;
+	const menuButton = menuButtonClone.querySelector(
+		'[data-module-bind="nav-main__menu-button"]',
+	) as HTMLButtonElement;
+
+	// handle click events
+	menuButton.addEventListener('click', () => {
+		const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
+		menuButton.setAttribute('aria-expanded', new Boolean(!isOpen).toString());
+	});
+
+	// handle keyboard events
+	nav.addEventListener('keyup', (event: KeyboardEvent) => {
+		if (event.code === 'Escape') {
+			menuButton.setAttribute('aria-expanded', new Boolean(false).toString());
+		}
+	});
+
+	// insert menu button
+	nav.insertBefore(menuButtonClone, drawer);
+</script>
+
 <style lang="scss">
+	@use '@design-system-styles/primitives/_responsive.scss';
+	@use '@design-system-styles/tools/_a11y.scss';
+
 	.c-nav-main {
+		position: var(--nav-main-position, fixed);
+		inset-block-start: var(--stack-base);
+		inset-inline-start: var(--stack-base);
+		font-size: var(--font-size-milli);
+		line-height: var(--line-height-milli);
+	}
+
+	.c-nav-main__button {
+		position: relative;
+		z-index: 1;
+		display: var(--nav-main__button-display, flex);
+		align-items: center;
+		justify-content: center;
+		background-color: var(--color-white);
+		inline-size: 2.4rem; // 48px
+		aspect-ratio: 1/1;
+		outline: none;
+
+		&:focus {
+			@include a11y.focusring();
+		}
+	}
+
+	.c-nav-main__drawer {
+		position: var(--nav-main__drawer-position, fixed);
+		inset-block-start: 0;
+		inset-inline-start: 0;
+		inline-size: var(--nav-main__drawer-inline-size, min(22rem, 100vw));
+		block-size: var(--nav-main__drawer-block-size, 100vh);
+		padding-block: var(--nav-main__drawer-padding, var(--stack-base));
+		background-color: var(--color-white);
+		visibility: var(--nav-main__drawer-visibility, visible);
+		transition: transform 0.3s ease-in-out, visibility 0.3s linear;
+
+		[aria-expanded='false'] + & {
+			transform: var(--nav-main__drawer-transform, translateX(-100%));
+			visibility: var(--nav-main__drawer-visibility, hidden);
+		}
+	}
+
+	.c-nav-main__list {
+		display: flex;
+		flex-direction: var(--nav-main__list-layout, column);
+		flex-wrap: wrap;
+
+		&:not(:last-child) {
+			border-block-end: var(
+				--nav-main__list-separator,
+				1px solid var(--color-lichtblauw)
+			);
+		}
+	}
+
+	@media --mq-large {
+		.c-nav-main {
+			--nav-main-position: static;
+			--nav-main__button-display: none;
+			--nav-main__list-layout: row;
+			--nav-main__drawer-position: static;
+			--nav-main__drawer-block-size: auto;
+			--nav-main__drawer-inline-size: 100%;
+			--nav-main__drawer-padding: 0;
+			--nav-main__drawer-visibility: visible;
+			--nav-main__drawer-transform: none;
+		}
 	}
 </style>

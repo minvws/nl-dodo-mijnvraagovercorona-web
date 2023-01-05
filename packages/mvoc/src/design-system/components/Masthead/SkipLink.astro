@@ -17,6 +17,7 @@ const { label } = Astro.props;
 	@use '@design-system-styles/tools/_a11y.scss';
 
 	.c-skiplink {
+		position: absolute;
 		inline-size: auto;
 
 		// increase specificity by one
@@ -25,7 +26,7 @@ const { label } = Astro.props;
 		}
 
 		&:not(:focus) {
-			// @include a11y.visually-hidden;
+			@include a11y.visually-hidden;
 		}
 	}
 </style>

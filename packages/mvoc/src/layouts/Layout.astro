@@ -46,9 +46,9 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 				logoAlt={siteSettings.header.logoAlt}
 				highlight={mastheadHighlight}
 			>
-				<NavigationMain slot="start" />
+				<SkipLink label={siteSettings.header.skipLink} slot="start" />
 				<slot name="back" slot="start" />
-				<SkipLink label={siteSettings.header.skipLink} slot="end" />
+				<NavigationMain slot="end" />
 				<!-- <LocaleSelector
 					locales={availableLocales}
 					currentLocale={locale}
