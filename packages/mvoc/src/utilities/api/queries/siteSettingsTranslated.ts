@@ -14,9 +14,14 @@ export interface SiteSettingsTranslatedProps {
 		skiplink: string;
 		menu: {
 			landmarkLabel: string;
-			menuLabel: string;
+			menuButtonLabel: string;
 			homeLabel: string;
+			menuTitle: string;
 			internalPageCollection: InternalPageCollectionProps['internalPageCollection'];
+			extraMenu: {
+				title: string;
+				internalPageCollection: InternalPageCollectionProps['internalPageCollection'];
+			};
 		};
 	};
 	mastfoot: {
@@ -47,9 +52,14 @@ export const siteSettingsTranslatedQuery = ({
 			skipLink,
 			menu{
 				landmarkLabel,
-				menuLabel,
+				menuButtonLabel,
 				homeLabel,
+				menuTitle,
 				${internalPageReferenceQuery({ locale })},
+				extraMenu{
+					title,
+					${internalPageReferenceQuery({ locale })},
+				},
 			},
 		},
 		mastfoot{

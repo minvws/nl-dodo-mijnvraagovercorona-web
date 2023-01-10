@@ -33,8 +33,8 @@ export default {
 							type: 'string',
 						},
 						{
-							title: 'Menu label',
-							name: 'menuLabel',
+							title: 'Menu button label',
+							name: 'menuButtonLabel',
 							type: 'string',
 						},
 						{
@@ -43,9 +43,31 @@ export default {
 							type: 'string',
 						},
 						{
-							title: 'Interne links',
+							title: 'Menu title',
+							name: 'menuTitle',
+							type: 'string',
+						},
+						{
+							title: 'Hoofdmenu interne links',
 							name: 'internalPageCollection',
 							type: 'internalPageSelector',
+						},
+						{
+							title: 'Extra menu',
+							name: 'extraMenu',
+							type: 'object',
+							fields: [
+								{
+									title: 'Title',
+									name: 'title',
+									type: 'string',
+								},
+								{
+									title: 'Extra pagina’s',
+									name: 'internalPageCollection',
+									type: 'internalPageSelector',
+								},
+							],
 						},
 					],
 				},

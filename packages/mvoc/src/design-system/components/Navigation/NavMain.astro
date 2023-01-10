@@ -1,4 +1,5 @@
 ---
+import { Icon } from '@design-system/elements/Icon';
 import { Link } from '@design-system/elements/Link';
 import { HTMLAttributes } from 'astro/types';
 import {
@@ -9,6 +10,7 @@ import {
 	getLocaleFromURL,
 	prefixUrlWithlocale,
 } from 'src/utilities/locale/translation';
+import { ContentBlock } from '../ContentBlock';
 import { LocaleSelectorList } from '../LocaleSelector';
 
 interface Props extends HTMLAttributes<'div'> {}
@@ -17,6 +19,13 @@ const { class: className, ...attrs } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
 const { masthead }: SiteSettingsTranslatedProps =
 	await useSiteSettingsTranslated({ locale });
+
+const isHome =
+	Astro.url.pathname === locale.urlPrefix ||
+	`${Astro.url.pathname}/` === `${locale.urlPrefix}/` ||
+	Astro.url.pathname === '/';
+
+console.log('masthead', masthead);
 ---
 
 <div
@@ -25,16 +34,13 @@ const { masthead }: SiteSettingsTranslatedProps =
 	{...attrs}
 >
 	<div class="c-nav-main__drawer" data-module-bind="nav-main__drawer">
-		<p><mark>Onderwerpen</mark></p>
+		<p class="c-nav-main__title">{masthead.menu.menuTitle}</p>
 		<nav class="c-nav-main__nav" aria-label={masthead.menu.landmarkLabel}>
 			<ul class="c-nav-main__list" role="list">
 				<li>
 					<Link
 						href={locale.urlPrefix}
-						aria-current={Astro.url.pathname === locale.urlPrefix ||
-						`${Astro.url.pathname}/` === `${locale.urlPrefix}/`
-							? 'page'
-							: undefined}
+						aria-current={isHome ? 'page' : undefined}
 					>
 						{masthead.menu.homeLabel}
 					</Link>
@@ -50,7 +56,11 @@ const { masthead }: SiteSettingsTranslatedProps =
 										Astro.url.pathname.startsWith(url) ? 'page' : undefined
 									}
 								>
-									{page.link.label}
+									{page.label ? (
+										<ContentBlock value={page.label} />
+									) : (
+										page.link.label
+									)}
 								</Link>
 							</li>
 						);
@@ -61,9 +71,38 @@ const { masthead }: SiteSettingsTranslatedProps =
 
 		<LocaleSelectorList class="c-nav-main__nav c-nav-main__hide-large" />
 
-		<div class="c-nav-main__nav c-nav-main__hide-large">
-			<p><mark>Extra paginas</mark></p>
-		</div>
+		{
+			masthead.menu?.extraMenu?.internalPageCollection ? (
+				<div class="c-nav-main__nav  c-nav-main__hide-large">
+					{masthead.menu?.extraMenu?.title ? (
+						<p class="c-nav-main__title">{masthead.menu.extraMenu.title}</p>
+					) : null}
+					<ul class="c-nav-main__list" role="list">
+						{masthead.menu.extraMenu.internalPageCollection.map((page) => {
+							const url = prefixUrlWithlocale(page.link.slug, locale);
+							console.log('page', page);
+
+							return (
+								<li>
+									<Link
+										href={url}
+										aria-current={
+											Astro.url.pathname.startsWith(url) ? 'page' : undefined
+										}
+									>
+										{page.label ? (
+											<ContentBlock value={page.label} />
+										) : (
+											page.link.label
+										)}
+									</Link>
+								</li>
+							);
+						})}
+					</ul>
+				</div>
+			) : null
+		}
 	</div>
 
 	<template data-module-bind="nav-main__menu-button-template">
@@ -71,13 +110,12 @@ const { masthead }: SiteSettingsTranslatedProps =
 			type="button"
 			class="c-nav-main__button"
 			aria-expanded="false"
-			aria-label={masthead.menu.menuLabel}
+			aria-label={masthead.menu.menuButtonLabel}
 			aria-controls="nav-main"
 			data-module-bind="nav-main__menu-button"
 		>
-			<svg width="24" height="24" aria-hidden="true">
-				<path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"> </path>
-			</svg>
+			<Icon name="burger" class="hide-expanded" />
+			<Icon name="cross" class="show-expanded" />
 		</button>
 	</template>
 </div>
@@ -122,11 +160,10 @@ const { masthead }: SiteSettingsTranslatedProps =
 		position: var(--nav-main-position, fixed);
 		inset-block-start: var(--nav-main-inset, var(--stack-small));
 		inset-inline-end: var(--nav-main-inset, var(--stack-small));
-		font-size: var(--font-size-milli);
-		line-height: var(--line-height-milli);
 
 		:global(a),
-		:global(p) {
+		:global(.c-locale-selector-list__title),
+		.c-nav-main__title {
 			display: block;
 			padding-block: var(--nav-main__link-padding-block, 0.5rem); // 10px
 			padding-inline: var(
@@ -135,7 +172,8 @@ const { masthead }: SiteSettingsTranslatedProps =
 			);
 		}
 
-		:global(p) {
+		:global(.c-locale-selector-list__title),
+		.c-nav-main__title {
 			display: var(--nav-main__title-display, block);
 			font-weight: bold;
 		}
@@ -169,6 +207,19 @@ const { masthead }: SiteSettingsTranslatedProps =
 		outline: none;
 		box-shadow: var(--elevation-frost);
 
+		.show-expanded {
+			display: none;
+		}
+
+		&[aria-expanded='true'] {
+			.hide-expanded {
+				display: none;
+			}
+			.show-expanded {
+				display: block;
+			}
+		}
+
 		&:focus {
 			@include a11y.focusring();
 		}
@@ -187,6 +238,8 @@ const { masthead }: SiteSettingsTranslatedProps =
 		// transition: transform 0.3s ease-in-out, visibility 0.3s linear;
 		overflow: var(--nav-main__drawer-overflow, auto);
 		box-shadow: var(--nav-main__drawer-elevation, var(--elevation-frost));
+		font-size: var(--font-size-milli);
+		line-height: var(--line-height-milli);
 
 		[aria-expanded='false'] + & {
 			transform: var(--nav-main__drawer-transform, translateX(-100%));

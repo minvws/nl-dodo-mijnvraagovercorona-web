@@ -1,1 +1,1 @@
-export { default as NavigationMain } from './Main.astro';
+export { default as NavMain } from './NavMain.astro';

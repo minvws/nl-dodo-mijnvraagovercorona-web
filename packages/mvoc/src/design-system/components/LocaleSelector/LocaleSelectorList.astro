@@ -26,7 +26,9 @@ const { localeSelector }: SiteSettingsTranslatedProps =
 	{...attrs}
 	aria-describedby="locale-selector__title"
 >
-	<p id="locale-selector__title">{localeSelector.title}</p>
+	<p class="c-locale-selector-list__title" id="locale-selector__title">
+		{localeSelector.title}
+	</p>
 	<ul role="list">
 		{
 			availableLocales.map((locale) => (
