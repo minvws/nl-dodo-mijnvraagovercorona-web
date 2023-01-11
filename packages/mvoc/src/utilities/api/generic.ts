@@ -35,6 +35,7 @@ export async function getDataGenericPages({
 			locale,
 			slug,
 			multiple: false,
+			site: 'mijn-vraag-over-corona',
 		});
 
 		return {

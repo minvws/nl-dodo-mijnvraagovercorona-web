@@ -62,6 +62,7 @@ export async function getDataLandingSituations({
 		locale,
 		slug,
 		multiple: true,
+		site: 'mijn-vraag-over-corona',
 	});
 
 	return await useSanityClient().fetch(query);
