@@ -1,8 +1,8 @@
 export default {
 	title: 'Site Settings',
 	name: 'siteSettings',
-	i18n: true,
 	type: 'document',
+	i18n: true,
 	initialValue: {
 		__i18n_lang: 'nl',
 	},
