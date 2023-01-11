@@ -1,0 +1,19 @@
+/* ==========================================================================
+		utilities.hidden
+/ =========================================================================== */
+
+.u-hidden {
+	display: none;
+}
+
+@media --mq-large {
+	.u-hidden\@large {
+		display: none;
+	}
+}
+
+@media --mq-large-until {
+	.u-hidden\@large-until {
+		display: none;
+	}
+}
