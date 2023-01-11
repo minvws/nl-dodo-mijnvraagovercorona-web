@@ -28,7 +28,15 @@ export default {
 			preview: {
 				select: {
 					title: 'label',
-					subtitle: 'pageReference.slug.current',
+					referenceTitle: 'pageReference.header.title.nl',
+					slug: 'pageReference.slug.current',
+				},
+				prepare(selection) {
+					const { title, referenceTitle, slug } = selection;
+					return {
+						title: referenceTitle || title,
+						subtitle: slug,
+					};
 				},
 			},
 		},
