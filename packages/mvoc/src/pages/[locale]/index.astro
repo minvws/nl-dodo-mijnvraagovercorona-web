@@ -96,10 +96,7 @@ const { pageData }: HomeProps = await getDataHome({ locale });
 
 	{
 		pageData.assistance && (
-			<Layer
-				background="ijsblauw"
-				id={stringToSlug(pageData.assistance.headline)}
-			>
+			<Layer id={stringToSlug(pageData.assistance.headline)}>
 				<Retain>
 					<Assistance feedback {...pageData.assistance} />
 				</Retain>
