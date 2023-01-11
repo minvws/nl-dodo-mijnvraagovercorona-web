@@ -12,6 +12,7 @@ import { Retain } from '@design-system/components/Layout/Retain';
 import { Stack } from '@design-system/components/Layout/Stack';
 import { LinkList } from '@design-system/components/Lists';
 import { GridFluid } from '../Layout/Grid';
+import { LocaleSelectorList } from '../LocaleSelector';
 
 interface Props {
 	locale: Locale;
@@ -58,6 +59,12 @@ const siteSettingsTranslated: SiteSettingsTranslatedProps =
 					))
 				}
 			</GridFluid>
+		</Retain>
+	</Layer>
+
+	<Layer as="div" class="c-mastfoot__layer-locale | u-hidden@large-until">
+		<Retain>
+			<LocaleSelectorList class="c-mastfoot__locale-selector" />
 		</Retain>
 	</Layer>
 </footer>
@@ -120,5 +127,37 @@ const siteSettingsTranslated: SiteSettingsTranslatedProps =
 	.c-mastfoot__logo-visual {
 		display: block;
 		inline-size: 100%;
+	}
+
+	// Locale selector
+	.c-mastfoot__layer-locale {
+		--layer-padding: var(--stack-large);
+		background-color: var(--color-white);
+	}
+
+	.c-mastfoot__locale-selector {
+		:global(ul) {
+			display: flex;
+			flex-flow: row wrap;
+			gap: var(--stack-small);
+
+			:global(a) {
+				--link-text-decoration: none;
+				display: block;
+				padding-block: 0.5rem;
+				padding-inline: 1rem;
+				border: 1px solid var(--color-donkerblauw);
+
+				&[aria-current] {
+					font-weight: bold;
+					background-color: var(--color-poolblauw);
+				}
+
+				&:hover {
+					--link-color: var(--color-black);
+					background-color: var(--color-lichtblauw);
+				}
+			}
+		}
 	}
 </style>
