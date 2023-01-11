@@ -5,16 +5,19 @@ import schemaTypes from 'all:part:@sanity/base/schema-type';
  * New document structure
  */
 // Documents
-import siteSettingsDocumentTranslated from './translated/documents/siteSettings';
+import siteSettingsDocument from './translated/documents/siteSettings';
 
 // Pages
-// import
+import genericPage from './translated/pages/generic';
+
+// objects
+import metaDataObject from './translated/objects/metaData';
 
 /**
  * Old document structure
  */
 // Documents
-import siteSettingsDocument from './documents/siteSettings';
+import siteSettingsDocumentOld from './documents/siteSettings';
 import faqDocument from './documents/faq';
 import countryDocument from './documents/country';
 import riskCategoryDocument from './documents/riskCategory';
@@ -83,6 +86,18 @@ export default createSchema({
 	name: 'default',
 	types: schemaTypes.concat([
 		/**
+		 * Translated
+		 */
+		// pages
+		genericPage,
+
+		// documents
+		siteSettingsDocument,
+
+		// objects
+		metaDataObject,
+
+		/**
 		 * Pages
 		 * Pages are single pages within our applications which need internationalization and configuration.
 		 * Common pages
@@ -109,8 +124,7 @@ export default createSchema({
 		 * Site settings
 		 * Site settings is a single document with config for all pages
 		 */
-		siteSettingsDocument,
-		siteSettingsDocumentTranslated,
+		siteSettingsDocumentOld,
 
 		/**
 		 * Documents
