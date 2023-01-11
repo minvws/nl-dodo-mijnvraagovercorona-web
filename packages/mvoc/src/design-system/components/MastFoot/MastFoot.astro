@@ -136,6 +136,10 @@ const siteSettingsTranslated: SiteSettingsTranslatedProps =
 	}
 
 	.c-mastfoot__locale-selector {
+		:global(> * + *) {
+			margin-block-start: var(--stack-base);
+		}
+
 		:global(ul) {
 			display: flex;
 			flex-flow: row wrap;
