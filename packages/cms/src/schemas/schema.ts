@@ -1,7 +1,19 @@
 import createSchema from 'part:@sanity/base/schema-creator';
 import schemaTypes from 'all:part:@sanity/base/schema-type';
 
-import siteSettingsTranslatedDocument from './documents/translated/siteSettings';
+/**
+ * New document structure
+ */
+// Documents
+import siteSettingsDocumentTranslated from './translated/documents/siteSettings';
+
+// Pages
+// import
+
+/**
+ * Old document structure
+ */
+// Documents
 import siteSettingsDocument from './documents/siteSettings';
 import faqDocument from './documents/faq';
 import countryDocument from './documents/country';
@@ -19,6 +31,7 @@ import landingSituationsDocument from './documents/landing-situations';
 import tipDocument from './documents/tip';
 import storyDocument from './documents/story';
 
+// pages
 import privacyPage from './pages/common/privacy';
 import cookiesPage from './pages/common/cookies';
 import copyrightPage from './pages/common/copyright';
@@ -26,11 +39,14 @@ import kwetsbaarheidMeldenPage from './pages/common/kwetsbaarheidMelden';
 import toegankelijkheidPage from './pages/common/toegankelijkheid';
 import error404Page from './pages/common/404page';
 
+// Reizen
 import landingPage from './pages/reizen/landing';
 import resultaatPage from './pages/reizen/resultaat';
 
+// MVOC
 import checkLandingPage from './pages/mvoc/check-landing';
 
+// Objects
 import localeStringObject from './objects/localeString';
 import {
 	localeBlockObject,
@@ -94,7 +110,7 @@ export default createSchema({
 		 * Site settings is a single document with config for all pages
 		 */
 		siteSettingsDocument,
-		siteSettingsTranslatedDocument,
+		siteSettingsDocumentTranslated,
 
 		/**
 		 * Documents
