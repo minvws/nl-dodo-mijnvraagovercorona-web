@@ -5,37 +5,30 @@
 :where(html) {
 	// Root
 	--font-family: RoSans, sans-serif;
-	--font-size-root: 1.1875rem; // 19px
-	--font-lineheight-root: 1.2631578947; // 26px
+	--font-size-root: 1.25rem; // 20
+	--font-lineheight-root: 1.4; // 28px
 
 	// Sizes
-	--font-size-alpha: 1.8947368421rem; // 36px
+	--font-size-alpha: 1.8rem; // 36px
 	--line-height-alpha: 1.1111111111; // 40px
 
-	--font-size-beta: 1.3684210526rem; // 26px
+	--font-size-beta: 1.3rem; // 26px
 	--line-height-beta: 1.1538461538; // 30px
 
-	--font-size-gamma: 1rem; // 19px
-	--line-height-gamma: var(--font-lineheight-root); // 26px
+	--font-size-gamma: 1rem; // 20px
+	--line-height-gamma: var(--font-lineheight-root); // 28px
 
-	--font-size-milli: 0.8421052632rem; // 16px
-	--line-height-milli: 1.5; // 24px
+	--font-size-milli: 0.8rem; // 16px
+	--line-height-milli: 1.75; // 28px
 
 	@media --mq-large {
 		& {
-			// Root
-			--font-size-root: 1.25rem; // 20px
-			--font-lineheight-root: 1.4; // 28px
-
 			// Sizes
 			--font-size-alpha: 2rem; // 40px
 			--line-height-alpha: 1.1; // 44px
 
 			--font-size-beta: 1.45rem; // 29px
 			--line-height-beta: 1.2413793103; // 36px
-
-			--font-size-milli: 0.8rem; // 16px
-			--line-height-milli: 1.5; // 24px
 		}
 	}
 }

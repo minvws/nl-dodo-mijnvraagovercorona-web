@@ -50,6 +50,8 @@ const HeadingElement = `h${headingLevel}` as any;
 </li>
 
 <style lang="scss">
+	@use '@design-system-styles/tools/_a11y.scss';
+
 	.disclosure__heading {
 		--heading-font-size: var(--font-size-gamma);
 		--heading-line-height: var(--line-height-gamma);
@@ -68,7 +70,7 @@ const HeadingElement = `h${headingLevel}` as any;
 		cursor: pointer;
 
 		&:focus {
-			outline: var(--elevation-focusring);
+			@include a11y.focusring;
 		}
 	}
 

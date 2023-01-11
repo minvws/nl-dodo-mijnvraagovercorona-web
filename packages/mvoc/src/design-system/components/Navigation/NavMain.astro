@@ -1,0 +1,311 @@
+---
+import { Icon } from '@design-system/elements/Icon';
+import { Link } from '@design-system/elements/Link';
+import { HTMLAttributes } from 'astro/types';
+import {
+	SiteSettingsTranslatedProps,
+	useSiteSettingsTranslated,
+} from 'src/utilities/api/queries';
+import {
+	getLocaleFromURL,
+	prefixUrlWithlocale,
+} from 'src/utilities/locale/translation';
+import { ContentBlock } from '../ContentBlock';
+import { LocaleSelectorList } from '../LocaleSelector';
+
+interface Props extends HTMLAttributes<'div'> {}
+
+const { class: className, ...attrs } = Astro.props;
+const locale = getLocaleFromURL(Astro.url.pathname);
+const { masthead }: SiteSettingsTranslatedProps =
+	await useSiteSettingsTranslated({ locale });
+
+const isHome =
+	Astro.url.pathname === locale.urlPrefix ||
+	`${Astro.url.pathname}/` === `${locale.urlPrefix}/` ||
+	Astro.url.pathname === '/';
+---
+
+<div
+	class={`c-nav-main${className ? ` | ${className}` : ''}`}
+	data-module="nav-main"
+	{...attrs}
+>
+	<div class="c-nav-main__drawer" data-module-bind="nav-main__drawer">
+		<p class="c-nav-main__title">{masthead.menu.menuTitle}</p>
+		<nav class="c-nav-main__nav" aria-label={masthead.menu.landmarkLabel}>
+			<ul class="c-nav-main__list" role="list">
+				<li>
+					<Link
+						href={locale.urlPrefix}
+						aria-current={isHome ? 'page' : undefined}
+					>
+						{masthead.menu.homeLabel}
+					</Link>
+				</li>
+				{
+					masthead.menu.internalPageCollection.map((page) => {
+						const url = prefixUrlWithlocale(page.link.slug, locale);
+						return (
+							<li>
+								<Link
+									href={url}
+									aria-current={
+										Astro.url.pathname.startsWith(url) ? 'page' : undefined
+									}
+								>
+									{page.label ? (
+										<ContentBlock value={page.label} />
+									) : (
+										page.link.label
+									)}
+								</Link>
+							</li>
+						);
+					})
+				}
+			</ul>
+		</nav>
+
+		<LocaleSelectorList class="c-nav-main__nav c-nav-main__hide-large" />
+
+		{
+			masthead.menu?.extraMenu?.internalPageCollection ? (
+				<div class="c-nav-main__nav  c-nav-main__hide-large">
+					{masthead.menu?.extraMenu?.title ? (
+						<p class="c-nav-main__title">{masthead.menu.extraMenu.title}</p>
+					) : null}
+					<ul class="c-nav-main__list" role="list">
+						{masthead.menu.extraMenu.internalPageCollection.map((page) => {
+							const url = prefixUrlWithlocale(page.link.slug, locale);
+
+							return (
+								<li>
+									<Link
+										href={url}
+										aria-current={
+											Astro.url.pathname.startsWith(url) ? 'page' : undefined
+										}
+									>
+										{page.label ? (
+											<ContentBlock value={page.label} />
+										) : (
+											page.link.label
+										)}
+									</Link>
+								</li>
+							);
+						})}
+					</ul>
+				</div>
+			) : null
+		}
+	</div>
+
+	<template data-module-bind="nav-main__menu-button-template">
+		<button
+			type="button"
+			class="c-nav-main__button"
+			aria-expanded="false"
+			aria-label={masthead.menu.menuButtonLabel}
+			aria-controls="nav-main"
+			data-module-bind="nav-main__menu-button"
+		>
+			<Icon name="burger" class="hide-expanded" />
+			<Icon name="cross" class="show-expanded" />
+		</button>
+	</template>
+</div>
+
+<script>
+	// select dom nodes
+	const nav = document.querySelector('[data-module="nav-main"]');
+	const drawer = nav.querySelector('[data-module-bind="nav-main__drawer"]');
+	const menuButtonTemplate = nav.querySelector(
+		'[data-module-bind="nav-main__menu-button-template"]',
+	) as HTMLTemplateElement;
+	const menuButtonClone = menuButtonTemplate.content.cloneNode(
+		true,
+	) as DocumentFragment;
+	const menuButton = menuButtonClone.querySelector(
+		'[data-module-bind="nav-main__menu-button"]',
+	) as HTMLButtonElement;
+
+	// handle click events
+	menuButton.addEventListener('click', () => {
+		const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
+		menuButton.setAttribute('aria-expanded', new Boolean(!isOpen).toString());
+	});
+
+	// handle keyboard events
+	nav.addEventListener('keyup', (event: KeyboardEvent) => {
+		if (event.code === 'Escape') {
+			menuButton.setAttribute('aria-expanded', new Boolean(false).toString());
+		}
+	});
+
+	// insert menu button
+	nav.insertBefore(menuButtonClone, drawer);
+</script>
+
+<style lang="scss">
+	@use '@design-system-styles/primitives/_responsive.scss';
+	@use '@design-system-styles/tools/_a11y.scss';
+
+	.c-nav-main {
+		--nav-main--padding-inline: var(--stack-base);
+		position: var(--nav-main-position, fixed);
+		inset-block-start: var(--nav-main-inset, var(--stack-small));
+		inset-inline-end: var(--nav-main-inset, var(--stack-small));
+
+		:global(a),
+		:global(.c-locale-selector-list__title),
+		.c-nav-main__title {
+			display: block;
+			padding-block: var(--nav-main__link-padding-block, 0.5rem); // 10px
+			padding-inline: var(
+				--nav-main__link-padding-inline,
+				var(--nav-main--padding-inline)
+			);
+		}
+
+		:global(.c-locale-selector-list__title),
+		.c-nav-main__title {
+			display: var(--nav-main__title-display, block);
+			font-weight: bold;
+		}
+
+		:global(a) {
+			--link-text-decoration: none;
+			--link-color: currentColor;
+			position: relative;
+			&[aria-current] {
+				background-color: var(
+					--nav-main__link-bg-color,
+					var(--color-poolblauw)
+				);
+			}
+
+			&:focus {
+				z-index: 1;
+			}
+		}
+	}
+
+	.c-nav-main__button {
+		position: relative;
+		z-index: 1;
+		display: var(--nav-main__button-display, flex);
+		align-items: center;
+		justify-content: center;
+		background-color: var(--color-white);
+		inline-size: 2.4rem; // 48px
+		aspect-ratio: 1/1;
+		outline: none;
+		box-shadow: var(--elevation-frost);
+
+		.show-expanded {
+			display: none;
+		}
+
+		&[aria-expanded='true'] {
+			.hide-expanded {
+				display: none;
+			}
+			.show-expanded {
+				display: block;
+			}
+		}
+
+		&:focus {
+			@include a11y.focusring();
+		}
+	}
+
+	.c-nav-main__drawer {
+		position: var(--nav-main__drawer-position, fixed);
+		inset-block-start: 0;
+		inset-inline-start: 0;
+		inline-size: var(--nav-main__drawer-inline-size, min(22rem, 100vw));
+		block-size: var(--nav-main__drawer-block-size, 100vh);
+		padding-block: var(--nav-main__drawer-padding, var(--stack-base));
+		background-color: var(--color-white);
+		visibility: var(--nav-main__drawer-visibility, visible);
+		// @TODO: fix animation on page load issue
+		// transition: transform 0.3s ease-in-out, visibility 0.3s linear;
+		overflow: var(--nav-main__drawer-overflow, auto);
+		box-shadow: var(--nav-main__drawer-elevation, var(--elevation-frost));
+		font-size: var(--font-size-milli);
+		line-height: var(--line-height-milli);
+
+		[aria-expanded='false'] + & {
+			transform: var(--nav-main__drawer-transform, translateX(-100%));
+			visibility: var(--nav-main__drawer-visibility, hidden);
+		}
+	}
+
+	.c-nav-main__nav {
+		&:not(:last-child) {
+			margin-block-end: var(
+				--nav-main__nav-margin-block-end,
+				var(--space-r-small)
+			);
+			border-block-end: var(
+				--nav-main__nav-separator,
+				1px solid var(--color-lichtblauw)
+			);
+		}
+	}
+
+	.c-nav-main__list {
+		display: flex;
+		flex-direction: var(--nav-main__list-layout, column);
+		gap: var(--nav-main__list-gap, 0);
+		flex-wrap: wrap;
+	}
+
+	@media --mq-large {
+		.c-nav-main {
+			--nav-main-position: static;
+			--nav-main__button-display: none;
+			--nav-main__list-layout: row;
+			--nav-main__list-gap: var(--stack-large);
+			--nav-main__drawer-position: static;
+			--nav-main__drawer-block-size: auto;
+			--nav-main__drawer-inline-size: 100%;
+			--nav-main__drawer-padding: 0;
+			--nav-main__drawer-visibility: visible;
+			--nav-main__drawer-transform: none;
+			--nav-main__drawer-elevation: none;
+			--nav-main__drawer-overflow: visible;
+			--nav-main__nav-separator: none;
+			--nav-main__nav-margin-block-end: 0;
+			--nav-main__link-bg-color: transparent;
+			--nav-main__link-padding-inline: 0;
+			--nav-main__link-padding-block: var(--stack-base);
+			--nav-main__title-display: none;
+
+			.c-nav-main__hide-large {
+				display: none;
+			}
+
+			:global(a) {
+				padding-block-end: calc(var(--nav-main__link-padding-block) - 4px);
+				border-block-end: 4px solid
+					var(--nav-main__link-border-color, transparent);
+
+				&:hover,
+				&:focus {
+					--link-color: currentColor;
+					--nav-main__link-border-color: var(--color-accent-robijnrood);
+					// outline: none;
+				}
+
+				&[aria-current] {
+					--nav-main__link-border-color: currentColor;
+					--link-color: var(--color-diepblauw);
+				}
+			}
+		}
+	}
+</style>

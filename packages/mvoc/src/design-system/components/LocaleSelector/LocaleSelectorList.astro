@@ -1,0 +1,56 @@
+---
+import { HTMLAttributes } from 'astro/types';
+import { Link } from '@design-system/elements/Link';
+import {
+	SiteSettingsTranslatedProps,
+	useSiteSettingsTranslated,
+} from 'src/utilities/api/queries';
+import {
+	availableLocales,
+	getCurrentUrlForLocale,
+	getLocaleFromURL,
+	Locale,
+} from 'src/utilities/locale/translation';
+
+interface Props extends HTMLAttributes<'nav'> {}
+
+const { class: className, ...attrs } = Astro.props;
+const currentUrl = Astro.url.pathname;
+const currentLocale: Locale = getLocaleFromURL(currentUrl);
+const { localeSelector }: SiteSettingsTranslatedProps =
+	await useSiteSettingsTranslated({ locale: currentLocale });
+---
+
+<nav
+	class={`c-locale-selector-list${className ? ` | ${className}` : ''}`}
+	{...attrs}
+	aria-describedby="locale-selector__title"
+>
+	<p class="c-locale-selector-list__title" id="locale-selector__title">
+		{localeSelector.title}
+	</p>
+	<ul role="list">
+		{
+			availableLocales.map((locale) => (
+				<li>
+					<Link
+						href={getCurrentUrlForLocale(currentUrl, locale, currentLocale)}
+						aria-current={
+							locale.urlPrefix === currentLocale.urlPrefix ? 'true' : undefined
+						}
+					>
+						{locale.fullName}
+					</Link>
+				</li>
+			))
+		}
+	</ul>
+</nav>
+
+<style lang="scss">
+	@use '@design-system-styles/primitives/_responsive.scss';
+	@use '@design-system-styles/tools/_a11y.scss';
+
+	.c-locale-selector-list {
+	}
+</style>

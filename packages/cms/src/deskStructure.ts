@@ -23,16 +23,13 @@ import { SiGnuprivacyguard, SiYourtraveldottv } from 'react-icons/si';
 import { GrVulnerability } from 'react-icons/gr';
 import { VscScreenFull, VscCopy } from 'react-icons/vsc';
 import { IoDocumentOutline } from 'react-icons/io5';
-import {
-	RiQuestionLine,
-	RiQuestionAnswerLine,
-	RiPagesLine,
-} from 'react-icons/ri';
+import { RiQuestionLine, RiPagesLine } from 'react-icons/ri';
 import { MdOutlineTopic, MdLiveHelp } from 'react-icons/md';
 
 import { getFolder } from './utilities/getFolder';
 import { getPage } from './utilities/getSingleton';
 import { getDocumentList, getPageList } from './utilities/getDocumentList';
+import { getTranslatedSingleton } from './utilities/getTranslatedSingleton';
 
 /**
  * A list of all document types which should be rendered as a singleton.
@@ -183,6 +180,21 @@ export default () =>
 	S.list()
 		.title('Content')
 		.items([
+			getFolder({
+				title: 'Nieuwe structuur MVOC',
+				icon: MdLiveHelp,
+				items: [
+					getTranslatedSingleton({
+						title: 'Site Settings',
+						type: 'siteSettings',
+						icon: GiSettingsKnobs,
+					}),
+					S.divider(),
+				],
+			}),
+
+			S.divider(),
+
 			getFolder({
 				title: 'Common',
 				icon: BiSitemap,

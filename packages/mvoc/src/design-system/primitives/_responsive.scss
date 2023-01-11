@@ -2,5 +2,5 @@
 		primitives.responsive
 / =========================================================================== */
 
-@custom-media --mq-large (min-width: 64em);
-@custom-media --mq-large-until (max-width: 64em);
+@custom-media --mq-large (min-width: 64em); // 1024px
+@custom-media --mq-large-until (max-width: 63.9375em); // 1023px

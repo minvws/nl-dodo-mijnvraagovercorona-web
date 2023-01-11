@@ -18,7 +18,8 @@ export interface Props extends HTMLAttributes<'span'> {
 		| 'world'
 		| 'phone'
 		| 'chat'
-		| 'video';
+		| 'video'
+		| 'burger';
 	description?: string;
 	size?: string | number;
 }
@@ -28,14 +29,18 @@ const { name, size, description, class: className, ...attrs } = Astro.props;
 
 <style lang="scss">
 	.e-icon {
+		--icon-size: 1.2em; // 24px
 		display: inline-block;
 	}
 
+	.e-icon,
 	.e-icon__visual {
-		--icon-size: var(--font-lineheight-root);
+		block-size: var(--icon-size);
+		inline-size: var(--icon-size);
+	}
+
+	.e-icon__visual {
 		display: block;
-		block-size: calc(var(--icon-size) * 1em);
-		inline-size: calc(var(--icon-size) * 1em);
 	}
 </style>
 

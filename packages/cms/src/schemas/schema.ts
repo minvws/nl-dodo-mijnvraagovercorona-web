@@ -1,6 +1,7 @@
 import createSchema from 'part:@sanity/base/schema-creator';
 import schemaTypes from 'all:part:@sanity/base/schema-type';
 
+import siteSettingsTranslatedDocument from './documents/translated/siteSettings';
 import siteSettingsDocument from './documents/siteSettings';
 import faqDocument from './documents/faq';
 import countryDocument from './documents/country';
@@ -35,6 +36,7 @@ import {
 	localeBlockObject,
 	localeBlockWithoutModalObject,
 } from './objects/localeBlock';
+import customBlockObject from './objects/customBlock';
 import localeUrlObject from './objects/localeUrl';
 import localeTextObject from './objects/localeText';
 import videoObject from './objects/video';
@@ -56,6 +58,7 @@ import storyObject from './objects/story';
 import storyExtendedObject from './objects/storyExtended';
 import questionContentObject from './objects/questionContent';
 import questionSelectorObject from './objects/questionSelector';
+import internalPageSelectorObject from './objects/internalPageSelector';
 import themeSelectorObject from './objects/themeSelector';
 import tipSelectorObject from './objects/tipSelector';
 import moreTipsObject from './objects/moreTips';
@@ -91,6 +94,7 @@ export default createSchema({
 		 * Site settings is a single document with config for all pages
 		 */
 		siteSettingsDocument,
+		siteSettingsTranslatedDocument,
 
 		/**
 		 * Documents
@@ -119,6 +123,7 @@ export default createSchema({
 		localeStringObject,
 		localeBlockObject,
 		localeBlockWithoutModalObject,
+		customBlockObject,
 		localeUrlObject,
 		localeTextObject,
 		videoObject,
@@ -140,6 +145,7 @@ export default createSchema({
 		storyExtendedObject,
 		questionContentObject,
 		questionSelectorObject,
+		internalPageSelectorObject,
 		themeSelectorObject,
 		tipSelectorObject,
 		moreTipsObject,

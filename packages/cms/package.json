@@ -16,6 +16,7 @@
 		"@sanity/default-layout": "^2.29.5",
 		"@sanity/default-login": "^2.29.5",
 		"@sanity/desk-tool": "^2.29.5",
+		"@sanity/document-internationalization": "^0.3.8",
 		"@sanity/eslint-config-studio": "^2.0.0",
 		"@sanity/production-preview": "^2.29.3",
 		"@sanity/vision": "^2.29.5",

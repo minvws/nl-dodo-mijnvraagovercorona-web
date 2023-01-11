@@ -33,6 +33,8 @@ const { type, name, value, id, checked, required, variant, ...attrs } =
 </div>
 
 <style lang="scss">
+	@use '@design-system-styles/tools/_a11y.scss';
+
 	.e-control {
 		--control-color: var(--color-donkerblauw);
 		--control-spacing: var(--space-r-small);
@@ -88,7 +90,7 @@ const { type, name, value, id, checked, required, variant, ...attrs } =
 		input:focus + &,
 		input:hover + & {
 			&::before {
-				outline: var(--elevation-focusring);
+				@include a11y.focusring;
 			}
 		}
 
@@ -115,9 +117,7 @@ const { type, name, value, id, checked, required, variant, ...attrs } =
 			box-shadow: var(--control--tile-elevation);
 		}
 
-		input:checked + .e-control__label,
-		input:focus + .e-control__label,
-		.e-control__label:hover {
+		input:checked + .e-control__label {
 			--control--tile-border: var(--variant--tile-border-interactive);
 			--control--tile-elevation: var(--variant--tile-elevation-interactive);
 		}
