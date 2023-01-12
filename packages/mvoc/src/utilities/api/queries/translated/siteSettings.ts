@@ -60,7 +60,7 @@ export const siteSettingsQuery = ({ locale }: { locale: Locale }): string => `
 			title,
 			columns[]{
 				title,
-				${customBlockQuery({ name: 'content', locale })},
+				${customBlockQuery({ name: 'content' })},
 				${internalPageReferenceQuery({ locale })},
 			}
 		},

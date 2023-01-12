@@ -8,20 +8,14 @@ export interface GenericPageProps extends PageProps {
 	content: ContentBlockProps['value'];
 }
 
-export async function getDataGenericPages({
-	locale,
-	slug,
-}: {
-	locale: Locale;
-	slug?: string;
-}) {
+export async function getDataGenericPages({ slug }: { slug?: string }) {
 	const projection = `{
 		header{
 			chapeau,
 			title,
-			${customBlockQuery({ name: 'content', locale })},
+			${customBlockQuery({ name: 'content' })},
 		},
-		${customBlockQuery({ name: 'content', locale })},
+		${customBlockQuery({ name: 'content' })},
 	}`;
 
 	const query = pageQuery({

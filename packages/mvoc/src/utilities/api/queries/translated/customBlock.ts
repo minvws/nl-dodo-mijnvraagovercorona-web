@@ -1,10 +1,4 @@
-import { Locale } from 'src/utilities/locale/translation';
-import { followModals } from '..';
+import { followModals } from './';
 
-export const customBlockQuery = ({
-	name,
-	locale,
-}: {
-	name: string;
-	locale: Locale;
-}): string => `${name}[]${followModals(locale.id)}`;
+export const customBlockQuery = ({ name }: { name: string }): string =>
+	`${name}[]${followModals()}`;

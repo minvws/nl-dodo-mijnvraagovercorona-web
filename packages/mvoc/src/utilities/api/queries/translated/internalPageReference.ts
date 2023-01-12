@@ -19,7 +19,7 @@ export const internalPageReferenceQuery = ({
 	locale: Locale;
 }): string => {
 	return `internalPageCollection[]{
-		${customBlockQuery({ name: 'label', locale })},
+		${customBlockQuery({ name: 'label' })},
 		"link": select(
 			pageReference->_type == "theme-document" => pageReference->{
 				${localePropertyQuery({ name: 'label', path: 'overview.title', locale })},
