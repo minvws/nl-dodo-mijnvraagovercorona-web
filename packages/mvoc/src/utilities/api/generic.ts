@@ -1,7 +1,8 @@
 import { ContentBlockProps } from '@design-system/components/ContentBlock';
 import { useSanityClient } from 'astro-sanity';
 import type { Locale } from '../locale/translation';
-import { pageQuery, PageProps, localePropertyQuery } from './queries';
+import { customBlockQuery } from './queries';
+import { PageProps } from './queries/translated';
 
 export interface GenericPageProps extends PageProps {
 	title: string;
@@ -16,33 +17,22 @@ export async function getDataGenericPages({
 	slug?: string;
 }) {
 	const projection = `{
-		${localePropertyQuery({ name: 'title', locale })},
-		${localePropertyQuery({ name: 'content', locale, block: true })},
+		header{
+			chapeau,
+			title,
+			${customBlockQuery({ name: 'content', locale })},
+		},
+		${customBlockQuery({ name: 'content', locale })},
 	}`;
 
-	const pages = [
-		'privacy-page',
-		'cookies-page',
-		'copyright-page',
-		'toegankelijkheid-page',
-		'kwetsbaarheid-melden-page',
-	];
-
-	const test = pages.map(async (page) => {
-		const query = pageQuery({
-			type: page,
-			projection,
-			locale,
-			slug,
-			multiple: false,
-			site: 'mijn-vraag-over-corona',
-		});
-
-		return {
-			slug: page.replace('-page', ''),
-			data: await useSanityClient().fetch(query),
-		};
+	// TODO update page query
+	const query = pageQuery({
+		type: 'generic-page',
+		projection,
+		locale,
+		slug,
+		multiple: true,
 	});
 
-	return await test;
+	return await useSanityClient().fetch(query);
 }

@@ -3,9 +3,9 @@ import { Icon } from '@design-system/elements/Icon';
 import { Link } from '@design-system/elements/Link';
 import { HTMLAttributes } from 'astro/types';
 import {
-	SiteSettingsTranslatedProps,
+	SiteSettingsProps,
 	useSiteSettingsTranslated,
-} from 'src/utilities/api/queries';
+} from 'src/utilities/api/queries/translated';
 import {
 	getLocaleFromURL,
 	prefixUrlWithlocale,
@@ -17,8 +17,9 @@ interface Props extends HTMLAttributes<'div'> {}
 
 const { class: className, ...attrs } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
-const { masthead }: SiteSettingsTranslatedProps =
-	await useSiteSettingsTranslated({ locale });
+const { masthead }: SiteSettingsProps = await useSiteSettingsTranslated({
+	locale,
+});
 
 const isHome =
 	Astro.url.pathname === locale.urlPrefix ||

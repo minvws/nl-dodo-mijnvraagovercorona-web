@@ -1,5 +1,5 @@
 import { Locale } from 'src/utilities/locale/translation';
-import { followModals } from '.';
+import { followModals } from '..';
 
 export const customBlockQuery = ({
 	name,

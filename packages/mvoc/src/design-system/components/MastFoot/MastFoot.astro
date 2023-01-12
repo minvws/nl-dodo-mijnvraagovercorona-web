@@ -3,9 +3,9 @@ import Sprite from 'astro-icon';
 import { Heading } from '@design-system/elements/Heading';
 import { ContentBlock } from '@design-system/components/ContentBlock';
 import {
-	SiteSettingsTranslatedProps,
+	SiteSettingsProps,
 	useSiteSettingsTranslated,
-} from 'src/utilities/api/queries';
+} from 'src/utilities/api/queries/translated';
 import { Locale, prefixUrlWithlocale } from 'src/utilities/locale/translation';
 import { Layer } from '@design-system/components/Layout/Layer';
 import { Retain } from '@design-system/components/Layout/Retain';
@@ -19,7 +19,7 @@ interface Props {
 }
 
 const { locale } = Astro.props;
-const siteSettingsTranslated: SiteSettingsTranslatedProps =
+const siteSettingsTranslated: SiteSettingsProps =
 	await useSiteSettingsTranslated({ locale });
 ---
 

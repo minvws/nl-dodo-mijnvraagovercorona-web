@@ -1,7 +1,7 @@
 import { ContentBlockProps } from '@design-system/components/ContentBlock';
 import { Locale } from 'src/utilities/locale/translation';
 import { customBlockQuery } from './customBlock';
-import { localePropertyQuery } from './localeProperty';
+import { localePropertyQuery } from '../localeProperty';
 
 export interface InternalPageCollectionProps {
 	internalPageCollection: {
