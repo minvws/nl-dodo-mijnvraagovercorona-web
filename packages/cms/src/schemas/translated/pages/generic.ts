@@ -41,6 +41,11 @@ export default {
 			],
 		},
 		{
+			title: 'Content',
+			name: 'content',
+			type: 'customBlock',
+		},
+		{
 			title: 'Verhalen',
 			name: 'storiesCollection',
 			type: 'array',
