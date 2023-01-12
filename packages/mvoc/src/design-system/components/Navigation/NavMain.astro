@@ -4,7 +4,7 @@ import { Link } from '@design-system/elements/Link';
 import { HTMLAttributes } from 'astro/types';
 import {
 	SiteSettingsProps,
-	useSiteSettingsTranslated,
+	useSiteSettings,
 } from 'src/utilities/api/queries/translated';
 import {
 	getLocaleFromURL,
@@ -17,7 +17,7 @@ interface Props extends HTMLAttributes<'div'> {}
 
 const { class: className, ...attrs } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
-const { masthead }: SiteSettingsProps = await useSiteSettingsTranslated({
+const { masthead }: SiteSettingsProps = await useSiteSettings({
 	locale,
 });
 

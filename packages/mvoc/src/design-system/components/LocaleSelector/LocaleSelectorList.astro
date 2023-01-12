@@ -3,7 +3,7 @@ import { HTMLAttributes } from 'astro/types';
 import { Link } from '@design-system/elements/Link';
 import {
 	SiteSettingsProps,
-	useSiteSettingsTranslated,
+	useSiteSettings,
 } from 'src/utilities/api/queries/translated';
 import {
 	availableLocales,
@@ -17,7 +17,7 @@ interface Props extends HTMLAttributes<'nav'> {}
 const { class: className, ...attrs } = Astro.props;
 const currentUrl = Astro.url.pathname;
 const currentLocale: Locale = getLocaleFromURL(currentUrl);
-const { localeSelector }: SiteSettingsProps = await useSiteSettingsTranslated({
+const { localeSelector }: SiteSettingsProps = await useSiteSettings({
 	locale: currentLocale,
 });
 ---

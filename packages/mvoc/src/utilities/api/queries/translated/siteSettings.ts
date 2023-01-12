@@ -78,14 +78,10 @@ export const siteSettingsQuery = ({ locale }: { locale: Locale }): string => `
  * Function to use global siteSettings inside components
  *
  * Usage:
- * const siteSettingsTranslated: SiteSettingsProps = await useSiteSettingsTranslated({ locale });
+ * const siteSettingsTranslated: SiteSettingsProps = await useSiteSettings({ locale });
  */
 let siteSettingsTranslated;
-export async function useSiteSettingsTranslated({
-	locale,
-}: {
-	locale: Locale;
-}) {
+export async function useSiteSettings({ locale }: { locale: Locale }) {
 	if (siteSettingsTranslated) {
 		return siteSettingsTranslated[locale.id];
 	}

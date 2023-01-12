@@ -1,8 +1,7 @@
 import { ContentBlockProps } from '@design-system/components/ContentBlock';
 import { useSanityClient } from 'astro-sanity';
 import type { Locale } from '../locale/translation';
-import { customBlockQuery } from './queries';
-import { PageProps } from './queries/translated';
+import { PageProps, customBlockQuery, pageQuery } from './queries/translated';
 
 export interface GenericPageProps extends PageProps {
 	title: string;
@@ -25,11 +24,9 @@ export async function getDataGenericPages({
 		${customBlockQuery({ name: 'content', locale })},
 	}`;
 
-	// TODO update page query
 	const query = pageQuery({
 		type: 'generic-page',
 		projection,
-		locale,
 		slug,
 		multiple: true,
 	});

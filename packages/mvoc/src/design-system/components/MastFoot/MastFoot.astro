@@ -4,7 +4,7 @@ import { Heading } from '@design-system/elements/Heading';
 import { ContentBlock } from '@design-system/components/ContentBlock';
 import {
 	SiteSettingsProps,
-	useSiteSettingsTranslated,
+	useSiteSettings,
 } from 'src/utilities/api/queries/translated';
 import { Locale, prefixUrlWithlocale } from 'src/utilities/locale/translation';
 import { Layer } from '@design-system/components/Layout/Layer';
@@ -19,8 +19,9 @@ interface Props {
 }
 
 const { locale } = Astro.props;
-const siteSettingsTranslated: SiteSettingsProps =
-	await useSiteSettingsTranslated({ locale });
+const siteSettingsTranslated: SiteSettingsProps = await useSiteSettings({
+	locale,
+});
 ---
 
 <footer class="c-mastfoot" role="contentinfo">
