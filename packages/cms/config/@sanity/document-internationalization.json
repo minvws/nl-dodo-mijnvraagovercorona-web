@@ -1,4 +1,6 @@
 {
+	"base": "nl",
+	"referenceBehavior": "strong",
 	"languages": [
 		{
 			"id": "nl",

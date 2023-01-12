@@ -1,10 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import {
-	availableLocales,
-	Locale,
-	prefixUrlWithlocale,
-} from 'src/utilities/locale/translation';
+import { availableLocales, Locale } from 'src/utilities/locale/translation';
 import { GenericPageProps, getDataGenericPages } from 'src/utilities/api';
 import { Hero } from '@design-system/components/Hero';
 import { Retain } from '@design-system/components/Layout/Retain';
@@ -13,29 +9,17 @@ import { Layer } from '@design-system/components/Layout/Layer';
 import { Sidebar } from '@design-system/components/Layout/Sidebar';
 import { CardPrivacy } from '@design-system/components/Card';
 import { Stack } from '@design-system/components/Layout/Stack';
-import { Link } from '@design-system/elements/Link';
-import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
 
 export async function getStaticPaths() {
-	return await availableLocales.reduce(async (paths, locale) => {
-		const collection = await getDataGenericPages({ locale });
+	const collection = await getDataGenericPages({});
 
-		return [
-			...(await paths),
-			await Promise.all(
-				collection.map(async (page) => {
-					const pageRendered = await page;
-					return {
-						params: { generic: pageRendered.slug, locale: locale.id },
-						props: {
-							pageData: pageRendered.data.pageData,
-							locale,
-						},
-					};
-				}),
-			),
-		];
-	}, Promise.resolve([]));
+	return collection.pages.map((page: GenericPageProps) => ({
+		params: { generic: page.slug, locale: page.locale },
+		props: {
+			pageData: page,
+			locale: availableLocales.filter((locale) => locale.id === page.locale)[0],
+		},
+	}));
 }
 
 interface Props {
@@ -44,15 +28,10 @@ interface Props {
 }
 
 const { pageData, locale } = Astro.props;
-// const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 ---
 
 <Layout locale={locale} metaData={pageData.metaData}>
-	<!-- <Link href={prefixUrlWithlocale(`/`, locale)} variant="back" slot="back">
-		{siteSettings.header.terug}
-	</Link> -->
-
-	<Hero title={pageData.title} />
+	<Hero title={pageData.header.title} chapeau={pageData.header.chapeau} />
 	<Layer>
 		<Retain>
 			<Sidebar>
@@ -61,7 +40,6 @@ const { pageData, locale } = Astro.props;
 						<ContentBlock value={pageData.content} />
 					</Stack>
 				</Retain>
-
 				<CardPrivacy slot="aside" />
 			</Sidebar>
 		</Retain>
