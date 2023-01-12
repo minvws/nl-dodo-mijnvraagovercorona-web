@@ -6,11 +6,16 @@ import schemaTypes from 'all:part:@sanity/base/schema-type';
  */
 // Documents
 import siteSettingsDocument from './translated/documents/siteSettings';
+import modalsDocument from './translated/documents/modals';
 
 // Pages
 import genericPage from './translated/pages/generic';
 
 // objects
+import {
+	customBlockObject,
+	customBlockWithoutModalObject,
+} from './translated/objects/customBlock';
 import metaDataObject from './translated/objects/metaData';
 
 /**
@@ -22,7 +27,7 @@ import faqDocument from './documents/faq';
 import countryDocument from './documents/country';
 import riskCategoryDocument from './documents/riskCategory';
 import travelFaseDocument from './documents/travelFase';
-import modalsDocument from './documents/modals';
+import modalsDocumentOld from './documents/modals';
 import themeDocument from './documents/theme';
 import assistanceDocument from './documents/assistance';
 import informContactsDocument from './documents/inform-contacts';
@@ -55,7 +60,6 @@ import {
 	localeBlockObject,
 	localeBlockWithoutModalObject,
 } from './objects/localeBlock';
-import customBlockObject from './objects/customBlock';
 import localeUrlObject from './objects/localeUrl';
 import localeTextObject from './objects/localeText';
 import videoObject from './objects/video';
@@ -93,8 +97,11 @@ export default createSchema({
 
 		// documents
 		siteSettingsDocument,
+		modalsDocument,
 
 		// objects
+		customBlockObject,
+		customBlockWithoutModalObject,
 		metaDataObject,
 
 		/**
@@ -134,7 +141,7 @@ export default createSchema({
 		countryDocument,
 		riskCategoryDocument,
 		travelFaseDocument,
-		modalsDocument,
+		modalsDocumentOld,
 		themeDocument,
 		contentCardDocument,
 		storyDocument,
@@ -153,7 +160,6 @@ export default createSchema({
 		localeStringObject,
 		localeBlockObject,
 		localeBlockWithoutModalObject,
-		customBlockObject,
 		localeUrlObject,
 		localeTextObject,
 		videoObject,

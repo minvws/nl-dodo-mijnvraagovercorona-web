@@ -125,6 +125,14 @@ const mvocPagesConfig = [
 	},
 ];
 
+const mvocDocumentsConfig = [
+	{
+		schemaType: 'modals',
+		title: 'Modals',
+		icon: VscScreenFull,
+	},
+];
+
 const mvocPagesDocumentsConfig = [
 	{
 		schemaType: 'tip-document',
@@ -198,6 +206,18 @@ export default () =>
 						title: 'Site Settings',
 						type: 'siteSettings',
 						icon: GiSettingsKnobs,
+					}),
+
+					S.divider(),
+
+					getFolder({
+						title: 'Documenten',
+						icon: IoDocumentOutline,
+						items: [
+							...mvocDocumentsConfig.map((config) =>
+								getTranslatedDocumentList(config),
+							),
+						],
 					}),
 
 					S.divider(),
