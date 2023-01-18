@@ -11,11 +11,16 @@ import {
 	prefixUrlWithlocale,
 } from 'src/utilities/locale/translation';
 import { ContentBlock } from '../ContentBlock';
-import { LocaleSelectorList } from '../LocaleSelector';
+import {
+	AlternativeTranslationsProps,
+	LocaleSelectorList,
+} from '../LocaleSelector';
 
-interface Props extends HTMLAttributes<'div'> {}
+interface Props extends HTMLAttributes<'div'> {
+	alternativeTranslations?: AlternativeTranslationsProps[];
+}
 
-const { class: className, ...attrs } = Astro.props;
+const { alternativeTranslations, class: className, ...attrs } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
 const { masthead }: SiteSettingsProps = await useSiteSettings({
 	locale,
@@ -68,7 +73,10 @@ const isHome =
 			</ul>
 		</nav>
 
-		<LocaleSelectorList class="c-nav-main__nav c-nav-main__hide-large" />
+		<LocaleSelectorList
+			class="c-nav-main__nav c-nav-main__hide-large"
+			alternativeTranslations={alternativeTranslations}
+		/>
 
 		{
 			masthead.menu?.extraMenu?.internalPageCollection ? (

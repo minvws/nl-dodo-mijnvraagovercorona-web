@@ -10,18 +10,28 @@ import { availableLocales, Locale } from 'src/utilities/locale/translation';
 
 import '@design-system/globals.scss';
 import { Masthead, SkipLink } from '@design-system/components/Masthead';
-import { LocaleSelector } from '@design-system/components/LocaleSelector';
+import {
+	AlternativeTranslationsProps,
+	LocaleSelector,
+} from '@design-system/components/LocaleSelector';
 import { MastFoot } from '@design-system/components/MastFoot';
 import { NavMain } from '@design-system/components/Navigation';
 
 export interface Props {
 	locale: Locale;
+	alternativeTranslations?: AlternativeTranslationsProps[];
 	metaData: MetaDataProps;
 	skipPageSuffix?: boolean;
 	mastheadHighlight?: boolean;
 }
 
-const { locale, metaData, skipPageSuffix, mastheadHighlight } = Astro.props;
+const {
+	locale,
+	metaData,
+	skipPageSuffix,
+	mastheadHighlight,
+	alternativeTranslations,
+} = Astro.props;
 const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 ---
 
@@ -47,20 +57,16 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 				logoAlt={siteSettings.header.logoAlt}
 				highlight={mastheadHighlight}
 			>
-				<NavMain />
+				<NavMain alternativeTranslations={alternativeTranslations} />
 				<slot name="back" slot="end" />
-				<!-- <LocaleSelector
-					locales={availableLocales}
-					currentLocale={locale}
-					labelChange={siteSettings.header.localeSelector.change}
-					labelCurrent={siteSettings.header.localeSelector.current}
-					slot="end"
-				/> -->
 			</Masthead>
 			<main id="content">
 				<slot />
 			</main>
-			<MastFoot locale={locale} />
+			<MastFoot
+				locale={locale}
+				alternativeTranslations={alternativeTranslations}
+			/>
 		</Sprite.Provider>
 
 		<script src="/scripts/mouseflow.js" is:inline defer></script>

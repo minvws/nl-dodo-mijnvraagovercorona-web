@@ -11,13 +11,14 @@ import { CardPrivacy } from '@design-system/components/Card';
 import { Stack } from '@design-system/components/Layout/Stack';
 
 export async function getStaticPaths() {
-	const collection = await getDataGenericPages({});
-
-	return collection.pages.map((page: GenericPageProps) => ({
-		params: { generic: page.slug, locale: page.locale },
+	const collection = await getDataGenericPages();
+	return collection.map((page: GenericPageProps) => ({
+		params: { generic: page.slug, locale: page.localeID },
 		props: {
 			pageData: page,
-			locale: availableLocales.filter((locale) => locale.id === page.locale)[0],
+			locale: availableLocales.filter(
+				(locale) => locale.id === page.localeID,
+			)[0],
 		},
 	}));
 }
@@ -30,7 +31,11 @@ interface Props {
 const { pageData, locale } = Astro.props;
 ---
 
-<Layout locale={locale} metaData={pageData.metaData}>
+<Layout
+	locale={locale}
+	metaData={pageData.metaData}
+	alternativeTranslations={pageData.alternatives}
+>
 	<Hero title={pageData.header.title} chapeau={pageData.header.chapeau} />
 	<Layer>
 		<Retain>
