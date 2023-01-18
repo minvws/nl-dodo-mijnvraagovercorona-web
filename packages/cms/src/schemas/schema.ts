@@ -17,6 +17,7 @@ import {
 	customBlockWithoutModalObject,
 } from './translated/objects/customBlock';
 import metaDataObject from './translated/objects/metaData';
+import internalPageSelectorObject from './objects/internalPageSelector';
 
 /**
  * Old document structure
@@ -81,7 +82,7 @@ import storyObject from './objects/story';
 import storyExtendedObject from './objects/storyExtended';
 import questionContentObject from './objects/questionContent';
 import questionSelectorObject from './objects/questionSelector';
-import internalPageSelectorObject from './objects/internalPageSelector';
+
 import themeSelectorObject from './objects/themeSelector';
 import tipSelectorObject from './objects/tipSelector';
 import moreTipsObject from './objects/moreTips';
@@ -103,6 +104,7 @@ export default createSchema({
 		customBlockObject,
 		customBlockWithoutModalObject,
 		metaDataObject,
+		internalPageSelectorObject,
 
 		/**
 		 * Pages
@@ -181,7 +183,6 @@ export default createSchema({
 		storyExtendedObject,
 		questionContentObject,
 		questionSelectorObject,
-		internalPageSelectorObject,
 		themeSelectorObject,
 		tipSelectorObject,
 		moreTipsObject,
