@@ -1818,10 +1818,10 @@
   dependencies:
     diff-match-patch "^1.0.4"
 
-"@sanity/document-internationalization@^0.3.8":
-  version "0.3.8"
-  resolved "https://registry.yarnpkg.com/@sanity/document-internationalization/-/document-internationalization-0.3.8.tgz#d3d4e03d57b575585ad29dd83e454014ddc41a45"
-  integrity sha512-a5905N5+E7dy32QXpNhNAIru9kx/33boS5qlm0Ua3FONQ3Mwg9NMrkiDUG79FfQGhwxzkd+Qh1KBnQTUT1elCg==
+"@sanity/document-internationalization@^0.3.9":
+  version "0.3.9"
+  resolved "https://registry.yarnpkg.com/@sanity/document-internationalization/-/document-internationalization-0.3.9.tgz#c9aa38ade1f49d2809d9848fa30f1bd3fd8702e9"
+  integrity sha512-mVGZXQrFJ3rRzC0A/LlcCXECfnQXuEx8eLGIW2fMY0+2i8p+vJCe3j2CWSEXoEpZS2BCdzT6ISTN14itYgFANQ==
   dependencies:
     "@babel/runtime" "^7.12.5"
     "@cprecioso/country-flag-emoji" "^1.0.0"
