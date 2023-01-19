@@ -26,9 +26,10 @@ const { masthead }: SiteSettingsProps = await useSiteSettings({
 	locale,
 });
 
+console.log('Astro.url.pathname', Astro.url.pathname);
+
 const isHome =
-	Astro.url.pathname === locale.urlPrefix ||
-	`${Astro.url.pathname}/` === `${locale.urlPrefix}/` ||
+	Astro.url.pathname.replace(/\/$/, '') === locale.urlPrefix ||
 	Astro.url.pathname === '/';
 ---
 
