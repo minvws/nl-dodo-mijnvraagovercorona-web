@@ -36,7 +36,9 @@ const { pageData, locale } = Astro.props;
 	metaData={pageData.metaData}
 	alternativeTranslations={pageData.alternatives}
 >
-	<Hero title={pageData.header.title} chapeau={pageData.header.chapeau} />
+	<Hero title={pageData.header.title} chapeau={pageData.header.chapeau}>
+		<ContentBlock value={pageData.header.content} />
+	</Hero>
 	<Layer>
 		<Retain>
 			<Sidebar>
