@@ -74,7 +74,11 @@ const HeadingElement = `h${headingLevel}` as any;
 
 	.disclosure__show-inactive {
 	}
-	.disclosure__show-active {
+
+	/**
+	 * TODO: increased specificity by 0,1,0 to battle loading order issues in Astro
+	 */
+	.disclosure__show-active.disclosure__show-active {
 		display: none;
 	}
 
