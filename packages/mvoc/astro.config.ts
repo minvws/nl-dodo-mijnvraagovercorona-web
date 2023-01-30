@@ -12,7 +12,7 @@ export default defineConfig({
 			projectId: 'yiy91tbc',
 			dataset: 'production',
 			apiVersion: 'v2022-03-23',
-			useCdn: true,
+			useCdn: false,
 		}),
 		compress(),
 	],
