@@ -20,13 +20,13 @@ const { title, subTitle, chapeau, image, highlight } = Astro.props;
 <header class={`c-hero${highlight ? ` c-hero--highlight` : ''}`}>
 	<Retain>
 		<Switcher class="c-hero__switcher">
-			<div class="c-hero__wrap-image">
-				{
-					image && image.src ? (
+			{
+				image && image.src ? (
+					<div class="c-hero__wrap-image">
 						<img class="c-hero__image" src={image.src} alt="" />
-					) : null
-				}
-			</div>
+					</div>
+				) : null
+			}
 			<Stack gap={'small'}>
 				<hgroup class="c-hero__hgroup">
 					<Heading class="c-hero__title" level={1}>{title}</Heading>
@@ -56,7 +56,9 @@ const { title, subTitle, chapeau, image, highlight } = Astro.props;
 	.c-hero {
 		--hero-background: var(--theme-bg-base);
 		--hero-padding: var(--stack-hero);
-		--hero-padding-block-start: var(--hero-padding);
+		// Calculates menu button size
+		// TODO: fix magic numbers, better store the size in a global variable
+		--hero-padding-block-start: calc(2.4rem + var(--stack-small) * 2);
 		--hero-padding-block-end: var(--hero-padding);
 		position: relative;
 		padding-block-start: var(--hero-padding-block-start);
@@ -66,6 +68,10 @@ const { title, subTitle, chapeau, image, highlight } = Astro.props;
 
 		.c-hero__switcher {
 			--switcher-align-items: center;
+		}
+
+		@media --mq-large {
+			--hero-padding-block-start: var(--stack-hero);
 		}
 	}
 
@@ -103,7 +109,6 @@ const { title, subTitle, chapeau, image, highlight } = Astro.props;
 	.c-hero--highlight {
 		--hero-background: var(--theme-bg-highlight);
 		--hero-border-radius: var(--radii-huge);
-		// --hero-padding-block-start: 0px;
 		border-end-start-radius: var(--hero-border-radius);
 		border-end-end-radius: var(--hero-border-radius);
 
