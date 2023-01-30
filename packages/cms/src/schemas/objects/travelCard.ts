@@ -1,19 +1,21 @@
-export default {
+import { defineField, defineType } from 'sanity'
+
+export default defineType({
 	title: 'Reizen blok',
 	name: 'travelCard',
 	type: 'object',
 	fields: [
-		{
+		defineField({
 			title: 'Titel',
 			name: 'title',
 			type: 'localeString',
-		},
-		{
+		}),
+		defineField({
 			title: 'Subtitel',
 			name: 'subtitle',
 			type: 'localeString',
-		},
-		{
+		}),
+		defineField({
 			title: 'Content',
 			name: 'content',
 			type: 'array',
@@ -21,16 +23,16 @@ export default {
 				{
 					type: 'object',
 					fields: [
-						{
+						defineField({
 							title: 'Content',
 							name: 'content',
 							type: 'localeBlock',
-						},
-						{
+						}),
+						defineField({
 							title: 'Condities',
 							name: 'conditions',
 							type: 'conditions',
-						},
+						}),
 					],
 					preview: {
 						select: {
@@ -39,8 +41,8 @@ export default {
 					},
 				},
 			],
-		},
-		{
+		}),
+		defineField({
 			title: 'Onderdelen',
 			name: 'bullets',
 			type: 'array',
@@ -48,24 +50,24 @@ export default {
 				{
 					type: 'object',
 					fields: [
-						{
+						defineField({
 							title: 'Content',
 							name: 'content',
 							type: 'localeBlock',
-						},
-						{
+						}),
+						defineField({
 							title: 'Icoon',
 							name: 'icon',
 							type: 'string',
 							options: {
 								list: ['safe', 'warning-yellow', 'warning-red'],
 							},
-						},
-						{
+						}),
+						defineField({
 							title: 'Condities',
 							name: 'conditions',
 							type: 'conditions',
-						},
+						}),
 					],
 					preview: {
 						select: {
@@ -102,10 +104,10 @@ export default {
 					},
 				},
 			],
-		},
+		}),
 	],
 	options: {
 		collapsible: true,
 		collapsed: true,
 	},
-};
+});

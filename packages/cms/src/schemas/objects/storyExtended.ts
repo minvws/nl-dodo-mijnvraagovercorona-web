@@ -1,4 +1,6 @@
-export default {
+import { defineField, defineType } from 'sanity'
+
+export default defineType({
 	title: 'Verhaal uitgebreid',
 	name: 'storyExtended',
 	type: 'object',
@@ -10,33 +12,33 @@ export default {
 		},
 	},
 	fields: [
-		{
+		defineField({
 			title: 'Titel',
 			name: 'title',
 			type: 'localeString',
-		},
-		{
+		}),
+		defineField({
 			title: 'Content Blocks',
 			name: 'contentBlocks',
 			type: 'contentBlocks',
-		},
-		{
+		}),
+		defineField({
 			title: 'Overzicht',
 			name: 'overview',
 			type: 'object',
 			description: 'wordt alleen weergegeven op pagina’s met een TOC',
 			fields: [
-				{
+				defineField({
 					title: 'Titel',
 					name: 'title',
 					type: 'localeString',
-				},
-				{
+				}),
+				defineField({
 					title: 'Icoon',
 					name: 'icon',
 					type: 'image',
-				},
+				}),
 			],
-		},
+		}),
 	],
-};
+});

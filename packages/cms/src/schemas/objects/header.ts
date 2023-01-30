@@ -1,4 +1,6 @@
-export default {
+import { defineField, defineType } from 'sanity'
+
+export default defineType({
 	title: 'Header',
 	name: 'header',
 	type: 'object',
@@ -45,4 +47,4 @@ export default {
 		collapsible: true,
 		collapsed: true,
 	},
-};
+});

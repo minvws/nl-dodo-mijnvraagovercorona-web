@@ -1,6 +1,3 @@
-import createSchema from 'part:@sanity/base/schema-creator';
-import schemaTypes from 'all:part:@sanity/base/schema-type';
-
 /**
  * New document structure
  */
@@ -86,9 +83,7 @@ import themeSelectorObject from './objects/themeSelector';
 import tipSelectorObject from './objects/tipSelector';
 import moreTipsObject from './objects/moreTips';
 
-export default createSchema({
-	name: 'default',
-	types: schemaTypes.concat([
+export default [
 		/**
 		 * Translated
 		 */
@@ -185,5 +180,4 @@ export default createSchema({
 		themeSelectorObject,
 		tipSelectorObject,
 		moreTipsObject,
-	]),
-});
+	]

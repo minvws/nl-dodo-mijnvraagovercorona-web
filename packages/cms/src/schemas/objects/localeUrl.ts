@@ -1,6 +1,8 @@
+import { defineField, defineType } from 'sanity'
+
 import { supportedLocales, Locale } from '../../utilities/locales';
 
-export default {
+export default defineType({
 	title: 'URL met vertalingen',
 	name: 'localeURL',
 	type: 'object',
@@ -17,4 +19,4 @@ export default {
 		type: 'url',
 		fieldset: locale.isDefault ? null : 'translations',
 	})),
-};
+});

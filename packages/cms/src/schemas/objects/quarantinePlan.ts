@@ -1,4 +1,6 @@
-export default {
+import { defineField, defineType } from 'sanity'
+
+export default defineType({
 	title: 'Quarantaine Plan',
 	name: 'quarantinePlan',
 	type: 'array',
@@ -26,29 +28,29 @@ export default {
 				},
 			},
 			fields: [
-				{
+				defineField({
 					title: 'Titel',
 					name: 'title',
 					type: 'localeString',
-				},
-				{
+				}),
+				defineField({
 					title: 'Dag',
 					name: 'day',
 					type: 'number',
-				},
-				{
+				}),
+				defineField({
 					title: 'Dagen sinds event om op te tonen',
 					name: 'showOn',
 					type: 'array',
 					of: [{ type: 'number' }],
-				},
-				{
+				}),
+				defineField({
 					title: 'Onderdelen',
 					name: 'bullets',
 					type: 'array',
 					of: [{ type: 'localeBlock' }],
-				},
+				}),
 			],
 		},
 	],
-};
+});

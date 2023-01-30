@@ -1,4 +1,6 @@
-export default {
+import { defineField, defineType } from 'sanity'
+
+export default defineType({
 	title: 'Stappen',
 	name: 'steps',
 	type: 'array',
@@ -11,17 +13,17 @@ export default {
 				},
 			},
 			fields: [
-				{
+				defineField({
 					title: 'Titel',
 					name: 'title',
 					type: 'localeString',
-				},
-				{
+				}),
+				defineField({
 					title: 'Content',
 					name: 'content',
 					type: 'localeBlock',
-				},
-				{
+				}),
+				defineField({
 					title: 'Punten',
 					name: 'points',
 					type: 'array',
@@ -34,21 +36,21 @@ export default {
 								},
 							},
 							fields: [
-								{
+								defineField({
 									title: 'Titel',
 									name: 'title',
 									type: 'localeString',
-								},
-								{
+								}),
+								defineField({
 									title: 'Content',
 									name: 'content',
 									type: 'localeBlock',
-								},
+								}),
 							],
 						},
 					],
-				},
+				}),
 			],
 		},
 	],
-};
+});

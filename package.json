@@ -6,7 +6,7 @@
 		"mvoc:test": "yarn workspace @quarantaine/mvoc run test",
 		"mvoc:dev": "yarn workspace @quarantaine/mvoc dev",
 		"mvoc:build": "yarn workspace @quarantaine/mvoc build",
-		"cms:dev": "yarn workspace @quarantaine/cms start",
+		"cms:dev": "yarn workspace @quarantaine/cms dev",
 		"cms:deploy": "yarn workspace @quarantaine/cms deploy"
 	},
 	"workspaces": [

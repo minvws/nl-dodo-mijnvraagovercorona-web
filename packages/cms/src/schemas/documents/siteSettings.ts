@@ -1,4 +1,6 @@
-export default {
+import { defineType, defineField } from 'sanity'
+
+export default defineType({
 	title: 'Site Settings Document',
 	name: 'site-settings-document',
 	type: 'document',
@@ -472,4 +474,4 @@ export default {
 			],
 		},
 	],
-};
+});

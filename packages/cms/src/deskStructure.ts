@@ -1,5 +1,3 @@
-import S from '@sanity/desk-tool/structure-builder';
-
 import {
 	GiCardRandom,
 	GiHouse,
@@ -194,7 +192,7 @@ const multiDocumentsConfig = [
 	},
 ];
 
-export default () =>
+export default (S) =>
 	S.list()
 		.title('Content')
 		.items([

@@ -1,4 +1,6 @@
-export default {
+import { defineField, defineType } from 'sanity'
+
+export default defineType({
 	title: 'Link naar interne pagina',
 	name: 'internalPageSelector',
 	type: 'array',
@@ -41,4 +43,4 @@ export default {
 			},
 		},
 	],
-};
+});

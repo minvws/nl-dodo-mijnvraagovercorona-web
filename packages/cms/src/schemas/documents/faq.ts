@@ -1,14 +1,16 @@
-export default {
+import { defineType, defineField } from 'sanity'
+
+export default defineType({
 	title: 'FAQ Documenten',
 	name: 'faq-document',
 	type: 'document',
 	fields: [
-		{
+		defineField({
 			title: 'Referentie',
 			name: 'reference',
 			type: 'string',
-		},
-		{
+		}),
+		defineField({
 			title: 'Reisfase',
 			name: 'reisfase',
 			type: 'string',
@@ -28,23 +30,23 @@ export default {
 					},
 				],
 			},
-		},
-		{
+		}),
+		defineField({
 			title: 'Vraag',
 			name: 'vraag',
 			type: 'localeString',
-		},
-		{
+		}),
+		defineField({
 			title: 'Antwoord',
 			name: 'antwoord',
 			type: 'localeBlock',
-		},
-		{
+		}),
+		defineField({
 			title: 'Volgorde',
 			name: 'order',
 			type: 'number',
 			hidden: true,
-		},
+		}),
 	],
 	orderings: [
 		{
@@ -59,4 +61,4 @@ export default {
 			subtitle: 'antwoord.nl',
 		},
 	},
-};
+});

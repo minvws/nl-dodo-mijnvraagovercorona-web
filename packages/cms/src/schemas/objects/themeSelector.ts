@@ -1,4 +1,6 @@
-export default {
+import { defineField, defineType } from 'sanity'
+
+export default defineType({
 	title: 'Thema’s',
 	name: 'themeSelector',
 	type: 'array',
@@ -8,4 +10,4 @@ export default {
 			to: [{ type: 'theme-document' }],
 		},
 	],
-};
+});
