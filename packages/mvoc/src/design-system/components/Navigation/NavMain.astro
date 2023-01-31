@@ -244,16 +244,17 @@ const isHome =
 		block-size: var(--nav-main__drawer-block-size, 100vh);
 		padding-block: var(--nav-main__drawer-padding, var(--stack-base));
 		background-color: var(--color-white);
-		visibility: var(--nav-main__drawer-visibility, visible);
+		visibility: var(--nav-main__drawer-visibility, hidden);
+		transform: var(--nav-main__drawer-transform, translateX(-100%));
 		transition: transform 0.3s ease-in-out, visibility 0.3s linear;
 		overflow: var(--nav-main__drawer-overflow, auto);
 		box-shadow: var(--nav-main__drawer-elevation, var(--elevation-frost));
 		font-size: var(--font-size-milli);
 		line-height: var(--line-height-milli);
 
-		[aria-expanded='false'] + & {
-			transform: var(--nav-main__drawer-transform, translateX(-100%));
-			visibility: var(--nav-main__drawer-visibility, hidden);
+		[aria-expanded='true'] + & {
+			transform: var(--nav-main__drawer-transform, translateX(0));
+			visibility: var(--nav-main__drawer-visibility, visible);
 		}
 	}
 
@@ -279,7 +280,6 @@ const isHome =
 
 	@media --mq-large {
 		.c-nav-main {
-			// --nav-main-position: static;
 			--nav-main__button-display: none;
 			--nav-main__list-layout: row;
 			--nav-main__list-gap: var(--stack-large);
