@@ -1,4 +1,5 @@
-import client from 'part:@sanity/base/client';
+// import client from 'part:@sanity/base/client';
+import client from '@sanity/client';
 
 export async function isUniqueInLocale({
 	slug,

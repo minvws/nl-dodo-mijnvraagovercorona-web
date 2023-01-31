@@ -1,6 +1,4 @@
-import S from '@sanity/desk-tool/structure-builder';
-
-export const getTranslatedSingleton = ({
+export const getTranslatedSingleton = (S, {
 	title,
 	type,
 	icon,
