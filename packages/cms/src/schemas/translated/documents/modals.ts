@@ -11,6 +11,7 @@ export default defineType({
 	preview: {
 		select: {
 			title: 'title',
+			subtitle: '__i18n_lang',
 		},
 	},
 	fields: [

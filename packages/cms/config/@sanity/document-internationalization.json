@@ -9,18 +9,6 @@
 		{
 			"id": "en",
 			"title": "English"
-		},
-		{
-			"id": "pl",
-			"title": "Polish"
-		},
-		{
-			"id": "ar",
-			"title": "Arabic"
-		},
-		{
-			"id": "tr",
-			"title": "Turkish"
 		}
 	]
 }

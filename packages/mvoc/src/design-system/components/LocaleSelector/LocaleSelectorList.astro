@@ -11,10 +11,13 @@ import {
 	getLocaleFromURL,
 	Locale,
 } from 'src/utilities/locale/translation';
+import { AlternativeTranslationsProps } from './types';
 
-interface Props extends HTMLAttributes<'nav'> {}
+interface Props extends HTMLAttributes<'nav'> {
+	alternativeTranslations?: AlternativeTranslationsProps[];
+}
 
-const { class: className, ...attrs } = Astro.props;
+const { alternativeTranslations, class: className, ...attrs } = Astro.props;
 const currentUrl = Astro.url.pathname;
 const currentLocale: Locale = getLocaleFromURL(currentUrl);
 const { localeSelector }: SiteSettingsProps = await useSiteSettings({
@@ -32,18 +35,36 @@ const { localeSelector }: SiteSettingsProps = await useSiteSettings({
 	</p>
 	<ul role="list">
 		{
-			availableLocales.map((locale) => (
-				<li>
-					<Link
-						href={getCurrentUrlForLocale(currentUrl, locale, currentLocale)}
-						aria-current={
-							locale.urlPrefix === currentLocale.urlPrefix ? 'true' : undefined
-						}
-					>
-						{locale.fullName}
-					</Link>
-				</li>
-			))
+			alternativeTranslations
+				? alternativeTranslations.map((alternativeTranslation) => (
+						<li>
+							<Link
+								href={`${alternativeTranslation.locale.urlPrefix}/${alternativeTranslation.slug}`}
+								aria-current={
+									alternativeTranslation.locale.urlPrefix ===
+									currentLocale.urlPrefix
+										? 'true'
+										: undefined
+								}
+							>
+								{alternativeTranslation.locale.fullName}
+							</Link>
+						</li>
+				  ))
+				: availableLocales.map((locale) => (
+						<li>
+							<Link
+								href={getCurrentUrlForLocale(currentUrl, locale, currentLocale)}
+								aria-current={
+									locale.urlPrefix === currentLocale.urlPrefix
+										? 'true'
+										: undefined
+								}
+							>
+								{locale.fullName}
+							</Link>
+						</li>
+				  ))
 		}
 	</ul>
 </nav>

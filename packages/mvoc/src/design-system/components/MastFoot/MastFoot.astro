@@ -12,13 +12,17 @@ import { Retain } from '@design-system/components/Layout/Retain';
 import { Stack } from '@design-system/components/Layout/Stack';
 import { LinkList } from '@design-system/components/Lists';
 import { GridFluid } from '../Layout/Grid';
-import { LocaleSelectorList } from '../LocaleSelector';
+import {
+	LocaleSelectorList,
+	AlternativeTranslationsProps,
+} from '../LocaleSelector';
 
 interface Props {
 	locale: Locale;
+	alternativeTranslations?: AlternativeTranslationsProps[];
 }
 
-const { locale } = Astro.props;
+const { locale, alternativeTranslations } = Astro.props;
 const siteSettingsTranslated: SiteSettingsProps = await useSiteSettings({
 	locale,
 });
@@ -65,7 +69,10 @@ const siteSettingsTranslated: SiteSettingsProps = await useSiteSettings({
 
 	<Layer as="div" class="c-mastfoot__layer-locale | u-hidden@large-until">
 		<Retain>
-			<LocaleSelectorList class="c-mastfoot__locale-selector" />
+			<LocaleSelectorList
+				class="c-mastfoot__locale-selector"
+				alternativeTranslations={alternativeTranslations}
+			/>
 		</Retain>
 	</Layer>
 </footer>

@@ -24,19 +24,23 @@ export default defineType({
 						{ type: 'situation-result-document' },
 						{ type: 'tip-document' },
 						{ type: 'theme-document' },
+						{ type: 'generic-page' },
 					],
 				},
 			],
 			preview: {
 				select: {
 					title: 'label',
-					referenceTitle: 'pageReference.header.title.nl',
+					referenceTitle: 'pageReference.header.title',
 					slug: 'pageReference.slug.current',
 				},
 				prepare(selection) {
 					const { title, referenceTitle, slug } = selection;
 					return {
-						title: referenceTitle || title,
+						title:
+							typeof referenceTitle === 'object'
+								? referenceTitle.nl
+								: referenceTitle || title,
 						subtitle: slug,
 					};
 				},

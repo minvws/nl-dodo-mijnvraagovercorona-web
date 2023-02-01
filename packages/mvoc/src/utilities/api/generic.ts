@@ -1,5 +1,7 @@
 import { ContentBlockProps } from '@design-system/components/ContentBlock';
+import { AlternativeTranslationsProps } from '@design-system/components/LocaleSelector';
 import { useSanityClient } from 'astro-sanity';
+import { getPageTranslations } from '../helpers/get-page-translations';
 import { PageProps, customBlockQuery, pageQuery } from './queries/translated';
 
 export interface GenericPageProps extends PageProps {
@@ -10,11 +12,11 @@ export interface GenericPageProps extends PageProps {
 	};
 	content: ContentBlockProps['value'];
 	locale: string;
-	alternatives: string[];
+	alternatives: AlternativeTranslationsProps[];
 	slug: string;
 }
 
-export async function getDataGenericPages({ slug }: { slug?: string }) {
+export async function getDataGenericPages() {
 	const projection = `{
 		header{
 			chapeau,
@@ -22,17 +24,16 @@ export async function getDataGenericPages({ slug }: { slug?: string }) {
 			${customBlockQuery({ name: 'content' })},
 		},
 		${customBlockQuery({ name: 'content' })},
-		"locale": __i18n_lang,
-		"alternatives": [__i18n_lang, ...__i18n_refs[].lang],
 		"slug": slug.current,
 	}`;
 
 	const query = pageQuery({
 		type: 'generic-page',
 		projection,
-		slug,
 		multiple: true,
 	});
 
-	return await useSanityClient().fetch(query);
+	const data = await useSanityClient().fetch(query);
+
+	return getPageTranslations(data.pages);
 }

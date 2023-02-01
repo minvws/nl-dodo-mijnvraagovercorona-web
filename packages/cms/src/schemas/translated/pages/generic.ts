@@ -72,7 +72,15 @@ export default defineType({
 	preview: {
 		select: {
 			title: 'header.title',
-			subtitle: 'slug.current',
+			locale: '__i18n_lang',
+			slug: 'slug.current',
+		},
+		prepare(selection) {
+			const { title, locale, slug } = selection;
+			return {
+				title: title,
+				subtitle: `${locale}/${slug}`,
+			};
 		},
 	},
 });

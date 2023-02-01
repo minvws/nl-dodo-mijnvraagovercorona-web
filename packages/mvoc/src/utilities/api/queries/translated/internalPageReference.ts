@@ -37,6 +37,10 @@ export const internalPageReferenceQuery = ({
 				${localePropertyQuery({ name: 'label', path: 'header.title', locale })},
 				"slug": 'tip/' + slug.current,
 			},
+			pageReference->_type == "generic-page" => pageReference->{
+				"label": header.title,
+				"slug": slug.current,
+			},
 		),
 	}`;
 };
