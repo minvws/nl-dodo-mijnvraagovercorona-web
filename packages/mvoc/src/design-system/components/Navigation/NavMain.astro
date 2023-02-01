@@ -3,26 +3,31 @@ import { Icon } from '@design-system/elements/Icon';
 import { Link } from '@design-system/elements/Link';
 import { HTMLAttributes } from 'astro/types';
 import {
-	SiteSettingsTranslatedProps,
-	useSiteSettingsTranslated,
-} from 'src/utilities/api/queries';
+	SiteSettingsProps,
+	useSiteSettings,
+} from 'src/utilities/api/queries/translated';
 import {
 	getLocaleFromURL,
 	prefixUrlWithlocale,
 } from 'src/utilities/locale/translation';
 import { ContentBlock } from '../ContentBlock';
-import { LocaleSelectorList } from '../LocaleSelector';
+import {
+	AlternativeTranslationsProps,
+	LocaleSelectorList,
+} from '../LocaleSelector';
 
-interface Props extends HTMLAttributes<'div'> {}
+interface Props extends HTMLAttributes<'div'> {
+	alternativeTranslations?: AlternativeTranslationsProps[];
+}
 
-const { class: className, ...attrs } = Astro.props;
+const { alternativeTranslations, class: className, ...attrs } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
-const { masthead }: SiteSettingsTranslatedProps =
-	await useSiteSettingsTranslated({ locale });
+const { masthead }: SiteSettingsProps = await useSiteSettings({
+	locale,
+});
 
 const isHome =
-	Astro.url.pathname === locale.urlPrefix ||
-	`${Astro.url.pathname}/` === `${locale.urlPrefix}/` ||
+	Astro.url.pathname.replace(/\/$/, '') === locale.urlPrefix ||
 	Astro.url.pathname === '/';
 ---
 
@@ -31,6 +36,17 @@ const isHome =
 	data-module="nav-main"
 	{...attrs}
 >
+	<button
+		type="button"
+		class="c-nav-main__button"
+		aria-expanded="false"
+		aria-label={masthead.menu.menuButtonLabel}
+		aria-controls="nav-main"
+		data-module-bind="nav-main__menu-button"
+	>
+		<Icon name="burger" class="hide-expanded" />
+		<Icon name="cross" class="show-expanded" />
+	</button>
 	<div class="c-nav-main__drawer" data-module-bind="nav-main__drawer">
 		<p class="c-nav-main__title">{masthead.menu.menuTitle}</p>
 		<nav class="c-nav-main__nav" aria-label={masthead.menu.landmarkLabel}>
@@ -67,7 +83,10 @@ const isHome =
 			</ul>
 		</nav>
 
-		<LocaleSelectorList class="c-nav-main__nav c-nav-main__hide-large" />
+		<LocaleSelectorList
+			class="c-nav-main__nav c-nav-main__hide-large"
+			alternativeTranslations={alternativeTranslations}
+		/>
 
 		{
 			masthead.menu?.extraMenu?.internalPageCollection ? (
@@ -101,33 +120,15 @@ const isHome =
 			) : null
 		}
 	</div>
-
-	<template data-module-bind="nav-main__menu-button-template">
-		<button
-			type="button"
-			class="c-nav-main__button"
-			aria-expanded="false"
-			aria-label={masthead.menu.menuButtonLabel}
-			aria-controls="nav-main"
-			data-module-bind="nav-main__menu-button"
-		>
-			<Icon name="burger" class="hide-expanded" />
-			<Icon name="cross" class="show-expanded" />
-		</button>
-	</template>
 </div>
 
 <script>
+	import debounce from 'src/utilities/helpers/debounce';
+
 	// select dom nodes
 	const nav = document.querySelector('[data-module="nav-main"]');
 	const drawer = nav.querySelector('[data-module-bind="nav-main__drawer"]');
-	const menuButtonTemplate = nav.querySelector(
-		'[data-module-bind="nav-main__menu-button-template"]',
-	) as HTMLTemplateElement;
-	const menuButtonClone = menuButtonTemplate.content.cloneNode(
-		true,
-	) as DocumentFragment;
-	const menuButton = menuButtonClone.querySelector(
+	const menuButton = nav.querySelector(
 		'[data-module-bind="nav-main__menu-button"]',
 	) as HTMLButtonElement;
 
@@ -144,8 +145,17 @@ const isHome =
 		}
 	});
 
-	// insert menu button
-	nav.insertBefore(menuButtonClone, drawer);
+	/**
+	 * handle scroll
+	 */
+	let scrollPos = 0;
+	const checkPosition = () => {
+		let windowY = window.scrollY;
+		nav.classList.toggle('is-hidden', !(windowY < scrollPos));
+		scrollPos = windowY;
+	};
+
+	window.addEventListener('scroll', debounce(checkPosition));
 </script>
 
 <style lang="scss">
@@ -154,9 +164,6 @@ const isHome =
 
 	.c-nav-main {
 		--nav-main--padding-inline: var(--stack-base);
-		position: var(--nav-main-position, fixed);
-		inset-block-start: var(--nav-main-inset, var(--stack-small));
-		inset-inline-end: var(--nav-main-inset, var(--stack-small));
 
 		:global(a),
 		:global(.c-locale-selector-list__title),
@@ -193,7 +200,9 @@ const isHome =
 	}
 
 	.c-nav-main__button {
-		position: relative;
+		position: var(--nav-main__button-position, fixed);
+		inset-block-start: var(--nav-main__button-inset, var(--stack-small));
+		inset-inline-end: var(--nav-main__button-inset, var(--stack-small));
 		z-index: 1;
 		display: var(--nav-main__button-display, flex);
 		align-items: center;
@@ -203,6 +212,7 @@ const isHome =
 		aspect-ratio: 1/1;
 		outline: none;
 		box-shadow: var(--elevation-frost);
+		transition: transform 200ms ease-in-out;
 
 		.show-expanded {
 			display: none;
@@ -215,6 +225,10 @@ const isHome =
 			.show-expanded {
 				display: block;
 			}
+		}
+
+		.is-hidden &:not([aria-expanded='true']):not(:focus) {
+			transform: translateY(-150%);
 		}
 
 		&:focus {
@@ -230,17 +244,17 @@ const isHome =
 		block-size: var(--nav-main__drawer-block-size, 100vh);
 		padding-block: var(--nav-main__drawer-padding, var(--stack-base));
 		background-color: var(--color-white);
-		visibility: var(--nav-main__drawer-visibility, visible);
-		// @TODO: fix animation on page load issue
-		// transition: transform 0.3s ease-in-out, visibility 0.3s linear;
+		visibility: var(--nav-main__drawer-visibility, hidden);
+		transform: var(--nav-main__drawer-transform, translateX(-100%));
+		transition: transform 0.3s ease-in-out, visibility 0.3s linear;
 		overflow: var(--nav-main__drawer-overflow, auto);
 		box-shadow: var(--nav-main__drawer-elevation, var(--elevation-frost));
 		font-size: var(--font-size-milli);
 		line-height: var(--line-height-milli);
 
-		[aria-expanded='false'] + & {
-			transform: var(--nav-main__drawer-transform, translateX(-100%));
-			visibility: var(--nav-main__drawer-visibility, hidden);
+		[aria-expanded='true'] + & {
+			transform: var(--nav-main__drawer-transform, translateX(0));
+			visibility: var(--nav-main__drawer-visibility, visible);
 		}
 	}
 
@@ -266,7 +280,6 @@ const isHome =
 
 	@media --mq-large {
 		.c-nav-main {
-			--nav-main-position: static;
 			--nav-main__button-display: none;
 			--nav-main__list-layout: row;
 			--nav-main__list-gap: var(--stack-large);

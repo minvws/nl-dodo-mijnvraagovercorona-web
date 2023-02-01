@@ -1,15 +1,13 @@
 import { useSanityClient } from 'astro-sanity';
 import { Locale, locales } from 'src/utilities/locale/translation';
 import {
-	imageQuery,
-	ImageProps,
 	internalPageReferenceQuery,
 	InternalPageCollectionProps,
 	customBlockQuery,
 } from '.';
 import type { ContentBlockProps } from '@design-system/components/ContentBlock';
 
-export interface SiteSettingsTranslatedProps {
+export interface SiteSettingsProps {
 	masthead: {
 		skiplink: string;
 		menu: {
@@ -42,11 +40,7 @@ export interface SiteSettingsTranslatedProps {
 	};
 }
 
-export const siteSettingsTranslatedQuery = ({
-	locale,
-}: {
-	locale: Locale;
-}): string => `
+export const siteSettingsQuery = ({ locale }: { locale: Locale }): string => `
 	*[_type == "siteSettings" && __i18n_lang == "${locale.id}"][0]{
 		masthead{
 			skipLink,
@@ -66,7 +60,7 @@ export const siteSettingsTranslatedQuery = ({
 			title,
 			columns[]{
 				title,
-				${customBlockQuery({ name: 'content', locale })},
+				${customBlockQuery({ name: 'content' })},
 				${internalPageReferenceQuery({ locale })},
 			}
 		},
@@ -84,14 +78,10 @@ export const siteSettingsTranslatedQuery = ({
  * Function to use global siteSettings inside components
  *
  * Usage:
- * const siteSettingsTranslated: SiteSettingsTranslatedProps = await useSiteSettingsTranslated({ locale });
+ * const siteSettingsTranslated: SiteSettingsProps = await useSiteSettings({ locale });
  */
 let siteSettingsTranslated;
-export async function useSiteSettingsTranslated({
-	locale,
-}: {
-	locale: Locale;
-}) {
+export async function useSiteSettings({ locale }: { locale: Locale }) {
 	if (siteSettingsTranslated) {
 		return siteSettingsTranslated[locale.id];
 	}
@@ -100,7 +90,7 @@ export async function useSiteSettingsTranslated({
 		async (acc, [, value]) => ({
 			...(await acc),
 			[value.id]: await useSanityClient().fetch(
-				siteSettingsTranslatedQuery({ locale: value }),
+				siteSettingsQuery({ locale: value }),
 			),
 		}),
 		{},

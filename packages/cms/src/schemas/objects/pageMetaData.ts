@@ -2,11 +2,15 @@ export default {
 	title: 'Page meta data',
 	name: 'pageMetaData',
 	type: 'object',
+	initialValue: {
+		site: 'mijn-vraag-over-corona',
+	},
 	fields: [
 		{
 			title: 'Site',
 			name: 'site',
 			type: 'string',
+			readOnly: true,
 			options: {
 				list: ['reizen-tijdens-corona', 'mijn-vraag-over-corona'],
 			},

@@ -1,47 +1,39 @@
 import { ContentBlockProps } from '@design-system/components/ContentBlock';
+import { AlternativeTranslationsProps } from '@design-system/components/LocaleSelector';
 import { useSanityClient } from 'astro-sanity';
-import type { Locale } from '../locale/translation';
-import { pageQuery, PageProps, localePropertyQuery } from './queries';
+import { getPageTranslations } from '../helpers/get-page-translations';
+import { PageProps, customBlockQuery, pageQuery } from './queries/translated';
 
 export interface GenericPageProps extends PageProps {
-	title: string;
+	header: {
+		chapeau?: string;
+		title;
+		content: ContentBlockProps['value'];
+	};
 	content: ContentBlockProps['value'];
+	locale: string;
+	alternatives: AlternativeTranslationsProps[];
+	slug: string;
 }
 
-export async function getDataGenericPages({
-	locale,
-	slug,
-}: {
-	locale: Locale;
-	slug?: string;
-}) {
+export async function getDataGenericPages() {
 	const projection = `{
-		${localePropertyQuery({ name: 'title', locale })},
-		${localePropertyQuery({ name: 'content', locale, block: true })},
+		header{
+			chapeau,
+			title,
+			${customBlockQuery({ name: 'content' })},
+		},
+		${customBlockQuery({ name: 'content' })},
+		"slug": slug.current,
 	}`;
 
-	const pages = [
-		'privacy-page',
-		'cookies-page',
-		'copyright-page',
-		'toegankelijkheid-page',
-		'kwetsbaarheid-melden-page',
-	];
-
-	const test = pages.map(async (page) => {
-		const query = pageQuery({
-			type: page,
-			projection,
-			locale,
-			slug,
-			multiple: false,
-		});
-
-		return {
-			slug: page.replace('-page', ''),
-			data: await useSanityClient().fetch(query),
-		};
+	const query = pageQuery({
+		type: 'generic-page',
+		projection,
+		multiple: true,
 	});
 
-	return await test;
+	const data = await useSanityClient().fetch(query);
+
+	return getPageTranslations(data.pages);
 }

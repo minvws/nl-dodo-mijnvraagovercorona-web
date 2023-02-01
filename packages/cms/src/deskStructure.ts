@@ -1,6 +1,7 @@
 import S from '@sanity/desk-tool/structure-builder';
 
 import {
+	GiCardRandom,
 	GiHouse,
 	GiTestTubes,
 	GiCookie,
@@ -30,6 +31,7 @@ import { getFolder } from './utilities/getFolder';
 import { getPage } from './utilities/getSingleton';
 import { getDocumentList, getPageList } from './utilities/getDocumentList';
 import { getTranslatedSingleton } from './utilities/getTranslatedSingleton';
+import { getTranslatedDocumentList } from './utilities/getTranslatedDocumentList';
 
 /**
  * A list of all document types which should be rendered as a singleton.
@@ -107,11 +109,27 @@ const reizenMultiDocumentsConfig = [
 	},
 ];
 
-const mvocPagesConfig = [
+const mvocPagesConfigOld = [
 	{
 		schemaType: 'check-landing-page',
 		title: 'Landing',
 		icon: GiHouse,
+	},
+];
+
+const mvocPagesConfig = [
+	{
+		schemaType: 'generic-page',
+		title: 'Generic',
+		icon: GiCardRandom,
+	},
+];
+
+const mvocDocumentsConfig = [
+	{
+		schemaType: 'modals',
+		title: 'Modals',
+		icon: VscScreenFull,
 	},
 ];
 
@@ -189,7 +207,30 @@ export default () =>
 						type: 'siteSettings',
 						icon: GiSettingsKnobs,
 					}),
+
 					S.divider(),
+
+					getFolder({
+						title: 'Documenten',
+						icon: IoDocumentOutline,
+						items: [
+							...mvocDocumentsConfig.map((config) =>
+								getTranslatedDocumentList(config),
+							),
+						],
+					}),
+
+					S.divider(),
+
+					getFolder({
+						title: 'Pagina’s',
+						icon: RiPagesLine,
+						items: [
+							...mvocPagesConfig.map((config) =>
+								getTranslatedDocumentList(config),
+							),
+						],
+					}),
 				],
 			}),
 
@@ -221,7 +262,7 @@ export default () =>
 				title: 'MijnVraagOverCorona',
 				icon: MdLiveHelp,
 				items: [
-					...mvocPagesConfig.map((config) => getPage(config)),
+					...mvocPagesConfigOld.map((config) => getPage(config)),
 					...mvocPagesDocumentsConfig.map((config) => getPageList(config)),
 				],
 			}),

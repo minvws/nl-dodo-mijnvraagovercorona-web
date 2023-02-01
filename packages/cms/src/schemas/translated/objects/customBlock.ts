@@ -1,9 +1,12 @@
 import { FiLink } from 'react-icons/fi';
 import { VscScreenFull } from 'react-icons/vsc';
 
-export default {
+const generate = (
+	name: string = 'customBlock',
+	includeModalSelector: boolean = true,
+) => ({
 	title: 'Content',
-	name: 'customBlock',
+	name,
 	type: 'array',
 	of: [
 		{
@@ -42,31 +45,37 @@ export default {
 								type: 'string',
 								validation: (Rule) => Rule.required(),
 							},
-							// { name: 'chevron', type: 'boolean' },
 							{ name: 'button', type: 'boolean' },
-							// { name: 'internal', type: 'boolean' },
 						],
 					},
-
-					// Modal
-					{
-						name: 'dialog',
-						type: 'object',
-						title: 'Dialog',
-						blockEditor: {
-							icon: VscScreenFull,
-						},
-						fields: [
-							{
-								title: 'Selecteer modal',
-								name: 'modal_ref',
-								type: 'reference',
-								to: [{ type: 'modals-document' }],
-							},
-						],
-					},
+					...(includeModalSelector
+						? [
+								{
+									name: 'dialog',
+									type: 'object',
+									title: 'Dialog',
+									blockEditor: {
+										icon: VscScreenFull,
+									},
+									fields: [
+										{
+											title: 'Selecteer modal',
+											name: 'modal_ref',
+											type: 'reference',
+											to: [{ type: 'modals' }],
+										},
+									],
+								},
+						  ]
+						: []),
 				],
 			},
 		},
 	],
-};
+});
+
+export const customBlockObject = generate();
+export const customBlockWithoutModalObject = generate(
+	'customBlockWithoutModal',
+	false,
+);

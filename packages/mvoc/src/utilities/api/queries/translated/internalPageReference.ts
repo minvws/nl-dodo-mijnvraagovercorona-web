@@ -1,7 +1,7 @@
 import { ContentBlockProps } from '@design-system/components/ContentBlock';
 import { Locale } from 'src/utilities/locale/translation';
 import { customBlockQuery } from './customBlock';
-import { localePropertyQuery } from './localeProperty';
+import { localePropertyQuery } from '../localeProperty';
 
 export interface InternalPageCollectionProps {
 	internalPageCollection: {
@@ -19,7 +19,7 @@ export const internalPageReferenceQuery = ({
 	locale: Locale;
 }): string => {
 	return `internalPageCollection[]{
-		${customBlockQuery({ name: 'label', locale })},
+		${customBlockQuery({ name: 'label' })},
 		"link": select(
 			pageReference->_type == "theme-document" => pageReference->{
 				${localePropertyQuery({ name: 'label', path: 'overview.title', locale })},
@@ -36,6 +36,10 @@ export const internalPageReferenceQuery = ({
 			pageReference->_type == "tip-document" => pageReference->{
 				${localePropertyQuery({ name: 'label', path: 'header.title', locale })},
 				"slug": 'tip/' + slug.current,
+			},
+			pageReference->_type == "generic-page" => pageReference->{
+				"label": header.title,
+				"slug": slug.current,
 			},
 		),
 	}`;
