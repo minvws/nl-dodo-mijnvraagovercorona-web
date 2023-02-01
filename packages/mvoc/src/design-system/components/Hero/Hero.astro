@@ -57,8 +57,9 @@ const { title, subTitle, chapeau, image, highlight } = Astro.props;
 		--hero-background: var(--theme-bg-base);
 		--hero-padding: var(--stack-hero);
 		// Calculates menu button size
-		// TODO: fix magic numbers, better store the size in a global variable
-		--hero-padding-block-start: calc(2.4rem + var(--stack-small) * 2);
+		--hero-padding-block-start: calc(
+			var(--space-r-menu-button) + var(--stack-small) * 2
+		);
 		--hero-padding-block-end: var(--hero-padding);
 		position: relative;
 		padding-block-start: var(--hero-padding-block-start);
