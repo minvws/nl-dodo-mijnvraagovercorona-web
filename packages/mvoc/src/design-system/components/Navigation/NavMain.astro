@@ -161,6 +161,8 @@ const isHome =
 
 		// only show or hide when the user has scrolled more than the delta
 		if (Math.abs(scrollPos - windowY) <= delta) return;
+
+		// toggle the hidden class when the user scrolls up or down
 		nav.classList.toggle('is-hidden', !(windowY < scrollPos));
 		scrollPos = windowY;
 	};
