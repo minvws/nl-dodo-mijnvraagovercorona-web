@@ -4,6 +4,7 @@ export default defineType({
 	title: 'Page meta data',
 	name: 'metaData',
 	type: 'object',
+	validation: (Rule) => Rule.required(),
 	fields: [
 		defineField({
 			title: 'Titel',
