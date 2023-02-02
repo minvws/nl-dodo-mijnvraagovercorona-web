@@ -1,4 +1,6 @@
-export default {
+import { defineType, defineField } from 'sanity';
+
+export default defineType({
 	title: 'Landingpagina situaties',
 	name: 'landing-situations-document',
 	type: 'document',
@@ -10,12 +12,12 @@ export default {
 		},
 	},
 	fields: [
-		{
+		defineField({
 			title: 'Meta data',
 			name: 'metaData',
 			type: 'pageMetaData',
-		},
-		{
+		}),
+		defineField({
 			title: 'Header',
 			name: 'header',
 			type: 'object',
@@ -41,15 +43,15 @@ export default {
 					type: 'image',
 				},
 			],
-		},
-		{
+		}),
+		defineField({
 			title: 'Custom titel',
 			name: 'titleCustom',
 			type: 'localeString',
 			description:
 				'Standaard word de titel van de gekoppelde vraag getoond. Indien gevuld vervangt dit veld die titel.',
-		},
-		{
+		}),
+		defineField({
 			title: 'Verhalen',
 			name: 'storiesCollection',
 			type: 'array',
@@ -62,14 +64,14 @@ export default {
 					to: [{ type: 'story-document' }],
 				},
 			],
-		},
-		{
+		}),
+		defineField({
 			title: 'Vraag referentie',
 			name: 'situationReference',
 			type: 'reference',
 			to: [{ type: 'situation-question-document' }],
-		},
-		{
+		}),
+		defineField({
 			title: 'Slug',
 			name: 'slug',
 			type: 'slug',
@@ -79,11 +81,11 @@ export default {
 				source: 'header.title.nl',
 			},
 			validation: (Rule: any) => Rule.required(),
-		},
-		{
+		}),
+		defineField({
 			title: 'URL',
 			name: 'url',
 			type: 'string',
-		},
+		}),
 	],
-};
+});

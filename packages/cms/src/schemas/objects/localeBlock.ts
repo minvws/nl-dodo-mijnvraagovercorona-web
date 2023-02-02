@@ -46,9 +46,7 @@ export const generateBlock = (
 								name: 'link',
 								type: 'object',
 								title: 'Link',
-								blockEditor: {
-									icon: FiLink,
-								},
+								icon: FiLink,
 								fields: [
 									{
 										name: 'href',
@@ -66,9 +64,7 @@ export const generateBlock = (
 											name: 'dialog',
 											type: 'object',
 											title: 'Dialog',
-											blockEditor: {
-												icon: VscScreenFull,
-											},
+											icon: VscScreenFull,
 											fields: [
 												{
 													title: 'Selecteer modal',
@@ -76,17 +72,6 @@ export const generateBlock = (
 													type: 'reference',
 													to: [{ type: 'modals-document' }],
 												},
-												// {
-												// 	title: 'Modal title',
-												// 	name: 'modal_title',
-												// 	type: 'string',
-												// },
-												// {
-												// 	title: 'Modal content',
-												// 	name: 'modal_content',
-												// 	type: 'array',
-												// 	of: [{ type: 'block' }],
-												// },
 											],
 										},
 								  ]
@@ -96,9 +81,7 @@ export const generateBlock = (
 								name: 'addToCalendar',
 								type: 'object',
 								title: 'Toevoegen aan kalender',
-								blockEditor: {
-									icon: RiCalendarCheckLine,
-								},
+								icon: RiCalendarCheckLine,
 								fields: [
 									{
 										name: 'modal_title',

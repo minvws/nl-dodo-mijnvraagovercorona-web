@@ -1,38 +1,39 @@
 import { AiOutlineClockCircle } from 'react-icons/ai';
+import { defineType, defineField } from 'sanity';
 
-export default {
+export default defineType({
 	title: 'Land Documenten',
 	name: 'land-document',
 	type: 'document',
 	fields: [
-		{
+		defineField({
 			title: 'Slug',
 			name: 'slug',
 			type: 'string',
-		},
-		{
+		}),
+		defineField({
 			title: 'Nederland Wereldwijd Slug',
 			description:
 				'Dit veld hoeft enkel ingevuld te worden wanneer de url slug voor Nederland Wereldwijd anders is.',
 			name: 'nederlandWereldwijdSlug',
 			type: 'string',
-		},
-		{
+		}),
+		defineField({
 			title: 'Naam',
 			name: 'name',
 			type: 'localeString',
-		},
-		{
+		}),
+		defineField({
 			title: 'Regio',
 			name: 'region',
 			type: 'boolean',
-		},
-		{
+		}),
+		defineField({
 			title: 'Coronamelder',
 			name: 'coronamelder',
 			type: 'boolean',
-		},
-		{
+		}),
+		defineField({
 			title: 'Risico categorie planning',
 			name: 'riskCategoryPlanning',
 			type: 'array',
@@ -43,18 +44,18 @@ export default {
 					type: 'object',
 					icon: AiOutlineClockCircle,
 					fields: [
-						{
+						defineField({
 							title: 'Datum van ingang (0.00u)',
 							name: 'startDate',
 							type: 'date',
 							options: { dateFormat: 'DD-MM-YYYY' },
-						},
-						{
+						}),
+						defineField({
 							title: 'Risicocategorie',
 							name: 'riskCategory',
 							type: 'reference',
 							to: [{ type: 'risk-category-document' }],
-						},
+						}),
 					],
 					preview: {
 						select: {
@@ -70,7 +71,7 @@ export default {
 					},
 				},
 			],
-		},
+		}),
 		{
 			title: 'Synoniemen',
 			name: 'synonyms',
@@ -143,4 +144,4 @@ export default {
 			};
 		},
 	},
-};
+});

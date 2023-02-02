@@ -1,4 +1,6 @@
-export default {
+import { defineType, defineField } from 'sanity';
+
+export default defineType({
 	title: 'Site Settings Document',
 	name: 'site-settings-document',
 	type: 'document',
@@ -120,7 +122,7 @@ export default {
 					],
 					options: {
 						sortable: false,
-						editModal: 'popover',
+						modal: 'popover',
 					},
 				},
 				{
@@ -178,7 +180,7 @@ export default {
 					of: [{ type: 'localeString' }],
 					options: {
 						sortable: false,
-						editModal: 'popover',
+						modal: 'popover',
 					},
 				},
 			],
@@ -472,4 +474,4 @@ export default {
 			],
 		},
 	],
-};
+});

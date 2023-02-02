@@ -1,4 +1,6 @@
-export default {
+import { defineField, defineType } from 'sanity';
+
+export default defineType({
 	title: 'Selecteer tips',
 	name: 'tipSelector',
 	type: 'array',
@@ -8,12 +10,12 @@ export default {
 			name: 'tipOverview',
 			type: 'object',
 			fields: [
-				{
+				defineField({
 					title: 'Tip referentie',
 					name: 'tipReference',
 					type: 'reference',
 					to: [{ type: 'tip-document' }],
-				},
+				}),
 			],
 			preview: {
 				select: {
@@ -23,4 +25,4 @@ export default {
 			},
 		},
 	],
-};
+});

@@ -1,5 +1,3 @@
-import S from '@sanity/desk-tool/structure-builder';
-
 import {
 	GiCardRandom,
 	GiHouse,
@@ -194,15 +192,15 @@ const multiDocumentsConfig = [
 	},
 ];
 
-export default () =>
+export default (S) =>
 	S.list()
 		.title('Content')
 		.items([
-			getFolder({
+			getFolder(S, {
 				title: 'Nieuwe structuur MVOC',
 				icon: MdLiveHelp,
 				items: [
-					getTranslatedSingleton({
+					getTranslatedSingleton(S, {
 						title: 'Site Settings',
 						type: 'siteSettings',
 						icon: GiSettingsKnobs,
@@ -210,24 +208,24 @@ export default () =>
 
 					S.divider(),
 
-					getFolder({
+					getFolder(S, {
 						title: 'Documenten',
 						icon: IoDocumentOutline,
 						items: [
 							...mvocDocumentsConfig.map((config) =>
-								getTranslatedDocumentList(config),
+								getTranslatedDocumentList(S, config),
 							),
 						],
 					}),
 
 					S.divider(),
 
-					getFolder({
+					getFolder(S, {
 						title: 'Pagina’s',
 						icon: RiPagesLine,
 						items: [
 							...mvocPagesConfig.map((config) =>
-								getTranslatedDocumentList(config),
+								getTranslatedDocumentList(S, config),
 							),
 						],
 					}),
@@ -236,52 +234,52 @@ export default () =>
 
 			S.divider(),
 
-			getFolder({
+			getFolder(S, {
 				title: 'Common',
 				icon: BiSitemap,
 				items: [
-					...siteSettingsConfig.map((config) => getDocumentList(config)),
+					...siteSettingsConfig.map((config) => getDocumentList(S, config)),
 					S.divider(),
-					getFolder({
+					getFolder(S, {
 						title: 'Pagina’s',
 						icon: RiPagesLine,
-						items: [...genericPagesConfig.map((config) => getPageList(config))],
+						items: [...genericPagesConfig.map((config) => getPageList(S, config))],
 					}),
 
-					getFolder({
+					getFolder(S, {
 						title: 'Documenten',
 						icon: IoDocumentOutline,
 						items: [
-							...multiDocumentsConfig.map((config) => getDocumentList(config)),
+							...multiDocumentsConfig.map((config) => getDocumentList(S, config)),
 						],
 					}),
 				],
 			}),
 
-			getFolder({
+			getFolder(S, {
 				title: 'MijnVraagOverCorona',
 				icon: MdLiveHelp,
 				items: [
-					...mvocPagesConfigOld.map((config) => getPage(config)),
-					...mvocPagesDocumentsConfig.map((config) => getPageList(config)),
+					...mvocPagesConfigOld.map((config) => getPage(S, config)),
+					...mvocPagesDocumentsConfig.map((config) => getPageList(S, config)),
 				],
 			}),
 
-			getFolder({
+			getFolder(S, {
 				title: 'Reizen',
 				icon: SiYourtraveldottv,
 				items: [
-					getFolder({
+					getFolder(S, {
 						title: 'Pagina’s',
 						icon: RiPagesLine,
-						items: [...reizenPagesConfig.map((config) => getPage(config))],
+						items: [...reizenPagesConfig.map((config) => getPage(S, config))],
 					}),
-					getFolder({
+					getFolder(S, {
 						title: 'Documenten',
 						icon: IoDocumentOutline,
 						items: [
 							...reizenMultiDocumentsConfig.map((config) =>
-								getDocumentList(config),
+								getDocumentList(S, config),
 							),
 						],
 					}),

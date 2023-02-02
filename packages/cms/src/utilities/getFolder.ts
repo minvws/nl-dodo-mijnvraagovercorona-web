@@ -1,6 +1,4 @@
-import S from '@sanity/desk-tool/structure-builder';
-
-export const getFolder = ({
+export const getFolder = (S, {
 	title,
 	items,
 	icon,
