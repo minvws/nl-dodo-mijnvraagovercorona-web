@@ -152,6 +152,14 @@ const isHome =
 	const delta = 10;
 	const checkPosition = () => {
 		let windowY = window.scrollY;
+
+		// safe area where the navbutton is always visible to prevent scrolling bug
+		if (windowY <= 8) {
+			nav.classList.remove('is-hidden');
+			return;
+		}
+
+		// only show or hide when the user has scrolled more than the delta
 		if (Math.abs(scrollPos - windowY) <= delta) return;
 		nav.classList.toggle('is-hidden', !(windowY < scrollPos));
 		scrollPos = windowY;
