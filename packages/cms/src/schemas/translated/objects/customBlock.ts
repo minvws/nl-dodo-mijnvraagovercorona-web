@@ -36,9 +36,7 @@ const generate = (
 						name: 'link',
 						type: 'object',
 						title: 'Link',
-						blockEditor: {
-							icon: FiLink,
-						},
+						icon: FiLink,
 						fields: [
 							{
 								name: 'href',
@@ -54,9 +52,7 @@ const generate = (
 									name: 'dialog',
 									type: 'object',
 									title: 'Dialog',
-									blockEditor: {
-										icon: VscScreenFull,
-									},
+									icon: VscScreenFull,
 									fields: [
 										{
 											title: 'Selecteer modal',
