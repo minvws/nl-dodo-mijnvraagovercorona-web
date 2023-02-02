@@ -149,8 +149,10 @@ const isHome =
 	 * handle scroll
 	 */
 	let scrollPos = 0;
+	const delta = 10;
 	const checkPosition = () => {
 		let windowY = window.scrollY;
+		if (Math.abs(scrollPos - windowY) <= delta) return;
 		nav.classList.toggle('is-hidden', !(windowY < scrollPos));
 		scrollPos = windowY;
 	};
@@ -213,6 +215,7 @@ const isHome =
 		outline: none;
 		box-shadow: var(--elevation-frost);
 		transition: transform 200ms ease-in-out;
+		color: var(--color-black);
 
 		.show-expanded {
 			display: none;
