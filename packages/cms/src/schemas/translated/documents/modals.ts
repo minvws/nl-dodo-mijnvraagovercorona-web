@@ -19,6 +19,7 @@ export default defineType({
 			title: 'Titel',
 			name: 'title',
 			type: 'string',
+			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			title: 'Afbeelding',
@@ -29,6 +30,7 @@ export default defineType({
 			title: 'Content',
 			name: 'content',
 			type: 'customBlockWithoutModal',
+			validation: (Rule) => Rule.required(),
 		}),
 	],
 });

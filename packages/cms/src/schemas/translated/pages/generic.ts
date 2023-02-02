@@ -23,6 +23,7 @@ export default defineType({
 			title: 'Header',
 			name: 'header',
 			type: 'object',
+			validation: (Rule) => Rule.required(),
 			fields: [
 				defineField({
 					title: 'Chapeau',
@@ -33,6 +34,7 @@ export default defineType({
 					title: 'Titel',
 					name: 'title',
 					type: 'string',
+					validation: (Rule) => Rule.required(),
 				}),
 				defineField({
 					title: 'Content',
@@ -45,11 +47,13 @@ export default defineType({
 			title: 'Content',
 			name: 'content',
 			type: 'customBlock',
+			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			title: 'Slug',
 			name: 'slug',
 			type: 'slug',
+			validation: (Rule) => Rule.required(),
 			options: {
 				source: 'header.title',
 				isUnique: isUnique,
