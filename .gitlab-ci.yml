@@ -19,7 +19,7 @@ image: harbor.cicd.s15m.nl/vws-reis/tool-box:1.2
     - echo "${DOCKER_AUTH_CONFIG}" > /kaniko/.docker/config.json
     - cat /kaniko/.docker/config.json
     - cat ./packages/${CD_APP_FOLDER}/Dockerfile |
-      sed "s~node:16-alpine~harbor.cicd.s15m.nl/vws-reis-docker-hub/library/node:16-alpine~g"
+      sed "s~node:18-alpine~harbor.cicd.s15m.nl/vws-reis-docker-hub/library/node:18-alpine~g"
       > ./packages/${CD_APP_FOLDER}/Dockerfile_derived
     - cat ./packages/${CD_APP_FOLDER}/Dockerfile_derived
     - echo "CI_PROJECT_DIR ${CI_PROJECT_DIR}"
@@ -57,7 +57,7 @@ before_script:
   - unset ${HISTFILE} # Disable shell cache for security purposes
 
 test mvoc:
-  image: harbor.cicd.s15m.nl/vws-reis-docker-hub/library/node:16-alpine
+  image: harbor.cicd.s15m.nl/vws-reis-docker-hub/library/node:18-alpine
   stage: test
   script:
     - yarn
@@ -70,7 +70,7 @@ test mvoc:
 
 # TODO: enable when preview is available with MVOC astro
 # deploy mvoc cms preview environment:
-#   image: harbor.cicd.s15m.nl/vws-reis-docker-hub/library/node:16-alpine
+#   image: harbor.cicd.s15m.nl/vws-reis-docker-hub/library/node:18-alpine
 #   stage: deploy
 #   script:
 #     - yarn
