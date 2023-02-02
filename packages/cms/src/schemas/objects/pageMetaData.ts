@@ -1,4 +1,4 @@
-import { defineField, defineType } from 'sanity'
+import { defineField, defineType } from 'sanity';
 
 export default defineType({
 	title: 'Page meta data',
@@ -18,7 +18,11 @@ export default defineType({
 			},
 		}),
 		defineField({ title: 'Titel', name: 'title', type: 'localeString' }),
-		defineField({ title: 'Omschrijving', name: 'description', type: 'localeString' }),
+		defineField({
+			title: 'Omschrijving',
+			name: 'description',
+			type: 'localeString',
+		}),
 		defineField({
 			title: 'Social share image',
 			name: 'socialShareImage',

@@ -1,6 +1,7 @@
-import { defineType, defineField } from 'sanity'
+import { defineType, defineField } from 'sanity';
 
-export default defineType({	title: 'Risico Categorie Documenten',
+export default defineType({
+	title: 'Risico Categorie Documenten',
 	name: 'risk-category-document',
 	type: 'document',
 	fields: [

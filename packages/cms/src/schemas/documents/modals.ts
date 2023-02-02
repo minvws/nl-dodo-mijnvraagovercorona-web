@@ -1,6 +1,7 @@
-import { defineType, defineField } from 'sanity'
+import { defineType, defineField } from 'sanity';
 
-export default defineType({	title: 'Modals',
+export default defineType({
+	title: 'Modals',
 	name: 'modals-document',
 	type: 'document',
 	preview: {

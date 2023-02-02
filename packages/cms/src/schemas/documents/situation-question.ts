@@ -1,6 +1,6 @@
-import { defineType, defineField } from 'sanity'
+import { defineType, defineField } from 'sanity';
 
-export default defineType({	
+export default defineType({
 	title: 'Situatie Vraag Documenten',
 	name: 'situation-question-document',
 	type: 'document',
@@ -91,52 +91,54 @@ export default defineType({
 			hidden: ({ document }: { document: { type: string } }) =>
 				document?.type !== 'single',
 		}),
-		defineField({
-			title: 'Antwoorden',
-			name: 'answersMultiple',
-			type: 'array',
-			of: [
-				{
-					title: 'Antwoord',
-					name: 'answer',
-					type: 'object',
-					fields: [
-						defineField({
-							title: 'Content',
-							name: 'content',
-							type: 'localeString',
-						}),
-					],
-					preview: {
-						select: {
-							title: 'content.nl',
-							subtitle: 'content.next.header.title',
+		defineField(
+			{
+				title: 'Antwoorden',
+				name: 'answersMultiple',
+				type: 'array',
+				of: [
+					{
+						title: 'Antwoord',
+						name: 'answer',
+						type: 'object',
+						fields: [
+							defineField({
+								title: 'Content',
+								name: 'content',
+								type: 'localeString',
+							}),
+						],
+						preview: {
+							select: {
+								title: 'content.nl',
+								subtitle: 'content.next.header.title',
+							},
 						},
 					},
-				},
-			],
-			hidden: ({ document }: { document: { type: string } }) =>
-				document?.type !== 'multiple',
-		},
-		{
-			title: 'Toon meer',
-			name: 'showMore',
-			type: 'object',
-			fields: [
-				defineField({
-					title: 'Maximum aantal antwoorden',
-					name: 'max',
-					type: 'number',
-				}),
-				defineField({
-					title: 'Label',
-					name: 'label',
-					type: 'thisOrThatLocaleString',
-				}),
-			],
-			hidden: ({ document }: { document: { type: string } }) =>
-				document?.type !== 'multiple',
-		}),
+				],
+				hidden: ({ document }: { document: { type: string } }) =>
+					document?.type !== 'multiple',
+			},
+			{
+				title: 'Toon meer',
+				name: 'showMore',
+				type: 'object',
+				fields: [
+					defineField({
+						title: 'Maximum aantal antwoorden',
+						name: 'max',
+						type: 'number',
+					}),
+					defineField({
+						title: 'Label',
+						name: 'label',
+						type: 'thisOrThatLocaleString',
+					}),
+				],
+				hidden: ({ document }: { document: { type: string } }) =>
+					document?.type !== 'multiple',
+			},
+		),
 		defineField({
 			title: 'Buttons',
 			name: 'buttons',

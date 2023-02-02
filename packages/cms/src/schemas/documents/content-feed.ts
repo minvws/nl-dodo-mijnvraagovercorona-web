@@ -1,6 +1,6 @@
-import { defineType, defineField } from 'sanity'
+import { defineType, defineField } from 'sanity';
 
-export default defineType({	
+export default defineType({
 	title: 'Content Feed',
 	name: 'content-feed-document',
 	type: 'document',

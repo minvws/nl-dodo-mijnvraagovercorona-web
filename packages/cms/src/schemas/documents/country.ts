@@ -1,5 +1,5 @@
 import { AiOutlineClockCircle } from 'react-icons/ai';
-import { defineType, defineField } from 'sanity'
+import { defineType, defineField } from 'sanity';
 
 export default defineType({
 	title: 'Land Documenten',

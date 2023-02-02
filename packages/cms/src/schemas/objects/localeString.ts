@@ -1,4 +1,4 @@
-import { defineType } from 'sanity'
+import { defineType } from 'sanity';
 import { supportedLocales, Locale } from '../../utilities/locales';
 
 export default defineType({

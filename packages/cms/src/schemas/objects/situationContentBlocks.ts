@@ -1,6 +1,6 @@
 import { BiLinkAlt } from 'react-icons/bi';
 import { BsCardText, BsCardImage, BsCameraVideo } from 'react-icons/bs';
-import { defineField, defineType } from 'sanity'
+import { defineField, defineType } from 'sanity';
 
 export default defineType({
 	title: 'Content',
