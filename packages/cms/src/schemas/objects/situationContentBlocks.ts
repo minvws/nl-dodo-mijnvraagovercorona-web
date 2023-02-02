@@ -1,7 +1,8 @@
 import { BiLinkAlt } from 'react-icons/bi';
 import { BsCardText, BsCardImage, BsCameraVideo } from 'react-icons/bs';
+import { defineField, defineType } from 'sanity';
 
-export default {
+export default defineType({
 	title: 'Content',
 	name: 'contentBlocks',
 	type: 'array',
@@ -20,20 +21,20 @@ export default {
 				variant: 'button',
 			},
 			fields: [
-				{
+				defineField({
 					title: 'Link titel',
 					name: 'situationLinkTitle',
 					type: 'localeString',
-				},
-				{
+				}),
+				defineField({
 					title: 'Variant',
 					name: 'variant',
 					type: 'string',
 					options: {
 						list: ['button', 'button-tertiary'],
 					},
-				},
-				{
+				}),
+				defineField({
 					title: 'Link naar situatiepagina',
 					name: 'situationReference',
 					type: 'reference',
@@ -41,7 +42,7 @@ export default {
 						{ type: 'situation-question-document' },
 						{ type: 'situation-result-document' },
 					],
-				},
+				}),
 			],
 		},
 		{
@@ -63,4 +64,4 @@ export default {
 			icon: BsCameraVideo,
 		},
 	],
-};
+});

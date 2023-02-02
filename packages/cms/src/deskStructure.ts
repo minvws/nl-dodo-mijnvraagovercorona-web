@@ -1,6 +1,5 @@
-import S from '@sanity/desk-tool/structure-builder';
-
 import {
+	GiCardRandom,
 	GiHouse,
 	GiTestTubes,
 	GiCookie,
@@ -23,16 +22,14 @@ import { SiGnuprivacyguard, SiYourtraveldottv } from 'react-icons/si';
 import { GrVulnerability } from 'react-icons/gr';
 import { VscScreenFull, VscCopy } from 'react-icons/vsc';
 import { IoDocumentOutline } from 'react-icons/io5';
-import {
-	RiQuestionLine,
-	RiQuestionAnswerLine,
-	RiPagesLine,
-} from 'react-icons/ri';
+import { RiQuestionLine, RiPagesLine } from 'react-icons/ri';
 import { MdOutlineTopic, MdLiveHelp } from 'react-icons/md';
 
 import { getFolder } from './utilities/getFolder';
 import { getPage } from './utilities/getSingleton';
 import { getDocumentList, getPageList } from './utilities/getDocumentList';
+import { getTranslatedSingleton } from './utilities/getTranslatedSingleton';
+import { getTranslatedDocumentList } from './utilities/getTranslatedDocumentList';
 
 /**
  * A list of all document types which should be rendered as a singleton.
@@ -110,11 +107,27 @@ const reizenMultiDocumentsConfig = [
 	},
 ];
 
-const mvocPagesConfig = [
+const mvocPagesConfigOld = [
 	{
 		schemaType: 'check-landing-page',
 		title: 'Landing',
 		icon: GiHouse,
+	},
+];
+
+const mvocPagesConfig = [
+	{
+		schemaType: 'generic-page',
+		title: 'Generic',
+		icon: GiCardRandom,
+	},
+];
+
+const mvocDocumentsConfig = [
+	{
+		schemaType: 'modals',
+		title: 'Modals',
+		icon: VscScreenFull,
 	},
 ];
 
@@ -179,56 +192,94 @@ const multiDocumentsConfig = [
 	},
 ];
 
-export default () =>
+export default (S) =>
 	S.list()
 		.title('Content')
 		.items([
-			getFolder({
-				title: 'Common',
-				icon: BiSitemap,
+			getFolder(S, {
+				title: 'Nieuwe structuur MVOC',
+				icon: MdLiveHelp,
 				items: [
-					...siteSettingsConfig.map((config) => getDocumentList(config)),
-					S.divider(),
-					getFolder({
-						title: 'Pagina’s',
-						icon: RiPagesLine,
-						items: [...genericPagesConfig.map((config) => getPageList(config))],
+					getTranslatedSingleton(S, {
+						title: 'Site Settings',
+						type: 'siteSettings',
+						icon: GiSettingsKnobs,
 					}),
 
-					getFolder({
+					S.divider(),
+
+					getFolder(S, {
 						title: 'Documenten',
 						icon: IoDocumentOutline,
 						items: [
-							...multiDocumentsConfig.map((config) => getDocumentList(config)),
+							...mvocDocumentsConfig.map((config) =>
+								getTranslatedDocumentList(S, config),
+							),
+						],
+					}),
+
+					S.divider(),
+
+					getFolder(S, {
+						title: 'Pagina’s',
+						icon: RiPagesLine,
+						items: [
+							...mvocPagesConfig.map((config) =>
+								getTranslatedDocumentList(S, config),
+							),
 						],
 					}),
 				],
 			}),
 
-			getFolder({
-				title: 'MijnVraagOverCorona',
-				icon: MdLiveHelp,
+			S.divider(),
+
+			getFolder(S, {
+				title: 'Common',
+				icon: BiSitemap,
 				items: [
-					...mvocPagesConfig.map((config) => getPage(config)),
-					...mvocPagesDocumentsConfig.map((config) => getPageList(config)),
+					...siteSettingsConfig.map((config) => getDocumentList(S, config)),
+					S.divider(),
+					getFolder(S, {
+						title: 'Pagina’s',
+						icon: RiPagesLine,
+						items: [...genericPagesConfig.map((config) => getPageList(S, config))],
+					}),
+
+					getFolder(S, {
+						title: 'Documenten',
+						icon: IoDocumentOutline,
+						items: [
+							...multiDocumentsConfig.map((config) => getDocumentList(S, config)),
+						],
+					}),
 				],
 			}),
 
-			getFolder({
+			getFolder(S, {
+				title: 'MijnVraagOverCorona',
+				icon: MdLiveHelp,
+				items: [
+					...mvocPagesConfigOld.map((config) => getPage(S, config)),
+					...mvocPagesDocumentsConfig.map((config) => getPageList(S, config)),
+				],
+			}),
+
+			getFolder(S, {
 				title: 'Reizen',
 				icon: SiYourtraveldottv,
 				items: [
-					getFolder({
+					getFolder(S, {
 						title: 'Pagina’s',
 						icon: RiPagesLine,
-						items: [...reizenPagesConfig.map((config) => getPage(config))],
+						items: [...reizenPagesConfig.map((config) => getPage(S, config))],
 					}),
-					getFolder({
+					getFolder(S, {
 						title: 'Documenten',
 						icon: IoDocumentOutline,
 						items: [
 							...reizenMultiDocumentsConfig.map((config) =>
-								getDocumentList(config),
+								getDocumentList(S, config),
 							),
 						],
 					}),

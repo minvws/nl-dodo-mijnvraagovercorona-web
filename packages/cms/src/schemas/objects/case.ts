@@ -1,4 +1,6 @@
-export default {
+import { defineField, defineType } from 'sanity';
+
+export default defineType({
 	title: 'Case',
 	name: 'case',
 	type: 'object',
@@ -10,30 +12,30 @@ export default {
 		},
 	},
 	fields: [
-		{
+		defineField({
 			title: 'Titel',
 			name: 'title',
 			type: 'localeString',
-		},
-		{
+		}),
+		defineField({
 			title: 'Titel suffix',
 			name: 'titleSuffix',
 			type: 'localeString',
-		},
-		{
+		}),
+		defineField({
 			title: 'Intro',
 			name: 'intro',
 			type: 'localeString',
-		},
-		{
+		}),
+		defineField({
 			title: 'Lees meer knop',
 			name: 'readMoreLabel',
 			type: 'localeString',
-		},
-		{
+		}),
+		defineField({
 			title: 'ContentBlocks',
 			name: 'contentBlocks',
 			type: 'contentBlocks',
-		},
+		}),
 	],
-};
+});

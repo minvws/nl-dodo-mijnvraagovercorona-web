@@ -1,4 +1,6 @@
-export default {
+import { defineField, defineType } from 'sanity';
+
+export default defineType({
 	title: 'Onhulling',
 	name: 'disclosure',
 	type: 'object',
@@ -8,15 +10,15 @@ export default {
 		},
 	},
 	fields: [
-		{
+		defineField({
 			title: 'Label',
 			name: 'label',
 			type: 'thisOrThatLocaleString',
-		},
-		{
+		}),
+		defineField({
 			title: 'Content',
 			name: 'content',
 			type: 'localeBlock',
-		},
+		}),
 	],
-};
+});

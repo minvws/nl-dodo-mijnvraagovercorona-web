@@ -67,48 +67,53 @@ const { locales, currentLocale, labelChange, labelCurrent } = Astro.props;
 	const parent = document.querySelector(
 		'[data-module="locale-selector"]',
 	) as HTMLElement;
-	const toggle = parent.querySelector(
-		'[data-module-bind="locale-selector__toggle"]',
-	) as HTMLElement;
-	const panel = parent.querySelector(
-		'[data-module-bind="locale-selector__panel"]',
-	) as HTMLElement;
-	const panelInner = parent.querySelector(
-		'[data-module-bind="locale-selector__panel-inner"]',
-	) as HTMLElement;
 
-	const getPanelDimensions = () => {
-		const rect = panelInner.getBoundingClientRect();
-		return { blockSize: rect.height, inlineSize: rect.width };
-	};
+	if (parent) {
+		const toggle = parent.querySelector(
+			'[data-module-bind="locale-selector__toggle"]',
+		) as HTMLElement;
+		const panel = parent.querySelector(
+			'[data-module-bind="locale-selector__panel"]',
+		) as HTMLElement;
+		const panelInner = parent.querySelector(
+			'[data-module-bind="locale-selector__panel-inner"]',
+		) as HTMLElement;
 
-	const open = () => {
-		const dimensions = getPanelDimensions();
-		panel.style.blockSize = `${dimensions.blockSize}px`;
-		parent.classList.add('is-active');
-		toggle.setAttribute('aria-expanded', 'true');
-	};
+		const getPanelDimensions = () => {
+			const rect = panelInner.getBoundingClientRect();
+			return { blockSize: rect.height, inlineSize: rect.width };
+		};
 
-	const close = (focus = true) => {
-		parent.classList.remove('is-active');
-		panel.style.blockSize = '0';
-		if (focus) toggle.focus();
-		toggle.removeAttribute('aria-expanded');
-	};
+		const open = () => {
+			const dimensions = getPanelDimensions();
+			panel.style.blockSize = `${dimensions.blockSize}px`;
+			parent.classList.add('is-active');
+			toggle.setAttribute('aria-expanded', 'true');
+		};
 
-	const togglePanel = () =>
-		parent.classList.contains('is-active') ? close() : open();
+		const close = (focus = true) => {
+			parent.classList.remove('is-active');
+			panel.style.blockSize = '0';
+			if (focus) toggle.focus();
+			toggle.removeAttribute('aria-expanded');
+		};
 
-	toggle.addEventListener('click', togglePanel);
+		const togglePanel = () =>
+			parent.classList.contains('is-active') ? close() : open();
 
-	// Handle outside click
-	document.body.addEventListener('click', (event) => {
-		if (
-			!(event.target as HTMLElement).closest('[data-module="locale-selector"]')
-		) {
-			close(false);
-		}
-	});
+		toggle.addEventListener('click', togglePanel);
+
+		// Handle outside click
+		document.body.addEventListener('click', (event) => {
+			if (
+				!(event.target as HTMLElement).closest(
+					'[data-module="locale-selector"]',
+				)
+			) {
+				close(false);
+			}
+		});
+	}
 </script>
 
 <style lang="scss">
@@ -130,10 +135,8 @@ const { locales, currentLocale, labelChange, labelCurrent } = Astro.props;
 		box-shadow: var(--locale-selector-box-shadow);
 		background-color: var(--color-white);
 
-		&:focus-within,
-		&.is-active {
-			--locale-selector-border: var(--variant--tile-border-interactive);
-			--locale-selector-box-shadow: var(--variant--tile-elevation-interactive);
+		&:focus-within {
+			@include a11y.focusring;
 		}
 
 		@media --mq-large {

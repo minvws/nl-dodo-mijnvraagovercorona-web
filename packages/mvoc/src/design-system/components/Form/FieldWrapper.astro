@@ -10,7 +10,7 @@ interface Props extends HTMLAttributes<'div'> {
 const { class: className, label, id, ...attrs } = Astro.props;
 ---
 
-<div class={`c-field-wrapper${className ? ` | className` : ''}`} {...attrs}>
+<div class={`c-field-wrapper${className ? ` | ${className}` : ''}`} {...attrs}>
 	<Stack gap="milli">
 		<label class="c-field-wrapper__label" for={id}>{label}</label>
 		<div>

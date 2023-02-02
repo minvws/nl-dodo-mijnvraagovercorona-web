@@ -1,4 +1,3 @@
-import S from '@sanity/desk-tool/structure-builder';
 import { IconType } from 'react-icons';
 
 import { getViews } from './getViews';
@@ -16,7 +15,7 @@ interface GenericListProps extends DocumentListProps {
 /**
  * Generic function to render a list of documents
  */
-const getGenericList = ({ schemaType, title, icon, type }: GenericListProps) =>
+const getGenericList = (S, { schemaType, title, icon, type }: GenericListProps) =>
 	S.listItem()
 		.title(title)
 		.icon(icon)
@@ -27,18 +26,18 @@ const getGenericList = ({ schemaType, title, icon, type }: GenericListProps) =>
 				S.document()
 					.documentId(documentId)
 					.schemaType(schemaType)
-					.views(getViews(type, schemaType)),
+					.views(getViews(S, type, schemaType)),
 			),
 		);
 
 /**
  * This will render a list of documents inside the CMS.
  */
-export const getDocumentList = (config: DocumentListProps) =>
-	getGenericList({ ...config, type: 'document' });
+export const getDocumentList = (S, config: DocumentListProps) =>
+	getGenericList(S, { ...config, type: 'document' });
 
 /**
  * This will render a list of pages inside the CMS.
  */
-export const getPageList = (config: DocumentListProps) =>
-	getGenericList({ ...config, type: 'page' });
+export const getPageList = (S, config: DocumentListProps) =>
+	getGenericList(S, { ...config, type: 'page' });

@@ -2,6 +2,7 @@
 import { HTMLAttributes } from 'astro/types';
 import { Icon, IconProps } from '@design-system/elements/Icon';
 import { Animations } from '@design-system/primitives/animation';
+import { isExternalUrl } from 'src/utilities/helpers/external-url';
 
 // Interfaces
 interface Shared {
@@ -49,10 +50,10 @@ const iconPositionCalculated =
 		? 'leading'
 		: 'trailing';
 
+const isExternal = attrs.href && isExternalUrl(attrs.href);
+
 const selectedIcon =
-	attrs.href && external
-		? 'external'
-		: variant === 'tooltip'
+	variant === 'tooltip'
 		? 'tooltip'
 		: variant === 'restart'
 		? 'refresh'
@@ -60,6 +61,8 @@ const selectedIcon =
 		? 'chevron-large-left'
 		: icon
 		? icon
+		: isExternal
+		? 'external'
 		: undefined;
 ---
 
@@ -70,8 +73,8 @@ const selectedIcon =
 	data-disabled={attrs.href && disabled ? disabled : undefined}
 	formaction={!attrs.href && attrs.formaction ? attrs.formaction : undefined}
 	href={attrs.href}
-	target={attrs.href && external ? '_blank' : undefined}
-	rel={attrs.href && external ? 'noopener noreferrer' : undefined}
+	target={isExternal ? '_blank' : undefined}
+	rel={isExternal ? 'noopener noreferrer' : undefined}
 	lang={attrs.href ? attrs.lang : undefined}
 	hreflang={attrs.href ? attrs.lang : undefined}
 	{...attrs}
@@ -92,6 +95,8 @@ const selectedIcon =
 </Element>
 
 <style lang="scss">
+	@use '@design-system-styles/tools/_a11y.scss';
+
 	.e-link {
 		--link-interactive-outline: var(--color-donkerblauw);
 		--icon-animation: none;
@@ -114,13 +119,16 @@ const selectedIcon =
 			animation: var(--u-animation-subscribe);
 		}
 
-		&:hover,
-		&:focus {
+		&:hover {
 			--link-color: var(--color-diepblauw);
 		}
 
 		&:focus {
-			outline: 2px solid var(--link-interactive-outline);
+			@include a11y.focusring;
+		}
+
+		&:visited {
+			--link-color: var(--color-accent-visited);
 		}
 	}
 
@@ -168,8 +176,7 @@ const selectedIcon =
 			color: var(--color-diepblauw);
 		}
 
-		&:hover,
-		&:focus {
+		&:hover {
 			--link-text-decoration: underline;
 		}
 	}

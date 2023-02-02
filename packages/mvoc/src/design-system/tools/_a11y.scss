@@ -22,3 +22,13 @@
 	white-space: nowrap !important;
 	inline-size: 1px !important;
 }
+
+/* --------------------------------------------------------------------------
+    focusring
+    creates a nice focus ring around a interactive element
+/ --------------------------------------------------------------------------- */
+
+@mixin focusring {
+	outline: var(--elevation-focusring);
+	outline-offset: 2px;
+}

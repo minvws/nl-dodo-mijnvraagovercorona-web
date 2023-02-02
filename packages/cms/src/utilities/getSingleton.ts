@@ -1,4 +1,3 @@
-import S from '@sanity/desk-tool/structure-builder';
 import { IconType } from 'react-icons';
 
 import { getViews } from './getViews';
@@ -16,7 +15,7 @@ interface SingletonProps extends DocumentProps {
 /**
  * This will export a Sanity ListItem configured as a singleton so there can only be one
  */
-export const getSingleton = ({
+export const getSingleton = (S, {
 	title,
 	schemaType,
 	icon,
@@ -30,11 +29,11 @@ export const getSingleton = ({
 				.title(title)
 				.schemaType(schemaType)
 				.documentId(schemaType)
-				.views(getViews(type, schemaType)),
+				.views(getViews(S, type, schemaType)),
 		);
 
-export const getSingletonDocument = (config: DocumentProps) =>
-	getSingleton({ ...config, type: 'document' });
+export const getSingletonDocument = (S, config: DocumentProps) =>
+	getSingleton(S, { ...config, type: 'document' });
 
-export const getPage = (config: DocumentProps) =>
-	getSingleton({ ...config, type: 'page' });
+export const getPage = (S, config: DocumentProps) =>
+	getSingleton(S, { ...config, type: 'page' });

@@ -74,6 +74,7 @@ export async function getDataHome({ locale }: { locale: Locale }) {
 		type: 'check-landing-page',
 		projection,
 		locale,
+		site: 'mijn-vraag-over-corona',
 	});
 
 	return await useSanityClient().fetch(query);

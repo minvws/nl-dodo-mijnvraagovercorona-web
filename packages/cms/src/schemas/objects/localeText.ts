@@ -1,6 +1,8 @@
+import { defineType } from 'sanity';
+
 import { supportedLocales, Locale } from '../../utilities/locales';
 
-export default {
+export default defineType({
 	title: 'Text met vertalingen',
 	name: 'localeText',
 	type: 'object',
@@ -18,4 +20,4 @@ export default {
 		rows: 5,
 		fieldset: locale.isDefault ? null : 'translations',
 	})),
-};
+});

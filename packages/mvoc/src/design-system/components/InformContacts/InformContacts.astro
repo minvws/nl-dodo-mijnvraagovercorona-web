@@ -70,16 +70,12 @@ const currentUrl = Astro.url.toString();
 	@use '@design-system-styles/primitives/_responsive.scss';
 
 	.c-inform-contacts {
-		--step-bullet-size: 1.4736842105rem; // 28px
+		--step-bullet-size: 1.4rem; // 28px
 		--step-color: var(--color-accent-robijnrood);
 		--step-line-size: 2px;
 
 		--point-bullet-size: var(--space-r-tiny);
 		--point-color: var(--color-donkerblauw);
-
-		@media --mq-large {
-			--step-bullet-size: 1.4rem; // 28px
-		}
 	}
 
 	.c-inform-contacts__steps,
@@ -94,7 +90,7 @@ const currentUrl = Astro.url.toString();
 
 		> li {
 			position: relative;
-			padding-inline-start: var(--space-r-gaint);
+			padding-inline-start: var(--space-r-giant);
 			counter-increment: steps-list;
 
 			&::before {

@@ -1,4 +1,6 @@
-export default {
+import { defineField, defineType } from 'sanity';
+
+export default defineType({
 	title: 'Vraag startpunten',
 	name: 'questionSelector',
 	type: 'array',
@@ -8,12 +10,12 @@ export default {
 			name: 'questionOverview',
 			type: 'object',
 			fields: [
-				{
+				defineField({
 					title: 'Titel',
 					name: 'title',
 					type: 'localeBlock',
-				},
-				{
+				}),
+				defineField({
 					title: 'Vraag referentie',
 					name: 'situationReference',
 					type: 'reference',
@@ -22,7 +24,7 @@ export default {
 						{ type: 'situation-result-document' },
 						{ type: 'tip-document' },
 					],
-				},
+				}),
 			],
 			preview: {
 				select: {
@@ -32,4 +34,4 @@ export default {
 			},
 		},
 	],
-};
+});

@@ -1,4 +1,6 @@
-export default {
+import { defineType, defineField } from 'sanity';
+
+export default defineType({
 	title: 'Risico Categorie Documenten',
 	name: 'risk-category-document',
 	type: 'document',
@@ -20,4 +22,4 @@ export default {
 			subtitle: 'label',
 		},
 	},
-};
+});

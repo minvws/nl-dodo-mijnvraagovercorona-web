@@ -96,10 +96,7 @@ const { pageData }: HomeProps = await getDataHome({ locale });
 
 	{
 		pageData.assistance && (
-			<Layer
-				background="ijsblauw"
-				id={stringToSlug(pageData.assistance.headline)}
-			>
+			<Layer id={stringToSlug(pageData.assistance.headline)}>
 				<Retain>
 					<Assistance feedback {...pageData.assistance} />
 				</Retain>
@@ -112,11 +109,7 @@ const { pageData }: HomeProps = await getDataHome({ locale });
 	@use '@design-system-styles/primitives/_responsive.scss';
 
 	.grid-important {
-		--grid-fluid-min-item-size: 21.0526315789rem; // 400px
+		--grid-fluid-min-item-size: 20rem; // 400px
 		--grid-fluid-gap: var(--stack-small);
-
-		@media --mq-large {
-			--grid-fluid-min-item-size: 20rem; // 400px
-		}
 	}
 </style>

@@ -12,7 +12,7 @@ export const pageQuery = ({
 	type,
 	projection,
 	locale,
-	site = 'mijn-vraag-over-corona',
+	site,
 	slug,
 	multiple = false,
 }: {
@@ -24,10 +24,11 @@ export const pageQuery = ({
 	multiple?: boolean;
 }): string => {
 	const slugConditional = slug ? ` && slug.current=="${slug}"` : '';
+	const siteConditional = site ? ` && metaData.site == "${site}"` : '';
 
 	// prettier-ignore
 	return `{
-		"${multiple ? 'pages' : 'pageData'}": *[_type == "${type}" && metaData.site == "${site}"${slugConditional}]${multiple ? '' : '[0]'} {
+		"${multiple ? 'pages' : 'pageData'}": *[_type == "${type}"${siteConditional}${slugConditional}]${multiple ? '' : '[0]'} {
 			...${projection},
 			${metaDataQuery({locale})},
 		},

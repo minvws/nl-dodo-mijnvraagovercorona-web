@@ -213,6 +213,7 @@ export async function getDataSituationAdvice({
 		locale,
 		slug,
 		multiple: true,
+		site: 'mijn-vraag-over-corona',
 	});
 
 	return await useSanityClient().fetch(query);

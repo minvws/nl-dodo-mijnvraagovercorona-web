@@ -140,6 +140,8 @@ const { id, title, closeLabel = 'Sluiten' } = Astro.props;
 </script>
 
 <style lang="scss" is:global>
+	@use '@design-system-styles/tools/_a11y.scss';
+
 	body.modal-is-visible > *:not(.modal) {
 		filter: blur(6px);
 	}
@@ -222,7 +224,7 @@ const { id, title, closeLabel = 'Sluiten' } = Astro.props;
 			color: var(--color-accent-robijnrood);
 		}
 		&:focus {
-			outline: var(--elevation-focusring);
+			@include a11y.focusring;
 		}
 	}
 </style>

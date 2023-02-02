@@ -3,6 +3,7 @@ import { isExternalUrl } from '../helpers/external-url';
 export enum Locales {
 	Dutch = 'nl',
 	English = 'en',
+	// Polish = 'pl',
 }
 
 export interface Locale {
@@ -28,11 +29,22 @@ export const locales: { [key: string]: Locale } = {
 		urlPrefix: '/en',
 		locale: 'en_gb',
 	},
+	// polish: {
+	// 	id: Locales.Polish,
+	// 	fullName: 'Polish',
+	// 	shortName: 'Pl',
+	// 	urlPrefix: '/pl',
+	// 	locale: 'pl_pl',
+	// },
 };
 
-export const availableLocales = [locales.dutch, locales.english];
+export const availableLocales = [
+	locales.dutch,
+	locales.english,
+	// locales.polish,
+];
 
-export const langPathRegex = /\/([a-z]{2}-?[A-Z]{0,2})\//;
+export const langPathRegex = /\/([a-z]{2}-?[A-Z]{0,2})\/?/;
 export const getLocaleFromURL = (pathname: string) => {
 	const langCodeMatch = pathname.match(langPathRegex);
 	const langCode = langCodeMatch ? langCodeMatch[1] : 'nl';
