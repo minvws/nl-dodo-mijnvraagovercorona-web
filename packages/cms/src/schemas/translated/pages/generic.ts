@@ -47,19 +47,6 @@ export default defineType({
 			type: 'customBlock',
 		}),
 		defineField({
-			title: 'Verhalen',
-			name: 'storiesCollection',
-			type: 'array',
-			of: [
-				{
-					title: 'Verhaal',
-					name: 'story',
-					type: 'reference',
-					to: [{ type: 'story-document' }],
-				},
-			],
-		}),
-		defineField({
 			title: 'Slug',
 			name: 'slug',
 			type: 'slug',
