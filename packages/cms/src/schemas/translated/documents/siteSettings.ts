@@ -20,12 +20,14 @@ export default defineType({
 			title: 'Navigatiebalk',
 			name: 'masthead',
 			type: 'object',
+			validation: (Rule) => Rule.required(),
 			options: { collapsible: true },
 			fields: [
 				defineField({
 					title: 'Menu',
 					name: 'menu',
 					type: 'object',
+					validation: (Rule) => Rule.required(),
 					fields: [
 						defineField({
 							title: 'Landmark label',
@@ -33,26 +35,31 @@ export default defineType({
 							description:
 								'Word alleen voorgelezen door screenreaders, vermijd het woord "navigatie" of "menu".',
 							type: 'string',
+							validation: (Rule) => Rule.required(),
 						}),
 						defineField({
 							title: 'Menu button label',
 							name: 'menuButtonLabel',
 							type: 'string',
+							validation: (Rule) => Rule.required(),
 						}),
 						defineField({
 							title: 'Home label',
 							name: 'homeLabel',
 							type: 'string',
+							validation: (Rule) => Rule.required(),
 						}),
 						defineField({
 							title: 'Menu title',
 							name: 'menuTitle',
 							type: 'string',
+							validation: (Rule) => Rule.required(),
 						}),
 						defineField({
 							title: 'Hoofdmenu interne links',
 							name: 'internalPageCollection',
 							type: 'internalPageSelector',
+							validation: (Rule) => Rule.required(),
 						}),
 						defineField({
 							title: 'Extra menu',
@@ -79,6 +86,7 @@ export default defineType({
 					description: 'Word alleen getoond voor screenreader gebruikers',
 					name: 'skipLink',
 					type: 'string',
+					validation: (Rule) => Rule.required(),
 				}),
 			],
 		}),
@@ -88,6 +96,7 @@ export default defineType({
 			title: 'Footer',
 			name: 'mastfoot',
 			type: 'object',
+			validation: (Rule) => Rule.required(),
 			options: { collapsible: true },
 			fields: [
 				defineField({
@@ -95,6 +104,7 @@ export default defineType({
 					name: 'title',
 					description: 'Word alleen getoond voor screenreader gebruikers',
 					type: 'string',
+					validation: (Rule) => Rule.required(),
 				}),
 				defineField({
 					title: 'Kolommen',
@@ -111,6 +121,7 @@ export default defineType({
 									name: 'title',
 									title: 'Titel',
 									type: 'string',
+									validation: (Rule) => Rule.required(),
 								}),
 								defineField({
 									name: 'content',
@@ -134,24 +145,28 @@ export default defineType({
 			title: 'Taal selector',
 			name: 'localeSelector',
 			type: 'object',
+			validation: (Rule) => Rule.required(),
 			options: { collapsible: true },
 			fields: [
 				defineField({
 					title: 'Titel',
 					name: 'title',
 					type: 'string',
+					validation: (Rule) => Rule.required(),
 				}),
 				defineField({
 					title: 'Wissel van taal',
 					description: 'Word alleen getoond voor screenreader gebruikers',
 					name: 'change',
 					type: 'string',
+					validation: (Rule) => Rule.required(),
 				}),
 				defineField({
 					title: 'Huidige taal',
 					description: 'Word alleen getoond voor screenreader gebruikers',
 					name: 'current',
 					type: 'string',
+					validation: (Rule) => Rule.required(),
 				}),
 			],
 		}),
@@ -161,12 +176,14 @@ export default defineType({
 			title: 'Logo',
 			name: 'logo',
 			type: 'object',
+			validation: (Rule) => Rule.required(),
 			options: { collapsible: true },
 			fields: [
 				defineField({
 					title: 'Alternatief',
 					name: 'alt',
 					type: 'string',
+					validation: (Rule) => Rule.required(),
 				}),
 			],
 		}),
