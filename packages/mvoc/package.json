@@ -12,6 +12,8 @@
 	},
 	"devDependencies": {
 		"@astrojs/sitemap": "^1.0.1",
+		"@portabletext/toolkit": "^2.0.1",
+		"@portabletext/types": "^2.0.2",
 		"astro": "^2.0.6",
 		"astro-compress": "^1.1.29",
 		"astro-icon": "^0.8.0",
