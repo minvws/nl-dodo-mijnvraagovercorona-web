@@ -1,5 +1,5 @@
 {
-	"name": "@quarantaine/cms",
+	"name": "cms",
 	"private": true,
 	"version": "0.1.0",
 	"scripts": {
@@ -17,20 +17,14 @@
 		"@sanity/production-preview": "^2.35.3",
 		"@sanity/ui": "^1.2.1",
 		"@sanity/vision": "^3.2.6",
-		"@visx/event": "^1.7.0",
-		"@visx/geo": "^1.17.1",
-		"@visx/tooltip": "^1.17.1",
-		"@visx/zoom": "^1.14.1",
 		"prop-types": "^15.8.1",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"react-icons": "^4.7.1",
 		"sanity": "^3.2.6",
-		"styled-components": "^5.3.6",
-		"topojson-client": "^3.1.0"
+		"styled-components": "^5.2"
 	},
 	"devDependencies": {
-		"@sanity/cli": "^3.2.4",
-		"@types/topojson-client": "^3.1.0"
+		"@sanity/cli": "^3.2.4"
 	}
 }
