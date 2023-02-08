@@ -202,7 +202,7 @@ export default (S) =>
 								getTranslatedDocumentList(S, config),
 							),
 							getTranslatedSingleton(S, {
-								title: 'Locatie pagina',
+								title: 'Locaties pagina',
 								type: 'locations-page',
 								icon: GiSettingsKnobs,
 							}),

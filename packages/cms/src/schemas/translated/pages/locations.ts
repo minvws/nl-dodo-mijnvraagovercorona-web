@@ -6,7 +6,7 @@ async function isUnique(slug: any, context: any) {
 }
 
 export default defineType({
-	title: 'PZA pagina',
+	title: 'Locaties pagina',
 	name: 'locations-page',
 	type: 'document',
 	i18n: true,
