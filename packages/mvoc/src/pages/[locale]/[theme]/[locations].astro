@@ -40,5 +40,15 @@ const { pageData, locale } = Astro.props;
 	metaData={pageData.metaData}
 	alternativeTranslations={pageData.alternatives}
 >
-	<mark>hello world</mark>
+	<div class="c-navigator"></div>
 </Layout>
+
+<style lang="scss">
+	.c-navigator {
+		display: grid;
+		grid-template-rows: 1fr;
+		grid-template-columns: 1fr;
+		block-size: 100%;
+		background-color: red;
+	}
+</style>
