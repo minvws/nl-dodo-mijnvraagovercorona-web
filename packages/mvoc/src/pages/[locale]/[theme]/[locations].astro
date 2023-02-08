@@ -1,0 +1,44 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { availableLocales, Locale } from 'src/utilities/locale/translation';
+import { LocationsPageProps, getDataLocationPages } from 'src/utilities/api';
+import { Hero } from '@design-system/components/Hero';
+import { Retain } from '@design-system/components/Layout/Retain';
+import { ContentBlock } from '@design-system/components/ContentBlock';
+import { Layer } from '@design-system/components/Layout/Layer';
+import { Sidebar } from '@design-system/components/Layout/Sidebar';
+import { CardPrivacy } from '@design-system/components/Card';
+import { Stack } from '@design-system/components/Layout/Stack';
+
+export async function getStaticPaths() {
+	const collection = await getDataLocationPages();
+	return collection.map((page: LocationsPageProps) => ({
+		params: {
+			locale: page.localeID,
+			theme: page.theme.slug,
+			locations: page.slug,
+		},
+		props: {
+			pageData: page,
+			locale: availableLocales.filter(
+				(locale) => locale.id === page.localeID,
+			)[0],
+		},
+	}));
+}
+
+interface Props {
+	pageData: LocationsPageProps;
+	locale: Locale;
+}
+
+const { pageData, locale } = Astro.props;
+---
+
+<Layout
+	locale={locale}
+	metaData={pageData.metaData}
+	alternativeTranslations={pageData.alternatives}
+>
+	<mark>hello world</mark>
+</Layout>
