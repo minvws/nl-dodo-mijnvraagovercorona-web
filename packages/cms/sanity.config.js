@@ -19,7 +19,7 @@ export default defineConfig({
 		],
 		{
 			base: 'nl',
-			referenceBehavior: 'strong',
+			referenceBehavior: 'weak',
 			languages: [
 				{
 					id: 'nl',
