@@ -2,18 +2,17 @@
 	"name": "quarantaine",
 	"private": true,
 	"scripts": {
-		"test": "yarn workspaces run test",
-		"mvoc:test": "yarn workspace @quarantaine/mvoc run test",
-		"mvoc:dev": "yarn workspace @quarantaine/mvoc dev",
-		"mvoc:build": "yarn workspace @quarantaine/mvoc build",
-		"cms:dev": "yarn workspace @quarantaine/cms dev",
-		"cms:deploy": "yarn workspace @quarantaine/cms deploy"
+		"test": "npm run test --workspaces",
+		"mvoc:test": "npm run test --workspace mvoc",
+		"mvoc:dev": "npm run dev --workspace mvoc",
+		"mvoc:build": "npm run build --workspace mvoc",
+		"cms:dev": "npm run dev --workspace cms",
+		"cms:deploy": "npm run deploy --workspace cms"
 	},
 	"workspaces": [
-		"packages/*"
+		"./packages/*"
 	],
 	"devDependencies": {
 		"vercel": "^28.1.0"
-	},
-	"dependencies": {}
+	}
 }

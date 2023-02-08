@@ -4,11 +4,11 @@ WORKDIR /app
 
 COPY . .
 
-RUN yarn --pure-lockfile --non-interactive
+RUN npm ci
 
 ARG buildid=0
 
-RUN yarn mvoc:build
+RUN npm run mvoc:build
 
 # Stage 2: Run application
 FROM bitnami/nginx:latest

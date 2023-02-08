@@ -3,7 +3,9 @@ import { isExternalUrl } from '../helpers/external-url';
 export enum Locales {
 	Dutch = 'nl',
 	English = 'en',
-	// Polish = 'pl',
+	Turkish = 'tr',
+	Polish = 'pl',
+	Arabic = 'ar',
 }
 
 export interface Locale {
@@ -12,6 +14,7 @@ export interface Locale {
 	shortName: string;
 	urlPrefix: string;
 	locale: string;
+	direction: 'ltr' | 'rtl';
 }
 
 export const locales: { [key: string]: Locale } = {
@@ -21,6 +24,7 @@ export const locales: { [key: string]: Locale } = {
 		shortName: 'Nl',
 		urlPrefix: '/nl',
 		locale: 'nl_nl',
+		direction: 'ltr',
 	},
 	english: {
 		id: Locales.English,
@@ -28,20 +32,40 @@ export const locales: { [key: string]: Locale } = {
 		shortName: 'En',
 		urlPrefix: '/en',
 		locale: 'en_gb',
+		direction: 'ltr',
 	},
-	// polish: {
-	// 	id: Locales.Polish,
-	// 	fullName: 'Polish',
-	// 	shortName: 'Pl',
-	// 	urlPrefix: '/pl',
-	// 	locale: 'pl_pl',
-	// },
+	turkish: {
+		id: Locales.Turkish,
+		fullName: 'Türkçe',
+		shortName: 'TR',
+		urlPrefix: '/tr',
+		locale: 'tr_tr',
+		direction: 'ltr',
+	},
+	polish: {
+		id: Locales.Polish,
+		fullName: 'Polski',
+		shortName: 'Pl',
+		urlPrefix: '/pl',
+		locale: 'pl_pl',
+		direction: 'ltr',
+	},
+	arabic: {
+		id: Locales.Arabic,
+		fullName: 'العربية',
+		shortName: 'AR',
+		urlPrefix: '/ar',
+		locale: 'ar',
+		direction: 'rtl',
+	},
 };
 
 export const availableLocales = [
 	locales.dutch,
 	locales.english,
-	// locales.polish,
+	locales.turkish,
+	locales.polish,
+	locales.arabic,
 ];
 
 export const langPathRegex = /\/([a-z]{2}-?[A-Z]{0,2})\/?/;

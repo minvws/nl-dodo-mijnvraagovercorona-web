@@ -1,14 +1,14 @@
 {
-	"name": "@quarantaine/mvoc",
+	"name": "mvoc",
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "yarn files && astro telemetry disable && astro dev",
-		"start": "yarn dev",
-		"build": "yarn files && astro telemetry disable && astro build",
+		"dev": "npm run files && astro telemetry disable && astro dev",
+		"start": "npm run dev",
+		"build": "npm run files && astro telemetry disable && astro build",
 		"test": "astro telemetry disable && astro check",
 		"files:download-sanity-images": "node ./scripts/download-sanity-images.js",
-		"files": "yarn files:download-sanity-images"
+		"files": "npm run files:download-sanity-images"
 	},
 	"devDependencies": {
 		"@astrojs/sitemap": "^1.0.1",

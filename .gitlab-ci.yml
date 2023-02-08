@@ -60,24 +60,13 @@ test mvoc:
   image: harbor.cicd.s15m.nl/vws-reis-docker-hub/library/node:18-alpine
   stage: test
   script:
-    - yarn
-    - yarn mvoc:test
+    - npm ci
+    - npm run mvoc:test
   rules:
     - if: '$CI_COMMIT_TAG =~ /^development/'
       when: always
     - if: '$CI_COMMIT_TAG =~ /^staging/'
       when: always
-
-# TODO: enable when preview is available with MVOC astro
-# deploy mvoc cms preview environment:
-#   image: harbor.cicd.s15m.nl/vws-reis-docker-hub/library/node:18-alpine
-#   stage: deploy
-#   script:
-#     - yarn
-#     - yarn run vercel --yes --name mijn-vraag-over-corona --env SANITY_PREVIEW_SECRET=cb168779e1d80d47b6d28a585bd157f95f1b40fa --prod --token=$VERCEL_DEPLOY
-#   rules:
-#     - if: '$CI_COMMIT_TAG =~ /^staging/'
-#       when: always
 
 label mvoc image staging:
   <<: *label-image

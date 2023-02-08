@@ -4,35 +4,35 @@ This is a [Astro](https://astro.build) project.
 
 ## Getting Started
 
-We're using Yarn workspaces for our `cms` & `mvoc` packages.
+We're using NPM workspaces for our `cms` & `mvoc` packages.
 First you'll need to install the dependencies:
 
 ```bash
 # Install Dependencies
-yarn
+npm i
 ```
 
 Then you can run/build the `mvoc` website:
 
 ```bash
 # Run mvoc website locally
-yarn mvoc:dev
+npm run mvoc:dev
 
 # Build mvoc website
-yarn mvoc:build
+npm run mvoc:build
 
 # Test mvoc website
-yarn mvoc:test
+npm run mvoc:test
 ```
 
 For the `cms` package you can run the following commands:
 
 ```bash
 # Run Sanity cms locally
-yarn cms:dev
+npm run cms:dev
 
 # Deploy Sanity cms
-yarn cms:deploy
+npm run cms:deploy
 ```
 
 ## Learn More
