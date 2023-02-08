@@ -90,6 +90,11 @@ const mvocPagesConfig = [
 		title: 'Generic',
 		icon: GiCardRandom,
 	},
+	{
+		schemaType: 'theme-page',
+		title: 'Thema',
+		icon: FaFeatherAlt,
+	},
 ];
 
 const mvocDocumentsConfig = [
@@ -196,6 +201,11 @@ export default (S) =>
 							...mvocPagesConfig.map((config) =>
 								getTranslatedDocumentList(S, config),
 							),
+							getTranslatedSingleton(S, {
+								title: 'Locatie pagina',
+								type: 'locations-page',
+								icon: GiSettingsKnobs,
+							}),
 						],
 					}),
 				],

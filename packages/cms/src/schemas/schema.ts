@@ -7,6 +7,8 @@ import modalsDocument from './translated/documents/modals';
 
 // Pages
 import genericPage from './translated/pages/generic';
+import locationsPage from './translated/pages/locations';
+import themePage from './translated/pages/theme';
 
 // objects
 import {
@@ -73,6 +75,8 @@ export default [
 	 */
 	// pages
 	genericPage,
+	locationsPage,
+	themePage,
 
 	// documents
 	siteSettingsDocument,
