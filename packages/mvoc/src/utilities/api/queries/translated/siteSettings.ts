@@ -83,7 +83,7 @@ export const siteSettingsQuery = ({ locale }: { locale: Locale }): string => `
 let siteSettingsTranslated;
 export async function useSiteSettings({ locale }: { locale: Locale }) {
 	if (siteSettingsTranslated) {
-		return siteSettingsTranslated[locale.id];
+		return siteSettingsTranslated[locale.id] || siteSettingsTranslated['en'];
 	}
 
 	siteSettingsTranslated = await Object.entries(locales).reduce(
@@ -96,5 +96,5 @@ export async function useSiteSettings({ locale }: { locale: Locale }) {
 		{},
 	);
 
-	return siteSettingsTranslated[locale.id];
+	return siteSettingsTranslated[locale.id] || siteSettingsTranslated['en'];
 }

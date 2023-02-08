@@ -36,7 +36,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 ---
 
 <!DOCTYPE html>
-<html lang={locale.id}>
+<html lang={locale.id} dir={locale.direction}>
 	<head>
 		<MetaData {...metaData} locale={locale} skipPageSuffix={skipPageSuffix} />
 		<style lang="scss" is:global>
