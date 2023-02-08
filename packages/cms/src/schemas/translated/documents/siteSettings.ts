@@ -196,4 +196,16 @@ export default defineType({
 			],
 		}),
 	],
+	preview: {
+		select: {
+			baseUrl: 'baseUrl',
+		},
+		prepare(selection) {
+			const { baseUrl } = selection;
+			return {
+				title: 'Mijn Vraag Over Corona',
+				subtitle: baseUrl,
+			};
+		},
+	},
 });
