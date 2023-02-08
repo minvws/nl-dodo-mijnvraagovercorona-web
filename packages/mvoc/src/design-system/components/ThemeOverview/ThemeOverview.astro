@@ -34,7 +34,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 					) : null}
 					<hgroup class="c-theme-overview__hgroup">
 						<Heading level={3} styledAs={2}>
-							<Link href={prefixUrlWithlocale(`/thema/${theme.slug}`, locale)}>
+							<Link href={prefixUrlWithlocale(`/${theme.slug}`, locale)}>
 								{theme.overview.title}
 							</Link>
 						</Heading>

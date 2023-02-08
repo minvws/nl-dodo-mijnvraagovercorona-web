@@ -23,7 +23,7 @@ export const internalPageReferenceQuery = ({
 		"link": select(
 			pageReference->_type == "theme-document" => pageReference->{
 				${localePropertyQuery({ name: 'label', path: 'overview.title', locale })},
-				"slug": 'thema/' + slug.current
+				"slug": slug.current
 			},
 			pageReference->_type == "situation-question-document" => pageReference->{
 				${localePropertyQuery({ name: 'label', path: 'header.title', locale })},
