@@ -6,6 +6,9 @@ export interface PageProps {
 	id: string;
 	localeID: string;
 	base_ref: string;
+	theme: {
+		slug: string;
+	};
 }
 
 /**
@@ -33,6 +36,9 @@ export const pageQuery = ({
 			"localeID": __i18n_lang,
 			"base_ref": __i18n_base._ref,
 			"id": _id,
+			theme->{
+				"slug": slug.current,
+			},
 			...${projection},
 			${metaDataQuery()},
 		},
