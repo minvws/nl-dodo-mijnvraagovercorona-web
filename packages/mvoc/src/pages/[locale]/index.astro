@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import {
-	availableLocales,
+	standardAvailableLocales,
 	Locale,
 	prefixUrlWithlocale,
 } from 'src/utilities/locale/translation';
@@ -19,7 +19,7 @@ import { stringToSlug } from 'src/utilities/stringToSlug';
 import { Assistance } from '@design-system/components/Assistance';
 
 export async function getStaticPaths() {
-	return availableLocales.map((locale) => ({
+	return standardAvailableLocales.map((locale) => ({
 		params: { locale: locale.id },
 		props: {
 			locale,

@@ -1,6 +1,6 @@
 ---
 import {
-	availableLocales,
+	standardAvailableLocales,
 	getLocaleFromURL,
 	prefixUrlWithlocale,
 } from 'src/utilities/locale/translation';
@@ -42,7 +42,7 @@ import { Link } from '@design-system/elements/Link';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 
 export async function getStaticPaths() {
-	return await availableLocales.reduce(async (paths, locale) => {
+	return await standardAvailableLocales.reduce(async (paths, locale) => {
 		const { pages } = await getDataSituationAdvice({ locale });
 
 		// loop over pages
@@ -117,8 +117,10 @@ const translatedTips = pageData.moreTips.tipCollection
 			locale,
 		)}
 		variant="restart"
-		slot="back">{siteSettings.header.opnieuw}</Link
+		slot="back"
 	>
+		{siteSettings.header.opnieuw}
+	</Link>
 
 	<Hero title={pageData.header.title} image={pageData.header.image}>
 		<UpdatedAt slot="prefix" time={pageData.updatedAt} />

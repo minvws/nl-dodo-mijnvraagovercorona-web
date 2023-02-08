@@ -6,7 +6,7 @@ import {
 	useSiteSettings,
 } from 'src/utilities/api/queries/translated';
 import {
-	availableLocales,
+	standardAvailableLocales,
 	getCurrentUrlForLocale,
 	getLocaleFromURL,
 	Locale,
@@ -51,7 +51,7 @@ const { localeSelector }: SiteSettingsProps = await useSiteSettings({
 							</Link>
 						</li>
 				  ))
-				: availableLocales.map((locale) => (
+				: standardAvailableLocales.map((locale) => (
 						<li>
 							<Link
 								href={getCurrentUrlForLocale(currentUrl, locale, currentLocale)}
