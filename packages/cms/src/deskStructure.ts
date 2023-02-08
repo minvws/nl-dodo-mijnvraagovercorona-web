@@ -76,37 +76,6 @@ const genericPagesConfig = [
 	},
 ];
 
-const reizenPagesConfig = [
-	{
-		schemaType: 'landing-page',
-		title: 'Landing',
-		icon: GiHouse,
-	},
-];
-
-const reizenMultiDocumentsConfig = [
-	{
-		schemaType: 'land-document',
-		title: 'Land',
-		icon: GiWorld,
-	},
-	{
-		schemaType: 'risk-category-document',
-		title: 'Risico Categorie',
-		icon: GiRadioactive,
-	},
-	{
-		schemaType: 'travel-fase-document',
-		title: 'Reisfase',
-		icon: GiTrail,
-	},
-	{
-		schemaType: 'resultaat-page',
-		title: 'Resultaat',
-		icon: GiTestTubes,
-	},
-];
-
 const mvocPagesConfigOld = [
 	{
 		schemaType: 'check-landing-page',
@@ -243,14 +212,18 @@ export default (S) =>
 					getFolder(S, {
 						title: 'Pagina’s',
 						icon: RiPagesLine,
-						items: [...genericPagesConfig.map((config) => getPageList(S, config))],
+						items: [
+							...genericPagesConfig.map((config) => getPageList(S, config)),
+						],
 					}),
 
 					getFolder(S, {
 						title: 'Documenten',
 						icon: IoDocumentOutline,
 						items: [
-							...multiDocumentsConfig.map((config) => getDocumentList(S, config)),
+							...multiDocumentsConfig.map((config) =>
+								getDocumentList(S, config),
+							),
 						],
 					}),
 				],
@@ -262,27 +235,6 @@ export default (S) =>
 				items: [
 					...mvocPagesConfigOld.map((config) => getPage(S, config)),
 					...mvocPagesDocumentsConfig.map((config) => getPageList(S, config)),
-				],
-			}),
-
-			getFolder(S, {
-				title: 'Reizen',
-				icon: SiYourtraveldottv,
-				items: [
-					getFolder(S, {
-						title: 'Pagina’s',
-						icon: RiPagesLine,
-						items: [...reizenPagesConfig.map((config) => getPage(S, config))],
-					}),
-					getFolder(S, {
-						title: 'Documenten',
-						icon: IoDocumentOutline,
-						items: [
-							...reizenMultiDocumentsConfig.map((config) =>
-								getDocumentList(S, config),
-							),
-						],
-					}),
 				],
 			}),
 		]);

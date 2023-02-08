@@ -21,10 +21,6 @@ import internalPageSelectorObject from './objects/internalPageSelector';
  */
 // Documents
 import siteSettingsDocumentOld from './documents/siteSettings';
-import faqDocument from './documents/faq';
-import countryDocument from './documents/country';
-import riskCategoryDocument from './documents/riskCategory';
-import travelFaseDocument from './documents/travelFase';
 import modalsDocumentOld from './documents/modals';
 import themeDocument from './documents/theme';
 import assistanceDocument from './documents/assistance';
@@ -45,10 +41,6 @@ import kwetsbaarheidMeldenPage from './pages/common/kwetsbaarheidMelden';
 import toegankelijkheidPage from './pages/common/toegankelijkheid';
 import error404Page from './pages/common/404page';
 
-// Reizen
-import landingPage from './pages/reizen/landing';
-import resultaatPage from './pages/reizen/resultaat';
-
 // MVOC
 import checkLandingPage from './pages/mvoc/check-landing';
 
@@ -59,24 +51,15 @@ import {
 	localeBlockWithoutModalObject,
 } from './objects/localeBlock';
 import localeUrlObject from './objects/localeUrl';
-import localeTextObject from './objects/localeText';
 import videoObject from './objects/video';
 import thisOrThatLocaleStringObject from './objects/thisOrThatLocaleString';
 import disclosureObject from './objects/disclosure';
 import pageMetaDataObject from './objects/pageMetaData';
 import headerObject from './objects/header';
 import quarantinePlanObject from './objects/quarantinePlan';
-import situatiePageObject from './objects/situatiePage';
-import conditionsObject from './objects/conditions';
-import travelCardObject from './objects/travelCard';
 import situationContentBlocksObject from './objects/situationContentBlocks';
-import caseObject from './objects/case';
-import folderObject from './objects/folder';
-import aidObject from './objects/aid';
 import stepsObject from './objects/steps';
 import buttonObject from './objects/button';
-import storyObject from './objects/story';
-import storyExtendedObject from './objects/storyExtended';
 import questionContentObject from './objects/questionContent';
 import questionSelectorObject from './objects/questionSelector';
 
@@ -85,100 +68,81 @@ import tipSelectorObject from './objects/tipSelector';
 import moreTipsObject from './objects/moreTips';
 
 export default [
-		/**
-		 * Translated
-		 */
-		// pages
-		genericPage,
+	/**
+	 * Translated
+	 */
+	// pages
+	genericPage,
 
-		// documents
-		siteSettingsDocument,
-		modalsDocument,
+	// documents
+	siteSettingsDocument,
+	modalsDocument,
 
-		// objects
-		customBlockObject,
-		customBlockWithoutModalObject,
-		metaDataObject,
-		internalPageSelectorObject,
+	// objects
+	customBlockObject,
+	customBlockWithoutModalObject,
+	metaDataObject,
+	internalPageSelectorObject,
 
-		/**
-		 * Pages
-		 * Pages are single pages within our applications which need internationalization and configuration.
-		 * Common pages
-		 */
-		privacyPage,
-		cookiesPage,
-		copyrightPage,
-		kwetsbaarheidMeldenPage,
-		toegankelijkheidPage,
-		error404Page,
+	/**
+	 * Pages
+	 * Pages are single pages within our applications which need internationalization and configuration.
+	 * Common pages
+	 */
+	privacyPage,
+	cookiesPage,
+	copyrightPage,
+	kwetsbaarheidMeldenPage,
+	toegankelijkheidPage,
+	error404Page,
 
-		/**
-		 * Reizen pages
-		 */
-		landingPage,
-		resultaatPage,
+	/**
+	 * Mvoc pages
+	 */
+	checkLandingPage,
 
-		/**
-		 * Mvoc pages
-		 */
-		checkLandingPage,
+	/**
+	 * Site settings
+	 * Site settings is a single document with config for all pages
+	 */
+	siteSettingsDocumentOld,
 
-		/**
-		 * Site settings
-		 * Site settings is a single document with config for all pages
-		 */
-		siteSettingsDocumentOld,
+	/**
+	 * Documents
+	 * Documents are types which need to be created to have multiple versions.
+	 */
+	modalsDocumentOld,
+	themeDocument,
+	contentCardDocument,
+	storyDocument,
+	assistanceDocument,
+	informContactsDocument,
+	situationQuestionDocument,
+	situationResultDocument,
+	contentFeedDocument,
+	landingSituationsDocument,
+	tipDocument,
 
-		/**
-		 * Documents
-		 * Documents are types which need to be created to have multiple versions.
-		 */
-		faqDocument,
-		countryDocument,
-		riskCategoryDocument,
-		travelFaseDocument,
-		modalsDocumentOld,
-		themeDocument,
-		contentCardDocument,
-		storyDocument,
-		assistanceDocument,
-		informContactsDocument,
-		situationQuestionDocument,
-		situationResultDocument,
-		contentFeedDocument,
-		landingSituationsDocument,
-		tipDocument,
-
-		/**
-		 * Objects
-		 * Objects are schemas which can be used as a custom input type within the CMS.
-		 */
-		localeStringObject,
-		localeBlockObject,
-		localeBlockWithoutModalObject,
-		localeUrlObject,
-		localeTextObject,
-		videoObject,
-		thisOrThatLocaleStringObject,
-		disclosureObject,
-		pageMetaDataObject,
-		headerObject,
-		quarantinePlanObject,
-		situatiePageObject,
-		conditionsObject,
-		travelCardObject,
-		situationContentBlocksObject,
-		caseObject,
-		folderObject,
-		aidObject,
-		stepsObject,
-		buttonObject,
-		storyObject,
-		storyExtendedObject,
-		questionContentObject,
-		questionSelectorObject,
-		themeSelectorObject,
-		tipSelectorObject,
-		moreTipsObject,
-	]
+	/**
+	 * Objects
+	 * Objects are schemas which can be used as a custom input type within the CMS.
+	 */
+	localeStringObject,
+	localeBlockObject,
+	localeBlockWithoutModalObject,
+	localeUrlObject,
+	videoObject,
+	thisOrThatLocaleStringObject,
+	disclosureObject,
+	pageMetaDataObject,
+	headerObject,
+	quarantinePlanObject,
+	situationContentBlocksObject,
+	stepsObject,
+	buttonObject,
+	questionContentObject,
+	questionSelectorObject,
+	themeSelectorObject,
+	tipSelectorObject,
+	moreTipsObject,
+];
