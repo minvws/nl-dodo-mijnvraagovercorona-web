@@ -8,6 +8,7 @@ import modalsDocument from './translated/documents/modals';
 // Pages
 import genericPage from './translated/pages/generic';
 import errorPage from './translated/pages/error';
+import themePage from './translated/pages/theme';
 
 // objects
 import {
@@ -78,6 +79,7 @@ export default [
 	// pages
 	genericPage,
 	errorPage,
+	themePage,
 
 	// documents
 	siteSettingsDocument,

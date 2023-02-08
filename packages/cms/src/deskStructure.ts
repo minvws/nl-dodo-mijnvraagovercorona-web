@@ -50,6 +50,11 @@ const mvocPagesConfig = [
 		title: 'Error',
 		icon: BiError,
 	},
+	{
+		schemaType: 'theme-page',
+		title: 'Thema',
+		icon: FaFeatherAlt,
+	},
 ];
 
 const mvocDocumentsConfig = [
