@@ -20,27 +20,32 @@ export default defineType({
 			type: 'metaData',
 		}),
 		defineField({
-			title: 'Header',
-			name: 'header',
-			type: 'object',
-			fields: [
-				defineField({
-					title: 'Chapeau',
-					name: 'chapeau',
-					type: 'string',
-				}),
-				defineField({
-					title: 'Titel',
-					name: 'title',
-					type: 'string',
-				}),
-				defineField({
-					title: 'Illustratie',
-					name: 'image',
-					type: 'image',
-				}),
-			],
+			title: 'Hero',
+			name: 'hero',
+			type: 'hero',
 		}),
+		// defineField({
+		// 	title: 'Header',
+		// 	name: 'header',
+		// 	type: 'object',
+		// 	fields: [
+		// 		defineField({
+		// 			title: 'Chapeau',
+		// 			name: 'chapeau',
+		// 			type: 'string',
+		// 		}),
+		// 		defineField({
+		// 			title: 'Titel',
+		// 			name: 'title',
+		// 			type: 'string',
+		// 		}),
+		// 		defineField({
+		// 			title: 'Illustratie',
+		// 			name: 'image',
+		// 			type: 'image',
+		// 		}),
+		// 	],
+		// }),
 		defineField({
 			title: 'Button',
 			name: 'button',
@@ -76,14 +81,14 @@ export default defineType({
 			type: 'slug',
 			validation: (Rule) => Rule.required(),
 			options: {
-				source: 'header.title',
+				source: 'metaData.title',
 				isUnique: isUnique,
 			},
 		}),
 	],
 	preview: {
 		select: {
-			title: 'header.title',
+			title: 'hero.title',
 			locale: '__i18n_lang',
 			slug: 'slug.current',
 		},
