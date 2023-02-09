@@ -1,4 +1,4 @@
-import { isUniqueInLocale } from '../../../utilities/isUniqueInLocale';
+import { isUniqueInLocale } from '../../../../utilities/isUniqueInLocale';
 import { defineType, defineField } from 'sanity';
 
 async function isUnique(slug: any, context: any) {
@@ -48,7 +48,7 @@ export default defineType({
 			const { title, locale, slug, theme } = selection;
 			return {
 				title: title,
-				subtitle: `/${locale}/${theme}/${slug}`,
+				subtitle: `/${locale}/${theme}/prikkenzonderafspraak/${slug}`,
 			};
 		},
 	},

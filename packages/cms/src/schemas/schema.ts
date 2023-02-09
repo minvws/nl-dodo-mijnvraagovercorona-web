@@ -7,7 +7,8 @@ import modalsDocument from './translated/documents/modals';
 
 // Pages
 import genericPage from './translated/pages/generic';
-import locationsPage from './translated/pages/locations';
+import locationsPage from './translated/pages/pza/locations';
+import pzaLandingPage from './translated/pages/pza/landing';
 import themePage from './translated/pages/theme';
 
 // objects
@@ -76,6 +77,7 @@ export default [
 	// pages
 	genericPage,
 	locationsPage,
+	pzaLandingPage,
 	themePage,
 
 	// documents

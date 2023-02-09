@@ -1,8 +1,8 @@
 import { ContentBlockProps } from '@design-system/components/ContentBlock';
 import { AlternativeTranslationsProps } from '@design-system/components/LocaleSelector';
 import { useSanityClient } from 'astro-sanity';
-import { getPageTranslations } from '../helpers/get-page-translations';
-import { PageProps, customBlockQuery, pageQuery } from './queries/translated';
+import { getPageTranslations } from '../../helpers/get-page-translations';
+import { PageProps, customBlockQuery, pageQuery } from '../queries/translated';
 
 export interface LocationsPageProps extends PageProps {
 	locale: string;

@@ -4,6 +4,7 @@ import {
 	GiTestTubes,
 	GiCookie,
 	GiSettingsKnobs,
+	GiTripleNeedle,
 	GiWorld,
 	GiLightBulb,
 	GiRadioactive,
@@ -201,10 +202,21 @@ export default (S) =>
 							...mvocPagesConfig.map((config) =>
 								getTranslatedDocumentList(S, config),
 							),
-							getTranslatedSingleton(S, {
-								title: 'Locaties pagina',
-								type: 'locations-page',
-								icon: GiSettingsKnobs,
+							getFolder(S, {
+								title: 'Prikken zonder afspraak',
+								icon: GiTripleNeedle,
+								items: [
+									getTranslatedSingleton(S, {
+										title: 'Landing pagina',
+										type: 'pza-landing-page',
+										icon: GiAirplaneArrival,
+									}),
+									getTranslatedSingleton(S, {
+										title: 'Locaties pagina',
+										type: 'locations-page',
+										icon: GiWorld,
+									}),
+								],
 							}),
 						],
 					}),

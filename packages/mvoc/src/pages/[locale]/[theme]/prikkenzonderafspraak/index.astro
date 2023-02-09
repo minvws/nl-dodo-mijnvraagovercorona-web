@@ -1,0 +1,36 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+import { availableLocales, Locale } from 'src/utilities/locale/translation';
+import { PZALandingPageProps, getDataPZALandingPages } from 'src/utilities/api';
+
+export async function getStaticPaths() {
+	const collection = await getDataPZALandingPages();
+	return collection.map((page: PZALandingPageProps) => ({
+		params: {
+			locale: page.localeID,
+			theme: page.theme.slug,
+		},
+		props: {
+			pageData: page,
+			locale: availableLocales.filter(
+				(locale) => locale.id === page.localeID,
+			)[0],
+		},
+	}));
+}
+
+interface Props {
+	pageData: PZALandingPageProps;
+	locale: Locale;
+}
+
+const { pageData, locale } = Astro.props;
+---
+
+<Layout
+	locale={locale}
+	metaData={pageData.metaData}
+	alternativeTranslations={pageData.alternatives}
+>
+	<mark>hello world</mark>
+</Layout>
