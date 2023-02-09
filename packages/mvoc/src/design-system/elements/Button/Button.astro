@@ -2,10 +2,11 @@
 import { HTMLAttributes } from 'astro/types';
 import { Icon, IconProps } from '@design-system/elements/Icon';
 import { Animations } from '@design-system/primitives/animation';
+import { ButtonVariants } from './';
 
 // Interfaces
 interface Shared {
-	variant?: 'primary' | 'secondary' | 'tertiary' | 'quaternary';
+	variant?: ButtonVariants;
 	icon?: IconProps['name'];
 	iconPosition?: 'leading' | 'trailing';
 	interactionIconAnimation?: Animations;
