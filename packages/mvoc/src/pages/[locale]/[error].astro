@@ -1,0 +1,82 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { availableLocales, Locale, prefixUrlWithlocale } from 'src/utilities/locale/translation';
+import { ErrorPageProps, getDataErrorPages, getDataHome, PageHomeProps } from 'src/utilities/api';
+import { Hero } from '@design-system/components/Hero';
+import { Retain } from '@design-system/components/Layout/Retain';
+import { ContentBlock } from '@design-system/components/ContentBlock';
+import { Layer } from '@design-system/components/Layout/Layer';
+import { Stack } from '@design-system/components/Layout/Stack';
+import { Button } from '@design-system/elements/Button';
+import { stringToSlug } from 'src/utilities/stringToSlug';
+import { GridFluid } from '@design-system/components/Layout/Grid';
+
+export async function getStaticPaths() {
+	const collection = await getDataErrorPages();
+	return collection.map((page: ErrorPageProps) => ({
+		params: { error: page.slug, locale: page.localeID },
+		props: {
+			pageData: page,
+			locale: availableLocales.filter(
+				(locale) => locale.id === page.localeID,
+			)[0],
+		},
+	}));
+}
+
+interface Props {
+	pageData: ErrorPageProps;
+	locale: Locale;
+}
+
+interface HomeProps {
+	pageData: PageHomeProps;
+}
+
+const { pageData, locale } = Astro.props;
+const { pageData : homePageData } : HomeProps = await getDataHome({ locale });
+
+---
+
+<Layout
+	locale={locale}
+	metaData={pageData.metaData}
+	alternativeTranslations={pageData.alternatives}
+>
+	<Hero title={pageData.header.title} chapeau={pageData.header.chapeau} image={pageData.header.image}>
+		<ContentBlock value={pageData.header.content} />
+	</Hero>
+	<Layer
+		pullUpBy="hero"
+		id={stringToSlug(homePageData.important.title)}
+	>
+		<Retain>
+			<Layer>
+				<Button icon={pageData.button.iconPicker['iconList']} href={prefixUrlWithlocale(`/`, locale)}
+				>
+					{pageData.button.buttonText}
+				</Button>
+			</Layer>
+			
+			<Stack gap="small">
+				<ContentBlock value={pageData.content} />
+				<GridFluid class="grid-important">
+					{
+						homePageData.important.questionCollection
+							?.filter((item) => item.title)
+							.map((item) => (
+								<Button
+									variant="tertiary"
+									href={prefixUrlWithlocale(`/${item.path}`, locale)}
+									icon="chevron-small-right"
+									interactionIconAnimation="swing"
+								>
+									<ContentBlock value={item.title} />
+								</Button>
+							))
+					}
+				</GridFluid>
+			</Stack>
+		</Retain>
+	</Layer>
+</Layout>

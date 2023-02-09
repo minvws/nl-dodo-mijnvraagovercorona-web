@@ -5,3 +5,4 @@ export * from './tip';
 export * from './theme';
 export * from './landingSituation';
 export * from './generic';
+export * from './error';

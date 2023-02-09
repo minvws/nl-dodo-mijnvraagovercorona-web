@@ -7,6 +7,7 @@ import modalsDocument from './translated/documents/modals';
 
 // Pages
 import genericPage from './translated/pages/generic';
+import errorPage from './translated/pages/error';
 
 // objects
 import {
@@ -14,6 +15,7 @@ import {
 	customBlockWithoutModalObject,
 } from './translated/objects/customBlock';
 import metaDataObject from './translated/objects/metaData';
+import iconPickerObject from './translated/objects/iconPicker';
 import internalPageSelectorObject from './objects/internalPageSelector';
 
 /**
@@ -90,6 +92,7 @@ export default [
 		 */
 		// pages
 		genericPage,
+		errorPage,
 
 		// documents
 		siteSettingsDocument,
@@ -99,6 +102,7 @@ export default [
 		customBlockObject,
 		customBlockWithoutModalObject,
 		metaDataObject,
+		iconPickerObject,
 		internalPageSelectorObject,
 
 		/**

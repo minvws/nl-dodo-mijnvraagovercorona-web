@@ -3,12 +3,21 @@ import { AlternativeTranslationsProps } from '@design-system/components/LocaleSe
 import { useSanityClient } from 'astro-sanity';
 import { getPageTranslations } from '../helpers/get-page-translations';
 import { PageProps, customBlockQuery, pageQuery } from './queries/translated';
+import {
+	ImageProps,
+	imageQuery,
+} from './queries';
 
-export interface GenericPageProps extends PageProps {
+export interface ErrorPageProps extends PageProps {
 	header: {
 		chapeau?: string;
 		title;
+		image: ImageProps;
 		content?: ContentBlockProps['value'];
+	};
+	button: {
+		iconPicker?: object;
+		buttonText: string;
 	};
 	content: ContentBlockProps['value'];
 	locale: string;
@@ -16,19 +25,24 @@ export interface GenericPageProps extends PageProps {
 	slug: string;
 }
 
-export async function getDataGenericPages() {
+export async function getDataErrorPages() {
 	const projection = `{
 		header{
 			chapeau,
 			title,
+			${imageQuery({ name: 'image' })},
 			${customBlockQuery({ name: 'content' })},
+		},
+		button{
+			iconPicker,
+			buttonText,
 		},
 		${customBlockQuery({ name: 'content' })},
 		"slug": slug.current,
 	}`;
 
 	const query = pageQuery({
-		type: 'generic-page',
+		type: 'error-page',
 		projection,
 		multiple: true,
 	});
