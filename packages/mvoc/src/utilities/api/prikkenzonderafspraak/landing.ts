@@ -1,10 +1,24 @@
 import { ContentBlockProps } from '@design-system/components/ContentBlock';
 import { AlternativeTranslationsProps } from '@design-system/components/LocaleSelector';
+import { ButtonVariants } from '@design-system/elements/Button';
 import { useSanityClient } from 'astro-sanity';
 import { getPageTranslations } from '../../helpers/get-page-translations';
-import { PageProps, customBlockQuery, pageQuery } from '../queries/translated';
+import {
+	PageProps,
+	pageQuery,
+	heroQuery,
+	HeroProps,
+	customBlockQuery,
+} from '../queries/translated';
 
 export interface PZALandingPageProps extends PageProps {
+	hero: HeroProps;
+	buttons: {
+		label: string;
+		href?: string;
+		variant: ButtonVariants;
+	}[];
+	contentSecondary: ContentBlockProps['value'];
 	locale: string;
 	alternatives: AlternativeTranslationsProps[];
 	slug: string;
@@ -12,6 +26,13 @@ export interface PZALandingPageProps extends PageProps {
 
 export async function getDataPZALandingPages() {
 	const projection = `{
+		${heroQuery()},
+		buttons[]{
+			label,
+			href,
+			variant,
+		},
+		${customBlockQuery({ name: 'contentSecondary' })},
 		"slug": slug.current,
 	}`;
 

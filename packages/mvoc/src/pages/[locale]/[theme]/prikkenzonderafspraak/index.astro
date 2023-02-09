@@ -1,7 +1,15 @@
 ---
 import Layout from '../../../../layouts/Layout.astro';
-import { availableLocales, Locale } from 'src/utilities/locale/translation';
+import {
+	availableLocales,
+	Locale,
+	prefixUrlWithlocale,
+} from 'src/utilities/locale/translation';
 import { PZALandingPageProps, getDataPZALandingPages } from 'src/utilities/api';
+import { Hero } from '@design-system/components/Hero';
+import { ContentBlock } from '@design-system/components/ContentBlock';
+import Button from '@design-system/elements/Button/Button.astro';
+import Stack from '@design-system/components/Layout/Stack/Stack.astro';
 
 export async function getStaticPaths() {
 	const collection = await getDataPZALandingPages();
@@ -32,5 +40,48 @@ const { pageData, locale } = Astro.props;
 	metaData={pageData.metaData}
 	alternativeTranslations={pageData.alternatives}
 >
+	<Hero
+		title={pageData.hero.title}
+		image={pageData.hero.image}
+		chapeau={pageData.hero.chapeau}
+	>
+		<Stack class="c-hero__content">
+			<ContentBlock value={pageData.hero.content} />
+			{
+				pageData.buttons ? (
+					<ul class="c-hero__wrap-buttons" role="list">
+						{pageData.buttons.map((button) => (
+							<li>
+								<Button
+									variant={button.variant}
+									href={prefixUrlWithlocale(button.href, locale)}
+								>
+									{button.label}
+								</Button>
+							</li>
+						))}
+					</ul>
+				) : null
+			}
+			<ContentBlock value={pageData.contentSecondary} />
+		</Stack>
+	</Hero>
 	<mark>hello world</mark>
 </Layout>
+
+<style lang="scss">
+	@use '@design-system-styles/tools/_list.scss';
+	.c-hero__content {
+		@include list.steps;
+
+		ol {
+			--list-steps-icon-background: var(--color-donkerblauw);
+		}
+	}
+
+	.c-hero__wrap-buttons {
+		display: flex;
+		flex-flow: row wrap;
+		gap: var(--space-r-small);
+	}
+</style>

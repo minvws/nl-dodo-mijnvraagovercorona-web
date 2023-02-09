@@ -3,6 +3,7 @@ import { MetaDataProps, metaDataQuery } from '.';
 
 export interface PageProps {
 	metaData: MetaDataProps;
+	updatedAt: string;
 	id: string;
 	localeID: string;
 	base_ref: string;
@@ -33,6 +34,7 @@ export const pageQuery = ({
 	// prettier-ignore
 	return `{
 		"${multiple ? 'pages' : 'pageData'}": *[_type == "${type}"${slugConditional}${localeConditional}]${multiple ? '' : '[0]'} {
+			"updatedAt": _updatedAt,
 			"localeID": __i18n_lang,
 			"base_ref": __i18n_base._ref,
 			"id": _id,

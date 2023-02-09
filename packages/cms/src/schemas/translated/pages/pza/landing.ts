@@ -21,6 +21,29 @@ export default defineType({
 			name: 'metaData',
 			type: 'metaData',
 		}),
+		defineField({
+			title: 'Hero',
+			name: 'hero',
+			type: 'hero',
+		}),
+		defineField({
+			title: 'Knoppen',
+			name: 'buttons',
+			type: 'array',
+			validation: (Rule) => Rule.min(1).max(2),
+			of: [
+				defineField({
+					title: 'Knop',
+					name: 'button',
+					type: 'flexibleButton',
+				}),
+			],
+		}),
+		defineField({
+			title: 'Content onder knoppen',
+			name: 'contentSecondary',
+			type: 'customBlock',
+		}),
 	],
 	preview: {
 		select: {
