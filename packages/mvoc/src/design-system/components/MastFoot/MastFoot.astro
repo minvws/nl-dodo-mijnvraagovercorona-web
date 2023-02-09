@@ -154,20 +154,20 @@ const siteSettingsTranslated: SiteSettingsProps = await useSiteSettings({
 			gap: var(--stack-small);
 
 			:global(a) {
+				--link-color: var(--color-diepblauw);
 				--link-text-decoration: none;
 				display: block;
 				padding-block: 0.5rem;
 				padding-inline: 1rem;
 				border: 1px solid var(--color-donkerblauw);
+				font-weight: bold;
 
 				&[aria-current] {
-					font-weight: bold;
-					background-color: var(--color-poolblauw);
+					background-color: var(--color-lichtblauw);
 				}
 
 				&:hover {
-					--link-color: var(--color-black);
-					background-color: var(--color-lichtblauw);
+					background-color: var(--color-poolblauw);
 				}
 			}
 		}
