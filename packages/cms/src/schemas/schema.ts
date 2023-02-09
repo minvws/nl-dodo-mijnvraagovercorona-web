@@ -17,6 +17,8 @@ import {
 	customBlockWithoutModalObject,
 } from './translated/objects/customBlock';
 import metaDataObject from './translated/objects/metaData';
+import buttonObject from './translated/objects/button';
+import heroObject from './translated/objects/hero';
 import internalPageSelectorObject from './objects/internalPageSelector';
 
 /**
@@ -62,7 +64,7 @@ import headerObject from './objects/header';
 import quarantinePlanObject from './objects/quarantinePlan';
 import situationContentBlocksObject from './objects/situationContentBlocks';
 import stepsObject from './objects/steps';
-import buttonObject from './objects/button';
+import buttonObjectOld from './objects/button';
 import questionContentObject from './objects/questionContent';
 import questionSelectorObject from './objects/questionSelector';
 
@@ -88,6 +90,8 @@ export default [
 	customBlockObject,
 	customBlockWithoutModalObject,
 	metaDataObject,
+	heroObject,
+	buttonObject,
 	internalPageSelectorObject,
 
 	/**
@@ -145,7 +149,7 @@ export default [
 	quarantinePlanObject,
 	situationContentBlocksObject,
 	stepsObject,
-	buttonObject,
+	buttonObjectOld,
 	questionContentObject,
 	questionSelectorObject,
 	themeSelectorObject,
