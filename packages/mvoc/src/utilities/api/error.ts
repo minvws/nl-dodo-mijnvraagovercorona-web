@@ -20,6 +20,7 @@ export interface ErrorPageProps extends PageProps {
 		buttonText: string;
 	};
 	content: ContentBlockProps['value'];
+	errormessage: string;
 	locale: string;
 	alternatives: AlternativeTranslationsProps[];
 	slug: string;
@@ -38,6 +39,7 @@ export async function getDataErrorPages() {
 			buttonText,
 		},
 		${customBlockQuery({ name: 'content' })},
+		errormessage,
 		"slug": slug.current,
 	}`;
 

@@ -66,6 +66,11 @@ export default defineType({
 			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
+			title: 'Technische melding',
+			name: 'errormessage',
+			type: 'string',
+		}),
+		defineField({
 			title: 'Slug',
 			name: 'slug',
 			type: 'slug',

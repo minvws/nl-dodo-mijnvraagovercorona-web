@@ -10,6 +10,7 @@ import { Stack } from '@design-system/components/Layout/Stack';
 import { Button } from '@design-system/elements/Button';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { GridFluid } from '@design-system/components/Layout/Grid';
+import { Heading } from '@design-system/elements/Heading';
 
 export async function getStaticPaths() {
 	const collection = await getDataErrorPages();
@@ -35,7 +36,7 @@ interface HomeProps {
 
 const { pageData, locale } = Astro.props;
 const { pageData : homePageData } : HomeProps = await getDataHome({ locale });
-
+console.log(pageData);
 ---
 
 <Layout
@@ -76,6 +77,9 @@ const { pageData : homePageData } : HomeProps = await getDataHome({ locale });
 							))
 					}
 				</GridFluid>
+				<Stack gap="humongous">
+					<Heading class="asds" level={5}>{pageData.errormessage}</Heading>
+				</Stack>
 			</Stack>
 		</Retain>
 	</Layer>
