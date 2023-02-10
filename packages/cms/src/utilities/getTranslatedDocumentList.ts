@@ -1,14 +1,17 @@
 // import S from '@sanity/desk-tool/structure-builder';
 
-export const getTranslatedDocumentList = (S, {
-	title,
-	schemaType,
-	icon,
-}: {
-	title: string;
-	schemaType: string;
-	icon?: any;
-}) =>
+export const getTranslatedDocumentList = (
+	S,
+	{
+		title,
+		schemaType,
+		icon,
+	}: {
+		title: string;
+		schemaType: string;
+		icon?: any;
+	},
+) =>
 	S.listItem()
 		.title(title)
 		.icon(icon)

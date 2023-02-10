@@ -1,8 +1,12 @@
-// sanity.config.js
 import { defineConfig } from 'sanity';
 import { deskTool } from 'sanity/desk';
 import { visionTool } from '@sanity/vision';
-import { withDocumentI18nPlugin } from '@sanity/document-internationalization';
+import {
+	ReferenceBehavior,
+	withDocumentI18nPlugin,
+} from '@sanity/document-internationalization';
+import { scheduledPublishing } from '@sanity/scheduled-publishing';
+
 import schemas from './src/schemas/schema';
 import deskStructure from './src/deskStructure';
 
@@ -16,10 +20,11 @@ export default defineConfig({
 				structure: deskStructure,
 			}),
 			visionTool(),
+			scheduledPublishing(),
 		],
 		{
 			base: 'nl',
-			referenceBehavior: 'strong',
+			referenceBehavior: ReferenceBehavior.STRONG,
 			languages: [
 				{
 					id: 'nl',
@@ -37,6 +42,7 @@ export default defineConfig({
 		if (import.meta.env.DEV) {
 			return prev;
 		}
+
 		return prev.filter((tool) => tool.name !== 'vision');
 	},
 	schema: {

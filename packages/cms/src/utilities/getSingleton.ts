@@ -15,12 +15,10 @@ interface SingletonProps extends DocumentProps {
 /**
  * This will export a Sanity ListItem configured as a singleton so there can only be one
  */
-export const getSingleton = (S, {
-	title,
-	schemaType,
-	icon,
-	type,
-}: SingletonProps) =>
+export const getSingleton = (
+	S,
+	{ title, schemaType, icon, type }: SingletonProps,
+) =>
 	S.listItem()
 		.title(title)
 		.icon(icon)
@@ -29,7 +27,7 @@ export const getSingleton = (S, {
 				.title(title)
 				.schemaType(schemaType)
 				.documentId(schemaType)
-				.views(getViews(S, type, schemaType)),
+				.views(getViews(S)),
 		);
 
 export const getSingletonDocument = (S, config: DocumentProps) =>
