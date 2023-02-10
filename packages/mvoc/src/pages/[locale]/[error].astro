@@ -52,7 +52,7 @@ const { pageData : homePageData } : HomeProps = await getDataHome({ locale });
 	>
 		<Retain>
 			<Layer>
-				<Button icon={pageData.button.iconPicker['iconList']} href={prefixUrlWithlocale(`/`, locale)}
+				<Button iconPosition="leading" icon={pageData.button.iconPicker['iconList']} href={prefixUrlWithlocale(`/`, locale)}
 				>
 					{pageData.button.buttonText}
 				</Button>

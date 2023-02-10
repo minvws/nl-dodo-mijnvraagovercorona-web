@@ -11,6 +11,7 @@ export default defineType({
             type: 'string',
             options: {
                 list: [
+                    { title: 'Home', value: 'home' },
                     { title: 'Refresh', value: 'refresh' },
                     { title: 'Plus', value: 'plus' },
                     { title: 'Minus', value: 'minus' },
