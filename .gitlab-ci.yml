@@ -49,10 +49,9 @@ stages:
   - label
   - deploy
 
-# CI_* variables are defined in GitLab group settings, see build log for actual values
 before_script:
   - echo "Started by ${GITLAB_USER_LOGIN} at $(date +%Y-%m-%d'-'%H-%M-%S)"
-  - export CD_APP_TAG=$(echo ${CI_COMMIT_TAG} | cut -d'-' -f 2)
+  - export CD_APP_TAG=$(date +%Y%m%d%H%M)
   - echo ${CD_APP_TAG}
   - unset ${HISTFILE} # Disable shell cache for security purposes
 
@@ -62,73 +61,76 @@ test mvoc:
   script:
     - npm ci
     - npm run mvoc:test
-  rules:
-    - if: '$CI_COMMIT_TAG =~ /^development/'
-      when: always
-    - if: '$CI_COMMIT_TAG =~ /^staging/'
-      when: always
+  only:
+    - branches
+    - develop
+    - main
+    - staging
 
 label mvoc image staging:
   <<: *label-image
   variables:
     CD_APP_NAME: mijn-vraag-over-corona-website
     CD_ENVIRONMENT_LABEL: 2
-  rules:
-    - if: '$CI_COMMIT_TAG =~ /^staging/'
-      when: always
+  only:
+    - branches
+    - staging
 
 label mvoc image production:
   <<: *label-image
   variables:
     CD_APP_NAME: mijn-vraag-over-corona-website
     CD_ENVIRONMENT_LABEL: 1
-  rules:
-    - if: '$CI_COMMIT_TAG =~ /^production/'
-      when: always
+  only:
+    - branches
+    - main
 
 build mvoc image:
   <<: *build-image
   variables:
     CD_APP_NAME: mijn-vraag-over-corona-website
     CD_APP_FOLDER: mvoc
-  rules:
-    - if: '$CI_COMMIT_TAG =~ /^development/'
-      when: always
-    - if: '$CI_COMMIT_TAG =~ /^staging/'
-      when: always
+  only:
+    - branches
+    - develop
+    - main
+    - staging
 
 deploy mvoc image latest:
   variables:
     CD_APP_NAME: mijn-vraag-over-corona-website
-    CD_WEBSITE_COMMIT_TAG: $CI_COMMIT_TAG
+    CD_APP_TAG: $CD_APP_TAG
     CD_ENVIRONMENT: development
   stage: deploy
-  trigger: vws/reis/nl-covid19-travel-during-corona-deploy
-  rules:
-    - if: '$CI_COMMIT_TAG =~ /^development/'
-      when: on_success
-    - when: never
+  trigger:
+    project: vws/reis/nl-covid19-travel-during-corona-deploy
+    branch: develop
+  only:
+    - branches
+    - develop
 
 deploy mvoc image staging:
   variables:
     CD_APP_NAME: mijn-vraag-over-corona-website
-    CD_WEBSITE_COMMIT_TAG: $CI_COMMIT_TAG
+    CD_APP_TAG: $CD_APP_TAG
     CD_ENVIRONMENT: staging
   stage: deploy
-  trigger: vws/reis/nl-covid19-travel-during-corona-deploy
-  rules:
-    - if: '$CI_COMMIT_TAG =~ /^staging/'
-      when: on_success
-    - when: never
+  trigger:
+    project: vws/reis/nl-covid19-travel-during-corona-deploy
+    branch: develop
+  only:
+    - branches
+    - staging
 
 deploy mvoc image production:
   variables:
     CD_APP_NAME: mijn-vraag-over-corona-website
-    CD_WEBSITE_COMMIT_TAG: $CI_COMMIT_TAG
+    CD_APP_TAG: $CD_APP_TAG
     CD_ENVIRONMENT: production
   stage: deploy
-  trigger: vws/reis/nl-covid19-travel-during-corona-deploy
-  rules:
-    - if: '$CI_COMMIT_TAG =~ /^production/'
-      when: manual
-    - when: never
+  trigger:
+    project: vws/reis/nl-covid19-travel-during-corona-deploy
+    branch: develop
+  only:
+    - branches
+    - main
