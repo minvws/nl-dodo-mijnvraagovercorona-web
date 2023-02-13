@@ -99,12 +99,13 @@ build mvoc image:
 deploy mvoc image latest:
   variables:
     CD_APP_NAME: mijn-vraag-over-corona-website
-    CD_APP_TAG: $CD_APP_TAG
     CD_ENVIRONMENT: development
   stage: deploy
   trigger:
     project: vws/reis/nl-covid19-travel-during-corona-deploy
     branch: develop
+    forward:
+      pipeline_variables: true
   only:
     - branches
     - develop
@@ -112,12 +113,13 @@ deploy mvoc image latest:
 deploy mvoc image staging:
   variables:
     CD_APP_NAME: mijn-vraag-over-corona-website
-    CD_APP_TAG: $CD_APP_TAG
     CD_ENVIRONMENT: staging
   stage: deploy
   trigger:
     project: vws/reis/nl-covid19-travel-during-corona-deploy
     branch: develop
+    forward:
+      pipeline_variables: true
   only:
     - branches
     - staging
@@ -125,12 +127,13 @@ deploy mvoc image staging:
 deploy mvoc image production:
   variables:
     CD_APP_NAME: mijn-vraag-over-corona-website
-    CD_APP_TAG: $CD_APP_TAG
     CD_ENVIRONMENT: production
   stage: deploy
   trigger:
     project: vws/reis/nl-covid19-travel-during-corona-deploy
     branch: develop
+    forward:
+      pipeline_variables: true
   only:
     - branches
     - main
