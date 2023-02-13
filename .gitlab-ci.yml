@@ -62,7 +62,6 @@ test mvoc:
     - npm ci
     - npm run mvoc:test
   only:
-    - branches
     - develop
     - main
     - staging
@@ -73,7 +72,6 @@ label mvoc image staging:
     CD_APP_NAME: mijn-vraag-over-corona-website
     CD_ENVIRONMENT_LABEL: 2
   only:
-    - branches
     - staging
 
 label mvoc image production:
@@ -82,7 +80,6 @@ label mvoc image production:
     CD_APP_NAME: mijn-vraag-over-corona-website
     CD_ENVIRONMENT_LABEL: 1
   only:
-    - branches
     - main
 
 build mvoc image:
@@ -91,7 +88,6 @@ build mvoc image:
     CD_APP_NAME: mijn-vraag-over-corona-website
     CD_APP_FOLDER: mvoc
   only:
-    - branches
     - develop
     - main
     - staging
@@ -99,6 +95,7 @@ build mvoc image:
 deploy mvoc image latest:
   variables:
     CD_APP_NAME: mijn-vraag-over-corona-website
+    CD_APP_TAG: $CD_APP_TAG
     CD_ENVIRONMENT: development
   stage: deploy
   trigger:
@@ -107,12 +104,12 @@ deploy mvoc image latest:
     forward:
       pipeline_variables: true
   only:
-    - branches
     - develop
 
 deploy mvoc image staging:
   variables:
     CD_APP_NAME: mijn-vraag-over-corona-website
+    CD_APP_TAG: $CD_APP_TAG
     CD_ENVIRONMENT: staging
   stage: deploy
   trigger:
@@ -121,12 +118,12 @@ deploy mvoc image staging:
     forward:
       pipeline_variables: true
   only:
-    - branches
     - staging
 
 deploy mvoc image production:
   variables:
     CD_APP_NAME: mijn-vraag-over-corona-website
+    CD_APP_TAG: $CD_APP_TAG
     CD_ENVIRONMENT: production
   stage: deploy
   trigger:
@@ -135,5 +132,4 @@ deploy mvoc image production:
     forward:
       pipeline_variables: true
   only:
-    - branches
     - main
