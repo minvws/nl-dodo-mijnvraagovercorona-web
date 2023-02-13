@@ -51,7 +51,8 @@ stages:
 
 before_script:
   - echo "Started by ${GITLAB_USER_LOGIN} at $(date +%Y-%m-%d'-'%H-%M-%S)"
-  - export CD_APP_TAG=$(date -d "$CI_PIPELINE_CREATED_AT" +%s | xargs -I{} date -d @{} +%Y%m%d%H%M)
+  - date --version
+  - echo ${CI_PIPELINE_CREATED_AT}
   - echo ${CD_APP_TAG}
   - unset ${HISTFILE} # Disable shell cache for security purposes
 
