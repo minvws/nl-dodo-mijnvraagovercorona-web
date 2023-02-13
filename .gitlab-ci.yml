@@ -51,7 +51,7 @@ stages:
 
 before_script:
   - echo "Started by ${GITLAB_USER_LOGIN} at $(date +%Y-%m-%d'-'%H-%M-%S)"
-  - export CD_APP_TAG=$(date +%Y%m%d%H%M)
+  - export CD_APP_TAG=$(date -d @$CI_COMMIT_TIMESTAMP +%Y%m%d%H%M)
   - echo ${CD_APP_TAG}
   - unset ${HISTFILE} # Disable shell cache for security purposes
 
@@ -95,7 +95,7 @@ build mvoc image:
 deploy mvoc image latest:
   variables:
     CD_APP_NAME: mijn-vraag-over-corona-website
-    CD_APP_TAG: $CD_APP_TAG
+    CD_COMMIT_TIMESTAMP: $CI_COMMIT_TIMESTAMP
     CD_ENVIRONMENT: development
   stage: deploy
   trigger:
@@ -109,7 +109,7 @@ deploy mvoc image latest:
 deploy mvoc image staging:
   variables:
     CD_APP_NAME: mijn-vraag-over-corona-website
-    CD_APP_TAG: $CD_APP_TAG
+    CD_COMMIT_TIMESTAMP: $CI_COMMIT_TIMESTAMP
     CD_ENVIRONMENT: staging
   stage: deploy
   trigger:
@@ -123,7 +123,7 @@ deploy mvoc image staging:
 deploy mvoc image production:
   variables:
     CD_APP_NAME: mijn-vraag-over-corona-website
-    CD_APP_TAG: $CD_APP_TAG
+    CD_COMMIT_TIMESTAMP: $CI_COMMIT_TIMESTAMP
     CD_ENVIRONMENT: production
   stage: deploy
   trigger:
