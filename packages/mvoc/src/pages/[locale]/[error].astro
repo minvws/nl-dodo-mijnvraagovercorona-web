@@ -19,7 +19,6 @@ import { Stack } from '@design-system/components/Layout/Stack';
 import { Button } from '@design-system/elements/Button';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { GridFluid } from '@design-system/components/Layout/Grid';
-import { Heading } from '@design-system/elements/Heading';
 
 export async function getStaticPaths() {
 	const collection = await getDataErrorPages();
@@ -45,7 +44,6 @@ interface HomeProps {
 
 const { pageData, locale } = Astro.props;
 const { pageData: homePageData }: HomeProps = await getDataHome({ locale });
-console.log(pageData);
 ---
 
 <Layout
@@ -54,46 +52,54 @@ console.log(pageData);
 	alternativeTranslations={pageData.alternatives}
 >
 	<Hero
-		title={pageData.header.title}
-		chapeau={pageData.header.chapeau}
-		image={pageData.header.image}
+		title={pageData.hero.title}
+		chapeau={pageData.hero.chapeau}
+		image={pageData.hero.image}
 	>
-		<ContentBlock value={pageData.header.content} />
+		<ContentBlock value={pageData.hero.content} />
 	</Hero>
-	<Layer pullUpBy="hero" id={stringToSlug(homePageData.important.title)}>
+	<Layer id={stringToSlug(homePageData.important.title)}>
 		<Retain>
-			<Layer>
+			<Stack gap="humongous">
 				<Button
 					iconPosition="leading"
-					icon={pageData.button.iconPicker['iconList']}
+					icon={pageData.button.icon}
 					href={prefixUrlWithlocale(`/`, locale)}
 				>
-					{pageData.button.buttonText}
+					{pageData.button.label}
 				</Button>
-			</Layer>
-
-			<Stack gap="small">
-				<ContentBlock value={pageData.content} />
-				<GridFluid class="grid-important">
-					{
-						homePageData.important.questionCollection
-							?.filter((item) => item.title)
-							.map((item) => (
-								<Button
-									variant="tertiary"
-									href={prefixUrlWithlocale(`/${item.path}`, locale)}
-									icon="chevron-small-right"
-									interactionIconAnimation="swing"
-								>
-									<ContentBlock value={item.title} />
-								</Button>
-							))
-					}
-				</GridFluid>
-				<Stack gap="humongous">
-					<Heading class="asds" level={5}>{pageData.errormessage}</Heading>
-				</Stack>
+				<section>
+					<Stack gap="small">
+						<ContentBlock value={pageData.content} />
+						<GridFluid class="grid-important">
+							{
+								homePageData.important.questionCollection
+									?.filter((item) => item.title)
+									.map((item) => (
+										<Button
+											variant="tertiary"
+											href={prefixUrlWithlocale(`/${item.path}`, locale)}
+											icon="chevron-small-right"
+											interactionIconAnimation="swing"
+										>
+											<ContentBlock value={item.title} />
+										</Button>
+									))
+							}
+						</GridFluid>
+					</Stack>
+				</section>
+				<p>
+					<strong>{pageData.errormessage}</strong>
+				</p>
 			</Stack>
 		</Retain>
 	</Layer>
 </Layout>
+
+<style lang="scss">
+	.grid-important {
+		--grid-fluid-min-item-size: 20rem; // 400px
+		--grid-fluid-gap: var(--stack-small);
+	}
+</style>

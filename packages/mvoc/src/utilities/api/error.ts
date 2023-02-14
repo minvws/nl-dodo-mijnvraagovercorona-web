@@ -4,17 +4,21 @@ import { useSanityClient } from 'astro-sanity';
 import { getPageTranslations } from '../helpers/get-page-translations';
 import { PageProps, customBlockQuery, pageQuery } from './queries/translated';
 import { ImageProps, imageQuery } from './queries';
+import { ButtonVariants } from '@design-system/elements/Button';
+import { IconProps } from '@design-system/elements/Icon';
 
 export interface ErrorPageProps extends PageProps {
-	header: {
+	hero: {
 		chapeau?: string;
 		title;
 		image: ImageProps;
 		content?: ContentBlockProps['value'];
 	};
 	button: {
-		iconPicker?: object;
-		buttonText: string;
+		label: string;
+		href?: string;
+		variant: ButtonVariants;
+		icon: IconProps['name'];
 	};
 	content: ContentBlockProps['value'];
 	errormessage: string;
@@ -25,15 +29,17 @@ export interface ErrorPageProps extends PageProps {
 
 export async function getDataErrorPages() {
 	const projection = `{
-		header{
+		hero{
 			chapeau,
 			title,
 			${imageQuery({ name: 'image' })},
 			${customBlockQuery({ name: 'content' })},
 		},
 		button{
-			iconPicker,
-			buttonText,
+			icon,
+			label,
+			variant,
+			href,
 		},
 		${customBlockQuery({ name: 'content' })},
 		errormessage,

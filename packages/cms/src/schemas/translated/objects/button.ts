@@ -44,6 +44,11 @@ export default defineType({
 				],
 			},
 		}),
+		defineField({
+			title: 'Icoon',
+			name: 'icon',
+			type: 'iconPicker',
+		}),
 	],
 	options: {
 		collapsible: true,

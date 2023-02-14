@@ -49,21 +49,8 @@ export default defineType({
 		defineField({
 			title: 'Button',
 			name: 'button',
-			type: 'object',
-			fields: [
-				defineField({
-					title: 'Icon picker',
-					name: 'iconPicker',
-					type: 'iconPicker',
-				}),
-				defineField({
-					title: 'Button text',
-					name: 'buttonText',
-					type: 'string',
-				}),
-			],
+			type: 'flexibleButton',
 		}),
-
 		defineField({
 			title: 'Content',
 			name: 'content',
