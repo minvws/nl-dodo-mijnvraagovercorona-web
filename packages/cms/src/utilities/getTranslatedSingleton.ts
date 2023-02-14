@@ -1,12 +1,15 @@
-export const getTranslatedSingleton = (S, {
-	title,
-	type,
-	icon,
-}: {
-	title: string;
-	type: string;
-	icon?: any;
-}) =>
+export const getTranslatedSingleton = (
+	S,
+	{
+		title,
+		type,
+		icon,
+	}: {
+		title: string;
+		type: string;
+		icon?: any;
+	},
+) =>
 	S.listItem()
 		.id(type)
 		.title(title)

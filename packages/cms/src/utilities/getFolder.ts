@@ -1,12 +1,15 @@
-export const getFolder = (S, {
-	title,
-	items,
-	icon,
-}: {
-	title: string;
-	items: any;
-	icon?: any;
-}) =>
+export const getFolder = (
+	S,
+	{
+		title,
+		items,
+		icon,
+	}: {
+		title: string;
+		items: any;
+		icon?: any;
+	},
+) =>
 	S.listItem()
 		.title(title)
 		.icon(icon)

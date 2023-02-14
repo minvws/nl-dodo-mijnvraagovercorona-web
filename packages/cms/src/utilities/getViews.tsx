@@ -1,4 +1,4 @@
-export const getViews = (S, type: 'page' | 'document', schemaType: string) => {
+export const getViews = (S) => {
 	const views = [S.view.form()];
 
 	return views;
