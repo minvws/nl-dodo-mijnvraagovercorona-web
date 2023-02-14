@@ -117,8 +117,10 @@ const translatedTips = pageData.moreTips.tipCollection
 			locale,
 		)}
 		variant="restart"
-		slot="back">{siteSettings.header.opnieuw}</Link
+		slot="back"
 	>
+		{siteSettings.header.opnieuw}
+	</Link>
 
 	<Hero title={pageData.header.title} image={pageData.header.image}>
 		<UpdatedAt slot="prefix" time={pageData.updatedAt} />
