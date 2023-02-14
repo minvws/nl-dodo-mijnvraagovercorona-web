@@ -58,7 +58,7 @@ export default defineType({
 				}),
 			],
 		}),
-	
+
 		defineField({
 			title: 'Content',
 			name: 'content',

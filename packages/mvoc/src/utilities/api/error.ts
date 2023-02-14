@@ -3,10 +3,7 @@ import { AlternativeTranslationsProps } from '@design-system/components/LocaleSe
 import { useSanityClient } from 'astro-sanity';
 import { getPageTranslations } from '../helpers/get-page-translations';
 import { PageProps, customBlockQuery, pageQuery } from './queries/translated';
-import {
-	ImageProps,
-	imageQuery,
-} from './queries';
+import { ImageProps, imageQuery } from './queries';
 
 export interface ErrorPageProps extends PageProps {
 	header: {

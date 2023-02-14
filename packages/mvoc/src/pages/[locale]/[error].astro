@@ -1,7 +1,16 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { availableLocales, Locale, prefixUrlWithlocale } from 'src/utilities/locale/translation';
-import { ErrorPageProps, getDataErrorPages, getDataHome, PageHomeProps } from 'src/utilities/api';
+import {
+	availableLocales,
+	Locale,
+	prefixUrlWithlocale,
+} from 'src/utilities/locale/translation';
+import {
+	ErrorPageProps,
+	getDataErrorPages,
+	getDataHome,
+	PageHomeProps,
+} from 'src/utilities/api';
 import { Hero } from '@design-system/components/Hero';
 import { Retain } from '@design-system/components/Layout/Retain';
 import { ContentBlock } from '@design-system/components/ContentBlock';
@@ -35,7 +44,7 @@ interface HomeProps {
 }
 
 const { pageData, locale } = Astro.props;
-const { pageData : homePageData } : HomeProps = await getDataHome({ locale });
+const { pageData: homePageData }: HomeProps = await getDataHome({ locale });
 console.log(pageData);
 ---
 
@@ -44,21 +53,25 @@ console.log(pageData);
 	metaData={pageData.metaData}
 	alternativeTranslations={pageData.alternatives}
 >
-	<Hero title={pageData.header.title} chapeau={pageData.header.chapeau} image={pageData.header.image}>
+	<Hero
+		title={pageData.header.title}
+		chapeau={pageData.header.chapeau}
+		image={pageData.header.image}
+	>
 		<ContentBlock value={pageData.header.content} />
 	</Hero>
-	<Layer
-		pullUpBy="hero"
-		id={stringToSlug(homePageData.important.title)}
-	>
+	<Layer pullUpBy="hero" id={stringToSlug(homePageData.important.title)}>
 		<Retain>
 			<Layer>
-				<Button iconPosition="leading" icon={pageData.button.iconPicker['iconList']} href={prefixUrlWithlocale(`/`, locale)}
+				<Button
+					iconPosition="leading"
+					icon={pageData.button.iconPicker['iconList']}
+					href={prefixUrlWithlocale(`/`, locale)}
 				>
 					{pageData.button.buttonText}
 				</Button>
 			</Layer>
-			
+
 			<Stack gap="small">
 				<ContentBlock value={pageData.content} />
 				<GridFluid class="grid-important">
