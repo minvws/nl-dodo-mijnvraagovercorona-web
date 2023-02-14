@@ -7,7 +7,9 @@
 		"mvoc:dev": "npm run dev --workspace mvoc",
 		"mvoc:build": "npm run build --workspace mvoc",
 		"cms:dev": "npm run dev --workspace cms",
-		"cms:deploy": "npm run deploy --workspace cms"
+		"cms:deploy": "npm run deploy --workspace cms",
+		"format": "npm run format:prettier",
+		"format:prettier": "prettier --write ."
 	},
 	"workspaces": [
 		"./packages/*"
