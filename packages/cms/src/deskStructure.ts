@@ -1,14 +1,11 @@
 import {
 	GiCardRandom,
 	GiHouse,
-	GiTestTubes,
 	GiCookie,
 	GiSettingsKnobs,
 	GiTripleNeedle,
 	GiWorld,
 	GiLightBulb,
-	GiRadioactive,
-	GiTrail,
 	GiShare,
 	GiAirplaneArrival,
 } from 'react-icons/gi';
@@ -19,7 +16,7 @@ import {
 	FaHandsHelping,
 	FaFeatherAlt,
 } from 'react-icons/fa';
-import { SiGnuprivacyguard, SiYourtraveldottv } from 'react-icons/si';
+import { SiGnuprivacyguard } from 'react-icons/si';
 import { GrVulnerability } from 'react-icons/gr';
 import { VscScreenFull, VscCopy } from 'react-icons/vsc';
 import { IoDocumentOutline } from 'react-icons/io5';
