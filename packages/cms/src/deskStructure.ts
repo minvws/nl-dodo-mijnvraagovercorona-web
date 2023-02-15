@@ -86,6 +86,11 @@ const mvocPagesConfig = [
 		title: 'Generic',
 		icon: GiCardRandom,
 	},
+	{
+		schemaType: 'error-page',
+		title: 'Error',
+		icon: BiError,
+	},
 ];
 
 const mvocDocumentsConfig = [

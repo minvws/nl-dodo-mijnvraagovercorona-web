@@ -7,6 +7,7 @@ import modalsDocument from './translated/documents/modals';
 
 // Pages
 import genericPage from './translated/pages/generic';
+import errorPage from './translated/pages/error';
 
 // objects
 import {
@@ -14,6 +15,9 @@ import {
 	customBlockWithoutModalObject,
 } from './translated/objects/customBlock';
 import metaDataObject from './translated/objects/metaData';
+import iconPickerObject from './translated/objects/iconPicker';
+import buttonObject from './translated/objects/button';
+import heroObject from './translated/objects/hero';
 import internalPageSelectorObject from './objects/internalPageSelector';
 
 /**
@@ -59,7 +63,7 @@ import headerObject from './objects/header';
 import quarantinePlanObject from './objects/quarantinePlan';
 import situationContentBlocksObject from './objects/situationContentBlocks';
 import stepsObject from './objects/steps';
-import buttonObject from './objects/button';
+import buttonObjectOld from './objects/button';
 import questionContentObject from './objects/questionContent';
 import questionSelectorObject from './objects/questionSelector';
 
@@ -73,6 +77,7 @@ export default [
 	 */
 	// pages
 	genericPage,
+	errorPage,
 
 	// documents
 	siteSettingsDocument,
@@ -82,6 +87,9 @@ export default [
 	customBlockObject,
 	customBlockWithoutModalObject,
 	metaDataObject,
+	iconPickerObject,
+	heroObject,
+	buttonObject,
 	internalPageSelectorObject,
 
 	/**
@@ -139,7 +147,7 @@ export default [
 	quarantinePlanObject,
 	situationContentBlocksObject,
 	stepsObject,
-	buttonObject,
+	buttonObjectOld,
 	questionContentObject,
 	questionSelectorObject,
 	themeSelectorObject,

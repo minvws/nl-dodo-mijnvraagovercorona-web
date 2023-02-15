@@ -1,0 +1,105 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import {
+	availableLocales,
+	Locale,
+	prefixUrlWithlocale,
+} from 'src/utilities/locale/translation';
+import {
+	ErrorPageProps,
+	getDataErrorPages,
+	getDataHome,
+	PageHomeProps,
+} from 'src/utilities/api';
+import { Hero } from '@design-system/components/Hero';
+import { Retain } from '@design-system/components/Layout/Retain';
+import { ContentBlock } from '@design-system/components/ContentBlock';
+import { Layer } from '@design-system/components/Layout/Layer';
+import { Stack } from '@design-system/components/Layout/Stack';
+import { Button } from '@design-system/elements/Button';
+import { stringToSlug } from 'src/utilities/stringToSlug';
+import { GridFluid } from '@design-system/components/Layout/Grid';
+
+export async function getStaticPaths() {
+	const collection = await getDataErrorPages();
+	return collection.map((page: ErrorPageProps) => ({
+		params: { error: page.slug, locale: page.localeID },
+		props: {
+			pageData: page,
+			locale: availableLocales.filter(
+				(locale) => locale.id === page.localeID,
+			)[0],
+		},
+	}));
+}
+
+interface Props {
+	pageData: ErrorPageProps;
+	locale: Locale;
+}
+
+interface HomeProps {
+	pageData: PageHomeProps;
+}
+
+const { pageData, locale } = Astro.props;
+const { pageData: homePageData }: HomeProps = await getDataHome({ locale });
+---
+
+<Layout
+	locale={locale}
+	metaData={pageData.metaData}
+	alternativeTranslations={pageData.alternatives}
+>
+	<Hero
+		title={pageData.hero.title}
+		chapeau={pageData.hero.chapeau}
+		image={pageData.hero.image}
+	>
+		<ContentBlock value={pageData.hero.content} />
+	</Hero>
+	<Layer id={stringToSlug(homePageData.important.title)}>
+		<Retain>
+			<Stack gap="humongous">
+				<Button
+					iconPosition="leading"
+					icon={pageData.button.icon}
+					href={prefixUrlWithlocale(`/`, locale)}
+				>
+					{pageData.button.label}
+				</Button>
+				<section>
+					<Stack gap="small">
+						<ContentBlock value={pageData.content} />
+						<GridFluid class="grid-important">
+							{
+								homePageData.important.questionCollection
+									?.filter((item) => item.title)
+									.map((item) => (
+										<Button
+											variant="tertiary"
+											href={prefixUrlWithlocale(`/${item.path}`, locale)}
+											icon="chevron-small-right"
+											interactionIconAnimation="swing"
+										>
+											<ContentBlock value={item.title} />
+										</Button>
+									))
+							}
+						</GridFluid>
+					</Stack>
+				</section>
+				<p>
+					<strong>{pageData.errormessage}</strong>
+				</p>
+			</Stack>
+		</Retain>
+	</Layer>
+</Layout>
+
+<style lang="scss">
+	.grid-important {
+		--grid-fluid-min-item-size: 20rem; // 400px
+		--grid-fluid-gap: var(--stack-small);
+	}
+</style>
