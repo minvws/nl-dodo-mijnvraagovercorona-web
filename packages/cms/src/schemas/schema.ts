@@ -10,6 +10,7 @@ import genericPage from './translated/pages/generic';
 import locationsPage from './translated/pages/pza/locations';
 import pzaLandingPage from './translated/pages/pza/landing';
 import themePage from './translated/pages/theme';
+import errorPage from './translated/pages/error';
 
 // objects
 import {
@@ -17,6 +18,7 @@ import {
 	customBlockWithoutModalObject,
 } from './translated/objects/customBlock';
 import metaDataObject from './translated/objects/metaData';
+import iconPickerObject from './translated/objects/iconPicker';
 import buttonObject from './translated/objects/button';
 import heroObject from './translated/objects/hero';
 import internalPageSelectorObject from './objects/internalPageSelector';
@@ -81,6 +83,7 @@ export default [
 	locationsPage,
 	pzaLandingPage,
 	themePage,
+	errorPage,
 
 	// documents
 	siteSettingsDocument,
@@ -90,6 +93,7 @@ export default [
 	customBlockObject,
 	customBlockWithoutModalObject,
 	metaDataObject,
+	iconPickerObject,
 	heroObject,
 	buttonObject,
 	internalPageSelectorObject,

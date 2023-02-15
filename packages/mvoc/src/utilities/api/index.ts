@@ -7,3 +7,4 @@ export * from './landingSituation';
 export * from './generic';
 export * from './prikkenzonderafspraak/locations';
 export * from './prikkenzonderafspraak/landing';
+export * from './error';
