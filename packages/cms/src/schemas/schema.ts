@@ -18,7 +18,7 @@ import metaDataObject from './translated/objects/metaData';
 import iconPickerObject from './translated/objects/iconPicker';
 import buttonObject from './translated/objects/button';
 import heroObject from './translated/objects/hero';
-import internalPageSelectorObject from './objects/internalPageSelector';
+import internalPageSelectorObject from './translated/objects/internalPageSelector';
 
 /**
  * Old document structure
