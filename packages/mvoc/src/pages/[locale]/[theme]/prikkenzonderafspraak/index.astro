@@ -10,6 +10,11 @@ import { Hero } from '@design-system/components/Hero';
 import { ContentBlock } from '@design-system/components/ContentBlock';
 import Button from '@design-system/elements/Button/Button.astro';
 import Stack from '@design-system/components/Layout/Stack/Stack.astro';
+import { Retain } from '@design-system/components/Layout/Retain';
+import { Layer } from '@design-system/components/Layout/Layer';
+import Heading from '@design-system/elements/Heading/Heading.astro';
+import { Sidebar } from '@design-system/components/Layout/Sidebar';
+import { CardPrivacy } from '@design-system/components/Card';
 
 export async function getStaticPaths() {
 	const collection = await getDataPZALandingPages();
@@ -44,6 +49,7 @@ const { pageData, locale } = Astro.props;
 		title={pageData.hero.title}
 		image={pageData.hero.image}
 		chapeau={pageData.hero.chapeau}
+		highlight
 	>
 		<Stack class="c-hero__content">
 			<ContentBlock value={pageData.hero.content} />
@@ -66,7 +72,28 @@ const { pageData, locale } = Astro.props;
 			<ContentBlock value={pageData.contentSecondary} />
 		</Stack>
 	</Hero>
-	<mark>hello world</mark>
+
+	<Layer pullUpBy={'hero'}>
+		<Retain>
+			<Sidebar>
+				{
+					pageData.taleCollection.map((tale) => (
+						<section>
+							<Heading>{tale.title}</Heading>
+							<ContentBlock value={tale.content} />
+						</section>
+					))
+				}
+
+				<Stack slot="aside">
+					<p>
+						<mark>Verder praten?</mark>
+					</p>
+					<CardPrivacy />
+				</Stack>
+			</Sidebar>
+		</Retain>
+	</Layer>
 </Layout>
 
 <style lang="scss">
