@@ -17,7 +17,7 @@ export const internalPageReferenceQuery = (): string => {
 		"link": select(
 			pageReference->_type == "theme-page" => pageReference->{
 				"label": metaData.title,
-				"slug": slug.current
+				"slug": 'thema/' + slug.current
 			},
 			pageReference->_type == "generic-page" => pageReference->{
 				"label": metaData.title,
