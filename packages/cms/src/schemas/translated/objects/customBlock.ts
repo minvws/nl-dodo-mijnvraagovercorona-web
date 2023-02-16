@@ -1,5 +1,6 @@
 import { FiLink } from 'react-icons/fi';
 import { VscScreenFull } from 'react-icons/vsc';
+import { filterReferenceByLanguage } from '../../../utilities/filterReferenceByLanguage';
 
 const generate = (
 	name: string = 'customBlock',
@@ -59,6 +60,9 @@ const generate = (
 											name: 'modal_ref',
 											type: 'reference',
 											to: [{ type: 'modals' }],
+											options: {
+												filter: filterReferenceByLanguage,
+											},
 										},
 									],
 								},
