@@ -6,3 +6,4 @@ export * from './hero';
 export * from './internalPageReference';
 export * from './taleReference';
 export * from './modals';
+export * from './buttons';

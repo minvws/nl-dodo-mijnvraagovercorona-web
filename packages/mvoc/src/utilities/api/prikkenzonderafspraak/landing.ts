@@ -11,15 +11,13 @@ import {
 	customBlockQuery,
 	taleReferenceQuery,
 	TaleCollectionProps,
+	ButtonsProps,
+	buttonsQuery,
 } from '../queries/translated';
 
 export interface PZALandingPageProps extends PageProps {
 	hero: HeroProps;
-	buttons: {
-		label: string;
-		href?: string;
-		variant: ButtonVariants;
-	}[];
+	buttons: ButtonsProps;
 	contentSecondary: ContentBlockProps['value'];
 	taleCollection: TaleCollectionProps['taleCollection'];
 	locale: string;
@@ -30,11 +28,7 @@ export interface PZALandingPageProps extends PageProps {
 export async function getDataPZALandingPages() {
 	const projection = `{
 		${heroQuery()},
-		buttons[]{
-			label,
-			href,
-			variant,
-		},
+		${buttonsQuery({ array: true })},
 		${customBlockQuery({ name: 'contentSecondary' })},
 		${taleReferenceQuery()},
 		"slug": "prikkenzonderafspraak",

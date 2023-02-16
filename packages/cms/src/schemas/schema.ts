@@ -22,6 +22,7 @@ import metaDataObject from './translated/objects/metaData';
 import iconPickerObject from './translated/objects/iconPicker';
 import buttonObject from './translated/objects/button';
 import heroObject from './translated/objects/hero';
+import pageReferenceObject from './translated/objects/pageReference';
 import internalPageSelectorObject from './translated/objects/internalPageSelector';
 import taleSelectorObject from './translated/objects/taleSelector';
 
@@ -99,6 +100,7 @@ export default [
 	iconPickerObject,
 	heroObject,
 	buttonObject,
+	pageReferenceObject,
 	internalPageSelectorObject,
 	taleSelectorObject,
 

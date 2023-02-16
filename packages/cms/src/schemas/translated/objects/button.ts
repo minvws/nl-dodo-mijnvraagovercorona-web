@@ -11,11 +11,17 @@ export default defineType({
 			type: 'string',
 			validation: (Rule) => Rule.required(),
 		}),
-		// TODO: add internal link selector
+		defineField({
+			title: 'Interne link',
+			name: 'pageReference',
+			type: 'pageReference',
+			readOnly: ({ parent }) => !!parent?.href,
+		}),
 		defineField({
 			title: 'href',
 			name: 'href',
 			type: 'string',
+			readOnly: ({ parent }) => !!parent?.pageReference,
 		}),
 		defineField({
 			title: 'Variant',

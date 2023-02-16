@@ -1,5 +1,4 @@
 import { defineField, defineType } from 'sanity';
-import { filterReferenceByLanguage } from '../../../utilities/filterReferenceByLanguage';
 
 export default defineType({
 	title: 'Link naar interne pagina',
@@ -19,11 +18,7 @@ export default defineType({
 				defineField({
 					title: 'Pagina referentie',
 					name: 'pageReference',
-					type: 'reference',
-					to: [{ type: 'theme-page' }, { type: 'generic-page' }],
-					options: {
-						filter: filterReferenceByLanguage,
-					},
+					type: 'pageReference',
 				}),
 			],
 			preview: {
