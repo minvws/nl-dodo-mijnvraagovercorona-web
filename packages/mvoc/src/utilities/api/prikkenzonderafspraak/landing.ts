@@ -9,6 +9,8 @@ import {
 	heroQuery,
 	HeroProps,
 	customBlockQuery,
+	taleReferenceQuery,
+	TaleCollectionProps,
 } from '../queries/translated';
 
 export interface PZALandingPageProps extends PageProps {
@@ -19,6 +21,7 @@ export interface PZALandingPageProps extends PageProps {
 		variant: ButtonVariants;
 	}[];
 	contentSecondary: ContentBlockProps['value'];
+	taleCollection: TaleCollectionProps['taleCollection'];
 	locale: string;
 	alternatives: AlternativeTranslationsProps[];
 	slug: string;
@@ -33,7 +36,8 @@ export async function getDataPZALandingPages() {
 			variant,
 		},
 		${customBlockQuery({ name: 'contentSecondary' })},
-		"slug": slug.current,
+		${taleReferenceQuery()},
+		"slug": "prikkenzonderafspraak",
 	}`;
 
 	const query = pageQuery({
