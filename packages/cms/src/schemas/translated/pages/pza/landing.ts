@@ -44,6 +44,11 @@ export default defineType({
 			name: 'contentSecondary',
 			type: 'customBlock',
 		}),
+		defineField({
+			title: 'Tales',
+			name: 'taleCollection',
+			type: 'taleSelector',
+		}),
 	],
 	preview: {
 		select: {
