@@ -14,6 +14,7 @@ import { VscScreenFull, VscCopy } from 'react-icons/vsc';
 import { IoDocumentOutline } from 'react-icons/io5';
 import { RiQuestionLine, RiPagesLine } from 'react-icons/ri';
 import { MdOutlineTopic, MdLiveHelp } from 'react-icons/md';
+import { AiOutlineRead } from 'react-icons/ai';
 
 import { getFolder } from './utilities/getFolder';
 import { getPage } from './utilities/getSingleton';
@@ -64,6 +65,11 @@ const mvocDocumentsConfig = [
 		schemaType: 'modals',
 		title: 'Modals',
 		icon: VscScreenFull,
+	},
+	{
+		schemaType: 'tale',
+		title: 'Tale',
+		icon: AiOutlineRead,
 	},
 ];
 

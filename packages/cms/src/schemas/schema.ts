@@ -4,6 +4,7 @@
 // Documents
 import siteSettingsDocument from './translated/documents/siteSettings';
 import modalsDocument from './translated/documents/modals';
+import taleDocument from './translated/documents/tale';
 
 // Pages
 import genericPage from './translated/pages/generic';
@@ -22,6 +23,7 @@ import iconPickerObject from './translated/objects/iconPicker';
 import buttonObject from './translated/objects/button';
 import heroObject from './translated/objects/hero';
 import internalPageSelectorObject from './translated/objects/internalPageSelector';
+import taleSelectorObject from './translated/objects/taleSelector';
 
 /**
  * Old document structure
@@ -88,6 +90,7 @@ export default [
 	// documents
 	siteSettingsDocument,
 	modalsDocument,
+	taleDocument,
 
 	// objects
 	customBlockObject,
@@ -97,6 +100,7 @@ export default [
 	heroObject,
 	buttonObject,
 	internalPageSelectorObject,
+	taleSelectorObject,
 
 	/**
 	 * Pages
