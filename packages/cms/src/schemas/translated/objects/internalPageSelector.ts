@@ -1,4 +1,5 @@
 import { defineField, defineType } from 'sanity';
+import { filterReferenceByLanguage } from '../../../utilities/filterReferenceByLanguage';
 
 export default defineType({
 	title: 'Link naar interne pagina',
@@ -10,28 +11,25 @@ export default defineType({
 			name: 'pageOverview',
 			type: 'object',
 			fields: [
-				{
+				defineField({
 					title: 'Label',
 					name: 'label',
 					type: 'customBlock',
-				},
-				{
+				}),
+				defineField({
 					title: 'Pagina referentie',
 					name: 'pageReference',
 					type: 'reference',
-					to: [
-						{ type: 'situation-question-document' },
-						{ type: 'situation-result-document' },
-						{ type: 'tip-document' },
-						{ type: 'theme-document' },
-						{ type: 'generic-page' },
-					],
-				},
+					to: [{ type: 'theme-page' }, { type: 'generic-page' }],
+					options: {
+						filter: filterReferenceByLanguage,
+					},
+				}),
 			],
 			preview: {
 				select: {
 					title: 'label',
-					referenceTitle: 'pageReference.header.title',
+					referenceTitle: 'pageReference.metaData.title',
 					slug: 'pageReference.slug.current',
 				},
 				prepare(selection) {
