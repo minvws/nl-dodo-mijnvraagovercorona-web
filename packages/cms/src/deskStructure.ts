@@ -1,7 +1,6 @@
 import {
 	GiCardRandom,
 	GiHouse,
-	GiCookie,
 	GiSettingsKnobs,
 	GiTripleNeedle,
 	GiWorld,
@@ -10,14 +9,7 @@ import {
 	GiAirplaneArrival,
 } from 'react-icons/gi';
 import { BiError, BiSitemap } from 'react-icons/bi';
-import {
-	FaRegCopyright,
-	FaAccessibleIcon,
-	FaHandsHelping,
-	FaFeatherAlt,
-} from 'react-icons/fa';
-import { SiGnuprivacyguard } from 'react-icons/si';
-import { GrVulnerability } from 'react-icons/gr';
+import { FaHandsHelping, FaFeatherAlt } from 'react-icons/fa';
 import { VscScreenFull, VscCopy } from 'react-icons/vsc';
 import { IoDocumentOutline } from 'react-icons/io5';
 import { RiQuestionLine, RiPagesLine } from 'react-icons/ri';
@@ -38,39 +30,6 @@ const siteSettingsConfig = [
 		schemaType: 'site-settings-document',
 		title: 'Site Settings',
 		icon: GiSettingsKnobs,
-	},
-];
-
-const genericPagesConfig = [
-	{
-		schemaType: 'privacy-page',
-		title: 'Privacy',
-		icon: SiGnuprivacyguard,
-	},
-	{
-		schemaType: 'cookies-page',
-		title: 'Cookies',
-		icon: GiCookie,
-	},
-	{
-		schemaType: 'copyright-page',
-		title: 'Copyright',
-		icon: FaRegCopyright,
-	},
-	{
-		schemaType: 'toegankelijkheid-page',
-		title: 'Toegankelijkheid',
-		icon: FaAccessibleIcon,
-	},
-	{
-		schemaType: 'kwetsbaarheid-melden-page',
-		title: 'Kwetsbaarheid Melden',
-		icon: GrVulnerability,
-	},
-	{
-		schemaType: 'error-404-page',
-		title: '404',
-		icon: BiError,
 	},
 ];
 
@@ -233,14 +192,6 @@ export default (S) =>
 				items: [
 					...siteSettingsConfig.map((config) => getDocumentList(S, config)),
 					S.divider(),
-					getFolder(S, {
-						title: 'Pagina’s',
-						icon: RiPagesLine,
-						items: [
-							...genericPagesConfig.map((config) => getPageList(S, config)),
-						],
-					}),
-
 					getFolder(S, {
 						title: 'Documenten',
 						icon: IoDocumentOutline,
