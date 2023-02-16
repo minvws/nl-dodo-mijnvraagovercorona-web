@@ -15,9 +15,9 @@ export default defineType({
 			type: 'string',
 		}),
 		defineField({
-			title: 'Content',
-			name: 'content',
-			type: 'customBlock',
+			title: 'Content blokken',
+			name: 'multiContentBlocks',
+			type: 'multiContentBlocks',
 		}),
 		defineField({
 			title: 'Overzicht',

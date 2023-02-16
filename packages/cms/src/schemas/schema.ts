@@ -22,6 +22,7 @@ import metaDataObject from './translated/objects/metaData';
 import iconPickerObject from './translated/objects/iconPicker';
 import buttonObject from './translated/objects/button';
 import heroObject from './translated/objects/hero';
+import multiContentBlocksObject from './translated/objects/multiContentBlocks';
 import pageReferenceObject from './translated/objects/pageReference';
 import internalPageSelectorObject from './translated/objects/internalPageSelector';
 import taleSelectorObject from './translated/objects/taleSelector';
@@ -100,6 +101,7 @@ export default [
 	iconPickerObject,
 	heroObject,
 	buttonObject,
+	multiContentBlocksObject,
 	pageReferenceObject,
 	internalPageSelectorObject,
 	taleSelectorObject,
