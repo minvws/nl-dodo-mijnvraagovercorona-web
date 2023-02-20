@@ -15,6 +15,7 @@ import { Layer } from '@design-system/components/Layout/Layer';
 import Heading from '@design-system/elements/Heading/Heading.astro';
 import { Sidebar } from '@design-system/components/Layout/Sidebar';
 import { CardPrivacy } from '@design-system/components/Card';
+import { Video } from '@design-system/components/Video';
 
 export async function getStaticPaths() {
 	const collection = await getDataPZALandingPages();
@@ -38,6 +39,8 @@ interface Props {
 }
 
 const { pageData, locale } = Astro.props;
+
+console.log(pageData.taleCollection[0].multiContentBlocks);
 ---
 
 <Layout
@@ -81,7 +84,29 @@ const { pageData, locale } = Astro.props;
 					pageData.taleCollection.map((tale) => (
 						<section>
 							<Heading>{tale.title}</Heading>
-							<ContentBlock value={tale.content} />
+							{/* TODO: MultiContentBlockComponent */}
+							{tale.multiContentBlocks.map((multiContentBlock) => (
+								<>
+									{multiContentBlock.type === 'content' ? (
+										<ContentBlock value={multiContentBlock.content} />
+									) : multiContentBlock.type === 'button' ? (
+										<Button
+											href={multiContentBlock.href}
+											icon={multiContentBlock.icon}
+											variant={multiContentBlock.variant}
+										>
+											{multiContentBlock.label}
+										</Button>
+									) : multiContentBlock.type === 'picture' ? (
+										<img
+											src={multiContentBlock.image.src}
+											alt={multiContentBlock.alt || ''}
+										/>
+									) : multiContentBlock.type === 'video' ? (
+										<mark>TODO-video</mark>
+									) : null}
+								</>
+							))}
 						</section>
 					))
 				}

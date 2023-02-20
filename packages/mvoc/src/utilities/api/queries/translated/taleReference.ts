@@ -1,26 +1,18 @@
-import { ContentBlockProps } from '@design-system/components/ContentBlock';
-import { ImageProps, imageQuery } from '../image';
-import { buttonsQuery, ButtonProps } from './buttons';
-import { customBlockQuery } from './customBlock';
+import {
+	MultiContentBlocksProps,
+	multiContentBlocksQuery,
+} from './multiContentBlock';
 
 export interface TaleCollectionProps {
 	taleCollection: {
 		title: string;
-		multiContentBlocks: {
-			content?: ContentBlockProps['value'];
-			image?: ImageProps;
-			button?: ButtonProps;
-		}[];
+		multiContentBlocks: MultiContentBlocksProps;
 	}[];
 }
 
 export const taleReferenceQuery = (): string => {
 	return `taleCollection[]->{
 		title,
-		multiContentBlocks[]{
-			${customBlockQuery({ name: 'content' })},
-			${imageQuery({ name: 'image' })},
-			${buttonsQuery({ array: false })},
-		},
+		${multiContentBlocksQuery()}
 	}`;
 };

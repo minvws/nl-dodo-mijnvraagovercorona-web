@@ -7,3 +7,6 @@ export * from './internalPageReference';
 export * from './taleReference';
 export * from './modals';
 export * from './buttons';
+export * from './picture';
+export * from './video';
+export * from './multiContentBlock';
