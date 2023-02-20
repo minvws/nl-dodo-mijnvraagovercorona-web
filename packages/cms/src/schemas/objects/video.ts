@@ -2,7 +2,7 @@ import { defineField, defineType } from 'sanity';
 
 export default defineType({
 	title: 'Video',
-	name: 'video',
+	name: 'videoOld',
 	type: 'object',
 	fields: [
 		defineField({
@@ -26,7 +26,7 @@ export default defineType({
 		select: {
 			title: 'title.nl',
 			subtitle: 'url',
-			icon: 'image',
+			media: 'image',
 		},
 	},
 });

@@ -21,6 +21,8 @@ import {
 import metaDataObject from './translated/objects/metaData';
 import iconPickerObject from './translated/objects/iconPicker';
 import buttonObject from './translated/objects/button';
+import pictureObject from './translated/objects/picture';
+import videoObject from './translated/objects/video';
 import heroObject from './translated/objects/hero';
 import multiContentBlocksObject from './translated/objects/multiContentBlocks';
 import pageReferenceObject from './translated/objects/pageReference';
@@ -62,7 +64,7 @@ import {
 	localeBlockWithoutModalObject,
 } from './objects/localeBlock';
 import localeUrlObject from './objects/localeUrl';
-import videoObject from './objects/video';
+import videoObjectOld from './objects/video';
 import thisOrThatLocaleStringObject from './objects/thisOrThatLocaleString';
 import disclosureObject from './objects/disclosure';
 import pageMetaDataObject from './objects/pageMetaData';
@@ -101,6 +103,8 @@ export default [
 	iconPickerObject,
 	heroObject,
 	buttonObject,
+	pictureObject,
+	videoObject,
 	multiContentBlocksObject,
 	pageReferenceObject,
 	internalPageSelectorObject,
@@ -153,7 +157,7 @@ export default [
 	localeBlockObject,
 	localeBlockWithoutModalObject,
 	localeUrlObject,
-	videoObject,
+	videoObjectOld,
 	thisOrThatLocaleStringObject,
 	disclosureObject,
 	pageMetaDataObject,
