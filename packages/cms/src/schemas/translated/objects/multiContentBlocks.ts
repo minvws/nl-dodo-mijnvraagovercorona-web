@@ -8,25 +8,6 @@ export default defineType({
 	type: 'array',
 	of: [
 		defineField({
-			title: 'Button',
-			name: 'button',
-			type: 'object',
-			icon: BiLinkAlt,
-			preview: {
-				select: {
-					title: 'button.label',
-				},
-			},
-			fields: [
-				defineField({
-					title: 'Knop',
-					name: 'button',
-					type: 'flexibleButton',
-					icon: BiLinkAlt,
-				}),
-			],
-		}),
-		defineField({
 			title: 'Content',
 			name: 'content',
 			type: 'object',
@@ -45,51 +26,22 @@ export default defineType({
 			],
 		}),
 		defineField({
+			title: 'Button',
+			name: 'button',
+			type: 'flexibleButton',
+			icon: BiLinkAlt,
+		}),
+		defineField({
 			title: 'Afbeelding',
 			name: 'picture',
-			type: 'object',
+			type: 'picture',
 			icon: BsCardImage,
-			preview: {
-				select: {
-					title: 'image.asset.originalFilename',
-					media: 'image',
-				},
-			},
-			fields: [
-				defineField({
-					title: 'Afbeelding',
-					name: 'image',
-					type: 'image',
-					icon: BsCardImage,
-				}),
-				defineField({
-					title: 'ALT attribuut',
-					name: 'alt',
-					type: 'string',
-					description:
-						'Beschrijf zo duidelijk mogelijk wat er op de afbeelding te zien is. Laat leeg wanneer de afbeelding puur decoratief is. ',
-				}),
-			],
 		}),
 		defineField({
 			title: 'Video',
 			name: 'video',
-			type: 'object',
+			type: 'video',
 			icon: BsCameraVideo,
-			preview: {
-				select: {
-					title: 'video.url',
-					media: 'video.image',
-				},
-			},
-			fields: [
-				defineField({
-					title: 'Video',
-					name: 'video',
-					type: 'video',
-					icon: BsCameraVideo,
-				}),
-			],
 		}),
 	],
 });

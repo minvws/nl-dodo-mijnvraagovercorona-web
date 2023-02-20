@@ -15,6 +15,12 @@ export default defineType({
 			type: 'string',
 		}),
 		defineField({
+			title: 'Afbeelding',
+			name: 'picture',
+			type: 'picture',
+			description: 'Afbeelding word getoond naast de content',
+		}),
+		defineField({
 			title: 'Content blokken',
 			name: 'multiContentBlocks',
 			type: 'multiContentBlocks',
@@ -43,14 +49,15 @@ export default defineType({
 		select: {
 			title: 'title',
 			overviewTitle: 'overview.title',
-			media: 'overview.icon',
+			icon: 'overview.icon',
+			picture: 'picture.image',
 			lang: '__i18n_lang',
 		},
 		prepare(selection) {
-			const { title, overviewTitle, media, lang } = selection;
+			const { title, overviewTitle, icon, picture, lang } = selection;
 			return {
 				title: overviewTitle || title,
-				media: media,
+				media: icon || picture,
 				subtitle: lang,
 			};
 		},
