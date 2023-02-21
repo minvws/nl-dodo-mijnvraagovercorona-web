@@ -15,7 +15,13 @@ import { Layer } from '@design-system/components/Layout/Layer';
 import Heading from '@design-system/elements/Heading/Heading.astro';
 import { Sidebar } from '@design-system/components/Layout/Sidebar';
 import { CardPrivacy } from '@design-system/components/Card';
-import { Video } from '@design-system/components/Video';
+import { Picture } from '@design-system/components/Picture';
+import {
+	isContent,
+	isPicture,
+	isButton,
+	isVideo,
+} from 'src/utilities/api/queries/translated';
 
 export async function getStaticPaths() {
 	const collection = await getDataPZALandingPages();
@@ -39,8 +45,6 @@ interface Props {
 }
 
 const { pageData, locale } = Astro.props;
-
-console.log(pageData.taleCollection[0].multiContentBlocks);
 ---
 
 <Layout
@@ -80,6 +84,7 @@ console.log(pageData.taleCollection[0].multiContentBlocks);
 	<Layer pullUpBy={'hero'}>
 		<Retain>
 			<Sidebar>
+				{/* TODO: Tale Component */}
 				{
 					pageData.taleCollection.map((tale) => (
 						<section>
@@ -87,9 +92,9 @@ console.log(pageData.taleCollection[0].multiContentBlocks);
 							{/* TODO: MultiContentBlockComponent */}
 							{tale.multiContentBlocks.map((multiContentBlock) => (
 								<>
-									{multiContentBlock.type === 'content' ? (
+									{isContent(multiContentBlock) ? (
 										<ContentBlock value={multiContentBlock.content} />
-									) : multiContentBlock.type === 'button' ? (
+									) : isButton(multiContentBlock) ? (
 										<Button
 											href={multiContentBlock.href}
 											icon={multiContentBlock.icon}
@@ -97,12 +102,9 @@ console.log(pageData.taleCollection[0].multiContentBlocks);
 										>
 											{multiContentBlock.label}
 										</Button>
-									) : multiContentBlock.type === 'picture' ? (
-										<img
-											src={multiContentBlock.image.src}
-											alt={multiContentBlock.alt || ''}
-										/>
-									) : multiContentBlock.type === 'video' ? (
+									) : isPicture(multiContentBlock) ? (
+										<Picture {...multiContentBlock} />
+									) : isVideo(multiContentBlock) ? (
 										<mark>TODO-video</mark>
 									) : null}
 								</>

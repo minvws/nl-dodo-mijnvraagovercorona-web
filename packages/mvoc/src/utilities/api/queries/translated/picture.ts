@@ -1,18 +1,6 @@
-export interface PictureProps {
-	type: 'picture';
-	alt?: string;
-	image?: {
-		src: string;
-		metaData: {
-			lqip: string;
-			dimensions: {
-				aspectRatio: number;
-				height: number;
-				width: number;
-			};
-		};
-	};
-}
+import { PictureProps as PicturePropsElement } from '@design-system/components/Picture';
+
+export interface PictureProps extends PicturePropsElement {}
 
 export const pictureQuery = ({
 	omitProperty = false,
