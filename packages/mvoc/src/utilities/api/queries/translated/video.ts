@@ -1,18 +1,11 @@
+import { PictureProps } from "@design-system/components/Picture";
+import { pictureQuery } from "./picture";
+
 export interface VideoProps {
 	type: 'video';
 	url: string;
 	title: string;
-	image?: {
-		src: string;
-		metaData: {
-			lqip: string;
-			dimensions: {
-				aspectRatio: number;
-				height: number;
-				width: number;
-			};
-		};
-	};
+	picture?: PictureProps;
 }
 
 export const videoQuery = ({
@@ -24,9 +17,6 @@ export const videoQuery = ({
 		"type": _type,
 		title,
 		url,
-		image{
-			"src": "/images/sanity/" + asset->sha1hash + "-" + asset->originalFilename,
-			"metaData": asset->metadata
-		},
+		${pictureQuery({})},
 	}`;
 };

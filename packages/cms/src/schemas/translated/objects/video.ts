@@ -13,8 +13,8 @@ export default defineType({
 		}),
 		defineField({
 			title: 'Cover image',
-			name: 'image',
-			type: 'image',
+			name: 'picture',
+			type: 'picture',
 			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
@@ -33,7 +33,7 @@ export default defineType({
 		select: {
 			title: 'title',
 			subtitle: 'url',
-			media: 'image',
+			media: 'picture.image',
 		},
 	},
 });
