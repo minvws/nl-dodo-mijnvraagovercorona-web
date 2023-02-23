@@ -1,11 +1,11 @@
 import { Locale } from 'src/utilities/locale/translation';
 import { ImageProps, imageQuery } from './image';
 import { localePropertyQuery } from './localeProperty';
-import type { MultiContentBlockProps } from '@design-system/components/ContentBlock';
+import type { MultiContentBlockOldProps } from '@design-system/components/ContentBlock';
 
 export interface StoryProps {
 	headline: string;
-	contentBlocks: MultiContentBlockProps[];
+	contentBlocks: MultiContentBlockOldProps[];
 	overview: {
 		title: string;
 		icon: ImageProps;

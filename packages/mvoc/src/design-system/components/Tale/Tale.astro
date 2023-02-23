@@ -1,0 +1,43 @@
+---
+import { Heading } from '@design-system/elements/Heading';
+import { MultiContentBlock } from '../ContentBlock';
+import { Switcher } from '../Layout/Grid';
+import { Stack } from '../Layout/Stack';
+import { Picture } from '../Picture';
+
+const { taleCollection } = Astro.props;
+---
+
+<Stack class="c-tale-block" gap="small">
+	{
+		taleCollection.map((tale) => (
+			<section>
+				<Switcher>
+					<Stack>
+						<Heading>{tale.title}</Heading>
+						<MultiContentBlock multiContentBlocks={tale.multiContentBlocks} />
+					</Stack>
+					<Picture class="c-tale-block__picture" {...tale.picture} />
+				</Switcher>
+			</section>
+		))
+	}
+</Stack>
+
+<style lang="scss">
+	@use '@design-system-styles/tools/_list.scss';
+
+	.c-tale-block {
+	}
+
+	.c-tale-block__content {
+		@include list.steps;
+	}
+
+	.c-tale-block__picture {
+		:global(img) {
+			max-inline-size: 100%;
+			margin-inline: auto;
+		}
+	}
+</style>

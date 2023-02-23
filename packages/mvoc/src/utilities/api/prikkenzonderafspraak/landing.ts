@@ -1,6 +1,5 @@
 import { ContentBlockProps } from '@design-system/components/ContentBlock';
 import { AlternativeTranslationsProps } from '@design-system/components/LocaleSelector';
-import { ButtonVariants } from '@design-system/elements/Button';
 import { useSanityClient } from 'astro-sanity';
 import { getPageTranslations } from '../../helpers/get-page-translations';
 import {

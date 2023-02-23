@@ -3,7 +3,7 @@ import { Heading } from '@design-system/elements/Heading';
 import { HTMLAttributes } from 'astro/types';
 import { StoryProps } from 'src/utilities/api/queries/stories';
 import { stringToSlug } from 'src/utilities/stringToSlug';
-import { MultiContentBlock } from '../ContentBlock';
+import { MultiContentBlockOld } from '../ContentBlock';
 import { Stack } from '../Layout/Stack';
 
 interface Props extends HTMLAttributes<'section'>, StoryProps {}
@@ -17,7 +17,7 @@ const { headline, contentBlocks, overview, class: className } = Astro.props;
 >
 	<Stack gap="small">
 		<Heading>{headline}</Heading>
-		<MultiContentBlock contentBlocks={contentBlocks} />
+		<MultiContentBlockOld contentBlocks={contentBlocks} />
 	</Stack>
 </section>
 
