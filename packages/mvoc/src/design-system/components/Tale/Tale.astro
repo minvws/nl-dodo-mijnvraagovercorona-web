@@ -8,7 +8,7 @@ import { Picture } from '../Picture';
 const { taleCollection } = Astro.props;
 ---
 
-<Stack class="c-tale-block" gap="small">
+<Stack class="c-tale" gap="small">
 	{
 		taleCollection.map((tale) => (
 			<section>
@@ -17,7 +17,7 @@ const { taleCollection } = Astro.props;
 						<Heading>{tale.title}</Heading>
 						<MultiContentBlock multiContentBlocks={tale.multiContentBlocks} />
 					</Stack>
-					<Picture class="c-tale-block__picture" {...tale.picture} />
+					<Picture class="c-tale__picture" {...tale.picture} />
 				</Switcher>
 			</section>
 		))
@@ -27,14 +27,14 @@ const { taleCollection } = Astro.props;
 <style lang="scss">
 	@use '@design-system-styles/tools/_list.scss';
 
-	.c-tale-block {
+	.c-tale {
 	}
 
-	.c-tale-block__content {
+	.c-tale__content {
 		@include list.steps;
 	}
 
-	.c-tale-block__picture {
+	.c-tale__picture {
 		:global(img) {
 			max-inline-size: 100%;
 			margin-inline: auto;
