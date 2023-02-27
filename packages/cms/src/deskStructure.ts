@@ -71,6 +71,11 @@ const mvocDocumentsConfig = [
 		title: 'Tale',
 		icon: AiOutlineRead,
 	},
+	{
+		schemaType: 'assistance',
+		title: 'Hulp',
+		icon: FaHandsHelping,
+	},
 ];
 
 const mvocPagesDocumentsConfig = [
