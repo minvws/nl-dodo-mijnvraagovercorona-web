@@ -1,37 +1,35 @@
 ---
 import { Heading } from '@design-system/elements/Heading';
+import { Tale } from 'src/utilities/api/queries/translated';
 import { MultiContentBlock } from '../ContentBlock';
 import { Switcher } from '../Layout/Grid';
 import { Stack } from '../Layout/Stack';
 import { Picture } from '../Picture';
 
-const { taleCollection } = Astro.props;
+type Props = Tale;
+
+const { title, multiContentBlocks, picture } = Astro.props;
 ---
 
-<Stack class="c-tale" gap="small">
-	{
-		taleCollection.map((tale) => (
-			<section>
-				<Switcher>
-					<Stack>
-						<Heading>{tale.title}</Heading>
-						<MultiContentBlock multiContentBlocks={tale.multiContentBlocks} />
-					</Stack>
-					<Picture class="c-tale__picture" {...tale.picture} />
-				</Switcher>
-			</section>
-		))
-	}
-</Stack>
+<section class="c-tale">
+	<Switcher class="c-tale__switcher">
+		<Stack>
+			<Heading>{title}</Heading>
+			<MultiContentBlock multiContentBlocks={multiContentBlocks} />
+		</Stack>
+		<Picture class="c-tale__picture" {...picture} />
+	</Switcher>
+</section>
 
 <style lang="scss">
 	@use '@design-system-styles/tools/_list.scss';
 
 	.c-tale {
-	}
-
-	.c-tale__content {
-		@include list.steps;
+		&:nth-of-type(even) {
+			.c-tale__switcher {
+				flex-direction: row-reverse;
+			}
+		}
 	}
 
 	.c-tale__picture {

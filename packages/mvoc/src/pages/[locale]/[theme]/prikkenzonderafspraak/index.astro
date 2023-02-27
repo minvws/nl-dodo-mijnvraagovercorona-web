@@ -14,7 +14,7 @@ import { Retain } from '@design-system/components/Layout/Retain';
 import { Layer } from '@design-system/components/Layout/Layer';
 import { Sidebar } from '@design-system/components/Layout/Sidebar';
 import { CardPrivacy } from '@design-system/components/Card';
-import { Tale } from '@design-system/components/Tale';
+import { TaleList } from '@design-system/components/Tale';
 
 export async function getStaticPaths() {
 	const collection = await getDataPZALandingPages();
@@ -77,7 +77,7 @@ const { pageData, locale } = Astro.props;
 	<Layer pullUpBy={'hero'}>
 		<Retain>
 			<Sidebar>
-				<Tale taleCollection={pageData.taleCollection} />
+				<TaleList taleCollection={pageData.taleCollection} />
 				<Stack slot="aside">
 					<p>
 						<mark>Verder praten?</mark>

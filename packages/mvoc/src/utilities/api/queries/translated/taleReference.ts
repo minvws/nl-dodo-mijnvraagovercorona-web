@@ -4,12 +4,14 @@ import {
 } from './multiContentBlock';
 import { PictureProps, pictureQuery } from './picture';
 
+export interface Tale {
+	title: string;
+	picture?: PictureProps;
+	multiContentBlocks: MultiContentBlocksProps;
+}
+
 export interface TaleCollectionProps {
-	taleCollection: {
-		title: string;
-		picture?: PictureProps;
-		multiContentBlocks: MultiContentBlocksProps;
-	}[];
+	taleCollection: Tale[];
 }
 
 export const taleReferenceQuery = (): string => {
