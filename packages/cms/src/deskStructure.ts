@@ -56,7 +56,7 @@ const mvocPagesConfig = [
 		icon: FaFeatherAlt,
 	},
 	{
-		schemaType: 'check-landing-page',
+		schemaType: 'check-landing',
 		title: 'Landing',
 		icon: GiHouse,
 	},

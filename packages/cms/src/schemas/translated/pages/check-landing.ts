@@ -23,7 +23,7 @@ export default defineType({
 		defineField({
 			title: 'Meta data',
 			name: 'metaData',
-			type: 'pageMetaData',
+			type: 'metaData',
 		}),
 		defineField({
 			title: 'Header',
@@ -73,7 +73,7 @@ export default defineType({
 				defineField({
 					title: 'Uitleg',
 					name: 'content',
-					type: 'localeBlock',
+					type: 'customBlock',
 				}),
 				defineField({
 					title: 'Icoon',
@@ -104,7 +104,7 @@ export default defineType({
 				defineField({
 					title: 'Uitleg',
 					name: 'content',
-					type: 'localeBlock',
+					type: 'customBlock',
 				}),
 				defineField({
 					title: 'Thema’s',
@@ -128,8 +128,8 @@ export default defineType({
 				collapsed: true,
 			},
 			fields: [
-				defineField({ title: 'Titel', name: 'title', type: 'localeString' }),
-				defineField({ title: 'Button', name: 'button', type: 'localeString' }),
+				defineField({ title: 'Titel', name: 'title', type: 'string' }),
+				defineField({ title: 'Button', name: 'button', type: 'string' }),
 			],
 		}),
 		defineField({
