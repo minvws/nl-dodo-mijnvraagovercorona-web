@@ -33,17 +33,17 @@ export default defineType({
 				defineField({
 					title: 'Titel',
 					name: 'title',
-					type: 'localeString',
+					type: 'string',
 				}),
 				defineField({
 					title: 'Chapeau',
 					name: 'chapeau',
-					type: 'localeString',
+					type: 'string',
 				}),
 				defineField({
 					title: 'Subtitel',
 					name: 'subtitle',
-					type: 'localeString',
+					type: 'string',
 				}),
 				defineField({
 					title: 'Illustratie',
@@ -99,7 +99,7 @@ export default defineType({
 				defineField({
 					title: 'Titel',
 					name: 'title',
-					type: 'localeString',
+					type: 'string',
 				}),
 				defineField({
 					title: 'Uitleg',
