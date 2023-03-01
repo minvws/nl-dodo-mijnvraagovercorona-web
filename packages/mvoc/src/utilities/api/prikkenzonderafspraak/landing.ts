@@ -3,6 +3,10 @@ import { AlternativeTranslationsProps } from '@design-system/components/LocaleSe
 import { useSanityClient } from 'astro-sanity';
 import { getPageTranslations } from '../../helpers/get-page-translations';
 import {
+	AssistanceProps,
+	assistanceQuery,
+} from '../queries/translated/assistance';
+import {
 	PageProps,
 	pageQuery,
 	heroQuery,
@@ -17,6 +21,7 @@ import {
 export interface PZALandingPageProps extends PageProps {
 	hero: HeroProps;
 	buttons: ButtonsProps;
+	assistance: AssistanceProps;
 	contentSecondary: ContentBlockProps['value'];
 	taleCollection: TaleCollectionProps['taleCollection'];
 	locale: string;
@@ -30,6 +35,7 @@ export async function getDataPZALandingPages() {
 		${buttonsQuery({ array: true })},
 		${customBlockQuery({ name: 'contentSecondary' })},
 		${taleReferenceQuery()},
+		${assistanceQuery()},
 		"slug": "prikkenzonderafspraak",
 	}`;
 

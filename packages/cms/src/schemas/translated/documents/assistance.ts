@@ -10,7 +10,7 @@ export default defineType({
 	},
 	preview: {
 		select: {
-			title: 'title.nl',
+			title: 'title',
 			subtitle: 'phonenumber',
 		},
 	},
@@ -22,8 +22,8 @@ export default defineType({
 		}),
 		defineField({
 			title: 'Afbeelding',
-			name: 'image',
-			type: 'image',
+			name: 'picture',
+			type: 'picture',
 		}),
 		defineField({
 			title: 'Tekst zonder chat',
