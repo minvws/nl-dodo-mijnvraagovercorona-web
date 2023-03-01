@@ -1,0 +1,115 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import {
+	availableLocales,
+	Locale,
+	prefixUrlWithlocale,
+} from 'src/utilities/locale/translation';
+import { getDataHome, PageHomeProps } from 'src/utilities/api';
+import { Hero } from '@design-system/components/Hero';
+import { Layer } from '@design-system/components/Layout/Layer';
+import { Retain } from '@design-system/components/Layout/Retain';
+import { Stack } from '@design-system/components/Layout/Stack';
+import { SectionHeadingGroup } from '@design-system/components/SectionHeadingGroup';
+import { ContentBlock } from '@design-system/components/ContentBlock';
+import { GridFluid } from '@design-system/components/Layout/Grid';
+import { Button } from '@design-system/elements/Button';
+import { ThemeOverview } from '@design-system/components/ThemeOverview';
+import { stringToSlug } from 'src/utilities/stringToSlug';
+import { Assistance } from '@design-system/components/Assistance';
+
+export async function getStaticPaths() {
+	return availableLocales.map((locale) => ({
+		params: { locale: locale.id },
+		props: {
+			locale,
+		},
+	}));
+}
+
+interface HomeProps {
+	pageData: PageHomeProps;
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const { pageData }: HomeProps = await getDataHome({ locale });
+---
+
+<Layout
+	locale={locale}
+	metaData={pageData.metaData}
+	skipPageSuffix
+	mastheadHighlight
+>
+	<Hero
+		title={pageData.header.title}
+		chapeau={pageData.header.chapeau}
+		subTitle={pageData.header.subtitle}
+		image={pageData.header.image}
+		highlight
+	/>
+
+	<Layer
+		pullUpBy="hero"
+		background="ijsblauw"
+		id={stringToSlug(pageData.important.title)}
+	>
+		<Retain>
+			<Stack gap="huge">
+				<SectionHeadingGroup
+					title={pageData.important.title}
+					icon={pageData.important.icon}
+				>
+					<ContentBlock value={pageData.important.content} />
+				</SectionHeadingGroup>
+				<GridFluid class="grid-important">
+					{
+						pageData.important.questionCollection
+							?.filter((item) => item.title)
+							.map((item) => (
+								<Button
+									variant="tertiary"
+									href={prefixUrlWithlocale(`/${item.path}`, locale)}
+									icon="chevron-small-right"
+									interactionIconAnimation="swing"
+								>
+									<ContentBlock value={item.title} />
+								</Button>
+							))
+					}
+				</GridFluid>
+			</Stack>
+		</Retain>
+	</Layer>
+
+	<Layer id={stringToSlug(pageData.themes.title)}>
+		<Retain>
+			<Stack gap="huge">
+				<SectionHeadingGroup title={pageData.themes.title}>
+					<ContentBlock value={pageData.themes.content} />
+				</SectionHeadingGroup>
+				<ThemeOverview themeCollection={pageData.themes.themeCollection} />
+			</Stack>
+		</Retain>
+	</Layer>
+
+	{
+		pageData.assistance && (
+			<Layer id={stringToSlug(pageData.assistance.headline)}>
+				<Retain>
+					<Assistance feedback {...pageData.assistance} />
+				</Retain>
+			</Layer>
+		)
+	}
+</Layout>
+
+<style lang="scss">
+	@use '@design-system-styles/primitives/_responsive.scss';
+
+	.grid-important {
+		--grid-fluid-min-item-size: 20rem; // 400px
+		--grid-fluid-gap: var(--stack-small);
+	}
+</style>

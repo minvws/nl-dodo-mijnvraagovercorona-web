@@ -17,10 +17,18 @@ const { label } = Astro.props;
 	@use '@design-system-styles/tools/_a11y.scss';
 
 	.c-skiplink {
+		position: absolute;
+		inset-block-start: var(--space-r-tiny);
+		inset-inline-start: var(--masthead-inline-padding);
 		justify-content: center;
 		border-radius: 0;
 		&:not(:focus) {
 			@include a11y.visually-hidden;
+		}
+		@media --mq-large {
+			& {
+				inset-block-start: var(--space-r-base);
+			}
 		}
 	}
 </style>
