@@ -9,6 +9,7 @@ import modalsDocument from './translated/documents/modals';
 import genericPage from './translated/pages/generic';
 import errorPage from './translated/pages/error';
 import themePage from './translated/pages/theme';
+import checkLandingPage from './translated/pages/check-landing';
 
 // objects
 import {
@@ -47,7 +48,7 @@ import toegankelijkheidPage from './pages/common/toegankelijkheid';
 import error404Page from './pages/common/404page';
 
 // MVOC
-import checkLandingPage from './pages/mvoc/check-landing';
+import checkLandingPageOld from './pages/mvoc/check-landing';
 
 // Objects
 import localeStringObject from './objects/localeString';
@@ -80,6 +81,7 @@ export default [
 	genericPage,
 	errorPage,
 	themePage,
+	checkLandingPage,
 
 	// documents
 	siteSettingsDocument,
@@ -109,7 +111,7 @@ export default [
 	/**
 	 * Mvoc pages
 	 */
-	checkLandingPage,
+	checkLandingPageOld,
 
 	/**
 	 * Site settings
