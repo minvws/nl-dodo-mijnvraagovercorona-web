@@ -29,7 +29,7 @@ export async function getStaticPaths() {
 			locale: page.localeID,
 		},
 		props: {
-			pageData: page,
+			pagesData: collection,
 			locale: availableLocales.filter(
 				(locale) => locale.id === page.localeID,
 			)[0],
@@ -37,13 +37,17 @@ export async function getStaticPaths() {
 	}));
 }
 
-interface HomeProps {
-	pageData: PageHomeProps;
+interface Props {
 	locale: Locale;
+	pagesData?: PageHomeProps[];
 }
 
-const { locale, pageData } = Astro.props;
-// const localePagedata: HomeProps = await getDataHomeByLocale({ locale });
+const { locale, pagesData } = Astro.props;
+
+// Get pagedata based on locale
+const pageData: PageHomeProps = pagesData.filter(
+	(page) => page.localeID === locale.id,
+)[0];
 ---
 
 <Layout
@@ -51,6 +55,7 @@ const { locale, pageData } = Astro.props;
 	metaData={pageData.metaData}
 	skipPageSuffix
 	mastheadHighlight
+	alternativeTranslations={pageData.alternatives}
 >
 	<Hero
 		title={pageData.hero.title}
@@ -59,7 +64,7 @@ const { locale, pageData } = Astro.props;
 		highlight
 	/>
 
-	{
+	<!-- {
 		pageData.assistance && (
 			<Layer id={stringToSlug(pageData.assistance.headline)}>
 				<Retain>
@@ -67,7 +72,7 @@ const { locale, pageData } = Astro.props;
 				</Retain>
 			</Layer>
 		)
-	}
+	} -->
 </Layout>
 
 <style lang="scss">

@@ -1,6 +1,9 @@
 ---
+import { getDataHome } from 'src/utilities/api';
 import { locales } from 'src/utilities/locale/translation';
 import IndexPage from './[locale]/index.astro';
+
+const pagesData = await getDataHome();
 ---
 
-<IndexPage locale={locales.dutch} />
+<IndexPage locale={locales.dutch} pagesData={pagesData} />

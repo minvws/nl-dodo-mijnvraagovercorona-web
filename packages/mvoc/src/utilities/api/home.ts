@@ -39,20 +39,3 @@ export async function getDataHome() {
 
 	return getPageTranslations(data.pages);
 }
-
-export async function getDataHomeByLocale({ locale }: { locale: Locale }) {
-	const projection = `{
-		${heroQuery()},
-	}`;
-
-	const query = pageQuery({
-		type: 'homepage',
-		projection,
-		multiple: false,
-		locale,
-	});
-
-	const data = await useSanityClient().fetch(query);
-
-	return getPageTranslations(data.pageData, false);
-}
