@@ -2,8 +2,8 @@ import { string } from 'prop-types';
 import { defineType, defineField } from 'sanity';
 
 export default defineType({
-	title: 'Check Landing Pagina',
-	name: 'check-landing',
+	title: 'Homepage',
+	name: 'homepage',
 	type: 'document',
 	i18n: true,
 	initialValue: {
@@ -26,35 +26,9 @@ export default defineType({
 			type: 'metaData',
 		}),
 		defineField({
-			title: 'Header',
-			name: 'header',
-			type: 'object',
-			fields: [
-				defineField({
-					title: 'Titel',
-					name: 'title',
-					type: 'string',
-				}),
-				defineField({
-					title: 'Chapeau',
-					name: 'chapeau',
-					type: 'string',
-				}),
-				defineField({
-					title: 'Subtitel',
-					name: 'subtitle',
-					type: 'string',
-				}),
-				defineField({
-					title: 'Illustratie',
-					name: 'image',
-					type: 'image',
-				}),
-			],
-			options: {
-				collapsible: true,
-				collapsed: true,
-			},
+			title: 'Hero',
+			name: 'hero',
+			type: 'hero',
 		}),
 		defineField({
 			title: 'Nu belangrijk',
@@ -88,32 +62,6 @@ export default defineType({
 			],
 		}),
 		defineField({
-			title: 'Themas',
-			name: 'themes',
-			type: 'object',
-			options: {
-				collapsible: true,
-				collapsed: true,
-			},
-			fields: [
-				defineField({
-					title: 'Titel',
-					name: 'title',
-					type: 'string',
-				}),
-				defineField({
-					title: 'Uitleg',
-					name: 'content',
-					type: 'customBlock',
-				}),
-				defineField({
-					title: 'Thema’s',
-					name: 'themeCollection',
-					type: 'themeSelector',
-				}),
-			],
-		}),
-		defineField({
 			title: 'Hulp',
 			name: 'assistanceReference',
 			type: 'reference',
@@ -132,10 +80,18 @@ export default defineType({
 				defineField({ title: 'Button', name: 'button', type: 'string' }),
 			],
 		}),
-		defineField({
-			title: 'URL',
-			name: 'url',
-			type: 'string',
-		}),
 	],
+	preview: {
+		select: {
+			title: 'metaData.title',
+			locale: '__i18n_lang',
+		},
+		prepare(selection) {
+			const { title, locale } = selection;
+			return {
+				title: title,
+				subtitle: `${locale}`,
+			};
+		},
+	},
 });

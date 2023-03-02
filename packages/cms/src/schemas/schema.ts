@@ -9,7 +9,7 @@ import modalsDocument from './translated/documents/modals';
 import genericPage from './translated/pages/generic';
 import errorPage from './translated/pages/error';
 import themePage from './translated/pages/theme';
-import checkLandingPage from './translated/pages/check-landing';
+import homePage from './translated/pages/homepage';
 
 // objects
 import {
@@ -81,7 +81,7 @@ export default [
 	genericPage,
 	errorPage,
 	themePage,
-	checkLandingPage,
+	homePage,
 
 	// documents
 	siteSettingsDocument,

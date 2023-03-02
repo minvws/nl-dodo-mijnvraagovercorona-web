@@ -55,11 +55,6 @@ const mvocPagesConfig = [
 		title: 'Thema',
 		icon: FaFeatherAlt,
 	},
-	{
-		schemaType: 'check-landing',
-		title: 'Landing',
-		icon: GiHouse,
-	},
 ];
 
 const mvocDocumentsConfig = [
@@ -163,6 +158,11 @@ export default (S) =>
 						title: 'Pagina’s',
 						icon: RiPagesLine,
 						items: [
+							getTranslatedSingleton(S, {
+								title: 'Homepage',
+								type: 'homepage',
+								icon: GiHouse,
+							}),
 							...mvocPagesConfig.map((config) =>
 								getTranslatedDocumentList(S, config),
 							),

@@ -1,12 +1,12 @@
 import { availableLocales } from '../locale/translation';
 
-export const getPageTranslations = (pages) =>
-	pages.reduce((pagesAcc, parsePage) => {
-		const parsePageID = parsePage.base_ref
-			? parsePage.base_ref.split('__i18n')[0]
-			: undefined || parsePage.id;
+export const getPageTranslations = (data, multiple = true) => {
+	const parsePage = (oldPage) => {
+		const parsePageID = oldPage.base_ref
+			? oldPage.base_ref.split('__i18n')[0]
+			: undefined || oldPage.id;
 
-		const alternatives = pages.filter((page) => {
+		const alternatives = data.filter((page) => {
 			const pageID = page.base_ref
 				? page.base_ref.split('__i18n')[0]
 				: undefined || page.id;
@@ -14,8 +14,8 @@ export const getPageTranslations = (pages) =>
 			return parsePageID === pageID;
 		});
 
-		const newPage = {
-			...parsePage,
+		return {
+			...oldPage,
 			alternatives: alternatives.map((alternative) => ({
 				locale: availableLocales.filter(
 					(locale) => locale.id === alternative.localeID,
@@ -23,6 +23,11 @@ export const getPageTranslations = (pages) =>
 				slug: alternative.slug,
 			})),
 		};
-
-		return [...pagesAcc, newPage];
-	}, []);
+	};
+	return multiple
+		? data.reduce((pagesAcc, oldPage) => {
+				const newPage = parsePage(oldPage);
+				return [...pagesAcc, newPage];
+		  }, [])
+		: parsePage(data);
+};
