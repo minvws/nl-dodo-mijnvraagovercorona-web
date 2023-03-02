@@ -79,28 +79,30 @@ const parsedButtons = buttons?.map((button, index) => {
 						))
 					}
 				</Stack>
-				<Disclosure>
-					<DisclosureItem
-						label={showMoreLabel.this}
-						labelActive={showMoreLabel.that}
-					>
-						<Stack gap="small">
-							{
-								secondGroup.map(({ content, _key }) => (
-									<Control
-										type="checkbox"
-										name={AnswersMultipleModuleName}
-										id={_key}
-										value={content}
-										variant="tile"
-									>
-										{content}
-									</Control>
-								))
-							}
-						</Stack>
-					</DisclosureItem>
-				</Disclosure>
+				{
+					secondGroup.length ? (
+						<Disclosure>
+							<DisclosureItem
+								label={showMoreLabel.this}
+								labelActive={showMoreLabel.that}
+							>
+								<Stack gap="small">
+									{secondGroup.map(({ content, _key }) => (
+										<Control
+											type="checkbox"
+											name={AnswersMultipleModuleName}
+											id={_key}
+											value={content}
+											variant="tile"
+										>
+											{content}
+										</Control>
+									))}
+								</Stack>
+							</DisclosureItem>
+						</Disclosure>
+					) : null
+				}
 			</Stack>
 		</div>
 
