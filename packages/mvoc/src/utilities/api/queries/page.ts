@@ -1,5 +1,6 @@
 import type { Locale } from '../../locale/translation';
 import { metaDataQuery, MetaDataProps } from '.';
+import { questionCollectionQuery } from './question';
 
 export interface PageProps {
 	metaData: MetaDataProps;
@@ -31,6 +32,7 @@ export const pageQuery = ({
 		"${multiple ? 'pages' : 'pageData'}": *[_type == "${type}"${siteConditional}${slugConditional}]${multiple ? '' : '[0]'} {
 			...${projection},
 			${metaDataQuery({locale})},
+			${questionCollectionQuery({locale})},
 		},
 	}`;
 };

@@ -44,6 +44,8 @@ const { locale, pagesData } = Astro.props;
 const pageData: PageHomeProps = pagesData.filter(
 	(page) => page.localeID === locale.id,
 )[0];
+
+console.log(pagesData);
 ---
 
 <Layout
@@ -58,7 +60,17 @@ const pageData: PageHomeProps = pagesData.filter(
 		chapeau={pageData.hero.chapeau}
 		image={pageData.hero.image}
 		highlight
-	/>
+	>
+		<ContentBlock value={pageData.hero.content} />
+		<Button
+			iconPosition="trailing"
+			variant={'secondary'}
+			icon={pageData.hero.button.icon}
+			href={prefixUrlWithlocale(`/`, locale)}
+		>
+			{pageData.hero.button.label}
+		</Button>
+	</Hero>
 
 	<!-- {
 		pageData.assistance && (

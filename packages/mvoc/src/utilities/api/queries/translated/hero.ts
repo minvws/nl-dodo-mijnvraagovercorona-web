@@ -1,4 +1,6 @@
 import { ContentBlockProps } from '@design-system/components/ContentBlock';
+import { ButtonVariants } from '@design-system/elements/Button';
+import { IconProps } from '@design-system/elements/Icon';
 import { ImageProps, imageQuery } from '../';
 import { customBlockQuery } from './customBlock';
 
@@ -7,6 +9,12 @@ export interface HeroProps {
 	chapeau?: string;
 	image?: ImageProps;
 	content?: ContentBlockProps['value'];
+	button?: {
+		label: string;
+		href?: string;
+		variant: ButtonVariants;
+		icon: IconProps['name'];
+	};
 }
 
 export const heroQuery = (): string => {
@@ -18,5 +26,6 @@ export const heroQuery = (): string => {
 			})},
 			${customBlockQuery({ name: 'content' })},
 			showUpdatedAt,
+			button,
 	}`;
 };

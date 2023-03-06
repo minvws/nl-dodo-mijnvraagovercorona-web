@@ -5,16 +5,17 @@ import { ImageProps } from 'src/utilities/api/queries';
 import { Retain } from '@design-system/components/Layout/Retain';
 import { Stack } from '@design-system/components/Layout/Stack';
 import { Switcher } from '@design-system/components/Layout/Grid';
+import { heroQuery } from 'src/utilities/api/queries/translated';
+import { ContentBlock } from '../ContentBlock';
 
 interface Props {
 	title: string;
-	subTitle?: string;
 	chapeau?: string;
 	image?: ImageProps;
 	highlight?: boolean;
 }
 
-const { title, subTitle, chapeau, image, highlight } = Astro.props;
+const { title, content, chapeau, image, highlight } = Astro.props;
 ---
 
 <header class={`c-hero${highlight ? ` c-hero--highlight` : ''}`}>
@@ -43,7 +44,6 @@ const { title, subTitle, chapeau, image, highlight } = Astro.props;
 						) : null
 					}
 				</hgroup>
-				{subTitle ? <p>{subTitle}</p> : null}
 				<slot />
 			</Stack>
 		</Switcher>

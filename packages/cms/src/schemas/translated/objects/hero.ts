@@ -27,6 +27,11 @@ export default defineType({
 			name: 'image',
 			type: 'image',
 		}),
+		defineField({
+			title: 'Button',
+			name: 'button',
+			type: 'flexibleButton',
+		}),
 	],
 	options: {
 		collapsible: true,
