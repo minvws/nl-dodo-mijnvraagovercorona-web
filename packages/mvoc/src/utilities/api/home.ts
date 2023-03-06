@@ -19,6 +19,12 @@ import {
 
 export interface PageHomeProps extends PageProps {
 	hero: HeroProps;
+	button?: {
+		label: string;
+		href?: string;
+		variant: ButtonVariants;
+		icon: IconProps['name'];
+	};
 	locale: string;
 	alternatives: AlternativeTranslationsProps[];
 	slug: string;
@@ -27,6 +33,8 @@ export interface PageHomeProps extends PageProps {
 export async function getDataHome() {
 	const projection = `{
 		${heroQuery()},
+		button,
+		important,
 	}`;
 
 	const query = pageQuery({

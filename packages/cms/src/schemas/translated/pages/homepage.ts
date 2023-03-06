@@ -31,6 +31,11 @@ export default defineType({
 			type: 'hero',
 		}),
 		defineField({
+			title: 'Button',
+			name: 'button',
+			type: 'flexibleButton',
+		}),
+		defineField({
 			title: 'Nu belangrijk',
 			name: 'important',
 			type: 'object',
@@ -60,6 +65,12 @@ export default defineType({
 					type: 'questionSelector',
 				}),
 			],
+		}),
+		defineField({
+			title: 'Advies',
+			name: 'advice',
+			type: 'reference',
+			to: [{ type: 'adviceCard' }],
 		}),
 		defineField({
 			title: 'Hulp',

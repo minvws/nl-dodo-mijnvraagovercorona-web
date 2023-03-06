@@ -17,6 +17,8 @@ import { Button } from '@design-system/elements/Button';
 import { ThemeOverview } from '@design-system/components/ThemeOverview';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { Assistance } from '@design-system/components/Assistance';
+import { Card } from '@design-system/components/Card';
+import { Heading } from '@design-system/elements/Heading';
 
 export async function getStaticPaths() {
 	const collection = await getDataHome();
@@ -65,12 +67,102 @@ console.log(pagesData);
 		<Button
 			iconPosition="trailing"
 			variant={'secondary'}
-			icon={pageData.hero.button.icon}
+			icon={pageData.button.icon}
 			href={prefixUrlWithlocale(`/`, locale)}
 		>
-			{pageData.hero.button.label}
+			{pageData.button.label}
 		</Button>
 	</Hero>
+
+	<!-- Belangrijke sitaties block. 
+		TO DO: 
+		- data from new api query 
+	-->
+
+	<Layer pullUpBy="hero" background="ijsblauw">
+		<Retain>
+			<Stack gap="huge">
+				<SectionHeadingGroup title={'Op dit moment belangrijk'}>
+					Situaties waar veel mensen nu mee te maken hebben
+				</SectionHeadingGroup>
+				<GridFluid class="grid-important">
+					<Button
+						variant="tertiary"
+						icon="chevron-small-right"
+						interactionIconAnimation="swing"
+					>
+						Button text
+					</Button>
+					<Button
+						variant="tertiary"
+						icon="chevron-small-right"
+						interactionIconAnimation="swing"
+					>
+						Button text
+					</Button>
+				</GridFluid>
+			</Stack>
+		</Retain>
+	</Layer>
+
+	<!-- Advies blok. 
+		TO DO: 
+		- data from new api query 
+		- new card component
+	-->
+
+	<Layer pullUpBy="layer">
+		<Retain>
+			<Stack gap="huge">
+				<SectionHeadingGroup title={'Welke adviezen zijn er nu precies?'}>
+					Dit is een ondertitel over adviezen.
+				</SectionHeadingGroup>
+				<GridFluid class="grid-important">
+					<Card variant="filled">
+						<Heading>Dit is een titel</Heading>
+						<span>
+							Houdt u zich ook aan onderstaande hygiëne-adviezen, om zo ook
+							andere infectieziekten, zoals griep en verkoudheid, te voorkomen.
+						</span>
+						<ul>
+							<li>
+								<span>Titel van een item</span>
+							</li>
+							<li>
+								<span>Titel van een item</span>
+							</li>
+							<li>
+								<span>Titel van een item</span>
+							</li>
+						</ul>
+					</Card>
+					<Card variant="filled">
+						<Heading>Dit is een titel</Heading>
+						<span>
+							Het corona virus heeft een dalende trend, dat betekent dat vanaf
+							dd-mm-yyyy de volgende maatregelen niet meer nodig zijn.
+						</span>
+						<ul>
+							<li>
+								<span>Titel van een item</span>
+							</li>
+							<li>
+								<span>Titel van een item</span>
+							</li>
+							<li>
+								<span>Titel van een item</span>
+							</li>
+						</ul>
+					</Card>
+				</GridFluid>
+			</Stack>
+		</Retain>
+	</Layer>
+
+	<!-- Assistance block. 
+		TO DO: 
+		- assistannce block
+	-->
 
 	<!-- {
 		pageData.assistance && (

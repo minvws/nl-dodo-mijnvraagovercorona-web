@@ -1,20 +1,23 @@
 import { defineType, defineField } from 'sanity';
 
 export default defineType({
-	title: 'Hero',
-	name: 'hero',
+	title: 'Advice Card',
+	name: 'adviceCard',
 	type: 'object',
-	validation: (Rule) => Rule.required(),
+	preview: {
+		select: {
+			title: 'title.nl',
+		},
+	},
 	fields: [
 		defineField({
 			title: 'Titel',
 			name: 'title',
 			type: 'string',
-			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
-			title: 'Chapeau',
-			name: 'chapeau',
+			title: 'Subtitle',
+			name: 'subTitle',
 			type: 'string',
 		}),
 		defineField({
@@ -22,14 +25,5 @@ export default defineType({
 			name: 'content',
 			type: 'customBlock',
 		}),
-		defineField({
-			title: 'Afbeelding',
-			name: 'image',
-			type: 'image',
-		}),
 	],
-	options: {
-		collapsible: true,
-		collapsed: true,
-	},
 });
