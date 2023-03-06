@@ -2,12 +2,9 @@
 import {
 	availableLocales,
 	getLocaleFromURL,
-	prefixUrlWithlocale,
 } from 'src/utilities/locale/translation';
 import {
-	getDataHome,
 	getDataSituationAdvice,
-	PageHomeProps,
 	PageSituationAdviceProps,
 } from 'src/utilities/api';
 
@@ -38,8 +35,6 @@ import {
 	getDaySlug,
 	getShowOnDays,
 } from 'src/utilities/helpers/advice-helpers';
-import { Link } from '@design-system/elements/Link';
-import { stringToSlug } from 'src/utilities/stringToSlug';
 
 export async function getStaticPaths() {
 	return await availableLocales.reduce(async (paths, locale) => {
@@ -79,8 +74,6 @@ interface Props {
 const { pageData, pageDay } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
 const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
-const { pageData: homePageData }: { pageData: PageHomeProps } =
-	await getDataHome({ locale });
 
 // Get most relevant answer
 const answer = pageData?.answer
@@ -111,17 +104,6 @@ const translatedTips = pageData.moreTips.tipCollection
 ---
 
 <Layout locale={locale} metaData={pageData.metaData}>
-	<Link
-		href={prefixUrlWithlocale(
-			`/#${stringToSlug(homePageData.themes.title)}`,
-			locale,
-		)}
-		variant="restart"
-		slot="back"
-	>
-		{siteSettings.header.opnieuw}
-	</Link>
-
 	<Hero title={pageData.header.title} image={pageData.header.image}>
 		<UpdatedAt slot="prefix" time={pageData.updatedAt} />
 		{
