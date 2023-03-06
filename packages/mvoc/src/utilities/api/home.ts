@@ -15,11 +15,20 @@ import {
 	heroQuery,
 	pageQuery,
 	PageProps,
+	customBlockQuery,
+	interimQuestionCollectionQuery,
+	InterimQuestionCollectionProps,
 } from './queries/translated';
 
 export interface PageHomeProps extends PageProps {
 	hero: HeroProps;
 	locale: string;
+	important: {
+		title: string;
+		content: ContentBlockProps['value'];
+		icon: ImageProps;
+		questionCollection: InterimQuestionCollectionProps['questionCollection'];
+	};
 	alternatives: AlternativeTranslationsProps[];
 	slug: string;
 }
@@ -27,6 +36,12 @@ export interface PageHomeProps extends PageProps {
 export async function getDataHome() {
 	const projection = `{
 		${heroQuery()},
+		important{
+			title,
+			${customBlockQuery({ name: 'content' })},
+			${imageQuery({ name: 'icon' })},
+			${interimQuestionCollectionQuery()},
+		}
 	}`;
 
 	const query = pageQuery({

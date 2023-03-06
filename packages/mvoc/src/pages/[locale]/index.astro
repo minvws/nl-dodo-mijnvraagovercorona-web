@@ -17,6 +17,7 @@ import { Button } from '@design-system/elements/Button';
 import { ThemeOverview } from '@design-system/components/ThemeOverview';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { Assistance } from '@design-system/components/Assistance';
+import { Heading } from '@design-system/elements/Heading';
 
 export async function getStaticPaths() {
 	const collection = await getDataHome();
@@ -45,7 +46,7 @@ const pageData: PageHomeProps = pagesData.filter(
 	(page) => page.localeID === locale.id,
 )[0];
 
-console.log(pagesData);
+console.log(pageData);
 ---
 
 <Layout
@@ -71,6 +72,39 @@ console.log(pagesData);
 			{pageData.hero.button.label}
 		</Button>
 	</Hero>
+
+	<Layer
+		pullUpBy="hero"
+		background="ijsblauw"
+		id={stringToSlug(pageData.important.title)}
+	>
+		<Retain>
+			<Stack gap="huge">
+				<SectionHeadingGroup
+					title={pageData.important.title}
+					icon={pageData.important.icon}
+				>
+					<ContentBlock value={pageData.important.content} />
+				</SectionHeadingGroup>
+				<GridFluid class="grid-important">
+					{
+						pageData.important.questionCollection
+							?.filter((item) => item.label)
+							.map((item) => (
+								<Button
+									variant="tertiary"
+									href={prefixUrlWithlocale(`/${item.path}`, locale)}
+									icon="chevron-small-right"
+									interactionIconAnimation="swing"
+								>
+									<ContentBlock value={item.label} />
+								</Button>
+							))
+					}
+				</GridFluid>
+			</Stack>
+		</Retain>
+	</Layer>
 
 	<!-- {
 		pageData.assistance && (

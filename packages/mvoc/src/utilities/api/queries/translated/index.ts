@@ -4,4 +4,5 @@ export * from './customBlock';
 export * from './siteSettings';
 export * from './hero';
 export * from './internalPageReference';
+export * from './interimQuestion';
 export * from './modals';

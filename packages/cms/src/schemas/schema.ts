@@ -21,6 +21,7 @@ import iconPickerObject from './translated/objects/iconPicker';
 import buttonObject from './translated/objects/button';
 import heroObject from './translated/objects/hero';
 import internalPageSelectorObject from './translated/objects/internalPageSelector';
+import interimQuestionSelectorObject from './translated/objects/interimQuestionSelector';
 
 /**
  * Old document structure
@@ -95,6 +96,7 @@ export default [
 	heroObject,
 	buttonObject,
 	internalPageSelectorObject,
+	interimQuestionSelectorObject,
 
 	/**
 	 * Pages

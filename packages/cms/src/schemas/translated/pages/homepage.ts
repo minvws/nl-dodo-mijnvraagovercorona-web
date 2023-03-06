@@ -57,7 +57,7 @@ export default defineType({
 				defineField({
 					title: 'Vraag startpunten',
 					name: 'questionCollection',
-					type: 'questionSelector',
+					type: 'interimQuestionSelector',
 				}),
 			],
 		}),
