@@ -18,6 +18,7 @@ import {
 } from './translated/objects/customBlock';
 import metaDataObject from './translated/objects/metaData';
 import iconPickerObject from './translated/objects/iconPicker';
+import adviceObject from './translated/objects/adviceBlock';
 import buttonObject from './translated/objects/button';
 import heroObject from './translated/objects/hero';
 import internalPageSelectorObject from './translated/objects/internalPageSelector';
@@ -93,6 +94,7 @@ export default [
 	customBlockWithoutModalObject,
 	metaDataObject,
 	iconPickerObject,
+	adviceObject,
 	heroObject,
 	buttonObject,
 	internalPageSelectorObject,

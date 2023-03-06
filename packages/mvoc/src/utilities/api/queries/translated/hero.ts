@@ -9,12 +9,6 @@ export interface HeroProps {
 	chapeau?: string;
 	image?: ImageProps;
 	content?: ContentBlockProps['value'];
-	button?: {
-		label: string;
-		href?: string;
-		variant: ButtonVariants;
-		icon: IconProps['name'];
-	};
 }
 
 export const heroQuery = (): string => {

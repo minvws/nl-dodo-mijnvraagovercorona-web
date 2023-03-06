@@ -1,5 +1,7 @@
 import { ContentBlockProps } from '@design-system/components/ContentBlock';
 import { AlternativeTranslationsProps } from '@design-system/components/LocaleSelector';
+import { ButtonVariants } from '@design-system/elements/Button';
+import { IconProps } from '@design-system/elements/Icon';
 import { useSanityClient } from 'astro-sanity';
 import { getPageTranslations } from '../helpers/get-page-translations';
 import { Locale } from '../locale/translation';
@@ -22,6 +24,12 @@ import {
 
 export interface PageHomeProps extends PageProps {
 	hero: HeroProps;
+	button?: {
+		label: string;
+		href?: string;
+		variant: ButtonVariants;
+		icon: IconProps['name'];
+	};
 	locale: string;
 	important: {
 		title: string;
@@ -36,12 +44,13 @@ export interface PageHomeProps extends PageProps {
 export async function getDataHome() {
 	const projection = `{
 		${heroQuery()},
+		button,
 		important{
 			title,
 			${customBlockQuery({ name: 'content' })},
 			${imageQuery({ name: 'icon' })},
 			${interimQuestionCollectionQuery()},
-		}
+		},
 	}`;
 
 	const query = pageQuery({
