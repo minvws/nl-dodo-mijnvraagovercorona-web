@@ -46,8 +46,6 @@ const { locale, pagesData } = Astro.props;
 const pageData: PageHomeProps = pagesData.filter(
 	(page) => page.localeID === locale.id,
 )[0];
-
-console.log(pageData);
 ---
 
 <Layout
@@ -68,17 +66,58 @@ console.log(pageData);
 			iconPosition="trailing"
 			variant={'secondary'}
 			icon={pageData.button.icon}
-			href={prefixUrlWithlocale(`/`, locale)}
+			href={prefixUrlWithlocale(`/${pageData.button.href}`, locale)}
 		>
 			{pageData.button.label}
 		</Button>
 	</Hero>
+	<Layer pullUpBy="layer" background="ijsblauw">
+		<Retain>
+			<Stack gap="huge">
+				<SectionHeadingGroup title={pageData.currentAdvice.title}>
+					{pageData.currentAdvice.subTitle}
+				</SectionHeadingGroup>
+				<GridFluid class="grid-important">
+					<Card variant="filled">
+						<Heading>{pageData.currentAdvice.adviceYes.title}</Heading>
+						<span>
+							{pageData.currentAdvice.adviceYes.subTitle}
+						</span>
+						<ul>
+							{
+								pageData.currentAdvice.adviceYes.items
+									?.filter((item) => item.label)
+									.map((item) => <li>{item.label}</li>)
+							}
+						</ul>
+					</Card>
+					<Card variant="filled">
+						<Heading>{pageData.currentAdvice.adviceNo.title}</Heading>
+						<span>
+							{pageData.currentAdvice.adviceNo.subTitle}
+						</span>
+						<ul>
+							{
+								pageData.currentAdvice.adviceNo.items
+									?.filter((item) => item.label)
+									.map((item) => <li>{item.label}</li>)
+							}
+						</ul>
+						<Button
+							variant="tertiary"
+							href={pageData.currentAdvice.adviceNo.button.href}
+							icon="chevron-small-right"
+							interactionIconAnimation="swing"
+						>
+							{pageData.currentAdvice.adviceNo.button.label}
+						</Button>
+					</Card>
+				</GridFluid>
+			</Stack>
+		</Retain>
+	</Layer>
 
-	<Layer
-		pullUpBy="hero"
-		background="ijsblauw"
-		id={stringToSlug(pageData.important.title)}
-	>
+	<Layer pullUpBy="hero" id={stringToSlug(pageData.important.title)}>
 		<Retain>
 			<Stack gap="huge">
 				<SectionHeadingGroup
@@ -102,60 +141,6 @@ console.log(pageData);
 								</Button>
 							))
 					}
-				</GridFluid>
-			</Stack>
-		</Retain>
-	</Layer>
-
-	<!-- Advies blok.
-		TO DO:
-		- data from new api query
-		- new card component
-	-->
-
-	<Layer pullUpBy="layer">
-		<Retain>
-			<Stack gap="huge">
-				<SectionHeadingGroup title={'Welke adviezen zijn er nu precies?'}>
-					Dit is een ondertitel over adviezen.
-				</SectionHeadingGroup>
-				<GridFluid class="grid-important">
-					<Card variant="filled">
-						<Heading>Dit is een titel</Heading>
-						<span>
-							Houdt u zich ook aan onderstaande hygiëne-adviezen, om zo ook
-							andere infectieziekten, zoals griep en verkoudheid, te voorkomen.
-						</span>
-						<ul>
-							<li>
-								<span>Titel van een item</span>
-							</li>
-							<li>
-								<span>Titel van een item</span>
-							</li>
-							<li>
-								<span>Titel van een item</span>
-							</li>
-						</ul>
-					</Card>
-					<Card variant="filled">
-						<Heading>Dit is een titel</Heading>
-						<span>
-							Het corona virus heeft een dalende trend, dat betekent dat vanaf
-							dd-mm-yyyy de volgende maatregelen niet meer nodig zijn.
-						</span>
-						<ul>
-							<li>
-								<span>Titel van een item</span>
-							</li>
-							<li>
-								<span>Titel van een item</span>
-							</li>
-							<li>
-								<span>Titel van een item</span>
-							</li>
-						</ul>
-					</Card>
 				</GridFluid>
 			</Stack>
 		</Retain>

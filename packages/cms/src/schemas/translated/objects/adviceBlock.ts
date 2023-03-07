@@ -25,8 +25,8 @@ export default defineType({
 			type: 'string',
 		}),
 		defineField({
-			title: 'Icoon',
-			name: 'icon',
+			title: 'Afbeelding',
+			name: 'image',
 			type: 'image',
 		}),
 		defineField({
@@ -50,18 +50,18 @@ export default defineType({
 							name: 'image',
 							type: 'image',
 						}),
-						defineField({
-							title: 'Button',
-							name: 'button',
-							type: 'flexibleButton',
-							options: {
-								collapsible: true,
-								collapsed: true,
-							},
-						}),
 					],
 				}),
 			],
+		}),
+		defineField({
+			title: 'Button',
+			name: 'button',
+			type: 'flexibleButton',
+			options: {
+				collapsible: true,
+				collapsed: true,
+			},
 		}),
 	],
 });

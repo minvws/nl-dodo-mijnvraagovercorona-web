@@ -39,6 +39,38 @@ export interface PageHomeProps extends PageProps {
 	};
 	alternatives: AlternativeTranslationsProps[];
 	slug: string;
+	currentAdvice: {
+		title: string;
+		subTitle: string;
+		adviceYes: {
+			title: string;
+			subTitle: string;
+			image: ImageProps;
+			items: {
+				label: string;
+			}[];
+			button: {
+				label: string;
+				href?: string;
+				variant: ButtonVariants;
+				icon: IconProps['name'];
+			};
+		};
+		adviceNo: {
+			title: string;
+			subTitle: string;
+			image: ImageProps;
+			items: {
+				label: string;
+			}[];
+			button: {
+				label: string;
+				href?: string;
+				variant: ButtonVariants;
+				icon: IconProps['name'];
+			};
+		};
+	};
 }
 
 export async function getDataHome() {
@@ -50,6 +82,40 @@ export async function getDataHome() {
 			${customBlockQuery({ name: 'content' })},
 			${imageQuery({ name: 'icon' })},
 			${interimQuestionCollectionQuery()},
+		},
+		currentAdvice{
+			title,
+			subTitle,
+			adviceYes{
+				title,
+				subTitle,
+				${imageQuery({ name: 'image' })},
+				items[]{
+					label,
+					${imageQuery({ name: 'image' })},
+				},
+				button{
+					label,
+					href,
+					icon,
+					variant,
+				}
+			},
+			adviceNo{
+				title,
+				subTitle,
+				${imageQuery({ name: 'image' })},
+				items[]{
+					label,
+					${imageQuery({ name: 'image' })},
+				},
+				button{
+					label,
+					href,
+					icon,
+					variant,
+				}
+			},
 		},
 	}`;
 
