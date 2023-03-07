@@ -4,7 +4,6 @@ import {
 	GiSettingsKnobs,
 	GiLightBulb,
 	GiShare,
-	GiInfo,
 	GiAirplaneArrival,
 } from 'react-icons/gi';
 import { BiError, BiSitemap } from 'react-icons/bi';
