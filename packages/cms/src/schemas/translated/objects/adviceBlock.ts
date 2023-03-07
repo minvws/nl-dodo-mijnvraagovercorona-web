@@ -1,9 +1,13 @@
 import { defineType, defineField } from 'sanity';
 
 export default defineType({
-	title: 'Advice Card',
-	name: 'adviceCard',
+	title: 'Advice Block',
+	name: 'adviceBlock',
 	type: 'object',
+	options: {
+		collapsible: true,
+		collapsed: true,
+	},
 	preview: {
 		select: {
 			title: 'title.nl',
@@ -21,9 +25,43 @@ export default defineType({
 			type: 'string',
 		}),
 		defineField({
-			title: 'Content',
-			name: 'content',
-			type: 'customBlock',
+			title: 'Icoon',
+			name: 'icon',
+			type: 'image',
+		}),
+		defineField({
+			title: 'Items',
+			name: 'items',
+			type: 'array',
+			of: [
+				defineField({
+					title: 'item',
+					name: 'item',
+					type: 'object',
+					fields: [
+						defineField({
+							title: 'Titel',
+							name: 'label',
+							type: 'string',
+							validation: (Rule) => Rule.required(),
+						}),
+						defineField({
+							title: 'Afbeelding',
+							name: 'image',
+							type: 'image',
+						}),
+						defineField({
+							title: 'Button',
+							name: 'button',
+							type: 'flexibleButton',
+							options: {
+								collapsible: true,
+								collapsed: true,
+							},
+						}),
+					],
+				}),
+			],
 		}),
 	],
 });

@@ -34,6 +34,10 @@ export default defineType({
 			title: 'Button',
 			name: 'button',
 			type: 'flexibleButton',
+			options: {
+				collapsible: true,
+				collapsed: true,
+			},
 		}),
 		defineField({
 			title: 'Nu belangrijk',
@@ -67,11 +71,38 @@ export default defineType({
 			],
 		}),
 		defineField({
-			title: 'Advies',
-			name: 'advice',
-			type: 'reference',
-			to: [{ type: 'adviceCard' }],
+			title: 'Huidige adviezen',
+			name: 'currentAdvice',
+			type: 'object',
+			options: {
+				collapsible: true,
+				collapsed: true,
+			},
+			fields: [
+				defineField({
+					title: 'Titel',
+					name: 'title',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
+				defineField({
+					title: 'Subtitle',
+					name: 'subTitle',
+					type: 'string',
+				}),
+				defineField({
+					title: 'JA Advies',
+					name: 'adviceYes',
+					type: 'adviceBlock',
+				}),
+				defineField({
+					title: 'NEE advies',
+					name: 'adviceNo',
+					type: 'adviceBlock',
+				}),
+			],
 		}),
+
 		defineField({
 			title: 'Hulp',
 			name: 'assistanceReference',
