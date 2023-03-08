@@ -40,11 +40,6 @@ export default defineType({
 					type: 'object',
 					fields: [
 						defineField({
-							title: 'Titel',
-							name: 'label',
-							type: 'string',
-						}),
-						defineField({
 							title: 'Content',
 							name: 'content',
 							type: 'customBlock',
@@ -55,6 +50,11 @@ export default defineType({
 							type: 'image',
 						}),
 					],
+					preview: {
+						select: {
+							title: 'content.nl',
+						},
+					},
 				}),
 			],
 		}),
