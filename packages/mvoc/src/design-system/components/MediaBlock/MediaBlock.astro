@@ -1,0 +1,44 @@
+---
+import { Heading } from '@design-system/elements/Heading';
+import { HTMLAttributes } from 'astro/types';
+import { ImageProps } from 'src/utilities/api/queries';
+import { Stack } from '@design-system/components/Layout/Stack';
+
+interface Props extends HTMLAttributes<'div'> {
+	title?: string;
+	icon?: ImageProps;
+}
+
+const { title, icon, class: className, ...attrs } = Astro.props;
+---
+
+<div class={`c-media-block${className ? ` | ${className}` : ''}`} {...attrs}>
+	{
+		icon && icon.src ? (
+			<img class="c-media-block__icon" src={icon.src} alt="" loading="lazy" />
+		) : null
+	}
+	<Stack gap="small">
+		{title ? <Heading styledAs={2}>{title}</Heading> : null}
+		<slot />
+	</Stack>
+</div>
+
+<style lang="scss">
+	@use '@design-system-styles/primitives/_responsive.scss';
+
+	.c-media-block {
+		--c-media-block-icon-size: var(--space-r-large);
+		display: flex;
+		align-items: center;
+		gap: var(--stack-base);
+
+		@media --mq-large {
+			--c-media-block-icon-size: var(--space-r-huge);
+		}
+	}
+
+	.c-media-block__icon {
+		inline-size: var(--c-media-block-icon-size);
+	}
+</style>

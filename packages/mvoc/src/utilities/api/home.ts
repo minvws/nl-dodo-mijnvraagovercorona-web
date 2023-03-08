@@ -89,7 +89,7 @@ export async function getDataHome() {
 		},
 		currentAdvice{
 			title,
-			conte,
+			${customBlockQuery({ name: 'content' })},
 			adviceYes{
 				title,
 				${customBlockQuery({ name: 'content' })},
@@ -108,7 +108,7 @@ export async function getDataHome() {
 			},
 			adviceNo{
 				title,
-				subTitle,
+				${customBlockQuery({ name: 'content' })},
 				${imageQuery({ name: 'image' })},
 				items[]{
 					label,

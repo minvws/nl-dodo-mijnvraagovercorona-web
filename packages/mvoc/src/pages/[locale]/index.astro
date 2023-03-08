@@ -17,6 +17,7 @@ import { Button } from '@design-system/elements/Button';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { Card } from '@design-system/components/Card';
 import { Heading } from '@design-system/elements/Heading';
+import { MediaBlock } from '@design-system/components/MediaBlock';
 
 export async function getStaticPaths() {
 	const collection = await getDataHome();
@@ -44,7 +45,7 @@ const { locale, pagesData } = Astro.props;
 const pageData: PageHomeProps = pagesData.filter(
 	(page) => page.localeID === locale.id,
 )[0];
-console.log(pageData.currentAdvice.adviceYes.items);
+console.log(pageData.currentAdvice.adviceNo);
 ---
 
 <Layout
@@ -86,51 +87,51 @@ console.log(pageData.currentAdvice.adviceYes.items);
 				</SectionHeadingGroup>
 				<GridFluid class="grid-important">
 					<Card variant="filled">
-						<Heading>{pageData.currentAdvice.adviceYes.title}</Heading>
-						<ContentBlock value={pageData.currentAdvice.adviceYes.content} />
-						<ul>
-							{
-								pageData.currentAdvice.adviceYes.items
-									?.filter((item) => item.content)
-									.map((item) => (
-										<li>
+						<Stack gap="small">
+							<Stack gap="small">
+								<MediaBlock
+									title={pageData.currentAdvice.adviceYes.title}
+									icon={pageData.currentAdvice.adviceYes.image}
+								/>
+								<ContentBlock
+									value={pageData.currentAdvice.adviceYes.content}
+								/>
+							</Stack>
+							<Stack gap="large">
+								{
+									pageData.currentAdvice.adviceYes.items.map((item) => (
+										<MediaBlock icon={item.image}>
 											<ContentBlock value={item.content} />
-										</li>
+										</MediaBlock>
 									))
-							}
-						</ul>
+								}
+							</Stack>
+						</Stack>
 					</Card>
 					<Card variant="filled">
-						<Heading>{pageData.currentAdvice.adviceNo.title}</Heading>
-						<ContentBlock value={pageData.currentAdvice.adviceNo.content} />
-						<ul>
-							{
-								pageData.currentAdvice.adviceNo.items
-									?.filter((item) => item.content)
-									.map((item) => (
-										<li>
+						<Stack gap="small">
+							<Stack gap="small">
+								<MediaBlock
+									title={pageData.currentAdvice.adviceNo.title}
+									icon={pageData.currentAdvice.adviceNo.image}
+								/>
+								<ContentBlock value={pageData.currentAdvice.adviceNo.content} />
+							</Stack>
+							<Stack gap="large">
+								{
+									pageData.currentAdvice.adviceNo.items.map((item) => (
+										<MediaBlock icon={item.image}>
 											<ContentBlock value={item.content} />
-										</li>
+										</MediaBlock>
 									))
-							}
-						</ul>
-						<Button
-							variant={pageData.currentAdvice.adviceNo.button.variant}
-							href={prefixUrlWithlocale(
-								`/${pageData.currentAdvice.adviceNo.button.href}`,
-								locale,
-							)}
-							icon={pageData.currentAdvice.adviceNo.button.icon}
-							interactionIconAnimation="swing"
-						>
-							{pageData.currentAdvice.adviceNo.button.label}
-						</Button>
+								}
+							</Stack>
+						</Stack>
 					</Card>
 				</GridFluid>
 			</Stack>
 		</Retain>
 	</Layer>
-
 	<Layer pullUpBy="hero" id={stringToSlug(pageData.important.title)}>
 		<Retain>
 			<Stack gap="huge">
@@ -159,13 +160,14 @@ console.log(pageData.currentAdvice.adviceYes.items);
 			</Stack>
 		</Retain>
 	</Layer>
+</Layout>
 
-	<!-- Assistance block.
+<!-- Assistance block.
 		TO DO:
 		- assistannce block
 	-->
 
-	<!-- {
+<!-- {
 		pageData.assistance && (
 			<Layer id={stringToSlug(pageData.assistance.headline)}>
 				<Retain>
@@ -174,7 +176,6 @@ console.log(pageData.currentAdvice.adviceYes.items);
 			</Layer>
 		)
 	} -->
-</Layout>
 
 <style lang="scss">
 	@use '@design-system-styles/primitives/_responsive.scss';
