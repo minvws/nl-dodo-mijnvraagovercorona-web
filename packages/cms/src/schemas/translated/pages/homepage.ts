@@ -9,16 +9,16 @@ export default defineType({
 	initialValue: {
 		__i18n_lang: 'nl',
 	},
-	fieldsets: [
-		{
-			name: 'situations',
-			title: 'Situaties',
-			options: {
-				collapsible: true,
-				collapsed: true,
-			},
-		},
-	],
+	// fieldsets: [
+	// 	{
+	// 		name: 'situations',
+	// 		title: 'Situaties',
+	// 		options: {
+	// 			collapsible: true,
+	// 			collapsed: true,
+	// 		},
+	// 	},
+	// ],
 	fields: [
 		defineField({
 			title: 'Meta data',
@@ -103,12 +103,13 @@ export default defineType({
 			],
 		}),
 
-		defineField({
-			title: 'Hulp',
-			name: 'assistanceReference',
-			type: 'reference',
-			to: [{ type: 'assistance-document' }],
-		}),
+		// defineField({
+		// 	title: 'Hulp',
+		// 	name: 'assistanceReference',
+		// 	type: 'reference',
+		// 	to: [{ type: 'assistance-document' }],
+		// }),
+
 		defineField({
 			title: 'Feedback',
 			name: 'feedback',
