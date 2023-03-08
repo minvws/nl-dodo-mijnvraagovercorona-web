@@ -20,9 +20,9 @@ export default defineType({
 			type: 'string',
 		}),
 		defineField({
-			title: 'Subtitle',
-			name: 'subTitle',
-			type: 'string',
+			title: 'Content',
+			name: 'content',
+			type: 'customBlock',
 		}),
 		defineField({
 			title: 'Afbeelding',
@@ -43,7 +43,11 @@ export default defineType({
 							title: 'Titel',
 							name: 'label',
 							type: 'string',
-							validation: (Rule) => Rule.required(),
+						}),
+						defineField({
+							title: 'Content',
+							name: 'content',
+							type: 'customBlock',
 						}),
 						defineField({
 							title: 'Afbeelding',

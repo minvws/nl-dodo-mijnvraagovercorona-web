@@ -87,8 +87,8 @@ export default defineType({
 				}),
 				defineField({
 					title: 'Subtitle',
-					name: 'subTitle',
-					type: 'string',
+					name: 'content',
+					type: 'customBlock',
 				}),
 				defineField({
 					title: 'JA Advies',

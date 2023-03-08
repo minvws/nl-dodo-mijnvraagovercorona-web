@@ -41,13 +41,15 @@ export interface PageHomeProps extends PageProps {
 	slug: string;
 	currentAdvice: {
 		title: string;
-		subTitle: string;
+		content: ContentBlockProps['value'];
 		adviceYes: {
 			title: string;
-			subTitle: string;
+			content: ContentBlockProps['value'];
 			image: ImageProps;
 			items: {
 				label: string;
+				content: ContentBlockProps['value'];
+				image: ImageProps;
 			}[];
 			button: {
 				label: string;
@@ -58,10 +60,12 @@ export interface PageHomeProps extends PageProps {
 		};
 		adviceNo: {
 			title: string;
-			subTitle: string;
+			content: ContentBlockProps['value'];
 			image: ImageProps;
 			items: {
 				label: string;
+				content: ContentBlockProps['value'];
+				image: ImageProps;
 			}[];
 			button: {
 				label: string;
@@ -85,14 +89,15 @@ export async function getDataHome() {
 		},
 		currentAdvice{
 			title,
-			subTitle,
+			conte,
 			adviceYes{
 				title,
-				subTitle,
+				${customBlockQuery({ name: 'content' })},
 				${imageQuery({ name: 'image' })},
 				items[]{
 					label,
 					${imageQuery({ name: 'image' })},
+					${customBlockQuery({ name: 'content' })},
 				},
 				button{
 					label,
@@ -108,6 +113,7 @@ export async function getDataHome() {
 				items[]{
 					label,
 					${imageQuery({ name: 'image' })},
+					${customBlockQuery({ name: 'content' })},
 				},
 				button{
 					label,

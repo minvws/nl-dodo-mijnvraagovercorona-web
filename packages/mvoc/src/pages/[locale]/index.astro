@@ -44,6 +44,7 @@ const { locale, pagesData } = Astro.props;
 const pageData: PageHomeProps = pagesData.filter(
 	(page) => page.localeID === locale.id,
 )[0];
+console.log(pageData.currentAdvice.adviceYes.items);
 ---
 
 <Layout
@@ -81,32 +82,36 @@ const pageData: PageHomeProps = pagesData.filter(
 		<Retain>
 			<Stack gap="huge">
 				<SectionHeadingGroup title={pageData.currentAdvice.title}>
-					{pageData.currentAdvice.subTitle}
+					<ContentBlock value={pageData.currentAdvice.adviceYes.content} />
 				</SectionHeadingGroup>
 				<GridFluid class="grid-important">
 					<Card variant="filled">
 						<Heading>{pageData.currentAdvice.adviceYes.title}</Heading>
-						<span>
-							{pageData.currentAdvice.adviceYes.subTitle}
-						</span>
+						<ContentBlock value={pageData.currentAdvice.adviceYes.content} />
 						<ul>
 							{
 								pageData.currentAdvice.adviceYes.items
-									?.filter((item) => item.label)
-									.map((item) => <li>{item.label}</li>)
+									?.filter((item) => item.content)
+									.map((item) => (
+										<li>
+											<ContentBlock value={item.content} />
+										</li>
+									))
 							}
 						</ul>
 					</Card>
 					<Card variant="filled">
 						<Heading>{pageData.currentAdvice.adviceNo.title}</Heading>
-						<span>
-							{pageData.currentAdvice.adviceNo.subTitle}
-						</span>
+						<ContentBlock value={pageData.currentAdvice.adviceNo.content} />
 						<ul>
 							{
 								pageData.currentAdvice.adviceNo.items
-									?.filter((item) => item.label)
-									.map((item) => <li>{item.label}</li>)
+									?.filter((item) => item.content)
+									.map((item) => (
+										<li>
+											<ContentBlock value={item.content} />
+										</li>
+									))
 							}
 						</ul>
 						<Button
