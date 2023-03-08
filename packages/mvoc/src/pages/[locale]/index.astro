@@ -64,13 +64,17 @@ const pageData: PageHomeProps = pagesData.filter(
 		<ContentBlock value={pageData.hero.content} />
 		<Button
 			iconPosition="trailing"
-			variant={'secondary'}
+			variant={pageData.button.variant}
 			icon={pageData.button.icon}
-			href={prefixUrlWithlocale(`/${pageData.button.href}`, locale)}
+			interactionIconAnimation="swing"
+			href={pageData.button.href
+				? prefixUrlWithlocale(`/${pageData.button.href}`, locale)
+				: `#${stringToSlug(pageData.important.title)}`}
 		>
 			{pageData.button.label}
 		</Button>
 	</Hero>
+
 	<Layer pullUpBy="layer" background="ijsblauw">
 		<Retain>
 			<Stack gap="huge">
@@ -104,9 +108,12 @@ const pageData: PageHomeProps = pagesData.filter(
 							}
 						</ul>
 						<Button
-							variant="tertiary"
-							href={pageData.currentAdvice.adviceNo.button.href}
-							icon="chevron-small-right"
+							variant={pageData.currentAdvice.adviceNo.button.variant}
+							href={prefixUrlWithlocale(
+								`/${pageData.currentAdvice.adviceNo.button.href}`,
+								locale,
+							)}
+							icon={pageData.currentAdvice.adviceNo.button.icon}
 							interactionIconAnimation="swing"
 						>
 							{pageData.currentAdvice.adviceNo.button.label}
