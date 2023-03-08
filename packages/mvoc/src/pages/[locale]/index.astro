@@ -125,6 +125,17 @@ console.log(pageData.currentAdvice.adviceNo);
 										</MediaBlock>
 									))
 								}
+								<Button
+									variant={pageData.currentAdvice.adviceNo.button.variant}
+									href={prefixUrlWithlocale(
+										`/${pageData.currentAdvice.adviceNo.button.href}`,
+										locale,
+									)}
+									icon={pageData.currentAdvice.adviceNo.button.icon}
+									interactionIconAnimation="swing"
+								>
+									{pageData.currentAdvice.adviceNo.button.label}
+								</Button>
 							</Stack>
 						</Stack>
 					</Card>
