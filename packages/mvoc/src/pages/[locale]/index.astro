@@ -75,7 +75,11 @@ const pageData: PageHomeProps = pagesData.filter(
 		</Button>
 	</Hero>
 
-	<Layer pullUpBy="layer" background="ijsblauw">
+	<Layer
+		pullUpBy="layer"
+		background="ijsblauw"
+		id={stringToSlug(pageData.currentAdvice.title)}
+	>
 		<Retain>
 			<Stack gap="huge">
 				<SectionHeadingGroup title={pageData.currentAdvice.title}>
