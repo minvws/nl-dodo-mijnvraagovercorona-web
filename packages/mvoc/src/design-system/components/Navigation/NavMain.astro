@@ -72,6 +72,8 @@ const isHome =
 								>
 									{page.label ? (
 										<ContentBlock value={page.label} />
+									) : typeof page.link.label === 'object' ? (
+										page.link.label[locale.id]
 									) : (
 										page.link.label
 									)}
@@ -108,6 +110,8 @@ const isHome =
 									>
 										{page.label ? (
 											<ContentBlock value={page.label} />
+										) : typeof page.link.label === 'object' ? (
+											page.link.label[locale.id]
 										) : (
 											page.link.label
 										)}

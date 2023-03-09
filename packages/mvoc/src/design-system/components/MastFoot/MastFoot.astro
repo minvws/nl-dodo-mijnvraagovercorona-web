@@ -26,6 +26,10 @@ const { locale, alternativeTranslations } = Astro.props;
 const siteSettingsTranslated: SiteSettingsProps = await useSiteSettings({
 	locale,
 });
+
+console.log(
+	siteSettingsTranslated.mastfoot.columns[1].internalPageCollection[3],
+);
 ---
 
 <footer class="c-mastfoot" role="contentinfo">
@@ -55,7 +59,10 @@ const siteSettingsTranslated: SiteSettingsProps = await useSiteSettings({
 							{column.internalPageCollection ? (
 								<LinkList
 									links={column.internalPageCollection.map((item) => ({
-										label: item.link.label,
+										label:
+											typeof item.link.label === 'object'
+												? item.link.label[locale.id]
+												: item.link.label,
 										href: prefixUrlWithlocale(item.link.slug, locale),
 									}))}
 								/>
