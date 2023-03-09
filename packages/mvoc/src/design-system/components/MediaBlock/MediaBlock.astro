@@ -32,12 +32,14 @@ const { icon, class: className, ...attrs } = Astro.props;
 		gap: var(--stack-base);
 
 		@media --mq-large {
-			--c-media-block-icon-size: var(--space-r-huge);
+			--c-media-block-icon-size: var(--space-r-giant);
 		}
 	}
 
 	.c-media-block__icon {
-		inline-size: var(--c-media-block-icon-size);
-		max-inline-size: fit-content;
+		flex: 0 0 var(--c-media-block-icon-size);
+		max-inline-size: var(--c-media-block-icon-size);
+		aspect-ratio: 1/1;
+		object-fit: contain;
 	}
 </style>

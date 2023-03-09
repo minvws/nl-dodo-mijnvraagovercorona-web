@@ -33,10 +33,10 @@ const {
 } = Astro.props;
 ---
 
-<Card variant="white">
+<Card variant="white" class="c-advice-block">
 	<Stack gap="small">
 		<Stack gap="small">
-			<MediaBlock icon={image}>
+			<MediaBlock icon={image} class="c-advice-block__media-heading">
 				<Heading level={3} styledAs={2}>
 					{title}
 				</Heading>
@@ -46,7 +46,7 @@ const {
 		<Stack gap="large">
 			{
 				items.map((item) => (
-					<MediaBlock icon={item.image}>
+					<MediaBlock icon={item.image} class="c-advice-block__media-item">
 						<ContentBlock value={item.content} />
 					</MediaBlock>
 				))
@@ -66,3 +66,21 @@ const {
 		</Stack>
 	</Stack>
 </Card>
+
+<style lang="scss">
+	@use '@design-system-styles/primitives/_responsive.scss';
+	.c-advice-block {
+	}
+
+	.c-advice-block__media-heading {
+		& {
+			@media --mq-large {
+				--c-media-block-icon-size: var(--space-r-huge);
+			}
+		}
+	}
+
+	.c-advice-block__media-item {
+		margin-inline-start: var(--space-r-tiny);
+	}
+</style>
