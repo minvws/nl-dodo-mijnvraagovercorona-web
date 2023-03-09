@@ -25,6 +25,13 @@ export default defineType({
 						{ type: 'tip-document' },
 						{ type: 'theme-document' },
 					],
+					readOnly: ({ parent }) => !!parent?.href,
+				}),
+				defineField({
+					title: 'Href',
+					name: 'href',
+					type: 'string',
+					readOnly: ({ parent }) => !!parent?.situationReference,
 				}),
 			],
 			preview: {
