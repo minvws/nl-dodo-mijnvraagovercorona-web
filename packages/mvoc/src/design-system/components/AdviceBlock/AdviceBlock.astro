@@ -1,4 +1,5 @@
 ---
+import { prefixUrlWithlocale, Locale } from 'src/utilities/locale/translation';
 import { HTMLAttributes } from 'astro/types';
 import { Heading } from '@design-system/elements/Heading';
 import { Card } from '@design-system/components/Card';
@@ -12,6 +13,7 @@ interface Props extends HTMLAttributes<'div'> {
 	image?: ImageProps;
 	content: string;
 	button?: ButtonProps;
+	locale: Locale;
 }
 
 const {
@@ -20,6 +22,7 @@ const {
 	content,
 	button,
 	items,
+	locale,
 	class: className,
 	...attrs
 } = Astro.props;

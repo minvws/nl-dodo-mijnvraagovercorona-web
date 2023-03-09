@@ -15,9 +15,6 @@ import { ContentBlock } from '@design-system/components/ContentBlock';
 import { GridFluid } from '@design-system/components/Layout/Grid';
 import { Button } from '@design-system/elements/Button';
 import { stringToSlug } from 'src/utilities/stringToSlug';
-import { Card } from '@design-system/components/Card';
-import { Heading } from '@design-system/elements/Heading';
-import { MediaBlock } from '@design-system/components/MediaBlock';
 import { Assistance } from '@design-system/components/Assistance';
 import { AdviceBlock } from '@design-system/components/AdviceBlock';
 
@@ -89,12 +86,18 @@ const pageData: PageHomeProps = pagesData.filter(
 				<GridFluid class="grid-important">
 					{
 						pageData.currentAdvice.adviceYes ? (
-							<AdviceBlock {...pageData.currentAdvice.adviceYes} />
+							<AdviceBlock
+								{...pageData.currentAdvice.adviceYes}
+								locale={locale}
+							/>
 						) : null
 					}
 					{
 						pageData.currentAdvice.adviceNo ? (
-							<AdviceBlock {...pageData.currentAdvice.adviceNo} />
+							<AdviceBlock
+								{...pageData.currentAdvice.adviceNo}
+								locale={locale}
+							/>
 						) : null
 					}
 				</GridFluid>
