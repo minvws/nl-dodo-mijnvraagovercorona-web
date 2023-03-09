@@ -4,14 +4,19 @@ import { HTMLAttributes } from 'astro/types';
 import { Heading } from '@design-system/elements/Heading';
 import { Card } from '@design-system/components/Card';
 import { MediaBlock } from '@design-system/components/MediaBlock';
-import { ContentBlock } from '@design-system/components/ContentBlock';
+import {
+	ContentBlock,
+	ContentBlockProps,
+} from '@design-system/components/ContentBlock';
 import { Stack } from '../Layout/Stack';
 import { Button } from '@design-system/elements/Button';
+import { ButtonProps } from 'src/utilities/api/queries/translated/buttons';
+import { ImageProps } from 'src/utilities/api/queries';
 
 interface Props extends HTMLAttributes<'div'> {
 	title: string;
 	image?: ImageProps;
-	content: string;
+	content: ContentBlockProps['value'];
 	button?: ButtonProps;
 	locale: Locale;
 }
