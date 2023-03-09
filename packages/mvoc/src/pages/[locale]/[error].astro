@@ -38,12 +38,11 @@ interface Props {
 	locale: Locale;
 }
 
-interface HomeProps {
-	pageData: PageHomeProps;
-}
-
 const { pageData, locale } = Astro.props;
-const { pageData: homePageData }: HomeProps = await getDataHome({ locale });
+const homeCollection = await getDataHome();
+const homePageData = homeCollection.filter(
+	(page) => page.localeID === locale.id,
+)[0] as PageHomeProps;
 ---
 
 <Layout
@@ -58,6 +57,7 @@ const { pageData: homePageData }: HomeProps = await getDataHome({ locale });
 	>
 		<ContentBlock value={pageData.hero.content} />
 	</Hero>
+
 	<Layer id={stringToSlug(homePageData.important.title)}>
 		<Retain>
 			<Stack gap="humongous">
@@ -74,7 +74,7 @@ const { pageData: homePageData }: HomeProps = await getDataHome({ locale });
 						<GridFluid class="grid-important">
 							{
 								homePageData.important.questionCollection
-									?.filter((item) => item.title)
+									?.filter((item) => item.label)
 									.map((item) => (
 										<Button
 											variant="tertiary"
@@ -82,7 +82,7 @@ const { pageData: homePageData }: HomeProps = await getDataHome({ locale });
 											icon="chevron-small-right"
 											interactionIconAnimation="swing"
 										>
-											<ContentBlock value={item.title} />
+											<ContentBlock value={item.label} />
 										</Button>
 									))
 							}
