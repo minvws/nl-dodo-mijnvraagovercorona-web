@@ -18,6 +18,7 @@ import { stringToSlug } from 'src/utilities/stringToSlug';
 import { Card } from '@design-system/components/Card';
 import { Heading } from '@design-system/elements/Heading';
 import { MediaBlock } from '@design-system/components/MediaBlock';
+import { Assistance } from '@design-system/components/Assistance';
 
 export async function getStaticPaths() {
 	const collection = await getDataHome();
@@ -45,7 +46,7 @@ const { locale, pagesData } = Astro.props;
 const pageData: PageHomeProps = pagesData.filter(
 	(page) => page.localeID === locale.id,
 )[0];
-console.log(pageData.currentAdvice.adviceNo);
+console.log(pageData.assistance);
 ---
 
 <Layout
@@ -171,14 +172,7 @@ console.log(pageData.currentAdvice.adviceNo);
 			</Stack>
 		</Retain>
 	</Layer>
-</Layout>
-
-<!-- Assistance block.
-		TO DO:
-		- assistannce block
-	-->
-
-<!-- {
+	{
 		pageData.assistance && (
 			<Layer id={stringToSlug(pageData.assistance.headline)}>
 				<Retain>
@@ -186,7 +180,8 @@ console.log(pageData.currentAdvice.adviceNo);
 				</Retain>
 			</Layer>
 		)
-	} -->
+	}
+</Layout>
 
 <style lang="scss">
 	@use '@design-system-styles/primitives/_responsive.scss';

@@ -4,6 +4,7 @@
 // Documents
 import siteSettingsDocument from './translated/documents/siteSettings';
 import modalsDocument from './translated/documents/modals';
+import assistanceDocument from './translated/documents/assistance';
 
 // Pages
 import genericPage from './translated/pages/generic';
@@ -31,7 +32,7 @@ import interimQuestionSelectorObject from './translated/objects/interimQuestionS
 import siteSettingsDocumentOld from './documents/siteSettings';
 import modalsDocumentOld from './documents/modals';
 import themeDocument from './documents/theme';
-import assistanceDocument from './documents/assistance';
+import assistanceDocumentOld from './documents/assistance';
 import informContactsDocument from './documents/inform-contacts';
 import situationQuestionDocument from './documents/situation-question';
 import situationResultDocument from './documents/situation-result';
@@ -88,6 +89,7 @@ export default [
 	// documents
 	siteSettingsDocument,
 	modalsDocument,
+	assistanceDocument,
 
 	// objects
 	customBlockObject,
@@ -131,7 +133,7 @@ export default [
 	themeDocument,
 	contentCardDocument,
 	storyDocument,
-	assistanceDocument,
+	assistanceDocumentOld,
 	informContactsDocument,
 	situationQuestionDocument,
 	situationResultDocument,

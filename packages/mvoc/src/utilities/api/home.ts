@@ -6,7 +6,11 @@ import { useSanityClient } from 'astro-sanity';
 import { getPageTranslations } from '../helpers/get-page-translations';
 import { Locale } from '../locale/translation';
 import { imageQuery, localePropertyQuery, ImageProps } from './queries';
-import { AssistanceProps, assistanceQuery } from './queries/assistance';
+import {
+	AssistanceProps,
+	assistanceQuery,
+} from './queries/translated/assistance';
+
 import {
 	QuestionCollectionProps,
 	questionCollectionQuery,
@@ -31,6 +35,7 @@ export interface PageHomeProps extends PageProps {
 		icon: IconProps['name'];
 	};
 	locale: string;
+	assistance: AssistanceProps;
 	important: {
 		title: string;
 		content: ContentBlockProps['value'];
@@ -80,6 +85,7 @@ export interface PageHomeProps extends PageProps {
 export async function getDataHome() {
 	const projection = `{
 		${heroQuery()},
+		${assistanceQuery()},
 		button,
 		important{
 			title,

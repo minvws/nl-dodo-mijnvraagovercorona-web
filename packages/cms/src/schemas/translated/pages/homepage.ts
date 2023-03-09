@@ -1,5 +1,6 @@
 import { string } from 'prop-types';
 import { defineType, defineField } from 'sanity';
+import { filterReferenceByLanguage } from 'utilities/filterReferenceByLanguage';
 
 export default defineType({
 	title: 'Homepage',
@@ -103,12 +104,15 @@ export default defineType({
 			],
 		}),
 
-		// defineField({
-		// 	title: 'Hulp',
-		// 	name: 'assistanceReference',
-		// 	type: 'reference',
-		// 	to: [{ type: 'assistance-document' }],
-		// }),
+		defineField({
+			title: 'Hulp',
+			name: 'assistance',
+			type: 'reference',
+			to: [{ type: 'assistance' }],
+			options: {
+				filter: filterReferenceByLanguage,
+			},
+		}),
 
 		defineField({
 			title: 'Feedback',
