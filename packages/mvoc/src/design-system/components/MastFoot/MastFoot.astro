@@ -26,10 +26,6 @@ const { locale, alternativeTranslations } = Astro.props;
 const siteSettingsTranslated: SiteSettingsProps = await useSiteSettings({
 	locale,
 });
-
-console.log(
-	siteSettingsTranslated.mastfoot.columns[1].internalPageCollection[3],
-);
 ---
 
 <footer class="c-mastfoot" role="contentinfo">
