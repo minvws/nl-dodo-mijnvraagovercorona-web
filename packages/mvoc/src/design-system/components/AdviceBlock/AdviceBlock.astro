@@ -1,0 +1,55 @@
+---
+import { HTMLAttributes } from 'astro/types';
+import { Heading } from '@design-system/elements/Heading';
+import { Card } from '@design-system/components/Card';
+import { MediaBlock } from '@design-system/components/MediaBlock';
+import { ContentBlock } from '@design-system/components/ContentBlock';
+import { Stack } from '../Layout/Stack';
+
+interface Props extends HTMLAttributes<'div'> {
+	title: string;
+	image?: ImageProps;
+	content: string;
+	button?: buttonProps;
+}
+
+const {
+	title,
+	image,
+	content,
+	button,
+	items,
+	class: className,
+	...attrs
+} = Astro.props;
+---
+
+<Card variant="white">
+	<Stack gap="small">
+		<Stack gap="small">
+			<MediaBlock icon={image}>
+				<Heading level={3} styledAs={2}>
+					{title}
+				</Heading>
+			</MediaBlock>
+			<ContentBlock value={content} />
+		</Stack>
+		<Stack gap="large">
+			{
+				items.map((item) => (
+					<MediaBlock icon={item.image}>
+						<ContentBlock value={item.content} />
+					</MediaBlock>
+				))
+			}
+			<Button
+				variant={variant}
+				href={prefixUrlWithlocale(href, locale)}
+				icon={icon}
+				interactionIconAnimation="swing"
+			>
+				{label}
+			</Button>
+		</Stack>
+	</Stack>
+</Card>

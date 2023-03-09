@@ -19,6 +19,7 @@ import { Card } from '@design-system/components/Card';
 import { Heading } from '@design-system/elements/Heading';
 import { MediaBlock } from '@design-system/components/MediaBlock';
 import { Assistance } from '@design-system/components/Assistance';
+import { AdviceBlock } from '@design-system/components/AdviceBlock';
 
 export async function getStaticPaths() {
 	const collection = await getDataHome();
@@ -87,62 +88,75 @@ console.log(pageData.assistance);
 					<ContentBlock value={pageData.currentAdvice.adviceYes.content} />
 				</SectionHeadingGroup>
 				<GridFluid class="grid-important">
-					<Card variant="white">
-						<Stack gap="small">
+					{
+						pageData.currentAdvice.adviceYes ? (
+							<AdviceBlock {...pageData.currentAdvice.adviceYes} />
+						) : null
+					}
+					{
+						pageData.currentAdvice.adviceNo ? (
+							<AdviceBlock {...pageData.currentAdvice.adviceNo} />
+						) : null
+					}
+					<!-- <GridFluid class="grid-important">
+						<Card variant="white">
 							<Stack gap="small">
-								<MediaBlock icon={pageData.currentAdvice.adviceYes.image}>
-									<Heading level={3} styledAs={2}>
-										{pageData.currentAdvice.adviceYes.title}
-									</Heading>
-								</MediaBlock>
-								<ContentBlock
-									value={pageData.currentAdvice.adviceYes.content}
-								/>
+								<Stack gap="small">
+									<MediaBlock icon={pageData.currentAdvice.adviceYes.image}>
+										<Heading level={3} styledAs={2}>
+											{pageData.currentAdvice.adviceYes.title}
+										</Heading>
+									</MediaBlock>
+									<ContentBlock
+										value={pageData.currentAdvice.adviceYes.content}
+									/>
+								</Stack>
+								<Stack gap="large">
+									{
+										pageData.currentAdvice.adviceYes.items.map((item) => (
+											<MediaBlock icon={item.image}>
+												<ContentBlock value={item.content} />
+											</MediaBlock>
+										))
+									}
+								</Stack>
 							</Stack>
-							<Stack gap="large">
-								{
-									pageData.currentAdvice.adviceYes.items.map((item) => (
-										<MediaBlock icon={item.image}>
-											<ContentBlock value={item.content} />
-										</MediaBlock>
-									))
-								}
-							</Stack>
-						</Stack>
-					</Card>
+						</Card>
 
-					<Card variant="white">
-						<Stack gap="small">
+						<Card variant="white">
 							<Stack gap="small">
-								<MediaBlock icon={pageData.currentAdvice.adviceNo.image}>
-									<Heading level={3} styledAs={2}>
-										{pageData.currentAdvice.adviceNo.title}
-									</Heading>
-								</MediaBlock>
-								<ContentBlock value={pageData.currentAdvice.adviceNo.content} />
+								<Stack gap="small">
+									<MediaBlock icon={pageData.currentAdvice.adviceNo.image}>
+										<Heading level={3} styledAs={2}>
+											{pageData.currentAdvice.adviceNo.title}
+										</Heading>
+									</MediaBlock>
+									<ContentBlock
+										value={pageData.currentAdvice.adviceNo.content}
+									/>
+								</Stack>
+								<Stack gap="large">
+									{
+										pageData.currentAdvice.adviceNo.items.map((item) => (
+											<MediaBlock icon={item.image}>
+												<ContentBlock value={item.content} />
+											</MediaBlock>
+										))
+									}
+									<Button
+										variant={pageData.currentAdvice.adviceNo.button.variant}
+										href={prefixUrlWithlocale(
+											`/${pageData.currentAdvice.adviceNo.button.href}`,
+											locale,
+										)}
+										icon={pageData.currentAdvice.adviceNo.button.icon}
+										interactionIconAnimation="swing"
+									>
+										{pageData.currentAdvice.adviceNo.button.label}
+									</Button>
+								</Stack>
 							</Stack>
-							<Stack gap="large">
-								{
-									pageData.currentAdvice.adviceNo.items.map((item) => (
-										<MediaBlock icon={item.image}>
-											<ContentBlock value={item.content} />
-										</MediaBlock>
-									))
-								}
-								<Button
-									variant={pageData.currentAdvice.adviceNo.button.variant}
-									href={prefixUrlWithlocale(
-										`/${pageData.currentAdvice.adviceNo.button.href}`,
-										locale,
-									)}
-									icon={pageData.currentAdvice.adviceNo.button.icon}
-									interactionIconAnimation="swing"
-								>
-									{pageData.currentAdvice.adviceNo.button.label}
-								</Button>
-							</Stack>
-						</Stack>
-					</Card>
+						</Card> -->
 				</GridFluid>
 			</Stack>
 		</Retain>
