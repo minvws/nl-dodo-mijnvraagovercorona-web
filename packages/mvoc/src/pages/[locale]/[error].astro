@@ -68,7 +68,7 @@ const homePageData = homeCollection.filter(
 				>
 					{pageData.button.label}
 				</Button>
-				<section>
+				<div>
 					<Stack gap="small">
 						<ContentBlock value={pageData.content} />
 						<GridFluid class="grid-important">
@@ -88,7 +88,7 @@ const homePageData = homeCollection.filter(
 							}
 						</GridFluid>
 					</Stack>
-				</section>
+				</div>
 				<p>
 					<strong>{pageData.errormessage}</strong>
 				</p>
