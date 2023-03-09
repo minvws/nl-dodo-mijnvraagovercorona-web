@@ -76,7 +76,7 @@ console.log(pageData.currentAdvice.adviceNo);
 	</Hero>
 
 	<Layer
-		pullUpBy="layer"
+		pullUpBy="hero"
 		background="ijsblauw"
 		id={stringToSlug(pageData.currentAdvice.title)}
 	>
@@ -143,7 +143,8 @@ console.log(pageData.currentAdvice.adviceNo);
 			</Stack>
 		</Retain>
 	</Layer>
-	<Layer pullUpBy="hero" id={stringToSlug(pageData.important.title)}>
+
+	<Layer id={stringToSlug(pageData.important.title)}>
 		<Retain>
 			<Stack gap="huge">
 				<SectionHeadingGroup
@@ -159,7 +160,7 @@ console.log(pageData.currentAdvice.adviceNo);
 							.map((item) => (
 								<Button
 									variant="tertiary"
-									href={prefixUrlWithlocale(`/${item.path}`, locale)}
+									href={prefixUrlWithlocale(item.href, locale)}
 									icon="chevron-small-right"
 									interactionIconAnimation="swing"
 								>

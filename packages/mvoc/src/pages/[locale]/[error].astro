@@ -76,10 +76,11 @@ const homePageData = homeCollection.filter(
 								<GridFluid class="grid-important">
 									{homePageData.important.questionCollection
 										?.filter((item) => item.label)
+										.filter((item) => !item.href.startsWith('#'))
 										.map((item) => (
 											<Button
 												variant="tertiary"
-												href={prefixUrlWithlocale(`/${item.path}`, locale)}
+												href={prefixUrlWithlocale(item.href, locale)}
 												icon="chevron-small-right"
 												interactionIconAnimation="swing"
 											>
