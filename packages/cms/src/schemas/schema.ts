@@ -22,6 +22,7 @@ import iconPickerObject from './translated/objects/iconPicker';
 import adviceObject from './translated/objects/adviceBlock';
 import buttonObject from './translated/objects/button';
 import heroObject from './translated/objects/hero';
+import pageReferenceObject from './translated/objects/pageReference';
 import internalPageSelectorObject from './translated/objects/internalPageSelector';
 import interimQuestionSelectorObject from './translated/objects/interimQuestionSelector';
 
@@ -99,6 +100,7 @@ export default [
 	adviceObject,
 	heroObject,
 	buttonObject,
+	pageReferenceObject,
 	internalPageSelectorObject,
 	interimQuestionSelectorObject,
 
