@@ -54,6 +54,11 @@ const mvocDocumentsConfig = [
 		title: 'Modals',
 		icon: VscScreenFull,
 	},
+	{
+		schemaType: 'assistance',
+		title: 'Hulp',
+		icon: FaHandsHelping,
+	},
 ];
 
 const mvocPagesDocumentsConfig = [
