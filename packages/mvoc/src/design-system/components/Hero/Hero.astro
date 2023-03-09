@@ -56,7 +56,7 @@ const { title, content, chapeau, image, highlight } = Astro.props;
 	.c-hero {
 		--hero-background: var(--theme-bg-base);
 		--hero-padding: var(--stack-hero);
-		--hero-padding-block-start: 0px;
+		--hero-padding-block-start: var(--hero-padding);
 		--hero-padding-block-end: var(--hero-padding);
 		position: relative;
 		padding-block-start: var(--hero-padding-block-start);
@@ -66,10 +66,6 @@ const { title, content, chapeau, image, highlight } = Astro.props;
 
 		.c-hero__switcher {
 			--switcher-align-items: center;
-		}
-
-		@media --mq-large {
-			--hero-padding-block-start: var(--hero-padding);
 		}
 	}
 
@@ -107,12 +103,17 @@ const { title, content, chapeau, image, highlight } = Astro.props;
 	.c-hero--highlight {
 		--hero-background: var(--theme-bg-highlight);
 		--hero-border-radius: var(--radii-huge);
+		--hero-padding-block-start: 0px;
 		border-end-start-radius: var(--hero-border-radius);
 		border-end-end-radius: var(--hero-border-radius);
 
 		.c-hero__chapeau {
 			--chapeau-font-size: var(--font-size-beta);
 			--chapeau-line-height: var(--line-height-beta);
+		}
+
+		@media --mq-large {
+			--hero-padding-block-start: var(--hero-padding);
 		}
 
 		.c-hero__image {
