@@ -69,7 +69,7 @@ console.log(pageData.assistance);
 			icon={pageData.button.icon}
 			interactionIconAnimation="swing"
 			href={pageData.button.href
-				? prefixUrlWithlocale(`/${pageData.button.href}`, locale)
+				? prefixUrlWithlocale(pageData.button.href, locale)
 				: `#${stringToSlug(pageData.important.title)}`}
 		>
 			{pageData.button.label}
@@ -132,7 +132,7 @@ console.log(pageData.assistance);
 								<Button
 									variant={pageData.currentAdvice.adviceNo.button.variant}
 									href={prefixUrlWithlocale(
-										`/${pageData.currentAdvice.adviceNo.button.href}`,
+										pageData.currentAdvice.adviceNo.button.href,
 										locale,
 									)}
 									icon={pageData.currentAdvice.adviceNo.button.icon}
