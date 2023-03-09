@@ -46,7 +46,6 @@ const { locale, pagesData } = Astro.props;
 const pageData: PageHomeProps = pagesData.filter(
 	(page) => page.localeID === locale.id,
 )[0];
-console.log(pageData.assistance);
 ---
 
 <Layout
