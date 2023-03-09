@@ -43,14 +43,18 @@ const {
 					</MediaBlock>
 				))
 			}
-			<Button
-				variant={button.variant}
-				href={prefixUrlWithlocale(button.href, locale)}
-				icon={button.icon}
-				interactionIconAnimation="swing"
-			>
-				{button.label}
-			</Button>
+			{
+				button ? (
+					<Button
+						variant={button.variant}
+						href={prefixUrlWithlocale(button.href, locale)}
+						icon={button.icon}
+						interactionIconAnimation="swing"
+					>
+						{button.label}
+					</Button>
+				) : null
+			}
 		</Stack>
 	</Stack>
 </Card>
