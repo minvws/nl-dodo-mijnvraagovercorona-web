@@ -4,18 +4,12 @@ import { ButtonVariants } from '@design-system/elements/Button';
 import { IconProps } from '@design-system/elements/Icon';
 import { useSanityClient } from 'astro-sanity';
 import { getPageTranslations } from '../helpers/get-page-translations';
-import { Locale } from '../locale/translation';
-import { imageQuery, localePropertyQuery, ImageProps } from './queries';
+import { imageQuery, ImageProps } from './queries';
 import {
 	AssistanceProps,
 	assistanceQuery,
 } from './queries/translated/assistance';
 
-import {
-	QuestionCollectionProps,
-	questionCollectionQuery,
-} from './queries/question';
-import { ThemeCollectionProps, themeCollectionQuery } from './queries/theme';
 import {
 	HeroProps,
 	heroQuery,
@@ -25,15 +19,11 @@ import {
 	interimQuestionCollectionQuery,
 	InterimQuestionCollectionProps,
 } from './queries/translated';
+import { ButtonProps, buttonsQuery } from './queries/translated/buttons';
 
 export interface PageHomeProps extends PageProps {
 	hero: HeroProps;
-	button?: {
-		label: string;
-		href?: string;
-		variant: ButtonVariants;
-		icon: IconProps['name'];
-	};
+	button?: ButtonProps;
 	locale: string;
 	assistance: AssistanceProps;
 	important: {
@@ -56,12 +46,7 @@ export interface PageHomeProps extends PageProps {
 				content: ContentBlockProps['value'];
 				image: ImageProps;
 			}[];
-			button: {
-				label: string;
-				href?: string;
-				variant: ButtonVariants;
-				icon: IconProps['name'];
-			};
+			button: ButtonProps;
 		};
 		adviceNo: {
 			title: string;
@@ -72,12 +57,7 @@ export interface PageHomeProps extends PageProps {
 				content: ContentBlockProps['value'];
 				image: ImageProps;
 			}[];
-			button: {
-				label: string;
-				href?: string;
-				variant: ButtonVariants;
-				icon: IconProps['name'];
-			};
+			button: ButtonProps;
 		};
 	};
 }
@@ -86,7 +66,7 @@ export async function getDataHome() {
 	const projection = `{
 		${heroQuery()},
 		${assistanceQuery()},
-		button,
+		${buttonsQuery({ array: false })},
 		important{
 			title,
 			${customBlockQuery({ name: 'content' })},
@@ -105,12 +85,7 @@ export async function getDataHome() {
 					${imageQuery({ name: 'image' })},
 					${customBlockQuery({ name: 'content' })},
 				},
-				button{
-					label,
-					href,
-					icon,
-					variant,
-				}
+				${buttonsQuery({ array: false })},
 			},
 			adviceNo{
 				title,
@@ -121,12 +96,7 @@ export async function getDataHome() {
 					${imageQuery({ name: 'image' })},
 					${customBlockQuery({ name: 'content' })},
 				},
-				button{
-					label,
-					href,
-					icon,
-					variant,
-				}
+				${buttonsQuery({ array: false })},
 			},
 		},
 	}`;
