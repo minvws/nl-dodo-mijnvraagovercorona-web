@@ -47,7 +47,6 @@ const { locale, pagesData } = Astro.props;
 const pageData: PageHomeProps = pagesData.filter(
 	(page) => page.localeID === locale.id,
 )[0];
-console.log(pageData.assistance);
 ---
 
 <Layout
@@ -70,7 +69,7 @@ console.log(pageData.assistance);
 			icon={pageData.button.icon}
 			interactionIconAnimation="swing"
 			href={pageData.button.href
-				? prefixUrlWithlocale(`/${pageData.button.href}`, locale)
+				? prefixUrlWithlocale(pageData.button.href, locale)
 				: `#${stringToSlug(pageData.important.title)}`}
 		>
 			{pageData.button.label}
@@ -98,65 +97,6 @@ console.log(pageData.assistance);
 							<AdviceBlock {...pageData.currentAdvice.adviceNo} />
 						) : null
 					}
-					<!-- <GridFluid class="grid-important">
-						<Card variant="white">
-							<Stack gap="small">
-								<Stack gap="small">
-									<MediaBlock icon={pageData.currentAdvice.adviceYes.image}>
-										<Heading level={3} styledAs={2}>
-											{pageData.currentAdvice.adviceYes.title}
-										</Heading>
-									</MediaBlock>
-									<ContentBlock
-										value={pageData.currentAdvice.adviceYes.content}
-									/>
-								</Stack>
-								<Stack gap="large">
-									{
-										pageData.currentAdvice.adviceYes.items.map((item) => (
-											<MediaBlock icon={item.image}>
-												<ContentBlock value={item.content} />
-											</MediaBlock>
-										))
-									}
-								</Stack>
-							</Stack>
-						</Card>
-
-						<Card variant="white">
-							<Stack gap="small">
-								<Stack gap="small">
-									<MediaBlock icon={pageData.currentAdvice.adviceNo.image}>
-										<Heading level={3} styledAs={2}>
-											{pageData.currentAdvice.adviceNo.title}
-										</Heading>
-									</MediaBlock>
-									<ContentBlock
-										value={pageData.currentAdvice.adviceNo.content}
-									/>
-								</Stack>
-								<Stack gap="large">
-									{
-										pageData.currentAdvice.adviceNo.items.map((item) => (
-											<MediaBlock icon={item.image}>
-												<ContentBlock value={item.content} />
-											</MediaBlock>
-										))
-									}
-									<Button
-										variant={pageData.currentAdvice.adviceNo.button.variant}
-										href={prefixUrlWithlocale(
-											`/${pageData.currentAdvice.adviceNo.button.href}`,
-											locale,
-										)}
-										icon={pageData.currentAdvice.adviceNo.button.icon}
-										interactionIconAnimation="swing"
-									>
-										{pageData.currentAdvice.adviceNo.button.label}
-									</Button>
-								</Stack>
-							</Stack>
-						</Card> -->
 				</GridFluid>
 			</Stack>
 		</Retain>
