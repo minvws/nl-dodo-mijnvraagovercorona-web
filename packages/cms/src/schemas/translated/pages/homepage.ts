@@ -1,6 +1,5 @@
-import { string } from 'prop-types';
 import { defineType, defineField } from 'sanity';
-import { filterReferenceByLanguage } from 'utilities/filterReferenceByLanguage';
+import { filterReferenceByLanguage } from '../../../utilities/filterReferenceByLanguage';
 
 export default defineType({
 	title: 'Homepage',
