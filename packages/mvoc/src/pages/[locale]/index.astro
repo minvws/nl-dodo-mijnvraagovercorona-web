@@ -90,10 +90,11 @@ console.log(pageData.assistance);
 					<Card variant="white">
 						<Stack gap="small">
 							<Stack gap="small">
-								<MediaBlock
-									title={pageData.currentAdvice.adviceYes.title}
-									icon={pageData.currentAdvice.adviceYes.image}
-								/>
+								<MediaBlock icon={pageData.currentAdvice.adviceYes.image}>
+									<Heading level={3} styledAs={2}>
+										{pageData.currentAdvice.adviceYes.title}
+									</Heading>
+								</MediaBlock>
 								<ContentBlock
 									value={pageData.currentAdvice.adviceYes.content}
 								/>
@@ -109,13 +110,15 @@ console.log(pageData.assistance);
 							</Stack>
 						</Stack>
 					</Card>
+
 					<Card variant="white">
 						<Stack gap="small">
 							<Stack gap="small">
-								<MediaBlock
-									title={pageData.currentAdvice.adviceNo.title}
-									icon={pageData.currentAdvice.adviceNo.image}
-								/>
+								<MediaBlock icon={pageData.currentAdvice.adviceNo.image}>
+									<Heading level={3} styledAs={2}>
+										{pageData.currentAdvice.adviceNo.title}
+									</Heading>
+								</MediaBlock>
 								<ContentBlock value={pageData.currentAdvice.adviceNo.content} />
 							</Stack>
 							<Stack gap="large">
