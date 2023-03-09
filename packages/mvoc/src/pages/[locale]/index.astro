@@ -83,7 +83,7 @@ const pageData: PageHomeProps = pagesData.filter(
 				<SectionHeadingGroup title={pageData.currentAdvice.title}>
 					<ContentBlock value={pageData.currentAdvice.adviceYes.content} />
 				</SectionHeadingGroup>
-				<GridFluid class="grid-important">
+				<GridFluid class="grid-advice">
 					{
 						pageData.currentAdvice.adviceYes ? (
 							<AdviceBlock
@@ -147,8 +147,13 @@ const pageData: PageHomeProps = pagesData.filter(
 <style lang="scss">
 	@use '@design-system-styles/primitives/_responsive.scss';
 
-	.grid-important {
+	.grid-important,
+	.grid-advice {
 		--grid-fluid-min-item-size: 20rem; // 400px
 		--grid-fluid-gap: var(--stack-small);
+	}
+
+	.grid-advice {
+		align-items: start;
 	}
 </style>
