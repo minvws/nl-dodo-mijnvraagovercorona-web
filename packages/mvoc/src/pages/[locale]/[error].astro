@@ -38,12 +38,11 @@ interface Props {
 	locale: Locale;
 }
 
-interface HomeProps {
-	pageData: PageHomeProps;
-}
-
 const { pageData, locale } = Astro.props;
-const { pageData: homePageData }: HomeProps = await getDataHome({ locale });
+const homeCollection = await getDataHome();
+const homePageData = homeCollection.filter(
+	(page) => page.localeID === locale.id,
+)[0] as PageHomeProps;
 ---
 
 <Layout
@@ -58,43 +57,46 @@ const { pageData: homePageData }: HomeProps = await getDataHome({ locale });
 	>
 		<ContentBlock value={pageData.hero.content} />
 	</Hero>
-	<Layer id={stringToSlug(homePageData.important.title)}>
-		<Retain>
-			<Stack gap="humongous">
-				<Button
-					iconPosition="leading"
-					icon={pageData.button.icon}
-					href={prefixUrlWithlocale(`/`, locale)}
-				>
-					{pageData.button.label}
-				</Button>
-				<section>
-					<Stack gap="small">
-						<ContentBlock value={pageData.content} />
-						<GridFluid class="grid-important">
-							{
-								homePageData.important.questionCollection
-									?.filter((item) => item.title)
-									.map((item) => (
-										<Button
-											variant="tertiary"
-											href={prefixUrlWithlocale(`/${item.path}`, locale)}
-											icon="chevron-small-right"
-											interactionIconAnimation="swing"
-										>
-											<ContentBlock value={item.title} />
-										</Button>
-									))
-							}
-						</GridFluid>
+
+	{
+		homePageData ? (
+			<Layer id={stringToSlug(homePageData.important.title)}>
+				<Retain>
+					<Stack gap="humongous">
+						<Button
+							iconPosition="leading"
+							icon={pageData.button.icon}
+							href={prefixUrlWithlocale(`/`, locale)}
+						>
+							{pageData.button.label}
+						</Button>
+						<div>
+							<Stack gap="small">
+								<ContentBlock value={pageData.content} />
+								<GridFluid class="grid-important">
+									{homePageData.important.questionCollection
+										?.filter((item) => item.label)
+										.map((item) => (
+											<Button
+												variant="tertiary"
+												href={prefixUrlWithlocale(`/${item.path}`, locale)}
+												icon="chevron-small-right"
+												interactionIconAnimation="swing"
+											>
+												<ContentBlock value={item.label} />
+											</Button>
+										))}
+								</GridFluid>
+							</Stack>
+						</div>
+						<p>
+							<strong>{pageData.errormessage}</strong>
+						</p>
 					</Stack>
-				</section>
-				<p>
-					<strong>{pageData.errormessage}</strong>
-				</p>
-			</Stack>
-		</Retain>
-	</Layer>
+				</Retain>
+			</Layer>
+		) : null
+	}
 </Layout>
 
 <style lang="scss">
