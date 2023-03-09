@@ -23,6 +23,7 @@ export default defineType({
 						{ type: 'situation-question-document' },
 						{ type: 'situation-result-document' },
 						{ type: 'tip-document' },
+						{ type: 'theme-document' },
 					],
 				}),
 			],
