@@ -6,7 +6,11 @@ export default defineField({
 	description: 'Creëert een interne link naar een andere pagina.',
 	name: 'pageReference',
 	type: 'reference',
-	to: [{ type: 'theme-page' }, { type: 'generic-page' }],
+	to: [
+		{ type: 'theme-page' },
+		{ type: 'generic-page' },
+		{ type: 'tip-document' },
+	],
 	options: {
 		filter: filterReferenceByLanguage,
 	},
