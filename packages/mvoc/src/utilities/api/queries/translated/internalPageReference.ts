@@ -11,6 +11,13 @@ export interface InternalPageCollectionProps {
 	}[];
 }
 
+export const internalPageReferenceInSelectQuery = (): string => {
+	return `
+		pageReference->_type == "theme-page" => 'thema/' + pageReference->slug.current,
+		pageReference->_type == "generic-page" => pageReference->slug.current,
+	`;
+};
+
 export const internalPageReferenceQuery = (): string => {
 	return `internalPageCollection[]{
 		${customBlockQuery({ name: 'label' })},
