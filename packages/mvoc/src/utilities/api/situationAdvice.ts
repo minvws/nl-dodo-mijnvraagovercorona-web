@@ -199,7 +199,7 @@ export async function getDataSituationAdvice({
 			}
 		},
 		"moreTips": {
-			${localePropertyQuery({ name: 'title', path: 'moreTips.title', locale })},
+			${localePropertyQuery({ name: 'title', path: 'moreTips.moreTips', locale })},
 			${tipsCollectionQuery({ path: 'moreTips', locale })},
 		},
 		${assistanceQuery({ locale })},
