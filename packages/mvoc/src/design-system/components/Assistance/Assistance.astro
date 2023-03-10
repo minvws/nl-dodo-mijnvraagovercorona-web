@@ -5,7 +5,10 @@ import { Link } from '@design-system/elements/Link';
 import { HTMLAttributes } from 'astro/types';
 import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
 import { AssistanceProps } from 'src/utilities/api/queries/translated/assistance';
-import { getLocaleFromURL } from 'src/utilities/locale/translation';
+import {
+	getLocaleFromURL,
+	prefixUrlWithlocale,
+} from 'src/utilities/locale/translation';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
 import GridFluid from '../Layout/Grid/GridFluid.astro';
 import { Stack } from '../Layout/Stack';
@@ -26,6 +29,7 @@ const {
 	chat,
 	phone,
 	situation,
+	getHelp,
 } = Astro.props;
 
 const locale = getLocaleFromURL(Astro.url.pathname);
@@ -122,7 +126,26 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 		</Stack>
 
 		{
-			feedback ? (
+			getHelp ? (
+				<Stack>
+					<img
+						src={image?.src || '/images/questions.svg'}
+						alt=""
+						loading="lazy"
+						class={`c-assistance__img c-assistance__img-feedback`}
+					/>
+					<Heading level={3} styledAs={2}>
+						{getHelp.title}
+					</Heading>
+					<Button
+						href={prefixUrlWithlocale(getHelp.button.href, locale)}
+						icon={getHelp.button.icon}
+						interactionIconAnimation={'swing'}
+					>
+						{getHelp.button.label}
+					</Button>
+				</Stack>
+			) : feedback ? (
 				<Stack>
 					<img
 						src={image?.src || '/images/questions.svg'}

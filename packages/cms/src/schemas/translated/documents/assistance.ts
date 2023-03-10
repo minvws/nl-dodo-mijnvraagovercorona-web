@@ -70,5 +70,22 @@ export default defineType({
 			name: 'situationButton',
 			type: 'string',
 		}),
+		defineField({
+			title: 'Hulp nodig?',
+			name: 'getHelp',
+			type: 'object',
+			fields: [
+				defineField({
+					title: 'Title',
+					name: 'title',
+					type: 'string',
+				}),
+				defineField({
+					title: 'Knop',
+					name: 'button',
+					type: 'flexibleButton',
+				}),
+			],
+		}),
 	],
 });

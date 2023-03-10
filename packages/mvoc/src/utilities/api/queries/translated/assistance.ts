@@ -1,5 +1,5 @@
-import { Locale } from 'src/utilities/locale/translation';
 import { ImageProps, imageQuery } from '../image';
+import { ButtonProps, buttonsQuery } from './buttons';
 
 export interface AssistanceProps {
 	headline: string;
@@ -21,28 +21,36 @@ export interface AssistanceProps {
 		question: string;
 		button: string;
 	};
+	getHelp?: {
+		title: string;
+		button: ButtonProps;
+	};
 }
 
 export const assistanceQuery = (): string => {
 	return `assistance->{
-        "headline": title,
-        ${imageQuery({ name: 'image' })},
-        "subTitle": {
-            "chatOpen": tekstWithChat,
-            "chatClosed": tekstWithoutChat,
-        },
-        "chat": {
-            "title": chat,
-            openingHours,
-        },
-        "phone": {
+		"headline": title,
+		${imageQuery({ name: 'image' })},
+		"subTitle": {
+			"chatOpen": tekstWithChat,
+			"chatClosed": tekstWithoutChat,
+		},
+		"chat": {
+			"title": chat,
+			openingHours,
+		},
+		"phone": {
 			"number": phonenumber,
 			"openingHours": openingHoursPhonenumber,
 		},
-        open,
-        "situation": {
-            "question": situationQuestion,
-            "button": situationButton,
-        }
+		open,
+		"situation": {
+ 			"question": situationQuestion,
+			"button": situationButton,
+		},
+		getHelp{
+			title,
+			${buttonsQuery({ array: false })},
+		},
 	}`;
 };
