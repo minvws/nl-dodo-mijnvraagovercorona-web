@@ -58,7 +58,9 @@ export const prefixUrlWithlocale = (href: string, locale: Locale) =>
 	availableLocales.filter((locale) => href.includes(locale.urlPrefix))
 		.length === 0 &&
 	!isExternalUrl(href) &&
-	!href.startsWith('#')
+	!href.startsWith('#') &&
+	!href.startsWith('tel:') &&
+	!href.startsWith('mailto:')
 		? `${locale.urlPrefix}/${href.replace(/^\//, '')}`
 		: href;
 
