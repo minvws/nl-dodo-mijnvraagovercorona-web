@@ -54,9 +54,7 @@ const { title, chapeau, disclosure, buttons } = Astro.props;
 				<ul class="c-card-block__wrap-buttons" role="list">
 					{buttons.map(({ text, link, situation }) => (
 						<li>
-							<Button href={link || `/${situation}`} external={!!link}>
-								{text}
-							</Button>
+							<Button href={link || `/${situation}`}>{text}</Button>
 						</li>
 					))}
 				</ul>
