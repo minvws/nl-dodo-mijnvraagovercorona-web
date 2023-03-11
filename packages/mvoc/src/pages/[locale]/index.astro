@@ -14,26 +14,36 @@ import { SectionHeadingGroup } from '@design-system/components/SectionHeadingGro
 import { ContentBlock } from '@design-system/components/ContentBlock';
 import { GridFluid } from '@design-system/components/Layout/Grid';
 import { Button } from '@design-system/elements/Button';
-import { ThemeOverview } from '@design-system/components/ThemeOverview';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { Assistance } from '@design-system/components/Assistance';
+import { AdviceBlock } from '@design-system/components/AdviceBlock';
 
 export async function getStaticPaths() {
-	return availableLocales.map((locale) => ({
-		params: { locale: locale.id },
+	const collection = await getDataHome();
+	return collection.map((page: PageHomeProps) => ({
+		params: {
+			locale: page.localeID,
+		},
 		props: {
-			locale,
+			pagesData: collection,
+			locale: availableLocales.filter(
+				(locale) => locale.id === page.localeID,
+			)[0],
 		},
 	}));
 }
 
-interface HomeProps {
-	pageData: PageHomeProps;
+interface Props {
 	locale: Locale;
+	pagesData?: PageHomeProps[];
 }
 
-const { locale } = Astro.props;
-const { pageData }: HomeProps = await getDataHome({ locale });
+const { locale, pagesData } = Astro.props;
+
+// Get pagedata based on locale
+const pageData: PageHomeProps = pagesData.filter(
+	(page) => page.localeID === locale.id,
+)[0];
 ---
 
 <Layout
@@ -41,20 +51,61 @@ const { pageData }: HomeProps = await getDataHome({ locale });
 	metaData={pageData.metaData}
 	skipPageSuffix
 	mastheadHighlight
+	alternativeTranslations={pageData.alternatives}
 >
 	<Hero
-		title={pageData.header.title}
-		chapeau={pageData.header.chapeau}
-		subTitle={pageData.header.subtitle}
-		image={pageData.header.image}
+		title={pageData.hero.title}
+		chapeau={pageData.hero.chapeau}
+		image={pageData.hero.image}
 		highlight
-	/>
+	>
+		<ContentBlock value={pageData.hero.content} />
+		<Button
+			iconPosition="trailing"
+			variant={pageData.button.variant}
+			icon={pageData.button.icon}
+			interactionIconAnimation="swing"
+			href={pageData.button.href
+				? prefixUrlWithlocale(pageData.button.href, locale)
+				: `#${stringToSlug(pageData.important.title)}`}
+		>
+			{pageData.button.label}
+		</Button>
+	</Hero>
 
 	<Layer
 		pullUpBy="hero"
 		background="ijsblauw"
-		id={stringToSlug(pageData.important.title)}
+		id={stringToSlug(pageData.currentAdvice.title)}
 	>
+		<Retain>
+			<Stack gap="huge">
+				<SectionHeadingGroup title={pageData.currentAdvice.title}>
+					<ContentBlock value={pageData.currentAdvice.content} />
+				</SectionHeadingGroup>
+				<GridFluid class="grid-advice">
+					{
+						pageData.currentAdvice.adviceYes ? (
+							<AdviceBlock
+								{...pageData.currentAdvice.adviceYes}
+								locale={locale}
+							/>
+						) : null
+					}
+					{
+						pageData.currentAdvice.adviceNo ? (
+							<AdviceBlock
+								{...pageData.currentAdvice.adviceNo}
+								locale={locale}
+							/>
+						) : null
+					}
+				</GridFluid>
+			</Stack>
+		</Retain>
+	</Layer>
+
+	<Layer id={stringToSlug(pageData.important.title)}>
 		<Retain>
 			<Stack gap="huge">
 				<SectionHeadingGroup
@@ -66,15 +117,15 @@ const { pageData }: HomeProps = await getDataHome({ locale });
 				<GridFluid class="grid-important">
 					{
 						pageData.important.questionCollection
-							?.filter((item) => item.title)
+							?.filter((item) => item.label)
 							.map((item) => (
 								<Button
 									variant="tertiary"
-									href={prefixUrlWithlocale(`/${item.path}`, locale)}
+									href={prefixUrlWithlocale(item.href, locale)}
 									icon="chevron-small-right"
 									interactionIconAnimation="swing"
 								>
-									<ContentBlock value={item.title} />
+									<ContentBlock value={item.label} />
 								</Button>
 							))
 					}
@@ -82,18 +133,6 @@ const { pageData }: HomeProps = await getDataHome({ locale });
 			</Stack>
 		</Retain>
 	</Layer>
-
-	<Layer id={stringToSlug(pageData.themes.title)}>
-		<Retain>
-			<Stack gap="huge">
-				<SectionHeadingGroup title={pageData.themes.title}>
-					<ContentBlock value={pageData.themes.content} />
-				</SectionHeadingGroup>
-				<ThemeOverview themeCollection={pageData.themes.themeCollection} />
-			</Stack>
-		</Retain>
-	</Layer>
-
 	{
 		pageData.assistance && (
 			<Layer id={stringToSlug(pageData.assistance.headline)}>
@@ -108,8 +147,13 @@ const { pageData }: HomeProps = await getDataHome({ locale });
 <style lang="scss">
 	@use '@design-system-styles/primitives/_responsive.scss';
 
-	.grid-important {
+	.grid-important,
+	.grid-advice {
 		--grid-fluid-min-item-size: 20rem; // 400px
 		--grid-fluid-gap: var(--stack-small);
+	}
+
+	.grid-advice {
+		align-items: start;
 	}
 </style>

@@ -19,6 +19,7 @@ export default defineType({
 			{ title: 'Chevron-small-left', value: 'chevron-small-left' },
 			{ title: 'Chevron-small-right', value: 'chevron-small-right' },
 			{ title: 'Chevron-small-down', value: 'chevron-small-down' },
+			{ title: 'Arrow right', value: 'arrow-right' },
 			{ title: 'World', value: 'world' },
 			{ title: 'Phone', value: 'phone' },
 			{ title: 'Chat', value: 'chat' },
