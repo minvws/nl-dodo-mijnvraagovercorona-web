@@ -5,6 +5,7 @@ export * from './siteSettings';
 export * from './hero';
 export * from './internalPageReference';
 export * from './taleReference';
+export * from './interimQuestion';
 export * from './modals';
 export * from './buttons';
 export * from './picture';

@@ -17,7 +17,6 @@ import { MdOutlineTopic, MdLiveHelp } from 'react-icons/md';
 import { AiOutlineRead } from 'react-icons/ai';
 
 import { getFolder } from './utilities/getFolder';
-import { getPage } from './utilities/getSingleton';
 import { getDocumentList, getPageList } from './utilities/getDocumentList';
 import { getTranslatedSingleton } from './utilities/getTranslatedSingleton';
 import { getTranslatedDocumentList } from './utilities/getTranslatedDocumentList';
@@ -31,14 +30,6 @@ const siteSettingsConfig = [
 		schemaType: 'site-settings-document',
 		title: 'Site Settings',
 		icon: GiSettingsKnobs,
-	},
-];
-
-const mvocPagesConfigOld = [
-	{
-		schemaType: 'check-landing-page',
-		title: 'Landing',
-		icon: GiHouse,
 	},
 ];
 
@@ -171,6 +162,11 @@ export default (S) =>
 						title: 'Pagina’s',
 						icon: RiPagesLine,
 						items: [
+							getTranslatedSingleton(S, {
+								title: 'Homepage',
+								type: 'homepage',
+								icon: GiHouse,
+							}),
 							...mvocPagesConfig.map((config) =>
 								getTranslatedDocumentList(S, config),
 							),
@@ -216,10 +212,9 @@ export default (S) =>
 			}),
 
 			getFolder(S, {
-				title: 'MijnVraagOverCorona',
+				title: 'Oude structuur MVOC',
 				icon: MdLiveHelp,
 				items: [
-					...mvocPagesConfigOld.map((config) => getPage(S, config)),
 					...mvocPagesDocumentsConfig.map((config) => getPageList(S, config)),
 				],
 			}),

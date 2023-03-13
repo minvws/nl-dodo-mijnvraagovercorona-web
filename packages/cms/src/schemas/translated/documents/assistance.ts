@@ -11,7 +11,15 @@ export default defineType({
 	preview: {
 		select: {
 			title: 'title',
-			subtitle: 'phonenumber',
+			phone: 'phonenumber',
+			lang: '__i18n_lang',
+		},
+		prepare(selection) {
+			const { title, phone, lang } = selection;
+			return {
+				title: title,
+				subtitle: `${lang} - ${phone}`,
+			};
 		},
 	},
 	fields: [
@@ -22,8 +30,8 @@ export default defineType({
 		}),
 		defineField({
 			title: 'Afbeelding',
-			name: 'picture',
-			type: 'picture',
+			name: 'image',
+			type: 'image',
 		}),
 		defineField({
 			title: 'Tekst zonder chat',
@@ -69,6 +77,23 @@ export default defineType({
 			title: 'Situatie button',
 			name: 'situationButton',
 			type: 'string',
+		}),
+		defineField({
+			title: 'Hulp nodig?',
+			name: 'getHelp',
+			type: 'object',
+			fields: [
+				defineField({
+					title: 'Title',
+					name: 'title',
+					type: 'string',
+				}),
+				defineField({
+					title: 'Knop',
+					name: 'button',
+					type: 'flexibleButton',
+				}),
+			],
 		}),
 	],
 });

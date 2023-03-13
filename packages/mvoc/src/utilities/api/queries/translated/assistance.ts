@@ -1,9 +1,9 @@
-import { Locale } from 'src/utilities/locale/translation';
-import { PictureProps, pictureQuery } from './picture';
+import { ButtonProps, buttonsQuery, PictureProps, pictureQuery } from '.';
+import { ImageProps, imageQuery } from '../image';
 
 export interface AssistanceProps {
-	title: string;
-	picture: PictureProps;
+	headline: string;
+	image?: ImageProps;
 	open: string;
 	subTitle: {
 		chatOpen: string;
@@ -21,44 +21,36 @@ export interface AssistanceProps {
 		question: string;
 		button: string;
 	};
+	getHelp?: {
+		title: string;
+		button: ButtonProps;
+	};
 }
 
-// export const assistanceQuery = () => {
-// 	return `*[_type == "assistance"]{
-//         title,
-//         open,
-//         openingHoursPhonenumber,
-//         phonenumber,
-//         situationButton,
-//         situationQuestion,
-//         tekstWithChat,
-//         tekstWithoutChat,
-//       }`;
-// };
-
 export const assistanceQuery = (): string => {
-	return `assistance{
-		name: 'title', path: 'title', locale,
-		name: 'picture',
+	return `assistance->{
+		"headline": title,
+		${imageQuery({ name: 'image' })},
 		"subTitle": {
-			name: 'chatOpen', path: 'tekstWithChat', locale ,
-			name: 'chatClosed', path: 'tekstWithoutChat', locale
+			"chatOpen": tekstWithChat,
+			"chatClosed": tekstWithoutChat,
 		},
 		"chat": {
-			name: 'title', path: 'chat', locale,
-			 name: 'openingHours', locale,
+			"title": chat,
+			openingHours,
 		},
-		"phone":{
+		"phone": {
 			"number": phonenumber,
-				name: 'openingHours',
-				path: 'openingHoursPhonenumber',
-				locale,
-			,
+			"openingHours": openingHoursPhonenumber,
 		},
-		 name: 'open', locale,
+		open,
 		"situation": {
-			name: 'question', path: 'situationQuestion', locale ,
-			name: 'button', path: 'situationButton', locale ,
+ 			"question": situationQuestion,
+			"button": situationButton,
+		},
+		getHelp{
+			title,
+			${buttonsQuery({ array: false })},
 		},
 	}`;
 };

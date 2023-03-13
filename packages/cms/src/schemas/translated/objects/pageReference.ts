@@ -10,6 +10,7 @@ export default defineField({
 		{ type: 'theme-page' },
 		{ type: 'generic-page' },
 		{ type: 'locations-page' },
+		{ type: 'tip-document' },
 	],
 	options: {
 		filter: filterReferenceByLanguage,

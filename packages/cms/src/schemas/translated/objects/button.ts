@@ -10,7 +10,7 @@ export default defineType({
 			title: 'Label',
 			name: 'label',
 			type: 'string',
-			validation: (Rule) => Rule.required(),
+			// validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			title: 'Interne link',

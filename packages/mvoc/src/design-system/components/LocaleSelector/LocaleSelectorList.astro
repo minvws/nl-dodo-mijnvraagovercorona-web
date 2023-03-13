@@ -39,7 +39,11 @@ const { localeSelector }: SiteSettingsProps = await useSiteSettings({
 				? alternativeTranslations.map((alternativeTranslation) => (
 						<li>
 							<Link
-								href={`${alternativeTranslation.locale.urlPrefix}/${alternativeTranslation.href}`}
+								href={`${alternativeTranslation.locale.urlPrefix}${
+									alternativeTranslation.href
+										? `/${alternativeTranslation.href}`
+										: ''
+								}`}
 								aria-current={
 									alternativeTranslation.locale.urlPrefix ===
 									currentLocale.urlPrefix

@@ -1,81 +1,113 @@
 import { ContentBlockProps } from '@design-system/components/ContentBlock';
+import { AlternativeTranslationsProps } from '@design-system/components/LocaleSelector';
+import { ButtonVariants } from '@design-system/elements/Button';
+import { IconProps } from '@design-system/elements/Icon';
 import { useSanityClient } from 'astro-sanity';
-import { Locale } from '../locale/translation';
+import { getPageTranslations } from '../helpers/get-page-translations';
+import { imageQuery, ImageProps } from './queries';
 import {
+	AssistanceProps,
+	assistanceQuery,
+} from './queries/translated/assistance';
+
+import {
+	HeroProps,
+	heroQuery,
 	pageQuery,
 	PageProps,
-	imageQuery,
-	localePropertyQuery,
-	ImageProps,
-} from './queries';
-import { AssistanceProps, assistanceQuery } from './queries/assistance';
-import {
-	QuestionCollectionProps,
-	questionCollectionQuery,
-} from './queries/question';
-import { ThemeCollectionProps, themeCollectionQuery } from './queries/theme';
-
-interface ImportantProps extends QuestionCollectionProps {
-	title: string;
-	content: ContentBlockProps['value'];
-	icon: ImageProps;
-}
-
-interface ThemesProps extends ThemeCollectionProps {
-	title: string;
-	content: ContentBlockProps['value'];
-}
+	customBlockQuery,
+	interimQuestionCollectionQuery,
+	InterimQuestionCollectionProps,
+} from './queries/translated';
+import { ButtonProps, buttonsQuery } from './queries/translated/buttons';
 
 export interface PageHomeProps extends PageProps {
-	header: {
-		title: string;
-		chapeau: string;
-		subtitle: string;
-		image: ImageProps;
-	};
-	important: ImportantProps;
-	themes: ThemesProps;
+	hero: HeroProps;
+	button?: ButtonProps;
+	locale: string;
 	assistance: AssistanceProps;
+	important: {
+		title: string;
+		content: ContentBlockProps['value'];
+		icon: ImageProps;
+		questionCollection: InterimQuestionCollectionProps['questionCollection'];
+	};
+	alternatives: AlternativeTranslationsProps[];
+	slug: string;
+	currentAdvice: {
+		title: string;
+		content: ContentBlockProps['value'];
+		adviceYes: {
+			title: string;
+			content: ContentBlockProps['value'];
+			image: ImageProps;
+			items: {
+				label: string;
+				content: ContentBlockProps['value'];
+				image: ImageProps;
+			}[];
+			button: ButtonProps;
+		};
+		adviceNo: {
+			title: string;
+			content: ContentBlockProps['value'];
+			image: ImageProps;
+			items: {
+				label: string;
+				content: ContentBlockProps['value'];
+				image: ImageProps;
+			}[];
+			button: ButtonProps;
+		};
+	};
 }
 
-export async function getDataHome({ locale }: { locale: Locale }) {
+export async function getDataHome() {
 	const projection = `{
-		"header": {
-			${localePropertyQuery({ name: 'title', path: 'header.title', locale })},
-			${localePropertyQuery({ name: 'chapeau', path: 'header.chapeau', locale })},
-			${localePropertyQuery({ name: 'subtitle', path: 'header.subtitle', locale })},
-			${imageQuery({ name: 'image', path: 'header.image' })},
+		${heroQuery()},
+		${assistanceQuery()},
+		${buttonsQuery({ array: false })},
+		important{
+			title,
+			${customBlockQuery({ name: 'content' })},
+			${imageQuery({ name: 'icon' })},
+			${interimQuestionCollectionQuery()},
 		},
-		"important": {
-			${localePropertyQuery({ name: 'title', path: 'important.title', locale })},
-			${localePropertyQuery({
-				name: 'content',
-				path: 'important.content',
-				locale,
-				block: true,
-			})},
-			${imageQuery({ name: 'icon', path: 'important.icon' })},
-			${questionCollectionQuery({ path: 'important', locale })},
+		currentAdvice{
+			title,
+			${customBlockQuery({ name: 'content' })},
+			adviceYes{
+				title,
+				${customBlockQuery({ name: 'content' })},
+				${imageQuery({ name: 'image' })},
+				items[]{
+					label,
+					${imageQuery({ name: 'image' })},
+					${customBlockQuery({ name: 'content' })},
+				},
+				${buttonsQuery({ array: false })},
+			},
+			adviceNo{
+				title,
+				${customBlockQuery({ name: 'content' })},
+				${imageQuery({ name: 'image' })},
+				items[]{
+					label,
+					${imageQuery({ name: 'image' })},
+					${customBlockQuery({ name: 'content' })},
+				},
+				${buttonsQuery({ array: false })},
+			},
 		},
-		"themes": {
-			${localePropertyQuery({ name: 'title', path: 'themes.title', locale })},
-			${localePropertyQuery({
-				name: 'content',
-				path: 'themes.content',
-				locale,
-				block: true,
-			})},
-			${themeCollectionQuery({ path: 'themes', locale })},
-		},
-		${assistanceQuery({ locale })},
 	}`;
 
 	const query = pageQuery({
-		type: 'check-landing-page',
+		type: 'homepage',
 		projection,
-		locale,
-		site: 'mijn-vraag-over-corona',
+		multiple: true,
 	});
 
-	return await useSanityClient().fetch(query);
+	const data = await useSanityClient().fetch(query);
+
+	return getPageTranslations(data.pages);
 }

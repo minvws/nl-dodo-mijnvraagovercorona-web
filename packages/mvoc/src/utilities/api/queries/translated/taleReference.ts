@@ -1,8 +1,9 @@
 import {
+	PictureProps,
+	pictureQuery,
 	MultiContentBlocksProps,
 	multiContentBlocksQuery,
-} from './multiContentBlock';
-import { PictureProps, pictureQuery } from './picture';
+} from '.';
 
 export interface Tale {
 	title: string;

@@ -13,6 +13,7 @@ import locationsPage from './translated/pages/pza/locations';
 import pzaLandingPage from './translated/pages/pza/landing';
 import themePage from './translated/pages/theme';
 import errorPage from './translated/pages/error';
+import homePage from './translated/pages/homepage';
 
 // objects
 import {
@@ -21,6 +22,7 @@ import {
 } from './translated/objects/customBlock';
 import metaDataObject from './translated/objects/metaData';
 import iconPickerObject from './translated/objects/iconPicker';
+import adviceObject from './translated/objects/adviceBlock';
 import buttonObject from './translated/objects/button';
 import pictureObject from './translated/objects/picture';
 import videoObject from './translated/objects/video';
@@ -29,6 +31,7 @@ import multiContentBlocksObject from './translated/objects/multiContentBlocks';
 import pageReferenceObject from './translated/objects/pageReference';
 import internalPageSelectorObject from './translated/objects/internalPageSelector';
 import taleSelectorObject from './translated/objects/taleSelector';
+import interimQuestionSelectorObject from './translated/objects/interimQuestionSelector';
 
 /**
  * Old document structure
@@ -56,7 +59,7 @@ import toegankelijkheidPage from './pages/common/toegankelijkheid';
 import error404Page from './pages/common/404page';
 
 // MVOC
-import checkLandingPage from './pages/mvoc/check-landing';
+import checkLandingPageOld from './pages/mvoc/check-landing';
 
 // Objects
 import localeStringObject from './objects/localeString';
@@ -91,6 +94,7 @@ export default [
 	pzaLandingPage,
 	themePage,
 	errorPage,
+	homePage,
 
 	// documents
 	siteSettingsDocument,
@@ -103,6 +107,7 @@ export default [
 	customBlockWithoutModalObject,
 	metaDataObject,
 	iconPickerObject,
+	adviceObject,
 	heroObject,
 	buttonObject,
 	pictureObject,
@@ -110,6 +115,7 @@ export default [
 	multiContentBlocksObject,
 	pageReferenceObject,
 	internalPageSelectorObject,
+	interimQuestionSelectorObject,
 	taleSelectorObject,
 
 	/**
@@ -127,7 +133,7 @@ export default [
 	/**
 	 * Mvoc pages
 	 */
-	checkLandingPage,
+	checkLandingPageOld,
 
 	/**
 	 * Site settings
