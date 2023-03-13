@@ -1,6 +1,6 @@
 import { ButtonVariants } from '@design-system/elements/Button';
 import { IconProps } from '@design-system/elements/Icon';
-import { internalPageReferenceInSelectQuery } from './internalPageReference';
+import { internalPageReferenceInSelectQuery } from '.';
 
 export interface ButtonProps {
 	label: string;
