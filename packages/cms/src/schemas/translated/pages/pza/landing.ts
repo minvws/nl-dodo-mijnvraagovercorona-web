@@ -1,4 +1,5 @@
 import { defineType, defineField } from 'sanity';
+import { filterReferenceByLanguage } from '../../../../utilities/filterReferenceByLanguage';
 
 export default defineType({
 	title: 'PZA landing pagina',
@@ -48,6 +49,15 @@ export default defineType({
 			title: 'Tales',
 			name: 'taleCollection',
 			type: 'taleSelector',
+		}),
+		defineField({
+			title: 'Hulp',
+			name: 'assistance',
+			type: 'reference',
+			to: [{ type: 'assistance' }],
+			options: {
+				filter: filterReferenceByLanguage,
+			},
 		}),
 	],
 	preview: {

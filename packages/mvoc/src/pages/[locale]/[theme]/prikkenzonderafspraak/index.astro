@@ -15,6 +15,8 @@ import { Layer } from '@design-system/components/Layout/Layer';
 import { Sidebar } from '@design-system/components/Layout/Sidebar';
 import { CardPrivacy } from '@design-system/components/Card';
 import { TaleList } from '@design-system/components/Tale';
+import { Assistance } from '@design-system/components/Assistance';
+import { stringToSlug } from 'src/utilities/stringToSlug';
 
 export async function getStaticPaths() {
 	const collection = await getDataPZALandingPages();
@@ -79,10 +81,16 @@ console.log(pageData);
 		<Retain>
 			<Sidebar>
 				<TaleList taleCollection={pageData.taleCollection} />
+				{
+					pageData.assistance && (
+						<Layer id={stringToSlug(pageData.assistance.headline)}>
+							<Retain>
+								<Assistance {...pageData.assistance} />
+							</Retain>
+						</Layer>
+					)
+				}
 				<Stack slot="aside">
-					<p>
-						<mark>Verder praten?</mark>
-					</p>
 					<CardPrivacy />
 				</Stack>
 			</Sidebar>
