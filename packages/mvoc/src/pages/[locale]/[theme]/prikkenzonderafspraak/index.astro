@@ -60,15 +60,17 @@ console.log(pageData);
 				pageData.buttons ? (
 					<ul class="c-hero__wrap-buttons" role="list">
 						{pageData.buttons.map((button) => (
-							<li>
-								<Button
-									variant={button.variant}
-									href={prefixUrlWithlocale(button.href, locale)}
-									icon={button.icon}
-								>
-									{button.label}
-								</Button>
-							</li>
+							<Stack>
+								<li>
+									<Button
+										variant={button.variant}
+										href={prefixUrlWithlocale(button.href, locale)}
+										icon={button.icon}
+									>
+										{button.label}
+									</Button>
+								</li>
+							</Stack>
 						))}
 					</ul>
 				) : null
@@ -101,10 +103,14 @@ console.log(pageData);
 <style lang="scss">
 	@use '@design-system-styles/tools/_list.scss';
 	.c-hero__content {
-		@include list.steps;
+		@include list.list-item;
 
 		ol {
-			--list-steps-icon-background: var(--color-donkerblauw);
+			--list-item-icon-background: var(--color-donkerblauw);
+		}
+
+		ul {
+			--list-item-icon-background: var(--color-accent-robijnrood);
 		}
 	}
 
