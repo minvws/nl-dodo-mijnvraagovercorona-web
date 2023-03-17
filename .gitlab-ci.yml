@@ -88,7 +88,7 @@ build mvoc:
   image: harbor.cicd.s15m.nl/vws-reis-docker-hub/library/node:18-alpine
   stage: build
   script:
-    - npm ci --production
+    - npm ci
     - npm run mvoc:build
     - mkdir -p artifacts
     - cp -r packages/mvoc/dist artifacts/
