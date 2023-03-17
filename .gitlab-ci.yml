@@ -11,7 +11,7 @@ image: harbor.cicd.s15m.nl/vws-reis/tool-box:1.2
 .build-image: &build-image
   environment:
     name: 'test-cluster'
-  stage: build
+  stage: package
   image:
     name: gcr.io/kaniko-project/executor:v1.3.0-debug
     entrypoint: ['']
@@ -46,6 +46,7 @@ image: harbor.cicd.s15m.nl/vws-reis/tool-box:1.2
 stages:
   - test
   - build
+  - package
   - label
   - deploy
 
@@ -83,11 +84,32 @@ label mvoc image production:
   only:
     - main
 
+build mvoc:
+  image: harbor.cicd.s15m.nl/vws-reis-docker-hub/library/node:18-alpine
+  stage: build
+  script:
+    - npm ci --production
+    - npm run mvoc:build
+    - mkdir -p artifacts
+    - cp -r packages/mvoc/dist artifacts/
+  artifacts:
+    paths:
+      - artifacts/dist/
+  only:
+    - develop
+    - main
+    - staging
+
 build mvoc image:
   <<: *build-image
   variables:
     CD_APP_NAME: mijn-vraag-over-corona-website
     CD_APP_FOLDER: mvoc
+  before_script:
+    - mkdir -p packages/mvoc
+    - cp -r artifacts/dist packages/mvoc/
+  dependencies:
+    - build mvoc
   only:
     - develop
     - main
