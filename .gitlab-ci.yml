@@ -111,6 +111,7 @@ build mvoc image:
     CD_APP_NAME: mijn-vraag-over-corona-website
     CD_APP_FOLDER: mvoc
   before_script:
+    - export CD_APP_TAG=$(date -d "$(echo $CI_PIPELINE_CREATED_AT | sed 's/T/ /; s/Z//')" +%Y%m%d%H%M)
     - mkdir -p packages/mvoc
     - cp -r artifacts/dist packages/mvoc/
   dependencies:
