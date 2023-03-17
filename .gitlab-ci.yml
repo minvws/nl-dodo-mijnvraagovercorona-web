@@ -6,6 +6,11 @@ variables:
   CD_NAMESPACE_BHR: vws-reis-bhr
   CD_HARBOR_REGISTRY: harbor.cicd.s15m.nl
 
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+
 image: harbor.cicd.s15m.nl/vws-reis/tool-box:1.2
 
 .build-image: &build-image
