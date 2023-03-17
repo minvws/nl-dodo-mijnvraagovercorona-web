@@ -1,0 +1,88 @@
+---
+import { prefixUrlWithlocale, Locale } from 'src/utilities/locale/translation';
+import { HTMLAttributes } from 'astro/types';
+import { Heading } from '@design-system/elements/Heading';
+import { Card } from '@design-system/components/Card';
+import { MediaBlock } from '@design-system/components/MediaBlock';
+import {
+	ContentBlock,
+	ContentBlockProps,
+} from '@design-system/components/ContentBlock';
+import { Stack } from '../Layout/Stack';
+import { Button } from '@design-system/elements/Button';
+import { ButtonProps } from 'src/utilities/api/queries/translated/buttons';
+import { ImageProps } from 'src/utilities/api/queries';
+
+interface Props extends HTMLAttributes<'div'> {
+	title: string;
+	image?: ImageProps;
+	content: ContentBlockProps['value'];
+	button?: ButtonProps;
+	locale: Locale;
+}
+
+const {
+	title,
+	image,
+	content,
+	button,
+	items,
+	locale,
+	class: className,
+	...attrs
+} = Astro.props;
+---
+
+<Card variant="white" class="c-advice-block">
+	<Stack gap="small">
+		<Stack gap="small">
+			<MediaBlock icon={image} class="c-advice-block__media-heading">
+				<Heading level={3} styledAs={2}>
+					{title}
+				</Heading>
+			</MediaBlock>
+			<ContentBlock value={content} />
+		</Stack>
+		<Stack gap="large">
+			{
+				items.map((item) => (
+					<MediaBlock icon={item.image} class="c-advice-block__media-item">
+						<ContentBlock value={item.content} />
+					</MediaBlock>
+				))
+			}
+			{
+				button ? (
+					<Button
+						variant={button.variant}
+						href={prefixUrlWithlocale(button.href, locale)}
+						icon={button.icon}
+						interactionIconAnimation="swing"
+					>
+						{button.label}
+					</Button>
+				) : null
+			}
+		</Stack>
+	</Stack>
+</Card>
+
+<style lang="scss">
+	@use '@design-system-styles/primitives/_responsive.scss';
+	.c-advice-block {
+	}
+
+	.c-advice-block__media-heading {
+		& {
+			@media --mq-large {
+				--c-media-block-icon-size: var(--space-r-huge);
+			}
+		}
+	}
+
+	.c-advice-block__media-item {
+		@media --mq-large {
+			margin-inline-start: var(--space-r-tiny);
+		}
+	}
+</style>

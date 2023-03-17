@@ -57,8 +57,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 				logoAlt={siteSettings.header.logoAlt}
 				highlight={mastheadHighlight}
 			>
-				<NavMain alternativeTranslations={alternativeTranslations} />
-				<slot name="back" slot="end" />
+				<slot name="back" slot="start" />
 			</Masthead>
 			<main id="content">
 				<slot />
@@ -69,7 +68,6 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 			/>
 		</Sprite.Provider>
 
-		<script src="/scripts/mouseflow.js" is:inline defer></script>
 		<script src="/scripts/piwik.js" is:inline defer></script>
 		<noscript>
 			<iframe

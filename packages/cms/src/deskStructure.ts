@@ -1,32 +1,19 @@
 import {
 	GiCardRandom,
 	GiHouse,
-	GiTestTubes,
-	GiCookie,
 	GiSettingsKnobs,
-	GiWorld,
 	GiLightBulb,
-	GiRadioactive,
-	GiTrail,
 	GiShare,
 	GiAirplaneArrival,
 } from 'react-icons/gi';
 import { BiError, BiSitemap } from 'react-icons/bi';
-import {
-	FaRegCopyright,
-	FaAccessibleIcon,
-	FaHandsHelping,
-	FaFeatherAlt,
-} from 'react-icons/fa';
-import { SiGnuprivacyguard, SiYourtraveldottv } from 'react-icons/si';
-import { GrVulnerability } from 'react-icons/gr';
+import { FaHandsHelping, FaFeatherAlt } from 'react-icons/fa';
 import { VscScreenFull, VscCopy } from 'react-icons/vsc';
 import { IoDocumentOutline } from 'react-icons/io5';
 import { RiQuestionLine, RiPagesLine } from 'react-icons/ri';
 import { MdOutlineTopic, MdLiveHelp } from 'react-icons/md';
 
 import { getFolder } from './utilities/getFolder';
-import { getPage } from './utilities/getSingleton';
 import { getDocumentList, getPageList } from './utilities/getDocumentList';
 import { getTranslatedSingleton } from './utilities/getTranslatedSingleton';
 import { getTranslatedDocumentList } from './utilities/getTranslatedDocumentList';
@@ -43,52 +30,21 @@ const siteSettingsConfig = [
 	},
 ];
 
-const genericPagesConfig = [
-	{
-		schemaType: 'privacy-page',
-		title: 'Privacy',
-		icon: SiGnuprivacyguard,
-	},
-	{
-		schemaType: 'cookies-page',
-		title: 'Cookies',
-		icon: GiCookie,
-	},
-	{
-		schemaType: 'copyright-page',
-		title: 'Copyright',
-		icon: FaRegCopyright,
-	},
-	{
-		schemaType: 'toegankelijkheid-page',
-		title: 'Toegankelijkheid',
-		icon: FaAccessibleIcon,
-	},
-	{
-		schemaType: 'kwetsbaarheid-melden-page',
-		title: 'Kwetsbaarheid Melden',
-		icon: GrVulnerability,
-	},
-	{
-		schemaType: 'error-404-page',
-		title: '404',
-		icon: BiError,
-	},
-];
-
-const mvocPagesConfigOld = [
-	{
-		schemaType: 'check-landing-page',
-		title: 'Landing',
-		icon: GiHouse,
-	},
-];
-
 const mvocPagesConfig = [
 	{
 		schemaType: 'generic-page',
 		title: 'Generic',
 		icon: GiCardRandom,
+	},
+	{
+		schemaType: 'error-page',
+		title: 'Error',
+		icon: BiError,
+	},
+	{
+		schemaType: 'theme-page',
+		title: 'Thema',
+		icon: FaFeatherAlt,
 	},
 ];
 
@@ -97,6 +53,11 @@ const mvocDocumentsConfig = [
 		schemaType: 'modals',
 		title: 'Modals',
 		icon: VscScreenFull,
+	},
+	{
+		schemaType: 'assistance',
+		title: 'Hulp',
+		icon: FaHandsHelping,
 	},
 ];
 
@@ -193,6 +154,11 @@ export default (S) =>
 						title: 'Pagina’s',
 						icon: RiPagesLine,
 						items: [
+							getTranslatedSingleton(S, {
+								title: 'Homepage',
+								type: 'homepage',
+								icon: GiHouse,
+							}),
 							...mvocPagesConfig.map((config) =>
 								getTranslatedDocumentList(S, config),
 							),
@@ -210,14 +176,6 @@ export default (S) =>
 					...siteSettingsConfig.map((config) => getDocumentList(S, config)),
 					S.divider(),
 					getFolder(S, {
-						title: 'Pagina’s',
-						icon: RiPagesLine,
-						items: [
-							...genericPagesConfig.map((config) => getPageList(S, config)),
-						],
-					}),
-
-					getFolder(S, {
 						title: 'Documenten',
 						icon: IoDocumentOutline,
 						items: [
@@ -230,10 +188,9 @@ export default (S) =>
 			}),
 
 			getFolder(S, {
-				title: 'MijnVraagOverCorona',
+				title: 'Oude structuur MVOC',
 				icon: MdLiveHelp,
 				items: [
-					...mvocPagesConfigOld.map((config) => getPage(S, config)),
 					...mvocPagesDocumentsConfig.map((config) => getPageList(S, config)),
 				],
 			}),

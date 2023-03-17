@@ -1,7 +1,7 @@
 ---
 import { HTMLAttributes } from 'astro/types';
 interface Props extends HTMLAttributes<'div'> {
-	variant?: 'base' | 'filled' | 'frost';
+	variant?: 'base' | 'filled' | 'frost' | 'white';
 }
 
 const { variant = 'base', class: className, ...attrs } = Astro.props;
@@ -35,5 +35,11 @@ const { variant = 'base', class: className, ...attrs } = Astro.props;
 		--card-border-width: 0px;
 		background-image: var(--gradient-lichtblauw);
 		box-shadow: var(--elevation-frost);
+	}
+
+	.c-card--white {
+		--card-border-width: 0px;
+		background-color: var(--color-white);
+		color: var(--color-black);
 	}
 </style>

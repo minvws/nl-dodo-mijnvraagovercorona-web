@@ -10,28 +10,21 @@ export default defineType({
 			name: 'pageOverview',
 			type: 'object',
 			fields: [
-				{
+				defineField({
 					title: 'Label',
 					name: 'label',
 					type: 'customBlock',
-				},
-				{
+				}),
+				defineField({
 					title: 'Pagina referentie',
 					name: 'pageReference',
-					type: 'reference',
-					to: [
-						{ type: 'situation-question-document' },
-						{ type: 'situation-result-document' },
-						{ type: 'tip-document' },
-						{ type: 'theme-document' },
-						{ type: 'generic-page' },
-					],
-				},
+					type: 'pageReference',
+				}),
 			],
 			preview: {
 				select: {
 					title: 'label',
-					referenceTitle: 'pageReference.header.title',
+					referenceTitle: 'pageReference.metaData.title',
 					slug: 'pageReference.slug.current',
 				},
 				prepare(selection) {

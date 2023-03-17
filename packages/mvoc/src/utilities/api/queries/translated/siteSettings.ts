@@ -49,10 +49,10 @@ export const siteSettingsQuery = ({ locale }: { locale: Locale }): string => `
 				menuButtonLabel,
 				homeLabel,
 				menuTitle,
-				${internalPageReferenceQuery({ locale })},
+				${internalPageReferenceQuery()},
 				extraMenu{
 					title,
-					${internalPageReferenceQuery({ locale })},
+					${internalPageReferenceQuery()},
 				},
 			},
 		},
@@ -61,7 +61,7 @@ export const siteSettingsQuery = ({ locale }: { locale: Locale }): string => `
 			columns[]{
 				title,
 				${customBlockQuery({ name: 'content' })},
-				${internalPageReferenceQuery({ locale })},
+				${internalPageReferenceQuery()},
 			}
 		},
 		localeSelector{

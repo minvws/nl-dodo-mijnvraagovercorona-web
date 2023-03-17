@@ -1,44 +1,38 @@
 import { ContentBlockProps } from '@design-system/components/ContentBlock';
-import { Locale } from 'src/utilities/locale/translation';
 import { customBlockQuery } from './customBlock';
-import { localePropertyQuery } from '../localeProperty';
 
 export interface InternalPageCollectionProps {
 	internalPageCollection: {
 		label: ContentBlockProps['value'];
 		link: {
-			label: string | null;
+			label: string | null | { nl: string; en: string };
 			slug: string;
 		};
 	}[];
 }
 
-export const internalPageReferenceQuery = ({
-	locale,
-}: {
-	locale: Locale;
-}): string => {
+export const internalPageReferenceInSelectQuery = (): string => {
+	return `
+		pageReference->_type == "theme-page" => 'thema/' + pageReference->slug.current,
+		pageReference->_type == "tip-document" => 'tip/' + pageReference->slug.current,
+		pageReference->_type == "generic-page" => pageReference->slug.current,
+	`;
+};
+
+export const internalPageReferenceQuery = (): string => {
 	return `internalPageCollection[]{
 		${customBlockQuery({ name: 'label' })},
 		"link": select(
-			pageReference->_type == "theme-document" => pageReference->{
-				${localePropertyQuery({ name: 'label', path: 'overview.title', locale })},
+			pageReference->_type == "theme-page" => pageReference->{
+				"label": metaData.title,
 				"slug": 'thema/' + slug.current
 			},
-			pageReference->_type == "situation-question-document" => pageReference->{
-				${localePropertyQuery({ name: 'label', path: 'header.title', locale })},
-				"slug": 'situatie/' + slug.current,
-			},
-			pageReference->_type == "situation-result-document" => pageReference->{
-				${localePropertyQuery({ name: 'label', path: 'header.title', locale })},
-				"slug": 'advies/' + slug.current,
-			},
 			pageReference->_type == "tip-document" => pageReference->{
-				${localePropertyQuery({ name: 'label', path: 'header.title', locale })},
-				"slug": 'tip/' + slug.current,
+				"label": metaData.title,
+				"slug": 'tip/' + slug.current
 			},
 			pageReference->_type == "generic-page" => pageReference->{
-				"label": header.title,
+				"label": metaData.title,
 				"slug": slug.current,
 			},
 		),

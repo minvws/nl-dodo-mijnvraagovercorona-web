@@ -4,9 +4,13 @@
 // Documents
 import siteSettingsDocument from './translated/documents/siteSettings';
 import modalsDocument from './translated/documents/modals';
+import assistanceDocument from './translated/documents/assistance';
 
 // Pages
 import genericPage from './translated/pages/generic';
+import errorPage from './translated/pages/error';
+import themePage from './translated/pages/theme';
+import homePage from './translated/pages/homepage';
 
 // objects
 import {
@@ -14,7 +18,13 @@ import {
 	customBlockWithoutModalObject,
 } from './translated/objects/customBlock';
 import metaDataObject from './translated/objects/metaData';
-import internalPageSelectorObject from './objects/internalPageSelector';
+import iconPickerObject from './translated/objects/iconPicker';
+import adviceObject from './translated/objects/adviceBlock';
+import buttonObject from './translated/objects/button';
+import heroObject from './translated/objects/hero';
+import pageReferenceObject from './translated/objects/pageReference';
+import internalPageSelectorObject from './translated/objects/internalPageSelector';
+import interimQuestionSelectorObject from './translated/objects/interimQuestionSelector';
 
 /**
  * Old document structure
@@ -23,7 +33,7 @@ import internalPageSelectorObject from './objects/internalPageSelector';
 import siteSettingsDocumentOld from './documents/siteSettings';
 import modalsDocumentOld from './documents/modals';
 import themeDocument from './documents/theme';
-import assistanceDocument from './documents/assistance';
+import assistanceDocumentOld from './documents/assistance';
 import informContactsDocument from './documents/inform-contacts';
 import situationQuestionDocument from './documents/situation-question';
 import situationResultDocument from './documents/situation-result';
@@ -42,7 +52,7 @@ import toegankelijkheidPage from './pages/common/toegankelijkheid';
 import error404Page from './pages/common/404page';
 
 // MVOC
-import checkLandingPage from './pages/mvoc/check-landing';
+import checkLandingPageOld from './pages/mvoc/check-landing';
 
 // Objects
 import localeStringObject from './objects/localeString';
@@ -59,7 +69,7 @@ import headerObject from './objects/header';
 import quarantinePlanObject from './objects/quarantinePlan';
 import situationContentBlocksObject from './objects/situationContentBlocks';
 import stepsObject from './objects/steps';
-import buttonObject from './objects/button';
+import buttonObjectOld from './objects/button';
 import questionContentObject from './objects/questionContent';
 import questionSelectorObject from './objects/questionSelector';
 
@@ -73,16 +83,26 @@ export default [
 	 */
 	// pages
 	genericPage,
+	errorPage,
+	themePage,
+	homePage,
 
 	// documents
 	siteSettingsDocument,
 	modalsDocument,
+	assistanceDocument,
 
 	// objects
 	customBlockObject,
 	customBlockWithoutModalObject,
 	metaDataObject,
+	iconPickerObject,
+	adviceObject,
+	heroObject,
+	buttonObject,
+	pageReferenceObject,
 	internalPageSelectorObject,
+	interimQuestionSelectorObject,
 
 	/**
 	 * Pages
@@ -99,7 +119,7 @@ export default [
 	/**
 	 * Mvoc pages
 	 */
-	checkLandingPage,
+	checkLandingPageOld,
 
 	/**
 	 * Site settings
@@ -115,7 +135,7 @@ export default [
 	themeDocument,
 	contentCardDocument,
 	storyDocument,
-	assistanceDocument,
+	assistanceDocumentOld,
 	informContactsDocument,
 	situationQuestionDocument,
 	situationResultDocument,
@@ -139,7 +159,7 @@ export default [
 	quarantinePlanObject,
 	situationContentBlocksObject,
 	stepsObject,
-	buttonObject,
+	buttonObjectOld,
 	questionContentObject,
 	questionSelectorObject,
 	themeSelectorObject,

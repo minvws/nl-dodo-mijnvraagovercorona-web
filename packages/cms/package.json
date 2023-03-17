@@ -15,16 +15,18 @@
 		"@sanity/document-internationalization": "^1.0.4",
 		"@sanity/eslint-config-studio": "^2.0.1",
 		"@sanity/production-preview": "^2.35.3",
+		"@sanity/scheduled-publishing": "^1.1.1",
 		"@sanity/ui": "^1.2.1",
 		"@sanity/vision": "^3.2.6",
 		"prop-types": "^15.8.1",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"react-icons": "^4.7.1",
-		"sanity": "^3.2.6",
+		"sanity": "^3.3.1",
 		"styled-components": "^5.2"
 	},
 	"devDependencies": {
-		"@sanity/cli": "^3.2.4"
+		"@sanity/cli": "^3.2.4",
+		"vite": "^4.1.1"
 	}
 }

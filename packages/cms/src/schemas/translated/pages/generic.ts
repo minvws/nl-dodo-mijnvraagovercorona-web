@@ -20,28 +20,9 @@ export default defineType({
 			type: 'metaData',
 		}),
 		defineField({
-			title: 'Header',
-			name: 'header',
-			type: 'object',
-			validation: (Rule) => Rule.required(),
-			fields: [
-				defineField({
-					title: 'Chapeau',
-					name: 'chapeau',
-					type: 'string',
-				}),
-				defineField({
-					title: 'Titel',
-					name: 'title',
-					type: 'string',
-					validation: (Rule) => Rule.required(),
-				}),
-				defineField({
-					title: 'Content',
-					name: 'content',
-					type: 'customBlock',
-				}),
-			],
+			title: 'Hero',
+			name: 'hero',
+			type: 'hero',
 		}),
 		defineField({
 			title: 'Content',
@@ -55,14 +36,14 @@ export default defineType({
 			type: 'slug',
 			validation: (Rule) => Rule.required(),
 			options: {
-				source: 'header.title',
+				source: 'metaData.title',
 				isUnique: isUnique,
 			},
 		}),
 	],
 	preview: {
 		select: {
-			title: 'header.title',
+			title: 'hero.title',
 			locale: '__i18n_lang',
 			slug: 'slug.current',
 		},

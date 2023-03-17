@@ -55,7 +55,10 @@ const siteSettingsTranslated: SiteSettingsProps = await useSiteSettings({
 							{column.internalPageCollection ? (
 								<LinkList
 									links={column.internalPageCollection.map((item) => ({
-										label: item.link.label,
+										label:
+											typeof item.link.label === 'object'
+												? item.link.label[locale.id]
+												: item.link.label,
 										href: prefixUrlWithlocale(item.link.slug, locale),
 									}))}
 								/>
@@ -67,7 +70,7 @@ const siteSettingsTranslated: SiteSettingsProps = await useSiteSettings({
 		</Retain>
 	</Layer>
 
-	<Layer as="div" class="c-mastfoot__layer-locale | u-hidden@large-until">
+	<Layer as="div" class="c-mastfoot__layer-locale">
 		<Retain>
 			<LocaleSelectorList
 				class="c-mastfoot__locale-selector"
@@ -98,7 +101,8 @@ const siteSettingsTranslated: SiteSettingsProps = await useSiteSettings({
 	}
 
 	.c-mastfoot__grid {
-		--grid-fluid-min-item-size: 15.1rem; // 302px
+		// --grid-fluid-min-item-size: 15.1rem; // 302px - 3 kolommen
+		--grid-fluid-min-item-size: 18rem; // 360px - 2 kolommen
 		--grid-fluid-gap: var(--stack-giant);
 
 		@media --mq-large {

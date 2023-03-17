@@ -2,13 +2,15 @@ import { ContentBlockProps } from '@design-system/components/ContentBlock';
 import { AlternativeTranslationsProps } from '@design-system/components/LocaleSelector';
 import { useSanityClient } from 'astro-sanity';
 import { getPageTranslations } from '../helpers/get-page-translations';
+import { ImageProps, imageQuery } from './queries';
 import { PageProps, customBlockQuery, pageQuery } from './queries/translated';
 
 export interface GenericPageProps extends PageProps {
-	header: {
+	hero: {
 		chapeau?: string;
 		title;
-		content: ContentBlockProps['value'];
+		image: ImageProps;
+		content?: ContentBlockProps['value'];
 	};
 	content: ContentBlockProps['value'];
 	locale: string;
@@ -18,9 +20,10 @@ export interface GenericPageProps extends PageProps {
 
 export async function getDataGenericPages() {
 	const projection = `{
-		header{
+		hero{
 			chapeau,
 			title,
+			${imageQuery({ name: 'image' })},
 			${customBlockQuery({ name: 'content' })},
 		},
 		${customBlockQuery({ name: 'content' })},
