@@ -2,7 +2,7 @@
 		tools.list
 / =========================================================================== */
 
-@mixin list-item {
+@mixin styled {
 	ol,
 	ul {
 		--list-item-gap: var(--space-r-small);
@@ -11,7 +11,7 @@
 		--list-item-icon-font-size: var(--font-size-milli);
 		--list-item-icon-line-height: var(--line-height-milli);
 		--list-item-icon-color: var(--color-white);
-		--list-item-icon-background: var(--color-accent-robijnrood);
+		--list-item-icon-background: var(--color-donkerblauw);
 		list-style: none;
 		padding-inline-start: 0;
 
@@ -54,6 +54,7 @@
 		}
 	}
 	ul {
+		--list-item-icon-background: var(--color-accent-robijnrood);
 		> li {
 			&::before {
 				content: '!';

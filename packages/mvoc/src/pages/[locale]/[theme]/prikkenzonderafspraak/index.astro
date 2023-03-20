@@ -40,13 +40,13 @@ interface Props {
 }
 
 const { pageData, locale } = Astro.props;
-console.log(pageData);
 ---
 
 <Layout
 	locale={locale}
 	metaData={pageData.metaData}
 	alternativeTranslations={pageData.alternatives}
+	mastheadHighlight
 >
 	<Hero
 		title={pageData.hero.title}
@@ -79,39 +79,29 @@ console.log(pageData);
 		</Stack>
 	</Hero>
 
-	<Layer pullUpBy={'hero'}>
-		<Retain>
-			<Sidebar>
-				<TaleList taleCollection={pageData.taleCollection} />
-				{
-					pageData.assistance && (
-						<Layer id={stringToSlug(pageData.assistance.headline)}>
-							<Retain>
-								<Assistance {...pageData.assistance} />
-							</Retain>
-						</Layer>
-					)
-				}
-				<Stack slot="aside">
-					<CardPrivacy />
-				</Stack>
-			</Sidebar>
-		</Retain>
-	</Layer>
+	{
+		pageData.taleCollection || pageData.assistance ? (
+			<Layer pullUpBy={'hero'}>
+				<Retain>
+					<Sidebar>
+						<Stack gap="huge">
+							<TaleList taleCollection={pageData.taleCollection} />
+							{pageData.assistance && <Assistance {...pageData.assistance} />}
+						</Stack>
+						<Stack slot="aside">
+							<CardPrivacy />
+						</Stack>
+					</Sidebar>
+				</Retain>
+			</Layer>
+		) : null
+	}
 </Layout>
 
 <style lang="scss">
 	@use '@design-system-styles/tools/_list.scss';
 	.c-hero__content {
-		@include list.list-item;
-
-		ol {
-			--list-item-icon-background: var(--color-donkerblauw);
-		}
-
-		ul {
-			--list-item-icon-background: var(--color-accent-robijnrood);
-		}
+		@include list.styled;
 	}
 
 	.c-hero__wrap-buttons {
