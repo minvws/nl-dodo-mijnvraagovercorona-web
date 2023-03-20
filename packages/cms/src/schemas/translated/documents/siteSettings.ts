@@ -15,7 +15,9 @@ export default defineType({
 			type: 'string',
 		}),
 
-		// masthead
+		/**
+		 * Masthead
+		 */
 		defineField({
 			title: 'Navigatiebalk',
 			name: 'masthead',
@@ -91,7 +93,9 @@ export default defineType({
 			],
 		}),
 
-		// mastfoot
+		/**
+		 * Mastfoot
+		 */
 		defineField({
 			title: 'Footer',
 			name: 'mastfoot',
@@ -140,7 +144,9 @@ export default defineType({
 			],
 		}),
 
-		// Language selector
+		/**
+		 * Language selector
+		 */
 		defineField({
 			title: 'Taal selector',
 			name: 'localeSelector',
@@ -171,7 +177,9 @@ export default defineType({
 			],
 		}),
 
-		// logo
+		/**
+		 * Logo
+		 */
 		defineField({
 			title: 'Logo',
 			name: 'logo',
@@ -188,4 +196,16 @@ export default defineType({
 			],
 		}),
 	],
+	preview: {
+		select: {
+			baseUrl: 'baseUrl',
+		},
+		prepare(selection) {
+			const { baseUrl } = selection;
+			return {
+				title: 'Mijn Vraag Over Corona',
+				subtitle: baseUrl,
+			};
+		},
+	},
 });

@@ -24,28 +24,6 @@ export default defineType({
 			name: 'hero',
 			type: 'hero',
 		}),
-		// defineField({
-		// 	title: 'Header',
-		// 	name: 'header',
-		// 	type: 'object',
-		// 	fields: [
-		// 		defineField({
-		// 			title: 'Chapeau',
-		// 			name: 'chapeau',
-		// 			type: 'string',
-		// 		}),
-		// 		defineField({
-		// 			title: 'Titel',
-		// 			name: 'title',
-		// 			type: 'string',
-		// 		}),
-		// 		defineField({
-		// 			title: 'Illustratie',
-		// 			name: 'image',
-		// 			type: 'image',
-		// 		}),
-		// 	],
-		// }),
 		defineField({
 			title: 'Button',
 			name: 'button',

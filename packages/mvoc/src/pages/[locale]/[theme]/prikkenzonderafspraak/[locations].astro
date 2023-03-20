@@ -1,0 +1,47 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+import { availableLocales, Locale } from 'src/utilities/locale/translation';
+import { LocationsPageProps, getDataLocationPages } from 'src/utilities/api';
+
+export async function getStaticPaths() {
+	const collection = await getDataLocationPages();
+	return collection.map((page: LocationsPageProps) => ({
+		params: {
+			locale: page.localeID,
+			theme: page.theme.slug,
+			locations: page.slug,
+		},
+		props: {
+			pageData: page,
+			locale: availableLocales.filter(
+				(locale) => locale.id === page.localeID,
+			)[0],
+		},
+	}));
+}
+
+interface Props {
+	pageData: LocationsPageProps;
+	locale: Locale;
+}
+
+const { pageData, locale } = Astro.props;
+---
+
+<Layout
+	locale={locale}
+	metaData={pageData.metaData}
+	alternativeTranslations={pageData.alternatives}
+>
+	<div class="c-navigator"></div>
+</Layout>
+
+<style lang="scss">
+	.c-navigator {
+		display: grid;
+		grid-template-rows: 1fr;
+		grid-template-columns: 1fr;
+		block-size: 100%;
+		background-color: red;
+	}
+</style>

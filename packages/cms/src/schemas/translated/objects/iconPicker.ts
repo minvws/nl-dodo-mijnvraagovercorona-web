@@ -4,7 +4,6 @@ export default defineType({
 	title: 'Icoon kiezer',
 	name: 'iconPicker',
 	type: 'string',
-	initialValue: '',
 	options: {
 		list: [
 			{ title: 'Home', value: 'home' },

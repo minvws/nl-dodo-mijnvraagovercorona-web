@@ -1,5 +1,8 @@
 ---
-import { availableLocales, Locale } from 'src/utilities/locale/translation';
+import {
+	standardAvailableLocales,
+	Locale,
+} from 'src/utilities/locale/translation';
 
 import Layout from '@layouts/Layout.astro';
 import { Hero } from '@design-system/components/Hero';
@@ -21,7 +24,7 @@ import { stringToSlug } from 'src/utilities/stringToSlug';
 import { AnchorList } from '@design-system/components/Lists';
 
 export async function getStaticPaths() {
-	return await availableLocales.reduce(async (paths, locale) => {
+	return await standardAvailableLocales.reduce(async (paths, locale) => {
 		const collection = await getDataTips({ locale });
 		return [
 			...(await paths),
