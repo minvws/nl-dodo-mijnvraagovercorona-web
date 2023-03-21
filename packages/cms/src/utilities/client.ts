@@ -2,8 +2,8 @@ import sanityClient from '@sanity/client';
 
 const client = sanityClient({
 	projectId: 'yiy91tbc',
-	dataset: 'production',
-	apiVersion: '2021-10-21',
+	dataset: 'main',
+	apiVersion: '2023-03-21',
 	useCdn: false,
 });
 
