@@ -10,8 +10,8 @@ export default defineConfig({
 		sitemap(),
 		sanity({
 			projectId: 'yiy91tbc',
-			dataset: 'production',
-			apiVersion: 'v2022-03-23',
+			dataset: 'main',
+			apiVersion: 'v2023-03-21',
 			useCdn: false,
 		}),
 		compress(),

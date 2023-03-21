@@ -13,7 +13,7 @@ import deskStructure from './src/deskStructure';
 export default defineConfig({
 	title: 'mijnvraagovercorona.nl',
 	projectId: 'yiy91tbc',
-	dataset: 'production',
+	dataset: 'main',
 	plugins: withDocumentI18nPlugin(
 		[
 			deskTool({
