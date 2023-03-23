@@ -148,7 +148,7 @@ const pageData: PageHomeProps = pagesData.filter(
 	}
 
 	{
-		pageData.taleCollection.length ? (
+		pageData?.taleCollection.length ? (
 			<Layer>
 				<Retain>
 					<TaleList taleCollection={pageData.taleCollection} />
