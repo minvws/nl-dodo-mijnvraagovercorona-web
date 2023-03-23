@@ -21,7 +21,7 @@ export const getPageTranslations = (pages) =>
 					(locale) => locale.id === alternative.localeID,
 				)[0],
 				href: `${alternative.theme ? `${alternative.theme.slug}/` : ''}${
-					alternative.slug
+					alternative.slug || ''
 				}`,
 			})),
 		};

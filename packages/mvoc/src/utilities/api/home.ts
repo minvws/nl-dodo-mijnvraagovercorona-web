@@ -18,6 +18,8 @@ import {
 	customBlockQuery,
 	interimQuestionCollectionQuery,
 	InterimQuestionCollectionProps,
+	taleReferenceQuery,
+	TaleCollectionProps,
 } from './queries/translated';
 import { ButtonProps, buttonsQuery } from './queries/translated/buttons';
 
@@ -60,6 +62,7 @@ export interface PageHomeProps extends PageProps {
 			button: ButtonProps;
 		};
 	};
+	taleCollection: TaleCollectionProps['taleCollection'];
 }
 
 export async function getDataHome() {
@@ -99,6 +102,7 @@ export async function getDataHome() {
 				${buttonsQuery({ array: false })},
 			},
 		},
+		${taleReferenceQuery()},
 	}`;
 
 	const query = pageQuery({
