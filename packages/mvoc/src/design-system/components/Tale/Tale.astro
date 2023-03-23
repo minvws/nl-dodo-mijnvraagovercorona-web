@@ -15,7 +15,11 @@ const { title, multiContentBlocks, picture } = Astro.props;
 	<Switcher class="c-tale__switcher">
 		<Stack>
 			<Heading>{title}</Heading>
-			<MultiContentBlock multiContentBlocks={multiContentBlocks} />
+			{
+				multiContentBlocks ? (
+					<MultiContentBlock multiContentBlocks={multiContentBlocks} />
+				) : null
+			}
 		</Stack>
 		<Picture class="c-tale__picture" {...picture} />
 	</Switcher>

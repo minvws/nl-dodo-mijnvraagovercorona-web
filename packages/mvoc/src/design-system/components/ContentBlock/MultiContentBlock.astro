@@ -21,9 +21,8 @@ interface Props {
 	multiContentBlocks: MultiContentBlocksProps;
 }
 
-const locale = getLocaleFromURL(Astro.url.pathname);
-
 const { multiContentBlocks } = Astro.props;
+const locale = getLocaleFromURL(Astro.url.pathname);
 ---
 
 <Stack class="c-multi-content-block" gap="small">
