@@ -3,6 +3,7 @@ import { IconProps } from '@design-system/elements/Icon';
 import { internalPageReferenceInSelectQuery } from '.';
 
 export interface ButtonProps {
+	type: 'button';
 	label: string;
 	href?: string;
 	variant: ButtonVariants;
@@ -11,8 +12,14 @@ export interface ButtonProps {
 
 export type ButtonsProps = ButtonProps[];
 
-export const buttonsQuery = ({ array }: { array: boolean }): string => {
-	return `button${array ? 's[]' : ''}{
+export const buttonsQuery = ({
+	array,
+	omitProperty = false,
+}: {
+	array: boolean;
+	omitProperty?: boolean;
+}): string => {
+	return `${omitProperty ? '' : `button${array ? 's[]' : ''}`}{
 		label,
 		"href": select(
 			${internalPageReferenceInSelectQuery()}

@@ -5,6 +5,10 @@ import { Video } from '@design-system/components/Video';
 import Button from '@design-system/elements/Button/Button.astro';
 import { MultiContentBlocksProps } from 'src/utilities/api/queries/translated';
 import { Stack } from '../Layout/Stack';
+import {
+	getLocaleFromURL,
+	prefixUrlWithlocale,
+} from 'src/utilities/locale/translation';
 
 import {
 	isContent,
@@ -16,6 +20,8 @@ import {
 interface Props {
 	multiContentBlocks: MultiContentBlocksProps;
 }
+
+const locale = getLocaleFromURL(Astro.url.pathname);
 
 const { multiContentBlocks } = Astro.props;
 ---
@@ -30,7 +36,7 @@ const { multiContentBlocks } = Astro.props;
 					</Stack>
 				) : isButton(multiContentBlock) ? (
 					<Button
-						href={multiContentBlock.href}
+						href={prefixUrlWithlocale(multiContentBlock.href, locale)}
 						icon={multiContentBlock.icon}
 						variant={multiContentBlock.variant}
 					>
