@@ -16,12 +16,18 @@ export const getPageTranslations = (pages) =>
 
 		const newPage = {
 			...parsePage,
-			alternatives: alternatives.map((alternative) => ({
-				locale: availableLocales.filter(
-					(locale) => locale.id === alternative.localeID,
-				)[0],
-				slug: alternative.slug,
-			})),
+			alternatives: alternatives
+				.filter(
+					(page) =>
+						availableLocales.filter((locale) => locale.id === page.localeID)
+							.length,
+				)
+				.map((alternative) => ({
+					locale: availableLocales.filter(
+						(locale) => locale.id === alternative.localeID,
+					)[0],
+					slug: alternative.slug,
+				})),
 		};
 
 		return [...pagesAcc, newPage];
