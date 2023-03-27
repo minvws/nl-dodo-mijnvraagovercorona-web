@@ -23,17 +23,26 @@ import { CardPrivacy } from '@design-system/components/Card';
 
 export async function getStaticPaths() {
 	const collection = await getDataHome();
-	return collection.map((page: PageHomeProps) => ({
-		params: {
-			locale: page.localeID,
-		},
-		props: {
-			pagesData: collection,
-			locale: availableLocales.filter(
-				(locale) => locale.id === page.localeID,
-			)[0],
-		},
-	}));
+	return (
+		collection
+			// filter out unavailable locales
+			.filter(
+				(page: PageHomeProps) =>
+					availableLocales.filter((locale) => locale.id === page.localeID)
+						.length,
+			)
+			.map((page: PageHomeProps) => ({
+				params: {
+					locale: page.localeID,
+				},
+				props: {
+					pagesData: collection,
+					locale: availableLocales.filter(
+						(locale) => locale.id === page.localeID,
+					)[0],
+				},
+			}))
+	);
 }
 
 interface Props {
@@ -148,7 +157,7 @@ const pageData: PageHomeProps = pagesData.filter(
 	}
 
 	{
-		pageData?.taleCollection.length ? (
+		pageData?.taleCollection?.length ? (
 			<Layer>
 				<Retain>
 					<TaleList taleCollection={pageData.taleCollection} />

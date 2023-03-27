@@ -20,18 +20,23 @@ import { stringToSlug } from 'src/utilities/stringToSlug';
 
 export async function getStaticPaths() {
 	const collection = await getDataPZALandingPages();
-	return collection.map((page: PZALandingPageProps) => ({
-		params: {
-			locale: page.localeID,
-			theme: page.theme.slug,
-		},
-		props: {
-			pageData: page,
-			locale: availableLocales.filter(
-				(locale) => locale.id === page.localeID,
-			)[0],
-		},
-	}));
+	return collection
+		.filter(
+			(page: PZALandingPageProps) =>
+				availableLocales.filter((locale) => locale.id === page.localeID).length,
+		)
+		.map((page: PZALandingPageProps) => ({
+			params: {
+				locale: page.localeID,
+				theme: page.theme.slug,
+			},
+			props: {
+				pageData: page,
+				locale: availableLocales.filter(
+					(locale) => locale.id === page.localeID,
+				)[0],
+			},
+		}));
 }
 
 interface Props {

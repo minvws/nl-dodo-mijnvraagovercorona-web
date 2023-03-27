@@ -12,15 +12,24 @@ import { Stack } from '@design-system/components/Layout/Stack';
 
 export async function getStaticPaths() {
 	const collection = await getDataGenericPages();
-	return collection.map((page: GenericPageProps) => ({
-		params: { generic: page.slug, locale: page.localeID },
-		props: {
-			pageData: page,
-			locale: availableLocales.filter(
-				(locale) => locale.id === page.localeID,
-			)[0],
-		},
-	}));
+	return (
+		collection
+			// filter out unavailable locales
+			.filter(
+				(page: GenericPageProps) =>
+					availableLocales.filter((locale) => locale.id === page.localeID)
+						.length,
+			)
+			.map((page: GenericPageProps) => ({
+				params: { generic: page.slug, locale: page.localeID },
+				props: {
+					pageData: page,
+					locale: availableLocales.filter(
+						(locale) => locale.id === page.localeID,
+					)[0],
+				},
+			}))
+	);
 }
 
 interface Props {

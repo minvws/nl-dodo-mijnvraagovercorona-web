@@ -5,19 +5,24 @@ import { LocationsPageProps, getDataLocationPages } from 'src/utilities/api';
 
 export async function getStaticPaths() {
 	const collection = await getDataLocationPages();
-	return collection.map((page: LocationsPageProps) => ({
-		params: {
-			locale: page.localeID,
-			theme: page.theme.slug,
-			locations: page.slug,
-		},
-		props: {
-			pageData: page,
-			locale: availableLocales.filter(
-				(locale) => locale.id === page.localeID,
-			)[0],
-		},
-	}));
+	return collection
+		.filter(
+			(page: LocationsPageProps) =>
+				availableLocales.filter((locale) => locale.id === page.localeID).length,
+		)
+		.map((page: LocationsPageProps) => ({
+			params: {
+				locale: page.localeID,
+				theme: page.theme.slug,
+				locations: page.slug,
+			},
+			props: {
+				pageData: page,
+				locale: availableLocales.filter(
+					(locale) => locale.id === page.localeID,
+				)[0],
+			},
+		}));
 }
 
 interface Props {
