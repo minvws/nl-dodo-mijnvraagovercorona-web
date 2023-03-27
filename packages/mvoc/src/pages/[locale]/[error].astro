@@ -22,15 +22,24 @@ import { GridFluid } from '@design-system/components/Layout/Grid';
 
 export async function getStaticPaths() {
 	const collection = await getDataErrorPages();
-	return collection.map((page: ErrorPageProps) => ({
-		params: { error: page.slug, locale: page.localeID },
-		props: {
-			pageData: page,
-			locale: availableLocales.filter(
-				(locale) => locale.id === page.localeID,
-			)[0],
-		},
-	}));
+	return (
+		collection
+			// filter out unavailable locales
+			.filter(
+				(page: ErrorPageProps) =>
+					availableLocales.filter((locale) => locale.id === page.localeID)
+						.length,
+			)
+			.map((page: ErrorPageProps) => ({
+				params: { error: page.slug, locale: page.localeID },
+				props: {
+					pageData: page,
+					locale: availableLocales.filter(
+						(locale) => locale.id === page.localeID,
+					)[0],
+				},
+			}))
+	);
 }
 
 interface Props {
