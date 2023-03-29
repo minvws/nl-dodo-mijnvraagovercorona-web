@@ -39,7 +39,6 @@ const Component = mark.button ? Button : Link;
 
 <Component
 	href={mark.href ? prefixUrlWithlocale(mark.href, locale) : undefined}
-	external={!mark?.internal}
 >
 	<ContentBlock value={children} />
 </Component>
