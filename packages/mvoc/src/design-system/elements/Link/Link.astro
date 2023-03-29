@@ -16,7 +16,6 @@ interface Button extends HTMLAttributes<'button'>, Shared {}
 
 interface Link extends HTMLAttributes<'a'>, Shared {
 	disabled?: boolean;
-	external?: boolean;
 	hiddenLabel?: string;
 }
 
@@ -25,7 +24,6 @@ type Props = Button | Link;
 const {
 	disabled,
 	variant,
-	external,
 	hiddenLabel,
 	icon,
 	iconPosition,

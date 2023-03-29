@@ -157,7 +157,6 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 						{situation.question}
 					</Heading>
 					<Button
-						external
 						href={getFeedbackUrl(siteSettings.feedback.url, {
 							source: 'home',
 							advice: 'home',
