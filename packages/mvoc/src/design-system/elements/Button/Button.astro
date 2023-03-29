@@ -3,6 +3,7 @@ import { HTMLAttributes } from 'astro/types';
 import { Icon, IconProps } from '@design-system/elements/Icon';
 import { Animations } from '@design-system/primitives/animation';
 import { ButtonVariants } from './';
+import { isExternalUrl } from 'src/utilities/helpers/external-url';
 
 // Interfaces
 interface Shared {
@@ -17,7 +18,6 @@ interface Button extends HTMLAttributes<'button'>, Shared {}
 
 interface Link extends HTMLAttributes<'a'>, Shared {
 	disabled?: boolean;
-	external?: boolean;
 	hiddenLabel?: string;
 }
 
@@ -26,7 +26,6 @@ type Props = Button | Link;
 const {
 	disabled,
 	variant,
-	external,
 	hiddenLabel,
 	icon,
 	iconPosition,
@@ -53,8 +52,10 @@ const combinedClasses = `e-button${variant ? ` e-button--${variant}` : ''}${
 const iconPositionCalculated =
 	iconPosition === 'leading' ? 'leading' : 'trailing';
 
+const isExternal = attrs.href && isExternalUrl(attrs.href);
+
 const selectedIcon =
-	attrs.href && external ? 'external' : icon ? icon : undefined;
+	attrs.href && isExternal ? 'external' : icon ? icon : undefined;
 ---
 
 <Element
@@ -64,8 +65,8 @@ const selectedIcon =
 	data-disabled={attrs.href && disabled ? disabled : undefined}
 	formaction={!attrs.href && attrs.formaction ? attrs.formaction : undefined}
 	href={attrs.href}
-	target={attrs.href && external ? '_blank' : undefined}
-	rel={attrs.href && external ? 'noopener noreferrer' : undefined}
+	target={attrs.href && isExternal ? '_blank' : undefined}
+	rel={attrs.href && isExternal ? 'noopener noreferrer' : undefined}
 	lang={attrs.href ? attrs.lang : undefined}
 	hreflang={attrs.href ? attrs.lang : undefined}
 	{...attrs}
