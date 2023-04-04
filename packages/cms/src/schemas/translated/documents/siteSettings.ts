@@ -84,7 +84,7 @@ export default defineType({
 									title: 'Title',
 									name: 'title',
 									type: 'string',
-									validation: (Rule) => Rule.required(),
+									// validation: (Rule) => Rule.required(),
 								}),
 								defineField({
 									title: 'Extra pagina’s',
@@ -213,7 +213,7 @@ export default defineType({
 					title: 'Content',
 					name: 'content',
 					type: 'string',
-					validation: (Rule) => Rule.required(),
+					// validation: (Rule) => Rule.required(),
 				}),
 				defineField({
 					title: 'Button',
