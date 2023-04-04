@@ -7,7 +7,10 @@ import {
 
 import Layout from '@layouts/Layout.astro';
 import { Hero } from '@design-system/components/Hero';
-import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
+import {
+	SiteSettingsProps,
+	useSiteSettings,
+} from 'src/utilities/api/queries/translated';
 import { getDataThemes, ThemePageProps } from 'src/utilities/api';
 import { UpdatedAt } from '@design-system/elements/UpdatedAt';
 import { ContentBlock } from '@design-system/components/ContentBlock';
@@ -68,8 +71,8 @@ const translatedStories = pageData.stories.filter((story) => story.headline);
 				<Heading>
 					{
 						pageData.questionCollection.length > 1
-							? `${pageData.questionCollection.length} ${siteSettings.situationPlural.that}`
-							: `${pageData.questionCollection.length} ${siteSettings.situationPlural.this}`
+							? `${pageData.questionCollection.length} ${siteSettings.genericLabels.situationPlural.that}`
+							: `${pageData.questionCollection.length} ${siteSettings.genericLabels.situationPlural.this}`
 					}{' '}
 					{pageData.titleFlow}
 				</Heading>

@@ -3,7 +3,10 @@ import { Heading } from '@design-system/elements/Heading';
 import { Stack } from '@design-system/components/Layout/Stack';
 import { Card } from '.';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
-import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
+import {
+	SiteSettingsProps,
+	useSiteSettings,
+} from 'src/utilities/api/queries/translated';
 
 interface Props {
 	title: string;
@@ -29,20 +32,21 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 									<span>
 										{Math.abs(day)}{' '}
 										{Math.abs(day) === 1
-											? siteSettings.dayPlural.this
-											: siteSettings.dayPlural.that}{' '}
-										{siteSettings.ago}
+											? siteSettings.genericLabels.dayPlural.this
+											: siteSettings.genericLabels.dayPlural.that}{' '}
+										{siteSettings.genericLabels.ago}
 									</span>
 								) : day === 1 ? (
 									<span>
-										{siteSettings.in} {day} {siteSettings.dayPlural.this}
+										{siteSettings.genericLabels.in} {day}{' '}
+										{siteSettings.genericLabels.dayPlural.this}
 									</span>
 								) : day > 1 ? (
 									<span>
-										{siteSettings.in} {day}{' '}
+										{siteSettings.genericLabels.in} {day}{' '}
 										{day === 1
-											? siteSettings.dayPlural.this
-											: siteSettings.dayPlural.that}
+											? siteSettings.genericLabels.dayPlural.this
+											: siteSettings.genericLabels.dayPlural.that}
 									</span>
 								) : null}
 							</span>

@@ -6,8 +6,23 @@ import {
 	customBlockQuery,
 } from '.';
 import type { ContentBlockProps } from '@design-system/components/ContentBlock';
+import { ImageProps, imageQuery } from '../image';
 
 export interface SiteSettingsProps {
+	baseUrl: string;
+	pageTitleSuffix: string;
+	socialShareImage: ImageProps;
+	feedback: {
+		button: string;
+		content: string;
+		thanks: string;
+		title: string;
+		url: string;
+		labels: {
+			like: string;
+			dislike: string;
+		};
+	};
 	masthead: {
 		skiplink: string;
 		menu: {
@@ -30,6 +45,12 @@ export interface SiteSettingsProps {
 			internalPageCollection: InternalPageCollectionProps['internalPageCollection'];
 		}[];
 	};
+	privacy: {
+		id: string;
+		usp: string;
+		title: string;
+		beloftes: string[];
+	};
 	localeSelector: {
 		title: string;
 		change: string;
@@ -38,12 +59,46 @@ export interface SiteSettingsProps {
 	logo: {
 		alt: string;
 	};
+	genericLabels: {
+		moreThan: string;
+		in: string;
+		today: string;
+		ago: string;
+		dayPlural: {
+			this: string;
+			that: string;
+		};
+		sources: string;
+		moreTips: string;
+		updatedAt: string;
+		situationPlural: {
+			this: string;
+			that: string;
+		};
+	};
+	seeMoreExpand: {
+		this: string;
+		that: string;
+	};
+	severeSymptomsAdvice: {
+		title: string;
+		subtitle: string;
+		icon: ImageProps;
+	};
+	accessibility: {
+		labelExternalLink: string;
+		labelModal: string;
+		labelModalClose: string;
+	};
 }
 
 export const siteSettingsQuery = ({ locale }: { locale: Locale }): string => `
 	*[_type == "siteSettings" && __i18n_lang == "${locale.id}"][0]{
+		baseUrl,
+		pageTitleSuffix,
+		${imageQuery({ name: 'socialShareImage' })},
 		masthead{
-			skipLink,
+			skiplink,
 			menu{
 				landmarkLabel,
 				menuButtonLabel,
@@ -69,9 +124,53 @@ export const siteSettingsQuery = ({ locale }: { locale: Locale }): string => `
 			change,
 			current,
 		},
+		genericLabels{
+			moreThan,
+			today,
+			ago,
+			in,
+			dayPlural{
+				this,
+				that,
+			},
+			sources,
+			moreTips,
+			updatedAt,
+			situationPlural{
+				this,
+				that,
+			},
+		},
 		logo{
 			alt,
 		},
+		privacy{
+			id,
+			usp,
+			title,
+			beloftes,
+		},
+		feedback{
+			button,
+			content,
+			title,
+			url,
+			thanks,
+			labels{
+				like,
+				dislike,
+			},
+		},
+		severeSymptomsAdvice{
+			title,
+			subtitle,
+			${imageQuery({ name: 'icon' })},
+		},
+		accessibility{
+			labelExternalLink,
+			labelModal,
+			labelModalClose,
+		}
 	}`;
 
 /**
