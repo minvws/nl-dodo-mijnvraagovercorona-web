@@ -2,11 +2,11 @@
 import 'dotenv-flow/config';
 import { Sprite } from 'astro-icon';
 import MetaData from 'src/components/MetaData.astro';
+import { MetaDataProps } from 'src/utilities/api/queries';
 import {
-	MetaDataProps,
 	SiteSettingsProps,
 	useSiteSettings,
-} from 'src/utilities/api/queries';
+} from 'src/utilities/api/queries/translated';
 import { availableLocales, Locale } from 'src/utilities/locale/translation';
 
 import '@design-system/globals.scss';
@@ -52,10 +52,10 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 	</head>
 	<body>
 		<Sprite.Provider>
-			<SkipLink label={siteSettings.header.skipLink} />
+			<SkipLink label={siteSettings.masthead.skiplink} />
 			<Masthead
 				logoUrl={locale.urlPrefix}
-				logoAlt={siteSettings.header.logoAlt}
+				logoAlt={siteSettings.logo.alt}
 				highlight={mastheadHighlight}
 			>
 				<slot name="back" slot="start" />

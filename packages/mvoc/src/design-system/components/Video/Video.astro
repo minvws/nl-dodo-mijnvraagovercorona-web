@@ -1,11 +1,11 @@
 ---
 import { Icon } from '@design-system/elements/Icon';
 import { HTMLAttributes } from 'astro/types';
+import { ImageProps } from 'src/utilities/api/queries';
 import {
-	ImageProps,
 	SiteSettingsProps,
 	useSiteSettings,
-} from 'src/utilities/api/queries';
+} from 'src/utilities/api/queries/translated';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
 
 interface Props extends HTMLAttributes<'a'> {

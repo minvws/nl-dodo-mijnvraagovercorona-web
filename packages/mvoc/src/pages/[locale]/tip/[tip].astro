@@ -3,7 +3,10 @@ import { availableLocales, Locale } from 'src/utilities/locale/translation';
 
 import Layout from '@layouts/Layout.astro';
 import { Hero } from '@design-system/components/Hero';
-import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
+import {
+	SiteSettingsProps,
+	useSiteSettings,
+} from 'src/utilities/api/queries/translated';
 import { getDataTips, TipPageProps } from 'src/utilities/api';
 import { UpdatedAt } from '@design-system/elements/UpdatedAt';
 import { ContentBlock } from '@design-system/components/ContentBlock';
@@ -85,7 +88,7 @@ const translatedTips = pageData.moreTips.tipCollection
 									<Heading level={2}>
 										{pageData.moreTips.title
 											? pageData.moreTips.title
-											: siteSettings.moreTips}
+											: siteSettings.genericLabels.moreTips}
 									</Heading>
 									<TipOverview tipCollection={translatedTips} />
 								</Stack>
@@ -99,7 +102,7 @@ const translatedTips = pageData.moreTips.tipCollection
 								id={stringToSlug(
 									pageData.sources.title
 										? pageData.sources.title
-										: siteSettings.sources,
+										: siteSettings.genericLabels.sources,
 								)}
 							>
 								<Card variant="filled">
@@ -107,7 +110,7 @@ const translatedTips = pageData.moreTips.tipCollection
 										<Heading level={2}>
 											{pageData.sources.title
 												? pageData.sources.title
-												: siteSettings.sources}
+												: siteSettings.genericLabels.sources}
 										</Heading>
 										<ContentBlock value={pageData.sources.content} />
 									</Stack>

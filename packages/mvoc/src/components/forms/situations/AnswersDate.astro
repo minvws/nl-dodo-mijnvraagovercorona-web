@@ -7,7 +7,10 @@ import {
 	getDaySlug,
 	getDaysToGenerate,
 } from 'src/utilities/helpers/advice-helpers';
-import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
+import {
+	SiteSettingsProps,
+	useSiteSettings,
+} from 'src/utilities/api/queries/translated';
 import {
 	getLocaleFromURL,
 	prefixUrlWithlocale,
@@ -73,14 +76,14 @@ const parsedButtons = buttons?.map((button, index) => {
 								full
 							>
 								{day === 0
-									? siteSettings.today
+									? siteSettings.genericLabels.today
 									: index === daysToGenerate.length - 1
-									? `${siteSettings.moreThan} ${day - 1} ${
-											siteSettings.dayPlural.that
-									  } ${siteSettings.ago}`
+									? `${siteSettings.genericLabels.moreThan} ${day - 1} ${
+											siteSettings.genericLabels.dayPlural.that
+									  } ${siteSettings.genericLabels.ago}`
 									: day === 1
-									? `${day} ${siteSettings.dayPlural.this} ${siteSettings.ago}`
-									: `${day} ${siteSettings.dayPlural.that} ${siteSettings.ago}`}
+									? `${day} ${siteSettings.genericLabels.dayPlural.this} ${siteSettings.genericLabels.ago}`
+									: `${day} ${siteSettings.genericLabels.dayPlural.that} ${siteSettings.genericLabels.ago}`}
 							</Button>
 						))}
 					</GridFluid>

@@ -20,7 +20,10 @@ import {
 import { Stack } from '@design-system/components/Layout/Stack';
 import { Retain } from '@design-system/components/Layout/Retain';
 import { Hero } from '@design-system/components/Hero';
-import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
+import {
+	SiteSettingsProps,
+	useSiteSettings,
+} from 'src/utilities/api/queries/translated';
 import { UpdatedAt } from '@design-system/elements/UpdatedAt';
 import { Advice } from '@design-system/components/Advice';
 import { Layer } from '@design-system/components/Layout/Layer';
@@ -202,7 +205,7 @@ const translatedTips = pageData.moreTips.tipCollection
 										<Heading level={2}>
 											{pageData.moreTips.title
 												? pageData.moreTips.title
-												: siteSettings.moreTips}
+												: siteSettings.genericLabels.moreTips}
 										</Heading>
 										<TipOverview tipCollection={translatedTips} />
 									</Stack>
