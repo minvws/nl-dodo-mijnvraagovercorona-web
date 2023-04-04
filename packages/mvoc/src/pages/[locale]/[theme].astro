@@ -8,7 +8,10 @@ import {
 import Layout from '@layouts/Layout.astro';
 import { Hero } from '@design-system/components/Hero';
 import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
-import { getDataThemes, ThemePageProps } from 'src/utilities/api';
+import {
+	getDataThemes,
+	ThemePageProps,
+} from 'src/utilities/api/queries/translated/theme';
 import { UpdatedAt } from '@design-system/elements/UpdatedAt';
 import { ContentBlock } from '@design-system/components/ContentBlock';
 import { Layer } from '@design-system/components/Layout/Layer';
@@ -22,7 +25,7 @@ import { Assistance } from '@design-system/components/Assistance';
 
 export async function getStaticPaths() {
 	return await standardAvailableLocales.reduce(async (paths, locale) => {
-		const collection = await getDataThemes({ locale });
+		const collection = await getDataThemes();
 		return [
 			...(await paths),
 			collection.pages.map((page: ThemePageProps) => ({
@@ -43,12 +46,13 @@ interface Props {
 
 const { pageData, locale } = Astro.props;
 const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+console.log(pageData);
 
-const translatedStories = pageData.stories.filter((story) => story.headline);
+// const translatedStories = pageData.stories.filter((story) => story.headline);
 ---
 
 <Layout locale={locale} metaData={pageData.metaData} mastheadHighlight>
-	<Hero
+	<!-- <Hero
 		title={pageData.header.title}
 		image={pageData.header.image}
 		chapeau={pageData.header.chapeau}
@@ -56,9 +60,9 @@ const translatedStories = pageData.stories.filter((story) => story.headline);
 	>
 		<UpdatedAt slot="prefix" time={pageData.updatedAt} />
 		<ContentBlock value={pageData.header.content} />
-	</Hero>
+	</Hero> -->
 
-	<Layer
+	<!-- <Layer
 		pullUpBy="hero"
 		background={translatedStories.length > 0 ? 'ijsblauw' : undefined}
 		id="situaties"
@@ -91,9 +95,9 @@ const translatedStories = pageData.stories.filter((story) => story.headline);
 				</GridFluid>
 			</Stack>
 		</Retain>
-	</Layer>
+	</Layer> -->
 
-	{
+	<!-- {
 		translatedStories.length > 0 ? (
 			<Layer>
 				<Retain>
@@ -105,7 +109,7 @@ const translatedStories = pageData.stories.filter((story) => story.headline);
 				</Retain>
 			</Layer>
 		) : null
-	}
+	} -->
 
 	{
 		pageData.assistance && (
