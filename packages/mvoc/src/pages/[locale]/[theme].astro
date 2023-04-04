@@ -1,6 +1,6 @@
 ---
 import {
-	standardAvailableLocales,
+	availableLocales,
 	Locale,
 	prefixUrlWithlocale,
 } from 'src/utilities/locale/translation';
@@ -8,10 +8,7 @@ import {
 import Layout from '@layouts/Layout.astro';
 import { Hero } from '@design-system/components/Hero';
 import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
-import {
-	getDataThemes,
-	ThemePageProps,
-} from 'src/utilities/api/queries/translated/theme';
+import { getDataThemes, ThemePageProps } from 'src/utilities/api/theme';
 import { UpdatedAt } from '@design-system/elements/UpdatedAt';
 import { ContentBlock } from '@design-system/components/ContentBlock';
 import { Layer } from '@design-system/components/Layout/Layer';
@@ -24,19 +21,26 @@ import { Story } from '@design-system/components/Story';
 import { Assistance } from '@design-system/components/Assistance';
 
 export async function getStaticPaths() {
-	return await standardAvailableLocales.reduce(async (paths, locale) => {
-		const collection = await getDataThemes();
-		return [
-			...(await paths),
-			collection.pages.map((page: ThemePageProps) => ({
-				params: { theme: page.slug, locale: locale.id },
+	const collection = await getDataThemes();
+	console.log(collection);
+	return (
+		collection
+			// filter out unavailable locales
+			.filter(
+				(page: ThemePageProps) =>
+					availableLocales.filter((locale) => locale.id === page.localeID)
+						.length,
+			)
+			.map((page: ThemePageProps) => ({
+				params: { theme: page.slug, locale: page.localeID },
 				props: {
 					pageData: page,
-					locale,
+					locale: availableLocales.filter(
+						(locale) => locale.id === page.localeID,
+					)[0],
 				},
-			})),
-		];
-	}, Promise.resolve([]));
+			}))
+	);
 }
 
 interface Props {
@@ -52,7 +56,7 @@ console.log(pageData);
 ---
 
 <Layout locale={locale} metaData={pageData.metaData} mastheadHighlight>
-	<!-- <Hero
+	<Hero
 		title={pageData.header.title}
 		image={pageData.header.image}
 		chapeau={pageData.header.chapeau}
@@ -60,9 +64,9 @@ console.log(pageData);
 	>
 		<UpdatedAt slot="prefix" time={pageData.updatedAt} />
 		<ContentBlock value={pageData.header.content} />
-	</Hero> -->
+	</Hero>
 
-	<!-- <Layer
+	<Layer
 		pullUpBy="hero"
 		background={translatedStories.length > 0 ? 'ijsblauw' : undefined}
 		id="situaties"
@@ -95,7 +99,7 @@ console.log(pageData);
 				</GridFluid>
 			</Stack>
 		</Retain>
-	</Layer> -->
+	</Layer>
 
 	<!-- {
 		translatedStories.length > 0 ? (

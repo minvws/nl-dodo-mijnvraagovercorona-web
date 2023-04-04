@@ -1,21 +1,23 @@
 import { ContentBlockProps } from '@design-system/components/ContentBlock';
 import { useSanityClient } from 'astro-sanity';
-import type { Locale } from '../locale/translation';
+import { getPageTranslations } from '../helpers/get-page-translations';
+import { ImageProps, imageQuery } from './queries';
 import {
-	pageQuery,
+	InterimQuestionCollectionProps,
+	interimQuestionCollectionQuery,
 	PageProps,
-	localePropertyQuery,
-	ImageProps,
-	imageQuery,
-} from './queries';
-import { AssistanceProps, assistanceQuery } from './queries/assistance';
+	pageQuery,
+	TaleCollectionProps,
+	taleReferenceQuery,
+} from './queries/translated';
 import {
-	QuestionCollectionProps,
-	questionCollectionQuery,
-} from './queries/question';
-import { storiesQuery, StoryProps } from './queries/stories';
+	AssistanceProps,
+	assistanceQuery,
+} from './queries/translated/assistance';
 
-export interface ThemePageProps extends PageProps, QuestionCollectionProps {
+export interface ThemePageProps
+	extends PageProps,
+		InterimQuestionCollectionProps {
 	header: {
 		title: string;
 		chapeau: string;
@@ -23,50 +25,36 @@ export interface ThemePageProps extends PageProps, QuestionCollectionProps {
 		image: ImageProps;
 	};
 	titleFlow: string;
-	stories: StoryProps[];
 	assistance: AssistanceProps;
+	questionCollection: InterimQuestionCollectionProps['questionCollection'];
+	taleCollection: TaleCollectionProps['taleCollection'];
 	slug: string;
 	updatedAt: string;
 }
 
-export async function getDataThemes({
-	locale,
-	slug,
-}: {
-	locale: Locale;
-	slug?: string;
-}) {
+export async function getDataThemes() {
 	const projection = `{
-		"header": {
-			${localePropertyQuery({ name: 'title', path: 'header.title', locale })},
-			${localePropertyQuery({ name: 'chapeau', path: 'header.chapeau', locale })},
-			${localePropertyQuery({
-				name: 'content',
-				path: 'header.content',
-				locale,
-				block: true,
-			})},
-			${imageQuery({ name: 'image', path: 'header.image' })},
+		header{
+			title,
+			chapeau,
+			content,
+			${imageQuery({ name: 'image' })},
 		},
-		${localePropertyQuery({
-			name: 'titleFlow',
-			locale,
-		})},
-		${questionCollectionQuery({ locale })},
-		${storiesQuery({ locale })},
-		${assistanceQuery({ locale })},
+		titleFlow,
+		${interimQuestionCollectionQuery()},
+		${assistanceQuery()},
+		${taleReferenceQuery()},
 		"updatedAt": _updatedAt,
 		"slug": slug.current
 	}`;
 
 	const query = pageQuery({
-		type: 'theme-document',
+		type: 'theme-page',
 		projection,
-		locale,
-		slug,
 		multiple: true,
-		site: 'mijn-vraag-over-corona',
 	});
 
-	return await useSanityClient().fetch(query);
+	const data = await useSanityClient().fetch(query);
+
+	return getPageTranslations(data.pages);
 }

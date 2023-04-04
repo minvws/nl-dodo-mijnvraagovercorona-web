@@ -99,11 +99,6 @@ export default defineType({
 				isUnique: isUnique,
 			},
 		}),
-		defineField({
-			title: 'URL',
-			name: 'url',
-			type: 'string',
-		}),
 	],
 	preview: {
 		select: {

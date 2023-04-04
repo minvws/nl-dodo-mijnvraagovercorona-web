@@ -28,7 +28,7 @@ export interface ThemePageProps
 }
 
 export async function getDataThemes() {
-	const projection = `{
+	const projection = `
 		header{
 			title,
 			chapeau,
