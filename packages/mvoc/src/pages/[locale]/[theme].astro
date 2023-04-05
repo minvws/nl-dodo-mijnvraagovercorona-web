@@ -50,9 +50,15 @@ interface Props {
 
 const { pageData, locale } = Astro.props;
 const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+console.log(pageData);
 ---
 
-<Layout locale={locale} metaData={pageData.metaData} mastheadHighlight>
+<Layout
+	locale={locale}
+	metaData={pageData.metaData}
+	mastheadHighlight
+	alternativeTranslations={pageData.alternatives}
+>
 	<Hero
 		title={pageData.header.title}
 		image={pageData.header.image}
@@ -67,34 +73,35 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 		background={pageData.taleCollection.length > 0 ? 'ijsblauw' : undefined}
 		id="situaties"
 	>
-		<Retain>
-			<Stack>
-				<Heading>
-					{
-						pageData.questionCollection.length > 1
-							? `${pageData.questionCollection.length} ${siteSettings.situationPlural.that}`
-							: `${pageData.questionCollection.length} ${siteSettings.situationPlural.this}`
-					}{' '}
-					{pageData.titleFlow}
-				</Heading>
-				<GridFluid class="grid-questions">
-					{
-						pageData.questionCollection
-							?.filter((item) => item.label)
-							.map((item) => (
-								<Button
-									variant="tertiary"
-									href={prefixUrlWithlocale(item.href, locale)}
-									icon="chevron-small-right"
-									interactionIconAnimation="swing"
-								>
-									<ContentBlock value={item.label} />
-								</Button>
-							))
-					}
-				</GridFluid>
-			</Stack>
-		</Retain>
+		{
+			pageData?.questionCollection?.filter((item) => item.label).length ? (
+				<Retain>
+					<Stack>
+						<Heading>
+							{pageData.questionCollection.length > 1
+								? `${pageData.questionCollection.length} ${siteSettings.situationPlural.that}`
+								: `${pageData.questionCollection.length} ${siteSettings.situationPlural.this}`}{' '}
+							{pageData.titleFlow}
+						</Heading>
+
+						<GridFluid class="grid-questions">
+							{pageData.questionCollection
+								?.filter((item) => item.label)
+								.map((item) => (
+									<Button
+										variant="tertiary"
+										href={prefixUrlWithlocale(item.href, locale)}
+										icon="chevron-small-right"
+										interactionIconAnimation="swing"
+									>
+										<ContentBlock value={item.label} />
+									</Button>
+								))}
+						</GridFluid>
+					</Stack>
+				</Retain>
+			) : null
+		}
 		{
 			pageData?.taleCollection?.length ? (
 				<Layer>
