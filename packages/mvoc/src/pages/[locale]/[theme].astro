@@ -19,10 +19,10 @@ import { GridFluid } from '@design-system/components/Layout/Grid';
 import { Stack } from '@design-system/components/Layout/Stack';
 import { Story } from '@design-system/components/Story';
 import { Assistance } from '@design-system/components/Assistance';
+import { TaleList } from '@design-system/components/Tale';
 
 export async function getStaticPaths() {
 	const collection = await getDataThemes();
-	console.log(collection);
 	return (
 		collection
 			// filter out unavailable locales
@@ -50,9 +50,6 @@ interface Props {
 
 const { pageData, locale } = Astro.props;
 const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
-console.log(pageData);
-
-// const translatedStories = pageData.stories.filter((story) => story.headline);
 ---
 
 <Layout locale={locale} metaData={pageData.metaData} mastheadHighlight>
@@ -65,10 +62,9 @@ console.log(pageData);
 		<UpdatedAt slot="prefix" time={pageData.updatedAt} />
 		<ContentBlock value={pageData.header.content} />
 	</Hero>
-
 	<Layer
 		pullUpBy="hero"
-		background={translatedStories.length > 0 ? 'ijsblauw' : undefined}
+		background={pageData.taleCollection.length > 0 ? 'ijsblauw' : undefined}
 		id="situaties"
 	>
 		<Retain>
@@ -84,53 +80,47 @@ console.log(pageData);
 				<GridFluid class="grid-questions">
 					{
 						pageData.questionCollection
-							?.filter((item) => item.title)
+							?.filter((item) => item.label)
 							.map((item) => (
 								<Button
 									variant="tertiary"
-									href={prefixUrlWithlocale(`/${item.path}`, locale)}
+									href={prefixUrlWithlocale(item.href, locale)}
 									icon="chevron-small-right"
 									interactionIconAnimation="swing"
 								>
-									<ContentBlock value={item.title} />
+									<ContentBlock value={item.label} />
 								</Button>
 							))
 					}
 				</GridFluid>
 			</Stack>
 		</Retain>
+		{
+			pageData?.taleCollection?.length ? (
+				<Layer>
+					<Retain>
+						<TaleList taleCollection={pageData.taleCollection} />
+					</Retain>
+				</Layer>
+			) : null
+		}
+		{
+			pageData.assistance && (
+				<Layer>
+					<Retain>
+						<Assistance feedback {...pageData.assistance} />
+					</Retain>
+				</Layer>
+			)
+		}
 	</Layer>
 
-	<!-- {
-		translatedStories.length > 0 ? (
-			<Layer>
-				<Retain>
-					<Retain variant="text">
-						{translatedStories.map((story) => (
-							<Story {...story} />
-						))}
-					</Retain>
-				</Retain>
-			</Layer>
-		) : null
-	} -->
+	<style lang="scss">
+		@use '@design-system-styles/primitives/_responsive.scss';
 
-	{
-		pageData.assistance && (
-			<Layer>
-				<Retain>
-					<Assistance feedback {...pageData.assistance} />
-				</Retain>
-			</Layer>
-		)
-	}
+		.grid-questions {
+			--grid-fluid-min-item-size: 20rem; // 400px
+			--grid-fluid-gap: var(--stack-small);
+		}
+	</style>
 </Layout>
-
-<style lang="scss">
-	@use '@design-system-styles/primitives/_responsive.scss';
-
-	.grid-questions {
-		--grid-fluid-min-item-size: 20rem; // 400px
-		--grid-fluid-gap: var(--stack-small);
-	}
-</style>
