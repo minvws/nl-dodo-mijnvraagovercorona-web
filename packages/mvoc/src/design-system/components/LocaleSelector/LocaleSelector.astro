@@ -2,21 +2,33 @@
 import { Icon } from '@design-system/elements/Icon';
 import { Link } from '@design-system/elements/Link';
 import {
+	SiteSettingsProps,
+	useSiteSettings,
+} from 'src/utilities/api/queries/translated';
+import {
 	getCurrentUrlForLocale,
+	getLocaleFromURL,
 	Locale,
+	standardAvailableLocales,
 } from 'src/utilities/locale/translation';
+import { AlternativeTranslationsProps } from './types';
 
 interface Props {
-	locales: Locale[];
-	currentLocale: Locale;
-	labelChange: string;
-	labelCurrent: string;
+	alternativeTranslations?: AlternativeTranslationsProps[];
+	compact?: boolean;
 }
 
-const { locales, currentLocale, labelChange, labelCurrent } = Astro.props;
+const { alternativeTranslations, compact } = Astro.props;
+const currentLocale = getLocaleFromURL(Astro.url.pathname) as Locale;
+const siteSettings: SiteSettingsProps = await useSiteSettings({
+	locale: currentLocale,
+});
 ---
 
-<div class="c-locale-selector" data-module="locale-selector">
+<div
+	class={`c-locale-selector${compact ? ' c-locale-selector--compact' : ''}`}
+	data-module="locale-selector"
+>
 	<button
 		type="button"
 		class="c-locale-selector__toggle"
@@ -25,8 +37,9 @@ const { locales, currentLocale, labelChange, labelCurrent } = Astro.props;
 		aria-expanded="false"
 		data-module-bind="locale-selector__toggle"
 	>
-		<span class="u-visually-hidden">{labelChange}</span>
-		<span class="u-visually-hidden">{labelCurrent}:</span>
+		<span class="u-visually-hidden">{siteSettings.localeSelector.title}</span>
+		<span class="u-visually-hidden">{siteSettings.localeSelector.current}:</span
+		>
 		<span class="c-locale-selector__short-name" aria-hidden="true">
 			{currentLocale.shortName.toUpperCase()}
 		</span>
@@ -41,22 +54,46 @@ const { locales, currentLocale, labelChange, labelCurrent } = Astro.props;
 	>
 		<ul role="list" data-module-bind="locale-selector__panel-inner">
 			{
-				locales
-					.filter((locale) => locale.id !== currentLocale.id)
-					.map((locale) => (
-						<li>
-							<Link
-								href={getCurrentUrlForLocale(
-									Astro.url.pathname,
-									locale,
-									currentLocale,
-								)}
-								class="c-locale-selector__link"
-							>
-								{locale.fullName}
-							</Link>
-						</li>
-					))
+				alternativeTranslations &&
+				alternativeTranslations.filter(
+					(alternativeTranslation) =>
+						alternativeTranslation.locale.id !== currentLocale.id,
+				).length
+					? alternativeTranslations
+							.filter(
+								(alternativeTranslation) =>
+									alternativeTranslation.locale.id !== currentLocale.id,
+							)
+							.map((alternativeTranslation) => (
+								<li>
+									<Link
+										href={`${alternativeTranslation.locale.urlPrefix}${
+											alternativeTranslation.href
+												? `/${alternativeTranslation.href}`
+												: ''
+										}`}
+										class="c-locale-selector__link"
+									>
+										{alternativeTranslation.locale.fullName}
+									</Link>
+								</li>
+							))
+					: standardAvailableLocales
+							.filter((locale) => locale.id !== currentLocale.id)
+							.map((locale) => (
+								<li>
+									<Link
+										href={getCurrentUrlForLocale(
+											Astro.url.pathname,
+											locale,
+											currentLocale,
+										)}
+										class="c-locale-selector__link"
+									>
+										{locale.fullName}
+									</Link>
+								</li>
+							))
 			}
 		</ul>
 	</div>
@@ -161,6 +198,9 @@ const { locales, currentLocale, labelChange, labelCurrent } = Astro.props;
 				@include a11y.visually-hidden;
 			}
 		}
+		:where(.c-locale-selector.c-locale-selector--compact:not(.is-active)) & {
+			@include a11y.visually-hidden;
+		}
 	}
 
 	.c-locale-selector__short-name {
@@ -168,8 +208,10 @@ const { locales, currentLocale, labelChange, labelCurrent } = Astro.props;
 			display: none;
 		}
 
-		@media --mq-large {
-			display: none;
+		:where(.c-locale-selector:not(.c-locale-selector--compact)) & {
+			@media --mq-large {
+				display: none;
+			}
 		}
 	}
 

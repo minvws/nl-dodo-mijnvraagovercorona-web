@@ -11,10 +11,7 @@ import {
 	prefixUrlWithlocale,
 } from 'src/utilities/locale/translation';
 import { ContentBlock } from '../ContentBlock';
-import {
-	AlternativeTranslationsProps,
-	LocaleSelectorList,
-} from '../LocaleSelector';
+import { AlternativeTranslationsProps } from '../LocaleSelector';
 
 interface Props extends HTMLAttributes<'div'> {
 	alternativeTranslations?: AlternativeTranslationsProps[];
@@ -84,11 +81,6 @@ const isHome =
 				}
 			</ul>
 		</nav>
-
-		<LocaleSelectorList
-			class="c-nav-main__nav c-nav-main__hide-large"
-			alternativeTranslations={alternativeTranslations}
-		/>
 
 		{
 			masthead.menu?.extraMenu?.internalPageCollection ? (
