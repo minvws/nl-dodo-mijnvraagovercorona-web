@@ -1,4 +1,5 @@
 import { ContentBlockProps } from '@design-system/components/ContentBlock';
+import { AlternativeTranslationsProps } from '@design-system/components/LocaleSelector';
 import { useSanityClient } from 'astro-sanity';
 import { getPageTranslations } from '../helpers/get-page-translations';
 import { ImageProps, imageQuery } from './queries';
@@ -25,6 +26,7 @@ export interface ThemePageProps
 	assistance: AssistanceProps;
 	questionCollection: InterimQuestionCollectionProps['questionCollection'];
 	taleCollection: TaleCollectionProps['taleCollection'];
+	alternatives: AlternativeTranslationsProps[];
 	slug: string;
 	updatedAt: string;
 }
