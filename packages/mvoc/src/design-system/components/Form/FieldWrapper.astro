@@ -5,24 +5,30 @@ import { Stack } from '../Layout/Stack';
 interface Props extends HTMLAttributes<'div'> {
 	label: string;
 	id: string;
+	hideLabel?: boolean;
 }
 
-const { class: className, label, id, ...attrs } = Astro.props;
+const { class: className, label, id, hideLabel, ...attrs } = Astro.props;
 ---
 
 <div class={`c-field-wrapper${className ? ` | ${className}` : ''}`} {...attrs}>
-	<Stack gap="milli">
-		<label class="c-field-wrapper__label" for={id}>{label}</label>
-		<div>
-			<slot />
-		</div>
-	</Stack>
+	<label
+		class={`c-field-wrapper__label${hideLabel ? ` | u-visually-hidden` : ''}`}
+		for={id}>{label}</label
+	>
+	<div>
+		<slot />
+	</div>
 </div>
 
 <style lang="scss">
 	.c-field-wrapper {
+		display: flex;
+		flex-direction: column;
+		gap: var(--stack-milli);
 	}
 	.c-field-wrapper__label {
+		font-weight: bold;
 		color: var(--color-diepblauw);
 	}
 </style>

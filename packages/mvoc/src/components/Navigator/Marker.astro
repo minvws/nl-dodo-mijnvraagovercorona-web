@@ -1,0 +1,56 @@
+---
+import { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'div'> {}
+
+const { class: className, ...attrs } = Astro.props;
+---
+
+<div class={`c-marker${className ? ` | ${className}` : ''}`} {...attrs}>
+	<button class="c-marker__button" type="button">
+		<span class="u-visually-hidden" data-name></span>
+		<img
+			class="c-marker__image"
+			src="/images/map/marker.svg"
+			data-src-open="/images/map/marker-open.svg"
+			alt=""
+			data-marker-icon
+		/>
+	</button>
+</div>
+
+<style lang="scss">
+	@use '@design-system-styles/tools/_a11y.scss';
+
+	.c-marker {
+		pointer-events: none;
+		&:global(.is-open) {
+			z-index: 2;
+		}
+		&:focus-within,
+		&:has(button:hover) {
+			z-index: 3;
+		}
+	}
+
+	.c-marker__button {
+		--marker-adjustment: translateY(-40%);
+		cursor: pointer;
+		outline: none;
+		transform-origin: bottom center;
+		transform: var(--marker-adjustment);
+		transition: transform 100ms ease-in-out;
+		pointer-events: auto;
+
+		&:focus {
+			@include a11y.focusring;
+		}
+		&:hover {
+			transform: var(--marker-adjustment) scale(1.1);
+		}
+	}
+
+	.c-marker__image {
+		display: block;
+	}
+</style>

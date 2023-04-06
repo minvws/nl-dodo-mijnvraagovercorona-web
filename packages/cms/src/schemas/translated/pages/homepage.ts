@@ -94,6 +94,12 @@ export default defineType({
 		}),
 
 		defineField({
+			title: 'Tales',
+			name: 'taleCollection',
+			type: 'taleSelector',
+		}),
+
+		defineField({
 			title: 'Hulp',
 			name: 'assistance',
 			type: 'reference',

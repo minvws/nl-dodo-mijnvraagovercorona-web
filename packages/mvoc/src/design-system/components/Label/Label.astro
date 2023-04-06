@@ -1,0 +1,27 @@
+---
+import { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'span'> {}
+
+const { class: className, ...attrs } = Astro.props;
+---
+
+<span class={`c-label${className ? ` | ${className}` : ''}`} {...attrs}>
+	<slot />
+</span>
+
+<style lang="scss">
+	.c-label {
+		display: inline-block;
+		padding-block: var(--space-r-nano);
+		padding-inline: var(--space-r-milli);
+		border-radius: var(--radii-nano);
+		font-size: var(--font-size-milli);
+		line-height: var(--line-height-milli);
+		background-color: var(--color-poolblauw);
+		color: var(--color-diepblauw);
+		&::first-letter {
+			text-transform: uppercase;
+		}
+	}
+</style>

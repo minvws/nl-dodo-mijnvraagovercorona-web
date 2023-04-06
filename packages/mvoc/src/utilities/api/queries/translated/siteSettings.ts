@@ -56,10 +56,9 @@ export interface SiteSettingsProps {
 		change: string;
 		current: string;
 	};
-	logo: {
-		alt: string;
-	};
 	genericLabels: {
+		close: string;
+		open: string;
 		moreThan: string;
 		in: string;
 		today: string;
@@ -76,6 +75,9 @@ export interface SiteSettingsProps {
 			that: string;
 		};
 	};
+	logo: {
+		alt: string;
+	};
 	seeMoreExpand: {
 		this: string;
 		that: string;
@@ -84,6 +86,16 @@ export interface SiteSettingsProps {
 		title: string;
 		subtitle: string;
 		icon: ImageProps;
+	};
+	forms: {
+		filterOn: string;
+		clearField: string;
+	};
+	vaccinations: {
+		series: {
+			b: string;
+			b1: string;
+		};
 	};
 	accessibility: {
 		labelExternalLink: string;
@@ -125,6 +137,8 @@ export const siteSettingsQuery = ({ locale }: { locale: Locale }): string => `
 			current,
 		},
 		genericLabels{
+			close,
+			open,
 			moreThan,
 			today,
 			ago,
@@ -143,6 +157,16 @@ export const siteSettingsQuery = ({ locale }: { locale: Locale }): string => `
 		},
 		logo{
 			alt,
+		},
+		forms{
+			filterOn,
+			clearField,
+		},
+		vaccinations{
+			series{
+				b,
+				b1,
+			},
 		},
 		privacy{
 			id,
@@ -182,7 +206,7 @@ export const siteSettingsQuery = ({ locale }: { locale: Locale }): string => `
 let siteSettingsTranslated;
 export async function useSiteSettings({ locale }: { locale: Locale }) {
 	if (siteSettingsTranslated) {
-		return siteSettingsTranslated[locale.id];
+		return siteSettingsTranslated[locale.id] || siteSettingsTranslated['en'];
 	}
 
 	siteSettingsTranslated = await Object.entries(locales).reduce(
@@ -195,5 +219,5 @@ export async function useSiteSettings({ locale }: { locale: Locale }) {
 		{},
 	);
 
-	return siteSettingsTranslated[locale.id];
+	return siteSettingsTranslated[locale.id] || siteSettingsTranslated['en'];
 }

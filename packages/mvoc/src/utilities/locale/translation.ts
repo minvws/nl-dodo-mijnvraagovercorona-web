@@ -3,7 +3,9 @@ import { isExternalUrl } from '../helpers/external-url';
 export enum Locales {
 	Dutch = 'nl',
 	English = 'en',
-	// Polish = 'pl',
+	Turkish = 'tr',
+	Polish = 'pl',
+	Arabic = 'ar',
 }
 
 export interface Locale {
@@ -12,6 +14,7 @@ export interface Locale {
 	shortName: string;
 	urlPrefix: string;
 	locale: string;
+	direction: 'ltr' | 'rtl';
 }
 
 export const locales: { [key: string]: Locale } = {
@@ -21,6 +24,7 @@ export const locales: { [key: string]: Locale } = {
 		shortName: 'Nl',
 		urlPrefix: '/nl',
 		locale: 'nl_nl',
+		direction: 'ltr',
 	},
 	english: {
 		id: Locales.English,
@@ -28,21 +32,44 @@ export const locales: { [key: string]: Locale } = {
 		shortName: 'En',
 		urlPrefix: '/en',
 		locale: 'en_gb',
+		direction: 'ltr',
 	},
-	// polish: {
-	// 	id: Locales.Polish,
-	// 	fullName: 'Polish',
-	// 	shortName: 'Pl',
-	// 	urlPrefix: '/pl',
-	// 	locale: 'pl_pl',
-	// },
+	turkish: {
+		id: Locales.Turkish,
+		fullName: 'Türkçe',
+		shortName: 'TR',
+		urlPrefix: '/tr',
+		locale: 'tr_tr',
+		direction: 'ltr',
+	},
+	polish: {
+		id: Locales.Polish,
+		fullName: 'Polski',
+		shortName: 'Pl',
+		urlPrefix: '/pl',
+		locale: 'pl_pl',
+		direction: 'ltr',
+	},
+	arabic: {
+		id: Locales.Arabic,
+		fullName: 'العربية',
+		shortName: 'AR',
+		urlPrefix: '/ar',
+		locale: 'ar',
+		direction: 'rtl',
+	},
 };
 
 export const availableLocales = [
 	locales.dutch,
 	locales.english,
-	// locales.polish,
+	locales.turkish,
+	locales.polish,
+	locales.arabic,
 ];
+
+// These locales are always translated
+export const standardAvailableLocales = [locales.dutch, locales.english];
 
 export const langPathRegex = /\/([a-z]{2}-?[A-Z]{0,2})\/?/;
 export const getLocaleFromURL = (pathname: string) => {
@@ -55,8 +82,14 @@ export const getLocaleFromURL = (pathname: string) => {
  * Small helper method that prefixes the requested url with a locale.
  */
 export const prefixUrlWithlocale = (href: string, locale: Locale) =>
+	// check if given locale is available
 	availableLocales.filter((locale) => href.includes(locale.urlPrefix))
 		.length === 0 &&
+	// check if href aready contains a available locale
+	availableLocales.filter(
+		(localeTest) =>
+			href.startsWith(localeTest.id) || href.startsWith(localeTest.urlPrefix),
+	).length === 0 &&
 	!isExternalUrl(href) &&
 	!href.startsWith('#') &&
 	!href.startsWith('tel:') &&

@@ -1,81 +1,57 @@
 ---
-import { Button } from '@design-system/elements/Button';
-import { ImageProps } from 'src/utilities/api/queries';
+import { ContentBlock } from '@design-system/components/ContentBlock';
+import { Picture } from '@design-system/components/Picture';
+import { Video } from '@design-system/components/Video';
+import Button from '@design-system/elements/Button/Button.astro';
+import { MultiContentBlocksProps } from 'src/utilities/api/queries/translated';
+import { Stack } from '../Layout/Stack';
 import {
 	getLocaleFromURL,
 	prefixUrlWithlocale,
 } from 'src/utilities/locale/translation';
-import { ContentBlock, ContentBlockProps } from '.';
-import { Stack } from '../Layout/Stack';
-import { Video } from '../Video';
 
-export interface Situation {
-	path: string;
-}
-
-interface SituationAsLink extends Situation {
-	situationLinkTitle: string;
-	variant?: 'button' | 'button-tertiary';
-}
-
-export interface MultiContentBlockProps {
-	content?: ContentBlockProps['value'];
-	situation?: SituationAsLink;
-	video?: {
-		url: string;
-		title: string;
-		image: ImageProps;
-	};
-	image?: ImageProps;
-}
+import {
+	isContent,
+	isPicture,
+	isButton,
+	isVideo,
+} from 'src/utilities/api/queries/translated';
 
 interface Props {
-	contentBlocks: MultiContentBlockProps[];
+	multiContentBlocks: MultiContentBlocksProps;
 }
 
-const { contentBlocks } = Astro.props;
+const { multiContentBlocks } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
 ---
 
 <Stack class="c-multi-content-block" gap="small">
 	{
-		contentBlocks.map((contentBlock) => (
+		multiContentBlocks.map((multiContentBlock) => (
 			<>
-				{contentBlock.content ? (
+				{isContent(multiContentBlock) ? (
 					<Stack class="c-multi-content-block__content" gap="small">
-						<ContentBlock value={contentBlock.content} />
+						<ContentBlock value={multiContentBlock.content} />
 					</Stack>
-				) : contentBlock.image?.src ? (
-					<img
-						class="c-multi-content-block__image"
-						src={contentBlock.image?.src}
-						alt=""
-						loading="lazy"
-					/>
-				) : contentBlock.video?.url ||
-				  contentBlock.video?.title ||
-				  contentBlock.video?.image?.src ? (
-					<Video
-						title={contentBlock.video?.title}
-						url={contentBlock.video?.url}
-						image={contentBlock.video?.image}
-					/>
-				) : contentBlock.situation?.path ? (
+				) : isButton(multiContentBlock) ? (
 					<Button
-						href={prefixUrlWithlocale(
-							`/${contentBlock.situation.path}`,
-							locale,
-						)}
-						variant={
-							contentBlock.situation.variant === 'button'
-								? 'primary'
-								: contentBlock.situation.variant === 'button-tertiary'
-								? 'secondary'
-								: 'primary'
-						}
+						href={prefixUrlWithlocale(multiContentBlock.href, locale)}
+						icon={multiContentBlock.icon}
+						variant={multiContentBlock.variant}
 					>
-						{contentBlock.situation.situationLinkTitle}
+						{multiContentBlock.label}
 					</Button>
+				) : isVideo(multiContentBlock) ? (
+					<Video
+						title={multiContentBlock.title}
+						url={multiContentBlock.url}
+						picture={multiContentBlock.picture}
+					/>
+				) : isPicture(multiContentBlock) ? (
+					<Picture
+						class="c-multi-content-block__picture"
+						{...multiContentBlock}
+					/>
 				) : null}
 			</>
 		))
@@ -83,17 +59,16 @@ const locale = getLocaleFromURL(Astro.url.pathname);
 </Stack>
 
 <style lang="scss">
-	@use '@design-system-styles/tools/_list.scss';
-
 	.c-multi-content-block {
 	}
 
 	.c-multi-content-block__content {
-		@include list.steps;
 	}
 
-	.c-multi-content-block__image {
-		max-inline-size: 100%;
-		margin-inline: auto;
+	.c-multi-content-block__picture {
+		:global(img) {
+			max-inline-size: 100%;
+			margin-inline: auto;
+		}
 	}
 </style>

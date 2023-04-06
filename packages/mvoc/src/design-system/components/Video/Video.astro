@@ -7,14 +7,16 @@ import {
 	useSiteSettings,
 } from 'src/utilities/api/queries/translated';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
+import { PictureProps } from '../Picture';
 
 interface Props extends HTMLAttributes<'a'> {
 	title: string;
 	url: string;
-	image: ImageProps;
+	image?: ImageProps;
+	picture?: PictureProps;
 }
 
-const { class: className, title, url, image, ...attrs } = Astro.props;
+const { class: className, title, url, picture, image, ...attrs } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
 const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 ---
@@ -25,8 +27,14 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 	{...attrs}
 	target="_blank"
 	rel="noopener noreferrer"
->
-	<img class="c-video__image" src={image.src} alt="" loading="lazy" />
+>	
+	{
+		image ? (
+			<img class="c-video__image" src={image.src} alt="" loading="lazy" />
+		) : picture ? (
+		<img class="c-video__picture" src={picture.image.src} alt="" loading="lazy" />
+		) : null
+	}
 	<Icon class="c-video__icon" name="video" />
 	<span class="u-visually-hidden">
 		{title}({siteSettings.accessibility.labelExternalLink})

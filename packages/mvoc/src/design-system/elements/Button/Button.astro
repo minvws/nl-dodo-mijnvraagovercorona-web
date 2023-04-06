@@ -73,7 +73,11 @@ const selectedIcon =
 >
 	{
 		iconPositionCalculated === 'leading' && selectedIcon ? (
-			<Icon name={selectedIcon} description={hiddenLabel} />
+			<Icon
+				class="e-button__icon--leading"
+				name={selectedIcon}
+				description={hiddenLabel}
+			/>
 		) : null
 	}
 	<span class="e-button__label" data-button-content>
@@ -81,7 +85,11 @@ const selectedIcon =
 	</span>
 	{
 		iconPositionCalculated === 'trailing' && selectedIcon ? (
-			<Icon name={selectedIcon} description={hiddenLabel} />
+			<Icon
+				class="e-button__icon--trailing"
+				name={selectedIcon}
+				description={hiddenLabel}
+			/>
 		) : null
 	}
 </Element>
@@ -100,7 +108,7 @@ const selectedIcon =
 
 		display: inline-flex;
 		align-items: center;
-		justify-content: space-between;
+		// justify-content: space-between;
 		gap: var(--space-r-small);
 		min-inline-size: 100%;
 		padding: calc(var(--button-padding) - var(--button-border-width));
@@ -151,6 +159,10 @@ const selectedIcon =
 		&:first-letter {
 			text-transform: uppercase;
 		}
+	}
+
+	.e-button__icon--trailing {
+		margin-inline-start: auto;
 	}
 
 	// variants

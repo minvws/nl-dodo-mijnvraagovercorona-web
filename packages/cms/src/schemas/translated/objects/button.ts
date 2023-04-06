@@ -1,4 +1,5 @@
 import { defineType, defineField } from 'sanity';
+import { BiLinkAlt } from 'react-icons/bi';
 
 export default defineType({
 	title: 'Knop',
@@ -59,5 +60,16 @@ export default defineType({
 	options: {
 		collapsible: true,
 		collapsed: false,
+	},
+	preview: {
+		select: {
+			title: 'label',
+		},
+		prepare({ title }) {
+			return {
+				title: title,
+				media: BiLinkAlt,
+			};
+		},
 	},
 });

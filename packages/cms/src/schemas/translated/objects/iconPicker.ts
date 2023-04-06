@@ -4,7 +4,6 @@ export default defineType({
 	title: 'Icoon kiezer',
 	name: 'iconPicker',
 	type: 'string',
-	initialValue: '',
 	options: {
 		list: [
 			{ title: 'Home', value: 'home' },
@@ -25,6 +24,15 @@ export default defineType({
 			{ title: 'Chat', value: 'chat' },
 			{ title: 'Video', value: 'video' },
 			{ title: 'Burger', value: 'burger' },
+			{ title: 'Looking glass', value: 'looking-glass' },
+			{ title: 'Copy', value: 'copy' },
+			{ title: 'Mondmasker', value: 'facemask' },
+			{ title: 'Hart', value: 'heart' },
+			{ title: 'Paspoort', value: 'passport' },
+			{ title: 'Auto', value: 'car' },
+			{ title: 'Vaccin prik', value: 'vaccin-shot' },
+			{ title: 'Marker', value: 'marker' },
+			{ title: 'Lijst', value: 'list' },
 		],
 	},
 });

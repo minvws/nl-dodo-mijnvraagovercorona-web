@@ -1,6 +1,6 @@
 ---
 import {
-	availableLocales,
+	standardAvailableLocales,
 	getLocaleFromURL,
 } from 'src/utilities/locale/translation';
 import {
@@ -40,7 +40,7 @@ import {
 } from 'src/utilities/helpers/advice-helpers';
 
 export async function getStaticPaths() {
-	return await availableLocales.reduce(async (paths, locale) => {
+	return await standardAvailableLocales.reduce(async (paths, locale) => {
 		const { pages } = await getDataSituationAdvice({ locale });
 
 		// loop over pages

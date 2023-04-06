@@ -1,0 +1,155 @@
+---
+import { HTMLAttributes } from 'astro/types';
+import {
+	SiteSettingsProps,
+	useSiteSettings,
+} from 'src/utilities/api/queries/translated';
+import { getLocaleFromURL } from 'src/utilities/locale/translation';
+import { Icon, IconProps } from '../Icon';
+
+export interface Props extends HTMLAttributes<'div'> {
+	type?: 'text' | 'search' | 'email' | 'password' | 'url' | 'tel';
+	id: string;
+	placeholder?: string;
+	icon?: IconProps['name'];
+	clearable?: boolean;
+}
+
+const {
+	class: className,
+	type = 'text',
+	id,
+	placeholder,
+	icon,
+	clearable,
+	...attrs
+} = Astro.props;
+
+const locale = getLocaleFromURL(Astro.url.pathname);
+const siteSettings: SiteSettingsProps = await useSiteSettings({
+	locale,
+});
+---
+
+<div
+	class={`c-input-text${className ? ` | ${className}` : ''}`}
+	data-module="input-text"
+>
+	{icon ? <Icon class="c-input-text__icon" name={icon} /> : null}
+	<input
+		type={type}
+		id={id}
+		placeholder={placeholder}
+		class={`c-input-text__input${icon ? ` c-input-text__input--has-icon` : ''}${
+			clearable ? ` c-input-text__input--is-clearable` : ''
+		}`}
+		{...attrs}
+		data-module-bind="input-text__input"
+	/>
+	{
+		clearable ? (
+			<button
+				class="c-input-text__button-clear"
+				hidden
+				data-module-bind="input-text__clear-button"
+				type="button"
+			>
+				<Icon class="c-input-text__icon-clear" name="cross" />
+				<span class="u-visually-hidden">{siteSettings.forms.clearField}</span>
+			</button>
+		) : null
+	}
+</div>
+
+<script>
+	const field = document.querySelector(
+		'[data-module="input-text"]',
+	) as HTMLDivElement;
+
+	if (field) {
+		const input = field.querySelector(
+			'[data-module-bind="input-text__input"]',
+		) as HTMLInputElement;
+		const clearButton = field.querySelector(
+			'[data-module-bind="input-text__clear-button"]',
+		) as HTMLButtonElement;
+
+		if (clearButton) {
+			input.addEventListener('input', () => {
+				clearButton.hidden = !(input.value.length > 0);
+			});
+
+			clearButton.addEventListener('click', (event) => {
+				event.preventDefault();
+				input.value = '';
+				clearButton.hidden = true;
+				input.focus();
+			});
+		}
+	}
+</script>
+
+<style lang="scss">
+	@use '@design-system-styles/tools/_a11y.scss';
+
+	.c-input-text {
+		position: relative;
+		color: var(--color-diepblauw);
+	}
+
+	.c-input-text__input {
+		inline-size: 100%;
+		appearance: none;
+		padding: calc(var(--stack-small) - 1px);
+		border-radius: var(--radii-nano);
+		border: 1px solid var(--color-grijs-4);
+		background-color: var(--color-white);
+
+		&[type='search'] {
+			&::-webkit-search-decoration,
+			&::-webkit-search-cancel-button,
+			&::-webkit-search-results-button,
+			&::-webkit-search-results-decoration {
+				display: none;
+			}
+		}
+
+		&:focus {
+			@include a11y.focusring;
+		}
+	}
+
+	.c-input-text__input--has-icon {
+		padding-inline-start: calc(var(--stack-small) * 2 + var(--space-r-base));
+	}
+
+	.c-input-text__input--is-clearable:not(:placeholder-shown) {
+		padding-inline-end: calc(var(--stack-small) * 2 + var(--space-r-base));
+	}
+
+	.c-input-text__icon,
+	.c-input-text__button-clear {
+		position: absolute;
+		inset-block-start: 50%;
+		transform: translateY(-50%);
+	}
+
+	.c-input-text__icon {
+		pointer-events: none;
+		inset-inline-start: var(--stack-small);
+	}
+
+	.c-input-text__button-clear {
+		inset-inline-end: var(--stack-small);
+		cursor: pointer;
+		color: currentColor;
+
+		&:focus {
+			@include a11y.focusring;
+		}
+	}
+
+	.c-input-text__icon-clear.c-input-text__icon-clear {
+		display: block;
+	}
+</style>
