@@ -101,25 +101,25 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 				</Retain>
 			) : null
 		}
-		{
-			pageData?.taleCollection?.length ? (
-				<Layer>
-					<Retain>
-						<TaleList taleCollection={pageData.taleCollection} />
-					</Retain>
-				</Layer>
-			) : null
-		}
-		{
-			pageData.assistance && (
-				<Layer>
-					<Retain>
-						<Assistance feedback {...pageData.assistance} />
-					</Retain>
-				</Layer>
-			)
-		}
 	</Layer>
+	{
+		pageData?.taleCollection?.length ? (
+			<Layer>
+				<Retain>
+					<TaleList taleCollection={pageData.taleCollection} />
+				</Retain>
+			</Layer>
+		) : null
+	}
+	{
+		pageData.assistance && (
+			<Layer>
+				<Retain>
+					<Assistance feedback {...pageData.assistance} />
+				</Retain>
+			</Layer>
+		)
+	}
 
 	<style lang="scss">
 		@use '@design-system-styles/primitives/_responsive.scss';
