@@ -167,14 +167,16 @@ export const replaceTimeTable = ({
 		show: location.properties.show,
 	});
 
-	timeTableFeedbackLinkElement.href = getFeedbackUrl(
-		timeTableFeedbackLinkElement.href,
-		{
-			source: 'location-timetable',
-			location: `${location.properties.name} - ${location.properties.location.city}`,
-			ggd: location.properties.ggdData.name,
-		},
-	);
+	if (timeTableFeedbackLinkElement) {
+		timeTableFeedbackLinkElement.href = getFeedbackUrl(
+			timeTableFeedbackLinkElement.href,
+			{
+				source: 'location-timetable',
+				location: `${location.properties.name} - ${location.properties.location.city}`,
+				ggd: location.properties.ggdData.name,
+			},
+		);
+	}
 
 	const isOpenLaterThanThisWeek =
 		!isOpenThisWeek(
