@@ -82,9 +82,6 @@ export const getLocaleFromURL = (pathname: string) => {
  * Small helper method that prefixes the requested url with a locale.
  */
 export const prefixUrlWithlocale = (href: string, locale: Locale) =>
-	// check if given locale is available
-	availableLocales.filter((locale) => href.includes(locale.urlPrefix))
-		.length === 0 &&
 	// check if href aready contains a available locale
 	availableLocales.filter(
 		(localeTest) =>
