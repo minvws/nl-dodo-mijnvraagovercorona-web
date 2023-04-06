@@ -79,8 +79,8 @@ const ogImage = `${Astro.url.origin}${
 					<>
 						<link
 							rel="alternate"
-							hreflang={alternativeTranslation.locale.id}
-							href={`${alternativeTranslation.locale.urlPrefix}/${alternativeTranslation.href}`}
+							hreflang={alternativeTranslation.locale.locale}
+							href={`${siteSettings.baseUrl}${alternativeTranslation.locale.urlPrefix}/${alternativeTranslation.href}`}
 						/>
 						<meta
 							property="og:locale:alternate"

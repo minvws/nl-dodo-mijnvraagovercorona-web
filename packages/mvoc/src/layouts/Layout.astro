@@ -11,7 +11,10 @@ import { Locale } from 'src/utilities/locale/translation';
 
 import '@design-system/globals.scss';
 import { Masthead, SkipLink } from '@design-system/components/Masthead';
-import { AlternativeTranslationsProps } from '@design-system/components/LocaleSelector';
+import {
+	AlternativeTranslationsProps,
+	LocaleSelector,
+} from '@design-system/components/LocaleSelector';
 import { MastFoot } from '@design-system/components/MastFoot';
 
 export interface Props {
@@ -66,6 +69,10 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 						highlight={mastheadHighlight}
 					>
 						<slot name="back" slot="start" />
+						<LocaleSelector
+							slot="end"
+							alternativeTranslations={alternativeTranslations}
+						/>
 					</Masthead>
 				) : null
 			}
@@ -73,14 +80,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 				<slot />
 			</main>
 
-			{
-				!disableMastfoot ? (
-					<MastFoot
-						locale={locale}
-						alternativeTranslations={alternativeTranslations}
-					/>
-				) : null
-			}
+			{!disableMastfoot ? <MastFoot locale={locale} /> : null}
 		</Sprite.Provider>
 
 		<script src="/scripts/piwik.js" is:inline defer></script>

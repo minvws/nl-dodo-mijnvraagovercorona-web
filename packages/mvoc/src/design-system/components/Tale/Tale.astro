@@ -3,6 +3,7 @@ import { Heading } from '@design-system/elements/Heading';
 import { Tale } from 'src/utilities/api/queries/translated';
 import { MultiContentBlock } from '../ContentBlock';
 import { Switcher } from '../Layout/Grid';
+import { Retain } from '../Layout/Retain';
 import { Stack } from '../Layout/Stack';
 import { Picture } from '../Picture';
 
@@ -14,14 +15,16 @@ const { title, multiContentBlocks, picture } = Astro.props;
 <section class="c-tale">
 	<Switcher class="c-tale__switcher">
 		<Stack>
-			<Heading>{title}</Heading>
-			{
-				multiContentBlocks ? (
-					<MultiContentBlock multiContentBlocks={multiContentBlocks} />
-				) : null
-			}
+			<Retain variant={'text'}>
+				<Heading>{title}</Heading>
+				{
+					multiContentBlocks ? (
+						<MultiContentBlock multiContentBlocks={multiContentBlocks} />
+					) : null
+				}
+			</Retain>
 		</Stack>
-		<Picture class="c-tale__picture" {...picture} />
+		{picture ? <Picture class="c-tale__picture" {...picture} /> : null}
 	</Switcher>
 </section>
 
@@ -38,7 +41,8 @@ const { title, multiContentBlocks, picture } = Astro.props;
 
 	.c-tale__picture {
 		:global(img) {
-			max-inline-size: 100%;
+			inline-size: 100%;
+			max-inline-size: 14rem; // 280px
 			margin-inline: auto;
 		}
 	}
