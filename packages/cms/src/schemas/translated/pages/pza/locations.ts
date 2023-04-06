@@ -1,4 +1,5 @@
 import { isUniqueInLocale } from '../../../../utilities/isUniqueInLocale';
+import { filterReferenceByLanguage } from '../../../../utilities/filterReferenceByLanguage';
 import { defineType, defineField } from 'sanity';
 
 async function isUnique(slug: any, context: any) {
@@ -20,6 +21,9 @@ export default defineType({
 			type: 'reference',
 			to: [{ type: 'theme-page' }],
 			validation: (Rule) => Rule.required(),
+			options: {
+				filter: filterReferenceByLanguage,
+			},
 		}),
 		defineField({
 			title: 'Meta data',
