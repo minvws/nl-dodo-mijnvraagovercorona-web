@@ -15,16 +15,20 @@ import { AlternativeTranslationsProps } from './types';
 
 interface Props {
 	alternativeTranslations?: AlternativeTranslationsProps[];
+	compact?: boolean;
 }
 
-const { alternativeTranslations } = Astro.props;
+const { alternativeTranslations, compact } = Astro.props;
 const currentLocale = getLocaleFromURL(Astro.url.pathname) as Locale;
 const siteSettings: SiteSettingsProps = await useSiteSettings({
 	locale: currentLocale,
 });
 ---
 
-<div class="c-locale-selector" data-module="locale-selector">
+<div
+	class={`c-locale-selector${compact ? ' c-locale-selector--compact' : ''}`}
+	data-module="locale-selector"
+>
 	<button
 		type="button"
 		class="c-locale-selector__toggle"
@@ -194,6 +198,9 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 				@include a11y.visually-hidden;
 			}
 		}
+		:where(.c-locale-selector.c-locale-selector--compact:not(.is-active)) & {
+			@include a11y.visually-hidden;
+		}
 	}
 
 	.c-locale-selector__short-name {
@@ -201,8 +208,10 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 			display: none;
 		}
 
-		@media --mq-large {
-			display: none;
+		:where(.c-locale-selector:not(.c-locale-selector--compact)) & {
+			@media --mq-large {
+				display: none;
+			}
 		}
 	}
 
