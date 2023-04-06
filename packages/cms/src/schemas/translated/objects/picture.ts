@@ -9,7 +9,7 @@ export default defineType({
 			title: 'Afbeelding',
 			name: 'image',
 			type: 'image',
-			validation: (Rule) => Rule.required(),
+			// validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			title: 'Alt tekst',
