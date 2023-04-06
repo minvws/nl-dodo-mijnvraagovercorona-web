@@ -32,7 +32,19 @@ export default defineConfig({
 				},
 				{
 					id: 'en',
-					title: 'English',
+					title: 'Engels',
+				},
+				{
+					id: 'tr',
+					title: 'Turks',
+				},
+				{
+					id: 'pl',
+					title: 'Pools',
+				},
+				{
+					id: 'ar',
+					title: 'Arabisch',
 				},
 			],
 		},

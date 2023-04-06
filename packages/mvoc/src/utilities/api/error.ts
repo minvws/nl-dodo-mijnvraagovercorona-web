@@ -2,10 +2,14 @@ import { ContentBlockProps } from '@design-system/components/ContentBlock';
 import { AlternativeTranslationsProps } from '@design-system/components/LocaleSelector';
 import { useSanityClient } from 'astro-sanity';
 import { getPageTranslations } from '../helpers/get-page-translations';
-import { PageProps, customBlockQuery, pageQuery } from './queries/translated';
+import {
+	PageProps,
+	customBlockQuery,
+	pageQuery,
+	buttonsQuery,
+	ButtonProps,
+} from './queries/translated';
 import { ImageProps, imageQuery } from './queries';
-import { ButtonVariants } from '@design-system/elements/Button';
-import { IconProps } from '@design-system/elements/Icon';
 
 export interface ErrorPageProps extends PageProps {
 	hero: {
@@ -14,12 +18,7 @@ export interface ErrorPageProps extends PageProps {
 		image: ImageProps;
 		content?: ContentBlockProps['value'];
 	};
-	button: {
-		label: string;
-		href?: string;
-		variant: ButtonVariants;
-		icon: IconProps['name'];
-	};
+	button: ButtonProps;
 	content: ContentBlockProps['value'];
 	errormessage: string;
 	locale: string;
@@ -35,12 +34,7 @@ export async function getDataErrorPages() {
 			${imageQuery({ name: 'image' })},
 			${customBlockQuery({ name: 'content' })},
 		},
-		button{
-			icon,
-			label,
-			variant,
-			href,
-		},
+		${buttonsQuery({ array: false })},
 		${customBlockQuery({ name: 'content' })},
 		errormessage,
 		"slug": slug.current,

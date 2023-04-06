@@ -11,7 +11,15 @@ export default defineType({
 	preview: {
 		select: {
 			title: 'title',
-			subtitle: 'phonenumber',
+			phone: 'phonenumber',
+			lang: '__i18n_lang',
+		},
+		prepare(selection) {
+			const { title, phone, lang } = selection;
+			return {
+				title: title,
+				subtitle: `${lang} - ${phone}`,
+			};
 		},
 	},
 	fields: [

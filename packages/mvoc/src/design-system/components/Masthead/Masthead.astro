@@ -3,17 +3,21 @@ import { Sprite } from 'astro-icon';
 import { Retain } from '../Layout/Retain';
 
 type Props = {
+	highlight?: boolean;
 	logoUrl: string;
 	logoAlt: string;
-	highlight?: boolean;
+	forceCompact?: boolean;
 };
 
-const { logoUrl, logoAlt, highlight } = Astro.props;
+const { highlight, logoUrl, logoAlt, forceCompact } = Astro.props;
 ---
 
 <header
-	class={`c-masthead${highlight ? ` c-masthead--highlight` : ''}`}
+	class={`c-masthead${highlight ? ` c-masthead--highlight` : ''}${
+		forceCompact ? ` c-masthead--compact` : ''
+	}`}
 	role="banner"
+	data-module="masthead"
 >
 	<div>
 		<slot name="start" />
@@ -31,6 +35,7 @@ const { logoUrl, logoAlt, highlight } = Astro.props;
 	@use '@design-system-styles/primitives/_responsive.scss';
 
 	.c-masthead {
+		--masthead-logo-block-size: 4rem; // 80px
 		--masthead-background: var(--theme-bg-base);
 		position: relative;
 		z-index: 50;
@@ -40,6 +45,12 @@ const { logoUrl, logoAlt, highlight } = Astro.props;
 		gap: var(--space-r-small);
 		padding-inline: var(--masthead-inline-padding);
 		background-color: var(--masthead-background);
+
+		@media --mq-large {
+			& {
+				--masthead-logo-block-size: 5.1rem; // 102px
+			}
+		}
 	}
 	.c-masthead__end {
 		display: flex;
@@ -53,16 +64,35 @@ const { logoUrl, logoAlt, highlight } = Astro.props;
 	}
 	.c-masthead__logo-visual {
 		display: block;
-		block-size: 4rem; // 80px
-
-		@media --mq-large {
-			& {
-				block-size: 5.1rem; // 102px
-			}
-		}
+		block-size: var(--masthead-logo-block-size);
 	}
 
 	.c-masthead--highlight {
 		--masthead-background: var(--theme-bg-highlight);
 	}
+
+	.c-masthead--compact {
+		--masthead-logo-block-size: 4rem;
+	}
 </style>
+
+<script>
+	import debounce from 'src/utilities/helpers/debounce';
+
+	// select dom nodes
+	const masthead = document.querySelector('[data-module="masthead"]');
+
+	if (masthead && !masthead.classList.contains('c-masthead--compact')) {
+		const checkSize = () => {
+			const mastheadRect = masthead.getBoundingClientRect();
+			document.documentElement.style.setProperty(
+				'--masthead__block-size',
+				`${mastheadRect.height}px`,
+			);
+		};
+
+		window.addEventListener('resize', debounce(checkSize));
+
+		checkSize();
+	}
+</script>

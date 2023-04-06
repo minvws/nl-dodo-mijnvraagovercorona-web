@@ -1,0 +1,344 @@
+---
+import { Attribute } from '@design-system/components/Attribute';
+import { ContentBlock } from '@design-system/components/ContentBlock';
+import { Label } from '@design-system/components/Label';
+import { Stack } from '@design-system/components/Layout/Stack';
+import { Button } from '@design-system/elements/Button';
+import { Heading } from '@design-system/elements/Heading';
+import { Link } from '@design-system/elements/Link';
+import { HTMLAttributes } from 'astro/types';
+import { LocationsPageProps } from 'src/utilities/api';
+import {
+	useSiteSettings,
+	SiteSettingsProps,
+} from 'src/utilities/api/queries/translated/siteSettings';
+import { getLocaleFromURL, Locale } from 'src/utilities/locale/translation';
+
+interface Props extends HTMLAttributes<'div'> {
+	pageData: LocationsPageProps;
+}
+
+const { class: className, pageData, ...attrs } = Astro.props;
+
+const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
+const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+---
+
+<div
+	class={`c-location-detail${className ? ` | ${className}` : ''}`}
+	{...attrs}
+	itemscope
+	itemtype="https://schema.org/Place"
+	data-label-closed={pageData.location.openingHours.closed}
+>
+	<hgroup class="c-location-detail__hgroup">
+		<Stack gap="tiny">
+			<Heading level={2} tabindex="-1">
+				<span data-city>replace city</span>
+				<span class="c-location-detail__name" data-name></span>
+			</Heading>
+
+			<div class="c-location-detail__wrap-labels">
+				<Label data-series="b">
+					{siteSettings.vaccinations.series.b}
+				</Label>
+				<Label data-series="b1">
+					{siteSettings.vaccinations.series.b1}
+				</Label>
+			</div>
+		</Stack>
+	</hgroup>
+
+	<div class="c-location-detail__body">
+		<Stack gap="giant">
+			<div>
+				<Stack gap="tiny">
+					<div class="c-location-detail__wrap-image" data-wrap-image>
+						<img class="c-location-detail__image" alt="" data-image-map />
+						<img
+							class="c-location-detail__marker-icon"
+							src="/images/map/marker.svg"
+							data-src-open="/images/map/marker-open.svg"
+							alt=""
+							data-marker-icon
+						/>
+					</div>
+
+					<Attribute
+						icon="marker"
+						itemscope
+						itemtype="https://schema.org/PostalAddress"
+					>
+						<span itemprop="streetAddress" data-address-short>
+							<mark>replace address short</mark>
+						</span>
+						<br />
+						<span itemprop="postalCode" data-zipcode>
+							<mark>replace zipcode</mark>
+						</span>&nbsp;<span itemprop="addressLocality" data-city>
+							<mark>replace city</mark>
+						</span>
+					</Attribute>
+
+					<section>
+						<Stack gap="nano">
+							<Button
+								type="button"
+								data-module-bind="location__button-copy"
+								icon="copy"
+								iconPosition="leading"
+								data-label-copy={pageData.location.copyButton.copy}
+								data-label-copied={pageData.location.copyButton.copied}
+								full
+							>
+								{pageData.location.copyButton.copy}
+							</Button>
+
+							<div class="u-color--grijs-6">
+								<ContentBlock value={pageData.location.instructions} />
+							</div>
+						</Stack>
+					</section>
+
+					<section class="has__list-styled">
+						<Stack>
+							<ContentBlock value={pageData.location.note} />
+						</Stack>
+					</section>
+				</Stack>
+			</div>
+
+			<section>
+				<Stack>
+					<div class="c-location-detail__heading-openinghours">
+						<Heading level={3} styledAs={2}>
+							{pageData.location.openingHours.title}
+						</Heading>
+						<div class="opening-hours" data-openinghours>
+							<span
+								class="u-color--accent-safarigroen"
+								data-openinghours-opennow
+							>
+								{pageData.location.openingHours.openNow}
+							</span>
+							<span
+								class="u-color--accent-safarigroen"
+								data-openinghours-opentoday
+							>
+								{pageData.location.openingHours.openToday}
+							</span>
+							<span class="u-color--grijs-6" data-openinghours-openfrom>
+								{pageData.location.openingHours.openFrom}
+								<span data-openinghours-from></span>
+							</span>
+							<span class="u-color--grijs-6" data-openinghours-closed>
+								{pageData.location.openingHours.closed}
+							</span>
+						</div>
+					</div>
+
+					<div data-timetable>
+						<Stack>
+							<p data-unknown-openinghours>
+								{pageData.location.openingHours.unknownOpeningHours}
+							</p>
+							<ContentBlock
+								value={pageData.location.openingHours.content}
+								data-known-openinghours
+							/>
+							<table class="c-location-detail__table">
+								<tbody
+									data-module-bind="location__timetable-row"
+									data-known-openinghours
+								>
+								</tbody>
+							</table>
+
+							{
+								locale.id === 'nl' ? (
+									<div>
+										<p>{pageData.location.openingHours.feedback.content}</p>
+										<Link
+											href={'https://minvws.typeform.com/to/QpJVk377'}
+											data-feedback-timetable
+										>
+											{pageData.location.openingHours.feedback.label}
+										</Link>
+									</div>
+								) : null
+							}
+						</Stack>
+					</div>
+				</Stack>
+			</section>
+
+			{
+				pageData.about && pageData.about.items ? (
+					<section>
+						<Stack>
+							<Heading level={3} styledAs={2}>
+								{pageData.about.title}
+							</Heading>
+							<div>
+								<Stack gap="milli" as="ul" role="list">
+									{pageData.about.items
+										.filter((item) => item.label)
+										.map((item) => (
+											<li>
+												<Attribute
+													icon={item.icon}
+													data-dynamic-attribute
+													data-vaccination-series={item.vaccinationSeries}
+												>
+													<ContentBlock value={item.label} />
+												</Attribute>
+											</li>
+										))}
+								</Stack>
+							</div>
+						</Stack>
+					</section>
+				) : null
+			}
+
+			{
+				pageData.bring && pageData.bring.items ? (
+					<section>
+						<Stack>
+							<Heading level={3} styledAs={2}>
+								{pageData.bring.title}
+							</Heading>
+							<div>
+								<Stack gap="milli" as="ul" role="list">
+									{pageData.bring.items
+										.filter((item) => item.label)
+										.map((item) => (
+											<li>
+												<Attribute icon={item.icon}>
+													<ContentBlock value={item.label} />
+												</Attribute>
+											</li>
+										))}
+								</Stack>
+							</div>
+						</Stack>
+					</section>
+				) : null
+			}
+			{
+				pageData.expectations ? (
+					<section>
+						<Stack class="has__list-styled">
+							<Heading level={3} styledAs={2}>
+								{pageData.expectations.title}
+							</Heading>
+							<ContentBlock value={pageData.expectations.content} />
+						</Stack>
+					</section>
+				) : null
+			}
+		</Stack>
+	</div>
+</div>
+
+<style lang="scss">
+	@use '@design-system-styles/primitives/_responsive.scss';
+
+	.c-location-detail {
+		block-size: 100%;
+	}
+
+	.c-location-detail__hgroup {
+		padding-block: var(--navigator__detail-padding-block, var(--stack-small));
+		background-color: var(--color-white);
+
+		// create space for close button so that the title wont overlap
+		&::before {
+			float: right;
+			inline-size: calc(1.2em + var(--space-r-nano) * 2 + 2px);
+			aspect-ratio: 1/1;
+			content: '';
+		}
+
+		@media --mq-block-small {
+			& {
+				position: sticky;
+				top: 0;
+				z-index: 1;
+			}
+		}
+	}
+
+	.c-location-detail__name {
+		display: block;
+		font-weight: normal;
+	}
+
+	.c-location-detail__wrap-labels {
+		display: flex;
+		gap: var(--stack-small);
+	}
+
+	.c-location-detail__body {
+	}
+
+	.c-location-detail__wrap-image {
+		position: relative;
+		block-size: 8rem;
+		background-color: var(--color-grijs-2);
+		overflow: hidden;
+		border-radius: var(--radii-milli);
+	}
+
+	.c-location-detail__image {
+		position: absolute;
+		block-size: 100%;
+		inline-size: 100%;
+		object-fit: cover;
+	}
+
+	.c-location-detail__marker-icon {
+		position: absolute;
+		inset: 50%;
+		inline-size: 2.4rem; // 48px
+		block-size: auto;
+		transform: translate(-50%, calc(-50% - 1rem));
+	}
+
+	.c-location-detail__heading-openinghours {
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: space-between;
+		align-items: center;
+		gap: var(--stack-nano);
+	}
+
+	.c-location-detail__table {
+		inline-size: 100%;
+		border-collapse: collapse;
+
+		:global(tr:nth-child(odd)) {
+			background-color: var(--color-grijs-1);
+		}
+
+		:global(td) {
+			padding-block: var(--stack-nano);
+			padding-inline: var(--stack-milli);
+			vertical-align: top;
+		}
+
+		:global(td::first-letter) {
+			text-transform: capitalize;
+		}
+
+		:global(tr:first-child) {
+			font-weight: bold;
+		}
+		:global(td:last-child) {
+			text-align: end;
+			:global(> span) {
+				display: block;
+			}
+		}
+	}
+</style>

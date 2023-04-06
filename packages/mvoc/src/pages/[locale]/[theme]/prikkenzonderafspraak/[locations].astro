@@ -1,0 +1,48 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+import { availableLocales, Locale } from 'src/utilities/locale/translation';
+import { LocationsPageProps, getDataLocationPages } from 'src/utilities/api';
+import { Navigator } from '@modules/Navigator';
+
+export async function getStaticPaths() {
+	const collection = await getDataLocationPages();
+	return collection
+		.filter(
+			(page: LocationsPageProps) =>
+				availableLocales.filter((locale) => locale.id === page.localeID).length,
+		)
+		.map((page: LocationsPageProps) => ({
+			params: {
+				locale: page.localeID,
+				theme: page.theme.slug,
+				locations: page.slug,
+			},
+			props: {
+				pageData: page,
+				locale: availableLocales.filter(
+					(locale) => locale.id === page.localeID,
+				)[0],
+			},
+		}));
+}
+
+interface Props {
+	pageData: LocationsPageProps;
+	locale: Locale;
+}
+
+const { pageData, locale } = Astro.props;
+---
+
+<Layout
+	locale={locale}
+	metaData={pageData.metaData}
+	alternativeTranslations={pageData.alternatives}
+	disableMastfoot
+	disableMasthead
+	mastheadHighlight
+>
+	<Navigator pageData={pageData} />
+</Layout>
+
+<style lang="scss"></style>

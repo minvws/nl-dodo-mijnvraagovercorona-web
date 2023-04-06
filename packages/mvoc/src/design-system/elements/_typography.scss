@@ -35,3 +35,9 @@ small {
 	font-size: var(--font-size-milli);
 	line-height: var(--line-height-milli);
 }
+
+legend {
+	padding-inline: 0;
+	font-weight: bold;
+	color: var(--color-diepblauw);
+}

@@ -60,7 +60,7 @@ export default defineType({
 		{
 			title: 'Video',
 			name: 'video',
-			type: 'video',
+			type: 'videoOld',
 			icon: BsCameraVideo,
 		},
 	],

@@ -1,0 +1,45 @@
+---
+import { Heading } from '@design-system/elements/Heading';
+import { Tale } from 'src/utilities/api/queries/translated';
+import { MultiContentBlock } from '../ContentBlock';
+import { Switcher } from '../Layout/Grid';
+import { Stack } from '../Layout/Stack';
+import { Picture } from '../Picture';
+
+type Props = Tale;
+
+const { title, multiContentBlocks, picture } = Astro.props;
+---
+
+<section class="c-tale">
+	<Switcher class="c-tale__switcher">
+		<Stack>
+			<Heading>{title}</Heading>
+			{
+				multiContentBlocks ? (
+					<MultiContentBlock multiContentBlocks={multiContentBlocks} />
+				) : null
+			}
+		</Stack>
+		<Picture class="c-tale__picture" {...picture} />
+	</Switcher>
+</section>
+
+<style lang="scss">
+	@use '@design-system-styles/tools/_list.scss';
+
+	.c-tale {
+		&:nth-of-type(even) {
+			.c-tale__switcher {
+				flex-direction: row-reverse;
+			}
+		}
+	}
+
+	.c-tale__picture {
+		:global(img) {
+			max-inline-size: 100%;
+			margin-inline: auto;
+		}
+	}
+</style>

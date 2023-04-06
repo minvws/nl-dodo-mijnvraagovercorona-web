@@ -9,6 +9,7 @@ export default defineField({
 	to: [
 		{ type: 'theme-page' },
 		{ type: 'generic-page' },
+		{ type: 'locations-page' },
 		{ type: 'tip-document' },
 	],
 	options: {

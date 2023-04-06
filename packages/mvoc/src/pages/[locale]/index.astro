@@ -17,6 +17,9 @@ import { Button } from '@design-system/elements/Button';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { Assistance } from '@design-system/components/Assistance';
 import { AdviceBlock } from '@design-system/components/AdviceBlock';
+import { Sidebar } from '@design-system/components/Layout/Sidebar';
+import { TaleList } from '@design-system/components/Tale';
+import { CardPrivacy } from '@design-system/components/Card';
 
 export async function getStaticPaths() {
 	const collection = await getDataHome();
@@ -69,17 +72,23 @@ const pageData: PageHomeProps = pagesData.filter(
 		highlight
 	>
 		<ContentBlock value={pageData.hero.content} />
-		<Button
-			iconPosition="trailing"
-			variant={pageData.button.variant}
-			icon={pageData.button.icon}
-			interactionIconAnimation="swing"
-			href={pageData.button.href
-				? prefixUrlWithlocale(pageData.button.href, locale)
-				: `#${stringToSlug(pageData.important.title)}`}
-		>
-			{pageData.button.label}
-		</Button>
+		{
+			pageData?.button?.label ? (
+				<Button
+					iconPosition="trailing"
+					variant={pageData.button.variant}
+					icon={pageData.button.icon}
+					interactionIconAnimation="swing"
+					href={
+						pageData.button.href
+							? prefixUrlWithlocale(pageData.button.href, locale)
+							: `#${stringToSlug(pageData.important.title)}`
+					}
+				>
+					{pageData.button.label}
+				</Button>
+			) : null
+		}
 	</Hero>
 
 	<Layer
@@ -114,34 +123,49 @@ const pageData: PageHomeProps = pagesData.filter(
 		</Retain>
 	</Layer>
 
-	<Layer id={stringToSlug(pageData.important.title)}>
-		<Retain>
-			<Stack gap="huge">
-				<SectionHeadingGroup
-					title={pageData.important.title}
-					icon={pageData.important.icon}
-				>
-					<ContentBlock value={pageData.important.content} />
-				</SectionHeadingGroup>
-				<GridFluid class="grid-important">
-					{
-						pageData.important.questionCollection
-							?.filter((item) => item.label)
-							.map((item) => (
-								<Button
-									variant="tertiary"
-									href={prefixUrlWithlocale(item.href, locale)}
-									icon="chevron-small-right"
-									interactionIconAnimation="swing"
-								>
-									<ContentBlock value={item.label} />
-								</Button>
-							))
-					}
-				</GridFluid>
-			</Stack>
-		</Retain>
-	</Layer>
+	{
+		pageData?.important?.title &&
+		pageData?.important?.questionCollection?.filter((item) => item.label)
+			.length ? (
+			<Layer id={stringToSlug(pageData.important.title)}>
+				<Retain>
+					<Stack gap="huge">
+						<SectionHeadingGroup
+							title={pageData.important.title}
+							icon={pageData.important.icon}
+						>
+							<ContentBlock value={pageData.important.content} />
+						</SectionHeadingGroup>
+						<GridFluid class="grid-important">
+							{pageData.important.questionCollection
+								?.filter((item) => item.label)
+								.map((item) => (
+									<Button
+										variant="tertiary"
+										href={prefixUrlWithlocale(item.href, locale)}
+										icon="chevron-small-right"
+										interactionIconAnimation="swing"
+									>
+										<ContentBlock value={item.label} />
+									</Button>
+								))}
+						</GridFluid>
+					</Stack>
+				</Retain>
+			</Layer>
+		) : null
+	}
+
+	{
+		pageData?.taleCollection?.length ? (
+			<Layer>
+				<Retain>
+					<TaleList taleCollection={pageData.taleCollection} />
+				</Retain>
+			</Layer>
+		) : null
+	}
+
 	{
 		pageData.assistance && (
 			<Layer id={stringToSlug(pageData.assistance.headline)}>

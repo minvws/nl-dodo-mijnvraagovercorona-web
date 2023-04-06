@@ -28,7 +28,10 @@ export default defineType({
 			type: 'image',
 			validation: (Rule) => Rule.required(),
 		}),
-		// masthead
+
+		/**
+		 * Masthead
+		 */
 		defineField({
 			title: 'Navigatiebalk',
 			name: 'masthead',
@@ -106,7 +109,9 @@ export default defineType({
 			],
 		}),
 
-		// mastfoot
+		/**
+		 * Mastfoot
+		 */
 		defineField({
 			title: 'Footer',
 			name: 'mastfoot',
@@ -155,7 +160,9 @@ export default defineType({
 			],
 		}),
 
-		// Privacy
+		/**
+		 * Privacy
+		 */
 		defineField({
 			title: 'Privacy',
 			name: 'privacy',
@@ -189,13 +196,17 @@ export default defineType({
 					of: [{ type: 'string' }],
 					options: {
 						sortable: false,
-						modal: 'popover',
+						modal: {
+							type: 'popover',
+						},
 					},
 				}),
 			],
 		}),
 
-		// Feedback
+		/**
+		 * Feedback
+		 */
 		defineField({
 			title: 'Feedback',
 			name: 'feedback',
@@ -254,7 +265,9 @@ export default defineType({
 			],
 		}),
 
-		// Generic labels
+		/**
+		 * Generic labels
+		 */
 		defineField({
 			title: 'Generieke labels',
 			name: 'genericLabels',
@@ -262,6 +275,18 @@ export default defineType({
 			validation: (Rule) => Rule.required(),
 			options: { collapsible: true },
 			fields: [
+				defineField({
+					title: 'Open',
+					name: 'open',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
+				defineField({
+					title: 'Sluiten',
+					name: 'close',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
 				defineField({
 					title: 'Over',
 					name: 'in',
@@ -325,12 +350,17 @@ export default defineType({
 			],
 		}),
 
-		// Severe symptons advice
+		/**
+		 * severe symptoms advice
+		 */
 		defineField({
 			title: 'Advies ernstige klachten',
 			name: 'severeSymptomsAdvice',
 			type: 'object',
 			validation: (Rule) => Rule.required(),
+			options: {
+				collapsible: true,
+			},
 			fields: [
 				defineField({
 					title: 'Titel',
@@ -353,7 +383,9 @@ export default defineType({
 			],
 		}),
 
-		// Language selector
+		/**
+		 * Language selector
+		 */
 		defineField({
 			title: 'Taal selector',
 			name: 'localeSelector',
@@ -384,7 +416,9 @@ export default defineType({
 			],
 		}),
 
-		// logo
+		/**
+		 * Logo
+		 */
 		defineField({
 			title: 'Logo',
 			name: 'logo',
@@ -400,13 +434,45 @@ export default defineType({
 				}),
 			],
 		}),
-		// toegankelijkheid
+
+		/**
+		 * Forms
+		 */
+		defineField({
+			title: 'Formulieren',
+			name: 'forms',
+			type: 'object',
+			validation: (Rule) => Rule.required(),
+			options: {
+				collapsible: true,
+			},
+			fields: [
+				defineField({
+					title: 'Filter op',
+					name: 'filterOn',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
+				defineField({
+					title: 'Maak veld leeg',
+					name: 'clearField',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
+			],
+		}),
+
+		/**
+		 * accessibility
+		 */
 		defineField({
 			title: 'Toegankelijkheid',
 			name: 'accessibility',
 			type: 'object',
 			validation: (Rule) => Rule.required(),
-			options: { collapsible: true },
+			options: {
+				collapsible: true,
+			},
 			fields: [
 				defineField({
 					title: 'Onzichtbaar label bij externe links',
@@ -428,5 +494,50 @@ export default defineType({
 				}),
 			],
 		}),
+
+		/**
+		 * Vaccinations
+		 */
+		defineField({
+			title: 'Vaccinaties',
+			name: 'vaccinations',
+			type: 'object',
+			validation: (Rule) => Rule.required(),
+			options: { collapsible: true },
+			fields: [
+				defineField({
+					title: 'Series',
+					name: 'series',
+					type: 'object',
+					validation: (Rule) => Rule.required(),
+					fields: [
+						defineField({
+							title: 'Basis',
+							name: 'b',
+							type: 'string',
+							validation: (Rule) => Rule.required(),
+						}),
+						defineField({
+							title: 'Herhaalprik',
+							name: 'b1',
+							type: 'string',
+							validation: (Rule) => Rule.required(),
+						}),
+					],
+				}),
+			],
+		}),
 	],
+	preview: {
+		select: {
+			baseUrl: 'baseUrl',
+		},
+		prepare(selection) {
+			const { baseUrl } = selection;
+			return {
+				title: 'Mijn Vraag Over Corona',
+				subtitle: baseUrl,
+			};
+		},
+	},
 });

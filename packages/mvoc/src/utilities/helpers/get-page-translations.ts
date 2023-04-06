@@ -26,7 +26,9 @@ export const getPageTranslations = (pages) =>
 					locale: availableLocales.filter(
 						(locale) => locale.id === alternative.localeID,
 					)[0],
-					slug: alternative.slug,
+					href: `${alternative.theme ? `${alternative.theme.slug}/` : ''}${
+						alternative.slug || ''
+					}`,
 				})),
 		};
 

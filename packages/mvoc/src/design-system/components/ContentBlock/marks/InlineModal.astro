@@ -43,11 +43,7 @@ const { children, mark } = {
 	<ContentBlock value={children} />
 </Link>
 
-<Modal
-	id={`inline-modal-${mark._key}`}
-	title={mark.title}
-	closeLabel={siteSettings.accessibility.labelModalClose}
->
+<Modal id={`inline-modal-${mark._key}`} title={mark.title}>
 	<Stack>
 		{
 			mark.image?.src ? (

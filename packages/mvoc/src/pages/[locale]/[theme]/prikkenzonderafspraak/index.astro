@@ -1,0 +1,115 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+import {
+	availableLocales,
+	Locale,
+	prefixUrlWithlocale,
+} from 'src/utilities/locale/translation';
+import { PZALandingPageProps, getDataPZALandingPages } from 'src/utilities/api';
+import { Hero } from '@design-system/components/Hero';
+import { ContentBlock } from '@design-system/components/ContentBlock';
+import Button from '@design-system/elements/Button/Button.astro';
+import Stack from '@design-system/components/Layout/Stack/Stack.astro';
+import { Retain } from '@design-system/components/Layout/Retain';
+import { Layer } from '@design-system/components/Layout/Layer';
+import { Sidebar } from '@design-system/components/Layout/Sidebar';
+import { CardPrivacy } from '@design-system/components/Card';
+import { TaleList } from '@design-system/components/Tale';
+import { Assistance } from '@design-system/components/Assistance';
+import { stringToSlug } from 'src/utilities/stringToSlug';
+
+export async function getStaticPaths() {
+	const collection = await getDataPZALandingPages();
+	return collection
+		.filter(
+			(page: PZALandingPageProps) =>
+				availableLocales.filter((locale) => locale.id === page.localeID).length,
+		)
+		.map((page: PZALandingPageProps) => ({
+			params: {
+				locale: page.localeID,
+				theme: page.theme.slug,
+			},
+			props: {
+				pageData: page,
+				locale: availableLocales.filter(
+					(locale) => locale.id === page.localeID,
+				)[0],
+			},
+		}));
+}
+
+interface Props {
+	pageData: PZALandingPageProps;
+	locale: Locale;
+}
+
+const { pageData, locale } = Astro.props;
+---
+
+<Layout
+	locale={locale}
+	metaData={pageData.metaData}
+	alternativeTranslations={pageData.alternatives}
+	mastheadHighlight
+>
+	<Hero
+		title={pageData.hero.title}
+		image={pageData.hero.image}
+		chapeau={pageData.hero.chapeau}
+		highlight
+	>
+		<Stack class="c-hero__content">
+			<Stack class="has__list-styled">
+				<ContentBlock value={pageData.hero.content} />
+			</Stack>
+			{
+				pageData.buttons ? (
+					<ul class="c-hero__wrap-buttons" role="list">
+						{pageData.buttons.map((button) => (
+							<li>
+								<Button
+									variant={button.variant}
+									href={prefixUrlWithlocale(button.href, locale)}
+									icon={button.icon}
+								>
+									{button.label}
+								</Button>
+							</li>
+						))}
+					</ul>
+				) : null
+			}
+			<Stack class="has__list-styled">
+				<ContentBlock value={pageData.contentSecondary} />
+			</Stack>
+		</Stack>
+	</Hero>
+
+	{
+		pageData.taleCollection || pageData.assistance ? (
+			<Layer pullUpBy={'hero'}>
+				<Retain>
+					<Sidebar>
+						<Stack gap="huge">
+							<TaleList taleCollection={pageData.taleCollection} />
+							{pageData.assistance && <Assistance {...pageData.assistance} />}
+						</Stack>
+						<Stack slot="aside">
+							<CardPrivacy />
+						</Stack>
+					</Sidebar>
+				</Retain>
+			</Layer>
+		) : null
+	}
+</Layout>
+
+<style lang="scss">
+	@use '@design-system-styles/tools/_list.scss';
+	.c-hero__wrap-buttons {
+		display: flex;
+		flex-flow: row wrap;
+		gap: var(--space-r-small);
+	}
+</style>

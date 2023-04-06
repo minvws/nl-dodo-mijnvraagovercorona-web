@@ -2,6 +2,8 @@ import {
 	GiCardRandom,
 	GiHouse,
 	GiSettingsKnobs,
+	GiTripleNeedle,
+	GiWorld,
 	GiLightBulb,
 	GiShare,
 	GiAirplaneArrival,
@@ -12,6 +14,7 @@ import { VscScreenFull, VscCopy } from 'react-icons/vsc';
 import { IoDocumentOutline } from 'react-icons/io5';
 import { RiQuestionLine, RiPagesLine } from 'react-icons/ri';
 import { MdOutlineTopic, MdLiveHelp } from 'react-icons/md';
+import { AiOutlineRead } from 'react-icons/ai';
 
 import { getFolder } from './utilities/getFolder';
 import { getDocumentList, getPageList } from './utilities/getDocumentList';
@@ -37,14 +40,14 @@ const mvocPagesConfig = [
 		icon: GiCardRandom,
 	},
 	{
-		schemaType: 'error-page',
-		title: 'Error',
-		icon: BiError,
-	},
-	{
 		schemaType: 'theme-page',
 		title: 'Thema',
 		icon: FaFeatherAlt,
+	},
+	{
+		schemaType: 'error-page',
+		title: 'Error',
+		icon: BiError,
 	},
 ];
 
@@ -53,6 +56,11 @@ const mvocDocumentsConfig = [
 		schemaType: 'modals',
 		title: 'Modals',
 		icon: VscScreenFull,
+	},
+	{
+		schemaType: 'tale',
+		title: 'Tale',
+		icon: AiOutlineRead,
 	},
 	{
 		schemaType: 'assistance',
@@ -162,6 +170,22 @@ export default (S) =>
 							...mvocPagesConfig.map((config) =>
 								getTranslatedDocumentList(S, config),
 							),
+							getFolder(S, {
+								title: 'Prikken zonder afspraak',
+								icon: GiTripleNeedle,
+								items: [
+									getTranslatedSingleton(S, {
+										title: 'Landing pagina',
+										type: 'pza-landing-page',
+										icon: GiAirplaneArrival,
+									}),
+									getTranslatedSingleton(S, {
+										title: 'Locaties pagina',
+										type: 'locations-page',
+										icon: GiWorld,
+									}),
+								],
+							}),
 						],
 					}),
 				],

@@ -1,15 +1,14 @@
 ---
 import { Heading } from '@design-system/elements/Heading';
-import { Icon } from '@design-system/elements/Icon';
 import { Stack } from '@design-system/components/Layout/Stack';
+import { CloseButton } from '@design-system/elements/CloseButton';
 
 export interface Props {
 	id: string;
 	title: string;
-	closeLabel?: string;
 }
 
-const { id, title, closeLabel = 'Sluiten' } = Astro.props;
+const { id, title } = Astro.props;
 ---
 
 <template data-module-bind="modal-root">
@@ -25,36 +24,24 @@ const { id, title, closeLabel = 'Sluiten' } = Astro.props;
 					</div>
 				</Stack>
 			</div>
-			<button
-				type="button"
+			<CloseButton
 				class="modal__close-button"
 				data-module-bind="modal__close-button"
-			>
-				<Icon name="cross" class="modal__close-button-icon" />
-				<span class="u-visually-hidden">
-					{closeLabel}
-				</span>
-			</button>
+			/>
 		</div>
 	</div>
 </template>
 
 <script>
+	import { trapFocus } from 'src/utilities/helpers/a11y';
+
 	// Functions
+
 	// Clone templates to the body element and then remove the template
 	const transferModalToRoot = (element: HTMLTemplateElement) => {
 		const clone = element.content.cloneNode(true);
 		document.body.appendChild(clone);
 		element.remove();
-	};
-
-	// Get all focusable elements within a given element
-	const getKeyboardFocusableElements = (element) => {
-		return [
-			...element.querySelectorAll(
-				'a, button, input, textarea, select, details,[tabindex]:not([tabindex="-1"])',
-			),
-		].filter((el) => !el.hasAttribute('disabled'));
 	};
 
 	// Open our modal, duh!
@@ -77,29 +64,6 @@ const { id, title, closeLabel = 'Sluiten' } = Astro.props;
 		document.body.classList.remove('modal-is-visible');
 		modalTrigger.focus({ preventScroll: true });
 		document.removeEventListener('keydown', trapFocus.bind(null, modal));
-	};
-
-	// Trap the focus within the modal when opened
-	const trapFocus = (modal, event) => {
-		const focusables = getKeyboardFocusableElements(modal);
-		const firstFocusable = focusables[0];
-		const lastFocusable = focusables[focusables.length - 1];
-		if (
-			document.activeElement === lastFocusable &&
-			event.key === 'Tab' &&
-			!event.shiftKey
-		) {
-			event.preventDefault();
-			firstFocusable.focus();
-		}
-		if (
-			document.activeElement === firstFocusable &&
-			event.key === 'Tab' &&
-			event.shiftKey
-		) {
-			event.preventDefault();
-			lastFocusable.focus();
-		}
 	};
 
 	// execution
@@ -140,8 +104,6 @@ const { id, title, closeLabel = 'Sluiten' } = Astro.props;
 </script>
 
 <style lang="scss" is:global>
-	@use '@design-system-styles/tools/_a11y.scss';
-
 	body.modal-is-visible > *:not(.modal) {
 		filter: blur(6px);
 	}
@@ -204,27 +166,9 @@ const { id, title, closeLabel = 'Sluiten' } = Astro.props;
 		);
 	}
 
-	.modal__close-button,
-	.modal__close-button-icon.modal__close-button-icon {
-		display: block;
-	}
-
 	.modal__close-button {
 		position: absolute;
 		inset-inline-end: var(--modal-space);
 		inset-block-start: var(--modal-space);
-		padding: var(--space-r-nano);
-		border-radius: 50%;
-		border: 1px solid var(--color-grijs-3);
-		color: var(--color-diepblauw);
-		background-color: var(--color-white);
-		cursor: pointer;
-
-		&:hover {
-			color: var(--color-accent-robijnrood);
-		}
-		&:focus {
-			@include a11y.focusring;
-		}
 	}
 </style>

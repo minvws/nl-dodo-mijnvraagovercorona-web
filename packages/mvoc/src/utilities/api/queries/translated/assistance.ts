@@ -1,9 +1,9 @@
+import { ButtonProps, buttonsQuery, PictureProps, pictureQuery } from '.';
 import { ImageProps, imageQuery } from '../image';
-import { ButtonProps, buttonsQuery } from './buttons';
 
 export interface AssistanceProps {
 	headline: string;
-	image: ImageProps;
+	image?: ImageProps;
 	open: string;
 	subTitle: {
 		chatOpen: string;

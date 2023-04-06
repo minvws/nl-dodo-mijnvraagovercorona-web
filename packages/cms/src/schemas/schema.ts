@@ -4,12 +4,15 @@
 // Documents
 import siteSettingsDocument from './translated/documents/siteSettings';
 import modalsDocument from './translated/documents/modals';
+import taleDocument from './translated/documents/tale';
 import assistanceDocument from './translated/documents/assistance';
 
 // Pages
 import genericPage from './translated/pages/generic';
-import errorPage from './translated/pages/error';
+import locationsPage from './translated/pages/pza/locations';
+import pzaLandingPage from './translated/pages/pza/landing';
 import themePage from './translated/pages/theme';
+import errorPage from './translated/pages/error';
 import homePage from './translated/pages/homepage';
 
 // objects
@@ -21,9 +24,13 @@ import metaDataObject from './translated/objects/metaData';
 import iconPickerObject from './translated/objects/iconPicker';
 import adviceObject from './translated/objects/adviceBlock';
 import buttonObject from './translated/objects/button';
+import pictureObject from './translated/objects/picture';
+import videoObject from './translated/objects/video';
 import heroObject from './translated/objects/hero';
+import multiContentBlocksObject from './translated/objects/multiContentBlocks';
 import pageReferenceObject from './translated/objects/pageReference';
 import internalPageSelectorObject from './translated/objects/internalPageSelector';
+import taleSelectorObject from './translated/objects/taleSelector';
 import interimQuestionSelectorObject from './translated/objects/interimQuestionSelector';
 import thisOrThatStringObject from './translated/objects/thisOrThatString';
 
@@ -62,7 +69,7 @@ import {
 	localeBlockWithoutModalObject,
 } from './objects/localeBlock';
 import localeUrlObject from './objects/localeUrl';
-import videoObject from './objects/video';
+import videoObjectOld from './objects/video';
 import thisOrThatLocaleStringObjectOld from './objects/thisOrThatLocaleString';
 import disclosureObject from './objects/disclosure';
 import pageMetaDataObject from './objects/pageMetaData';
@@ -84,13 +91,16 @@ export default [
 	 */
 	// pages
 	genericPage,
-	errorPage,
+	locationsPage,
+	pzaLandingPage,
 	themePage,
+	errorPage,
 	homePage,
 
 	// documents
 	siteSettingsDocument,
 	modalsDocument,
+	taleDocument,
 	assistanceDocument,
 
 	// objects
@@ -101,9 +111,13 @@ export default [
 	adviceObject,
 	heroObject,
 	buttonObject,
+	pictureObject,
+	videoObject,
+	multiContentBlocksObject,
 	pageReferenceObject,
 	internalPageSelectorObject,
 	interimQuestionSelectorObject,
+	taleSelectorObject,
 	thisOrThatStringObject,
 
 	/**
@@ -153,7 +167,7 @@ export default [
 	localeBlockObject,
 	localeBlockWithoutModalObject,
 	localeUrlObject,
-	videoObject,
+	videoObjectOld,
 	thisOrThatLocaleStringObjectOld,
 	disclosureObject,
 	pageMetaDataObject,

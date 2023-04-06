@@ -7,16 +7,12 @@ import {
 	SiteSettingsProps,
 	useSiteSettings,
 } from 'src/utilities/api/queries/translated';
-import { availableLocales, Locale } from 'src/utilities/locale/translation';
+import { Locale } from 'src/utilities/locale/translation';
 
 import '@design-system/globals.scss';
 import { Masthead, SkipLink } from '@design-system/components/Masthead';
-import {
-	AlternativeTranslationsProps,
-	LocaleSelector,
-} from '@design-system/components/LocaleSelector';
+import { AlternativeTranslationsProps } from '@design-system/components/LocaleSelector';
 import { MastFoot } from '@design-system/components/MastFoot';
-import { NavMain } from '@design-system/components/Navigation';
 
 export interface Props {
 	locale: Locale;
@@ -24,6 +20,8 @@ export interface Props {
 	metaData: MetaDataProps;
 	skipPageSuffix?: boolean;
 	mastheadHighlight?: boolean;
+	disableMasthead?: boolean;
+	disableMastfoot?: boolean;
 }
 
 const {
@@ -32,14 +30,21 @@ const {
 	skipPageSuffix,
 	mastheadHighlight,
 	alternativeTranslations,
+	disableMasthead,
+	disableMastfoot,
 } = Astro.props;
 const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 ---
 
 <!DOCTYPE html>
-<html lang={locale.id}>
+<html lang={locale.id} dir={locale.direction}>
 	<head>
-		<MetaData {...metaData} locale={locale} skipPageSuffix={skipPageSuffix} />
+		<MetaData
+			{...metaData}
+			locale={locale}
+			skipPageSuffix={skipPageSuffix}
+			alternativeTranslations={alternativeTranslations}
+		/>
 		<style lang="scss" is:global>
 			:where(body) {
 				display: flex;
@@ -53,20 +58,29 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 	<body>
 		<Sprite.Provider>
 			<SkipLink label={siteSettings.masthead.skiplink} />
-			<Masthead
-				logoUrl={locale.urlPrefix}
-				logoAlt={siteSettings.logo.alt}
-				highlight={mastheadHighlight}
-			>
-				<slot name="back" slot="start" />
-			</Masthead>
+			{
+				!disableMasthead ? (
+					<Masthead
+						logoUrl={locale.urlPrefix}
+						logoAlt={siteSettings.logo.alt}
+						highlight={mastheadHighlight}
+					>
+						<slot name="back" slot="start" />
+					</Masthead>
+				) : null
+			}
 			<main id="content">
 				<slot />
 			</main>
-			<MastFoot
-				locale={locale}
-				alternativeTranslations={alternativeTranslations}
-			/>
+
+			{
+				!disableMastfoot ? (
+					<MastFoot
+						locale={locale}
+						alternativeTranslations={alternativeTranslations}
+					/>
+				) : null
+			}
 		</Sprite.Provider>
 
 		<script src="/scripts/piwik.js" is:inline defer></script>
@@ -77,5 +91,21 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 				width="0"
 				style={{ border: '0', display: 'none', visibility: 'hidden' }}></iframe>
 		</noscript>
+		<script>
+			import debounce from 'src/utilities/helpers/debounce';
+
+			const checkSize = () => {
+				const scrollbarWidth =
+					window.innerWidth - document.documentElement.clientWidth;
+				document.documentElement.style.setProperty(
+					'--scrollbar__inline-size',
+					`${scrollbarWidth}px`,
+				);
+			};
+
+			window.addEventListener('resize', debounce(checkSize));
+
+			checkSize();
+		</script>
 	</body>
 </html>
