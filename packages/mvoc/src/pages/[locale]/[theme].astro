@@ -59,13 +59,13 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 	alternativeTranslations={pageData.alternatives}
 >
 	<Hero
-		title={pageData.header.title}
-		image={pageData.header.image}
-		chapeau={pageData.header.chapeau}
+		title={pageData.hero.title}
+		image={pageData.hero.image}
+		chapeau={pageData.hero.chapeau}
 		highlight
 	>
 		<UpdatedAt slot="prefix" time={pageData.updatedAt} />
-		<ContentBlock value={pageData.header.content} />
+		<ContentBlock value={pageData.hero.content} />
 	</Hero>
 	<Layer
 		pullUpBy="hero"

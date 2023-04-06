@@ -38,31 +38,9 @@ export default defineType({
 			],
 		}),
 		defineField({
-			title: 'Header',
-			name: 'header',
-			type: 'object',
-			fields: [
-				defineField({
-					title: 'Titel',
-					name: 'title',
-					type: 'string',
-				}),
-				defineField({
-					title: 'Chapeau',
-					name: 'chapeau',
-					type: 'string',
-				}),
-				defineField({
-					title: 'Content',
-					name: 'content',
-					type: 'customBlock',
-				}),
-				defineField({
-					title: 'Illustratie',
-					name: 'image',
-					type: 'image',
-				}),
-			],
+			title: 'Hero',
+			name: 'hero',
+			type: 'hero',
 		}),
 		defineField({
 			title: 'Flow titel',

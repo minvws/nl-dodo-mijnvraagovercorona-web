@@ -5,6 +5,8 @@ import { ImageProps, imageQuery } from './queries';
 import {
 	InterimQuestionCollectionProps,
 	interimQuestionCollectionQuery,
+	HeroProps,
+	heroQuery,
 	PageProps,
 	pageQuery,
 	TaleCollectionProps,
@@ -18,12 +20,7 @@ import {
 export interface ThemePageProps
 	extends PageProps,
 		InterimQuestionCollectionProps {
-	header: {
-		title: string;
-		chapeau: string;
-		content: ContentBlockProps['value'];
-		image: ImageProps;
-	};
+	hero: HeroProps;
 	titleFlow: string;
 	assistance: AssistanceProps;
 	questionCollection: InterimQuestionCollectionProps['questionCollection'];
@@ -34,12 +31,7 @@ export interface ThemePageProps
 
 export async function getDataThemes() {
 	const projection = `{
-		header{
-			title,
-			chapeau,
-			content,
-			${imageQuery({ name: 'image' })},
-		},
+		${heroQuery()},
 		titleFlow,
 		${interimQuestionCollectionQuery()},
 		${assistanceQuery()},
