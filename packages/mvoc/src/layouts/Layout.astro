@@ -80,14 +80,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 				<slot />
 			</main>
 
-			{
-				!disableMastfoot ? (
-					<MastFoot
-						locale={locale}
-						alternativeTranslations={alternativeTranslations}
-					/>
-				) : null
-			}
+			{!disableMastfoot ? <MastFoot locale={locale} /> : null}
 		</Sprite.Provider>
 
 		<script src="/scripts/piwik.js" is:inline defer></script>
