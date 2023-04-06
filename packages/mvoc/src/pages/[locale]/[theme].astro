@@ -1,17 +1,14 @@
 ---
 import {
-	standardAvailableLocales,
+	availableLocales,
 	Locale,
 	prefixUrlWithlocale,
 } from 'src/utilities/locale/translation';
 
 import Layout from '@layouts/Layout.astro';
 import { Hero } from '@design-system/components/Hero';
-import {
-	SiteSettingsProps,
-	useSiteSettings,
-} from 'src/utilities/api/queries/translated';
-import { getDataThemes, ThemePageProps } from 'src/utilities/api';
+import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
+import { getDataThemes, ThemePageProps } from 'src/utilities/api/theme';
 import { UpdatedAt } from '@design-system/elements/UpdatedAt';
 import { ContentBlock } from '@design-system/components/ContentBlock';
 import { Layer } from '@design-system/components/Layout/Layer';
@@ -20,23 +17,29 @@ import { Heading } from '@design-system/elements/Heading';
 import { Button } from '@design-system/elements/Button';
 import { GridFluid } from '@design-system/components/Layout/Grid';
 import { Stack } from '@design-system/components/Layout/Stack';
-import { Story } from '@design-system/components/Story';
 import { Assistance } from '@design-system/components/Assistance';
+import { TaleList } from '@design-system/components/Tale';
 
 export async function getStaticPaths() {
-	return await standardAvailableLocales.reduce(async (paths, locale) => {
-		const collection = await getDataThemes({ locale });
-		return [
-			...(await paths),
-			collection.pages.map((page: ThemePageProps) => ({
-				params: { theme: page.slug, locale: locale.id },
+	const collection = await getDataThemes();
+	return (
+		collection
+			// filter out unavailable locales
+			.filter(
+				(page: ThemePageProps) =>
+					availableLocales.filter((locale) => locale.id === page.localeID)
+						.length,
+			)
+			.map((page: ThemePageProps) => ({
+				params: { theme: page.slug, locale: page.localeID },
 				props: {
 					pageData: page,
-					locale,
+					locale: availableLocales.filter(
+						(locale) => locale.id === page.localeID,
+					)[0],
 				},
-			})),
-		];
-	}, Promise.resolve([]));
+			}))
+	);
 }
 
 interface Props {
@@ -46,70 +49,67 @@ interface Props {
 
 const { pageData, locale } = Astro.props;
 const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
-
-const translatedStories = pageData.stories.filter((story) => story.headline);
 ---
 
-<Layout locale={locale} metaData={pageData.metaData} mastheadHighlight>
+<Layout
+	locale={locale}
+	metaData={pageData.metaData}
+	mastheadHighlight
+	alternativeTranslations={pageData.alternatives}
+>
 	<Hero
-		title={pageData.header.title}
-		image={pageData.header.image}
-		chapeau={pageData.header.chapeau}
+		title={pageData.hero.title}
+		image={pageData.hero.image}
+		chapeau={pageData.hero.chapeau}
 		highlight
 	>
 		<UpdatedAt slot="prefix" time={pageData.updatedAt} />
-		<ContentBlock value={pageData.header.content} />
+		<ContentBlock value={pageData.hero.content} />
 	</Hero>
-
 	<Layer
 		pullUpBy="hero"
-		background={translatedStories.length > 0 ? 'ijsblauw' : undefined}
+		background={pageData.taleCollection.length > 0 ? 'ijsblauw' : undefined}
 		id="situaties"
 	>
-		<Retain>
-			<Stack>
-				<Heading>
-					{
-						pageData.questionCollection.length > 1
-							? `${pageData.questionCollection.length} ${siteSettings.genericLabels.situationPlural.that}`
-							: `${pageData.questionCollection.length} ${siteSettings.genericLabels.situationPlural.this}`
-					}{' '}
-					{pageData.titleFlow}
-				</Heading>
-				<GridFluid class="grid-questions">
-					{
-						pageData.questionCollection
-							?.filter((item) => item.title)
-							.map((item) => (
-								<Button
-									variant="tertiary"
-									href={prefixUrlWithlocale(`/${item.path}`, locale)}
-									icon="chevron-small-right"
-									interactionIconAnimation="swing"
-								>
-									<ContentBlock value={item.title} />
-								</Button>
-							))
-					}
-				</GridFluid>
-			</Stack>
-		</Retain>
-	</Layer>
+		{
+			pageData?.questionCollection?.filter((item) => item.label).length ? (
+				<Retain>
+					<Stack>
+						<Heading>
+							{pageData.questionCollection.length > 1
+								? `${pageData.questionCollection.length} ${siteSettings.situationPlural.that}`
+								: `${pageData.questionCollection.length} ${siteSettings.situationPlural.this}`}{' '}
+							{pageData.titleFlow}
+						</Heading>
 
+						<GridFluid class="grid-questions">
+							{pageData.questionCollection
+								?.filter((item) => item.label)
+								.map((item) => (
+									<Button
+										variant="tertiary"
+										href={prefixUrlWithlocale(item.href, locale)}
+										icon="chevron-small-right"
+										interactionIconAnimation="swing"
+									>
+										<ContentBlock value={item.label} />
+									</Button>
+								))}
+						</GridFluid>
+					</Stack>
+				</Retain>
+			) : null
+		}
+	</Layer>
 	{
-		translatedStories.length > 0 ? (
+		pageData?.taleCollection?.length ? (
 			<Layer>
 				<Retain>
-					<Retain variant="text">
-						{translatedStories.map((story) => (
-							<Story {...story} />
-						))}
-					</Retain>
+					<TaleList taleCollection={pageData.taleCollection} />
 				</Retain>
 			</Layer>
 		) : null
 	}
-
 	{
 		pageData.assistance && (
 			<Layer>
@@ -120,7 +120,6 @@ const translatedStories = pageData.stories.filter((story) => story.headline);
 		)
 	}
 </Layout>
-
 <style lang="scss">
 	@use '@design-system-styles/primitives/_responsive.scss';
 
