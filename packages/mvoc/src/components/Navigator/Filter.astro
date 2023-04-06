@@ -1,0 +1,126 @@
+---
+import { FieldInputText } from '@design-system/components/Form/FieldInputText';
+import { Stack } from '@design-system/components/Layout/Stack';
+import { Control } from '@design-system/elements/Control';
+import { Icon } from '@design-system/elements/Icon';
+import { InputText } from '@design-system/elements/Input';
+import { HTMLAttributes } from 'astro/types';
+import { LocationsPageProps } from 'src/utilities/api';
+import {
+	SiteSettingsProps,
+	useSiteSettings,
+} from 'src/utilities/api/queries/translated';
+import { getLocaleFromURL } from 'src/utilities/locale/translation';
+
+interface Props extends HTMLAttributes<'form'> {
+	pageData: LocationsPageProps;
+}
+
+const { class: className, pageData, ...attrs } = Astro.props;
+const locale = getLocaleFromURL(Astro.url.pathname);
+const siteSettings: SiteSettingsProps = await useSiteSettings({
+	locale,
+});
+---
+
+<form
+	class={`c-filter${className ? ` | ${className}` : ''}`}
+	{...attrs}
+	data-module="filter"
+>
+	<Stack>
+		<fieldset class="c-filter__wrap-search">
+			<FieldInputText
+				type="search"
+				id="search"
+				label={pageData.filter.searchLabel}
+				placeholder={`${pageData.filter.searchLabel}…`}
+				icon="looking-glass"
+				clearable
+				hideLabel
+			/>
+			<button
+				class="c-filter__map-toggle"
+				type="button"
+				data-module-bind="navigator__map-toggle"
+			>
+				<span hidden data-list>
+					<Icon name="list" />
+					Lijst
+				</span>
+				<span data-map>
+					<Icon name="marker" />
+					Kaart
+				</span>
+			</button>
+		</fieldset>
+
+		<fieldset>
+			<Stack gap="milli">
+				<legend>{siteSettings.forms.filterOn}</legend>
+				<div class="c-filter__wrap-controls">
+					<Control type="checkbox" name="filter" value="series-b" id="series-b">
+						{siteSettings.vaccinations.series.b}
+					</Control>
+					<Control
+						type="checkbox"
+						name="filter"
+						value="series-b1"
+						id="series-b1"
+					>
+						{siteSettings.vaccinations.series.b1}
+					</Control>
+					<Control
+						type="checkbox"
+						name="filter"
+						value="status-open"
+						id="status-open"
+					>
+						{pageData.location.openingHours.openNow}
+					</Control>
+				</div>
+			</Stack>
+		</fieldset>
+	</Stack>
+</form>
+
+<style lang="scss">
+	@use '@design-system-styles/primitives/_responsive.scss';
+	@use '@design-system-styles/tools/_a11y.scss';
+
+	.c-filter {
+	}
+
+	.c-filter__wrap-search {
+		display: flex;
+		gap: var(--stack-small);
+
+		:global(.c-field-wrapper) {
+			flex: auto;
+		}
+	}
+
+	.c-filter__wrap-controls {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--stack-small);
+	}
+
+	.c-filter__map-toggle {
+		color: var(--color-donkerblauw);
+
+		&:focus {
+			@include a11y.focusring;
+		}
+
+		> span:not([hidden]) {
+			display: flex;
+			align-items: center;
+			gap: var(--stack-milli);
+		}
+
+		@media --mq-large {
+			display: none;
+		}
+	}
+</style>

@@ -2,6 +2,7 @@
 import Layout from '../../../../layouts/Layout.astro';
 import { availableLocales, Locale } from 'src/utilities/locale/translation';
 import { LocationsPageProps, getDataLocationPages } from 'src/utilities/api';
+import { Navigator } from '@modules/Navigator';
 
 export async function getStaticPaths() {
 	const collection = await getDataLocationPages();
@@ -37,16 +38,11 @@ const { pageData, locale } = Astro.props;
 	locale={locale}
 	metaData={pageData.metaData}
 	alternativeTranslations={pageData.alternatives}
+	disableMastfoot
+	disableMasthead
+	mastheadHighlight
 >
-	<div class="c-navigator"></div>
+	<Navigator pageData={pageData} />
 </Layout>
 
-<style lang="scss">
-	.c-navigator {
-		display: grid;
-		grid-template-rows: 1fr;
-		grid-template-columns: 1fr;
-		block-size: 100%;
-		background-color: red;
-	}
-</style>
+<style lang="scss"></style>

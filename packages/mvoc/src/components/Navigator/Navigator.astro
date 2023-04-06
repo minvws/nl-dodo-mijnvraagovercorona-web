@@ -1,0 +1,335 @@
+---
+import { CardPrivacy } from '@design-system/components/Card';
+import { ContentBlock } from '@design-system/components/ContentBlock';
+import { Feedback } from '@design-system/components/Feedback';
+import { Stack } from '@design-system/components/Layout/Stack';
+import {
+	LocationList,
+	LocationListItem,
+} from '@design-system/components/Lists';
+import { MastFoot } from '@design-system/components/MastFoot';
+import { Masthead } from '@design-system/components/Masthead';
+import { CloseButton } from '@design-system/elements/CloseButton';
+import { Heading } from '@design-system/elements/Heading';
+import { HTMLAttributes } from 'astro/types';
+import { LocationsPageProps } from 'src/utilities/api';
+import {
+	SiteSettingsProps,
+	useSiteSettings,
+} from 'src/utilities/api/queries/translated';
+import { getLocaleFromURL, Locale } from 'src/utilities/locale/translation';
+import { Filter, LocationDetail, Marker } from '.';
+
+import 'mapbox-gl/dist/mapbox-gl.css';
+
+interface Props extends HTMLAttributes<'div'> {
+	pageData: LocationsPageProps;
+}
+
+const { class: className, pageData, ...attrs } = Astro.props;
+const currentPathName = Astro.url.pathname;
+const locale = getLocaleFromURL(currentPathName) as Locale;
+
+const siteSettings: SiteSettingsProps = await useSiteSettings({
+	locale,
+});
+---
+
+<div
+	class={`c-navigator${className ? ` | ${className}` : ''}`}
+	{...attrs}
+	data-module="navigator"
+	data-pathname={currentPathName}
+	data-locale={locale.id}
+	data-access-token={process.env.MAPBOX_ACCESS_TOKEN}
+>
+	<div class="c-navigator__wrap-sidebar">
+		<Masthead
+			logoUrl={locale.urlPrefix}
+			logoAlt={siteSettings.logo.alt}
+			forceCompact
+		/>
+		{
+			pageData.hero ? (
+				<div class="c-navigator__wrap-hero">
+					<Stack>
+						<Heading>{pageData.hero.title}</Heading>
+						<ContentBlock value={pageData.hero.content} />
+					</Stack>
+				</div>
+			) : null
+		}
+		<div class="c-navigator__wrap-filter-list">
+			<div class="c-navigator__wrap-filter">
+				<Filter pageData={pageData} />
+			</div>
+			<div class="c-navigator__wrap-list">
+				<LocationList data-module-bind="navigator__list">
+					<li data-loading>{pageData.result.loading}</li>
+					<li data-no-result hidden>{pageData.result.noResult}</li>
+				</LocationList>
+			</div>
+		</div>
+	</div>
+
+	<div class="c-navigator__wrap-map">
+		<CloseButton
+			class="c-navigator__map-close"
+			data-module-bind="navigator__map-close"
+		/>
+		<div
+			class="c-navigator__map"
+			id="map"
+			data-module-bind="navigator_map"
+			tabindex="-1"
+		>
+		</div>
+	</div>
+
+	<div
+		class="c-navigator__wrap-detail"
+		data-module-bind="navigator__detail-pane"
+	>
+		<div class="c-navigator__detail" data-module-bind="navigator__detail">
+			<CloseButton
+				class="c-navigator__detail-close"
+				data-module-bind="navigator__detail-close"
+			/>
+			<div
+				class="c-navigator__detail-scroller"
+				data-module-bind="navigator__detail-scroller"
+			>
+				<Stack>
+					<Stack class="c-navigator__detail-inner">
+						<div
+							class="c-navigator__detail-target"
+							data-module-bind="navigator__detail-target"
+						>
+						</div>
+						{
+							locale.id === 'nl' || locale.id === 'en' ? (
+								<Feedback
+									url={siteSettings.feedback.url}
+									name="Prikken detail"
+								/>
+							) : null
+						}
+						<CardPrivacy />
+					</Stack>
+					<MastFoot
+						locale={locale}
+						alternativeTranslations={pageData.alternatives}
+					/>
+				</Stack>
+			</div>
+		</div>
+	</div>
+
+	<template data-module-bind="navigator__list-item">
+		<LocationListItem pageData={pageData} isTemplate />
+	</template>
+
+	<template data-module-bind="navigator__detail__template">
+		<LocationDetail pageData={pageData} />
+	</template>
+
+	<template data-module-bind="map__marker">
+		<Marker />
+	</template>
+</div>
+
+<script>
+	import mapboxgl from 'mapbox-gl';
+	import { Navigator } from './scripts/navigator';
+	const navigatorElement = document.querySelector(
+		'[data-module="navigator"]',
+	) as HTMLDivElement;
+
+	// get mapbox access token
+	mapboxgl.accessToken = navigatorElement.dataset.accessToken;
+
+	const navigator = new Navigator(navigatorElement);
+	navigator.init();
+</script>
+
+<style lang="scss">
+	@use '@design-system-styles/primitives/_responsive.scss';
+
+	.c-navigator {
+		--navigator__padding: var(--space-r-small);
+		--navigator__padding-block: var(--navigator__padding);
+		--navigator__padding-inline: var(--navigator__padding);
+		--navigator__block-size: 100vh;
+		--navigator__block-size: 100svh;
+		--navigator__max-block-size: calc(
+			var(--navigator__block-size) - var(--masthead__block-size, 0px)
+		);
+
+		--navigator__popover-spacing: var(--stack-milli);
+		--navigator__popover-radii: var(--radii-milli);
+		--navigator__popover-elevation: var(--elevation-frost);
+		display: grid;
+		grid-template-rows: var(--navigator__template-rows, 1fr);
+		grid-template-columns: var(--navigator__template-columns, 1fr);
+		block-size: 100%;
+		max-block-size: var(--navigator__max-block-size);
+	}
+
+	.c-navigator__wrap-hero {
+		padding-block: var(--navigator__padding-block);
+		padding-inline: var(--navigator__padding-inline);
+		background-color: var(--theme-bg-base);
+	}
+
+	.c-navigator__wrap-sidebar {
+		position: relative;
+		overflow: auto;
+		padding-block-end: env(safe-area-inset-bottom);
+		grid-area: 1 / 1 / 2 / 2;
+		z-index: 2;
+		background-color: var(--color-white);
+	}
+
+	.c-navigator__wrap-detail {
+		position: relative;
+		z-index: 3;
+		display: flex;
+		grid-area: 1 / 1 / 2 / 2;
+		max-block-size: var(--navigator__max-block-size);
+		pointer-events: none;
+		overflow: hidden;
+		// background-color: red;
+
+		&.is-active {
+			pointer-events: auto;
+		}
+	}
+
+	.c-navigator__detail {
+		--navigator__detail-padding-block: var(--stack-small);
+		--navigator__detail-padding-inline: var(--stack-small);
+		position: relative;
+		box-shadow: var(--navigator__popover-elevation);
+		padding-block: var(--navigator__popover-spacing);
+		padding-inline: var(--navigator__popover-spacing);
+		overflow: hidden;
+		transition: transform 300ms;
+		transform: translateY(100%);
+		will-change: transform;
+		visibility: hidden;
+		background-color: var(--theme-bg-base);
+
+		.is-active & {
+			transform: translateY(0);
+		}
+
+		.is-visible & {
+			visibility: visible;
+		}
+	}
+
+	.c-navigator__detail-scroller {
+		position: relative;
+		height: 100%;
+		overflow: auto;
+		z-index: 1;
+		background-color: var(--color-white);
+		border-radius: var(--navigator__popover-radii);
+	}
+
+	.c-navigator__detail-inner {
+		padding-inline: var(--navigator__detail-padding-inline);
+		padding-block-end: var(--navigator__detail-padding-block);
+	}
+
+	.c-navigator__detail-close {
+		position: absolute;
+		inset-block-start: calc(
+			var(--navigator__detail-padding-block) + var(--navigator__popover-spacing)
+		);
+		inset-inline-end: calc(
+			var(--scrollbar__inline-size) + var(--navigator__detail-padding-inline) +
+				var(--navigator__popover-spacing)
+		);
+		z-index: 3;
+		will-change: transform;
+	}
+
+	.c-navigator__wrap-map {
+		--navigator__map-radii: var(--navigator__popover-radii);
+		--navigator__map-spacing: var(--navigator__popover-spacing);
+		--navigator__map-elevation: var(--navigator__popover-elevation);
+		position: relative;
+		grid-area: 1 / 1 / 2 / 2;
+		z-index: 1;
+		padding-block: var(--navigator__map-spacing);
+		padding-inline: var(--navigator__map-spacing);
+		background-color: var(--theme-bg-base);
+
+		.c-navigator.show-map & {
+			z-index: 2;
+		}
+	}
+
+	/**
+	 * 1. mapbox sets a hard height on the container so we need to override it
+	 */
+	.c-navigator__map {
+		position: absolute;
+		block-size: calc(
+			100% - var(--navigator__map-spacing) * 2
+		) !important; /* [1] */
+		inline-size: calc(
+			100% - var(--navigator__map-spacing) * 2
+		) !important; /* [1] */
+		overflow: hidden;
+		border-radius: var(--navigator__map-radii);
+		box-shadow: var(--navigator__map-elevation);
+	}
+
+	.c-navigator__map-close {
+		position: absolute;
+		inset-block-start: calc(var(--stack-small) + var(--navigator__map-spacing));
+		inset-inline-end: calc(var(--stack-small) + var(--navigator__map-spacing));
+		z-index: 3;
+	}
+
+	.c-navigator__wrap-filter {
+		padding-block: var(--navigator__padding-block);
+		padding-inline: var(--navigator__padding-inline);
+		border-block-end: 1px solid var(--color-grijs-2);
+		background-color: var(--color-white);
+
+		@media --mq-block-small {
+			& {
+				position: sticky;
+				top: 0;
+			}
+		}
+	}
+
+	.c-navigator__wrap-list {
+		padding-inline: var(--navigator__padding-inline);
+	}
+
+	@media --mq-large {
+		.c-navigator {
+			--navigator__template-columns: 480px 1fr;
+			--navigator__padding: var(--space-r-base);
+			--navigator__padding-block-start: var(--navigator__padding);
+		}
+
+		.c-navigator__wrap-map {
+			--navigator__map-radii: 0px;
+			--navigator__map-spacing: 0px;
+			--navigator__map-elevation: none;
+			grid-area: auto;
+			display: block;
+		}
+
+		// Increase specificity by 1,
+		.c-navigator__map-close.c-navigator__map-close {
+			display: none;
+		}
+	}
+</style>

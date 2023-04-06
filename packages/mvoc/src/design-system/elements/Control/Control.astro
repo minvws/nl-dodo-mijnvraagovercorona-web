@@ -37,7 +37,7 @@ const { type, name, value, id, checked, required, variant, ...attrs } =
 
 	.e-control {
 		--control-color: var(--color-donkerblauw);
-		--control-spacing: var(--space-r-small);
+		--control-spacing: var(--space-r-tiny);
 		--control-indicator-size: var(--space-r-base);
 		--control-indicator-inline-start: 0px;
 		--control-indicator-border-color: currentColor;
@@ -105,6 +105,8 @@ const { type, name, value, id, checked, required, variant, ...attrs } =
 	}
 
 	.e-control--tile {
+		--control-spacing: var(--space-r-small);
+
 		.e-control__label {
 			--control-indicator-inline-start: var(--control-spacing);
 			--control--tile-border: var(--variant--tile-border);

@@ -32,6 +32,7 @@ import pageReferenceObject from './translated/objects/pageReference';
 import internalPageSelectorObject from './translated/objects/internalPageSelector';
 import taleSelectorObject from './translated/objects/taleSelector';
 import interimQuestionSelectorObject from './translated/objects/interimQuestionSelector';
+import thisOrThatStringObject from './translated/objects/thisOrThatString';
 
 /**
  * Old document structure
@@ -69,7 +70,7 @@ import {
 } from './objects/localeBlock';
 import localeUrlObject from './objects/localeUrl';
 import videoObjectOld from './objects/video';
-import thisOrThatLocaleStringObject from './objects/thisOrThatLocaleString';
+import thisOrThatLocaleStringObjectOld from './objects/thisOrThatLocaleString';
 import disclosureObject from './objects/disclosure';
 import pageMetaDataObject from './objects/pageMetaData';
 import headerObject from './objects/header';
@@ -117,6 +118,7 @@ export default [
 	internalPageSelectorObject,
 	interimQuestionSelectorObject,
 	taleSelectorObject,
+	thisOrThatStringObject,
 
 	/**
 	 * Pages
@@ -166,7 +168,7 @@ export default [
 	localeBlockWithoutModalObject,
 	localeUrlObject,
 	videoObjectOld,
-	thisOrThatLocaleStringObject,
+	thisOrThatLocaleStringObjectOld,
 	disclosureObject,
 	pageMetaDataObject,
 	headerObject,

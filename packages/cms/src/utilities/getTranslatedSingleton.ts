@@ -20,7 +20,7 @@ export const getTranslatedSingleton = (
 				.initialValueTemplates([])
 				.menuItems([
 					S.menuItem()
-						.title('Edit')
+						.title('Make')
 						.intent({
 							type: 'create',
 							params: {

@@ -2,11 +2,11 @@
 import { Mark } from 'astro-portabletext/components';
 import { Modal } from '@design-system/components/Modal';
 import { Link } from '@design-system/elements/Link';
+import { ImageProps } from 'src/utilities/api/queries';
 import {
-	ImageProps,
 	SiteSettingsProps,
 	useSiteSettings,
-} from 'src/utilities/api/queries';
+} from 'src/utilities/api/queries/translated';
 import { ContentBlockProps } from '..';
 import ContentBlock from '../ContentBlock.astro';
 import { Stack } from '@design-system/components/Layout/Stack';
@@ -43,11 +43,7 @@ const { children, mark } = {
 	<ContentBlock value={children} />
 </Link>
 
-<Modal
-	id={`inline-modal-${mark._key}`}
-	title={mark.title}
-	closeLabel={siteSettings.accessibility.labelModalClose}
->
+<Modal id={`inline-modal-${mark._key}`} title={mark.title}>
 	<Stack>
 		{
 			mark.image?.src ? (

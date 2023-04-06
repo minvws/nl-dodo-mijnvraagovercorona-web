@@ -1,0 +1,29 @@
+---
+import { Icon, IconProps } from '@design-system/elements/Icon';
+import { HTMLAttributes } from 'astro/types';
+import { Stack } from '../Layout/Stack';
+
+interface Props extends HTMLAttributes<'div'> {
+	icon: IconProps['name'];
+}
+
+const { class: className, icon, ...attrs } = Astro.props;
+---
+
+<div class={`c-attribute${className ? ` | ${className}` : ''}`} {...attrs}>
+	<Icon class="c-attribute__icon" name={icon} />
+	<Stack class="c-attribute__body">
+		<slot />
+	</Stack>
+</div>
+
+<style lang="scss">
+	.c-attribute {
+		display: flex;
+		gap: var(--stack-tiny);
+	}
+
+	.c-attribute__icon {
+		color: var(--attribute-icon-color, var(--color-accent-robijnrood));
+	}
+</style>

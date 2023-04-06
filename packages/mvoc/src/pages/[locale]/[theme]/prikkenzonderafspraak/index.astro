@@ -60,27 +60,29 @@ const { pageData, locale } = Astro.props;
 		highlight
 	>
 		<Stack class="c-hero__content">
-			<ContentBlock value={pageData.hero.content} />
+			<Stack class="has__list-styled">
+				<ContentBlock value={pageData.hero.content} />
+			</Stack>
 			{
 				pageData.buttons ? (
 					<ul class="c-hero__wrap-buttons" role="list">
 						{pageData.buttons.map((button) => (
-							<Stack>
-								<li>
-									<Button
-										variant={button.variant}
-										href={prefixUrlWithlocale(button.href, locale)}
-										icon={button.icon}
-									>
-										{button.label}
-									</Button>
-								</li>
-							</Stack>
+							<li>
+								<Button
+									variant={button.variant}
+									href={prefixUrlWithlocale(button.href, locale)}
+									icon={button.icon}
+								>
+									{button.label}
+								</Button>
+							</li>
 						))}
 					</ul>
 				) : null
 			}
-			<ContentBlock value={pageData.contentSecondary} />
+			<Stack class="has__list-styled">
+				<ContentBlock value={pageData.contentSecondary} />
+			</Stack>
 		</Stack>
 	</Hero>
 
@@ -105,10 +107,6 @@ const { pageData, locale } = Astro.props;
 
 <style lang="scss">
 	@use '@design-system-styles/tools/_list.scss';
-	.c-hero__content {
-		@include list.styled;
-	}
-
 	.c-hero__wrap-buttons {
 		display: flex;
 		flex-flow: row wrap;

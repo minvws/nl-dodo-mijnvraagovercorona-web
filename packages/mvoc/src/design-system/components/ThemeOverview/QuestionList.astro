@@ -1,7 +1,10 @@
 ---
 import { Button } from '@design-system/elements/Button';
 import { ContentBlock } from '@design-system/components/ContentBlock';
-import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
+import {
+	SiteSettingsProps,
+	useSiteSettings,
+} from 'src/utilities/api/queries/translated';
 import { QuestionCollectionProps } from 'src/utilities/api/queries/question';
 import {
 	getLocaleFromURL,
@@ -51,10 +54,10 @@ const secondGroup = translatedCollection.slice(
 				<DisclosureItem
 					label={
 						secondGroup.length > 1
-							? `${siteSettings.seeMoreExpand.this} ${secondGroup.length} ${siteSettings.situationPlural.that}`
-							: `${siteSettings.seeMoreExpand.this} ${secondGroup.length} ${siteSettings.situationPlural.this}`
+							? `${siteSettings.seeMoreExpand.this} ${secondGroup.length} ${siteSettings.genericLabels.situationPlural.that}`
+							: `${siteSettings.seeMoreExpand.this} ${secondGroup.length} ${siteSettings.genericLabels.situationPlural.this}`
 					}
-					labelActive={`${siteSettings.seeMoreExpand.that} ${siteSettings.situationPlural.that}`}
+					labelActive={`${siteSettings.seeMoreExpand.that} ${siteSettings.genericLabels.situationPlural.that}`}
 				>
 					<Stack gap="small">
 						{secondGroup.map((item) => (

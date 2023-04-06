@@ -9,7 +9,10 @@ import {
 	getLocaleFromURL,
 	prefixUrlWithlocale,
 } from 'src/utilities/locale/translation';
-import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
+import {
+	SiteSettingsProps,
+	useSiteSettings,
+} from 'src/utilities/api/queries/translated';
 import { QuestionList } from '.';
 
 interface Props extends ThemeCollectionProps {}
@@ -41,8 +44,8 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 						{theme.questionCollection ? (
 							<small class="u-color--donkerblauw">
 								{theme.questionCollection.length > 1
-									? `${theme.questionCollection.length} ${siteSettings.situationPlural.that}`
-									: `${theme.questionCollection.length} ${siteSettings.situationPlural.this}`}
+									? `${theme.questionCollection.length} ${siteSettings.genericLabels.situationPlural.that}`
+									: `${theme.questionCollection.length} ${siteSettings.genericLabels.situationPlural.this}`}
 							</small>
 						) : null}
 					</hgroup>

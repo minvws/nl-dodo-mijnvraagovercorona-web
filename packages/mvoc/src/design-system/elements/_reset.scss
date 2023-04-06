@@ -48,10 +48,12 @@
 
 /**
  * Set core body defaults
- * 1. Ensure the page always fills at least the entire height of the viewport.
+ * 1. Ensure the page always fills at least the entire height of the small-viewport.
  */
 :where(body) {
-	min-block-size: 100vh; /* [1] */
+	--body-block-size: 100vh;
+	--body-block-size: 100svh;
+	min-block-size: var(--body-block-size); /* [1] */
 }
 
 /**
