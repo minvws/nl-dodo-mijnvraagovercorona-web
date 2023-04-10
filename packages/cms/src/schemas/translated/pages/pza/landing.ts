@@ -1,5 +1,10 @@
+import { isUniqueInLocale } from '../../../../utilities/isUniqueInLocale';
 import { defineType, defineField } from 'sanity';
 import { filterReferenceByLanguage } from '../../../../utilities/filterReferenceByLanguage';
+
+async function isUnique(slug: any, context: any) {
+	return await isUniqueInLocale({ slug, context, type: 'pza-landing-page' });
+}
 
 export default defineType({
 	title: 'PZA landing pagina',
@@ -62,18 +67,29 @@ export default defineType({
 				filter: filterReferenceByLanguage,
 			},
 		}),
+		defineField({
+			title: 'Slug',
+			name: 'slug',
+			type: 'slug',
+			validation: (Rule) => Rule.required(),
+			options: {
+				source: 'metaData.title',
+				isUnique: isUnique,
+			},
+		}),
 	],
 	preview: {
 		select: {
 			title: 'metaData.title',
 			locale: '__i18n_lang',
+			slug: 'slug.current',
 			theme: 'theme.slug.current',
 		},
 		prepare(selection) {
-			const { title, locale, theme } = selection;
+			const { title, locale, slug, theme } = selection;
 			return {
 				title: title,
-				subtitle: `/${locale}/${theme}/prikkenzonderafspraak`,
+				subtitle: `/${locale}/${theme}/${slug}`,
 			};
 		},
 	},
