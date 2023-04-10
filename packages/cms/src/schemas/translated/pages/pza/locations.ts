@@ -328,7 +328,7 @@ export default defineType({
 			const { title, locale, slug, theme } = selection;
 			return {
 				title: title,
-				subtitle: `/${locale}/${theme}/prikkenzonderafspraak/${slug}`,
+				subtitle: `/${locale}/${theme}/${slug}`,
 			};
 		},
 	},

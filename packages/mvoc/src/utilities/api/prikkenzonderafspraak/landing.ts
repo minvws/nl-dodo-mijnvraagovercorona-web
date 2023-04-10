@@ -36,7 +36,7 @@ export async function getDataPZALandingPages() {
 		${customBlockQuery({ name: 'contentSecondary' })},
 		${taleReferenceQuery()},
 		${assistanceQuery()},
-		"slug": "prikkenzonderafspraak",
+		"slug": slug.current,
 	}`;
 
 	const query = pageQuery({

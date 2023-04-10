@@ -1,5 +1,5 @@
 ---
-import Layout from '../../../../layouts/Layout.astro';
+import Layout from '../../../layouts/Layout.astro';
 import {
 	availableLocales,
 	Locale,
@@ -29,6 +29,7 @@ export async function getStaticPaths() {
 			params: {
 				locale: page.localeID,
 				theme: page.theme.slug,
+				pzaLanding: page.slug,
 			},
 			props: {
 				pageData: page,
