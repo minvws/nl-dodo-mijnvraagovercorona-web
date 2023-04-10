@@ -68,7 +68,9 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 	</Hero>
 	<Layer
 		pullUpBy="hero"
-		background={pageData.taleCollection.length > 0 ? 'ijsblauw' : undefined}
+		background={pageData.taleCollection && pageData.taleCollection.length > 0
+			? 'ijsblauw'
+			: undefined}
 		id="situaties"
 	>
 		{
