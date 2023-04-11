@@ -209,16 +209,17 @@ export default defineType({
 		 */
 		defineField({
 			title: 'Feedback',
+			description: 'Wordt alleen gebruikt op de nederlandse & engelse versie',
 			name: 'feedback',
 			type: 'object',
-			validation: (Rule) => Rule.required(),
+			// validation: (Rule) => Rule.required(),
 			options: { collapsible: true },
 			fields: [
 				defineField({
 					title: 'Titel',
 					name: 'title',
 					type: 'string',
-					validation: (Rule) => Rule.required(),
+					// validation: (Rule) => Rule.required(),
 				}),
 				defineField({
 					title: 'Content',
@@ -230,25 +231,25 @@ export default defineType({
 					title: 'Button',
 					name: 'button',
 					type: 'string',
-					validation: (Rule) => Rule.required(),
+					// validation: (Rule) => Rule.required(),
 				}),
 				defineField({
 					title: 'Bedank',
 					name: 'thanks',
 					type: 'string',
-					validation: (Rule) => Rule.required(),
+					// validation: (Rule) => Rule.required(),
 				}),
 				defineField({
 					title: 'URL',
 					name: 'url',
 					type: 'string',
-					validation: (Rule) => Rule.required(),
+					// validation: (Rule) => Rule.required(),
 				}),
 				defineField({
 					title: 'labels',
 					name: 'labels',
 					type: 'object',
-					validation: (Rule) => Rule.required(),
+					// validation: (Rule) => Rule.required(),
 					fields: [
 						defineField({
 							title: 'Ja',
