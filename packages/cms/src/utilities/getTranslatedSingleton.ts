@@ -32,7 +32,7 @@ export const getTranslatedSingleton = (
 						.showAsAction(true),
 				])
 				.title(title)
-				.filter('_id == $id && _type == $type')
+				.filter(`_type == $type && (_id == $id || _id == 'drafts.'+$id)`)
 				.params({
 					id: type,
 					type: type,
