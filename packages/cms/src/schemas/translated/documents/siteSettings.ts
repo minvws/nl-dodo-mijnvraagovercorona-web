@@ -37,68 +37,9 @@ export default defineType({
 			name: 'masthead',
 			type: 'object',
 			validation: (Rule) => Rule.required(),
+			// hidden: true,
 			options: { collapsible: true },
 			fields: [
-				defineField({
-					title: 'Menu',
-					name: 'menu',
-					type: 'object',
-					validation: (Rule) => Rule.required(),
-					fields: [
-						defineField({
-							title: 'Landmark label',
-							name: 'landmarkLabel',
-							description:
-								'Word alleen voorgelezen door screenreaders, vermijd het woord "navigatie" of "menu".',
-							type: 'string',
-							validation: (Rule) => Rule.required(),
-						}),
-						defineField({
-							title: 'Menu button label',
-							name: 'menuButtonLabel',
-							type: 'string',
-							validation: (Rule) => Rule.required(),
-						}),
-						defineField({
-							title: 'Home label',
-							name: 'homeLabel',
-							type: 'string',
-							validation: (Rule) => Rule.required(),
-						}),
-						defineField({
-							title: 'Menu title',
-							name: 'menuTitle',
-							type: 'string',
-							validation: (Rule) => Rule.required(),
-						}),
-						defineField({
-							title: 'Hoofdmenu interne links',
-							name: 'internalPageCollection',
-							type: 'internalPageSelector',
-							validation: (Rule) => Rule.required(),
-						}),
-						defineField({
-							title: 'Extra menu',
-							name: 'extraMenu',
-							type: 'object',
-							validation: (Rule) => Rule.required(),
-							fields: [
-								defineField({
-									title: 'Title',
-									name: 'title',
-									type: 'string',
-									// validation: (Rule) => Rule.required(),
-								}),
-								defineField({
-									title: 'Extra pagina’s',
-									name: 'internalPageCollection',
-									type: 'internalPageSelector',
-									validation: (Rule) => Rule.required(),
-								}),
-							],
-						}),
-					],
-				}),
 				defineField({
 					title: 'Skiplink',
 					description: 'Word alleen getoond voor screenreader gebruikers',
