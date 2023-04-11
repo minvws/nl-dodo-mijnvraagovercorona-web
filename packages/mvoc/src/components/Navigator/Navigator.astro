@@ -113,14 +113,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 							data-module-bind="navigator__detail-target"
 						>
 						</div>
-						{
-							locale.id === 'nl' || locale.id === 'en' ? (
-								<Feedback
-									url={siteSettings.feedback.url}
-									name="Prikken detail"
-								/>
-							) : null
-						}
+						<Feedback url={siteSettings.feedback.url} name="Prikken detail" />
 						<CardPrivacy />
 					</Stack>
 					<MastFoot locale={locale} />
