@@ -70,6 +70,8 @@ export interface SiteSettingsProps {
 		sources: string;
 		moreTips: string;
 		updatedAt: string;
+		map: string;
+		list: string;
 		situationPlural: {
 			this: string;
 			that: string;
@@ -150,6 +152,8 @@ export const siteSettingsQuery = ({ locale }: { locale: Locale }): string => `
 			sources,
 			moreTips,
 			updatedAt,
+			map,
+			list,
 			situationPlural{
 				this,
 				that,

@@ -46,11 +46,11 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 			>
 				<span hidden data-list>
 					<Icon name="list" />
-					Lijst
+					{siteSettings.genericLabels.list}
 				</span>
 				<span data-map>
 					<Icon name="marker" />
-					Kaart
+					{siteSettings.genericLabels.map}
 				</span>
 			</button>
 		</fieldset>

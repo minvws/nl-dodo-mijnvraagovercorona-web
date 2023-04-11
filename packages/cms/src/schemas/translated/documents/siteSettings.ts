@@ -347,6 +347,18 @@ export default defineType({
 					type: 'thisOrThatString',
 					validation: (Rule) => Rule.required(),
 				}),
+				defineField({
+					title: 'Kaart',
+					name: 'map',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
+				defineField({
+					title: 'Lijst',
+					name: 'list',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
 			],
 		}),
 

@@ -188,7 +188,7 @@ export default defineType({
 					title: 'Titel',
 					name: 'title',
 					type: 'string',
-					validation: (Rule) => Rule.required(),
+					// validation: (Rule) => Rule.required(),
 				}),
 				defineField({
 					title: 'Onderdelen',
