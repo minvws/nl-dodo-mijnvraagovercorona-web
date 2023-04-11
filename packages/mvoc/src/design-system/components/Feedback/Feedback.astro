@@ -105,6 +105,9 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 		const form = parent.querySelector(
 			'[data-module-bind="feedback__form"]',
 		) as HTMLFormElement;
+		const buttonElement = parent.querySelector(
+			'[data-module-bind="feedback__button"]',
+		) as HTMLAnchorElement;
 
 		form.addEventListener('submit', (event) => {
 			event.preventDefault;
@@ -112,12 +115,17 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 
 		form.addEventListener('change', () => {
 			const formData = new FormData(form);
+			const choice = formData.get('feedback-choice');
+			// update feedback button with feedback url parameter containing our choice
+			const urlPart = `&feedback=${choice.toString().toLowerCase()}`;
+			const buttonHref = buttonElement.href;
+			buttonElement.href = buttonHref.includes('&feedback=')
+				? buttonHref
+						.replace('&feedback=like', urlPart)
+						.replace('&feedback=dislike', urlPart)
+				: `${buttonHref}${urlPart}`;
 
-			trackEvent(
-				'Button',
-				'Click',
-				`${name} ${formData.get('feedback-choice')}`,
-			);
+			trackEvent('Button', 'Click', `${name} ${choice}`);
 		});
 	}
 </script>
