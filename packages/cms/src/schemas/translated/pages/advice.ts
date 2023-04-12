@@ -25,6 +25,13 @@ export default defineType({
 			type: 'hero',
 		}),
 		defineField({
+			title: 'Sub pagina referentie',
+			description:
+				'Genereert de pagina onder een andere pagina in de hierachie',
+			name: 'subFolderReference',
+			type: 'pageSourceSelector',
+		}),
+		defineField({
 			title: 'Slug',
 			name: 'slug',
 			type: 'slug',
@@ -40,12 +47,15 @@ export default defineType({
 			title: 'metaData.title',
 			locale: '__i18n_lang',
 			slug: 'slug.current',
+			subFolderReferenceSlug: 'subFolderReference.slug.current',
 		},
 		prepare(selection) {
-			const { title, locale, slug } = selection;
+			const { title, locale, slug, subFolderReferenceSlug } = selection;
 			return {
 				title: title,
-				subtitle: `/${locale}/${slug}`,
+				subtitle: `/${locale}${
+					subFolderReferenceSlug ? `/…/${subFolderReferenceSlug}` : ''
+				}/${slug}`,
 			};
 		},
 	},
