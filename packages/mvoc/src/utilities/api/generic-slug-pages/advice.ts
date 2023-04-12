@@ -4,12 +4,9 @@ import { getPageTranslations } from '../../helpers/get-page-translations';
 import {
 	HeroProps,
 	PageProps,
-	SubFolderReferenceProps,
 	heroQuery,
 	pageQuery,
-	subFolderReferenceQuery,
 } from '../queries/translated';
-import { getPageSubfolders } from 'src/utilities/helpers/page-subfolder';
 
 export interface AdvicePageProps extends PageProps {
 	hero: HeroProps;
