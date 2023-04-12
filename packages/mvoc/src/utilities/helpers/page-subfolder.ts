@@ -1,6 +1,6 @@
-import { PageProps } from '../api/queries/translated';
+// TODO: type safety
 
-export const getPageSubfolder = (page: PageProps): string => {
+export const getPageSubfolder = (page): string => {
 	let slug = '';
 
 	// iterate over subFolderReferences without recursion
@@ -20,4 +20,10 @@ export const getPageSubfolder = (page: PageProps): string => {
 	}
 
 	return slug === '' ? undefined : slug.replace('/', '');
+};
+
+export const getFullPageUrl = (page): string => {
+	const subFolder = getPageSubfolder(page);
+
+	return `${subFolder ? `${subFolder}/` : ''}${page.slug}`;
 };
