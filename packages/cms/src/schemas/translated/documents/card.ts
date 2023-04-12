@@ -31,8 +31,6 @@ export default defineType({
 			name: 'content',
 			type: 'customBlock',
 		}),
-		// TODO: disclosure
-		// TODO: tips
 		defineField({
 			title: 'Knoppen',
 			name: 'buttons',
