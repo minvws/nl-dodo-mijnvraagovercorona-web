@@ -33,42 +33,6 @@ const siteSettingsConfig = [
 	},
 ];
 
-const mvocPagesConfig = [
-	{
-		schemaType: 'generic-page',
-		title: 'Generic',
-		icon: GiCardRandom,
-	},
-	{
-		schemaType: 'theme-page',
-		title: 'Thema',
-		icon: FaFeatherAlt,
-	},
-	{
-		schemaType: 'error-page',
-		title: 'Error',
-		icon: BiError,
-	},
-];
-
-const mvocDocumentsConfig = [
-	{
-		schemaType: 'modals',
-		title: 'Modals',
-		icon: VscScreenFull,
-	},
-	{
-		schemaType: 'tale',
-		title: 'Tale',
-		icon: AiOutlineRead,
-	},
-	{
-		schemaType: 'assistance',
-		title: 'Hulp',
-		icon: FaHandsHelping,
-	},
-];
-
 const mvocPagesDocumentsConfig = [
 	{
 		schemaType: 'tip-document',
@@ -150,9 +114,21 @@ export default (S) =>
 						title: 'Documenten',
 						icon: IoDocumentOutline,
 						items: [
-							...mvocDocumentsConfig.map((config) =>
-								getTranslatedDocumentList(S, config),
-							),
+							getTranslatedDocumentList(S, {
+								schemaType: 'modals',
+								title: 'Modals',
+								icon: VscScreenFull,
+							}),
+							getTranslatedDocumentList(S, {
+								schemaType: 'tale',
+								title: 'Tale',
+								icon: AiOutlineRead,
+							}),
+							getTranslatedDocumentList(S, {
+								schemaType: 'assistance',
+								title: 'Hulp',
+								icon: FaHandsHelping,
+							}),
 						],
 					}),
 
@@ -167,9 +143,16 @@ export default (S) =>
 								type: 'homepage',
 								icon: GiHouse,
 							}),
-							...mvocPagesConfig.map((config) =>
-								getTranslatedDocumentList(S, config),
-							),
+							getTranslatedDocumentList(S, {
+								schemaType: 'generic-page',
+								title: 'Generic',
+								icon: GiCardRandom,
+							}),
+							getTranslatedDocumentList(S, {
+								schemaType: 'theme-page',
+								title: 'Thema',
+								icon: FaFeatherAlt,
+							}),
 							getFolder(S, {
 								title: 'Prikken zonder afspraak',
 								icon: GiTripleNeedle,
@@ -185,6 +168,11 @@ export default (S) =>
 										icon: GiWorld,
 									}),
 								],
+							}),
+							getTranslatedDocumentList(S, {
+								schemaType: 'error-page',
+								title: 'Error',
+								icon: BiError,
 							}),
 						],
 					}),
