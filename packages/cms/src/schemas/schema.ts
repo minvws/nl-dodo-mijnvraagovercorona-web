@@ -6,6 +6,7 @@ import siteSettingsDocument from './translated/documents/siteSettings';
 import modalsDocument from './translated/documents/modals';
 import taleDocument from './translated/documents/tale';
 import assistanceDocument from './translated/documents/assistance';
+import cardDocument from './translated/documents/card';
 
 // Pages
 import genericPage from './translated/pages/generic';
@@ -105,6 +106,7 @@ export default [
 	modalsDocument,
 	taleDocument,
 	assistanceDocument,
+	cardDocument,
 
 	// objects
 	customBlockObject,

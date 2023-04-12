@@ -121,6 +121,11 @@ export default (S) =>
 								icon: VscScreenFull,
 							}),
 							getTranslatedDocumentList(S, {
+								schemaType: 'card',
+								title: 'Cards',
+								icon: VscCopy,
+							}),
+							getTranslatedDocumentList(S, {
 								schemaType: 'tale',
 								title: 'Tale',
 								icon: AiOutlineRead,
