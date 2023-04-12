@@ -8,6 +8,28 @@ import {
 	getDataAdvicePages,
 } from 'src/utilities/api/generic-slug-pages/advice';
 import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
+import { UpdatedAt } from '@design-system/elements/UpdatedAt';
+import {
+	SiteSettingsProps,
+	useSiteSettings,
+} from 'src/utilities/api/queries/translated';
+import { Advice } from '@design-system/components/Advice';
+import { Layer } from '@design-system/components/Layout/Layer';
+import { Retain } from '@design-system/components/Layout/Retain';
+import { Sidebar } from '@design-system/components/Layout/Sidebar';
+import { Stack } from '@design-system/components/Layout/Stack';
+import {
+	CardAdvice,
+	CardDay,
+	CardPrivacy,
+	Steps,
+} from '@design-system/components/Card';
+import {
+	getDaySlug,
+	getShowOnDays,
+} from 'src/utilities/helpers/advice-helpers';
+import { Feedback } from '@design-system/components/Feedback';
+import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
 
 export async function getStaticPaths() {
 	const collection = await getDataAdvicePages();
@@ -19,29 +41,65 @@ export async function getStaticPaths() {
 					availableLocales.filter((locale) => locale.id === page.localeID)
 						.length,
 			)
-			.map((page: AdvicePageProps) => ({
-				params: {
-					slug: getPageSubfolder(page),
-					advice: page.slug,
-					locale: page.localeID,
-				},
-				props: {
-					pageData: page,
-					locale: availableLocales.filter(
-						(locale) => locale.id === page.localeID,
-					)[0],
-				},
-			}))
+			.map((page: AdvicePageProps) => {
+				// Get days to generate
+				const answerShowOnDays = getShowOnDays(page.answer);
+				const planShowOnDays = getShowOnDays(page?.advice?.plan);
+				// combine answer & plan days
+				const daysToGenerate = [
+					...new Set(answerShowOnDays.concat(planShowOnDays)),
+				];
+
+				return daysToGenerate.map((day) => ({
+					params: {
+						slug: getPageSubfolder(page),
+						advice: getDaySlug({ slug: page.slug, day }),
+						locale: page.localeID,
+					},
+					props: {
+						pageData: page,
+						pageDay: day,
+						locale: availableLocales.filter(
+							(locale) => locale.id === page.localeID,
+						)[0],
+					},
+				}));
+			})
 	);
 }
 
 interface Props {
 	pageData: AdvicePageProps;
+	pageDay: number;
 	locale: Locale;
 }
 
-const { pageData, locale } = Astro.props;
-// console.log('pageData', pageData);
+const { pageData, pageDay, locale } = Astro.props;
+const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+console.log('pageData', pageData);
+
+// Get most relevant answer
+const answer = pageData?.answer
+	? pageData.answer.filter(
+			({ showOn }) => !showOn || showOn.includes(pageDay),
+	  )[0] || pageData.answer[pageData.answer.length - 1]
+	: null;
+
+// Filter advice plan based on current day
+const plan =
+	pageData?.advice?.plan &&
+	pageData.advice.plan
+		.filter(({ showOn }) => !showOn || showOn.includes(pageDay))
+		.map(({ content, day: planDay, title }) => ({
+			content,
+			title,
+			day:
+				planDay === null || planDay === undefined
+					? 0
+					: planDay > pageDay
+					? planDay - pageDay
+					: (pageDay - planDay) * -1,
+		}));
 ---
 
 <Layout
@@ -54,6 +112,108 @@ const { pageData, locale } = Astro.props;
 		chapeau={pageData.hero.chapeau}
 		image={pageData.hero.image}
 	>
+		{
+			pageData.hero.showUpdatedAt ? (
+				<UpdatedAt slot="prefix" time={pageData.updatedAt} />
+			) : null
+		}
 		<ContentBlock value={pageData.hero.content} />
+		{
+			pageData.showSeriousSymptoms ? (
+				<Advice
+					title={siteSettings.severeSymptomsAdvice.title}
+					subtitle={siteSettings.severeSymptomsAdvice.subtitle}
+					icon={siteSettings.severeSymptomsAdvice.icon}
+				/>
+			) : null
+		}
 	</Hero>
+
+	<Layer as="div">
+		<Retain>
+			<Sidebar>
+				<Retain variant="text">
+					<Stack gap="huge">
+						{
+							answer && (
+								<CardAdvice title={answer.title}>
+									<ContentBlock value={answer.content} />
+								</CardAdvice>
+							)
+						}
+
+						{
+							!!plan?.length && (
+								<section>
+									<Stack gap="small">
+										<h2>{pageData.advice.title}</h2>
+										<Steps>
+											{plan.map(({ title, content, day }) => {
+												return (
+													<CardDay title={title} day={day}>
+														{content && <ContentBlock value={content} />}
+													</CardDay>
+												);
+											})}
+										</Steps>
+									</Stack>
+								</section>
+							)
+						}
+
+						{
+							!!pageData.advice?.cards?.length && (
+								<section>
+									<Stack gap="small">
+										{pageData.advice.secondaryTitle ? (
+											<h2>{pageData.advice.secondaryTitle}</h2>
+										) : null}
+										<div>
+											<Stack gap="large">
+												{pageData.advice.cards.map(
+													({
+														title,
+														chapeau,
+														content,
+														buttons,
+														tipCollection,
+													}) => (
+														<CardBlock
+															title={title}
+															chapeau={chapeau}
+															buttons={buttons}
+														>
+															<ContentBlock value={content} />
+															{tipCollection ? (
+																<TipOverview
+																	tipCollection={tipCollection.filter(
+																		(tip) => tip.title,
+																	)}
+																/>
+															) : null}
+														</CardBlock>
+													),
+												)}
+											</Stack>
+										</div>
+									</Stack>
+								</section>
+							)
+						}
+
+						<Feedback
+							name="Situatie Advies"
+							url={getFeedbackUrl(siteSettings.feedback.url, {
+								source: 'situation-advice',
+								advice: pageData.slug,
+								day: `${pageDay}`,
+							})}
+						/>
+					</Stack>
+				</Retain>
+
+				<CardPrivacy slot="aside" />
+			</Sidebar>
+		</Retain>
+	</Layer>
 </Layout>

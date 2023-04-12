@@ -1,4 +1,5 @@
 import { isUniqueInLocale } from '../../../utilities/isUniqueInLocale';
+import { filterReferenceByLanguage } from '../../../utilities/filterReferenceByLanguage';
 import { defineType, defineField } from 'sanity';
 
 async function isUnique(slug: any, context: any) {
@@ -24,6 +25,172 @@ export default defineType({
 			name: 'hero',
 			type: 'hero',
 		}),
+		defineField({
+			title: 'Toon ernstige klachten',
+			name: 'showSeriousSymptoms',
+			type: 'boolean',
+		}),
+		defineField({
+			title: 'Antwoord',
+			name: 'answer',
+			type: 'array',
+			of: [
+				{
+					title: 'Antwoord onderdeel',
+					name: 'item',
+					type: 'object',
+					preview: {
+						select: {
+							content: 'content',
+							showOn: 'showOn',
+						},
+						prepare({
+							content,
+							showOn,
+						}: {
+							content: { children: { _type: string; text: string }[] }[];
+							showOn?: number[];
+						}) {
+							return {
+								title: content[0]?.children
+									? content[0].children
+											.filter((child) => child._type === 'span')
+											.map((span) => span.text)
+											.join('')
+									: 'Geen titel',
+								subtitle: showOn
+									? `Toon op dagen ${showOn.join(', ')}`
+									: undefined,
+							};
+						},
+					},
+					fields: [
+						defineField({
+							title: 'Titel',
+							name: 'title',
+							type: 'string',
+						}),
+						defineField({
+							title: 'Content',
+							name: 'content',
+							type: 'customBlock',
+						}),
+						defineField({
+							title: 'Dagen sinds event om op te tonen',
+							name: 'showOn',
+							type: 'array',
+							of: [{ type: 'number' }],
+						}),
+					],
+				},
+			],
+		}),
+
+		defineField({
+			title: 'Advies',
+			name: 'advice',
+			type: 'object',
+			fields: [
+				defineField({
+					title: 'Titel',
+					name: 'title',
+					type: 'string',
+				}),
+				defineField({
+					title: 'Plan',
+					name: 'plan',
+					type: 'array',
+					of: [
+						{
+							title: 'Plan Onderdeel',
+							name: 'item',
+							type: 'object',
+							preview: {
+								select: {
+									content: 'content',
+									showOn: 'showOn',
+								},
+								prepare({
+									content,
+									showOn,
+								}: {
+									content: { children: { _type: string; text: string }[] }[];
+									showOn?: number[];
+								}) {
+									return {
+										title: content[0]?.children
+											? content[0].children
+													.filter((child) => child._type === 'span')
+													.map((span) => span.text)
+													.join('')
+											: 'Geen titel',
+										subtitle: showOn
+											? `Toon op dagen ${showOn.join(', ')}`
+											: undefined,
+									};
+								},
+							},
+							fields: [
+								defineField({
+									title: 'Dag',
+									name: 'day',
+									type: 'number',
+								}),
+								defineField({
+									title: 'Titel',
+									name: 'title',
+									type: 'string',
+								}),
+								defineField({
+									title: 'Content',
+									name: 'content',
+									type: 'customBlock',
+								}),
+								defineField({
+									title: 'Dagen sinds event om op te tonen',
+									name: 'showOn',
+									type: 'array',
+									of: [{ type: 'number' }],
+								}),
+							],
+						},
+					],
+				}),
+				{
+					title: 'Cards titel',
+					name: 'secondaryTitle',
+					type: 'string',
+				},
+				// TODO: cards
+				// {
+				// 	title: 'Cards',
+				// 	name: 'cards',
+				// 	type: 'array',
+				// 	of: [
+				// 		{
+				// 			title: 'Card',
+				// 			name: 'card',
+				// 			type: 'reference',
+				// 			to: [{ type: 'content-card-document' }],
+				// 		},
+				// 	],
+				// },
+			],
+		}),
+
+		// TODO: informContactsReference
+		defineField({
+			title: 'Hulp',
+			name: 'assistance',
+			type: 'reference',
+			to: [{ type: 'assistance' }],
+			options: {
+				filter: filterReferenceByLanguage,
+			},
+		}),
+
+		// TODO: moreTips
+
 		defineField({
 			title: 'Sub pagina referentie',
 			description:
