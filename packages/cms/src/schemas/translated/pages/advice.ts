@@ -156,29 +156,34 @@ export default defineType({
 						},
 					],
 				}),
-				{
-					title: 'Cards titel',
-					name: 'secondaryTitle',
-					type: 'string',
-				},
-				// TODO: cards
-				// {
-				// 	title: 'Cards',
-				// 	name: 'cards',
-				// 	type: 'array',
-				// 	of: [
-				// 		{
-				// 			title: 'Card',
-				// 			name: 'card',
-				// 			type: 'reference',
-				// 			to: [{ type: 'content-card-document' }],
-				// 		},
-				// 	],
-				// },
+				defineField({
+					title: 'Kaarten',
+					name: 'cards',
+					type: 'object',
+					fields: [
+						defineField({
+							title: 'title',
+							name: 'title',
+							type: 'string',
+						}),
+						defineField({
+							title: 'Kaarten',
+							name: 'items',
+							type: 'array',
+							of: [
+								{
+									title: 'Card',
+									name: 'card',
+									type: 'reference',
+									to: [{ type: 'card' }],
+								},
+							],
+						}),
+					],
+				}),
 			],
 		}),
 
-		// TODO: informContactsReference
 		defineField({
 			title: 'Hulp',
 			name: 'assistance',
@@ -215,14 +220,16 @@ export default defineType({
 			locale: '__i18n_lang',
 			slug: 'slug.current',
 			subFolderReferenceSlug: 'subFolderReference.slug.current',
+			media: 'hero.image',
 		},
 		prepare(selection) {
-			const { title, locale, slug, subFolderReferenceSlug } = selection;
+			const { title, locale, slug, subFolderReferenceSlug, media } = selection;
 			return {
 				title: title,
 				subtitle: `/${locale}${
 					subFolderReferenceSlug ? `/…/${subFolderReferenceSlug}` : ''
 				}/${slug}`,
+				media,
 			};
 		},
 	},

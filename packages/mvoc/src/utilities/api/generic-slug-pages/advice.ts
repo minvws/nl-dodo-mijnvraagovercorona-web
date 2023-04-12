@@ -2,13 +2,22 @@ import { AlternativeTranslationsProps } from '@design-system/components/LocaleSe
 import { useSanityClient } from 'astro-sanity';
 import { getPageTranslations } from '../../helpers/get-page-translations';
 import {
+	ButtonsProps,
 	HeroProps,
 	PageProps,
+	buttonsQuery,
 	customBlockQuery,
 	heroQuery,
 	pageQuery,
 } from '../queries/translated';
 import type { ContentBlockProps } from '@design-system/components/ContentBlock';
+
+interface CardProps {
+	title: string;
+	chapeau: string;
+	content: ContentBlockProps['value'];
+	buttons: ButtonsProps;
+}
 
 interface AnswerProps {
 	showOn?: Array<number>;
@@ -23,9 +32,11 @@ interface AdviceProps {
 		title: string;
 		content: ContentBlockProps['value'];
 	}[];
-	// cards: CardProps[];
+	cards?: {
+		title?: string;
+		items?: CardProps[];
+	};
 	title: string;
-	secondaryTitle: string;
 }
 
 export interface AdvicePageProps extends PageProps {
@@ -55,7 +66,15 @@ export async function getDataAdvicePages() {
 				title,
 				${customBlockQuery({ name: 'content' })},
 			},
-			secondaryTitle,
+			cards{
+				title,
+				items[]->{
+					title,
+					chapeau,
+					${customBlockQuery({ name: 'content' })},
+					${buttonsQuery({ array: true })},
+				},
+			},
 		},
 		"slug": slug.current,
 	}`;

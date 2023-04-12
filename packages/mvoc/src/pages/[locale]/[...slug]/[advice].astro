@@ -164,35 +164,23 @@ const plan =
 						}
 
 						{
-							!!pageData.advice?.cards?.length && (
+							!!pageData.advice?.cards?.items.length && (
 								<section>
 									<Stack gap="small">
-										{pageData.advice.secondaryTitle ? (
-											<h2>{pageData.advice.secondaryTitle}</h2>
+										{pageData.advice.cards.title ? (
+											<h2>{pageData.advice.cards.title}</h2>
 										) : null}
 										<div>
 											<Stack gap="large">
-												{pageData.advice.cards.map(
-													({
-														title,
-														chapeau,
-														content,
-														buttons,
-														tipCollection,
-													}) => (
+												{pageData.advice.cards.items.map(
+													({ title, chapeau, content, buttons }) => (
 														<CardBlock
 															title={title}
 															chapeau={chapeau}
 															buttons={buttons}
 														>
 															<ContentBlock value={content} />
-															{tipCollection ? (
-																<TipOverview
-																	tipCollection={tipCollection.filter(
-																		(tip) => tip.title,
-																	)}
-																/>
-															) : null}
+															{/* TODO: tips */}
 														</CardBlock>
 													),
 												)}
