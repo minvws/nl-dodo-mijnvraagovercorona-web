@@ -27,6 +27,11 @@ export default defineType({
 			name: 'image',
 			type: 'image',
 		}),
+		defineField({
+			title: 'Toon "Laatst bijgewerkt:"',
+			name: 'showUpdatedAt',
+			type: 'boolean',
+		}),
 	],
 	options: {
 		collapsible: true,
