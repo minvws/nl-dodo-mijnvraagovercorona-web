@@ -14,6 +14,7 @@ import pzaLandingPage from './translated/pages/pza/landing';
 import themePage from './translated/pages/theme';
 import errorPage from './translated/pages/error';
 import homePage from './translated/pages/homepage';
+import advicePage from './translated/pages/advice';
 
 // objects
 import {
@@ -96,6 +97,7 @@ export default [
 	themePage,
 	errorPage,
 	homePage,
+	advicePage,
 
 	// documents
 	siteSettingsDocument,

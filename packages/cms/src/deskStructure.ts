@@ -15,6 +15,7 @@ import { IoDocumentOutline } from 'react-icons/io5';
 import { RiQuestionLine, RiPagesLine } from 'react-icons/ri';
 import { MdOutlineTopic, MdLiveHelp } from 'react-icons/md';
 import { AiOutlineRead } from 'react-icons/ai';
+import { BsClipboardCheck } from 'react-icons/bs';
 
 import { getFolder } from './utilities/getFolder';
 import { getDocumentList, getPageList } from './utilities/getDocumentList';
@@ -153,6 +154,13 @@ export default (S) =>
 								title: 'Thema',
 								icon: FaFeatherAlt,
 							}),
+							S.divider(),
+							getTranslatedDocumentList(S, {
+								schemaType: 'advice-page',
+								title: 'Advies',
+								icon: BsClipboardCheck,
+							}),
+							S.divider(),
 							getFolder(S, {
 								title: 'Prikken zonder afspraak',
 								icon: GiTripleNeedle,
