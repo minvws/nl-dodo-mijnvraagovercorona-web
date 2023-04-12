@@ -1,0 +1,59 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { availableLocales, Locale } from 'src/utilities/locale/translation';
+import { Hero } from '@design-system/components/Hero';
+import { ContentBlock } from '@design-system/components/ContentBlock';
+import {
+	AdvicePageProps,
+	getDataAdvicePages,
+} from 'src/utilities/api/generic-slug-pages/advice';
+import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
+
+export async function getStaticPaths() {
+	const collection = await getDataAdvicePages();
+	return (
+		collection
+			// filter out unavailable locales
+			.filter(
+				(page: AdvicePageProps) =>
+					availableLocales.filter((locale) => locale.id === page.localeID)
+						.length,
+			)
+			.map((page: AdvicePageProps) => ({
+				params: {
+					slug: getPageSubfolder(page),
+					advice: page.slug,
+					locale: page.localeID,
+				},
+				props: {
+					pageData: page,
+					locale: availableLocales.filter(
+						(locale) => locale.id === page.localeID,
+					)[0],
+				},
+			}))
+	);
+}
+
+interface Props {
+	pageData: AdvicePageProps;
+	locale: Locale;
+}
+
+const { pageData, locale } = Astro.props;
+// console.log('pageData', pageData);
+---
+
+<Layout
+	locale={locale}
+	metaData={pageData.metaData}
+	alternativeTranslations={pageData.alternatives}
+>
+	<Hero
+		title={pageData.hero.title}
+		chapeau={pageData.hero.chapeau}
+		image={pageData.hero.image}
+	>
+		<ContentBlock value={pageData.hero.content} />
+	</Hero>
+</Layout>
