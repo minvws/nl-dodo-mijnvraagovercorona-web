@@ -17,6 +17,7 @@ import { CardPrivacy } from '@design-system/components/Card';
 import { TaleList } from '@design-system/components/Tale';
 import { Assistance } from '@design-system/components/Assistance';
 import { stringToSlug } from 'src/utilities/stringToSlug';
+import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
 
 export async function getStaticPaths() {
 	const collection = await getDataPZALandingPages();
@@ -71,7 +72,10 @@ const { pageData, locale } = Astro.props;
 							<li>
 								<Button
 									variant={button.variant}
-									href={prefixUrlWithlocale(button.href, locale)}
+									href={prefixUrlWithlocale(
+										getFullPageUrl(button.slugCollection),
+										locale,
+									)}
 									icon={button.icon}
 								>
 									{button.label}

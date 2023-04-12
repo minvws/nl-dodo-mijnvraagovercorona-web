@@ -15,6 +15,7 @@ import {
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
 import GridFluid from '../Layout/Grid/GridFluid.astro';
 import { Stack } from '../Layout/Stack';
+import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
 
 interface Props extends HTMLAttributes<'div'>, AssistanceProps {
 	feedback?: boolean;
@@ -141,7 +142,10 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 						{getHelp.title}
 					</Heading>
 					<Button
-						href={prefixUrlWithlocale(getHelp.button.href, locale)}
+						href={prefixUrlWithlocale(
+							getFullPageUrl(getHelp.button.slugCollection),
+							locale,
+						)}
 						icon={getHelp.button.icon}
 						interactionIconAnimation={'swing'}
 					>

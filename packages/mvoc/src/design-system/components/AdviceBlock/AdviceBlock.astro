@@ -12,6 +12,7 @@ import { Stack } from '../Layout/Stack';
 import { Button } from '@design-system/elements/Button';
 import { ButtonProps } from 'src/utilities/api/queries/translated/buttons';
 import { ImageProps } from 'src/utilities/api/queries';
+import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
 
 interface Props extends HTMLAttributes<'div'> {
 	title: string;
@@ -55,7 +56,10 @@ const {
 				button?.label ? (
 					<Button
 						variant={button.variant}
-						href={prefixUrlWithlocale(button.href, locale)}
+						href={prefixUrlWithlocale(
+							getFullPageUrl(button.slugCollection),
+							locale,
+						)}
 						icon={button.icon}
 						interactionIconAnimation="swing"
 					>
