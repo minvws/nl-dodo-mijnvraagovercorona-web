@@ -194,7 +194,11 @@ export default defineType({
 			},
 		}),
 
-		// TODO: moreTips
+		defineField({
+			title: 'Meer info',
+			name: 'moreInfo',
+			type: 'moreInfo',
+		}),
 
 		defineField({
 			title: 'Sub pagina referentie',
