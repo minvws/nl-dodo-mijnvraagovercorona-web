@@ -168,7 +168,10 @@ const pageData: PageHomeProps = pagesData.filter(
 		pageData.assistance && (
 			<Layer id={stringToSlug(pageData.assistance.headline)}>
 				<Retain>
-					<Assistance feedback {...pageData.assistance} />
+					<Assistance
+						feedback={locale.id === 'nl' || locale.id === 'en'}
+						{...pageData.assistance}
+					/>
 				</Retain>
 			</Layer>
 		)

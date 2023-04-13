@@ -138,7 +138,10 @@ const translatedTips = pageData.moreTips.tipCollection
 		pageData.assistance && (
 			<Layer>
 				<Retain>
-					<Assistance feedback {...pageData.assistance} />
+					<Assistance
+						feedback={locale.id === 'nl' || locale.id === 'en'}
+						{...pageData.assistance}
+					/>
 				</Retain>
 			</Layer>
 		)
