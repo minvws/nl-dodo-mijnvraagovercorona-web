@@ -4,10 +4,12 @@ import { useSanityClient } from 'astro-sanity';
 import { getPageTranslations } from '../helpers/get-page-translations';
 import { ImageProps, imageQuery } from './queries';
 import {
+	MoreInfoProps,
 	PageProps,
 	TaleCollectionProps,
 	customBlockQuery,
 	heroQuery,
+	moreInfoQuery,
 	pageQuery,
 	taleReferenceQuery,
 } from './queries/translated';
@@ -26,6 +28,7 @@ export interface GenericPageProps extends PageProps {
 	showTOC?: boolean;
 	content: ContentBlockProps['value'];
 	taleCollection: TaleCollectionProps['taleCollection'];
+	moreInfo: MoreInfoProps;
 	sources: {
 		title: string;
 		content: ContentBlockProps['value'];
@@ -42,6 +45,7 @@ export async function getDataGenericPages() {
 		showTOC,
 		${customBlockQuery({ name: 'content' })},
 		${taleReferenceQuery()},
+		${moreInfoQuery()},
 		sources{
 			title,
 			${customBlockQuery({ name: 'content' })},
