@@ -7,8 +7,18 @@ import { Retain } from '@design-system/components/Layout/Retain';
 import { ContentBlock } from '@design-system/components/ContentBlock';
 import { Layer } from '@design-system/components/Layout/Layer';
 import { Sidebar } from '@design-system/components/Layout/Sidebar';
-import { CardPrivacy } from '@design-system/components/Card';
+import { Card, CardPrivacy } from '@design-system/components/Card';
 import { Stack } from '@design-system/components/Layout/Stack';
+import { TaleList } from '@design-system/components/Tale';
+import { stringToSlug } from 'src/utilities/stringToSlug';
+import { Assistance } from '@design-system/components/Assistance';
+import { AnchorList } from '@design-system/components/Lists';
+import {
+	SiteSettingsProps,
+	useSiteSettings,
+} from 'src/utilities/api/queries/translated';
+import { Heading } from '@design-system/elements/Heading';
+import { MoreInfoOverview } from '@design-system/components/MoreInfo';
 
 export async function getStaticPaths() {
 	const collection = await getDataGenericPages();
@@ -38,6 +48,11 @@ interface Props {
 }
 
 const { pageData, locale } = Astro.props;
+const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+const tocStories =
+	pageData.taleCollection && pageData.taleCollection.length
+		? pageData.taleCollection.filter((tale) => tale.overview.title)
+		: [];
 ---
 
 <Layout
@@ -51,17 +66,86 @@ const { pageData, locale } = Astro.props;
 		image={pageData.hero.image}
 	>
 		<ContentBlock value={pageData.hero.content} />
+		{
+			pageData.showTOC ? (
+				<AnchorList
+					as="ol"
+					items={tocStories.map((tale) => ({
+						label: tale.overview.title,
+						href: `#${stringToSlug(tale.title)}`,
+						image: tale.overview.icon,
+					}))}
+				/>
+			) : null
+		}
 	</Hero>
 	<Layer>
 		<Retain>
-			<Sidebar>
-				<Retain variant="text">
-					<Stack gap="small">
-						<ContentBlock value={pageData.content} />
-					</Stack>
-				</Retain>
-				<CardPrivacy slot="aside" />
-			</Sidebar>
+			<Retain variant="text">
+				<Stack gap="huge">
+					{
+						pageData.content ? (
+							<div>
+								<Stack gap="small">
+									<ContentBlock value={pageData.content} />
+								</Stack>
+							</div>
+						) : null
+					}
+					{
+						pageData?.taleCollection?.length ? (
+							<TaleList taleCollection={pageData.taleCollection} />
+						) : null
+					}
+
+					{
+						pageData?.moreInfo?.items?.length ? (
+							<section>
+								<Stack>
+									<Heading level={2}>
+										{pageData.moreInfo.title
+											? pageData.moreInfo.title
+											: siteSettings.genericLabels.moreInfo}
+									</Heading>
+									<MoreInfoOverview items={pageData.moreInfo.items} />
+								</Stack>
+							</section>
+						) : null
+					}
+
+					{
+						pageData?.sources?.content ? (
+							<section
+								id={stringToSlug(
+									pageData.sources.title
+										? pageData.sources.title
+										: siteSettings.genericLabels.sources,
+								)}
+							>
+								<Card variant="filled">
+									<Stack>
+										<Heading level={2}>
+											{pageData.sources.title
+												? pageData.sources.title
+												: siteSettings.genericLabels.sources}
+										</Heading>
+										<ContentBlock value={pageData.sources.content} />
+									</Stack>
+								</Card>
+							</section>
+						) : null
+					}
+				</Stack>
+			</Retain>
 		</Retain>
 	</Layer>
+	{
+		pageData.assistance && (
+			<Layer id={stringToSlug(pageData.assistance.headline)}>
+				<Retain>
+					<Assistance feedback {...pageData.assistance} />
+				</Retain>
+			</Layer>
+		)
+	}
 </Layout>
