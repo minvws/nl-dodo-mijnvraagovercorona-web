@@ -25,7 +25,7 @@ const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 		items.map((item) => (
 			<li>
 				<MoreInfoButton
-					href={prefixUrlWithlocale(`/tip/${item.slug}`, locale)}
+					href={prefixUrlWithlocale(`/${item.slug}`, locale)}
 					icon={item.icon}
 					label={item.title}
 				/>
