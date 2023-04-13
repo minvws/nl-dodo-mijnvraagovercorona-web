@@ -3,7 +3,18 @@ import { AlternativeTranslationsProps } from '@design-system/components/LocaleSe
 import { useSanityClient } from 'astro-sanity';
 import { getPageTranslations } from '../helpers/get-page-translations';
 import { ImageProps, imageQuery } from './queries';
-import { PageProps, customBlockQuery, pageQuery } from './queries/translated';
+import {
+	PageProps,
+	TaleCollectionProps,
+	customBlockQuery,
+	heroQuery,
+	pageQuery,
+	taleReferenceQuery,
+} from './queries/translated';
+import {
+	AssistanceProps,
+	assistanceQuery,
+} from './queries/translated/assistance';
 
 export interface GenericPageProps extends PageProps {
 	hero: {
@@ -12,7 +23,10 @@ export interface GenericPageProps extends PageProps {
 		image: ImageProps;
 		content?: ContentBlockProps['value'];
 	};
+	showTOC?: boolean;
 	content: ContentBlockProps['value'];
+	taleCollection: TaleCollectionProps['taleCollection'];
+	assistance: AssistanceProps;
 	locale: string;
 	alternatives: AlternativeTranslationsProps[];
 	slug: string;
@@ -20,13 +34,11 @@ export interface GenericPageProps extends PageProps {
 
 export async function getDataGenericPages() {
 	const projection = `{
-		hero{
-			chapeau,
-			title,
-			${imageQuery({ name: 'image' })},
-			${customBlockQuery({ name: 'content' })},
-		},
+		${heroQuery()},
+		showTOC,
 		${customBlockQuery({ name: 'content' })},
+		${taleReferenceQuery()},
+		${assistanceQuery()},
 		"slug": slug.current,
 	}`;
 
