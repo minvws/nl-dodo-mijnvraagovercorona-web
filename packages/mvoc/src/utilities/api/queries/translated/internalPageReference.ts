@@ -1,27 +1,6 @@
-import { ContentBlockProps } from '@design-system/components/ContentBlock';
-import { customBlockQuery } from './customBlock';
-
-export const references = [
-	{
-		type: 'theme-page',
-		label: 'metaData.title',
-		slug: `slug.current`,
-	},
-	{
-		type: 'generic-page',
-		label: 'metaData.title',
-		slug: `slug.current`,
-	},
-	{
-		type: 'locations-page',
-		label: 'metaData.title',
-		slug: `pageReference->theme->slug.current + '/' + pageReference->slug.current`,
-	},
-];
-
 export interface InternalPageCollectionProps {
 	internalPageCollection: {
-		label: ContentBlockProps['value'];
+		label: string;
 		link: {
 			label: string | null | { nl: string; en: string };
 			slug: string;
@@ -40,8 +19,9 @@ export const internalPageReferenceInSelectQuery = (): string => {
 
 export const internalPageReferenceQuery = (): string => {
 	return `internalPageCollection[]{
-		${customBlockQuery({ name: 'label' })},
+		label,
 		"link": select(
+			defined(href) => {"slug": href},
 			pageReference->_type == "theme-page" => pageReference->{
 				"label": metaData.title,
 				"slug": slug.current

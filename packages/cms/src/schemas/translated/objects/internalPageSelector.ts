@@ -13,12 +13,19 @@ export default defineType({
 				defineField({
 					title: 'Label',
 					name: 'label',
-					type: 'customBlock',
+					type: 'string',
 				}),
 				defineField({
-					title: 'Pagina referentie',
+					title: 'Interne link',
 					name: 'pageReference',
 					type: 'pageReference',
+					readOnly: ({ parent }) => !!parent?.href,
+				}),
+				defineField({
+					title: 'href',
+					name: 'href',
+					type: 'string',
+					readOnly: ({ parent }) => !!parent?.pageReference,
 				}),
 			],
 			preview: {
