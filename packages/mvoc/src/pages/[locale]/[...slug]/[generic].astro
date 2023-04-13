@@ -1,5 +1,5 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import Layout from '../../../layouts/Layout.astro';
 import { availableLocales, Locale } from 'src/utilities/locale/translation';
 import { GenericPageProps, getDataGenericPages } from 'src/utilities/api';
 import { Hero } from '@design-system/components/Hero';
@@ -19,6 +19,7 @@ import {
 } from 'src/utilities/api/queries/translated';
 import { Heading } from '@design-system/elements/Heading';
 import { MoreInfoOverview } from '@design-system/components/MoreInfo';
+import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
 
 export async function getStaticPaths() {
 	const collection = await getDataGenericPages();
@@ -31,7 +32,11 @@ export async function getStaticPaths() {
 						.length,
 			)
 			.map((page: GenericPageProps) => ({
-				params: { generic: page.slug, locale: page.localeID },
+				params: {
+					slug: getPageSubfolder(page),
+					generic: page.slug,
+					locale: page.localeID,
+				},
 				props: {
 					pageData: page,
 					locale: availableLocales.filter(
