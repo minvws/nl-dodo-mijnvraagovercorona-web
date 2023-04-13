@@ -1,5 +1,6 @@
 import { isUniqueInLocale } from '../../../utilities/isUniqueInLocale';
 import { defineType, defineField } from 'sanity';
+import { filterReferenceByLanguage } from '../../../utilities/filterReferenceByLanguage';
 
 async function isUnique(slug: any, context: any) {
 	return await isUniqueInLocale({ slug, context, type: 'generic-page' });
@@ -25,11 +26,59 @@ export default defineType({
 			type: 'hero',
 		}),
 		defineField({
+			title: 'Toon table of contents',
+			name: 'showTOC',
+			type: 'boolean',
+			description:
+				'Als deze toggle aan staat genereren we een table of contents.',
+		}),
+		defineField({
 			title: 'Content',
 			name: 'content',
 			type: 'customBlock',
 			validation: (Rule) => Rule.required(),
 		}),
+
+		defineField({
+			title: 'Tales',
+			name: 'taleCollection',
+			type: 'taleSelector',
+		}),
+
+		defineField({
+			title: 'Bronnen',
+			name: 'sources',
+			type: 'object',
+			options: {
+				collapsible: true,
+				collapsed: true,
+			},
+			fields: [
+				defineField({
+					title: 'Titel',
+					name: 'title',
+					type: 'string',
+					description:
+						'Indien titel leeg word gelaten wordt `Bronnen` in siteSettings getoond',
+				}),
+				defineField({
+					title: 'Content',
+					name: 'content',
+					type: 'customBlock',
+				}),
+			],
+		}),
+
+		defineField({
+			title: 'Hulp',
+			name: 'assistance',
+			type: 'reference',
+			to: [{ type: 'assistance' }],
+			options: {
+				filter: filterReferenceByLanguage,
+			},
+		}),
+
 		defineField({
 			title: 'Slug',
 			name: 'slug',
