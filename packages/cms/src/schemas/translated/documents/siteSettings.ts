@@ -265,9 +265,18 @@ export default defineType({
 					type: 'string',
 					validation: (Rule) => Rule.required(),
 				}),
+				// TODO: phase out
 				defineField({
 					title: 'Meer Tips',
+					description:
+						'Dit veld word in de toekomst niet meer gebruikt, gebruik het "meer info" veld',
 					name: 'moreTips',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
+				defineField({
+					title: 'Meer info',
+					name: 'moreInfo',
 					type: 'string',
 					validation: (Rule) => Rule.required(),
 				}),
