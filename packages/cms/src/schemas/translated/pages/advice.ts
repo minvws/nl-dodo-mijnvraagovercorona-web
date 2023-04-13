@@ -14,6 +14,7 @@ export default defineType({
 	initialValue: {
 		__i18n_lang: 'nl',
 	},
+	fieldsets: [{ name: 'urlStructure', title: 'Url structuur' }],
 	fields: [
 		defineField({
 			title: 'Meta data',
@@ -206,11 +207,13 @@ export default defineType({
 				'Genereert deze pagina onder een andere pagina in de hierachie',
 			name: 'subFolderReference',
 			type: 'pageSourceSelector',
+			fieldset: 'urlStructure',
 		}),
 		defineField({
 			title: 'Slug',
 			name: 'slug',
 			type: 'slug',
+			fieldset: 'urlStructure',
 			validation: (Rule) => Rule.required(),
 			options: {
 				source: 'metaData.title',
