@@ -4,10 +4,12 @@ import { getPageTranslations } from '../../helpers/get-page-translations';
 import {
 	ButtonsProps,
 	HeroProps,
+	MoreInfoProps,
 	PageProps,
 	buttonsQuery,
 	customBlockQuery,
 	heroQuery,
+	moreInfoQuery,
 	pageQuery,
 } from '../queries/translated';
 import type { ContentBlockProps } from '@design-system/components/ContentBlock';
@@ -50,6 +52,7 @@ export interface AdvicePageProps extends PageProps {
 	advice: AdviceProps;
 	locale: string;
 	assistance: AssistanceProps;
+	moreInfo: MoreInfoProps;
 	alternatives: AlternativeTranslationsProps[];
 	slug: string;
 }
@@ -82,6 +85,7 @@ export async function getDataAdvicePages() {
 			},
 		},
 		${assistanceQuery()},
+		${moreInfoQuery()},
 		"slug": slug.current,
 	}`;
 

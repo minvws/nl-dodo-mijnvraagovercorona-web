@@ -32,6 +32,8 @@ import {
 import { Feedback } from '@design-system/components/Feedback';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
 import { Assistance } from '@design-system/components/Assistance';
+import { Heading } from '@design-system/elements/Heading';
+import { MoreInfoOverview } from '@design-system/components/MoreInfo';
 
 export async function getStaticPaths() {
 	const collection = await getDataAdvicePages();
@@ -188,6 +190,21 @@ const plan =
 									</Stack>
 								</section>
 							)
+						}
+
+						{
+							pageData?.moreInfo?.items?.length ? (
+								<section>
+									<Stack>
+										<Heading level={2}>
+											{pageData.moreInfo.title
+												? pageData.moreInfo.title
+												: siteSettings.genericLabels.moreInfo}
+										</Heading>
+										<MoreInfoOverview items={pageData.moreInfo.items} />
+									</Stack>
+								</section>
+							) : null
 						}
 
 						<Feedback
