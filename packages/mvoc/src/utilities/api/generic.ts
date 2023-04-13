@@ -26,6 +26,10 @@ export interface GenericPageProps extends PageProps {
 	showTOC?: boolean;
 	content: ContentBlockProps['value'];
 	taleCollection: TaleCollectionProps['taleCollection'];
+	sources: {
+		title: string;
+		content: ContentBlockProps['value'];
+	};
 	assistance: AssistanceProps;
 	locale: string;
 	alternatives: AlternativeTranslationsProps[];
@@ -38,6 +42,10 @@ export async function getDataGenericPages() {
 		showTOC,
 		${customBlockQuery({ name: 'content' })},
 		${taleReferenceQuery()},
+		sources{
+			title,
+			${customBlockQuery({ name: 'content' })},
+		},
 		${assistanceQuery()},
 		"slug": slug.current,
 	}`;
