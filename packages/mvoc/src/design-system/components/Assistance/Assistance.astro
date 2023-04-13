@@ -148,7 +148,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 						{getHelp.button.label}
 					</Button>
 				</Stack>
-			) : feedback ? (
+			) : feedback && (locale.id === 'nl' || locale.id === 'en') ? (
 				<Stack>
 					<img
 						src={image?.src || '/images/questions.svg'}
