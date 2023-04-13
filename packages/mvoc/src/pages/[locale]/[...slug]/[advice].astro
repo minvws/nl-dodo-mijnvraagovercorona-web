@@ -31,7 +31,7 @@ import {
 } from 'src/utilities/helpers/advice-helpers';
 import { Feedback } from '@design-system/components/Feedback';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
-import { TipOverview } from '@design-system/components/Tips';
+import { Assistance } from '@design-system/components/Assistance';
 
 export async function getStaticPaths() {
 	const collection = await getDataAdvicePages();
@@ -78,7 +78,6 @@ interface Props {
 
 const { pageData, pageDay, locale } = Astro.props;
 const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
-console.log('pageData', pageData);
 
 // Get most relevant answer
 const answer = pageData?.answer
@@ -206,4 +205,14 @@ const plan =
 			</Sidebar>
 		</Retain>
 	</Layer>
+
+	{
+		pageData.assistance && (
+			<Layer>
+				<Retain>
+					<Assistance {...pageData.assistance} />
+				</Retain>
+			</Layer>
+		)
+	}
 </Layout>

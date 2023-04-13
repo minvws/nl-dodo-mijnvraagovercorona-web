@@ -11,6 +11,10 @@ import {
 	pageQuery,
 } from '../queries/translated';
 import type { ContentBlockProps } from '@design-system/components/ContentBlock';
+import {
+	AssistanceProps,
+	assistanceQuery,
+} from '../queries/translated/assistance';
 
 interface CardProps {
 	title: string;
@@ -45,6 +49,7 @@ export interface AdvicePageProps extends PageProps {
 	answer: AnswerProps[];
 	advice: AdviceProps;
 	locale: string;
+	assistance: AssistanceProps;
 	alternatives: AlternativeTranslationsProps[];
 	slug: string;
 }
@@ -76,6 +81,7 @@ export async function getDataAdvicePages() {
 				},
 			},
 		},
+		${assistanceQuery()},
 		"slug": slug.current,
 	}`;
 
