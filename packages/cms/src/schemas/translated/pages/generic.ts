@@ -36,13 +36,18 @@ export default defineType({
 			title: 'Content',
 			name: 'content',
 			type: 'customBlock',
-			validation: (Rule) => Rule.required(),
 		}),
 
 		defineField({
 			title: 'Tales',
 			name: 'taleCollection',
 			type: 'taleSelector',
+		}),
+
+		defineField({
+			title: 'Meer info',
+			name: 'moreInfo',
+			type: 'moreInfo',
 		}),
 
 		defineField({
