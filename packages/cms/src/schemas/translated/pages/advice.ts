@@ -199,7 +199,7 @@ export default defineType({
 		defineField({
 			title: 'Sub pagina referentie',
 			description:
-				'Genereert de pagina onder een andere pagina in de hierachie',
+				'Genereert deze pagina onder een andere pagina in de hierachie',
 			name: 'subFolderReference',
 			type: 'pageSourceSelector',
 		}),
