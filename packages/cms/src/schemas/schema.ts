@@ -36,6 +36,7 @@ import taleSelectorObject from './translated/objects/taleSelector';
 import interimQuestionSelectorObject from './translated/objects/interimQuestionSelector';
 import thisOrThatStringObject from './translated/objects/thisOrThatString';
 import pageSourceSelectorObject from './translated/objects/pageSourceSelector';
+import moreInfoObject from './translated/objects/moreInfo';
 
 /**
  * Old document structure
@@ -125,6 +126,7 @@ export default [
 	taleSelectorObject,
 	thisOrThatStringObject,
 	pageSourceSelectorObject,
+	moreInfoObject,
 
 	/**
 	 * Pages
