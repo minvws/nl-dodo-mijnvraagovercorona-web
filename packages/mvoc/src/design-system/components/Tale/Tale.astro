@@ -6,13 +6,14 @@ import { Switcher } from '../Layout/Grid';
 import { Retain } from '../Layout/Retain';
 import { Stack } from '../Layout/Stack';
 import { Picture } from '../Picture';
+import { stringToSlug } from 'src/utilities/stringToSlug';
 
 type Props = Tale;
 
 const { title, multiContentBlocks, picture } = Astro.props;
 ---
 
-<section class="c-tale">
+<section class="c-tale" id={stringToSlug(title)}>
 	<Switcher class="c-tale__switcher">
 		<Stack>
 			<Retain variant={'text'}>

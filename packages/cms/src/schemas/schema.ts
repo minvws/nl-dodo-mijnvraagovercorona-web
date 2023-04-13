@@ -33,6 +33,7 @@ import internalPageSelectorObject from './translated/objects/internalPageSelecto
 import taleSelectorObject from './translated/objects/taleSelector';
 import interimQuestionSelectorObject from './translated/objects/interimQuestionSelector';
 import thisOrThatStringObject from './translated/objects/thisOrThatString';
+import moreInfoObject from './translated/objects/moreInfo';
 
 /**
  * Old document structure
@@ -119,6 +120,7 @@ export default [
 	interimQuestionSelectorObject,
 	taleSelectorObject,
 	thisOrThatStringObject,
+	moreInfoObject,
 
 	/**
 	 * Pages
