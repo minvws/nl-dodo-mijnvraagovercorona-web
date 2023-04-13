@@ -1,0 +1,60 @@
+---
+import { Button } from '@design-system/elements/Button';
+import { HTMLAttributes } from 'astro/types';
+import { ImageProps } from 'src/utilities/api/queries';
+
+interface Props extends HTMLAttributes<'div'> {
+	label: string;
+	href: string;
+	icon: ImageProps;
+}
+
+const { class: className, label, href, icon } = Astro.props;
+---
+
+<Button
+	class="c-more-info-button"
+	variant="quaternary"
+	href={href}
+	icon="chevron-small-right"
+	interactionIconAnimation="swing"
+	full
+>
+	<span class="c-more-info-button__inner">
+		{
+			icon.src ? (
+				<img
+					class="c-more-info-button__icon"
+					src={icon.src}
+					alt=""
+					loading="lazy"
+				/>
+			) : null
+		}
+		{label}
+	</span>
+</Button>
+
+<style lang="scss">
+	@use '@design-system-styles/primitives/_responsive.scss';
+	.c-more-info-button {
+		--tip-button-icon-size: var(--space-r-huge);
+	}
+
+	.c-more-info-button__inner {
+		display: flex;
+		align-items: center;
+		gap: var(--space-r-tiny);
+	}
+
+	.c-more-info-button__icon {
+		inline-size: var(--tip-button-icon-size);
+		aspect-ratio: 5.8 / 4;
+		object-fit: contain;
+		object-position: center center;
+
+		@media --mq-large {
+			--tip-button-icon-size: 4.6rem; // 92px
+		}
+	}
+</style>
