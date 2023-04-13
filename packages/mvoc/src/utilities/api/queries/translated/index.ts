@@ -12,3 +12,4 @@ export * from './picture';
 export * from './video';
 export * from './multiContentBlock';
 export * from './subFolderReference';
+export * from './moreInfo';

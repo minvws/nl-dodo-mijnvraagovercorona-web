@@ -13,7 +13,7 @@ export default defineType({
 		defineField({
 			title: 'Titel',
 			name: 'title',
-			type: 'localeString',
+			type: 'string',
 			description:
 				'Indien titel leeg word gelaten wordt `Meer Info` in siteSettings getoond',
 		}),
@@ -24,7 +24,7 @@ export default defineType({
 			of: [
 				defineField({
 					title: 'Pagina referentie',
-					name: 'genericPageReference',
+					name: 'item',
 					type: 'reference',
 					to: [{ type: 'generic-page' }],
 					options: {
