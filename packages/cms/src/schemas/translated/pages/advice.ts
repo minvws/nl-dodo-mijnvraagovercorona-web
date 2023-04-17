@@ -13,6 +13,9 @@ export default defineType({
 	i18n: true,
 	initialValue: {
 		__i18n_lang: 'nl',
+		hero: {
+			showUpdatedAt: true,
+		},
 	},
 	fieldsets: [{ name: 'urlStructure', title: 'Url structuur' }],
 	fields: [
