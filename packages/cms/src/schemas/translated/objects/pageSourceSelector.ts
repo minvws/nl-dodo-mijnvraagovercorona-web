@@ -2,16 +2,15 @@ import { defineField } from 'sanity';
 import { filterReferenceByLanguage } from '../../../utilities/filterReferenceByLanguage';
 
 export default defineField({
-	title: 'Interne pagina referentie',
-	description: 'Creëert een interne link naar een andere pagina.',
-	name: 'pageReference',
+	title: 'Pagina referentie',
+	description: 'Creëert een interne referentie naar een andere pagina.',
+	name: 'pageSourceSelector',
 	type: 'reference',
 	to: [
 		{ type: 'theme-page' },
 		{ type: 'generic-page' },
 		{ type: 'locations-page' },
 		{ type: 'advice-page' },
-		{ type: 'tip-document' },
 	],
 	options: {
 		filter: filterReferenceByLanguage,

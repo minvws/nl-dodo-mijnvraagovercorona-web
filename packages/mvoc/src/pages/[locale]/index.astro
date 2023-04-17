@@ -18,6 +18,7 @@ import { stringToSlug } from 'src/utilities/stringToSlug';
 import { Assistance } from '@design-system/components/Assistance';
 import { AdviceBlock } from '@design-system/components/AdviceBlock';
 import { TaleList } from '@design-system/components/Tale';
+import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
 
 export async function getStaticPaths() {
 	const collection = await getDataHome();
@@ -67,6 +68,7 @@ const pageData: PageHomeProps = pagesData.filter(
 		title={pageData.hero.title}
 		chapeau={pageData.hero.chapeau}
 		image={pageData.hero.image}
+		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
 		highlight
 	>
 		<ContentBlock value={pageData.hero.content} />
@@ -78,8 +80,12 @@ const pageData: PageHomeProps = pagesData.filter(
 					icon={pageData.button.icon}
 					interactionIconAnimation="swing"
 					href={
-						pageData.button.href
-							? prefixUrlWithlocale(pageData.button.href, locale)
+						pageData.button.slugCollection &&
+						pageData.button.slugCollection.slug
+							? prefixUrlWithlocale(
+									getFullPageUrl(pageData.button.slugCollection),
+									locale,
+							  )
 							: `#${stringToSlug(pageData.important.title)}`
 					}
 				>

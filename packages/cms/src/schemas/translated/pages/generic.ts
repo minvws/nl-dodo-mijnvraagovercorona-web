@@ -14,6 +14,7 @@ export default defineType({
 	initialValue: {
 		__i18n_lang: 'nl',
 	},
+	fieldsets: [{ name: 'urlStructure', title: 'Url structuur' }],
 	fields: [
 		defineField({
 			title: 'Meta data',
@@ -85,9 +86,19 @@ export default defineType({
 		}),
 
 		defineField({
+			title: 'Sub pagina referentie',
+			description:
+				'Genereert deze pagina onder een andere pagina in de hierachie',
+			name: 'subFolderReference',
+			type: 'pageSourceSelector',
+			fieldset: 'urlStructure',
+		}),
+
+		defineField({
 			title: 'Slug',
 			name: 'slug',
 			type: 'slug',
+			fieldset: 'urlStructure',
 			validation: (Rule) => Rule.required(),
 			options: {
 				source: 'metaData.title',
@@ -100,12 +111,17 @@ export default defineType({
 			title: 'hero.title',
 			locale: '__i18n_lang',
 			slug: 'slug.current',
+			subFolderReferenceSlug: 'subFolderReference.slug.current',
+			media: 'hero.image',
 		},
 		prepare(selection) {
-			const { title, locale, slug } = selection;
+			const { title, locale, slug, subFolderReferenceSlug, media } = selection;
 			return {
 				title: title,
-				subtitle: `${locale}/${slug}`,
+				subtitle: `/${locale}${
+					subFolderReferenceSlug ? `/…/${subFolderReferenceSlug}` : ''
+				}/${slug}`,
+				media,
 			};
 		},
 	},

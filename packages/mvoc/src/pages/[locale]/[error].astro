@@ -63,6 +63,7 @@ const homePageData = homeCollection.filter(
 		title={pageData.hero.title}
 		chapeau={pageData.hero.chapeau}
 		image={pageData.hero.image}
+		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
 	>
 		<ContentBlock value={pageData.hero.content} />
 	</Hero>

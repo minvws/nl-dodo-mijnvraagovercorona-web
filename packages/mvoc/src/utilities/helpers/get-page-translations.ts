@@ -1,4 +1,5 @@
 import { availableLocales } from '../locale/translation';
+import { getPageSubfolder } from './page-subfolder';
 
 export const getPageTranslations = (pages) =>
 	pages.reduce((pagesAcc, parsePage) => {
@@ -26,7 +27,11 @@ export const getPageTranslations = (pages) =>
 					locale: availableLocales.filter(
 						(locale) => locale.id === alternative.localeID,
 					)[0],
-					href: `${alternative.theme ? `${alternative.theme.slug}/` : ''}${
+					href: `${
+						alternative.subFolderReference
+							? `${getPageSubfolder(alternative)}/`
+							: ''
+					}${alternative.theme ? `${alternative.theme.slug}/` : ''}${
 						alternative.slug || ''
 					}`,
 				})),

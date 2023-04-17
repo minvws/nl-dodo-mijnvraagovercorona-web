@@ -6,6 +6,7 @@ import siteSettingsDocument from './translated/documents/siteSettings';
 import modalsDocument from './translated/documents/modals';
 import taleDocument from './translated/documents/tale';
 import assistanceDocument from './translated/documents/assistance';
+import cardDocument from './translated/documents/card';
 
 // Pages
 import genericPage from './translated/pages/generic';
@@ -14,6 +15,7 @@ import pzaLandingPage from './translated/pages/pza/landing';
 import themePage from './translated/pages/theme';
 import errorPage from './translated/pages/error';
 import homePage from './translated/pages/homepage';
+import advicePage from './translated/pages/advice';
 
 // objects
 import {
@@ -33,6 +35,7 @@ import internalPageSelectorObject from './translated/objects/internalPageSelecto
 import taleSelectorObject from './translated/objects/taleSelector';
 import interimQuestionSelectorObject from './translated/objects/interimQuestionSelector';
 import thisOrThatStringObject from './translated/objects/thisOrThatString';
+import pageSourceSelectorObject from './translated/objects/pageSourceSelector';
 import moreInfoObject from './translated/objects/moreInfo';
 
 /**
@@ -97,12 +100,14 @@ export default [
 	themePage,
 	errorPage,
 	homePage,
+	advicePage,
 
 	// documents
 	siteSettingsDocument,
 	modalsDocument,
 	taleDocument,
 	assistanceDocument,
+	cardDocument,
 
 	// objects
 	customBlockObject,
@@ -120,6 +125,7 @@ export default [
 	interimQuestionSelectorObject,
 	taleSelectorObject,
 	thisOrThatStringObject,
+	pageSourceSelectorObject,
 	moreInfoObject,
 
 	/**

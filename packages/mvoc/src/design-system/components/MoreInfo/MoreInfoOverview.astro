@@ -7,6 +7,7 @@ import {
 } from 'src/utilities/locale/translation';
 import { MoreInfoButton } from '.';
 import { MoreInfoProps } from 'src/utilities/api/queries/translated';
+import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
 
 interface Props extends HTMLAttributes<'div'> {
 	items: MoreInfoProps['items'];
@@ -25,7 +26,7 @@ const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 		items.map((item) => (
 			<li>
 				<MoreInfoButton
-					href={prefixUrlWithlocale(`/${item.slug}`, locale)}
+					href={prefixUrlWithlocale(getFullPageUrl(item), locale)}
 					icon={item.icon}
 					label={item.title}
 				/>
