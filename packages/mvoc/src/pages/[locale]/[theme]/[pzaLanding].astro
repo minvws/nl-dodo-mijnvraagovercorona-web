@@ -59,6 +59,7 @@ const { pageData, locale } = Astro.props;
 		title={pageData.hero.title}
 		image={pageData.hero.image}
 		chapeau={pageData.hero.chapeau}
+		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
 		highlight
 	>
 		<Stack class="c-hero__content">
