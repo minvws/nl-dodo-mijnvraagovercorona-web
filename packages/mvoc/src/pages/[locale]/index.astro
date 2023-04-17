@@ -68,6 +68,7 @@ const pageData: PageHomeProps = pagesData.filter(
 		title={pageData.hero.title}
 		chapeau={pageData.hero.chapeau}
 		image={pageData.hero.image}
+		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
 		highlight
 	>
 		<ContentBlock value={pageData.hero.content} />

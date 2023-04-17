@@ -61,6 +61,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 		title={pageData.hero.title}
 		image={pageData.hero.image}
 		chapeau={pageData.hero.chapeau}
+		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
 		highlight
 	>
 		<UpdatedAt slot="prefix" time={pageData.updatedAt} />

@@ -8,16 +8,13 @@ import {
 	pageQuery,
 	buttonsQuery,
 	ButtonProps,
+	heroQuery,
+	HeroProps,
 } from './queries/translated';
 import { ImageProps, imageQuery } from './queries';
 
 export interface ErrorPageProps extends PageProps {
-	hero: {
-		chapeau?: string;
-		title;
-		image: ImageProps;
-		content?: ContentBlockProps['value'];
-	};
+	hero: HeroProps;
 	button: ButtonProps;
 	content: ContentBlockProps['value'];
 	errormessage: string;
@@ -28,12 +25,7 @@ export interface ErrorPageProps extends PageProps {
 
 export async function getDataErrorPages() {
 	const projection = `{
-		hero{
-			chapeau,
-			title,
-			${imageQuery({ name: 'image' })},
-			${customBlockQuery({ name: 'content' })},
-		},
+		${heroQuery()},
 		${buttonsQuery({ array: false })},
 		${customBlockQuery({ name: 'content' })},
 		errormessage,

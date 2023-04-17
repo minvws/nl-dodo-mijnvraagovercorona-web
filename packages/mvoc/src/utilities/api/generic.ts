@@ -4,6 +4,7 @@ import { useSanityClient } from 'astro-sanity';
 import { getPageTranslations } from '../helpers/get-page-translations';
 import { ImageProps, imageQuery } from './queries';
 import {
+	HeroProps,
 	MoreInfoProps,
 	PageProps,
 	TaleCollectionProps,
@@ -19,12 +20,7 @@ import {
 } from './queries/translated/assistance';
 
 export interface GenericPageProps extends PageProps {
-	hero: {
-		chapeau?: string;
-		title;
-		image: ImageProps;
-		content?: ContentBlockProps['value'];
-	};
+	hero: HeroProps;
 	showTOC?: boolean;
 	content: ContentBlockProps['value'];
 	taleCollection: TaleCollectionProps['taleCollection'];

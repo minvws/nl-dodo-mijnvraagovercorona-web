@@ -114,12 +114,8 @@ const plan =
 		title={pageData.hero.title}
 		chapeau={pageData.hero.chapeau}
 		image={pageData.hero.image}
+		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
 	>
-		{
-			pageData.hero.showUpdatedAt ? (
-				<UpdatedAt slot="prefix" time={pageData.updatedAt} />
-			) : null
-		}
 		<ContentBlock value={pageData.hero.content} />
 		{
 			pageData.showSeriousSymptoms ? (
