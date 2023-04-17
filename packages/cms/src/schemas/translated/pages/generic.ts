@@ -38,14 +38,6 @@ export default defineType({
 			name: 'content',
 			type: 'customBlock',
 		}),
-		defineField({
-			title: 'Sub pagina referentie',
-			description:
-				'Genereert deze pagina onder een andere pagina in de hierachie',
-			name: 'subFolderReference',
-			type: 'pageSourceSelector',
-			fieldset: 'urlStructure',
-		}),
 
 		defineField({
 			title: 'Tales',
@@ -91,6 +83,15 @@ export default defineType({
 			options: {
 				filter: filterReferenceByLanguage,
 			},
+		}),
+
+		defineField({
+			title: 'Sub pagina referentie',
+			description:
+				'Genereert deze pagina onder een andere pagina in de hierachie',
+			name: 'subFolderReference',
+			type: 'pageSourceSelector',
+			fieldset: 'urlStructure',
 		}),
 
 		defineField({
