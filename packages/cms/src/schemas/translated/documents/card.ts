@@ -11,7 +11,18 @@ export default defineType({
 	preview: {
 		select: {
 			title: 'title',
-			subtitle: '__i18n_lang',
+			locale: '__i18n_lang',
+			referenceTitle: '__i18n_base.title',
+		},
+		prepare(selection) {
+			const { title, locale, referenceTitle } = selection;
+
+			console.log('reference', referenceTitle);
+
+			return {
+				title: title,
+				subtitle: `${referenceTitle ? `${referenceTitle} - ` : ''}${locale}`,
+			};
 		},
 	},
 	fields: [

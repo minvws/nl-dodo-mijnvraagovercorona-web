@@ -51,14 +51,16 @@ export default defineType({
 			overviewTitle: 'overview.title',
 			icon: 'overview.icon',
 			picture: 'picture.image',
-			lang: '__i18n_lang',
+			locale: '__i18n_lang',
+			referenceTitle: '__i18n_base.title',
 		},
 		prepare(selection) {
-			const { title, overviewTitle, icon, picture, lang } = selection;
+			const { title, overviewTitle, icon, picture, locale, referenceTitle } =
+				selection;
 			return {
 				title: overviewTitle || title,
 				media: icon || picture,
-				subtitle: lang,
+				subtitle: `${referenceTitle ? `${referenceTitle} - ` : ''}${locale}`,
 			};
 		},
 	},
