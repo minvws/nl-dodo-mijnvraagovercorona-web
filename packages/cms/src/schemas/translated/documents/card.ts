@@ -1,8 +1,8 @@
 import { defineType, defineField } from 'sanity';
 
 export default defineType({
-	title: 'Modals',
-	name: 'modals',
+	title: 'Kaarten',
+	name: 'card',
 	type: 'document',
 	i18n: true,
 	initialValue: {
@@ -33,15 +33,27 @@ export default defineType({
 			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
-			title: 'Afbeelding',
-			name: 'image',
-			type: 'image',
+			title: 'Chapeau',
+			name: 'chapeau',
+			type: 'string',
 		}),
 		defineField({
 			title: 'Content',
 			name: 'content',
-			type: 'customBlockWithoutModal',
-			validation: (Rule) => Rule.required(),
+			type: 'customBlock',
+		}),
+		defineField({
+			title: 'Knoppen',
+			name: 'buttons',
+			type: 'array',
+			validation: (Rule) => Rule.min(1).max(2),
+			of: [
+				defineField({
+					title: 'Knop',
+					name: 'button',
+					type: 'flexibleButton',
+				}),
+			],
 		}),
 	],
 });
