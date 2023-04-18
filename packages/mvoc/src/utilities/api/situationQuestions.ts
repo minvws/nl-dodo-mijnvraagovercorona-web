@@ -12,7 +12,7 @@ import type { Props as FormSwitchProps } from '@modules/forms/situations/FormSwi
 import type { ContentBlockProps } from '@design-system/components/ContentBlock';
 import { AssistanceProps, assistanceQuery } from './queries/assistance';
 
-export interface QuestionPageProps {
+export interface SituationQuestionPageProps {
 	header: {
 		title: string;
 		content: ContentBlockProps['value'];
@@ -29,7 +29,7 @@ export interface QuestionPageProps {
 
 export interface PageSituationQuestionProps
 	extends PageProps,
-		QuestionPageProps {
+		SituationQuestionPageProps {
 	slug: string;
 }
 
