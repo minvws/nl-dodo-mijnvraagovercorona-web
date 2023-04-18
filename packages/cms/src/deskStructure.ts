@@ -15,7 +15,7 @@ import { IoDocumentOutline } from 'react-icons/io5';
 import { RiQuestionLine, RiPagesLine } from 'react-icons/ri';
 import { MdOutlineTopic, MdLiveHelp } from 'react-icons/md';
 import { AiOutlineRead } from 'react-icons/ai';
-import { BsClipboardCheck } from 'react-icons/bs';
+import { BsClipboardCheck, BsPatchQuestion } from 'react-icons/bs';
 
 import { getFolder } from './utilities/getFolder';
 import { getDocumentList, getPageList } from './utilities/getDocumentList';
@@ -160,6 +160,11 @@ export default (S) =>
 								icon: FaFeatherAlt,
 							}),
 							S.divider(),
+							getTranslatedDocumentList(S, {
+								schemaType: 'question-page',
+								title: 'Vraag',
+								icon: BsPatchQuestion,
+							}),
 							getTranslatedDocumentList(S, {
 								schemaType: 'advice-page',
 								title: 'Advies',

@@ -16,6 +16,7 @@ import themePage from './translated/pages/theme';
 import errorPage from './translated/pages/error';
 import homePage from './translated/pages/homepage';
 import advicePage from './translated/pages/advice';
+import questionPage from './translated/pages/question';
 
 // objects
 import {
@@ -101,6 +102,7 @@ export default [
 	errorPage,
 	homePage,
 	advicePage,
+	questionPage,
 
 	// documents
 	siteSettingsDocument,
