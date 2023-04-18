@@ -31,6 +31,183 @@ export default defineType({
 			type: 'hero',
 		}),
 
+		// TODO: add content block
+
+		defineField({
+			title: 'Vraag',
+			name: 'question',
+			type: 'object',
+			fields: [
+				defineField({
+					title: 'Type vraag',
+					name: 'type',
+					type: 'string',
+					options: {
+						list: ['datepicker', 'single', 'multiple'],
+					},
+				}),
+
+				defineField({
+					title: 'Label',
+					name: 'label',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
+
+				defineField({
+					title: 'Antwoorden',
+					name: 'single',
+					type: 'array',
+					of: [
+						{
+							title: 'Antwoord',
+							name: 'answer',
+							type: 'object',
+							fields: [
+								defineField({
+									title: 'Content',
+									name: 'content',
+									type: 'customBlock',
+								}),
+								defineField({
+									title: 'Volgende',
+									name: 'next',
+									type: 'reference',
+									to: [{ type: 'question-page' }, { type: 'advice-page' }],
+									options: {
+										filter: filterReferenceByLanguage,
+									},
+								}),
+							],
+							preview: {
+								select: {
+									title: 'content',
+									subtitle: 'next.slug.current',
+								},
+							},
+						},
+					],
+					hidden: ({
+						document,
+					}: {
+						document: { question: { type: string } };
+					}) => document?.question?.type !== 'single',
+				}),
+
+				defineField({
+					title: 'Antwoorden',
+					name: 'multiple',
+					type: 'array',
+					of: [
+						defineField({
+							title: 'Antwoord',
+							name: 'answer',
+							type: 'object',
+							fields: [
+								defineField({
+									title: 'Content',
+									name: 'content',
+									type: 'string',
+								}),
+							],
+							preview: {
+								select: {
+									title: 'content',
+								},
+							},
+						}),
+					],
+					hidden: ({
+						document,
+					}: {
+						document: { question: { type: string } };
+					}) => document?.question?.type !== 'multiple',
+				}),
+				defineField({
+					title: 'Toon meer',
+					name: 'showMore',
+					type: 'object',
+					fields: [
+						defineField({
+							title: 'Aantal antwoorden in beeld',
+							description:
+								'Maximale aantal antwoorden in beeld, de rest word verstopt achter een "Meer" knop',
+							name: 'max',
+							type: 'number',
+						}),
+						defineField({
+							title: 'Label',
+							name: 'label',
+							type: 'thisOrThatString',
+						}),
+					],
+					hidden: ({
+						document,
+					}: {
+						document: { question: { type: string } };
+					}) => document?.question?.type !== 'multiple',
+				}),
+			],
+		}),
+
+		defineField({
+			title: 'Knoppen',
+			name: 'buttons',
+			type: 'array',
+			validation: (Rule) => Rule.min(1).max(2),
+			of: [
+				{
+					title: 'Button',
+					name: 'button',
+					type: 'object',
+					fields: [
+						defineField({
+							title: 'Tekst',
+							name: 'text',
+							type: 'string',
+						}),
+						defineField({
+							title: 'Standaard actie',
+							name: 'standard',
+							type: 'boolean',
+						}),
+						defineField({
+							title: 'Volgende',
+							name: 'next',
+							type: 'reference',
+							to: [{ type: 'question-page' }, { type: 'advice-page' }],
+							options: {
+								filter: filterReferenceByLanguage,
+							},
+						}),
+						defineField({
+							title: 'Modal kom je er niet uit',
+							name: 'assistanceDialog',
+							type: 'boolean',
+							description:
+								'Er moet een "Hulp" blok gekoppeld zijn aan deze pagina',
+						}),
+					],
+					preview: {
+						select: {
+							title: 'text',
+							subtitle: 'next.slug.current',
+						},
+					},
+				},
+			],
+		}),
+
+		defineField({
+			title: 'Hulp',
+			name: 'assistance',
+			type: 'reference',
+			to: [{ type: 'assistance' }],
+			options: {
+				filter: filterReferenceByLanguage,
+			},
+		}),
+
 		defineField({
 			title: 'Sub pagina referentie',
 			description:
