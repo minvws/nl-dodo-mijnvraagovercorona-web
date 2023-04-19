@@ -1,5 +1,4 @@
 ---
-import type { Props as SubmitProps } from './Submit.astro';
 import Submit from './Submit.astro';
 import { moduleName as AnswersMultipleModuleName } from './AnswersMultiple';
 import { Control } from '@design-system/elements/Control';
@@ -33,12 +32,10 @@ const secondGroup = answers.slice(
 );
 
 let daysToGenerate = [] as number[];
-let standardSlug = '';
 
 const parsedButtons = buttons?.map((button, index) => {
 	if (index === 0 && button.standard) {
 		daysToGenerate = getDaysToGenerate(button.next);
-		standardSlug = button.next.slug;
 	}
 	return index === 0 && button.standard
 		? { ...button, disabled: true }
