@@ -13,9 +13,6 @@ export default defineType({
 	i18n: true,
 	initialValue: {
 		__i18n_lang: 'nl',
-		// hero: {
-		// 	showUpdatedAt: true,
-		// },
 	},
 	fieldsets: [{ name: 'urlStructure', title: 'Url structuur' }],
 	fields: [
@@ -31,7 +28,15 @@ export default defineType({
 			type: 'hero',
 		}),
 
-		// TODO: add content block
+		defineField({
+			title: 'Content',
+			name: 'contentReference',
+			type: 'reference',
+			to: [{ type: 'duo-column-content' }],
+			options: {
+				filter: filterReferenceByLanguage,
+			},
+		}),
 
 		defineField({
 			title: 'Vraag',
