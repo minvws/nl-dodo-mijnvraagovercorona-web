@@ -1,41 +1,25 @@
 ---
+import { ContentBlock } from '@design-system/components/ContentBlock';
 import {
-	ContentBlock,
-	ContentBlockProps,
-} from '@design-system/components/ContentBlock';
-import { getLocaleFromURL } from 'src/utilities/locale/translation';
-import type { Props as SubmitProps } from './Submit.astro';
+	getLocaleFromURL,
+	prefixUrlWithlocale,
+} from 'src/utilities/locale/translation';
 import { moduleName as AnswersSingleModuleName } from './AnswersSingle';
 import Submit from './Submit.astro';
 import { Control } from '@design-system/elements/Control';
 import { Stack } from '@design-system/components/Layout/Stack';
-import { ContentStream } from '@design-system/components/ContentStream';
-import type { ContentStreamProps } from '@design-system/components/ContentStream/ContentStream.astro';
-import { AssistanceProps } from 'src/utilities/api/queries/assistance';
+import { AssistanceProps } from 'src/utilities/api/queries/translated/assistance';
 import { getDaysToGenerate } from 'src/utilities/helpers/advice-helpers';
+import { QuestionPageProps } from 'src/utilities/api';
+import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
 
 export interface Props {
-	answers: {
-		content: ContentBlockProps['value'];
-		next: {
-			type: string;
-			slug: string;
-			answer?: {
-				showOn?: Array<number>;
-			}[];
-			plan?: {
-				showOn?: Array<number>;
-				day?: number;
-			}[];
-		};
-		_key: string;
-	}[];
-	buttons: SubmitProps['buttons'];
-	content: ContentStreamProps;
+	answers: QuestionPageProps['question']['single'];
+	buttons: QuestionPageProps['buttons'];
 	assistance?: AssistanceProps;
 }
 
-const { answers, buttons, content, assistance } = Astro.props;
+const { answers, buttons, assistance } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
 
 const parsedButtons = buttons?.map((button, index) =>
@@ -52,7 +36,6 @@ const parsedButtons = buttons?.map((button, index) =>
 
 <form method="get" data-module={AnswersSingleModuleName}>
 	<Stack>
-		<ContentStream {...content} />
 		<div>
 			<Stack gap="small">
 				{
@@ -61,7 +44,7 @@ const parsedButtons = buttons?.map((button, index) =>
 							type="radio"
 							name={AnswersSingleModuleName}
 							id={_key}
-							value={`${locale.urlPrefix}/${next.slug}` || ''}
+							value={`${prefixUrlWithlocale(getFullPageUrl(next), locale)}`}
 							variant="tile"
 							data-max-days={getDaysToGenerate(next).length}
 						>

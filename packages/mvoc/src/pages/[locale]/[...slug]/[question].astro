@@ -7,6 +7,9 @@ import { Retain } from '@design-system/components/Layout/Retain';
 import { ContentBlock } from '@design-system/components/ContentBlock';
 import { Layer } from '@design-system/components/Layout/Layer';
 import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
+import FormSwitch from '@modules/forms/situations/FormSwitch.astro';
+import { Sidebar } from '@design-system/components/Layout/Sidebar';
+import { CardPrivacy } from '@design-system/components/Card';
 
 export async function getStaticPaths() {
 	const collection = await getDataQuestionPages();
@@ -57,7 +60,16 @@ const { pageData, locale } = Astro.props;
 	</Hero>
 	<Layer>
 		<Retain>
-			<Retain variant="text" />
+			<Sidebar>
+				<Retain variant="text">
+					<FormSwitch
+						question={pageData.question}
+						buttons={pageData.buttons}
+						assistance={pageData.assistance}
+					/>
+				</Retain>
+			</Sidebar>
+			<CardPrivacy slot="aside" />
 		</Retain>
 	</Layer>
 </Layout>

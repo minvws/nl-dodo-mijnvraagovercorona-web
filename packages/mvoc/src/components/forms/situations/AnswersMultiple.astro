@@ -8,29 +8,22 @@ import {
 	Disclosure,
 	DisclosureItem,
 } from '@design-system/components/Disclosure';
-import { ContentStreamProps } from '@design-system/components/ContentStream/ContentStream.astro';
-import { ContentStream } from '@design-system/components/ContentStream';
-import { AssistanceProps } from 'src/utilities/api/queries/assistance';
+import { AssistanceProps } from 'src/utilities/api/queries/translated/assistance';
 import { getDaysToGenerate } from 'src/utilities/helpers/advice-helpers';
+import { QuestionPageProps } from 'src/utilities/api';
 
 export interface Props {
-	answers: {
-		_key: string;
-		content: string;
-		checked?: boolean;
-	}[];
-	buttons: SubmitProps['buttons'];
-	content: ContentStreamProps;
-	showMoreLabel: {
-		this: string;
-		that: string;
-	};
+	answers: QuestionPageProps['question']['multiple'];
+	buttons: QuestionPageProps['buttons'];
+	showMore: QuestionPageProps['question']['showMore'];
 	assistance?: AssistanceProps;
 }
 
-const { answers, content, buttons, showMoreLabel, assistance } = Astro.props;
+const { answers, buttons, showMore, assistance } = Astro.props;
 
-const split = 6;
+console.log('buttons', buttons);
+
+const split = showMore?.max || 6;
 
 // Split items into 2 groups
 const firstGroup = answers.slice(0, split ? split : answers.length);
@@ -61,7 +54,6 @@ const parsedButtons = buttons?.map((button, index) => {
 	data-max-days={daysToGenerate.length}
 >
 	<Stack>
-		<ContentStream {...content} />
 		<div>
 			<Stack gap="small">
 				<Stack gap="small">
@@ -83,8 +75,8 @@ const parsedButtons = buttons?.map((button, index) => {
 					secondGroup.length ? (
 						<Disclosure>
 							<DisclosureItem
-								label={showMoreLabel.this}
-								labelActive={showMoreLabel.that}
+								label={showMore.label.this}
+								labelActive={showMore.label.that}
 							>
 								<Stack gap="small">
 									{secondGroup.map(({ content, _key }) => (

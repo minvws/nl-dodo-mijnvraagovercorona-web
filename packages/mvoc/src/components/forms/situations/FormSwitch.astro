@@ -1,64 +1,35 @@
 ---
-import type { Props as SubmitProps } from './Submit.astro';
-import type { Props as AnswersSingleProps } from './AnswersSingle.astro';
-import type { Props as AnswersMultipleProps } from './AnswersMultiple.astro';
 import AnswersSingle from './AnswersSingle.astro';
 import AnswersMultiple from './AnswersMultiple.astro';
-import { AssistanceProps } from 'src/utilities/api/queries/assistance';
 import AnswersDate from './AnswersDate.astro';
+import { QuestionPageProps } from 'src/utilities/api';
 
 export interface Props {
-	content: AnswersSingleProps['content'];
-	answersSingle?: AnswersSingleProps['answers'];
-	answersMultiple?: AnswersMultipleProps['answers'];
-	showMore: {
-		max: number;
-		label: {
-			this: string;
-			that: string;
-		};
-	};
-	// ageInput: {
-	// 	label: string;
-	// 	placeholder: string;
-	// };
-	type: 'multiple' | 'single' | 'datepicker' | 'buttons' | 'age';
-	buttons: SubmitProps['buttons'];
-	assistance?: AssistanceProps;
-	label: string;
+	question: QuestionPageProps['question'];
+	buttons: QuestionPageProps['buttons'];
+	assistance?: QuestionPageProps['assistance'];
 }
 
-const {
-	type,
-	content,
-	answersSingle,
-	answersMultiple,
-	buttons,
-	showMore,
-	assistance,
-	label,
-} = Astro.props;
+const { question, buttons, assistance } = Astro.props;
 ---
 
 <>
 	{
-		type === 'single' && answersSingle ? (
+		question.type === 'single' && question.single ? (
 			<AnswersSingle
-				answers={answersSingle}
+				answers={question.single}
 				buttons={buttons}
-				content={content}
 				assistance={assistance}
 			/>
-		) : type === 'multiple' && answersMultiple ? (
+		) : question.type === 'multiple' && question.multiple ? (
 			<AnswersMultiple
-				showMoreLabel={showMore.label}
-				answers={answersMultiple}
+				showMore={question.showMore}
+				answers={question.multiple}
 				buttons={buttons}
-				content={content}
 				assistance={assistance}
 			/>
-		) : type === 'datepicker' ? (
-			<AnswersDate buttons={buttons} label={label} />
+		) : question.type === 'datepicker' ? (
+			<AnswersDate buttons={buttons} label={question.label} />
 		) : null
 	}
 </>
