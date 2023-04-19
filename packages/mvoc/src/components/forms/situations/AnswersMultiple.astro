@@ -10,6 +10,7 @@ import {
 import { AssistanceProps } from 'src/utilities/api/queries/translated/assistance';
 import { getDaysToGenerate } from 'src/utilities/helpers/advice-helpers';
 import { QuestionPageProps } from 'src/utilities/api';
+import { DuoColumnContent } from '@design-system/components/DuoColumnContent';
 
 export interface Props {
 	answers: QuestionPageProps['question']['multiple'];
@@ -20,7 +21,7 @@ export interface Props {
 	label?: string;
 }
 
-const { answers, buttons, showMore, assistance, label } = Astro.props;
+const { answers, buttons, showMore, assistance, content, label } = Astro.props;
 
 const split = showMore?.max || 6;
 
