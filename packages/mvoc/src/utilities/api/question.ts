@@ -5,10 +5,12 @@ import { getPageTranslations } from '../helpers/get-page-translations';
 import {
 	HeroProps,
 	PageProps,
+	PictureProps,
 	SubFolderReferenceProps,
 	customBlockQuery,
 	heroQuery,
 	pageQuery,
+	pictureQuery,
 	subFolderReferenceQuery,
 } from './queries/translated';
 import {
@@ -18,6 +20,16 @@ import {
 
 export interface QuestionPageProps extends PageProps {
 	hero: HeroProps;
+	content?: {
+		columnOne: {
+			content: ContentBlockProps['value'];
+			picture?: PictureProps;
+		};
+		columnTwo?: {
+			content?: ContentBlockProps['value'];
+			picture?: PictureProps;
+		};
+	};
 	question: {
 		type: 'multiple' | 'single' | 'datepicker';
 		label: string;
@@ -78,6 +90,16 @@ export interface QuestionPageProps extends PageProps {
 export async function getDataQuestionPages() {
 	const projection = `{
 		${heroQuery()},
+		"content": contentReference->{
+			columnOne{
+				${customBlockQuery({ name: 'content' })},
+				${pictureQuery({})},
+			},
+			columnTwo{
+				${customBlockQuery({ name: 'content' })},
+				${pictureQuery({})},
+			},
+		},
 		question{
 			type,
 			label,

@@ -16,6 +16,7 @@ export interface Props {
 	buttons: QuestionPageProps['buttons'];
 	showMore: QuestionPageProps['question']['showMore'];
 	assistance?: AssistanceProps;
+	content?: QuestionPageProps['content'];
 	label?: string;
 }
 
@@ -50,6 +51,7 @@ const parsedButtons = buttons?.map((button, index) => {
 	data-max-days={daysToGenerate.length}
 >
 	<Stack>
+		{content ? <DuoColumnContent content={content} /> : null}
 		<fieldset>
 			{label ? <legend class="u-visually-hidden">{label}</legend> : null}
 			<Stack gap="small">

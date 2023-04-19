@@ -1,53 +1,44 @@
 ---
 import { HTMLAttributes } from 'astro/types';
-import { ImageProps } from 'src/utilities/api/queries';
-import { ContentBlock, ContentBlockProps } from '../ContentBlock';
+import { ContentBlock } from '../ContentBlock';
 import { Stack } from '../Layout/Stack';
+import { QuestionPageProps } from 'src/utilities/api';
 
 export interface ContentStreamProps {
-	contentPrimary?: ContentBlockProps['value'];
-	imagePrimary?: ImageProps;
-	contentSecondary?: ContentBlockProps['value'];
-	imageSecondary?: ImageProps;
+	content: QuestionPageProps['content'];
 }
 
 interface Props extends HTMLAttributes<'div'>, ContentStreamProps {}
 
-const {
-	class: className,
-	contentPrimary,
-	imagePrimary,
-	contentSecondary,
-	imageSecondary,
-	...attrs
-} = Astro.props;
+const { class: className, content, ...attrs } = Astro.props;
+console.log('content', content);
 
 const items = [];
 
-const hasImagePrimary = !!(imagePrimary && imagePrimary.src);
-const hasImageSecondary = !!(imageSecondary && imageSecondary.src);
+const hasImagePrimary = !!content.columnOne?.picture?.image?.src;
+const hasImageSecondary = !!content.columnTwo?.picture?.image?.src;
 
 // Only primary content
 if (
-	contentPrimary &&
+	content.columnOne.content &&
 	!hasImagePrimary &&
-	!contentSecondary &&
+	!content?.columnTwo?.content &&
 	!hasImageSecondary
 )
-	items.push({ content: contentPrimary, image: null });
+	items.push({ content: content.columnOne.content, image: null });
 
 // Primary content & image
-if (contentPrimary && hasImagePrimary)
+if (content?.columnOne?.content && hasImagePrimary)
 	items.push({
-		content: contentPrimary,
-		image: imagePrimary,
+		content: content.columnOne.content,
+		image: content.columnOne.picture.image,
 	});
 
 // Secondary content & image
-if (contentSecondary && hasImageSecondary)
+if (content?.columnTwo?.content && hasImageSecondary)
 	items.push({
-		content: contentSecondary,
-		image: imageSecondary,
+		content: content.columnTwo.content,
+		image: content.columnOne.picture.image,
 	});
 ---
 

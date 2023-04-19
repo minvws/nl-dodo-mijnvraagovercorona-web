@@ -8,9 +8,10 @@ export interface Props {
 	question: QuestionPageProps['question'];
 	buttons: QuestionPageProps['buttons'];
 	assistance?: QuestionPageProps['assistance'];
+	content?: QuestionPageProps['content'];
 }
 
-const { question, buttons, assistance } = Astro.props;
+const { question, buttons, assistance, content } = Astro.props;
 ---
 
 <>
@@ -21,6 +22,7 @@ const { question, buttons, assistance } = Astro.props;
 				answers={question.single}
 				buttons={buttons}
 				assistance={assistance}
+				content={content}
 			/>
 		) : question.type === 'multiple' && question.multiple ? (
 			<AnswersMultiple

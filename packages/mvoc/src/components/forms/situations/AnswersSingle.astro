@@ -12,15 +12,17 @@ import { AssistanceProps } from 'src/utilities/api/queries/translated/assistance
 import { getDaysToGenerate } from 'src/utilities/helpers/advice-helpers';
 import { QuestionPageProps } from 'src/utilities/api';
 import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
+import { DuoColumnContent } from '@design-system/components/DuoColumnContent';
 
 export interface Props {
 	answers: QuestionPageProps['question']['single'];
 	buttons: QuestionPageProps['buttons'];
 	assistance?: AssistanceProps;
+	content?: QuestionPageProps['content'];
 	label?: string;
 }
 
-const { answers, buttons, assistance, label } = Astro.props;
+const { answers, buttons, assistance, label, content } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
 
 const parsedButtons = buttons?.map((button, index) =>
@@ -37,6 +39,7 @@ const parsedButtons = buttons?.map((button, index) =>
 
 <form method="get" data-module={AnswersSingleModuleName}>
 	<Stack>
+		{content ? <DuoColumnContent content={content} /> : null}
 		<fieldset>
 			{label ? <legend class="u-visually-hidden">{label}</legend> : null}
 			<Stack gap="small">
