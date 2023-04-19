@@ -51,11 +51,6 @@ const mvocPagesDocumentsConfig = [
 		icon: MdOutlineTopic,
 	},
 	{
-		schemaType: 'landing-situations-document',
-		title: `Landingpagina situaties`,
-		icon: GiAirplaneArrival,
-	},
-	{
 		schemaType: 'theme-document',
 		title: `Thema`,
 		icon: FaFeatherAlt,

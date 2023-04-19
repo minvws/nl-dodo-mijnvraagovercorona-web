@@ -52,7 +52,6 @@ import situationQuestionDocument from './documents/situation-question';
 import situationResultDocument from './documents/situation-result';
 import contentFeedDocument from './documents/content-feed';
 import contentCardDocument from './documents/content-card';
-import landingSituationsDocument from './documents/landing-situations';
 import tipDocument from './documents/tip';
 import storyDocument from './documents/story';
 
@@ -166,7 +165,6 @@ export default [
 	situationQuestionDocument,
 	situationResultDocument,
 	contentFeedDocument,
-	landingSituationsDocument,
 	tipDocument,
 
 	/**
