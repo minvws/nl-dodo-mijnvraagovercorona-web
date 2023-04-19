@@ -7,6 +7,7 @@ import modalsDocument from './translated/documents/modals';
 import taleDocument from './translated/documents/tale';
 import assistanceDocument from './translated/documents/assistance';
 import cardDocument from './translated/documents/card';
+import duoColumnContentDocument from './translated/documents/duoColumnContent';
 
 // Pages
 import genericPage from './translated/pages/generic';
@@ -109,6 +110,7 @@ export default [
 	taleDocument,
 	assistanceDocument,
 	cardDocument,
+	duoColumnContentDocument,
 
 	// objects
 	customBlockObject,
