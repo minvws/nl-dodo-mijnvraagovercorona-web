@@ -17,14 +17,16 @@ const { question, buttons, assistance } = Astro.props;
 	{
 		question.type === 'single' && question.single ? (
 			<AnswersSingle
+				label={question.label}
 				answers={question.single}
 				buttons={buttons}
 				assistance={assistance}
 			/>
 		) : question.type === 'multiple' && question.multiple ? (
 			<AnswersMultiple
-				showMore={question.showMore}
+				label={question.label}
 				answers={question.multiple}
+				showMore={question.showMore}
 				buttons={buttons}
 				assistance={assistance}
 			/>

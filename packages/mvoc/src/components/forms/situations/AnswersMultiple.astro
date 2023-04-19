@@ -16,11 +16,10 @@ export interface Props {
 	buttons: QuestionPageProps['buttons'];
 	showMore: QuestionPageProps['question']['showMore'];
 	assistance?: AssistanceProps;
+	label?: string;
 }
 
-const { answers, buttons, showMore, assistance } = Astro.props;
-
-console.log('buttons', buttons);
+const { answers, buttons, showMore, assistance, label } = Astro.props;
 
 const split = showMore?.max || 6;
 
@@ -51,7 +50,8 @@ const parsedButtons = buttons?.map((button, index) => {
 	data-max-days={daysToGenerate.length}
 >
 	<Stack>
-		<div>
+		<fieldset>
+			{label ? <legend class="u-visually-hidden">{label}</legend> : null}
 			<Stack gap="small">
 				<Stack gap="small">
 					{
@@ -93,7 +93,7 @@ const parsedButtons = buttons?.map((button, index) => {
 					) : null
 				}
 			</Stack>
-		</div>
+		</fieldset>
 
 		<Submit buttons={parsedButtons} assistance={assistance} />
 	</Stack>

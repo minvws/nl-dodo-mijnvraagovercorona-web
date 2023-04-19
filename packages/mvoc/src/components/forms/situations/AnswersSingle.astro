@@ -17,9 +17,10 @@ export interface Props {
 	answers: QuestionPageProps['question']['single'];
 	buttons: QuestionPageProps['buttons'];
 	assistance?: AssistanceProps;
+	label?: string;
 }
 
-const { answers, buttons, assistance } = Astro.props;
+const { answers, buttons, assistance, label } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
 
 const parsedButtons = buttons?.map((button, index) =>
@@ -36,7 +37,8 @@ const parsedButtons = buttons?.map((button, index) =>
 
 <form method="get" data-module={AnswersSingleModuleName}>
 	<Stack>
-		<div>
+		<fieldset>
+			{label ? <legend class="u-visually-hidden">{label}</legend> : null}
 			<Stack gap="small">
 				{
 					answers.map(({ content, next, _key }) => (
@@ -53,7 +55,7 @@ const parsedButtons = buttons?.map((button, index) =>
 					))
 				}
 			</Stack>
-		</div>
+		</fieldset>
 		<Submit buttons={parsedButtons} assistance={assistance} />
 	</Stack>
 </form>
