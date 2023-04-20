@@ -11,6 +11,7 @@ export default defineField({
 		{ type: 'generic-page' },
 		{ type: 'locations-page' },
 		{ type: 'advice-page' },
+		{ type: 'pza-landing-page' },
 	],
 	options: {
 		filter: filterReferenceByLanguage,
