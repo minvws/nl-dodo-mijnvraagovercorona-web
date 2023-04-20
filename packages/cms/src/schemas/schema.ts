@@ -8,6 +8,7 @@ import taleDocument from './translated/documents/tale';
 import assistanceDocument from './translated/documents/assistance';
 import cardDocument from './translated/documents/card';
 import duoColumnContentDocument from './translated/documents/duoColumnContent';
+import ctaButtonDocument from './translated/documents/ctaButton';
 
 // Pages
 import genericPage from './translated/pages/generic';
@@ -111,6 +112,7 @@ export default [
 	assistanceDocument,
 	cardDocument,
 	duoColumnContentDocument,
+	ctaButtonDocument,
 
 	// objects
 	customBlockObject,
