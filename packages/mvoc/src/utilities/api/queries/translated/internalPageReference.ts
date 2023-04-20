@@ -36,9 +36,7 @@ export const internalPageReferenceInSelectQuery = (): string => {
 			{},
 		)},
 		pageReference->_type == "locations-page" => ${internalPageReferenceFolderReferenceQuery(
-			{
-				referencePrefix: 'theme->slug.current',
-			},
+			{},
 		)},
 		pageReference->_type == "advice-page" => ${internalPageReferenceFolderReferenceQuery(
 			{},

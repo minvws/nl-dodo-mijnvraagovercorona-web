@@ -16,28 +16,41 @@ import { Sidebar } from '@design-system/components/Layout/Sidebar';
 import { CardPrivacy } from '@design-system/components/Card';
 import { TaleList } from '@design-system/components/Tale';
 import { Assistance } from '@design-system/components/Assistance';
-import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
+import {
+	getFullPageUrl,
+	getPageSubfolder,
+} from 'src/utilities/helpers/page-subfolder';
+import { Feedback } from '@design-system/components/Feedback';
+import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
+import {
+	SiteSettingsProps,
+	useSiteSettings,
+} from 'src/utilities/api/queries/translated';
 
 export async function getStaticPaths() {
 	const collection = await getDataPZALandingPages();
-	return collection
-		.filter(
-			(page: PZALandingPageProps) =>
-				availableLocales.filter((locale) => locale.id === page.localeID).length,
-		)
-		.map((page: PZALandingPageProps) => ({
-			params: {
-				locale: page.localeID,
-				theme: page.theme.slug,
-				pzaLanding: page.slug,
-			},
-			props: {
-				pageData: page,
-				locale: availableLocales.filter(
-					(locale) => locale.id === page.localeID,
-				)[0],
-			},
-		}));
+	return (
+		collection
+			// filter out unavailable locales
+			.filter(
+				(page: PZALandingPageProps) =>
+					availableLocales.filter((locale) => locale.id === page.localeID)
+						.length,
+			)
+			.map((page: PZALandingPageProps) => ({
+				params: {
+					slug: getPageSubfolder(page),
+					locale: page.localeID,
+					pzaLanding: page.slug,
+				},
+				props: {
+					pageData: page,
+					locale: availableLocales.filter(
+						(locale) => locale.id === page.localeID,
+					)[0],
+				},
+			}))
+	);
 }
 
 interface Props {
@@ -46,6 +59,9 @@ interface Props {
 }
 
 const { pageData, locale } = Astro.props;
+const siteSettings: SiteSettingsProps = await useSiteSettings({
+	locale,
+});
 ---
 
 <Layout
@@ -98,6 +114,12 @@ const { pageData, locale } = Astro.props;
 					<Sidebar>
 						<Stack gap="huge">
 							<TaleList taleCollection={pageData.taleCollection} />
+							<Feedback
+								name="Prikken Home"
+								url={getFeedbackUrl(siteSettings.feedback.url, {
+									source: 'Prikken Home',
+								})}
+							/>
 							{pageData.assistance && <Assistance {...pageData.assistance} />}
 						</Stack>
 						<Stack slot="aside">
