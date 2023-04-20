@@ -25,10 +25,10 @@ export const buttonsQuery = ({
 	return `${omitProperty ? '' : `button${array ? 's[]' : ''}`}{
 		label,
 		"slugCollection": select(
-			${internalPageReferenceInSelectQuery()}
+			${internalPageReferenceInSelectQuery()},
 			{
 				"slug": href
-			},
+			}
 		),
 		variant,
 		icon,

@@ -10,42 +10,13 @@ export interface InternalPageCollectionProps {
 	}[];
 }
 
-const internalPageReferenceFolderReferenceQuery = ({
-	slugPrefix,
-	referencePrefix,
-}: {
-	slugPrefix?: string;
-	referencePrefix?: string;
-}): string => {
-	return `
-		pageReference->{
-			"slug": ${slugPrefix ? `'${slugPrefix}' + '/' + ` : ''}${
-		referencePrefix ? `${referencePrefix} + '/' + ` : ''
-	}slug.current,
-			${subFolderReferenceQuery()}
-		}
-	`;
-};
-
 export const internalPageReferenceInSelectQuery = (): string => {
 	return `
-		pageReference->_type == "theme-page" => ${internalPageReferenceFolderReferenceQuery(
-			{},
-		)},
-		pageReference->_type == "generic-page" => ${internalPageReferenceFolderReferenceQuery(
-			{},
-		)},
-		pageReference->_type == "locations-page" => ${internalPageReferenceFolderReferenceQuery(
-			{},
-		)},
-		pageReference->_type == "advice-page" => ${internalPageReferenceFolderReferenceQuery(
-			{},
-		)},
-		pageReference->_type == "tip-document" => ${internalPageReferenceFolderReferenceQuery(
-			{
-				slugPrefix: 'tip',
-			},
-		)},
+		pageReference->_type match "-page" =>
+		pageReference->{
+			"slug": slug.current,
+			${subFolderReferenceQuery()}
+		}
 	`;
 };
 
@@ -54,21 +25,9 @@ export const internalPageReferenceQuery = (): string => {
 		label,
 		"link": select(
 			defined(href) => {"slug": href},
-			pageReference->_type == "theme-page" => pageReference->{
+			pageReference->_type match "-page" => pageReference->{
 				"label": metaData.title,
 				"slug": slug.current
-			},
-			pageReference->_type == "generic-page" => pageReference->{
-				"label": metaData.title,
-				"slug": slug.current,
-			},
-			pageReference->_type == "locations-page" => pageReference->{
-				"label": metaData.title,
-				"slug": pageReference->theme->slug.current + '/' + pageReference->slug.current,
-			},
-			pageReference->_type == "tip-document" => pageReference->{
-				"label": metaData.title,
-				"slug": 'tip/' + slug.current
 			},
 		),
 	}`;
