@@ -40,6 +40,7 @@ import interimQuestionSelectorObject from './translated/objects/interimQuestionS
 import thisOrThatStringObject from './translated/objects/thisOrThatString';
 import pageSourceSelectorObject from './translated/objects/pageSourceSelector';
 import moreInfoObject from './translated/objects/moreInfo';
+import ctaButtonSelectorObject from './translated/objects/ctaButtonSelector';
 
 /**
  * Old document structure
@@ -132,6 +133,7 @@ export default [
 	thisOrThatStringObject,
 	pageSourceSelectorObject,
 	moreInfoObject,
+	ctaButtonSelectorObject,
 
 	/**
 	 * Pages
