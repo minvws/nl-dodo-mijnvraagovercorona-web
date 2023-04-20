@@ -8,6 +8,9 @@ import {
 	getLocaleFromURL,
 	prefixUrlWithlocale,
 } from 'src/utilities/locale/translation';
+import { CtaButtonCollectionProps } from 'src/utilities/api/queries/translated/ctaButton';
+import { SubFolderReferenceProps } from 'src/utilities/api/queries/translated';
+import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
 
 type Props = Parameters<typeof Mark>[0];
 
@@ -18,7 +21,11 @@ interface MarkProps {
 		style: string;
 	};
 	mark?: {
-		href: string;
+		href?: string;
+		slugCollection?: {
+			slug: string;
+			subFolderReference: SubFolderReferenceProps;
+		};
 		chevron?: boolean;
 		internal?: boolean;
 		button?: boolean;
@@ -38,7 +45,11 @@ const Component = mark.button ? Button : Link;
 ---
 
 <Component
-	href={mark.href ? prefixUrlWithlocale(mark.href, locale) : undefined}
+	href={mark.slugCollection
+		? prefixUrlWithlocale(getFullPageUrl(mark.slugCollection), locale)
+		: mark.href
+		? prefixUrlWithlocale(mark.href, locale)
+		: undefined}
 >
 	<ContentBlock value={children} />
 </Component>
