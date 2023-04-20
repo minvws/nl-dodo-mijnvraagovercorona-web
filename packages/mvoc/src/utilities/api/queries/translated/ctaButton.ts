@@ -17,7 +17,9 @@ export const ctaButtonCollectionQuery = (): string => {
 	return `ctaButtonCollection[]->{
 		${customBlockQuery({ name: 'label' })},
 		"slugCollection": select(
-			defined(href) => href,
+			defined(href) => {
+				"slug": href,
+			},
 			${internalPageReferenceInSelectQuery()},
 		),
 	}`;
