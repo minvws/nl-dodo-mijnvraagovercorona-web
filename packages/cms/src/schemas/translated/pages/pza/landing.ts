@@ -14,27 +14,20 @@ export default defineType({
 	initialValue: {
 		__i18n_lang: 'nl',
 	},
+	fieldsets: [{ name: 'urlStructure', title: 'Url structuur' }],
 	fields: [
-		defineField({
-			title: 'Thema',
-			name: 'theme',
-			type: 'reference',
-			to: [{ type: 'theme-page' }],
-			validation: (Rule) => Rule.required(),
-			options: {
-				filter: filterReferenceByLanguage,
-			},
-		}),
 		defineField({
 			title: 'Meta data',
 			name: 'metaData',
 			type: 'metaData',
 		}),
+
 		defineField({
 			title: 'Hero',
 			name: 'hero',
 			type: 'hero',
 		}),
+
 		defineField({
 			title: 'Knoppen',
 			name: 'buttons',
@@ -48,16 +41,19 @@ export default defineType({
 				}),
 			],
 		}),
+
 		defineField({
 			title: 'Content onder knoppen',
 			name: 'contentSecondary',
 			type: 'customBlock',
 		}),
+
 		defineField({
 			title: 'Tales',
 			name: 'taleCollection',
 			type: 'taleSelector',
 		}),
+
 		defineField({
 			title: 'Hulp',
 			name: 'assistance',
@@ -67,10 +63,21 @@ export default defineType({
 				filter: filterReferenceByLanguage,
 			},
 		}),
+
+		defineField({
+			title: 'Sub pagina referentie',
+			description:
+				'Genereert deze pagina onder een andere pagina in de hierachie',
+			name: 'subFolderReference',
+			type: 'pageSourceSelector',
+			fieldset: 'urlStructure',
+		}),
+
 		defineField({
 			title: 'Slug',
 			name: 'slug',
 			type: 'slug',
+			fieldset: 'urlStructure',
 			validation: (Rule) => Rule.required(),
 			options: {
 				source: 'metaData.title',
@@ -80,16 +87,20 @@ export default defineType({
 	],
 	preview: {
 		select: {
-			title: 'metaData.title',
+			title: 'hero.title',
 			locale: '__i18n_lang',
 			slug: 'slug.current',
-			theme: 'theme.slug.current',
+			subFolderReferenceSlug: 'subFolderReference.slug.current',
+			media: 'hero.image',
 		},
 		prepare(selection) {
-			const { title, locale, slug, theme } = selection;
+			const { title, locale, slug, subFolderReferenceSlug, media } = selection;
 			return {
 				title: title,
-				subtitle: `/${locale}/${theme}/${slug}`,
+				subtitle: `/${locale}${
+					subFolderReferenceSlug ? `/…/${subFolderReferenceSlug}` : ''
+				}/${slug}`,
+				media,
 			};
 		},
 	},
