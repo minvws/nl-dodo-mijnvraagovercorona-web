@@ -7,6 +7,7 @@ import modalsDocument from './translated/documents/modals';
 import taleDocument from './translated/documents/tale';
 import assistanceDocument from './translated/documents/assistance';
 import cardDocument from './translated/documents/card';
+import duoColumnContentDocument from './translated/documents/duoColumnContent';
 
 // Pages
 import genericPage from './translated/pages/generic';
@@ -16,6 +17,7 @@ import themePage from './translated/pages/theme';
 import errorPage from './translated/pages/error';
 import homePage from './translated/pages/homepage';
 import advicePage from './translated/pages/advice';
+import questionPage from './translated/pages/question';
 
 // objects
 import {
@@ -51,7 +53,6 @@ import situationQuestionDocument from './documents/situation-question';
 import situationResultDocument from './documents/situation-result';
 import contentFeedDocument from './documents/content-feed';
 import contentCardDocument from './documents/content-card';
-import landingSituationsDocument from './documents/landing-situations';
 import tipDocument from './documents/tip';
 import storyDocument from './documents/story';
 
@@ -101,6 +102,7 @@ export default [
 	errorPage,
 	homePage,
 	advicePage,
+	questionPage,
 
 	// documents
 	siteSettingsDocument,
@@ -108,6 +110,7 @@ export default [
 	taleDocument,
 	assistanceDocument,
 	cardDocument,
+	duoColumnContentDocument,
 
 	// objects
 	customBlockObject,
@@ -164,7 +167,6 @@ export default [
 	situationQuestionDocument,
 	situationResultDocument,
 	contentFeedDocument,
-	landingSituationsDocument,
 	tipDocument,
 
 	/**

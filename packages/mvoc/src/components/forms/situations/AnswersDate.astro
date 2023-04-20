@@ -15,12 +15,13 @@ import {
 	getLocaleFromURL,
 	prefixUrlWithlocale,
 } from 'src/utilities/locale/translation';
-import type { Props as SubmitProps } from './Submit.astro';
 import Submit from './Submit.astro';
 import { FieldDatePicker } from '@design-system/components/Form/FieldDatePicker';
+import { QuestionPageProps } from 'src/utilities/api';
+import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
 
 interface Props extends HTMLAttributes<'form'> {
-	buttons: SubmitProps['buttons'];
+	buttons: QuestionPageProps['buttons'];
 	label: string;
 }
 
@@ -34,7 +35,7 @@ let standardSlug = '';
 const parsedButtons = buttons?.map((button, index) => {
 	if (index === 0 && button.standard) {
 		daysToGenerate = getDaysToGenerate(button.next);
-		standardSlug = button.next.slug;
+		standardSlug = getFullPageUrl(button.next);
 	}
 	return index === 0 && button.standard
 		? {

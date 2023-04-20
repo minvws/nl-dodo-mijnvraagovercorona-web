@@ -3,12 +3,8 @@ import Layout from '../../../layouts/Layout.astro';
 import { availableLocales, Locale } from 'src/utilities/locale/translation';
 import { Hero } from '@design-system/components/Hero';
 import { ContentBlock } from '@design-system/components/ContentBlock';
-import {
-	AdvicePageProps,
-	getDataAdvicePages,
-} from 'src/utilities/api/generic-slug-pages/advice';
+import { AdvicePageProps, getDataAdvicePages } from 'src/utilities/api/advice';
 import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
-import { UpdatedAt } from '@design-system/elements/UpdatedAt';
 import {
 	SiteSettingsProps,
 	useSiteSettings,

@@ -1,6 +1,6 @@
 import { AlternativeTranslationsProps } from '@design-system/components/LocaleSelector';
 import { useSanityClient } from 'astro-sanity';
-import { getPageTranslations } from '../../helpers/get-page-translations';
+import { getPageTranslations } from '../helpers/get-page-translations';
 import {
 	ButtonsProps,
 	HeroProps,
@@ -11,12 +11,12 @@ import {
 	heroQuery,
 	moreInfoQuery,
 	pageQuery,
-} from '../queries/translated';
+} from './queries/translated';
 import type { ContentBlockProps } from '@design-system/components/ContentBlock';
 import {
 	AssistanceProps,
 	assistanceQuery,
-} from '../queries/translated/assistance';
+} from './queries/translated/assistance';
 
 interface CardProps {
 	title: string;

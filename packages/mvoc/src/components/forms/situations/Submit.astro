@@ -5,28 +5,13 @@ import {
 	getLocaleFromURL,
 	prefixUrlWithlocale,
 } from 'src/utilities/locale/translation';
-import { AssistanceProps } from 'src/utilities/api/queries/assistance';
+import { AssistanceProps } from 'src/utilities/api/queries/translated/assistance';
 import { Assistance } from '@design-system/components/Assistance';
+import { QuestionPageProps } from 'src/utilities/api';
+import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
 
 export interface Props {
-	buttons: {
-		_key: string;
-		standard: boolean;
-		assistanceDialog: boolean;
-		text: string;
-		next: {
-			type: string;
-			slug: string;
-			answer?: {
-				showOn?: Array<number>;
-			}[];
-			plan?: {
-				showOn?: Array<number>;
-				day?: number;
-			}[];
-		};
-		disabled?: boolean;
-	}[];
+	buttons: QuestionPageProps['buttons'];
 	assistance?: AssistanceProps;
 }
 
@@ -43,7 +28,7 @@ const locale = getLocaleFromURL(Astro.url.pathname);
 					disabled={button.disabled}
 					formaction={
 						button.next && button.next.slug
-							? prefixUrlWithlocale(button.next.slug, locale)
+							? prefixUrlWithlocale(getFullPageUrl(button.next), locale)
 							: undefined
 					}
 					variant={index === 0 ? 'primary' : 'secondary'}
@@ -64,7 +49,7 @@ const locale = getLocaleFromURL(Astro.url.pathname);
 				</>
 			) : (
 				<Button
-					href={prefixUrlWithlocale(button.next.slug, locale)}
+					href={prefixUrlWithlocale(getFullPageUrl(button.next), locale)}
 					variant={index === 0 ? 'primary' : 'secondary'}
 				>
 					{button.text}
