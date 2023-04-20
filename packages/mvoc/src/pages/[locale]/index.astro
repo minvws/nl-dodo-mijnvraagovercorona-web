@@ -174,7 +174,7 @@ const pageData: PageHomeProps = pagesData.filter(
 		pageData.assistance && (
 			<Layer id={stringToSlug(pageData.assistance.headline)}>
 				<Retain>
-					<Assistance feedback {...pageData.assistance} />
+					<Assistance {...pageData.assistance} />
 				</Retain>
 			</Layer>
 		)

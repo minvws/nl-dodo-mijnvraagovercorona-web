@@ -41,7 +41,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 ---
 
 <div
-	class={`c-assistance${feedback ? ' c-assistance--feedback' : ''}${
+	class={`c-assistance${feedback || getHelp ? ' c-assistance--feedback' : ''}${
 		className ? ` | ${className}` : ''
 	}`}
 	data-module="assistance"
@@ -130,7 +130,27 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 		</Stack>
 
 		{
-			getHelp ? (
+			feedback && (locale.id === 'nl' || locale.id === 'en') ? (
+				<Stack>
+					<img
+						src={image?.src || '/images/questions.svg'}
+						alt=""
+						loading="lazy"
+						class={`c-assistance__img c-assistance__img-feedback`}
+					/>
+					<Heading level={3} styledAs={2}>
+						{situation.question}
+					</Heading>
+					<Button
+						href={getFeedbackUrl(siteSettings.feedback.url, {
+							source: 'home',
+							advice: 'home',
+						})}
+					>
+						{situation.button}
+					</Button>
+				</Stack>
+			) : getHelp ? (
 				<Stack>
 					<img
 						src={image?.src || '/images/questions.svg'}
@@ -150,26 +170,6 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 						interactionIconAnimation={'swing'}
 					>
 						{getHelp.button.label}
-					</Button>
-				</Stack>
-			) : feedback && (locale.id === 'nl' || locale.id === 'en') ? (
-				<Stack>
-					<img
-						src={image?.src || '/images/questions.svg'}
-						alt=""
-						loading="lazy"
-						class={`c-assistance__img c-assistance__img-feedback`}
-					/>
-					<Heading level={3} styledAs={2}>
-						{situation.question}
-					</Heading>
-					<Button
-						href={getFeedbackUrl(siteSettings.feedback.url, {
-							source: 'home',
-							advice: 'home',
-						})}
-					>
-						{situation.button}
 					</Button>
 				</Stack>
 			) : null
