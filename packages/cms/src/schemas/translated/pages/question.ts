@@ -56,6 +56,8 @@ export default defineType({
 					title: 'Label',
 					name: 'label',
 					type: 'string',
+					description:
+						'Dit veld word alleen getoond voor screenreader gebruikers',
 					validation: (Rule) => Rule.required(),
 				}),
 
