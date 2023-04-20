@@ -17,28 +17,35 @@ import { CardPrivacy } from '@design-system/components/Card';
 import { TaleList } from '@design-system/components/Tale';
 import { Assistance } from '@design-system/components/Assistance';
 import { stringToSlug } from 'src/utilities/stringToSlug';
-import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
+import {
+	getFullPageUrl,
+	getPageSubfolder,
+} from 'src/utilities/helpers/page-subfolder';
 
 export async function getStaticPaths() {
 	const collection = await getDataPZALandingPages();
-	return collection
-		.filter(
-			(page: PZALandingPageProps) =>
-				availableLocales.filter((locale) => locale.id === page.localeID).length,
-		)
-		.map((page: PZALandingPageProps) => ({
-			params: {
-				locale: page.localeID,
-				theme: page.theme.slug,
-				pzaLanding: page.slug,
-			},
-			props: {
-				pageData: page,
-				locale: availableLocales.filter(
-					(locale) => locale.id === page.localeID,
-				)[0],
-			},
-		}));
+	return (
+		collection
+			// filter out unavailable locales
+			.filter(
+				(page: PZALandingPageProps) =>
+					availableLocales.filter((locale) => locale.id === page.localeID)
+						.length,
+			)
+			.map((page: PZALandingPageProps) => ({
+				params: {
+					slug: getPageSubfolder(page),
+					locale: page.localeID,
+					pzaLanding: page.slug,
+				},
+				props: {
+					pageData: page,
+					locale: availableLocales.filter(
+						(locale) => locale.id === page.localeID,
+					)[0],
+				},
+			}))
+	);
 }
 
 interface Props {
@@ -47,6 +54,8 @@ interface Props {
 }
 
 const { pageData, locale } = Astro.props;
+
+console.log(pageData.buttons[0].slugCollection);
 ---
 
 <Layout
