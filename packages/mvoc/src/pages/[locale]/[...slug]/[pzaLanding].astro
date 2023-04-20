@@ -21,6 +21,12 @@ import {
 	getFullPageUrl,
 	getPageSubfolder,
 } from 'src/utilities/helpers/page-subfolder';
+import { Feedback } from '@design-system/components/Feedback';
+import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
+import {
+	SiteSettingsProps,
+	useSiteSettings,
+} from 'src/utilities/api/queries/translated';
 
 export async function getStaticPaths() {
 	const collection = await getDataPZALandingPages();
@@ -54,8 +60,9 @@ interface Props {
 }
 
 const { pageData, locale } = Astro.props;
-
-console.log(pageData.buttons[0].slugCollection);
+const siteSettings: SiteSettingsProps = await useSiteSettings({
+	locale,
+});
 ---
 
 <Layout
@@ -108,6 +115,12 @@ console.log(pageData.buttons[0].slugCollection);
 					<Sidebar>
 						<Stack gap="huge">
 							<TaleList taleCollection={pageData.taleCollection} />
+							<Feedback
+								name="Prikken Home"
+								url={getFeedbackUrl(siteSettings.feedback.url, {
+									source: 'Prikken Home',
+								})}
+							/>
 							{pageData.assistance && <Assistance {...pageData.assistance} />}
 						</Stack>
 						<Stack slot="aside">
