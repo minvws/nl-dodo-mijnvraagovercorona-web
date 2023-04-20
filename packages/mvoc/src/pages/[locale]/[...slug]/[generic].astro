@@ -105,7 +105,7 @@ const tocStories =
 					}
 
 					{
-						pageData?.moreInfo?.items?.length ? (
+						pageData?.moreInfo?.items.filter((item) => item?.slug)?.length ? (
 							<section>
 								<Stack>
 									<Heading level={2}>
@@ -113,7 +113,9 @@ const tocStories =
 											? pageData.moreInfo.title
 											: siteSettings.genericLabels.moreInfo}
 									</Heading>
-									<MoreInfoOverview items={pageData.moreInfo.items} />
+									<MoreInfoOverview
+										items={pageData.moreInfo.items.filter((item) => item?.slug)}
+									/>
 								</Stack>
 							</section>
 						) : null
