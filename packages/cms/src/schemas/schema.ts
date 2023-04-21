@@ -8,6 +8,7 @@ import taleDocument from './translated/documents/tale';
 import assistanceDocument from './translated/documents/assistance';
 import cardDocument from './translated/documents/card';
 import duoColumnContentDocument from './translated/documents/duoColumnContent';
+import ctaButtonDocument from './translated/documents/ctaButton';
 
 // Pages
 import genericPage from './translated/pages/generic';
@@ -39,6 +40,7 @@ import interimQuestionSelectorObject from './translated/objects/interimQuestionS
 import thisOrThatStringObject from './translated/objects/thisOrThatString';
 import pageSourceSelectorObject from './translated/objects/pageSourceSelector';
 import moreInfoObject from './translated/objects/moreInfo';
+import ctaButtonSelectorObject from './translated/objects/ctaButtonSelector';
 
 /**
  * Old document structure
@@ -111,6 +113,7 @@ export default [
 	assistanceDocument,
 	cardDocument,
 	duoColumnContentDocument,
+	ctaButtonDocument,
 
 	// objects
 	customBlockObject,
@@ -130,6 +133,7 @@ export default [
 	thisOrThatStringObject,
 	pageSourceSelectorObject,
 	moreInfoObject,
+	ctaButtonSelectorObject,
 
 	/**
 	 * Pages

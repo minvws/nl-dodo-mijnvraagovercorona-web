@@ -23,6 +23,7 @@ import {
 	BsAirplane,
 	BsGlobe,
 	BsFileText,
+	BsArrowRightSquare,
 } from 'react-icons/bs';
 
 import { getFolder } from './utilities/getFolder';
@@ -118,6 +119,11 @@ export default (S) =>
 						title: 'Documenten',
 						icon: BsFileEarmark,
 						items: [
+							getTranslatedDocumentList(S, {
+								schemaType: 'cta-button-document',
+								title: 'CTA knop',
+								icon: BsArrowRightSquare,
+							}),
 							getTranslatedDocumentList(S, {
 								schemaType: 'modals',
 								title: 'Modals',

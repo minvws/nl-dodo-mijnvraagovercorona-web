@@ -22,6 +22,10 @@ import {
 	TaleCollectionProps,
 } from './queries/translated';
 import { ButtonProps, buttonsQuery } from './queries/translated/buttons';
+import {
+	CtaButtonCollectionProps,
+	ctaButtonCollectionQuery,
+} from './queries/translated/ctaButton';
 
 export interface PageHomeProps extends PageProps {
 	hero: HeroProps;
@@ -32,6 +36,7 @@ export interface PageHomeProps extends PageProps {
 		title: string;
 		content: ContentBlockProps['value'];
 		icon: ImageProps;
+		ctaButtonCollection: CtaButtonCollectionProps['ctaButtonCollection'];
 		questionCollection: InterimQuestionCollectionProps['questionCollection'];
 	};
 	alternatives: AlternativeTranslationsProps[];
@@ -74,6 +79,7 @@ export async function getDataHome() {
 			title,
 			${customBlockQuery({ name: 'content' })},
 			${imageQuery({ name: 'icon' })},
+			${ctaButtonCollectionQuery()},
 			${interimQuestionCollectionQuery()},
 		},
 		currentAdvice{

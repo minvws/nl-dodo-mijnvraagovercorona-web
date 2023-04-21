@@ -129,7 +129,7 @@ const pageData: PageHomeProps = pagesData.filter(
 
 	{
 		pageData?.important?.title &&
-		pageData?.important?.questionCollection?.filter((item) => item.label)
+		pageData?.important?.ctaButtonCollection?.filter((item) => item.label)
 			.length ? (
 			<Layer id={stringToSlug(pageData.important.title)}>
 				<Retain>
@@ -141,12 +141,15 @@ const pageData: PageHomeProps = pagesData.filter(
 							<ContentBlock value={pageData.important.content} />
 						</SectionHeadingGroup>
 						<GridFluid class="grid-important">
-							{pageData.important.questionCollection
+							{pageData.important.ctaButtonCollection
 								?.filter((item) => item.label)
 								.map((item) => (
 									<Button
 										variant="tertiary"
-										href={prefixUrlWithlocale(item.href, locale)}
+										href={prefixUrlWithlocale(
+											getFullPageUrl(item.slugCollection),
+											locale,
+										)}
 										icon="chevron-small-right"
 										interactionIconAnimation="swing"
 									>
