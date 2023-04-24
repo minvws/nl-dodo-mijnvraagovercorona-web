@@ -19,6 +19,8 @@ import {
 import { Heading } from '@design-system/elements/Heading';
 import { MoreInfoOverview } from '@design-system/components/MoreInfo';
 import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
+import { Feedback } from '@design-system/components/Feedback';
+import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
 
 export async function getStaticPaths() {
 	const collection = await getDataGenericPages();
@@ -142,6 +144,14 @@ const tocStories =
 							</section>
 						) : null
 					}
+
+					<Feedback
+						name="Situatie Advies"
+						url={getFeedbackUrl(siteSettings.feedback.url, {
+							source: 'generic-page',
+							advice: pageData.slug,
+						})}
+					/>
 				</Stack>
 			</Retain>
 		</Retain>
