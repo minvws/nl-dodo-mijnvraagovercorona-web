@@ -19,6 +19,7 @@ import { Stack } from '@design-system/components/Layout/Stack';
 import { Button } from '@design-system/elements/Button';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { GridFluid } from '@design-system/components/Layout/Grid';
+import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
 
 export async function getStaticPaths() {
 	const collection = await getDataErrorPages();
@@ -84,13 +85,16 @@ const homePageData = homeCollection.filter(
 							<Stack gap="small">
 								<ContentBlock value={pageData.content} />
 								<GridFluid class="grid-important">
-									{homePageData.important.questionCollection
+									{homePageData.important.ctaButtonCollection
 										?.filter((item) => item.label)
-										.filter((item) => !item.href.startsWith('#'))
+										.filter((item) => !item.slugCollection.slug.startsWith('#'))
 										.map((item) => (
 											<Button
 												variant="tertiary"
-												href={prefixUrlWithlocale(item.href, locale)}
+												href={prefixUrlWithlocale(
+													getFullPageUrl(item.slugCollection),
+													locale,
+												)}
 												icon="chevron-small-right"
 												interactionIconAnimation="swing"
 											>
