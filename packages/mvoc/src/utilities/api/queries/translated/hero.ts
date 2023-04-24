@@ -9,6 +9,7 @@ export interface HeroProps {
 	chapeau?: string;
 	image?: ImageProps;
 	content?: ContentBlockProps['value'];
+	showUpdatedAt?: boolean;
 }
 
 export const heroQuery = (): string => {

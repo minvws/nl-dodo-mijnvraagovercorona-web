@@ -14,8 +14,9 @@ export default defineType({
 		}),
 		defineField({
 			title: 'Interne link',
+			description: 'Creëert een interne link naar een andere pagina.',
 			name: 'pageReference',
-			type: 'pageReference',
+			type: 'pageSourceSelector',
 			readOnly: ({ parent }) => !!parent?.href,
 		}),
 		defineField({

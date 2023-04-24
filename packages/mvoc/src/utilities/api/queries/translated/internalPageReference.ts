@@ -1,3 +1,5 @@
+import { subFolderReferenceQuery } from './subFolderReference';
+
 export interface InternalPageCollectionProps {
 	internalPageCollection: {
 		label: string;
@@ -10,10 +12,11 @@ export interface InternalPageCollectionProps {
 
 export const internalPageReferenceInSelectQuery = (): string => {
 	return `
-		pageReference->_type == "theme-page" => pageReference->slug.current,
-		pageReference->_type == "generic-page" => pageReference->slug.current,
-		pageReference->_type == "locations-page" => pageReference->theme->slug.current + '/' + pageReference->slug.current,
-		pageReference->_type == "tip-document" => 'tip/' + pageReference->slug.current,
+		pageReference->_type match "-page" =>
+		pageReference->{
+			"slug": slug.current,
+			${subFolderReferenceQuery()}
+		}
 	`;
 };
 
@@ -22,21 +25,9 @@ export const internalPageReferenceQuery = (): string => {
 		label,
 		"link": select(
 			defined(href) => {"slug": href},
-			pageReference->_type == "theme-page" => pageReference->{
+			pageReference->_type match "-page" => pageReference->{
 				"label": metaData.title,
 				"slug": slug.current
-			},
-			pageReference->_type == "generic-page" => pageReference->{
-				"label": metaData.title,
-				"slug": slug.current,
-			},
-			pageReference->_type == "locations-page" => pageReference->{
-				"label": metaData.title,
-				"slug": pageReference->theme->slug.current + '/' + pageReference->slug.current,
-			},
-			pageReference->_type == "tip-document" => pageReference->{
-				"label": metaData.title,
-				"slug": 'tip/' + slug.current
 			},
 		),
 	}`;

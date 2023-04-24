@@ -1,5 +1,6 @@
 import { FiLink } from 'react-icons/fi';
 import { VscScreenFull } from 'react-icons/vsc';
+import { defineField } from 'sanity';
 import { filterReferenceByLanguage } from '../../../utilities/filterReferenceByLanguage';
 
 const generate = (
@@ -39,10 +40,16 @@ const generate = (
 						title: 'Link',
 						icon: FiLink,
 						fields: [
+							defineField({
+								title: 'Pagina link',
+								name: 'pageReference',
+								type: 'pageSourceSelector',
+								readOnly: ({ parent }) => !!parent?.href,
+							}),
 							{
 								name: 'href',
 								type: 'string',
-								validation: (Rule) => Rule.required(),
+								readOnly: ({ parent }) => !!parent?.pageReference,
 							},
 							{ name: 'button', type: 'boolean' },
 						],

@@ -1,31 +1,25 @@
 ---
-import {
-	Disclosure,
-	DisclosureItem,
-} from '@design-system/components/Disclosure';
 import { Heading } from '@design-system/elements/Heading';
 import { Button } from '@design-system/elements/Button';
 import { Stack } from '@design-system/components/Layout/Stack';
 import { Card } from '.';
 import { Chapeau } from '@design-system/elements/Chapeau';
+import { ButtonsProps } from 'src/utilities/api/queries/translated';
+import {
+	Locale,
+	getLocaleFromURL,
+	prefixUrlWithlocale,
+} from 'src/utilities/locale/translation';
+import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
 
 interface Props {
 	title: string;
 	chapeau?: string;
-	disclosure?: {
-		label: {
-			this: string;
-			that: string;
-		};
-	};
-	buttons?: {
-		link?: string;
-		situation?: string;
-		text: string;
-	}[];
+	buttons?: ButtonsProps;
 }
 
-const { title, chapeau, disclosure, buttons } = Astro.props;
+const { title, chapeau, buttons } = Astro.props;
+const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 ---
 
 <Card>
@@ -38,23 +32,20 @@ const { title, chapeau, disclosure, buttons } = Astro.props;
 		<slot />
 
 		{
-			disclosure?.label.this && disclosure?.label.that ? (
-				<Disclosure>
-					<DisclosureItem
-						label={disclosure.label.this}
-						labelActive={disclosure.label.that}
-					>
-						<slot name="disclosure-content" />
-					</DisclosureItem>
-				</Disclosure>
-			) : null
-		}
-		{
 			!!buttons?.length ? (
 				<ul class="c-card-block__wrap-buttons" role="list">
-					{buttons.map(({ text, link, situation }) => (
+					{buttons.map((button) => (
 						<li>
-							<Button href={link || `/${situation}`}>{text}</Button>
+							<Button
+								variant={button.variant}
+								href={prefixUrlWithlocale(
+									getFullPageUrl(button.slugCollection),
+									locale,
+								)}
+								icon={button.icon}
+							>
+								{button.label}
+							</Button>
 						</li>
 					))}
 				</ul>
@@ -72,7 +63,7 @@ const { title, chapeau, disclosure, buttons } = Astro.props;
 		gap: var(--space-r-milli);
 	}
 
-	.c-card__wrap-buttons {
+	.c-card-block__wrap-buttons {
 		display: flex;
 		flex-direction: column;
 		gap: var(--space-r-small);

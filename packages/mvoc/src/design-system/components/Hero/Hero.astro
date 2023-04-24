@@ -5,17 +5,17 @@ import { ImageProps } from 'src/utilities/api/queries';
 import { Retain } from '@design-system/components/Layout/Retain';
 import { Stack } from '@design-system/components/Layout/Stack';
 import { Switcher } from '@design-system/components/Layout/Grid';
-import { heroQuery } from 'src/utilities/api/queries/translated';
-import { ContentBlock } from '../ContentBlock';
+import { UpdatedAt } from '@design-system/elements/UpdatedAt';
 
 interface Props {
 	title: string;
 	chapeau?: string;
 	image?: ImageProps;
 	highlight?: boolean;
+	updatedAt?: string;
 }
 
-const { title, content, chapeau, image, highlight } = Astro.props;
+const { title, chapeau, image, highlight, updatedAt } = Astro.props;
 ---
 
 <header class={`c-hero${highlight ? ` c-hero--highlight` : ''}`}>
@@ -31,6 +31,8 @@ const { title, content, chapeau, image, highlight } = Astro.props;
 			<Stack gap={'small'}>
 				<hgroup class="c-hero__hgroup">
 					<Heading class="c-hero__title" level={1}>{title}</Heading>
+					{updatedAt ? <UpdatedAt time={updatedAt} /> : null}
+
 					<slot name="prefix" />
 					{
 						chapeau ? (

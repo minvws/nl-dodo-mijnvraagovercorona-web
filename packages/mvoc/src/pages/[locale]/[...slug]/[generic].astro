@@ -1,0 +1,158 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { availableLocales, Locale } from 'src/utilities/locale/translation';
+import { GenericPageProps, getDataGenericPages } from 'src/utilities/api';
+import { Hero } from '@design-system/components/Hero';
+import { Retain } from '@design-system/components/Layout/Retain';
+import { ContentBlock } from '@design-system/components/ContentBlock';
+import { Layer } from '@design-system/components/Layout/Layer';
+import { Card } from '@design-system/components/Card';
+import { Stack } from '@design-system/components/Layout/Stack';
+import { TaleList } from '@design-system/components/Tale';
+import { stringToSlug } from 'src/utilities/stringToSlug';
+import { Assistance } from '@design-system/components/Assistance';
+import { AnchorList } from '@design-system/components/Lists';
+import {
+	SiteSettingsProps,
+	useSiteSettings,
+} from 'src/utilities/api/queries/translated';
+import { Heading } from '@design-system/elements/Heading';
+import { MoreInfoOverview } from '@design-system/components/MoreInfo';
+import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
+
+export async function getStaticPaths() {
+	const collection = await getDataGenericPages();
+	return (
+		collection
+			// filter out unavailable locales
+			.filter(
+				(page: GenericPageProps) =>
+					availableLocales.filter((locale) => locale.id === page.localeID)
+						.length,
+			)
+			.map((page: GenericPageProps) => ({
+				params: {
+					slug: getPageSubfolder(page),
+					generic: page.slug,
+					locale: page.localeID,
+				},
+				props: {
+					pageData: page,
+					locale: availableLocales.filter(
+						(locale) => locale.id === page.localeID,
+					)[0],
+				},
+			}))
+	);
+}
+
+interface Props {
+	pageData: GenericPageProps;
+	locale: Locale;
+}
+
+const { pageData, locale } = Astro.props;
+const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+const tocStories =
+	pageData.taleCollection && pageData.taleCollection.length
+		? pageData.taleCollection.filter((tale) => tale?.overview?.title)
+		: [];
+---
+
+<Layout
+	locale={locale}
+	metaData={pageData.metaData}
+	alternativeTranslations={pageData.alternatives}
+>
+	<Hero
+		title={pageData.hero.title}
+		chapeau={pageData.hero.chapeau}
+		image={pageData.hero.image}
+		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
+	>
+		<ContentBlock value={pageData.hero.content} />
+		{
+			pageData.showTOC ? (
+				<AnchorList
+					as="ol"
+					items={tocStories.map((tale) => ({
+						label: tale.overview.title,
+						href: `#${stringToSlug(tale.title)}`,
+						image: tale.overview.icon,
+					}))}
+				/>
+			) : null
+		}
+	</Hero>
+	<Layer>
+		<Retain>
+			<Retain variant="text">
+				<Stack gap="huge">
+					{
+						pageData.content ? (
+							<div>
+								<Stack gap="small">
+									<ContentBlock value={pageData.content} />
+								</Stack>
+							</div>
+						) : null
+					}
+					{
+						pageData?.taleCollection?.length ? (
+							<TaleList taleCollection={pageData.taleCollection} />
+						) : null
+					}
+
+					{
+						pageData?.moreInfo?.items?.filter((item) => item?.slug)?.length ? (
+							<section>
+								<Stack>
+									<Heading level={2}>
+										{pageData.moreInfo.title
+											? pageData.moreInfo.title
+											: siteSettings.genericLabels.moreInfo}
+									</Heading>
+									<MoreInfoOverview
+										items={pageData.moreInfo.items.filter((item) => item?.slug)}
+									/>
+								</Stack>
+							</section>
+						) : null
+					}
+
+					{
+						pageData?.sources?.content ? (
+							<section
+								id={stringToSlug(
+									pageData.sources.title
+										? pageData.sources.title
+										: siteSettings.genericLabels.sources,
+								)}
+							>
+								<Card variant="filled">
+									<Stack>
+										<Heading level={2}>
+											{pageData.sources.title
+												? pageData.sources.title
+												: siteSettings.genericLabels.sources}
+										</Heading>
+										<ContentBlock value={pageData.sources.content} />
+									</Stack>
+								</Card>
+							</section>
+						) : null
+					}
+				</Stack>
+			</Retain>
+		</Retain>
+	</Layer>
+	{
+		pageData.assistance && (
+			<Layer id={stringToSlug(pageData.assistance.headline)}>
+				<Retain>
+					<Assistance feedback {...pageData.assistance} />
+				</Retain>
+			</Layer>
+		)
+	}
+</Layout>

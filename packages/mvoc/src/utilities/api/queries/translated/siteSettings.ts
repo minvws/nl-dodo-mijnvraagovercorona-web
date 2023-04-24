@@ -69,6 +69,7 @@ export interface SiteSettingsProps {
 		};
 		sources: string;
 		moreTips: string;
+		moreInfo: string;
 		updatedAt: string;
 		map: string;
 		list: string;
@@ -151,6 +152,7 @@ export const siteSettingsQuery = ({ locale }: { locale: Locale }): string => `
 			},
 			sources,
 			moreTips,
+			moreInfo,
 			updatedAt,
 			map,
 			list,

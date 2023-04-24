@@ -19,6 +19,7 @@ import { GridFluid } from '@design-system/components/Layout/Grid';
 import { Stack } from '@design-system/components/Layout/Stack';
 import { Assistance } from '@design-system/components/Assistance';
 import { TaleList } from '@design-system/components/Tale';
+import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
 
 export async function getStaticPaths() {
 	const collection = await getDataThemes();
@@ -61,6 +62,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 		title={pageData.hero.title}
 		image={pageData.hero.image}
 		chapeau={pageData.hero.chapeau}
+		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
 		highlight
 	>
 		<UpdatedAt slot="prefix" time={pageData.updatedAt} />
@@ -74,23 +76,26 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 		id="situaties"
 	>
 		{
-			pageData?.questionCollection?.filter((item) => item.label).length ? (
+			pageData?.ctaButtonCollection?.filter((item) => item.label).length ? (
 				<Retain>
 					<Stack>
 						<Heading>
-							{pageData.questionCollection.length > 1
-								? `${pageData.questionCollection.length} ${siteSettings.situationPlural.that}`
-								: `${pageData.questionCollection.length} ${siteSettings.situationPlural.this}`}{' '}
+							{pageData.ctaButtonCollection.length > 1
+								? `${pageData.ctaButtonCollection.length} ${siteSettings.situationPlural.that}`
+								: `${pageData.ctaButtonCollection.length} ${siteSettings.situationPlural.this}`}{' '}
 							{pageData.titleFlow}
 						</Heading>
 
 						<GridFluid class="grid-questions">
-							{pageData.questionCollection
+							{pageData.ctaButtonCollection
 								?.filter((item) => item.label)
 								.map((item) => (
 									<Button
 										variant="tertiary"
-										href={prefixUrlWithlocale(item.href, locale)}
+										href={prefixUrlWithlocale(
+											getFullPageUrl(item.slugCollection),
+											locale,
+										)}
 										icon="chevron-small-right"
 										interactionIconAnimation="swing"
 									>

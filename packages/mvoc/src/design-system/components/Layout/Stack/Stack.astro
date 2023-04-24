@@ -1,7 +1,7 @@
 ---
 import { HTMLAttributes } from 'astro/types';
-interface Props extends HTMLAttributes<'div' | 'ul' | 'ol'> {
-	as?: 'div' | 'ul' | 'ol';
+interface Props extends HTMLAttributes<'div' | 'ul' | 'ol' | 'fieldset'> {
+	as?: 'div' | 'ul' | 'ol' | 'fieldset';
 	gap?:
 		| 'nano'
 		| 'milli'

@@ -85,7 +85,7 @@ export const prefixUrlWithlocale = (href: string, locale: Locale) =>
 	// check if href aready contains a available locale
 	availableLocales.filter(
 		(localeTest) =>
-			href.startsWith(localeTest.id) || href.startsWith(localeTest.urlPrefix),
+			href === localeTest.id || href.startsWith(localeTest.urlPrefix),
 	).length === 0 &&
 	!isExternalUrl(href) &&
 	!href.startsWith('#') &&

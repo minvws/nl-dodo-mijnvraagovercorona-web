@@ -16,9 +16,6 @@ export default defineType({
 		},
 		prepare(selection) {
 			const { title, locale, referenceTitle } = selection;
-
-			console.log('reference', referenceTitle);
-
 			return {
 				title: title,
 				subtitle: `${referenceTitle ? `${referenceTitle} - ` : ''}${locale}`,

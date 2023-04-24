@@ -6,6 +6,9 @@ import siteSettingsDocument from './translated/documents/siteSettings';
 import modalsDocument from './translated/documents/modals';
 import taleDocument from './translated/documents/tale';
 import assistanceDocument from './translated/documents/assistance';
+import cardDocument from './translated/documents/card';
+import duoColumnContentDocument from './translated/documents/duoColumnContent';
+import ctaButtonDocument from './translated/documents/ctaButton';
 
 // Pages
 import genericPage from './translated/pages/generic';
@@ -14,6 +17,8 @@ import pzaLandingPage from './translated/pages/pza/landing';
 import themePage from './translated/pages/theme';
 import errorPage from './translated/pages/error';
 import homePage from './translated/pages/homepage';
+import advicePage from './translated/pages/advice';
+import questionPage from './translated/pages/question';
 
 // objects
 import {
@@ -33,6 +38,9 @@ import internalPageSelectorObject from './translated/objects/internalPageSelecto
 import taleSelectorObject from './translated/objects/taleSelector';
 import interimQuestionSelectorObject from './translated/objects/interimQuestionSelector';
 import thisOrThatStringObject from './translated/objects/thisOrThatString';
+import pageSourceSelectorObject from './translated/objects/pageSourceSelector';
+import moreInfoObject from './translated/objects/moreInfo';
+import ctaButtonSelectorObject from './translated/objects/ctaButtonSelector';
 
 /**
  * Old document structure
@@ -47,7 +55,6 @@ import situationQuestionDocument from './documents/situation-question';
 import situationResultDocument from './documents/situation-result';
 import contentFeedDocument from './documents/content-feed';
 import contentCardDocument from './documents/content-card';
-import landingSituationsDocument from './documents/landing-situations';
 import tipDocument from './documents/tip';
 import storyDocument from './documents/story';
 
@@ -96,12 +103,17 @@ export default [
 	themePage,
 	errorPage,
 	homePage,
+	advicePage,
+	questionPage,
 
 	// documents
 	siteSettingsDocument,
 	modalsDocument,
 	taleDocument,
 	assistanceDocument,
+	cardDocument,
+	duoColumnContentDocument,
+	ctaButtonDocument,
 
 	// objects
 	customBlockObject,
@@ -119,6 +131,9 @@ export default [
 	interimQuestionSelectorObject,
 	taleSelectorObject,
 	thisOrThatStringObject,
+	pageSourceSelectorObject,
+	moreInfoObject,
+	ctaButtonSelectorObject,
 
 	/**
 	 * Pages
@@ -156,7 +171,6 @@ export default [
 	situationQuestionDocument,
 	situationResultDocument,
 	contentFeedDocument,
-	landingSituationsDocument,
 	tipDocument,
 
 	/**

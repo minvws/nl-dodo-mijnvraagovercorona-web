@@ -1,7 +1,12 @@
 import { Locale } from 'src/utilities/locale/translation';
-import { MetaDataProps, metaDataQuery } from '.';
+import {
+	MetaDataProps,
+	SubFolderReferenceProps,
+	metaDataQuery,
+	subFolderReferenceQuery,
+} from '.';
 
-export interface PageProps {
+export interface PageProps extends SubFolderReferenceProps {
 	metaData: MetaDataProps;
 	updatedAt: string;
 	id: string;
@@ -41,6 +46,7 @@ export const pageQuery = ({
 			theme->{
 				"slug": slug.current,
 			},
+			${subFolderReferenceQuery()},
 			...${projection},
 			${metaDataQuery()},
 		},

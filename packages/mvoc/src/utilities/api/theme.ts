@@ -17,6 +17,10 @@ import {
 	AssistanceProps,
 	assistanceQuery,
 } from './queries/translated/assistance';
+import {
+	CtaButtonCollectionProps,
+	ctaButtonCollectionQuery,
+} from './queries/translated/ctaButton';
 
 export interface ThemePageProps
 	extends PageProps,
@@ -24,6 +28,7 @@ export interface ThemePageProps
 	hero: HeroProps;
 	titleFlow: string;
 	assistance: AssistanceProps;
+	ctaButtonCollection: CtaButtonCollectionProps['ctaButtonCollection'];
 	questionCollection: InterimQuestionCollectionProps['questionCollection'];
 	taleCollection: TaleCollectionProps['taleCollection'];
 	alternatives: AlternativeTranslationsProps[];
@@ -35,6 +40,7 @@ export async function getDataThemes() {
 	const projection = `{
 		${heroQuery()},
 		titleFlow,
+		${ctaButtonCollectionQuery()},
 		${interimQuestionCollectionQuery()},
 		${assistanceQuery()},
 		${taleReferenceQuery()},

@@ -16,6 +16,7 @@ import {
 	isButton,
 	isVideo,
 } from 'src/utilities/api/queries/translated';
+import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
 
 interface Props {
 	multiContentBlocks: MultiContentBlocksProps;
@@ -35,7 +36,10 @@ const locale = getLocaleFromURL(Astro.url.pathname);
 					</Stack>
 				) : isButton(multiContentBlock) ? (
 					<Button
-						href={prefixUrlWithlocale(multiContentBlock.href, locale)}
+						href={prefixUrlWithlocale(
+							getFullPageUrl(multiContentBlock.slugCollection),
+							locale,
+						)}
 						icon={multiContentBlock.icon}
 						variant={multiContentBlock.variant}
 					>

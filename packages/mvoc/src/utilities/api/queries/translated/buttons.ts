@@ -1,11 +1,14 @@
 import { ButtonVariants } from '@design-system/elements/Button';
 import { IconProps } from '@design-system/elements/Icon';
-import { internalPageReferenceInSelectQuery } from '.';
+import { SubFolderReferenceProps, internalPageReferenceInSelectQuery } from '.';
 
 export interface ButtonProps {
 	type: 'button';
 	label: string;
-	href?: string;
+	slugCollection?: {
+		slug: string;
+		subFolderReference: SubFolderReferenceProps;
+	};
 	variant: ButtonVariants;
 	icon: IconProps['name'];
 }
@@ -21,9 +24,11 @@ export const buttonsQuery = ({
 }): string => {
 	return `${omitProperty ? '' : `button${array ? 's[]' : ''}`}{
 		label,
-		"href": select(
-			${internalPageReferenceInSelectQuery()}
-			href,
+		"slugCollection": select(
+			${internalPageReferenceInSelectQuery()},
+			{
+				"slug": href
+			}
 		),
 		variant,
 		icon,

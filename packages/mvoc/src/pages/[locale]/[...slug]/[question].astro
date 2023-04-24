@@ -1,27 +1,32 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import Layout from '../../../layouts/Layout.astro';
 import { availableLocales, Locale } from 'src/utilities/locale/translation';
-import { GenericPageProps, getDataGenericPages } from 'src/utilities/api';
+import { QuestionPageProps, getDataQuestionPages } from 'src/utilities/api';
 import { Hero } from '@design-system/components/Hero';
 import { Retain } from '@design-system/components/Layout/Retain';
 import { ContentBlock } from '@design-system/components/ContentBlock';
 import { Layer } from '@design-system/components/Layout/Layer';
+import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
+import FormSwitch from '@modules/forms/situations/FormSwitch.astro';
 import { Sidebar } from '@design-system/components/Layout/Sidebar';
 import { CardPrivacy } from '@design-system/components/Card';
-import { Stack } from '@design-system/components/Layout/Stack';
 
 export async function getStaticPaths() {
-	const collection = await getDataGenericPages();
+	const collection = await getDataQuestionPages();
 	return (
 		collection
 			// filter out unavailable locales
 			.filter(
-				(page: GenericPageProps) =>
+				(page: QuestionPageProps) =>
 					availableLocales.filter((locale) => locale.id === page.localeID)
 						.length,
 			)
-			.map((page: GenericPageProps) => ({
-				params: { generic: page.slug, locale: page.localeID },
+			.map((page: QuestionPageProps) => ({
+				params: {
+					slug: getPageSubfolder(page),
+					question: page.slug,
+					locale: page.localeID,
+				},
 				props: {
 					pageData: page,
 					locale: availableLocales.filter(
@@ -33,7 +38,7 @@ export async function getStaticPaths() {
 }
 
 interface Props {
-	pageData: GenericPageProps;
+	pageData: QuestionPageProps;
 	locale: Locale;
 }
 
@@ -49,6 +54,7 @@ const { pageData, locale } = Astro.props;
 		title={pageData.hero.title}
 		chapeau={pageData.hero.chapeau}
 		image={pageData.hero.image}
+		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
 	>
 		<ContentBlock value={pageData.hero.content} />
 	</Hero>
@@ -56,12 +62,15 @@ const { pageData, locale } = Astro.props;
 		<Retain>
 			<Sidebar>
 				<Retain variant="text">
-					<Stack gap="small">
-						<ContentBlock value={pageData.content} />
-					</Stack>
+					<FormSwitch
+						question={pageData.question}
+						buttons={pageData.buttons}
+						assistance={pageData.assistance}
+						content={pageData.content}
+					/>
 				</Retain>
-				<CardPrivacy slot="aside" />
 			</Sidebar>
+			<CardPrivacy slot="aside" />
 		</Retain>
 	</Layer>
 </Layout>
