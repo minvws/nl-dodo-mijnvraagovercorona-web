@@ -109,5 +109,11 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 
 			checkSize();
 		</script>
+
+		<script>
+			import { trackEvent } from 'src/utilities/tracking/piwik';
+			const pageType = document.querySelector('html').dataset.pageType;
+			trackEvent('Page', 'Visit', pageType);
+		</script>
 	</body>
 </html>
