@@ -6,10 +6,9 @@ import {
 	useSiteSettings,
 } from 'src/utilities/api/queries/translated';
 import {
-	getCurrentUrlForLocale,
+	availableLocales,
 	getLocaleFromURL,
 	Locale,
-	standardAvailableLocales,
 } from 'src/utilities/locale/translation';
 import { AlternativeTranslationsProps } from './types';
 
@@ -23,6 +22,14 @@ const currentLocale = getLocaleFromURL(Astro.url.pathname) as Locale;
 const siteSettings: SiteSettingsProps = await useSiteSettings({
 	locale: currentLocale,
 });
+
+// Order alternativeTranslations based on our own order in availableLocales
+const translationsOrder = alternativeTranslations
+	.slice()
+	.sort(
+		(a, b) =>
+			availableLocales.indexOf(a.locale) - availableLocales.indexOf(b.locale),
+	);
 ---
 
 <div
@@ -54,12 +61,12 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 	>
 		<ul role="list" data-module-bind="locale-selector__panel-inner">
 			{
-				alternativeTranslations &&
-				alternativeTranslations.filter(
+				translationsOrder &&
+				translationsOrder.filter(
 					(alternativeTranslation) =>
 						alternativeTranslation.locale.id !== currentLocale.id,
 				).length
-					? alternativeTranslations
+					? translationsOrder
 							.filter(
 								(alternativeTranslation) =>
 									alternativeTranslation.locale.id !== currentLocale.id,
@@ -78,22 +85,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 									</Link>
 								</li>
 							))
-					: standardAvailableLocales
-							.filter((locale) => locale.id !== currentLocale.id)
-							.map((locale) => (
-								<li>
-									<Link
-										href={getCurrentUrlForLocale(
-											Astro.url.pathname,
-											locale,
-											currentLocale,
-										)}
-										class="c-locale-selector__link"
-									>
-										{locale.fullName}
-									</Link>
-								</li>
-							))
+					: null
 			}
 		</ul>
 	</div>
