@@ -18,6 +18,7 @@ import {
 import { MastFoot } from '@design-system/components/MastFoot';
 
 export interface Props {
+	type?: string;
 	locale: Locale;
 	alternativeTranslations?: AlternativeTranslationsProps[];
 	metaData: MetaDataProps;
@@ -28,6 +29,7 @@ export interface Props {
 }
 
 const {
+	type,
 	locale,
 	metaData,
 	skipPageSuffix,
@@ -40,7 +42,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 ---
 
 <!DOCTYPE html>
-<html lang={locale.id} dir={locale.direction}>
+<html lang={locale.id} dir={locale.direction} data-page-type={type}>
 	<head>
 		<MetaData
 			{...metaData}
@@ -106,6 +108,14 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 			window.addEventListener('resize', debounce(checkSize));
 
 			checkSize();
+		</script>
+
+		<script>
+			import { trackEvent } from 'src/utilities/tracking/piwik';
+			const pageType = document.querySelector('html').dataset.pageType;
+			window.addEventListener('load', function () {
+				trackEvent('Page', 'Visit', pageType);
+			});
 		</script>
 	</body>
 </html>

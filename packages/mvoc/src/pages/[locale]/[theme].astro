@@ -7,7 +7,10 @@ import {
 
 import Layout from '@layouts/Layout.astro';
 import { Hero } from '@design-system/components/Hero';
-import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
+import {
+	SiteSettingsProps,
+	useSiteSettings,
+} from 'src/utilities/api/queries/translated/siteSettings';
 import { getDataThemes, ThemePageProps } from 'src/utilities/api/theme';
 import { UpdatedAt } from '@design-system/elements/UpdatedAt';
 import { ContentBlock } from '@design-system/components/ContentBlock';
@@ -57,6 +60,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 	metaData={pageData.metaData}
 	mastheadHighlight
 	alternativeTranslations={pageData.alternatives}
+	type={pageData.type}
 >
 	<Hero
 		title={pageData.hero.title}
@@ -81,8 +85,8 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 					<Stack>
 						<Heading>
 							{pageData.ctaButtonCollection.length > 1
-								? `${pageData.ctaButtonCollection.length} ${siteSettings.situationPlural.that}`
-								: `${pageData.ctaButtonCollection.length} ${siteSettings.situationPlural.this}`}{' '}
+								? `${pageData.ctaButtonCollection.length} ${siteSettings.genericLabels.situationPlural.that}`
+								: `${pageData.ctaButtonCollection.length} ${siteSettings.genericLabels.situationPlural.this}`}{' '}
 							{pageData.titleFlow}
 						</Heading>
 

@@ -7,6 +7,7 @@ import {
 } from '.';
 
 export interface PageProps extends SubFolderReferenceProps {
+	type: string;
 	metaData: MetaDataProps;
 	updatedAt: string;
 	id: string;
@@ -39,6 +40,7 @@ export const pageQuery = ({
 	// prettier-ignore
 	return `{
 		"${multiple ? 'pages' : 'pageData'}": *[_type == "${type}"${slugConditional}${localeConditional}]${multiple ? '' : '[0]'} {
+			"type": _type,
 			"updatedAt": _updatedAt,
 			"localeID": __i18n_lang,
 			"base_ref": __i18n_base._ref,

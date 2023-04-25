@@ -68,9 +68,6 @@ export const availableLocales = [
 	locales.arabic,
 ];
 
-// These locales are always translated
-export const standardAvailableLocales = [locales.dutch, locales.english];
-
 export const langPathRegex = /\/([a-z]{2}-?[A-Z]{0,2})\/?/;
 export const getLocaleFromURL = (pathname: string) => {
 	const langCodeMatch = pathname.match(langPathRegex);

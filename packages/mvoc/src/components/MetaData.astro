@@ -5,10 +5,7 @@ import {
 	SiteSettingsProps,
 	useSiteSettings,
 } from 'src/utilities/api/queries/translated';
-import {
-	standardAvailableLocales,
-	Locale,
-} from 'src/utilities/locale/translation';
+import { Locale } from 'src/utilities/locale/translation';
 
 export interface Props extends MetaDataProps {
 	locale: Locale;
@@ -88,18 +85,7 @@ const ogImage = `${Astro.url.origin}${
 						/>
 					</>
 				))
-		: standardAvailableLocales
-				.filter((language) => language.id !== locale.id)
-				.map((language) => (
-					<>
-						<link
-							rel="alternate"
-							hreflang={language.id}
-							href={urlWithLocale.replace(locale.urlPrefix, language.urlPrefix)}
-						/>
-						<meta property="og:locale:alternate" content={language.locale} />
-					</>
-				))
+		: null
 }
 
 {noIndex && <meta name="robots" content="noindex" />}
