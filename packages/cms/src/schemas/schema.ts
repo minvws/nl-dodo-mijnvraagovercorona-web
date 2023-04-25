@@ -46,51 +46,51 @@ import ctaButtonSelectorObject from './translated/objects/ctaButtonSelector';
  * Old document structure
  */
 // Documents
-import siteSettingsDocumentOld from './documents/siteSettings';
-import modalsDocumentOld from './documents/modals';
-import themeDocument from './documents/theme';
-import assistanceDocumentOld from './documents/assistance';
-import informContactsDocument from './documents/inform-contacts';
-import situationQuestionDocument from './documents/situation-question';
-import situationResultDocument from './documents/situation-result';
-import contentFeedDocument from './documents/content-feed';
-import contentCardDocument from './documents/content-card';
-import tipDocument from './documents/tip';
-import storyDocument from './documents/story';
+// import siteSettingsDocumentOld from './documents/siteSettings';
+// import modalsDocumentOld from './documents/modals';
+// import themeDocument from './documents/theme';
+// import assistanceDocumentOld from './documents/assistance';
+// import informContactsDocument from './documents/inform-contacts';
+// import situationQuestionDocument from './documents/situation-question';
+// import situationResultDocument from './documents/situation-result';
+// import contentFeedDocument from './documents/content-feed';
+// import contentCardDocument from './documents/content-card';
+// import tipDocument from './documents/tip';
+// import storyDocument from './documents/story';
 
 // pages
-import privacyPage from './pages/common/privacy';
-import cookiesPage from './pages/common/cookies';
-import copyrightPage from './pages/common/copyright';
-import kwetsbaarheidMeldenPage from './pages/common/kwetsbaarheidMelden';
-import toegankelijkheidPage from './pages/common/toegankelijkheid';
-import error404Page from './pages/common/404page';
+// import privacyPage from './pages/common/privacy';
+// import cookiesPage from './pages/common/cookies';
+// import copyrightPage from './pages/common/copyright';
+// import kwetsbaarheidMeldenPage from './pages/common/kwetsbaarheidMelden';
+// import toegankelijkheidPage from './pages/common/toegankelijkheid';
+// import error404Page from './pages/common/404page';
 
 // MVOC
-import checkLandingPageOld from './pages/mvoc/check-landing';
+// import checkLandingPageOld from './pages/mvoc/check-landing';
 
-// Objects
-import localeStringObject from './objects/localeString';
-import {
-	localeBlockObject,
-	localeBlockWithoutModalObject,
-} from './objects/localeBlock';
-import localeUrlObject from './objects/localeUrl';
-import videoObjectOld from './objects/video';
-import thisOrThatLocaleStringObjectOld from './objects/thisOrThatLocaleString';
-import disclosureObject from './objects/disclosure';
-import pageMetaDataObject from './objects/pageMetaData';
-import headerObject from './objects/header';
-import quarantinePlanObject from './objects/quarantinePlan';
-import situationContentBlocksObject from './objects/situationContentBlocks';
-import stepsObject from './objects/steps';
-import buttonObjectOld from './objects/button';
-import questionContentObject from './objects/questionContent';
-import questionSelectorObject from './objects/questionSelector';
+// // Objects
+// import localeStringObject from './objects/localeString';
+// import {
+// 	localeBlockObject,
+// 	localeBlockWithoutModalObject,
+// } from './objects/localeBlock';
+// import localeUrlObject from './objects/localeUrl';
+// import videoObjectOld from './objects/video';
+// import thisOrThatLocaleStringObjectOld from './objects/thisOrThatLocaleString';
+// import disclosureObject from './objects/disclosure';
+// import pageMetaDataObject from './objects/pageMetaData';
+// import headerObject from './objects/header';
+// import quarantinePlanObject from './objects/quarantinePlan';
+// import situationContentBlocksObject from './objects/situationContentBlocks';
+// import stepsObject from './objects/steps';
+// import buttonObjectOld from './objects/button';
+// import questionContentObject from './objects/questionContent';
+// import questionSelectorObject from './objects/questionSelector';
 
-import themeSelectorObject from './objects/themeSelector';
-import tipSelectorObject from './objects/tipSelector';
-import moreTipsObject from './objects/moreTips';
+// import themeSelectorObject from './objects/themeSelector';
+// import tipSelectorObject from './objects/tipSelector';
+// import moreTipsObject from './objects/moreTips';
 
 export default [
 	/**
@@ -140,59 +140,59 @@ export default [
 	 * Pages are single pages within our applications which need internationalization and configuration.
 	 * Common pages
 	 */
-	privacyPage,
-	cookiesPage,
-	copyrightPage,
-	kwetsbaarheidMeldenPage,
-	toegankelijkheidPage,
-	error404Page,
+	// privacyPage,
+	// cookiesPage,
+	// copyrightPage,
+	// kwetsbaarheidMeldenPage,
+	// toegankelijkheidPage,
+	// error404Page,
 
 	/**
 	 * Mvoc pages
 	 */
-	checkLandingPageOld,
+	// checkLandingPageOld,
 
 	/**
 	 * Site settings
 	 * Site settings is a single document with config for all pages
 	 */
-	siteSettingsDocumentOld,
+	// siteSettingsDocumentOld,
 
 	/**
 	 * Documents
 	 * Documents are types which need to be created to have multiple versions.
 	 */
-	modalsDocumentOld,
-	themeDocument,
-	contentCardDocument,
-	storyDocument,
-	assistanceDocumentOld,
-	informContactsDocument,
-	situationQuestionDocument,
-	situationResultDocument,
-	contentFeedDocument,
-	tipDocument,
+	// modalsDocumentOld,
+	// themeDocument,
+	// contentCardDocument,
+	// storyDocument,
+	// assistanceDocumentOld,
+	// informContactsDocument,
+	// situationQuestionDocument,
+	// situationResultDocument,
+	// contentFeedDocument,
+	// tipDocument,
 
 	/**
 	 * Objects
 	 * Objects are schemas which can be used as a custom input type within the CMS.
 	 */
-	localeStringObject,
-	localeBlockObject,
-	localeBlockWithoutModalObject,
-	localeUrlObject,
-	videoObjectOld,
-	thisOrThatLocaleStringObjectOld,
-	disclosureObject,
-	pageMetaDataObject,
-	headerObject,
-	quarantinePlanObject,
-	situationContentBlocksObject,
-	stepsObject,
-	buttonObjectOld,
-	questionContentObject,
-	questionSelectorObject,
-	themeSelectorObject,
-	tipSelectorObject,
-	moreTipsObject,
+	// localeStringObject,
+	// localeBlockObject,
+	// localeBlockWithoutModalObject,
+	// localeUrlObject,
+	// videoObjectOld,
+	// thisOrThatLocaleStringObjectOld,
+	// disclosureObject,
+	// pageMetaDataObject,
+	// headerObject,
+	// quarantinePlanObject,
+	// situationContentBlocksObject,
+	// stepsObject,
+	// buttonObjectOld,
+	// questionContentObject,
+	// questionSelectorObject,
+	// themeSelectorObject,
+	// tipSelectorObject,
+	// moreTipsObject,
 ];

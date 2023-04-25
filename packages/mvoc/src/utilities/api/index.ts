@@ -1,5 +1,5 @@
 export * from './home';
-export * from './tip';
+// export * from './tip';
 export * from './theme';
 export * from './generic';
 export * from './prikkenzonderafspraak/locations';

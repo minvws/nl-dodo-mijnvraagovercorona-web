@@ -15,18 +15,18 @@ export default defineType({
 					name: 'label',
 					type: 'customBlock',
 				}),
-				defineField({
-					title: 'Vraag referentie',
-					name: 'situationReference',
-					type: 'reference',
-					to: [
-						{ type: 'situation-question-document' },
-						{ type: 'situation-result-document' },
-						{ type: 'tip-document' },
-						{ type: 'theme-document' },
-					],
-					readOnly: ({ parent }) => !!parent?.href,
-				}),
+				// defineField({
+				// 	title: 'Vraag referentie',
+				// 	name: 'situationReference',
+				// 	type: 'reference',
+				// 	to: [
+				// 		{ type: 'situation-question-document' },
+				// 		{ type: 'situation-result-document' },
+				// 		{ type: 'tip-document' },
+				// 		{ type: 'theme-document' },
+				// 	],
+				// 	readOnly: ({ parent }) => !!parent?.href,
+				// }),
 				defineField({
 					title: 'Href',
 					name: 'href',

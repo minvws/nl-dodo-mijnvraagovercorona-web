@@ -53,12 +53,12 @@ export default defineType({
 			name: 'ctaButtonCollection',
 			type: 'ctaButtonSelector',
 		}),
-		defineField({
-			title: 'Vraag startpunten',
-			name: 'questionCollection',
-			type: 'interimQuestionSelector',
-			readOnly: true,
-		}),
+		// defineField({
+		// 	title: 'Vraag startpunten',
+		// 	name: 'questionCollection',
+		// 	type: 'QuestionSelector',
+		// 	readOnly: true,
+		// }),
 		defineField({
 			title: 'Tales',
 			name: 'taleCollection',

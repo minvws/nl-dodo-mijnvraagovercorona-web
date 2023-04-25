@@ -35,69 +35,69 @@ import { getTranslatedDocumentList } from './utilities/getTranslatedDocumentList
  * A list of all document types which should be rendered as a singleton.
  * Only one version of this type should be visible inside the CMS.
  */
-const siteSettingsConfig = [
-	{
-		schemaType: 'site-settings-document',
-		title: 'Site Settings',
-		icon: GiSettingsKnobs,
-	},
-];
+// const siteSettingsConfig = [
+// 	{
+// 		schemaType: 'site-settings-document',
+// 		title: 'Site Settings',
+// 		icon: GiSettingsKnobs,
+// 	},
+// ];
 
-const mvocPagesDocumentsConfig = [
-	{
-		schemaType: 'tip-document',
-		title: `Tips`,
-		icon: GiLightBulb,
-	},
-	{
-		schemaType: 'situation-question-document',
-		title: `Situatie Vraag`,
-		icon: RiQuestionLine,
-	},
-	{
-		schemaType: 'situation-result-document',
-		title: `Situatie Resultaat`,
-		icon: MdOutlineTopic,
-	},
-	{
-		schemaType: 'theme-document',
-		title: `Thema`,
-		icon: FaFeatherAlt,
-	},
-];
+// const mvocPagesDocumentsConfig = [
+// 	{
+// 		schemaType: 'tip-document',
+// 		title: `Tips`,
+// 		icon: GiLightBulb,
+// 	},
+// 	{
+// 		schemaType: 'situation-question-document',
+// 		title: `Situatie Vraag`,
+// 		icon: RiQuestionLine,
+// 	},
+// 	{
+// 		schemaType: 'situation-result-document',
+// 		title: `Situatie Resultaat`,
+// 		icon: MdOutlineTopic,
+// 	},
+// 	{
+// 		schemaType: 'theme-document',
+// 		title: `Thema`,
+// 		icon: FaFeatherAlt,
+// 	},
+// ];
 
-const multiDocumentsConfig = [
-	{
-		schemaType: 'modals-document',
-		title: 'Modals',
-		icon: VscScreenFull,
-	},
-	{
-		schemaType: 'assistance-document',
-		title: 'Hulp',
-		icon: FaHandsHelping,
-	},
-	{
-		schemaType: 'inform-contacts-document',
-		title: 'Informeer contacten',
-		icon: GiShare,
-	},
-	{
-		schemaType: 'content-feed-document',
-		title: 'Content feed',
-		icon: VscCopy,
-	},
-	{
-		schemaType: 'content-card-document',
-		title: 'Content card',
-		icon: VscCopy,
-	},
-	{
-		schemaType: 'story-document',
-		title: 'Verhaal',
-		icon: VscCopy,
-	},
-];
+// const multiDocumentsConfig = [
+// 	{
+// 		schemaType: 'modals-document',
+// 		title: 'Modals',
+// 		icon: VscScreenFull,
+// 	},
+// 	{
+// 		schemaType: 'assistance-document',
+// 		title: 'Hulp',
+// 		icon: FaHandsHelping,
+// 	},
+// 	{
+// 		schemaType: 'inform-contacts-document',
+// 		title: 'Informeer contacten',
+// 		icon: GiShare,
+// 	},
+// 	{
+// 		schemaType: 'content-feed-document',
+// 		title: 'Content feed',
+// 		icon: VscCopy,
+// 	},
+// 	{
+// 		schemaType: 'content-card-document',
+// 		title: 'Content card',
+// 		icon: VscCopy,
+// 	},
+// 	{
+// 		schemaType: 'story-document',
+// 		title: 'Verhaal',
+// 		icon: VscCopy,
+// 	},
+// ];
 
 export default (S) =>
 	S.list()
@@ -211,31 +211,31 @@ export default (S) =>
 				],
 			}),
 
-			S.divider(),
+			// S.divider(),
 
-			getFolder(S, {
-				title: 'Common',
-				icon: BiSitemap,
-				items: [
-					...siteSettingsConfig.map((config) => getDocumentList(S, config)),
-					S.divider(),
-					getFolder(S, {
-						title: 'Documenten',
-						icon: IoDocumentOutline,
-						items: [
-							...multiDocumentsConfig.map((config) =>
-								getDocumentList(S, config),
-							),
-						],
-					}),
-				],
-			}),
+			// getFolder(S, {
+			// 	title: 'Common',
+			// 	icon: BiSitemap,
+			// 	items: [
+			// 		...siteSettingsConfig.map((config) => getDocumentList(S, config)),
+			// 		S.divider(),
+			// 		getFolder(S, {
+			// 			title: 'Documenten',
+			// 			icon: IoDocumentOutline,
+			// 			items: [
+			// 				...multiDocumentsConfig.map((config) =>
+			// 					getDocumentList(S, config),
+			// 				),
+			// 			],
+			// 		}),
+			// 	],
+			// }),
 
-			getFolder(S, {
-				title: 'Oude structuur MVOC',
-				icon: MdLiveHelp,
-				items: [
-					...mvocPagesDocumentsConfig.map((config) => getPageList(S, config)),
-				],
-			}),
+			// getFolder(S, {
+			// 	title: 'Oude structuur MVOC',
+			// 	icon: MdLiveHelp,
+			// 	items: [
+			// 		...mvocPagesDocumentsConfig.map((config) => getPageList(S, config)),
+			// 	],
+			// }),
 		]);

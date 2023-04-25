@@ -11,7 +11,7 @@ export default defineField({
 		{ type: 'generic-page' },
 		{ type: 'locations-page' },
 		{ type: 'advice-page' },
-		{ type: 'tip-document' },
+		// { type: 'tip-document' },
 	],
 	options: {
 		filter: filterReferenceByLanguage,
