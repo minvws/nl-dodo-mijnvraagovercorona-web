@@ -58,12 +58,6 @@ export default defineType({
 					name: 'ctaButtonCollection',
 					type: 'ctaButtonSelector',
 				}),
-				defineField({
-					title: 'Vraag startpunten',
-					name: 'questionCollection',
-					type: 'interimQuestionSelector',
-					readOnly: true,
-				}),
 			],
 		}),
 		defineField({
