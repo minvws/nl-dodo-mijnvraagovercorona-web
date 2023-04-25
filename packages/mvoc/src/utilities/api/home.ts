@@ -1,7 +1,5 @@
 import { ContentBlockProps } from '@design-system/components/ContentBlock';
 import { AlternativeTranslationsProps } from '@design-system/components/LocaleSelector';
-import { ButtonVariants } from '@design-system/elements/Button';
-import { IconProps } from '@design-system/elements/Icon';
 import { useSanityClient } from 'astro-sanity';
 import { getPageTranslations } from '../helpers/get-page-translations';
 import { imageQuery, ImageProps } from './queries';
@@ -16,8 +14,6 @@ import {
 	pageQuery,
 	PageProps,
 	customBlockQuery,
-	interimQuestionCollectionQuery,
-	InterimQuestionCollectionProps,
 	taleReferenceQuery,
 	TaleCollectionProps,
 } from './queries/translated';
@@ -37,7 +33,6 @@ export interface PageHomeProps extends PageProps {
 		content: ContentBlockProps['value'];
 		icon: ImageProps;
 		ctaButtonCollection: CtaButtonCollectionProps['ctaButtonCollection'];
-		questionCollection: InterimQuestionCollectionProps['questionCollection'];
 	};
 	alternatives: AlternativeTranslationsProps[];
 	slug: string;
@@ -80,7 +75,6 @@ export async function getDataHome() {
 			${customBlockQuery({ name: 'content' })},
 			${imageQuery({ name: 'icon' })},
 			${ctaButtonCollectionQuery()},
-			${interimQuestionCollectionQuery()},
 		},
 		currentAdvice{
 			title,
