@@ -59,6 +59,8 @@ const tocStories =
 	pageData.taleCollection && pageData.taleCollection.length
 		? pageData.taleCollection.filter((tale) => tale?.overview?.title)
 		: [];
+
+console.log(pageData);
 ---
 
 <Layout
@@ -146,13 +148,17 @@ const tocStories =
 						) : null
 					}
 
-					<Feedback
-						name="Situatie Advies"
-						url={getFeedbackUrl(siteSettings.feedback.url, {
-							source: 'generic-page',
-							advice: pageData.slug,
-						})}
-					/>
+					{
+						pageData?.showFeedback ? (
+							<Feedback
+								name="Situatie Advies"
+								url={getFeedbackUrl(siteSettings.feedback.url, {
+									source: 'generic-page',
+									advice: pageData.slug,
+								})}
+							/>
+						) : null
+					}
 				</Stack>
 			</Retain>
 		</Retain>

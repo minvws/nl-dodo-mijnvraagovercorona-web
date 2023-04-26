@@ -76,6 +76,13 @@ export default defineType({
 		}),
 
 		defineField({
+			title: 'Toon het feedback blok',
+			name: 'showFeedback',
+			type: 'boolean',
+			description: 'Als deze toggle aan staat genereren we een feedback blok.',
+		}),
+
+		defineField({
 			title: 'Hulp',
 			name: 'assistance',
 			type: 'reference',

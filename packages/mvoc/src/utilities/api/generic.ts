@@ -29,6 +29,7 @@ export interface GenericPageProps extends PageProps {
 		title: string;
 		content: ContentBlockProps['value'];
 	};
+	showFeedback?: boolean;
 	assistance: AssistanceProps;
 	locale: string;
 	alternatives: AlternativeTranslationsProps[];
@@ -46,6 +47,7 @@ export async function getDataGenericPages() {
 			title,
 			${customBlockQuery({ name: 'content' })},
 		},
+		showFeedback,
 		${assistanceQuery()},
 		"slug": slug.current,
 	}`;
