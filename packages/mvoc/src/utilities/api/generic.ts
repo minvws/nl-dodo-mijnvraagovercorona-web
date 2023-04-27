@@ -2,7 +2,6 @@ import { ContentBlockProps } from '@design-system/components/ContentBlock';
 import { AlternativeTranslationsProps } from '@design-system/components/LocaleSelector';
 import { useSanityClient } from 'astro-sanity';
 import { getPageTranslations } from '../helpers/get-page-translations';
-import { ImageProps, imageQuery } from './queries';
 import {
 	HeroProps,
 	MoreInfoProps,
@@ -13,11 +12,9 @@ import {
 	moreInfoQuery,
 	pageQuery,
 	taleReferenceQuery,
-} from './queries/translated';
-import {
 	AssistanceProps,
 	assistanceQuery,
-} from './queries/translated/assistance';
+} from './queries';
 
 export interface GenericPageProps extends PageProps {
 	hero: HeroProps;

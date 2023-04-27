@@ -1,63 +1,76 @@
-import { defineField, defineType } from 'sanity';
+import { defineType, defineField } from 'sanity';
+import { BiLinkAlt } from 'react-icons/bi';
 
 export default defineType({
-	title: 'Button',
-	name: 'button',
+	title: 'Knop',
+	name: 'flexibleButton',
 	type: 'object',
-	preview: {
-		select: {
-			title: 'label.nl',
-			subtitle: 'pretitle.nl',
-			media: 'image',
-		},
-	},
 	fields: [
 		defineField({
 			title: 'Label',
 			name: 'label',
-			type: 'localeString',
+			type: 'string',
+			// validation: (Rule) => Rule.required(),
 		}),
 		defineField({
-			title: 'URL',
+			title: 'Interne link',
+			description: 'Creëert een interne link naar een andere pagina.',
+			name: 'pageReference',
+			type: 'pageSourceSelector',
+			readOnly: ({ parent }) => !!parent?.href,
+		}),
+		defineField({
+			title: 'href',
 			name: 'href',
-			type: 'localeString',
-		}),
-		defineField({
-			title: 'Externe link?',
-			name: 'external',
-			type: 'boolean',
-			initialValue: true,
+			type: 'string',
+			readOnly: ({ parent }) => !!parent?.pageReference,
 		}),
 		defineField({
 			title: 'Variant',
 			name: 'variant',
 			type: 'string',
-			initialValue: 'button',
+			initialValue: 'primary',
 			options: {
 				layout: 'dropdown',
 				list: [
 					{
 						title: 'Primary',
-						value: 'button',
+						value: 'primary',
 					},
 					{
 						title: 'Secondary',
-						value: 'button-secondary',
+						value: 'secondary',
 					},
 					{
 						title: 'Tertiary',
-						value: 'button-tertiary',
+						value: 'tertiary',
 					},
 					{
-						title: 'Play Store',
-						value: 'play-store',
-					},
-					{
-						title: 'App Store',
-						value: 'app-store',
+						title: 'Quaternary',
+						value: 'quaternary',
 					},
 				],
 			},
 		}),
+		defineField({
+			title: 'Icoon',
+			name: 'icon',
+			type: 'iconPicker',
+		}),
 	],
+	options: {
+		collapsible: true,
+		collapsed: false,
+	},
+	preview: {
+		select: {
+			title: 'label',
+		},
+		prepare({ title }) {
+			return {
+				title: title,
+				media: BiLinkAlt,
+			};
+		},
+	},
 });

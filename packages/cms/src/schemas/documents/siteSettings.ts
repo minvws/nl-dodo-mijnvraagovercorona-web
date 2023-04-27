@@ -1,477 +1,506 @@
 import { defineType, defineField } from 'sanity';
 
 export default defineType({
-	title: 'Site Settings Document',
-	name: 'site-settings-document',
+	title: 'Site Settings',
+	name: 'siteSettings',
 	type: 'document',
+	i18n: true,
+	initialValue: {
+		__i18n_lang: 'nl',
+	},
 	fields: [
-		{
-			title: 'Site',
-			name: 'site',
-			type: 'string',
-			options: {
-				list: ['reizen-tijdens-corona', 'mijn-vraag-over-corona'],
-			},
-		},
-		{
+		defineField({
 			title: 'Site URL',
 			name: 'baseUrl',
 			type: 'string',
-		},
-		{
+			validation: (Rule) => Rule.required(),
+		}),
+		defineField({
 			title: 'Pagina titel suffix',
 			name: 'pageTitleSuffix',
-			type: 'localeString',
-		},
-		{
+			type: 'string',
+			validation: (Rule) => Rule.required(),
+		}),
+		defineField({
 			title: 'Social share image',
 			name: 'socialShareImage',
 			description: '1200x632, geen SVG',
 			type: 'image',
-		},
-		{
-			title: 'Header',
-			name: 'header',
+			validation: (Rule) => Rule.required(),
+		}),
+
+		/**
+		 * Masthead
+		 */
+		defineField({
+			title: 'Navigatiebalk',
+			name: 'masthead',
 			type: 'object',
+			validation: (Rule) => Rule.required(),
+			// hidden: true,
 			options: { collapsible: true },
 			fields: [
-				{
-					title: 'Terug',
-					name: 'terug',
-					type: 'localeString',
-				},
-				{
-					title: 'Opnieuw',
-					name: 'opnieuw',
-					type: 'localeString',
-				},
-				{
-					title: 'Resultaat',
-					name: 'resultaat',
-					type: 'localeString',
-				},
-				{
-					title: 'Logo alt text',
-					name: 'logoAlt',
-					type: 'localeString',
-				},
-				{
+				defineField({
 					title: 'Skiplink',
-					name: 'skipLink',
-					type: 'localeString',
-				},
-				{
-					title: 'Taal selector',
-					name: 'localeSelector',
-					type: 'object',
-					fields: [
-						{
-							title: 'Wissel van taal',
-							name: 'change',
-							type: 'localeString',
-						},
-						{
-							title: 'Huidige taal',
-							name: 'current',
-							type: 'localeString',
-						},
-					],
-				},
+					description: 'Word alleen getoond voor screenreader gebruikers',
+					name: 'skiplink',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
 			],
-		},
-		{
+		}),
+
+		/**
+		 * Mastfoot
+		 */
+		defineField({
 			title: 'Footer',
-			name: 'footer',
+			name: 'mastfoot',
 			type: 'object',
+			validation: (Rule) => Rule.required(),
 			options: { collapsible: true },
 			fields: [
-				{
-					title: 'Footer hoofdtitel',
-					name: 'footerMainTitle',
-					description:
-						'Deze titel word alleen getoond voor screenreader gebruikers',
-					type: 'localeString',
-				},
-				{
+				defineField({
 					title: 'Titel',
 					name: 'title',
-					type: 'localeString',
-				},
-				{
-					title: 'Onderdelen',
-					name: 'items',
+					description: 'Word alleen getoond voor screenreader gebruikers',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
+				defineField({
+					title: 'Kolommen',
+					name: 'columns',
 					type: 'array',
+					validation: (Rule) => Rule.min(1).max(3),
 					of: [
 						{
 							type: 'object',
-							name: 'item',
-							title: 'Onderdeel',
+							name: 'column',
+							title: 'Kolom',
 							fields: [
-								{
-									name: 'url',
-									title: 'URL',
+								defineField({
+									name: 'title',
+									title: 'Titel',
 									type: 'string',
-								},
-								{
+									validation: (Rule) => Rule.required(),
+								}),
+								defineField({
 									name: 'content',
 									title: 'Content',
-									type: 'localeString',
-								},
+									type: 'customBlock',
+								}),
+								defineField({
+									title: 'Interne links',
+									name: 'internalPageCollection',
+									type: 'internalPageSelector',
+								}),
 							],
 						},
 					],
-					options: {
-						sortable: false,
-						modal: 'popover',
-					},
-				},
-				{
-					title: 'Meer informatie titel',
-					name: 'meerInformatieTitle',
-					type: 'localeString',
-				},
-				{
-					title: 'Rijksoverheid text',
-					name: 'rijksoverheidText',
-					type: 'localeString',
-				},
-				{
-					title: 'Rijksoverheid link',
-					name: 'rijksoverheidUrl',
-					type: 'localeURL',
-				},
-				{
-					title: 'Alleen samen alt text',
-					name: 'alleenSamenAlt',
-					type: 'localeString',
-				},
-				{
-					title: 'Footer tekst',
-					name: 'footerText',
-					type: 'localeBlock',
-				},
+				}),
 			],
-		},
-		{
+		}),
+
+		/**
+		 * Privacy
+		 */
+		defineField({
 			title: 'Privacy',
 			name: 'privacy',
 			type: 'object',
+			validation: (Rule) => Rule.required(),
 			options: { collapsible: true },
 			fields: [
-				{
+				defineField({
 					title: 'id',
 					name: 'id',
-					type: 'localeString',
-				},
-				{
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
+				defineField({
 					title: 'USP',
 					name: 'usp',
-					type: 'localeString',
-				},
-				{
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
+				defineField({
 					title: 'Titel',
 					name: 'title',
-					type: 'localeString',
-				},
-				{
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
+				defineField({
 					title: 'Beloftes',
 					name: 'beloftes',
 					type: 'array',
-					of: [{ type: 'localeString' }],
+					validation: (Rule) => Rule.required(),
+					of: [{ type: 'string' }],
 					options: {
 						sortable: false,
-						modal: 'popover',
+						modal: {
+							type: 'popover',
+						},
 					},
-				},
+				}),
 			],
-		},
-		{
+		}),
+
+		/**
+		 * Feedback
+		 */
+		defineField({
 			title: 'Feedback',
+			description: 'Wordt alleen gebruikt op de nederlandse & engelse versie',
 			name: 'feedback',
 			type: 'object',
+			// validation: (Rule) => Rule.required(),
 			options: { collapsible: true },
 			fields: [
-				{
+				defineField({
 					title: 'Titel',
 					name: 'title',
-					type: 'localeString',
-				},
-				{
+					type: 'string',
+					// validation: (Rule) => Rule.required(),
+				}),
+				defineField({
 					title: 'Content',
 					name: 'content',
-					type: 'localeString',
-				},
-				{
+					type: 'string',
+					// validation: (Rule) => Rule.required(),
+				}),
+				defineField({
 					title: 'Button',
 					name: 'button',
-					type: 'localeString',
-				},
-				{
+					type: 'string',
+					// validation: (Rule) => Rule.required(),
+				}),
+				defineField({
 					title: 'Bedank',
 					name: 'thanks',
-					type: 'localeString',
-				},
-				{
+					type: 'string',
+					// validation: (Rule) => Rule.required(),
+				}),
+				defineField({
 					title: 'URL',
 					name: 'url',
-					type: 'localeString',
-				},
-				{
+					type: 'string',
+					// validation: (Rule) => Rule.required(),
+				}),
+				defineField({
 					title: 'labels',
 					name: 'labels',
 					type: 'object',
+					// validation: (Rule) => Rule.required(),
 					fields: [
-						{
+						defineField({
 							title: 'Ja',
 							name: 'like',
-							type: 'localeString',
-						},
-						{
+							type: 'string',
+						}),
+						defineField({
 							title: 'Nee',
 							name: 'dislike',
-							type: 'localeString',
-						},
+							type: 'string',
+						}),
 					],
-				},
+				}),
 			],
-		},
-		{
-			title: 'CTA block',
-			name: 'ctaBlock',
+		}),
+
+		/**
+		 * Generic labels
+		 */
+		defineField({
+			title: 'Generieke labels',
+			name: 'genericLabels',
 			type: 'object',
+			validation: (Rule) => Rule.required(),
 			options: { collapsible: true },
 			fields: [
-				{
-					title: 'Titel',
-					name: 'title',
-					type: 'localeString',
-				},
-				{
-					title: 'Content',
-					name: 'content',
-					type: 'localeString',
-				},
-				{
-					title: 'Knop label',
-					name: 'label',
-					type: 'localeString',
-				},
-				{
-					title: 'Knop url',
-					name: 'url',
+				defineField({
+					title: 'Open',
+					name: 'open',
 					type: 'string',
-				},
-			],
-		},
-		{
-			title: 'Quarantaine lijst titel',
-			name: 'quarantineOverviewTitle',
-			type: 'localeString',
-		},
-		{
-			title: 'Quarantaine Gids',
-			name: 'quarantaineGids',
-			type: 'object',
-			options: { collapsible: true },
-			fields: [
-				{
-					title: 'Quarantainegids onderdeel titel',
-					name: 'title',
-					type: 'localeString',
-				},
-				{
-					title: 'Quarantainegids button',
-					name: 'button',
-					type: 'localeString',
-				},
-				{
-					title: 'Quarantainegids URL',
-					name: 'url',
-					type: 'localeString',
-				},
-				{
-					title: 'Quarantainegids text',
-					name: 'text',
-					type: 'localeString',
-				},
-			],
-		},
-		{
-			title: 'Quarantaine Agenda',
-			name: 'quarantaineCalendar',
-			type: 'object',
-			options: { collapsible: true },
-			fields: [
-				{
-					title: 'Tot en met',
-					name: 'dateSeperator',
-					type: 'localeString',
-				},
-				{
-					title: 'Andere agenda',
-					name: 'otherCalendar',
-					type: 'localeString',
-				},
-				{ title: 'Agenda titel', name: 'title', type: 'localeString' },
-				{ title: 'Modal titel', name: 'modalTitle', type: 'localeString' },
-				{ title: 'Modal body', name: 'modalBody', type: 'localeString' },
-				{
-					title: 'Uitnodiging titel',
-					name: 'inviteTitle',
-					type: 'localeString',
-				},
-				{ title: 'Uitnodiging text', name: 'inviteText', type: 'localeString' },
-			],
-		},
-		{
-			title: 'Print call to action',
-			name: 'printCta',
-			type: 'localeString',
-		},
-		{
-			title: 'Favorieten call to action',
-			name: 'favoriteCta',
-			type: 'localeString',
-		},
-		{
-			title: 'Speciale instructies GGD',
-			name: 'GGDSpecialInstructions',
-			type: 'localeString',
-		},
-		{
-			title: 'Datum kiestekst',
-			name: 'datumKiesTekst',
-			type: 'localeString',
-		},
-		{
-			title: 'Maanden',
-			name: 'maanden',
-			type: 'array',
-			of: [
-				{
-					title: 'Maand',
-					name: 'maand',
-					type: 'localeString',
-				},
-			],
-		},
-		{
-			title: 'Dagen',
-			name: 'dagen',
-			type: 'array',
-			of: [
-				{
+					validation: (Rule) => Rule.required(),
+				}),
+				defineField({
+					title: 'Sluiten',
+					name: 'close',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
+				defineField({
+					title: 'Over',
+					name: 'in',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
+				defineField({
 					title: 'Dag',
-					name: 'dag',
-					type: 'localeString',
-				},
+					name: 'dayPlural',
+					type: 'thisOrThatString',
+					validation: (Rule) => Rule.required(),
+				}),
+				defineField({
+					title: 'Geleden',
+					name: 'ago',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
+				defineField({
+					title: 'Vandaag',
+					name: 'today',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
+				defineField({
+					title: 'Meer dan',
+					name: 'moreThan',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
+				defineField({
+					title: 'Bronnen',
+					name: 'sources',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
+				// TODO: phase out
+				defineField({
+					title: 'Meer Tips',
+					description:
+						'Dit veld word in de toekomst niet meer gebruikt, gebruik het "meer info" veld',
+					name: 'moreTips',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
+				defineField({
+					title: 'Meer info',
+					name: 'moreInfo',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
+				defineField({
+					title: 'Laatst bijgewerkt',
+					name: 'updatedAt',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
+				defineField({
+					title: 'Situatie enkelvoud/meervoud',
+					name: 'situationPlural',
+					type: 'thisOrThatString',
+					validation: (Rule) => Rule.required(),
+				}),
+				defineField({
+					title: 'Bekijk nog X',
+					name: 'seeMoreExpand',
+					type: 'thisOrThatString',
+					validation: (Rule) => Rule.required(),
+				}),
+				defineField({
+					title: 'Kaart',
+					name: 'map',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
+				defineField({
+					title: 'Lijst',
+					name: 'list',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
 			],
-		},
-		{
-			title: 'Over',
-			name: 'in',
-			type: 'localeString',
-		},
-		{
-			title: 'Dag',
-			name: 'dayPlural',
-			type: 'thisOrThatLocaleString',
-		},
-		{
-			title: 'Geleden',
-			name: 'ago',
-			type: 'localeString',
-		},
-		{
-			title: 'Vandaag',
-			name: 'today',
-			type: 'localeString',
-		},
-		{
-			title: 'Meer dan',
-			name: 'moreThan',
-			type: 'localeString',
-		},
-		{
-			title: 'Laatst bijgewerkt',
-			name: 'updatedAt',
-			type: 'localeString',
-		},
-		{
+		}),
+
+		/**
+		 * severe symptoms advice
+		 */
+		defineField({
 			title: 'Advies ernstige klachten',
 			name: 'severeSymptomsAdvice',
 			type: 'object',
+			validation: (Rule) => Rule.required(),
+			options: {
+				collapsible: true,
+			},
 			fields: [
-				{
+				defineField({
 					title: 'Titel',
 					name: 'title',
-					type: 'localeString',
-				},
-				{
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
+				defineField({
 					title: 'Subtitel',
 					name: 'subtitle',
-					type: 'localeString',
-				},
-				{
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
+				defineField({
 					title: 'Icoon',
 					name: 'icon',
 					type: 'image',
-				},
+					validation: (Rule) => Rule.required(),
+				}),
 			],
-		},
-		{
-			title: 'Situatie enkelvoud/meervoud',
-			name: 'situationPlural',
-			type: 'thisOrThatLocaleString',
-		},
-		{
-			title: 'Bekijk nog X',
-			name: 'seeMoreExpand',
-			type: 'thisOrThatLocaleString',
-		},
-		{
-			title: 'Bronnen',
-			name: 'sources',
-			type: 'localeString',
-		},
-		{
-			title: 'Meer Tips',
-			name: 'moreTips',
-			type: 'localeString',
-		},
-		{
-			title: 'Vervangende variabelen',
-			name: 'contentVariables',
+		}),
+
+		/**
+		 * Language selector
+		 */
+		defineField({
+			title: 'Taal selector',
+			name: 'localeSelector',
 			type: 'object',
+			validation: (Rule) => Rule.required(),
+			options: { collapsible: true },
 			fields: [
-				{
-					title: 'Vaccinatie jaartal',
-					name: 'vaccinatiejaar',
+				defineField({
+					title: 'Titel',
+					name: 'title',
 					type: 'string',
-				},
+					validation: (Rule) => Rule.required(),
+				}),
+				defineField({
+					title: 'Wissel van taal',
+					description: 'Word alleen getoond voor screenreader gebruikers',
+					name: 'change',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
+				defineField({
+					title: 'Huidige taal',
+					description: 'Word alleen getoond voor screenreader gebruikers',
+					name: 'current',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
 			],
-		},
-		{
+		}),
+
+		/**
+		 * Logo
+		 */
+		defineField({
+			title: 'Logo',
+			name: 'logo',
+			type: 'object',
+			validation: (Rule) => Rule.required(),
+			options: { collapsible: true },
+			fields: [
+				defineField({
+					title: 'Alternatief',
+					name: 'alt',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
+			],
+		}),
+
+		/**
+		 * Forms
+		 */
+		defineField({
+			title: 'Formulieren',
+			name: 'forms',
+			type: 'object',
+			validation: (Rule) => Rule.required(),
+			options: {
+				collapsible: true,
+			},
+			fields: [
+				defineField({
+					title: 'Filter op',
+					name: 'filterOn',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
+				defineField({
+					title: 'Maak veld leeg',
+					name: 'clearField',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
+			],
+		}),
+
+		/**
+		 * accessibility
+		 */
+		defineField({
 			title: 'Toegankelijkheid',
 			name: 'accessibility',
 			type: 'object',
+			validation: (Rule) => Rule.required(),
+			options: {
+				collapsible: true,
+			},
 			fields: [
-				{
+				defineField({
 					title: 'Onzichtbaar label bij externe links',
 					name: 'labelExternalLink',
-					type: 'localeString',
-				},
-				{
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
+				defineField({
 					title: 'Onzichtbaar label bij inline modals',
 					name: 'labelModal',
-					type: 'localeString',
-				},
-				{
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
+				defineField({
 					title: 'Onzichtbaar "Sluit" label in modals',
 					name: 'labelModalClose',
-					type: 'localeString',
-				},
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
 			],
-		},
+		}),
+
+		/**
+		 * Vaccinations
+		 */
+		defineField({
+			title: 'Vaccinaties',
+			name: 'vaccinations',
+			type: 'object',
+			validation: (Rule) => Rule.required(),
+			options: { collapsible: true },
+			fields: [
+				defineField({
+					title: 'Series',
+					name: 'series',
+					type: 'object',
+					validation: (Rule) => Rule.required(),
+					fields: [
+						defineField({
+							title: 'Basis',
+							name: 'b',
+							type: 'string',
+							validation: (Rule) => Rule.required(),
+						}),
+						defineField({
+							title: 'Herhaalprik',
+							name: 'b1',
+							type: 'string',
+							validation: (Rule) => Rule.required(),
+						}),
+					],
+				}),
+			],
+		}),
 	],
+	preview: {
+		select: {
+			locale: '__i18n_lang',
+		},
+		prepare(selection) {
+			const { locale } = selection;
+			return {
+				title: 'Mijn Vraag Over Corona',
+				subtitle: locale,
+			};
+		},
+	},
 });

@@ -12,11 +12,9 @@ import {
 	pageQuery,
 	pictureQuery,
 	subFolderReferenceQuery,
-} from './queries/translated';
-import {
 	AssistanceProps,
 	assistanceQuery,
-} from './queries/translated/assistance';
+} from './queries';
 
 export interface QuestionPageProps extends PageProps {
 	hero: HeroProps;

@@ -1,10 +1,8 @@
-import { Locale } from 'src/utilities/locale/translation';
-import { ImageProps, imageQuery } from './image';
-import { localePropertyQuery } from './localeProperty';
+import { ButtonProps, buttonsQuery, ImageProps, imageQuery } from './';
 
 export interface AssistanceProps {
 	headline: string;
-	image: ImageProps;
+	image?: ImageProps;
 	open: string;
 	subTitle: {
 		chatOpen: string;
@@ -22,32 +20,36 @@ export interface AssistanceProps {
 		question: string;
 		button: string;
 	};
+	getHelp?: {
+		title: string;
+		button: ButtonProps;
+	};
 }
 
-export const assistanceQuery = ({ locale }: { locale: Locale }): string => {
-	return `"assistance": assistanceReference->{
-		${localePropertyQuery({ name: 'headline', path: 'title', locale })},
+export const assistanceQuery = (): string => {
+	return `assistance->{
+		"headline": title,
 		${imageQuery({ name: 'image' })},
 		"subTitle": {
-			${localePropertyQuery({ name: 'chatOpen', path: 'tekstWithChat', locale })},
-			${localePropertyQuery({ name: 'chatClosed', path: 'tekstWithoutChat', locale })}
+			"chatOpen": tekstWithChat,
+			"chatClosed": tekstWithoutChat,
 		},
 		"chat": {
-			${localePropertyQuery({ name: 'title', path: 'chat', locale })},
-			${localePropertyQuery({ name: 'openingHours', locale })},
+			"title": chat,
+			openingHours,
 		},
-		"phone":{
+		"phone": {
 			"number": phonenumber,
-			${localePropertyQuery({
-				name: 'openingHours',
-				path: 'openingHoursPhonenumber',
-				locale,
-			})},
+			"openingHours": openingHoursPhonenumber,
 		},
-		${localePropertyQuery({ name: 'open', locale })},
+		open,
 		"situation": {
-			${localePropertyQuery({ name: 'question', path: 'situationQuestion', locale })},
-			${localePropertyQuery({ name: 'button', path: 'situationButton', locale })},
+ 			"question": situationQuestion,
+			"button": situationButton,
+		},
+		getHelp{
+			title,
+			${buttonsQuery({ array: false })},
 		},
 	}`;
 };

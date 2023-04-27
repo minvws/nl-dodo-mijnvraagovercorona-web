@@ -1,5 +1,4 @@
-import { Locale } from 'src/utilities/locale/translation';
-import { localePropertyQuery, ImageProps, imageQuery } from '.';
+import { ImageProps, imageQuery } from '.';
 
 export interface MetaDataProps {
 	title: string;
@@ -8,18 +7,14 @@ export interface MetaDataProps {
 	noIndex?: boolean;
 }
 
-export const metaDataQuery = ({ locale }: { locale: Locale }): string => {
-	return `"metaData": {
-		${localePropertyQuery({ name: 'title', path: 'metaData.title', locale })},
-		${localePropertyQuery({
-			name: 'description',
-			path: 'metaData.description',
-			locale,
-		})},
-		${imageQuery({
-			name: 'image',
-			path: 'metaData.socialShareImage',
-		})},
-		"noIndex": metaData.noIndex,
+export const metaDataQuery = (): string => {
+	return `metaData{
+			title,
+			description,
+			${imageQuery({
+				name: 'image',
+				path: 'socialShareImage',
+			})},
+			noIndex
 	}`;
 };

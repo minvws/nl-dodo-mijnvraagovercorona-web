@@ -11,12 +11,10 @@ import {
 	heroQuery,
 	moreInfoQuery,
 	pageQuery,
-} from './queries/translated';
-import type { ContentBlockProps } from '@design-system/components/ContentBlock';
-import {
 	AssistanceProps,
 	assistanceQuery,
-} from './queries/translated/assistance';
+} from './queries';
+import type { ContentBlockProps } from '@design-system/components/ContentBlock';
 
 interface CardProps {
 	title: string;

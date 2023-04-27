@@ -2,18 +2,32 @@ import { defineType, defineField } from 'sanity';
 
 export default defineType({
 	title: 'Modals',
-	name: 'modals-document',
+	name: 'modals',
 	type: 'document',
+	i18n: true,
+	initialValue: {
+		__i18n_lang: 'nl',
+	},
 	preview: {
 		select: {
-			title: 'title.nl',
+			title: 'title',
+			locale: '__i18n_lang',
+			referenceTitle: '__i18n_base.title',
+		},
+		prepare(selection) {
+			const { title, locale, referenceTitle } = selection;
+			return {
+				title: title,
+				subtitle: `${referenceTitle ? `${referenceTitle} - ` : ''}${locale}`,
+			};
 		},
 	},
 	fields: [
 		defineField({
 			title: 'Titel',
 			name: 'title',
-			type: 'localeString',
+			type: 'string',
+			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			title: 'Afbeelding',
@@ -23,7 +37,8 @@ export default defineType({
 		defineField({
 			title: 'Content',
 			name: 'content',
-			type: 'localeBlockWithoutModal',
+			type: 'customBlockWithoutModal',
+			validation: (Rule) => Rule.required(),
 		}),
 	],
 });
