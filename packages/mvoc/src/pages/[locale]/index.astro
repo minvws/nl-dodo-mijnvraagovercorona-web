@@ -153,6 +153,11 @@ const pageData: PageHomeProps = pagesData.filter(
 										)}
 										icon="chevron-small-right"
 										interactionIconAnimation="swing"
+										data-themes={
+											item.themes.length
+												? item.themes.map((theme) => `${theme.slug}`).join()
+												: undefined
+										}
 									>
 										<ContentBlock value={item.label} />
 									</Button>
