@@ -27,10 +27,59 @@ export default (S) =>
 	S.list()
 		.title('Content')
 		.items([
-			getTranslatedSingleton(S, {
-				title: 'Site Settings',
-				type: 'siteSettings',
-				icon: BsGear,
+			getFolder(S, {
+				title: 'Pagina’s',
+				icon: BsFileRichtext,
+				items: [
+					getTranslatedSingleton(S, {
+						title: 'Homepage',
+						type: 'homepage',
+						icon: BsHouse,
+					}),
+					getTranslatedDocumentList(S, {
+						schemaType: 'generic-page',
+						title: 'Content',
+						icon: BsFileText,
+					}),
+					getTranslatedDocumentList(S, {
+						schemaType: 'theme-page',
+						title: 'Thema',
+						icon: BsBrush,
+					}),
+					S.divider(),
+					getTranslatedDocumentList(S, {
+						schemaType: 'question-page',
+						title: 'Vraag',
+						icon: BsPatchQuestion,
+					}),
+					getTranslatedDocumentList(S, {
+						schemaType: 'advice-page',
+						title: 'Advies',
+						icon: BsClipboardCheck,
+					}),
+					S.divider(),
+					getFolder(S, {
+						title: 'Prikken zonder afspraak',
+						icon: BsBandaid,
+						items: [
+							getTranslatedSingleton(S, {
+								title: 'Landing pagina',
+								type: 'pza-landing-page',
+								icon: BsAirplane,
+							}),
+							getTranslatedSingleton(S, {
+								title: 'Locaties pagina',
+								type: 'locations-page',
+								icon: BsGlobe,
+							}),
+						],
+					}),
+					getTranslatedDocumentList(S, {
+						schemaType: 'error-page',
+						title: 'Error',
+						icon: BsExclamationCircle,
+					}),
+				],
 			}),
 
 			S.divider(),
@@ -74,58 +123,9 @@ export default (S) =>
 
 			S.divider(),
 
-			getFolder(S, {
-				title: 'Pagina’s',
-				icon: BsFileRichtext,
-				items: [
-					getTranslatedSingleton(S, {
-						title: 'Homepage',
-						type: 'homepage',
-						icon: BsHouse,
-					}),
-					getTranslatedDocumentList(S, {
-						schemaType: 'generic-page',
-						title: 'Generic',
-						icon: BsFileText,
-					}),
-					getTranslatedDocumentList(S, {
-						schemaType: 'theme-page',
-						title: 'Thema',
-						icon: BsBrush,
-					}),
-					S.divider(),
-					getTranslatedDocumentList(S, {
-						schemaType: 'question-page',
-						title: 'Vraag',
-						icon: BsPatchQuestion,
-					}),
-					getTranslatedDocumentList(S, {
-						schemaType: 'advice-page',
-						title: 'Advies',
-						icon: BsClipboardCheck,
-					}),
-					S.divider(),
-					getFolder(S, {
-						title: 'Prikken zonder afspraak',
-						icon: BsBandaid,
-						items: [
-							getTranslatedSingleton(S, {
-								title: 'Landing pagina',
-								type: 'pza-landing-page',
-								icon: BsAirplane,
-							}),
-							getTranslatedSingleton(S, {
-								title: 'Locaties pagina',
-								type: 'locations-page',
-								icon: BsGlobe,
-							}),
-						],
-					}),
-					getTranslatedDocumentList(S, {
-						schemaType: 'error-page',
-						title: 'Error',
-						icon: BsExclamationCircle,
-					}),
-				],
+			getTranslatedSingleton(S, {
+				title: 'Site Settings',
+				type: 'siteSettings',
+				icon: BsGear,
 			}),
 		]);
