@@ -31,6 +31,7 @@ export const getTranslatedSingleton = (
 						})
 						.showAsAction(true),
 				])
+				.defaultOrdering([{ field: '_createdAt', direction: 'desc' }])
 				.title(title)
 				.filter(`_type == $type && (_id == $id || _id == 'drafts.'+$id)`)
 				.params({

@@ -9,7 +9,7 @@ import {
 	heroQuery,
 	HeroProps,
 	customBlockQuery,
-} from '../queries/translated';
+} from '../queries';
 
 export interface LocationsPageProps extends PageProps {
 	hero: HeroProps;

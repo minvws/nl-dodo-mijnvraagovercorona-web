@@ -1,35 +1,24 @@
-import { ContentBlockProps } from '@design-system/components/ContentBlock';
 import { AlternativeTranslationsProps } from '@design-system/components/LocaleSelector';
 import { useSanityClient } from 'astro-sanity';
 import { getPageTranslations } from '../helpers/get-page-translations';
-import { ImageProps, imageQuery } from './queries';
 import {
-	InterimQuestionCollectionProps,
-	interimQuestionCollectionQuery,
 	HeroProps,
 	heroQuery,
 	PageProps,
 	pageQuery,
 	TaleCollectionProps,
 	taleReferenceQuery,
-} from './queries/translated';
-import {
-	AssistanceProps,
-	assistanceQuery,
-} from './queries/translated/assistance';
-import {
 	CtaButtonCollectionProps,
 	ctaButtonCollectionQuery,
-} from './queries/translated/ctaButton';
+	AssistanceProps,
+	assistanceQuery,
+} from './queries';
 
-export interface ThemePageProps
-	extends PageProps,
-		InterimQuestionCollectionProps {
+export interface ThemePageProps extends PageProps {
 	hero: HeroProps;
 	titleFlow: string;
 	assistance: AssistanceProps;
 	ctaButtonCollection: CtaButtonCollectionProps['ctaButtonCollection'];
-	questionCollection: InterimQuestionCollectionProps['questionCollection'];
 	taleCollection: TaleCollectionProps['taleCollection'];
 	alternatives: AlternativeTranslationsProps[];
 	slug: string;
@@ -41,7 +30,6 @@ export async function getDataThemes() {
 		${heroQuery()},
 		titleFlow,
 		${ctaButtonCollectionQuery()},
-		${interimQuestionCollectionQuery()},
 		${assistanceQuery()},
 		${taleReferenceQuery()},
 		"updatedAt": _updatedAt,

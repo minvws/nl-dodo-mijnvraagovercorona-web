@@ -10,8 +10,7 @@ import {
 	ButtonProps,
 	heroQuery,
 	HeroProps,
-} from './queries/translated';
-import { ImageProps, imageQuery } from './queries';
+} from './queries';
 
 export interface ErrorPageProps extends PageProps {
 	hero: HeroProps;

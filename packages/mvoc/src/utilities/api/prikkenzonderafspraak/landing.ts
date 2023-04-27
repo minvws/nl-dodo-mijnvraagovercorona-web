@@ -3,10 +3,6 @@ import { AlternativeTranslationsProps } from '@design-system/components/LocaleSe
 import { useSanityClient } from 'astro-sanity';
 import { getPageTranslations } from '../../helpers/get-page-translations';
 import {
-	AssistanceProps,
-	assistanceQuery,
-} from '../queries/translated/assistance';
-import {
 	PageProps,
 	pageQuery,
 	heroQuery,
@@ -16,7 +12,9 @@ import {
 	TaleCollectionProps,
 	ButtonsProps,
 	buttonsQuery,
-} from '../queries/translated';
+	AssistanceProps,
+	assistanceQuery,
+} from '../queries';
 
 export interface PZALandingPageProps extends PageProps {
 	hero: HeroProps;
