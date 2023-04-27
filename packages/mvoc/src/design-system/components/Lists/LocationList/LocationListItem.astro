@@ -2,10 +2,7 @@
 import { Label } from '@design-system/components/Label';
 import { HTMLAttributes } from 'astro/types';
 import { LocationsPageProps } from 'src/utilities/api';
-import {
-	SiteSettingsProps,
-	useSiteSettings,
-} from 'src/utilities/api/queries/translated';
+import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
 
 interface Props extends HTMLAttributes<'li'> {

@@ -2,12 +2,6 @@ import { ContentBlockProps } from '@design-system/components/ContentBlock';
 import { AlternativeTranslationsProps } from '@design-system/components/LocaleSelector';
 import { useSanityClient } from 'astro-sanity';
 import { getPageTranslations } from '../helpers/get-page-translations';
-import { imageQuery, ImageProps } from './queries';
-import {
-	AssistanceProps,
-	assistanceQuery,
-} from './queries/translated/assistance';
-
 import {
 	HeroProps,
 	heroQuery,
@@ -16,12 +10,15 @@ import {
 	customBlockQuery,
 	taleReferenceQuery,
 	TaleCollectionProps,
-} from './queries/translated';
-import { ButtonProps, buttonsQuery } from './queries/translated/buttons';
-import {
+	AssistanceProps,
+	assistanceQuery,
+	imageQuery,
+	ImageProps,
+	ButtonProps,
+	buttonsQuery,
 	CtaButtonCollectionProps,
 	ctaButtonCollectionQuery,
-} from './queries/translated/ctaButton';
+} from './queries';
 
 export interface PageHomeProps extends PageProps {
 	hero: HeroProps;

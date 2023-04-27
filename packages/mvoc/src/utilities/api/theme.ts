@@ -1,4 +1,3 @@
-import { ContentBlockProps } from '@design-system/components/ContentBlock';
 import { AlternativeTranslationsProps } from '@design-system/components/LocaleSelector';
 import { useSanityClient } from 'astro-sanity';
 import { getPageTranslations } from '../helpers/get-page-translations';
@@ -9,15 +8,11 @@ import {
 	pageQuery,
 	TaleCollectionProps,
 	taleReferenceQuery,
-} from './queries/translated';
-import {
-	AssistanceProps,
-	assistanceQuery,
-} from './queries/translated/assistance';
-import {
 	CtaButtonCollectionProps,
 	ctaButtonCollectionQuery,
-} from './queries/translated/ctaButton';
+	AssistanceProps,
+	assistanceQuery,
+} from './queries';
 
 export interface ThemePageProps extends PageProps {
 	hero: HeroProps;

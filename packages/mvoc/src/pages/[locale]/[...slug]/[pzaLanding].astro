@@ -22,10 +22,7 @@ import {
 } from 'src/utilities/helpers/page-subfolder';
 import { Feedback } from '@design-system/components/Feedback';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
-import {
-	SiteSettingsProps,
-	useSiteSettings,
-} from 'src/utilities/api/queries/translated';
+import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
 
 export async function getStaticPaths() {
 	const collection = await getDataPZALandingPages();

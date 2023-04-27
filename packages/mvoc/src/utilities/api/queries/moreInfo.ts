@@ -1,6 +1,9 @@
-import { ImageProps, imageQuery } from '../image';
-import { SubFolderReferenceProps } from './subFolderReference';
-import { subFolderReferenceQuery } from './subFolderReference';
+import {
+	SubFolderReferenceProps,
+	subFolderReferenceQuery,
+	ImageProps,
+	imageQuery,
+} from '.';
 
 export interface MoreInfoProps {
 	title: string;

@@ -3,7 +3,7 @@ import { ContentBlock } from '@design-system/components/ContentBlock';
 import { Picture } from '@design-system/components/Picture';
 import { Video } from '@design-system/components/Video';
 import Button from '@design-system/elements/Button/Button.astro';
-import { MultiContentBlocksProps } from 'src/utilities/api/queries/translated';
+import { MultiContentBlocksProps } from 'src/utilities/api/queries';
 import { Stack } from '../Layout/Stack';
 import {
 	getLocaleFromURL,
@@ -15,7 +15,7 @@ import {
 	isPicture,
 	isButton,
 	isVideo,
-} from 'src/utilities/api/queries/translated';
+} from 'src/utilities/api/queries';
 import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
 
 interface Props {

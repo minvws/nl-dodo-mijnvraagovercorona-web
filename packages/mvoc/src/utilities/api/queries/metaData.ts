@@ -1,4 +1,4 @@
-import { ImageProps, imageQuery } from '../';
+import { ImageProps, imageQuery } from '.';
 
 export interface MetaDataProps {
 	title: string;

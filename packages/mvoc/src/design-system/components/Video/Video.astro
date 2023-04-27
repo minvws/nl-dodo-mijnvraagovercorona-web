@@ -2,10 +2,7 @@
 import { Icon } from '@design-system/elements/Icon';
 import { HTMLAttributes } from 'astro/types';
 import { ImageProps } from 'src/utilities/api/queries';
-import {
-	SiteSettingsProps,
-	useSiteSettings,
-} from 'src/utilities/api/queries/translated';
+import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import { PictureProps } from '../Picture';
 
@@ -27,12 +24,17 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 	{...attrs}
 	target="_blank"
 	rel="noopener noreferrer"
->	
+>
 	{
 		image ? (
 			<img class="c-video__image" src={image.src} alt="" loading="lazy" />
 		) : picture ? (
-		<img class="c-video__picture" src={picture.image.src} alt="" loading="lazy" />
+			<img
+				class="c-video__picture"
+				src={picture.image.src}
+				alt=""
+				loading="lazy"
+			/>
 		) : null
 	}
 	<Icon class="c-video__icon" name="video" />

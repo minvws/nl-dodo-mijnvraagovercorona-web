@@ -4,9 +4,10 @@ import {
 	internalPageReferenceQuery,
 	InternalPageCollectionProps,
 	customBlockQuery,
+	ImageProps,
+	imageQuery,
 } from '.';
 import type { ContentBlockProps } from '@design-system/components/ContentBlock';
-import { ImageProps, imageQuery } from '../image';
 
 export interface SiteSettingsProps {
 	baseUrl: string;

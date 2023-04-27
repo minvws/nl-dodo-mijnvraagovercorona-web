@@ -3,10 +3,7 @@ import { Heading } from '@design-system/elements/Heading';
 import { Stack } from '@design-system/components/Layout/Stack';
 import { Card } from '.';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
-import {
-	SiteSettingsProps,
-	useSiteSettings,
-} from 'src/utilities/api/queries/translated';
+import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
 
 interface Props {
 	title: string;

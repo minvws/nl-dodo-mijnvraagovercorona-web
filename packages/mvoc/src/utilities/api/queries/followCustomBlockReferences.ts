@@ -1,5 +1,4 @@
-import { imageQuery } from '../image';
-import { internalPageReferenceInSelectQuery } from './internalPageReference';
+import { imageQuery, internalPageReferenceInSelectQuery } from '.';
 
 /**
  * This helper function will transfer modals into content

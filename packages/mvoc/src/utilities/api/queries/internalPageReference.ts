@@ -1,4 +1,4 @@
-import { subFolderReferenceQuery } from './subFolderReference';
+import { subFolderReferenceQuery } from '.';
 
 export interface InternalPageCollectionProps {
 	internalPageCollection: {

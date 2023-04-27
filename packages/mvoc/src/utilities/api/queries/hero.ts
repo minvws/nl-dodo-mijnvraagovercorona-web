@@ -1,8 +1,5 @@
 import { ContentBlockProps } from '@design-system/components/ContentBlock';
-import { ButtonVariants } from '@design-system/elements/Button';
-import { IconProps } from '@design-system/elements/Icon';
-import { ImageProps, imageQuery } from '../';
-import { customBlockQuery } from './customBlock';
+import { customBlockQuery, ImageProps, imageQuery } from '.';
 
 export interface HeroProps {
 	title: string;
