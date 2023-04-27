@@ -143,13 +143,17 @@ const tocStories =
 						) : null
 					}
 
-					<Feedback
-						name="Situatie Advies"
-						url={getFeedbackUrl(siteSettings.feedback.url, {
-							source: 'generic-page',
-							advice: pageData.slug,
-						})}
-					/>
+					{
+						pageData?.showFeedback ? (
+							<Feedback
+								name="Situatie Advies"
+								url={getFeedbackUrl(siteSettings.feedback.url, {
+									source: 'generic-page',
+									advice: pageData.slug,
+								})}
+							/>
+						) : null
+					}
 				</Stack>
 			</Retain>
 		</Retain>
