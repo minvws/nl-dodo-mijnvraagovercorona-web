@@ -36,7 +36,6 @@ import multiContentBlocksObject from './translated/objects/multiContentBlocks';
 import pageReferenceObject from './translated/objects/pageReference';
 import internalPageSelectorObject from './translated/objects/internalPageSelector';
 import taleSelectorObject from './translated/objects/taleSelector';
-import interimQuestionSelectorObject from './translated/objects/interimQuestionSelector';
 import thisOrThatStringObject from './translated/objects/thisOrThatString';
 import pageSourceSelectorObject from './translated/objects/pageSourceSelector';
 import moreInfoObject from './translated/objects/moreInfo';
@@ -78,7 +77,6 @@ export default [
 	multiContentBlocksObject,
 	pageReferenceObject,
 	internalPageSelectorObject,
-	interimQuestionSelectorObject,
 	taleSelectorObject,
 	thisOrThatStringObject,
 	pageSourceSelectorObject,
