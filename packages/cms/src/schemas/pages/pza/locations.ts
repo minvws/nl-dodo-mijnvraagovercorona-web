@@ -1,5 +1,5 @@
-import { isUniqueInLocale } from '../../../../utilities/isUniqueInLocale';
-import { filterReferenceByLanguage } from '../../../../utilities/filterReferenceByLanguage';
+import { isUniqueInLocale } from '../../../utilities/isUniqueInLocale';
+import { filterReferenceByLanguage } from '../../../utilities/filterReferenceByLanguage';
 import { defineType, defineField } from 'sanity';
 
 async function isUnique(slug: any, context: any) {

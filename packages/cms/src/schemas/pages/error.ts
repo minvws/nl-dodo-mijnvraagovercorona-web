@@ -1,4 +1,4 @@
-import { isUniqueInLocale } from '../../../utilities/isUniqueInLocale';
+import { isUniqueInLocale } from '../../utilities/isUniqueInLocale';
 import { defineType, defineField } from 'sanity';
 
 async function isUnique(slug: any, context: any) {

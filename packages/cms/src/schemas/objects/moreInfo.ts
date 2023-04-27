@@ -1,5 +1,5 @@
 import { defineField, defineType } from 'sanity';
-import { filterReferenceByLanguage } from '../../../utilities/filterReferenceByLanguage';
+import { filterReferenceByLanguage } from '../../utilities/filterReferenceByLanguage';
 
 export default defineType({
 	title: 'Meer info',

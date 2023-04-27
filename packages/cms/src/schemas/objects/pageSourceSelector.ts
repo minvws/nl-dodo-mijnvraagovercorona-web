@@ -1,5 +1,5 @@
 import { defineField } from 'sanity';
-import { filterReferenceByLanguage } from '../../../utilities/filterReferenceByLanguage';
+import { filterReferenceByLanguage } from '../../utilities/filterReferenceByLanguage';
 
 export default defineField({
 	title: 'Pagina referentie',

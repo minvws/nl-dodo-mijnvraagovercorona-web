@@ -1,7 +1,7 @@
 import { FiLink } from 'react-icons/fi';
 import { VscScreenFull } from 'react-icons/vsc';
 import { defineField } from 'sanity';
-import { filterReferenceByLanguage } from '../../../utilities/filterReferenceByLanguage';
+import { filterReferenceByLanguage } from '../../utilities/filterReferenceByLanguage';
 
 const generate = (
 	name: string = 'customBlock',

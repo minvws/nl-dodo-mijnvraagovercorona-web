@@ -2,44 +2,44 @@
  * New document structure
  */
 // Documents
-import siteSettingsDocument from './translated/documents/siteSettings';
-import modalsDocument from './translated/documents/modals';
-import taleDocument from './translated/documents/tale';
-import assistanceDocument from './translated/documents/assistance';
-import cardDocument from './translated/documents/card';
-import duoColumnContentDocument from './translated/documents/duoColumnContent';
-import ctaButtonDocument from './translated/documents/ctaButton';
+import siteSettingsDocument from './documents/siteSettings';
+import modalsDocument from './documents/modals';
+import taleDocument from './documents/tale';
+import assistanceDocument from './documents/assistance';
+import cardDocument from './documents/card';
+import duoColumnContentDocument from './documents/duoColumnContent';
+import ctaButtonDocument from './documents/ctaButton';
 
 // Pages
-import genericPage from './translated/pages/generic';
-import locationsPage from './translated/pages/pza/locations';
-import pzaLandingPage from './translated/pages/pza/landing';
-import themePage from './translated/pages/theme';
-import errorPage from './translated/pages/error';
-import homePage from './translated/pages/homepage';
-import advicePage from './translated/pages/advice';
-import questionPage from './translated/pages/question';
+import genericPage from './pages/generic';
+import locationsPage from './pages/pza/locations';
+import pzaLandingPage from './pages/pza/landing';
+import themePage from './pages/theme';
+import errorPage from './pages/error';
+import homePage from './pages/homepage';
+import advicePage from './pages/advice';
+import questionPage from './pages/question';
 
 // objects
 import {
 	customBlockObject,
 	customBlockWithoutModalObject,
-} from './translated/objects/customBlock';
-import metaDataObject from './translated/objects/metaData';
-import iconPickerObject from './translated/objects/iconPicker';
-import adviceObject from './translated/objects/adviceBlock';
-import buttonObject from './translated/objects/button';
-import pictureObject from './translated/objects/picture';
-import videoObject from './translated/objects/video';
-import heroObject from './translated/objects/hero';
-import multiContentBlocksObject from './translated/objects/multiContentBlocks';
-import pageReferenceObject from './translated/objects/pageReference';
-import internalPageSelectorObject from './translated/objects/internalPageSelector';
-import taleSelectorObject from './translated/objects/taleSelector';
-import thisOrThatStringObject from './translated/objects/thisOrThatString';
-import pageSourceSelectorObject from './translated/objects/pageSourceSelector';
-import moreInfoObject from './translated/objects/moreInfo';
-import ctaButtonSelectorObject from './translated/objects/ctaButtonSelector';
+} from './objects/customBlock';
+import metaDataObject from './objects/metaData';
+import iconPickerObject from './objects/iconPicker';
+import adviceObject from './objects/adviceBlock';
+import buttonObject from './objects/button';
+import pictureObject from './objects/picture';
+import videoObject from './objects/video';
+import heroObject from './objects/hero';
+import multiContentBlocksObject from './objects/multiContentBlocks';
+import pageReferenceObject from './objects/pageReference';
+import internalPageSelectorObject from './objects/internalPageSelector';
+import taleSelectorObject from './objects/taleSelector';
+import thisOrThatStringObject from './objects/thisOrThatString';
+import pageSourceSelectorObject from './objects/pageSourceSelector';
+import moreInfoObject from './objects/moreInfo';
+import ctaButtonSelectorObject from './objects/ctaButtonSelector';
 
 export default [
 	/**

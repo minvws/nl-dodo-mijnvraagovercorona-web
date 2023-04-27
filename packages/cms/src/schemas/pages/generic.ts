@@ -1,6 +1,6 @@
-import { isUniqueInLocale } from '../../../utilities/isUniqueInLocale';
+import { isUniqueInLocale } from '../../utilities/isUniqueInLocale';
 import { defineType, defineField } from 'sanity';
-import { filterReferenceByLanguage } from '../../../utilities/filterReferenceByLanguage';
+import { filterReferenceByLanguage } from '../../utilities/filterReferenceByLanguage';
 
 async function isUnique(slug: any, context: any) {
 	return await isUniqueInLocale({ slug, context, type: 'generic-page' });
