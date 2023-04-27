@@ -493,13 +493,13 @@ export default defineType({
 	],
 	preview: {
 		select: {
-			baseUrl: 'baseUrl',
+			locale: '__i18n_lang',
 		},
 		prepare(selection) {
-			const { baseUrl } = selection;
+			const { locale } = selection;
 			return {
 				title: 'Mijn Vraag Over Corona',
-				subtitle: baseUrl,
+				subtitle: locale,
 			};
 		},
 	},
