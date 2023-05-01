@@ -1,4 +1,5 @@
 import { defineType, defineField } from 'sanity';
+import { filterReferenceByLanguage } from '../../utilities/filterReferenceByLanguage';
 import { getBlockContentPreview } from '../../utilities/getBlockContentPreview';
 
 export default defineType({
@@ -45,6 +46,23 @@ export default defineType({
 			name: 'href',
 			type: 'string',
 			readOnly: ({ parent }) => !!parent?.pageReference,
+		}),
+
+		defineField({
+			title: 'Categorisering',
+			name: 'themes',
+			type: 'array',
+			of: [
+				defineField({
+					title: 'Thema',
+					name: 'themeReference',
+					type: 'reference',
+					to: [{ type: 'theme-page' }],
+					options: {
+						filter: filterReferenceByLanguage,
+					},
+				}),
+			],
 		}),
 	],
 });
