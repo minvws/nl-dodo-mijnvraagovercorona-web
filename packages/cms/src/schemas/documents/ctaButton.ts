@@ -1,4 +1,5 @@
 import { defineType, defineField } from 'sanity';
+import { getBlockContentPreview } from '../../utilities/getBlockContentPreview';
 
 export default defineType({
 	title: 'CTA knop',
@@ -12,23 +13,18 @@ export default defineType({
 		select: {
 			title: 'label',
 			locale: '__i18n_lang',
-			referenceTitle: '__i18n_base.title',
+			referenceTitle: '__i18n_base.label',
 			pageReferenceSlug: 'pageReference.slug.current',
 			href: 'href',
 		},
 		prepare(selection) {
-			const { title, locale, referenceTitle, pageReferenceSlug, href } =
-				selection;
+			const { title, referenceTitle, pageReferenceSlug, href } = selection;
+			const referenceTitlePreview = getBlockContentPreview(referenceTitle);
 			return {
-				title: title[0]?.children
-					? title[0].children
-							.filter((child) => child._type === 'span')
-							.map((span) => span.text)
-							.join('')
-					: 'Geen titel',
-				subtitle: `${referenceTitle ? `${referenceTitle} - ` : ''}${locale} - ${
-					pageReferenceSlug || href
-				}`,
+				title: getBlockContentPreview(title) || 'Geen titel',
+				subtitle: `${
+					referenceTitlePreview ? `${referenceTitlePreview} - ` : ''
+				}${pageReferenceSlug || href}`,
 			};
 		},
 	},
