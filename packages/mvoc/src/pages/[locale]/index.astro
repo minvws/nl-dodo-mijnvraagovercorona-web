@@ -55,6 +55,22 @@ const { locale, pagesData } = Astro.props;
 const pageData: PageHomeProps = pagesData.filter(
 	(page) => page.localeID === locale.id,
 )[0];
+
+console.log('pageData', pageData.themes);
+
+const filterThemes = pageData.themes
+	// Remove locales
+	.filter((theme) => theme.localeID === locale.id)
+	.filter(
+		(theme) =>
+			// Check if buttoncollection contains a button which is referenced from the current theme
+			pageData.important.ctaButtonCollection.filter(
+				(button) =>
+					button.themes.filter((buttonTheme) => buttonTheme.slug === theme.slug)
+						.length,
+			).length,
+	);
+console.log('filterThemes', filterThemes);
 ---
 
 <Layout
@@ -141,6 +157,9 @@ const pageData: PageHomeProps = pagesData.filter(
 						>
 							<ContentBlock value={pageData.important.content} />
 						</SectionHeadingGroup>
+						{filterThemes.map((theme) => (
+							<p>{theme.overview.title}</p>
+						))}
 						<GridFluid class="grid-important">
 							{pageData.important.ctaButtonCollection
 								?.filter((item) => item.label)
