@@ -31,11 +31,13 @@ export default defineType({
 			title: 'Overzicht',
 			name: 'overview',
 			type: 'object',
+			validation: (Rule) => Rule.required(),
 			fields: [
 				defineField({
 					title: 'Titel',
 					name: 'title',
 					type: 'string',
+					validation: (Rule) => Rule.required(),
 				}),
 				defineField({
 					title: 'Icoon',
