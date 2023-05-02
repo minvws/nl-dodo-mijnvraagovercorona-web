@@ -12,20 +12,21 @@ export default defineType({
 	},
 	preview: {
 		select: {
-			title: 'label',
-			locale: '__i18n_lang',
+			label: 'label',
 			referenceTitle: '__i18n_base.label',
 			pageReferenceSlug: 'pageReference.slug.current',
 			href: 'href',
 		},
 		prepare(selection) {
-			const { title, referenceTitle, pageReferenceSlug, href } = selection;
-			const referenceTitlePreview = getBlockContentPreview(referenceTitle);
+			const { label, referenceTitle, pageReferenceSlug, href } = selection;
+			const labelPreview = getBlockContentPreview(label);
+			const referencePreview = getBlockContentPreview(referenceTitle);
+
 			return {
-				title: getBlockContentPreview(title) || 'Geen titel',
-				subtitle: `${
-					referenceTitlePreview ? `${referenceTitlePreview} - ` : ''
-				}${pageReferenceSlug || href}`,
+				title: labelPreview || 'Geen titel',
+				subtitle: `${referencePreview ? `${referencePreview} - ` : ''}${
+					pageReferenceSlug || href
+				}`,
 			};
 		},
 	},
