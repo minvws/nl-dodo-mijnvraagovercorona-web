@@ -18,7 +18,7 @@ export default defineType({
 				defineField({
 					title: 'Interne link',
 					name: 'pageReference',
-					type: 'pageReference',
+					type: 'pageSourceSelector',
 					readOnly: ({ parent }) => !!parent?.href,
 				}),
 				defineField({
