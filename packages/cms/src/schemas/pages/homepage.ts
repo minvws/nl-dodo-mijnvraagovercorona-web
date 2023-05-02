@@ -21,6 +21,26 @@ export default defineType({
 			type: 'hero',
 		}),
 		defineField({
+			title: 'Kaarten',
+			name: 'cards',
+			type: 'object',
+			fields: [
+				defineField({
+					title: 'Kaarten',
+					name: 'items',
+					type: 'array',
+					of: [
+						{
+							title: 'Card',
+							name: 'card',
+							type: 'reference',
+							to: [{ type: 'card' }],
+						},
+					],
+				}),
+			],
+		}),
+		defineField({
 			title: 'Button',
 			name: 'button',
 			type: 'flexibleButton',
