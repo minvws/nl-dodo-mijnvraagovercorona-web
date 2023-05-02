@@ -19,6 +19,7 @@ import { Assistance } from '@design-system/components/Assistance';
 import { AdviceBlock } from '@design-system/components/AdviceBlock';
 import { TaleList } from '@design-system/components/Tale';
 import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
+import { CTAButtonOverview } from '@modules/CTAButtonOverview';
 
 export async function getStaticPaths() {
 	const collection = await getDataHome();
@@ -56,21 +57,9 @@ const pageData: PageHomeProps = pagesData.filter(
 	(page) => page.localeID === locale.id,
 )[0];
 
-console.log('pageData', pageData.themes);
-
-const filterThemes = pageData.themes
-	// Remove locales
-	.filter((theme) => theme.localeID === locale.id)
-	.filter(
-		(theme) =>
-			// Check if buttoncollection contains a button which is referenced from the current theme
-			pageData.important.ctaButtonCollection.filter(
-				(button) =>
-					button.themes.filter((buttonTheme) => buttonTheme.slug === theme.slug)
-						.length,
-			).length,
-	);
-console.log('filterThemes', filterThemes);
+const filterThemes = pageData.themes.filter(
+	(theme) => theme.localeID === locale.id,
+);
 ---
 
 <Layout
@@ -157,31 +146,13 @@ console.log('filterThemes', filterThemes);
 						>
 							<ContentBlock value={pageData.important.content} />
 						</SectionHeadingGroup>
-						{filterThemes.map((theme) => (
-							<p>{theme.overview.title}</p>
-						))}
-						<GridFluid class="grid-important">
-							{pageData.important.ctaButtonCollection
-								?.filter((item) => item.label)
-								.map((item) => (
-									<Button
-										variant="tertiary"
-										href={prefixUrlWithlocale(
-											getFullPageUrl(item.slugCollection),
-											locale,
-										)}
-										icon="chevron-small-right"
-										interactionIconAnimation="swing"
-										data-themes={
-											item.themes.length
-												? item.themes.map((theme) => `${theme.slug}`).join()
-												: undefined
-										}
-									>
-										<ContentBlock value={item.label} />
-									</Button>
-								))}
-						</GridFluid>
+						<CTAButtonOverview
+							categories={filterThemes.map((theme) => ({
+								label: theme.overview.title,
+								id: theme.slug,
+							}))}
+							items={pageData.important.ctaButtonCollection}
+						/>
 					</Stack>
 				</Retain>
 			</Layer>
@@ -210,9 +181,6 @@ console.log('filterThemes', filterThemes);
 </Layout>
 
 <style lang="scss">
-	@use '@design-system-styles/primitives/_responsive.scss';
-
-	.grid-important,
 	.grid-advice {
 		--grid-fluid-min-item-size: 20rem; // 400px
 		--grid-fluid-gap: var(--stack-small);

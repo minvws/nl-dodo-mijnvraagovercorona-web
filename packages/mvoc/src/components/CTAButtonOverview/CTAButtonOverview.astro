@@ -1,0 +1,89 @@
+---
+import {
+	ContentBlock,
+	ContentBlockProps,
+} from '@design-system/components/ContentBlock';
+import { GridFluid } from '@design-system/components/Layout/Grid';
+import { Button } from '@design-system/elements/Button';
+import { Mark } from 'astro-portabletext/components';
+import { HTMLAttributes } from 'astro/types';
+import {
+	CtaButtonCollectionProps,
+	SiteSettingsProps,
+	SubFolderReferenceProps,
+	useSiteSettings,
+} from 'src/utilities/api/queries';
+import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
+import {
+	getLocaleFromURL,
+	prefixUrlWithlocale,
+} from 'src/utilities/locale/translation';
+
+interface Props extends HTMLAttributes<'div'> {
+	categories: {
+		label: string;
+		id: string;
+	}[];
+	items: CtaButtonCollectionProps['ctaButtonCollection'];
+}
+
+const { categories, items, class: className, ...attrs } = Astro.props;
+const locale = getLocaleFromURL(Astro.url.pathname);
+// const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+// console.log('categories', categories);
+// console.log('items', items);
+const filterCategories = categories.filter(
+	(category) =>
+		// Check if buttoncollection contains a button which is referenced from the current category
+		items.filter(
+			(button) =>
+				button.themes.filter((buttonTheme) => buttonTheme.slug === category.id)
+					.length,
+		).length,
+);
+console.log('filterCategories', filterCategories);
+---
+
+<div
+	class={`c-cta-button-overview${className ? ` | ${className}` : ''}`}
+	{...attrs}
+>
+	{
+		filterCategories.map((category) => (
+			<p>
+				<mark>{category.label}</mark>
+			</p>
+		))
+	}
+	<GridFluid class="grid">
+		{
+			items
+				?.filter((item) => item.label)
+				.map((item) => (
+					<Button
+						variant="tertiary"
+						href={prefixUrlWithlocale(
+							getFullPageUrl(item.slugCollection),
+							locale,
+						)}
+						icon="chevron-small-right"
+						interactionIconAnimation="swing"
+						data-themes={
+							item.themes.length
+								? item.themes.map((theme) => `${theme.slug}`).join()
+								: undefined
+						}
+					>
+						<ContentBlock value={item.label} />
+					</Button>
+				))
+		}
+	</GridFluid>
+</div>
+
+<style lang="scss">
+	.grid {
+		--grid-fluid-min-item-size: 20rem; // 400px
+		--grid-fluid-gap: var(--stack-small);
+	}
+</style>
