@@ -39,7 +39,7 @@ export const pageQuery = ({
 
 	// prettier-ignore
 	return `{
-		"${multiple ? 'pages' : 'pageData'}": *[_type == "${type}"${slugConditional}${localeConditional}]${multiple ? '' : '[0]'} {
+		"${multiple ? 'pages' : 'pageData'}": *[_type == "${type}" && (!defined(generatePage) || generatePage == true)${slugConditional}${localeConditional}]${multiple ? '' : '[0]'} {
 			"type": _type,
 			"updatedAt": _updatedAt,
 			"localeID": __i18n_lang,
