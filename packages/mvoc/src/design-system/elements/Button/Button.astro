@@ -102,6 +102,8 @@ const selectedIcon =
 		--button-border-width: 1px;
 		--button-border-color: var(--button-background-color);
 		--button-padding: var(--space-r-small);
+		--button-padding-block: var(--button-padding);
+		--button-padding-inline: var(--button-padding);
 		--button-background-color: var(--color-accent-robijnrood);
 		--button-color: var(--color-white);
 		--button-icon-color: currentColor;
@@ -111,7 +113,12 @@ const selectedIcon =
 		// justify-content: space-between;
 		gap: var(--space-r-small);
 		min-inline-size: 100%;
-		padding: calc(var(--button-padding) - var(--button-border-width));
+		padding-block: calc(
+			var(--button-padding-block) - var(--button-border-width)
+		);
+		padding-inline: calc(
+			var(--button-padding-inline) - var(--button-border-width)
+		);
 		border: var(--button-border-width) solid var(--button-border-color);
 		border-radius: var(--radii-milli);
 		text-align: center;
@@ -206,6 +213,24 @@ const selectedIcon =
 		&:hover,
 		&:focus {
 			--button-background-color: var(--color-ijsblauw);
+		}
+	}
+
+	.e-button--quinary {
+		--button-background-color: var(--color-white);
+		--button-color: var(--color-donkerblauw);
+		--button-border-color: var(--color-hemelblauw);
+		--button-padding-block: var(--space-r-milli);
+		border-radius: calc(
+			var(--button-padding-block) * 2 + var(--font-lineheight-root) * 1em
+		);
+
+		&:hover,
+		&.is-active {
+			--button-background-color: var(--color-donkerblauw);
+			--button-color: var(--color-white);
+			--button-border-color: var(--button-background-color);
+			box-shadow: var(--variant--tile-elevation-base) var(--color-diepblauw);
 		}
 	}
 
