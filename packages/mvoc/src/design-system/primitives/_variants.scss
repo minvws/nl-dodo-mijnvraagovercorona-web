@@ -7,10 +7,13 @@
 	--variant--tile-border-radius: var(--radii-milli);
 	--variant--tile-border-color: var(--color-poolblauw);
 	--variant--tile-border-color-interactive: var(--color-donkerblauw);
+	--variant--tile-border-color-dark: var(--color-diepblauw);
 
 	--variant--tile-elevation-base: 0 4px 0;
 	--variant--tile-elevation: var(--variant--tile-elevation-base)
 		var(--variant--tile-border-color);
+	--variant--tile-elevation-dark: var(--variant--tile-elevation-base)
+		var(--variant--tile-border-color-dark);
 	--variant--tile-elevation-interactive: var(--variant--tile-elevation-base)
 		var(--variant--tile-border-color-interactive);
 
