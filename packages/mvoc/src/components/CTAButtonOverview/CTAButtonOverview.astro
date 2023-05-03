@@ -10,7 +10,6 @@ import { HTMLAttributes } from 'astro/types';
 import {
 	CtaButtonCollectionProps,
 	SiteSettingsProps,
-	SubFolderReferenceProps,
 	useSiteSettings,
 } from 'src/utilities/api/queries';
 import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
@@ -20,47 +19,59 @@ import {
 } from 'src/utilities/locale/translation';
 
 interface Props extends HTMLAttributes<'div'> {
-	categories: {
+	categories?: {
 		label: string;
 		id: string;
 	}[];
 	items: CtaButtonCollectionProps['ctaButtonCollection'];
+	enableFilter?: boolean;
 }
 
-const { categories, items, class: className, ...attrs } = Astro.props;
+const {
+	categories,
+	items,
+	enableFilter,
+	class: className,
+	...attrs
+} = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
 // const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
-const filterCategories = categories.filter(
-	(category) =>
-		// Check if buttoncollection contains a button which is referenced from the current category
-		items.filter(
-			(button) =>
-				button.themes.filter((buttonTheme) => buttonTheme.slug === category.id)
-					.length,
-		).length,
-);
+const filterCategories = categories?.length
+	? categories.filter(
+			(category) =>
+				// Check if buttoncollection contains a button which is referenced from the current category
+				items.filter(
+					(button) =>
+						button.themes.filter(
+							(buttonTheme) => buttonTheme.slug === category.id,
+						).length,
+				).length,
+	  )
+	: [];
 ---
 
 <div
 	class={`c-cta-button-overview${className ? ` | ${className}` : ''}`}
-	data-module="filter"
+	data-module={enableFilter && filterCategories.length ? 'filter' : undefined}
 	{...attrs}
 >
 	<Stack>
-		<div class="c-cta-button-overview__wrap-buttons">
-			{
-				filterCategories.map((category) => (
-					<Button
-						type="button"
-						variant="quinary"
-						data-id={category.id}
-						data-module-bind="filter__toggle"
-					>
-						{category.label}
-					</Button>
-				))
-			}
-		</div>
+		{
+			enableFilter && filterCategories.length ? (
+				<div class="c-cta-button-overview__wrap-buttons">
+					{filterCategories.map((category) => (
+						<Button
+							type="button"
+							variant="quinary"
+							data-id={category.id}
+							data-module-bind="filter__toggle"
+						>
+							{category.label}
+						</Button>
+					))}
+				</div>
+			) : null
+		}
 		<GridFluid class="grid">
 			{
 				items
@@ -110,6 +121,7 @@ const filterCategories = categories.filter(
 	const parent = document.querySelector(
 		'[data-module="filter"]',
 	) as HTMLDivElement;
+	console.log('parent', parent);
 	if (parent) {
 		const toggles = parent.querySelectorAll<HTMLButtonElement>(
 			'[data-module-bind="filter__toggle"]',
