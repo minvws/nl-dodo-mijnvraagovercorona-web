@@ -19,6 +19,8 @@ import { Assistance } from '@design-system/components/Assistance';
 import { AdviceBlock } from '@design-system/components/AdviceBlock';
 import { TaleList } from '@design-system/components/Tale';
 import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
+import { CardBlock } from '@design-system/components/Card';
+import { AnswersBlock } from '@design-system/components/AnswersBlock';
 
 export async function getStaticPaths() {
 	const collection = await getDataHome();
@@ -95,6 +97,25 @@ const pageData: PageHomeProps = pagesData.filter(
 			) : null
 		}
 	</Hero>
+	{
+		!!pageData.cards?.items.length && (
+			<Layer pullUpBy="hero" background="ijsblauw" id="meest-gestelde-vragen">
+				<Retain>
+					<Stack gap="huge">
+						<GridFluid class="grid-answers">
+							{pageData.cards.items.map(
+								({ title, image, content, buttons }) => (
+									<AnswersBlock title={title} image={image} buttons={buttons}>
+										<ContentBlock value={content} />
+									</AnswersBlock>
+								),
+							)}
+						</GridFluid>
+					</Stack>
+				</Retain>
+			</Layer>
+		)
+	}
 
 	<Layer
 		pullUpBy="hero"
@@ -188,10 +209,14 @@ const pageData: PageHomeProps = pagesData.filter(
 <style lang="scss">
 	@use '@design-system-styles/primitives/_responsive.scss';
 
-	.grid-important,
+	.grid-answers .grid-important,
 	.grid-advice {
 		--grid-fluid-min-item-size: 20rem; // 400px
 		--grid-fluid-gap: var(--stack-small);
+	}
+
+	.grid-answers {
+		align-items: start;
 	}
 
 	.grid-advice {

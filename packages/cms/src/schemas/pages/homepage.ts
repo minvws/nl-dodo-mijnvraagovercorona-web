@@ -21,9 +21,13 @@ export default defineType({
 			type: 'hero',
 		}),
 		defineField({
-			title: 'Kaarten',
+			title: 'Meest gestelde vragen',
 			name: 'cards',
 			type: 'object',
+			options: {
+				collapsible: true,
+				collapsed: true,
+			},
 			fields: [
 				defineField({
 					title: 'Kaarten',

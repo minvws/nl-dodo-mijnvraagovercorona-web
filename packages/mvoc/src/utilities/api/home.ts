@@ -18,14 +18,15 @@ import {
 	buttonsQuery,
 	CtaButtonCollectionProps,
 	ctaButtonCollectionQuery,
+	ButtonsProps,
 } from './queries';
 
 interface CardProps {
 	title: string;
-	icon: ImageProps;
+	image: ImageProps;
 	chapeau: string;
 	content: ContentBlockProps['value'];
-	buttons: ButtonProps;
+	buttons: ButtonsProps;
 }
 
 export interface PageHomeProps extends PageProps {
@@ -79,8 +80,7 @@ export async function getDataHome() {
 		cards{
 			items[]->{
 				title,
-				icon,
-				chapeau,
+				${imageQuery({ name: 'image' })},
 				${customBlockQuery({ name: 'content' })},
 				${buttonsQuery({ array: true })},
 			},

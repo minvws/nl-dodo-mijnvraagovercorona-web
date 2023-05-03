@@ -1,0 +1,87 @@
+---
+import { Heading } from '@design-system/elements/Heading';
+import { Button } from '@design-system/elements/Button';
+import { Stack } from '@design-system/components/Layout/Stack';
+import { ButtonsProps, ImageProps } from 'src/utilities/api/queries';
+import {
+	Locale,
+	getLocaleFromURL,
+	prefixUrlWithlocale,
+} from 'src/utilities/locale/translation';
+import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
+import { MediaBlock } from '@design-system/components/MediaBlock';
+import Card from '../Card/Card.astro';
+
+interface Props {
+	title: string;
+	chapeau?: string;
+	buttons?: ButtonsProps;
+	image?: ImageProps;
+}
+
+const { title, image, buttons } = Astro.props;
+const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
+---
+
+<Card
+	variant={'canvas'}
+	class={`c-answers-block${buttons?.length ? '--has-buttons' : ''}`}
+>
+	<Stack gap="small">
+		<hgroup class="c-answers-block__hgroup">
+			<MediaBlock icon={image} class="c-advice-block__media-heading">
+				<Heading level={3} styledAs={2}>
+					{title}
+				</Heading>
+			</MediaBlock>
+		</hgroup>
+
+		<slot />
+
+		{
+			!!buttons?.length ? (
+				<ul class="c-answers-block__wrap-buttons" role="list">
+					{buttons.map((button) => (
+						<li>
+							<Button
+								variant={button.variant}
+								href={prefixUrlWithlocale(
+									getFullPageUrl(button.slugCollection),
+									locale,
+								)}
+								icon={button.icon}
+							>
+								{button.label}
+							</Button>
+						</li>
+					))}
+				</ul>
+			) : null
+		}
+
+		<slot name="appendix" />
+	</Stack>
+</Card>
+
+<style lang="scss">
+	.c-answers-block {
+	}
+
+	.c-answers-block__hgroup {
+		display: flex;
+		flex-direction: column-reverse;
+		gap: var(--space-r-milli);
+	}
+
+	.c-answers-block__wrap-buttons {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-r-small);
+		position: absolute;
+		margin-block-start: 1rem;
+	}
+
+	.c-answers-block--has-buttons {
+		margin-bottom: 3rem;
+	}
+</style>

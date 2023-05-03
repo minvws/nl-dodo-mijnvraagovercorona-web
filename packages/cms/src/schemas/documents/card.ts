@@ -36,7 +36,7 @@ export default defineType({
 		}),
 		defineField({
 			title: 'Icoon',
-			name: 'icon',
+			name: 'image',
 			type: 'image',
 		}),
 		defineField({
