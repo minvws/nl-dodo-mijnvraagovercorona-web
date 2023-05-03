@@ -99,7 +99,11 @@ const pageData: PageHomeProps = pagesData.filter(
 	</Hero>
 	{
 		!!pageData.cards?.items.length && (
-			<Layer pullUpBy="hero" background="ijsblauw" id="meest-gestelde-vragen">
+			<Layer
+				pullUpBy="hero"
+				background="ijsblauw"
+				id={stringToSlug(pageData.cards.label)}
+			>
 				<Retain>
 					<Stack gap="huge">
 						<GridFluid class="grid-answers">

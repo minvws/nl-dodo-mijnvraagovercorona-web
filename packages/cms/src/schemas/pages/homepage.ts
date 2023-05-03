@@ -30,6 +30,14 @@ export default defineType({
 			},
 			fields: [
 				defineField({
+					title: 'Label',
+					name: 'label',
+					type: 'string',
+					description:
+						'Dit veld word alleen getoond voor screenreader gebruikers',
+					validation: (Rule) => Rule.required(),
+				}),
+				defineField({
 					title: 'Kaarten',
 					name: 'items',
 					type: 'array',

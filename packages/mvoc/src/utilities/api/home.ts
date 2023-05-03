@@ -32,6 +32,7 @@ interface CardProps {
 export interface PageHomeProps extends PageProps {
 	hero: HeroProps;
 	cards?: {
+		label: string;
 		items?: CardProps[];
 	};
 	button?: ButtonProps;
@@ -78,6 +79,7 @@ export async function getDataHome() {
 	const projection = `{
 		${heroQuery()},
 		cards{
+			label,
 			items[]->{
 				title,
 				${imageQuery({ name: 'image' })},
