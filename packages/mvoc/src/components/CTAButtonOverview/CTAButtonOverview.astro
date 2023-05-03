@@ -4,8 +4,8 @@ import {
 	ContentBlockProps,
 } from '@design-system/components/ContentBlock';
 import { GridFluid } from '@design-system/components/Layout/Grid';
+import { Stack } from '@design-system/components/Layout/Stack';
 import { Button } from '@design-system/elements/Button';
-import { Mark } from 'astro-portabletext/components';
 import { HTMLAttributes } from 'astro/types';
 import {
 	CtaButtonCollectionProps,
@@ -30,8 +30,6 @@ interface Props extends HTMLAttributes<'div'> {
 const { categories, items, class: className, ...attrs } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
 // const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
-// console.log('categories', categories);
-// console.log('items', items);
 const filterCategories = categories.filter(
 	(category) =>
 		// Check if buttoncollection contains a button which is referenced from the current category
@@ -41,44 +39,54 @@ const filterCategories = categories.filter(
 					.length,
 		).length,
 );
-console.log('filterCategories', filterCategories);
 ---
 
 <div
 	class={`c-cta-button-overview${className ? ` | ${className}` : ''}`}
+	data-module="filter"
 	{...attrs}
 >
-	{
-		filterCategories.map((category) => (
-			<p>
-				<mark>{category.label}</mark>
-			</p>
-		))
-	}
-	<GridFluid class="grid">
-		{
-			items
-				?.filter((item) => item.label)
-				.map((item) => (
+	<Stack>
+		<div class="c-cta-button-overview__wrap-buttons">
+			{
+				filterCategories.map((category) => (
 					<Button
-						variant="tertiary"
-						href={prefixUrlWithlocale(
-							getFullPageUrl(item.slugCollection),
-							locale,
-						)}
-						icon="chevron-small-right"
-						interactionIconAnimation="swing"
-						data-themes={
-							item.themes.length
-								? item.themes.map((theme) => `${theme.slug}`).join()
-								: undefined
-						}
+						type="button"
+						variant="quinary"
+						data-id={category.id}
+						data-module-bind="filter__toggle"
 					>
-						<ContentBlock value={item.label} />
+						{category.label}
 					</Button>
 				))
-		}
-	</GridFluid>
+			}
+		</div>
+		<GridFluid class="grid">
+			{
+				items
+					?.filter((item) => item.label)
+					.map((item) => (
+						<Button
+							variant="tertiary"
+							href={prefixUrlWithlocale(
+								getFullPageUrl(item.slugCollection),
+								locale,
+							)}
+							icon="chevron-small-right"
+							interactionIconAnimation="swing"
+							data-themes={
+								item.themes.length
+									? item.themes.map((theme) => `${theme.slug}`).join()
+									: undefined
+							}
+							data-module-bind="filter__item"
+						>
+							<ContentBlock value={item.label} />
+						</Button>
+					))
+			}
+		</GridFluid>
+	</Stack>
 </div>
 
 <style lang="scss">
@@ -86,4 +94,68 @@ console.log('filterCategories', filterCategories);
 		--grid-fluid-min-item-size: 20rem; // 400px
 		--grid-fluid-gap: var(--stack-small);
 	}
+
+	.c-cta-button-overview__wrap-buttons {
+		display: flex;
+		flex-flow: row wrap;
+		gap: var(--stack-small);
+
+		> * {
+			min-inline-size: auto;
+		}
+	}
 </style>
+
+<script>
+	const parent = document.querySelector(
+		'[data-module="filter"]',
+	) as HTMLDivElement;
+	if (parent) {
+		const toggles = parent.querySelectorAll<HTMLButtonElement>(
+			'[data-module-bind="filter__toggle"]',
+		);
+		const items = parent.querySelectorAll<HTMLButtonElement>(
+			'[data-module-bind="filter__item"]',
+		);
+		const activeFilters =
+			JSON.parse(sessionStorage.getItem('cta-button-filter')) || [];
+
+		const checkItem = (value) =>
+			!!activeFilters.some((filter) => value.includes(filter));
+
+		const filterItems = () => {
+			items.forEach((item) => {
+				item.hidden =
+					activeFilters.length === 0
+						? false
+						: !checkItem(item.dataset.themes || '');
+			});
+
+			toggles.forEach((toggle) =>
+				toggle.classList.toggle(
+					'is-active',
+					activeFilters.includes(toggle.dataset.id),
+				),
+			);
+			sessionStorage.setItem(
+				'cta-button-filter',
+				JSON.stringify(activeFilters),
+			);
+		};
+
+		toggles.forEach((toggle) => {
+			toggle.addEventListener('click', (event) => {
+				event.preventDefault();
+				const id = toggle.dataset.id;
+				if (activeFilters.includes(id)) {
+					activeFilters.splice(activeFilters.indexOf(id), 1);
+				} else {
+					activeFilters.push(id);
+				}
+				filterItems();
+			});
+		});
+
+		filterItems();
+	}
+</script>
