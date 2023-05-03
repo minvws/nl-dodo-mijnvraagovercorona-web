@@ -35,7 +35,12 @@ export default defineType({
 					type: 'string',
 					description:
 						'Dit veld word alleen getoond voor screenreader gebruikers',
-					validation: (Rule) => Rule.required(),
+					validation: (Rule) =>
+						Rule.custom((label) =>
+							label.length === 0 || label.length >= 1
+								? true
+								: 'Label verplicht',
+						),
 				}),
 				defineField({
 					title: 'Kaarten',
@@ -49,6 +54,12 @@ export default defineType({
 							to: [{ type: 'card' }],
 						},
 					],
+					validation: (Rule) =>
+						Rule.custom((items) =>
+							items.length === 0 || (items.length >= 2 && items.length <= 3)
+								? true
+								: 'Het moet minmaal 2, maximaal 3 items bevatten',
+						),
 				}),
 			],
 		}),

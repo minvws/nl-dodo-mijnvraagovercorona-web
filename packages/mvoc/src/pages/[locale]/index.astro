@@ -107,7 +107,13 @@ const pageData: PageHomeProps = pagesData.filter(
 			>
 				<Retain>
 					<Stack gap="huge">
-						<GridFluid class="grid-answers">
+						<GridFluid
+							class={`grid-answers ${
+								pageData.cards.items.length === 2
+									? 'grid-answers--two-cards'
+									: ''
+							}`}
+						>
 							{pageData.cards.items.map(
 								({ title, image, content, buttons }) => (
 									<AnswersBlock title={title} image={image} buttons={buttons}>
@@ -227,6 +233,13 @@ const pageData: PageHomeProps = pagesData.filter(
 			margin-block-start: -5rem;
 		}
 		margin-block-start: -4rem;
+	}
+
+	.grid-answers--two-cards {
+		grid-template-columns: 1fr;
+		@media --mq-large {
+			grid-template-columns: repeat(2, 1fr);
+		}
 	}
 
 	.grid-advice {
