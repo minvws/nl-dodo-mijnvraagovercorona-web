@@ -18,23 +18,12 @@ import {
 	buttonsQuery,
 	CtaButtonCollectionProps,
 	ctaButtonCollectionQuery,
-	ButtonsProps,
 } from './queries';
-
-interface CardProps {
-	title: string;
-	image: ImageProps;
-	chapeau: string;
-	content: ContentBlockProps['value'];
-	buttons: ButtonsProps;
-}
+import { CardProps, cardQuery } from './queries/card';
 
 export interface PageHomeProps extends PageProps {
 	hero: HeroProps;
-	cards?: {
-		label: string;
-		items?: CardProps[];
-	};
+	cards?: CardProps;
 	button?: ButtonProps;
 	locale: string;
 	assistance: AssistanceProps;
@@ -78,15 +67,7 @@ export interface PageHomeProps extends PageProps {
 export async function getDataHome() {
 	const projection = `{
 		${heroQuery()},
-		cards{
-			label,
-			items[]->{
-				title,
-				${imageQuery({ name: 'image' })},
-				${customBlockQuery({ name: 'content' })},
-				${buttonsQuery({ array: true })},
-			},
-		},
+		${cardQuery()},
 		${assistanceQuery()},
 		${buttonsQuery({ array: false })},
 		important{
