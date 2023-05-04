@@ -49,10 +49,6 @@ export default defineType({
 						title: 'Quaternary',
 						value: 'quaternary',
 					},
-					{
-						title: 'Quinary',
-						value: 'quinary',
-					},
 				],
 			},
 		}),
