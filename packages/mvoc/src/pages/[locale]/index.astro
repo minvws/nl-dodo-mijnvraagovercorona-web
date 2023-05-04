@@ -227,18 +227,23 @@ const pageData: PageHomeProps = pagesData.filter(
 	}
 
 	.grid-answers {
+		grid-template-columns: repeat(
+			var(--grid-fluid-placement, auto-fill),
+			minmax(max(var(--grid-fluid-min-item-size, 15rem), 100%), 1fr)
+		);
 		align-items: start;
 		position: relative;
-		@media --mq-large {
-			margin-block-start: -5rem;
+		@media --mq-large-until {
+			grid-template-columns: 1fr;
+			margin-block-start: -3rem;
 		}
-		margin-block-start: -4rem;
+		margin-block-start: -5rem;
 	}
 
 	.grid-answers--two-cards {
-		grid-template-columns: 1fr;
-		@media --mq-large {
-			grid-template-columns: repeat(2, 1fr);
+		grid-template-columns: repeat(2, 1fr);
+		@media --mq-large-until {
+			grid-template-columns: 1fr;
 		}
 	}
 
