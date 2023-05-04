@@ -72,28 +72,32 @@ const filterCategories = categories?.length
 				</div>
 			) : null
 		}
-		<GridFluid class="grid">
+		<GridFluid class="grid" as="ul">
 			{
 				items
 					?.filter((item) => item.label)
 					.map((item) => (
-						<Button
-							variant="tertiary"
-							href={prefixUrlWithlocale(
-								getFullPageUrl(item.slugCollection),
-								locale,
-							)}
-							icon="chevron-small-right"
-							interactionIconAnimation="swing"
+						<li
+							class="filter-item"
+							data-module-bind="filter__item"
 							data-themes={
 								item.themes.length
 									? item.themes.map((theme) => `${theme.slug}`).join()
 									: undefined
 							}
-							data-module-bind="filter__item"
 						>
-							<ContentBlock value={item.label} />
-						</Button>
+							<Button
+								variant="tertiary"
+								href={prefixUrlWithlocale(
+									getFullPageUrl(item.slugCollection),
+									locale,
+								)}
+								icon="chevron-small-right"
+								interactionIconAnimation="swing"
+							>
+								<ContentBlock value={item.label} />
+							</Button>
+						</li>
 					))
 			}
 		</GridFluid>
@@ -115,18 +119,42 @@ const filterCategories = categories?.length
 			min-inline-size: auto;
 		}
 	}
+
+	.filter-item {
+		position: relative;
+		z-index: 2;
+		transition: all 200ms ease-in-out;
+
+		> * {
+			inline-size: 100%;
+		}
+
+		&.is-invisible {
+			// transform: translateY(50%);
+			opacity: 0.2;
+			z-index: 1;
+			order: 1;
+		}
+
+		&:focus-within,
+		&:hover {
+			opacity: 1;
+		}
+		&.is-hidden {
+			display: none;
+		}
+	}
 </style>
 
 <script>
 	const parent = document.querySelector(
 		'[data-module="filter"]',
 	) as HTMLDivElement;
-	console.log('parent', parent);
 	if (parent) {
 		const toggles = parent.querySelectorAll<HTMLButtonElement>(
 			'[data-module-bind="filter__toggle"]',
 		);
-		const items = parent.querySelectorAll<HTMLButtonElement>(
+		const items = parent.querySelectorAll<HTMLLIElement>(
 			'[data-module-bind="filter__item"]',
 		);
 		const activeFilters =
@@ -137,10 +165,13 @@ const filterCategories = categories?.length
 
 		const filterItems = () => {
 			items.forEach((item) => {
-				item.hidden =
+				// item.classList.remove('is-hidden');
+				item.classList.toggle(
+					'is-invisible',
 					activeFilters.length === 0
 						? false
-						: !checkItem(item.dataset.themes || '');
+						: !checkItem(item.dataset.themes || ''),
+				);
 			});
 
 			toggles.forEach((toggle) =>
@@ -167,6 +198,22 @@ const filterCategories = categories?.length
 				filterItems();
 			});
 		});
+
+		// items.forEach((item) => {
+		// 	item.addEventListener('transitionstart', (event) => {
+		// 		if (event.target === item && !item.classList.contains('is-invisible')) {
+		// 			console.log('transitionstart');
+		// 			item.classList.remove('is-hidden');
+		// 		}
+		// 	});
+
+		// 	item.addEventListener('transitionend', (event) => {
+		// 		if (event.target === item && item.classList.contains('is-invisible')) {
+		// 			console.log('transitionend');
+		// 			item.classList.add('is-hidden');
+		// 		}
+		// 	});
+		// });
 
 		filterItems();
 	}
