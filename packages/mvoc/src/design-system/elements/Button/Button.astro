@@ -224,8 +224,10 @@ const selectedIcon =
 		border-radius: calc(
 			var(--button-padding-block) * 2 + var(--font-lineheight-root) * 1em
 		);
+		&:hover {
+			--button-background-color: var(--color-poolblauw);
+		}
 
-		&:hover,
 		&.is-active {
 			--button-background-color: var(--color-donkerblauw);
 			--button-color: var(--color-white);

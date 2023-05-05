@@ -165,9 +165,8 @@ const filterCategories = categories?.length
 
 		const filterItems = () => {
 			items.forEach((item) => {
-				// item.classList.remove('is-hidden');
 				item.classList.toggle(
-					'is-invisible',
+					'is-hidden',
 					activeFilters.length === 0
 						? false
 						: !checkItem(item.dataset.themes || ''),
@@ -198,22 +197,6 @@ const filterCategories = categories?.length
 				filterItems();
 			});
 		});
-
-		// items.forEach((item) => {
-		// 	item.addEventListener('transitionstart', (event) => {
-		// 		if (event.target === item && !item.classList.contains('is-invisible')) {
-		// 			console.log('transitionstart');
-		// 			item.classList.remove('is-hidden');
-		// 		}
-		// 	});
-
-		// 	item.addEventListener('transitionend', (event) => {
-		// 		if (event.target === item && item.classList.contains('is-invisible')) {
-		// 			console.log('transitionend');
-		// 			item.classList.add('is-hidden');
-		// 		}
-		// 	});
-		// });
 
 		filterItems();
 	}
