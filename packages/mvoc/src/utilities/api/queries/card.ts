@@ -7,12 +7,17 @@ import {
 } from './';
 import { ContentBlockProps } from '@design-system/components/ContentBlock';
 
-export interface CardProps {
+interface CardProps {
 	title: string;
 	image: ImageProps;
 	chapeau: string;
 	content: ContentBlockProps['value'];
 	buttons: ButtonsProps;
+}
+
+export interface CardsProps {
+	label: string;
+	items: CardProps[];
 }
 
 export const cardQuery = (): string => {

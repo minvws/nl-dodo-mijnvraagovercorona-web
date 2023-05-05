@@ -131,6 +131,6 @@ const { title, chapeau, image, highlight, cards, updatedAt } = Astro.props;
 		}
 	}
 	.c-hero--cards {
-		--hero-padding-block-end: 4rem;
+		--hero-padding-block-end: calc(var(--hero-padding) * 2);
 	}
 </style>

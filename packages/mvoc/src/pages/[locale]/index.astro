@@ -19,8 +19,7 @@ import { Assistance } from '@design-system/components/Assistance';
 import { AdviceBlock } from '@design-system/components/AdviceBlock';
 import { TaleList } from '@design-system/components/Tale';
 import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
-import { CardBlock } from '@design-system/components/Card';
-import { AnswersBlock } from '@design-system/components/AnswersBlock';
+import CardAnswer from '@design-system/components/Card/CardAnswer.astro';
 
 export async function getStaticPaths() {
 	const collection = await getDataHome();
@@ -73,7 +72,7 @@ const pageData: PageHomeProps = pagesData.filter(
 		image={pageData.hero.image}
 		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
 		highlight
-		cards={pageData.cards.label}
+		cards={pageData.cards}
 	>
 		<ContentBlock value={pageData.hero.content} />
 		{
@@ -109,16 +108,16 @@ const pageData: PageHomeProps = pagesData.filter(
 					<Stack gap="huge">
 						<GridFluid
 							class={`grid-answers ${
-								pageData.cards.items.length === 2
-									? 'grid-answers--two-cards'
+								pageData.cards.items.length === 3
+									? 'grid-answers--three-cards'
 									: ''
 							}`}
 						>
 							{pageData.cards.items.map(
 								({ title, image, content, buttons }) => (
-									<AnswersBlock title={title} image={image} buttons={buttons}>
+									<CardAnswer title={title} image={image} buttons={buttons}>
 										<ContentBlock value={content} />
-									</AnswersBlock>
+									</CardAnswer>
 								),
 							)}
 						</GridFluid>
@@ -219,35 +218,28 @@ const pageData: PageHomeProps = pagesData.filter(
 
 <style lang="scss">
 	@use '@design-system-styles/primitives/_responsive.scss';
-
-	.grid-answers .grid-important,
+	.grid-answers,
+	.grid-important,
 	.grid-advice {
 		--grid-fluid-min-item-size: 20rem; // 400px
 		--grid-fluid-gap: var(--stack-small);
 	}
 
 	.grid-answers {
-		grid-template-columns: repeat(
-			var(--grid-fluid-placement, auto-fill),
-			minmax(max(var(15rem), 100%), 1fr)
-		);
-		align-items: start;
 		position: relative;
-		@media --mq-large-until {
-			grid-template-columns: 1fr;
-			margin-block-start: -3rem;
-		}
-		margin-block-start: -5rem;
-	}
-
-	.grid-answers--two-cards {
-		grid-template-columns: repeat(2, 1fr);
-		@media --mq-large-until {
-			grid-template-columns: 1fr;
-		}
+		align-items: start;
+		margin-block-start: calc(
+			(var(--layer-padding-block-start) + var(--stack-hero)) * -1
+		);
 	}
 
 	.grid-advice {
 		align-items: start;
+	}
+
+	@media --mq-large {
+		.grid-answers--three-cards {
+			--grid-fluid-min-item-size: 15rem; // 300px
+		}
 	}
 </style>

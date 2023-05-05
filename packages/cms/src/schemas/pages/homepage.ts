@@ -35,11 +35,10 @@ export default defineType({
 					type: 'string',
 					description:
 						'Dit veld word alleen getoond voor screenreader gebruikers',
+					// needs work:
 					validation: (Rule) =>
 						Rule.custom((label) =>
-							label.length === 0 || label.length >= 1
-								? true
-								: 'Label verplicht',
+							!label ? true : label.length >= 1 ? true : 'Label verplicht',
 						),
 				}),
 				defineField({
