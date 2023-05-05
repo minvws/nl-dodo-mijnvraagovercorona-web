@@ -1,17 +1,10 @@
 ---
-import {
-	ContentBlock,
-	ContentBlockProps,
-} from '@design-system/components/ContentBlock';
+import { ContentBlock } from '@design-system/components/ContentBlock';
 import { GridFluid } from '@design-system/components/Layout/Grid';
 import { Stack } from '@design-system/components/Layout/Stack';
 import { Button } from '@design-system/elements/Button';
 import { HTMLAttributes } from 'astro/types';
-import {
-	CtaButtonCollectionProps,
-	SiteSettingsProps,
-	useSiteSettings,
-} from 'src/utilities/api/queries';
+import { CtaButtonCollectionProps } from 'src/utilities/api/queries';
 import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
 import {
 	getLocaleFromURL,
@@ -35,7 +28,6 @@ const {
 	...attrs
 } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
-// const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 const filterCategories = categories?.length
 	? categories.filter(
 			(category) =>
@@ -72,13 +64,13 @@ const filterCategories = categories?.length
 				</div>
 			) : null
 		}
-		<GridFluid class="grid" as="ul">
+		<GridFluid class="c-cta-button-overview__grid" as="ul">
 			{
 				items
 					?.filter((item) => item.label)
 					.map((item) => (
 						<li
-							class="filter-item"
+							class="c-cta-button-overview__item"
 							data-module-bind="filter__item"
 							data-themes={
 								item.themes.length
@@ -105,7 +97,7 @@ const filterCategories = categories?.length
 </div>
 
 <style lang="scss">
-	.grid {
+	.c-cta-button-overview__grid {
 		--grid-fluid-min-item-size: 20rem; // 400px
 		--grid-fluid-gap: var(--stack-small);
 	}
@@ -120,7 +112,7 @@ const filterCategories = categories?.length
 		}
 	}
 
-	.filter-item {
+	.c-cta-button-overview__item {
 		position: relative;
 		z-index: 2;
 		transition: all 200ms ease-in-out;
@@ -130,7 +122,6 @@ const filterCategories = categories?.length
 		}
 
 		&.is-invisible {
-			// transform: translateY(50%);
 			opacity: 0.2;
 			z-index: 1;
 			order: 1;
@@ -140,6 +131,7 @@ const filterCategories = categories?.length
 		&:hover {
 			opacity: 1;
 		}
+
 		&.is-hidden {
 			display: none;
 		}
@@ -157,6 +149,8 @@ const filterCategories = categories?.length
 		const items = parent.querySelectorAll<HTMLLIElement>(
 			'[data-module-bind="filter__item"]',
 		);
+
+		// Get filters from session
 		const activeFilters =
 			JSON.parse(sessionStorage.getItem('cta-button-filter')) || [];
 
@@ -179,6 +173,8 @@ const filterCategories = categories?.length
 					activeFilters.includes(toggle.dataset.id),
 				),
 			);
+
+			// store filters in session
 			sessionStorage.setItem(
 				'cta-button-filter',
 				JSON.stringify(activeFilters),
@@ -189,6 +185,7 @@ const filterCategories = categories?.length
 			toggle.addEventListener('click', (event) => {
 				event.preventDefault();
 				const id = toggle.dataset.id;
+				// Remove or add filter id to activeFilters array
 				if (activeFilters.includes(id)) {
 					activeFilters.splice(activeFilters.indexOf(id), 1);
 				} else {
