@@ -20,6 +20,7 @@ const { variant = 'base', class: className, ...attrs } = Astro.props;
 	.c-card {
 		--card-border-width: 1px;
 		--card-border-color: var(--color-lichtblauw);
+		background-color: var(--card-background-color, transparent);
 		padding: calc(var(--space-r-base) - var(--card-border-width));
 		border-radius: var(--radii-tiny);
 		border: var(--card-border-width) solid var(--card-border-color);
@@ -27,8 +28,12 @@ const { variant = 'base', class: className, ...attrs } = Astro.props;
 
 	.c-card--filled {
 		--card-border-width: 0px;
-		background-color: var(--color-poolblauw);
+		--card-background-color: var(--color-poolblauw);
 		color: var(--color-diepblauw);
+
+		:global([class*='u-background--']) & {
+			--card-background-color: var(--color-white);
+		}
 	}
 
 	.c-card--frost {
