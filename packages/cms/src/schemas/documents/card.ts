@@ -35,6 +35,11 @@ export default defineType({
 			type: 'string',
 		}),
 		defineField({
+			title: 'Icoon',
+			name: 'image',
+			type: 'image',
+		}),
+		defineField({
 			title: 'Content',
 			name: 'content',
 			type: 'customBlock',

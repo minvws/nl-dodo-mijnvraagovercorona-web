@@ -19,9 +19,11 @@ import {
 	CtaButtonCollectionProps,
 	ctaButtonCollectionQuery,
 } from './queries';
+import { CardsProps, cardQuery } from './queries/card';
 
 export interface PageHomeProps extends PageProps {
 	hero: HeroProps;
+	cards?: CardsProps;
 	button?: ButtonProps;
 	locale: string;
 	assistance: AssistanceProps;
@@ -72,6 +74,7 @@ export interface PageHomeProps extends PageProps {
 export async function getDataHome() {
 	const projection = `{
 		${heroQuery()},
+		${cardQuery()},
 		${assistanceQuery()},
 		${buttonsQuery({ array: false })},
 		important{

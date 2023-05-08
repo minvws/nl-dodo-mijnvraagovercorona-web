@@ -13,12 +13,16 @@ interface Props {
 	image?: ImageProps;
 	highlight?: boolean;
 	updatedAt?: string;
+	cards?: boolean;
 }
 
-const { title, chapeau, image, highlight, updatedAt } = Astro.props;
+const { title, chapeau, image, highlight, cards, updatedAt } = Astro.props;
 ---
 
-<header class={`c-hero${highlight ? ` c-hero--highlight` : ''}`}>
+<header
+	class={`c-hero${highlight ? ` c-hero--highlight` : ''}
+	${cards ? ` c-hero--cards` : ''}`}
+>
 	<Retain>
 		<Switcher class="c-hero__switcher">
 			{
@@ -125,5 +129,8 @@ const { title, chapeau, image, highlight, updatedAt } = Astro.props;
 				block-size: 20rem; // 400px
 			}
 		}
+	}
+	.c-hero--cards {
+		--hero-padding-block-end: calc(var(--hero-padding) * 2);
 	}
 </style>
