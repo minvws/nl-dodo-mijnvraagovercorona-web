@@ -12,6 +12,9 @@ export interface CtaButtonCollectionProps {
 			slug: string;
 			subFolderReference: SubFolderReferenceProps;
 		};
+		themes: {
+			slug: string;
+		}[];
 	}[];
 }
 
@@ -24,5 +27,8 @@ export const ctaButtonCollectionQuery = (): string => {
 			},
 			${internalPageReferenceInSelectQuery()},
 		),
+		"themes": *[_type == 'theme-page' && references(^._id)]{
+			"slug": slug.current,
+		},
 	}`;
 };

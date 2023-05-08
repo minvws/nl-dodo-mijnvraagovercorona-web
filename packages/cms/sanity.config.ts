@@ -19,10 +19,11 @@ export default defineConfig({
 			deskTool({
 				structure: deskStructure,
 			}),
-			visionTool(),
 			scheduledPublishing(),
+			visionTool(),
 		],
 		{
+			includeDeskTool: false,
 			base: 'nl',
 			referenceBehavior: ReferenceBehavior.WEAK,
 			languages: [

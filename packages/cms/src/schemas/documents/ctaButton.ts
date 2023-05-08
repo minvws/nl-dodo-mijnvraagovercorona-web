@@ -1,4 +1,6 @@
 import { defineType, defineField } from 'sanity';
+import { filterReferenceByLanguage } from '../../utilities/filterReferenceByLanguage';
+import { getBlockContentPreview } from '../../utilities/getBlockContentPreview';
 
 export default defineType({
 	title: 'CTA knop',
@@ -10,23 +12,19 @@ export default defineType({
 	},
 	preview: {
 		select: {
-			title: 'label',
-			locale: '__i18n_lang',
-			referenceTitle: '__i18n_base.title',
+			label: 'label',
+			referenceTitle: '__i18n_base.label',
 			pageReferenceSlug: 'pageReference.slug.current',
 			href: 'href',
 		},
 		prepare(selection) {
-			const { title, locale, referenceTitle, pageReferenceSlug, href } =
-				selection;
+			const { label, referenceTitle, pageReferenceSlug, href } = selection;
+			const labelPreview = getBlockContentPreview(label);
+			const referencePreview = getBlockContentPreview(referenceTitle);
+
 			return {
-				title: title[0]?.children
-					? title[0].children
-							.filter((child) => child._type === 'span')
-							.map((span) => span.text)
-							.join('')
-					: 'Geen titel',
-				subtitle: `${referenceTitle ? `${referenceTitle} - ` : ''}${locale} - ${
+				title: labelPreview || 'Geen titel',
+				subtitle: `${referencePreview ? `${referencePreview} - ` : ''}${
 					pageReferenceSlug || href
 				}`,
 			};
@@ -49,6 +47,23 @@ export default defineType({
 			name: 'href',
 			type: 'string',
 			readOnly: ({ parent }) => !!parent?.pageReference,
+		}),
+
+		defineField({
+			title: 'Categorisering',
+			name: 'themes',
+			type: 'array',
+			of: [
+				defineField({
+					title: 'Thema',
+					name: 'themeReference',
+					type: 'reference',
+					to: [{ type: 'theme-page' }],
+					options: {
+						filter: filterReferenceByLanguage,
+					},
+				}),
+			],
 		}),
 	],
 });

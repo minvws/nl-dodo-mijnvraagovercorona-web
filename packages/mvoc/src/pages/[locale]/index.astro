@@ -19,7 +19,8 @@ import { Assistance } from '@design-system/components/Assistance';
 import { AdviceBlock } from '@design-system/components/AdviceBlock';
 import { TaleList } from '@design-system/components/Tale';
 import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
-import CardAnswer from '@design-system/components/Card/CardAnswer.astro';
+import { CTAButtonOverview } from '@modules/CTAButtonOverview';
+import { CardAnswer } from '@design-system/components/Card';
 
 export async function getStaticPaths() {
 	const collection = await getDataHome();
@@ -56,6 +57,10 @@ const { locale, pagesData } = Astro.props;
 const pageData: PageHomeProps = pagesData.filter(
 	(page) => page.localeID === locale.id,
 )[0];
+
+const filterThemes = pageData.themes.filter(
+	(theme) => theme.localeID === locale.id,
+);
 ---
 
 <Layout
@@ -72,7 +77,7 @@ const pageData: PageHomeProps = pagesData.filter(
 		image={pageData.hero.image}
 		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
 		highlight
-		cards={pageData.cards}
+		cards={!!pageData.cards.items.length}
 	>
 		<ContentBlock value={pageData.hero.content} />
 		{
@@ -172,23 +177,14 @@ const pageData: PageHomeProps = pagesData.filter(
 						>
 							<ContentBlock value={pageData.important.content} />
 						</SectionHeadingGroup>
-						<GridFluid class="grid-important">
-							{pageData.important.ctaButtonCollection
-								?.filter((item) => item.label)
-								.map((item) => (
-									<Button
-										variant="tertiary"
-										href={prefixUrlWithlocale(
-											getFullPageUrl(item.slugCollection),
-											locale,
-										)}
-										icon="chevron-small-right"
-										interactionIconAnimation="swing"
-									>
-										<ContentBlock value={item.label} />
-									</Button>
-								))}
-						</GridFluid>
+						<CTAButtonOverview
+							categories={filterThemes.map((theme) => ({
+								label: theme.overview.title,
+								id: theme.slug,
+							}))}
+							items={pageData.important.ctaButtonCollection}
+							enableFilter
+						/>
 					</Stack>
 				</Retain>
 			</Layer>
@@ -219,7 +215,6 @@ const pageData: PageHomeProps = pagesData.filter(
 <style lang="scss">
 	@use '@design-system-styles/primitives/_responsive.scss';
 	.grid-answers,
-	.grid-important,
 	.grid-advice {
 		--grid-fluid-min-item-size: 20rem; // 400px
 		--grid-fluid-gap: var(--stack-small);

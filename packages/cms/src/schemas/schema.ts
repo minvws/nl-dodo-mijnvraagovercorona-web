@@ -33,7 +33,6 @@ import pictureObject from './objects/picture';
 import videoObject from './objects/video';
 import heroObject from './objects/hero';
 import multiContentBlocksObject from './objects/multiContentBlocks';
-import pageReferenceObject from './objects/pageReference';
 import internalPageSelectorObject from './objects/internalPageSelector';
 import taleSelectorObject from './objects/taleSelector';
 import thisOrThatStringObject from './objects/thisOrThatString';
@@ -75,7 +74,6 @@ export default [
 	pictureObject,
 	videoObject,
 	multiContentBlocksObject,
-	pageReferenceObject,
 	internalPageSelectorObject,
 	taleSelectorObject,
 	thisOrThatStringObject,

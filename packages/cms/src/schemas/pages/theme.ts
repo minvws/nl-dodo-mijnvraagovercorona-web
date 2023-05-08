@@ -13,8 +13,15 @@ export default defineType({
 	i18n: true,
 	initialValue: {
 		__i18n_lang: 'nl',
+		generatePage: true,
 	},
 	fields: [
+		defineField({
+			title: 'Genereer pagina',
+			name: 'generatePage',
+			type: 'boolean',
+		}),
+
 		defineField({
 			title: 'Meta data',
 			name: 'metaData',
@@ -24,11 +31,13 @@ export default defineType({
 			title: 'Overzicht',
 			name: 'overview',
 			type: 'object',
+			validation: (Rule) => Rule.required(),
 			fields: [
 				defineField({
 					title: 'Titel',
 					name: 'title',
 					type: 'string',
+					validation: (Rule) => Rule.required(),
 				}),
 				defineField({
 					title: 'Icoon',

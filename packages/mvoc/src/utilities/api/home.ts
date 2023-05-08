@@ -62,6 +62,13 @@ export interface PageHomeProps extends PageProps {
 		};
 	};
 	taleCollection: TaleCollectionProps['taleCollection'];
+	themes: {
+		overview: {
+			title: string;
+		};
+		slug: string;
+		localeID: string;
+	}[];
 }
 
 export async function getDataHome() {
@@ -103,6 +110,13 @@ export async function getDataHome() {
 			},
 		},
 		${taleReferenceQuery()},
+		"themes": *[_type == 'theme-page']{
+			overview{
+				title
+			},
+			"localeID": __i18n_lang,
+			"slug": slug.current,
+		},
 	}`;
 
 	const query = pageQuery({

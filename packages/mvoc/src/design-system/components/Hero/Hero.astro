@@ -13,14 +13,14 @@ interface Props {
 	image?: ImageProps;
 	highlight?: boolean;
 	updatedAt?: string;
-	cards?: string;
+	cards?: boolean;
 }
 
 const { title, chapeau, image, highlight, cards, updatedAt } = Astro.props;
 ---
 
 <header
-	class={`c-hero${highlight ? ` c-hero--highlight` : ''} 
+	class={`c-hero${highlight ? ` c-hero--highlight` : ''}
 	${cards ? ` c-hero--cards` : ''}`}
 >
 	<Retain>

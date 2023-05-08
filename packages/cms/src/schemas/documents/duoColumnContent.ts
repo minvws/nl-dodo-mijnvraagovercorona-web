@@ -18,7 +18,7 @@ export default defineType({
 			const { title, locale, referenceTitle } = selection;
 			return {
 				title: title,
-				subtitle: `${referenceTitle ? `${referenceTitle} - ` : ''}${locale}`,
+				subtitle: `${referenceTitle ? referenceTitle : locale}`,
 			};
 		},
 	},

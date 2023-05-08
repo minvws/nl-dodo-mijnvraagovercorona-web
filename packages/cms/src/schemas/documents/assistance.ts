@@ -12,16 +12,13 @@ export default defineType({
 		select: {
 			title: 'title',
 			phone: 'phonenumber',
-			locale: '__i18n_lang',
 			referenceTitle: '__i18n_base.title',
 		},
 		prepare(selection) {
-			const { title, phone, locale, referenceTitle } = selection;
+			const { title, phone, referenceTitle } = selection;
 			return {
 				title: title,
-				subtitle: `${phone} - ${
-					referenceTitle ? `${referenceTitle} - ` : ''
-				}${locale}`,
+				subtitle: `${phone}${referenceTitle ? ` - ${referenceTitle}` : ''}`,
 			};
 		},
 	},
