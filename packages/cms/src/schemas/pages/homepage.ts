@@ -35,10 +35,14 @@ export default defineType({
 					type: 'string',
 					description:
 						'Dit veld word alleen getoond voor screenreader gebruikers',
-					// needs work:
+					readOnly: ({ parent }) => !parent?.items?.length,
 					validation: (Rule) =>
-						Rule.custom((label) =>
-							!label ? true : label.length >= 1 ? true : 'Label verplicht',
+						Rule.custom((label, context) =>
+							!context.document.cards?.items?.length
+								? true
+								: label && label.length >= 1
+								? true
+								: 'Label verplicht',
 						),
 				}),
 				defineField({
