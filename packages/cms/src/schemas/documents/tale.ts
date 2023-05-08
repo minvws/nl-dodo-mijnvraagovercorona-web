@@ -60,7 +60,7 @@ export default defineType({
 			return {
 				title: overviewTitle || title,
 				media: icon || picture,
-				subtitle: `${referenceTitle ? `${referenceTitle} - ` : ''}${locale}`,
+				subtitle: `${referenceTitle ? referenceTitle : locale}`,
 			};
 		},
 	},
