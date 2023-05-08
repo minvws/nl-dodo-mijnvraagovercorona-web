@@ -55,6 +55,9 @@ export default defineType({
 							name: 'card',
 							type: 'reference',
 							to: [{ type: 'card' }],
+							options: {
+								filter: filterReferenceByLanguage,
+							},
 						},
 					],
 					validation: (Rule) =>
