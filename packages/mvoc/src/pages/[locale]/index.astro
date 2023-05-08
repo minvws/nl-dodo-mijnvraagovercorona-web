@@ -221,10 +221,11 @@ const filterThemes = pageData.themes.filter(
 	}
 
 	.grid-answers {
+		--answers-stack-hero: var(--stack-hero);
 		position: relative;
 		align-items: start;
 		margin-block-start: calc(
-			(var(--layer-padding-block-start) + var(--stack-hero)) * -1
+			(var(--layer-padding-block-start) + var(--answers-stack-hero)) * -1
 		);
 	}
 
@@ -233,6 +234,9 @@ const filterThemes = pageData.themes.filter(
 	}
 
 	@media --mq-large {
+		.grid-answers {
+			--answers-stack-hero: calc(var(--stack-hero) * 2);
+		}
 		.grid-answers--three-cards {
 			--grid-fluid-min-item-size: 15rem; // 300px
 		}

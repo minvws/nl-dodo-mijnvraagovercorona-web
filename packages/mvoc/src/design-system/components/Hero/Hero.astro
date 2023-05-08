@@ -132,5 +132,9 @@ const { title, chapeau, image, highlight, cards, updatedAt } = Astro.props;
 	}
 	.c-hero--cards {
 		--hero-padding-block-end: calc(var(--hero-padding) * 2);
+
+		@media --mq-large {
+			--hero-padding-block-end: calc(var(--hero-padding) * 3);
+		}
 	}
 </style>
