@@ -133,8 +133,8 @@ const filterThemes = pageData.themes.filter(
 	}
 
 	<Layer
-		pullUpBy="hero"
-		background="ijsblauw"
+		pullUpBy={pageData.cards?.items.length ? undefined : 'hero'}
+		background={pageData.cards?.items.length ? undefined : 'ijsblauw'}
 		id={stringToSlug(pageData.currentAdvice.title)}
 	>
 		<Retain>
