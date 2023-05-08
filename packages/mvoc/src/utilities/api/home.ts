@@ -31,6 +31,7 @@ export interface PageHomeProps extends PageProps {
 		title: string;
 		content: ContentBlockProps['value'];
 		icon: ImageProps;
+		filter?: boolean;
 		ctaButtonCollection: CtaButtonCollectionProps['ctaButtonCollection'];
 	};
 	alternatives: AlternativeTranslationsProps[];
@@ -81,6 +82,7 @@ export async function getDataHome() {
 			title,
 			${customBlockQuery({ name: 'content' })},
 			${imageQuery({ name: 'icon' })},
+			filter,
 			${ctaButtonCollectionQuery()},
 		},
 		currentAdvice{

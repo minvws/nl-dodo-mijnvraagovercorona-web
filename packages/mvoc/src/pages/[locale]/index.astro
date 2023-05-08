@@ -77,7 +77,7 @@ const filterThemes = pageData.themes.filter(
 		image={pageData.hero.image}
 		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
 		highlight
-		cards={!!pageData.cards.items.length}
+		cards={!!pageData?.cards?.items?.length}
 	>
 		<ContentBlock value={pageData.hero.content} />
 		{
@@ -183,7 +183,7 @@ const filterThemes = pageData.themes.filter(
 								id: theme.slug,
 							}))}
 							items={pageData.important.ctaButtonCollection}
-							enableFilter
+							enableFilter={pageData.important.filter}
 						/>
 					</Stack>
 				</Retain>
