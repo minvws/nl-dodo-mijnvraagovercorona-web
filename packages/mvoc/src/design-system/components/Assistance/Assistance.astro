@@ -139,6 +139,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 						{situation.question}
 					</Heading>
 					<Button
+						variant={'primary'}
 						href={getFeedbackUrl(siteSettings.feedback.url, {
 							source: 'home',
 							advice: 'home',
@@ -159,6 +160,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 						{getHelp.title}
 					</Heading>
 					<Button
+						variant={'primary'}
 						href={prefixUrlWithlocale(
 							getFullPageUrl(getHelp.button.slugCollection),
 							locale,

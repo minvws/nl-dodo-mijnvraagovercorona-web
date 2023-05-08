@@ -71,7 +71,11 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 							>
 								<Stack>
 									<p>{siteSettings.feedback.thanks}</p>
-									<Button href={url} data-module-bind="feedback__button">
+									<Button
+										variant={'primary'}
+										href={url}
+										data-module-bind="feedback__button"
+									>
 										{siteSettings.feedback.button}
 									</Button>
 								</Stack>

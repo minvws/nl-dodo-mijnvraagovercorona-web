@@ -150,6 +150,7 @@ const selectedIcon =
 		&:disabled,
 		&[data-disabled] {
 			--button-background-color: var(--color-grijs-4);
+			box-shadow: none;
 			cursor: not-allowed;
 		}
 
@@ -173,12 +174,26 @@ const selectedIcon =
 	}
 
 	// variants
+
+	.e-button--primary {
+		border: 0;
+		box-shadow: var(--variant--tile-elevation-base) var(--color-accent-wijnrood);
+		&:hover,
+		&:focus {
+			--button-background-color: var(--color-accent-violet);
+			box-shadow: var(--variant--tile-elevation-base)
+				var(--color-accent-dieprood);
+		}
+	}
 	.e-button--secondary {
+		border: 0;
 		--button-background-color: var(--color-donkerblauw);
+		box-shadow: var(--variant--tile-elevation-base) var(--color-diepblauw);
 
 		&:hover,
 		&:focus {
 			--button-background-color: var(--color-diepblauw);
+			box-shadow: var(--variant--tile-elevation-base) var(--color-nachtblauw);
 		}
 	}
 
@@ -232,7 +247,7 @@ const selectedIcon =
 			--button-background-color: var(--color-donkerblauw);
 			--button-color: var(--color-white);
 			--button-border-color: var(--button-background-color);
-			box-shadow: var(--variant--tile-elevation-base) var(--color-diepblauw);
+			box-shadow: inset 0px -2px 0px var(--color-diepblauw);
 		}
 	}
 

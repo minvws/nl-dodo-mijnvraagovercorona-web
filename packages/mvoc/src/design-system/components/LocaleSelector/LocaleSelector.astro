@@ -149,7 +149,7 @@ const translationsOrder = alternativeTranslations
 	.c-locale-selector {
 		--c-locale-selector-duration: 0.2s;
 		--locale-selector-border: var(--variant--tile-border);
-		--locale-selector-box-shadow: var(--variant--tile-elevation);
+		--locale-selector-box-shadow: var(--variant--tile-elevation) #ddeff8;
 		position: absolute;
 		inset-block-start: var(--space-r-small);
 		inset-inline-end: var(--masthead-inline-padding);
@@ -160,9 +160,16 @@ const translationsOrder = alternativeTranslations
 		border: var(--locale-selector-border);
 		box-shadow: var(--locale-selector-box-shadow);
 		background-color: var(--color-white);
+		transition-property: background-color, color, border, box-shadow;
+		transition-duration: 300ms;
+		transition-timing-function: ease-in-out;
 
 		&:focus-within {
 			@include a11y.focusring;
+		}
+
+		&:hover {
+			box-shadow: var(--variant--tile-elevation-base) var(--color-diepblauw);
 		}
 
 		@media --mq-large {
