@@ -100,6 +100,11 @@ export default defineType({
 					type: 'image',
 				}),
 				defineField({
+					title: 'Met filter?',
+					name: 'filter',
+					type: 'boolean',
+				}),
+				defineField({
 					title: 'Vraag startpunten',
 					name: 'ctaButtonCollection',
 					type: 'ctaButtonSelector',
