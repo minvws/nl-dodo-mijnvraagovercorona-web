@@ -126,6 +126,8 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 		form.addEventListener('change', () => {
 			const formData = new FormData(form);
 			const choice = formData.get('feedback-choice');
+			const pagePathName = document.querySelector('html').dataset.pagePathName;
+			const pageType = document.querySelector('html').dataset.pageType;
 			// update feedback button with feedback url parameter containing our choice
 			const urlPart = `&feedback=${choice.toString().toLowerCase()}`;
 			const buttonHref = buttonElement.href;
@@ -135,7 +137,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 						.replace('&feedback=dislike', urlPart)
 				: `${buttonHref}${urlPart}`;
 
-			trackEvent('Button', 'Click', `${name} ${choice}`);
+			trackEvent('Button', choice.toString(), `${pageType} - ${pagePathName}`);
 		});
 	}
 </script>

@@ -39,7 +39,12 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 ---
 
 <!DOCTYPE html>
-<html lang={locale.id} dir={locale.direction} data-page-type={type}>
+<html
+	lang={locale.id}
+	dir={locale.direction}
+	data-page-type={type}
+	data-page-pathname={Astro.url.pathname}
+>
 	<head>
 		<MetaData
 			{...metaData}
@@ -110,8 +115,9 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 		<script>
 			import { trackEvent } from 'src/utilities/tracking/piwik';
 			const pageType = document.querySelector('html').dataset.pageType;
+			const pagePathName = document.querySelector('html').dataset.pagePathName;
 			window.addEventListener('load', function () {
-				trackEvent('Page', 'Visit', pageType);
+				trackEvent('Page', pageType, pagePathName);
 			});
 		</script>
 	</body>
