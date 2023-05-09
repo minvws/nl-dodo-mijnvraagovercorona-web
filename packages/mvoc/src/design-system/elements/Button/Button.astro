@@ -99,27 +99,33 @@ const selectedIcon =
 	@use '@design-system-styles/tools/_a11y.scss';
 
 	.e-button {
-		--button-border-width: 1px;
-		--button-border-color: var(--button-background-color);
+		--button-border-size: 0px;
+		--button-border-elevation-size: 3px;
+		--button-border-color: var(--color-accent-wijnrood);
 		--button-padding: var(--space-r-small);
 		--button-padding-block: var(--button-padding);
 		--button-padding-inline: var(--button-padding);
 		--button-background-color: var(--color-accent-robijnrood);
 		--button-color: var(--color-white);
 		--button-icon-color: currentColor;
+		--button-inset-color: var(--color-accent-wijnrood);
 
 		display: inline-flex;
 		align-items: center;
 		// justify-content: space-between;
 		gap: var(--space-r-small);
 		min-inline-size: 100%;
-		padding-block: calc(
-			var(--button-padding-block) - var(--button-border-width)
+		padding-block-start: calc(
+			var(--button-padding-block) - var(--button-border-size)
+		);
+		padding-block-end: calc(
+			var(--button-padding-block) - var(--button-border-elevation-size)
 		);
 		padding-inline: calc(
-			var(--button-padding-inline) - var(--button-border-width)
+			var(--button-padding-inline) - var(--button-border-size)
 		);
-		border: var(--button-border-width) solid var(--button-border-color);
+		border: var(--button-border-size) solid var(--button-border-color);
+		border-block-end-width: var(--button-border-elevation-size);
 		border-radius: var(--radii-milli);
 		text-align: center;
 		text-decoration: none;
@@ -141,6 +147,11 @@ const selectedIcon =
 
 		&:hover {
 			--button-background-color: var(--color-accent-violet);
+			--button-border-color: var(--color-accent-dieprood);
+		}
+
+		&:active {
+			--button-border-color: var(--color-accent-violet);
 		}
 
 		&:focus {
@@ -150,6 +161,7 @@ const selectedIcon =
 		&:disabled,
 		&[data-disabled] {
 			--button-background-color: var(--color-grijs-4);
+			--button-border-color: var(--color-grijs-4);
 			cursor: not-allowed;
 		}
 
@@ -175,10 +187,15 @@ const selectedIcon =
 	// variants
 	.e-button--secondary {
 		--button-background-color: var(--color-donkerblauw);
+		--button-border-color: var(--color-diepblauw);
 
-		&:hover,
-		&:focus {
+		&:hover {
 			--button-background-color: var(--color-diepblauw);
+			--button-border-color: var(--color-nachtblauw);
+		}
+
+		&:active {
+			--button-border-color: var(--color-diepblauw);
 		}
 	}
 
@@ -186,19 +203,18 @@ const selectedIcon =
 	.e-button--quaternary {
 		--button-color: var(--color-donkerblauw);
 		--button-border-color: var(--variant--tile-border-color);
-		--button-elevation: var(--variant--tile-elevation);
-		box-shadow: var(--button-elevation);
+		--button-border-size: 1px;
+		border-block-end-width: 4px;
 		text-align: left;
 
 		&:hover {
 			outline: none;
 			--button-border-color: var(--variant--tile-border-color-interactive);
-			--button-elevation: var(--variant--tile-elevation-interactive);
 		}
 	}
 
 	.e-button--tertiary {
-		--button-background-color: var(--color-white);
+		&,
 		&:hover,
 		&:focus {
 			--button-background-color: var(--color-white);
@@ -206,33 +222,33 @@ const selectedIcon =
 	}
 
 	.e-button--quaternary {
-		--button-background-color: var(--color-ijsblauw);
-		--button-icon-color: var(--color-accent-robijnrood);
-		font-weight: bold;
-
+		&,
 		&:hover,
 		&:focus {
 			--button-background-color: var(--color-ijsblauw);
 		}
+		--button-icon-color: var(--color-accent-robijnrood);
+		font-weight: bold;
 	}
 
 	.e-button--quinary {
 		--button-background-color: var(--color-white);
 		--button-color: var(--color-donkerblauw);
-		--button-border-color: var(--color-hemelblauw);
+		--button-border-color: var(--color-donkerblauw);
 		--button-padding-block: var(--space-r-milli);
+		--button-border-size: 1px;
 		border-radius: calc(
 			var(--button-padding-block) * 2 + var(--font-lineheight-root) * 1em
 		);
 		&:hover {
 			--button-background-color: var(--color-poolblauw);
+			--button-border-color: var(--color-nachtblauw);
 		}
 
 		&.is-active {
 			--button-background-color: var(--color-donkerblauw);
 			--button-color: var(--color-white);
-			--button-border-color: var(--button-background-color);
-			box-shadow: var(--variant--tile-elevation-base) var(--color-diepblauw);
+			--button-border-color: var(--color-nachtblauw);
 		}
 	}
 

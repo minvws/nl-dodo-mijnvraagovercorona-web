@@ -108,20 +108,34 @@ const { type, name, value, id, checked, required, variant, ...attrs } =
 		--control-spacing: var(--space-r-small);
 
 		.e-control__label {
+			--control-border-size: 0px;
+			--control-border-elevation-size: 4px;
+			--control-color: var(--color-donkerblauw);
+			--control-border-color: var(--variant--tile-border-color);
+			--control-border-size: 1px;
 			--control-indicator-inline-start: var(--control-spacing);
-			--control--tile-border: var(--variant--tile-border);
-			--control--tile-elevation: var(--variant--tile-elevation);
-			padding-block-start: var(--control-spacing);
-			padding-block-end: var(--control-spacing);
-			padding-inline-end: var(--control-spacing);
-			border: var(--control--tile-border);
+
+			padding-block-start: calc(
+				var(--control-spacing) - var(--control-border-size)
+			);
+			padding-block-end: calc(
+				var(--control-spacing) - var(--control-border-elevation-size)
+			);
+			padding-inline-end: calc(
+				var(--control-spacing) - var(--control-border-size)
+			);
+			border: var(--control-border-size) solid var(--control-border-color);
+			border-block-end-width: var(--control-border-elevation-size);
 			border-radius: var(--variant--tile-border-radius);
-			box-shadow: var(--control--tile-elevation);
+			&:hover {
+				--control-border-color: var(--color-donkerblauw);
+			}
 		}
 
 		input:checked + .e-control__label {
 			--control--tile-border: var(--variant--tile-border-interactive);
 			--control--tile-elevation: var(--variant--tile-elevation-interactive);
+			--control-border-color: var(--color-donkerblauw);
 		}
 
 		input:hover:not(:focus) + .e-control__label::before {
