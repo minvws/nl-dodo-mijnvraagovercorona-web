@@ -147,13 +147,11 @@ const translationsOrder = alternativeTranslations
 	@use '@design-system-styles/tools/_a11y.scss';
 
 	.c-locale-selector {
-		--button-border-size: 0px;
-		--button-border-color: var(--color-poolblauw);
-		--button-background-color: var(--color-white);
-		--button-border-elevation-size: 3px;
+		--c-locale-selector-border-size: 0px;
+		--c-locale-selector-border-color: var(--color-poolblauw);
+		--c-locale-selector-background-color: var(--color-white);
+		--c-locale-selector-border-elevation-size: 3px;
 		--c-locale-selector-duration: 0.2s;
-		--locale-selector-border: var(--variant--tile-border);
-		--locale-selector-box-shadow: var(--variant--tile-elevation);
 		position: absolute;
 		inset-block-start: var(--space-r-small);
 		inset-inline-end: var(--masthead-inline-padding);
@@ -161,20 +159,21 @@ const translationsOrder = alternativeTranslations
 		padding-block: calc(var(--space-r-tiny) - 1px);
 		padding-inline: calc(var(--space-r-small) - 1px);
 		border-radius: var(--radii-milli);
-		background-color: var(--button-background-color);
+		background-color: var(--c-locale-selector-background-color);
 		transition-property: background-color, color, border;
 		transition-duration: 300ms;
 		transition-timing-function: ease-in-out;
 
-		border: var(--button-border-size) solid var(--button-border-color);
-		border-block-end-width: var(--button-border-elevation-size);
+		border: var(--c-locale-selector-border-size) solid
+			var(--c-locale-selector-border-color);
+		border-block-end-width: var(--c-locale-selector-border-elevation-size);
 
 		&:focus-within {
 			@include a11y.focusring;
 		}
 
 		&:hover {
-			--button-border-color: var(--color-diepblauw);
+			--c-locale-selector-border-color: var(--color-donkerblauw);
 		}
 
 		@media --mq-large {
