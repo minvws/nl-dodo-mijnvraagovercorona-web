@@ -147,6 +147,9 @@ const translationsOrder = alternativeTranslations
 	@use '@design-system-styles/tools/_a11y.scss';
 
 	.c-locale-selector {
+		--button-border-size: 0px;
+		--button-border-color: var(--color-poolblauw);
+		--button-background-color: var(--color-white);
 		--c-locale-selector-duration: 0.2s;
 		--locale-selector-border: var(--variant--tile-border);
 		--locale-selector-box-shadow: var(--variant--tile-elevation);
@@ -157,19 +160,20 @@ const translationsOrder = alternativeTranslations
 		padding-block: calc(var(--space-r-tiny) - 1px);
 		padding-inline: calc(var(--space-r-small) - 1px);
 		border-radius: var(--radii-milli);
-		border: var(--locale-selector-border);
-		box-shadow: var(--locale-selector-box-shadow);
-		background-color: var(--color-white);
-		transition-property: background-color, color, border, box-shadow;
+		background-color: var(--button-background-color);
+		transition-property: background-color, color, border;
 		transition-duration: 300ms;
 		transition-timing-function: ease-in-out;
+
+		border: var(--button-border-size) solid var(--button-border-color);
+		border-block-end-width: 3px;
 
 		&:focus-within {
 			@include a11y.focusring;
 		}
 
 		&:hover {
-			box-shadow: var(--variant--tile-elevation-base) var(--color-diepblauw);
+			--button-border-color: var(--color-diepblauw);
 		}
 
 		@media --mq-large {
