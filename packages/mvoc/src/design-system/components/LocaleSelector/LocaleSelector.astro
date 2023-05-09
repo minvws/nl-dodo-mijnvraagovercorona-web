@@ -150,6 +150,7 @@ const translationsOrder = alternativeTranslations
 		--button-border-size: 0px;
 		--button-border-color: var(--color-poolblauw);
 		--button-background-color: var(--color-white);
+		--button-border-elevation-size: 3px;
 		--c-locale-selector-duration: 0.2s;
 		--locale-selector-border: var(--variant--tile-border);
 		--locale-selector-box-shadow: var(--variant--tile-elevation);
@@ -166,7 +167,7 @@ const translationsOrder = alternativeTranslations
 		transition-timing-function: ease-in-out;
 
 		border: var(--button-border-size) solid var(--button-border-color);
-		border-block-end-width: 3px;
+		border-block-end-width: var(--button-border-elevation-size);
 
 		&:focus-within {
 			@include a11y.focusring;
