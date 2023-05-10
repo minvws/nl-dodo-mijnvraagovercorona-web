@@ -13,7 +13,7 @@ export const filterTaleReferenceByPageReference = async ({
 		? pageReference.taleCollection.map((tale) => tale._ref).filter(Boolean)
 		: [];
 
-	// Only show tales which are
+	// Only show tales which are in $tales/IDs array
 	return {
 		filter: '(__i18n_lang == $lang && _id in $tales)',
 		params: {
