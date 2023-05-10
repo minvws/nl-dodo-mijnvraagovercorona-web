@@ -15,6 +15,7 @@ export const internalPageReferenceInSelectQuery = (): string => {
 		pageReference->_type match "-page" =>
 		pageReference->{
 			"slug": slug.current,
+			"deepLink": ^.deepLink->title,
 			${subFolderReferenceQuery()}
 		}
 	`;

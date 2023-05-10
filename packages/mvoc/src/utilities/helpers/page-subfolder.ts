@@ -1,5 +1,7 @@
 // TODO: type safety
 
+import { stringToSlug } from '../stringToSlug';
+
 export const getPageSubfolder = (page): string => {
 	let slug = '';
 
@@ -25,5 +27,7 @@ export const getPageSubfolder = (page): string => {
 export const getFullPageUrl = (page): string => {
 	const subFolder = getPageSubfolder(page);
 
-	return `${subFolder ? `${subFolder}/` : ''}${page.slug}`;
+	return `${subFolder ? `${subFolder}/` : ''}${page.slug}${
+		page.deepLink ? `#${stringToSlug(page.deepLink)}` : ''
+	}`;
 };
