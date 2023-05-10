@@ -10,6 +10,7 @@ export interface CtaButtonCollectionProps {
 		label: ContentBlockProps['value'];
 		slugCollection?: {
 			slug: string;
+			deepLink?: string;
 			subFolderReference: SubFolderReferenceProps;
 		};
 		themes: {

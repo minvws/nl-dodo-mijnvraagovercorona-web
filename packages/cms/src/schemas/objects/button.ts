@@ -20,6 +20,11 @@ export default defineType({
 			readOnly: ({ parent }) => !!parent?.href,
 		}),
 		defineField({
+			name: 'deepLink',
+			type: 'taleDeeplink',
+			hidden: ({ parent }) => !parent?.pageReference,
+		}),
+		defineField({
 			title: 'href',
 			name: 'href',
 			type: 'string',
