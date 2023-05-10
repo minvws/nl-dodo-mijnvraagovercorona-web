@@ -1,6 +1,5 @@
 import { defineType, defineField } from 'sanity';
 import { BiLinkAlt } from 'react-icons/bi';
-import { filterTaleReferenceByPageReference } from '../../utilities/filterTaleReferenceByPageReference';
 
 export default defineType({
 	title: 'Knop',

@@ -1,6 +1,5 @@
 import { defineType, defineField } from 'sanity';
 import { filterReferenceByLanguage } from '../../utilities/filterReferenceByLanguage';
-import { filterTaleReferenceByPageReference } from '../../utilities/filterTaleReferenceByPageReference';
 import { getBlockContentPreview } from '../../utilities/getBlockContentPreview';
 
 export default defineType({
