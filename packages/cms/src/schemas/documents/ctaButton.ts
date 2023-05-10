@@ -1,5 +1,6 @@
 import { defineType, defineField } from 'sanity';
 import { filterReferenceByLanguage } from '../../utilities/filterReferenceByLanguage';
+import { filterTaleReferenceByPageReference } from '../../utilities/filterTaleReferenceByPageReference';
 import { getBlockContentPreview } from '../../utilities/getBlockContentPreview';
 
 export default defineType({
@@ -36,12 +37,21 @@ export default defineType({
 			name: 'label',
 			type: 'customBlock',
 		}),
+
 		defineField({
 			title: 'Pagina link',
 			name: 'pageReference',
 			type: 'pageSourceSelector',
 			readOnly: ({ parent }) => !!parent?.href,
 		}),
+
+		defineField({
+			name: 'deepLink',
+			type: 'taleDeeplink',
+			hidden: ({ parent }) => !parent?.pageReference,
+			readOnly: ({ parent }) => !parent?.pageReference,
+		}),
+
 		defineField({
 			title: 'Href',
 			name: 'href',

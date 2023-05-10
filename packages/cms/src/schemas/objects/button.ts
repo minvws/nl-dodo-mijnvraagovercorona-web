@@ -1,5 +1,6 @@
 import { defineType, defineField } from 'sanity';
 import { BiLinkAlt } from 'react-icons/bi';
+import { filterTaleReferenceByPageReference } from '../../utilities/filterTaleReferenceByPageReference';
 
 export default defineType({
 	title: 'Knop',
@@ -18,6 +19,12 @@ export default defineType({
 			name: 'pageReference',
 			type: 'pageSourceSelector',
 			readOnly: ({ parent }) => !!parent?.href,
+		}),
+		defineField({
+			name: 'deepLink',
+			type: 'taleDeeplink',
+			hidden: ({ parent }) => !parent?.pageReference,
+			readOnly: ({ parent }) => !parent?.pageReference,
 		}),
 		defineField({
 			title: 'href',
