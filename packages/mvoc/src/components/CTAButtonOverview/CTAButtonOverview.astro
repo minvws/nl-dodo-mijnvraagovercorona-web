@@ -4,7 +4,11 @@ import { GridFluid } from '@design-system/components/Layout/Grid';
 import { Stack } from '@design-system/components/Layout/Stack';
 import { Button } from '@design-system/elements/Button';
 import { HTMLAttributes } from 'astro/types';
-import { CtaButtonCollectionProps } from 'src/utilities/api/queries';
+import {
+	CtaButtonCollectionProps,
+	SiteSettingsProps,
+	useSiteSettings,
+} from 'src/utilities/api/queries';
 import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
 import {
 	getLocaleFromURL,
@@ -28,6 +32,8 @@ const {
 	...attrs
 } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
+const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+
 const filterCategories = categories?.length
 	? categories.filter(
 			(category) =>
@@ -40,66 +46,89 @@ const filterCategories = categories?.length
 				).length,
 	  )
 	: [];
+
+const filteredItems =
+	items && items.length ? items?.filter((item) => item.label) : [];
 ---
 
-<div
-	class={`c-cta-button-overview${className ? ` | ${className}` : ''}`}
-	data-module={enableFilter && filterCategories.length ? 'filter' : undefined}
-	{...attrs}
->
-	<Stack>
-		{
-			enableFilter && filterCategories.length ? (
-				<div class="c-cta-button-overview__wrap-buttons">
-					{filterCategories.map((category) => (
-						<Button
-							type="button"
-							variant="quinary"
-							data-id={category.id}
-							data-module-bind="filter__toggle"
-						>
-							{category.label}
-						</Button>
-					))}
-				</div>
-			) : null
-		}
-		<GridFluid class="c-cta-button-overview__grid" as="ul">
-			{
-				items
-					?.filter((item) => item.label)
-					.map((item) => (
-						<li
-							class="c-cta-button-overview__item"
-							data-module-bind="filter__item"
-							data-themes={
-								item.categories.length
-									? item.categories.map((category) => `${category.slug}`).join()
-									: undefined
-							}
-						>
-							<Button
-								variant="tertiary"
-								href={prefixUrlWithlocale(
-									getFullPageUrl(item.slugCollection),
-									locale,
-								)}
-								icon="chevron-small-right"
-								interactionIconAnimation="swing"
+<>
+	{
+		filteredItems ? (
+			<div
+				class={`c-cta-button-overview${className ? ` | ${className}` : ''}`}
+				data-module={
+					enableFilter && filterCategories.length ? 'filter' : undefined
+				}
+				{...attrs}
+			>
+				<Stack>
+					{enableFilter && filterCategories.length ? (
+						<div class="c-cta-button-overview__wrap-buttons">
+							{filterCategories.map((category) => (
+								<Button
+									type="button"
+									variant="quinary"
+									data-id={category.id}
+									data-module-bind="filter__toggle"
+								>
+									{category.label}
+								</Button>
+							))}
+						</div>
+					) : null}
+
+					<p>
+						<small class="u-color--donkerblauw">
+							<span data-amount-filter hidden>
+								<span data-amount>{filteredItems.length}</span>
+								<span>{siteSettings.genericLabels.of}</span>
+							</span>
+							<span>
+								{filteredItems.length}{' '}
+								{filteredItems.length <= 1
+									? siteSettings.genericLabels.situationPlural.this
+									: siteSettings.genericLabels.situationPlural.that}
+							</span>
+						</small>
+					</p>
+					<GridFluid class="c-cta-button-overview__grid" as="ul">
+						{filteredItems.map((item) => (
+							<li
+								class="c-cta-button-overview__item"
+								data-module-bind="filter__item"
+								data-themes={
+									item.categories.length
+										? item.categories
+												.map((category) => `${category.slug}`)
+												.join()
+										: undefined
+								}
 							>
-								<ContentBlock value={item.label} />
-							</Button>
-						</li>
-					))
-			}
-		</GridFluid>
-	</Stack>
-</div>
+								<Button
+									variant="tertiary"
+									href={prefixUrlWithlocale(
+										getFullPageUrl(item.slugCollection),
+										locale,
+									)}
+									icon="chevron-small-right"
+									interactionIconAnimation="swing"
+								>
+									<ContentBlock value={item.label} />
+								</Button>
+							</li>
+						))}
+					</GridFluid>
+				</Stack>
+			</div>
+		) : null
+	}
+</>
 
 <style lang="scss">
 	.c-cta-button-overview__grid {
 		--grid-fluid-min-item-size: 20rem; // 400px
 		--grid-fluid-gap: var(--stack-small);
+		--stack-gap: var(--stack-tiny);
 	}
 
 	.c-cta-button-overview__wrap-buttons {
@@ -149,6 +178,11 @@ const filterCategories = categories?.length
 		const items = parent.querySelectorAll<HTMLLIElement>(
 			'[data-module-bind="filter__item"]',
 		);
+		const placeholderAmount =
+			parent.querySelector<HTMLSpanElement>('[data-amount]');
+		const amountFilter = parent.querySelector<HTMLSpanElement>(
+			'[data-amount-filter]',
+		);
 
 		// Get filters from session
 		const activeFilters =
@@ -166,6 +200,13 @@ const filterCategories = categories?.length
 						: !checkItem(item.dataset.themes || ''),
 				);
 			});
+
+			const activeItems = [...items].filter(
+				(item) => !item.classList.contains('is-hidden'),
+			).length;
+
+			placeholderAmount.innerHTML = `${activeItems}`;
+			amountFilter.hidden = !activeFilters.length;
 
 			toggles.forEach((toggle) =>
 				toggle.classList.toggle(
