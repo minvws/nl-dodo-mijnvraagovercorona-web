@@ -34,8 +34,8 @@ const filterCategories = categories?.length
 				// Check if buttoncollection contains a button which is referenced from the current category
 				items.filter(
 					(button) =>
-						button.themes.filter(
-							(buttonTheme) => buttonTheme.slug === category.id,
+						button.categories.filter(
+							(buttonCategory) => buttonCategory.slug === category.id,
 						).length,
 				).length,
 	  )
@@ -73,8 +73,8 @@ const filterCategories = categories?.length
 							class="c-cta-button-overview__item"
 							data-module-bind="filter__item"
 							data-themes={
-								item.themes.length
-									? item.themes.map((theme) => `${theme.slug}`).join()
+								item.categories.length
+									? item.categories.map((category) => `${category.slug}`).join()
 									: undefined
 							}
 						>

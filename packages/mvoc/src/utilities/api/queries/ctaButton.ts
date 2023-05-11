@@ -13,7 +13,7 @@ export interface CtaButtonCollectionProps {
 			deepLink?: string;
 			subFolderReference: SubFolderReferenceProps;
 		};
-		themes: {
+		categories: {
 			slug: string;
 		}[];
 	}[];
@@ -28,7 +28,7 @@ export const ctaButtonCollectionQuery = (): string => {
 			},
 			${internalPageReferenceInSelectQuery()},
 		),
-		"themes": *[_type == 'theme-page' && references(^._id)]{
+		"categories": *[_type == 'theme-page' && references(^._id)]{
 			"slug": slug.current,
 		},
 	}`;
