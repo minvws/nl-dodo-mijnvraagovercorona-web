@@ -77,7 +77,7 @@ const filterThemes = pageData.themes.filter(
 		image={pageData.hero.image}
 		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
 		highlight
-		cards={!!pageData?.cards?.items?.length}
+		cards={!!pageData?.cards?.items}
 	>
 		<ContentBlock value={pageData.hero.content} />
 		{
@@ -102,11 +102,12 @@ const filterThemes = pageData.themes.filter(
 			) : null
 		}
 	</Hero>
+
 	{
-		!!pageData.cards?.items.length && (
+		pageData?.cards?.label && !!pageData?.cards?.items && (
 			<Layer
 				pullUpBy="hero"
-				background="ijsblauw"
+				background="zebra"
 				id={stringToSlug(pageData.cards.label)}
 			>
 				<Retain>
@@ -132,11 +133,38 @@ const filterThemes = pageData.themes.filter(
 		)
 	}
 
-	<Layer
-		pullUpBy={pageData.cards?.items.length ? undefined : 'hero'}
-		background={pageData.cards?.items.length ? undefined : 'ijsblauw'}
-		id={stringToSlug(pageData.currentAdvice.title)}
-	>
+	{
+		pageData?.important?.title &&
+		pageData?.important?.ctaButtonCollection?.filter((item) => item.label)
+			.length ? (
+			<Layer
+				pullUpBy={pageData?.cards?.items ? undefined : 'hero'}
+				background="zebra"
+				id={stringToSlug(pageData.important.title)}
+			>
+				<Retain>
+					<Stack gap="huge">
+						<SectionHeadingGroup
+							title={pageData.important.title}
+							icon={pageData.important.icon}
+						>
+							<ContentBlock value={pageData.important.content} />
+						</SectionHeadingGroup>
+						<CTAButtonOverview
+							categories={filterThemes.map((theme) => ({
+								label: theme.overview.title,
+								id: theme.slug,
+							}))}
+							items={pageData.important.ctaButtonCollection}
+							enableFilter={pageData.important.filter}
+						/>
+					</Stack>
+				</Retain>
+			</Layer>
+		) : null
+	}
+
+	<Layer id={stringToSlug(pageData.currentAdvice.title)} background="zebra">
 		<Retain>
 			<Stack gap="huge">
 				<SectionHeadingGroup title={pageData.currentAdvice.title}>
@@ -165,35 +193,8 @@ const filterThemes = pageData.themes.filter(
 	</Layer>
 
 	{
-		pageData?.important?.title &&
-		pageData?.important?.ctaButtonCollection?.filter((item) => item.label)
-			.length ? (
-			<Layer id={stringToSlug(pageData.important.title)}>
-				<Retain>
-					<Stack gap="huge">
-						<SectionHeadingGroup
-							title={pageData.important.title}
-							icon={pageData.important.icon}
-						>
-							<ContentBlock value={pageData.important.content} />
-						</SectionHeadingGroup>
-						<CTAButtonOverview
-							categories={filterThemes.map((theme) => ({
-								label: theme.overview.title,
-								id: theme.slug,
-							}))}
-							items={pageData.important.ctaButtonCollection}
-							enableFilter={pageData.important.filter}
-						/>
-					</Stack>
-				</Retain>
-			</Layer>
-		) : null
-	}
-
-	{
 		pageData?.taleCollection?.length ? (
-			<Layer>
+			<Layer background="zebra">
 				<Retain>
 					<TaleList taleCollection={pageData.taleCollection} />
 				</Retain>
@@ -203,7 +204,7 @@ const filterThemes = pageData.themes.filter(
 
 	{
 		pageData.assistance && (
-			<Layer id={stringToSlug(pageData.assistance.headline)}>
+			<Layer id={stringToSlug(pageData.assistance.headline)} background="zebra">
 				<Retain>
 					<Assistance {...pageData.assistance} />
 				</Retain>
