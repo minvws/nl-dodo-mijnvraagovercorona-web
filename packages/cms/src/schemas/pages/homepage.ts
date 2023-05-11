@@ -74,11 +74,13 @@ export default defineType({
 						},
 					],
 					validation: (Rule) =>
-						Rule.custom((items) =>
-							items.length === 0 || (items.length >= 2 && items.length <= 3)
+						Rule.custom((items) => {
+							if (!items) return true;
+							return items.length === 0 ||
+								(items.length >= 2 && items.length <= 3)
 								? true
-								: 'Het moet minmaal 2, maximaal 3 items bevatten',
-						),
+								: 'Het moet minmaal 2, maximaal 3 items bevatten';
+						}),
 				}),
 			],
 		}),
