@@ -1,10 +1,11 @@
 ---
 import { Colors } from '@design-system/utilities/color';
 import { HTMLAttributes } from 'astro/types';
+
 interface Props extends HTMLAttributes<'div' | 'section' | 'footer'> {
 	as?: 'div' | 'section' | 'footer';
 	pullUpBy?: 'layer' | 'hero';
-	background?: Colors;
+	background?: 'zebra' | Colors;
 }
 
 const {
@@ -22,7 +23,11 @@ const Component = as;
 <Component
 	id={id}
 	class={`c-layer${pullUpBy ? ` c-layer--pull-up-by-${pullUpBy}` : ''}${
-		background ? ` | u-background--${background}` : ''
+		background
+			? background === 'zebra'
+				? ' c-layer--zebra'
+				: ` | u-background--${background}`
+			: ''
 	}${className ? ` | ${className}` : ''}`}
 	{...attrs}
 >
@@ -53,5 +58,10 @@ const Component = as;
 
 	.c-layer--pull-up-by-hero {
 		--layer-pull-up: var(--stack-hero);
+	}
+
+	.c-layer--zebra:nth-of-type(odd) {
+		background-color: var(--color-ijsblauw);
+		--external-alternative-background: var(--color-white);
 	}
 </style>
