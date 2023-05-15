@@ -59,20 +59,38 @@ pageData.ctaButtonCollection.forEach((item) => {
 		filters.push({ label: item.title, id: stringToSlug(item.title) });
 
 		item.ctaButtonCollection.forEach((button) => {
-			const found = ctaButtons.some(
+			const foundItem = ctaButtons.filter(
 				(ctaButton) =>
 					ctaButton.slugCollection.slug === button.slugCollection.slug,
 			);
-			console.log('found', found);
+			console.log('foundItem', foundItem);
+
+			if (!foundItem) {
+				// add item to ctaButtons with category
+				ctaButtons.push({
+					...button,
+					categories: [{ slug: stringToSlug(item.title) }],
+				});
+			} else {
+				ctaButtons = ctaButtons.map((ctaButton) => {
+					if (
+						foundItem[0].slugCollection.slug === ctaButton.slugCollection.slug
+					) {
+						ctaButton.categories.push(stringToSlug(item.title));
+					}
+					return ctaButton;
+				});
+				// only add category to found item
+			}
 		});
 
-		ctaButtons = [
-			...ctaButtons,
-			...item.ctaButtonCollection.map((ctaButton) => ({
-				...ctaButton,
-				categories: [{ slug: stringToSlug(item.title) }],
-			})),
-		];
+		// ctaButtons = [
+		// 	...ctaButtons,
+		// 	...item.ctaButtonCollection.map((ctaButton) => ({
+		// 		...ctaButton,
+		// 		categories: [{ slug: stringToSlug(item.title) }],
+		// 	})),
+		// ];
 	} else if (item._type === 'cta-button-document') {
 		ctaButtons.push(item);
 	}
