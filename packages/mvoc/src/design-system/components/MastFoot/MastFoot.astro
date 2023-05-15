@@ -68,10 +68,15 @@ const siteSettingsTranslated: SiteSettingsProps = await useSiteSettings({
 	@use '@design-system-styles/primitives/_responsive.scss';
 
 	.c-mastfoot {
-		background-color: var(--color-ijsblauw);
+		background-color: var(--color-donkerblauw);
+		color: var(--color-white);
 
 		:global(h2),
 		:global(h3) {
+			color: currentColor;
+		}
+
+		:global(a) {
 			color: currentColor;
 		}
 	}
@@ -113,6 +118,7 @@ const siteSettingsTranslated: SiteSettingsProps = await useSiteSettings({
 		transform: translateX(
 			calc(var(--logo-banner-percentage) / 2 * -1)
 		); /* [1] */
+		color: currentcolor;
 
 		&:focus {
 			outline: var(--elevation-focusring);

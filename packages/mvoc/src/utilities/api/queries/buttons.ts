@@ -7,6 +7,7 @@ export interface ButtonProps {
 	label: string;
 	slugCollection?: {
 		slug: string;
+		deepLink?: string;
 		subFolderReference: SubFolderReferenceProps;
 	};
 	variant: ButtonVariants;

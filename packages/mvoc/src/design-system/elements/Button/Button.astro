@@ -99,42 +99,55 @@ const selectedIcon =
 	@use '@design-system-styles/tools/_a11y.scss';
 
 	.e-button {
-		--button-border-size: 0px;
-		--button-border-elevation-size: 3px;
-		--button-border-color: var(--color-accent-wijnrood);
+		--button-border-size: 1px;
+		--button-border-color: transparent;
+		--button-border-elevation-color: transparent;
+		--button-elevation-color: var(--color-accent-wijnrood);
+		--button-elevation-size: 4px;
 		--button-padding: var(--space-r-small);
 		--button-padding-block: var(--button-padding);
 		--button-padding-inline: var(--button-padding);
+		--button-border-radius: var(--radii-milli);
 		--button-background-color: var(--color-accent-robijnrood);
 		--button-color: var(--color-white);
 		--button-icon-color: currentColor;
 		--button-inset-color: var(--color-accent-wijnrood);
 
+		position: relative;
 		display: inline-flex;
 		align-items: center;
-		// justify-content: space-between;
 		gap: var(--space-r-small);
 		min-inline-size: 100%;
-		padding-block-start: calc(
+		padding-block: calc(
 			var(--button-padding-block) - var(--button-border-size)
-		);
-		padding-block-end: calc(
-			var(--button-padding-block) - var(--button-border-elevation-size)
 		);
 		padding-inline: calc(
 			var(--button-padding-inline) - var(--button-border-size)
 		);
 		border: var(--button-border-size) solid var(--button-border-color);
-		border-block-end-width: var(--button-border-elevation-size);
-		border-radius: var(--radii-milli);
+		border-radius: var(--button-border-radius);
 		text-align: center;
 		text-decoration: none;
 		background-color: var(--button-background-color);
 		color: var(--button-color);
-		transition-property: background-color, color, border, box-shadow;
-		transition-duration: 300ms;
-		transition-timing-function: ease-in-out;
 		cursor: pointer;
+
+		&,
+		&::after {
+			transition-property: background-color, color, border, box-shadow;
+			transition-duration: 200ms;
+			transition-timing-function: ease-in-out;
+		}
+
+		&::after {
+			position: absolute;
+			border-radius: var(--button-border-radius);
+			inset: calc(var(--button-border-size) * -1);
+			content: '';
+			box-shadow: inset 0 calc(var(--button-elevation-size) * -1) 0
+				var(--button-elevation-color);
+			pointer-events: none;
+		}
 
 		&[hidden] {
 			display: none;
@@ -147,11 +160,11 @@ const selectedIcon =
 
 		&:hover {
 			--button-background-color: var(--color-accent-violet);
-			--button-border-color: var(--color-accent-dieprood);
+			--button-elevation-color: var(--color-accent-dieprood);
 		}
 
 		&:active {
-			--button-border-color: var(--color-accent-violet);
+			--button-elevation-size: 0px;
 		}
 
 		&:focus {
@@ -162,6 +175,7 @@ const selectedIcon =
 		&[data-disabled] {
 			--button-background-color: var(--color-grijs-4);
 			--button-border-color: var(--color-grijs-4);
+			--button-elevation-color: var(--color-grijs-5);
 			cursor: not-allowed;
 		}
 
@@ -187,15 +201,15 @@ const selectedIcon =
 	// variants
 	.e-button--secondary {
 		--button-background-color: var(--color-donkerblauw);
-		--button-border-color: var(--color-diepblauw);
+		--button-elevation-color: var(--color-diepblauw);
 
 		&:hover {
 			--button-background-color: var(--color-diepblauw);
-			--button-border-color: var(--color-nachtblauw);
+			--button-elevation-color: var(--color-nachtblauw);
 		}
 
 		&:active {
-			--button-border-color: var(--color-diepblauw);
+			--button-elevation-size: 0px;
 		}
 	}
 
@@ -204,13 +218,14 @@ const selectedIcon =
 	.e-button--senary {
 		--button-color: var(--color-donkerblauw);
 		--button-border-color: var(--variant--tile-border-color);
+		--button-elevation-color: var(--button-border-color);
 		--button-border-size: 1px;
-		border-block-end-width: 4px;
 		text-align: left;
 
 		&:hover {
 			outline: none;
 			--button-border-color: var(--variant--tile-border-color-interactive);
+			--button-elevation-color: var(--button-border-color);
 		}
 	}
 
@@ -238,19 +253,22 @@ const selectedIcon =
 		--button-color: var(--color-donkerblauw);
 		--button-border-color: var(--color-donkerblauw);
 		--button-padding-block: var(--space-r-milli);
-		--button-border-size: 1px;
-		border-radius: calc(
+		--button-elevation-size: 0px;
+		--button-border-radius: calc(
 			var(--button-padding-block) * 2 + var(--font-lineheight-root) * 1em
 		);
+
 		&:hover {
 			--button-background-color: var(--color-poolblauw);
-			--button-border-color: var(--color-nachtblauw);
+			--button-border-color: var(--color-donkerblauw);
 		}
 
 		&.is-active {
 			--button-background-color: var(--color-donkerblauw);
 			--button-color: var(--color-white);
-			--button-border-color: var(--color-nachtblauw);
+			--button-border-color: transparent;
+			--button-elevation-size: 4px;
+			--button-elevation-color: var(--color-nachtblauw);
 		}
 	}
 
