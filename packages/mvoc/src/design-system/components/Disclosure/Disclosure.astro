@@ -72,6 +72,9 @@
 			if (liElement) {
 				liElement.classList.add('is-active');
 			}
+			liElement
+				.querySelector('[data-module-bind="disclosure__toggle"]')
+				.setAttribute('aria-expanded', true);
 		}
 	}
 
