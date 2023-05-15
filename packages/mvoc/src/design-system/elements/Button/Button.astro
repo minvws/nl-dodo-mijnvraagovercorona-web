@@ -200,7 +200,8 @@ const selectedIcon =
 	}
 
 	.e-button--tertiary,
-	.e-button--quaternary {
+	.e-button--quaternary,
+	.e-button--senary {
 		--button-color: var(--color-donkerblauw);
 		--button-border-color: var(--variant--tile-border-color);
 		--button-border-size: 1px;
@@ -221,7 +222,8 @@ const selectedIcon =
 		}
 	}
 
-	.e-button--quaternary {
+	.e-button--quaternary,
+	.e-button--senary {
 		&,
 		&:hover,
 		&:focus {
@@ -254,5 +256,27 @@ const selectedIcon =
 
 	.e-button--full {
 		inline-size: 100%;
+	}
+
+	.e-button--senary {
+		border-block-end-width: 2px;
+		&:hover {
+			--button-background-color: var(--color-poolblauw);
+			--button-border-color: var(--color-babyblauw);
+		}
+		&:active {
+			--button-border-color: var(--color-poolblauw);
+		}
+		&[aria-expanded='true'] {
+			.e-icon {
+				transform: rotate(180deg);
+				transition: transform 0.3s;
+			}
+		}
+		&[aria-expanded='false'] {
+			.e-icon {
+				transition: transform 0.3s;
+			}
+		}
 	}
 </style>

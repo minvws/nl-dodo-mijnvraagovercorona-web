@@ -1,38 +1,61 @@
 ---
+import { Button } from '@design-system/elements/Button';
 import { Icon } from '@design-system/elements/Icon';
 
 type Props = {
 	label: string;
 	labelActive?: string;
 	headingLevel?: 1 | 2 | 3 | 4 | 5 | 6;
+	accordeon?: boolean;
 };
-const { label, labelActive, headingLevel = 3 } = Astro.props;
+const { label, labelActive, accordeon, headingLevel = 3 } = Astro.props;
 // TODO fix any
 const HeadingElement = `h${headingLevel}` as any;
 ---
 
 <li class="disclosure__item" data-module-bind="disclosure__item">
 	<HeadingElement class="disclosure__heading">
-		<button
-			type="button"
-			id="disclosure-header-1"
-			class="disclosure__toggle"
-			aria-expanded="false"
-			aria-controls="disclosure-panel-1"
-			data-module-bind="disclosure__toggle"
-		>
-			<Icon name="plus" class="disclosure__show-inactive" />
-			<Icon name="minus" class="disclosure__show-active" />
-			<span class={labelActive ? 'disclosure__show-inactive' : undefined}
-				>{label}
-			</span>
-			{
-				labelActive ? (
-					<span class="disclosure__show-active">{labelActive}</span>
-				) : null
-			}
-		</button>
+		{
+			accordeon ? (
+				<Button
+					id="disclosure-header-1"
+					aria-expanded="false"
+					aria-controls="disclosure-panel-1"
+					data-module-bind="disclosure__toggle"
+					variant="senary"
+					full
+					icon="chevron-small-down"
+					iconPosition="trailing"
+				>
+					<span class={labelActive ? 'disclosure__show-inactive' : undefined}>
+						{label}
+					</span>
+					{labelActive ? (
+						<span class="disclosure__show-active">{labelActive}</span>
+					) : null}
+				</Button>
+			) : (
+				<button
+					type="button"
+					id="disclosure-header-1"
+					class="disclosure__toggle"
+					aria-expanded="false"
+					aria-controls="disclosure-panel-1"
+					data-module-bind="disclosure__toggle"
+				>
+					<Icon name="plus" class="disclosure__show-inactive" />
+					<Icon name="minus" class="disclosure__show-active" />
+					<span class={labelActive ? 'disclosure__show-inactive' : undefined}>
+						{label}
+					</span>
+					{labelActive ? (
+						<span class="disclosure__show-active">{labelActive}</span>
+					) : null}
+				</button>
+			)
+		}
 	</HeadingElement>
+
 	<div
 		id="disclosure-panel-1"
 		role="region"
