@@ -1,9 +1,5 @@
 ---
-import {
-	availableLocales,
-	Locale,
-	prefixUrlWithlocale,
-} from 'src/utilities/locale/translation';
+import { availableLocales, Locale } from 'src/utilities/locale/translation';
 
 import Layout from '@layouts/Layout.astro';
 import { Hero } from '@design-system/components/Hero';
@@ -17,12 +13,11 @@ import { ContentBlock } from '@design-system/components/ContentBlock';
 import { Layer } from '@design-system/components/Layout/Layer';
 import { Retain } from '@design-system/components/Layout/Retain';
 import { Heading } from '@design-system/elements/Heading';
-import { Button } from '@design-system/elements/Button';
-import { GridFluid } from '@design-system/components/Layout/Grid';
 import { Stack } from '@design-system/components/Layout/Stack';
 import { Assistance } from '@design-system/components/Assistance';
 import { TaleList } from '@design-system/components/Tale';
-import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
+import { CTAButtonOverview } from '@modules/CTAButtonOverview';
+import { stringToSlug } from 'src/utilities/stringToSlug';
 
 export async function getStaticPaths() {
 	const collection = await getDataThemes();
@@ -53,6 +48,35 @@ interface Props {
 
 const { pageData, locale } = Astro.props;
 const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+
+const filters = [];
+let ctaButtons = [];
+
+console.log(pageData.ctaButtonCollection);
+
+pageData.ctaButtonCollection.forEach((item) => {
+	if (item._type === 'category') {
+		filters.push({ label: item.title, id: stringToSlug(item.title) });
+
+		item.ctaButtonCollection.forEach((button) => {
+			const found = ctaButtons.some(
+				(ctaButton) =>
+					ctaButton.slugCollection.slug === button.slugCollection.slug,
+			);
+			console.log('found', found);
+		});
+
+		ctaButtons = [
+			...ctaButtons,
+			...item.ctaButtonCollection.map((ctaButton) => ({
+				...ctaButton,
+				categories: [{ slug: stringToSlug(item.title) }],
+			})),
+		];
+	} else if (item._type === 'cta-button-document') {
+		ctaButtons.push(item);
+	}
+});
 ---
 
 <Layout
@@ -72,6 +96,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 		<UpdatedAt slot="prefix" time={pageData.updatedAt} />
 		<ContentBlock value={pageData.hero.content} />
 	</Hero>
+
 	<Layer
 		pullUpBy="hero"
 		background={pageData.taleCollection && pageData.taleCollection.length > 0
@@ -80,38 +105,27 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 		id="situaties"
 	>
 		{
-			pageData?.ctaButtonCollection?.filter((item) => item.label).length ? (
+			ctaButtons?.filter((item) => item.label).length ? (
 				<Retain>
 					<Stack>
 						<Heading>
-							{pageData.ctaButtonCollection.length > 1
-								? `${pageData.ctaButtonCollection.length} ${siteSettings.genericLabels.situationPlural.that}`
-								: `${pageData.ctaButtonCollection.length} ${siteSettings.genericLabels.situationPlural.this}`}{' '}
+							{ctaButtons.length > 1
+								? `${ctaButtons.length} ${siteSettings.genericLabels.situationPlural.that}`
+								: `${ctaButtons.length} ${siteSettings.genericLabels.situationPlural.this}`}{' '}
 							{pageData.titleFlow}
 						</Heading>
 
-						<GridFluid class="grid-questions">
-							{pageData.ctaButtonCollection
-								?.filter((item) => item.label)
-								.map((item) => (
-									<Button
-										variant="tertiary"
-										href={prefixUrlWithlocale(
-											getFullPageUrl(item.slugCollection),
-											locale,
-										)}
-										icon="chevron-small-right"
-										interactionIconAnimation="swing"
-									>
-										<ContentBlock value={item.label} />
-									</Button>
-								))}
-						</GridFluid>
+						<CTAButtonOverview
+							categories={filters}
+							items={ctaButtons}
+							enableFilter
+						/>
 					</Stack>
 				</Retain>
 			) : null
 		}
 	</Layer>
+
 	{
 		pageData?.taleCollection?.length ? (
 			<Layer>
@@ -121,6 +135,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 			</Layer>
 		) : null
 	}
+
 	{
 		pageData.assistance && (
 			<Layer>

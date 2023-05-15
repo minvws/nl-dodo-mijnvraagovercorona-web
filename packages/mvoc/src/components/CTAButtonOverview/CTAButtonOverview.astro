@@ -5,7 +5,7 @@ import { Stack } from '@design-system/components/Layout/Stack';
 import { Button } from '@design-system/elements/Button';
 import { HTMLAttributes } from 'astro/types';
 import {
-	CtaButtonCollectionProps,
+	CtaButtonProps,
 	SiteSettingsProps,
 	useSiteSettings,
 } from 'src/utilities/api/queries';
@@ -20,7 +20,7 @@ interface Props extends HTMLAttributes<'div'> {
 		label: string;
 		id: string;
 	}[];
-	items: CtaButtonCollectionProps['ctaButtonCollection'];
+	items: CtaButtonProps[];
 	enableFilter?: boolean;
 }
 
@@ -33,6 +33,8 @@ const {
 } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
 const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+console.log('items', items[1].categories);
+console.log('categories', categories);
 
 const filterCategories = categories?.length
 	? categories.filter(

@@ -5,22 +5,32 @@ import {
 	SubFolderReferenceProps,
 } from '.';
 
-export interface CtaButtonCollectionProps {
-	ctaButtonCollection: {
-		label: ContentBlockProps['value'];
-		slugCollection?: {
-			slug: string;
-			deepLink?: string;
-			subFolderReference: SubFolderReferenceProps;
-		};
-		categories: {
-			slug: string;
-		}[];
+export interface CtaButtonProps {
+	_type: 'cta-button-document';
+	label: ContentBlockProps['value'];
+	slugCollection?: {
+		slug: string;
+		deepLink?: string;
+		subFolderReference: SubFolderReferenceProps;
+	};
+	categories: {
+		_type: 'category';
+		slug: string;
 	}[];
 }
 
-export const ctaButtonCollectionQuery = (): string => {
-	return `ctaButtonCollection[]->{
+interface categoryProps {
+	title: string;
+	ctaButtonCollection: CtaButtonProps[];
+}
+
+export interface CtaButtonCollectionProps {
+	ctaButtonCollection: CtaButtonProps[] | categoryProps[];
+}
+
+const ctaButtonCollectionProjection = (): string => {
+	return `{
+		_type,
 		${customBlockQuery({ name: 'label' })},
 		"slugCollection": select(
 			defined(href) => {
@@ -31,5 +41,16 @@ export const ctaButtonCollectionQuery = (): string => {
 		"categories": *[_type == 'theme-page' && references(^._id)]{
 			"slug": slug.current,
 		},
+	}`;
+};
+
+export const ctaButtonCollectionQuery = (): string => {
+	return `ctaButtonCollection[]{
+		_type == 'ctaButton' => @->${ctaButtonCollectionProjection()},
+		_type == 'category' => @{
+			_type,
+			title,
+			ctaButtonCollection[]->${ctaButtonCollectionProjection()},
+		}
 	}`;
 };
