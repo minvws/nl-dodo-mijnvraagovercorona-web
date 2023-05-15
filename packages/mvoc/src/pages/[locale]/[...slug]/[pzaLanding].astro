@@ -99,14 +99,18 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 					</ul>
 				) : null
 			}
-			<Stack class="has__list-styled">
-				<ContentBlock value={pageData.contentSecondary} />
-			</Stack>
+			{
+				pageData.contentSecondary ? (
+					<Stack class="has__list-styled">
+						<ContentBlock value={pageData.contentSecondary} />
+					</Stack>
+				) : null
+			}
 		</Stack>
 	</Hero>
 
 	{
-		pageData.taleCollection || pageData.assistance ? (
+		pageData.taleCollection ? (
 			<Layer pullUpBy={'hero'}>
 				<Retain>
 					<Sidebar>
@@ -118,12 +122,20 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 									source: 'Prikken Home',
 								})}
 							/>
-							{pageData.assistance && <Assistance {...pageData.assistance} />}
 						</Stack>
 						<Stack slot="aside">
 							<CardPrivacy />
 						</Stack>
 					</Sidebar>
+				</Retain>
+			</Layer>
+		) : null
+	}
+	{
+		pageData.assistance ? (
+			<Layer background="ijsblauw">
+				<Retain>
+					<Assistance {...pageData.assistance} />
 				</Retain>
 			</Layer>
 		) : null

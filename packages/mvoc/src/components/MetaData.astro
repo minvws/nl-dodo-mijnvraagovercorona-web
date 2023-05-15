@@ -67,24 +67,19 @@ const ogImage = `${Astro.url.origin}${
 <meta property="og:locale" content={locale.locale} />
 {
 	alternativeTranslations
-		? alternativeTranslations
-				.filter(
-					(alternativeTranslation) =>
-						alternativeTranslation.locale.id !== locale.id,
-				)
-				.map((alternativeTranslation) => (
-					<>
-						<link
-							rel="alternate"
-							hreflang={alternativeTranslation.locale.locale}
-							href={`${siteSettings.baseUrl}${alternativeTranslation.locale.urlPrefix}/${alternativeTranslation.href}`}
-						/>
-						<meta
-							property="og:locale:alternate"
-							content={alternativeTranslation.locale.locale}
-						/>
-					</>
-				))
+		? alternativeTranslations.map((alternativeTranslation) => (
+				<>
+					<link
+						rel="alternate"
+						hreflang={alternativeTranslation.locale.id}
+						href={`${siteSettings.baseUrl}${alternativeTranslation.locale.urlPrefix}/${alternativeTranslation.href}`}
+					/>
+					<meta
+						property="og:locale:alternate"
+						content={alternativeTranslation.locale.id}
+					/>
+				</>
+		  ))
 		: null
 }
 
