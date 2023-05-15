@@ -59,7 +59,9 @@ const HeadingElement = `h${headingLevel}` as any;
 	<div
 		id="disclosure-panel-1"
 		role="region"
-		class="disclosure__panel"
+		class={accordeon
+			? 'disclosure__panel disclosure__panel--spacing'
+			: 'disclosure__panel'}
 		data-module-bind="disclosure__panel"
 		aria-labelledby="disclosure-header-1"
 	>
@@ -111,8 +113,17 @@ const HeadingElement = `h${headingLevel}` as any;
 		display: none;
 	}
 
+	.disclosure__panel--spacing {
+		padding-block-start: var(--space-r-small);
+		padding-block-end: var(--space-r-small);
+	}
+
 	.disclosure__panel-inner {
 		padding-block-start: var(--space-r-small);
+	}
+
+	.disclosure__panel-inner ~ p {
+		padding-block-start: var(--space-r-huge);
 	}
 
 	.disclosure__item.is-active {

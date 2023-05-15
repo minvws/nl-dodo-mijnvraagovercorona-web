@@ -27,13 +27,6 @@ export default defineType({
 			type: 'hero',
 		}),
 		defineField({
-			title: 'Toon table of contents',
-			name: 'showTOC',
-			type: 'boolean',
-			description:
-				'Als deze toggle aan staat genereren we een table of contents.',
-		}),
-		defineField({
 			title: 'Content',
 			name: 'content',
 			type: 'customBlock',
