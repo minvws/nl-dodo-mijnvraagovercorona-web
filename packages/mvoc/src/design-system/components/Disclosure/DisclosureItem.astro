@@ -13,7 +13,10 @@ const { label, labelActive, accordeon, headingLevel = 3 } = Astro.props;
 const HeadingElement = `h${headingLevel}` as any;
 ---
 
-<li class="disclosure__item" data-module-bind="disclosure__item">
+<li
+	class={`disclosure__item ${accordeon ? 'disclosure__item--accordeon' : ''}`}
+	data-module-bind="disclosure__item"
+>
 	<HeadingElement class="disclosure__heading">
 		{
 			accordeon ? (
@@ -59,9 +62,7 @@ const HeadingElement = `h${headingLevel}` as any;
 	<div
 		id="disclosure-panel-1"
 		role="region"
-		class={accordeon
-			? 'disclosure__panel disclosure__panel--spacing'
-			: 'disclosure__panel'}
+		class="disclosure__panel"
 		data-module-bind="disclosure__panel"
 		aria-labelledby="disclosure-header-1"
 	>
@@ -113,17 +114,8 @@ const HeadingElement = `h${headingLevel}` as any;
 		display: none;
 	}
 
-	.disclosure__panel--spacing {
-		padding-block-start: var(--space-r-small);
-		padding-block-end: var(--space-r-small);
-	}
-
 	.disclosure__panel-inner {
 		padding-block-start: var(--space-r-small);
-	}
-
-	.disclosure__panel-inner ~ p {
-		padding-block-start: var(--space-r-huge);
 	}
 
 	.disclosure__item.is-active {
@@ -135,6 +127,20 @@ const HeadingElement = `h${headingLevel}` as any;
 		}
 		.disclosure__show-active {
 			display: block;
+		}
+	}
+
+	.disclosure__item--accordeon {
+		& + & {
+			margin-block-start: var(--space-r-small);
+		}
+		.disclosure__panel-inner {
+			padding-block: var(--space-r-large);
+		}
+		&:last-child {
+			.disclosure__panel-inner {
+				padding-block-end: 0;
+			}
 		}
 	}
 </style>

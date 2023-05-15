@@ -92,13 +92,11 @@ const taleData =
 					{
 						pageData?.taleCollection?.length && (
 							<Disclosure>
-								<Stack gap="small">
-									{taleData.map((tale) => (
-										<DisclosureItem accordeon label={tale.title}>
-											<Tale {...tale} />
-										</DisclosureItem>
-									))}
-								</Stack>
+								{taleData.map((tale) => (
+									<DisclosureItem headingLevel={2} accordeon label={tale.title}>
+										<Tale {...tale} />
+									</DisclosureItem>
+								))}
 							</Disclosure>
 						)
 					}

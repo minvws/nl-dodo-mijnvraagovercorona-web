@@ -15,16 +15,16 @@ const { title, multiContentBlocks, picture } = Astro.props;
 
 <section class="c-tale" id={stringToSlug(title)}>
 	<Switcher class="c-tale__switcher">
-		<Stack>
-			<Retain variant={'text'}>
+		<Retain variant={'text'}>
+			<Stack>
 				<Heading>{title}</Heading>
 				{
 					multiContentBlocks ? (
 						<MultiContentBlock multiContentBlocks={multiContentBlocks} />
 					) : null
 				}
-			</Retain>
-		</Stack>
+			</Stack>
+		</Retain>
 		{picture ? <Picture class="c-tale__picture" {...picture} /> : null}
 	</Switcher>
 </section>
