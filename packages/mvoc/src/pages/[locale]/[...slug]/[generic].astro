@@ -66,6 +66,8 @@ const taleData =
 	metaData={pageData.metaData}
 	alternativeTranslations={pageData.alternatives}
 	type={pageData.type}
+	itemscope
+	itemtype="https://schema.org/FAQPage"
 >
 	<Hero
 		title={pageData.hero.title}
@@ -98,6 +100,9 @@ const taleData =
 										accordeon
 										label={tale.title}
 										id={stringToSlug(tale.title)}
+										itemscope
+										itemprop="mainEntity"
+										itemtype="https://schema.org/Question"
 									>
 										<Tale {...tale} renderTitle={false} anchorable={false} />
 									</DisclosureItem>

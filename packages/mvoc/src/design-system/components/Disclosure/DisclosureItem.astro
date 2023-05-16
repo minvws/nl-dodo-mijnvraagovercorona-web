@@ -1,25 +1,33 @@
 ---
 import { Button } from '@design-system/elements/Button';
 import { Icon } from '@design-system/elements/Icon';
+import { HTMLAttributes } from 'astro/types';
 
-type Props = {
+interface Props extends HTMLAttributes<'li'> {
 	label: string;
 	labelActive?: string;
 	headingLevel?: 1 | 2 | 3 | 4 | 5 | 6;
 	accordeon?: boolean;
-	id?: string;
-};
-const { label, labelActive, accordeon, headingLevel = 3, id } = Astro.props;
+}
+
+const {
+	label,
+	labelActive,
+	accordeon,
+	headingLevel = 3,
+	...attrs
+} = Astro.props;
+
 // TODO fix any
 const HeadingElement = `h${headingLevel}` as any;
 ---
 
 <li
-	id={id || undefined}
 	class={`disclosure__item ${accordeon ? 'disclosure__item--accordeon' : ''}`}
 	data-module-bind="disclosure__item"
+	{...attrs}
 >
-	<HeadingElement class="disclosure__heading">
+	<HeadingElement class="disclosure__heading" itemprop="name">
 		{
 			accordeon ? (
 				<Button
@@ -68,10 +76,14 @@ const HeadingElement = `h${headingLevel}` as any;
 		class="disclosure__panel"
 		data-module-bind="disclosure__panel"
 		aria-labelledby="disclosure-header-1"
+		itemscope
+		itemprop="acceptedAnswer"
+		itemtype="https://schema.org/Answer"
 	>
 		<div
 			class="disclosure__panel-inner"
 			data-module-bind="disclosure__panel-inner"
+			itemprop="text"
 		>
 			<slot />
 		</div>
