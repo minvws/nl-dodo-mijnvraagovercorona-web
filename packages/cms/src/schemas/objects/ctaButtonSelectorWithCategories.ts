@@ -33,6 +33,19 @@ export default defineType({
 					type: 'ctaButtonSelector',
 				}),
 			],
+			preview: {
+				select: {
+					title: 'title',
+					buttons: 'ctaButtonCollection',
+				},
+				prepare(selection) {
+					const { title, buttons } = selection;
+					return {
+						title: title,
+						subtitle: `${buttons.length} situatie(s)`,
+					};
+				},
+			},
 		}),
 	],
 });
