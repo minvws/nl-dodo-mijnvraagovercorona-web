@@ -8,23 +8,34 @@ import { Stack } from '../Layout/Stack';
 import { Picture } from '../Picture';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 
-type Props = Tale;
+// type Props = Tale;
 
-const { title, multiContentBlocks, picture } = Astro.props;
+interface Props extends Tale {
+	anchorable?: boolean;
+	renderTitle?: boolean;
+}
+
+const {
+	title,
+	multiContentBlocks,
+	picture,
+	renderTitle = true,
+	anchorable = true,
+} = Astro.props;
 ---
 
-<section class="c-tale" id={stringToSlug(title)}>
+<section class="c-tale" id={anchorable ? stringToSlug(title) : undefined}>
 	<Switcher class="c-tale__switcher">
-		<Stack>
-			<Retain variant={'text'}>
-				<Heading>{title}</Heading>
+		<Retain variant={'text'}>
+			<Stack>
+				{renderTitle ? <Heading>{title}</Heading> : undefined}
 				{
 					multiContentBlocks ? (
 						<MultiContentBlock multiContentBlocks={multiContentBlocks} />
 					) : null
 				}
-			</Retain>
-		</Stack>
+			</Stack>
+		</Retain>
 		{picture ? <Picture class="c-tale__picture" {...picture} /> : null}
 	</Switcher>
 </section>

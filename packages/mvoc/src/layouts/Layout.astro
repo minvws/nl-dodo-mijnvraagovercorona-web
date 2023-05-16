@@ -13,8 +13,9 @@ import {
 	LocaleSelector,
 } from '@design-system/components/LocaleSelector';
 import { MastFoot } from '@design-system/components/MastFoot';
+import { HTMLAttributes } from 'astro/types';
 
-export interface Props {
+export interface Props extends HTMLAttributes<'html'> {
 	type?: string;
 	locale: Locale;
 	alternativeTranslations?: AlternativeTranslationsProps[];
@@ -34,12 +35,14 @@ const {
 	alternativeTranslations,
 	disableMasthead,
 	disableMastfoot,
+	...attrs
 } = Astro.props;
 const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 ---
 
 <!DOCTYPE html>
 <html
+	{...attrs}
 	lang={locale.id}
 	dir={locale.direction}
 	data-page-type={type}

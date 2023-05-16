@@ -64,6 +64,20 @@
 		}
 	});
 
+	if (window.location.hash) {
+		const hash = window.location.hash.substring(1);
+		const element = document.getElementById(hash);
+		if (element) {
+			const liElement = element.closest('.disclosure__item');
+			if (liElement) {
+				liElement.classList.add('is-active');
+				liElement
+					.querySelector('[data-module-bind="disclosure__toggle"]')
+					.setAttribute('aria-expanded', new Boolean(true).toString());
+			}
+		}
+	}
+
 	document.addEventListener('keydown', (event) => {
 		if (
 			!(event.target as Element).closest(

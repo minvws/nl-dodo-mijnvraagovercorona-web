@@ -13,6 +13,7 @@ export default defineType({
 			title: 'Titel',
 			name: 'title',
 			type: 'string',
+			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
 			title: 'Afbeelding',
@@ -25,41 +26,19 @@ export default defineType({
 			name: 'multiContentBlocks',
 			type: 'multiContentBlocks',
 		}),
-		defineField({
-			title: 'Overzicht',
-			name: 'overview',
-			type: 'object',
-			description:
-				'wordt alleen weergegeven op pagina’s met een TOC. Wanneer er geen hoofdtitel is ingevoerd word deze titel gebruikt in het overzicht in het CMS',
-			fields: [
-				defineField({
-					title: 'Titel',
-					name: 'title',
-					type: 'string',
-				}),
-				defineField({
-					title: 'Icoon',
-					name: 'icon',
-					type: 'image',
-				}),
-			],
-		}),
 	],
 	preview: {
 		select: {
 			title: 'title',
-			overviewTitle: 'overview.title',
-			icon: 'overview.icon',
 			picture: 'picture.image',
 			locale: '__i18n_lang',
 			referenceTitle: '__i18n_base.title',
 		},
 		prepare(selection) {
-			const { title, overviewTitle, icon, picture, locale, referenceTitle } =
-				selection;
+			const { title, picture, locale, referenceTitle } = selection;
 			return {
-				title: overviewTitle || title,
-				media: icon || picture,
+				title: title,
+				media: picture,
 				subtitle: `${referenceTitle ? referenceTitle : locale}`,
 			};
 		},
