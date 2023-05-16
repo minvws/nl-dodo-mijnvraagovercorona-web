@@ -25,7 +25,7 @@ const HeadingElement = `h${headingLevel}` as any;
 					aria-expanded="false"
 					aria-controls="disclosure-panel-1"
 					data-module-bind="disclosure__toggle"
-					variant="senary"
+					variant="quaternary"
 					full
 					icon="chevron-small-down"
 					iconPosition="trailing"
@@ -140,6 +140,19 @@ const HeadingElement = `h${headingLevel}` as any;
 		&:last-child {
 			.disclosure__panel-inner {
 				padding-block-end: 0;
+			}
+		}
+		.e-button--quaternary {
+			border-block-end-width: 2px;
+			&:hover {
+				--button-background-color: var(--color-poolblauw);
+				--button-border-color: var(--color-babyblauw);
+			}
+			&:active {
+				--button-border-color: var(--color-poolblauw);
+			}
+			&[aria-expanded='true'] {
+				--button-background-color: var(--color-poolblauw);
 			}
 		}
 	}

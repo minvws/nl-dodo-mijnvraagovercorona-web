@@ -276,15 +276,7 @@ const selectedIcon =
 		inline-size: 100%;
 	}
 
-	.e-button--senary {
-		border-block-end-width: 2px;
-		&:hover {
-			--button-background-color: var(--color-poolblauw);
-			--button-border-color: var(--color-babyblauw);
-		}
-		&:active {
-			--button-border-color: var(--color-poolblauw);
-		}
+	.e-button--quaternary {
 		&[aria-expanded='true'] {
 			.e-icon {
 				transform: rotate(180deg);
@@ -295,9 +287,6 @@ const selectedIcon =
 			.e-icon {
 				transition: transform 0.3s;
 			}
-		}
-		&[aria-expanded='true'] {
-			--button-background-color: var(--color-poolblauw);
 		}
 	}
 </style>
