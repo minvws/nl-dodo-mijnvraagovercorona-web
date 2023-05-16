@@ -12,10 +12,13 @@ import {
 	ctaButtonCollectionQuery,
 	AssistanceProps,
 	assistanceQuery,
+	CardsProps,
+	cardQuery,
 } from './queries';
 
 export interface ThemePageProps extends PageProps {
 	hero: HeroProps;
+	cards?: CardsProps;
 	titleFlow: string;
 	assistance: AssistanceProps;
 	ctaButtonCollection: CtaButtonCollectionProps['ctaButtonCollection'];
@@ -28,6 +31,7 @@ export interface ThemePageProps extends PageProps {
 export async function getDataThemes() {
 	const projection = `{
 		${heroQuery()},
+		${cardQuery()},
 		titleFlow,
 		${ctaButtonCollectionQuery()},
 		${assistanceQuery()},

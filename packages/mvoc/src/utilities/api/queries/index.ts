@@ -15,3 +15,4 @@ export * from './moreInfo';
 export * from './followCustomBlockReferences';
 export * from './assistance';
 export * from './ctaButton';
+export * from './card';

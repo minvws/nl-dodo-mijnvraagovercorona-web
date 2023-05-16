@@ -18,8 +18,9 @@ import {
 	buttonsQuery,
 	ctaButtonCollectionQuery,
 	CtaButtonProps,
+	CardsProps,
+	cardQuery,
 } from './queries';
-import { CardsProps, cardQuery } from './queries/card';
 
 export interface PageHomeProps extends PageProps {
 	hero: HeroProps;
