@@ -55,8 +55,7 @@ pageData.ctaButtonCollection.forEach((item) => {
 
 		// loop over connected ctaButtons to add them to our ctabuttons array and
 		item.ctaButtonCollection.forEach((button) => {
-			// check if button is already present in our ctaButton array and store
-			// the index
+			// check if button is already present in our ctaButton array and store the index
 			const foundIndex = ctaButtons.findIndex(
 				(ctaButton) => ctaButton._id === button._id,
 			);
@@ -73,7 +72,6 @@ pageData.ctaButtonCollection.forEach((item) => {
 					slug: stringToSlug(item.title),
 				});
 			}
-			console.log('====');
 		});
 	} else if (item._type === 'cta-button-document') {
 		ctaButtons.push(item);
