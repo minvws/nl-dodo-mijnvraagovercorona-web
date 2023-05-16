@@ -8,16 +8,19 @@ import { ContentBlock } from '@design-system/components/ContentBlock';
 import { Layer } from '@design-system/components/Layout/Layer';
 import { Card } from '@design-system/components/Card';
 import { Stack } from '@design-system/components/Layout/Stack';
-import { TaleList } from '@design-system/components/Tale';
+import { Tale } from '@design-system/components/Tale';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { Assistance } from '@design-system/components/Assistance';
-import { AnchorList } from '@design-system/components/Lists';
 import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
 import { Heading } from '@design-system/elements/Heading';
 import { MoreInfoOverview } from '@design-system/components/MoreInfo';
 import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
 import { Feedback } from '@design-system/components/Feedback';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
+import {
+	Disclosure,
+	DisclosureItem,
+} from '@design-system/components/Disclosure';
 
 export async function getStaticPaths() {
 	const collection = await getDataGenericPages();
@@ -52,9 +55,9 @@ interface Props {
 
 const { pageData, locale } = Astro.props;
 const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
-const tocStories =
+const taleData =
 	pageData.taleCollection && pageData.taleCollection.length
-		? pageData.taleCollection.filter((tale) => tale?.overview?.title)
+		? pageData.taleCollection
 		: [];
 ---
 
@@ -63,6 +66,8 @@ const tocStories =
 	metaData={pageData.metaData}
 	alternativeTranslations={pageData.alternatives}
 	type={pageData.type}
+	itemscope
+	itemtype="https://schema.org/FAQPage"
 >
 	<Hero
 		title={pageData.hero.title}
@@ -71,18 +76,6 @@ const tocStories =
 		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
 	>
 		<ContentBlock value={pageData.hero.content} />
-		{
-			pageData.showTOC ? (
-				<AnchorList
-					as="ol"
-					items={tocStories.map((tale) => ({
-						label: tale.overview.title,
-						href: `#${stringToSlug(tale.title)}`,
-						image: tale.overview.icon,
-					}))}
-				/>
-			) : null
-		}
 	</Hero>
 	<Layer>
 		<Retain>
@@ -97,10 +90,25 @@ const tocStories =
 							</div>
 						) : null
 					}
+
 					{
-						pageData?.taleCollection?.length ? (
-							<TaleList taleCollection={pageData.taleCollection} />
-						) : null
+						pageData?.taleCollection?.length && (
+							<Disclosure>
+								{taleData.map((tale) => (
+									<DisclosureItem
+										headingLevel={2}
+										accordeon
+										label={tale.title}
+										id={stringToSlug(tale.title)}
+										itemscope
+										itemprop="mainEntity"
+										itemtype="https://schema.org/Question"
+									>
+										<Tale {...tale} renderTitle={false} anchorable={false} />
+									</DisclosureItem>
+								))}
+							</Disclosure>
+						)
 					}
 
 					{

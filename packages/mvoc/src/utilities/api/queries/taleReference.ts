@@ -11,10 +11,6 @@ export interface Tale {
 	title: string;
 	picture?: PictureProps;
 	multiContentBlocks: MultiContentBlocksProps;
-	overview: {
-		title: string;
-		icon: ImageProps;
-	};
 }
 
 export interface TaleCollectionProps {
@@ -26,9 +22,5 @@ export const taleReferenceQuery = (): string => {
 		title,
 		${pictureQuery({})},
 		${multiContentBlocksQuery()},
-		overview{
-			title,
-			${imageQuery({ name: 'icon' })},
-		},
 	}`;
 };
