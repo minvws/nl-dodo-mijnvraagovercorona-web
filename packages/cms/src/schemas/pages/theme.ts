@@ -62,12 +62,6 @@ export default defineType({
 			description: 'Deze titel komt na `X situatie(s)` boven de startpunten',
 		}),
 
-		// defineField({
-		// 	title: 'Vraag startpunten',
-		// 	name: 'ctaButtonCollection',
-		// 	type: 'ctaButtonSelector',
-		// }),
-
 		defineField({
 			title: 'Vraag startpunten',
 			name: 'ctaButtonCollection',
