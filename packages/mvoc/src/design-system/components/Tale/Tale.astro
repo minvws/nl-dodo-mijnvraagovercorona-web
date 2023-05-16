@@ -10,10 +10,10 @@ import { stringToSlug } from 'src/utilities/stringToSlug';
 
 type Props = Tale;
 
-const { title, multiContentBlocks, picture } = Astro.props;
+const { title, multiContentBlocks, picture, anchorable = true } = Astro.props;
 ---
 
-<section class="c-tale" id={stringToSlug(title)}>
+<section class="c-tale" id={anchorable ? stringToSlug(title) : undefined}>
 	<Switcher class="c-tale__switcher">
 		<Retain variant={'text'}>
 			<Stack>

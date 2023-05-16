@@ -7,13 +7,15 @@ type Props = {
 	labelActive?: string;
 	headingLevel?: 1 | 2 | 3 | 4 | 5 | 6;
 	accordeon?: boolean;
+	id?: string;
 };
-const { label, labelActive, accordeon, headingLevel = 3 } = Astro.props;
+const { label, labelActive, accordeon, headingLevel = 3, id } = Astro.props;
 // TODO fix any
 const HeadingElement = `h${headingLevel}` as any;
 ---
 
 <li
+	id={id || undefined}
 	class={`disclosure__item ${accordeon ? 'disclosure__item--accordeon' : ''}`}
 	data-module-bind="disclosure__item"
 >
@@ -22,6 +24,7 @@ const HeadingElement = `h${headingLevel}` as any;
 			accordeon ? (
 				<Button
 					id="disclosure-header-1"
+					class="disclosure__toggle--button"
 					aria-expanded="false"
 					aria-controls="disclosure-panel-1"
 					data-module-bind="disclosure__toggle"
@@ -142,17 +145,27 @@ const HeadingElement = `h${headingLevel}` as any;
 				padding-block-end: 0;
 			}
 		}
-		.e-button--quaternary {
+
+		.disclosure__toggle--button {
 			border-block-end-width: 2px;
+
 			&:hover {
 				--button-background-color: var(--color-poolblauw);
-				--button-border-color: var(--color-babyblauw);
 			}
+
 			&:active {
 				--button-border-color: var(--color-poolblauw);
 			}
+
+			:global(.e-icon) {
+				transition: transform 0.3s;
+			}
+
 			&[aria-expanded='true'] {
 				--button-background-color: var(--color-poolblauw);
+				:global(.e-icon) {
+					transform: rotate(180deg);
+				}
 			}
 		}
 	}

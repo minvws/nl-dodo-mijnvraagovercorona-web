@@ -93,8 +93,13 @@ const taleData =
 						pageData?.taleCollection?.length && (
 							<Disclosure>
 								{taleData.map((tale) => (
-									<DisclosureItem headingLevel={2} accordeon label={tale.title}>
-										<Tale {...tale} />
+									<DisclosureItem
+										headingLevel={2}
+										accordeon
+										label={tale.title}
+										id={stringToSlug(tale.title)}
+									>
+										<Tale {...tale} anchorable={false} />
 									</DisclosureItem>
 								))}
 							</Disclosure>

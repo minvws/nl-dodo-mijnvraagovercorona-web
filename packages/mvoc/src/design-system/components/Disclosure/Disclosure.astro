@@ -71,10 +71,10 @@
 			const liElement = element.closest('.disclosure__item');
 			if (liElement) {
 				liElement.classList.add('is-active');
+				liElement
+					.querySelector('[data-module-bind="disclosure__toggle"]')
+					.setAttribute('aria-expanded', new Boolean(true).toString());
 			}
-			liElement
-				.querySelector('[data-module-bind="disclosure__toggle"]')
-				.setAttribute('aria-expanded', true);
 		}
 	}
 

@@ -3,5 +3,4 @@ export type ButtonVariants =
 	| 'secondary'
 	| 'tertiary'
 	| 'quaternary'
-	| 'quinary'
-	| 'senary';
+	| 'quinary';
