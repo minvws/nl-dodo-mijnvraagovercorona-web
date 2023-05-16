@@ -3,10 +3,6 @@ import { availableLocales, Locale } from 'src/utilities/locale/translation';
 
 import Layout from '@layouts/Layout.astro';
 import { Hero } from '@design-system/components/Hero';
-import {
-	SiteSettingsProps,
-	useSiteSettings,
-} from 'src/utilities/api/queries/siteSettings';
 import { getDataThemes, ThemePageProps } from 'src/utilities/api/theme';
 import { UpdatedAt } from '@design-system/elements/UpdatedAt';
 import { ContentBlock } from '@design-system/components/ContentBlock';
@@ -47,11 +43,11 @@ interface Props {
 }
 
 const { pageData, locale } = Astro.props;
-const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 
 const filters = [];
 let ctaButtons = [];
 
+// Separate the categories from the ctaButtons
 pageData.ctaButtonCollection.forEach((item) => {
 	if (item._type === 'category') {
 		// add category to filters array
