@@ -151,6 +151,7 @@ const filterThemes = pageData.themes.filter(
 							<ContentBlock value={pageData.important.content} />
 						</SectionHeadingGroup>
 						<CTAButtonOverview
+							name="homepage"
 							categories={filterThemes.map((theme) => ({
 								label: theme.overview.title,
 								id: theme.slug,

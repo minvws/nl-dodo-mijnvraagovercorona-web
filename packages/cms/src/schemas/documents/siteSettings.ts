@@ -236,6 +236,13 @@ export default defineType({
 					validation: (Rule) => Rule.required(),
 				}),
 				defineField({
+					title: 'Van',
+					description: 'Bijvoorbeeld: 1 van 5 situaties',
+					name: 'of',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
+				defineField({
 					title: 'Dag',
 					name: 'dayPlural',
 					type: 'thisOrThatString',
@@ -262,15 +269,6 @@ export default defineType({
 				defineField({
 					title: 'Bronnen',
 					name: 'sources',
-					type: 'string',
-					validation: (Rule) => Rule.required(),
-				}),
-				// TODO: phase out
-				defineField({
-					title: 'Meer Tips',
-					description:
-						'Dit veld word in de toekomst niet meer gebruikt, gebruik het "meer info" veld',
-					name: 'moreTips',
 					type: 'string',
 					validation: (Rule) => Rule.required(),
 				}),

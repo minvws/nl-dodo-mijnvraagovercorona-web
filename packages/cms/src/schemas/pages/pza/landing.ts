@@ -49,7 +49,7 @@ export default defineType({
 		}),
 
 		defineField({
-			title: 'Tales',
+			title: 'Verhalen',
 			name: 'taleCollection',
 			type: 'taleSelector',
 		}),

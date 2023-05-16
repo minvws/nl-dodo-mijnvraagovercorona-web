@@ -27,6 +27,7 @@ export default defineType({
 			name: 'metaData',
 			type: 'metaData',
 		}),
+
 		defineField({
 			title: 'Overzicht',
 			name: 'overview',
@@ -39,6 +40,7 @@ export default defineType({
 					type: 'string',
 					validation: (Rule) => Rule.required(),
 				}),
+
 				defineField({
 					title: 'Icoon',
 					name: 'icon',
@@ -46,27 +48,33 @@ export default defineType({
 				}),
 			],
 		}),
+
 		defineField({
 			title: 'Hero',
 			name: 'hero',
 			type: 'hero',
 		}),
+
 		defineField({
 			title: 'Flow titel',
 			name: 'titleFlow',
 			type: 'string',
 			description: 'Deze titel komt na `X situatie(s)` boven de startpunten',
 		}),
+
 		defineField({
 			title: 'Vraag startpunten',
 			name: 'ctaButtonCollection',
-			type: 'ctaButtonSelector',
+			type: 'ctaButtonSelectorWithCategories',
 		}),
+
 		defineField({
-			title: 'Tales',
+			title: 'Verhalen',
+			description: 'Verhalen op deze pagina worden getoond als een accordion',
 			name: 'taleCollection',
 			type: 'taleSelector',
 		}),
+
 		defineField({
 			title: 'Hulp',
 			name: 'assistance',
@@ -76,6 +84,7 @@ export default defineType({
 				filter: filterReferenceByLanguage,
 			},
 		}),
+
 		defineField({
 			title: 'Slug',
 			name: 'slug',
@@ -90,13 +99,16 @@ export default defineType({
 	preview: {
 		select: {
 			title: 'metaData.title',
+			overviewTitle: 'overview.title',
+			icon: 'overview.icon',
 			locale: '__i18n_lang',
 			slug: 'slug.current',
 		},
 		prepare(selection) {
-			const { title, locale, slug } = selection;
+			const { title, overviewTitle, locale, slug, icon } = selection;
 			return {
-				title: title,
+				title: overviewTitle || title,
+				media: icon,
 				subtitle: `/${locale}/${slug}`,
 			};
 		},

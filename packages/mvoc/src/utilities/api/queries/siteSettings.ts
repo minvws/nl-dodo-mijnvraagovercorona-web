@@ -64,12 +64,12 @@ export interface SiteSettingsProps {
 		in: string;
 		today: string;
 		ago: string;
+		of: string;
 		dayPlural: {
 			this: string;
 			that: string;
 		};
 		sources: string;
-		moreTips: string;
 		moreInfo: string;
 		updatedAt: string;
 		map: string;
@@ -147,12 +147,12 @@ export const siteSettingsQuery = ({ locale }: { locale: Locale }): string => `
 			today,
 			ago,
 			in,
+			of,
 			dayPlural{
 				this,
 				that,
 			},
 			sources,
-			moreTips,
 			moreInfo,
 			updatedAt,
 			map,

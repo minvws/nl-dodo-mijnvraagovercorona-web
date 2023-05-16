@@ -15,11 +15,23 @@ export default defineType({
 			name: 'metaData',
 			type: 'metaData',
 		}),
+
 		defineField({
 			title: 'Hero',
 			name: 'hero',
 			type: 'hero',
 		}),
+
+		defineField({
+			title: 'Button',
+			name: 'button',
+			type: 'flexibleButton',
+			options: {
+				collapsible: true,
+				collapsed: true,
+			},
+		}),
+
 		defineField({
 			title: 'Meest gestelde vragen',
 			name: 'cards',
@@ -45,6 +57,7 @@ export default defineType({
 								: 'Label verplicht',
 						),
 				}),
+
 				defineField({
 					title: 'Kaarten',
 					name: 'items',
@@ -71,15 +84,7 @@ export default defineType({
 				}),
 			],
 		}),
-		defineField({
-			title: 'Button',
-			name: 'button',
-			type: 'flexibleButton',
-			options: {
-				collapsible: true,
-				collapsed: true,
-			},
-		}),
+
 		defineField({
 			title: 'Nu belangrijk',
 			name: 'important',
@@ -116,6 +121,7 @@ export default defineType({
 				}),
 			],
 		}),
+
 		defineField({
 			title: 'Huidige adviezen',
 			name: 'currentAdvice',
@@ -131,16 +137,19 @@ export default defineType({
 					type: 'string',
 					validation: (Rule) => Rule.required(),
 				}),
+
 				defineField({
 					title: 'Subtitle',
 					name: 'content',
 					type: 'customBlock',
 				}),
+
 				defineField({
 					title: 'JA Advies',
 					name: 'adviceYes',
 					type: 'adviceBlock',
 				}),
+
 				defineField({
 					title: 'NEE advies',
 					name: 'adviceNo',
@@ -150,7 +159,7 @@ export default defineType({
 		}),
 
 		defineField({
-			title: 'Tales',
+			title: 'Verhalen',
 			name: 'taleCollection',
 			type: 'taleSelector',
 		}),
@@ -175,6 +184,7 @@ export default defineType({
 			},
 			fields: [
 				defineField({ title: 'Titel', name: 'title', type: 'string' }),
+
 				defineField({ title: 'Button', name: 'button', type: 'string' }),
 			],
 		}),

@@ -39,6 +39,7 @@ import thisOrThatStringObject from './objects/thisOrThatString';
 import pageSourceSelectorObject from './objects/pageSourceSelector';
 import moreInfoObject from './objects/moreInfo';
 import ctaButtonSelectorObject from './objects/ctaButtonSelector';
+import ctaButtonSelectorWithCategoriesObject from './objects/ctaButtonSelectorWithCategories';
 import taleDeeplinkObject from './objects/taleDeeplink';
 
 export default [
@@ -81,5 +82,6 @@ export default [
 	pageSourceSelectorObject,
 	moreInfoObject,
 	ctaButtonSelectorObject,
+	ctaButtonSelectorWithCategoriesObject,
 	taleDeeplinkObject,
 ];
