@@ -104,13 +104,16 @@ export default defineType({
 	preview: {
 		select: {
 			title: 'metaData.title',
+			overviewTitle: 'overview.title',
+			icon: 'overview.icon',
 			locale: '__i18n_lang',
 			slug: 'slug.current',
 		},
 		prepare(selection) {
-			const { title, locale, slug } = selection;
+			const { title, overviewTitle, locale, slug, icon } = selection;
 			return {
-				title: title,
+				title: overviewTitle || title,
+				media: icon,
 				subtitle: `/${locale}/${slug}`,
 			};
 		},
