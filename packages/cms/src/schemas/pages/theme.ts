@@ -56,10 +56,15 @@ export default defineType({
 		}),
 
 		defineField({
+			title: 'Meest gestelde vragen',
+			name: 'cards',
+			type: 'cards',
+		}),
+
+		defineField({
 			title: 'Flow titel',
 			name: 'titleFlow',
 			type: 'string',
-			description: 'Deze titel komt na `X situatie(s)` boven de startpunten',
 		}),
 
 		defineField({
