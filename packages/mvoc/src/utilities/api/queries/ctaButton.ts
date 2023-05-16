@@ -7,6 +7,7 @@ import {
 
 export interface CtaButtonProps {
 	_type: 'cta-button-document';
+	_id: string;
 	label: ContentBlockProps['value'];
 	slugCollection?: {
 		slug: string;
@@ -30,6 +31,7 @@ export interface CtaButtonCollectionProps {
 
 const ctaButtonCollectionProjection = (): string => {
 	return `{
+		_id,
 		_type,
 		${customBlockQuery({ name: 'label' })},
 		"slugCollection": select(
