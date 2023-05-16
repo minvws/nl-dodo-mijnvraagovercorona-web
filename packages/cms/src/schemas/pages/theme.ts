@@ -69,7 +69,8 @@ export default defineType({
 		}),
 
 		defineField({
-			title: 'Tales',
+			title: 'Verhalen',
+			description: 'Verhalen op deze pagina worden getoond als een accordion',
 			name: 'taleCollection',
 			type: 'taleSelector',
 		}),
