@@ -41,6 +41,7 @@ import moreInfoObject from './objects/moreInfo';
 import ctaButtonSelectorObject from './objects/ctaButtonSelector';
 import ctaButtonSelectorWithCategoriesObject from './objects/ctaButtonSelectorWithCategories';
 import taleDeeplinkObject from './objects/taleDeeplink';
+import cardsObject from './objects/cards';
 
 export default [
 	/**
@@ -84,4 +85,5 @@ export default [
 	ctaButtonSelectorObject,
 	ctaButtonSelectorWithCategoriesObject,
 	taleDeeplinkObject,
+	cardsObject,
 ];
