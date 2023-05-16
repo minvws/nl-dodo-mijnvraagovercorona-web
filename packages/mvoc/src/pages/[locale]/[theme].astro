@@ -52,20 +52,19 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 const filters = [];
 let ctaButtons = [];
 
-console.log(pageData.ctaButtonCollection);
-
 pageData.ctaButtonCollection.forEach((item) => {
 	if (item._type === 'category') {
+		// add category to filters array
 		filters.push({ label: item.title, id: stringToSlug(item.title) });
 
+		// loop over connected ctaButtons to add them to our ctabuttons array and
 		item.ctaButtonCollection.forEach((button) => {
+			// check if button is already present in our ctaButton array
 			const foundItem = ctaButtons.filter(
-				(ctaButton) =>
-					ctaButton.slugCollection.slug === button.slugCollection.slug,
+				(ctaButton) => ctaButton._id === button._id,
 			);
-			console.log('foundItem', foundItem);
 
-			if (!foundItem) {
+			if (!foundItem[0]) {
 				// add item to ctaButtons with category
 				ctaButtons.push({
 					...button,
@@ -73,24 +72,13 @@ pageData.ctaButtonCollection.forEach((item) => {
 				});
 			} else {
 				ctaButtons = ctaButtons.map((ctaButton) => {
-					if (
-						foundItem[0].slugCollection.slug === ctaButton.slugCollection.slug
-					) {
-						ctaButton.categories.push(stringToSlug(item.title));
+					if (foundItem[0]._id === ctaButton._id) {
+						ctaButton.categories.push({ slug: stringToSlug(item.title) });
 					}
 					return ctaButton;
 				});
-				// only add category to found item
 			}
 		});
-
-		// ctaButtons = [
-		// 	...ctaButtons,
-		// 	...item.ctaButtonCollection.map((ctaButton) => ({
-		// 		...ctaButton,
-		// 		categories: [{ slug: stringToSlug(item.title) }],
-		// 	})),
-		// ];
 	} else if (item._type === 'cta-button-document') {
 		ctaButtons.push(item);
 	}
@@ -115,23 +103,12 @@ pageData.ctaButtonCollection.forEach((item) => {
 		<ContentBlock value={pageData.hero.content} />
 	</Hero>
 
-	<Layer
-		pullUpBy="hero"
-		background={pageData.taleCollection && pageData.taleCollection.length > 0
-			? 'ijsblauw'
-			: undefined}
-		id="situaties"
-	>
+	<Layer pullUpBy="hero" background="zebra" id="situaties">
 		{
 			ctaButtons?.filter((item) => item.label).length ? (
 				<Retain>
 					<Stack>
-						<Heading>
-							{ctaButtons.length > 1
-								? `${ctaButtons.length} ${siteSettings.genericLabels.situationPlural.that}`
-								: `${ctaButtons.length} ${siteSettings.genericLabels.situationPlural.this}`}{' '}
-							{pageData.titleFlow}
-						</Heading>
+						<Heading>{pageData.titleFlow}</Heading>
 
 						<CTAButtonOverview
 							categories={filters}
@@ -146,7 +123,7 @@ pageData.ctaButtonCollection.forEach((item) => {
 
 	{
 		pageData?.taleCollection?.length ? (
-			<Layer>
+			<Layer background="zebra">
 				<Retain>
 					<TaleList taleCollection={pageData.taleCollection} />
 				</Retain>

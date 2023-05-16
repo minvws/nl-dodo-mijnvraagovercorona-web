@@ -33,8 +33,6 @@ const {
 } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
 const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
-console.log('items', items[1].categories);
-console.log('categories', categories);
 
 const filterCategories = categories?.length
 	? categories.filter(
