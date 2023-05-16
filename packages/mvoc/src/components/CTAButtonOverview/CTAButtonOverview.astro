@@ -16,6 +16,7 @@ import {
 } from 'src/utilities/locale/translation';
 
 interface Props extends HTMLAttributes<'div'> {
+	name: string;
 	categories?: {
 		label: string;
 		id: string;
@@ -25,6 +26,7 @@ interface Props extends HTMLAttributes<'div'> {
 }
 
 const {
+	name,
 	categories,
 	items,
 	enableFilter,
@@ -59,6 +61,7 @@ const filteredItems =
 				data-module={
 					enableFilter && filterCategories.length ? 'filter' : undefined
 				}
+				data-name={name}
 				{...attrs}
 			>
 				<Stack>
@@ -172,6 +175,7 @@ const filteredItems =
 		'[data-module="filter"]',
 	) as HTMLDivElement;
 	if (parent) {
+		const name = `filter-${parent.dataset.name}`;
 		const toggles = parent.querySelectorAll<HTMLButtonElement>(
 			'[data-module-bind="filter__toggle"]',
 		);
@@ -185,8 +189,7 @@ const filteredItems =
 		);
 
 		// Get filters from session
-		const activeFilters =
-			JSON.parse(sessionStorage.getItem('cta-button-filter')) || [];
+		const activeFilters = JSON.parse(sessionStorage.getItem(name)) || [];
 
 		const checkItem = (value) =>
 			!!activeFilters.some((filter) => value.includes(filter));
@@ -216,10 +219,7 @@ const filteredItems =
 			);
 
 			// store filters in session
-			sessionStorage.setItem(
-				'cta-button-filter',
-				JSON.stringify(activeFilters),
-			);
+			sessionStorage.setItem(name, JSON.stringify(activeFilters));
 		};
 
 		toggles.forEach((toggle) => {
