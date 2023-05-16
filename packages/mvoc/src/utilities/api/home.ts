@@ -16,8 +16,8 @@ import {
 	ImageProps,
 	ButtonProps,
 	buttonsQuery,
-	CtaButtonCollectionProps,
 	ctaButtonCollectionQuery,
+	CtaButtonProps,
 } from './queries';
 import { CardsProps, cardQuery } from './queries/card';
 
@@ -32,7 +32,7 @@ export interface PageHomeProps extends PageProps {
 		content: ContentBlockProps['value'];
 		icon: ImageProps;
 		filter?: boolean;
-		ctaButtonCollection: CtaButtonCollectionProps['ctaButtonCollection'];
+		ctaButtonCollection: CtaButtonProps[];
 	};
 	alternatives: AlternativeTranslationsProps[];
 	slug: string;
