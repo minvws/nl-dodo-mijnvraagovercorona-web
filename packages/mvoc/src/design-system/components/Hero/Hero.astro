@@ -9,6 +9,7 @@ import { UpdatedAt } from '@design-system/elements/UpdatedAt';
 
 interface Props {
 	title: string;
+	titleSuffix?: string;
 	chapeau?: string;
 	image?: ImageProps;
 	highlight?: boolean;
@@ -16,7 +17,8 @@ interface Props {
 	cards?: boolean;
 }
 
-const { title, chapeau, image, highlight, cards, updatedAt } = Astro.props;
+const { title, titleSuffix, chapeau, image, highlight, cards, updatedAt } =
+	Astro.props;
 ---
 
 <header
@@ -34,7 +36,18 @@ const { title, chapeau, image, highlight, cards, updatedAt } = Astro.props;
 			}
 			<Stack gap={'small'}>
 				<hgroup class="c-hero__hgroup">
-					<Heading class="c-hero__title" level={1}>{title}</Heading>
+					<Heading class="c-hero__title" level={1}>
+						{title}{
+							titleSuffix ? (
+								<>
+									{' '}
+									<span class="c-hero__title-suffix">{titleSuffix}</span>
+								</>
+							) : (
+								''
+							)
+						}
+					</Heading>
 					{updatedAt ? <UpdatedAt time={updatedAt} /> : null}
 
 					<slot name="prefix" />
@@ -100,6 +113,14 @@ const { title, chapeau, image, highlight, cards, updatedAt } = Astro.props;
 
 	.c-hero__title {
 		order: 3;
+	}
+
+	.c-hero__title-suffix {
+		display: inline-block;
+		padding-block: var(--space-r-nano);
+		padding-inline: var(--space-s-small);
+		background-color: var(--color-white);
+		border-radius: var(--space-r-nano);
 	}
 
 	.c-hero__chapeau {
