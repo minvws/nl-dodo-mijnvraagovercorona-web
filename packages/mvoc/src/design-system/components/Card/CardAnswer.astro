@@ -28,13 +28,11 @@ const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 	class={`c-answers-card${buttons?.length ? '--has-buttons' : ''}`}
 >
 	<Stack gap="small">
-		<hgroup class="c-answers-card__hgroup">
-			<MediaBlock icon={image} class="c-advice-card__media-heading">
-				<Heading level={3} styledAs={2}>
-					{title}
-				</Heading>
-			</MediaBlock>
-		</hgroup>
+		<MediaBlock icon={image} class="c-advice-card__media-heading">
+			<Heading level={3} styledAs={2}>
+				{title}
+			</Heading>
+		</MediaBlock>
 
 		<slot />
 
@@ -67,10 +65,9 @@ const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 	.c-answers-card {
 	}
 
-	.c-answers-card__hgroup {
-		display: flex;
-		flex-direction: column-reverse;
-		gap: var(--space-r-milli);
+	.c-advice-card__media-heading.c-advice-card__media-heading {
+		--c-media-block-icon-alignment: flex-start;
+		--c-media-block-gap: var(--stack-milli);
 	}
 
 	.c-answers-card__wrap-buttons {

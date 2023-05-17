@@ -18,6 +18,9 @@ import {
 
 export interface ThemePageProps extends PageProps {
 	hero: HeroProps;
+	overview: {
+		title: string;
+	};
 	cards?: CardsProps;
 	titleFlow: string;
 	assistance: AssistanceProps;
@@ -31,6 +34,9 @@ export interface ThemePageProps extends PageProps {
 export async function getDataThemes() {
 	const projection = `{
 		${heroQuery()},
+		overview{
+			title,
+		},
 		${cardQuery()},
 		titleFlow,
 		${ctaButtonCollectionQuery()},

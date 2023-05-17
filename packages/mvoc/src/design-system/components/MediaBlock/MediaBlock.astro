@@ -26,9 +26,11 @@ const { icon, class: className, ...attrs } = Astro.props;
 
 	.c-media-block {
 		--c-media-block-icon-size: var(--space-r-large);
+		--c-media-block-icon-alignment: center;
+		--c-media-block-gap: var(--stack-base);
 		display: flex;
-		align-items: center;
-		gap: var(--stack-base);
+		align-items: var(--c-media-block-icon-alignment);
+		gap: var(--c-media-block-gap);
 
 		@media --mq-large {
 			--c-media-block-icon-size: var(--space-r-giant);
