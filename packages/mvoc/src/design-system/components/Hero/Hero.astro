@@ -13,17 +13,26 @@ interface Props {
 	chapeau?: string;
 	image?: ImageProps;
 	highlight?: boolean;
+	variant?: 'theme' | 'default';
 	updatedAt?: string;
 	cards?: boolean;
 }
 
-const { title, titleSuffix, chapeau, image, highlight, cards, updatedAt } =
-	Astro.props;
+const {
+	title,
+	titleSuffix,
+	chapeau,
+	image,
+	highlight,
+	variant,
+	cards,
+	updatedAt,
+} = Astro.props;
 ---
 
 <header
 	class={`c-hero${highlight ? ` c-hero--highlight` : ''}
-	${cards ? ` c-hero--cards` : ''}`}
+	${cards ? ` c-hero--cards` : ''}${variant ? ` c-hero--${variant}` : ''}`}
 >
 	<Retain>
 		<Switcher class="c-hero__switcher">
@@ -39,10 +48,9 @@ const { title, titleSuffix, chapeau, image, highlight, cards, updatedAt } =
 					<Heading class="c-hero__title" level={1}>
 						{title}{
 							titleSuffix ? (
-								<>
-									{' '}
-									<span class="c-hero__title-suffix">{titleSuffix}</span>
-								</>
+								<span class="c-hero__title-suffix">
+									<span>{titleSuffix}</span>
+								</span>
 							) : (
 								''
 							)
@@ -93,6 +101,7 @@ const { title, titleSuffix, chapeau, image, highlight, cards, updatedAt } =
 			order: 2;
 		}
 	}
+
 	.c-hero__image {
 		block-size: 8rem; // 160px
 		max-inline-size: 13.6rem; // 272px
@@ -116,11 +125,20 @@ const { title, titleSuffix, chapeau, image, highlight, cards, updatedAt } =
 	}
 
 	.c-hero__title-suffix {
-		display: inline-block;
-		padding-block: var(--space-r-nano);
-		padding-inline: var(--space-s-small);
-		background-color: var(--color-white);
-		border-radius: var(--space-r-nano);
+		display: block;
+		margin-block-start: var(--space-r-tiny);
+		font-weight: bold;
+
+		> span {
+			display: inline;
+			padding-block: var(--stack-nano);
+			padding-inline: var(--stack-small);
+			border-radius: var(--stack-nano);
+			background-color: var(--color-white);
+			line-height: 1.22;
+			box-decoration-break: clone;
+			-webkit-box-decoration-break: clone;
+		}
 	}
 
 	.c-hero__chapeau {
@@ -156,6 +174,32 @@ const { title, titleSuffix, chapeau, image, highlight, cards, updatedAt } =
 
 		@media --mq-large {
 			--hero-padding-block-end: calc(var(--hero-padding) * 3);
+		}
+	}
+
+	.c-hero--theme {
+		overflow: hidden;
+
+		.c-hero__title {
+			font-weight: normal;
+		}
+
+		@media --mq-medium-until {
+			.c-hero__wrap-image {
+				margin-inline-end: -40%;
+			}
+		}
+
+		@media --mq-large-until {
+			.c-hero__switcher {
+				--switcher-threshold: 0px;
+			}
+			.c-hero__wrap-image {
+				order: 2;
+			}
+		}
+
+		@media --mq-large {
 		}
 	}
 </style>
