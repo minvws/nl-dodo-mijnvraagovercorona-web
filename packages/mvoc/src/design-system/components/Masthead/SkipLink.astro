@@ -13,21 +13,17 @@ const { label } = Astro.props;
 </Button>
 
 <style lang="scss">
-	@use '@design-system-styles/primitives/_responsive.scss';
 	@use '@design-system-styles/tools/_a11y.scss';
 
-	.c-skiplink {
-		inset-block-start: var(--space-r-tiny);
-		inset-inline-start: var(--masthead-inline-padding);
+	.c-skiplink.c-skiplink {
+		--button-border-radius: 0px;
+		inset-block-start: 0;
+		inset-inline-start: 0;
 		inline-size: auto;
+		z-index: 51;
 
 		&:not(:focus) {
 			@include a11y.visually-hidden;
-		}
-		@media --mq-large {
-			& {
-				inset-block-start: var(--space-r-base);
-			}
 		}
 	}
 </style>

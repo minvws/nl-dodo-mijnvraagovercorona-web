@@ -20,7 +20,7 @@ import { AdviceBlock } from '@design-system/components/AdviceBlock';
 import { TaleList } from '@design-system/components/Tale';
 import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
 import { CTAButtonOverview } from '@modules/CTAButtonOverview';
-import { CardAnswer } from '@design-system/components/Card';
+import { CardAnswerOverview } from '@modules/CardAnswerOverview';
 
 export async function getStaticPaths() {
 	const collection = await getDataHome();
@@ -105,31 +105,7 @@ const filterThemes = pageData.themes.filter(
 
 	{
 		pageData?.cards?.label && !!pageData?.cards?.items && (
-			<Layer
-				pullUpBy="hero"
-				background="zebra"
-				id={stringToSlug(pageData.cards.label)}
-			>
-				<Retain>
-					<Stack gap="huge">
-						<GridFluid
-							class={`grid-answers ${
-								pageData.cards.items.length === 3
-									? 'grid-answers--three-cards'
-									: ''
-							}`}
-						>
-							{pageData.cards.items.map(
-								({ title, image, content, buttons }) => (
-									<CardAnswer title={title} image={image} buttons={buttons}>
-										<ContentBlock value={content} />
-									</CardAnswer>
-								),
-							)}
-						</GridFluid>
-					</Stack>
-				</Retain>
-			</Layer>
+			<CardAnswerOverview label={pageData.cards.label} cards={pageData.cards} />
 		)
 	}
 
@@ -215,32 +191,10 @@ const filterThemes = pageData.themes.filter(
 </Layout>
 
 <style lang="scss">
-	@use '@design-system-styles/primitives/_responsive.scss';
-	.grid-answers,
 	.grid-advice {
 		--grid-fluid-min-item-size: 20rem; // 400px
 		--grid-fluid-gap: var(--stack-small);
-	}
 
-	.grid-answers {
-		--answers-stack-hero: var(--stack-hero);
-		position: relative;
 		align-items: start;
-		margin-block-start: calc(
-			(var(--layer-padding-block-start) + var(--answers-stack-hero)) * -1
-		);
-	}
-
-	.grid-advice {
-		align-items: start;
-	}
-
-	@media --mq-large {
-		.grid-answers {
-			--answers-stack-hero: calc(var(--stack-hero) * 2);
-		}
-		.grid-answers--three-cards {
-			--grid-fluid-min-item-size: 15rem; // 300px
-		}
 	}
 </style>
