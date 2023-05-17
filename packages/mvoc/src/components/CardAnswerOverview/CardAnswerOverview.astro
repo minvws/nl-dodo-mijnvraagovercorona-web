@@ -1,0 +1,75 @@
+---
+import { CardAnswer } from '@design-system/components/Card';
+import { ContentBlock } from '@design-system/components/ContentBlock';
+import { GridFluid } from '@design-system/components/Layout/Grid';
+import { Layer } from '@design-system/components/Layout/Layer';
+import { Retain } from '@design-system/components/Layout/Retain';
+import { Heading } from '@design-system/elements/Heading';
+import { HTMLAttributes } from 'astro/types';
+import { CardsProps } from 'src/utilities/api/queries';
+import { stringToSlug } from 'src/utilities/stringToSlug';
+
+interface Props extends HTMLAttributes<'div'> {
+	label: string;
+	cards: CardsProps;
+}
+
+const { label, cards, class: className, ...attrs } = Astro.props;
+---
+
+<Layer
+	pullUpBy="hero"
+	background="zebra"
+	id={stringToSlug(label)}
+	class={`c-card-answer-overview${className ? ` | ${className}` : ''}`}
+	{...attrs}
+>
+	<Retain>
+		<Heading level={2} class="u-visually-hidden">
+			{label}
+		</Heading>
+		<GridFluid
+			class={`c-card-answer-overview__grid ${
+				cards.items.length === 3
+					? 'c-card-answer-overview__grid--three-cards'
+					: ''
+			}`}
+		>
+			{
+				cards.items.map(({ title, image, content, buttons }) => (
+					<CardAnswer title={title} image={image} buttons={buttons}>
+						<ContentBlock value={content} />
+					</CardAnswer>
+				))
+			}
+		</GridFluid>
+	</Retain>
+</Layer>
+
+<style lang="scss">
+	@use '@design-system-styles/primitives/_responsive.scss';
+
+	.c-card-answer-overview {
+	}
+
+	.c-card-answer-overview__grid {
+		--grid-fluid-min-item-size: 20rem; // 400px
+		--grid-fluid-gap: var(--stack-small);
+		--answers-stack-hero: var(--stack-hero);
+
+		position: relative;
+		align-items: start;
+		margin-block-start: calc(
+			(var(--layer-padding-block-start) + var(--answers-stack-hero)) * -1
+		);
+	}
+
+	@media --mq-large {
+		.c-card-answer-overview__grid {
+			--answers-stack-hero: calc(var(--stack-hero) * 2);
+		}
+		.c-card-answer-overview__grid--three-cards {
+			--grid-fluid-min-item-size: 15rem; // 300px
+		}
+	}
+</style>
