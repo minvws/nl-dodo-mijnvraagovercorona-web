@@ -14,6 +14,7 @@ import { Assistance } from '@design-system/components/Assistance';
 import { TaleList } from '@design-system/components/Tale';
 import { CTAButtonOverview } from '@modules/CTAButtonOverview';
 import { stringToSlug } from 'src/utilities/stringToSlug';
+import { CardAnswerOverview } from '@modules/CardAnswerOverview';
 
 export async function getStaticPaths() {
 	const collection = await getDataThemes();
@@ -104,10 +105,17 @@ pageData.ctaButtonCollection.forEach((item) => {
 		chapeau={pageData.hero.chapeau}
 		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
 		highlight
+		cards={!!pageData?.cards?.items}
 	>
 		<UpdatedAt slot="prefix" time={pageData.updatedAt} />
 		<ContentBlock value={pageData.hero.content} />
 	</Hero>
+
+	{
+		pageData?.cards?.label && !!pageData?.cards?.items && (
+			<CardAnswerOverview label={pageData.cards.label} cards={pageData.cards} />
+		)
+	}
 
 	<Layer pullUpBy="hero" background="zebra" id="situaties">
 		{
