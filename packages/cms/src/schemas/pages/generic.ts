@@ -14,7 +14,13 @@ export default defineType({
 	initialValue: {
 		__i18n_lang: 'nl',
 	},
-	fieldsets: [{ name: 'urlStructure', title: 'Url structuur' }],
+	fieldsets: [
+		{ name: 'urlStructure', title: 'Url structuur' },
+		{
+			title: 'Verhalen',
+			name: 'tales',
+		},
+	],
 	fields: [
 		defineField({
 			title: 'Meta data',
@@ -33,10 +39,19 @@ export default defineType({
 		}),
 
 		defineField({
+			title: 'Als FAQ?',
+			description: 'Toon verhalen als FAQ items',
+			name: 'talesAsDisclosure',
+			type: 'boolean',
+			fieldset: 'tales',
+		}),
+
+		defineField({
 			title: 'Verhalen',
 			description: 'Verhalen op deze pagina worden getoond als een accordion',
 			name: 'taleCollection',
 			type: 'taleSelector',
+			fieldset: 'tales',
 		}),
 
 		defineField({
