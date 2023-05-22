@@ -19,6 +19,7 @@ import {
 export interface GenericPageProps extends PageProps {
 	hero: HeroProps;
 	content: ContentBlockProps['value'];
+	talesAsDisclosure?: boolean;
 	taleCollection: TaleCollectionProps['taleCollection'];
 	moreInfo: MoreInfoProps;
 	sources: {
@@ -36,6 +37,7 @@ export async function getDataGenericPages() {
 	const projection = `{
 		${heroQuery()},
 		${customBlockQuery({ name: 'content' })},
+		talesAsDisclosure,
 		${taleReferenceQuery()},
 		${moreInfoQuery()},
 		sources{

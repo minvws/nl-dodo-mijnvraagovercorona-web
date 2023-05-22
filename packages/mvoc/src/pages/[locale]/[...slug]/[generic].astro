@@ -8,7 +8,7 @@ import { ContentBlock } from '@design-system/components/ContentBlock';
 import { Layer } from '@design-system/components/Layout/Layer';
 import { Card } from '@design-system/components/Card';
 import { Stack } from '@design-system/components/Layout/Stack';
-import { Tale } from '@design-system/components/Tale';
+import { Tale, TaleList } from '@design-system/components/Tale';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { Assistance } from '@design-system/components/Assistance';
 import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
@@ -92,23 +92,12 @@ const taleData =
 					}
 
 					{
-						pageData?.taleCollection?.length && (
-							<Disclosure>
-								{taleData.map((tale) => (
-									<DisclosureItem
-										headingLevel={2}
-										accordeon
-										label={tale.title}
-										id={stringToSlug(tale.title)}
-										itemscope
-										itemprop="mainEntity"
-										itemtype="https://schema.org/Question"
-									>
-										<Tale {...tale} renderTitle={false} anchorable={false} />
-									</DisclosureItem>
-								))}
-							</Disclosure>
-						)
+						pageData?.taleCollection?.length ? (
+							<TaleList
+								taleCollection={pageData.taleCollection}
+								asDisclosure={pageData.talesAsDisclosure}
+							/>
+						) : null
 					}
 
 					{
