@@ -82,6 +82,10 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 		object-fit: cover;
 	}
 
+	.c-video__icon.c-video__icon {
+		--icon-size: 100%;
+	}
+
 	.c-video__icon {
 		position: absolute;
 		inset-block: 50%;
@@ -90,6 +94,5 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 		inline-size: 25%;
 		aspect-ratio: 1/1;
 		z-index: 1;
-		--icon-size: 100%;
 	}
 </style>
