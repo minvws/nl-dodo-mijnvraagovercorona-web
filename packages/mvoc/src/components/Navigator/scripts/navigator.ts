@@ -212,7 +212,7 @@ export class Navigator {
 
 		// prevent default submits
 		this.formElement.addEventListener('submit', (event) => {
-			event.preventDefault;
+			event.preventDefault();
 		});
 
 		const onSearchChange = (event) => {
