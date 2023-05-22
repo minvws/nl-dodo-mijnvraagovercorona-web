@@ -15,6 +15,12 @@ export default defineType({
 		__i18n_lang: 'nl',
 		generatePage: true,
 	},
+	fieldsets: [
+		{
+			title: 'Verhalen',
+			name: 'tales',
+		},
+	],
 	fields: [
 		defineField({
 			title: 'Genereer pagina',
@@ -74,10 +80,19 @@ export default defineType({
 		}),
 
 		defineField({
+			title: 'Als FAQ?',
+			description: 'Toon verhalen als FAQ items',
+			name: 'talesAsDisclosure',
+			type: 'boolean',
+			fieldset: 'tales',
+		}),
+
+		defineField({
 			title: 'Verhalen',
 			description: 'Verhalen op deze pagina worden getoond als een accordion',
 			name: 'taleCollection',
 			type: 'taleSelector',
+			fieldset: 'tales',
 		}),
 
 		defineField({

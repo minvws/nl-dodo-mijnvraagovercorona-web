@@ -11,10 +11,14 @@ import { Retain } from '@design-system/components/Layout/Retain';
 import { Heading } from '@design-system/elements/Heading';
 import { Stack } from '@design-system/components/Layout/Stack';
 import { Assistance } from '@design-system/components/Assistance';
-import { TaleList } from '@design-system/components/Tale';
+import { Tale, TaleList } from '@design-system/components/Tale';
 import { CTAButtonOverview } from '@modules/CTAButtonOverview';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { CardAnswerOverview } from '@modules/CardAnswerOverview';
+import {
+	Disclosure,
+	DisclosureItem,
+} from '@design-system/components/Disclosure';
 
 export async function getStaticPaths() {
 	const collection = await getDataThemes();
@@ -100,6 +104,8 @@ if (pageData.ctaButtonCollection) {
 	mastheadHighlight
 	alternativeTranslations={pageData.alternatives}
 	type={pageData.type}
+	itemscope
+	itemtype="https://schema.org/FAQPage"
 >
 	<Hero
 		title={pageData.hero.title}
@@ -143,7 +149,10 @@ if (pageData.ctaButtonCollection) {
 		pageData?.taleCollection?.length ? (
 			<Layer background="zebra">
 				<Retain>
-					<TaleList taleCollection={pageData.taleCollection} />
+					<TaleList
+						taleCollection={pageData.taleCollection}
+						asDisclosure={pageData.talesAsDisclosure}
+					/>
 				</Retain>
 			</Layer>
 		) : null
@@ -151,7 +160,7 @@ if (pageData.ctaButtonCollection) {
 
 	{
 		pageData.assistance && (
-			<Layer>
+			<Layer background={'zebra'}>
 				<Retain>
 					<Assistance feedback {...pageData.assistance} />
 				</Retain>

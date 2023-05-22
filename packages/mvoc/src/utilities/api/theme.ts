@@ -25,6 +25,7 @@ export interface ThemePageProps extends PageProps {
 	titleFlow: string;
 	assistance: AssistanceProps;
 	ctaButtonCollection: CtaButtonCollectionProps['ctaButtonCollection'];
+	talesAsDisclosure?: boolean;
 	taleCollection: TaleCollectionProps['taleCollection'];
 	alternatives: AlternativeTranslationsProps[];
 	slug: string;
@@ -41,6 +42,7 @@ export async function getDataThemes() {
 		titleFlow,
 		${ctaButtonCollectionQuery()},
 		${assistanceQuery()},
+		talesAsDisclosure,
 		${taleReferenceQuery()},
 		"updatedAt": _updatedAt,
 		"slug": slug.current
