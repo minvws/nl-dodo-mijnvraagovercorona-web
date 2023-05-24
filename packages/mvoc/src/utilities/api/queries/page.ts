@@ -5,6 +5,10 @@ import {
 	metaDataQuery,
 	subFolderReferenceQuery,
 } from '.';
+import {
+	AlternativeTranslationsProps,
+	BreadcrumbProps,
+} from 'src/utilities/helpers/getAdditionalPageData';
 
 export interface PageProps extends SubFolderReferenceProps {
 	type: string;
@@ -16,6 +20,8 @@ export interface PageProps extends SubFolderReferenceProps {
 	theme: {
 		slug: string;
 	};
+	alternatives: AlternativeTranslationsProps[];
+	breadcrumbs: BreadcrumbProps[];
 }
 
 /**

@@ -1,7 +1,5 @@
 import { ContentBlockProps } from '@design-system/components/ContentBlock';
-import { AlternativeTranslationsProps } from '@design-system/components/LocaleSelector';
 import { useSanityClient } from 'astro-sanity';
-import { getPageTranslations } from '../helpers/get-page-translations';
 import {
 	HeroProps,
 	heroQuery,
@@ -21,6 +19,7 @@ import {
 	CardsProps,
 	cardQuery,
 } from './queries';
+import { getAdditionalPageData } from '../helpers/getAdditionalPageData';
 
 export interface PageHomeProps extends PageProps {
 	hero: HeroProps;
@@ -35,7 +34,6 @@ export interface PageHomeProps extends PageProps {
 		filter?: boolean;
 		ctaButtonCollection: CtaButtonProps[];
 	};
-	alternatives: AlternativeTranslationsProps[];
 	slug: string;
 	currentAdvice: {
 		title: string;
@@ -130,5 +128,5 @@ export async function getDataHome() {
 
 	const data = await useSanityClient().fetch(query);
 
-	return getPageTranslations(data.pages);
+	return getAdditionalPageData(data.pages);
 }

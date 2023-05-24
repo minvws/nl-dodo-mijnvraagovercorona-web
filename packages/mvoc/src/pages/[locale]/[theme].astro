@@ -19,6 +19,7 @@ import {
 	Disclosure,
 	DisclosureItem,
 } from '@design-system/components/Disclosure';
+import { Breadcrumbs } from '@design-system/components/Breadrumbs';
 
 export async function getStaticPaths() {
 	const collection = await getDataThemes();
@@ -117,6 +118,11 @@ if (pageData.ctaButtonCollection) {
 		cards={!!pageData?.cards?.items}
 		variant={'theme'}
 	>
+		<Breadcrumbs
+			localeId={locale.id}
+			breadcrumbs={pageData.breadcrumbs}
+			slot="prefix"
+		/>
 		<ContentBlock value={pageData.hero.content} />
 	</Hero>
 

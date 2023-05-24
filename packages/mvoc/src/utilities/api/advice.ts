@@ -1,6 +1,4 @@
-import { AlternativeTranslationsProps } from '@design-system/components/LocaleSelector';
 import { useSanityClient } from 'astro-sanity';
-import { getPageTranslations } from '../helpers/get-page-translations';
 import {
 	ButtonsProps,
 	HeroProps,
@@ -15,6 +13,7 @@ import {
 	assistanceQuery,
 } from './queries';
 import type { ContentBlockProps } from '@design-system/components/ContentBlock';
+import { getAdditionalPageData } from '../helpers/getAdditionalPageData';
 
 interface CardProps {
 	title: string;
@@ -51,7 +50,6 @@ export interface AdvicePageProps extends PageProps {
 	locale: string;
 	assistance: AssistanceProps;
 	moreInfo: MoreInfoProps;
-	alternatives: AlternativeTranslationsProps[];
 	slug: string;
 }
 
@@ -95,5 +93,5 @@ export async function getDataAdvicePages() {
 
 	const data = await useSanityClient().fetch(query);
 
-	return getPageTranslations(data.pages);
+	return getAdditionalPageData(data.pages);
 }

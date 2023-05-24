@@ -1,7 +1,6 @@
 import { ContentBlockProps } from '@design-system/components/ContentBlock';
 import { AlternativeTranslationsProps } from '@design-system/components/LocaleSelector';
 import { useSanityClient } from 'astro-sanity';
-import { getPageTranslations } from '../helpers/get-page-translations';
 import {
 	HeroProps,
 	MoreInfoProps,
@@ -15,6 +14,7 @@ import {
 	AssistanceProps,
 	assistanceQuery,
 } from './queries';
+import { getAdditionalPageData } from '../helpers/getAdditionalPageData';
 
 export interface GenericPageProps extends PageProps {
 	hero: HeroProps;
@@ -57,5 +57,5 @@ export async function getDataGenericPages() {
 
 	const data = await useSanityClient().fetch(query);
 
-	return getPageTranslations(data.pages);
+	return getAdditionalPageData(data.pages);
 }

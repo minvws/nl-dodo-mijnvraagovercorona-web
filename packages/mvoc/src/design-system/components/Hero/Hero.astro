@@ -25,8 +25,8 @@ const {
 	image,
 	highlight,
 	variant,
-	cards,
 	updatedAt,
+	cards,
 } = Astro.props;
 ---
 
@@ -35,6 +35,7 @@ const {
 	${cards ? ` c-hero--cards` : ''}${variant ? ` c-hero--${variant}` : ''}`}
 >
 	<Retain>
+		<slot name="prefix" />
 		<Switcher class="c-hero__switcher">
 			{
 				image && image.src ? (
@@ -57,8 +58,6 @@ const {
 						}
 					</Heading>
 					{updatedAt ? <UpdatedAt time={updatedAt} /> : null}
-
-					<slot name="prefix" />
 					{
 						chapeau ? (
 							<Chapeau
@@ -148,17 +147,13 @@ const {
 	.c-hero--highlight {
 		--hero-background: var(--theme-bg-highlight);
 		--hero-border-radius: var(--radii-huge);
-		--hero-padding-block-start: 0px;
+		// --hero-padding-block-start: 0px;
 		border-end-start-radius: var(--hero-border-radius);
 		border-end-end-radius: var(--hero-border-radius);
 
 		.c-hero__chapeau {
 			--chapeau-font-size: var(--font-size-beta);
 			--chapeau-line-height: var(--line-height-beta);
-		}
-
-		@media --mq-large {
-			--hero-padding-block-start: var(--hero-padding);
 		}
 
 		.c-hero__image {

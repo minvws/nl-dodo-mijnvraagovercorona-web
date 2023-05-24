@@ -1,8 +1,6 @@
 import { ContentBlockProps } from '@design-system/components/ContentBlock';
-import { AlternativeTranslationsProps } from '@design-system/components/LocaleSelector';
 import { IconProps } from '@design-system/elements/Icon';
 import { useSanityClient } from 'astro-sanity';
-import { getPageTranslations } from '../../helpers/get-page-translations';
 import {
 	PageProps,
 	pageQuery,
@@ -10,6 +8,7 @@ import {
 	HeroProps,
 	customBlockQuery,
 } from '../queries';
+import { getAdditionalPageData } from 'src/utilities/helpers/getAdditionalPageData';
 
 export interface LocationsPageProps extends PageProps {
 	hero: HeroProps;
@@ -63,7 +62,6 @@ export interface LocationsPageProps extends PageProps {
 	};
 	informationTitle: string;
 	locale: string;
-	alternatives: AlternativeTranslationsProps[];
 	slug: string;
 }
 
@@ -128,5 +126,5 @@ export async function getDataLocationPages() {
 
 	const data = await useSanityClient().fetch(query);
 
-	return getPageTranslations(data.pages);
+	return getAdditionalPageData(data.pages);
 }
