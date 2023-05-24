@@ -20,6 +20,7 @@ import { Button } from '@design-system/elements/Button';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { GridFluid } from '@design-system/components/Layout/Grid';
 import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
+import { Breadcrumbs } from '@design-system/components/Breadrumbs';
 
 export async function getStaticPaths() {
 	const collection = await getDataErrorPages();
@@ -67,6 +68,11 @@ const homePageData = homeCollection.filter(
 		image={pageData.hero.image}
 		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
 	>
+		<Breadcrumbs
+			localeId={locale.id}
+			breadcrumbs={pageData.breadcrumbs}
+			slot="prefix"
+		/>
 		<ContentBlock value={pageData.hero.content} />
 	</Hero>
 

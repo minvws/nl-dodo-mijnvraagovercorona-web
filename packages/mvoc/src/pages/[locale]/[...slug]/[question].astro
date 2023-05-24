@@ -10,6 +10,7 @@ import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
 import FormSwitch from '@modules/forms/situations/FormSwitch.astro';
 import { Sidebar } from '@design-system/components/Layout/Sidebar';
 import { CardPrivacy } from '@design-system/components/Card';
+import { Breadcrumbs } from '@design-system/components/Breadrumbs';
 
 export async function getStaticPaths() {
 	const collection = await getDataQuestionPages();
@@ -57,6 +58,11 @@ const { pageData, locale } = Astro.props;
 		image={pageData.hero.image}
 		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
 	>
+		<Breadcrumbs
+			localeId={locale.id}
+			breadcrumbs={pageData.breadcrumbs}
+			slot="prefix"
+		/>
 		<ContentBlock value={pageData.hero.content} />
 	</Hero>
 	<Layer>

@@ -1,0 +1,86 @@
+---
+import { Icon } from '@design-system/elements/Icon';
+import { Link } from '@design-system/elements/Link';
+import { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'div'> {
+	localeId: string;
+	breadcrumbs: { slug: string; title: string }[];
+}
+
+const { breadcrumbs, localeId } = Astro.props;
+---
+
+<nav class="c-breadcrumbs" aria-label="breadcrumb">
+	<ol class="c-breadcrumbs__list" role="list">
+		<li class="c-breadcrumbs__list-item">
+			<Link class="c-breadcrumbs__link" href={'/' + `${localeId}`}>Home</Link>
+			<Icon name={'chevron-small-right'} />
+		</li>
+
+		{
+			breadcrumbs.map((item, index) => (
+				<li class="c-breadcrumbs__list-item">
+					<Link
+						class="c-breadcrumbs__link"
+						href={`/${localeId}/${breadcrumbs
+							.slice(0, index + 1)
+							.map((item) => item.slug)
+							.join('/')}`}
+						aria-current={
+							index === breadcrumbs.length - 1 ? 'location' : undefined
+						}
+					>
+						{item.title}
+					</Link>
+					{index === breadcrumbs.length - 1 ? null : (
+						<Icon name={'chevron-small-right'} />
+					)}
+				</li>
+			))
+		}
+	</ol>
+</nav>
+
+<style lang="scss">
+	@use '@design-system-styles/primitives/_responsive.scss';
+
+	.c-breadcrumbs {
+		--c-breadcrumbs-color: var(--breadcrumbs-color, var(--color-grijs-8));
+		--c-breadcrumbs-gap: var(--breadcrumbs-gap, var(--stack-nano));
+		display: block;
+		margin-block-end: var(--space-s-small);
+		font-size: var(--breadcrumbs-font-size, var(--font-size-milli));
+		line-height: var(--breadcrumbs-line-height, var(--line-height-milli));
+		color: var(--c-breadcrumbs-color);
+	}
+
+	.c-breadcrumbs__list,
+	.c-breadcrumbs__list-item {
+		display: flex;
+		gap: var(--c-breadcrumbs-gap);
+	}
+
+	.c-breadcrumbs__list {
+		flex-flow: row wrap;
+		row-gap: 0;
+	}
+
+	.c-breadcrumbs__list-item {
+		align-items: center;
+
+		&:last-of-type {
+			font-weight: 700;
+		}
+	}
+
+	.c-breadcrumbs__link {
+		--link-color: var(--c-breadcrumbs-color);
+		--link-text-decoration: none;
+
+		&:hover {
+			--link-color: var(--c-breadcrumbs-color);
+			--link-text-decoration: underline;
+		}
+	}
+</style>

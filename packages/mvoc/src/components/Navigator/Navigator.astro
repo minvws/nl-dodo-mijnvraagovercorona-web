@@ -19,6 +19,7 @@ import { Filter, LocationDetail, Marker } from '.';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { LocaleSelector } from '@design-system/components/LocaleSelector';
+import { Breadcrumbs } from '@design-system/components/Breadrumbs';
 
 interface Props extends HTMLAttributes<'div'> {
 	pageData: LocationsPageProps;
@@ -57,6 +58,10 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 			pageData.hero ? (
 				<div class="c-navigator__wrap-hero">
 					<Stack>
+						<Breadcrumbs
+							localeId={locale.id}
+							breadcrumbs={pageData.breadcrumbs}
+						/>
 						<Heading>{pageData.hero.title}</Heading>
 						<ContentBlock value={pageData.hero.content} />
 					</Stack>

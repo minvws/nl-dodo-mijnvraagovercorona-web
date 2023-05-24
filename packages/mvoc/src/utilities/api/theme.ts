@@ -1,6 +1,4 @@
-import { AlternativeTranslationsProps } from '@design-system/components/LocaleSelector';
 import { useSanityClient } from 'astro-sanity';
-import { getPageTranslations } from '../helpers/get-page-translations';
 import {
 	HeroProps,
 	heroQuery,
@@ -15,6 +13,7 @@ import {
 	CardsProps,
 	cardQuery,
 } from './queries';
+import { getAdditionalPageData } from '../helpers/getAdditionalPageData';
 
 export interface ThemePageProps extends PageProps {
 	hero: HeroProps;
@@ -27,7 +26,6 @@ export interface ThemePageProps extends PageProps {
 	ctaButtonCollection: CtaButtonCollectionProps['ctaButtonCollection'];
 	talesAsDisclosure?: boolean;
 	taleCollection: TaleCollectionProps['taleCollection'];
-	alternatives: AlternativeTranslationsProps[];
 	slug: string;
 	updatedAt: string;
 }
@@ -56,5 +54,5 @@ export async function getDataThemes() {
 
 	const data = await useSanityClient().fetch(query);
 
-	return getPageTranslations(data.pages);
+	return getAdditionalPageData(data.pages);
 }

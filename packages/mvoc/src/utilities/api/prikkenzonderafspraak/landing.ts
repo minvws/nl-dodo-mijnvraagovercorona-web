@@ -1,7 +1,5 @@
 import { ContentBlockProps } from '@design-system/components/ContentBlock';
-import { AlternativeTranslationsProps } from '@design-system/components/LocaleSelector';
 import { useSanityClient } from 'astro-sanity';
-import { getPageTranslations } from '../../helpers/get-page-translations';
 import {
 	PageProps,
 	pageQuery,
@@ -15,6 +13,7 @@ import {
 	AssistanceProps,
 	assistanceQuery,
 } from '../queries';
+import { getAdditionalPageData } from 'src/utilities/helpers/getAdditionalPageData';
 
 export interface PZALandingPageProps extends PageProps {
 	hero: HeroProps;
@@ -23,7 +22,6 @@ export interface PZALandingPageProps extends PageProps {
 	contentSecondary: ContentBlockProps['value'];
 	taleCollection: TaleCollectionProps['taleCollection'];
 	locale: string;
-	alternatives: AlternativeTranslationsProps[];
 	slug: string;
 }
 
@@ -45,5 +43,5 @@ export async function getDataPZALandingPages() {
 
 	const data = await useSanityClient().fetch(query);
 
-	return getPageTranslations(data.pages);
+	return getAdditionalPageData(data.pages);
 }

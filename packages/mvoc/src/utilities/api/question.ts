@@ -1,7 +1,5 @@
 import { ContentBlockProps } from '@design-system/components/ContentBlock';
-import { AlternativeTranslationsProps } from '@design-system/components/LocaleSelector';
 import { useSanityClient } from 'astro-sanity';
-import { getPageTranslations } from '../helpers/get-page-translations';
 import {
 	HeroProps,
 	PageProps,
@@ -15,6 +13,7 @@ import {
 	AssistanceProps,
 	assistanceQuery,
 } from './queries';
+import { getAdditionalPageData } from '../helpers/getAdditionalPageData';
 
 export interface QuestionPageProps extends PageProps {
 	hero: HeroProps;
@@ -81,7 +80,6 @@ export interface QuestionPageProps extends PageProps {
 	}[];
 	assistance?: AssistanceProps;
 	locale: string;
-	alternatives: AlternativeTranslationsProps[];
 	slug: string;
 }
 
@@ -152,5 +150,5 @@ export async function getDataQuestionPages() {
 
 	const data = await useSanityClient().fetch(query);
 
-	return getPageTranslations(data.pages);
+	return getAdditionalPageData(data.pages);
 }

@@ -21,6 +21,7 @@ import {
 	Disclosure,
 	DisclosureItem,
 } from '@design-system/components/Disclosure';
+import { Breadcrumbs } from '@design-system/components/Breadrumbs';
 
 export async function getStaticPaths() {
 	const collection = await getDataGenericPages();
@@ -75,8 +76,14 @@ const taleData =
 		image={pageData.hero.image}
 		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
 	>
+		<Breadcrumbs
+			localeId={locale.id}
+			breadcrumbs={pageData.breadcrumbs}
+			slot="prefix"
+		/>
 		<ContentBlock value={pageData.hero.content} />
 	</Hero>
+
 	<Layer>
 		<Retain>
 			<Retain variant="text">

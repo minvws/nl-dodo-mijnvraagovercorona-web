@@ -27,6 +27,7 @@ import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
 import { Assistance } from '@design-system/components/Assistance';
 import { Heading } from '@design-system/elements/Heading';
 import { MoreInfoOverview } from '@design-system/components/MoreInfo';
+import { Breadcrumbs } from '@design-system/components/Breadrumbs';
 
 export async function getStaticPaths() {
 	const collection = await getDataAdvicePages();
@@ -110,6 +111,11 @@ const plan =
 		image={pageData.hero.image}
 		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
 	>
+		<Breadcrumbs
+			localeId={locale.id}
+			breadcrumbs={pageData.breadcrumbs}
+			slot="prefix"
+		/>
 		<ContentBlock value={pageData.hero.content} />
 		{
 			pageData.showSeriousSymptoms ? (
