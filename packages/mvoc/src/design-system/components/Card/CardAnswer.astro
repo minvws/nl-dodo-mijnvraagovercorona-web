@@ -25,44 +25,53 @@ const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 
 <Card
 	variant={'canvas'}
-	class={`c-answers-card${buttons?.length ? '--has-buttons' : ''}`}
+	class={`c-answers-card${
+		buttons?.length ? ' c-answers-card--has-buttons' : ''
+	}`}
 >
-	<Stack gap="small">
-		<MediaBlock icon={image} class="c-advice-card__media-heading">
-			<Heading level={3} styledAs={2}>
-				{title}
-			</Heading>
-		</MediaBlock>
+	<MediaBlock icon={image} class="c-advice-card__media-heading">
+		<Heading level={3} styledAs={2}>
+			{title}
+		</Heading>
+	</MediaBlock>
 
-		<slot />
+	<slot />
 
-		{
-			!!buttons?.length ? (
-				<ul class="c-answers-card__wrap-buttons" role="list">
-					{buttons.map((button) => (
-						<li>
-							<Button
-								variant={button.variant}
-								href={prefixUrlWithlocale(
-									getFullPageUrl(button.slugCollection),
-									locale,
-								)}
-								icon={button.icon}
-							>
-								{button.label}
-							</Button>
-						</li>
-					))}
-				</ul>
-			) : null
-		}
-
-		<slot name="appendix" />
-	</Stack>
+	{
+		!!buttons?.length ? (
+			<ul class="c-answers-card__wrap-buttons" role="list">
+				{buttons.map((button) => (
+					<li>
+						<Button
+							variant={button.variant}
+							href={prefixUrlWithlocale(
+								getFullPageUrl(button.slugCollection),
+								locale,
+							)}
+							icon={button.icon}
+						>
+							{button.label}
+						</Button>
+					</li>
+				))}
+			</ul>
+		) : null
+	}
 </Card>
 
 <style lang="scss">
+	@use '@design-system-styles/primitives/_responsive.scss';
+
+	/**
+	 * 1. Calculates the block-size of a single button for later use in our negative margins
+	 */
 	.c-answers-card {
+		--card-button-size: calc(
+			var(--space-r-small) * 2 + var(--font-lineheight-root) * 1rem
+		); /* [1] */
+		display: flex;
+		flex-direction: column;
+		gap: var(--stack-small);
 	}
 
 	.c-advice-card__media-heading.c-advice-card__media-heading {
@@ -74,12 +83,16 @@ const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 		display: flex;
 		flex-direction: column;
 		gap: var(--space-r-small);
-		position: absolute;
-		margin-block-start: 1rem;
+		margin-block-start: auto;
+		margin-block-end: calc(
+			(var(--card-button-size) / 2 + var(--card-padding)) * -1
+		);
 	}
 
+	// variants
 	.c-answers-card--has-buttons {
-		margin-block-end: var(--space-r-large);
-		padding-block-end: var(--space-r-huge);
+		@media --mq-large-until {
+			margin-block-end: calc(var(--card-button-size) / 2);
+		}
 	}
 </style>
