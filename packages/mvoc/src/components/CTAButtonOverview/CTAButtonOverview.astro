@@ -67,6 +67,14 @@ const filteredItems =
 				<Stack>
 					{enableFilter && filterCategories.length ? (
 						<div class="c-cta-button-overview__wrap-buttons">
+							<Button
+								type="button"
+								variant="quinary"
+								data-id="all"
+								data-module-bind="filter__toggle"
+							>
+								{siteSettings.genericLabels.all}
+							</Button>
 							{filterCategories.map((category) => (
 								<Button
 									type="button"
@@ -99,13 +107,13 @@ const filteredItems =
 							<li
 								class="c-cta-button-overview__item"
 								data-module-bind="filter__item"
-								data-themes={
+								data-themes={`all ${
 									item.categories.length
 										? item.categories
 												.map((category) => `${category.slug}`)
 												.join()
 										: undefined
-								}
+								}`}
 							>
 								<Button
 									variant="tertiary"
@@ -189,7 +197,7 @@ const filteredItems =
 		);
 
 		// Get filters from session
-		const activeFilters = JSON.parse(sessionStorage.getItem(name)) || [];
+		const activeFilters = JSON.parse(sessionStorage.getItem(name)) || ['all'];
 
 		const checkItem = (value) =>
 			!!activeFilters.some((filter) => value.includes(filter));
@@ -209,7 +217,7 @@ const filteredItems =
 			).length;
 
 			placeholderAmount.innerHTML = `${activeItems}`;
-			amountFilter.hidden = !activeFilters.length;
+			amountFilter.hidden = activeItems === items.length;
 
 			toggles.forEach((toggle) =>
 				toggle.classList.toggle(
@@ -226,12 +234,10 @@ const filteredItems =
 			toggle.addEventListener('click', (event) => {
 				event.preventDefault();
 				const id = toggle.dataset.id;
-				// Remove or add filter id to activeFilters array
-				if (activeFilters.includes(id)) {
-					activeFilters.splice(activeFilters.indexOf(id), 1);
-				} else {
-					activeFilters.push(id);
-				}
+				// Add filter id to activeFilters array
+				activeFilters.splice(0, activeFilters.length);
+				activeFilters.push(id);
+
 				filterItems();
 			});
 		});

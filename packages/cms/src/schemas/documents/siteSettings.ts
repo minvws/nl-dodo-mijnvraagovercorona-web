@@ -308,6 +308,13 @@ export default defineType({
 					type: 'string',
 					validation: (Rule) => Rule.required(),
 				}),
+				defineField({
+					title: 'Alles',
+					description: 'Bijv. het "Alles" label in een filter',
+					name: 'all',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
 			],
 		}),
 
