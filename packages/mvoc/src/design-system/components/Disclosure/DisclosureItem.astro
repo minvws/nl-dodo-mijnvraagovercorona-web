@@ -2,18 +2,25 @@
 import { Button } from '@design-system/elements/Button';
 import { Icon } from '@design-system/elements/Icon';
 import { HTMLAttributes } from 'astro/types';
+import { MediaBlock } from '../MediaBlock';
+import { Heading } from '@design-system/elements/Heading';
+import { ImageProps } from 'src/utilities/api/queries';
 
 interface Props extends HTMLAttributes<'li'> {
 	label: string;
 	labelActive?: string;
 	headingLevel?: 1 | 2 | 3 | 4 | 5 | 6;
 	accordeon?: boolean;
+	adviceBlock?: boolean;
+	image?: ImageProps;
 }
 
 const {
 	label,
 	labelActive,
 	accordeon,
+	adviceBlock,
+	image,
 	headingLevel = 3,
 	...attrs
 } = Astro.props;
@@ -30,24 +37,33 @@ const HeadingElement = `h${headingLevel}` as any;
 	<HeadingElement class="disclosure__heading" itemprop="name">
 		{
 			accordeon ? (
-				<Button
-					id="disclosure-header-1"
-					class="disclosure__toggle--button"
-					aria-expanded="false"
-					aria-controls="disclosure-panel-1"
-					data-module-bind="disclosure__toggle"
-					variant="quaternary"
-					full
-					icon="chevron-small-down"
-					iconPosition="trailing"
-				>
-					<span class={labelActive ? 'disclosure__show-inactive' : undefined}>
-						{label}
-					</span>
-					{labelActive ? (
-						<span class="disclosure__show-active">{labelActive}</span>
-					) : null}
-				</Button>
+				<>
+					<Button
+						id="disclosure-header-1"
+						class={
+							adviceBlock
+								? 'advice-block__button disclosure__toggle--button'
+								: 'disclosure__toggle--button'
+						}
+						aria-expanded="false"
+						aria-controls="disclosure-panel-1"
+						data-module-bind="disclosure__toggle"
+						variant={adviceBlock ? 'tertiary' : 'quaternary'}
+						icon="chevron-small-down"
+						full
+						iconPosition="trailing"
+					>
+						{adviceBlock ? (
+							<MediaBlock icon={image} class="c-advice-block__media-heading">
+								<Heading level={3} styledAs={3}>
+									{label}
+								</Heading>
+							</MediaBlock>
+						) : (
+							<span>{label}</span>
+						)}
+					</Button>
+				</>
 			) : (
 				<button
 					type="button"
@@ -126,6 +142,11 @@ const HeadingElement = `h${headingLevel}` as any;
 	}
 
 	.disclosure__panel {
+		--disclosure__panel--spacing: calc(
+			var(--space-r-base) - var(--card-border-width)
+		);
+		padding: 0 var(--disclosure__panel--spacing)
+			var(--disclosure__panel--spacing);
 		display: none;
 	}
 
@@ -152,6 +173,11 @@ const HeadingElement = `h${headingLevel}` as any;
 		.disclosure__panel-inner {
 			padding-block: var(--space-r-large);
 		}
+
+		.disclosure__panel-inner--no-padding {
+			padding-block-start: 0;
+		}
+
 		&:last-child {
 			.disclosure__panel-inner {
 				padding-block-end: 0;
@@ -178,6 +204,24 @@ const HeadingElement = `h${headingLevel}` as any;
 				:global(.e-icon) {
 					transform: rotate(180deg);
 				}
+			}
+		}
+
+		.advice-block__button {
+			--button-border-color: none;
+			&[aria-expanded='true'] {
+				--button-background-color: none;
+			}
+			&[tabindex='-1'] {
+				pointer-events: none;
+				:global(.e-icon) {
+					display: none;
+				}
+			}
+			&:active,
+			&:hover {
+				--button-border-color: none;
+				--button-background-color: none;
 			}
 		}
 	}

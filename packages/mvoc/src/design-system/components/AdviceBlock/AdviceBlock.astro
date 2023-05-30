@@ -1,7 +1,6 @@
 ---
 import { prefixUrlWithlocale, Locale } from 'src/utilities/locale/translation';
 import { HTMLAttributes } from 'astro/types';
-import { Heading } from '@design-system/elements/Heading';
 import { Card } from '@design-system/components/Card';
 import { MediaBlock } from '@design-system/components/MediaBlock';
 import {
@@ -13,6 +12,7 @@ import { Button } from '@design-system/elements/Button';
 import { ButtonProps } from 'src/utilities/api/queries/buttons';
 import { ImageProps } from 'src/utilities/api/queries';
 import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
+import { Disclosure, DisclosureItem } from '../Disclosure';
 
 interface Props extends HTMLAttributes<'div'> {
 	title: string;
@@ -20,6 +20,10 @@ interface Props extends HTMLAttributes<'div'> {
 	content: ContentBlockProps['value'];
 	button?: ButtonProps;
 	locale: Locale;
+	items?: {
+		image?: ImageProps;
+		content: ContentBlockProps['value'];
+	}[];
 }
 
 const {
@@ -35,44 +39,67 @@ const {
 
 <Card variant="filled" class="c-advice-block">
 	<Stack gap="small">
-		<Stack gap="small">
-			<MediaBlock icon={image} class="c-advice-block__media-heading">
-				<Heading level={3} styledAs={2}>
-					{title}
-				</Heading>
-			</MediaBlock>
-			<ContentBlock value={content} />
-		</Stack>
-		<Stack gap="large">
-			{
-				items.map((item) => (
-					<MediaBlock icon={item.image} class="c-advice-block__media-item">
-						<ContentBlock value={item.content} />
-					</MediaBlock>
-				))
-			}
-			{
-				button?.label ? (
-					<Button
-						variant={button.variant}
-						href={prefixUrlWithlocale(
-							getFullPageUrl(button.slugCollection),
-							locale,
-						)}
-						icon={button.icon}
-						interactionIconAnimation="swing"
-					>
-						{button.label}
-					</Button>
-				) : null
-			}
-		</Stack>
+		<Disclosure>
+			<DisclosureItem
+				headingLevel={3}
+				label={title}
+				id={title}
+				accordeon
+				adviceBlock
+				itemscope
+				itemprop="mainEntity"
+				itemtype="https://schema.org/Question"
+				image={image}
+			>
+				<Stack gap="large">
+					<ContentBlock value={content} />
+					{
+						items.map((item) => (
+							<MediaBlock icon={item.image} class="c-advice-block__media-item">
+								<ContentBlock value={item.content} />
+							</MediaBlock>
+						))
+					}
+					{
+						button?.label ? (
+							<Button
+								variant={button.variant}
+								href={prefixUrlWithlocale(
+									getFullPageUrl(button.slugCollection),
+									locale,
+								)}
+								icon={button.icon}
+								interactionIconAnimation="swing"
+							>
+								{button.label}
+							</Button>
+						) : null
+					}
+				</Stack>
+			</DisclosureItem>
+		</Disclosure>
 	</Stack>
 </Card>
 
 <style lang="scss">
 	@use '@design-system-styles/primitives/_responsive.scss';
-	.c-advice-block {
+
+	/**
+	 * 1. override specificity by 0,1,0 to battle Astro loading
+	 */
+	.c-advice-block.c-advice-block {
+		border-radius: var(--space-r-nano);
+		--card-border-width: var(--space-r-nano);
+		--card-border-color: var(--color-accent-grasgroen);
+		padding: 0;
+		border-radius: var(--space-r-nano);
+		border-block-start: 0;
+		border-block-end: 0;
+		border-inline-end: 0;
+
+		&:nth-of-type(even) {
+			--card-border-color: var(--color-accent-robijnrood);
+		}
 	}
 
 	.c-advice-block__media-heading {
@@ -89,3 +116,62 @@ const {
 		}
 	}
 </style>
+<script>
+	import { mqLarge } from '@design-system/primitives/responsive';
+
+	const mql = window.matchMedia(mqLarge);
+
+	const disclosureItems = [
+		...document.querySelectorAll('[data-module-bind="disclosure__item"]'),
+	];
+
+	const disclosureToggles = [
+		...document.querySelectorAll('.advice-block__button'),
+	];
+
+	const disclosureHeaders = [
+		...document.querySelectorAll('.c-advice-block__media-heading h3'),
+	];
+
+	const disclosureInnerPanels = [
+		...document.querySelectorAll('.disclosure__panel-inner'),
+	];
+
+	const setToggleTabIndex = (toggle) => {
+		toggle.setAttribute('tabindex', '-1');
+	};
+
+	const unsetToggleTabIndex = (toggle) => {
+		toggle.removeAttribute('tabindex');
+	};
+
+	const toggleDisclosure = (matches) => {
+		disclosureInnerPanels.forEach((item) => {
+			item.classList.add('disclosure__panel-inner--no-padding');
+		});
+
+		if (matches) {
+			disclosureToggles.forEach(setToggleTabIndex);
+			disclosureItems.forEach((item) => {
+				item.classList.add('is-active');
+			});
+			disclosureHeaders.forEach((item) => {
+				item.classList.replace('as-h3', 'as-h2');
+			});
+		} else {
+			disclosureToggles.forEach(unsetToggleTabIndex);
+			disclosureItems.forEach((item) => {
+				item.classList.remove('is-active');
+			});
+			disclosureHeaders.forEach((item) => {
+				item.classList.replace('as-h2', 'as-h3');
+			});
+		}
+	};
+
+	mql.addEventListener('change', (event) => {
+		toggleDisclosure(event.matches);
+	});
+
+	toggleDisclosure(mql.matches);
+</script>
