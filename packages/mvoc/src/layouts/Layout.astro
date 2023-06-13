@@ -63,6 +63,11 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 			:where(main) {
 				flex: 1;
 			}
+			:lang(ar) {
+				.e-link__label {
+					text-decoration: none;
+				}
+			}
 		</style>
 	</head>
 	<body>
