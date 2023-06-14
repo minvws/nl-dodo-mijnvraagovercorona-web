@@ -8,7 +8,6 @@ import {
 	LocationListItem,
 } from '@design-system/components/Lists';
 import { MastFoot } from '@design-system/components/MastFoot';
-import { Masthead } from '@design-system/components/Masthead';
 import { CloseButton } from '@design-system/elements/CloseButton';
 import { Heading } from '@design-system/elements/Heading';
 import { HTMLAttributes } from 'astro/types';
@@ -18,7 +17,6 @@ import { getLocaleFromURL, Locale } from 'src/utilities/locale/translation';
 import { Filter, LocationDetail, Marker } from '.';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { LocaleSelector } from '@design-system/components/LocaleSelector';
 import { Breadcrumbs } from '@design-system/components/Breadrumbs';
 
 interface Props extends HTMLAttributes<'div'> {
@@ -43,25 +41,11 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 	data-access-token={process.env.MAPBOX_ACCESS_TOKEN}
 >
 	<div class="c-navigator__wrap-sidebar">
-		<Masthead
-			logoUrl={locale.urlPrefix}
-			logoAlt={siteSettings.logo.alt}
-			forceCompact
-		>
-			<LocaleSelector
-				alternativeTranslations={pageData.alternatives}
-				compact
-				slot="end"
-			/>
-		</Masthead>
 		{
 			pageData.hero ? (
 				<div class="c-navigator__wrap-hero">
 					<Stack>
-						<Breadcrumbs
-							localeId={locale.id}
-							breadcrumbs={pageData.breadcrumbs}
-						/>
+						<Breadcrumbs breadcrumbs={pageData.breadcrumbs} />
 						<Heading>{pageData.hero.title}</Heading>
 						<ContentBlock value={pageData.hero.content} />
 					</Stack>
@@ -160,10 +144,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		--navigator__padding-inline: var(--navigator__padding);
 		--navigator__block-size: 100vh;
 		--navigator__block-size: 100svh;
-		--navigator__max-block-size: calc(
-			var(--navigator__block-size) - var(--masthead__block-size, 0px)
-		);
-
+		--navigator__max-block-size: var(--navigator__block-size);
 		--navigator__popover-spacing: var(--stack-milli);
 		--navigator__popover-radii: var(--radii-milli);
 		--navigator__popover-elevation: var(--elevation-frost);
@@ -172,6 +153,11 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		grid-template-columns: var(--navigator__template-columns, 1fr);
 		block-size: 100%;
 		max-block-size: var(--navigator__max-block-size);
+		padding-block-start: var(
+			--navigator__padding-block-start,
+			var(--theme__masthead-top-block-size)
+		);
+		background-color: var(--theme-bg-base);
 	}
 
 	.c-navigator__wrap-hero {
@@ -187,6 +173,11 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		grid-area: 1 / 1 / 2 / 2;
 		z-index: 2;
 		background-color: var(--color-white);
+
+		// prevent scrolling when menu is open
+		:global(.has-open-menu) & {
+			overflow: hidden;
+		}
 	}
 
 	.c-navigator__wrap-detail {
@@ -316,6 +307,10 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 			--navigator__template-columns: 480px 1fr;
 			--navigator__padding: var(--space-r-base);
 			--navigator__padding-block-start: var(--navigator__padding);
+			--navigator__max-block-size: calc(
+				var(--navigator__block-size) - var(--theme__masthead-block-size)
+			);
+			--navigator__padding-block-start: 0px;
 		}
 
 		.c-navigator__wrap-map {

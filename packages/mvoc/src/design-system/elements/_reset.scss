@@ -26,22 +26,20 @@
 
 /**
  * Set core root defaults
- * 1. Always add the vertical scrollbar to prevent layout shifting
- * 2. Smooth anchor scrolling
- * 3. Apply font-size & line-height
- * 4. Prevent mobile browsers from blowing up the font-size when switching
+ * 1. Smooth anchor scrolling
+ * 2. Apply font-size & line-height
+ * 3. Prevent mobile browsers from blowing up the font-size when switching
  *    between portrait and landscape, as per:
  *    https://kilianvalkhof.com/2022/css-html/your-css-reset-needs-text-size-adjust-probably/
  */
 :where(html) {
 	display: grid;
 	block-size: 100%;
-	overflow-y: scroll; /* [1] */
-	scroll-behavior: smooth; /* [2] */
+	scroll-behavior: smooth; /* [1] */
 	font-family: var(--font-family);
-	font-size: var(--font-size-root, 1em); /* [3] */
-	line-height: var(--font-lineheight-root, 1.5); /* [3] */
-	text-size-adjust: none; /* [4] */
+	font-size: var(--font-size-root, 1em); /* [2] */
+	line-height: var(--font-lineheight-root, 1.5); /* [2] */
+	text-size-adjust: none; /* [3] */
 	text-rendering: optimizespeed;
 	-webkit-font-smoothing: antialiased;
 }

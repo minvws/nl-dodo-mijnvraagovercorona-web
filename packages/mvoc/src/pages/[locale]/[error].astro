@@ -68,11 +68,7 @@ const homePageData = homeCollection.filter(
 		image={pageData.hero.image}
 		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
 	>
-		<Breadcrumbs
-			localeId={locale.id}
-			breadcrumbs={pageData.breadcrumbs}
-			slot="prefix"
-		/>
+		<Breadcrumbs breadcrumbs={pageData.breadcrumbs} slot="prefix" />
 		<ContentBlock value={pageData.hero.content} />
 	</Hero>
 

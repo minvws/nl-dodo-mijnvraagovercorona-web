@@ -40,6 +40,36 @@ export default defineType({
 			// hidden: true,
 			options: { collapsible: true },
 			fields: [
+				{
+					title: 'Menu',
+					name: 'menu',
+					type: 'object',
+					fields: [
+						{
+							title: 'Landmark label',
+							name: 'landmarkLabel',
+							description:
+								'Word alleen voorgelezen door screenreaders, vermijd het woord "navigatie" of "menu".',
+							type: 'string',
+						},
+						{
+							title: 'Menu button label',
+							name: 'menuButtonLabel',
+							type: 'string',
+						},
+						{
+							title: 'Home label',
+							name: 'homeLabel',
+							type: 'string',
+						},
+						{
+							title: 'Hoofdmenu interne links',
+							name: 'internalPageCollection',
+							type: 'internalPageSelector',
+						},
+					],
+				},
+
 				defineField({
 					title: 'Skiplink',
 					description: 'Word alleen getoond voor screenreader gebruikers',
@@ -200,6 +230,28 @@ export default defineType({
 						defineField({
 							title: 'Nee',
 							name: 'dislike',
+							type: 'string',
+						}),
+					],
+				}),
+				defineField({
+					title: 'Feedback blok mobiele navigatie',
+					name: 'feedbackMobile',
+					type: 'object',
+					fields: [
+						defineField({
+							title: 'Titel',
+							name: 'title',
+							type: 'string',
+						}),
+						defineField({
+							title: 'Link label',
+							name: 'label',
+							type: 'string',
+						}),
+						defineField({
+							title: 'Link url',
+							name: 'url',
 							type: 'string',
 						}),
 					],

@@ -84,14 +84,21 @@ const {
 		--hero-padding: var(--stack-hero);
 		--hero-padding-block-start: var(--hero-padding);
 		--hero-padding-block-end: var(--hero-padding);
+		--hero-masthead-offset: var(--theme__masthead-top-block-size);
 		position: relative;
-		padding-block-start: var(--hero-padding-block-start);
+		padding-block-start: calc(
+			var(--hero-masthead-offset) + var(--hero-padding-block-start)
+		);
 		padding-block-end: var(--hero-padding-block-end);
 		color: var(--color-donkerblauw);
 		background-color: var(--hero-background);
 
 		.c-hero__switcher {
 			--switcher-align-items: center;
+		}
+
+		@media --mq-large {
+			--hero-masthead-offset: 0px;
 		}
 	}
 
@@ -173,7 +180,14 @@ const {
 	}
 
 	.c-hero--theme {
-		overflow: hidden;
+		& {
+			overflow: hidden;
+		}
+
+		// Fix for menu open stuff, overflow hidden inside overflow hidden hides the element entirely 😅
+		:global(.has-open-menu) & {
+			overflow: unset;
+		}
 
 		.c-hero__title {
 			font-weight: normal;
@@ -192,9 +206,6 @@ const {
 			.c-hero__wrap-image {
 				order: 2;
 			}
-		}
-
-		@media --mq-large {
 		}
 	}
 </style>

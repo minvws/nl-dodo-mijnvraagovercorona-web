@@ -76,11 +76,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
 		highlight
 	>
-		<Breadcrumbs
-			localeId={locale.id}
-			breadcrumbs={pageData.breadcrumbs}
-			slot="prefix"
-		/>
+		<Breadcrumbs breadcrumbs={pageData.breadcrumbs} slot="prefix" />
 		<Stack class="c-hero__content">
 			<Stack class="has__list-styled">
 				<ContentBlock value={pageData.hero.content} />

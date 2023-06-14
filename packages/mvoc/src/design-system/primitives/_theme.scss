@@ -1,7 +1,14 @@
 :where(html) {
 	--theme-focusring: var(--color-black);
 
+	--theme-main-menu-open-size: 13rem;
+	--theme__masthead-top-block-size: 20rem;
+
 	// background-colors
 	--theme-bg-base: var(--color-ijsblauw);
 	--theme-bg-highlight: var(--color-poolblauw);
+
+	@media --mq-large {
+		--theme__masthead-top-block-size: 40.5rem;
+	}
 }
