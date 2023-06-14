@@ -14,6 +14,7 @@ import {
 } from '@design-system/components/LocaleSelector';
 import { MastFoot } from '@design-system/components/MastFoot';
 import { HTMLAttributes } from 'astro/types';
+import { Link } from '@design-system/elements/Link';
 
 export interface Props extends HTMLAttributes<'html'> {
 	type?: string;
@@ -37,7 +38,9 @@ const {
 	disableMastfoot,
 	...attrs
 } = Astro.props;
-const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+const siteSettings: SiteSettingsProps = await useSiteSettings({
+	locale,
+});
 ---
 
 <!DOCTYPE html>
@@ -56,12 +59,51 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 			alternativeTranslations={alternativeTranslations}
 		/>
 		<style lang="scss" is:global>
+			@use '@design-system-styles/primitives/_responsive.scss';
+			@use '@design-system-styles/tools/_a11y.scss';
+
 			:where(body) {
 				display: flex;
 				flex-direction: column;
+				@media --mq-large-until {
+					background-color: var(--color-donkerblauw);
+				}
 			}
+
 			:where(main) {
+				position: relative;
+				z-index: 2;
+				display: flex;
+				flex-direction: column;
 				flex: 1;
+				background-color: var(--color-white);
+
+				@media --mq-large-until {
+					transition-property: scale, translate, border-radius, box-shadow;
+					transition-duration: 0.2s;
+					transition-timing-function: ease-out;
+					transform-origin: top right;
+				}
+
+				.has-open-menu & {
+					@media --mq-large-until {
+						scale: 0.71;
+						translate: calc(
+								(var(--theme-main-menu-open-size) + var(--space-r-base) * 2) *
+									-1
+							)
+							calc(var(--theme__masthead-top-block-size) + var(--space-r-base));
+						block-size: var(--body-block-size);
+						overflow: hidden;
+						border-radius: var(--radii-base);
+						box-shadow: 0px 0px 27px rgba(0 0 0 / 26%);
+
+						a,
+						button {
+							pointer-events: none;
+						}
+					}
+				}
 			}
 		</style>
 	</head>
@@ -76,8 +118,9 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 						highlight={mastheadHighlight}
 					>
 						<slot name="back" slot="start" />
+
 						<LocaleSelector
-							slot="end"
+							slot="start"
 							alternativeTranslations={alternativeTranslations}
 						/>
 					</Masthead>
@@ -85,43 +128,44 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 			}
 			<main id="content">
 				<slot />
+				{!disableMastfoot ? <MastFoot locale={locale} /> : null}
 			</main>
 
-			{!disableMastfoot ? <MastFoot locale={locale} /> : null}
+			<script src="/scripts/piwik.js" is:inline defer></script>
+			<noscript>
+				<iframe
+					src="//statistiek.rijksoverheid.nl/containers/c754ca66-1c06-4247-ac2d-3b4efb60dcac/noscript.html"
+					height="0"
+					width="0"
+					style={{ border: '0', display: 'none', visibility: 'hidden' }}
+				></iframe>
+			</noscript>
+			<script>
+				import debounce from 'src/utilities/helpers/debounce';
+
+				const checkSize = () => {
+					const scrollbarWidth =
+						window.innerWidth - document.documentElement.clientWidth;
+					document.documentElement.style.setProperty(
+						'--scrollbar__inline-size',
+						`${scrollbarWidth}px`,
+					);
+				};
+
+				window.addEventListener('resize', debounce(checkSize));
+
+				checkSize();
+			</script>
+
+			<script>
+				import { trackEvent } from 'src/utilities/tracking/piwik';
+				const pageType = document.querySelector('html').dataset.pageType;
+				const pagePathName =
+					document.querySelector('html').dataset.pagePathName;
+				window.addEventListener('load', function () {
+					trackEvent('Page', pageType, pagePathName);
+				});
+			</script>
 		</Sprite.Provider>
-
-		<script src="/scripts/piwik.js" is:inline defer></script>
-		<noscript>
-			<iframe
-				src="//statistiek.rijksoverheid.nl/containers/c754ca66-1c06-4247-ac2d-3b4efb60dcac/noscript.html"
-				height="0"
-				width="0"
-				style={{ border: '0', display: 'none', visibility: 'hidden' }}></iframe>
-		</noscript>
-		<script>
-			import debounce from 'src/utilities/helpers/debounce';
-
-			const checkSize = () => {
-				const scrollbarWidth =
-					window.innerWidth - document.documentElement.clientWidth;
-				document.documentElement.style.setProperty(
-					'--scrollbar__inline-size',
-					`${scrollbarWidth}px`,
-				);
-			};
-
-			window.addEventListener('resize', debounce(checkSize));
-
-			checkSize();
-		</script>
-
-		<script>
-			import { trackEvent } from 'src/utilities/tracking/piwik';
-			const pageType = document.querySelector('html').dataset.pageType;
-			const pagePathName = document.querySelector('html').dataset.pagePathName;
-			window.addEventListener('load', function () {
-				trackEvent('Page', pageType, pagePathName);
-			});
-		</script>
 	</body>
 </html>

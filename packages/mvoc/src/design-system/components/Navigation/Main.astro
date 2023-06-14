@@ -1,0 +1,212 @@
+---
+import { HTMLAttributes } from 'astro/types';
+import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
+import {
+	getLocaleFromURL,
+	prefixUrlWithlocale,
+} from 'src/utilities/locale/translation';
+import { Link } from '@design-system/elements/Link';
+
+interface Props extends HTMLAttributes<'div'> {}
+
+const { class: className, ...attrs } = Astro.props;
+const locale = getLocaleFromURL(Astro.url.pathname);
+const { masthead, feedback }: SiteSettingsProps = await useSiteSettings({
+	locale,
+});
+
+const isHome =
+	Astro.url.pathname === locale.urlPrefix ||
+	`${Astro.url.pathname}/` === `${locale.urlPrefix}/` ||
+	Astro.url.pathname === '/';
+
+const feedbackMobile = feedback.feedbackMobile;
+---
+
+<div
+	class={`c-nav-main${className ? ` | ${className}` : ''}`}
+	data-module="nav-main"
+	{...attrs}
+>
+	<div class="c-nav-main__drawer" data-module-bind="nav-main__drawer">
+		<nav class="c-nav-main__nav" aria-label={masthead.menu.landmarkLabel}>
+			<ul class="c-nav-main__list" role="list">
+				<li>
+					<Link
+						href={locale.urlPrefix}
+						aria-current={isHome ? 'page' : undefined}
+					>
+						{masthead.menu.homeLabel}
+					</Link>
+				</li>
+
+				{
+					masthead.menu.internalPageCollection.map((page) => {
+						const url = prefixUrlWithlocale(page.link.slug, locale);
+						return (
+							<li>
+								<Link
+									href={url}
+									aria-current={
+										Astro.url.pathname.startsWith(url) ? 'page' : undefined
+									}
+								>
+									{page.label ? page.label : page.link.label}
+								</Link>
+							</li>
+						);
+					})
+				}
+			</ul>
+		</nav>
+		{
+			feedbackMobile?.title?.length ? (
+				<div class="c-nav-main__feedback">
+					<span>
+						<strong>{feedbackMobile.title}</strong>
+					</span>
+					<Link
+						href={feedbackMobile.url}
+						icon={'external'}
+						iconPosition={'trailing'}
+					>
+						{feedbackMobile.label}
+					</Link>
+				</div>
+			) : null
+		}
+	</div>
+</div>
+
+<style lang="scss">
+	@use '@design-system-styles/primitives/_responsive.scss';
+	@use '@design-system-styles/tools/_a11y.scss';
+
+	.c-nav-main {
+		--nav-main--padding-inline: var(--stack-base);
+		grid-area: drawer;
+
+		:global(a),
+		:global(p) {
+			display: block;
+			padding-block: var(--nav-main__link-padding-block, 0.5rem); // 10px
+			padding-inline: var(
+				--nav-main__link-padding-inline,
+				var(--nav-main--padding-inline)
+			);
+		}
+
+		:global(p) {
+			display: var(--nav-main__title-display, block);
+			font-weight: bold;
+		}
+
+		:global(a) {
+			--link-text-decoration: none;
+			position: relative;
+			color: var(--color-white);
+
+			@media --mq-large-until {
+				border-radius: var(--radii-nano);
+			}
+
+			&[aria-current] {
+				color: var(--color-diepblauw);
+				background-color: var(
+					--nav-main__link-bg-color,
+					var(--color-poolblauw)
+				);
+			}
+
+			&:focus {
+				z-index: 1;
+			}
+		}
+
+		@media --mq-large {
+			background-color: var(--color-white);
+			box-shadow: var(--elevation-frost);
+		}
+	}
+
+	.c-nav-main__drawer {
+		@media --mq-large-until {
+			color: var(--color-white);
+			display: grid;
+			grid-template-rows: 1fr 4rem;
+			gap: var(--space-r-base);
+			height: calc(100vh - 152px);
+			block-size: calc(
+				var(--body-block-size) - var(--theme__masthead-top-block-size) -
+					var(--space-r-menu-button)
+			);
+			margin-block-start: var(--space-r-menu-button);
+		}
+
+		@media --mq-large {
+			--retain-size: 63.2rem;
+			--retain-padding: var(--space-r-large);
+			max-inline-size: var(--retain-size);
+			padding-inline: var(--retain-padding);
+			margin-inline: auto;
+		}
+	}
+
+	.c-nav-main__feedback {
+		font-size: 18px;
+
+		.e-link {
+			padding-inline: 0;
+			text-decoration: underline;
+		}
+
+		@media --mq-large {
+			display: none;
+		}
+	}
+
+	.c-nav-main__list {
+		display: flex;
+		flex-direction: var(--nav-main__list-layout, column);
+		gap: var(--nav-main__list-gap, var(--space-r-milli));
+		flex-wrap: wrap;
+	}
+
+	@media --mq-large {
+		.c-nav-main {
+			--nav-main-position: static;
+			--nav-main__list-layout: row;
+			--nav-main__list-gap: var(--stack-large);
+			--nav-main__list-line-height: var(--line-height-beta);
+			--nav-main__drawer-position: static;
+			--nav-main__drawer-visibility: visible;
+			--nav-main__drawer-transform: none;
+			--nav-main__nav-margin-block-end: 0;
+			--nav-main__link-bg-color: transparent;
+			--nav-main__link-padding-inline: 0;
+			--nav-main__link-padding-block: var(--stack-small);
+			--nav-main__title-display: none;
+			.c-nav-main__hide-large {
+				display: none;
+			}
+
+			:global(a) {
+				line-height: --nav-main__list-line-height;
+				color: var(--color-diepblauw);
+				padding-block-end: calc(var(--nav-main__link-padding-block) - 2px);
+				border-block-end: 2px solid
+					var(--nav-main__link-border-color, transparent);
+				&:hover,
+				&:focus {
+					--link-color: currentColor;
+					--nav-main__link-border-color: var(--color-accent-robijnrood);
+				}
+
+				&[aria-current] {
+					--nav-main__link-border-color: currentColor;
+					--link-color: var(--color-diepblauw);
+				}
+			}
+		}
+	}
+</style>

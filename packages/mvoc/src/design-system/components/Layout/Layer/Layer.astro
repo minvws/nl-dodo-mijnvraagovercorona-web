@@ -60,8 +60,12 @@ const Component = as;
 		--layer-pull-up: var(--stack-hero);
 	}
 
-	.c-layer--zebra:nth-of-type(odd) {
-		background-color: var(--color-ijsblauw);
-		--external-alternative-background: var(--color-white);
+	.c-layer--zebra {
+		background-color: var(--color-white);
+		--external-alternative-background: var(--color-ijsblauw);
+		&:nth-of-type(odd) {
+			background-color: var(--color-ijsblauw);
+			--external-alternative-background: var(--color-white);
+		}
 	}
 </style>

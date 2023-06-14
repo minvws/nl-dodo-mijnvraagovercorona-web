@@ -8,19 +8,23 @@ type Props = {
 const { label } = Astro.props;
 ---
 
-<Button href="#content" class="c-skiplink" full variant={'secondary'}>
+<Button href="#content" class="c-skiplink" variant={'secondary'}>
 	{label}
 </Button>
 
 <style lang="scss">
 	@use '@design-system-styles/tools/_a11y.scss';
 
+	/**
+	 * 1. Align exactly in center of the masthead
+	 */
 	.c-skiplink.c-skiplink {
-		--button-border-radius: 0px;
-		inset-block-start: 0;
-		inset-inline-start: 0;
-		inline-size: auto;
+		position: absolute;
+		min-inline-size: auto;
 		z-index: 51;
+		inset-block-start: calc(var(--theme__masthead-top-block-size) / 2);
+		inset-inline-start: var(--space-r-base);
+		translate: 0 -50%;
 
 		&:not(:focus) {
 			@include a11y.visually-hidden;

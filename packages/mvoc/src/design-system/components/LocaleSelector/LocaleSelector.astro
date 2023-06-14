@@ -154,7 +154,9 @@ const translationsOrder = alternativeTranslations
 		--c-locale-selector-duration: 0.2s;
 		position: absolute;
 		inset-block-start: var(--space-r-small);
-		inset-inline-end: var(--masthead-inline-padding);
+		@media --mq-large {
+			inset-inline-end: var(--masthead-inline-padding);
+		}
 		margin-inline-start: auto;
 		padding-block: calc(var(--space-r-tiny) - 1px);
 		padding-inline: calc(var(--space-r-small) - 1px);
@@ -164,9 +166,17 @@ const translationsOrder = alternativeTranslations
 		transition-duration: 300ms;
 		transition-timing-function: ease-in-out;
 
+		z-index: 1;
+
 		border: var(--c-locale-selector-border-size) solid
 			var(--c-locale-selector-border-color);
 		border-block-end-width: var(--c-locale-selector-border-elevation-size);
+
+		&:lang(ar),
+		&:lang(tr),
+		&:lang(pl) {
+			inset-inline-end: var(--nav-main-inset, var(--stack-small));
+		}
 
 		&:focus-within {
 			@include a11y.focusring;

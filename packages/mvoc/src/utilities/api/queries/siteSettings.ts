@@ -23,6 +23,11 @@ export interface SiteSettingsProps {
 			like: string;
 			dislike: string;
 		};
+		feedbackMobile: {
+			title: string;
+			label: string;
+			url: string;
+		};
 	};
 	masthead: {
 		skiplink: string;
@@ -30,12 +35,7 @@ export interface SiteSettingsProps {
 			landmarkLabel: string;
 			menuButtonLabel: string;
 			homeLabel: string;
-			menuTitle: string;
 			internalPageCollection: InternalPageCollectionProps['internalPageCollection'];
-			extraMenu: {
-				title: string;
-				internalPageCollection: InternalPageCollectionProps['internalPageCollection'];
-			};
 		};
 	};
 	mastfoot: {
@@ -120,12 +120,7 @@ export const siteSettingsQuery = ({ locale }: { locale: Locale }): string => `
 				landmarkLabel,
 				menuButtonLabel,
 				homeLabel,
-				menuTitle,
 				${internalPageReferenceQuery()},
-				extraMenu{
-					title,
-					${internalPageReferenceQuery()},
-				},
 			},
 		},
 		mastfoot{
@@ -192,6 +187,11 @@ export const siteSettingsQuery = ({ locale }: { locale: Locale }): string => `
 			labels{
 				like,
 				dislike,
+			},
+			feedbackMobile{
+				title,
+				label,
+				url,
 			},
 		},
 		severeSymptomsAdvice{
