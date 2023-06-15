@@ -34,15 +34,17 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 </Card>
 
 <style lang="scss">
+	@use '@design-system-styles/tools/_rem.scss';
+
 	.c-card-privacy {
-		--card-privacy-icon-size: 1.4rem; // 28px
+		--card-privacy-icon-size: #{rem.convert(28px)};
 	}
 	.c-card-privacy__list {
 		> li {
 			position: relative;
-			padding-inline-start: var(--space-r-huge);
+			padding-inline-start: var(--space-14);
 			& + li {
-				margin-block-start: var(--space-r-small);
+				margin-block-start: var(--space-4);
 			}
 		}
 	}
@@ -54,7 +56,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 		position: absolute;
 		inset-inline-start: 0;
 		inline-size: var(--card-privacy-icon-size);
-		block-size: 1.7rem; // 34px
+		block-size: rem.convert(34px);
 		color: var(--color-accent-gifgroen);
 	}
 </style>

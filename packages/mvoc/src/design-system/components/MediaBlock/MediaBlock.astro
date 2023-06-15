@@ -10,13 +10,18 @@ interface Props extends HTMLAttributes<'div'> {
 const { icon, class: className, ...attrs } = Astro.props;
 ---
 
-<div class={`c-media-block${className ? ` | ${className}` : ''}`} {...attrs}>
+<div
+	class={`c-media-block${icon ? ' c-media-block--has-icon' : ''}${
+		className ? ` | ${className}` : ''
+	}`}
+	{...attrs}
+>
 	{
 		icon && icon.src ? (
 			<img class="c-media-block__icon" src={icon.src} alt="" loading="lazy" />
 		) : null
 	}
-	<Stack gap="small">
+	<Stack gap={4}>
 		<slot />
 	</Stack>
 </div>
@@ -25,15 +30,15 @@ const { icon, class: className, ...attrs } = Astro.props;
 	@use '@design-system-styles/primitives/_responsive.scss';
 
 	.c-media-block {
-		--c-media-block-icon-size: var(--space-r-large);
+		--c-media-block-icon-size: var(--space-8);
 		--c-media-block-icon-alignment: center;
-		--c-media-block-gap: var(--stack-base);
+		--c-media-block-gap: var(--space-6);
 		display: flex;
 		align-items: var(--c-media-block-icon-alignment);
 		gap: var(--c-media-block-gap);
 
 		@media --mq-large {
-			--c-media-block-icon-size: var(--space-r-giant);
+			--c-media-block-icon-size: var(--space-10);
 		}
 	}
 

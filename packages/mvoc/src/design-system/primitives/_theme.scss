@@ -1,14 +1,16 @@
+@use '../tools/rem';
+
 :where(html) {
 	--theme-focusring: var(--color-black);
 
-	--theme-main-menu-open-size: 13rem;
-	--theme__masthead-top-block-size: 20rem;
+	--theme-main-menu-open-size: #{rem.convert(260px)};
+	--theme__masthead-top-block-size: #{rem.convert(80px)};
 
 	// background-colors
 	--theme-bg-base: var(--color-ijsblauw);
 	--theme-bg-highlight: var(--color-poolblauw);
 
 	@media --mq-large {
-		--theme__masthead-top-block-size: 40.5rem;
+		--theme__masthead-top-block-size: #{rem.convert(102px)};
 	}
 }

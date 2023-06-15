@@ -11,9 +11,11 @@ const { class: className, ...attrs } = Astro.props;
 </div>
 
 <style lang="scss">
+	@use '@design-system-styles/tools/_rem.scss';
+
 	.c-switcher {
-		--switcher-gap: var(--space-r-base);
-		--switcher-threshold: 33.25rem; // 665px
+		--switcher-gap: var(--space-6);
+		--switcher-threshold: #{rem.convert(665px)};
 		--switcher-align-items: stretch;
 		display: flex;
 		flex-wrap: wrap;

@@ -63,7 +63,7 @@ const locale = getLocaleFromURL(Astro.url.pathname);
 	.c-submit {
 		display: flex;
 		flex-wrap: wrap;
-		gap: var(--stack-small);
+		gap: var(--space-4);
 		justify-content: flex-start;
 		align-items: center;
 		flex-direction: row-reverse;
@@ -71,7 +71,7 @@ const locale = getLocaleFromURL(Astro.url.pathname);
 		// adjust buttons
 		> * {
 			flex: 1;
-			max-inline-size: calc(50% - var(--stack-small) / 2);
+			max-inline-size: calc(50% - var(--space-4) / 2);
 			justify-content: center;
 		}
 	}

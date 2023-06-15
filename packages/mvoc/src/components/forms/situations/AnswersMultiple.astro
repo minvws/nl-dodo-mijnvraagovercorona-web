@@ -55,8 +55,8 @@ const parsedButtons = buttons?.map((button, index) => {
 		{content ? <DuoColumnContent content={content} /> : null}
 		<fieldset>
 			{label ? <legend class="u-visually-hidden">{label}</legend> : null}
-			<Stack gap="small">
-				<Stack gap="small">
+			<Stack gap={4}>
+				<Stack gap={4}>
 					{
 						firstGroup.map(({ content, _key }) => (
 							<Control
@@ -78,7 +78,7 @@ const parsedButtons = buttons?.map((button, index) => {
 								label={showMore.label.this}
 								labelActive={showMore.label.that}
 							>
-								<Stack gap="small">
+								<Stack gap={4}>
 									{secondGroup.map(({ content, _key }) => (
 										<Control
 											type="checkbox"

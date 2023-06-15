@@ -2,33 +2,44 @@
 		primitives.typography
 / =========================================================================== */
 
+@use '../tools/rem';
+
 :where(html) {
 	// Root
 	--font-family: RoSans, sans-serif;
-	--font-size-root: 1.25rem; // 20
-	--font-lineheight-root: 1.4; // 28px
+	--font-size-root: #{rem.convert(18px)};
+	--font-lineheight-root: 1.5555555556; // 28px
 
 	// Sizes
-	--font-size-alpha: 1.8rem; // 36px
-	--line-height-alpha: 1.1111111111; // 40px
+	--font-size-alpha: #{rem.convert(32px)};
+	--line-height-alpha: 1.125; // 36px
 
-	--font-size-beta: 1.3rem; // 26px
-	--line-height-beta: 1.1538461538; // 30px
+	--font-size-beta: #{rem.convert(28px)};
+	--line-height-beta: 1.1428571429; // 32px
 
-	--font-size-gamma: 1rem; // 20px
-	--line-height-gamma: var(--font-lineheight-root); // 28px
+	--font-size-gamma: #{rem.convert(22px)};
+	--line-height-gamma: 1.2727272727; // 28px
 
-	--font-size-milli: 0.8rem; // 16px
-	--line-height-milli: 1.75; // 28px
+	--font-size-delta: #{rem.convert(18px)};
+	--line-height-delta: var(--font-lineheight-root); // 28px
+
+	--font-size-milli: #{rem.convert(16px)};
+	--line-height-milli: 1.25; // 20px
 
 	@media --mq-large {
 		& {
 			// Sizes
-			--font-size-alpha: 2rem; // 40px
+			--font-size-alpha: #{rem.convert(40px)};
 			--line-height-alpha: 1.1; // 44px
 
-			--font-size-beta: 1.45rem; // 29px
-			--line-height-beta: 1.2413793103; // 36px
+			--font-size-beta: #{rem.convert(36px)};
+			--line-height-beta: 1.1111111111; // 40px
+
+			--font-size-gamma: #{rem.convert(28px)};
+			--line-height-gamma: 1.1428571429; // 32px
+
+			--font-size-delta: #{rem.convert(22px)};
+			--line-height-delta: 1.2727272727; // 28px
 		}
 	}
 }

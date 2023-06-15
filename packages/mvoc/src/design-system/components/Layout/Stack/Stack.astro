@@ -1,26 +1,12 @@
 ---
 import { HTMLAttributes } from 'astro/types';
+import { SpacingType } from '@design-system/settings';
 interface Props extends HTMLAttributes<'div' | 'ul' | 'ol' | 'fieldset'> {
 	as?: 'div' | 'ul' | 'ol' | 'fieldset';
-	gap?:
-		| 'nano'
-		| 'milli'
-		| 'tiny'
-		| 'small'
-		| 'base'
-		| 'large'
-		| 'giant'
-		| 'huge'
-		| 'humongous';
+	gap?: SpacingType;
 }
 
-const {
-	as = 'div',
-	gap = 'base',
-	id,
-	class: className,
-	...attrs
-} = Astro.props;
+const { as = 'div', gap = 6, id, class: className, ...attrs } = Astro.props;
 const Component = as;
 ---
 
@@ -36,7 +22,7 @@ const Component = as;
 
 <style lang="scss">
 	.c-stack {
-		--stack-gap: var(--stack, var(--stack-base));
+		--stack-gap: var(--stack, var(--space-7));
 		:global(> * + *) {
 			margin-block-start: var(--stack-gap);
 		}

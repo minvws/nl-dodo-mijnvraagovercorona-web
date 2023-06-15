@@ -65,10 +65,11 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 <style lang="scss">
 	@use '@design-system-styles/primitives/_responsive.scss';
 	@use '@design-system-styles/tools/_a11y.scss';
+	@use '@design-system-styles/tools/_rem.scss';
 
 	.c-masthead {
-		--masthead-logo-block-size: 4rem; // 80px
-		--masthead-inline-padding: var(--stack-base);
+		--masthead-logo-block-size: #{rem.convert(80px)};
+		--masthead-inline-padding: var(--space-6);
 		position: var(--masthead-position, absolute);
 		z-index: var(--masthead-z-index, unset);
 		display: grid;
@@ -92,7 +93,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 			padding: 0;
 
 			& {
-				--masthead-logo-block-size: 5.1rem; // 102px
+				--masthead-logo-block-size: #{rem.convert(102px)};
 			}
 		}
 	}
@@ -131,7 +132,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		display: var(--c-masthead__button-display, flex);
 		align-items: center;
 		justify-content: center;
-		inline-size: var(--space-r-menu-button);
+		inline-size: var(--space-menu-button);
 		aspect-ratio: 1/1;
 		outline: none;
 		color: var(--color-diepblauw);
@@ -166,7 +167,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 	}
 
 	.c-masthead--compact {
-		--masthead-logo-block-size: 4rem;
+		--masthead-logo-block-size: #{rem.convert(80px)};
 	}
 </style>
 

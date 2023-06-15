@@ -2,12 +2,14 @@
 		tools.list
 / =========================================================================== */
 
+@use '../tools/rem';
+
 @mixin styled {
 	ol,
 	ul {
-		--list-item-gap: var(--space-r-small);
-		--list-item-icon-gap: var(--space-r-small);
-		--list-item-icon-size: 1.4rem;
+		--list-item-gap: var(--space-4);
+		--list-item-icon-gap: var(--space-4);
+		--list-item-icon-size: #{rem.convert(28px)};
 		--list-item-icon-font-size: var(--font-size-milli);
 		--list-item-icon-line-height: var(--line-height-milli);
 		--list-item-icon-color: var(--color-white);

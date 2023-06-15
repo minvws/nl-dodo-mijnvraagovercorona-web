@@ -76,7 +76,7 @@ const homePageData = homeCollection.filter(
 		homePageData ? (
 			<Layer id={stringToSlug(homePageData.important.title)}>
 				<Retain>
-					<Stack gap="humongous">
+					<Stack gap={14}>
 						<Button
 							iconPosition="leading"
 							icon={pageData.button.icon}
@@ -85,7 +85,7 @@ const homePageData = homeCollection.filter(
 							{pageData.button.label}
 						</Button>
 						<div>
-							<Stack gap="small">
+							<Stack gap={4}>
 								<ContentBlock value={pageData.content} />
 								<GridFluid class="grid-important">
 									{homePageData.important.ctaButtonCollection
@@ -119,7 +119,7 @@ const homePageData = homeCollection.filter(
 
 <style lang="scss">
 	.grid-important {
-		--grid-fluid-min-item-size: 20rem; // 400px
-		--grid-fluid-gap: var(--stack-small);
+		--grid-fluid-min-item-size: var(--space-100);
+		--grid-fluid-gap: var(--stack-4);
 	}
 </style>

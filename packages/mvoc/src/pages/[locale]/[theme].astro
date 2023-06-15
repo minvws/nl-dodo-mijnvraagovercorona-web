@@ -119,12 +119,18 @@ if (pageData.ctaButtonCollection) {
 	</Hero>
 
 	{
-		pageData?.cards?.label && !!pageData?.cards?.items && (
+		pageData?.cards?.label && !!pageData?.cards?.items ? (
 			<CardAnswerOverview label={pageData.cards.label} cards={pageData.cards} />
-		)
+		) : null
 	}
 
-	<Layer pullUpBy="hero" background="zebra" id="situaties">
+	<Layer
+		pullUpBy={pageData?.cards?.label && !!pageData?.cards?.items
+			? undefined
+			: 'hero'}
+		background="zebra"
+		id="situaties"
+	>
 		{
 			ctaButtons?.filter((item) => item.label).length ? (
 				<Retain>
@@ -170,7 +176,7 @@ if (pageData.ctaButtonCollection) {
 	@use '@design-system-styles/primitives/_responsive.scss';
 
 	.grid-questions {
-		--grid-fluid-min-item-size: 20rem; // 400px
-		--grid-fluid-gap: var(--stack-small);
+		--grid-fluid-min-item-size: var(--space-100);
+		--grid-fluid-gap: var(--stack-4);
 	}
 </style>

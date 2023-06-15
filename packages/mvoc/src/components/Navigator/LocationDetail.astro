@@ -32,8 +32,8 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 	data-label-closed={pageData.location.openingHours.closed}
 >
 	<hgroup class="c-location-detail__hgroup">
-		<Stack gap="tiny">
-			<Heading level={2} tabindex="-1">
+		<Stack gap={3}>
+			<Heading level={2} styledAs={3} tabindex="-1">
 				<span data-city>replace city</span>
 				<span class="c-location-detail__name" data-name></span>
 			</Heading>
@@ -50,9 +50,9 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 	</hgroup>
 
 	<div class="c-location-detail__body">
-		<Stack gap="giant">
+		<Stack gap={10}>
 			<div>
-				<Stack gap="tiny">
+				<Stack gap={3}>
 					<div class="c-location-detail__wrap-image" data-wrap-image>
 						<img class="c-location-detail__image" alt="" data-image-map />
 						<img
@@ -81,7 +81,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 					</Attribute>
 
 					<section>
-						<Stack gap="nano">
+						<Stack gap={1}>
 							<Button
 								type="button"
 								data-module-bind="location__button-copy"
@@ -180,7 +180,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 								{pageData.about.title}
 							</Heading>
 							<div>
-								<Stack gap="milli" as="ul" role="list">
+								<Stack gap={2} as="ul" role="list">
 									{pageData.about.items
 										.filter((item) => item.label)
 										.map((item) => (
@@ -209,7 +209,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 								{pageData.bring.title}
 							</Heading>
 							<div>
-								<Stack gap="milli" as="ul" role="list">
+								<Stack gap={2} as="ul" role="list">
 									{pageData.bring.items
 										.filter((item) => item.label)
 										.map((item) => (
@@ -249,13 +249,13 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 	}
 
 	.c-location-detail__hgroup {
-		padding-block: var(--navigator__detail-padding-block, var(--stack-small));
+		padding-block: var(--navigator__detail-padding-block, var(--space-4));
 		background-color: var(--color-white);
 
 		// create space for close button so that the title wont overlap
 		&::before {
 			float: right;
-			inline-size: calc(1.2em + var(--space-r-nano) * 2 + 2px);
+			inline-size: calc(1.2em + var(--space-1) * 2 + 2px);
 			aspect-ratio: 1/1;
 			content: '';
 		}
@@ -276,7 +276,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 
 	.c-location-detail__wrap-labels {
 		display: flex;
-		gap: var(--stack-small);
+		gap: var(--space-4);
 	}
 
 	.c-location-detail__body {
@@ -284,7 +284,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 
 	.c-location-detail__wrap-image {
 		position: relative;
-		block-size: 8rem;
+		block-size: var(--space-40);
 		background-color: var(--color-grijs-2);
 		overflow: hidden;
 		border-radius: var(--radii-milli);
@@ -300,7 +300,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 	.c-location-detail__marker-icon {
 		position: absolute;
 		inset: 50%;
-		inline-size: 2.4rem; // 48px
+		inline-size: var(--space-12);
 		block-size: auto;
 		transform: translate(-50%, calc(-50% - 1rem));
 	}
@@ -310,7 +310,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 		flex-flow: row wrap;
 		justify-content: space-between;
 		align-items: center;
-		gap: var(--stack-nano);
+		gap: var(--space-1);
 	}
 
 	.c-location-detail__table {
@@ -322,8 +322,8 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 		}
 
 		:global(td) {
-			padding-block: var(--stack-nano);
-			padding-inline: var(--stack-milli);
+			padding-block: var(--space-1);
+			padding-inline: var(--space-2);
 			vertical-align: top;
 		}
 

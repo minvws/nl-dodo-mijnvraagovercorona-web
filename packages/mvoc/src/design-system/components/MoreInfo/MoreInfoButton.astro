@@ -36,15 +36,17 @@ const { label, href, icon } = Astro.props;
 </Button>
 
 <style lang="scss">
+	@use '@design-system-styles/tools/_rem.scss';
 	@use '@design-system-styles/primitives/_responsive.scss';
+
 	.c-more-info-button {
-		--tip-button-icon-size: var(--space-r-huge);
+		--tip-button-icon-size: var(--space-14);
 	}
 
 	.c-more-info-button__inner {
 		display: flex;
 		align-items: center;
-		gap: var(--space-r-tiny);
+		gap: var(--space-3);
 	}
 
 	.c-more-info-button__icon {
@@ -54,7 +56,7 @@ const { label, href, icon } = Astro.props;
 		object-position: center center;
 
 		@media --mq-large {
-			--tip-button-icon-size: 4.6rem; // 92px
+			--tip-button-icon-size: #{rem.convert(92px)}; // 92px
 		}
 	}
 </style>

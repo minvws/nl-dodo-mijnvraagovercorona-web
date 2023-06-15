@@ -116,7 +116,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 			<Layer pullUpBy={'hero'}>
 				<Retain>
 					<Sidebar>
-						<Stack gap="huge">
+						<Stack gap={14}>
 							<TaleList taleCollection={pageData.taleCollection} />
 							<Feedback
 								name="Prikken Home"
@@ -149,6 +149,6 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 	.c-hero__wrap-buttons {
 		display: flex;
 		flex-flow: row wrap;
-		gap: var(--space-r-small);
+		gap: var(--space-4);
 	}
 </style>

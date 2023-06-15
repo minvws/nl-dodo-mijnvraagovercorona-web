@@ -153,13 +153,13 @@ const translationsOrder = alternativeTranslations
 		--c-locale-selector-border-elevation-size: 3px;
 		--c-locale-selector-duration: 0.2s;
 		position: absolute;
-		inset-block-start: var(--space-r-small);
+		inset-block-start: var(--space-4);
 		@media --mq-large {
 			inset-inline-end: var(--masthead-inline-padding);
 		}
 		margin-inline-start: auto;
-		padding-block: calc(var(--space-r-tiny) - 1px);
-		padding-inline: calc(var(--space-r-small) - 1px);
+		padding-block: calc(var(--space-3) - 1px);
+		padding-inline: calc(var(--space-4) - 1px);
 		border-radius: var(--radii-milli);
 		background-color: var(--c-locale-selector-background-color);
 		transition-property: background-color, color, border;
@@ -175,7 +175,7 @@ const translationsOrder = alternativeTranslations
 		&:lang(ar),
 		&:lang(tr),
 		&:lang(pl) {
-			inset-inline-end: var(--nav-main-inset, var(--stack-small));
+			inset-inline-end: var(--nav-main-inset, var(--space-4));
 		}
 
 		&:focus-within {
@@ -187,7 +187,7 @@ const translationsOrder = alternativeTranslations
 		}
 
 		@media --mq-large {
-			inset-block-start: var(--space-r-base);
+			inset-block-start: var(--space-6);
 		}
 	}
 
@@ -226,7 +226,7 @@ const translationsOrder = alternativeTranslations
 	}
 
 	.c-locale-selector__icon {
-		margin-inline-start: var(--space-s-milli);
+		margin-inline-start: var(--space-2);
 	}
 
 	.c-locale-selector__link {

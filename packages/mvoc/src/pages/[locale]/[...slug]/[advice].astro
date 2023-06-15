@@ -128,7 +128,7 @@ const plan =
 		<Retain>
 			<Sidebar>
 				<Retain variant="text">
-					<Stack gap="huge">
+					<Stack gap={14}>
 						{
 							answer && (
 								<CardAdvice title={answer.title}>
@@ -140,7 +140,7 @@ const plan =
 						{
 							!!plan?.length && (
 								<section>
-									<Stack gap="small">
+									<Stack gap={4}>
 										<h2>{pageData.advice.title}</h2>
 										<Steps>
 											{plan.map(({ title, content, day }) => {
@@ -159,12 +159,12 @@ const plan =
 						{
 							!!pageData.advice?.cards?.items.length && (
 								<section>
-									<Stack gap="small">
+									<Stack gap={4}>
 										{pageData.advice.cards.title ? (
 											<h2>{pageData.advice.cards.title}</h2>
 										) : null}
 										<div>
-											<Stack gap="large">
+											<Stack gap={8}>
 												{pageData.advice.cards.items.map(
 													({ title, chapeau, content, buttons }) => (
 														<CardBlock

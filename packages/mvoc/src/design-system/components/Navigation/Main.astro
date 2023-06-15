@@ -81,9 +81,10 @@ const feedbackMobile = feedback.feedbackMobile;
 <style lang="scss">
 	@use '@design-system-styles/primitives/_responsive.scss';
 	@use '@design-system-styles/tools/_a11y.scss';
+	@use '@design-system-styles/tools/_rem.scss';
 
 	.c-nav-main {
-		--nav-main--padding-inline: var(--stack-base);
+		--nav-main--padding-inline: var(--space-6);
 		grid-area: drawer;
 
 		:global(a),
@@ -133,19 +134,19 @@ const feedbackMobile = feedback.feedbackMobile;
 		@media --mq-large-until {
 			color: var(--color-white);
 			display: grid;
-			grid-template-rows: 1fr 4rem;
-			gap: var(--space-r-base);
+			grid-template-rows: 1fr rem.convert(80px);
+			gap: var(--space-6);
 			height: calc(100vh - 152px);
 			block-size: calc(
 				var(--body-block-size) - var(--theme__masthead-top-block-size) -
-					var(--space-r-menu-button)
+					var(--space-menu-button)
 			);
-			margin-block-start: var(--space-r-menu-button);
+			margin-block-start: var(--space-menu-button);
 		}
 
 		@media --mq-large {
-			--retain-size: 63.2rem;
-			--retain-padding: var(--space-r-large);
+			--retain-size: #{rem.convert(1264px)};
+			--retain-padding: var(--space-8);
 			max-inline-size: var(--retain-size);
 			padding-inline: var(--retain-padding);
 			margin-inline: auto;
@@ -168,7 +169,7 @@ const feedbackMobile = feedback.feedbackMobile;
 	.c-nav-main__list {
 		display: flex;
 		flex-direction: var(--nav-main__list-layout, column);
-		gap: var(--nav-main__list-gap, var(--space-r-milli));
+		gap: var(--nav-main__list-gap, var(--space-2));
 		flex-wrap: wrap;
 	}
 
@@ -176,7 +177,7 @@ const feedbackMobile = feedback.feedbackMobile;
 		.c-nav-main {
 			--nav-main-position: static;
 			--nav-main__list-layout: row;
-			--nav-main__list-gap: var(--stack-large);
+			--nav-main__list-gap: var(--space-8);
 			--nav-main__list-line-height: var(--line-height-beta);
 			--nav-main__drawer-position: static;
 			--nav-main__drawer-visibility: visible;
@@ -184,7 +185,7 @@ const feedbackMobile = feedback.feedbackMobile;
 			--nav-main__nav-margin-block-end: 0;
 			--nav-main__link-bg-color: transparent;
 			--nav-main__link-padding-inline: 0;
-			--nav-main__link-padding-block: var(--stack-small);
+			--nav-main__link-padding-block: var(--space-4);
 			--nav-main__title-display: none;
 			.c-nav-main__hide-large {
 				display: none;

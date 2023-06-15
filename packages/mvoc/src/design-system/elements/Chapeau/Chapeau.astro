@@ -21,13 +21,10 @@ const { class: className, role, variant = 'base', ...attrs } = Astro.props;
 
 <style lang="scss">
 	.e-chapeau {
-		--chapeau-color: var(--color-accent-robijnrood);
-		--chapeau-font-size: 1rem;
-		--chapeau-line-height: var(--font-lineheight-root);
-		font-size: var(--chapeau-font-size);
-		line-height: var(--chapeau-line-height);
+		font-size: var(--chapeau-font-size, 1rem);
+		line-height: var(--chapeau-line-height, var(--font-lineheight-root));
 		font-weight: bold;
-		color: var(--chapeau-color);
+		color: var(--chapeau-color, var(--color-accent-robijnrood));
 	}
 
 	.e-chapeau--highlight {

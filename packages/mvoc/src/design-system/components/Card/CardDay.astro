@@ -16,7 +16,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 ---
 
 <Card data-module="dynamic-day" data-locale={locale.locale}>
-	<Stack gap="small">
+	<Stack gap={4}>
 		{
 			title || day ? (
 				<Heading level={3} class="c-card-day__title">
@@ -83,7 +83,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 		flex-flow: row wrap;
 		align-items: center;
 		justify-content: space-between;
-		column-gap: var(--space-r-nano);
+		column-gap: var(--space-1);
 		color: var(--color-accent-robijnrood);
 	}
 
