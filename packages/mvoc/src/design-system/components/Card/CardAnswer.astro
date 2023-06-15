@@ -26,11 +26,11 @@ const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 <Card
 	variant={'canvas'}
 	class={`c-answers-card${
-		buttons?.length ? ' c-answers-card--has-buttons' : ''
+		!!buttons?.length ? ' c-answers-card--with-buttons' : ''
 	}`}
 >
-	<MediaBlock icon={image} class="c-advice-card__media-heading">
-		<Heading level={3} styledAs={2}>
+	<MediaBlock icon={image} class="c-advice-card__media">
+		<Heading class="c-advice-card__heading" level={3} styledAs={4}>
 			{title}
 		</Heading>
 	</MediaBlock>
@@ -67,31 +67,40 @@ const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 	 */
 	.c-answers-card {
 		--card-button-size: calc(
-			var(--space-r-small) * 2 + var(--font-lineheight-root) * 1rem
+			var(--space-4) * 2 + var(--font-lineheight-root) * 1rem
 		); /* [1] */
 		display: flex;
 		flex-direction: column;
-		gap: var(--stack-small);
+		gap: var(--space-4);
 	}
 
-	.c-advice-card__media-heading.c-advice-card__media-heading {
+	/**
+	 * 1. Align first line of heading with the icon
+	 */
+	.c-advice-card__media.c-advice-card__media {
 		--c-media-block-icon-alignment: flex-start;
-		--c-media-block-gap: var(--stack-milli);
+		--c-media-block-gap: var(--space-2);
+
+		&.c-media-block--has-icon {
+			.c-advice-card__heading {
+				margin-block-start: 0.25em; /* [1] */
+			}
+		}
 	}
 
 	.c-answers-card__wrap-buttons {
 		display: flex;
 		flex-direction: column;
-		gap: var(--space-r-small);
+		gap: var(--space-4);
 		margin-block-start: auto;
 		margin-block-end: calc(
 			(var(--card-button-size) / 2 + var(--card-padding)) * -1
 		);
 	}
 
-	// variants
-	.c-answers-card--has-buttons {
-		@media --mq-large-until {
+	// Variants
+	@media --mq-large-until {
+		.c-answers-card--with-buttons {
 			margin-block-end: calc(var(--card-button-size) / 2);
 		}
 	}

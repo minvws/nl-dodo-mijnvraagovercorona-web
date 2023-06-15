@@ -13,22 +13,32 @@ h6 {
 	color: var(--color-diepblauw);
 }
 
-h1 {
+h1,
+.as-h1 {
 	--heading-font-size: var(--font-size-alpha);
 	--heading-line-height: var(--line-height-alpha);
 }
 
-h2 {
+h2,
+.as-h2 {
 	--heading-font-size: var(--font-size-beta);
 	--heading-line-height: var(--line-height-beta);
 }
 
 h3,
-h4,
-h5,
-h6 {
+.as-h3 {
 	--heading-font-size: var(--font-size-gamma);
 	--heading-line-height: var(--line-height-gamma);
+}
+
+h4,
+.as-h4,
+h5,
+.as-h5,
+h6,
+.as-h6 {
+	--heading-font-size: var(--font-size-delta);
+	--heading-line-height: var(--line-height-delta);
 }
 
 small {

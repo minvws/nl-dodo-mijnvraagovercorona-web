@@ -37,7 +37,7 @@ const Component = as;
 <style lang="scss">
 	@use '@design-system-styles/primitives/_responsive.scss';
 	.c-layer {
-		--layer-padding: var(--stack-layer);
+		--layer-padding: var(--density-layer);
 		--layer-padding-block-start: var(--layer-padding);
 		--layer-padding-block-end: var(--layer-padding);
 		padding-block-start: var(--layer-padding-block-start);
@@ -53,11 +53,11 @@ const Component = as;
 	}
 
 	.c-layer--pull-up-by-layer {
-		--layer-pull-up: var(--stack-layer);
+		--layer-pull-up: var(--layer-padding);
 	}
 
 	.c-layer--pull-up-by-hero {
-		--layer-pull-up: var(--stack-hero);
+		--layer-pull-up: var(--density-hero);
 	}
 
 	.c-layer--zebra {

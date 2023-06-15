@@ -137,15 +137,15 @@ const filteredItems =
 
 <style lang="scss">
 	.c-cta-button-overview__grid {
-		--grid-fluid-min-item-size: 20rem; // 400px
-		--grid-fluid-gap: var(--stack-small);
-		--stack-gap: var(--stack-tiny);
+		--grid-fluid-min-item-size: var(--space-100);
+		--grid-fluid-gap: var(--space-4);
+		--stack-gap: var(--space-3);
 	}
 
 	.c-cta-button-overview__wrap-buttons {
 		display: flex;
 		flex-flow: row wrap;
-		gap: var(--stack-small);
+		gap: var(--space-4);
 
 		> * {
 			min-inline-size: auto;

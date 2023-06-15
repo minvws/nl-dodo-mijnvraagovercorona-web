@@ -21,6 +21,7 @@ const { taleCollection, asDisclosure } = Astro.props;
 					{taleCollection.map((tale) => (
 						<DisclosureItem
 							headingLevel={2}
+							headingStyledAs={4}
 							accordeon
 							label={tale.title}
 							id={stringToSlug(tale.title)}
@@ -34,7 +35,7 @@ const { taleCollection, asDisclosure } = Astro.props;
 				</Disclosure>
 			</Retain>
 		) : (
-			<Stack class="c-tale" gap="huge">
+			<Stack class="c-tale" gap={14}>
 				{taleCollection.map((tale) => (
 					<Tale {...tale} />
 				))}

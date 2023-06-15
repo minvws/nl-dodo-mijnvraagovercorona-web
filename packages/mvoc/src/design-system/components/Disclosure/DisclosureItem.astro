@@ -10,6 +10,7 @@ interface Props extends HTMLAttributes<'li'> {
 	label: string;
 	labelActive?: string;
 	headingLevel?: 1 | 2 | 3 | 4 | 5 | 6;
+	headingStyledAs?: 1 | 2 | 3 | 4 | 5 | 6;
 	accordeon?: boolean;
 	adviceBlock?: boolean;
 	image?: ImageProps;
@@ -22,11 +23,9 @@ const {
 	adviceBlock,
 	image,
 	headingLevel = 3,
+	headingStyledAs = 3,
 	...attrs
 } = Astro.props;
-
-// TODO fix any
-const HeadingElement = `h${headingLevel}` as any;
 ---
 
 <li
@@ -34,17 +33,20 @@ const HeadingElement = `h${headingLevel}` as any;
 	data-module-bind="disclosure__item"
 	{...attrs}
 >
-	<HeadingElement class="disclosure__heading" itemprop="name">
+	<Heading
+		level={headingLevel}
+		styledAs={headingStyledAs}
+		class="disclosure__heading"
+		itemprop="name"
+	>
 		{
 			accordeon ? (
 				<>
 					<Button
 						id="disclosure-header-1"
-						class={
-							adviceBlock
-								? 'advice-block__button disclosure__toggle--button'
-								: 'disclosure__toggle--button'
-						}
+						class={`disclosure__toggle--button${
+							adviceBlock ? ' advice-block__button' : ''
+						}`}
 						aria-expanded="false"
 						aria-controls="disclosure-panel-1"
 						data-module-bind="disclosure__toggle"
@@ -55,9 +57,7 @@ const HeadingElement = `h${headingLevel}` as any;
 					>
 						{adviceBlock ? (
 							<MediaBlock icon={image} class="c-advice-block__media-heading">
-								<Heading level={3} styledAs={3}>
-									{label}
-								</Heading>
+								{label}
 							</MediaBlock>
 						) : (
 							<span>{label}</span>
@@ -84,8 +84,7 @@ const HeadingElement = `h${headingLevel}` as any;
 				</button>
 			)
 		}
-	</HeadingElement>
-
+	</Heading>
 	<div
 		id="disclosure-panel-1"
 		role="region"
@@ -110,9 +109,6 @@ const HeadingElement = `h${headingLevel}` as any;
 	@use '@design-system-styles/tools/_a11y.scss';
 
 	.disclosure__heading {
-		--heading-font-size: var(--font-size-gamma);
-		--heading-line-height: var(--line-height-gamma);
-		font-weight: normal;
 	}
 	.disclosure__item,
 	.disclosure__toggle {
@@ -122,7 +118,7 @@ const HeadingElement = `h${headingLevel}` as any;
 	.disclosure__toggle {
 		display: flex;
 		align-items: center;
-		gap: var(--space-r-tiny);
+		gap: var(--space-3);
 		color: var(--color-accent-robijnrood);
 		cursor: pointer;
 
@@ -143,7 +139,7 @@ const HeadingElement = `h${headingLevel}` as any;
 
 	.disclosure__panel {
 		--disclosure__panel--spacing: calc(
-			var(--space-r-base) - var(--card-border-width)
+			var(--space-6) - var(--card-border-width)
 		);
 		padding: 0 var(--disclosure__panel--spacing)
 			var(--disclosure__panel--spacing);
@@ -151,7 +147,7 @@ const HeadingElement = `h${headingLevel}` as any;
 	}
 
 	.disclosure__panel-inner {
-		padding-block-start: var(--space-r-small);
+		padding-block-start: var(--space-4);
 	}
 
 	.disclosure__item.is-active {
@@ -168,10 +164,10 @@ const HeadingElement = `h${headingLevel}` as any;
 
 	.disclosure__item--accordeon {
 		& + & {
-			margin-block-start: var(--space-r-small);
+			margin-block-start: var(--space-4);
 		}
 		.disclosure__panel-inner {
-			padding-block: var(--space-r-large);
+			padding-block: var(--space-8);
 		}
 
 		.disclosure__panel-inner--no-padding {
@@ -185,8 +181,6 @@ const HeadingElement = `h${headingLevel}` as any;
 		}
 
 		.disclosure__toggle--button {
-			border-block-end-width: 2px;
-
 			&:hover {
 				--button-background-color: var(--color-poolblauw);
 			}
@@ -209,6 +203,8 @@ const HeadingElement = `h${headingLevel}` as any;
 
 		.advice-block__button {
 			--button-border-color: none;
+			--button-font-size: inherit;
+			--button-line-height: inherit;
 			&[aria-expanded='true'] {
 				--button-background-color: none;
 			}

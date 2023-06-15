@@ -26,12 +26,12 @@ const { multiContentBlocks } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
 ---
 
-<Stack class="c-multi-content-block" gap="small">
+<Stack class="c-multi-content-block" gap={4}>
 	{
 		multiContentBlocks.map((multiContentBlock) => (
 			<>
 				{isContent(multiContentBlock) ? (
-					<Stack class="c-multi-content-block__content" gap="small">
+					<Stack class="c-multi-content-block__content" gap={4}>
 						<ContentBlock value={multiContentBlock.content} />
 					</Stack>
 				) : isButton(multiContentBlock) ? (

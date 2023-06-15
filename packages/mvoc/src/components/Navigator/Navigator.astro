@@ -139,13 +139,13 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 	@use '@design-system-styles/primitives/_responsive.scss';
 
 	.c-navigator {
-		--navigator__padding: var(--space-r-small);
+		--navigator__padding: var(--space-4);
 		--navigator__padding-block: var(--navigator__padding);
 		--navigator__padding-inline: var(--navigator__padding);
 		--navigator__block-size: 100vh;
 		--navigator__block-size: 100svh;
 		--navigator__max-block-size: var(--navigator__block-size);
-		--navigator__popover-spacing: var(--stack-milli);
+		--navigator__popover-spacing: var(--space-2);
 		--navigator__popover-radii: var(--radii-milli);
 		--navigator__popover-elevation: var(--elevation-frost);
 		display: grid;
@@ -196,8 +196,8 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 	}
 
 	.c-navigator__detail {
-		--navigator__detail-padding-block: var(--stack-small);
-		--navigator__detail-padding-inline: var(--stack-small);
+		--navigator__detail-padding-block: var(--space-4);
+		--navigator__detail-padding-inline: var(--space-4);
 		position: relative;
 		box-shadow: var(--navigator__popover-elevation);
 		padding-block: var(--navigator__popover-spacing);
@@ -279,8 +279,8 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 
 	.c-navigator__map-close {
 		position: absolute;
-		inset-block-start: calc(var(--stack-small) + var(--navigator__map-spacing));
-		inset-inline-end: calc(var(--stack-small) + var(--navigator__map-spacing));
+		inset-block-start: calc(var(--space-4) + var(--navigator__map-spacing));
+		inset-inline-end: calc(var(--space-4) + var(--navigator__map-spacing));
 		z-index: 3;
 	}
 
@@ -305,7 +305,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 	@media --mq-large {
 		.c-navigator {
 			--navigator__template-columns: 480px 1fr;
-			--navigator__padding: var(--space-r-base);
+			--navigator__padding: var(--space-6);
 			--navigator__padding-block-start: var(--navigator__padding);
 			--navigator__max-block-size: calc(
 				var(--navigator__block-size) - var(--theme__masthead-block-size)

@@ -68,7 +68,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 						</span>
 					</p>
 				) : (
-					<Heading level={3} styledAs={2}>
+					<Heading level={3}>
 						<span class="c-assistance__show-chat-open">
 							{subTitle.chatOpen}
 						</span>
@@ -135,9 +135,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 						loading="lazy"
 						class={`c-assistance__img c-assistance__img-feedback`}
 					/>
-					<Heading level={3} styledAs={2}>
-						{situation.question}
-					</Heading>
+					<Heading level={3}>{situation.question}</Heading>
 					<Button
 						href={getFeedbackUrl(siteSettings.feedback.url, {
 							source: 'home',
@@ -155,9 +153,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 						loading="lazy"
 						class={`c-assistance__img c-assistance__img-feedback`}
 					/>
-					<Heading level={3} styledAs={2}>
-						{getHelp.title}
-					</Heading>
+					<Heading level={3}>{getHelp.title}</Heading>
 					<Button
 						href={prefixUrlWithlocale(
 							getFullPageUrl(getHelp.button.slugCollection),
@@ -212,8 +208,8 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 	}
 
 	.c-assistance__grid {
-		--grid-fluid-min-item-size: 20rem; // 400px
-		--grid-fluid-gap: var(--stack-humongous);
+		--grid-fluid-min-item-size: var(--space-100);
+		--grid-fluid-gap: var(--space-14);
 		align-items: center;
 	}
 
@@ -222,7 +218,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 
 	.c-assistance__img-contact {
 		display: block;
-		inline-size: 12rem; // 240px
+		inline-size: var(--space-60);
 	}
 
 	.c-assistance__img-feedback {

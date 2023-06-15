@@ -26,7 +26,7 @@ const { title, icon, class: className, ...attrs } = Astro.props;
 			/>
 		) : null
 	}
-	<Stack gap="small">
+	<Stack gap={4}>
 		<Heading styledAs={1}>{title}</Heading>
 		<slot />
 	</Stack>
@@ -36,13 +36,13 @@ const { title, icon, class: className, ...attrs } = Astro.props;
 	@use '@design-system-styles/primitives/_responsive.scss';
 
 	.c-section-heading-group {
-		--section-heading-group-icon-size: var(--space-r-large);
+		--section-heading-group-icon-size: var(--space-8);
 		display: flex;
 		align-items: start;
-		gap: var(--stack-base);
+		gap: var(--space-6);
 
 		@media --mq-large {
-			--section-heading-group-icon-size: var(--space-r-huge);
+			--section-heading-group-icon-size: var(--space-14);
 		}
 	}
 

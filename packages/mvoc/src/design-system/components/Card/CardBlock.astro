@@ -23,7 +23,7 @@ const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 ---
 
 <Card>
-	<Stack gap="small">
+	<Stack gap={4}>
 		<hgroup class="c-card-block__hgroup">
 			<Heading level={3} styledAs={2}>{title}</Heading>
 			{chapeau && <Chapeau role="presentation">{chapeau}</Chapeau>}
@@ -60,12 +60,12 @@ const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 	.c-card-block__hgroup {
 		display: flex;
 		flex-direction: column-reverse;
-		gap: var(--space-r-milli);
+		gap: var(--space-2);
 	}
 
 	.c-card-block__wrap-buttons {
 		display: flex;
 		flex-direction: column;
-		gap: var(--space-r-small);
+		gap: var(--space-4);
 	}
 </style>

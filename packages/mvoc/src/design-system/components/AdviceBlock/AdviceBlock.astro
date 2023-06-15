@@ -38,7 +38,7 @@ const {
 ---
 
 <Card variant="filled" class="c-advice-block">
-	<Stack gap="small">
+	<Stack gap={4}>
 		<Disclosure>
 			<DisclosureItem
 				headingLevel={3}
@@ -51,7 +51,7 @@ const {
 				itemtype="https://schema.org/Question"
 				image={image}
 			>
-				<Stack gap="large">
+				<Stack gap={8}>
 					<ContentBlock value={content} />
 					{
 						items.map((item) => (
@@ -88,11 +88,11 @@ const {
 	 * 1. override specificity by 0,1,0 to battle Astro loading
 	 */
 	.c-advice-block.c-advice-block {
-		border-radius: var(--space-r-nano);
-		--card-border-width: var(--space-r-nano);
+		--card-border-width: var(--space-1);
 		--card-border-color: var(--color-accent-grasgroen);
+		border-radius: var(--space-1);
 		padding: 0;
-		border-radius: var(--space-r-nano);
+		border-radius: var(--space-1);
 		border-block-start: 0;
 		border-block-end: 0;
 		border-inline-end: 0;
@@ -105,14 +105,14 @@ const {
 	.c-advice-block__media-heading {
 		& {
 			@media --mq-large {
-				--c-media-block-icon-size: var(--space-r-huge);
+				--c-media-block-icon-size: var(--space-14);
 			}
 		}
 	}
 
 	.c-advice-block__media-item {
 		@media --mq-large {
-			margin-inline-start: var(--space-r-tiny);
+			margin-inline-start: var(--space-3);
 		}
 	}
 </style>
@@ -127,10 +127,6 @@ const {
 
 	const disclosureToggles = [
 		...document.querySelectorAll('.advice-block__button'),
-	];
-
-	const disclosureHeaders = [
-		...document.querySelectorAll('.c-advice-block__media-heading h3'),
 	];
 
 	const disclosureInnerPanels = [
@@ -155,16 +151,10 @@ const {
 			disclosureItems.forEach((item) => {
 				item.classList.add('is-active');
 			});
-			disclosureHeaders.forEach((item) => {
-				item.classList.replace('as-h3', 'as-h2');
-			});
 		} else {
 			disclosureToggles.forEach(unsetToggleTabIndex);
 			disclosureItems.forEach((item) => {
 				item.classList.remove('is-active');
-			});
-			disclosureHeaders.forEach((item) => {
-				item.classList.replace('as-h2', 'as-h3');
 			});
 		}
 	};

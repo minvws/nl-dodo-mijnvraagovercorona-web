@@ -41,6 +41,7 @@ const {
 </section>
 
 <style lang="scss">
+	@use '@design-system-styles/tools/_rem.scss';
 	@use '@design-system-styles/tools/_list.scss';
 
 	.c-tale {
@@ -54,7 +55,7 @@ const {
 	.c-tale__picture {
 		:global(img) {
 			inline-size: 100%;
-			max-inline-size: 14rem; // 280px
+			max-inline-size: #{rem.convert(280px)};
 			margin-inline: auto;
 		}
 	}

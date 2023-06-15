@@ -3,29 +3,26 @@
 		Spacing variables used for padding, margin etc.
 / =========================================================================== */
 
+@use '../tools/rem';
+@use '../settings';
+
+/* --------------------------------------------------------------------------
+Custom properties
+/  -------------------------------------------------------------------------- */
+
 :where(html) {
-	// Static spacing
-	--space-s-nano: 4px;
-	--space-s-milli: 8px;
-	--space-s-tiny: 12px;
-	--space-s-small: 16px;
-	--space-s-base: 24px;
-	--space-s-large: 32px;
-	--space-s-giant: 40px;
-	--space-s-huge: 52px;
-	--space-s-humongous: 64px;
+	@each $name, $value in settings.$spacings {
+		--space-#{$name}: #{rem.convert($value * settings.$baseline)};
+	}
 
-	// Relative spacing
-	--space-r-nano: 0.2rem; // 4px
-	--space-r-milli: 0.4rem; // 8px
-	--space-r-tiny: 0.6rem; // 12px
-	--space-r-small: 0.8rem; // 16px
-	--space-r-base: 1.2rem; // 24px
-	--space-r-large: 1.6rem; // 32px
-	--space-r-giant: 2rem; // 40px
-	--space-r-huge: 2.6rem; // 52px
-	--space-r-humongous: 3.2rem; // 64px
+	// One offs
+	--space-40: #{rem.convert(40 * settings.$baseline)}; // 160px
+	--space-56: #{rem.convert(56 * settings.$baseline)}; // 224px
+	--space-60: #{rem.convert(60 * settings.$baseline)}; // 240px
+	--space-68: #{rem.convert(68 * settings.$baseline)}; // 272px
+	--space-75: #{rem.convert(75 * settings.$baseline)}; // 300px
+	--space-90: #{rem.convert(90 * settings.$baseline)}; // 360px
+	--space-100: #{rem.convert(100 * settings.$baseline)}; // 400px
 
-	// One-offs
-	--space-r-menu-button: 2.4rem; // 48px
+	--space-menu-button: var(--space-10);
 }

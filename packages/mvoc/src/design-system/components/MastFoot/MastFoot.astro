@@ -41,7 +41,7 @@ const siteSettingsTranslated: SiteSettingsProps = await useSiteSettings({
 			<GridFluid class="c-mastfoot__grid">
 				{
 					siteSettingsTranslated.mastfoot.columns.map((column) => (
-						<Stack gap="small">
+						<Stack gap={4}>
 							<Heading level={3}>{column.title}</Heading>
 							{column.content ? <ContentBlock value={column.content} /> : null}
 							{column.internalPageCollection ? (
@@ -65,6 +65,7 @@ const siteSettingsTranslated: SiteSettingsProps = await useSiteSettings({
 </footer>
 
 <style lang="scss">
+	@use '@design-system-styles/tools/_rem.scss';
 	@use '@design-system-styles/primitives/_responsive.scss';
 
 	.c-mastfoot {
@@ -83,20 +84,19 @@ const siteSettingsTranslated: SiteSettingsProps = await useSiteSettings({
 	}
 
 	.c-mastfoot__layer {
-		--layer-padding-block-start: var(--stack-giant);
+		--layer-padding-block-start: var(--space-10);
 
 		@media --mq-large {
-			--layer-padding-block-start: var(--stack-huge);
+			--layer-padding-block-start: var(--space-8);
 		}
 	}
 
 	.c-mastfoot__grid {
-		// --grid-fluid-min-item-size: 15.1rem; // 302px - 3 kolommen
-		--grid-fluid-min-item-size: 18rem; // 360px - 2 kolommen
-		--grid-fluid-gap: var(--stack-giant);
+		--grid-fluid-min-item-size: var(--space-100);
+		--grid-fluid-gap: var(--space-10);
 
 		@media --mq-large {
-			--grid-fluid-gap: var(--stack-humongous);
+			--grid-fluid-gap: var(--space-14);
 		}
 	}
 
@@ -115,7 +115,7 @@ const siteSettingsTranslated: SiteSettingsProps = await useSiteSettings({
 		grid-column-start: 2;
 		justify-self: start;
 		inline-size: 100%;
-		max-inline-size: 9.65rem; // 193px
+		max-inline-size: #{rem.convert(193px)};
 		transform: translateX(
 			calc(var(--logo-banner-percentage) / 2 * -1)
 		); /* [1] */
@@ -134,26 +134,26 @@ const siteSettingsTranslated: SiteSettingsProps = await useSiteSettings({
 
 	// Locale selector
 	.c-mastfoot__layer-locale {
-		--layer-padding: var(--stack-large);
+		--layer-padding: var(--space-8);
 		background-color: var(--color-white);
 	}
 
 	.c-mastfoot__locale-selector {
 		:global(> * + *) {
-			margin-block-start: var(--stack-base);
+			margin-block-start: var(--space-6);
 		}
 
 		:global(ul) {
 			display: flex;
 			flex-flow: row wrap;
-			gap: var(--stack-small);
+			gap: var(--space-4);
 
 			:global(a) {
 				--link-color: var(--color-diepblauw);
 				--link-text-decoration: none;
 				display: block;
-				padding-block: 0.5rem;
-				padding-inline: 1rem;
+				padding-block: 0.5em;
+				padding-inline: 1em;
 				border: 1px solid var(--color-donkerblauw);
 				font-weight: bold;
 

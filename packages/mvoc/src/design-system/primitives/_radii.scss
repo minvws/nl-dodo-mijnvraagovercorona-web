@@ -6,15 +6,15 @@
 @use './responsive';
 
 :where(html) {
-	--radii-nano: var(--space-r-nano);
-	--radii-milli: var(--space-r-milli);
-	--radii-tiny: var(--space-r-tiny);
-	--radii-small: var(--space-r-small);
-	--radii-base: var(--space-r-base);
-	--radii-large: var(--space-r-large);
-	--radii-huge: var(--space-r-small);
+	--radii-nano: var(--space-1);
+	--radii-milli: var(--space-2);
+	--radii-tiny: var(--space-3);
+	--radii-small: var(--space-4);
+	--radii-base: var(--space-6);
+	--radii-large: var(--space-8);
+	--radii-huge: var(--space-4);
 
 	@media --mq-large {
-		--radii-huge: var(--space-r-large);
+		--radii-huge: var(--space-8);
 	}
 }

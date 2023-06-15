@@ -97,7 +97,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 	.c-input-text__input {
 		inline-size: 100%;
 		appearance: none;
-		padding: calc(var(--stack-small) - 1px);
+		padding: calc(var(--space-4) - 1px);
 		border-radius: var(--radii-nano);
 		border: 1px solid var(--color-grijs-4);
 		background-color: var(--color-white);
@@ -117,11 +117,11 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 	}
 
 	.c-input-text__input--has-icon {
-		padding-inline-start: calc(var(--stack-small) * 2 + var(--space-r-base));
+		padding-inline-start: calc(var(--space-4) * 2 + var(--space-6));
 	}
 
 	.c-input-text__input--is-clearable:not(:placeholder-shown) {
-		padding-inline-end: calc(var(--stack-small) * 2 + var(--space-r-base));
+		padding-inline-end: calc(var(--space-4) * 2 + var(--space-6));
 	}
 
 	.c-input-text__icon,
@@ -133,11 +133,11 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 
 	.c-input-text__icon {
 		pointer-events: none;
-		inset-inline-start: var(--stack-small);
+		inset-inline-start: var(--space-4);
 	}
 
 	.c-input-text__button-clear {
-		inset-inline-end: var(--stack-small);
+		inset-inline-end: var(--space-4);
 		cursor: pointer;
 		color: currentColor;
 

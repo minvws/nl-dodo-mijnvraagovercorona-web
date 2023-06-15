@@ -52,7 +52,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		</fieldset>
 
 		<fieldset>
-			<Stack gap="milli">
+			<Stack gap={2}>
 				<legend>{siteSettings.forms.filterOn}</legend>
 				<div class="c-filter__wrap-controls">
 					<Control type="checkbox" name="filter" value="series-b" id="series-b">
@@ -89,7 +89,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 
 	.c-filter__wrap-search {
 		display: flex;
-		gap: var(--stack-small);
+		gap: var(--space-4);
 
 		:global(.c-field-wrapper) {
 			flex: auto;
@@ -99,7 +99,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 	.c-filter__wrap-controls {
 		display: flex;
 		flex-wrap: wrap;
-		gap: var(--stack-small);
+		gap: var(--space-4);
 	}
 
 	.c-filter__map-toggle {
@@ -112,7 +112,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		> span:not([hidden]) {
 			display: flex;
 			align-items: center;
-			gap: var(--stack-milli);
+			gap: var(--space-2);
 		}
 
 		@media --mq-large {

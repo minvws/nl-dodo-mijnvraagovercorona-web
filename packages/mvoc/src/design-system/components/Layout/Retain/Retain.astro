@@ -26,27 +26,29 @@ const Component = as;
 
 <style lang="scss">
 	@use '@design-system-styles/primitives/_responsive.scss';
+	@use '@design-system-styles/tools/_rem.scss';
+
 	.c-retain {
-		--retain-size: 34.8rem; // 696px
-		--retain-padding: var(--space-r-small);
+		--retain-size: #{rem.convert(696px)};
+		--retain-padding: var(--space-4);
 		max-inline-size: var(--retain-size);
 		padding-inline: var(--retain-padding);
 		margin-inline: auto;
 
 		@media --mq-large {
-			--retain-size: 63.2rem; // 1264px
-			--retain-padding: var(--space-r-large);
+			--retain-size: #{rem.convert(1264px)};
+			--retain-padding: var(--space-8);
 		}
 	}
 
 	.c-retain--text {
 		--retain-padding: 0px;
-		--retain-size: 33.25rem; // 665px
+		--retain-size: #{rem.convert(665px)};
 		margin-inline-start: 0;
 
 		@media --mq-large {
 			--retain-padding: 0px;
-			--retain-size: 33.25rem; // 665px
+			--retain-size: #{rem.convert(665px)};
 		}
 	}
 </style>

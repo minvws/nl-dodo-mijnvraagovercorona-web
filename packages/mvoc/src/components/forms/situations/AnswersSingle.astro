@@ -42,7 +42,7 @@ const parsedButtons = buttons?.map((button, index) =>
 		{content ? <DuoColumnContent content={content} /> : null}
 		<fieldset>
 			{label ? <legend class="u-visually-hidden">{label}</legend> : null}
-			<Stack gap="small">
+			<Stack gap={4}>
 				{
 					answers.map(({ content, next, _key }) => (
 						<Control

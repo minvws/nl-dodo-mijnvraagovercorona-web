@@ -2,20 +2,10 @@
 		utilities.stack
 / =========================================================================== */
 
-$spacings: (
-	'nano',
-	'milli',
-	'tiny',
-	'small',
-	'base',
-	'large',
-	'giant',
-	'huge',
-	'humongous'
-);
+@use '../settings';
 
-@each $space in $spacings {
-	.u-stack--#{$space} {
-		--stack: var(--stack-#{$space});
+@each $name, $value in settings.$spacings {
+	.u-stack--#{$name} {
+		--stack: var(--space-#{$name});
 	}
 }

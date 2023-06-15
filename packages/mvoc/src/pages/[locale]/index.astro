@@ -119,7 +119,7 @@ const filterThemes = pageData.themes.filter(
 				id={stringToSlug(pageData.important.title)}
 			>
 				<Retain>
-					<Stack gap="huge">
+					<Stack gap={8}>
 						<SectionHeadingGroup
 							title={pageData.important.title}
 							icon={pageData.important.icon}
@@ -143,7 +143,7 @@ const filterThemes = pageData.themes.filter(
 
 	<Layer id={stringToSlug(pageData.currentAdvice.title)} background="zebra">
 		<Retain>
-			<Stack gap="huge">
+			<Stack gap={8}>
 				<SectionHeadingGroup title={pageData.currentAdvice.title}>
 					<ContentBlock value={pageData.currentAdvice.content} />
 				</SectionHeadingGroup>
@@ -192,8 +192,8 @@ const filterThemes = pageData.themes.filter(
 
 <style lang="scss">
 	.grid-advice {
-		--grid-fluid-min-item-size: 20rem; // 400px
-		--grid-fluid-gap: var(--stack-small);
+		--grid-fluid-min-item-size: var(--space-100);
+		--grid-fluid-gap: var(--stack-4);
 
 		align-items: start;
 	}

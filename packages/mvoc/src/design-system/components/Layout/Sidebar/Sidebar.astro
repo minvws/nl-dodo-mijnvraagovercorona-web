@@ -16,9 +16,11 @@ const { class: className, ...attrs } = Astro.props;
 </div>
 
 <style lang="scss">
+	@use '@design-system-styles/tools/_rem.scss';
+
 	.c-sidebar {
-		--sidebar-gap: var(--stack-large);
-		--sidebar-side-inline-size: 17.1rem; // 342
+		--sidebar-gap: var(--space-8);
+		--sidebar-side-inline-size: #{rem.convert(342px)};
 		--sidebar-body-minimum-inline-size: 50%;
 		display: flex;
 		flex-wrap: wrap;

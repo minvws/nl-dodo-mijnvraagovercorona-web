@@ -4,6 +4,9 @@
     Modern CSS Reset(https://piccalil.li/blog/a-modern-css-reset/).
 / =========================================================================== */
 
+@use 'sass:math';
+@use '../settings';
+
 /**
  * Set the global `box-sizing` state to `border-box`. As per:
  * paulirish.com/2012/box-sizing-border-box-ftw
@@ -37,9 +40,9 @@
 	block-size: 100%;
 	scroll-behavior: smooth; /* [1] */
 	font-family: var(--font-family);
-	font-size: var(--font-size-root, 1em); /* [2] */
-	line-height: var(--font-lineheight-root, 1.5); /* [2] */
-	text-size-adjust: none; /* [3] */
+	font-size: #{math.div(settings.$font-size, 16px) * 1em}; /* [4] */
+	line-height: #{settings.$line-height-ratio}; /* [4] */
+	text-size-adjust: none; /* [4] */
 	text-rendering: optimizespeed;
 	-webkit-font-smoothing: antialiased;
 }
