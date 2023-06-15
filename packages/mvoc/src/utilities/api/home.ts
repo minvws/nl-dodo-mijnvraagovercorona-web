@@ -18,6 +18,7 @@ import {
 	CtaButtonProps,
 	CardsProps,
 	cardQuery,
+	CtaButtonCollectionProps,
 } from './queries';
 import { getAdditionalPageData } from '../helpers/getAdditionalPageData';
 
@@ -32,7 +33,7 @@ export interface PageHomeProps extends PageProps {
 		content: ContentBlockProps['value'];
 		icon: ImageProps;
 		filter?: boolean;
-		ctaButtonCollection: CtaButtonProps[];
+		ctaButtonCollection: CtaButtonCollectionProps['ctaButtonCollection'];
 	};
 	slug: string;
 	currentAdvice: {
