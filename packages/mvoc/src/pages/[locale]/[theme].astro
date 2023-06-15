@@ -4,18 +4,18 @@ import { availableLocales, Locale } from 'src/utilities/locale/translation';
 import Layout from '@layouts/Layout.astro';
 import { Hero } from '@design-system/components/Hero';
 import { getDataThemes, ThemePageProps } from 'src/utilities/api/theme';
-import { UpdatedAt } from '@design-system/elements/UpdatedAt';
 import { ContentBlock } from '@design-system/components/ContentBlock';
 import { Layer } from '@design-system/components/Layout/Layer';
 import { Retain } from '@design-system/components/Layout/Retain';
 import { Heading } from '@design-system/elements/Heading';
 import { Stack } from '@design-system/components/Layout/Stack';
 import { Assistance } from '@design-system/components/Assistance';
-import { Tale, TaleList } from '@design-system/components/Tale';
+import { TaleList } from '@design-system/components/Tale';
 import { CTAButtonOverview } from '@modules/CTAButtonOverview';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { CardAnswerOverview } from '@modules/CardAnswerOverview';
 import { Breadcrumbs } from '@design-system/components/Breadrumbs';
+import { getFiltersAndSituations } from 'src/utilities/api/queries';
 
 export async function getStaticPaths() {
 	const collection = await getDataThemes();
@@ -46,53 +46,9 @@ interface Props {
 
 const { pageData, locale } = Astro.props;
 
-const filters = [];
-const ctaButtons = [];
-
-// Separate the categories from the ctaButtons
-if (pageData.ctaButtonCollection) {
-	pageData.ctaButtonCollection.forEach((item) => {
-		if (item._type === 'category') {
-			const categorySlug = stringToSlug(item.title);
-			// add category to filters array
-			filters.push({ label: item.title, id: categorySlug });
-
-			// loop over connected ctaButtons to add them to our ctabuttons array and
-			item.ctaButtonCollection.forEach((button) => {
-				// check if button is already present in our ctaButton array and store the index
-				const foundButtonIndex = ctaButtons.findIndex(
-					(ctaButton) => ctaButton._id === button._id,
-				);
-
-				if (foundButtonIndex < 0) {
-					// add item to ctaButtons with category
-					if (
-						button.categories.findIndex((cat) => cat.slug === categorySlug) ===
-						-1
-					) {
-						button.categories.push({
-							slug: categorySlug,
-						});
-					}
-					ctaButtons.push(button);
-				} else {
-					// button is found, only update categories
-					if (
-						ctaButtons[foundButtonIndex].categories.findIndex(
-							(cat) => cat.slug === categorySlug,
-						) === -1
-					) {
-						ctaButtons[foundButtonIndex].categories.push({
-							slug: categorySlug,
-						});
-					}
-				}
-			});
-		} else if (item._type === 'cta-button-document') {
-			ctaButtons.push(item);
-		}
-	});
-}
+const { filters, ctaButtons } = getFiltersAndSituations({
+	ctaButtonCollection: pageData.ctaButtonCollection,
+});
 ---
 
 <Layout

@@ -74,7 +74,7 @@ export default defineType({
 				defineField({
 					title: 'Vraag startpunten',
 					name: 'ctaButtonCollection',
-					type: 'ctaButtonSelector',
+					type: 'ctaButtonSelectorWithCategories',
 				}),
 			],
 		}),

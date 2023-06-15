@@ -21,6 +21,7 @@ import { TaleList } from '@design-system/components/Tale';
 import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
 import { CTAButtonOverview } from '@modules/CTAButtonOverview';
 import { CardAnswerOverview } from '@modules/CardAnswerOverview';
+import { getFiltersAndSituations } from 'src/utilities/api/queries/ctaButton';
 
 export async function getStaticPaths() {
 	const collection = await getDataHome();
@@ -58,9 +59,9 @@ const pageData: PageHomeProps = pagesData.filter(
 	(page) => page.localeID === locale.id,
 )[0];
 
-const filterThemes = pageData.themes.filter(
-	(theme) => theme.localeID === locale.id,
-);
+const { filters, ctaButtons } = getFiltersAndSituations({
+	ctaButtonCollection: pageData.important.ctaButtonCollection,
+});
 ---
 
 <Layout
@@ -110,9 +111,7 @@ const filterThemes = pageData.themes.filter(
 	}
 
 	{
-		pageData?.important?.title &&
-		pageData?.important?.ctaButtonCollection?.filter((item) => item.label)
-			.length ? (
+		pageData?.important?.title ? (
 			<Layer
 				pullUpBy={pageData?.cards?.items ? undefined : 'hero'}
 				background="zebra"
@@ -128,11 +127,8 @@ const filterThemes = pageData.themes.filter(
 						</SectionHeadingGroup>
 						<CTAButtonOverview
 							name="homepage"
-							categories={filterThemes.map((theme) => ({
-								label: theme.overview.title,
-								id: theme.slug,
-							}))}
-							items={pageData.important.ctaButtonCollection}
+							categories={filters}
+							items={ctaButtons}
 							enableFilter={pageData.important.filter}
 						/>
 					</Stack>
