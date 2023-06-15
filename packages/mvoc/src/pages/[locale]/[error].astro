@@ -21,6 +21,8 @@ import { stringToSlug } from 'src/utilities/stringToSlug';
 import { GridFluid } from '@design-system/components/Layout/Grid';
 import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
 import { Breadcrumbs } from '@design-system/components/Breadrumbs';
+import { getFiltersAndSituations } from 'src/utilities/api/queries';
+import { CTAButtonOverview } from '@modules/CTAButtonOverview';
 
 export async function getStaticPaths() {
 	const collection = await getDataErrorPages();
@@ -54,6 +56,10 @@ const homeCollection = await getDataHome();
 const homePageData = homeCollection.filter(
 	(page: PageHomeProps) => page.localeID === locale.id,
 )[0] as PageHomeProps;
+
+const { filters, ctaButtons } = getFiltersAndSituations({
+	ctaButtonCollection: homePageData.important.ctaButtonCollection,
+});
 ---
 
 <Layout
@@ -87,24 +93,12 @@ const homePageData = homeCollection.filter(
 						<div>
 							<Stack gap={4}>
 								<ContentBlock value={pageData.content} />
-								<GridFluid class="grid-important">
-									{homePageData.important.ctaButtonCollection
-										?.filter((item) => item.label)
-										.filter((item) => !item.slugCollection.slug.startsWith('#'))
-										.map((item) => (
-											<Button
-												variant="tertiary"
-												href={prefixUrlWithlocale(
-													getFullPageUrl(item.slugCollection),
-													locale,
-												)}
-												icon="chevron-small-right"
-												interactionIconAnimation="swing"
-											>
-												<ContentBlock value={item.label} />
-											</Button>
-										))}
-								</GridFluid>
+								<CTAButtonOverview
+									name="homepage"
+									categories={filters}
+									items={ctaButtons}
+									enableFilter={true}
+								/>
 							</Stack>
 						</div>
 						<p>
