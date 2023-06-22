@@ -200,7 +200,25 @@ const filteredItems =
 		const checkItem = (value) =>
 			!!activeFilters.some((filter) => value.includes(filter));
 
-		const filterItems = () => {
+		const filterItems = ({ id }: { id?: string }) => {
+			if (id) {
+				if (activeFilters.includes(id)) {
+					// remove active item if exists
+					activeFilters.splice(activeFilters.indexOf(id), 1);
+				} else {
+					// Remove all items
+					// (remove this line when we want multiple filters active)
+					activeFilters.splice(0, activeFilters.length);
+					// Add active item
+					activeFilters.push(id);
+				}
+			}
+
+			// if there are no filters left, add 'all'
+			if (activeFilters.length === 0) {
+				activeFilters.push('all');
+			}
+
 			items.forEach((item) => {
 				item.classList.toggle(
 					'is-hidden',
@@ -234,14 +252,11 @@ const filteredItems =
 				const id = toggle.dataset.id;
 				// Track click
 				trackEvent('Filter', name, id);
-				// Add filter id to activeFilters array
-				activeFilters.splice(0, activeFilters.length);
-				activeFilters.push(id);
 
-				filterItems();
+				filterItems({ id });
 			});
 		});
 
-		filterItems();
+		filterItems({});
 	}
 </script>
