@@ -1,13 +1,11 @@
 ---
 import { Button } from '@design-system/elements/Button';
 import { ImageProps } from 'src/utilities/api/queries';
-import {
-	getLocaleFromURL,
-	prefixUrlWithlocale,
-} from 'src/utilities/locale/translation';
+import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import { ContentBlock, ContentBlockProps } from '.';
 import { Stack } from '../Layout/Stack';
 import { Video } from '../Video';
+import { parseLink } from 'src/utilities/helpers/link';
 
 export interface Situation {
 	path: string;
@@ -62,10 +60,7 @@ const locale = getLocaleFromURL(Astro.url.pathname);
 					/>
 				) : contentBlock.situation?.path ? (
 					<Button
-						href={prefixUrlWithlocale(
-							`/${contentBlock.situation.path}`,
-							locale,
-						)}
+						href={parseLink(`/${contentBlock.situation.path}`, locale)}
 						variant={
 							contentBlock.situation.variant === 'button'
 								? 'primary'
