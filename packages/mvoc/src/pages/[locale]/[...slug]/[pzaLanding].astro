@@ -1,10 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
-import {
-	availableLocales,
-	Locale,
-	prefixUrlWithlocale,
-} from 'src/utilities/locale/translation';
+import { availableLocales, Locale } from 'src/utilities/locale/translation';
 import { PZALandingPageProps, getDataPZALandingPages } from 'src/utilities/api';
 import { Hero } from '@design-system/components/Hero';
 import { ContentBlock } from '@design-system/components/ContentBlock';
@@ -24,6 +20,7 @@ import { Feedback } from '@design-system/components/Feedback';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
 import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
 import { Breadcrumbs } from '@design-system/components/Breadrumbs';
+import { parseLink } from 'src/utilities/helpers/link';
 
 export async function getStaticPaths() {
 	const collection = await getDataPZALandingPages();
@@ -88,7 +85,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 							<li>
 								<Button
 									variant={button.variant}
-									href={prefixUrlWithlocale(
+									href={parseLink(
 										getFullPageUrl(button.slugCollection),
 										locale,
 									)}

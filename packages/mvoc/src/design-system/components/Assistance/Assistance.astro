@@ -5,14 +5,12 @@ import { Link } from '@design-system/elements/Link';
 import { HTMLAttributes } from 'astro/types';
 import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
 import { AssistanceProps } from 'src/utilities/api/queries/assistance';
-import {
-	getLocaleFromURL,
-	prefixUrlWithlocale,
-} from 'src/utilities/locale/translation';
+import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
 import GridFluid from '../Layout/Grid/GridFluid.astro';
 import { Stack } from '../Layout/Stack';
 import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
+import { parseLink } from 'src/utilities/helpers/link';
 
 interface Props extends HTMLAttributes<'div'>, AssistanceProps {
 	feedback?: boolean;
@@ -155,7 +153,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 					/>
 					<Heading level={3}>{getHelp.title}</Heading>
 					<Button
-						href={prefixUrlWithlocale(
+						href={parseLink(
 							getFullPageUrl(getHelp.button.slugCollection),
 							locale,
 						)}

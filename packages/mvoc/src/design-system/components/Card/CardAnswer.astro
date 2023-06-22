@@ -1,16 +1,12 @@
 ---
 import { Heading } from '@design-system/elements/Heading';
 import { Button } from '@design-system/elements/Button';
-import { Stack } from '@design-system/components/Layout/Stack';
 import { ButtonsProps, ImageProps } from 'src/utilities/api/queries';
-import {
-	Locale,
-	getLocaleFromURL,
-	prefixUrlWithlocale,
-} from 'src/utilities/locale/translation';
+import { Locale, getLocaleFromURL } from 'src/utilities/locale/translation';
 import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
 import { MediaBlock } from '@design-system/components/MediaBlock';
 import Card from '../Card/Card.astro';
+import { parseLink } from 'src/utilities/helpers/link';
 
 interface Props {
 	title: string;
@@ -44,10 +40,7 @@ const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 					<li>
 						<Button
 							variant={button.variant}
-							href={prefixUrlWithlocale(
-								getFullPageUrl(button.slugCollection),
-								locale,
-							)}
+							href={parseLink(getFullPageUrl(button.slugCollection), locale)}
 							icon={button.icon}
 						>
 							{button.label}

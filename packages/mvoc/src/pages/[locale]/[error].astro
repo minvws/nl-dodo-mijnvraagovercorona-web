@@ -1,10 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import {
-	availableLocales,
-	Locale,
-	prefixUrlWithlocale,
-} from 'src/utilities/locale/translation';
+import { availableLocales, Locale } from 'src/utilities/locale/translation';
 import {
 	ErrorPageProps,
 	getDataErrorPages,
@@ -18,11 +14,10 @@ import { Layer } from '@design-system/components/Layout/Layer';
 import { Stack } from '@design-system/components/Layout/Stack';
 import { Button } from '@design-system/elements/Button';
 import { stringToSlug } from 'src/utilities/stringToSlug';
-import { GridFluid } from '@design-system/components/Layout/Grid';
-import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
 import { Breadcrumbs } from '@design-system/components/Breadrumbs';
 import { getFiltersAndSituations } from 'src/utilities/api/queries';
 import { CTAButtonOverview } from '@modules/CTAButtonOverview';
+import { parseLink } from 'src/utilities/helpers/link';
 
 export async function getStaticPaths() {
 	const collection = await getDataErrorPages();
@@ -86,7 +81,7 @@ const { filters, ctaButtons } = getFiltersAndSituations({
 						<Button
 							iconPosition="leading"
 							icon={pageData.button.icon}
-							href={prefixUrlWithlocale(`/`, locale)}
+							href={parseLink(`/`, locale)}
 						>
 							{pageData.button.label}
 						</Button>

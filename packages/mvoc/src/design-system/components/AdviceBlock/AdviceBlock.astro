@@ -1,5 +1,5 @@
 ---
-import { prefixUrlWithlocale, Locale } from 'src/utilities/locale/translation';
+import { Locale } from 'src/utilities/locale/translation';
 import { HTMLAttributes } from 'astro/types';
 import { Card } from '@design-system/components/Card';
 import { MediaBlock } from '@design-system/components/MediaBlock';
@@ -13,6 +13,7 @@ import { ButtonProps } from 'src/utilities/api/queries/buttons';
 import { ImageProps } from 'src/utilities/api/queries';
 import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
 import { Disclosure, DisclosureItem } from '../Disclosure';
+import { parseLink } from 'src/utilities/helpers/link';
 
 interface Props extends HTMLAttributes<'div'> {
 	title: string;
@@ -64,10 +65,7 @@ const {
 						button?.label ? (
 							<Button
 								variant={button.variant}
-								href={prefixUrlWithlocale(
-									getFullPageUrl(button.slugCollection),
-									locale,
-								)}
+								href={parseLink(getFullPageUrl(button.slugCollection), locale)}
 								icon={button.icon}
 								interactionIconAnimation="swing"
 							>

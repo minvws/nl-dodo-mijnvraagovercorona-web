@@ -9,11 +9,9 @@ import {
 	SiteSettingsProps,
 	useSiteSettings,
 } from 'src/utilities/api/queries';
+import { parseLink } from 'src/utilities/helpers/link';
 import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
-import {
-	getLocaleFromURL,
-	prefixUrlWithlocale,
-} from 'src/utilities/locale/translation';
+import { getLocaleFromURL } from 'src/utilities/locale/translation';
 
 interface Props extends HTMLAttributes<'div'> {
 	name: string;
@@ -117,10 +115,7 @@ const filteredItems =
 							>
 								<Button
 									variant="tertiary"
-									href={prefixUrlWithlocale(
-										getFullPageUrl(item.slugCollection),
-										locale,
-									)}
+									href={parseLink(getFullPageUrl(item.slugCollection), locale)}
 									icon="chevron-small-right"
 									interactionIconAnimation="swing"
 								>
@@ -205,7 +200,25 @@ const filteredItems =
 		const checkItem = (value) =>
 			!!activeFilters.some((filter) => value.includes(filter));
 
-		const filterItems = () => {
+		const filterItems = ({ id }: { id?: string }) => {
+			if (id) {
+				if (activeFilters.includes(id)) {
+					// remove active item if exists
+					activeFilters.splice(activeFilters.indexOf(id), 1);
+				} else {
+					// Remove all items
+					// (remove this line when we want multiple filters active)
+					activeFilters.splice(0, activeFilters.length);
+					// Add active item
+					activeFilters.push(id);
+				}
+			}
+
+			// if there are no filters left, add 'all'
+			if (activeFilters.length === 0) {
+				activeFilters.push('all');
+			}
+
 			items.forEach((item) => {
 				item.classList.toggle(
 					'is-hidden',
@@ -239,14 +252,11 @@ const filteredItems =
 				const id = toggle.dataset.id;
 				// Track click
 				trackEvent('Filter', name, id);
-				// Add filter id to activeFilters array
-				activeFilters.splice(0, activeFilters.length);
-				activeFilters.push(id);
 
-				filterItems();
+				filterItems({ id });
 			});
 		});
 
-		filterItems();
+		filterItems({});
 	}
 </script>
