@@ -180,6 +180,8 @@ const filteredItems =
 </style>
 
 <script>
+	import { trackEvent } from 'src/utilities/tracking/piwik';
+
 	const parent = document.querySelector(
 		'[data-module="filter"]',
 	) as HTMLDivElement;
@@ -235,6 +237,8 @@ const filteredItems =
 			toggle.addEventListener('click', (event) => {
 				event.preventDefault();
 				const id = toggle.dataset.id;
+				// Track click
+				trackEvent('Filter', name, id);
 				// Add filter id to activeFilters array
 				activeFilters.splice(0, activeFilters.length);
 				activeFilters.push(id);
