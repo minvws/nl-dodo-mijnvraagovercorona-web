@@ -4,13 +4,10 @@ import { Button } from '@design-system/elements/Button';
 import { Link } from '@design-system/elements/Link';
 import { ContentBlockProps } from '..';
 import ContentBlock from '../ContentBlock.astro';
-import {
-	getLocaleFromURL,
-	prefixUrlWithlocale,
-} from 'src/utilities/locale/translation';
-import { CtaButtonCollectionProps } from 'src/utilities/api/queries/ctaButton';
+import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import { SubFolderReferenceProps } from 'src/utilities/api/queries';
 import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
+import { parseLink } from 'src/utilities/helpers/link';
 
 type Props = Parameters<typeof Mark>[0];
 
@@ -46,9 +43,9 @@ const Component = mark.button ? Button : Link;
 
 <Component
 	href={mark.slugCollection
-		? prefixUrlWithlocale(getFullPageUrl(mark.slugCollection), locale)
+		? parseLink(getFullPageUrl(mark.slugCollection), locale)
 		: mark.href
-		? prefixUrlWithlocale(mark.href, locale)
+		? parseLink(mark.href, locale)
 		: undefined}
 >
 	<ContentBlock value={children} />

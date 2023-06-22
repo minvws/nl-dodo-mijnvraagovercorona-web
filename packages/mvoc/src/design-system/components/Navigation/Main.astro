@@ -1,11 +1,9 @@
 ---
 import { HTMLAttributes } from 'astro/types';
 import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
-import {
-	getLocaleFromURL,
-	prefixUrlWithlocale,
-} from 'src/utilities/locale/translation';
+import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import { Link } from '@design-system/elements/Link';
+import { parseLink } from 'src/utilities/helpers/link';
 
 interface Props extends HTMLAttributes<'div'> {}
 
@@ -43,7 +41,7 @@ const feedbackMobile = feedback.feedbackMobile;
 
 				{
 					masthead.menu.internalPageCollection.map((page) => {
-						const url = prefixUrlWithlocale(page.link.slug, locale);
+						const url = parseLink(page.link.slug, locale);
 						return (
 							<li>
 								<Link

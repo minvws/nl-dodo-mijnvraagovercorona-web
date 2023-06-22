@@ -5,10 +5,7 @@ import { Video } from '@design-system/components/Video';
 import Button from '@design-system/elements/Button/Button.astro';
 import { MultiContentBlocksProps } from 'src/utilities/api/queries';
 import { Stack } from '../Layout/Stack';
-import {
-	getLocaleFromURL,
-	prefixUrlWithlocale,
-} from 'src/utilities/locale/translation';
+import { getLocaleFromURL } from 'src/utilities/locale/translation';
 
 import {
 	isContent,
@@ -17,6 +14,7 @@ import {
 	isVideo,
 } from 'src/utilities/api/queries';
 import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
+import { parseLink } from 'src/utilities/helpers/link';
 
 interface Props {
 	multiContentBlocks: MultiContentBlocksProps;
@@ -36,7 +34,7 @@ const locale = getLocaleFromURL(Astro.url.pathname);
 					</Stack>
 				) : isButton(multiContentBlock) ? (
 					<Button
-						href={prefixUrlWithlocale(
+						href={parseLink(
 							getFullPageUrl(multiContentBlock.slugCollection),
 							locale,
 						)}
