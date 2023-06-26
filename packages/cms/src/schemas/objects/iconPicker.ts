@@ -32,7 +32,11 @@ export default defineType({
 			{ title: 'Auto', value: 'car' },
 			{ title: 'Vaccin prik', value: 'vaccin-shot' },
 			{ title: 'Marker', value: 'marker' },
-			{ title: 'Lijst', value: 'list' },
+			{ title: 'Post-covid', value: 'post-covid' },
+			{ title: 'Reizen', value: 'reizen' },
+			{ title: 'Vaccineren', value: 'vaccineren' },
+			{ title: 'Kwetsbare gezondheid', value: 'kwetsbare-gezondheid' },
+			{ title: 'Zelftest en Klachten', value: 'zelftest-en-klachten' },
 		],
 	},
 });

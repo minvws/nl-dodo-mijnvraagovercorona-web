@@ -27,6 +27,11 @@ export default defineType({
 					type: 'string',
 					readOnly: ({ parent }) => !!parent?.pageReference,
 				}),
+				defineField({
+					title: 'Icoon',
+					name: 'icon',
+					type: 'iconPicker',
+				}),
 			],
 			preview: {
 				select: {

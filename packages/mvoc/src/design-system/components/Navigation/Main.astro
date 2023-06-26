@@ -34,6 +34,8 @@ const feedbackMobile = feedback.feedbackMobile;
 					<Link
 						href={locale.urlPrefix}
 						aria-current={isHome ? 'page' : undefined}
+						icon="home"
+						iconPosition="leading"
 					>
 						{masthead.menu.homeLabel}
 					</Link>
@@ -49,6 +51,8 @@ const feedbackMobile = feedback.feedbackMobile;
 									aria-current={
 										Astro.url.pathname.startsWith(url) ? 'page' : undefined
 									}
+									icon={page.icon}
+									iconPosition="leading"
 								>
 									{page.label ? page.label : page.link.label}
 								</Link>
@@ -83,13 +87,16 @@ const feedbackMobile = feedback.feedbackMobile;
 	@use '@design-system-styles/tools/_rem.scss';
 
 	.c-nav-main {
-		--nav-main--padding-inline: var(--space-6);
+		--nav-main--padding-inline: var(--space-4);
 		grid-area: drawer;
 
 		:global(a),
 		:global(p) {
 			display: block;
-			padding-block: var(--nav-main__link-padding-block, 0.5rem); // 10px
+			padding-block: var(
+				--nav-main__link-padding-block,
+				var(--space-3)
+			); // 10px
 			padding-inline: var(
 				--nav-main__link-padding-inline,
 				var(--nav-main--padding-inline)
@@ -102,6 +109,9 @@ const feedbackMobile = feedback.feedbackMobile;
 		}
 
 		:global(a) {
+			display: flex;
+			align-items: center;
+			gap: var(--space-4);
 			--link-text-decoration: none;
 			position: relative;
 			color: var(--color-white);
@@ -112,15 +122,16 @@ const feedbackMobile = feedback.feedbackMobile;
 
 			&[aria-current] {
 				color: var(--color-diepblauw);
-				background-color: var(
-					--nav-main__link-bg-color,
-					var(--color-poolblauw)
-				);
+				background-color: var(--nav-main__link-bg-color, var(--color-white));
 			}
 
 			&:focus {
 				z-index: 1;
 			}
+		}
+
+		:global(.e-icon) {
+			--icon-size: #{rem.convert(16px)};
 		}
 
 		@media --mq-large {
