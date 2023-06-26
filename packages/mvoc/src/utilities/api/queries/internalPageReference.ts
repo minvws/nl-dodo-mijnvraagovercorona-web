@@ -1,3 +1,4 @@
+import { IconProps } from '@design-system/elements/Icon';
 import { subFolderReferenceQuery } from '.';
 
 export interface InternalPageCollectionProps {
@@ -7,6 +8,7 @@ export interface InternalPageCollectionProps {
 			label: string | null | { nl: string; en: string };
 			slug: string;
 		};
+		icon: IconProps['name'];
 	}[];
 }
 
@@ -31,5 +33,6 @@ export const internalPageReferenceQuery = (): string => {
 				"slug": slug.current
 			},
 		),
+		icon,
 	}`;
 };
