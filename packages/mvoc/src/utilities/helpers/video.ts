@@ -1,8 +1,16 @@
+export type VideoUrlProps = {
+	url: string;
+	options?: {
+		autoplay?: boolean;
+		loop?: boolean;
+		controls?: boolean;
+		mute?: boolean;
+	};
+};
+
 const getYouTubeVideoDataFromUrl = ({
 	url,
-}: {
-	url: string;
-}): { platform: string; id: string } | undefined => {
+}: VideoUrlProps): { platform: string; id: string } | undefined => {
 	const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
 	const match = url.match(regExp);
 
@@ -14,9 +22,7 @@ const getYouTubeVideoDataFromUrl = ({
 
 const getVimeoVideoDataFromUrl = ({
 	url,
-}: {
-	url: string;
-}): { platform: string; id: string } | undefined => {
+}: VideoUrlProps): { platform: string; id: string } | undefined => {
 	const match = /vimeo.*\/(\d+)/i.exec(url);
 
 	return match && match[1]
@@ -29,27 +35,46 @@ const getVimeoVideoDataFromUrl = ({
 
 const destructureVideoUrl = ({
 	url,
-}: {
-	url: string;
-}): { platform: string; id: string } | undefined =>
+}: VideoUrlProps): { platform: string; id: string } | undefined =>
 	getYouTubeVideoDataFromUrl({ url }) || getVimeoVideoDataFromUrl({ url });
 
-const generateYouTubeUrl = (id: string): string => {
-	return `//www.youtube.com/embed/${id}?autoplay=0&autohide=1&showinfo=0&modestbranding=1&controls=0&mute=0&rel=0&enablejsapi=1`;
+const generateYouTubeUrl = ({
+	id,
+	options,
+}: {
+	id: string;
+	options?: VideoUrlProps['options'];
+}): string => {
+	return `//www.youtube.com/embed/${id}?autoplay=${
+		options?.autoplay ? '1' : '0'
+	}&loop=${
+		options?.loop ? '1' : '0'
+	}&autohide=1&showinfo=0&modestbranding=1&controls=${
+		options?.controls ? '1' : '0'
+	}&mute=${options?.mute ? '1' : '0'}&rel=0&enablejsapi=1`;
 };
-const generateVimeoUrl = (id: string): string => {
-	return `https://player.vimeo.com/video/${id}?&autoplay=0&loop=1&title=0&byline=0&portrait=0&muted=1&#t=235s`;
+const generateVimeoUrl = ({
+	id,
+	options,
+}: {
+	id: string;
+	options?: VideoUrlProps['options'];
+}): string => {
+	return `https://player.vimeo.com/video/${id}?&autoplay=${
+		options?.autoplay ? '1' : '0'
+	}&loop=${options?.loop ? '1' : '0'}&title=0&byline=0&portrait=0&muted=${
+		options?.mute ? '1' : '0'
+	}`;
 };
 
 export const getVideoEmbedUrl = ({
 	url,
-}: {
-	url: string;
-}): string | undefined => {
+	options,
+}: VideoUrlProps): string | undefined => {
 	const videoData = destructureVideoUrl({ url });
 	return videoData.platform === 'youtube'
-		? generateYouTubeUrl(videoData.id)
+		? generateYouTubeUrl({ id: videoData.id, options })
 		: videoData.platform === 'vimeo'
-		? generateVimeoUrl(videoData.id)
+		? generateVimeoUrl({ id: videoData.id, options })
 		: undefined;
 };
