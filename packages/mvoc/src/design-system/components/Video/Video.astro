@@ -23,8 +23,25 @@ const embedUrl = getVideoEmbedUrl({ url });
 <>
 	{
 		embedUrl ? (
-			<div class={`c-video${className ? ` | ${className}` : ''}`}>
-				<iframe class="c-video__frame" src={embedUrl} />
+			<div class={`c-video${className ? ` | ${className}` : ''}`} {...attrs}>
+				<a
+					class="c-video__cover"
+					href={url}
+					data-embed={embedUrl}
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					<img
+						class="c-video__image"
+						src={image?.src ? image.src : picture.image.src}
+						alt=""
+						loading="lazy"
+					/>
+					<Icon class="c-video__icon" name="video" />
+				</a>
+				<template>
+					<iframe class="c-video__frame" src={embedUrl} />
+				</template>
 			</div>
 		) : null
 	}
@@ -59,14 +76,41 @@ const embedUrl = getVideoEmbedUrl({ url });
 
 	.c-video {
 		--_video-aspect-ratio: var(--video-aspect-ratio, 16/9);
+		--_video-color: var(--video-color, var(--color-diepblauw));
 		position: relative;
 		display: block;
 	}
 
-	.c-video__frame {
+	.c-video__cover {
+		position: relative;
+		display: block;
+		color: var(--_video-color);
+
+		&:focus {
+			@include a11y.focusring;
+		}
+
+		&:hover {
+			--_video-color: var(--color-accent-robijnrood);
+		}
+	}
+
+	.c-video__frame,
+	.c-video__image {
 		display: block;
 		inline-size: 100%;
 		block-size: auto;
 		aspect-ratio: var(--_video-aspect-ratio);
+	}
+
+	.c-video__image {
+		object-fit: cover;
+	}
+
+	.c-video__icon.c-video__icon {
+		--icon-size: var(--space-16);
+		position: absolute;
+		inset: 50% 50%;
+		translate: -50% -50%;
 	}
 </style>
