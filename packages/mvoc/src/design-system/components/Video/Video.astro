@@ -5,8 +5,9 @@ import { ImageProps } from 'src/utilities/api/queries';
 import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import { PictureProps } from '../Picture';
+import { getVideoEmbedUrl } from 'src/utilities/helpers/video';
 
-interface Props extends HTMLAttributes<'a'> {
+interface Props extends HTMLAttributes<'div'> {
 	title: string;
 	url: string;
 	image?: ImageProps;
@@ -16,9 +17,18 @@ interface Props extends HTMLAttributes<'a'> {
 const { class: className, title, url, picture, image, ...attrs } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
 const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+const embedUrl = getVideoEmbedUrl({ url });
 ---
 
-<a
+<>
+	{
+		embedUrl ? (
+			<div class={`c-video${className ? ` | ${className}` : ''}`}>
+				<iframe class="c-video__frame" src={embedUrl} />
+			</div>
+		) : null
+	}
+	<!-- <a
 	href={url}
 	class={`c-video${className ? ` | ${className}` : ''}`}
 	{...attrs}
@@ -41,63 +51,22 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 	<span class="u-visually-hidden">
 		{title}({siteSettings.accessibility.labelExternalLink})
 	</span>
-</a>
+</a> -->
+</>
 
 <style lang="scss">
 	@use '@design-system-styles/tools/_a11y.scss';
 
 	.c-video {
-		--video-color: var(--color-white);
+		--_video-aspect-ratio: var(--video-aspect-ratio, 16/9);
 		position: relative;
 		display: block;
-		color: var(--video-color);
-		transition: color 300ms ease-in-out;
-
-		&::after {
-			position: absolute;
-			inset-block: 0;
-			inset-inline: 0;
-			background-image: linear-gradient(
-				180deg,
-				rgba(0, 0, 0, 0.6) 0%,
-				rgba(0, 0, 0, 0) 100%
-			);
-			content: '';
-		}
-
-		&:focus {
-			@include a11y.focusring;
-		}
-
-		&:hover {
-			--video-color: var(--color-accent-robijnrood);
-		}
 	}
 
-	.c-video__image {
+	.c-video__frame {
 		display: block;
 		inline-size: 100%;
 		block-size: auto;
-		aspect-ratio: 16/9;
-		object-fit: cover;
-	}
-
-	.c-video__icon.c-video__icon {
-		--icon-size: 25%;
-		position: absolute;
-		inset-block: 50%;
-		inset-inline: 50%;
-		transform: translate(-50%, -50%);
-		block-size: auto;
-		aspect-ratio: 1/1;
-		z-index: 1;
-
-		:global(svg) {
-			block-size: 100%;
-			inline-size: 100%;
-		}
-	}
-
-	.c-video__icon {
+		aspect-ratio: var(--_video-aspect-ratio);
 	}
 </style>
