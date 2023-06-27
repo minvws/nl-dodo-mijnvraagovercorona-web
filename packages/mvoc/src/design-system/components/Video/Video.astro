@@ -86,11 +86,24 @@ const embedUrl = getVideoEmbedUrl({ url });
 		display: block;
 		color: var(--_video-color);
 
+		&::after {
+			position: absolute;
+			inset-block: 0;
+			inset-inline: 0;
+			background-image: linear-gradient(
+				180deg,
+				rgba(0, 0, 0, 0.6) 0%,
+				rgba(0, 0, 0, 0) 100%
+			);
+			content: '';
+		}
+
 		&:focus {
 			@include a11y.focusring;
 		}
 
-		&:hover {
+		&:hover,
+		&:focus {
 			--_video-color: var(--color-accent-robijnrood);
 		}
 	}
@@ -112,5 +125,6 @@ const embedUrl = getVideoEmbedUrl({ url });
 		position: absolute;
 		inset: 50% 50%;
 		translate: -50% -50%;
+		z-index: 1;
 	}
 </style>
