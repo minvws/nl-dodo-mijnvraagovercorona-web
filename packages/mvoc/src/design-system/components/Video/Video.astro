@@ -6,6 +6,8 @@ import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import { PictureProps } from '../Picture';
 import { getVideoEmbedUrl } from 'src/utilities/helpers/video';
+import { Button } from '@design-system/elements/Button';
+import { Stack } from '../Layout/Stack';
 
 interface Props extends HTMLAttributes<'div'> {
 	title: string;
@@ -39,36 +41,25 @@ const embedUrl = getVideoEmbedUrl({ url });
 					/>
 					<Icon class="c-video__icon" name="video" />
 				</a>
+				<div class="c-video__cookie">
+					<Stack gap={4}>
+						<Icon name="cookie" class="c-video__cookie-icon" />
+						<p>
+							Om deze youtube video af te spelen gebruiken we cookies van derden
+						</p>
+
+						<div class="c-video__cookie-buttons">
+							<Button variant="secondary">Toestaan</Button>
+							<Button variant="tertiary">Weiger</Button>
+						</div>
+					</Stack>
+				</div>
 				<template>
 					<iframe class="c-video__frame" src={embedUrl} />
 				</template>
 			</div>
 		) : null
 	}
-	<!-- <a
-	href={url}
-	class={`c-video${className ? ` | ${className}` : ''}`}
-	{...attrs}
-	target="_blank"
-	rel="noopener noreferrer"
->
-	{
-		image ? (
-			<img class="c-video__image" src={image.src} alt="" loading="lazy" />
-		) : picture ? (
-			<img
-				class="c-video__picture"
-				src={picture.image.src}
-				alt=""
-				loading="lazy"
-			/>
-		) : null
-	}
-	<Icon class="c-video__icon" name="video" />
-	<span class="u-visually-hidden">
-		{title}({siteSettings.accessibility.labelExternalLink})
-	</span>
-</a> -->
 </>
 
 <style lang="scss">
@@ -126,5 +117,34 @@ const embedUrl = getVideoEmbedUrl({ url });
 		inset: 50% 50%;
 		translate: -50% -50%;
 		z-index: 1;
+	}
+
+	.c-video__cookie {
+		position: absolute;
+		z-index: 2;
+		inset: var(--space-2);
+		display: grid;
+
+		padding: var(--space-6);
+		background-color: var(--color-white);
+
+		> * {
+			place-self: center;
+		}
+	}
+
+	.c-video__cookie-icon {
+		color: var(--color-diepblauw);
+	}
+
+	.c-video__cookie-buttons {
+		display: flex;
+		flex-flow: row-reverse wrap;
+		justify-content: space-between;
+		gap: var(--space-6);
+
+		> * {
+			min-inline-size: auto;
+		}
 	}
 </style>

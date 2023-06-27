@@ -37,6 +37,7 @@ export default defineType({
 			{ title: 'Vaccineren', value: 'vaccineren' },
 			{ title: 'Kwetsbare gezondheid', value: 'kwetsbare-gezondheid' },
 			{ title: 'Zelftest en Klachten', value: 'zelftest-en-klachten' },
+			{ title: 'Cookie', value: 'cookie' },
 		],
 	},
 });
