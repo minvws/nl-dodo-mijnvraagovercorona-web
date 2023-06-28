@@ -5,12 +5,14 @@ import { HTMLAttributes } from 'astro/types';
 interface Props extends HTMLAttributes<'div' | 'section' | 'footer'> {
 	as?: 'div' | 'section' | 'footer';
 	pullUpBy?: 'layer' | 'hero';
+	pushUpBy?: 'assistance-image' | 'layer';
 	background?: 'zebra' | Colors;
 }
 
 const {
 	as = 'section',
 	pullUpBy,
+	pushUpBy,
 	background,
 	id,
 	class: className,
@@ -22,7 +24,8 @@ const Component = as;
 
 <Component
 	id={id}
-	class={`c-layer${pullUpBy ? ` c-layer--pull-up-by-${pullUpBy}` : ''}${
+	class={`c-layer${pullUpBy ? ` c-layer--pull-up-by-${pullUpBy}` : ''}
+	c-layer${pushUpBy ? ` c-layer--push-up-by-${pushUpBy}` : ''}${
 		background
 			? background === 'zebra'
 				? ' c-layer--zebra'
@@ -58,6 +61,21 @@ const Component = as;
 
 	.c-layer--pull-up-by-hero {
 		--layer-pull-up: var(--density-hero);
+	}
+
+	[class*='c-layer--push-up-by'] {
+		--layer-push-up: 0px;
+		margin-block-start: var(--layer-push-up);
+	}
+
+	.c-layer--push-up-by-layer {
+		--layer-push-up: var(--layer-padding-block-start);
+	}
+
+	.c-layer--push-up-by-assistance-image {
+		--layer-push-up: calc(
+			var(--assistance__image-size) / var(--assistance__image-pull-up-division)
+		);
 	}
 
 	.c-layer--zebra {

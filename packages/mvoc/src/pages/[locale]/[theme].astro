@@ -84,7 +84,6 @@ const { filters, ctaButtons } = getFiltersAndSituations({
 		pullUpBy={pageData?.cards?.label && !!pageData?.cards?.items
 			? undefined
 			: 'hero'}
-		background="zebra"
 		id="situaties"
 	>
 		{
@@ -107,7 +106,7 @@ const { filters, ctaButtons } = getFiltersAndSituations({
 
 	{
 		pageData?.taleCollection?.length ? (
-			<Layer background="zebra">
+			<Layer>
 				<Retain>
 					<TaleList
 						taleCollection={pageData.taleCollection}
@@ -120,7 +119,7 @@ const { filters, ctaButtons } = getFiltersAndSituations({
 
 	{
 		pageData.assistance && (
-			<Layer background={'zebra'}>
+			<Layer background={'ijsblauw'} pushUpBy="layer">
 				<Retain>
 					<Assistance feedback {...pageData.assistance} />
 				</Retain>
