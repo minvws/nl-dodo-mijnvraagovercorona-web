@@ -111,7 +111,6 @@ const { filters, ctaButtons } = getFiltersAndSituations({
 		pageData?.important?.title ? (
 			<Layer
 				pullUpBy={pageData?.cards?.items ? undefined : 'hero'}
-				background="zebra"
 				id={stringToSlug(pageData.important.title)}
 			>
 				<Retain>
@@ -134,7 +133,7 @@ const { filters, ctaButtons } = getFiltersAndSituations({
 		) : null
 	}
 
-	<Layer id={stringToSlug(pageData.currentAdvice.title)} background="zebra">
+	<Layer id={stringToSlug(pageData.currentAdvice.title)}>
 		<Retain>
 			<Stack gap={8}>
 				<SectionHeadingGroup title={pageData.currentAdvice.title}>
@@ -164,7 +163,7 @@ const { filters, ctaButtons } = getFiltersAndSituations({
 
 	{
 		pageData?.taleCollection?.length ? (
-			<Layer background="zebra">
+			<Layer>
 				<Retain>
 					<TaleList taleCollection={pageData.taleCollection} />
 				</Retain>
@@ -174,7 +173,11 @@ const { filters, ctaButtons } = getFiltersAndSituations({
 
 	{
 		pageData.assistance && (
-			<Layer id={stringToSlug(pageData.assistance.headline)} background="zebra">
+			<Layer
+				id={stringToSlug(pageData.assistance.headline)}
+				background="ijsblauw"
+				pushUpBy="assistance-image"
+			>
 				<Retain>
 					<Assistance {...pageData.assistance} />
 				</Retain>

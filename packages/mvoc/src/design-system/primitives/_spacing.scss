@@ -16,6 +16,7 @@ Custom properties
 	}
 
 	// One offs
+	--space-27: #{rem.convert(27 * settings.$baseline)}; // 108px
 	--space-40: #{rem.convert(40 * settings.$baseline)}; // 160px
 	--space-56: #{rem.convert(56 * settings.$baseline)}; // 224px
 	--space-60: #{rem.convert(60 * settings.$baseline)}; // 240px
