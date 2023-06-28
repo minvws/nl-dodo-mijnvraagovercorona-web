@@ -43,126 +43,145 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 	data-has-chat={chat.title ? true : false}
 >
 	<GridFluid class="c-assistance__grid">
-		<Stack>
-			{!inDialog ? <Heading styledAs={1}>{headline}</Heading> : null}
+		<div>
 			{
 				!inDialog ? (
-					<img
-						src={image?.src || '/images/questions.svg'}
-						alt=""
-						loading="lazy"
-						class={`c-assistance__img c-assistance__img-contact`}
-					/>
-				) : null
-			}
-			{
-				inDialog ? (
-					<p>
-						<span class="c-assistance__show-chat-open">
-							{subTitle.chatOpen}
-						</span>
-						<span class="c-assistance__show-chat-closed">
-							{subTitle.chatClosed}
-						</span>
-					</p>
-				) : (
-					<Heading level={3}>
-						<span class="c-assistance__show-chat-open">
-							{subTitle.chatOpen}
-						</span>
-						<span class="c-assistance__show-chat-closed">
-							{subTitle.chatClosed}
-						</span>
-					</Heading>
-				)
-			}
-
-			<div>
-				<Link
-					href={`tel:${phone.number.replace(/\D/g, '')}`}
-					icon="phone"
-					iconPosition="leading"
-					variant="cta"
-				>
-					{phone.number}
-				</Link>
-
-				{
-					phone.openingHours && (
-						<p>
-							{phone.openingHours}
-							<br />
-							<span class="c-assistance__show-phone-open | u-color--accent-safarigroen">
-								{open}
-							</span>
-						</p>
-					)
-				}
-			</div>
-
-			{
-				chat.title ? (
-					<div>
-						<Link
-							href="https://chat.vragenovercorona.nl/"
-							icon="chat"
-							iconPosition="leading"
-							variant="cta"
-						>
-							{chat.title}
-						</Link>
-
-						<p>
-							{chat.openingHours}
-							<br />
-							<span class="c-assistance__show-chat-open | u-color--accent-safarigroen">
-								{open}
-							</span>
-						</p>
+					<div class="c-assistance__img-container">
+						<img
+							src={image?.src || '/images/questions.svg'}
+							alt=""
+							loading="lazy"
+							class={`c-assistance__img c-assistance__img-contact`}
+						/>
 					</div>
 				) : null
 			}
-		</Stack>
+			<Stack>
+				<hgroup>
+					{!inDialog ? <Heading styledAs={1}>{headline}</Heading> : null}
+
+					{
+						inDialog ? (
+							<p>
+								<span class="c-assistance__show-chat-open">
+									{subTitle.chatOpen}
+								</span>
+								<span class="c-assistance__show-chat-closed">
+									{subTitle.chatClosed}
+								</span>
+							</p>
+						) : (
+							<Heading class="c-assistance__heading-humble" level={3}>
+								<span class="c-assistance__show-chat-open">
+									{subTitle.chatOpen}
+								</span>
+								<span class="c-assistance__show-chat-closed">
+									{subTitle.chatClosed}
+								</span>
+							</Heading>
+						)
+					}
+				</hgroup>
+
+				<div>
+					<Link
+						href={`tel:${phone.number.replace(/\D/g, '')}`}
+						icon="phone"
+						iconPosition="leading"
+						variant="cta"
+					>
+						{phone.number}
+					</Link>
+
+					{
+						phone.openingHours && (
+							<p>
+								{phone.openingHours}
+								<br />
+								<span class="c-assistance__show-phone-open | u-color--accent-safarigroen">
+									{open}
+								</span>
+							</p>
+						)
+					}
+				</div>
+
+				{
+					chat.title ? (
+						<div>
+							<Link
+								href="https://chat.vragenovercorona.nl/"
+								icon="chat"
+								iconPosition="leading"
+								variant="cta"
+							>
+								{chat.title}
+							</Link>
+
+							<p>
+								{chat.openingHours}
+								<br />
+								<span class="c-assistance__show-chat-open | u-color--accent-safarigroen">
+									{open}
+								</span>
+							</p>
+						</div>
+					) : null
+				}
+			</Stack>
+		</div>
 
 		{
 			feedback && (locale.id === 'nl' || locale.id === 'en') ? (
-				<Stack>
-					<img
-						src={image?.src || '/images/questions.svg'}
-						alt=""
-						loading="lazy"
-						class={`c-assistance__img c-assistance__img-feedback`}
-					/>
-					<Heading level={3}>{situation.question}</Heading>
-					<Button
-						href={getFeedbackUrl(siteSettings.feedback.url, {
-							source: 'home',
-							advice: 'home',
-						})}
-					>
-						{situation.button}
-					</Button>
-				</Stack>
+				<div>
+					<div class="c-assistance__img-feedback-container">
+						<img
+							src={image?.src || '/images/questions.svg'}
+							alt=""
+							loading="lazy"
+							class={`c-assistance__img c-assistance__img-feedback`}
+						/>
+					</div>
+					<Stack>
+						<Heading class="c-assistance__heading-humble" level={3}>
+							{situation.question}
+						</Heading>
+						<Button
+							href={getFeedbackUrl(siteSettings.feedback.url, {
+								source: 'home',
+								advice: 'home',
+							})}
+						>
+							{situation.button}
+						</Button>
+					</Stack>
+				</div>
 			) : getHelp ? (
-				<Stack>
-					<img
-						src={image?.src || '/images/questions.svg'}
-						alt=""
-						loading="lazy"
-						class={`c-assistance__img c-assistance__img-feedback`}
-					/>
-					<Heading level={3}>{getHelp.title}</Heading>
-					<Button
-						href={parseLink(
-							getFullPageUrl(getHelp.button.slugCollection),
-							locale,
-						)}
-						icon={getHelp.button.icon}
-						interactionIconAnimation={'swing'}
-					>
-						{getHelp.button.label}
-					</Button>
-				</Stack>
+				<div>
+					<div class="c-assistance__img-feedback-container">
+						<img
+							src={image?.src || '/images/questions.svg'}
+							alt=""
+							loading="lazy"
+							class={`c-assistance__img c-assistance__img-feedback`}
+						/>
+					</div>
+					<Stack>
+						<Heading class="c-assistance__heading-humble" level={3}>
+							{getHelp.title}
+						</Heading>
+						<Button
+							href={parseLink(
+								getFullPageUrl(getHelp.button.slugCollection),
+								locale,
+							)}
+							icon={getHelp.button.icon}
+							interactionIconAnimation={'swing'}
+						>
+							{getHelp.button.label}
+						</Button>
+					</Stack>
+				</div>
 			) : null
 		}
 	</GridFluid>
@@ -201,27 +220,70 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 
 <style lang="scss">
 	@use '@design-system-styles/primitives/_responsive.scss';
+	@use '@design-system-styles/tools/_rem.scss';
+
+	:global(:where(html)) {
+		--assistance__image-size: #{rem.convert(150px)};
+		--assistance__image-pull-up-division: 2;
+	}
 
 	.c-assistance {
+		--_assistance__image-pull-up: calc(
+			(
+					var(--layer-padding-block-start) + var(--assistance__image-size) /
+						var(--assistance__image-pull-up-division)
+				) * -1
+		);
 	}
 
 	.c-assistance__grid {
 		--grid-fluid-min-item-size: var(--space-100);
 		--grid-fluid-gap: var(--space-14);
-		align-items: center;
 	}
 
-	.c-assistance__img {
+	@media --mq-large {
+		.c-assistance--feedback {
+			.c-assistance__img-container {
+				display: none;
+			}
+
+			.c-assistance__img-feedback {
+				margin: auto;
+				inline-size: #{rem.convert(90px)};
+			}
+		}
+	}
+
+	.c-assistance__img-container,
+	.c-assistance--feedback .c-assistance__img-feedback-container {
+		display: flex;
+		inline-size: var(--assistance__image-size);
+		aspect-ratio: 1/1;
+		border: 1px solid var(--color-poolblauw);
+		border-radius: 50%;
+		background-color: white;
+		margin-block-start: var(--_assistance__image-pull-up);
+		margin-block-end: var(--space-6);
+
+		@media --mq-large-until {
+			margin-inline: auto;
+		}
+	}
+
+	@media --mq-large-until {
+		.c-assistance--feedback .c-assistance__img-feedback-container {
+			display: none;
+		}
+	}
+
+	.c-assistance__heading-humble {
+		font-weight: normal;
 	}
 
 	.c-assistance__img-contact {
 		display: block;
-		inline-size: var(--space-60);
-	}
-
-	.c-assistance__img-feedback {
-		display: none;
-		margin-inline: auto;
+		margin: auto;
+		inline-size: #{rem.convert(90px)};
 	}
 
 	.c-assistance__show-chat-open {
@@ -230,9 +292,9 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 			display: initial;
 		}
 	}
+
 	.c-assistance__show-chat-closed {
 		display: initial;
-
 		.chat-open & {
 			display: none;
 		}
@@ -245,14 +307,13 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 		}
 	}
 
-	.c-assistance--feedback {
-		@media --mq-large {
-			.c-assistance__img-contact {
-				display: none;
-			}
-			.c-assistance__img-feedback {
-				display: block;
-			}
-		}
+	.c-assistance__show-phone-open:before {
+		content: '';
+		display: inline-block;
+		inline-size: var(--space-3);
+		block-size: var(--space-3);
+		margin-inline-end: var(--space-1);
+		border-radius: 50%;
+		background-color: var(--color-accent-safarigroen);
 	}
 </style>

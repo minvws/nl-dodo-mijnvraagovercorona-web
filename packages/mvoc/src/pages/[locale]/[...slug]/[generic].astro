@@ -160,7 +160,10 @@ const taleData =
 	</Layer>
 	{
 		pageData.assistance && (
-			<Layer id={stringToSlug(pageData.assistance.headline)}>
+			<Layer
+				id={stringToSlug(pageData.assistance.headline)}
+				background={'ijsblauw'}
+			>
 				<Retain>
 					<Assistance feedback {...pageData.assistance} />
 				</Retain>
