@@ -5,14 +5,14 @@ import { HTMLAttributes } from 'astro/types';
 interface Props extends HTMLAttributes<'div' | 'section' | 'footer'> {
 	as?: 'div' | 'section' | 'footer';
 	pullUpBy?: 'layer' | 'hero';
-	pushUpBy?: 'assistance-image' | 'layer';
+	pushDownBy?: 'assistance-image' | 'layer';
 	background?: 'zebra' | Colors;
 }
 
 const {
 	as = 'section',
 	pullUpBy,
-	pushUpBy,
+	pushDownBy,
 	background,
 	id,
 	class: className,
@@ -25,7 +25,7 @@ const Component = as;
 <Component
 	id={id}
 	class={`c-layer${pullUpBy ? ` c-layer--pull-up-by-${pullUpBy}` : ''}
-	c-layer${pushUpBy ? ` c-layer--push-up-by-${pushUpBy}` : ''}${
+	c-layer${pushDownBy ? ` c-layer--push-down-by-${pushDownBy}` : ''}${
 		background
 			? background === 'zebra'
 				? ' c-layer--zebra'
@@ -63,17 +63,17 @@ const Component = as;
 		--layer-pull-up: var(--density-hero);
 	}
 
-	[class*='c-layer--push-up-by'] {
-		--layer-push-up: 0px;
-		margin-block-start: var(--layer-push-up);
+	[class*='c-layer--push-down-by'] {
+		--layer-push-down: 0px;
+		margin-block-start: var(--layer-push-down);
 	}
 
-	.c-layer--push-up-by-layer {
-		--layer-push-up: var(--layer-padding-block-start);
+	.c-layer--push-down-by-layer {
+		--layer-push-down: var(--layer-padding-block-start);
 	}
 
-	.c-layer--push-up-by-assistance-image {
-		--layer-push-up: calc(
+	.c-layer--push-down-by-assistance-image {
+		--layer-push-down: calc(
 			var(--assistance__image-size) / var(--assistance__image-pull-up-division)
 		);
 	}
