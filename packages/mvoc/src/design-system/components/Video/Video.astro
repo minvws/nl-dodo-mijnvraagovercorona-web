@@ -8,6 +8,8 @@ import { PictureProps } from '../Picture';
 import { getVideoEmbedUrl } from 'src/utilities/helpers/video';
 import { Button } from '@design-system/elements/Button';
 import { Stack } from '../Layout/Stack';
+import { Link } from '@design-system/elements/Link';
+import { Heading } from '@design-system/elements/Heading';
 
 interface Props extends HTMLAttributes<'div'> {
 	title: string;
@@ -19,19 +21,29 @@ interface Props extends HTMLAttributes<'div'> {
 const { class: className, title, url, picture, image, ...attrs } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
 const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
-const embedUrl = getVideoEmbedUrl({ url });
+const embedUrl = getVideoEmbedUrl({
+	url,
+	options: {
+		autoplay: true,
+	},
+});
 ---
 
 <>
 	{
 		embedUrl ? (
-			<div class={`c-video${className ? ` | ${className}` : ''}`} {...attrs}>
+			<div
+				class={`c-video${className ? ` | ${className}` : ''}`}
+				{...attrs}
+				data-module="video"
+			>
 				<a
 					class="c-video__cover"
 					href={url}
 					data-embed={embedUrl}
 					target="_blank"
 					rel="noopener noreferrer"
+					data-module-bind="video__cover"
 				>
 					<img
 						class="c-video__image"
@@ -41,20 +53,46 @@ const embedUrl = getVideoEmbedUrl({ url });
 					/>
 					<Icon class="c-video__icon" name="video" />
 				</a>
-				<div class="c-video__cookie">
-					<Stack gap={4}>
-						<Icon name="cookie" class="c-video__cookie-icon" />
-						<p>
-							Om deze youtube video af te spelen gebruiken we cookies van derden
-						</p>
+				<div class="c-video__cookie" hidden data-module-bind="video__cookie">
+					<div class="c-video__cookie-inner">
+						<Stack gap={4}>
+							<Heading
+								styledAs={4}
+								tabindex="-1"
+								data-module-bind="video__cookie-heading"
+							>
+								Cookies
+							</Heading>
+							<p>
+								Om deze youtube video af te spelen gebruiken we cookies van
+								derden
+							</p>
 
-						<div class="c-video__cookie-buttons">
-							<Button variant="secondary">Toestaan</Button>
-							<Button variant="tertiary">Weiger</Button>
-						</div>
-					</Stack>
+							<div class="c-video__cookie-buttons">
+								<Button
+									variant="secondary"
+									data-module-bind="video__cookie-accept"
+									type="button"
+								>
+									Toestaan
+								</Button>
+								<Button
+									variant="tertiary"
+									data-module-bind="video__cookie-decline"
+									type="button"
+								>
+									Weiger
+								</Button>
+							</div>
+							<p>
+								<small>
+									<Link href={url}>Bekijk op YouTube</Link>
+								</small>
+							</p>
+						</Stack>
+					</div>
 				</div>
-				<template>
+				<template data-module-bind="video__frame-template">
 					<iframe class="c-video__frame" src={embedUrl} />
 				</template>
 			</div>
@@ -69,7 +107,6 @@ const embedUrl = getVideoEmbedUrl({ url });
 		--_video-aspect-ratio: var(--video-aspect-ratio, 16/9);
 		--_video-color: var(--video-color, var(--color-diepblauw));
 		position: relative;
-		display: block;
 	}
 
 	.c-video__cover {
@@ -123,14 +160,21 @@ const embedUrl = getVideoEmbedUrl({ url });
 		position: absolute;
 		z-index: 2;
 		inset: var(--space-2);
-		display: grid;
+		display: flex;
+		inline-size: min(calc(100% - var(--space-2) * 2), var(--space-90));
+		margin-inline: auto;
 
-		padding: var(--space-6);
-		background-color: var(--color-white);
-
-		> * {
-			place-self: center;
+		&[hidden] {
+			display: none;
 		}
+	}
+
+	.c-video__cookie-inner {
+		padding: var(--space-6);
+		border-radius: var(--radii-nano);
+		background-color: var(--color-white);
+		box-shadow: 0px 3px 4px 0px rgba(0 0 0 / 40%);
+		margin-block: auto;
 	}
 
 	.c-video__cookie-icon {
@@ -148,3 +192,71 @@ const embedUrl = getVideoEmbedUrl({ url });
 		}
 	}
 </style>
+
+<script>
+	const storageName = 'mvoc.cookies_accepted';
+	const parentElements = [
+		...document.querySelectorAll('[data-module="video"]'),
+	];
+
+	const cookiesAccepted =
+		JSON.parse(localStorage.getItem(storageName)) || false;
+
+	parentElements.forEach((parentElement) => {
+		const coverElement = parentElement.querySelector<HTMLAnchorElement>(
+			'[data-module-bind="video__cover"]',
+		);
+		const frameTemplateElement =
+			parentElement.querySelector<HTMLTemplateElement>(
+				'[data-module-bind="video__frame-template"]',
+			);
+		// cache cookiebar elements
+		const cookieElement = parentElement.querySelector<HTMLDivElement>(
+			'[data-module-bind="video__cookie"]',
+		);
+		const cookieAcceptElement = cookieElement.querySelector<HTMLButtonElement>(
+			'[data-module-bind="video__cookie-accept"]',
+		);
+		const cookieDeclineElement = cookieElement.querySelector<HTMLButtonElement>(
+			'[data-module-bind="video__cookie-decline"]',
+		);
+		const cookieHeadingElement =
+			cookieElement.querySelector<HTMLHeadingElement>(
+				'[data-module-bind="video__cookie-heading"]',
+			);
+
+		// Function to show video
+		const showVideo = () => {
+			const clone = frameTemplateElement.content.cloneNode(true);
+			parentElement.replaceChildren(clone);
+		};
+
+		// Cover element click
+		coverElement.addEventListener('click', (event) => {
+			event.preventDefault();
+
+			if (!cookiesAccepted) {
+				coverElement.setAttribute('tabindex', '-1');
+				cookieElement.hidden = false;
+				cookieHeadingElement.focus();
+			} else {
+				showVideo();
+			}
+		});
+
+		// Accept cookies button
+		cookieAcceptElement.addEventListener('click', () => {
+			localStorage.setItem(storageName, 'true');
+			coverElement.setAttribute('tabindex', '0');
+			showVideo();
+		});
+
+		// Decline cookies button
+		cookieDeclineElement.addEventListener('click', () => {
+			coverElement.setAttribute('tabindex', '0');
+			coverElement.focus();
+			localStorage.setItem(storageName, 'false');
+			cookieElement.hidden = true;
+		});
+	});
+</script>
