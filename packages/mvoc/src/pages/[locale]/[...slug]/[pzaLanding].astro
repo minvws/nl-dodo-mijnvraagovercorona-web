@@ -132,7 +132,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 	}
 	{
 		pageData.assistance ? (
-			<Layer background="ijsblauw" pushUpBy="layer">
+			<Layer background="ijsblauw" pushDownBy="assistance-image">
 				<Retain>
 					<Assistance {...pageData.assistance} />
 				</Retain>
