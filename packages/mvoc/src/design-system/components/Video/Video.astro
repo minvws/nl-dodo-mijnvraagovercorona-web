@@ -10,6 +10,7 @@ import { Button } from '@design-system/elements/Button';
 import { Stack } from '../Layout/Stack';
 import { Link } from '@design-system/elements/Link';
 import { Heading } from '@design-system/elements/Heading';
+import { ContentBlock } from '../ContentBlock';
 
 interface Props extends HTMLAttributes<'div'> {
 	title: string;
@@ -31,7 +32,7 @@ const embedUrl = getVideoEmbedUrl({
 
 <>
 	{
-		embedUrl ? (
+		embedUrl && siteSettings?.videoPlayer?.cookieBanner ? (
 			<div
 				class={`c-video${className ? ` | ${className}` : ''}`}
 				{...attrs}
@@ -51,6 +52,9 @@ const embedUrl = getVideoEmbedUrl({
 						alt=""
 						loading="lazy"
 					/>
+					<span class="u-visually-hidden">
+						{siteSettings.videoPlayer.openVideo} "{title}"
+					</span>
 					<Icon class="c-video__icon" name="video" />
 				</a>
 				<div class="c-video__cookie" hidden data-module-bind="video__cookie">
@@ -61,12 +65,12 @@ const embedUrl = getVideoEmbedUrl({
 								tabindex="-1"
 								data-module-bind="video__cookie-heading"
 							>
-								Cookies
+								{siteSettings.videoPlayer.cookieBanner.title}
 							</Heading>
-							<p>
-								Om deze youtube video af te spelen gebruiken we cookies van
-								derden
-							</p>
+
+							<ContentBlock
+								value={siteSettings.videoPlayer.cookieBanner.content}
+							/>
 
 							<div class="c-video__cookie-buttons">
 								<Button
@@ -74,19 +78,21 @@ const embedUrl = getVideoEmbedUrl({
 									data-module-bind="video__cookie-accept"
 									type="button"
 								>
-									Toestaan
+									{siteSettings.genericLabels.accept}
 								</Button>
 								<Button
 									variant="tertiary"
 									data-module-bind="video__cookie-decline"
 									type="button"
 								>
-									Weiger
+									{siteSettings.genericLabels.decline}
 								</Button>
 							</div>
 							<p>
 								<small>
-									<Link href={url}>Bekijk op YouTube</Link>
+									<Link href={url}>
+										{siteSettings.videoPlayer.cookieBanner.watchOn}
+									</Link>
 								</small>
 							</p>
 						</Stack>
