@@ -260,6 +260,45 @@ export default defineType({
 		}),
 
 		/**
+		 * Video element
+		 */
+		defineField({
+			title: 'Video player',
+			name: 'videoPlayer',
+			type: 'object',
+			fields: [
+				defineField({
+					title: 'Open video',
+					name: 'openVideo',
+					type: 'string',
+				}),
+				defineField({
+					title: 'Cookiebanner',
+					name: 'cookieBanner',
+					type: 'object',
+					fields: [
+						defineField({
+							title: 'Titel',
+							name: 'title',
+							type: 'string',
+						}),
+						defineField({
+							title: 'Content',
+							name: 'content',
+							type: 'customBlock',
+						}),
+						defineField({
+							title: 'Bekijk op youtube',
+							description: 'Bekijk op youtube',
+							name: 'watchOn',
+							type: 'string',
+						}),
+					],
+				}),
+			],
+		}),
+
+		/**
 		 * Generic labels
 		 */
 		defineField({
@@ -366,6 +405,18 @@ export default defineType({
 					name: 'all',
 					type: 'string',
 					validation: (Rule) => Rule.required(),
+				}),
+				defineField({
+					title: 'Weiger',
+					description: 'Bijv. het "Weiger" label in de cookiebanner',
+					name: 'decline',
+					type: 'string',
+				}),
+				defineField({
+					title: 'Toestaan',
+					description: 'Bijv. het "Toestaan" label in de cookiebanner',
+					name: 'accept',
+					type: 'string',
 				}),
 			],
 		}),
