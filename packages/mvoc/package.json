@@ -1,6 +1,6 @@
 {
 	"name": "mvoc",
-	"version": "2.0.0-230622",
+	"version": "2.0.1-230703",
 	"private": true,
 	"scripts": {
 		"dev": "npm run files && astro telemetry disable && astro dev",
