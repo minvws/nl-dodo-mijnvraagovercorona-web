@@ -57,6 +57,14 @@ export interface SiteSettingsProps {
 		change: string;
 		current: string;
 	};
+	videoPlayer?: {
+		openVideo?: string;
+		cookieBanner?: {
+			title?: string;
+			content?: ContentBlockProps['value'];
+			watchOn?: string;
+		};
+	};
 	genericLabels: {
 		close: string;
 		open: string;
@@ -75,6 +83,8 @@ export interface SiteSettingsProps {
 		map: string;
 		list: string;
 		all: string;
+		decline?: string;
+		accept?: string;
 		situationPlural: {
 			this: string;
 			that: string;
@@ -136,6 +146,14 @@ export const siteSettingsQuery = ({ locale }: { locale: Locale }): string => `
 			change,
 			current,
 		},
+		videoPlayer{
+			openVideo,
+			cookieBanner{
+				title,
+				${customBlockQuery({ name: 'content' })},
+				watchOn,
+			},
+		},
 		genericLabels{
 			close,
 			open,
@@ -154,6 +172,8 @@ export const siteSettingsQuery = ({ locale }: { locale: Locale }): string => `
 			map,
 			list,
 			all,
+			decline,
+			accept,
 			situationPlural{
 				this,
 				that,
