@@ -91,7 +91,7 @@ const embedUrl = getVideoEmbedUrl({
 							</div>
 							<p>
 								<small>
-									<Link href={url}>
+									<Link href={url} data-module-bind="video__cookie-watch-on">
 										{siteSettings.videoPlayer.cookieBanner.watchOn}
 									</Link>
 								</small>
@@ -201,6 +201,8 @@ const embedUrl = getVideoEmbedUrl({
 </style>
 
 <script>
+	import { trackEvent } from 'src/utilities/tracking/piwik';
+
 	const storageName = 'mvoc.cookies_accepted';
 	const parentElements = [
 		...document.querySelectorAll('[data-module="video"]'),
@@ -226,6 +228,9 @@ const embedUrl = getVideoEmbedUrl({
 		);
 		const cookieDeclineElement = cookieElement.querySelector<HTMLButtonElement>(
 			'[data-module-bind="video__cookie-decline"]',
+		);
+		const cookieWatchOnElement = cookieElement.querySelector<HTMLAnchorElement>(
+			'[data-module-bind="video__cookie-watch-on"]',
 		);
 		const cookieHeadingElement =
 			cookieElement.querySelector<HTMLHeadingElement>(
@@ -256,6 +261,7 @@ const embedUrl = getVideoEmbedUrl({
 			localStorage.setItem(storageName, 'true');
 			coverElement.setAttribute('tabindex', '0');
 			showVideo();
+			trackEvent('Button', 'Click', 'Cookies accepted');
 		});
 
 		// Decline cookies button
@@ -264,6 +270,11 @@ const embedUrl = getVideoEmbedUrl({
 			coverElement.focus();
 			localStorage.setItem(storageName, 'false');
 			cookieElement.hidden = true;
+			trackEvent('Button', 'Click', 'Cookies declined');
+		});
+
+		cookieWatchOnElement.addEventListener('click', () => {
+			trackEvent('Button', 'Click', 'Watch on Youtube');
 		});
 	});
 </script>
