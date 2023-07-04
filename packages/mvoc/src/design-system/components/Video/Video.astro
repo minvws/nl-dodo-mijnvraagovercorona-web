@@ -5,8 +5,14 @@ import { ImageProps } from 'src/utilities/api/queries';
 import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import { PictureProps } from '../Picture';
+import { getVideoEmbedUrl } from 'src/utilities/helpers/video';
+import { Button } from '@design-system/elements/Button';
+import { Stack } from '../Layout/Stack';
+import { Link } from '@design-system/elements/Link';
+import { Heading } from '@design-system/elements/Heading';
+import { ContentBlock } from '../ContentBlock';
 
-interface Props extends HTMLAttributes<'a'> {
+interface Props extends HTMLAttributes<'div'> {
 	title: string;
 	url: string;
 	image?: ImageProps;
@@ -16,42 +22,104 @@ interface Props extends HTMLAttributes<'a'> {
 const { class: className, title, url, picture, image, ...attrs } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
 const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+const embedUrl = getVideoEmbedUrl({
+	url,
+	options: {
+		autoplay: true,
+	},
+});
 ---
 
-<a
-	href={url}
-	class={`c-video${className ? ` | ${className}` : ''}`}
-	{...attrs}
-	target="_blank"
-	rel="noopener noreferrer"
->
+<>
 	{
-		image ? (
-			<img class="c-video__image" src={image.src} alt="" loading="lazy" />
-		) : picture ? (
-			<img
-				class="c-video__picture"
-				src={picture.image.src}
-				alt=""
-				loading="lazy"
-			/>
+		embedUrl && siteSettings?.videoPlayer?.cookieBanner ? (
+			<div
+				class={`c-video${className ? ` | ${className}` : ''}`}
+				{...attrs}
+				data-module="video"
+			>
+				<a
+					class="c-video__cover"
+					href={url}
+					data-embed={embedUrl}
+					target="_blank"
+					rel="noopener noreferrer"
+					data-module-bind="video__cover"
+				>
+					<img
+						class="c-video__image"
+						src={image?.src ? image.src : picture.image.src}
+						alt=""
+						loading="lazy"
+					/>
+					<span class="u-visually-hidden">
+						{siteSettings.videoPlayer.openVideo} "{title}"
+					</span>
+					<Icon class="c-video__icon" name="video" />
+				</a>
+				<div class="c-video__cookie" hidden data-module-bind="video__cookie">
+					<div class="c-video__cookie-inner">
+						<Stack gap={4}>
+							<Heading
+								level={3}
+								styledAs={4}
+								tabindex="-1"
+								data-module-bind="video__cookie-heading"
+							>
+								{siteSettings.videoPlayer.cookieBanner.title}
+							</Heading>
+
+							<ContentBlock
+								value={siteSettings.videoPlayer.cookieBanner.content}
+							/>
+
+							<div class="c-video__cookie-buttons">
+								<Button
+									variant="secondary"
+									data-module-bind="video__cookie-accept"
+									type="button"
+								>
+									{siteSettings.genericLabels.accept}
+								</Button>
+								<Button
+									variant="tertiary"
+									data-module-bind="video__cookie-decline"
+									type="button"
+								>
+									{siteSettings.genericLabels.decline}
+								</Button>
+							</div>
+							<p>
+								<small>
+									<Link href={url} data-module-bind="video__cookie-watch-on">
+										{siteSettings.videoPlayer.cookieBanner.watchOn}
+									</Link>
+								</small>
+							</p>
+						</Stack>
+					</div>
+				</div>
+				<template data-module-bind="video__frame-template">
+					<iframe class="c-video__frame" src={embedUrl} />
+				</template>
+			</div>
 		) : null
 	}
-	<Icon class="c-video__icon" name="video" />
-	<span class="u-visually-hidden">
-		{title}({siteSettings.accessibility.labelExternalLink})
-	</span>
-</a>
+</>
 
 <style lang="scss">
 	@use '@design-system-styles/tools/_a11y.scss';
 
 	.c-video {
-		--video-color: var(--color-white);
+		--_video-aspect-ratio: var(--video-aspect-ratio, 16/9);
+		--_video-color: var(--video-color, var(--color-diepblauw));
+		position: relative;
+	}
+
+	.c-video__cover {
 		position: relative;
 		display: block;
-		color: var(--video-color);
-		transition: color 300ms ease-in-out;
+		color: var(--_video-color);
 
 		&::after {
 			position: absolute;
@@ -69,35 +137,144 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 			@include a11y.focusring;
 		}
 
-		&:hover {
-			--video-color: var(--color-accent-robijnrood);
+		&:hover,
+		&:focus {
+			--_video-color: var(--color-accent-robijnrood);
 		}
 	}
 
+	.c-video__frame,
 	.c-video__image {
 		display: block;
 		inline-size: 100%;
 		block-size: auto;
-		aspect-ratio: 16/9;
+		aspect-ratio: var(--_video-aspect-ratio);
+	}
+
+	.c-video__image {
 		object-fit: cover;
 	}
 
 	.c-video__icon.c-video__icon {
-		--icon-size: 25%;
+		--icon-size: var(--space-16);
 		position: absolute;
-		inset-block: 50%;
-		inset-inline: 50%;
-		transform: translate(-50%, -50%);
-		block-size: auto;
-		aspect-ratio: 1/1;
+		inset: 50% 50%;
+		translate: -50% -50%;
 		z-index: 1;
+	}
 
-		:global(svg) {
-			block-size: 100%;
-			inline-size: 100%;
+	.c-video__cookie {
+		position: absolute;
+		z-index: 2;
+		inset: var(--space-2);
+		display: flex;
+		inline-size: min(calc(100% - var(--space-2) * 2), var(--space-90));
+		margin-inline: auto;
+
+		&[hidden] {
+			display: none;
 		}
 	}
 
-	.c-video__icon {
+	.c-video__cookie-inner {
+		padding: var(--space-6);
+		border-radius: var(--radii-nano);
+		background-color: var(--color-white);
+		box-shadow: 0px 3px 4px 0px rgba(0 0 0 / 40%);
+		margin-block: auto;
+	}
+
+	.c-video__cookie-icon {
+		color: var(--color-diepblauw);
+	}
+
+	.c-video__cookie-buttons {
+		display: flex;
+		flex-flow: row-reverse wrap;
+		justify-content: space-between;
+		gap: var(--space-6);
+
+		> * {
+			min-inline-size: auto;
+		}
 	}
 </style>
+
+<script>
+	import { trackEvent } from 'src/utilities/tracking/piwik';
+
+	const storageName = 'mvoc.cookies_accepted';
+	const parentElements = [
+		...document.querySelectorAll('[data-module="video"]'),
+	];
+
+	const cookiesAccepted =
+		JSON.parse(localStorage.getItem(storageName)) || false;
+
+	parentElements.forEach((parentElement) => {
+		const coverElement = parentElement.querySelector<HTMLAnchorElement>(
+			'[data-module-bind="video__cover"]',
+		);
+		const frameTemplateElement =
+			parentElement.querySelector<HTMLTemplateElement>(
+				'[data-module-bind="video__frame-template"]',
+			);
+		// cache cookiebar elements
+		const cookieElement = parentElement.querySelector<HTMLDivElement>(
+			'[data-module-bind="video__cookie"]',
+		);
+		const cookieAcceptElement = cookieElement.querySelector<HTMLButtonElement>(
+			'[data-module-bind="video__cookie-accept"]',
+		);
+		const cookieDeclineElement = cookieElement.querySelector<HTMLButtonElement>(
+			'[data-module-bind="video__cookie-decline"]',
+		);
+		const cookieWatchOnElement = cookieElement.querySelector<HTMLAnchorElement>(
+			'[data-module-bind="video__cookie-watch-on"]',
+		);
+		const cookieHeadingElement =
+			cookieElement.querySelector<HTMLHeadingElement>(
+				'[data-module-bind="video__cookie-heading"]',
+			);
+
+		// Function to show video
+		const showVideo = () => {
+			const clone = frameTemplateElement.content.cloneNode(true);
+			parentElement.replaceChildren(clone);
+		};
+
+		// Cover element click
+		coverElement.addEventListener('click', (event) => {
+			event.preventDefault();
+
+			if (!cookiesAccepted) {
+				coverElement.setAttribute('tabindex', '-1');
+				cookieElement.hidden = false;
+				cookieHeadingElement.focus();
+			} else {
+				showVideo();
+			}
+		});
+
+		// Accept cookies button
+		cookieAcceptElement.addEventListener('click', () => {
+			localStorage.setItem(storageName, 'true');
+			coverElement.setAttribute('tabindex', '0');
+			showVideo();
+			trackEvent('Button', 'Click', 'Cookies accepted');
+		});
+
+		// Decline cookies button
+		cookieDeclineElement.addEventListener('click', () => {
+			coverElement.setAttribute('tabindex', '0');
+			coverElement.focus();
+			localStorage.setItem(storageName, 'false');
+			cookieElement.hidden = true;
+			trackEvent('Button', 'Click', 'Cookies declined');
+		});
+
+		cookieWatchOnElement.addEventListener('click', () => {
+			trackEvent('Button', 'Click', 'Watch on Youtube');
+		});
+	});
+</script>
