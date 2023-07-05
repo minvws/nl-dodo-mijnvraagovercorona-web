@@ -10,7 +10,7 @@
 		"build-main": "SANITY_ACTIVE_ENV=production sanity build",
 		"build-alternative": "SANITY_ACTIVE_ENV=alternative sanity build",
 		"dev": "sanity dev",
-		"backup": "npm run backup-development && npm run backup-staging && npm run backup-main",
+		"backup": "npm run backup-development && npm run backup-staging && npm run backup-main && npm run backup-alternative",
 		"backup-development": "sanity dataset export development ./backup/development.tar.gz",
 		"backup-staging": "sanity dataset export staging ./backup/staging.tar.gz",
 		"backup-main": "sanity dataset export main ./backup/main.tar.gz",
@@ -21,12 +21,12 @@
 		"copy-main-to-alternative:missing": "sanity dataset import ./backup/main.tar.gz alternative --missing",
 		"copy-staging-to-development:replace": "sanity dataset import ./backup/staging.tar.gz development --replace",
 		"copy-staging-to-development:missing": "sanity dataset import ./backup/staging.tar.gz development --missing",
-		"content-copy-main-to-staging:replace": "npm run backup-staging && npm run copy-main-to-staging:replace",
-		"content-copy-main-to-staging:missing": "npm run backup-staging && npm run copy-main-to-staging:missing",
-		"content-copy-main-to-alternative:replace": "npm run backup-alternative && npm run copy-main-to-alternative:replace",
-		"content-copy-main-to-alternative:missing": "npm run backup-alternative && npm run copy-main-to-alternative:missing",
-		"content-copy-staging-to-development:replace": "npm run backup-development && npm run copy-staging-to-development:replace",
-		"content-copy-staging-to-development:missing": "npm run backup-development && npm run copy-staging-to-development:missing"
+		"content-copy-main-to-staging:replace": "npm run backup-staging && npm run backup-main && npm run copy-main-to-staging:replace",
+		"content-copy-main-to-staging:missing": "npm run backup-staging && npm run backup-main && npm run copy-main-to-staging:missing",
+		"content-copy-main-to-alternative:replace": "npm run backup-alternative && npm run backup-main && npm run copy-main-to-alternative:replace",
+		"content-copy-main-to-alternative:missing": "npm run backup-alternative && npm run backup-main && npm run copy-main-to-alternative:missing",
+		"content-copy-staging-to-development:replace": "npm run backup-development && npm run backup-staging && npm run copy-staging-to-development:replace",
+		"content-copy-staging-to-development:missing": "npm run backup-development && npm run backup-staging && npm run copy-staging-to-development:missing"
 	},
 	"dependencies": {
 		"@sanity/components": "^2.14.0",
