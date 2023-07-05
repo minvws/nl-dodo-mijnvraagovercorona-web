@@ -1,17 +1,29 @@
+# Default configuration for all pipelines
 default:
   tags:
     - default
 
+# Define environment variables that will be used throughout the pipeline
 variables:
+  CD_ENVIRONMENT: production
   CD_NAMESPACE_BHR: vws-reis-bhr
   CD_HARBOR_REGISTRY: harbor.cicd.s15m.nl
 
+# Define which directories should be cached between pipeline runs
 cache:
   key: ${CI_COMMIT_REF_SLUG}
   paths:
     - node_modules/
+    - packages/mvoc/data/${CD_ENVIRONMENT}-last-update-timestamp.txt
 
+# Specify the Docker image that will be used to run the pipeline
 image: harbor.cicd.s15m.nl/vws-reis/tool-box:1.2
+
+.check-changes-skip-stage: &check-changes-skip-stage
+  - if [ "$CHANGES_DETECTED" != "true" ] && [ "$CI_PIPELINE_SOURCE" == "schedule" ]; then
+    echo "No changes detected and a scheduled pipeline, skipping stage";
+    exit 0;
+    fi
 
 .build-image: &build-image
   environment:
@@ -23,36 +35,21 @@ image: harbor.cicd.s15m.nl/vws-reis/tool-box:1.2
   script:
     - echo "${DOCKER_AUTH_CONFIG}" > /kaniko/.docker/config.json
     - cat /kaniko/.docker/config.json
-    - cat ./packages/${CD_APP_FOLDER}/Dockerfile |
-      sed "s~node:18-alpine~harbor.cicd.s15m.nl/vws-reis-docker-hub/library/node:18-alpine~g"
-      > ./packages/${CD_APP_FOLDER}/Dockerfile_derived
-    - cat ./packages/${CD_APP_FOLDER}/Dockerfile_derived
     - echo "CI_PROJECT_DIR ${CI_PROJECT_DIR}"
     - pwd
     - 'echo ${CD_HARBOR_REGISTRY}/vws-reis/${CD_APP_NAME}:${CD_APP_TAG}'
     - /kaniko/executor
       --context ${CI_PROJECT_DIR}
-      --dockerfile /packages/${CD_APP_FOLDER}/Dockerfile_derived
+      --dockerfile /packages/${CD_APP_FOLDER}/Dockerfile
       --build-arg buildid=${CD_APP_TAG}
       --destination ${CD_HARBOR_REGISTRY}/vws-reis/${CD_APP_NAME}:${CD_APP_TAG}
-      --cache=true
 
-.label-image: &label-image
-  environment:
-    name: overheid-test4
-  stage: label
-  image: harbor.cicd.s15m.nl/vws-reis/tool-box:1.2
-  script:
-    - CD_USERNAME=${HARBOR_ROBOT_NAME}
-    - CD_PASSWORD=$(echo ${HARBOR_ROBOT_SECRET} | base64 -d)
-    - "CONTENT_HEADER='Content-Type:application/json'"
-    - curl -v -u "${CD_USERNAME}:${CD_PASSWORD}" -H ${CONTENT_HEADER} https://${CD_HARBOR_REGISTRY}/api/repositories/vws-reis/${CD_APP_NAME}/tags/${CD_APP_TAG}/labels -d '{"id":${CD_ENVIRONMENT_LABEL}}'
-
+# Define the stages that will be used in the pipeline
 stages:
+  - check-changes
   - test
   - build
   - package
-  - label
   - deploy
 
 before_script:
@@ -60,46 +57,58 @@ before_script:
   - export CD_APP_TAG=$(date -d "$(echo $CI_PIPELINE_CREATED_AT | sed 's/T/ /; s/Z//')" +%Y%m%d%H%M)
   - echo ${CI_PIPELINE_CREATED_AT}
   - echo ${CD_APP_TAG}
+  - echo "CHANGES_DETECTED - $CHANGES_DETECTED"
   - unset ${HISTFILE} # Disable shell cache for security purposes
+
+check changes mvoc:
+  stage: check-changes
+  image: harbor.cicd.s15m.nl/vws-reis-docker-hub/library/node:18-alpine
+  cache:
+    key: ${CD_ENVIRONMENT}-last-update-timestamp
+    paths:
+      - packages/mvoc/data/${CD_ENVIRONMENT}-last-update-timestamp.txt
+  script:
+    - npm ci
+    - NPM_OUTPUT=$(npm run mvoc:check-changed-documents:$CD_ENVIRONMENT)
+    - echo "NPM script output:"
+    - echo "$NPM_OUTPUT"
+    - CHANGES_DETECTED=$(echo "$NPM_OUTPUT" | tail -1)
+    - echo "CHANGES_DETECTED=$CHANGES_DETECTED" > ${CD_ENVIRONMENT}-changes-detected.env
+    - echo $CHANGES_DETECTED
+  artifacts:
+    paths:
+      - ${CD_ENVIRONMENT}-changes-detected.env
+      - packages/mvoc/data/${CD_ENVIRONMENT}-last-update-timestamp.txt
+    reports:
+      dotenv: ${CD_ENVIRONMENT}-changes-detected.env
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
 
 test mvoc:
   image: harbor.cicd.s15m.nl/vws-reis-docker-hub/library/node:18-alpine
   stage: test
   script:
+    - *check-changes-skip-stage
     - npm ci
     - npm run mvoc:test
   only:
     - develop
-    - main
     - staging
-
-label mvoc image staging:
-  <<: *label-image
-  variables:
-    CD_APP_NAME: mijn-vraag-over-corona-website
-    CD_ENVIRONMENT_LABEL: 2
-  only:
-    - staging
-
-label mvoc image production:
-  <<: *label-image
-  variables:
-    CD_APP_NAME: mijn-vraag-over-corona-website
-    CD_ENVIRONMENT_LABEL: 1
-  only:
     - main
+    - alternative
 
 build mvoc:
   image: harbor.cicd.s15m.nl/vws-reis-docker-hub/library/node:18-alpine
   stage: build
   script:
+    - *check-changes-skip-stage
     - npm ci
     - npm run mvoc:build
-    - mkdir -p artifacts
-    - cp -r packages/mvoc/dist artifacts/
+    - mkdir -p artifacts/mvoc
+    - cp -r packages/mvoc/dist artifacts/mvoc/
   artifacts:
     paths:
-      - artifacts/dist/
+      - artifacts/mvoc/dist/
   only:
     - develop
     - main
@@ -108,12 +117,12 @@ build mvoc:
 build mvoc image:
   <<: *build-image
   variables:
-    CD_APP_NAME: mijn-vraag-over-corona-website
+    CD_APP_NAME: mijn-vraag-over-corona-frontend
     CD_APP_FOLDER: mvoc
   before_script:
     - export CD_APP_TAG=$(date -d "$(echo $CI_PIPELINE_CREATED_AT | sed 's/T/ /; s/Z//')" +%Y%m%d%H%M)
     - mkdir -p packages/mvoc
-    - cp -r artifacts/dist packages/mvoc/
+    - cp -r artifacts/mvoc/dist packages/mvoc/
   dependencies:
     - build mvoc
   only:
@@ -121,15 +130,86 @@ build mvoc image:
     - main
     - staging
 
-deploy mvoc image latest:
+build mvoc cms develop:
+  image: harbor.cicd.s15m.nl/vws-reis-docker-hub/library/node:18-alpine
+  stage: build
+  script:
+    - npm ci
+    - npm run cms:build-development
+    - mkdir -p artifacts/cms
+    - cp -r packages/cms/dist artifacts/cms/
+  artifacts:
+    paths:
+      - artifacts/cms/dist/
+  only:
+    - develop
+
+build mvoc cms staging:
+  image: harbor.cicd.s15m.nl/vws-reis-docker-hub/library/node:18-alpine
+  stage: build
+  script:
+    - npm ci
+    - npm run cms:build-staging
+    - mkdir -p artifacts/cms
+    - cp -r packages/cms/dist artifacts/cms/
+  artifacts:
+    paths:
+      - artifacts/cms/dist/
+  only:
+    - staging
+
+build mvoc cms main:
+  image: harbor.cicd.s15m.nl/vws-reis-docker-hub/library/node:18-alpine
+  stage: build
+  script:
+    - npm ci
+    - npm run cms:build-main
+    - mkdir -p artifacts/cms
+    - cp -r packages/cms/dist artifacts/cms/
+  artifacts:
+    paths:
+      - artifacts/cms/dist/
+  only:
+    - main
+
+build mvoc cms alternative:
+  image: harbor.cicd.s15m.nl/vws-reis-docker-hub/library/node:18-alpine
+  stage: build
+  script:
+    - npm ci
+    - npm run cms:build-alternative
+    - mkdir -p artifacts/cms
+    - cp -r packages/cms/dist artifacts/cms/
+  artifacts:
+    paths:
+      - artifacts/cms/dist/
+  only:
+    - alternative
+
+build mvoc cms image:
+  <<: *build-image
   variables:
-    CD_APP_NAME: mijn-vraag-over-corona-website
+    CD_APP_NAME: mijn-vraag-over-corona-cms
+    CD_APP_FOLDER: cms
+  before_script:
+    - export CD_APP_TAG=$(date -d "$(echo $CI_PIPELINE_CREATED_AT | sed 's/T/ /; s/Z//')" +%Y%m%d%H%M)
+    - mkdir -p packages/cms
+    - cp -r artifacts/cms/dist packages/cms/
+  only:
+    - develop
+    - staging
+    - main
+    - alternative
+
+deploy mvoc image development:
+  variables:
+    CD_APP_NAME: mijn-vraag-over-corona-frontend
     CD_PIPELINE_CREATED_AT: $CI_PIPELINE_CREATED_AT
     CD_ENVIRONMENT: development
   stage: deploy
   trigger:
     project: vws/reis/nl-covid19-travel-during-corona-deploy
-    branch: develop
+    branch: feature/automatic-deployments
     forward:
       pipeline_variables: true
   only:
@@ -137,13 +217,12 @@ deploy mvoc image latest:
 
 deploy mvoc image staging:
   variables:
-    CD_APP_NAME: mijn-vraag-over-corona-website
     CD_PIPELINE_CREATED_AT: $CI_PIPELINE_CREATED_AT
     CD_ENVIRONMENT: staging
   stage: deploy
   trigger:
     project: vws/reis/nl-covid19-travel-during-corona-deploy
-    branch: develop
+    branch: feature/automatic-deployments
     forward:
       pipeline_variables: true
   only:
@@ -151,14 +230,26 @@ deploy mvoc image staging:
 
 deploy mvoc image production:
   variables:
-    CD_APP_NAME: mijn-vraag-over-corona-website
     CD_PIPELINE_CREATED_AT: $CI_PIPELINE_CREATED_AT
     CD_ENVIRONMENT: production
   stage: deploy
   trigger:
     project: vws/reis/nl-covid19-travel-during-corona-deploy
-    branch: develop
+    branch: feature/automatic-deployments
     forward:
       pipeline_variables: true
   only:
     - main
+
+deploy mvoc image alternative:
+  variables:
+    CD_PIPELINE_CREATED_AT: $CI_PIPELINE_CREATED_AT
+    CD_ENVIRONMENT: alternative
+  stage: deploy
+  trigger:
+    project: vws/reis/nl-covid19-travel-during-corona-deploy
+    branch: feature/automatic-deployments
+    forward:
+      pipeline_variables: true
+  only:
+    - alternative
