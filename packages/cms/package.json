@@ -9,7 +9,7 @@
 		"build-staging": "SANITY_ACTIVE_ENV=staging sanity build",
 		"build-main": "SANITY_ACTIVE_ENV=production sanity build",
 		"build-alternative": "SANITY_ACTIVE_ENV=alternative sanity build",
-		"dev": "sanity dev",
+		"dev": "SANITY_STUDIO_BASEPATH=\"\" sanity dev",
 		"backup": "npm run backup-development && npm run backup-staging && npm run backup-main && npm run backup-alternative",
 		"backup-development": "sanity dataset export development ./backup/development.tar.gz",
 		"backup-staging": "sanity dataset export staging ./backup/staging.tar.gz",
