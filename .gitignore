@@ -20,6 +20,7 @@ build
 **/public/sitemap*
 **/public/images/sanity
 dist
+.sanity
 
 # misc
 .DS_Store
@@ -36,4 +37,5 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
+
 .vercel

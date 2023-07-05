@@ -9,11 +9,14 @@ import { scheduledPublishing } from '@sanity/scheduled-publishing';
 
 import schemas from './src/schemas/schema';
 import deskStructure from './src/deskStructure';
+import { studioDataSet, studioProjectID, studioTitle } from './src/environment';
+import { theme } from './src/theme';
 
 export default defineConfig({
-	title: 'mijnvraagovercorona.nl',
-	projectId: 'yiy91tbc',
-	dataset: 'main',
+	theme,
+	title: studioTitle,
+	projectId: studioProjectID,
+	dataset: studioDataSet,
 	plugins: withDocumentI18nPlugin(
 		[
 			deskTool({

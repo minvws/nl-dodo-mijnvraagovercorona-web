@@ -17,3 +17,12 @@ export const trackEvent = (
 		window?._paq?.push(['trackEvent', category, action, name, value]);
 	} catch {}
 };
+
+export const setCustomDimension = (
+	dimensionId: number,
+	dimensionValue?: string,
+) => {
+	try {
+		window?._paq?.push(['setCustomDimension', dimensionId, dimensionValue]);
+	} catch {}
+};
