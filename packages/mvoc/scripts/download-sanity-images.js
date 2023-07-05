@@ -8,6 +8,13 @@ const {
 	readdirSync,
 } = require('fs');
 const got = require('got');
+const dotenv = require('dotenv');
+
+/** Get the custom set environment */
+const ENV = process.env.ENVIRONMENT || 'development';
+
+/** Use the env based on the passed env value */
+dotenv.config({ path: `.env.${ENV}` });
 
 const pipeline = promisify(stream.pipeline);
 
@@ -16,7 +23,7 @@ const folder = './public/images/sanity';
 (async () => {
 	try {
 		const { result } = await got(
-			'https://yiy91tbc.api.sanity.io/v1/data/query/main?query=*%5B_type%3D%3D%22sanity.imageAsset%22%5D%7B%0A%20%20url%2C%0A%20%20sha1hash%2C%0A%20%20originalFilename%0A%7D',
+			`https://${process.env.PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/v1/data/query/${process.env.PUBLIC_SANITY_DATASET}?query=*%5B_type%3D%3D%22sanity.imageAsset%22%5D%7B%0A%20%20url%2C%0A%20%20sha1hash%2C%0A%20%20originalFilename%0A%7D`,
 			{
 				headers: {
 					'user-agent': undefined,
