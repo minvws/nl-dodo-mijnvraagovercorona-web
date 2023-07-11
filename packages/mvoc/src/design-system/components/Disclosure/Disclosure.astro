@@ -8,37 +8,80 @@
 		...document.querySelectorAll('[data-module-bind="disclosure__item"]'),
 	];
 
-	const openItem = (item) => {
-		const toggle = item.querySelector(
-			'[data-module-bind="disclosure__toggle"]',
+	const getPanelDimensions = (panel) => {
+		const panelInner = panel.querySelector(
+			'[data-module-bind="disclosure__panel-inner"]',
 		);
-
-		item.classList.add('is-active');
-		toggle.setAttribute('aria-expanded', true);
+		const rect = panelInner.getBoundingClientRect();
+		return { blockSize: rect.height, inlineSize: rect.width };
 	};
 
-	const closeItem = (item) => {
-		const toggle = item.querySelector(
-			'[data-module-bind="disclosure__toggle"]',
-		);
-
-		item.classList.remove('is-active');
-		toggle.focus();
-		toggle.setAttribute('aria-expanded', false);
-	};
-
+	/**
+	 * Check if an item is open
+	 */
 	const isOpen = (item) => {
 		return item.classList.contains('is-active');
 	};
 
-	// execution
-	items.forEach((item, index) => {
+	/**
+	 * Open accordion item
+	 */
+	const openItem = (item) => {
 		const toggle = item.querySelector(
 			'[data-module-bind="disclosure__toggle"]',
 		);
 		const itemPanel = item.querySelector(
 			'[data-module-bind="disclosure__panel"]',
+		) as HTMLElement;
+
+		item.classList.add('is-active');
+		toggle.setAttribute('aria-expanded', true);
+		const dimensions = getPanelDimensions(itemPanel);
+		itemPanel.style.blockSize = `${dimensions.blockSize}px`;
+	};
+
+	/**
+	 * Close accordion item
+	 */
+	const closeItem = (item) => {
+		const toggle = item.querySelector(
+			'[data-module-bind="disclosure__toggle"]',
 		);
+		const itemPanel = item.querySelector(
+			'[data-module-bind="disclosure__panel"]',
+		) as HTMLElement;
+
+		item.classList.remove('is-active');
+		toggle.focus();
+		toggle.setAttribute('aria-expanded', false);
+		// reset hard block size for the animation to be able to run
+		// (we can't animate auto to 0)
+		const dimensions = getPanelDimensions(itemPanel);
+		itemPanel.style.blockSize = `${dimensions.blockSize}px`;
+		// 1 frame later, set the bocksize to 0 to kick off the animation
+		window.requestAnimationFrame(() => {
+			itemPanel.style.blockSize = `0px`;
+		});
+	};
+
+	/**
+	 * Toggle an item
+	 */
+	const toggleItem = (item) => {
+		isOpen(item) ? closeItem(item) : openItem(item);
+	};
+
+	/**
+	 * Execute all items
+	 */
+	items.forEach((item, index) => {
+		const toggle = item.querySelector(
+			'[data-module-bind="disclosure__toggle"]',
+		);
+
+		const itemPanel = item.querySelector(
+			'[data-module-bind="disclosure__panel"]',
+		) as HTMLElement;
 
 		toggle.setAttribute('id', `accordion-item${index + 1}`);
 		itemPanel.setAttribute('id', `item${index + 1}`);
@@ -47,10 +90,23 @@
 		itemPanel.setAttribute('aria-labelledby', `accordion-item${index + 1}`);
 
 		toggle.addEventListener('click', () => {
-			isOpen(item) ? closeItem(item) : openItem(item);
+			toggleItem(item);
+		});
+
+		/**
+		 * When the animation is completed, set the height of an item to auto so
+		 * it can scale again when resizing the browser
+		 */
+		itemPanel.addEventListener('transitionend', (event) => {
+			if (event.target === itemPanel && isOpen(item)) {
+				itemPanel.style.blockSize = `auto`;
+			}
 		});
 	});
 
+	/**
+	 * Escape key can close an item when its open and the focus is within the item
+	 */
 	document.addEventListener('keydown', (event) => {
 		const item = (event.target as Element).closest(
 			'[data-module-bind="disclosure__item"]',
@@ -64,20 +120,9 @@
 		}
 	});
 
-	if (window.location.hash) {
-		const hash = window.location.hash.substring(1);
-		const element = document.getElementById(hash);
-		if (element) {
-			const liElement = element.closest('.disclosure__item');
-			if (liElement) {
-				liElement.classList.add('is-active');
-				liElement
-					.querySelector('[data-module-bind="disclosure__toggle"]')
-					.setAttribute('aria-expanded', new Boolean(true).toString());
-			}
-		}
-	}
-
+	/**
+	 * Items can be traversed by arrow down and up
+	 */
 	document.addEventListener('keydown', (event) => {
 		if (
 			!(event.target as Element).closest(
@@ -118,6 +163,21 @@
 				.focus();
 		}
 	});
+
+	/**
+	 * When an item is targetted from a hash in the url, it will be
+	 * automatically expanded
+	 */
+	if (window.location.hash) {
+		const hash = window.location.hash.substring(1);
+		const element = document.getElementById(hash);
+		if (element) {
+			const item = element.closest('.disclosure__item');
+			if (item) {
+				openItem(item);
+			}
+		}
+	}
 </script>
 
 <style lang="scss">
