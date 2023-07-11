@@ -97,6 +97,11 @@ const {
 		&:nth-of-type(even) {
 			--card-border-color: var(--color-accent-robijnrood);
 		}
+		@media --mq-large {
+			:global(.disclosure__item--accordeon .disclosure__panel-inner) {
+				padding-block-start: 0;
+			}
+		}
 	}
 
 	.c-advice-block__media-item {
