@@ -88,22 +88,18 @@ const {
 	.c-advice-block.c-advice-block {
 		--card-border-width: var(--space-1);
 		--card-border-color: var(--color-accent-grasgroen);
-		border-radius: var(--space-1);
 		padding: 0;
-		border-radius: var(--space-1);
 		border-block-start: 0;
 		border-block-end: 0;
 		border-inline-end: 0;
+		border-radius: var(--space-1);
 
 		&:nth-of-type(even) {
 			--card-border-color: var(--color-accent-robijnrood);
 		}
-	}
-
-	.c-advice-block__media-heading {
-		& {
-			@media --mq-large {
-				--c-media-block-icon-size: var(--space-14);
+		@media --mq-large {
+			:global(.disclosure__item--accordeon .disclosure__panel-inner) {
+				padding-block-start: 0;
 			}
 		}
 	}
@@ -127,10 +123,6 @@ const {
 		...document.querySelectorAll('.advice-block__button'),
 	];
 
-	const disclosureInnerPanels = [
-		...document.querySelectorAll('.disclosure__panel-inner'),
-	];
-
 	const setToggleTabIndex = (toggle) => {
 		toggle.setAttribute('tabindex', '-1');
 	};
@@ -139,21 +131,43 @@ const {
 		toggle.removeAttribute('tabindex');
 	};
 
-	const toggleDisclosure = (matches) => {
-		disclosureInnerPanels.forEach((item) => {
-			item.classList.add('disclosure__panel-inner--no-padding');
-		});
+	const setAriaExpanded = (toggle) => {
+		toggle.setAttribute('aria-expanded', 'true');
+	};
 
+	const unsetAriaExpanded = (toggle) => {
+		toggle.setAttribute('aria-expanded', 'false');
+	};
+
+	const setPanelBlockSize = () => {
+		disclosureItems.forEach((item) => {
+			const itemPanel = item.querySelector('.disclosure__panel') as HTMLElement;
+			itemPanel.style.blockSize = 'auto';
+		});
+	};
+
+	const unsetPanelBlockSize = () => {
+		disclosureItems.forEach((item) => {
+			const itemPanel = item.querySelector('.disclosure__panel') as HTMLElement;
+			itemPanel.style.blockSize = '0';
+		});
+	};
+
+	const toggleDisclosure = (matches) => {
 		if (matches) {
 			disclosureToggles.forEach(setToggleTabIndex);
+			disclosureToggles.forEach(setAriaExpanded);
 			disclosureItems.forEach((item) => {
 				item.classList.add('is-active');
 			});
+			setPanelBlockSize();
 		} else {
 			disclosureToggles.forEach(unsetToggleTabIndex);
+			disclosureToggles.forEach(unsetAriaExpanded);
 			disclosureItems.forEach((item) => {
 				item.classList.remove('is-active');
 			});
+			unsetPanelBlockSize();
 		}
 	};
 

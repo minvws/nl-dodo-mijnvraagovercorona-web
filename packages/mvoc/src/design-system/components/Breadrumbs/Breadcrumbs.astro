@@ -83,14 +83,14 @@ const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 	}
 
 	.c-breadcrumbs__list {
-		flex-flow: row wrap;
-		row-gap: 0;
+		display: block;
 	}
 
 	.c-breadcrumbs__list-item {
-		align-items: center;
+		display: inline-flex;
 
 		&:last-of-type {
+			display: inline;
 			font-weight: 700;
 		}
 	}

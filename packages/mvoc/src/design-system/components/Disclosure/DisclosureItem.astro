@@ -138,12 +138,19 @@ const {
 	}
 
 	.disclosure__panel {
-		--disclosure__panel--spacing: calc(
-			var(--space-6) - var(--card-border-width)
+		--_disclosure__panel-padding: var(
+			--disclosure__panel-padding,
+			var(--space-6)
 		);
-		padding: 0 var(--disclosure__panel--spacing)
-			var(--disclosure__panel--spacing);
-		display: none;
+		--disclosure__panel--spacing: calc(
+			var(--_disclosure__panel-padding) - var(--card-border-width)
+		);
+		block-size: 0;
+		padding-inline: var(--disclosure__panel--spacing);
+		overflow: hidden;
+		opacity: 0;
+		visibility: hidden;
+		transition: all 0.3s ease-in-out;
 	}
 
 	.disclosure__panel-inner {
@@ -152,7 +159,8 @@ const {
 
 	.disclosure__item.is-active {
 		.disclosure__panel {
-			display: block;
+			opacity: 1;
+			visibility: visible;
 		}
 		.disclosure__show-inactive {
 			display: none;
@@ -166,18 +174,9 @@ const {
 		& + & {
 			margin-block-start: var(--space-4);
 		}
+
 		.disclosure__panel-inner {
-			padding-block: var(--space-8);
-		}
-
-		.disclosure__panel-inner--no-padding {
-			padding-block-start: 0;
-		}
-
-		&:last-child {
-			.disclosure__panel-inner {
-				padding-block-end: 0;
-			}
+			padding-block-end: var(--_disclosure__panel-padding);
 		}
 
 		.disclosure__toggle--button {
