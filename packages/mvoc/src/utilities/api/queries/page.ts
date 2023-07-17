@@ -57,6 +57,11 @@ export const pageQuery = ({
 			${subFolderReferenceQuery()},
 			...${projection},
 			${metaDataQuery()},
+			"alternatives": *[_type == "translation.metadata" && references(^._id)][0].translations[].value->{
+				"slug": slug.current,
+				"locale": __i18n_lang,
+				${subFolderReferenceQuery()},
+			},
 		},
 	}`;
 };

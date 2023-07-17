@@ -4,7 +4,6 @@ export default defineType({
 	title: 'Modals',
 	name: 'modals',
 	type: 'document',
-	i18n: true,
 	initialValue: {
 		__i18n_lang: 'nl',
 	},

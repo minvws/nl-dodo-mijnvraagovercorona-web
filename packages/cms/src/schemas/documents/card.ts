@@ -4,7 +4,6 @@ export default defineType({
 	title: 'Kaarten',
 	name: 'card',
 	type: 'document',
-	i18n: true,
 	initialValue: {
 		__i18n_lang: 'nl',
 	},

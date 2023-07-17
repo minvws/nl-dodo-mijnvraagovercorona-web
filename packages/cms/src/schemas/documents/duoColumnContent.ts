@@ -4,7 +4,6 @@ export default defineType({
 	title: 'Content Feed',
 	name: 'duo-column-content',
 	type: 'document',
-	i18n: true,
 	initialValue: {
 		__i18n_lang: 'nl',
 	},

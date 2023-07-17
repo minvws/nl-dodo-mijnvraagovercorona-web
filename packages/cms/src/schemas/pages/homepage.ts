@@ -5,7 +5,6 @@ export default defineType({
 	title: 'Homepage',
 	name: 'homepage',
 	type: 'document',
-	i18n: true,
 	initialValue: {
 		__i18n_lang: 'nl',
 	},
