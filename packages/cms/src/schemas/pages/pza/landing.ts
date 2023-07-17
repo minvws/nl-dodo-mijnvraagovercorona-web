@@ -10,7 +10,6 @@ export default defineType({
 	title: 'PZA landing pagina',
 	name: 'pza-landing-page',
 	type: 'document',
-	i18n: true,
 	initialValue: {
 		__i18n_lang: 'nl',
 	},

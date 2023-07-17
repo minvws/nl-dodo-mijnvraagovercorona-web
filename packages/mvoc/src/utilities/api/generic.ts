@@ -29,7 +29,6 @@ export interface GenericPageProps extends PageProps {
 	showFeedback?: boolean;
 	assistance: AssistanceProps;
 	locale: string;
-	alternatives: AlternativeTranslationsProps[];
 	slug: string;
 }
 

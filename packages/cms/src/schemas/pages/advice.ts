@@ -10,7 +10,6 @@ export default defineType({
 	title: 'Advies pagina',
 	name: 'advice-page',
 	type: 'document',
-	i18n: true,
 	initialValue: {
 		__i18n_lang: 'nl',
 		hero: {

@@ -9,7 +9,6 @@ export default defineType({
 	title: '404 Pagina',
 	name: 'error-page',
 	type: 'document',
-	i18n: true,
 	initialValue: {
 		__i18n_lang: 'nl',
 	},

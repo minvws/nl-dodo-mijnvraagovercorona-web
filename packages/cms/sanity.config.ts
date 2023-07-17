@@ -1,10 +1,7 @@
 import { defineConfig } from 'sanity';
 import { deskTool } from 'sanity/desk';
 import { visionTool } from '@sanity/vision';
-import {
-	ReferenceBehavior,
-	withDocumentI18nPlugin,
-} from '@sanity/document-internationalization';
+import { documentInternationalization } from '@sanity/document-internationalization';
 import { scheduledPublishing } from '@sanity/scheduled-publishing';
 
 import schemas from './src/schemas/schema';
@@ -17,19 +14,15 @@ export default defineConfig({
 	title: studioTitle,
 	projectId: studioProjectID,
 	dataset: studioDataSet,
-	plugins: withDocumentI18nPlugin(
-		[
-			deskTool({
-				structure: deskStructure,
-			}),
-			scheduledPublishing(),
-			visionTool(),
-		],
-		{
-			includeDeskTool: false,
-			base: 'nl',
-			referenceBehavior: ReferenceBehavior.WEAK,
-			languages: [
+	plugins: [
+		deskTool({
+			structure: deskStructure,
+		}),
+		scheduledPublishing(),
+		visionTool(),
+		documentInternationalization({
+			// Required:
+			supportedLanguages: [
 				{
 					id: 'nl',
 					title: 'Nederlands',
@@ -51,8 +44,28 @@ export default defineConfig({
 					title: 'Arabisch',
 				},
 			],
-		},
-	),
+			schemaTypes: [
+				'assistance',
+				'card',
+				'cta-button-document',
+				'duo-column-content',
+				'modals',
+				'siteSettings',
+				'tale',
+				'pza-landing-page',
+				'locations-page',
+				'advice-page',
+				'error-page',
+				'generic-page',
+				'homepage',
+				'question-page',
+				'theme-page',
+			],
+			// Optional:
+			weakReferences: true, // default false
+			languageField: '__i18n_lang', // default "language"
+		}),
+	],
 	tools: (prev) => {
 		// 👇 Uses environment variables set by Vite in development mode
 		if (import.meta.env.DEV) {

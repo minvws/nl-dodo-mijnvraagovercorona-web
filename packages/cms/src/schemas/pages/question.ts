@@ -10,7 +10,6 @@ export default defineType({
 	title: 'Vraag pagina',
 	name: 'question-page',
 	type: 'document',
-	i18n: true,
 	initialValue: {
 		__i18n_lang: 'nl',
 	},
