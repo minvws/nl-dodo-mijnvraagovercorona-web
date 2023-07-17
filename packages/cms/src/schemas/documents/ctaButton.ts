@@ -6,7 +6,6 @@ export default defineType({
 	title: 'CTA knop',
 	name: 'cta-button-document',
 	type: 'document',
-	i18n: true,
 	initialValue: {
 		__i18n_lang: 'nl',
 	},

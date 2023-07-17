@@ -10,7 +10,6 @@ export default defineType({
 	title: 'Thema pagina',
 	name: 'theme-page',
 	type: 'document',
-	i18n: true,
 	initialValue: {
 		__i18n_lang: 'nl',
 		generatePage: true,
