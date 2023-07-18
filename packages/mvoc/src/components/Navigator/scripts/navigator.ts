@@ -67,11 +67,11 @@ export class Navigator {
 	}
 
 	/**
-	 * Get locations from prikkenzonderafspraak
+	 * Get locations
 	 */
 	async getLocations() {
 		const featuresData = await fetch(
-			'https://prikkenzonderafspraak.rijksoverheid.nl/data/v3/features.json',
+			'https://mijnvraagovercorona.nl/data/v3/features.json',
 		);
 		const features: FeaturesProps = await featuresData.json();
 		this.locations = features.features;
