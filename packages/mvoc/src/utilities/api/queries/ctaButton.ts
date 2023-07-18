@@ -18,6 +18,13 @@ export interface CtaButtonProps {
 	categories: {
 		_type: 'category';
 		slug: string;
+		theme: {
+			overview: {
+				title: string;
+			};
+			slug: string;
+			localeID: string;
+		};
 	}[];
 }
 
@@ -54,7 +61,14 @@ export const ctaButtonCollectionQuery = (): string => {
 			_type,
 			title,
 			ctaButtonCollection[]->${ctaButtonCollectionProjection()},
-		}
+			"theme": themeReference->{
+				overview{
+					title,
+				},
+				"localeID": __i18n_lang,
+				"slug": slug.current,
+			},
+		},
 	}`;
 };
 
@@ -70,7 +84,11 @@ export const getFiltersAndSituations = ({
 			if (item._type === 'category') {
 				const categorySlug = stringToSlug(item.title);
 				// add category to filters array
-				filters.push({ label: item.title, id: categorySlug });
+				filters.push({
+					label: item.title,
+					id: categorySlug,
+					theme: item.theme,
+				});
 
 				// loop over connected ctaButtons to add them to our ctabuttons array and
 				item.ctaButtonCollection.forEach((button) => {

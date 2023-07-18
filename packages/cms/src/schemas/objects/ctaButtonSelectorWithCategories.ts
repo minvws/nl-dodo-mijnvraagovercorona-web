@@ -32,6 +32,16 @@ export default defineType({
 					name: 'ctaButtonCollection',
 					type: 'ctaButtonSelector',
 				}),
+
+				defineField({
+					title: 'Thema referentie',
+					name: 'themeReference',
+					type: 'reference',
+					to: [{ type: 'theme-page' }],
+					options: {
+						filter: filterReferenceByLanguage,
+					},
+				}),
 			],
 			preview: {
 				select: {

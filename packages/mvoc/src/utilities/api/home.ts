@@ -15,7 +15,6 @@ import {
 	ButtonProps,
 	buttonsQuery,
 	ctaButtonCollectionQuery,
-	CtaButtonProps,
 	CardsProps,
 	cardQuery,
 	CtaButtonCollectionProps,
@@ -67,6 +66,7 @@ export interface PageHomeProps extends PageProps {
 		overview: {
 			title: string;
 		};
+		ctaButtonCollection: CtaButtonCollectionProps['ctaButtonCollection'];
 		slug: string;
 		localeID: string;
 	}[];
@@ -116,6 +116,7 @@ export async function getDataHome() {
 			overview{
 				title
 			},
+			${ctaButtonCollectionQuery()},
 			"localeID": __i18n_lang,
 			"slug": slug.current,
 		},
