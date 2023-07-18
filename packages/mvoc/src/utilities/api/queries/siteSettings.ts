@@ -68,6 +68,7 @@ export interface SiteSettingsProps {
 	genericLabels: {
 		close: string;
 		open: string;
+		goTo: string;
 		moreThan: string;
 		in: string;
 		today: string;
@@ -157,6 +158,7 @@ export const siteSettingsQuery = ({ locale }: { locale: Locale }): string => `
 		genericLabels{
 			close,
 			open,
+			goTo,
 			moreThan,
 			today,
 			ago,

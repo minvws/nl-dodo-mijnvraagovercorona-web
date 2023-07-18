@@ -3,6 +3,7 @@ import { ContentBlock } from '@design-system/components/ContentBlock';
 import { GridFluid } from '@design-system/components/Layout/Grid';
 import { Stack } from '@design-system/components/Layout/Stack';
 import { Button } from '@design-system/elements/Button';
+import { Link } from '@design-system/elements/Link';
 import { HTMLAttributes } from 'astro/types';
 import {
 	CtaButtonProps,
@@ -18,6 +19,12 @@ interface Props extends HTMLAttributes<'div'> {
 	categories?: {
 		label: string;
 		id: string;
+		theme?: {
+			overview: {
+				title: string;
+			};
+			slug: string;
+		};
 	}[];
 	items: CtaButtonProps[];
 	enableFilter?: boolean;
@@ -49,6 +56,18 @@ const filterCategories = categories?.length
 
 const filteredItems =
 	items && items.length ? items?.filter((item) => item.label) : [];
+
+const uniqueThemes = filterCategories.length
+	? filterCategories.reduce((acc, category) => {
+			if (
+				category.theme &&
+				!acc.some((item) => item.slug === category.theme.slug)
+			) {
+				return [...acc, category.theme];
+			}
+			return [...acc];
+	  }, [])
+	: [];
 ---
 
 <>
@@ -78,6 +97,7 @@ const filteredItems =
 									type="button"
 									variant="quinary"
 									data-id={category.id}
+									data-theme-slug={category?.theme?.slug || undefined}
 									data-module-bind="filter__toggle"
 								>
 									{category.label}
@@ -100,7 +120,11 @@ const filteredItems =
 							</span>
 						</small>
 					</p>
-					<GridFluid class="c-cta-button-overview__grid" as="ul">
+					<GridFluid
+						class="c-cta-button-overview__grid"
+						as="ul"
+						aria-live="polite"
+					>
 						{filteredItems.map((item) => (
 							<li
 								class="c-cta-button-overview__item"
@@ -124,6 +148,26 @@ const filteredItems =
 							</li>
 						))}
 					</GridFluid>
+					<div
+						aria-live="polite"
+						data-module-bind="filter__switch-on-filter-theme"
+					>
+						{enableFilter && uniqueThemes.length ? (
+							<>
+								{uniqueThemes.map((theme) => (
+									<Link
+										href={parseLink(theme.slug, locale)}
+										icon="arrow-right"
+										data-theme-slug={theme.slug}
+										hidden
+									>
+										{siteSettings.genericLabels.goTo}&#32;
+										{theme.overview.title.toLowerCase()}
+									</Link>
+								))}
+							</>
+						) : null}
+					</div>
 				</Stack>
 			</div>
 		) : null
@@ -193,6 +237,9 @@ const filteredItems =
 		const amountFilter = parent.querySelector<HTMLSpanElement>(
 			'[data-amount-filter]',
 		);
+		const themeSwitchContainers = parent.querySelectorAll<HTMLElement>(
+			'[data-module-bind="filter__switch-on-filter-theme"]',
+		);
 
 		// Get filters from session
 		const activeFilters = JSON.parse(sessionStorage.getItem(name)) || ['all'];
@@ -235,12 +282,25 @@ const filteredItems =
 			placeholderAmount.innerHTML = `${activeItems}`;
 			amountFilter.hidden = activeItems === items.length;
 
-			toggles.forEach((toggle) =>
+			toggles.forEach((toggle) => {
 				toggle.classList.toggle(
 					'is-active',
 					activeFilters.includes(toggle.dataset.id),
-				),
-			);
+				);
+
+				if (activeFilters.includes(toggle.dataset.id)) {
+					themeSwitchContainers.forEach((container) => {
+						const items =
+							container.querySelectorAll<HTMLElement>('[data-theme-slug]');
+
+						items.forEach((item) => {
+							item.hidden = !(
+								item.dataset.themeSlug === toggle.dataset.themeSlug
+							);
+						});
+					});
+				}
+			});
 
 			// store filters in session
 			sessionStorage.setItem(name, JSON.stringify(activeFilters));
@@ -252,7 +312,6 @@ const filteredItems =
 				const id = toggle.dataset.id;
 				// Track click
 				trackEvent('Filter', name, id);
-
 				filterItems({ id });
 			});
 		});

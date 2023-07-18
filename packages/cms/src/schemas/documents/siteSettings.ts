@@ -320,6 +320,12 @@ export default defineType({
 					validation: (Rule) => Rule.required(),
 				}),
 				defineField({
+					title: 'Ga naar',
+					name: 'goTo',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
+				defineField({
 					title: 'Over',
 					name: 'in',
 					type: 'string',
