@@ -68,6 +68,21 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 				@media --mq-large-until {
 					background-color: var(--color-donkerblauw);
 				}
+
+				&[data-environment]::after {
+					position: fixed;
+					inset-block-end: 0;
+					inset-inline-end: 0;
+					padding-block: 0.25em;
+					padding-inline: 0.5em;
+					content: attr(data-environment);
+					z-index: 1000;
+					background-color: #ff4013;
+				}
+
+				&[data-environment='staging']::after {
+					background-color: #fffc41;
+				}
 			}
 
 			:where(main) {
@@ -111,7 +126,12 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 			}
 		</style>
 	</head>
-	<body>
+	<body
+		data-environment={import.meta.env.MODE === 'production' &&
+		!['main', 'alternative'].includes(import.meta.env.PUBLIC_SANITY_DATASET)
+			? `Omgeving: ${import.meta.env.WEBSITE_ENVIRONMENT}`
+			: undefined}
+	>
 		<Sprite.Provider>
 			<SkipLink label={siteSettings.masthead.skiplink} />
 			{
