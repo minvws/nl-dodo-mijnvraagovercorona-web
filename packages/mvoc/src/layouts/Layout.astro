@@ -129,7 +129,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 	<body
 		data-environment={import.meta.env.MODE === 'production' &&
 		!['main', 'alternative'].includes(import.meta.env.PUBLIC_SANITY_DATASET)
-			? `Omgeving: ${import.meta.env.WEBSITE_ENVIRONMENT}`
+			? import.meta.env.WEBSITE_ENVIRONMENT
 			: undefined}
 	>
 		<Sprite.Provider>
