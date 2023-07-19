@@ -97,13 +97,13 @@ test mvoc:
     - main
     - alternative
 
-build mvoc:
+build mvoc website development:
   image: harbor.cicd.s15m.nl/vws-reis-docker-hub/library/node:18-alpine
   stage: build
   script:
     - *check-changes-skip-stage
     - npm ci
-    - npm run mvoc:build
+    - npm run mvoc:build:development
     - mkdir -p artifacts/mvoc
     - cp -r packages/mvoc/dist artifacts/mvoc/
   artifacts:
@@ -111,8 +111,36 @@ build mvoc:
       - artifacts/mvoc/dist/
   only:
     - develop
-    - main
+
+build mvoc website staging:
+  image: harbor.cicd.s15m.nl/vws-reis-docker-hub/library/node:18-alpine
+  stage: build
+  script:
+    - *check-changes-skip-stage
+    - npm ci
+    - npm run mvoc:build:staging
+    - mkdir -p artifacts/mvoc
+    - cp -r packages/mvoc/dist artifacts/mvoc/
+  artifacts:
+    paths:
+      - artifacts/mvoc/dist/
+  only:
     - staging
+
+build mvoc website main:
+  image: harbor.cicd.s15m.nl/vws-reis-docker-hub/library/node:18-alpine
+  stage: build
+  script:
+    - *check-changes-skip-stage
+    - npm ci
+    - npm run mvoc:build:production
+    - mkdir -p artifacts/mvoc
+    - cp -r packages/mvoc/dist artifacts/mvoc/
+  artifacts:
+    paths:
+      - artifacts/mvoc/dist/
+  only:
+    - main
 
 build mvoc image:
   <<: *build-image
@@ -123,8 +151,8 @@ build mvoc image:
     - export CD_APP_TAG=$(date -d "$(echo $CI_PIPELINE_CREATED_AT | sed 's/T/ /; s/Z//')" +%Y%m%d%H%M)
     - mkdir -p packages/mvoc
     - cp -r artifacts/mvoc/dist packages/mvoc/
-  dependencies:
-    - build mvoc
+  # dependencies:
+  #   - build mvoc
   only:
     - develop
     - main
@@ -135,7 +163,7 @@ build mvoc cms develop:
   stage: build
   script:
     - npm ci
-    - npm run cms:build-development
+    - npm run cms:build:development
     - mkdir -p artifacts/cms
     - cp -r packages/cms/dist artifacts/cms/
   artifacts:
@@ -149,7 +177,7 @@ build mvoc cms staging:
   stage: build
   script:
     - npm ci
-    - npm run cms:build-staging
+    - npm run cms:build:staging
     - mkdir -p artifacts/cms
     - cp -r packages/cms/dist artifacts/cms/
   artifacts:
@@ -163,7 +191,7 @@ build mvoc cms main:
   stage: build
   script:
     - npm ci
-    - npm run cms:build-main
+    - npm run cms:build:main
     - mkdir -p artifacts/cms
     - cp -r packages/cms/dist artifacts/cms/
   artifacts:
@@ -177,7 +205,7 @@ build mvoc cms alternative:
   stage: build
   script:
     - npm ci
-    - npm run cms:build-alternative
+    - npm run cms:build:alternative
     - mkdir -p artifacts/cms
     - cp -r packages/cms/dist artifacts/cms/
   artifacts:

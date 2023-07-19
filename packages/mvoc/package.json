@@ -5,7 +5,7 @@
 	"scripts": {
 		"dev": "NODE_ENV=development npm run files && astro telemetry disable && astro dev",
 		"start": "npm run dev",
-		"build": "NODE_ENV=production npm run files && astro telemetry disable && astro build",
+		"build": "npm run files && astro telemetry disable && astro build",
 		"test": "echo \"Error: no test specified\" && exit 0",
 		"test:astro": "astro telemetry disable && astro check",
 		"files:download-sanity-images": "node ./scripts/download-sanity-images.js",
