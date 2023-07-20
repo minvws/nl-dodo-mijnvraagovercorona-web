@@ -45,7 +45,7 @@ const { id, title } = Astro.props;
 	};
 
 	// Open our modal, duh!
-	const openModal = (modal, modalTrigger) => {
+	const openModal = (modal: HTMLElement, modalTrigger: HTMLElement) => {
 		const modalTitle = modal.querySelector('h3');
 		modal.classList.add('is-visible');
 		document.body.classList.add('modal-is-visible');
@@ -59,7 +59,7 @@ const { id, title } = Astro.props;
 	};
 
 	// Close our modal obviously
-	const closeModal = (modal, modalTrigger) => {
+	const closeModal = (modal: HTMLElement, modalTrigger: HTMLElement) => {
 		modal.classList.remove('is-visible');
 		document.body.classList.remove('modal-is-visible');
 		modalTrigger.focus({ preventScroll: true });
@@ -68,21 +68,25 @@ const { id, title } = Astro.props;
 
 	// execution
 	const modalTemplates = [
-		...document.querySelectorAll('[data-module-bind="modal-root"]'),
+		...document.querySelectorAll<HTMLTemplateElement>(
+			'[data-module-bind="modal-root"]',
+		),
 	];
 
 	modalTemplates.forEach((modalTemplate: HTMLTemplateElement) => {
 		transferModalToRoot(modalTemplate);
 	});
 
-	const modals = [...document.querySelectorAll('[data-module="modal"]')];
+	const modals = [
+		...document.querySelectorAll<HTMLElement>('[data-module="modal"]'),
+	];
 
 	modals.forEach((modal) => {
 		const modalID = modal.getAttribute('aria-labelledby');
 		const modalCloseButton = modal.querySelector(
 			'[data-module-bind="modal__close-button"]',
 		);
-		const modalTrigger = document.querySelector(`#${modalID}`);
+		const modalTrigger = document.querySelector(`#${modalID}`) as HTMLElement;
 
 		// event listeners
 		modalTrigger.addEventListener('click', () =>

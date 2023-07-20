@@ -47,6 +47,7 @@ interface Props {
 }
 
 const { pageData, locale } = Astro.props;
+
 const homeCollection = await getDataHome();
 const homePageData = homeCollection.filter(
 	(page: PageHomeProps) => page.localeID === locale.id,
