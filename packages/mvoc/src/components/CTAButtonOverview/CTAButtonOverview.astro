@@ -244,8 +244,8 @@ const uniqueThemes = filterCategories.length
 		// Get filters from session
 		const activeFilters = JSON.parse(sessionStorage.getItem(name)) || ['all'];
 
-		const checkItem = (value) =>
-			!!activeFilters.some((filter) => value.includes(filter));
+		const checkItem = (value: string) =>
+			!!activeFilters.some((filter: string) => value.includes(filter));
 
 		const filterItems = ({ id }: { id?: string }) => {
 			if (id) {

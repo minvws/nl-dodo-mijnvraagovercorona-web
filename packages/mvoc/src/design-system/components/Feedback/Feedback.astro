@@ -111,7 +111,6 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 	) as HTMLElement;
 
 	if (parent) {
-		const name = parent.dataset.name;
 		const form = parent.querySelector(
 			'[data-module-bind="feedback__form"]',
 		) as HTMLFormElement;

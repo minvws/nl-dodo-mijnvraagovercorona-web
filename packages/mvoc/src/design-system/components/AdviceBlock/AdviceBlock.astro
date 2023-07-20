@@ -27,15 +27,7 @@ interface Props extends HTMLAttributes<'div'> {
 	}[];
 }
 
-const {
-	title,
-	image,
-	content,
-	button,
-	items,
-	locale,
-	class: className,
-} = Astro.props;
+const { title, image, content, button, items, locale } = Astro.props;
 ---
 
 <Card variant="filled" class="c-advice-block">
@@ -120,22 +112,22 @@ const {
 	];
 
 	const disclosureToggles = [
-		...document.querySelectorAll('.advice-block__button'),
+		...document.querySelectorAll<HTMLButtonElement>('.advice-block__button'),
 	];
 
-	const setToggleTabIndex = (toggle) => {
+	const setToggleTabIndex = (toggle: HTMLButtonElement) => {
 		toggle.setAttribute('tabindex', '-1');
 	};
 
-	const unsetToggleTabIndex = (toggle) => {
+	const unsetToggleTabIndex = (toggle: HTMLButtonElement) => {
 		toggle.removeAttribute('tabindex');
 	};
 
-	const setAriaExpanded = (toggle) => {
+	const setAriaExpanded = (toggle: HTMLButtonElement) => {
 		toggle.setAttribute('aria-expanded', 'true');
 	};
 
-	const unsetAriaExpanded = (toggle) => {
+	const unsetAriaExpanded = (toggle: HTMLButtonElement) => {
 		toggle.setAttribute('aria-expanded', 'false');
 	};
 
@@ -153,7 +145,7 @@ const {
 		});
 	};
 
-	const toggleDisclosure = (matches) => {
+	const toggleDisclosure = (matches: boolean) => {
 		if (matches) {
 			disclosureToggles.forEach(setToggleTabIndex);
 			disclosureToggles.forEach(setAriaExpanded);

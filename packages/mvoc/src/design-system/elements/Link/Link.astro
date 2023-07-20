@@ -10,13 +10,15 @@ interface Shared {
 	icon?: IconProps['name'];
 	iconPosition?: 'leading' | 'trailing';
 	interactionIconAnimation?: Animations;
+	hiddenLabel?: string;
+	href?: string | URL | undefined | null;
+	formaction?: string;
 }
 
 interface Button extends HTMLAttributes<'button'>, Shared {}
 
 interface Link extends HTMLAttributes<'a'>, Shared {
 	disabled?: boolean;
-	hiddenLabel?: string;
 }
 
 type Props = Button | Link;
@@ -48,7 +50,7 @@ const iconPositionCalculated =
 		? 'leading'
 		: 'trailing';
 
-const isExternal = attrs.href && isExternalUrl(attrs.href);
+const isExternal = attrs.href && isExternalUrl(attrs.href as string);
 
 const selectedIcon =
 	variant === 'tooltip'
