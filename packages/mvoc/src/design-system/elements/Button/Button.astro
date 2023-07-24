@@ -12,6 +12,9 @@ interface Shared {
 	iconPosition?: 'leading' | 'trailing';
 	interactionIconAnimation?: Animations;
 	full?: boolean;
+	href?: string | URL | undefined | null;
+	formaction?: string;
+	hiddenLabel?: string;
 }
 
 interface Button extends HTMLAttributes<'button'>, Shared {}
@@ -52,7 +55,7 @@ const combinedClasses = `e-button${variant ? ` e-button--${variant}` : ''}${
 const iconPositionCalculated =
 	iconPosition === 'leading' ? 'leading' : 'trailing';
 
-const isExternal = attrs.href && isExternalUrl(attrs.href);
+const isExternal = attrs.href && isExternalUrl(attrs.href as string);
 
 const selectedIcon =
 	attrs.href && isExternal ? 'external' : icon ? icon : undefined;

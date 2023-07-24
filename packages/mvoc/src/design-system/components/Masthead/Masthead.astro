@@ -187,7 +187,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 	const menuButtonElement = mastheadElement.querySelector(
 		'[data-module-bind="masthead__button"]',
 	);
-	const mainElement = document.querySelector('main');
+	const mainElement = document.querySelector('main') as HTMLElement;
 	const navElement = mastheadElement.querySelector('[data-module="nav-main"]');
 
 	// Store masthead spacing in a variable which can be used by other modules
@@ -230,7 +230,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 			});
 		};
 
-		const toggleMenu = (event) => {
+		const toggleMenu = (event: MouseEvent) => {
 			event.preventDefault();
 			const isExpanded =
 				menuButtonElement.getAttribute('aria-expanded') === 'true';

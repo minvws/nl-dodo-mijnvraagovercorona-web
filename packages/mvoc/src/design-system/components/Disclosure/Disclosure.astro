@@ -5,10 +5,12 @@
 <script>
 	// variables
 	const items = [
-		...document.querySelectorAll('[data-module-bind="disclosure__item"]'),
+		...document.querySelectorAll<HTMLElement>(
+			'[data-module-bind="disclosure__item"]',
+		),
 	];
 
-	const getPanelDimensions = (panel) => {
+	const getPanelDimensions = (panel: HTMLElement) => {
 		const panelInner = panel.querySelector(
 			'[data-module-bind="disclosure__panel-inner"]',
 		);
@@ -19,14 +21,14 @@
 	/**
 	 * Check if an item is open
 	 */
-	const isOpen = (item) => {
+	const isOpen = (item: HTMLElement) => {
 		return item.classList.contains('is-active');
 	};
 
 	/**
 	 * Open accordion item
 	 */
-	const openItem = (item) => {
+	const openItem = (item: HTMLElement) => {
 		const toggle = item.querySelector(
 			'[data-module-bind="disclosure__toggle"]',
 		);
@@ -35,7 +37,7 @@
 		) as HTMLElement;
 
 		item.classList.add('is-active');
-		toggle.setAttribute('aria-expanded', true);
+		toggle.setAttribute('aria-expanded', new Boolean(true).toString());
 		const dimensions = getPanelDimensions(itemPanel);
 		itemPanel.style.blockSize = `${dimensions.blockSize}px`;
 	};
@@ -43,17 +45,17 @@
 	/**
 	 * Close accordion item
 	 */
-	const closeItem = (item) => {
+	const closeItem = (item: HTMLElement) => {
 		const toggle = item.querySelector(
 			'[data-module-bind="disclosure__toggle"]',
-		);
+		) as HTMLElement;
 		const itemPanel = item.querySelector(
 			'[data-module-bind="disclosure__panel"]',
 		) as HTMLElement;
 
 		item.classList.remove('is-active');
 		toggle.focus();
-		toggle.setAttribute('aria-expanded', false);
+		toggle.setAttribute('aria-expanded', new Boolean(false).toString());
 		// reset hard block size for the animation to be able to run
 		// (we can't animate auto to 0)
 		const dimensions = getPanelDimensions(itemPanel);
@@ -67,7 +69,7 @@
 	/**
 	 * Toggle an item
 	 */
-	const toggleItem = (item) => {
+	const toggleItem = (item: HTMLElement) => {
 		isOpen(item) ? closeItem(item) : openItem(item);
 	};
 
@@ -110,7 +112,7 @@
 	document.addEventListener('keydown', (event) => {
 		const item = (event.target as Element).closest(
 			'[data-module-bind="disclosure__item"]',
-		);
+		) as HTMLElement;
 
 		if (event.key !== 'Escape') return;
 		if (!item) return;
@@ -138,7 +140,7 @@
 			'[data-module-bind="disclosure__item"]',
 		);
 		const items = [
-			...accordionWrapper.querySelectorAll(
+			...accordionWrapper.querySelectorAll<HTMLElement>(
 				'[data-module-bind="disclosure__item"]',
 			),
 		];
@@ -146,20 +148,17 @@
 
 		const { key } = event;
 
-		let targetItem;
-
-		if (key === 'ArrowDown') {
-			targetItem = items[index + 1];
-		}
-
-		if (key === 'ArrowUp') {
-			targetItem = items[index - 1];
-		}
+		let targetItem =
+			key === 'ArrowDown'
+				? items[index + 1]
+				: key === 'ArrowUp'
+				? items[index - 1]
+				: undefined;
 
 		if (targetItem) {
 			event.preventDefault();
 			targetItem
-				.querySelector('[data-module-bind="disclosure__toggle"]')
+				.querySelector<HTMLElement>('[data-module-bind="disclosure__toggle"]')
 				.focus();
 		}
 	});
@@ -172,7 +171,7 @@
 		const hash = window.location.hash.substring(1);
 		const element = document.getElementById(hash);
 		if (element) {
-			const item = element.closest('.disclosure__item');
+			const item = element.closest('.disclosure__item') as HTMLElement;
 			if (item) {
 				openItem(item);
 			}
