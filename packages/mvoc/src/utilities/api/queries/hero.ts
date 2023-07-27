@@ -7,6 +7,7 @@ export interface HeroProps {
 	image?: ImageProps;
 	content?: ContentBlockProps['value'];
 	showUpdatedAt?: boolean;
+	isPhoto?: boolean;
 }
 
 export const heroQuery = (): string => {
@@ -18,6 +19,7 @@ export const heroQuery = (): string => {
 			})},
 			${customBlockQuery({ name: 'content' })},
 			showUpdatedAt,
+			isPhoto,
 			button,
 	}`;
 };
