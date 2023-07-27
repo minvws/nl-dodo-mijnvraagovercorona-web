@@ -48,34 +48,36 @@ const {
 					</div>
 				) : null
 			}
-			<Stack gap={6}>
-				<hgroup class="c-hero__hgroup">
-					<Heading class="c-hero__title" level={1}>
-						{title}{
-							titleSuffix ? (
-								<span class="c-hero__title-suffix">
-									<span>{titleSuffix}</span>
-								</span>
-							) : (
-								''
-							)
+			<Retain variant="text">
+				<Stack gap={6}>
+					<hgroup class="c-hero__hgroup">
+						<Heading class="c-hero__title" level={1}>
+							{title}{
+								titleSuffix ? (
+									<span class="c-hero__title-suffix">
+										<span>{titleSuffix}</span>
+									</span>
+								) : (
+									''
+								)
+							}
+						</Heading>
+						{updatedAt ? <UpdatedAt time={updatedAt} /> : null}
+						{
+							chapeau ? (
+								<Chapeau
+									class="c-hero__chapeau"
+									variant={highlight ? 'highlight' : 'base'}
+									role="presentation"
+								>
+									{chapeau}
+								</Chapeau>
+							) : null
 						}
-					</Heading>
-					{updatedAt ? <UpdatedAt time={updatedAt} /> : null}
-					{
-						chapeau ? (
-							<Chapeau
-								class="c-hero__chapeau"
-								variant={highlight ? 'highlight' : 'base'}
-								role="presentation"
-							>
-								{chapeau}
-							</Chapeau>
-						) : null
-					}
-				</hgroup>
-				<slot />
-			</Stack>
+					</hgroup>
+					<slot />
+				</Stack>
+			</Retain>
 		</Switcher>
 	</Retain>
 </header>
