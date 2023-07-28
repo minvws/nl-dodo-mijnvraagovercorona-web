@@ -237,7 +237,6 @@ deploy mvoc image development:
   stage: deploy
   trigger:
     project: vws/reis/nl-covid19-travel-during-corona-deploy
-    branch: feature/automatic-deployments
     forward:
       pipeline_variables: true
   only:
@@ -250,7 +249,6 @@ deploy mvoc image staging:
   stage: deploy
   trigger:
     project: vws/reis/nl-covid19-travel-during-corona-deploy
-    branch: feature/automatic-deployments
     forward:
       pipeline_variables: true
   only:
@@ -263,7 +261,6 @@ deploy mvoc image production:
   stage: deploy
   trigger:
     project: vws/reis/nl-covid19-travel-during-corona-deploy
-    branch: feature/automatic-deployments
     forward:
       pipeline_variables: true
   only:
@@ -276,7 +273,6 @@ deploy mvoc image alternative:
   stage: deploy
   trigger:
     project: vws/reis/nl-covid19-travel-during-corona-deploy
-    branch: feature/automatic-deployments
     forward:
       pipeline_variables: true
   only:
