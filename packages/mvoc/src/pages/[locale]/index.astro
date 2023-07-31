@@ -59,6 +59,10 @@ const pageData: PageHomeProps = pagesData.filter(
 const { filters, ctaButtons } = getFiltersAndSituations({
 	ctaButtonCollection: pageData.important.ctaButtonCollection,
 });
+
+const themesWithAssistance = pageData.themes.filter(
+	(theme) => theme.assistance,
+);
 ---
 
 <Layout
@@ -172,17 +176,33 @@ const { filters, ctaButtons } = getFiltersAndSituations({
 	}
 
 	{
-		pageData.assistance && (
-			<Layer
-				id={stringToSlug(pageData.assistance.headline)}
-				background="ijsblauw"
-				pushDownBy="assistance-image"
-			>
-				<Retain>
-					<Assistance {...pageData.assistance} />
-				</Retain>
-			</Layer>
-		)
+		pageData.assistance && themesWithAssistance.length ? (
+			<div aria-live="polite" data-module-bind="filter__switch-on-filter-theme">
+				<Layer
+					id={stringToSlug(pageData.assistance.headline)}
+					background="ijsblauw"
+					pushDownBy="assistance-image"
+					data-theme-slug="all"
+				>
+					<Retain>
+						<Assistance {...pageData.assistance} />
+					</Retain>
+				</Layer>
+				{themesWithAssistance.map((theme) => (
+					<Layer
+						id={stringToSlug(theme.assistance.headline)}
+						background="ijsblauw"
+						pushDownBy="assistance-image"
+						data-theme-slug={theme.slug}
+						hidden
+					>
+						<Retain>
+							<Assistance {...theme.assistance} />
+						</Retain>
+					</Layer>
+				))}
+			</div>
+		) : null
 	}
 </Layout>
 
