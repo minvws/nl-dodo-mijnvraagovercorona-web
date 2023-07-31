@@ -17,6 +17,8 @@ import {
 	BsGlobe,
 	BsFileText,
 	BsArrowRightSquare,
+	BsPeople,
+	BsShare,
 } from 'react-icons/bs';
 
 import { getFolder } from './utilities/getFolder';
@@ -53,6 +55,11 @@ export default (S) =>
 						icon: BsPatchQuestion,
 					}),
 					getTranslatedDocumentList(S, {
+						schemaType: 'question-landing-page',
+						title: 'Vraag landing pagina',
+						icon: BsAirplane,
+					}),
+					getTranslatedDocumentList(S, {
 						schemaType: 'advice-page',
 						title: 'Advies',
 						icon: BsClipboardCheck,
@@ -74,6 +81,7 @@ export default (S) =>
 							}),
 						],
 					}),
+					S.divider(),
 					getTranslatedDocumentList(S, {
 						schemaType: 'error-page',
 						title: 'Error',

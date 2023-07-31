@@ -12,9 +12,15 @@ export default defineType({
 	type: 'document',
 	initialValue: {
 		__i18n_lang: 'nl',
+		generatePage: true,
 	},
 	fieldsets: [{ name: 'urlStructure', title: 'Url structuur' }],
 	fields: [
+		defineField({
+			title: 'Genereer pagina',
+			name: 'generatePage',
+			type: 'boolean',
+		}),
 		defineField({
 			title: 'Meta data',
 			name: 'metaData',
@@ -47,7 +53,14 @@ export default defineType({
 					name: 'type',
 					type: 'string',
 					options: {
-						list: ['datepicker', 'single', 'multiple'],
+						list: [
+							{ title: 'Datumprikker', value: 'datepicker' },
+							{
+								title: 'Multiple-choice (meerdere selecteerbaar)',
+								value: 'checkbox',
+							},
+							{ title: 'Multiple-choice (1 selecteerbaar)', value: 'radio' },
+						],
 					},
 				}),
 
@@ -58,6 +71,79 @@ export default defineType({
 					description:
 						'Dit veld word alleen getoond voor screenreader gebruikers',
 					validation: (Rule) => Rule.required(),
+				}),
+
+				defineField({
+					title: 'Content',
+					name: 'content',
+					type: 'customBlock',
+				}),
+
+				defineField({
+					title: 'Antwoorden',
+					name: 'multi',
+					type: 'array',
+					of: [
+						defineField({
+							title: 'Antwoord',
+							name: 'answer',
+							type: 'object',
+							fields: [
+								defineField({
+									title: 'Content',
+									name: 'content',
+									type: 'customBlock',
+								}),
+								defineField({
+									title: 'Volgende',
+									name: 'next',
+									type: 'reference',
+									to: [{ type: 'question-page' }, { type: 'advice-page' }],
+									options: {
+										filter: filterReferenceByLanguage,
+									},
+								}),
+								defineField({
+									title: 'Gewicht',
+									name: 'weight',
+									type: 'number',
+									description:
+										'Hoe hoger het getal hoe zwaarder het antwoord weegt',
+									hidden: ({
+										document,
+									}: {
+										document: { question: { type: string } };
+									}) =>
+										document?.question?.type
+											? !['checkbox'].includes(document?.question?.type)
+											: true,
+								}),
+								defineField({
+									title: 'Selecteer modal',
+									name: 'modalReference',
+									type: 'reference',
+									to: [{ type: 'modals' }],
+									options: {
+										filter: filterReferenceByLanguage,
+									},
+								}),
+							],
+							preview: {
+								select: {
+									title: 'content',
+									subtitle: 'next.slug.current',
+								},
+							},
+						}),
+					],
+					hidden: ({
+						document,
+					}: {
+						document: { question: { type: string } };
+					}) =>
+						document?.question?.type
+							? !['checkbox', 'radio'].includes(document?.question?.type)
+							: true,
 				}),
 
 				defineField({
@@ -129,6 +215,7 @@ export default defineType({
 						document: { question: { type: string } };
 					}) => document?.question?.type !== 'multiple',
 				}),
+
 				defineField({
 					title: 'Toon meer',
 					name: 'showMore',
