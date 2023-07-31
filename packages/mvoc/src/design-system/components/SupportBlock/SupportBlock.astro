@@ -1,0 +1,60 @@
+---
+import { HTMLAttributes } from 'astro/types';
+import { CardSupport } from '@design-system/components/Card';
+import { ContentBlock } from '@design-system/components/ContentBlock';
+import { CardsProps } from 'src/utilities/api/queries';
+import { Layer } from '../Layout/Layer';
+import { Heading } from '@design-system/elements/Heading';
+import { GridFluid } from '../Layout/Grid';
+import { Retain } from '../Layout/Retain';
+import { Stack } from '../Layout/Stack';
+
+interface Props extends HTMLAttributes<'div'> {
+	label: string;
+	cards: CardsProps['items'];
+}
+
+const { label, cards } = Astro.props;
+---
+
+<Layer>
+	<Retain>
+		<Stack>
+			<Heading>{label}</Heading>
+			<GridFluid
+				class={`c-support-block__grid${
+					cards.length === 3 ? ' c-support-block__grid--three-cards' : ''
+				} ${cards.length === 4 ? ' c-support-block__grid--four-cards' : ''}`}
+			>
+				{
+					cards.map(({ title, image, content, buttons }) => (
+						<CardSupport title={title} image={image} buttons={buttons}>
+							<ContentBlock value={content} />
+						</CardSupport>
+					))
+				}
+			</GridFluid>
+		</Stack>
+	</Retain>
+</Layer>
+
+<style lang="scss">
+	@use '@design-system-styles/primitives/_responsive.scss';
+
+	.c-support-block__grid {
+		--grid-fluid-min-item-size: var(--space-100);
+		--grid-fluid-gap: var(--space-4);
+	}
+
+	.c-support-block__grid--three-cards {
+		@media --mq-large {
+			--grid-fluid-min-item-size: var(--space-75);
+		}
+	}
+
+	.c-support-block__grid--four-cards {
+		@media --mq-huge {
+			--grid-fluid-min-item-size: 16rem;
+		}
+	}
+</style>

@@ -188,6 +188,13 @@ export default defineType({
 		}),
 
 		defineField({
+			title: 'Hulpblokken',
+			name: 'support',
+			type: 'reference',
+			to: [{ type: 'support' }],
+		}),
+
+		defineField({
 			title: 'Hulp',
 			name: 'assistance',
 			type: 'reference',

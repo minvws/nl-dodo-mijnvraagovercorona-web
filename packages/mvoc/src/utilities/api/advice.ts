@@ -11,6 +11,8 @@ import {
 	pageQuery,
 	AssistanceProps,
 	assistanceQuery,
+	supportBlockQuery,
+	CardsProps,
 } from './queries';
 import type { ContentBlockProps } from '@design-system/components/ContentBlock';
 import { getAdditionalPageData } from '../helpers/getAdditionalPageData';
@@ -48,6 +50,9 @@ export interface AdvicePageProps extends PageProps {
 	answer: AnswerProps[];
 	advice: AdviceProps;
 	locale: string;
+	support: {
+		cards: CardsProps;
+	};
 	assistance: AssistanceProps;
 	moreInfo: MoreInfoProps;
 	slug: string;
@@ -81,6 +86,7 @@ export async function getDataAdvicePages() {
 			},
 		},
 		${assistanceQuery()},
+		${supportBlockQuery()},
 		${moreInfoQuery()},
 		"slug": slug.current,
 	}`;
