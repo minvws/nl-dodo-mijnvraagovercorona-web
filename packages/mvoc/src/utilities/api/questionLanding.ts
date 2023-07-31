@@ -6,6 +6,8 @@ import {
 	HeroProps,
 	AssistanceProps,
 	assistanceQuery,
+	supportBlockQuery,
+	CardsProps,
 } from './queries';
 import { getAdditionalPageData } from 'src/utilities/helpers/getAdditionalPageData';
 import { QuestionPageProps, questionPageProjection } from './question';
@@ -14,7 +16,9 @@ export interface QuestionLandingPageProps extends PageProps {
 	hero: HeroProps;
 	questionReference: QuestionPageProps;
 	assistance: AssistanceProps;
-	locale: string;
+	support: {
+		cards: CardsProps;
+	};
 	slug: string;
 }
 
@@ -23,6 +27,7 @@ export async function getDataQuestionLandingPages() {
 		${heroQuery()},
 		questionReference->${questionPageProjection},
 		${assistanceQuery()},
+		${supportBlockQuery()},
 		"slug": slug.current,
 	}`;
 

@@ -5,3 +5,4 @@ export { default as CardAdvice } from './CardAdvice.astro';
 export { default as CardPrivacy } from './CardPrivacy.astro';
 export { default as CardAnswer } from './CardAnswer.astro';
 export { default as Steps } from './Steps.astro';
+export { default as CardSupport } from './CardSupport.astro';

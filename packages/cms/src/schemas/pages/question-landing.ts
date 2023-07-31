@@ -56,6 +56,13 @@ export default defineType({
 		}),
 
 		defineField({
+			title: 'Hulp per onderwerp',
+			name: 'support',
+			type: 'reference',
+			to: [{ type: 'support' }],
+		}),
+
+		defineField({
 			title: 'Sub pagina referentie',
 			description:
 				'Genereert deze pagina onder een andere pagina in de hierachie',
