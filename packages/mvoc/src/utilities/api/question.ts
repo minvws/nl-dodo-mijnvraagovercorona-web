@@ -30,7 +30,7 @@ export interface QuestionPageProps extends PageProps {
 		};
 	};
 	question: {
-		type: 'multiple' | 'single' | 'datepicker' | 'checkbox' | 'radio';
+		type: 'datepicker' | 'checkbox' | 'radio';
 		label: string;
 		content: ContentBlockProps['value'];
 		multi?: {
@@ -54,27 +54,6 @@ export interface QuestionPageProps extends PageProps {
 				content: ContentBlockProps['value'];
 			};
 			_key: string;
-		}[];
-		single?: {
-			content: ContentBlockProps['value'];
-			next: {
-				_type: string;
-				slug: string;
-				answer?: {
-					showOn?: Array<number>;
-				}[];
-				plan?: {
-					showOn?: Array<number>;
-					day?: number;
-				}[];
-				subFolderReference: SubFolderReferenceProps['subFolderReference'];
-			};
-			_key: string;
-		}[];
-		multiple?: {
-			_key: string;
-			content: string;
-			checked?: boolean;
 		}[];
 		showMore?: {
 			max: number;
@@ -145,26 +124,6 @@ export const questionPageProjection = `{
 				${imageQuery({ name: 'image' })},
 				${customBlockQuery({ name: 'content' })},
 			},
-		},
-		single[]{
-			_key,
-			${customBlockQuery({ name: 'content' })},
-			next->{
-				_type,
-				answer[]{
-					showOn,
-				},
-				"plan": advice.plan[]{
-					showOn,
-					day,
-				},
-				"slug": slug.current,
-				${subFolderReferenceQuery()},
-			},
-		},
-		multiple[]{
-			_key,
-			content,
 		},
 	},
 	buttons[]{
