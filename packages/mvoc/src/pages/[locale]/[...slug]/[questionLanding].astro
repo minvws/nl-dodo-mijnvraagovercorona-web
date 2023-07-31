@@ -12,11 +12,11 @@ import { Retain } from '@design-system/components/Layout/Retain';
 import { Layer } from '@design-system/components/Layout/Layer';
 import { Assistance } from '@design-system/components/Assistance';
 import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
-import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
 import { Breadcrumbs } from '@design-system/components/Breadrumbs';
 import { Sidebar } from '@design-system/components/Layout/Sidebar';
 import FormSwitch from '@modules/forms/situations/FormSwitch.astro';
 import { CardPrivacy } from '@design-system/components/Card';
+import { SupportBlock } from '@design-system/components/SupportBlock';
 
 export async function getStaticPaths() {
 	const collection = await getDataQuestionLandingPages();
@@ -94,6 +94,15 @@ const { pageData, locale } = Astro.props;
 			</Sidebar>
 		</Retain>
 	</Layer>
+
+	{
+		pageData?.support?.cards?.label && !!pageData?.support?.cards?.items && (
+			<SupportBlock
+				label={pageData.support.cards.label}
+				cards={pageData.support.cards.items}
+			/>
+		)
+	}
 
 	{
 		pageData.assistance ? (

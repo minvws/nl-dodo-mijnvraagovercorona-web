@@ -17,8 +17,6 @@ import {
 	BsGlobe,
 	BsFileText,
 	BsArrowRightSquare,
-	BsPeople,
-	BsShare,
 } from 'react-icons/bs';
 
 import { getFolder } from './utilities/getFolder';
@@ -125,6 +123,11 @@ export default (S) =>
 						schemaType: 'duo-column-content',
 						title: 'Duo column content',
 						icon: BsColumnsGap,
+					}),
+					getTranslatedDocumentList(S, {
+						schemaType: 'support',
+						title: 'Hulpblokken',
+						icon: BsClipboardCheck,
 					}),
 				],
 			}),

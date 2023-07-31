@@ -1,0 +1,93 @@
+---
+import { Heading } from '@design-system/elements/Heading';
+import { Button } from '@design-system/elements/Button';
+import { ButtonsProps, ImageProps } from 'src/utilities/api/queries';
+import { Locale, getLocaleFromURL } from 'src/utilities/locale/translation';
+import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
+import Card from './Card.astro';
+import { parseLink } from 'src/utilities/helpers/link';
+
+interface Props {
+	title: string;
+	chapeau?: string;
+	buttons?: ButtonsProps;
+	image?: ImageProps;
+}
+
+const { title, image, buttons } = Astro.props;
+const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
+---
+
+<Card variant={'image'} class={`c-support-card`}>
+	<div class="c-support-card__wrap-image">
+		{
+			image && image.src ? (
+				<img
+					class="c-media-block__icon"
+					src={image.src}
+					alt=""
+					loading="lazy"
+				/>
+			) : null
+		}
+	</div>
+	<div class="c-support-card__wrap-content">
+		<Heading class="c-support-card__heading" level={3} styledAs={4}>
+			{title}
+		</Heading>
+		<slot />
+	</div>
+
+	{
+		!!buttons?.length ? (
+			<ul class="c-support-card__wrap-buttons" role="list">
+				{buttons.map((button) => (
+					<li>
+						<Button
+							variant={button.variant}
+							href={parseLink(getFullPageUrl(button.slugCollection), locale)}
+							icon={button.icon}
+						>
+							{button.label}
+						</Button>
+					</li>
+				))}
+			</ul>
+		) : null
+	}
+</Card>
+
+<style lang="scss">
+	@use '@design-system-styles/primitives/_responsive.scss';
+	@use '@design-system-styles/tools/_rem.scss';
+
+	.c-support-card {
+		--card-padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-4);
+		padding-block-end: var(--space-6);
+	}
+
+	.c-support-card__wrap-image {
+		display: flex;
+		background-color: var(--color-poolblauw);
+		height: #{rem.convert(182px)};
+		img {
+			block-size: 5rem;
+			margin: auto;
+		}
+	}
+
+	.c-support-card__wrap-content {
+		display: flex;
+		flex-direction: column;
+		padding-inline: var(--space-6);
+		gap: var(--space-4);
+	}
+
+	.c-support-card__wrap-buttons {
+		margin-block-start: auto;
+		padding-inline: var(--space-6);
+	}
+</style>

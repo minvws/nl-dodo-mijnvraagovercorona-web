@@ -147,76 +147,6 @@ export default defineType({
 				}),
 
 				defineField({
-					title: 'Antwoorden',
-					name: 'single',
-					type: 'array',
-					of: [
-						{
-							title: 'Antwoord',
-							name: 'answer',
-							type: 'object',
-							fields: [
-								defineField({
-									title: 'Content',
-									name: 'content',
-									type: 'customBlock',
-								}),
-								defineField({
-									title: 'Volgende',
-									name: 'next',
-									type: 'reference',
-									to: [{ type: 'question-page' }, { type: 'advice-page' }],
-									options: {
-										filter: filterReferenceByLanguage,
-									},
-								}),
-							],
-							preview: {
-								select: {
-									title: 'content',
-									subtitle: 'next.slug.current',
-								},
-							},
-						},
-					],
-					hidden: ({
-						document,
-					}: {
-						document: { question: { type: string } };
-					}) => document?.question?.type !== 'single',
-				}),
-
-				defineField({
-					title: 'Antwoorden',
-					name: 'multiple',
-					type: 'array',
-					of: [
-						defineField({
-							title: 'Antwoord',
-							name: 'answer',
-							type: 'object',
-							fields: [
-								defineField({
-									title: 'Content',
-									name: 'content',
-									type: 'string',
-								}),
-							],
-							preview: {
-								select: {
-									title: 'content',
-								},
-							},
-						}),
-					],
-					hidden: ({
-						document,
-					}: {
-						document: { question: { type: string } };
-					}) => document?.question?.type !== 'multiple',
-				}),
-
-				defineField({
 					title: 'Toon meer',
 					name: 'showMore',
 					type: 'object',
@@ -238,7 +168,10 @@ export default defineType({
 						document,
 					}: {
 						document: { question: { type: string } };
-					}) => document?.question?.type !== 'multiple',
+					}) =>
+						document?.question?.type
+							? !['checkbox', 'radio'].includes(document?.question?.type)
+							: true,
 				}),
 			],
 		}),

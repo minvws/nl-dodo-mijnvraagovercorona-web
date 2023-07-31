@@ -11,6 +11,7 @@ import { Layer } from '@design-system/components/Layout/Layer';
 import { Retain } from '@design-system/components/Layout/Retain';
 import { Sidebar } from '@design-system/components/Layout/Sidebar';
 import { Stack } from '@design-system/components/Layout/Stack';
+import { SupportBlock } from '@design-system/components/SupportBlock';
 import {
 	CardAdvice,
 	CardBlock,
@@ -215,6 +216,15 @@ const plan =
 			</Sidebar>
 		</Retain>
 	</Layer>
+
+	{
+		pageData?.support?.cards?.label && !!pageData?.support?.cards?.items && (
+			<SupportBlock
+				label={pageData.support.cards.label}
+				cards={pageData.support.cards.items}
+			/>
+		)
+	}
 
 	{
 		pageData.assistance && (

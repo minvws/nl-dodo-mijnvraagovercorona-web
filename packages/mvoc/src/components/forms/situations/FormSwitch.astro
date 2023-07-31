@@ -1,6 +1,4 @@
 ---
-import AnswersSingle from './AnswersSingle.astro';
-import AnswersMultiple from './AnswersMultiple.astro';
 import AnswersMulti from './AnswersMulti.astro';
 import AnswersDate from './AnswersDate.astro';
 import { QuestionPageProps } from 'src/utilities/api';
@@ -37,25 +35,6 @@ const {
 			>
 				<slot name="after-label" slot="after-label" />
 			</AnswersMulti>
-		) : question.type === 'single' && question.single ? (
-			<AnswersSingle
-				label={question.label}
-				answers={question.single}
-				buttons={buttons}
-				assistance={assistance}
-				content={content}
-				hideLabel={hideLabel}
-			/>
-		) : question.type === 'multiple' && question.multiple ? (
-			<AnswersMultiple
-				label={question.label}
-				answers={question.multiple}
-				showMore={question.showMore}
-				buttons={buttons}
-				assistance={assistance}
-				hideLabel={hideLabel}
-				content={content}
-			/>
 		) : question.type === 'datepicker' ? (
 			<AnswersDate buttons={buttons} label={question.label} />
 		) : null

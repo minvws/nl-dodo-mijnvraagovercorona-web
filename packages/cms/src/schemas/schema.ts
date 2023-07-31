@@ -9,6 +9,7 @@ import assistanceDocument from './documents/assistance';
 import cardDocument from './documents/card';
 import duoColumnContentDocument from './documents/duoColumnContent';
 import ctaButtonDocument from './documents/ctaButton';
+import support from './documents/support';
 
 // Pages
 import genericPage from './pages/generic';
@@ -43,6 +44,7 @@ import ctaButtonSelectorObject from './objects/ctaButtonSelector';
 import ctaButtonSelectorWithCategoriesObject from './objects/ctaButtonSelectorWithCategories';
 import taleDeeplinkObject from './objects/taleDeeplink';
 import cardsObject from './objects/cards';
+import supportBlocksObject from './objects/supportBlocks';
 
 export default [
 	/**
@@ -67,6 +69,7 @@ export default [
 	cardDocument,
 	duoColumnContentDocument,
 	ctaButtonDocument,
+	support,
 
 	// objects
 	customBlockObject,
@@ -88,4 +91,5 @@ export default [
 	ctaButtonSelectorWithCategoriesObject,
 	taleDeeplinkObject,
 	cardsObject,
+	supportBlocksObject,
 ];
