@@ -1,32 +1,39 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import { availableLocales, Locale } from 'src/utilities/locale/translation';
-import { QuestionPageProps, getDataQuestionPages } from 'src/utilities/api';
+import {
+	QuestionLandingPageProps,
+	getDataQuestionLandingPages,
+} from 'src/utilities/api';
 import { Hero } from '@design-system/components/Hero';
-import { Retain } from '@design-system/components/Layout/Retain';
 import { ContentBlock } from '@design-system/components/ContentBlock';
+import { Stack } from '@design-system/components/Layout/Stack';
+import { Retain } from '@design-system/components/Layout/Retain';
 import { Layer } from '@design-system/components/Layout/Layer';
+import { Assistance } from '@design-system/components/Assistance';
 import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
-import FormSwitch from '@modules/forms/situations/FormSwitch.astro';
-import { Sidebar } from '@design-system/components/Layout/Sidebar';
-import { CardPrivacy } from '@design-system/components/Card';
+import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
 import { Breadcrumbs } from '@design-system/components/Breadrumbs';
+import { Sidebar } from '@design-system/components/Layout/Sidebar';
+import FormSwitch from '@modules/forms/situations/FormSwitch.astro';
+import { CardPrivacy } from '@design-system/components/Card';
 
 export async function getStaticPaths() {
-	const collection = await getDataQuestionPages();
+	const collection = await getDataQuestionLandingPages();
+
 	return (
 		collection
 			// filter out unavailable locales
 			.filter(
-				(page: QuestionPageProps) =>
+				(page: QuestionLandingPageProps) =>
 					availableLocales.filter((locale) => locale.id === page.localeID)
 						.length,
 			)
-			.map((page: QuestionPageProps) => ({
+			.map((page: QuestionLandingPageProps) => ({
 				params: {
 					slug: getPageSubfolder(page),
-					question: page.slug,
 					locale: page.localeID,
+					questionLanding: page.slug,
 				},
 				props: {
 					pageData: page,
@@ -39,7 +46,7 @@ export async function getStaticPaths() {
 }
 
 interface Props {
-	pageData: QuestionPageProps;
+	pageData: QuestionLandingPageProps;
 	locale: Locale;
 }
 
@@ -50,29 +57,35 @@ const { pageData, locale } = Astro.props;
 	locale={locale}
 	metaData={pageData.metaData}
 	alternativeTranslations={pageData.alternatives}
+	mastheadHighlight
 	type={pageData.type}
 >
 	<Hero
 		title={pageData.hero.title}
-		chapeau={pageData.hero.chapeau}
 		image={pageData.hero.image}
+		chapeau={pageData.hero.chapeau}
 		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
+		highlight
 	>
 		<Breadcrumbs breadcrumbs={pageData.breadcrumbs} slot="prefix" />
-		<ContentBlock value={pageData.hero.content} />
+		<Stack class="c-hero__content">
+			<ContentBlock value={pageData.hero.content} />
+		</Stack>
 	</Hero>
+
 	<Layer>
 		<Retain>
 			<Sidebar>
 				<Retain variant="text">
 					<FormSwitch
-						question={pageData.question}
-						buttons={pageData.buttons}
-						assistance={pageData.assistance}
-						content={pageData.content}
+						question={pageData.questionReference.question}
+						buttons={pageData.questionReference.buttons}
+						assistance={pageData.questionReference.assistance}
+						content={pageData.questionReference.content}
+						hideLabel={false}
 					>
 						<ContentBlock
-							value={pageData.question.content}
+							value={pageData.questionReference.question.content}
 							slot="after-label"
 						/>
 					</FormSwitch>
@@ -81,4 +94,14 @@ const { pageData, locale } = Astro.props;
 			</Sidebar>
 		</Retain>
 	</Layer>
+
+	{
+		pageData.assistance ? (
+			<Layer background="ijsblauw" pushDownBy="assistance-image">
+				<Retain>
+					<Assistance {...pageData.assistance} />
+				</Retain>
+			</Layer>
+		) : null
+	}
 </Layout>

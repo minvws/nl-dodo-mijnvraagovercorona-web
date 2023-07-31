@@ -28,6 +28,11 @@ export default defineType({
 			type: 'image',
 		}),
 		defineField({
+			title: 'Toon afbeelding als foto',
+			name: 'isPhoto',
+			type: 'boolean',
+		}),
+		defineField({
 			title: 'Toon "Laatst bijgewerkt:"',
 			name: 'showUpdatedAt',
 			type: 'boolean',

@@ -48,6 +48,8 @@ small {
 
 legend {
 	padding-inline: 0;
+	font-size: var(--legend-font-size, var(--font-size-beta));
+	line-height: var(--legend-line-height, var(--font-size-beta));
 	font-weight: bold;
 	color: var(--color-diepblauw);
 }

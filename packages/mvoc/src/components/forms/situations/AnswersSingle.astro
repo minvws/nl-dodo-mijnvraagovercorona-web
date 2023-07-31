@@ -18,9 +18,17 @@ export interface Props {
 	assistance?: AssistanceProps;
 	content?: QuestionPageProps['content'];
 	label?: string;
+	hideLabel?: boolean;
 }
 
-const { answers, buttons, assistance, label, content } = Astro.props;
+const {
+	answers,
+	buttons,
+	assistance,
+	label,
+	content,
+	hideLabel = true,
+} = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
 
 const parsedButtons = buttons?.map((button, index) =>
@@ -39,8 +47,15 @@ const parsedButtons = buttons?.map((button, index) =>
 	<Stack>
 		{content ? <DuoColumnContent content={content} /> : null}
 		<fieldset>
-			{label ? <legend class="u-visually-hidden">{label}</legend> : null}
 			<Stack gap={4}>
+				{
+					label ? (
+						<legend class={hideLabel ? 'u-visually-hidden' : undefined}>
+							{label}
+						</legend>
+					) : null
+				}
+				<slot name="after-label" />
 				{
 					answers.map(({ content, next, _key }) => (
 						<Control

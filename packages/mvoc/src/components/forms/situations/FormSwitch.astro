@@ -1,6 +1,7 @@
 ---
 import AnswersSingle from './AnswersSingle.astro';
 import AnswersMultiple from './AnswersMultiple.astro';
+import AnswersMulti from './AnswersMulti.astro';
 import AnswersDate from './AnswersDate.astro';
 import { QuestionPageProps } from 'src/utilities/api';
 
@@ -9,20 +10,41 @@ export interface Props {
 	buttons: QuestionPageProps['buttons'];
 	assistance?: QuestionPageProps['assistance'];
 	content?: QuestionPageProps['content'];
+	hideLabel?: boolean;
 }
 
-const { question, buttons, assistance, content } = Astro.props;
+const {
+	question,
+	buttons,
+	assistance,
+	content,
+	hideLabel = true,
+} = Astro.props;
 ---
 
 <>
 	{
-		question.type === 'single' && question.single ? (
+		['checkbox', 'radio'].includes(question.type) && question.multi ? (
+			<AnswersMulti
+				label={question.label}
+				answers={question.multi}
+				showMore={question.showMore}
+				buttons={buttons}
+				assistance={assistance}
+				type={question.type as 'checkbox' | 'radio'}
+				hideLabel={hideLabel}
+				content={content}
+			>
+				<slot name="after-label" slot="after-label" />
+			</AnswersMulti>
+		) : question.type === 'single' && question.single ? (
 			<AnswersSingle
 				label={question.label}
 				answers={question.single}
 				buttons={buttons}
 				assistance={assistance}
 				content={content}
+				hideLabel={hideLabel}
 			/>
 		) : question.type === 'multiple' && question.multiple ? (
 			<AnswersMultiple
@@ -31,9 +53,13 @@ const { question, buttons, assistance, content } = Astro.props;
 				showMore={question.showMore}
 				buttons={buttons}
 				assistance={assistance}
+				hideLabel={hideLabel}
+				content={content}
 			/>
 		) : question.type === 'datepicker' ? (
 			<AnswersDate buttons={buttons} label={question.label} />
 		) : null
 	}
 </>
+
+<style lang="scss"></style>
