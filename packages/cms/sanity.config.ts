@@ -59,6 +59,7 @@ export default defineConfig({
 				'generic-page',
 				'homepage',
 				'question-page',
+				'question-landing-page',
 				'theme-page',
 			],
 			// Optional:

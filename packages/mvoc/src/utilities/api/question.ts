@@ -12,6 +12,8 @@ import {
 	subFolderReferenceQuery,
 	AssistanceProps,
 	assistanceQuery,
+	imageQuery,
+	ImageProps,
 } from './queries';
 import { getAdditionalPageData } from '../helpers/getAdditionalPageData';
 
@@ -28,8 +30,31 @@ export interface QuestionPageProps extends PageProps {
 		};
 	};
 	question: {
-		type: 'multiple' | 'single' | 'datepicker';
+		type: 'multiple' | 'single' | 'datepicker' | 'checkbox' | 'radio';
 		label: string;
+		content: ContentBlockProps['value'];
+		multi?: {
+			content: ContentBlockProps['value'];
+			next: {
+				_type: string;
+				slug: string;
+				answer?: {
+					showOn?: Array<number>;
+				}[];
+				plan?: {
+					showOn?: Array<number>;
+					day?: number;
+				}[];
+				subFolderReference: SubFolderReferenceProps['subFolderReference'];
+			};
+			weight?: number;
+			modalReference?: {
+				title?: string;
+				image?: ImageProps;
+				content: ContentBlockProps['value'];
+			};
+			_key: string;
+		}[];
 		single?: {
 			content: ContentBlockProps['value'];
 			next: {
@@ -83,48 +108,25 @@ export interface QuestionPageProps extends PageProps {
 	slug: string;
 }
 
-export async function getDataQuestionPages() {
-	const projection = `{
-		${heroQuery()},
-		"content": contentReference->{
-			columnOne{
-				${customBlockQuery({ name: 'content' })},
-				${pictureQuery({})},
-			},
-			columnTwo{
-				${customBlockQuery({ name: 'content' })},
-				${pictureQuery({})},
-			},
+export const questionPageProjection = `{
+	${heroQuery()},
+	"content": contentReference->{
+		columnOne{
+			${customBlockQuery({ name: 'content' })},
+			${pictureQuery({})},
 		},
-		question{
-			type,
-			label,
-			single[]{
-				_key,
-				${customBlockQuery({ name: 'content' })},
-				"next": next -> {
-					_type,
-					answer[]{
-						showOn,
-					},
-					"plan": advice.plan[]{
-						showOn,
-						day,
-					},
-					"slug": slug.current,
-					${subFolderReferenceQuery()},
-				},
-			},
-			multiple[]{
-				_key,
-				content,
-			},
+		columnTwo{
+			${customBlockQuery({ name: 'content' })},
+			${pictureQuery({})},
 		},
-		buttons[]{
+	},
+	question{
+		type,
+		label,
+		${customBlockQuery({ name: 'content' })},
+		multi[]{
 			_key,
-			text,
-			standard,
-			assistanceDialog,
+			${customBlockQuery({ name: 'content' })},
 			"next": next -> {
 				_type,
 				answer[]{
@@ -137,14 +139,60 @@ export async function getDataQuestionPages() {
 				"slug": slug.current,
 				${subFolderReferenceQuery()},
 			},
+			weight,
+			modalReference->{
+				title,
+				${imageQuery({ name: 'image' })},
+				${customBlockQuery({ name: 'content' })},
+			},
 		},
-		${assistanceQuery()},
-		"slug": slug.current,
-	}`;
+		single[]{
+			_key,
+			${customBlockQuery({ name: 'content' })},
+			next->{
+				_type,
+				answer[]{
+					showOn,
+				},
+				"plan": advice.plan[]{
+					showOn,
+					day,
+				},
+				"slug": slug.current,
+				${subFolderReferenceQuery()},
+			},
+		},
+		multiple[]{
+			_key,
+			content,
+		},
+	},
+	buttons[]{
+		_key,
+		text,
+		standard,
+		assistanceDialog,
+		"next": next -> {
+			_type,
+			answer[]{
+				showOn,
+			},
+			"plan": advice.plan[]{
+				showOn,
+				day,
+			},
+			"slug": slug.current,
+			${subFolderReferenceQuery()},
+		},
+	},
+	${assistanceQuery()},
+	"slug": slug.current,
+}`;
 
+export async function getDataQuestionPages() {
 	const query = pageQuery({
 		type: 'question-page',
-		projection,
+		projection: questionPageProjection,
 		multiple: true,
 	});
 

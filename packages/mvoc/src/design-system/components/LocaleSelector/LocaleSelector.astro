@@ -22,71 +22,81 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 
 // Order alternativeTranslations based on our own order in availableLocales
 const translationsOrder = alternativeTranslations
-	.slice()
-	.sort(
-		(a, b) =>
-			availableLocales.indexOf(a.locale) - availableLocales.indexOf(b.locale),
-	);
+	? alternativeTranslations
+			.slice()
+			.sort(
+				(a, b) =>
+					availableLocales.indexOf(a.locale) -
+					availableLocales.indexOf(b.locale),
+			)
+	: [];
 ---
 
-<div
-	class={`c-locale-selector${compact ? ' c-locale-selector--compact' : ''}`}
-	data-module="locale-selector"
->
-	<button
-		type="button"
-		class="c-locale-selector__toggle"
-		id="locale-selector-toggle"
-		aria-controls="locale-selector-panel"
-		aria-expanded="false"
-		data-module-bind="locale-selector__toggle"
-	>
-		<span class="u-visually-hidden">{siteSettings.localeSelector.title}</span>
-		<span class="u-visually-hidden">{siteSettings.localeSelector.current}:</span
+{
+	translationsOrder.length ? (
+		<div
+			class={`c-locale-selector${compact ? ' c-locale-selector--compact' : ''}`}
+			data-module="locale-selector"
 		>
-		<span class="c-locale-selector__short-name" aria-hidden="true">
-			{currentLocale.shortName.toUpperCase()}
-		</span>
-		<span class="c-locale-selector__full-name">{currentLocale.fullName}</span>
-		<Icon name="world" class="c-locale-selector__icon" />
-	</button>
-	<div
-		class="c-locale-selector__panel"
-		id="locale-selector-panel"
-		aria-labelledby="locale-selector-toggle"
-		data-module-bind="locale-selector__panel"
-	>
-		<ul role="list" data-module-bind="locale-selector__panel-inner">
-			{
-				translationsOrder &&
-				translationsOrder.filter(
-					(alternativeTranslation) =>
-						alternativeTranslation.locale.id !== currentLocale.id,
-				).length
-					? translationsOrder
-							.filter(
-								(alternativeTranslation) =>
-									alternativeTranslation.locale.id !== currentLocale.id,
-							)
-							.map((alternativeTranslation) => (
-								<li>
-									<Link
-										href={`${alternativeTranslation.locale.urlPrefix}${
-											alternativeTranslation.href
-												? `/${alternativeTranslation.href}`
-												: ''
-										}`}
-										class="c-locale-selector__link"
-									>
-										{alternativeTranslation.locale.fullName}
-									</Link>
-								</li>
-							))
-					: null
-			}
-		</ul>
-	</div>
-</div>
+			<button
+				type="button"
+				class="c-locale-selector__toggle"
+				id="locale-selector-toggle"
+				aria-controls="locale-selector-panel"
+				aria-expanded="false"
+				data-module-bind="locale-selector__toggle"
+			>
+				<span class="u-visually-hidden">
+					{siteSettings.localeSelector.title}
+				</span>
+				<span class="u-visually-hidden">
+					{siteSettings.localeSelector.current}:
+				</span>
+				<span class="c-locale-selector__short-name" aria-hidden="true">
+					{currentLocale.shortName.toUpperCase()}
+				</span>
+				<span class="c-locale-selector__full-name">
+					{currentLocale.fullName}
+				</span>
+				<Icon name="world" class="c-locale-selector__icon" />
+			</button>
+			<div
+				class="c-locale-selector__panel"
+				id="locale-selector-panel"
+				aria-labelledby="locale-selector-toggle"
+				data-module-bind="locale-selector__panel"
+			>
+				<ul role="list" data-module-bind="locale-selector__panel-inner">
+					{translationsOrder &&
+					translationsOrder.filter(
+						(alternativeTranslation) =>
+							alternativeTranslation.locale.id !== currentLocale.id,
+					).length
+						? translationsOrder
+								.filter(
+									(alternativeTranslation) =>
+										alternativeTranslation.locale.id !== currentLocale.id,
+								)
+								.map((alternativeTranslation) => (
+									<li>
+										<Link
+											href={`${alternativeTranslation.locale.urlPrefix}${
+												alternativeTranslation.href
+													? `/${alternativeTranslation.href}`
+													: ''
+											}`}
+											class="c-locale-selector__link"
+										>
+											{alternativeTranslation.locale.fullName}
+										</Link>
+									</li>
+								))
+						: null}
+				</ul>
+			</div>
+		</div>
+	) : null
+}
 
 <script>
 	// Cache HTML elements
