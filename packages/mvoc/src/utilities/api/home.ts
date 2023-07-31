@@ -20,6 +20,7 @@ import {
 	CtaButtonCollectionProps,
 } from './queries';
 import { getAdditionalPageData } from '../helpers/getAdditionalPageData';
+import { ThemePageProps, themePageProjection } from './theme';
 
 export interface PageHomeProps extends PageProps {
 	hero: HeroProps;
@@ -62,14 +63,7 @@ export interface PageHomeProps extends PageProps {
 		};
 	};
 	taleCollection: TaleCollectionProps['taleCollection'];
-	themes: {
-		overview: {
-			title: string;
-		};
-		ctaButtonCollection: CtaButtonCollectionProps['ctaButtonCollection'];
-		slug: string;
-		localeID: string;
-	}[];
+	themes: ThemePageProps[];
 }
 
 export async function getDataHome() {
@@ -112,14 +106,7 @@ export async function getDataHome() {
 			},
 		},
 		${taleReferenceQuery()},
-		"themes": *[_type == 'theme-page']{
-			overview{
-				title
-			},
-			${ctaButtonCollectionQuery()},
-			"localeID": __i18n_lang,
-			"slug": slug.current,
-		},
+		"themes": *[_type == 'theme-page' && __i18n_lang == ^.__i18n_lang]${themePageProjection},
 	}`;
 
 	const query = pageQuery({

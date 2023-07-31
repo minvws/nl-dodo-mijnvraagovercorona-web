@@ -30,25 +30,25 @@ export interface ThemePageProps extends PageProps {
 	updatedAt: string;
 }
 
-export async function getDataThemes() {
-	const projection = `{
-		${heroQuery()},
-		overview{
-			title,
-		},
-		${cardQuery()},
-		titleFlow,
-		${ctaButtonCollectionQuery()},
-		${assistanceQuery()},
-		talesAsDisclosure,
-		${taleReferenceQuery()},
-		"updatedAt": _updatedAt,
-		"slug": slug.current
-	}`;
+export const themePageProjection = `{
+	${heroQuery()},
+	overview{
+		title,
+	},
+	${cardQuery()},
+	titleFlow,
+	${ctaButtonCollectionQuery()},
+	${assistanceQuery()},
+	talesAsDisclosure,
+	${taleReferenceQuery()},
+	"updatedAt": _updatedAt,
+	"slug": slug.current
+}`;
 
+export async function getDataThemes() {
 	const query = pageQuery({
 		type: 'theme-page',
-		projection,
+		projection: themePageProjection,
 		multiple: true,
 	});
 

@@ -88,6 +88,7 @@ const uniqueThemes = filterCategories.length
 								type="button"
 								variant="quinary"
 								data-id="all"
+								data-theme-slug="all"
 								data-module-bind="filter__toggle"
 							>
 								{siteSettings.genericLabels.all}
@@ -97,7 +98,7 @@ const uniqueThemes = filterCategories.length
 									type="button"
 									variant="quinary"
 									data-id={category.id}
-									data-theme-slug={category?.theme?.slug || undefined}
+									data-theme-slug={category?.theme?.slug || 'all'}
 									data-module-bind="filter__toggle"
 								>
 									{category.label}
@@ -237,7 +238,7 @@ const uniqueThemes = filterCategories.length
 		const amountFilter = parent.querySelector<HTMLSpanElement>(
 			'[data-amount-filter]',
 		);
-		const themeSwitchContainers = parent.querySelectorAll<HTMLElement>(
+		const themeSwitchContainers = document.querySelectorAll<HTMLElement>(
 			'[data-module-bind="filter__switch-on-filter-theme"]',
 		);
 

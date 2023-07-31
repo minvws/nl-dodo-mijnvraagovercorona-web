@@ -50,20 +50,22 @@ const getDataForAlternatives = (pages) =>
 	pages.map((page) => ({
 		...page,
 		alternatives: page.alternatives
-			.filter((alternative) => alternative)
-			.map((alternative) => ({
-				...alternative,
-				href: `${
-					alternative.subFolderReference
-						? `${getPageSubfolder(alternative)}/`
-						: ''
-				}${alternative.theme ? `${alternative.theme.slug}/` : ''}${
-					alternative.slug || ''
-				}`,
-				locale: availableLocales.filter(
-					(locale) => locale.id === alternative.locale,
-				)[0],
-			})),
+			? page.alternatives
+					.filter((alternative) => alternative)
+					.map((alternative) => ({
+						...alternative,
+						href: `${
+							alternative.subFolderReference
+								? `${getPageSubfolder(alternative)}/`
+								: ''
+						}${alternative.theme ? `${alternative.theme.slug}/` : ''}${
+							alternative.slug || ''
+						}`,
+						locale: availableLocales.filter(
+							(locale) => locale.id === alternative.locale,
+						)[0],
+					}))
+			: null,
 	}));
 
 export const getAdditionalPageData = (pages) =>

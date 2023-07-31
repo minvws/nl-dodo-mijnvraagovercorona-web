@@ -19,9 +19,18 @@ export interface Props {
 	assistance?: AssistanceProps;
 	content?: QuestionPageProps['content'];
 	label?: string;
+	hideLabel?: boolean;
 }
 
-const { answers, buttons, showMore, assistance, content, label } = Astro.props;
+const {
+	answers,
+	buttons,
+	showMore,
+	assistance,
+	content,
+	label,
+	hideLabel = true,
+} = Astro.props;
 
 const split = showMore?.max || 6;
 
@@ -54,8 +63,17 @@ const parsedButtons = buttons?.map((button, index) => {
 	<Stack>
 		{content ? <DuoColumnContent content={content} /> : null}
 		<fieldset>
-			{label ? <legend class="u-visually-hidden">{label}</legend> : null}
 			<Stack gap={4}>
+				{
+					label ? (
+						<legend
+							class="u-visually-hidden"
+							class={hideLabel ? 'u-visually-hidden' : undefined}
+						>
+							{label}
+						</legend>
+					) : null
+				}
 				<Stack gap={4}>
 					{
 						firstGroup.map(({ content, _key }) => (

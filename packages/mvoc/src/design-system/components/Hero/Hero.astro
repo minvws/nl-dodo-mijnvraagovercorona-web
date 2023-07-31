@@ -15,6 +15,7 @@ interface Props {
 	highlight?: boolean;
 	variant?: 'theme' | 'default';
 	updatedAt?: string;
+	isPhoto?: boolean;
 	cards?: boolean;
 }
 
@@ -26,13 +27,16 @@ const {
 	highlight,
 	variant,
 	updatedAt,
+	isPhoto,
 	cards,
 } = Astro.props;
 ---
 
 <header
 	class={`c-hero${highlight ? ` c-hero--highlight` : ''}
-	${cards ? ` c-hero--cards` : ''}${variant ? ` c-hero--${variant}` : ''}`}
+	${cards ? ` c-hero--cards` : ''}${variant ? ` c-hero--${variant}` : ''}${
+		isPhoto ? ` c-hero--photo` : ''
+	}`}
 >
 	<Retain>
 		<slot name="prefix" />
@@ -44,34 +48,36 @@ const {
 					</div>
 				) : null
 			}
-			<Stack gap={6}>
-				<hgroup class="c-hero__hgroup">
-					<Heading class="c-hero__title" level={1}>
-						{title}{
-							titleSuffix ? (
-								<span class="c-hero__title-suffix">
-									<span>{titleSuffix}</span>
-								</span>
-							) : (
-								''
-							)
+			<Retain variant="text">
+				<Stack gap={6}>
+					<hgroup class="c-hero__hgroup">
+						<Heading class="c-hero__title" level={1}>
+							{title}{
+								titleSuffix ? (
+									<span class="c-hero__title-suffix">
+										<span>{titleSuffix}</span>
+									</span>
+								) : (
+									''
+								)
+							}
+						</Heading>
+						{updatedAt ? <UpdatedAt time={updatedAt} /> : null}
+						{
+							chapeau ? (
+								<Chapeau
+									class="c-hero__chapeau"
+									variant={highlight ? 'highlight' : 'base'}
+									role="presentation"
+								>
+									{chapeau}
+								</Chapeau>
+							) : null
 						}
-					</Heading>
-					{updatedAt ? <UpdatedAt time={updatedAt} /> : null}
-					{
-						chapeau ? (
-							<Chapeau
-								class="c-hero__chapeau"
-								variant={highlight ? 'highlight' : 'base'}
-								role="presentation"
-							>
-								{chapeau}
-							</Chapeau>
-						) : null
-					}
-				</hgroup>
-				<slot />
-			</Stack>
+					</hgroup>
+					<slot />
+				</Stack>
+			</Retain>
 		</Switcher>
 	</Retain>
 </header>
@@ -172,6 +178,7 @@ const {
 			}
 		}
 	}
+
 	.c-hero--cards {
 		--hero-padding-block-end: calc(var(--hero-padding) * 2);
 
@@ -207,6 +214,19 @@ const {
 			.c-hero__wrap-image {
 				order: 2;
 			}
+		}
+	}
+
+	.c-hero--photo {
+		.c-hero__wrap-image {
+			overflow: hidden;
+			border-radius: var(--radii-milli);
+		}
+
+		.c-hero__image {
+			block-size: auto;
+			max-inline-size: 100%;
+			object-fit: cover;
 		}
 	}
 </style>

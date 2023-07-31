@@ -30,6 +30,13 @@ const { type, name, value, id, checked, required, variant, ...attrs } =
 		{...attrs}
 	/>
 	<label class="e-control__label" for={id}><slot /></label>
+	{
+		Astro.slots.has('after-label') ? (
+			<div class="e-control__after-label">
+				<slot name="after-label" />
+			</div>
+		) : null
+	}
 </div>
 
 <style lang="scss">
@@ -42,6 +49,8 @@ const { type, name, value, id, checked, required, variant, ...attrs } =
 		--control-indicator-inline-start: 0px;
 		--control-indicator-border-color: currentColor;
 		--control-indicator-border-radius: 0px;
+
+		position: relative;
 	}
 
 	.e-control__label {
@@ -99,6 +108,13 @@ const { type, name, value, id, checked, required, variant, ...attrs } =
 		}
 	}
 
+	.e-control__after-label {
+		position: absolute;
+		inset-block-start: 50%;
+		inset-inline-end: var(--space-2);
+		translate: 0 -50%;
+	}
+
 	// Variants
 	.e-control--radio {
 		--control-indicator-border-radius: 50%;
@@ -127,9 +143,11 @@ const { type, name, value, id, checked, required, variant, ...attrs } =
 			border: var(--control-border-size) solid var(--control-border-color);
 			border-block-end-width: var(--control-border-elevation-size);
 			border-radius: var(--variant--tile-border-radius);
-			&:hover {
-				--control-border-color: var(--color-donkerblauw);
-			}
+		}
+
+		&:hover .e-control__label,
+		.e-control__label:hover {
+			--control-border-color: var(--color-donkerblauw);
 		}
 
 		input:checked + .e-control__label {
