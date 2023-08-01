@@ -22,18 +22,6 @@ const siteSettingsTranslated: SiteSettingsProps = await useSiteSettings({
 ---
 
 <footer class="c-mastfoot" role="contentinfo">
-	<Retain>
-		<div class="c-mastfoot__wrap-logo">
-			<a class="c-mastfoot__logo" href={locale.urlPrefix}>
-				<Sprite
-					class="c-mastfoot__logo-visual"
-					name="logo-vws"
-					optimize={true}
-				/>
-				<span class="u-visually-hidden">{siteSettingsTranslated.logo.alt}</span>
-			</a>
-		</div>
-	</Retain>
 	<Layer as="div" class="c-mastfoot__layer">
 		<Retain>
 			<Heading class="u-visually-hidden">
@@ -98,74 +86,6 @@ const siteSettingsTranslated: SiteSettingsProps = await useSiteSettings({
 
 		@media --mq-large {
 			--grid-fluid-gap: var(--space-14);
-		}
-	}
-
-	// Logo
-	.c-mastfoot__wrap-logo {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-	}
-
-	/**
-	 * 1. The banner width is a percentage of the whole image, we need to pull the
-	 *    banner in the center.
-	 */
-	.c-mastfoot__logo {
-		--logo-banner-percentage: 19.15%; /* [1] */
-		grid-column-start: 2;
-		justify-self: start;
-		inline-size: 100%;
-		max-inline-size: #{rem.convert(193px)};
-		transform: translateX(
-			calc(var(--logo-banner-percentage) / 2 * -1)
-		); /* [1] */
-		color: currentcolor;
-
-		&:focus {
-			outline: var(--elevation-focusring);
-			outline-offset: 2px;
-		}
-	}
-
-	.c-mastfoot__logo-visual {
-		display: block;
-		inline-size: 100%;
-	}
-
-	// Locale selector
-	.c-mastfoot__layer-locale {
-		--layer-padding: var(--space-8);
-		background-color: var(--color-white);
-	}
-
-	.c-mastfoot__locale-selector {
-		:global(> * + *) {
-			margin-block-start: var(--space-6);
-		}
-
-		:global(ul) {
-			display: flex;
-			flex-flow: row wrap;
-			gap: var(--space-4);
-
-			:global(a) {
-				--link-color: var(--color-diepblauw);
-				--link-text-decoration: none;
-				display: block;
-				padding-block: 0.5em;
-				padding-inline: 1em;
-				border: 1px solid var(--color-donkerblauw);
-				font-weight: bold;
-
-				&[aria-current] {
-					background-color: var(--color-lichtblauw);
-				}
-
-				&:hover {
-					background-color: var(--color-poolblauw);
-				}
-			}
 		}
 	}
 </style>
