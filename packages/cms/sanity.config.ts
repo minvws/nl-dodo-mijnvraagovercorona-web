@@ -60,6 +60,7 @@ export default defineConfig({
 				'homepage',
 				'question-page',
 				'question-landing-page',
+				'campaign-page',
 				'theme-page',
 			],
 			// Optional:

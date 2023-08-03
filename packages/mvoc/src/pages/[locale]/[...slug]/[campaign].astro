@@ -1,0 +1,91 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { availableLocales, Locale } from 'src/utilities/locale/translation';
+import { Hero } from '@design-system/components/Hero';
+import { ContentBlock } from '@design-system/components/ContentBlock';
+import { Stack } from '@design-system/components/Layout/Stack';
+import { Retain } from '@design-system/components/Layout/Retain';
+import { Layer } from '@design-system/components/Layout/Layer';
+import { Assistance } from '@design-system/components/Assistance';
+import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
+import { Breadcrumbs } from '@design-system/components/Breadrumbs';
+import { SupportBlock } from '@design-system/components/SupportBlock';
+import {
+	CampaignPageProps,
+	getDataCampaignPages,
+} from 'src/utilities/api/campaign';
+
+export async function getStaticPaths() {
+	const collection = await getDataCampaignPages();
+
+	return (
+		collection
+			// filter out unavailable locales
+			.filter(
+				(page: CampaignPageProps) =>
+					availableLocales.filter((locale) => locale.id === page.localeID)
+						.length,
+			)
+			.map((page: CampaignPageProps) => ({
+				params: {
+					slug: getPageSubfolder(page),
+					locale: page.localeID,
+					campaign: page.slug,
+				},
+				props: {
+					pageData: page,
+					locale: availableLocales.filter(
+						(locale) => locale.id === page.localeID,
+					)[0],
+				},
+			}))
+	);
+}
+
+interface Props {
+	pageData: CampaignPageProps;
+	locale: Locale;
+}
+
+const { pageData, locale } = Astro.props;
+---
+
+<Layout
+	locale={locale}
+	metaData={pageData.metaData}
+	alternativeTranslations={pageData.alternatives}
+	mastheadHighlight
+	type={pageData.type}
+>
+	<Hero
+		title={pageData.hero.title}
+		image={pageData.hero.image}
+		chapeau={pageData.hero.chapeau}
+		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
+		highlight
+	>
+		<Breadcrumbs breadcrumbs={pageData.breadcrumbs} slot="prefix" />
+		<Stack class="c-hero__content">
+			<ContentBlock value={pageData.hero.content} />
+		</Stack>
+	</Hero>
+
+	{
+		pageData?.support?.cards?.label && !!pageData?.support?.cards?.items && (
+			<SupportBlock
+				label={pageData.support.cards.label}
+				cards={pageData.support.cards.items}
+			/>
+		)
+	}
+
+	{
+		pageData.assistance ? (
+			<Layer background="ijsblauw" pushDownBy="assistance-image">
+				<Retain>
+					<Assistance {...pageData.assistance} />
+				</Retain>
+			</Layer>
+		) : null
+	}
+</Layout>
