@@ -103,6 +103,13 @@ export const questionPageProjection = `{
 		type,
 		label,
 		${customBlockQuery({ name: 'content' })},
+		showMore{
+			max,
+			label{
+				this,
+				that,
+			},
+		},
 		multi[]{
 			_key,
 			${customBlockQuery({ name: 'content' })},

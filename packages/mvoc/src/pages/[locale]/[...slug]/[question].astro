@@ -57,6 +57,7 @@ const { pageData, locale } = Astro.props;
 		chapeau={pageData.hero.chapeau}
 		image={pageData.hero.image}
 		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
+		isPhoto={pageData.hero.isPhoto}
 	>
 		<Breadcrumbs breadcrumbs={pageData.breadcrumbs} slot="prefix" />
 		<ContentBlock value={pageData.hero.content} />
