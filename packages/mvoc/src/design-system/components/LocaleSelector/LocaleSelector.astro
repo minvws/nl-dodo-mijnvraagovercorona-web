@@ -162,11 +162,11 @@ const translationsOrder = alternativeTranslations
 		--c-locale-selector-background-color: var(--color-white);
 		--c-locale-selector-border-elevation-size: 3px;
 		--c-locale-selector-duration: 0.2s;
+		--c-locale-selector-inset-block: var(--space-4);
 		position: absolute;
-		inset-block-start: var(--space-4);
-		@media --mq-large {
-			inset-inline-end: var(--masthead-inline-padding);
-		}
+		inset-block-start: calc(
+			var(--c-locale-selector-inset-block) + (var(--masthead-logo-spacer) / 2)
+		);
 		margin-inline-start: auto;
 		padding-block: calc(var(--space-3) - 1px);
 		padding-inline: calc(var(--space-4) - 1px);
@@ -197,7 +197,8 @@ const translationsOrder = alternativeTranslations
 		}
 
 		@media --mq-large {
-			inset-block-start: var(--space-6);
+			--c-locale-selector-inset-block: var(--space-6);
+			inset-inline-end: var(--masthead-inline-padding);
 		}
 	}
 
