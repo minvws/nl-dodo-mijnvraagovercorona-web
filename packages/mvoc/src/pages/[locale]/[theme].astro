@@ -68,6 +68,7 @@ const { filters, ctaButtons } = getFiltersAndSituations({
 		highlight
 		cards={!!pageData?.cards?.items}
 		variant={'theme'}
+		isPhoto={pageData.hero.isPhoto}
 	>
 		<Breadcrumbs breadcrumbs={pageData.breadcrumbs} slot="prefix" />
 		<ContentBlock value={pageData.hero.content} />
