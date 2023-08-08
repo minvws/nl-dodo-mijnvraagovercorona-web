@@ -36,6 +36,7 @@
 	"dependencies": {
 		"@duetds/date-picker": "^1.4.0",
 		"@math.gl/web-mercator": "^3.6.3",
+		"@otterlord/astro-compress": "^1.1.48",
 		"copy-to-clipboard": "^3.3.3",
 		"luxon": "^3.2.1",
 		"mapbox-gl": "^2.13.0",
