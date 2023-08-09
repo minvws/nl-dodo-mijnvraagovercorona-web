@@ -1,0 +1,202 @@
+---
+import { Button } from '@design-system/elements/Button';
+import { Icon } from '@design-system/elements/Icon';
+import { HTMLAttributes } from 'astro/types';
+import { MediaBlock } from '../MediaBlock';
+import { Heading } from '@design-system/elements/Heading';
+import { ImageProps } from 'src/utilities/api/queries';
+import { Picture, PictureProps } from '../Picture';
+import { Stack } from '../Layout/Stack';
+import { Link } from '@design-system/elements/Link';
+
+interface Props extends HTMLAttributes<'li'> {
+	label: string;
+	quote: string;
+	buttonLabel: string;
+	picture: PictureProps;
+	headingLevel?: 1 | 2 | 3 | 4 | 5 | 6;
+	headingStyledAs?: 1 | 2 | 3 | 4 | 5 | 6;
+	campaign?: boolean;
+}
+
+const {
+	label,
+	quote,
+	picture,
+	campaign,
+	buttonLabel,
+	headingLevel = 3,
+	headingStyledAs = 2,
+	...attrs
+} = Astro.props;
+---
+
+<li
+	class="disclosure__item disclosure__item--campaign"
+	data-module-bind="disclosure__item"
+	{...attrs}
+>
+	<Stack>
+		<Heading
+			level={headingLevel}
+			styledAs={headingStyledAs}
+			class="disclosure__heading"
+			itemprop="name"
+		>
+			{label}
+		</Heading>
+		<div class="disclosure__item-wrap">
+			<p>{quote}</p>
+			{
+				picture ? (
+					<Picture class="c-tale-campaign__picture" {...picture} />
+				) : null
+			}
+		</div>
+		<!-- <Button
+			id="disclosure-header-1"
+			class={`disclosure__toggle--button campaign--button`}
+			aria-expanded="false"
+			aria-controls="disclosure-panel-1"
+			data-module-bind="disclosure__toggle"
+			icon="chevron-small-down"
+			iconPosition="trailing"
+		>
+			<span>{buttonLabel}</span>
+		</Button> -->
+		<Link
+			id="disclosure-header-1"
+			class={`disclosure__toggle--button campaign--button`}
+			aria-expanded="false"
+			aria-controls="disclosure-panel-1"
+			data-module-bind="disclosure__toggle"
+			icon="chevron-small-down"
+			iconPosition="trailing"
+		>
+			<span>{buttonLabel}</span>
+		</Link>
+	</Stack>
+
+	<div
+		id="disclosure-panel-1"
+		role="region"
+		class="disclosure__panel"
+		data-module-bind="disclosure__panel"
+		aria-labelledby="disclosure-header-1"
+		itemscope
+		itemprop="acceptedAnswer"
+		itemtype="https://schema.org/Answer"
+	>
+		<div
+			class="disclosure__panel-inner"
+			data-module-bind="disclosure__panel-inner"
+			itemprop="text"
+		>
+			<slot />
+		</div>
+	</div>
+</li>
+
+<style lang="scss">
+	@use '@design-system-styles/tools/_a11y.scss';
+	@use '@design-system-styles/primitives/_responsive.scss';
+
+	.disclosure__panel {
+		--_disclosure__panel-padding: var(
+			--disclosure__panel-padding,
+			var(--space-6)
+		);
+		--disclosure__panel--spacing: calc(
+			var(--_disclosure__panel-padding) - var(--card-border-width)
+		);
+		block-size: 0;
+		padding-inline: var(--disclosure__panel--spacing);
+		overflow: hidden;
+		opacity: 0;
+		visibility: hidden;
+		transition: all 0.3s ease-in-out;
+	}
+
+	.disclosure__panel-inner {
+		padding-block-start: var(--space-4);
+	}
+
+	.disclosure__item.is-active {
+		.disclosure__panel {
+			opacity: 1;
+			visibility: visible;
+		}
+		.disclosure__show-inactive {
+			display: none;
+		}
+		.disclosure__show-active {
+			display: block;
+		}
+	}
+
+	.disclosure__item--campaign {
+		padding: 24px;
+		background: #eef7fb;
+		border-radius: var(--radii-nano);
+		overflow: hidden;
+
+		& + & {
+			margin-block-start: var(--space-4);
+		}
+
+		.disclosure__panel-inner {
+			padding-block-end: var(--_disclosure__panel-padding);
+		}
+
+		.disclosure__toggle--button {
+			--button-color: var(--color-diepblauw);
+			&:hover {
+				--button-background-color: var(--color-poolblauw);
+			}
+
+			&:active {
+				--button-border-color: var(--color-poolblauw);
+			}
+
+			:global(.e-icon) {
+				transition: transform 0.3s;
+			}
+
+			&[aria-expanded='true'] {
+				--button-background-color: var(--color-poolblauw);
+				:global(.e-icon) {
+					transform: rotate(180deg);
+				}
+			}
+		}
+		//v2:
+		.disclosure__item-wrap {
+			display: grid;
+			grid-template-columns: 3fr 1fr;
+			position: relative;
+			// display: flex;
+			gap: 16px;
+		}
+	}
+	//v2:
+	.c-tale-campaign__picture {
+		position: absolute;
+		right: -50px;
+	}
+
+	:global(.c-tale-campaign__picture img) {
+		max-inline-size: 7rem;
+	}
+
+	@media --mq-large {
+		.c-tale-campaign__picture {
+			display: none;
+		}
+	}
+
+	@media --mq-large-until {
+		:global(.disclosure__item--campaign .c-tale__picture) {
+			display: none;
+		}
+	}
+</style>

@@ -15,6 +15,28 @@ export default defineType({
 			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
+			title: 'Campagne',
+			name: 'campaign',
+			description: 'Velden zichtbaar voor verhalen op campagne twijfel paginas',
+			type: 'object',
+			options: {
+				collapsible: true,
+				collapsed: true,
+			},
+			fields: [
+				defineField({
+					title: 'Quote',
+					name: 'quote',
+					type: 'string',
+				}),
+				defineField({
+					title: 'Knop label',
+					name: 'buttonLabel',
+					type: 'string',
+				}),
+			],
+		}),
+		defineField({
 			title: 'Afbeelding',
 			name: 'picture',
 			type: 'picture',
