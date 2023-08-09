@@ -29,7 +29,6 @@ export default defineType({
 			name: 'url',
 			type: 'url',
 			description: 'Video opent op een externe website, bijvoorbeeld YouTube',
-			// validation: (Rule) => Rule.required(),
 			validation: (Rule) =>
 				Rule.custom((url, context) => {
 					const internalVideoUrl = context.parent.internalVideoUrl;

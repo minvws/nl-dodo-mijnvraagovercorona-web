@@ -52,7 +52,6 @@ interface Props {
 
 const { pageData, locale } = Astro.props;
 const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
-console.log(pageData.taleCollection[0].multiContentBlocks);
 ---
 
 <Layout
