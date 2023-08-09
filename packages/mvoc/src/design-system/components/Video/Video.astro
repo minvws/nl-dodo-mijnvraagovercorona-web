@@ -47,16 +47,26 @@ const embedUrl = getVideoEmbedUrl({
 	{
 		showInternalVideo ? (
 			<>
-				<video width="100%" controls>
-					<source src={internalVideoUrl} type="video/mp4" />
-					<track
-						src={subtitle}
-						label="Nederlands"
-						kind="subtitles"
-						srclang="nl"
-						default
-					/>
-				</video>
+				<div
+					class={`c-video${className ? ` | ${className}` : ''}`}
+					{...attrs}
+					data-module="video"
+				>
+					<video
+						width="100%"
+						poster={image?.src ? image.src : picture.image.src}
+						controls
+					>
+						<source src={internalVideoUrl} type="video/mp4" />
+						<track
+							src={subtitle}
+							label="Nederlands"
+							kind="subtitles"
+							srclang="nl"
+							default
+						/>
+					</video>
+				</div>
 			</>
 		) : embedUrl && siteSettings?.videoPlayer?.cookieBanner ? (
 			<div
