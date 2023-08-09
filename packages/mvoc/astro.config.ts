@@ -5,7 +5,7 @@ dotenv.config();
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import sanity from 'astro-sanity';
-import compress from 'astro-compress';
+import compress from '@otterlord/astro-compress';
 import browserslistToEsbuild from 'browserslist-to-esbuild';
 
 export default defineConfig({
