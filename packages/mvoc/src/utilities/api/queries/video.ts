@@ -3,6 +3,8 @@ import { pictureQuery } from '.';
 
 export interface VideoProps {
 	type: 'video';
+	internalVideoUrl: string;
+	showInternalVideo?: boolean;
 	url: string;
 	title: string;
 	picture?: PictureProps;
@@ -16,6 +18,8 @@ export const videoQuery = ({
 	return `${omitProperty ? '' : `video`}{
 		"type": _type,
 		title,
+		showInternalVideo,
+		internalVideoUrl,
 		url,
 		${pictureQuery({})},
 	}`;

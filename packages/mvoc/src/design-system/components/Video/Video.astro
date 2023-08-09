@@ -14,12 +14,23 @@ import { ContentBlock } from '../ContentBlock';
 
 interface Props extends HTMLAttributes<'div'> {
 	title: string;
+	internalVideoUrl?: string;
+	showInternalVideo?: boolean;
 	url: string;
 	image?: ImageProps;
 	picture?: PictureProps;
 }
 
-const { class: className, title, url, picture, image, ...attrs } = Astro.props;
+const {
+	class: className,
+	title,
+	url,
+	picture,
+	showInternalVideo,
+	internalVideoUrl,
+	image,
+	...attrs
+} = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
 const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 const embedUrl = getVideoEmbedUrl({
@@ -32,7 +43,9 @@ const embedUrl = getVideoEmbedUrl({
 
 <>
 	{
-		embedUrl && siteSettings?.videoPlayer?.cookieBanner ? (
+		showInternalVideo ? (
+			<div>{internalVideoUrl}</div>
+		) : embedUrl && siteSettings?.videoPlayer?.cookieBanner ? (
 			<div
 				class={`c-video${className ? ` | ${className}` : ''}`}
 				{...attrs}
