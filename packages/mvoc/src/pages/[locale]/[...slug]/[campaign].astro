@@ -1,32 +1,36 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import { availableLocales, Locale } from 'src/utilities/locale/translation';
-import { QuestionPageProps, getDataQuestionPages } from 'src/utilities/api';
 import { Hero } from '@design-system/components/Hero';
-import { Retain } from '@design-system/components/Layout/Retain';
 import { ContentBlock } from '@design-system/components/ContentBlock';
+import { Stack } from '@design-system/components/Layout/Stack';
+import { Retain } from '@design-system/components/Layout/Retain';
 import { Layer } from '@design-system/components/Layout/Layer';
+import { Assistance } from '@design-system/components/Assistance';
 import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
-import FormSwitch from '@modules/forms/situations/FormSwitch.astro';
-import { Sidebar } from '@design-system/components/Layout/Sidebar';
-import { CardPrivacy } from '@design-system/components/Card';
 import { Breadcrumbs } from '@design-system/components/Breadrumbs';
+import { SupportBlock } from '@design-system/components/SupportBlock';
+import {
+	CampaignPageProps,
+	getDataCampaignPages,
+} from 'src/utilities/api/campaign';
 
 export async function getStaticPaths() {
-	const collection = await getDataQuestionPages();
+	const collection = await getDataCampaignPages();
+
 	return (
 		collection
 			// filter out unavailable locales
 			.filter(
-				(page: QuestionPageProps) =>
+				(page: CampaignPageProps) =>
 					availableLocales.filter((locale) => locale.id === page.localeID)
 						.length,
 			)
-			.map((page: QuestionPageProps) => ({
+			.map((page: CampaignPageProps) => ({
 				params: {
 					slug: getPageSubfolder(page),
-					question: page.slug,
 					locale: page.localeID,
+					campaign: page.slug,
 				},
 				props: {
 					pageData: page,
@@ -39,7 +43,7 @@ export async function getStaticPaths() {
 }
 
 interface Props {
-	pageData: QuestionPageProps;
+	pageData: CampaignPageProps;
 	locale: Locale;
 }
 
@@ -50,36 +54,39 @@ const { pageData, locale } = Astro.props;
 	locale={locale}
 	metaData={pageData.metaData}
 	alternativeTranslations={pageData.alternatives}
+	mastheadHighlight
 	type={pageData.type}
 >
 	<Hero
 		title={pageData.hero.title}
-		chapeau={pageData.hero.chapeau}
 		image={pageData.hero.image}
+		chapeau={pageData.hero.chapeau}
 		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
+		highlight
 		isPhoto={pageData.hero.isPhoto}
 	>
 		<Breadcrumbs breadcrumbs={pageData.breadcrumbs} slot="prefix" />
-		<ContentBlock value={pageData.hero.content} />
+		<Stack class="c-hero__content">
+			<ContentBlock value={pageData.hero.content} />
+		</Stack>
 	</Hero>
-	<Layer>
-		<Retain>
-			<Sidebar>
-				<Retain variant="text">
-					<FormSwitch
-						question={pageData.question}
-						buttons={pageData.buttons}
-						assistance={pageData.assistance}
-						content={pageData.content}
-					>
-						<ContentBlock
-							value={pageData.question.content}
-							slot="after-label"
-						/>
-					</FormSwitch>
+
+	{
+		pageData?.support?.cards?.label && !!pageData?.support?.cards?.items && (
+			<SupportBlock
+				label={pageData.support.cards.label}
+				cards={pageData.support.cards.items}
+			/>
+		)
+	}
+
+	{
+		pageData.assistance ? (
+			<Layer background="ijsblauw" pushDownBy="assistance-image">
+				<Retain>
+					<Assistance {...pageData.assistance} />
 				</Retain>
-				<CardPrivacy slot="aside" />
-			</Sidebar>
-		</Retain>
-	</Layer>
+			</Layer>
+		) : null
+	}
 </Layout>

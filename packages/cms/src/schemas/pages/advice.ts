@@ -188,6 +188,12 @@ export default defineType({
 		}),
 
 		defineField({
+			title: 'Meer info',
+			name: 'moreInfo',
+			type: 'moreInfo',
+		}),
+
+		defineField({
 			title: 'Hulpblokken',
 			name: 'support',
 			type: 'reference',
@@ -202,12 +208,6 @@ export default defineType({
 			options: {
 				filter: filterReferenceByLanguage,
 			},
-		}),
-
-		defineField({
-			title: 'Meer info',
-			name: 'moreInfo',
-			type: 'moreInfo',
 		}),
 
 		defineField({

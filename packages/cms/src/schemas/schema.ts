@@ -21,6 +21,7 @@ import homePage from './pages/homepage';
 import advicePage from './pages/advice';
 import questionPage from './pages/question';
 import questionLandingPage from './pages/question-landing';
+import campaignPage from './pages/campaign';
 
 // objects
 import {
@@ -60,6 +61,7 @@ export default [
 	advicePage,
 	questionPage,
 	questionLandingPage,
+	campaignPage,
 
 	// documents
 	siteSettingsDocument,

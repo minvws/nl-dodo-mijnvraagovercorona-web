@@ -80,6 +80,7 @@ const themesWithAssistance = pageData.themes.filter(
 		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
 		highlight
 		cards={!!pageData?.cards?.items}
+		isPhoto={pageData.hero.isPhoto}
 	>
 		<ContentBlock value={pageData.hero.content} />
 		{

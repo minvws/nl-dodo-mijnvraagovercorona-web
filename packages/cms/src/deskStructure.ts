@@ -17,6 +17,7 @@ import {
 	BsGlobe,
 	BsFileText,
 	BsArrowRightSquare,
+	BsMegaphone,
 } from 'react-icons/bs';
 
 import { getFolder } from './utilities/getFolder';
@@ -45,6 +46,11 @@ export default (S) =>
 						schemaType: 'theme-page',
 						title: 'Thema',
 						icon: BsBrush,
+					}),
+					getTranslatedDocumentList(S, {
+						schemaType: 'campaign-page',
+						title: 'Campagne pagina',
+						icon: BsMegaphone,
 					}),
 					S.divider(),
 					getTranslatedDocumentList(S, {
