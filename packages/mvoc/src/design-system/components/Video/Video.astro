@@ -15,6 +15,7 @@ import { ContentBlock } from '../ContentBlock';
 interface Props extends HTMLAttributes<'div'> {
 	title: string;
 	internalVideoUrl?: string;
+	subtitle?: string;
 	showInternalVideo?: boolean;
 	url: string;
 	image?: ImageProps;
@@ -28,6 +29,7 @@ const {
 	picture,
 	showInternalVideo,
 	internalVideoUrl,
+	subtitle,
 	image,
 	...attrs
 } = Astro.props;
@@ -44,7 +46,18 @@ const embedUrl = getVideoEmbedUrl({
 <>
 	{
 		showInternalVideo ? (
-			<div>{internalVideoUrl}</div>
+			<>
+				<video width="100%" controls>
+					<source src={internalVideoUrl} type="video/mp4" />
+					<track
+						src={subtitle}
+						label="Nederlands"
+						kind="subtitles"
+						srclang="nl"
+						default
+					/>
+				</video>
+			</>
 		) : embedUrl && siteSettings?.videoPlayer?.cookieBanner ? (
 			<div
 				class={`c-video${className ? ` | ${className}` : ''}`}
@@ -215,7 +228,6 @@ const embedUrl = getVideoEmbedUrl({
 
 <script>
 	// import { trackEvent } from 'src/utilities/tracking/piwik';
-
 	// const storageName = 'mvoc.cookies_accepted';
 	// const parentElements = [
 	// 	...document.querySelectorAll('[data-module="video"]'),

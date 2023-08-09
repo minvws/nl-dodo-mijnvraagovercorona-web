@@ -48,6 +48,12 @@ export default defineType({
 			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
+			title: 'Ondertiteling',
+			name: 'subtitle',
+			type: 'string',
+			description: 'Link naar de bron van het ondertitelingsbestand',
+		}),
+		defineField({
 			title: 'Titel',
 			name: 'title',
 			type: 'string',

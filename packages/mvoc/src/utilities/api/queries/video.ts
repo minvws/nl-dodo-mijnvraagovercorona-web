@@ -5,6 +5,7 @@ export interface VideoProps {
 	type: 'video';
 	internalVideoUrl: string;
 	showInternalVideo?: boolean;
+	subtitle?: string;
 	url: string;
 	title: string;
 	picture?: PictureProps;
@@ -20,6 +21,7 @@ export const videoQuery = ({
 		title,
 		showInternalVideo,
 		internalVideoUrl,
+		subtitle,
 		url,
 		${pictureQuery({})},
 	}`;
