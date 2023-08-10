@@ -1,30 +1,26 @@
 ---
-import { Button } from '@design-system/elements/Button';
-import { Icon } from '@design-system/elements/Icon';
 import { HTMLAttributes } from 'astro/types';
-import { MediaBlock } from '../MediaBlock';
 import { Heading } from '@design-system/elements/Heading';
-import { ImageProps } from 'src/utilities/api/queries';
 import { Picture, PictureProps } from '../Picture';
 import { Stack } from '../Layout/Stack';
 import { Link } from '@design-system/elements/Link';
 
 interface Props extends HTMLAttributes<'li'> {
 	label: string;
-	quote: string;
-	buttonLabel: string;
+	quote?: string;
+	readMore?: string;
+	readLess?: string;
 	picture: PictureProps;
 	headingLevel?: 1 | 2 | 3 | 4 | 5 | 6;
 	headingStyledAs?: 1 | 2 | 3 | 4 | 5 | 6;
-	campaign?: boolean;
 }
 
 const {
 	label,
 	quote,
+	readMore,
+	readLess,
 	picture,
-	campaign,
-	buttonLabel,
 	headingLevel = 3,
 	headingStyledAs = 2,
 	...attrs
@@ -45,35 +41,32 @@ const {
 		>
 			{label}
 		</Heading>
-		<div class="disclosure__item-wrap">
-			<p>{quote}</p>
-			{
-				picture ? (
-					<Picture class="c-tale-campaign__picture" {...picture} />
-				) : null
-			}
-		</div>
-		<!-- <Button
-			id="disclosure-header-1"
-			class={`disclosure__toggle--button campaign--button`}
-			aria-expanded="false"
-			aria-controls="disclosure-panel-1"
-			data-module-bind="disclosure__toggle"
-			icon="chevron-small-down"
-			iconPosition="trailing"
-		>
-			<span>{buttonLabel}</span>
-		</Button> -->
+		{
+			quote && picture ? (
+				<div class="disclosure__item-wrap">
+					{quote && <p class="c-tale-campaign__quote">{quote}</p>}
+					{picture ? (
+						<Picture class="c-tale-campaign__picture" {...picture} />
+					) : null}
+				</div>
+			) : null
+		}
+
 		<Link
 			id="disclosure-header-1"
-			class={`disclosure__toggle--button campaign--button`}
+			class={`disclosure__toggle--button disclosure__toggle--button-campaign`}
 			aria-expanded="false"
 			aria-controls="disclosure-panel-1"
 			data-module-bind="disclosure__toggle"
 			icon="chevron-small-down"
 			iconPosition="trailing"
 		>
-			<span>{buttonLabel}</span>
+			<span class={readMore ? 'disclosure__show-inactive' : undefined}
+				>{readMore}</span
+			>
+			<span class={readLess ? 'disclosure__show-active' : undefined}
+				>{readLess}</span
+			>
 		</Link>
 	</Stack>
 
@@ -100,6 +93,7 @@ const {
 <style lang="scss">
 	@use '@design-system-styles/tools/_a11y.scss';
 	@use '@design-system-styles/primitives/_responsive.scss';
+	@use '@design-system-styles/tools/_rem.scss';
 
 	.disclosure__panel {
 		--_disclosure__panel-padding: var(
@@ -121,6 +115,10 @@ const {
 		padding-block-start: var(--space-4);
 	}
 
+	.disclosure__show-active {
+		display: none;
+	}
+
 	.disclosure__item.is-active {
 		.disclosure__panel {
 			opacity: 1;
@@ -135,20 +133,19 @@ const {
 	}
 
 	.disclosure__item--campaign {
-		padding: 24px;
+		padding: #{rem.convert(24px)};
 		background: #eef7fb;
 		border-radius: var(--radii-nano);
 		overflow: hidden;
-
-		& + & {
-			margin-block-start: var(--space-4);
-		}
 
 		.disclosure__panel-inner {
 			padding-block-end: var(--_disclosure__panel-padding);
 		}
 
 		.disclosure__toggle--button {
+			display: flex;
+			align-items: center;
+			gap: var(--space-2);
 			--button-color: var(--color-diepblauw);
 			&:hover {
 				--button-background-color: var(--color-poolblauw);
@@ -169,34 +166,35 @@ const {
 				}
 			}
 		}
-		//v2:
+		.disclosure__toggle--button-campaign {
+			:global(.e-icon) {
+				color: var(--color-accent-robijnrood);
+			}
+			:global(.e-link__label) {
+				color: var(--color-accent-robijnrood);
+			}
+		}
 		.disclosure__item-wrap {
 			display: grid;
 			grid-template-columns: 3fr 1fr;
 			position: relative;
-			// display: flex;
-			gap: 16px;
+			gap: #{rem.convert(16px)};
 		}
 	}
-	//v2:
+
+	.c-tale-campaign__quote {
+		color: var(--color-diepblauw);
+	}
+
 	.c-tale-campaign__picture {
 		position: absolute;
-		right: -50px;
-	}
-
-	:global(.c-tale-campaign__picture img) {
-		max-inline-size: 7rem;
-	}
-
-	@media --mq-large {
-		.c-tale-campaign__picture {
-			display: none;
-		}
-	}
-
-	@media --mq-large-until {
-		:global(.disclosure__item--campaign .c-tale__picture) {
-			display: none;
+		right: 0;
+		top: -25px;
+		width: #{rem.convert(120px)};
+		@media --mq-large-until {
+			position: relative;
+			right: -50px;
+			top: -30px;
 		}
 	}
 </style>

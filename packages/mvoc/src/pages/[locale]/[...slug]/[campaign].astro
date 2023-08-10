@@ -54,7 +54,6 @@ interface Props {
 }
 
 const { pageData, locale } = Astro.props;
-console.log(pageData.taleCollection[0].picture);
 ---
 
 <Layout
@@ -78,21 +77,21 @@ console.log(pageData.taleCollection[0].picture);
 		</Stack>
 	</Hero>
 
-	<Layer>
-		<Retain>
-			<Stack gap={14}>
-				<Retain variant="text">
-					<Disclosure>
-						{
-							pageData.taleCollection.map((tale) => (
+	{
+		pageData?.taleCollection?.length ? (
+			<Layer>
+				<Retain variant="base">
+					<Stack gap={14}>
+						<Disclosure>
+							{pageData?.taleCollection?.map((tale) => (
 								<DisclosureItemCampaign
 									headingLevel={2}
 									headingStyledAs={2}
 									label={tale.title}
-									quote={tale.campaign.quote}
 									picture={tale.picture}
-									buttonLabel={tale.campaign.buttonLabel}
-									campaign
+									quote={tale.quote}
+									readMore={tale.readMore}
+									readLess={tale.readLess}
 									id={stringToSlug(tale.title)}
 									itemscope
 									itemprop="mainEntity"
@@ -105,13 +104,13 @@ console.log(pageData.taleCollection[0].picture);
 										anchorable={false}
 									/>
 								</DisclosureItemCampaign>
-							))
-						}
-					</Disclosure>
+							))}
+						</Disclosure>
+					</Stack>
 				</Retain>
-			</Stack>
-		</Retain>
-	</Layer>
+			</Layer>
+		) : null
+	}
 
 	{
 		pageData?.support?.cards?.label && !!pageData?.support?.cards?.items && (

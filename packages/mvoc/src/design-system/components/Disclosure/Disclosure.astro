@@ -184,4 +184,16 @@
 		list-style: none;
 		padding: 0;
 	}
+	:global([data-page-type='campaign-page'] .disclosure) {
+		--grid-fluid-min-item-size: var(--space-100);
+		--grid-fluid-gap: var(--space-4);
+		--stack-gap: var(--space-3);
+		display: grid;
+		grid-template-columns: repeat(
+			var(--grid-fluid-placement, auto-fill),
+			minmax(min(var(--grid-fluid-min-item-size, 16rem), 100%), 1fr)
+		);
+		gap: var(--grid-fluid-gap, var(--space-6));
+		align-items: start;
+	}
 </style>
