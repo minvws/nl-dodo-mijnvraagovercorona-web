@@ -13,6 +13,8 @@ import {
 	assistanceQuery,
 	supportBlockQuery,
 	CardsProps,
+	multiContentBlocksQuery,
+	MultiContentBlocksProps,
 } from './queries';
 import type { ContentBlockProps } from '@design-system/components/ContentBlock';
 import { getAdditionalPageData } from '../helpers/getAdditionalPageData';
@@ -22,6 +24,7 @@ interface CardProps {
 	chapeau: string;
 	content: ContentBlockProps['value'];
 	buttons: ButtonsProps;
+	multiContentBlocks: MultiContentBlocksProps;
 }
 
 interface AnswerProps {
@@ -82,6 +85,7 @@ export async function getDataAdvicePages() {
 					chapeau,
 					${customBlockQuery({ name: 'content' })},
 					${buttonsQuery({ array: true })},
+					${multiContentBlocksQuery()},
 				},
 			},
 		},

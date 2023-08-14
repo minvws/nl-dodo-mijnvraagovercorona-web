@@ -4,6 +4,8 @@ import {
 	customBlockQuery,
 	ImageProps,
 	imageQuery,
+	MultiContentBlocksProps,
+	multiContentBlocksQuery,
 } from './';
 import { ContentBlockProps } from '@design-system/components/ContentBlock';
 
@@ -13,6 +15,7 @@ interface CardProps {
 	chapeau: string;
 	content: ContentBlockProps['value'];
 	buttons: ButtonsProps;
+	multiContentBlocks: MultiContentBlocksProps;
 }
 
 export interface CardsProps {
@@ -28,6 +31,7 @@ export const cardQuery = (): string => {
 			${imageQuery({ name: 'image' })},
 			${customBlockQuery({ name: 'content' })},
 			${buttonsQuery({ array: true })},
+			${multiContentBlocksQuery()},
 		},
 	}`;
 };

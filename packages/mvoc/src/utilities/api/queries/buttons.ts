@@ -1,4 +1,4 @@
-import { ButtonVariants } from '@design-system/elements/Button';
+import { ButtonVariants, IconPositions } from '@design-system/elements/Button';
 import { IconProps } from '@design-system/elements/Icon';
 import { SubFolderReferenceProps, internalPageReferenceInSelectQuery } from '.';
 
@@ -11,6 +11,7 @@ export interface ButtonProps {
 		subFolderReference: SubFolderReferenceProps;
 	};
 	variant: ButtonVariants;
+	iconPosition: IconPositions;
 	icon: IconProps['name'];
 }
 
@@ -32,6 +33,7 @@ export const buttonsQuery = ({
 			}
 		),
 		variant,
+		iconPosition,
 		icon,
 	}`;
 };

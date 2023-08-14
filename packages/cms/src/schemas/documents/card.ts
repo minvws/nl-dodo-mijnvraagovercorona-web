@@ -56,5 +56,10 @@ export default defineType({
 				}),
 			],
 		}),
+		defineField({
+			title: 'Content blokken',
+			name: 'multiContentBlocks',
+			type: 'multiContentBlocks',
+		}),
 	],
 });
