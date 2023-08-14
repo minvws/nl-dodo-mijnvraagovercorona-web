@@ -56,6 +56,7 @@ const embedUrl = getVideoEmbedUrl({
 						width="100%"
 						poster={image?.src ? image.src : picture.image.src}
 						controls
+						class="c-video__image"
 					>
 						<source src={internalVideoUrl} type="video/mp4" />
 						<track
