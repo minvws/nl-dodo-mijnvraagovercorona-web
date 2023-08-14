@@ -13,6 +13,8 @@ export default defineField({
 		{ type: 'advice-page' },
 		{ type: 'question-page' },
 		{ type: 'pza-landing-page' },
+		{ type: 'question-landing-page' },
+		{ type: 'campaign-page' },
 	],
 	options: {
 		filter: filterReferenceByLanguage,

@@ -46,6 +46,9 @@ const locale = getLocaleFromURL(Astro.url.pathname);
 				) : isVideo(multiContentBlock) ? (
 					<Video
 						title={multiContentBlock.title}
+						showInternalVideo={multiContentBlock.showInternalVideo}
+						internalVideoUrl={multiContentBlock.internalVideoUrl}
+						subtitle={multiContentBlock.subtitle}
 						url={multiContentBlock.url}
 						picture={multiContentBlock.picture}
 					/>
