@@ -38,6 +38,7 @@ export default defineType({
 			{ title: 'Kwetsbare gezondheid', value: 'kwetsbare-gezondheid' },
 			{ title: 'Zelftest en Klachten', value: 'zelftest-en-klachten' },
 			{ title: 'Cookie', value: 'cookie' },
+			{ title: 'Digid', value: 'digid' },
 			{ title: 'Info', value: 'info' },
 		],
 	},

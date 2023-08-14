@@ -60,6 +60,7 @@ const { title, image, content, button, items, locale } = Astro.props;
 								href={parseLink(getFullPageUrl(button.slugCollection), locale)}
 								icon={button.icon}
 								interactionIconAnimation="swing"
+								iconPosition={button.iconPosition}
 							>
 								{button.label}
 							</Button>

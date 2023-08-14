@@ -58,6 +58,25 @@ export default defineType({
 			},
 		}),
 		defineField({
+			title: 'Icoon positionering',
+			name: 'iconPosition',
+			type: 'string',
+			initialValue: 'trailing',
+			options: {
+				layout: 'dropdown',
+				list: [
+					{
+						title: 'Achter de label',
+						value: 'trailing',
+					},
+					{
+						title: 'Voor de label',
+						value: 'leading',
+					},
+				],
+			},
+		}),
+		defineField({
 			title: 'Icoon',
 			name: 'icon',
 			type: 'iconPicker',

@@ -42,6 +42,7 @@ const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 							variant={button.variant}
 							href={parseLink(getFullPageUrl(button.slugCollection), locale)}
 							icon={button.icon}
+							iconPosition={button.iconPosition}
 						>
 							{button.label}
 						</Button>

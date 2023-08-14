@@ -2,14 +2,15 @@
 import { HTMLAttributes } from 'astro/types';
 import { Icon, IconProps } from '@design-system/elements/Icon';
 import { Animations } from '@design-system/primitives/animation';
-import { ButtonVariants } from './';
+import { ButtonVariants, IconPositions } from './';
 import { isExternalUrl } from 'src/utilities/helpers/external-url';
 
 // Interfaces
 interface Shared {
 	variant?: ButtonVariants;
 	icon?: IconProps['name'];
-	iconPosition?: 'leading' | 'trailing';
+	// iconPosition?: 'leading' | 'trailing';
+	iconPosition?: IconPositions;
 	interactionIconAnimation?: Animations;
 	full?: boolean;
 	href?: string | URL | undefined | null;
