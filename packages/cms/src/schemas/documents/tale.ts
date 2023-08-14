@@ -7,12 +7,39 @@ export default defineType({
 	initialValue: {
 		__i18n_lang: 'nl',
 	},
+	fieldsets: [
+		{
+			name: 'campaign',
+			title: 'Campagne',
+			description: 'Verhaal velden ter invulling voor een campagne pagina',
+		},
+	],
 	fields: [
 		defineField({
 			title: 'Titel',
 			name: 'title',
 			type: 'string',
 			validation: (Rule) => Rule.required(),
+		}),
+		defineField({
+			title: 'Quote',
+			name: 'quote',
+			type: 'string',
+			fieldset: 'campaign',
+		}),
+		defineField({
+			title: 'Lees meer',
+			name: 'readMore',
+			type: 'string',
+			description: 'Knop label',
+			fieldset: 'campaign',
+		}),
+		defineField({
+			title: 'Lees minder',
+			name: 'readLess',
+			type: 'string',
+			description: 'Knop label',
+			fieldset: 'campaign',
 		}),
 		defineField({
 			title: 'Afbeelding',

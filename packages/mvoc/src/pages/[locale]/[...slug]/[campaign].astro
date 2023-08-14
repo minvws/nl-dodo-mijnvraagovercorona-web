@@ -14,6 +14,12 @@ import {
 	CampaignPageProps,
 	getDataCampaignPages,
 } from 'src/utilities/api/campaign';
+import {
+	Disclosure,
+	DisclosureItemCampaign,
+} from '@design-system/components/Disclosure';
+import { Tale } from '@design-system/components/Tale';
+import { stringToSlug } from 'src/utilities/stringToSlug';
 
 export async function getStaticPaths() {
 	const collection = await getDataCampaignPages();
@@ -70,6 +76,41 @@ const { pageData, locale } = Astro.props;
 			<ContentBlock value={pageData.hero.content} />
 		</Stack>
 	</Hero>
+
+	{
+		pageData?.taleCollection?.length ? (
+			<Layer>
+				<Retain variant="base">
+					<Stack gap={14}>
+						<Disclosure>
+							{pageData?.taleCollection?.map((tale) => (
+								<DisclosureItemCampaign
+									headingLevel={2}
+									headingStyledAs={3}
+									label={tale.title}
+									picture={tale.picture}
+									quote={tale.quote}
+									readMore={tale.readMore}
+									readLess={tale.readLess}
+									id={stringToSlug(tale.title)}
+									itemscope
+									itemprop="mainEntity"
+									itemtype="https://schema.org/Question"
+								>
+									<Tale
+										{...tale}
+										isCampaign={true}
+										renderTitle={false}
+										anchorable={false}
+									/>
+								</DisclosureItemCampaign>
+							))}
+						</Disclosure>
+					</Stack>
+				</Retain>
+			</Layer>
+		) : null
+	}
 
 	{
 		pageData?.support?.cards?.label && !!pageData?.support?.cards?.items && (
