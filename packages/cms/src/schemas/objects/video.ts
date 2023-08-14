@@ -14,6 +14,7 @@ export default defineType({
 		defineField({
 			title: 'Video mediatheek URL',
 			name: 'internalVideoUrl',
+			description: 'Vul volledige URL in, inclusief https://',
 			type: 'url',
 			validation: (Rule) =>
 				Rule.custom((internalVideoUrl, context) => {
