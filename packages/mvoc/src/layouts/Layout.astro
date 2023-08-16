@@ -1,5 +1,12 @@
 ---
-import 'dotenv-flow/config';
+import dotenv from 'dotenv';
+
+/** Get the custom set environment */
+const ENV = process.env.ENVIRONMENT || 'development';
+
+/** Use the env based on the passed env value */
+dotenv.config({ path: `.env.${ENV}` });
+
 import { Sprite } from 'astro-icon';
 import MetaData from 'src/components/MetaData.astro';
 import { MetaDataProps } from 'src/utilities/api/queries';
