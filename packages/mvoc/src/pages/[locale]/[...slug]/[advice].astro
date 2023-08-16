@@ -201,11 +201,9 @@ const plan =
 							pageData?.moreInfo?.items?.length ? (
 								<section>
 									<Stack>
-										<Heading level={2}>
-											{pageData.moreInfo.title
-												? pageData.moreInfo.title
-												: siteSettings.genericLabels.moreInfo}
-										</Heading>
+										{pageData.moreInfo.title && (
+											<Heading level={2}>{pageData.moreInfo.title}</Heading>
+										)}
 										<MoreInfoOverview items={pageData.moreInfo.items} />
 									</Stack>
 								</section>
