@@ -1,12 +1,18 @@
-import dotenv from 'dotenv-flow';
+import dotenv from 'dotenv';
 
-dotenv.config();
+/** Get the custom set environment */
+const ENV = process.env.ENVIRONMENT || 'development';
+
+/** Use the env based on the passed env value */
+dotenv.config({ path: `.env.${ENV}` });
 
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import sanity from 'astro-sanity';
 import compress from '@otterlord/astro-compress';
 import browserslistToEsbuild from 'browserslist-to-esbuild';
+
+console.log(`ENVIRONMENT: ${ENV}`);
 
 export default defineConfig({
 	site: 'https://mijnvraagovercorona.nl/',
