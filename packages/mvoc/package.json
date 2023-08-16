@@ -3,15 +3,12 @@
 	"version": "2.2.3-230808",
 	"private": true,
 	"scripts": {
-		"dev": "NODE_ENV=development npm run files && astro telemetry disable && astro dev",
+		"dev": "ENVIRONMENT=development npm run download-sanity-images && astro telemetry disable && astro dev",
 		"start": "npm run dev",
-		"build": "npm run files && astro telemetry disable && astro build",
+		"build": "npm run download-sanity-images && astro telemetry disable && astro build",
 		"test": "astro telemetry disable && astro check",
-		"files:download-sanity-images": "node ./scripts/download-sanity-images.js",
-		"files": "npm run files:download-sanity-images",
-		"check-changed-documents:test": "ENVIRONMENT=test node ./scripts/check-changed-documents.js",
-		"check-changed-documents:staging": "ENVIRONMENT=staging node ./scripts/check-changed-documents.js",
-		"check-changed-documents:production": "ENVIRONMENT=production node ./scripts/check-changed-documents.js"
+		"download-sanity-images": "node ./scripts/download-sanity-images.js",
+		"check-changed-documents": "node ./scripts/check-changed-documents.js"
 	},
 	"devDependencies": {
 		"@astrojs/sitemap": "^1.2.0",

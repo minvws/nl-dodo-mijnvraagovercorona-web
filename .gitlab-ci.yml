@@ -69,7 +69,7 @@ check changes mvoc:
       - packages/mvoc/data/${CD_ENVIRONMENT}-last-update-timestamp.txt
   script:
     - npm ci
-    - NPM_OUTPUT=$(npm run mvoc:check-changed-documents:$CD_ENVIRONMENT)
+    - NPM_OUTPUT=$(ENVIRONMENT=$CD_ENVIRONMENT npm run mvoc:check-changed-documents)
     - echo "NPM script output:"
     - echo "$NPM_OUTPUT"
     - CHANGES_DETECTED=$(echo "$NPM_OUTPUT" | tail -1)
