@@ -14,8 +14,6 @@ export default defineType({
 			title: 'Titel',
 			name: 'title',
 			type: 'string',
-			description:
-				'Indien titel leeg word gelaten wordt `Meer Info` in siteSettings getoond',
 		}),
 		defineField({
 			title: 'Selecteer items',

@@ -201,25 +201,14 @@ const plan =
 							pageData?.moreInfo?.items?.length ? (
 								<section>
 									<Stack>
-										<Heading level={2}>
-											{pageData.moreInfo.title
-												? pageData.moreInfo.title
-												: siteSettings.genericLabels.moreInfo}
-										</Heading>
+										{pageData.moreInfo.title && (
+											<Heading level={2}>{pageData.moreInfo.title}</Heading>
+										)}
 										<MoreInfoOverview items={pageData.moreInfo.items} />
 									</Stack>
 								</section>
 							) : null
 						}
-
-						<Feedback
-							name="Situatie Advies"
-							url={getFeedbackUrl(siteSettings.feedback.url, {
-								source: 'situation-advice',
-								advice: pageData.slug,
-								day: `${pageDay}`,
-							})}
-						/>
 					</Stack>
 				</Retain>
 
@@ -236,6 +225,19 @@ const plan =
 			/>
 		)
 	}
+
+	<Layer>
+		<Retain variant="base">
+			<Feedback
+				name="Situatie Advies"
+				url={getFeedbackUrl(siteSettings.feedback.url, {
+					source: 'situation-advice',
+					advice: pageData.slug,
+					day: `${pageDay}`,
+				})}
+			/>
+		</Retain>
+	</Layer>
 
 	{
 		pageData.assistance && (
