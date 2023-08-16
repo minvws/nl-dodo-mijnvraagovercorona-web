@@ -23,6 +23,8 @@ const LAST_UPDATE_TIMESTAMP_PATH = path.resolve(
 	`../data/${ENV}-last-update-timestamp.txt`,
 );
 
+console.log(`ENVIRONMENT: ${ENV}`);
+
 /**
  * Reads the last update timestamp from the file, or returns a default value if not found.
  * @returns {string} Last update timestamp.

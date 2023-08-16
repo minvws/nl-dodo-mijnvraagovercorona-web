@@ -20,6 +20,8 @@ const pipeline = promisify(stream.pipeline);
 
 const folder = './public/images/sanity';
 
+console.log(`ENVIRONMENT: ${ENV}`);
+
 (async () => {
 	try {
 		const { result } = await got(
