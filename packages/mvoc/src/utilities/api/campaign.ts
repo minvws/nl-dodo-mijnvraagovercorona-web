@@ -12,6 +12,7 @@ import {
 	taleReferenceQuery,
 } from './queries';
 import { getAdditionalPageData } from 'src/utilities/helpers/getAdditionalPageData';
+import { TabsProps, tabsQuery } from './queries/tabs';
 
 export interface CampaignPageProps extends PageProps {
 	hero: HeroProps;
@@ -20,6 +21,7 @@ export interface CampaignPageProps extends PageProps {
 	support: {
 		cards: CardsProps;
 	};
+	tabs: TabsProps;
 	slug: string;
 }
 
@@ -29,6 +31,10 @@ export async function getDataCampaignPages() {
 		${taleReferenceQuery()},
 		${assistanceQuery()},
 		${supportBlockQuery()},
+		${tabsQuery()},
+	
+	
+	
 		"slug": slug.current,
 	}`;
 

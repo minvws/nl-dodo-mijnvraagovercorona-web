@@ -20,6 +20,7 @@ import {
 } from '@design-system/components/Disclosure';
 import { Tale } from '@design-system/components/Tale';
 import { stringToSlug } from 'src/utilities/stringToSlug';
+import { TabsBlock } from '@design-system/components/TabsBlock';
 
 export async function getStaticPaths() {
 	const collection = await getDataCampaignPages();
@@ -54,6 +55,7 @@ interface Props {
 }
 
 const { pageData, locale } = Astro.props;
+console.log(pageData.tabs);
 ---
 
 <Layout
@@ -106,6 +108,7 @@ const { pageData, locale } = Astro.props;
 								</DisclosureItemCampaign>
 							))}
 						</Disclosure>
+						<TabsBlock label="Hi" />
 					</Stack>
 				</Retain>
 			</Layer>
