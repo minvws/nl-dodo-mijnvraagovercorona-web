@@ -1,87 +1,142 @@
 ---
 import { HTMLAttributes } from 'astro/types';
 import { Layer } from '../Layout/Layer';
-import { GridFluid } from '../Layout/Grid';
 import { Retain } from '../Layout/Retain';
 import { Stack } from '../Layout/Stack';
 import { Heading } from '@design-system/elements/Heading';
+import {
+	ButtonProps,
+	ImageProps,
+	MultiContentBlocksProps,
+	VideoProps,
+} from 'src/utilities/api/queries';
+import { ContentBlock, ContentBlockProps } from '../ContentBlock';
+import { stringToSlug } from 'src/utilities/stringToSlug';
+import { TabsProps } from 'src/utilities/api/queries/tabs';
+import { Video } from '../Video';
+import { Button } from '@design-system/elements/Button';
+import { parseLink } from 'src/utilities/helpers/link';
+import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
+import { Locale, getLocaleFromURL } from 'src/utilities/locale/translation';
+import { Switcher } from '../Layout/Grid';
+import { Chapeau } from '@design-system/elements/Chapeau';
+import { Link } from '@design-system/elements/Link';
 
 interface Props extends HTMLAttributes<'div'> {
-	label: string;
+	tabs?: {
+		tabTitle?: string;
+		title: string;
+		chapeau?: string;
+		image?: ImageProps;
+		video?: VideoProps;
+		button?: ButtonProps;
+		content?: ContentBlockProps['value'];
+		multiContentBlocks?: MultiContentBlocksProps;
+	}[];
 }
 
-const { label } = Astro.props;
+const { tabs } = Astro.props;
+const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 ---
 
-<Layer>
+<Layer background="ijsblauw">
 	<Retain>
-		<Stack>
-			<Heading level={3} id="tabs-title">Tabblad component</Heading>
-			<div class="tabs-container">
-				<ul aria-labelledby="tabs-title">
-					<li><a id="tab-1" href="#tabblad1"> tabblad 1</a></li>
-					<li><a id="tab-2" href="#tabblad2"> tabblad 2</a></li>
-					<li><a id="tab-3" href="#tabblad3"> tabblad 3</a></li>
-					<li><a id="tab-4" href="#tabblad4"> tabblad 4</a></li>
-					<li><a id="tab-5" href="#tabblad5"> tabblad 5</a></li>
-					<li><a id="tab-6" href="#tabblad6"> tabblad 6</a></li>
+		<div class="c-tabs-block c-tabs-block__wrap">
+			<Stack>
+				<ul class="c-tabs-block__link-list" role="list">
+					{
+						tabs.map((tab, index) => (
+							<li class="c-tabs-block__list-item">
+								<Link
+									href={`#${stringToSlug(tab.title)}`}
+									id={`tab-${index + 1}`}
+									class="c-tabs-block__link"
+								>
+									{tab.tabTitle || tab.title}
+								</Link>
+							</li>
+						))
+					}
 				</ul>
+				<div class="c-tabs-block__panels">
+					{
+						tabs.map((tab, index) => (
+							<div
+								id={`${stringToSlug(tab.title)}`}
+								aria-labelledby={`tab-${index + 1}`}
+							>
+								<Stack gap={7}>
+									<hgroup class="c-tabs-block__hgroup">
+										{tab.chapeau ? (
+											<Chapeau
+												class="c-tabs-block__chapeau"
+												role="presentation"
+											>
+												{tab.chapeau}
+											</Chapeau>
+										) : null}
+										<Heading>{tab.title}</Heading>
+									</hgroup>
+									<Switcher>
+										<Retain variant="text">
+											<Stack>
+												<ContentBlock value={tab.content} />
+											</Stack>
+										</Retain>
+										<Retain>
+											{tab.image ? (
+												<img class="" src={tab.image.src} loading="lazy" />
+											) : null}
 
-				<div class="tabs__panels flow">
-					<div id="tabblad1" aria-labelledby="tab-1">
-						<p>
-							Een vaccin zorgt ervoor dat je lichaam zich beter beschermt tegen
-							een virus. Dan is de kans kleiner dat je ziek wordt. Je lichaam
-							maakt eerst antistoffen tegen een virus nadat je een vaccinatie
-							hebt gekregen. Komt een virus later in je lichaam, dan ruimen de
-							antistoffen het virus op. Een vaccin tegen corona maakt je afweer
-							tegen het coronavirus dus beter.
-						</p>
-					</div>
-					<div id="tabblad2" aria-labelledby="tab-2">
-						<p>
-							Coronavaccins worden op verschillende manieren gemaakt. Sommige
-							coronavaccins gebruiken een stukje van het virus. Andere
-							coronavaccins gebruiken het hele virus. Maar dat is dan dood of
-							zwak. Nog andere vaccins gebruiken deeltjes die deskundigen hebben
-							nagemaakt van het coronavirus. Dat noemen we een mRNA-vaccin.
-						</p>
-					</div>
-					<div id="tabblad3" aria-labelledby="tab-3">
-						<p>
-							This can help to establish the company as a thought leader in its
-							industry and build trust with customers.
-						</p>
-					</div>
-					<div id="tabblad4" aria-labelledby="tab-4">
-						<p>
-							Targeted to specific audiences to increase their effectiveness.
-						</p>
-					</div>
-					<div id="tabblad5" aria-labelledby="tab-5">
-						<p>Aasd sasdsa sadas dsadas</p>
-					</div>
-					<div id="tabblad6" aria-labelledby="tab-6">
-						<p>asdasdas</p>
-					</div>
+											{tab.video && !tab.image.src ? (
+												<Video
+													title={tab.video.title}
+													showInternalVideo={tab.video.showInternalVideo}
+													internalVideoUrl={tab.video.internalVideoUrl}
+													subtitle={tab.video.subtitle}
+													url={tab.video.url}
+													picture={tab.video.picture}
+												/>
+											) : null}
+										</Retain>
+									</Switcher>
+									{tab.button ? (
+										<Button
+											variant={tab.button.variant}
+											href={parseLink(
+												getFullPageUrl(tab.button.slugCollection),
+												locale,
+											)}
+											icon={tab.button.icon}
+											iconPosition={tab.button.iconPosition}
+										>
+											{tab.button.label}
+										</Button>
+									) : null}
+								</Stack>
+							</div>
+						))
+					}
 				</div>
-			</div>
-		</Stack>
+			</Stack>
+		</div>
 	</Retain>
 </Layer>
-
 <script>
-	const tabsContainer = document.querySelector('.tabs-container');
-	const tabsList = tabsContainer.querySelector('ul');
+	import { mqMediumUntil } from '@design-system/primitives/responsive';
+	const tabsContainer = document.querySelector('.c-tabs-block__wrap');
+	const tabsList = tabsContainer.querySelector('.c-tabs-block__link-list');
 	const tabButtons = tabsList.querySelectorAll('a');
-	const tabPanels = tabsContainer.querySelectorAll('.tabs__panels > div');
+	const tabPanels = tabsContainer.querySelectorAll(
+		'.c-tabs-block__panels > div',
+	);
+	let activeVideo = null;
+	const mqm = window.matchMedia(mqMediumUntil);
 
 	tabsList.setAttribute('role', 'tablist');
-
 	tabsList.querySelectorAll('li').forEach((listitem) => {
 		listitem.setAttribute('role', 'presentation');
 	});
-
 	tabButtons.forEach((tab, index) => {
 		tab.setAttribute('role', 'tab');
 		if (index === 0) {
@@ -91,17 +146,16 @@ const { label } = Astro.props;
 			tabPanels[index].setAttribute('hidden', '');
 		}
 	});
-
 	tabPanels.forEach((panel) => {
 		panel.setAttribute('role', 'tabpanel');
 		panel.setAttribute('tabindex', '0');
 	});
-
-	tabsContainer.addEventListener('click', (e) => {
+	tabsList.addEventListener('click', (e) => {
 		const clickedTab = (e.target as HTMLElement).closest('a');
 		if (!clickedTab) return;
-		e.preventDefault();
-
+		if (!mqm.matches) {
+			e.preventDefault();
+		}
 		switchTab(clickedTab);
 	});
 
@@ -123,7 +177,6 @@ const { label } = Astro.props;
 				break;
 		}
 	});
-
 	function moveLeft() {
 		const currentTab = document.activeElement;
 		if (!currentTab.parentElement.previousElementSibling) {
@@ -134,7 +187,6 @@ const { label } = Astro.props;
 			);
 		}
 	}
-
 	function moveRight() {
 		const currentTab = document.activeElement;
 		if (!currentTab.parentElement.nextElementSibling) {
@@ -143,68 +195,91 @@ const { label } = Astro.props;
 			switchTab(currentTab.parentElement.nextElementSibling.querySelector('a'));
 		}
 	}
-
 	function switchTab(newTab) {
 		const activePanelId = newTab.getAttribute('href');
 		const activePanel = tabsContainer.querySelector(activePanelId);
-
+		if (activeVideo) {
+			activeVideo.pause();
+		}
 		tabButtons.forEach((button) => {
 			button.setAttribute('aria-selected', `${false}`);
 			button.setAttribute('tabindex', '-1');
 		});
-
 		tabPanels.forEach((panel) => {
 			panel.setAttribute('hidden', `${true}`);
 		});
-
 		activePanel.removeAttribute('hidden', false);
 		newTab.setAttribute('aria-selected', true);
 		newTab.setAttribute('tabindex', '0');
 		newTab.focus();
+		activeVideo = activePanel.querySelector('video');
 	}
 </script>
-
 <style lang="scss">
 	@use '@design-system-styles/primitives/_responsive.scss';
+	@use '@design-system-styles/tools/_rem.scss';
 
-	[role='tablist'] {
-		list-style: none;
-		margin: 0;
-		padding: 0;
+	.c-tabs-block {
+		--tablink-color-selected: var(--color-diepblauw);
+		--tablink-bg-color: var(--color-ijsblauw);
+		--tablink-bg-color-selected: var(--color-poolblauw);
+		--tablink-bg-color-selected-mobile: var(--tablink-color-selected);
+		--tablink-bg-color-hover: var(--tablink-bg-color-selected);
+		--tablink-border-color: var(--tablink-bg-color);
+		--tablink-border-color-selected: var(--tablink-color-selected);
+	}
+
+	.c-tabs-block__hgroup {
 		display: flex;
-		gap: 1rem;
+		flex-direction: column;
+		gap: var(--space-4);
 	}
 
-	[aria-selected='true'] {
-		text-decoration-thickness: 0.25em;
-		text-underline-offset: 0.5em;
-		color: orangered;
+	[role='tabpanel'] {
+		&:focus-visible {
+			outline: var(--elevation-focusring);
+			outline-offset: var(--space-3);
+		}
 	}
 
-	.tabs-container {
-		padding: 2.5rem;
-		border-radius: 0.5rem;
-		background: hsl(0 0% 50% / 0.1);
+	.c-tabs-block__link-list {
+		display: flex;
+		list-style: none;
+		flex-direction: row;
+		gap: var(--space-4);
+		flex-wrap: wrap;
+		padding-inline-start: 0;
 	}
 
-	.site-title {
-		font-size: var(--fs-900);
-		line-height: 1.05;
-		text-transform: uppercase;
-	}
-
-	.section-title {
-		font-size: var(--fs-800);
-		line-height: 1.1;
-	}
-
-	.visually-hidden {
-		clip: rect(0 0 0 0);
-		clip-path: inset(50%);
-		height: 1px;
-		overflow: hidden;
-		position: absolute;
-		white-space: nowrap;
-		width: 1px;
+	.c-tabs-block__link {
+		border: 1px solid var(--tablink-border-color);
+		border-radius: var(--radii-nano);
+		--link-text-decoration: none;
+		display: block;
+		padding: rem.convert(14px);
+		padding-inline: rem.convert(20px);
+		color: var(--tablink-color-selected);
+		font-weight: bold;
+		&:hover {
+			background-color: var(--tablink-bg-color-hover);
+		}
+		&[aria-selected='true'] {
+			border: 1px solid var(--tablink-border-color-selected);
+			border-radius: var(--radii-nano);
+			background-color: var(--tablink-bg-color-selected);
+		}
+		@media --mq-medium-until {
+			&[aria-selected='true'] {
+				color: var(--color-white);
+				background-color: var(--tablink-bg-color-selected-mobile);
+				border: 1px solid var(--tablink-border-color-selected);
+			}
+			color: var(--color-diepblauw);
+			border: 1px solid var(--tablink-border-color-selected);
+			&:hover {
+				color: var(--tablink-color-selected);
+				background-color: var(--tablink-bg-color-hover);
+			}
+		}
 	}
 </style>

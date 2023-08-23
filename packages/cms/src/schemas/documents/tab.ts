@@ -23,6 +23,13 @@ export default defineType({
 	},
 	fields: [
 		defineField({
+			title: 'Tab titel',
+			name: 'tabTitle',
+			description:
+				'Korte titel in het tabje. Indien leeg zal het tabje gevuld worden met de content titel',
+			type: 'string',
+		}),
+		defineField({
 			title: 'Titel',
 			name: 'title',
 			type: 'string',
@@ -37,11 +44,16 @@ export default defineType({
 			title: 'Afbeelding',
 			name: 'image',
 			type: 'image',
+			description: 'Laat dit veld leeg indien ook een video is gekozen',
 		}),
 		defineField({
 			title: 'Video',
 			name: 'video',
 			type: 'video',
+			options: {
+				collapsible: true,
+				collapsed: true,
+			},
 		}),
 		defineField({
 			title: 'Content',
@@ -49,17 +61,13 @@ export default defineType({
 			type: 'customBlock',
 		}),
 		defineField({
-			title: 'Knoppen',
-			name: 'buttons',
-			type: 'array',
-			validation: (Rule) => Rule.min(1).max(2),
-			of: [
-				defineField({
-					title: 'Knop',
-					name: 'button',
-					type: 'flexibleButton',
-				}),
-			],
+			title: 'Knop',
+			name: 'button',
+			type: 'flexibleButton',
+			options: {
+				collapsible: true,
+				collapsed: true,
+			},
 		}),
 	],
 });

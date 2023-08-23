@@ -32,9 +32,6 @@ export async function getDataCampaignPages() {
 		${assistanceQuery()},
 		${supportBlockQuery()},
 		${tabsQuery()},
-	
-	
-	
 		"slug": slug.current,
 	}`;
 

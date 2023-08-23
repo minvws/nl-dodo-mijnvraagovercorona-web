@@ -21,6 +21,7 @@ import {
 import { Tale } from '@design-system/components/Tale';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { TabsBlock } from '@design-system/components/TabsBlock';
+import { Picture } from '@design-system/components/Picture';
 
 export async function getStaticPaths() {
 	const collection = await getDataCampaignPages();
@@ -55,7 +56,6 @@ interface Props {
 }
 
 const { pageData, locale } = Astro.props;
-console.log(pageData.tabs);
 ---
 
 <Layout
@@ -108,12 +108,13 @@ console.log(pageData.tabs);
 								</DisclosureItemCampaign>
 							))}
 						</Disclosure>
-						<TabsBlock label="Hi" />
 					</Stack>
 				</Retain>
 			</Layer>
 		) : null
 	}
+
+	{pageData?.tabs && <TabsBlock tabs={pageData.tabs} />}
 
 	{
 		pageData?.support?.cards?.label && !!pageData?.support?.cards?.items && (
