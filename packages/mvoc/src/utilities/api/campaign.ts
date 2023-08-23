@@ -21,7 +21,7 @@ export interface CampaignPageProps extends PageProps {
 	support: {
 		cards: CardsProps;
 	};
-	tabs: TabsProps;
+	tabs: TabsProps[];
 	slug: string;
 }
 
