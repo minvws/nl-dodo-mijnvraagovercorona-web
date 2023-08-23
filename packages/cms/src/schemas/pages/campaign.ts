@@ -46,6 +46,21 @@ export default defineType({
 		}),
 
 		defineField({
+			title: 'Tabbladen',
+			name: 'tabs',
+			type: 'array',
+			description: 'Voeg tabbladen toe voor het tabblad element',
+			of: [
+				{
+					title: 'Tabblad',
+					name: 'tab',
+					type: 'reference',
+					to: [{ type: 'tab' }],
+				},
+			],
+		}),
+
+		defineField({
 			title: 'Hulp per onderwerp',
 			name: 'support',
 			type: 'reference',

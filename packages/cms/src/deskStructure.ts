@@ -18,6 +18,7 @@ import {
 	BsFileText,
 	BsArrowRightSquare,
 	BsMegaphone,
+	BsClipboardPlusFill,
 } from 'react-icons/bs';
 
 import { getFolder } from './utilities/getFolder';
@@ -134,6 +135,11 @@ export default (S) =>
 						schemaType: 'support',
 						title: 'Hulpblokken',
 						icon: BsClipboardCheck,
+					}),
+					getTranslatedDocumentList(S, {
+						schemaType: 'tab',
+						title: 'Tabbladen',
+						icon: BsClipboardPlusFill,
 					}),
 				],
 			}),

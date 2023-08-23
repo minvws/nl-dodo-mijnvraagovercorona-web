@@ -10,6 +10,7 @@ import cardDocument from './documents/card';
 import duoColumnContentDocument from './documents/duoColumnContent';
 import ctaButtonDocument from './documents/ctaButton';
 import support from './documents/support';
+import tabDocument from './documents/tab';
 
 // Pages
 import genericPage from './pages/generic';
@@ -72,6 +73,7 @@ export default [
 	duoColumnContentDocument,
 	ctaButtonDocument,
 	support,
+	tabDocument,
 
 	// objects
 	customBlockObject,
