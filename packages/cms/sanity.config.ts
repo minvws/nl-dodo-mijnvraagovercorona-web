@@ -43,6 +43,10 @@ export default defineConfig({
 					id: 'ar',
 					title: 'Arabisch',
 				},
+				{
+					id: 'ua',
+					title: 'Oekraïens',
+				},
 			],
 			schemaTypes: [
 				'assistance',
