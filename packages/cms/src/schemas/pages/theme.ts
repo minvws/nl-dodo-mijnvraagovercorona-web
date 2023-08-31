@@ -98,7 +98,7 @@ export default defineType({
 			title: 'Hulp',
 			name: 'assistance',
 			type: 'reference',
-			to: [{ type: 'assistance' }],
+			to: [{ type: 'assistance-new' }, { type: 'assistance' }],
 			options: {
 				filter: filterReferenceByLanguage,
 			},

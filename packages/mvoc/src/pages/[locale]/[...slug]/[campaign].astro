@@ -21,7 +21,6 @@ import {
 import { Tale } from '@design-system/components/Tale';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { TabsBlock } from '@design-system/components/TabsBlock';
-import { Picture } from '@design-system/components/Picture';
 
 export async function getStaticPaths() {
 	const collection = await getDataCampaignPages();
@@ -124,12 +123,15 @@ const { pageData, locale } = Astro.props;
 			/>
 		)
 	}
-
 	{
-		pageData.assistance ? (
-			<Layer background="ijsblauw" pushDownBy="assistance-image">
+		pageData.assistance && pageData.assistance.type === 'assistance-new' ? (
+			<Layer
+				id={stringToSlug(pageData.assistance.title)}
+				background={'ijsblauw'}
+				pushDownBy="assistance-image"
+			>
 				<Retain>
-					<Assistance {...pageData.assistance} />
+					<Assistance feedback {...pageData.assistance} />
 				</Retain>
 			</Layer>
 		) : null

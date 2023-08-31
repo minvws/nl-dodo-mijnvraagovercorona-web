@@ -3,36 +3,51 @@ import { Button } from '@design-system/elements/Button';
 import { Heading } from '@design-system/elements/Heading';
 import { Link } from '@design-system/elements/Link';
 import { HTMLAttributes } from 'astro/types';
-import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
-import { AssistanceProps } from 'src/utilities/api/queries/assistance';
+import {
+	ButtonProps,
+	ImageProps,
+	SiteSettingsProps,
+	useSiteSettings,
+} from 'src/utilities/api/queries';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
-import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
 import GridFluid from '../Layout/Grid/GridFluid.astro';
 import { Stack } from '../Layout/Stack';
 import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
 import { parseLink } from 'src/utilities/helpers/link';
 
-interface Props extends HTMLAttributes<'div'>, AssistanceProps {
+interface Props extends HTMLAttributes<'div'> {
 	feedback?: boolean;
 	inDialog?: boolean;
+	title: string;
+	image?: ImageProps;
+	text: string;
+	phone: {
+		phoneNumber: string;
+		openingHourLabel: string;
+		openingHour: number;
+		closingHour: number;
+		nowOpen: string;
+	};
+	getHelp?: {
+		title: string;
+		button: ButtonProps;
+	};
 }
 
 const {
 	class: className,
 	feedback,
 	inDialog,
-	headline,
+	title,
 	image,
-	open,
-	subTitle,
-	chat,
+	text,
 	phone,
-	situation,
 	getHelp,
 } = Astro.props;
 
 const locale = getLocaleFromURL(Astro.url.pathname);
-const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+const openingHour = phone.openingHour;
+const closingHour = phone.closingHour;
 ---
 
 <div
@@ -40,7 +55,6 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 		className ? ` | ${className}` : ''
 	}`}
 	data-module="assistance"
-	data-has-chat={chat.title ? true : false}
 >
 	<GridFluid class="c-assistance__grid">
 		<div>
@@ -58,105 +72,46 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 			}
 			<Stack>
 				<hgroup>
-					{!inDialog ? <Heading styledAs={1}>{headline}</Heading> : null}
+					{!inDialog ? <Heading styledAs={1}>{title}</Heading> : null}
 
-					{
-						inDialog ? (
-							<p>
-								<span class="c-assistance__show-chat-open">
-									{subTitle.chatOpen}
-								</span>
-								<span class="c-assistance__show-chat-closed">
-									{subTitle.chatClosed}
-								</span>
-							</p>
-						) : (
-							<Heading class="c-assistance__heading-humble" level={3}>
-								<span class="c-assistance__show-chat-open">
-									{subTitle.chatOpen}
-								</span>
-								<span class="c-assistance__show-chat-closed">
-									{subTitle.chatClosed}
-								</span>
-							</Heading>
-						)
-					}
+					<Heading class="c-assistance__heading-humble" level={3}>
+						<span>
+							{text}
+						</span>
+					</Heading>
 				</hgroup>
 
 				<div>
 					<Link
-						href={`tel:${phone.number.replace(/\D/g, '')}`}
+						href={`tel:${phone.phoneNumber.replace(/\D/g, '')}`}
 						icon="phone"
 						iconPosition="leading"
 						variant="cta"
 					>
-						{phone.number}
+						{phone.phoneNumber}
 					</Link>
 
 					{
-						phone.openingHours && (
+						phone.openingHour && (
 							<p>
-								{phone.openingHours}
+								{phone.openingHourLabel}
 								<br />
-								<span class="c-assistance__show-phone-open | u-color--accent-safarigroen">
-									{open}
+								<span
+									data-starttime={openingHour}
+									data-endtime={closingHour}
+									class="c-assistance__show-phone-open | u-color--accent-safarigroen"
+								>
+									{phone.nowOpen}
 								</span>
 							</p>
 						)
 					}
 				</div>
-
-				{
-					chat.title ? (
-						<div>
-							<Link
-								href="https://chat.vragenovercorona.nl/"
-								icon="chat"
-								iconPosition="leading"
-								variant="cta"
-							>
-								{chat.title}
-							</Link>
-
-							<p>
-								{chat.openingHours}
-								<br />
-								<span class="c-assistance__show-chat-open | u-color--accent-safarigroen">
-									{open}
-								</span>
-							</p>
-						</div>
-					) : null
-				}
 			</Stack>
 		</div>
 
 		{
 			feedback && (locale.id === 'nl' || locale.id === 'en') ? (
-				<div>
-					<div class="c-assistance__img-feedback-container">
-						<img
-							src={image?.src || '/images/questions.svg'}
-							alt=""
-							loading="lazy"
-							class={`c-assistance__img c-assistance__img-feedback`}
-						/>
-					</div>
-					<Stack>
-						<Heading class="c-assistance__heading-humble" level={3}>
-							{situation.question}
-						</Heading>
-						<Button
-							href={getFeedbackUrl(siteSettings.feedback.url, {
-								source: 'home',
-								advice: 'home',
-							})}
-						>
-							{situation.button}
-						</Button>
-					</Stack>
-				</div>
-			) : getHelp ? (
 				<div>
 					<div class="c-assistance__img-feedback-container">
 						<img
@@ -182,40 +137,47 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 						</Button>
 					</Stack>
 				</div>
-			) : null
+			) : (
+				<div>
+					<div class="c-assistance__img-feedback-container">
+						<img
+							src={image?.src || '/images/questions.svg'}
+							alt=""
+							loading="lazy"
+							class={`c-assistance__img c-assistance__img-feedback`}
+						/>
+					</div>
+				</div>
+			)
 		}
 	</GridFluid>
 </div>
 
 <script>
 	const getIsPhonenumberOpen = () => {
+		const openingHourElement = document.querySelector(
+			'.c-assistance__show-phone-open',
+		);
+
+		const openingHour = parseInt(
+			openingHourElement.getAttribute('data-starttime'),
+		);
+		const closingHour = parseInt(
+			openingHourElement.getAttribute('data-endtime'),
+		);
+
 		const now = new Date();
 		const hours = now.getHours();
 		const day = now.getDay();
 
-		const isValidHours = hours >= 8 && hours < 18;
+		const isValidHours = hours >= openingHour && hours < closingHour;
 		const isValidDay = day > 0 && day < 6;
 
 		return isValidHours && isValidDay;
 	};
 
 	const parent = document.querySelector('[data-module="assistance"]');
-
-	if (parent) {
-		const hasChat = parent.hasAttribute('data-has-chat');
-
-		if (hasChat) {
-			fetch(
-				'https://server.vragenovercorona.nl/client/areaStatus/BXVIVGePHOZtcUQMz2vm.json',
-			)
-				.then((response) => response.json())
-				.then((data) =>
-					parent.classList.toggle('chat-open', data.isOpenToClients),
-				);
-		}
-
-		parent.classList.toggle('phone-open', getIsPhonenumberOpen());
-	}
+	parent.classList.toggle('phone-open', getIsPhonenumberOpen());
 </script>
 
 <style lang="scss">
@@ -284,20 +246,6 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 		display: block;
 		margin: auto;
 		inline-size: #{rem.convert(90px)};
-	}
-
-	.c-assistance__show-chat-open {
-		display: none;
-		.chat-open & {
-			display: initial;
-		}
-	}
-
-	.c-assistance__show-chat-closed {
-		display: initial;
-		.chat-open & {
-			display: none;
-		}
 	}
 
 	.c-assistance__show-phone-open {
