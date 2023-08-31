@@ -1,19 +1,15 @@
 ---
 import { Button } from '@design-system/elements/Button';
-import { Modal } from '@design-system/components/Modal';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
-import { AssistanceProps } from 'src/utilities/api/queries/assistance';
-import { Assistance } from '@design-system/components/Assistance';
 import { QuestionPageProps } from 'src/utilities/api';
 import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
 import { parseLink } from 'src/utilities/helpers/link';
 
 export interface Props {
 	buttons: QuestionPageProps['buttons'];
-	assistance?: AssistanceProps;
 }
 
-const { buttons, assistance } = Astro.props;
+const { buttons } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
 ---
 
@@ -33,18 +29,6 @@ const locale = getLocaleFromURL(Astro.url.pathname);
 				>
 					{button.text}
 				</Button>
-			) : button.assistanceDialog && assistance && assistance.headline ? (
-				<>
-					<Button
-						id="assistance-dialog"
-						variant={index === 0 ? 'primary' : 'secondary'}
-					>
-						{button.text}
-					</Button>
-					<Modal id="assistance-dialog" title={assistance.headline}>
-						<Assistance inDialog {...assistance} />
-					</Modal>
-				</>
 			) : (
 				<Button
 					href={parseLink(getFullPageUrl(button.next), locale)}

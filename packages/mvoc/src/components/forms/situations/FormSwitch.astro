@@ -6,18 +6,11 @@ import { QuestionPageProps } from 'src/utilities/api';
 export interface Props {
 	question: QuestionPageProps['question'];
 	buttons: QuestionPageProps['buttons'];
-	assistance?: QuestionPageProps['assistance'];
 	content?: QuestionPageProps['content'];
 	hideLabel?: boolean;
 }
 
-const {
-	question,
-	buttons,
-	assistance,
-	content,
-	hideLabel = true,
-} = Astro.props;
+const { question, buttons, content, hideLabel = true } = Astro.props;
 ---
 
 <>
@@ -28,7 +21,6 @@ const {
 				answers={question.multi}
 				showMore={question.showMore}
 				buttons={buttons}
-				assistance={assistance}
 				type={question.type as 'checkbox' | 'radio'}
 				hideLabel={hideLabel}
 				content={content}

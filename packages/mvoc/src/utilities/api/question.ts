@@ -66,7 +66,6 @@ export interface QuestionPageProps extends PageProps {
 	buttons: {
 		_key: string;
 		standard: boolean;
-		assistanceDialog: boolean;
 		text: string;
 		next: {
 			_type: string;
@@ -137,7 +136,6 @@ export const questionPageProjection = `{
 		_key,
 		text,
 		standard,
-		assistanceDialog,
 		"next": next -> {
 			_type,
 			answer[]{
