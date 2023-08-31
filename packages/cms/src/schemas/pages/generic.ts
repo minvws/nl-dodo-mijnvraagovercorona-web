@@ -89,17 +89,15 @@ export default defineType({
 			type: 'boolean',
 			description: 'Als deze toggle aan staat genereren we een feedback blok.',
 		}),
-
 		defineField({
 			title: 'Hulp',
 			name: 'assistance',
 			type: 'reference',
-			to: [{ type: 'assistance' }],
+			to: [{ type: 'assistance-new' }, { type: 'assistance' }],
 			options: {
 				filter: filterReferenceByLanguage,
 			},
 		}),
-
 		defineField({
 			title: 'Sub pagina referentie',
 			description:

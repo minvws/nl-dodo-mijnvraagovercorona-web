@@ -21,6 +21,7 @@ import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
 import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
 import { Breadcrumbs } from '@design-system/components/Breadrumbs';
 import { parseLink } from 'src/utilities/helpers/link';
+import { stringToSlug } from 'src/utilities/stringToSlug';
 
 export async function getStaticPaths() {
 	const collection = await getDataPZALandingPages();
@@ -131,11 +132,16 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 			</Layer>
 		) : null
 	}
+
 	{
-		pageData.assistance ? (
-			<Layer background="ijsblauw" pushDownBy="assistance-image">
+		pageData.assistance && pageData.assistance.type === 'assistance-new' ? (
+			<Layer
+				id={stringToSlug(pageData.assistance.title)}
+				background={'ijsblauw'}
+				pushDownBy="assistance-image"
+			>
 				<Retain>
-					<Assistance {...pageData.assistance} />
+					<Assistance feedback {...pageData.assistance} />
 				</Retain>
 			</Layer>
 		) : null

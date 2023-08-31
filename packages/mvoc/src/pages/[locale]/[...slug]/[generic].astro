@@ -152,9 +152,9 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 		</Retain>
 	</Layer>
 	{
-		pageData.assistance && (
+		pageData.assistance && pageData.assistance.type === 'assistance-new' ? (
 			<Layer
-				id={stringToSlug(pageData.assistance.headline)}
+				id={stringToSlug(pageData.assistance.title)}
 				background={'ijsblauw'}
 				pushDownBy="assistance-image"
 			>
@@ -162,6 +162,6 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 					<Assistance feedback {...pageData.assistance} />
 				</Retain>
 			</Layer>
-		)
+		) : null
 	}
 </Layout>
