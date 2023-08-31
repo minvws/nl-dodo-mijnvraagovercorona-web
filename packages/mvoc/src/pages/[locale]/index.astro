@@ -61,7 +61,7 @@ const { filters, ctaButtons } = getFiltersAndSituations({
 });
 
 const themesWithAssistance = pageData.themes.filter(
-	(theme) => theme.assistance,
+	(theme) => theme.assistance && theme.assistance.type === 'assistance-new',
 );
 ---
 
@@ -178,28 +178,31 @@ const themesWithAssistance = pageData.themes.filter(
 	}
 
 	{
-		pageData.assistance && themesWithAssistance.length ? (
+		pageData.assistance &&
+		pageData.assistance.type === 'assistance-new' &&
+		themesWithAssistance.length ? (
 			<div aria-live="polite" data-module-bind="filter__switch-on-filter-theme">
 				<Layer
-					id={stringToSlug(pageData.assistance.headline)}
+					id={stringToSlug(pageData.assistance.title)}
 					background="ijsblauw"
 					pushDownBy="assistance-image"
 					data-theme-slug="all"
 				>
 					<Retain>
-						<Assistance {...pageData.assistance} />
+						<Assistance feedback {...pageData.assistance} />
 					</Retain>
 				</Layer>
+
 				{themesWithAssistance.map((theme) => (
 					<Layer
-						id={stringToSlug(theme.assistance.headline)}
+						id={stringToSlug(theme.assistance.title)}
 						background="ijsblauw"
 						pushDownBy="assistance-image"
 						data-theme-slug={theme.slug}
 						hidden
 					>
 						<Retain>
-							<Assistance {...theme.assistance} />
+							<Assistance feedback {...theme.assistance} />
 						</Retain>
 					</Layer>
 				))}

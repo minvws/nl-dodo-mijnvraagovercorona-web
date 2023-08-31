@@ -17,6 +17,7 @@ import { Sidebar } from '@design-system/components/Layout/Sidebar';
 import FormSwitch from '@modules/forms/situations/FormSwitch.astro';
 import { CardPrivacy } from '@design-system/components/Card';
 import { SupportBlock } from '@design-system/components/SupportBlock';
+import { stringToSlug } from 'src/utilities/stringToSlug';
 
 export async function getStaticPaths() {
 	const collection = await getDataQuestionLandingPages();
@@ -81,7 +82,6 @@ const { pageData, locale } = Astro.props;
 					<FormSwitch
 						question={pageData.questionReference.question}
 						buttons={pageData.questionReference.buttons}
-						assistance={pageData.questionReference.assistance}
 						content={pageData.questionReference.content}
 						hideLabel={false}
 					>
@@ -104,12 +104,15 @@ const { pageData, locale } = Astro.props;
 			/>
 		)
 	}
-
 	{
-		pageData.assistance ? (
-			<Layer background="ijsblauw" pushDownBy="assistance-image">
+		pageData.assistance && pageData.assistance.type === 'assistance-new' ? (
+			<Layer
+				id={stringToSlug(pageData.assistance.title)}
+				background={'ijsblauw'}
+				pushDownBy="assistance-image"
+			>
 				<Retain>
-					<Assistance {...pageData.assistance} />
+					<Assistance feedback {...pageData.assistance} />
 				</Retain>
 			</Layer>
 		) : null

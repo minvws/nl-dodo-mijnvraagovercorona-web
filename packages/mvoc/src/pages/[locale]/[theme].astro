@@ -15,6 +15,7 @@ import { CTAButtonOverview } from '@modules/CTAButtonOverview';
 import { CardAnswerOverview } from '@modules/CardAnswerOverview';
 import { Breadcrumbs } from '@design-system/components/Breadrumbs';
 import { getFiltersAndSituations } from 'src/utilities/api/queries';
+import { stringToSlug } from 'src/utilities/stringToSlug';
 
 export async function getStaticPaths() {
 	const collection = await getDataThemes();
@@ -116,15 +117,18 @@ const { filters, ctaButtons } = getFiltersAndSituations({
 			</Layer>
 		) : null
 	}
-
 	{
-		pageData.assistance && (
-			<Layer background={'ijsblauw'} pushDownBy="assistance-image">
+		pageData.assistance && pageData.assistance.type === 'assistance-new' ? (
+			<Layer
+				id={stringToSlug(pageData.assistance.title)}
+				background={'ijsblauw'}
+				pushDownBy="assistance-image"
+			>
 				<Retain>
 					<Assistance feedback {...pageData.assistance} />
 				</Retain>
 			</Layer>
-		)
+		) : null
 	}
 </Layout>
 <style lang="scss">

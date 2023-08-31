@@ -127,6 +127,11 @@ export default (S) =>
 						icon: BsChatLeftDots,
 					}),
 					getTranslatedDocumentList(S, {
+						schemaType: 'assistance-new',
+						title: 'Hulp v2',
+						icon: BsChatLeftDots,
+					}),
+					getTranslatedDocumentList(S, {
 						schemaType: 'duo-column-content',
 						title: 'Duo column content',
 						icon: BsColumnsGap,

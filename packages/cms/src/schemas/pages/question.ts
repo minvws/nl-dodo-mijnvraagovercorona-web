@@ -206,13 +206,6 @@ export default defineType({
 								filter: filterReferenceByLanguage,
 							},
 						}),
-						defineField({
-							title: 'Modal kom je er niet uit',
-							name: 'assistanceDialog',
-							type: 'boolean',
-							description:
-								'Er moet een "Hulp" blok gekoppeld zijn aan deze pagina',
-						}),
 					],
 					preview: {
 						select: {
@@ -228,7 +221,7 @@ export default defineType({
 			title: 'Hulp',
 			name: 'assistance',
 			type: 'reference',
-			to: [{ type: 'assistance' }],
+			to: [{ type: 'assistance-new' }, { type: 'assistance' }],
 			options: {
 				filter: filterReferenceByLanguage,
 			},
