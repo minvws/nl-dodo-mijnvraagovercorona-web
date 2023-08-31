@@ -50,6 +50,9 @@ export default defineConfig({
 			],
 			schemaTypes: [
 				'assistance',
+				'assistance-new',
+				'tab',
+				'support',
 				'card',
 				'cta-button-document',
 				'duo-column-content',
