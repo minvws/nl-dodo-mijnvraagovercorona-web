@@ -99,6 +99,7 @@ const closingHour = phone.closingHour;
 								<span
 									data-starttime={openingHour}
 									data-endtime={closingHour}
+									data-module-bind="assistance__openinghours"
 									class="c-assistance__show-phone-open | u-color--accent-safarigroen"
 								>
 									{phone.nowOpen}
@@ -154,10 +155,11 @@ const closingHour = phone.closingHour;
 </div>
 
 <script>
-	const getIsPhonenumberOpen = () => {
-		const openingHourElement = document.querySelector(
-			'.c-assistance__show-phone-open',
+	const getIsPhonenumberOpen = (parent: HTMLDivElement) => {
+		const openingHourElement = parent.querySelector(
+			'[data-module-bind="assistance__openinghours"]',
 		);
+		if (!openingHourElement) return false;
 
 		const openingHour = parseInt(
 			openingHourElement.getAttribute('data-starttime'),
@@ -176,8 +178,12 @@ const closingHour = phone.closingHour;
 		return isValidHours && isValidDay;
 	};
 
-	const parent = document.querySelector('[data-module="assistance"]');
-	parent.classList.toggle('phone-open', getIsPhonenumberOpen());
+	const parent = document.querySelector<HTMLDivElement>(
+		'[data-module="assistance"]',
+	);
+	if (parent) {
+		parent.classList.toggle('phone-open', getIsPhonenumberOpen(parent));
+	}
 </script>
 
 <style lang="scss">

@@ -178,9 +178,7 @@ const themesWithAssistance = pageData.themes.filter(
 	}
 
 	{
-		pageData.assistance &&
-		pageData.assistance.type === 'assistance-new' &&
-		themesWithAssistance.length ? (
+		pageData.assistance && pageData.assistance.type === 'assistance-new' ? (
 			<div aria-live="polite" data-module-bind="filter__switch-on-filter-theme">
 				<Layer
 					id={stringToSlug(pageData.assistance.title)}
