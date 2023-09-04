@@ -49,7 +49,6 @@ export default defineConfig({
 				},
 			],
 			schemaTypes: [
-				'assistance',
 				'assistance-new',
 				'tab',
 				'support',

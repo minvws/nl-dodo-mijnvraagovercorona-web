@@ -1,8 +1,8 @@
 import { defineType, defineField } from 'sanity';
 
 export default defineType({
-	title: 'Hulp document',
-	name: 'assistance',
+	title: 'Hulp document v2',
+	name: 'assistance-new',
 	type: 'document',
 	initialValue: {
 		__i18n_lang: 'nl',
@@ -10,14 +10,16 @@ export default defineType({
 	preview: {
 		select: {
 			title: 'title',
-			phone: 'phonenumber',
+			phoneNumber: 'phone.phoneNumber',
 			referenceTitle: '__i18n_base.title',
 		},
 		prepare(selection) {
-			const { title, phone, referenceTitle } = selection;
+			const { title, phoneNumber, referenceTitle } = selection;
 			return {
 				title: title,
-				subtitle: `${phone}${referenceTitle ? ` - ${referenceTitle}` : ''}`,
+				subtitle: `${phoneNumber}${
+					referenceTitle ? ` - ${referenceTitle}` : ''
+				}`,
 			};
 		},
 	},
@@ -33,50 +35,66 @@ export default defineType({
 			type: 'image',
 		}),
 		defineField({
-			title: 'Tekst zonder chat',
-			name: 'tekstWithoutChat',
+			title: 'Tekst',
+			name: 'text',
 			type: 'string',
 		}),
+
 		defineField({
-			title: 'Tekst met chat',
-			name: 'tekstWithChat',
-			type: 'string',
+			title: 'Telefoon velden',
+			name: 'phone',
+			type: 'object',
+			fieldsets: [
+				{
+					name: 'hoursSelectedFieldset',
+					title: 'Selecteer de openingstijden',
+					options: { columns: 2 },
+				},
+			],
+			fields: [
+				defineField({
+					title: 'Telefoonnummer',
+					name: 'phoneNumber',
+					type: 'string',
+				}),
+				defineField({
+					title: 'Label openingstijden Telefoonnummer',
+					name: 'openingHourLabel',
+					type: 'string',
+				}),
+				defineField({
+					name: 'openingHour',
+					title: 'Openingstijd',
+					type: 'number',
+					fieldset: 'hoursSelectedFieldset',
+					options: {
+						list: Array.from({ length: 24 }, (_, index) => ({
+							title: `${index}:00`,
+							value: index,
+						})),
+					},
+				}),
+				defineField({
+					name: 'closingHour',
+					title: 'Sluitingstijd',
+					type: 'number',
+					fieldset: 'hoursSelectedFieldset',
+					options: {
+						list: Array.from({ length: 24 }, (_, index) => ({
+							title: `${index}:00`,
+							value: index,
+						})),
+					},
+				}),
+				defineField({
+					title: 'Label nu open',
+					name: 'nowOpen',
+					type: 'string',
+					description: 'bv: "Nu bereikbaar"',
+				}),
+			],
 		}),
-		defineField({
-			title: 'Telefoonnummer',
-			name: 'phonenumber',
-			type: 'string',
-		}),
-		defineField({
-			title: 'Openingstijden Telefoonnummer',
-			name: 'openingHoursPhonenumber',
-			type: 'string',
-		}),
-		defineField({
-			title: 'Chat',
-			name: 'chat',
-			type: 'string',
-		}),
-		defineField({
-			title: 'Openingstijden',
-			name: 'openingHours',
-			type: 'string',
-		}),
-		defineField({
-			title: 'Open',
-			name: 'open',
-			type: 'string',
-		}),
-		defineField({
-			title: 'Situatie vraag',
-			name: 'situationQuestion',
-			type: 'string',
-		}),
-		defineField({
-			title: 'Situatie button',
-			name: 'situationButton',
-			type: 'string',
-		}),
+
 		defineField({
 			title: 'Hulp nodig?',
 			name: 'getHelp',

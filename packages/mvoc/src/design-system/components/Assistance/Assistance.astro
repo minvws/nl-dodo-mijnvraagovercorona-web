@@ -178,11 +178,16 @@ const closingHour = phone.closingHour;
 		return isValidHours && isValidDay;
 	};
 
-	const parent = document.querySelector<HTMLDivElement>(
+	const assistanceElements = document.querySelectorAll<HTMLDivElement>(
 		'[data-module="assistance"]',
 	);
-	if (parent) {
-		parent.classList.toggle('phone-open', getIsPhonenumberOpen(parent));
+	if (assistanceElements) {
+		assistanceElements.forEach((assistanceElement) => {
+			assistanceElement.classList.toggle(
+				'phone-open',
+				getIsPhonenumberOpen(assistanceElement),
+			);
+		});
 	}
 </script>
 
