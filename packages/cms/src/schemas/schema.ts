@@ -6,7 +6,6 @@ import siteSettingsDocument from './documents/siteSettings';
 import modalsDocument from './documents/modals';
 import taleDocument from './documents/tale';
 import assistanceDocument from './documents/assistance';
-import assistanceNewDocument from './documents/assistanceNew';
 import cardDocument from './documents/card';
 import duoColumnContentDocument from './documents/duoColumnContent';
 import ctaButtonDocument from './documents/ctaButton';
@@ -70,7 +69,6 @@ export default [
 	modalsDocument,
 	taleDocument,
 	assistanceDocument,
-	assistanceNewDocument,
 	cardDocument,
 	duoColumnContentDocument,
 	ctaButtonDocument,
