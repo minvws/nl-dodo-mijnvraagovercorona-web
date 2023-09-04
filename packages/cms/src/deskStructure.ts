@@ -122,13 +122,8 @@ export default (S) =>
 						icon: BsBook,
 					}),
 					getTranslatedDocumentList(S, {
-						schemaType: 'assistance',
-						title: 'Hulp',
-						icon: BsChatLeftDots,
-					}),
-					getTranslatedDocumentList(S, {
 						schemaType: 'assistance-new',
-						title: 'Hulp v2',
+						title: 'Hulp',
 						icon: BsChatLeftDots,
 					}),
 					getTranslatedDocumentList(S, {
