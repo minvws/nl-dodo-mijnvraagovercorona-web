@@ -3,6 +3,7 @@ import { deskTool } from 'sanity/desk';
 import { visionTool } from '@sanity/vision';
 import { documentInternationalization } from '@sanity/document-internationalization';
 import { scheduledPublishing } from '@sanity/scheduled-publishing';
+import { media } from 'sanity-plugin-media';
 
 import schemas from './src/schemas/schema';
 import deskStructure from './src/deskStructure';
@@ -20,6 +21,7 @@ export default defineConfig({
 		}),
 		scheduledPublishing(),
 		visionTool(),
+		media(),
 		documentInternationalization({
 			// Required:
 			supportedLanguages: [
