@@ -1,18 +1,12 @@
 ---
-import { HTMLAttributes } from 'astro/types';
+import type { HTMLAttributes } from 'astro/types';
 import { Layer } from '../Layout/Layer';
 import { Retain } from '../Layout/Retain';
 import { Stack } from '../Layout/Stack';
 import { Heading } from '@design-system/elements/Heading';
-import {
-	ButtonProps,
-	ImageProps,
-	MultiContentBlocksProps,
-	VideoProps,
-} from 'src/utilities/api/queries';
-import { ContentBlock, ContentBlockProps } from '../ContentBlock';
+import { ContentBlock } from '../ContentBlock';
 import { stringToSlug } from 'src/utilities/stringToSlug';
-import { TabsProps } from 'src/utilities/api/queries/tabs';
+import type { TabsProps } from 'src/utilities/api/queries/tabs';
 import { Video } from '../Video';
 import { Button } from '@design-system/elements/Button';
 import { parseLink } from 'src/utilities/helpers/link';
@@ -23,16 +17,7 @@ import { Chapeau } from '@design-system/elements/Chapeau';
 import { Link } from '@design-system/elements/Link';
 
 interface Props extends HTMLAttributes<'div'> {
-	tabs?: {
-		tabTitle?: string;
-		title: string;
-		chapeau?: string;
-		image?: ImageProps;
-		video?: VideoProps;
-		button?: ButtonProps;
-		content?: ContentBlockProps['value'];
-		multiContentBlocks?: MultiContentBlocksProps;
-	}[];
+	tabs?: TabsProps[];
 }
 
 const { tabs } = Astro.props;
@@ -125,94 +110,98 @@ const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 <script>
 	import { mqMediumUntil } from '@design-system/primitives/responsive';
 	const tabsContainer = document.querySelector('.c-tabs-block__wrap');
-	const tabsList = tabsContainer.querySelector('.c-tabs-block__link-list');
-	const tabButtons = tabsList.querySelectorAll('a');
-	const tabPanels = tabsContainer.querySelectorAll(
-		'.c-tabs-block__panels > div',
-	);
-	let activeVideo = null;
-	const mqm = window.matchMedia(mqMediumUntil);
+	if (tabsContainer) {
+		const tabsList = tabsContainer.querySelector('.c-tabs-block__link-list');
+		const tabButtons = tabsList.querySelectorAll('a');
+		const tabPanels = tabsContainer.querySelectorAll(
+			'.c-tabs-block__panels > div',
+		);
+		let activeVideo = null;
+		const mqm = window.matchMedia(mqMediumUntil);
 
-	tabsList.setAttribute('role', 'tablist');
-	tabsList.querySelectorAll('li').forEach((listitem) => {
-		listitem.setAttribute('role', 'presentation');
-	});
-	tabButtons.forEach((tab, index) => {
-		tab.setAttribute('role', 'tab');
-		if (index === 0) {
-			tab.setAttribute('aria-selected', 'true');
-		} else {
-			tab.setAttribute('tabindex', '-1');
-			tabPanels[index].setAttribute('hidden', '');
-		}
-	});
-	tabPanels.forEach((panel) => {
-		panel.setAttribute('role', 'tabpanel');
-		panel.setAttribute('tabindex', '0');
-	});
-	tabsList.addEventListener('click', (e) => {
-		const clickedTab = (e.target as HTMLElement).closest('a');
-		if (!clickedTab) return;
-		if (!mqm.matches) {
-			e.preventDefault();
-		}
-		switchTab(clickedTab);
-	});
-
-	tabsContainer.addEventListener('keydown', (e) => {
-		switch ((e as KeyboardEvent).key) {
-			case 'ArrowLeft':
-				moveLeft();
-				break;
-			case 'ArrowRight':
-				moveRight();
-				break;
-			case 'Home':
-				e.preventDefault();
-				switchTab(tabButtons[0]);
-				break;
-			case 'End':
-				e.preventDefault();
-				switchTab(tabButtons[tabButtons.length - 1]);
-				break;
-		}
-	});
-	function moveLeft() {
-		const currentTab = document.activeElement;
-		if (!currentTab.parentElement.previousElementSibling) {
-			switchTab(tabButtons[tabButtons.length - 1]);
-		} else {
-			switchTab(
-				currentTab.parentElement.previousElementSibling.querySelector('a'),
-			);
-		}
-	}
-	function moveRight() {
-		const currentTab = document.activeElement;
-		if (!currentTab.parentElement.nextElementSibling) {
-			switchTab(tabButtons[0]);
-		} else {
-			switchTab(currentTab.parentElement.nextElementSibling.querySelector('a'));
-		}
-	}
-	function switchTab(newTab) {
-		const activePanelId = newTab.getAttribute('href');
-		const activePanel = tabsContainer.querySelector(activePanelId);
-		if (activeVideo) {
-			activeVideo.pause();
-		}
-		tabButtons.forEach((button) => {
-			button.setAttribute('aria-selected', `${false}`);
-			button.setAttribute('tabindex', '-1');
+		tabsList.setAttribute('role', 'tablist');
+		tabsList.querySelectorAll('li').forEach((listitem) => {
+			listitem.setAttribute('role', 'presentation');
+		});
+		tabButtons.forEach((tab, index) => {
+			tab.setAttribute('role', 'tab');
+			if (index === 0) {
+				tab.setAttribute('aria-selected', 'true');
+			} else {
+				tab.setAttribute('tabindex', '-1');
+				tabPanels[index].setAttribute('hidden', '');
+			}
 		});
 		tabPanels.forEach((panel) => {
-			panel.setAttribute('hidden', `${true}`);
+			panel.setAttribute('role', 'tabpanel');
+			panel.setAttribute('tabindex', '0');
 		});
-		activePanel.removeAttribute('hidden', false);
-		newTab.setAttribute('aria-selected', true);
-		newTab.setAttribute('tabindex', '0');
-		newTab.focus();
-		activeVideo = activePanel.querySelector('video');
+		tabsList.addEventListener('click', (e) => {
+			const clickedTab = (e.target as HTMLElement).closest('a');
+			if (!clickedTab) return;
+			if (!mqm.matches) {
+				e.preventDefault();
+			}
+			switchTab(clickedTab);
+		});
+
+		tabsContainer.addEventListener('keydown', (e) => {
+			switch ((e as KeyboardEvent).key) {
+				case 'ArrowLeft':
+					moveLeft();
+					break;
+				case 'ArrowRight':
+					moveRight();
+					break;
+				case 'Home':
+					e.preventDefault();
+					switchTab(tabButtons[0]);
+					break;
+				case 'End':
+					e.preventDefault();
+					switchTab(tabButtons[tabButtons.length - 1]);
+					break;
+			}
+		});
+		function moveLeft() {
+			const currentTab = document.activeElement;
+			if (!currentTab.parentElement.previousElementSibling) {
+				switchTab(tabButtons[tabButtons.length - 1]);
+			} else {
+				switchTab(
+					currentTab.parentElement.previousElementSibling.querySelector('a'),
+				);
+			}
+		}
+		function moveRight() {
+			const currentTab = document.activeElement;
+			if (!currentTab.parentElement.nextElementSibling) {
+				switchTab(tabButtons[0]);
+			} else {
+				switchTab(
+					currentTab.parentElement.nextElementSibling.querySelector('a'),
+				);
+			}
+		}
+		function switchTab(newTab) {
+			const activePanelId = newTab.getAttribute('href');
+			const activePanel = tabsContainer.querySelector(activePanelId);
+			if (activeVideo) {
+				activeVideo.pause();
+			}
+			tabButtons.forEach((button) => {
+				button.setAttribute('aria-selected', `${false}`);
+				button.setAttribute('tabindex', '-1');
+			});
+			tabPanels.forEach((panel) => {
+				panel.setAttribute('hidden', `${true}`);
+			});
+			activePanel.removeAttribute('hidden', false);
+			newTab.setAttribute('aria-selected', true);
+			newTab.setAttribute('tabindex', '0');
+			newTab.focus();
+			activeVideo = activePanel.querySelector('video');
+		}
 	}
 </script>
 <style lang="scss">

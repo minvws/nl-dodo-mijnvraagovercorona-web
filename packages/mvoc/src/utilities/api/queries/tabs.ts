@@ -1,5 +1,6 @@
 import { ContentBlockProps } from '@design-system/components/ContentBlock';
 import {
+	ButtonProps,
 	buttonsQuery,
 	customBlockQuery,
 	ImageProps,
@@ -17,6 +18,7 @@ export interface TabsProps {
 	image?: ImageProps;
 	video?: VideoProps;
 	content?: ContentBlockProps['value'];
+	button?: ButtonProps;
 	multiContentBlocks: MultiContentBlocksProps;
 }
 
