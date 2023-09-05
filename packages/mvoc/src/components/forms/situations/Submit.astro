@@ -25,14 +25,28 @@ const locale = getLocaleFromURL(Astro.url.pathname);
 							? parseLink(getFullPageUrl(button.next), locale)
 							: undefined
 					}
-					variant={index === 0 ? 'primary' : 'secondary'}
+					variant={
+						button?.variant
+							? button.variant
+							: index === 0
+							? 'primary'
+							: 'secondary'
+					}
+					full={button?.full || undefined}
 				>
 					{button.text}
 				</Button>
 			) : (
 				<Button
 					href={parseLink(getFullPageUrl(button.next), locale)}
-					variant={index === 0 ? 'primary' : 'secondary'}
+					variant={
+						button?.variant
+							? button.variant
+							: index === 0
+							? 'primary'
+							: 'secondary'
+					}
+					full={button?.full || undefined}
 				>
 					{button.text}
 				</Button>
@@ -51,9 +65,13 @@ const locale = getLocaleFromURL(Astro.url.pathname);
 		flex-direction: row-reverse;
 
 		// adjust buttons
-		> * {
+		> *:not(.e-button--full) {
 			flex: 1;
 			max-inline-size: calc(50% - var(--space-4) / 2);
+			justify-content: center;
+		}
+
+		> .e-button--full {
 			justify-content: center;
 		}
 	}
