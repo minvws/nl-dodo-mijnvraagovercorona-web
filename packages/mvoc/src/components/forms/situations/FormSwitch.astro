@@ -2,6 +2,7 @@
 import AnswersMulti from './AnswersMulti.astro';
 import AnswersDate from './AnswersDate.astro';
 import { QuestionPageProps } from 'src/utilities/api';
+import AnswersMultiButtons from './AnswersMultiButtons.astro';
 
 export interface Props {
 	question: QuestionPageProps['question'];
@@ -27,6 +28,18 @@ const { question, buttons, content, hideLabel = true } = Astro.props;
 			>
 				<slot name="after-label" slot="after-label" />
 			</AnswersMulti>
+		) : ['button'].includes(question.type) && question.multi ? (
+			<AnswersMultiButtons
+				label={question.label}
+				answers={question.multi}
+				showMore={question.showMore}
+				buttons={buttons}
+				type={question.type as 'checkbox' | 'radio'}
+				hideLabel={hideLabel}
+				content={content}
+			>
+				<slot name="after-label" slot="after-label" />
+			</AnswersMultiButtons>
 		) : question.type === 'datepicker' ? (
 			<AnswersDate buttons={buttons} label={question.label} />
 		) : null

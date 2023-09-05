@@ -16,6 +16,7 @@ import {
 	ImageProps,
 } from './queries';
 import { getAdditionalPageData } from '../helpers/getAdditionalPageData';
+import { ButtonVariants } from '@design-system/elements/Button';
 
 export interface QuestionPageProps extends PageProps {
 	hero: HeroProps;
@@ -80,6 +81,8 @@ export interface QuestionPageProps extends PageProps {
 			subFolderReference: SubFolderReferenceProps['subFolderReference'];
 		};
 		disabled?: boolean;
+		variant?: ButtonVariants;
+		full?: boolean;
 	}[];
 	assistance?: AssistanceProps;
 	locale: string;
@@ -148,6 +151,8 @@ export const questionPageProjection = `{
 			"slug": slug.current,
 			${subFolderReferenceQuery()},
 		},
+		variant,
+		full,
 	},
 	${assistanceQuery()},
 	"slug": slug.current,

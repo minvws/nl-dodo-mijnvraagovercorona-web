@@ -59,7 +59,8 @@ export default defineType({
 								title: 'Multiple-choice (meerdere selecteerbaar)',
 								value: 'checkbox',
 							},
-							{ title: 'Multiple-choice (1 selecteerbaar)', value: 'radio' },
+							{ title: 'Single-choice', value: 'radio' },
+							{ title: 'Single-choice (knoppen)', value: 'button' },
 						],
 					},
 				}),
@@ -126,6 +127,16 @@ export default defineType({
 									options: {
 										filter: filterReferenceByLanguage,
 									},
+									hidden: ({
+										document,
+									}: {
+										document: { question: { type: string } };
+									}) =>
+										document?.question?.type
+											? !['checkbox', 'radio'].includes(
+													document?.question?.type,
+											  )
+											: true,
 								}),
 							],
 							preview: {
@@ -142,7 +153,9 @@ export default defineType({
 						document: { question: { type: string } };
 					}) =>
 						document?.question?.type
-							? !['checkbox', 'radio'].includes(document?.question?.type)
+							? !['checkbox', 'radio', 'button'].includes(
+									document?.question?.type,
+							  )
 							: true,
 				}),
 
@@ -205,6 +218,37 @@ export default defineType({
 							options: {
 								filter: filterReferenceByLanguage,
 							},
+						}),
+						defineField({
+							title: 'Variant',
+							name: 'variant',
+							type: 'string',
+							options: {
+								layout: 'dropdown',
+								list: [
+									{
+										title: 'Primary',
+										value: 'primary',
+									},
+									{
+										title: 'Secondary',
+										value: 'secondary',
+									},
+									{
+										title: 'Tertiary',
+										value: 'tertiary',
+									},
+									{
+										title: 'Quaternary',
+										value: 'quaternary',
+									},
+								],
+							},
+						}),
+						defineField({
+							title: 'Volledige breedte?',
+							name: 'full',
+							type: 'boolean',
 						}),
 					],
 					preview: {
