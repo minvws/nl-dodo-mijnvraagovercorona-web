@@ -8,12 +8,10 @@ import {
 	ContentBlockProps,
 } from '@design-system/components/ContentBlock';
 import { Stack } from '../Layout/Stack';
-import { Button } from '@design-system/elements/Button';
 import { ButtonProps } from 'src/utilities/api/queries/buttons';
 import { ImageProps } from 'src/utilities/api/queries';
-import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
 import { Disclosure, DisclosureItem } from '../Disclosure';
-import { parseLink } from 'src/utilities/helpers/link';
+import { FlexibleButton } from '@modules/elements/FlexibleButton';
 
 interface Props extends HTMLAttributes<'div'> {
 	title: string;
@@ -55,15 +53,7 @@ const { title, image, content, button, items, locale } = Astro.props;
 					}
 					{
 						button?.label ? (
-							<Button
-								variant={button.variant}
-								href={parseLink(getFullPageUrl(button.slugCollection), locale)}
-								icon={button.icon}
-								interactionIconAnimation="swing"
-								iconPosition={button.iconPosition}
-							>
-								{button.label}
-							</Button>
+							<FlexibleButton {...button} interactionIconAnimation="swing" />
 						) : null
 					}
 				</Stack>

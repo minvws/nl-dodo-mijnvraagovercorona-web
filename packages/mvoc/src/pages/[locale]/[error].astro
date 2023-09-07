@@ -12,12 +12,11 @@ import { Retain } from '@design-system/components/Layout/Retain';
 import { ContentBlock } from '@design-system/components/ContentBlock';
 import { Layer } from '@design-system/components/Layout/Layer';
 import { Stack } from '@design-system/components/Layout/Stack';
-import { Button } from '@design-system/elements/Button';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { Breadcrumbs } from '@design-system/components/Breadrumbs';
 import { getFiltersAndSituations } from 'src/utilities/api/queries';
 import { CTAButtonOverview } from '@modules/CTAButtonOverview';
-import { parseLink } from 'src/utilities/helpers/link';
+import { FlexibleButton } from '@modules/elements/FlexibleButton';
 
 export async function getStaticPaths() {
 	const collection = await getDataErrorPages();
@@ -80,13 +79,7 @@ const { filters, ctaButtons } = getFiltersAndSituations({
 			<Layer id={stringToSlug(homePageData.important.title)}>
 				<Retain>
 					<Stack gap={14}>
-						<Button
-							iconPosition="leading"
-							icon={pageData.button.icon}
-							href={parseLink(`/`, locale)}
-						>
-							{pageData.button.label}
-						</Button>
+						<FlexibleButton {...pageData.button} />
 						<div>
 							<Stack gap={4}>
 								<ContentBlock value={pageData.content} />

@@ -1,6 +1,5 @@
 ---
 import { Heading } from '@design-system/elements/Heading';
-import { Button } from '@design-system/elements/Button';
 import { Stack } from '@design-system/components/Layout/Stack';
 import { Card } from '.';
 import { Chapeau } from '@design-system/elements/Chapeau';
@@ -8,10 +7,8 @@ import {
 	ButtonsProps,
 	MultiContentBlocksProps,
 } from 'src/utilities/api/queries';
-import { Locale, getLocaleFromURL } from 'src/utilities/locale/translation';
-import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
-import { parseLink } from 'src/utilities/helpers/link';
 import { MultiContentBlock } from '../ContentBlock';
+import { FlexibleButton } from '@modules/elements/FlexibleButton';
 
 interface Props {
 	title: string;
@@ -21,7 +18,6 @@ interface Props {
 }
 
 const { title, chapeau, buttons, multiContentBlocks } = Astro.props;
-const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 ---
 
 <Card>
@@ -38,14 +34,7 @@ const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 				<ul class="c-card-block__wrap-buttons" role="list">
 					{buttons.map((button) => (
 						<li>
-							<Button
-								variant={button.variant}
-								href={parseLink(getFullPageUrl(button.slugCollection), locale)}
-								icon={button.icon}
-								iconPosition={button.iconPosition}
-							>
-								{button.label}
-							</Button>
+							<FlexibleButton {...button} />
 						</li>
 					))}
 				</ul>
