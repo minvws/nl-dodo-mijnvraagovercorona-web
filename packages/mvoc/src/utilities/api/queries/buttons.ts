@@ -9,6 +9,7 @@ export interface ButtonProps {
 		slug: string;
 		deepLink?: string;
 		subFolderReference: SubFolderReferenceProps;
+		asset?: string;
 	};
 	variant: ButtonVariants;
 	iconPosition: IconPositions;
@@ -28,9 +29,12 @@ export const buttonsQuery = ({
 		label,
 		"slugCollection": select(
 			${internalPageReferenceInSelectQuery()},
+			asset._type match "file" => {
+				"asset": "/assets/sanity/" + asset.asset->sha1hash + "-" + asset.asset->originalFilename,
+			},
 			{
 				"slug": href
-			}
+			},
 		),
 		variant,
 		iconPosition,

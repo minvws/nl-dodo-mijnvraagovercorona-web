@@ -4,7 +4,6 @@ import { availableLocales, Locale } from 'src/utilities/locale/translation';
 import { PZALandingPageProps, getDataPZALandingPages } from 'src/utilities/api';
 import { Hero } from '@design-system/components/Hero';
 import { ContentBlock } from '@design-system/components/ContentBlock';
-import Button from '@design-system/elements/Button/Button.astro';
 import Stack from '@design-system/components/Layout/Stack/Stack.astro';
 import { Retain } from '@design-system/components/Layout/Retain';
 import { Layer } from '@design-system/components/Layout/Layer';
@@ -12,16 +11,13 @@ import { Sidebar } from '@design-system/components/Layout/Sidebar';
 import { CardPrivacy } from '@design-system/components/Card';
 import { TaleList } from '@design-system/components/Tale';
 import { Assistance } from '@design-system/components/Assistance';
-import {
-	getFullPageUrl,
-	getPageSubfolder,
-} from 'src/utilities/helpers/page-subfolder';
+import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
 import { Feedback } from '@design-system/components/Feedback';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
 import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
 import { Breadcrumbs } from '@design-system/components/Breadrumbs';
-import { parseLink } from 'src/utilities/helpers/link';
 import { stringToSlug } from 'src/utilities/stringToSlug';
+import { FlexibleButton } from '@modules/elements/FlexibleButton';
 
 export async function getStaticPaths() {
 	const collection = await getDataPZALandingPages();
@@ -85,16 +81,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 					<ul class="c-hero__wrap-buttons" role="list">
 						{pageData.buttons.map((button) => (
 							<li>
-								<Button
-									variant={button.variant}
-									href={parseLink(
-										getFullPageUrl(button.slugCollection),
-										locale,
-									)}
-									icon={button.icon}
-								>
-									{button.label}
-								</Button>
+								<FlexibleButton {...button} />
 							</li>
 						))}
 					</ul>
