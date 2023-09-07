@@ -18,14 +18,14 @@ dotenv.config({ path: `.env.${ENV}` });
 
 const pipeline = promisify(stream.pipeline);
 
-const folder = './public/images/sanity';
+const folder = './public/assets/sanity';
 
 console.log(`ENVIRONMENT: ${ENV}`);
 
 (async () => {
 	try {
 		const { result } = await got(
-			`https://${process.env.PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/v1/data/query/${process.env.PUBLIC_SANITY_DATASET}?query=*%5B_type%3D%3D%22sanity.imageAsset%22%5D%7B%0A%20%20url%2C%0A%20%20sha1hash%2C%0A%20%20originalFilename%0A%7D`,
+			`https://${process.env.PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/v1/data/query/${process.env.PUBLIC_SANITY_DATASET}?query=*%5B_type+in+%5B%22sanity.fileAsset%22%2C+%22sanity.imageAsset%22%5D%5D%7B%0A++url%2C%0A++sha1hash%2C%0A++originalFilename%0A%7D`,
 			{
 				headers: {
 					'user-agent': undefined,
