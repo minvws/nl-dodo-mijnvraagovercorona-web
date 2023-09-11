@@ -79,6 +79,12 @@ export default defineType({
 		}),
 
 		defineField({
+			title: 'Snel naar:',
+			name: 'moreInfo',
+			type: 'moreInfo',
+		}),
+
+		defineField({
 			title: 'Huidige adviezen',
 			name: 'currentAdvice',
 			type: 'object',

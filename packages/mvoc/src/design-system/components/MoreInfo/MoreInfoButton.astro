@@ -40,7 +40,8 @@ const { label, href, icon } = Astro.props;
 	@use '@design-system-styles/primitives/_responsive.scss';
 
 	.c-more-info-button {
-		--tip-button-icon-size: var(--space-14);
+		--button-padding-block: var(--space-6);
+		--c-more-info-button__icon-size: #{rem.convert(44px)};
 	}
 
 	.c-more-info-button__inner {
@@ -50,13 +51,9 @@ const { label, href, icon } = Astro.props;
 	}
 
 	.c-more-info-button__icon {
-		inline-size: var(--tip-button-icon-size);
-		aspect-ratio: 5.8 / 4;
+		inline-size: var(--c-more-info-button__icon-size);
+		aspect-ratio: 1 / 1;
 		object-fit: contain;
 		object-position: center center;
-
-		@media --mq-large {
-			--tip-button-icon-size: #{rem.convert(92px)}; // 92px
-		}
 	}
 </style>

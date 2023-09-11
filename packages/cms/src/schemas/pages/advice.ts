@@ -23,6 +23,13 @@ export default defineType({
 			name: 'metaData',
 			type: 'metaData',
 		}),
+
+		defineField({
+			title: 'Overzicht',
+			name: 'overview',
+			type: 'overview',
+		}),
+
 		defineField({
 			title: 'Hero',
 			name: 'hero',

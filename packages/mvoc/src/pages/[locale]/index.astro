@@ -17,6 +17,9 @@ import { CTAButtonOverview } from '@modules/CTAButtonOverview';
 import { CardAnswerOverview } from '@modules/CardAnswerOverview';
 import { getFiltersAndSituations } from 'src/utilities/api/queries/ctaButton';
 import { FlexibleButton } from '@modules/elements/FlexibleButton';
+import { MoreInfoOverview } from '@design-system/components/MoreInfo';
+import { Heading } from '@design-system/elements/Heading';
+import { Card } from '@design-system/components/Card';
 
 export async function getStaticPaths() {
 	const collection = await getDataHome();
@@ -115,6 +118,31 @@ const themesWithAssistance = pageData.themes.filter(
 							enableFilter={pageData.important.filter}
 						/>
 					</Stack>
+				</Retain>
+			</Layer>
+		) : null
+	}
+
+	{
+		pageData?.moreInfo?.items?.length ? (
+			<Layer
+				id={
+					pageData?.moreInfo?.title
+						? stringToSlug(pageData.moreInfo.title)
+						: undefined
+				}
+			>
+				<Retain>
+					<section>
+						<Stack>
+							{pageData?.moreInfo?.title ? (
+								<Heading level={2}>{pageData.moreInfo.title}</Heading>
+							) : null}
+							<Card variant="filled">
+								<MoreInfoOverview items={pageData.moreInfo.items} />
+							</Card>
+						</Stack>
+					</section>
 				</Retain>
 			</Layer>
 		) : null
