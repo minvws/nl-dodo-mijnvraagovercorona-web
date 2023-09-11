@@ -27,6 +27,11 @@ export default defineType({
 			type: 'metaData',
 		}),
 		defineField({
+			title: 'Overzicht',
+			name: 'overview',
+			type: 'overview',
+		}),
+		defineField({
 			title: 'Hero',
 			name: 'hero',
 			type: 'hero',
@@ -126,15 +131,25 @@ export default defineType({
 			slug: 'slug.current',
 			subFolderReferenceSlug: 'subFolderReference.slug.current',
 			media: 'hero.image',
+			overviewTitle: 'overview.title',
+			overviewIcon: 'overview.icon',
 		},
 		prepare(selection) {
-			const { title, locale, slug, subFolderReferenceSlug, media } = selection;
+			const {
+				title,
+				locale,
+				slug,
+				subFolderReferenceSlug,
+				media,
+				overviewTitle,
+				overviewIcon,
+			} = selection;
 			return {
-				title: title,
+				title: overviewTitle || title,
 				subtitle: `/${locale}${
 					subFolderReferenceSlug ? `/…/${subFolderReferenceSlug}` : ''
 				}/${slug}`,
-				media,
+				media: overviewIcon || media,
 			};
 		},
 	},

@@ -264,12 +264,16 @@ const trailingIcon = isExternal
 	}
 
 	.e-button--quaternary {
+		--button-icon-color: var(--color-accent-robijnrood);
+
 		&,
 		&:hover,
 		&:focus {
-			--button-background-color: var(--color-ijsblauw);
+			--button-background-color: var(
+				--external__button--quaternary__background,
+				var(--color-ijsblauw)
+			);
 		}
-		--button-icon-color: var(--color-accent-robijnrood);
 		font-weight: bold;
 	}
 

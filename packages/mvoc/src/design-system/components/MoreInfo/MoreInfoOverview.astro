@@ -5,6 +5,7 @@ import { MoreInfoButton } from '.';
 import { MoreInfoProps } from 'src/utilities/api/queries';
 import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
 import { parseLink } from 'src/utilities/helpers/link';
+import { GridFluid } from '../Layout/Grid';
 
 interface Props extends HTMLAttributes<'div'> {
 	items: MoreInfoProps['items'];
@@ -14,31 +15,29 @@ const { class: className, items, ...attrs } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 ---
 
-<ul
+<GridFluid
 	class={`c-more-info-overview${className ? ` | ${className}` : ''}`}
+	as="ul"
 	{...attrs}
-	role="list"
 >
 	{
 		items.map((item) => (
 			<li>
 				<MoreInfoButton
 					href={parseLink(getFullPageUrl(item), locale)}
-					icon={item.icon}
-					label={item.title}
+					icon={item?.overview?.icon || item.icon}
+					label={item?.overview?.title || item.title}
 				/>
 			</li>
 		))
 	}
-</ul>
+</GridFluid>
 
 <style lang="scss">
 	@use '@design-system-styles/primitives/_responsive.scss';
+	@use '@design-system-styles/tools/_rem.scss';
+
 	.c-more-info-overview {
-		> li {
-			&:not(:first-of-type) {
-				margin-block-start: var(--space-4);
-			}
-		}
+		--grid-fluid-min-item-size: #{rem.convert(324px)};
 	}
 </style>
