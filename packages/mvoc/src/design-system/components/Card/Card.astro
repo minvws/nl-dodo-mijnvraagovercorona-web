@@ -30,9 +30,14 @@ const { variant = 'base', class: className, ...attrs } = Astro.props;
 		border: var(--card-border-width) solid var(--card-border-color);
 	}
 
+	/**
+	 * Variants
+	 * 1. Pass down an alternative button background color
+	 */
 	.c-card--filled {
 		--card-border-width: 0px;
 		--card-background-color: var(--color-ijsblauw);
+		--external__button--quaternary__background: var(--color-white); /* [1] */
 		color: var(--color-diepblauw);
 
 		:global([class*='u-background--']) & {

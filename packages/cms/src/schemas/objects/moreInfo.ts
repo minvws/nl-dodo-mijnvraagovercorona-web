@@ -23,11 +23,7 @@ export default defineType({
 				defineField({
 					title: 'Pagina referentie',
 					name: 'item',
-					type: 'reference',
-					to: [{ type: 'generic-page' }],
-					options: {
-						filter: filterReferenceByLanguage,
-					},
+					type: 'pageSourceSelector',
 				}),
 			],
 		}),

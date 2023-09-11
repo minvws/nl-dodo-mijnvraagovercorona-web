@@ -9,7 +9,7 @@ import assistanceDocument from './documents/assistance';
 import cardDocument from './documents/card';
 import duoColumnContentDocument from './documents/duoColumnContent';
 import ctaButtonDocument from './documents/ctaButton';
-import support from './documents/support';
+import supportDocument from './documents/support';
 import tabDocument from './documents/tab';
 
 // Pages
@@ -30,6 +30,7 @@ import {
 	customBlockWithoutModalObject,
 } from './objects/customBlock';
 import metaDataObject from './objects/metaData';
+import overviewObject from './objects/overview';
 import iconPickerObject from './objects/iconPicker';
 import adviceObject from './objects/adviceBlock';
 import buttonObject from './objects/button';
@@ -72,13 +73,14 @@ export default [
 	cardDocument,
 	duoColumnContentDocument,
 	ctaButtonDocument,
-	support,
+	supportDocument,
 	tabDocument,
 
 	// objects
 	customBlockObject,
 	customBlockWithoutModalObject,
 	metaDataObject,
+	overviewObject,
 	iconPickerObject,
 	adviceObject,
 	heroObject,
