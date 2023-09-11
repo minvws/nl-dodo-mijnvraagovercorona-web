@@ -36,11 +36,7 @@ const siteSettingsTranslated: SiteSettingsProps = await useSiteSettings({
 							{column.internalPageCollection ? (
 								<LinkList
 									links={column.internalPageCollection.map((item) => ({
-										label: item.label
-											? item.label
-											: typeof item.link.label === 'object'
-											? item.link.label[locale.id]
-											: item.link.label,
+										label: item.label ? item.label : item.link.label,
 										href: parseLink(item.link.slug, locale),
 									}))}
 								/>
