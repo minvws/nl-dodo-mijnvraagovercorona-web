@@ -21,6 +21,7 @@ import {
 import { Tale } from '@design-system/components/Tale';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { TabsBlock } from '@design-system/components/TabsBlock';
+import { GridFluid } from '@design-system/components/Layout/Grid';
 
 export async function getStaticPaths() {
 	const collection = await getDataCampaignPages();
@@ -55,6 +56,21 @@ interface Props {
 }
 
 const { pageData, locale } = Astro.props;
+
+/**
+ * Split tales into 2 groups
+ */
+let taleCollection = {
+	first: [],
+	second: [],
+};
+
+if (pageData?.taleCollection?.length) {
+	const middleIndex = Math.ceil(pageData.taleCollection.length / 2);
+
+	taleCollection.first.push(...pageData.taleCollection.splice(0, middleIndex));
+	taleCollection.second.push(...pageData.taleCollection.splice(-middleIndex));
+}
 ---
 
 <Layout
@@ -79,34 +95,64 @@ const { pageData, locale } = Astro.props;
 	</Hero>
 
 	{
-		pageData?.taleCollection?.length ? (
+		taleCollection.first.length && taleCollection.second.length ? (
 			<Layer>
 				<Retain variant="base">
 					<Stack gap={14}>
-						<Disclosure>
-							{pageData?.taleCollection?.map((tale) => (
-								<DisclosureItemCampaign
-									headingLevel={2}
-									headingStyledAs={3}
-									label={tale.title}
-									picture={tale.picture}
-									quote={tale.quote}
-									readMore={tale.readMore}
-									readLess={tale.readLess}
-									id={stringToSlug(tale.title)}
-									itemscope
-									itemprop="mainEntity"
-									itemtype="https://schema.org/Question"
-								>
-									<Tale
-										{...tale}
-										isCampaign={true}
-										renderTitle={false}
-										anchorable={false}
-									/>
-								</DisclosureItemCampaign>
-							))}
-						</Disclosure>
+						<GridFluid class="campaign-tale-grid">
+							<Stack>
+								<Disclosure>
+									{taleCollection.first.map((tale) => (
+										<DisclosureItemCampaign
+											headingLevel={2}
+											headingStyledAs={3}
+											label={tale.title}
+											picture={tale.picture}
+											quote={tale.quote}
+											readMore={tale.readMore}
+											readLess={tale.readLess}
+											id={stringToSlug(tale.title)}
+											itemscope
+											itemprop="mainEntity"
+											itemtype="https://schema.org/Question"
+										>
+											<Tale
+												{...tale}
+												isCampaign={true}
+												renderTitle={false}
+												anchorable={false}
+											/>
+										</DisclosureItemCampaign>
+									))}
+								</Disclosure>
+							</Stack>
+							<Stack>
+								<Disclosure>
+									{taleCollection.second.map((tale) => (
+										<DisclosureItemCampaign
+											headingLevel={2}
+											headingStyledAs={3}
+											label={tale.title}
+											picture={tale.picture}
+											quote={tale.quote}
+											readMore={tale.readMore}
+											readLess={tale.readLess}
+											id={stringToSlug(tale.title)}
+											itemscope
+											itemprop="mainEntity"
+											itemtype="https://schema.org/Question"
+										>
+											<Tale
+												{...tale}
+												isCampaign={true}
+												renderTitle={false}
+												anchorable={false}
+											/>
+										</DisclosureItemCampaign>
+									))}
+								</Disclosure>
+							</Stack>
+						</GridFluid>
 					</Stack>
 				</Retain>
 			</Layer>
@@ -137,3 +183,10 @@ const { pageData, locale } = Astro.props;
 		) : null
 	}
 </Layout>
+
+<style lang="scss">
+	.campaign-tale-grid {
+		--grid-fluid-min-item-size: var(--space-100);
+		--grid-fluid-gap: var(--space-4);
+	}
+</style>
