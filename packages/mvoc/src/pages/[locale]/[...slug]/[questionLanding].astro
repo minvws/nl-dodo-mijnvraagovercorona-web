@@ -75,26 +75,30 @@ const { pageData, locale } = Astro.props;
 		</Stack>
 	</Hero>
 
-	<Layer>
-		<Retain>
-			<Sidebar>
-				<Retain variant="text">
-					<FormSwitch
-						question={pageData.questionReference.question}
-						buttons={pageData.questionReference.buttons}
-						content={pageData.questionReference.content}
-						hideLabel={false}
-					>
-						<ContentBlock
-							value={pageData.questionReference.question.content}
-							slot="after-label"
-						/>
-					</FormSwitch>
+	{
+		pageData?.questionReference?.question ? (
+			<Layer>
+				<Retain>
+					<Sidebar>
+						<Retain variant="text">
+							<FormSwitch
+								question={pageData.questionReference.question}
+								buttons={pageData.questionReference.buttons}
+								content={pageData.questionReference.content}
+								hideLabel={false}
+							>
+								<ContentBlock
+									value={pageData.questionReference.question.content}
+									slot="after-label"
+								/>
+							</FormSwitch>
+						</Retain>
+						<CardPrivacy slot="aside" />
+					</Sidebar>
 				</Retain>
-				<CardPrivacy slot="aside" />
-			</Sidebar>
-		</Retain>
-	</Layer>
+			</Layer>
+		) : null
+	}
 
 	{
 		pageData?.support?.cards?.label && !!pageData?.support?.cards?.items && (
