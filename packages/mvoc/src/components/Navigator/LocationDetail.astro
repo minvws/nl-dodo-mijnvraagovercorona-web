@@ -37,15 +37,6 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 				<span data-city>replace city</span>
 				<span class="c-location-detail__name" data-name></span>
 			</Heading>
-
-			<div class="c-location-detail__wrap-labels">
-				<Label data-series="b">
-					{siteSettings.vaccinations.series.b}
-				</Label>
-				<Label data-series="b1">
-					{siteSettings.vaccinations.series.b1}
-				</Label>
-			</div>
 		</Stack>
 	</hgroup>
 

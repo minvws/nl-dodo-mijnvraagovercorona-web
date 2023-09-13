@@ -1,6 +1,6 @@
 {
 	"name": "mvoc",
-	"version": "2.2.3-230808",
+	"version": "2.2.4-230913",
 	"private": true,
 	"scripts": {
 		"dev": "NODE_ENV=development npm run files && astro telemetry disable && astro dev",
