@@ -29,14 +29,6 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 	>
 		<strong data-city={isTemplate}></strong>
 		<span data-name={isTemplate}></span>
-		<span class="c-location-list__labels">
-			<Label class="c-location-list__label" data-series="b">
-				{siteSettings.vaccinations.series.b}
-			</Label>
-			<Label class="c-location-list__label" data-series="b1">
-				{siteSettings.vaccinations.series.b1}
-			</Label>
-		</span>
 		<small class="c-location-list__opening-hours" data-openinghours>
 			<span class="u-color--accent-safarigroen" data-openinghours-opennow>
 				{pageData.location.openingHours.openNow}
