@@ -38,6 +38,13 @@ export default defineType({
 		}),
 
 		defineField({
+			title: 'Kruimelpad titel',
+			name: 'breadcrumbTitle',
+			type: 'string',
+			description: 'Verkorte kruimelpad titel (optioneel)',
+		}),
+
+		defineField({
 			title: 'Hero',
 			name: 'hero',
 			type: 'hero',
@@ -63,6 +70,43 @@ export default defineType({
 					type: 'reference',
 					to: [{ type: 'tab' }],
 				},
+			],
+		}),
+
+		defineField({
+			title: 'Carousel ',
+			name: 'carousel',
+			type: 'object',
+			fields: [
+				defineField({
+					title: 'Titel',
+					name: 'title',
+					type: 'string',
+				}),
+				defineField({
+					title: 'Carousel items',
+					name: 'carouselItems',
+					type: 'array',
+					description: 'Voeg carousel items toe',
+					of: [
+						{
+							title: 'Item',
+							name: 'carouselItem',
+							type: 'reference',
+							to: [{ type: 'carousel' }],
+							options: {
+								filter: filterReferenceByLanguage,
+							},
+						},
+					],
+					validation: (Rule) =>
+						Rule.custom((items) => {
+							if (!items) return true;
+							return items.length === 0 || items.length >= 5
+								? true
+								: 'Een carousel moet minmaal 5 items hebben';
+						}),
+				}),
 			],
 		}),
 

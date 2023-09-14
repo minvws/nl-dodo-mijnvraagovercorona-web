@@ -19,6 +19,7 @@ import {
 	BsArrowRightSquare,
 	BsMegaphone,
 	BsClipboardPlusFill,
+	BsShuffle,
 } from 'react-icons/bs';
 
 import { getFolder } from './utilities/getFolder';
@@ -140,6 +141,11 @@ export default (S) =>
 						schemaType: 'tab',
 						title: 'Tabbladen',
 						icon: BsClipboardPlusFill,
+					}),
+					getTranslatedDocumentList(S, {
+						schemaType: 'carousel',
+						title: 'Carousel items',
+						icon: BsShuffle,
 					}),
 				],
 			}),

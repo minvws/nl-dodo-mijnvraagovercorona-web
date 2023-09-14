@@ -17,6 +17,7 @@ import { getAdditionalPageData } from '../helpers/getAdditionalPageData';
 
 export interface ThemePageProps extends PageProps {
 	hero: HeroProps;
+	breadcrumbTitle: string;
 	overview: {
 		title: string;
 	};
@@ -31,6 +32,7 @@ export interface ThemePageProps extends PageProps {
 }
 
 export const themePageProjection = `{
+	breadcrumbTitle,
 	${heroQuery()},
 	overview{
 		title,

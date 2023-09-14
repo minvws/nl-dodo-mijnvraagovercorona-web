@@ -31,8 +31,12 @@ const Component = as;
 	.c-retain {
 		--retain-size: #{rem.convert(696px)};
 		--retain-padding: var(--space-4);
+		--retain-padding-start: var(--retain-padding);
+		--retain-padding-end: var(--retain-padding);
 		max-inline-size: var(--retain-size);
 		padding-inline: var(--retain-padding);
+		padding-inline-start: var(--retain-padding-start);
+		padding-inline-end: var(--retain-padding-end);
 		margin-inline: auto;
 
 		@media --mq-large {

@@ -13,25 +13,33 @@ import {
 } from './queries';
 import { getAdditionalPageData } from 'src/utilities/helpers/getAdditionalPageData';
 import { TabsProps, tabsQuery } from './queries/tabs';
+import { CarouselProps, carouselQuery } from './queries/carousel';
 
 export interface CampaignPageProps extends PageProps {
 	hero: HeroProps;
+	breadcrumbTitle: string;
 	assistance: AssistanceProps;
 	taleCollection: TaleCollectionProps['taleCollection'];
 	support: {
 		cards: CardsProps;
 	};
 	tabs: TabsProps[];
+	carousel?: {
+		title: string;
+		carouselItems?: CarouselProps['carouselItems'];
+	};
 	slug: string;
 }
 
 export async function getDataCampaignPages() {
 	const projection = `{
+		breadcrumbTitle,
 		${heroQuery()},
 		${taleReferenceQuery()},
 		${assistanceQuery()},
 		${supportBlockQuery()},
 		${tabsQuery()},
+		${carouselQuery()},
 		"slug": slug.current,
 	}`;
 

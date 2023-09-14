@@ -18,6 +18,14 @@ export default defineType({
 			name: 'metaData',
 			type: 'metaData',
 		}),
+
+		defineField({
+			title: 'Kruimelpad titel',
+			name: 'breadcrumbTitle',
+			type: 'string',
+			description: 'Verkorte kruimelpad titel (optioneel)',
+		}),
+
 		defineField({
 			title: 'Hero',
 			name: 'hero',

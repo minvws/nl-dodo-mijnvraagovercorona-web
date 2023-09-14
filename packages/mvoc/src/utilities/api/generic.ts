@@ -18,6 +18,7 @@ import { getAdditionalPageData } from '../helpers/getAdditionalPageData';
 
 export interface GenericPageProps extends PageProps {
 	hero: HeroProps;
+	breadcrumbTitle: string;
 	content: ContentBlockProps['value'];
 	talesAsDisclosure?: boolean;
 	taleCollection: TaleCollectionProps['taleCollection'];
@@ -34,6 +35,7 @@ export interface GenericPageProps extends PageProps {
 
 export async function getDataGenericPages() {
 	const projection = `{
+		breadcrumbTitle,
 		${heroQuery()},
 		${customBlockQuery({ name: 'content' })},
 		talesAsDisclosure,
