@@ -21,6 +21,8 @@ import {
 import { Tale } from '@design-system/components/Tale';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { TabsBlock } from '@design-system/components/TabsBlock';
+import { Carousel } from '@design-system/components/Carousel';
+import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
 import { GridFluid } from '@design-system/components/Layout/Grid';
 
 export async function getStaticPaths() {
@@ -56,6 +58,7 @@ interface Props {
 }
 
 const { pageData, locale } = Astro.props;
+const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 
 /**
  * Split tales into 2 groups
@@ -67,7 +70,6 @@ let taleCollection = {
 
 if (pageData?.taleCollection?.length) {
 	const middleIndex = Math.ceil(pageData.taleCollection.length / 2);
-
 	taleCollection.first.push(...pageData.taleCollection.splice(0, middleIndex));
 	taleCollection.second.push(...pageData.taleCollection.splice(-middleIndex));
 }
@@ -160,6 +162,18 @@ if (pageData?.taleCollection?.length) {
 	}
 
 	{pageData?.tabs && <TabsBlock tabs={pageData.tabs} />}
+
+	{
+		pageData?.carousel?.title && !!pageData?.carousel?.carouselItems && (
+			<Carousel
+				title={pageData.carousel.title}
+				carousel={pageData.carousel.carouselItems}
+				goTo={siteSettings.genericLabels.goTo}
+				previous={siteSettings.genericLabels.previous}
+				next={siteSettings.genericLabels.next}
+			/>
+		)
+	}
 
 	{
 		pageData?.support?.cards?.label && !!pageData?.support?.cards?.items && (

@@ -423,6 +423,16 @@ export default defineType({
 					name: 'accept',
 					type: 'string',
 				}),
+				defineField({
+					title: 'Vorige',
+					name: 'previous',
+					type: 'string',
+				}),
+				defineField({
+					title: 'Volgende',
+					name: 'next',
+					type: 'string',
+				}),
 			],
 		}),
 

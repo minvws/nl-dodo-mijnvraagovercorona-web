@@ -11,6 +11,7 @@ import duoColumnContentDocument from './documents/duoColumnContent';
 import ctaButtonDocument from './documents/ctaButton';
 import supportDocument from './documents/support';
 import tabDocument from './documents/tab';
+import carouselDocument from './documents/carousel';
 
 // Pages
 import genericPage from './pages/generic';
@@ -75,6 +76,7 @@ export default [
 	ctaButtonDocument,
 	supportDocument,
 	tabDocument,
+	carouselDocument,
 
 	// objects
 	customBlockObject,

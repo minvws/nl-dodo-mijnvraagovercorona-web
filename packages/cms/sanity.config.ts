@@ -58,6 +58,7 @@ export default defineConfig({
 				'cta-button-document',
 				'duo-column-content',
 				'modals',
+				'carousel',
 				'siteSettings',
 				'tale',
 				'pza-landing-page',
