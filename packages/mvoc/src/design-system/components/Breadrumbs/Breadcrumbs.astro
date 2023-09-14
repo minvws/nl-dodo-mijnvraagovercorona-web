@@ -13,13 +13,16 @@ const { breadcrumbs } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 ---
 
-<nav class="c-breadcrumbs" aria-label="breadcrumb" data-module="breadcrumbs">
+<nav
+	class="c-breadcrumbs c-breadcrumbs-full"
+	aria-label="breadcrumb"
+	data-module="breadcrumbs"
+>
 	<ol class="c-breadcrumbs__list" role="list">
 		<li class="c-breadcrumbs__list-item">
 			<Link class="c-breadcrumbs__link" href={locale.urlPrefix}>Home</Link>
 			<Icon name={'chevron-small-right'} />
 		</li>
-
 		{
 			breadcrumbs.map((item, index) => (
 				<li class="c-breadcrumbs__list-item">
@@ -41,6 +44,43 @@ const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 					)}
 				</li>
 			))
+		}
+	</ol>
+</nav>
+<nav
+	class="c-breadcrumbs c-breadcrumbs-minimal"
+	aria-label="breadcrumb"
+	data-module="breadcrumbs"
+>
+	<ol class="c-breadcrumbs__list" role="list">
+		{
+			breadcrumbs.length === 1 ? (
+				<li class="c-breadcrumbs__list-item c-breadcrumbs__list-item-home">
+					<Icon name={'chevron-small-left'} />
+					<Link class="c-breadcrumbs__link" href={locale.urlPrefix}>
+						Home
+					</Link>
+				</li>
+			) : (
+				breadcrumbs.map((item, index) =>
+					index === breadcrumbs.length - 2 ? (
+						<li class="c-breadcrumbs__list-item">
+							<Icon name={'chevron-small-left'} />
+							<Link
+								class="c-breadcrumbs__link"
+								href={`${locale.urlPrefix}/${breadcrumbs
+									.slice(0, index + 1)
+									.map((item) => item.slug)
+									.join('/')}`}
+								aria-current="location"
+								data-module-bind="breadcrumbs__item"
+							>
+								{item.title}
+							</Link>
+						</li>
+					) : null,
+				)
+			)
 		}
 	</ol>
 </nav>
@@ -76,6 +116,17 @@ const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 		color: var(--c-breadcrumbs-color);
 	}
 
+	@media --mq-large {
+		.c-breadcrumbs-minimal {
+			display: none;
+		}
+	}
+	@media --mq-large-until {
+		.c-breadcrumbs-full {
+			display: none;
+		}
+	}
+
 	.c-breadcrumbs__list,
 	.c-breadcrumbs__list-item {
 		display: flex;
@@ -88,9 +139,13 @@ const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 
 	.c-breadcrumbs__list-item {
 		display: inline-flex;
+	}
+
+	.c-breadcrumbs__list-item {
+		display: inline-flex;
 
 		&:last-of-type {
-			display: inline;
+			display: inline-flex;
 			font-weight: 700;
 		}
 	}

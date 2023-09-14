@@ -38,6 +38,13 @@ export default defineType({
 		}),
 
 		defineField({
+			title: 'Kruimelpad titel',
+			name: 'breadcrumbTitle',
+			type: 'string',
+			description: 'Verkorte kruimelpad titel (optioneel)',
+		}),
+
+		defineField({
 			title: 'Hero',
 			name: 'hero',
 			type: 'hero',

@@ -14,6 +14,7 @@ import { QuestionPageProps, questionPageProjection } from './question';
 
 export interface QuestionLandingPageProps extends PageProps {
 	hero: HeroProps;
+	breadcrumbTitle: string;
 	questionReference: QuestionPageProps;
 	assistance: AssistanceProps;
 	support: {
@@ -24,6 +25,7 @@ export interface QuestionLandingPageProps extends PageProps {
 
 export async function getDataQuestionLandingPages() {
 	const projection = `{
+		breadcrumbTitle,
 		${heroQuery()},
 		questionReference->${questionPageProjection},
 		${assistanceQuery()},

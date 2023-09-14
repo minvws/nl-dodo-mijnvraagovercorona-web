@@ -17,6 +17,7 @@ import { getAdditionalPageData } from 'src/utilities/helpers/getAdditionalPageDa
 
 export interface PZALandingPageProps extends PageProps {
 	hero: HeroProps;
+	breadcrumbTitle: string;
 	buttons: ButtonsProps;
 	assistance: AssistanceProps;
 	contentSecondary: ContentBlockProps['value'];
@@ -27,6 +28,7 @@ export interface PZALandingPageProps extends PageProps {
 
 export async function getDataPZALandingPages() {
 	const projection = `{
+		breadcrumbTitle,
 		${heroQuery()},
 		${buttonsQuery({ array: true })},
 		${customBlockQuery({ name: 'contentSecondary' })},

@@ -20,6 +20,7 @@ import { ButtonVariants } from '@design-system/elements/Button';
 
 export interface QuestionPageProps extends PageProps {
 	hero: HeroProps;
+	breadcrumbTitle: string;
 	content?: {
 		columnOne: {
 			content: ContentBlockProps['value'];
@@ -90,6 +91,7 @@ export interface QuestionPageProps extends PageProps {
 }
 
 export const questionPageProjection = `{
+	breadcrumbTitle,
 	${heroQuery()},
 	"content": contentReference->{
 		columnOne{

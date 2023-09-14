@@ -13,6 +13,7 @@ import { getAdditionalPageData } from '../helpers/getAdditionalPageData';
 
 export interface ErrorPageProps extends PageProps {
 	hero: HeroProps;
+	breadcrumbTitle: string;
 	button: ButtonProps;
 	content: ContentBlockProps['value'];
 	errormessage: string;
@@ -22,6 +23,7 @@ export interface ErrorPageProps extends PageProps {
 
 export async function getDataErrorPages() {
 	const projection = `{
+		breadcrumbTitle,
 		${heroQuery()},
 		${buttonsQuery({ array: false })},
 		${customBlockQuery({ name: 'content' })},
