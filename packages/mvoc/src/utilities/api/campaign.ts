@@ -13,6 +13,7 @@ import {
 } from './queries';
 import { getAdditionalPageData } from 'src/utilities/helpers/getAdditionalPageData';
 import { TabsProps, tabsQuery } from './queries/tabs';
+import { CarouselProps, carouselQuery } from './queries/carousel';
 
 export interface CampaignPageProps extends PageProps {
 	hero: HeroProps;
@@ -22,6 +23,10 @@ export interface CampaignPageProps extends PageProps {
 		cards: CardsProps;
 	};
 	tabs: TabsProps[];
+	carousel?: {
+		title: string;
+		carouselItems?: CarouselProps['carouselItems'];
+	};
 	slug: string;
 }
 
@@ -32,6 +37,7 @@ export async function getDataCampaignPages() {
 		${assistanceQuery()},
 		${supportBlockQuery()},
 		${tabsQuery()},
+		${carouselQuery()},
 		"slug": slug.current,
 	}`;
 
