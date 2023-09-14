@@ -49,6 +49,7 @@ interface AdviceProps {
 
 export interface AdvicePageProps extends PageProps {
 	hero: HeroProps;
+	breadcrumbTitle: string;
 	showSeriousSymptoms: boolean;
 	answer: AnswerProps[];
 	advice: AdviceProps;
@@ -63,6 +64,7 @@ export interface AdvicePageProps extends PageProps {
 
 export async function getDataAdvicePages() {
 	const projection = `{
+		breadcrumbTitle,
 		${heroQuery()},
 		showSeriousSymptoms,
 		answer[]{

@@ -17,6 +17,7 @@ import { CarouselProps, carouselQuery } from './queries/carousel';
 
 export interface CampaignPageProps extends PageProps {
 	hero: HeroProps;
+	breadcrumbTitle: string;
 	assistance: AssistanceProps;
 	taleCollection: TaleCollectionProps['taleCollection'];
 	support: {
@@ -32,6 +33,7 @@ export interface CampaignPageProps extends PageProps {
 
 export async function getDataCampaignPages() {
 	const projection = `{
+		breadcrumbTitle,
 		${heroQuery()},
 		${taleReferenceQuery()},
 		${assistanceQuery()},
