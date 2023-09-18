@@ -88,7 +88,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		padding-inline: var(--masthead-inline-padding);
 		background-color: var(--masthead-background, var(--color-donkerblauw));
 
-		@media --mq-large {
+		@media --mq-huge {
 			--masthead-position: relative;
 			--masthead-z-index: 50;
 			--masthead-block-size: auto;
@@ -163,7 +163,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 			}
 		}
 
-		@media --mq-large {
+		@media --mq-huge {
 			display: none;
 		}
 	}
@@ -183,7 +183,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		getKeyboardFocusableElements,
 		trapFocus,
 	} from 'src/utilities/helpers/a11y';
-	import { mqLarge } from '@design-system/primitives/responsive';
+	import { mqHuge } from '@design-system/primitives/responsive';
 
 	// select dom nodes
 	const mastheadElement = document.querySelector('[data-module="masthead"]');
@@ -230,7 +230,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 			navElementFocusableElements.forEach((element) => {
 				element.tabIndex = isExpanded
 					? null
-					: !window.matchMedia(mqLarge).matches
+					: !window.matchMedia(mqHuge).matches
 					? -1
 					: null;
 			});
