@@ -79,6 +79,12 @@ export default defineType({
 		}),
 
 		defineField({
+			title: 'Snel naar:',
+			name: 'moreInfo',
+			type: 'moreInfo',
+		}),
+
+		defineField({
 			title: 'Huidige adviezen',
 			name: 'currentAdvice',
 			type: 'object',
@@ -124,7 +130,7 @@ export default defineType({
 			title: 'Hulp',
 			name: 'assistance',
 			type: 'reference',
-			to: [{ type: 'assistance' }],
+			to: [{ type: 'assistance-new' }],
 			options: {
 				filter: filterReferenceByLanguage,
 			},

@@ -27,6 +27,17 @@ export default defineType({
 			type: 'metaData',
 		}),
 		defineField({
+			title: 'Overzicht',
+			name: 'overview',
+			type: 'overview',
+		}),
+		defineField({
+			title: 'Kruimelpad titel',
+			name: 'breadcrumbTitle',
+			type: 'string',
+			description: 'Verkorte kruimelpad titel (optioneel)',
+		}),
+		defineField({
 			title: 'Hero',
 			name: 'hero',
 			type: 'hero',
@@ -89,17 +100,15 @@ export default defineType({
 			type: 'boolean',
 			description: 'Als deze toggle aan staat genereren we een feedback blok.',
 		}),
-
 		defineField({
 			title: 'Hulp',
 			name: 'assistance',
 			type: 'reference',
-			to: [{ type: 'assistance' }],
+			to: [{ type: 'assistance-new' }],
 			options: {
 				filter: filterReferenceByLanguage,
 			},
 		}),
-
 		defineField({
 			title: 'Sub pagina referentie',
 			description:
@@ -128,15 +137,25 @@ export default defineType({
 			slug: 'slug.current',
 			subFolderReferenceSlug: 'subFolderReference.slug.current',
 			media: 'hero.image',
+			overviewTitle: 'overview.title',
+			overviewIcon: 'overview.icon',
 		},
 		prepare(selection) {
-			const { title, locale, slug, subFolderReferenceSlug, media } = selection;
+			const {
+				title,
+				locale,
+				slug,
+				subFolderReferenceSlug,
+				media,
+				overviewTitle,
+				overviewIcon,
+			} = selection;
 			return {
-				title: title,
+				title: overviewTitle || title,
 				subtitle: `/${locale}${
 					subFolderReferenceSlug ? `/…/${subFolderReferenceSlug}` : ''
 				}/${slug}`,
-				media,
+				media: overviewIcon || media,
 			};
 		},
 	},

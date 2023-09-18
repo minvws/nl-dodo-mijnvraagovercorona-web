@@ -29,6 +29,7 @@ import { Assistance } from '@design-system/components/Assistance';
 import { Heading } from '@design-system/elements/Heading';
 import { MoreInfoOverview } from '@design-system/components/MoreInfo';
 import { Breadcrumbs } from '@design-system/components/Breadrumbs';
+import { stringToSlug } from 'src/utilities/stringToSlug';
 
 export async function getStaticPaths() {
 	const collection = await getDataAdvicePages();
@@ -168,11 +169,18 @@ const plan =
 										<div>
 											<Stack gap={8}>
 												{pageData.advice.cards.items.map(
-													({ title, chapeau, content, buttons }) => (
+													({
+														title,
+														chapeau,
+														content,
+														buttons,
+														multiContentBlocks,
+													}) => (
 														<CardBlock
 															title={title}
 															chapeau={chapeau}
 															buttons={buttons}
+															multiContentBlocks={multiContentBlocks}
 														>
 															<ContentBlock value={content} />
 															{/* TODO: tips */}
@@ -190,25 +198,14 @@ const plan =
 							pageData?.moreInfo?.items?.length ? (
 								<section>
 									<Stack>
-										<Heading level={2}>
-											{pageData.moreInfo.title
-												? pageData.moreInfo.title
-												: siteSettings.genericLabels.moreInfo}
-										</Heading>
+										{pageData.moreInfo.title && (
+											<Heading level={2}>{pageData.moreInfo.title}</Heading>
+										)}
 										<MoreInfoOverview items={pageData.moreInfo.items} />
 									</Stack>
 								</section>
 							) : null
 						}
-
-						<Feedback
-							name="Situatie Advies"
-							url={getFeedbackUrl(siteSettings.feedback.url, {
-								source: 'situation-advice',
-								advice: pageData.slug,
-								day: `${pageDay}`,
-							})}
-						/>
 					</Stack>
 				</Retain>
 
@@ -226,13 +223,29 @@ const plan =
 		)
 	}
 
+	<Layer>
+		<Retain variant="base">
+			<Feedback
+				name="Situatie Advies"
+				url={getFeedbackUrl(siteSettings.feedback.url, {
+					source: 'situation-advice',
+					advice: pageData.slug,
+					day: `${pageDay}`,
+				})}
+			/>
+		</Retain>
+	</Layer>
 	{
-		pageData.assistance && (
-			<Layer background={'ijsblauw'} pushDownBy="assistance-image">
+		pageData.assistance && pageData.assistance.type === 'assistance-new' ? (
+			<Layer
+				id={stringToSlug(pageData.assistance.title)}
+				background={'ijsblauw'}
+				pushDownBy="assistance-image"
+			>
 				<Retain>
-					<Assistance {...pageData.assistance} />
+					<Assistance feedback {...pageData.assistance} />
 				</Retain>
 			</Layer>
-		)
+		) : null
 	}
 </Layout>

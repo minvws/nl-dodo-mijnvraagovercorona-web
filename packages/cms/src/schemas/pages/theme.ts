@@ -36,22 +36,14 @@ export default defineType({
 		defineField({
 			title: 'Overzicht',
 			name: 'overview',
-			type: 'object',
-			validation: (Rule) => Rule.required(),
-			fields: [
-				defineField({
-					title: 'Titel',
-					name: 'title',
-					type: 'string',
-					validation: (Rule) => Rule.required(),
-				}),
+			type: 'overview',
+		}),
 
-				defineField({
-					title: 'Icoon',
-					name: 'icon',
-					type: 'image',
-				}),
-			],
+		defineField({
+			title: 'Kruimelpad titel',
+			name: 'breadcrumbTitle',
+			type: 'string',
+			description: 'Verkorte kruimelpad titel (optioneel)',
 		}),
 
 		defineField({
@@ -98,7 +90,7 @@ export default defineType({
 			title: 'Hulp',
 			name: 'assistance',
 			type: 'reference',
-			to: [{ type: 'assistance' }],
+			to: [{ type: 'assistance-new' }],
 			options: {
 				filter: filterReferenceByLanguage,
 			},

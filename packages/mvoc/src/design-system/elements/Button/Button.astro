@@ -2,19 +2,21 @@
 import { HTMLAttributes } from 'astro/types';
 import { Icon, IconProps } from '@design-system/elements/Icon';
 import { Animations } from '@design-system/primitives/animation';
-import { ButtonVariants } from './';
+import { ButtonVariants, IconPositions } from './';
 import { isExternalUrl } from 'src/utilities/helpers/external-url';
 
 // Interfaces
 interface Shared {
 	variant?: ButtonVariants;
 	icon?: IconProps['name'];
-	iconPosition?: 'leading' | 'trailing';
+	// iconPosition?: 'leading' | 'trailing';
+	iconPosition?: IconPositions;
 	interactionIconAnimation?: Animations;
 	full?: boolean;
 	href?: string | URL | undefined | null;
 	formaction?: string;
 	hiddenLabel?: string;
+	forceExternal?: boolean;
 }
 
 interface Button extends HTMLAttributes<'button'>, Shared {}
@@ -36,7 +38,7 @@ const {
 	full,
 	class: className,
 	type,
-
+	forceExternal,
 	...attrs
 } = Astro.props;
 
@@ -55,10 +57,28 @@ const combinedClasses = `e-button${variant ? ` e-button--${variant}` : ''}${
 const iconPositionCalculated =
 	iconPosition === 'leading' ? 'leading' : 'trailing';
 
-const isExternal = attrs.href && isExternalUrl(attrs.href as string);
+const isExternal =
+	forceExternal || (attrs.href && isExternalUrl(attrs.href as string));
 
-const selectedIcon =
-	attrs.href && isExternal ? 'external' : icon ? icon : undefined;
+/**
+ * Leading icon
+ * 1. Show icon if position is leading and an icon is set
+ * 2. Otherwise omit the icon
+ */
+const leadingIcon =
+	iconPositionCalculated === 'leading' && icon ? icon : undefined;
+
+/**
+ * Trailing icon
+ * 1. Always display external icon if the link is external
+ * 2. If there is an icon and position is trailing show the icon
+ * 3. Otherwise omit the icon
+ */
+const trailingIcon = isExternal
+	? 'external'
+	: icon && iconPositionCalculated === 'trailing'
+	? icon
+	: undefined;
 ---
 
 <Element
@@ -75,10 +95,10 @@ const selectedIcon =
 	{...attrs}
 >
 	{
-		iconPositionCalculated === 'leading' && selectedIcon ? (
+		leadingIcon ? (
 			<Icon
 				class="e-button__icon--leading"
-				name={selectedIcon}
+				name={leadingIcon}
 				description={hiddenLabel}
 			/>
 		) : null
@@ -87,10 +107,10 @@ const selectedIcon =
 		<slot />
 	</span>
 	{
-		iconPositionCalculated === 'trailing' && selectedIcon ? (
+		trailingIcon ? (
 			<Icon
 				class="e-button__icon--trailing"
-				name={selectedIcon}
+				name={trailingIcon}
 				description={hiddenLabel}
 			/>
 		) : null
@@ -244,12 +264,16 @@ const selectedIcon =
 	}
 
 	.e-button--quaternary {
+		--button-icon-color: var(--color-accent-robijnrood);
+
 		&,
 		&:hover,
 		&:focus {
-			--button-background-color: var(--color-ijsblauw);
+			--button-background-color: var(
+				--external__button--quaternary__background,
+				var(--color-ijsblauw)
+			);
 		}
-		--button-icon-color: var(--color-accent-robijnrood);
 		font-weight: bold;
 	}
 

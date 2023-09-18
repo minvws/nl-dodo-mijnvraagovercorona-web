@@ -1,0 +1,347 @@
+---
+import { HTMLAttributes } from 'astro/types';
+import { Layer } from '../Layout/Layer';
+import { Retain } from '../Layout/Retain';
+import { Heading } from '@design-system/elements/Heading';
+import { CarouselProps } from 'src/utilities/api/queries';
+import { Stack } from '../Layout/Stack';
+import { Icon } from '@design-system/elements/Icon';
+import CarouselItem from './CarouselItem.astro';
+
+interface Props extends HTMLAttributes<'div'> {
+	title: string;
+	carousel: CarouselProps['carouselItems'];
+	goTo?: string;
+	previous?: string;
+	next?: string;
+}
+
+const { title, carousel, goTo, previous, next } = Astro.props;
+---
+
+<Layer>
+	<c-carousel class="c-carousel">
+		<Stack>
+			<Retain class="c-carousel__top">
+				<Heading level={2}>{title}</Heading>
+				<div class="c-carousel__nav">
+					<button
+						class="c-carousel__nav__button c-carousel__nav__button--prev"
+						type="button"
+						aria-label={previous}
+						data-module-bind="c-carousel__nav__prev"
+					>
+						<Icon name={'chevron-small-left'} />
+					</button>
+					<button
+						class="c-carousel__nav__button c-carousel__nav__button--next"
+						type="button"
+						aria-label={next}
+						data-module-bind="c-carousel__nav__next"
+					>
+						<Icon name={'chevron-small-right'} />
+					</button>
+				</div>
+			</Retain>
+			<Retain class="c-carousel__wrap-track">
+				<ul
+					class="c-carousel__track"
+					data-module-bind="c-carousel__track"
+					role="list"
+				>
+					{
+						carousel.map((item, index) => (
+							<li class="c-carousel__pane" data-module-bind="c-carousel__pane">
+								{item.image && item.image.src ? (
+									<CarouselItem {...item} />
+								) : null}
+							</li>
+						))
+					}
+				</ul>
+			</Retain>
+
+			<div class="c-carousel__wrap-indicators">
+				{
+					carousel.map((item, index) => (
+						<button
+							class="c-carousel__indicator"
+							aria-label={`${item.headline}`}
+							data-module-bind="c-carousel__indicator"
+						>
+							<span class="u-visually-hidden">
+								{goTo} item {index + 1}
+							</span>
+						</button>
+					))
+				}
+			</div>
+		</Stack>
+	</c-carousel>
+</Layer>
+
+<style lang="scss">
+	@use '@design-system-styles/primitives/_responsive.scss';
+	@use '@design-system-styles/tools/_rem.scss';
+	@use '@design-system-styles/tools/_a11y.scss';
+
+	.c-carousel {
+		--carousel__block-padding: var(--space-8);
+		--carousel__inline-padding: var(--space-4);
+		--carousel__control-color-action: var(--color-accent-robijnrood);
+		--carousel__control-color-inaction: var(--color-grijs-4);
+		--carousel__card-color: var(--color-white);
+		--carousel__indicator-size: var(--space-2);
+		--carousel__track-focus-outline-correction: var(--space-1);
+	}
+
+	/**
+	 * Track/scroller (is Retain Component)
+	 * 1. Carousel items have their own paddings on their sides so we need
+	 *    to subtract them from the retain padding
+	 */
+	.c-carousel__wrap-track {
+		--carousel-component-spacing: var(--stack-gap);
+
+		@media --mq-medium-until {
+			--retain-padding: 0;
+		}
+	}
+
+	.c-carousel__track {
+		display: flex;
+		gap: var(--carousel__inline-padding);
+		align-items: center;
+		max-inline-size: 100%;
+		padding-block: var(--carousel__track-focus-outline-correction);
+		scroll-snap-type: inline mandatory;
+		overflow-x: scroll;
+		scroll-behavior: smooth;
+
+		&::-webkit-scrollbar {
+			display: none;
+		}
+
+		@media --mq-medium-until {
+			padding-inline: var(--carousel__inline-padding);
+		}
+	}
+
+	/**
+	 * 1. Looks like a magic number, but 4 panes + their gaps exactly
+	 *    matches 1200px (retain size)
+	 */
+	.c-carousel__pane {
+		flex-basis: #{rem.convert(288px)}; /* [1] */
+		flex-shrink: 0;
+		scroll-snap-align: start;
+		@media --mq-medium-until {
+			scroll-margin-inline-start: var(--carousel__inline-padding);
+		}
+	}
+
+	/**
+	 * Carousel top bar
+	 */
+	.c-carousel__top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--space-4);
+	}
+
+	.c-carousel__nav {
+		display: flex;
+		gap: var(--carousel__inline-padding);
+	}
+
+	.c-carousel__nav__button {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		height: #{rem.convert(28px)};
+		width: #{rem.convert(28px)};
+		color: var(--carousel__card-color);
+		background-color: var(--carousel__control-color-action);
+		border-radius: 50%;
+
+		> .e-icon {
+			transform: translateX(var(--carousel__nav__button-nudge, 0));
+		}
+
+		&:disabled {
+			background-color: var(--carousel__control-color-inaction);
+		}
+
+		&:focus {
+			@include a11y.focusring;
+		}
+	}
+
+	/**
+	 * Nudge the icons a little for better visual alignment inside a circle
+	 */
+	.c-carousel__nav__button--prev {
+		--carousel__nav__button-nudge: -0.06em;
+	}
+	.c-carousel__nav__button--next {
+		--carousel__nav__button-nudge: 0.06em;
+	}
+
+	/**
+	 * Indicators
+	 */
+	.c-carousel__wrap-indicators {
+		display: flex;
+		gap: var(--space-4);
+		justify-content: center;
+
+		@media --mq-large {
+			visibility: hidden;
+		}
+	}
+
+	.c-carousel__indicator {
+		all: unset;
+		block-size: var(--carousel__indicator-size);
+		inline-size: var(--carousel__indicator-size);
+		border-radius: var(--radii-milli);
+		background: var(--carousel__control-color-inaction);
+		transition-property: inline-size, color;
+		transition-duration: 0.2s;
+		transition-timing-function: ease-in-out;
+		cursor: pointer;
+
+		&:focus {
+			@include a11y.focusring;
+		}
+
+		// We want to disable interaction on the active indicators
+		// so we use :disabled
+		&:disabled {
+			background: var(--carousel__control-color-action);
+			inline-size: var(--radii-large);
+			cursor: auto;
+		}
+	}
+</style>
+
+<script>
+	class Carousel extends HTMLElement {
+		constructor() {
+			super();
+
+			/**
+			 * Cache elements into memory
+			 */
+			const paneElements = [
+				...this.querySelectorAll<HTMLDivElement>(
+					'[data-module-bind="c-carousel__pane"]',
+				),
+			];
+			const indicatorElements = [
+				...this.querySelectorAll<HTMLButtonElement>(
+					'[data-module-bind="c-carousel__indicator"]',
+				),
+			];
+			const trackElement = this.querySelector<HTMLDivElement>(
+				'[data-module-bind="c-carousel__track"]',
+			);
+			const navPrevElement = this.querySelector<HTMLButtonElement>(
+				'[data-module-bind="c-carousel__nav__prev"]',
+			);
+			const navNextElement = this.querySelector<HTMLButtonElement>(
+				'[data-module-bind="c-carousel__nav__next"]',
+			);
+
+			/**
+			 * Check active slides based on intersection
+			 */
+			const checkIntersection = (panes: IntersectionObserverEntry[]) => {
+				panes.forEach((pane, loopIndex) => {
+					const paneElement = pane.target as HTMLDivElement;
+					const paneIndex = paneElements.indexOf(paneElement);
+					paneElement.classList.toggle('is-visible', pane.isIntersecting);
+
+					// Disable/enable indicatorElement
+					indicatorElements[paneIndex].disabled = pane.isIntersecting;
+
+					// disable/enable prev & next buttons based on location of the active pane
+					if (pane.isIntersecting) {
+						if (navNextElement && loopIndex === panes.length - 1) {
+							navNextElement.disabled =
+								paneElements.lastIndexOf(paneElement) ===
+								paneElements.length - 1;
+						}
+						if (navPrevElement && loopIndex === 0) {
+							navPrevElement.disabled =
+								paneElements.lastIndexOf(paneElement) === 0;
+						}
+					}
+				});
+			};
+
+			// Intersection Observer
+			const observer = new IntersectionObserver(checkIntersection, {
+				root: trackElement,
+				threshold: 1,
+			});
+
+			// Iterate over the panes and observe each one.
+			paneElements.forEach((pane) => {
+				observer.observe(pane);
+			});
+
+			/**
+			 * Click on next & previous buttons to scroll the trackElement
+			 */
+			navPrevElement?.addEventListener('click', () => {
+				// Get the first pane that is in view
+				const firstActivePane = paneElements.filter((pane) =>
+					pane.classList.contains('is-visible'),
+				)[0];
+				// Get the previous pane next to the first active
+				const previousPane =
+					paneElements[paneElements.indexOf(firstActivePane) - 1];
+				// When the pane exists scroll it into view
+				previousPane?.scrollIntoView({
+					behavior: 'smooth',
+					block: 'nearest',
+					inline: 'start',
+				});
+			});
+
+			navNextElement?.addEventListener('click', () => {
+				// Get the last pane that is in view
+				const lastActivePane = paneElements
+					.filter((pane) => pane.classList.contains('is-visible'))
+					.slice(-1)[0];
+				// Get the next pane next to the last active
+				const nextPane = paneElements[paneElements.indexOf(lastActivePane) + 1];
+				// When the pane exists scroll it into view
+				nextPane?.scrollIntoView({
+					behavior: 'smooth',
+					block: 'nearest',
+					inline: 'start',
+				});
+			});
+
+			/**
+			 * Click on indicators
+			 */
+			indicatorElements.forEach((indicator) => {
+				indicator.addEventListener('click', (event) => {
+					const index = indicatorElements.indexOf(indicator);
+					paneElements[index].scrollIntoView({
+						behavior: 'smooth',
+						block: 'nearest',
+						inline: 'start',
+					});
+				});
+			});
+		}
+	}
+
+	customElements.define('c-carousel', Carousel);
+</script>

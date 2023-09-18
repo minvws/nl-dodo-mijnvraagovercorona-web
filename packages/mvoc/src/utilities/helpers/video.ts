@@ -71,10 +71,17 @@ export const getVideoEmbedUrl = ({
 	url,
 	options,
 }: VideoUrlProps): string | undefined => {
+	if (!url) {
+		return undefined;
+	}
+
 	const videoData = destructureVideoUrl({ url });
-	return videoData.platform === 'youtube'
-		? generateYouTubeUrl({ id: videoData.id, options })
-		: videoData.platform === 'vimeo'
-		? generateVimeoUrl({ id: videoData.id, options })
-		: undefined;
+
+	if (videoData.platform === 'youtube') {
+		return generateYouTubeUrl({ id: videoData.id, options });
+	} else if (videoData.platform === 'vimeo') {
+		return generateVimeoUrl({ id: videoData.id, options });
+	}
+
+	return undefined;
 };

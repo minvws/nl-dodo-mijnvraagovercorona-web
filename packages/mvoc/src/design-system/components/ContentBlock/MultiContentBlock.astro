@@ -2,10 +2,8 @@
 import { ContentBlock } from '@design-system/components/ContentBlock';
 import { Picture } from '@design-system/components/Picture';
 import { Video } from '@design-system/components/Video';
-import Button from '@design-system/elements/Button/Button.astro';
 import { MultiContentBlocksProps } from 'src/utilities/api/queries';
 import { Stack } from '../Layout/Stack';
-import { getLocaleFromURL } from 'src/utilities/locale/translation';
 
 import {
 	isContent,
@@ -13,15 +11,13 @@ import {
 	isButton,
 	isVideo,
 } from 'src/utilities/api/queries';
-import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
-import { parseLink } from 'src/utilities/helpers/link';
+import { FlexibleButton } from '@modules/elements/FlexibleButton';
 
 interface Props {
 	multiContentBlocks: MultiContentBlocksProps;
 }
 
 const { multiContentBlocks } = Astro.props;
-const locale = getLocaleFromURL(Astro.url.pathname);
 ---
 
 <Stack class="c-multi-content-block" gap={4}>
@@ -33,19 +29,16 @@ const locale = getLocaleFromURL(Astro.url.pathname);
 						<ContentBlock value={multiContentBlock.content} />
 					</Stack>
 				) : isButton(multiContentBlock) ? (
-					<Button
-						href={parseLink(
-							getFullPageUrl(multiContentBlock.slugCollection),
-							locale,
-						)}
-						icon={multiContentBlock.icon}
-						variant={multiContentBlock.variant}
-					>
-						{multiContentBlock.label}
-					</Button>
+					<FlexibleButton
+						className="c-multi-content-block__button"
+						{...multiContentBlock}
+					/>
 				) : isVideo(multiContentBlock) ? (
 					<Video
 						title={multiContentBlock.title}
+						showInternalVideo={multiContentBlock.showInternalVideo}
+						internalVideoUrl={multiContentBlock.internalVideoUrl}
+						subtitle={multiContentBlock.subtitle}
 						url={multiContentBlock.url}
 						picture={multiContentBlock.picture}
 					/>
@@ -65,6 +58,11 @@ const locale = getLocaleFromURL(Astro.url.pathname);
 	}
 
 	.c-multi-content-block__content {
+	}
+
+	.c-multi-content-block__button {
+		display: flex;
+		inline-size: fit-content;
 	}
 
 	.c-multi-content-block__picture {

@@ -18,6 +18,8 @@ import {
 	BsFileText,
 	BsArrowRightSquare,
 	BsMegaphone,
+	BsClipboardPlusFill,
+	BsShuffle,
 } from 'react-icons/bs';
 
 import { getFolder } from './utilities/getFolder';
@@ -121,7 +123,7 @@ export default (S) =>
 						icon: BsBook,
 					}),
 					getTranslatedDocumentList(S, {
-						schemaType: 'assistance',
+						schemaType: 'assistance-new',
 						title: 'Hulp',
 						icon: BsChatLeftDots,
 					}),
@@ -134,6 +136,16 @@ export default (S) =>
 						schemaType: 'support',
 						title: 'Hulpblokken',
 						icon: BsClipboardCheck,
+					}),
+					getTranslatedDocumentList(S, {
+						schemaType: 'tab',
+						title: 'Tabbladen',
+						icon: BsClipboardPlusFill,
+					}),
+					getTranslatedDocumentList(S, {
+						schemaType: 'carousel',
+						title: 'Carousel items',
+						icon: BsShuffle,
 					}),
 				],
 			}),

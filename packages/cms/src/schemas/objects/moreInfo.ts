@@ -14,8 +14,6 @@ export default defineType({
 			title: 'Titel',
 			name: 'title',
 			type: 'string',
-			description:
-				'Indien titel leeg word gelaten wordt `Meer Info` in siteSettings getoond',
 		}),
 		defineField({
 			title: 'Selecteer items',
@@ -25,11 +23,7 @@ export default defineType({
 				defineField({
 					title: 'Pagina referentie',
 					name: 'item',
-					type: 'reference',
-					to: [{ type: 'generic-page' }],
-					options: {
-						filter: filterReferenceByLanguage,
-					},
+					type: 'pageSourceSelector',
 				}),
 			],
 		}),

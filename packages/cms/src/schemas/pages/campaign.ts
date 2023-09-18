@@ -17,7 +17,13 @@ export default defineType({
 	initialValue: {
 		__i18n_lang: 'nl',
 	},
-	fieldsets: [{ name: 'urlStructure', title: 'Url structuur' }],
+	fieldsets: [
+		{ name: 'urlStructure', title: 'Url structuur' },
+		{
+			title: 'Verhalen',
+			name: 'tales',
+		},
+	],
 	fields: [
 		defineField({
 			title: 'Meta data',
@@ -26,9 +32,82 @@ export default defineType({
 		}),
 
 		defineField({
+			title: 'Overzicht',
+			name: 'overview',
+			type: 'overview',
+		}),
+
+		defineField({
+			title: 'Kruimelpad titel',
+			name: 'breadcrumbTitle',
+			type: 'string',
+			description: 'Verkorte kruimelpad titel (optioneel)',
+		}),
+
+		defineField({
 			title: 'Hero',
 			name: 'hero',
 			type: 'hero',
+		}),
+
+		defineField({
+			title: 'Verhalen',
+			description: 'Verhalen op deze pagina worden getoond als een accordion',
+			name: 'taleCollection',
+			type: 'taleSelector',
+			fieldset: 'tales',
+		}),
+
+		defineField({
+			title: 'Tabbladen',
+			name: 'tabs',
+			type: 'array',
+			description: 'Voeg tabbladen toe voor het tabblad element',
+			of: [
+				{
+					title: 'Tabblad',
+					name: 'tab',
+					type: 'reference',
+					to: [{ type: 'tab' }],
+				},
+			],
+		}),
+
+		defineField({
+			title: 'Carousel ',
+			name: 'carousel',
+			type: 'object',
+			fields: [
+				defineField({
+					title: 'Titel',
+					name: 'title',
+					type: 'string',
+				}),
+				defineField({
+					title: 'Carousel items',
+					name: 'carouselItems',
+					type: 'array',
+					description: 'Voeg carousel items toe',
+					of: [
+						{
+							title: 'Item',
+							name: 'carouselItem',
+							type: 'reference',
+							to: [{ type: 'carousel' }],
+							options: {
+								filter: filterReferenceByLanguage,
+							},
+						},
+					],
+					validation: (Rule) =>
+						Rule.custom((items) => {
+							if (!items) return true;
+							return items.length === 0 || items.length >= 5
+								? true
+								: 'Een carousel moet minmaal 5 items hebben';
+						}),
+				}),
+			],
 		}),
 
 		defineField({
@@ -42,7 +121,7 @@ export default defineType({
 			title: 'Hulp',
 			name: 'assistance',
 			type: 'reference',
-			to: [{ type: 'assistance' }],
+			to: [{ type: 'assistance-new' }],
 			options: {
 				filter: filterReferenceByLanguage,
 			},

@@ -13,7 +13,8 @@ const getPageBreadcrumbs = (pages) => {
 		const breadcrumbs = [
 			{
 				slug: page.slug,
-				title: page?.overview?.title || page.metaData.title,
+				title:
+					page.breadcrumbTitle || page?.overview?.title || page.metaData.title,
 			},
 		];
 
@@ -37,6 +38,7 @@ const getPageBreadcrumbs = (pages) => {
 				});
 			}
 		}
+
 		return { ...page, breadcrumbs };
 	});
 };

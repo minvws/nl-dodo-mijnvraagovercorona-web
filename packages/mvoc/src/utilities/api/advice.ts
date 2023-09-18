@@ -13,6 +13,8 @@ import {
 	assistanceQuery,
 	supportBlockQuery,
 	CardsProps,
+	multiContentBlocksQuery,
+	MultiContentBlocksProps,
 } from './queries';
 import type { ContentBlockProps } from '@design-system/components/ContentBlock';
 import { getAdditionalPageData } from '../helpers/getAdditionalPageData';
@@ -22,6 +24,7 @@ interface CardProps {
 	chapeau: string;
 	content: ContentBlockProps['value'];
 	buttons: ButtonsProps;
+	multiContentBlocks: MultiContentBlocksProps;
 }
 
 interface AnswerProps {
@@ -46,6 +49,7 @@ interface AdviceProps {
 
 export interface AdvicePageProps extends PageProps {
 	hero: HeroProps;
+	breadcrumbTitle: string;
 	showSeriousSymptoms: boolean;
 	answer: AnswerProps[];
 	advice: AdviceProps;
@@ -60,6 +64,7 @@ export interface AdvicePageProps extends PageProps {
 
 export async function getDataAdvicePages() {
 	const projection = `{
+		breadcrumbTitle,
 		${heroQuery()},
 		showSeriousSymptoms,
 		answer[]{
@@ -82,6 +87,7 @@ export async function getDataAdvicePages() {
 					chapeau,
 					${customBlockQuery({ name: 'content' })},
 					${buttonsQuery({ array: true })},
+					${multiContentBlocksQuery()},
 				},
 			},
 		},

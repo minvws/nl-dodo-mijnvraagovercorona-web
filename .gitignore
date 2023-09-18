@@ -19,6 +19,7 @@ build
 **/public/robots.txt
 **/public/sitemap*
 **/public/images/sanity
+**/public/assets/sanity
 dist
 .sanity
 

@@ -28,6 +28,19 @@ export default defineType({
 		}),
 
 		defineField({
+			title: 'Overzicht',
+			name: 'overview',
+			type: 'overview',
+		}),
+
+		defineField({
+			title: 'Kruimelpad titel',
+			name: 'breadcrumbTitle',
+			type: 'string',
+			description: 'Verkorte kruimelpad titel (optioneel)',
+		}),
+
+		defineField({
 			title: 'Hero',
 			name: 'hero',
 			type: 'hero',
@@ -59,7 +72,8 @@ export default defineType({
 								title: 'Multiple-choice (meerdere selecteerbaar)',
 								value: 'checkbox',
 							},
-							{ title: 'Multiple-choice (1 selecteerbaar)', value: 'radio' },
+							{ title: 'Single-choice', value: 'radio' },
+							{ title: 'Single-choice (knoppen)', value: 'button' },
 						],
 					},
 				}),
@@ -126,6 +140,16 @@ export default defineType({
 									options: {
 										filter: filterReferenceByLanguage,
 									},
+									hidden: ({
+										document,
+									}: {
+										document: { question: { type: string } };
+									}) =>
+										document?.question?.type
+											? !['checkbox', 'radio'].includes(
+													document?.question?.type,
+											  )
+											: true,
 								}),
 							],
 							preview: {
@@ -142,7 +166,9 @@ export default defineType({
 						document: { question: { type: string } };
 					}) =>
 						document?.question?.type
-							? !['checkbox', 'radio'].includes(document?.question?.type)
+							? !['checkbox', 'radio', 'button'].includes(
+									document?.question?.type,
+							  )
 							: true,
 				}),
 
@@ -207,11 +233,35 @@ export default defineType({
 							},
 						}),
 						defineField({
-							title: 'Modal kom je er niet uit',
-							name: 'assistanceDialog',
+							title: 'Variant',
+							name: 'variant',
+							type: 'string',
+							options: {
+								layout: 'dropdown',
+								list: [
+									{
+										title: 'Primary',
+										value: 'primary',
+									},
+									{
+										title: 'Secondary',
+										value: 'secondary',
+									},
+									{
+										title: 'Tertiary',
+										value: 'tertiary',
+									},
+									{
+										title: 'Quaternary',
+										value: 'quaternary',
+									},
+								],
+							},
+						}),
+						defineField({
+							title: 'Volledige breedte?',
+							name: 'full',
 							type: 'boolean',
-							description:
-								'Er moet een "Hulp" blok gekoppeld zijn aan deze pagina',
 						}),
 					],
 					preview: {
@@ -228,7 +278,7 @@ export default defineType({
 			title: 'Hulp',
 			name: 'assistance',
 			type: 'reference',
-			to: [{ type: 'assistance' }],
+			to: [{ type: 'assistance-new' }],
 			options: {
 				filter: filterReferenceByLanguage,
 			},

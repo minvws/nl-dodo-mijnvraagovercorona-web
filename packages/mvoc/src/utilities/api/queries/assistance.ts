@@ -1,24 +1,16 @@
-import { ButtonProps, buttonsQuery, ImageProps, imageQuery } from './';
+import { ButtonProps, buttonsQuery, ImageProps, imageQuery } from '.';
 
 export interface AssistanceProps {
-	headline: string;
+	title: string;
 	image?: ImageProps;
-	open: string;
-	subTitle: {
-		chatOpen: string;
-		chatClosed: string;
-	};
-	chat: {
-		title: string;
-		openingHours: string;
-	};
+	text: string;
+	type: string;
 	phone: {
-		number: string;
-		openingHours: string;
-	};
-	situation?: {
-		question: string;
-		button: string;
+		phoneNumber: string;
+		openingHourLabel: string;
+		openingHour: number;
+		closingHour: number;
+		nowOpen: string;
 	};
 	getHelp?: {
 		title: string;
@@ -28,25 +20,17 @@ export interface AssistanceProps {
 
 export const assistanceQuery = (): string => {
 	return `assistance->{
-		"headline": title,
+		"type": _type,
+		title,
 		${imageQuery({ name: 'image' })},
-		"subTitle": {
-			"chatOpen": tekstWithChat,
-			"chatClosed": tekstWithoutChat,
-		},
-		"chat": {
-			"title": chat,
-			openingHours,
-		},
-		"phone": {
-			"number": phonenumber,
-			"openingHours": openingHoursPhonenumber,
-		},
-		open,
-		"situation": {
- 			"question": situationQuestion,
-			"button": situationButton,
-		},
+		text,
+		phone {
+            phoneNumber,
+            openingHourLabel,
+            openingHour,
+            closingHour,
+            nowOpen,
+        },
 		getHelp{
 			title,
 			${buttonsQuery({ array: false })},

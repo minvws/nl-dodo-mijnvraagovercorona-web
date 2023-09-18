@@ -16,9 +16,11 @@ import {
 	ImageProps,
 } from './queries';
 import { getAdditionalPageData } from '../helpers/getAdditionalPageData';
+import { ButtonVariants } from '@design-system/elements/Button';
 
 export interface QuestionPageProps extends PageProps {
 	hero: HeroProps;
+	breadcrumbTitle: string;
 	content?: {
 		columnOne: {
 			content: ContentBlockProps['value'];
@@ -66,7 +68,6 @@ export interface QuestionPageProps extends PageProps {
 	buttons: {
 		_key: string;
 		standard: boolean;
-		assistanceDialog: boolean;
 		text: string;
 		next: {
 			_type: string;
@@ -81,6 +82,8 @@ export interface QuestionPageProps extends PageProps {
 			subFolderReference: SubFolderReferenceProps['subFolderReference'];
 		};
 		disabled?: boolean;
+		variant?: ButtonVariants;
+		full?: boolean;
 	}[];
 	assistance?: AssistanceProps;
 	locale: string;
@@ -88,6 +91,7 @@ export interface QuestionPageProps extends PageProps {
 }
 
 export const questionPageProjection = `{
+	breadcrumbTitle,
 	${heroQuery()},
 	"content": contentReference->{
 		columnOne{
@@ -137,7 +141,6 @@ export const questionPageProjection = `{
 		_key,
 		text,
 		standard,
-		assistanceDialog,
 		"next": next -> {
 			_type,
 			answer[]{
@@ -150,6 +153,8 @@ export const questionPageProjection = `{
 			"slug": slug.current,
 			${subFolderReferenceQuery()},
 		},
+		variant,
+		full,
 	},
 	${assistanceQuery()},
 	"slug": slug.current,

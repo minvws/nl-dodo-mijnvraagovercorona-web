@@ -6,6 +6,7 @@ export enum Locales {
 	Turkish = 'tr',
 	Polish = 'pl',
 	Arabic = 'ar',
+	Ukrainian = 'ua',
 }
 
 export interface Locale {
@@ -58,6 +59,14 @@ export const locales: { [key: string]: Locale } = {
 		locale: 'ar',
 		direction: 'rtl',
 	},
+	ukrainian: {
+		id: Locales.Ukrainian,
+		fullName: 'Українська',
+		shortName: 'UA',
+		urlPrefix: '/ua',
+		locale: 'ua',
+		direction: 'ltr',
+	},
 };
 
 export const availableLocales = [
@@ -66,6 +75,7 @@ export const availableLocales = [
 	locales.turkish,
 	locales.polish,
 	locales.arabic,
+	locales.ukrainian,
 ];
 
 export const langPathRegex = /\/([a-z]{2}-?[A-Z]{0,2})\/?/;

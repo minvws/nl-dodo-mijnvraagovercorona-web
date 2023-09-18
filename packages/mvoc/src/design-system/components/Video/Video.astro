@@ -14,12 +14,25 @@ import { ContentBlock } from '../ContentBlock';
 
 interface Props extends HTMLAttributes<'div'> {
 	title: string;
+	internalVideoUrl?: string;
+	subtitle?: string;
+	showInternalVideo?: boolean;
 	url: string;
 	image?: ImageProps;
 	picture?: PictureProps;
 }
 
-const { class: className, title, url, picture, image, ...attrs } = Astro.props;
+const {
+	class: className,
+	title,
+	url,
+	picture,
+	showInternalVideo,
+	internalVideoUrl,
+	subtitle,
+	image,
+	...attrs
+} = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
 const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 const embedUrl = getVideoEmbedUrl({
@@ -32,7 +45,31 @@ const embedUrl = getVideoEmbedUrl({
 
 <>
 	{
-		embedUrl && siteSettings?.videoPlayer?.cookieBanner ? (
+		showInternalVideo ? (
+			<>
+				<div
+					class={`c-video${className ? ` | ${className}` : ''}`}
+					{...attrs}
+					data-module="video"
+				>
+					<video
+						width="100%"
+						poster={image?.src ? image.src : picture.image.src}
+						controls
+						class="c-video__image"
+					>
+						<source src={internalVideoUrl} type="video/mp4" />
+						<track
+							src={subtitle}
+							label="Nederlands"
+							kind="subtitles"
+							srclang="nl"
+							default
+						/>
+					</video>
+				</div>
+			</>
+		) : embedUrl && siteSettings?.videoPlayer?.cookieBanner ? (
 			<div
 				class={`c-video${className ? ` | ${className}` : ''}`}
 				{...attrs}
@@ -202,7 +239,6 @@ const embedUrl = getVideoEmbedUrl({
 
 <script>
 	// import { trackEvent } from 'src/utilities/tracking/piwik';
-
 	// const storageName = 'mvoc.cookies_accepted';
 	// const parentElements = [
 	// 	...document.querySelectorAll('[data-module="video"]'),

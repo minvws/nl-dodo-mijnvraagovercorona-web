@@ -4,6 +4,7 @@ import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import { Link } from '@design-system/elements/Link';
 import { parseLink } from 'src/utilities/helpers/link';
+import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
 
 interface Props extends HTMLAttributes<'div'> {}
 
@@ -13,13 +14,26 @@ const { masthead, feedback }: SiteSettingsProps = await useSiteSettings({
 	locale,
 });
 
+const currentPathname = Astro.url.pathname;
+
 const isHome =
-	Astro.url.pathname === locale.urlPrefix ||
-	Astro.url.pathname === `${locale.urlPrefix}/` ||
-	`${Astro.url.pathname}/` === `${locale.urlPrefix}/` ||
-	Astro.url.pathname === '/';
+	currentPathname === locale.urlPrefix ||
+	currentPathname === `${locale.urlPrefix}/` ||
+	`${currentPathname}/` === `${locale.urlPrefix}/` ||
+	currentPathname === '/';
 
 const feedbackMobile = feedback.feedbackMobile;
+
+const urlIsNajaarsRonde = (url: string) => {
+	const currentPageInVaccinating =
+		url.includes('vaccineren') || url.includes('vaccinating');
+
+	const currentPageInNajaarsRonde =
+		currentPageInVaccinating &&
+		(url.includes('najaarsronde-coronaprik') ||
+			url.includes('can-i-get-a-vaccination'));
+	return currentPageInNajaarsRonde;
+};
 ---
 
 <div
@@ -43,13 +57,22 @@ const feedbackMobile = feedback.feedbackMobile;
 
 				{
 					masthead.menu.internalPageCollection.map((page) => {
-						const url = parseLink(page.link.slug, locale);
+						const url = parseLink(getFullPageUrl(page.link), locale);
+						const currentPageInNajaarsRonde =
+							urlIsNajaarsRonde(currentPathname);
+
 						return (
 							<li>
 								<Link
 									href={url}
 									aria-current={
-										Astro.url.pathname.startsWith(url) ? 'page' : undefined
+										(url.endsWith('/vaccineren') ||
+											url.endsWith('/vaccinating')) &&
+										currentPageInNajaarsRonde
+											? undefined
+											: currentPathname.startsWith(url)
+											? 'page'
+											: undefined
 									}
 									icon={page.icon}
 									iconPosition="leading"
@@ -134,14 +157,14 @@ const feedbackMobile = feedback.feedbackMobile;
 			--icon-size: #{rem.convert(16px)};
 		}
 
-		@media --mq-large {
+		@media --mq-huge {
 			background-color: var(--color-white);
 			box-shadow: var(--elevation-frost);
 		}
 	}
 
 	.c-nav-main__drawer {
-		@media --mq-large-until {
+		@media --mq-huge-until {
 			color: var(--color-white);
 			display: grid;
 			grid-template-rows: 1fr rem.convert(80px);
@@ -154,7 +177,7 @@ const feedbackMobile = feedback.feedbackMobile;
 			margin-block-start: var(--space-menu-button);
 		}
 
-		@media --mq-large {
+		@media --mq-huge {
 			--retain-size: #{rem.convert(1264px)};
 			--retain-padding: var(--space-8);
 			max-inline-size: var(--retain-size);
@@ -171,7 +194,7 @@ const feedbackMobile = feedback.feedbackMobile;
 			text-decoration: underline;
 		}
 
-		@media --mq-large {
+		@media --mq-huge {
 			display: none;
 		}
 	}
@@ -183,7 +206,7 @@ const feedbackMobile = feedback.feedbackMobile;
 		flex-wrap: wrap;
 	}
 
-	@media --mq-large {
+	@media --mq-huge {
 		.c-nav-main {
 			--nav-main-position: static;
 			--nav-main__list-layout: row;

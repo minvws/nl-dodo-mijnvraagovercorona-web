@@ -22,6 +22,19 @@ export default defineType({
 		}),
 
 		defineField({
+			title: 'Overzicht',
+			name: 'overview',
+			type: 'overview',
+		}),
+
+		defineField({
+			title: 'Kruimelpad titel',
+			name: 'breadcrumbTitle',
+			type: 'string',
+			description: 'Verkorte kruimelpad titel (optioneel)',
+		}),
+
+		defineField({
 			title: 'Hero',
 			name: 'hero',
 			type: 'hero',
@@ -57,7 +70,7 @@ export default defineType({
 			title: 'Hulp',
 			name: 'assistance',
 			type: 'reference',
-			to: [{ type: 'assistance' }],
+			to: [{ type: 'assistance-new' }],
 			options: {
 				filter: filterReferenceByLanguage,
 			},

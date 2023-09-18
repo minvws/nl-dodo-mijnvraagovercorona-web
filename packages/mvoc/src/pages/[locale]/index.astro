@@ -9,16 +9,17 @@ import { Stack } from '@design-system/components/Layout/Stack';
 import { SectionHeadingGroup } from '@design-system/components/SectionHeadingGroup';
 import { ContentBlock } from '@design-system/components/ContentBlock';
 import { GridFluid } from '@design-system/components/Layout/Grid';
-import { Button } from '@design-system/elements/Button';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { Assistance } from '@design-system/components/Assistance';
 import { AdviceBlock } from '@design-system/components/AdviceBlock';
 import { TaleList } from '@design-system/components/Tale';
-import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
 import { CTAButtonOverview } from '@modules/CTAButtonOverview';
 import { CardAnswerOverview } from '@modules/CardAnswerOverview';
 import { getFiltersAndSituations } from 'src/utilities/api/queries/ctaButton';
-import { parseLink } from 'src/utilities/helpers/link';
+import { FlexibleButton } from '@modules/elements/FlexibleButton';
+import { MoreInfoOverview } from '@design-system/components/MoreInfo';
+import { Heading } from '@design-system/elements/Heading';
+import { Card } from '@design-system/components/Card';
 
 export async function getStaticPaths() {
 	const collection = await getDataHome();
@@ -61,7 +62,7 @@ const { filters, ctaButtons } = getFiltersAndSituations({
 });
 
 const themesWithAssistance = pageData.themes.filter(
-	(theme) => theme.assistance,
+	(theme) => theme.assistance && theme.assistance.type === 'assistance-new',
 );
 ---
 
@@ -85,23 +86,7 @@ const themesWithAssistance = pageData.themes.filter(
 		<ContentBlock value={pageData.hero.content} />
 		{
 			pageData?.button?.label ? (
-				<Button
-					iconPosition="trailing"
-					variant={pageData.button.variant}
-					icon={pageData.button.icon}
-					interactionIconAnimation="swing"
-					href={
-						pageData.button.slugCollection &&
-						pageData.button.slugCollection.slug
-							? parseLink(
-									getFullPageUrl(pageData.button.slugCollection),
-									locale,
-							  )
-							: `#${stringToSlug(pageData.important.title)}`
-					}
-				>
-					{pageData.button.label}
-				</Button>
+				<FlexibleButton {...pageData.button} interactionIconAnimation="swing" />
 			) : null
 		}
 	</Hero>
@@ -138,6 +123,41 @@ const themesWithAssistance = pageData.themes.filter(
 		) : null
 	}
 
+	{
+		pageData?.moreInfo?.items?.length ? (
+			<Layer
+				id={
+					pageData?.moreInfo?.title
+						? stringToSlug(pageData.moreInfo.title)
+						: undefined
+				}
+			>
+				<Retain>
+					<section>
+						<Stack>
+							{pageData?.moreInfo?.title ? (
+								<Heading level={2}>{pageData.moreInfo.title}</Heading>
+							) : null}
+							<Card variant="filled">
+								<MoreInfoOverview items={pageData.moreInfo.items} />
+							</Card>
+						</Stack>
+					</section>
+				</Retain>
+			</Layer>
+		) : null
+	}
+
+	{
+		pageData?.taleCollection?.length ? (
+			<Layer>
+				<Retain>
+					<TaleList taleCollection={pageData.taleCollection} />
+				</Retain>
+			</Layer>
+		) : null
+	}
+
 	<Layer id={stringToSlug(pageData.currentAdvice.title)}>
 		<Retain>
 			<Stack gap={8}>
@@ -167,38 +187,29 @@ const themesWithAssistance = pageData.themes.filter(
 	</Layer>
 
 	{
-		pageData?.taleCollection?.length ? (
-			<Layer>
-				<Retain>
-					<TaleList taleCollection={pageData.taleCollection} />
-				</Retain>
-			</Layer>
-		) : null
-	}
-
-	{
-		pageData.assistance && themesWithAssistance.length ? (
+		pageData.assistance && pageData.assistance.type === 'assistance-new' ? (
 			<div aria-live="polite" data-module-bind="filter__switch-on-filter-theme">
 				<Layer
-					id={stringToSlug(pageData.assistance.headline)}
+					id={stringToSlug(pageData.assistance.title)}
 					background="ijsblauw"
 					pushDownBy="assistance-image"
 					data-theme-slug="all"
 				>
 					<Retain>
-						<Assistance {...pageData.assistance} />
+						<Assistance feedback {...pageData.assistance} />
 					</Retain>
 				</Layer>
+
 				{themesWithAssistance.map((theme) => (
 					<Layer
-						id={stringToSlug(theme.assistance.headline)}
+						id={stringToSlug(theme.assistance.title)}
 						background="ijsblauw"
 						pushDownBy="assistance-image"
 						data-theme-slug={theme.slug}
 						hidden
 					>
 						<Retain>
-							<Assistance {...theme.assistance} />
+							<Assistance feedback {...theme.assistance} />
 						</Retain>
 					</Layer>
 				))}

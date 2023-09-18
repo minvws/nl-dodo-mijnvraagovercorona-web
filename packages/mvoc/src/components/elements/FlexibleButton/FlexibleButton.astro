@@ -1,0 +1,38 @@
+---
+import { Button } from '@design-system/elements/Button';
+import { ButtonProps } from '../../../utilities/api/queries/buttons';
+import { parseLink } from 'src/utilities/helpers/link';
+import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
+import { getLocaleFromURL } from 'src/utilities/locale/translation';
+import { Animations } from '@design-system/primitives/animation';
+
+interface Props extends ButtonProps {
+	className?: string;
+	interactionIconAnimation?: Animations;
+}
+
+const {
+	className,
+	label,
+	slugCollection,
+	icon,
+	variant,
+	iconPosition,
+	interactionIconAnimation,
+} = Astro.props;
+const locale = getLocaleFromURL(Astro.url.pathname);
+---
+
+<Button
+	class={`classname${className ? ` | ${className}` : ''}`}
+	href={slugCollection?.asset
+		? slugCollection.asset
+		: parseLink(getFullPageUrl(slugCollection), locale)}
+	forceExternal={slugCollection?.asset ? true : undefined}
+	icon={icon}
+	variant={variant}
+	iconPosition={iconPosition}
+	interactionIconAnimation={interactionIconAnimation}
+>
+	{label}
+</Button>

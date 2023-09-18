@@ -18,6 +18,8 @@ import {
 	CardsProps,
 	cardQuery,
 	CtaButtonCollectionProps,
+	moreInfoQuery,
+	MoreInfoProps,
 } from './queries';
 import { getAdditionalPageData } from '../helpers/getAdditionalPageData';
 import { ThemePageProps, themePageProjection } from './theme';
@@ -63,6 +65,7 @@ export interface PageHomeProps extends PageProps {
 		};
 	};
 	taleCollection: TaleCollectionProps['taleCollection'];
+	moreInfo: MoreInfoProps;
 	themes: ThemePageProps[];
 }
 
@@ -106,6 +109,7 @@ export async function getDataHome() {
 			},
 		},
 		${taleReferenceQuery()},
+		${moreInfoQuery()},
 		"themes": *[_type == 'theme-page' && __i18n_lang == ^.__i18n_lang]${themePageProjection},
 	}`;
 

@@ -1,4 +1,4 @@
-import { ButtonVariants } from '@design-system/elements/Button';
+import { ButtonVariants, IconPositions } from '@design-system/elements/Button';
 import { IconProps } from '@design-system/elements/Icon';
 import { SubFolderReferenceProps, internalPageReferenceInSelectQuery } from '.';
 
@@ -9,8 +9,10 @@ export interface ButtonProps {
 		slug: string;
 		deepLink?: string;
 		subFolderReference: SubFolderReferenceProps;
+		asset?: string;
 	};
 	variant: ButtonVariants;
+	iconPosition: IconPositions;
 	icon: IconProps['name'];
 }
 
@@ -27,11 +29,15 @@ export const buttonsQuery = ({
 		label,
 		"slugCollection": select(
 			${internalPageReferenceInSelectQuery()},
+			asset._type match "file" => {
+				"asset": "/assets/sanity/" + asset.asset->sha1hash + "-" + asset.asset->originalFilename,
+			},
 			{
 				"slug": href
-			}
+			},
 		),
 		variant,
+		iconPosition,
 		icon,
 	}`;
 };

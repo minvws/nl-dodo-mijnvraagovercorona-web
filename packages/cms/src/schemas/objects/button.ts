@@ -5,6 +5,13 @@ export default defineType({
 	title: 'Knop',
 	name: 'flexibleButton',
 	type: 'object',
+	fieldsets: [
+		{
+			name: 'linkTo',
+			title: 'Linkt naar',
+			description: 'Vul éen van de drie typen links in.',
+		},
+	],
 	fields: [
 		defineField({
 			title: 'Label',
@@ -17,18 +24,28 @@ export default defineType({
 			description: 'Creëert een interne link naar een andere pagina.',
 			name: 'pageReference',
 			type: 'pageSourceSelector',
-			readOnly: ({ parent }) => !!parent?.href,
+			readOnly: ({ parent }) => !!parent?.href || !!parent?.asset,
+			fieldset: 'linkTo',
 		}),
 		defineField({
 			name: 'deepLink',
 			type: 'taleDeeplink',
 			hidden: ({ parent }) => !parent?.pageReference,
+			fieldset: 'linkTo',
 		}),
 		defineField({
 			title: 'href',
 			name: 'href',
 			type: 'string',
-			readOnly: ({ parent }) => !!parent?.pageReference,
+			readOnly: ({ parent }) => !!parent?.pageReference || !!parent?.asset,
+			fieldset: 'linkTo',
+		}),
+		defineField({
+			title: 'Bestand',
+			name: 'asset',
+			type: 'file',
+			readOnly: ({ parent }) => !!parent?.pageReference || !!parent?.href,
+			fieldset: 'linkTo',
 		}),
 		defineField({
 			title: 'Variant',
@@ -53,6 +70,25 @@ export default defineType({
 					{
 						title: 'Quaternary',
 						value: 'quaternary',
+					},
+				],
+			},
+		}),
+		defineField({
+			title: 'Icoon positionering',
+			name: 'iconPosition',
+			type: 'string',
+			initialValue: 'trailing',
+			options: {
+				layout: 'dropdown',
+				list: [
+					{
+						title: 'Achter de label',
+						value: 'trailing',
+					},
+					{
+						title: 'Voor de label',
+						value: 'leading',
 					},
 				],
 			},
