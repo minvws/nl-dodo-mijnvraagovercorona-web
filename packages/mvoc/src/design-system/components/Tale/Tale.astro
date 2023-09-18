@@ -27,7 +27,7 @@ const {
 <section class="c-tale" id={anchorable ? stringToSlug(title) : undefined}>
 	<Switcher class="c-tale__switcher">
 		<Retain variant={'text'}>
-			<Stack>
+			<Stack class="c-tale__body">
 				{renderTitle ? <Heading>{title}</Heading> : undefined}
 				{
 					multiContentBlocks ? (
@@ -53,6 +53,13 @@ const {
 			.c-tale__switcher {
 				flex-direction: row-reverse;
 			}
+		}
+	}
+
+	.c-tale__body {
+		:global(:where(h1, h2, h3, h4, h5, h6, .e-heading)) {
+			--heading-font-size: var(--font-size-delta);
+			--heading-line-height: var(--line-height-delta);
 		}
 	}
 
