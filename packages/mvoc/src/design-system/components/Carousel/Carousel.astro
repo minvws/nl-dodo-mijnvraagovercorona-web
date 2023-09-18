@@ -3,13 +3,10 @@ import { HTMLAttributes } from 'astro/types';
 import { Layer } from '../Layout/Layer';
 import { Retain } from '../Layout/Retain';
 import { Heading } from '@design-system/elements/Heading';
-import { MultiContentBlock } from '../ContentBlock';
 import { CarouselProps } from 'src/utilities/api/queries';
-import { Modal } from '../Modal';
 import { Stack } from '../Layout/Stack';
 import { Icon } from '@design-system/elements/Icon';
 import CarouselItem from './CarouselItem.astro';
-import { Image } from 'astro:assets';
 
 interface Props extends HTMLAttributes<'div'> {
 	title: string;
