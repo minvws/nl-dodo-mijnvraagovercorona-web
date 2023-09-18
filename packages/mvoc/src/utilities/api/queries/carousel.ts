@@ -1,16 +1,24 @@
 import {
 	ImageProps,
 	MultiContentBlocksProps,
+	SubFolderReferenceProps,
 	imageQuery,
+	internalPageReferenceInSelectQuery,
 	multiContentBlocksQuery,
 } from '.';
 
 export interface CarouselItemProps {
-	title: string;
-	id: string;
+	id?: string | undefined | null;
+	headline: string;
 	image?: ImageProps;
 	openItem?: string;
-	multiContentBlocks: MultiContentBlocksProps;
+	slugCollection?: {
+		slug: string;
+		deepLink?: string;
+		subFolderReference: SubFolderReferenceProps;
+		asset?: string;
+	};
+	multiContentBlocks?: MultiContentBlocksProps;
 }
 
 export interface CarouselProps {
@@ -22,13 +30,22 @@ export const carouselQuery = (): string => {
 	return `carousel{
 		title,
 		carouselItems[]->{
-		title,
-		openItem,
-		"id": _id,
-		${imageQuery({
-			name: 'image',
-		})},
-		${multiContentBlocksQuery()},
+			"id": _id,
+			headline,
+			${imageQuery({
+				name: 'image',
+			})},
+			openItem,
+			"slugCollection": select(
+				${internalPageReferenceInSelectQuery()},
+				asset._type match "file" => {
+					"asset": "/assets/sanity/" + asset.asset->sha1hash + "-" + asset.asset->originalFilename,
+				},
+				{
+					"slug": href
+				},
+			),
+			${multiContentBlocksQuery()},
 		},
 	}`;
 };
