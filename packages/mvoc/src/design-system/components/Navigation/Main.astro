@@ -157,14 +157,14 @@ const urlIsNajaarsRonde = (url: string) => {
 			--icon-size: #{rem.convert(16px)};
 		}
 
-		@media --mq-large {
+		@media --mq-huge {
 			background-color: var(--color-white);
 			box-shadow: var(--elevation-frost);
 		}
 	}
 
 	.c-nav-main__drawer {
-		@media --mq-large-until {
+		@media --mq-huge-until {
 			color: var(--color-white);
 			display: grid;
 			grid-template-rows: 1fr rem.convert(80px);
@@ -177,7 +177,7 @@ const urlIsNajaarsRonde = (url: string) => {
 			margin-block-start: var(--space-menu-button);
 		}
 
-		@media --mq-large {
+		@media --mq-huge {
 			--retain-size: #{rem.convert(1264px)};
 			--retain-padding: var(--space-8);
 			max-inline-size: var(--retain-size);
@@ -194,7 +194,7 @@ const urlIsNajaarsRonde = (url: string) => {
 			text-decoration: underline;
 		}
 
-		@media --mq-large {
+		@media --mq-huge {
 			display: none;
 		}
 	}
@@ -206,7 +206,7 @@ const urlIsNajaarsRonde = (url: string) => {
 		flex-wrap: wrap;
 	}
 
-	@media --mq-large {
+	@media --mq-huge {
 		.c-nav-main {
 			--nav-main-position: static;
 			--nav-main__list-layout: row;
