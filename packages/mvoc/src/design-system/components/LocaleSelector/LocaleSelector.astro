@@ -196,7 +196,7 @@ const translationsOrder = alternativeTranslations
 			--c-locale-selector-border-color: var(--color-donkerblauw);
 		}
 
-		@media --mq-large {
+		@media --mq-huge {
 			--c-locale-selector-inset-block: var(--space-6);
 			inset-inline-end: var(--masthead-inline-padding);
 		}
@@ -215,7 +215,7 @@ const translationsOrder = alternativeTranslations
 
 	.c-locale-selector__full-name {
 		:where(.c-locale-selector:not(.is-active)) & {
-			@media --mq-large-until {
+			@media --mq-huge-until {
 				@include a11y.visually-hidden;
 			}
 		}
@@ -230,7 +230,7 @@ const translationsOrder = alternativeTranslations
 		}
 
 		:where(.c-locale-selector:not(.c-locale-selector--compact)) & {
-			@media --mq-large {
+			@media --mq-huge {
 				display: none;
 			}
 		}
