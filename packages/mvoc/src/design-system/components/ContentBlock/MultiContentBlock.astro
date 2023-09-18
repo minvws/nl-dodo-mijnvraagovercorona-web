@@ -29,7 +29,10 @@ const { multiContentBlocks } = Astro.props;
 						<ContentBlock value={multiContentBlock.content} />
 					</Stack>
 				) : isButton(multiContentBlock) ? (
-					<FlexibleButton {...multiContentBlock} />
+					<FlexibleButton
+						className="c-multi-content-block__button"
+						{...multiContentBlock}
+					/>
 				) : isVideo(multiContentBlock) ? (
 					<Video
 						title={multiContentBlock.title}
@@ -55,6 +58,11 @@ const { multiContentBlocks } = Astro.props;
 	}
 
 	.c-multi-content-block__content {
+	}
+
+	.c-multi-content-block__button {
+		display: flex;
+		width: fit-content;
 	}
 
 	.c-multi-content-block__picture {
