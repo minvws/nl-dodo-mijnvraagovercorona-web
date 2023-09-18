@@ -53,19 +53,9 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 
 		<fieldset>
 			<Stack gap={2}>
-				<legend>{siteSettings.forms.filterOn}</legend>
 				<div class="c-filter__wrap-controls">
-					<Control type="checkbox" name="filter" value="series-b" id="series-b">
-						{siteSettings.vaccinations.series.b}
-					</Control>
-					<Control
-						type="checkbox"
-						name="filter"
-						value="series-b1"
-						id="series-b1"
+					<legend class="c-filter__legend">{siteSettings.forms.filterOn}</legend
 					>
-						{siteSettings.vaccinations.series.b1}
-					</Control>
 					<Control
 						type="checkbox"
 						name="filter"
@@ -100,6 +90,11 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		display: flex;
 		flex-wrap: wrap;
 		gap: var(--space-4);
+	}
+
+	.c-filter__legend {
+		--legend-font-size: var(--font-size-root);
+		--legend-line-height: var(--font-lineheight-root);
 	}
 
 	.c-filter__map-toggle {

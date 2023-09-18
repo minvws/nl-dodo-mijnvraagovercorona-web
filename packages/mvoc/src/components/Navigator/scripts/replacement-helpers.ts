@@ -84,9 +84,9 @@ export const replaceVaccinationSeriesElement = ({
 		'[data-dynamic-attribute][data-vaccination-series]',
 	);
 
-	if (series.length === 1 && series.startsWith('b')) {
+	if (series.length === 1 && series.startsWith('b') && seriesB1Element) {
 		seriesB1Element.remove();
-	} else if (series.length === 2 && series.startsWith('b1')) {
+	} else if (series.length === 2 && series.startsWith('b1') && seriesBElement) {
 		seriesBElement.remove();
 	}
 
