@@ -308,6 +308,7 @@ const { title, carousel, goTo, previous, next } = Astro.props;
 				previousPane?.scrollIntoView({
 					behavior: 'smooth',
 					block: 'nearest',
+					inline: 'start',
 				});
 			});
 
@@ -322,6 +323,7 @@ const { title, carousel, goTo, previous, next } = Astro.props;
 				nextPane?.scrollIntoView({
 					behavior: 'smooth',
 					block: 'nearest',
+					inline: 'start',
 				});
 			});
 
@@ -334,6 +336,7 @@ const { title, carousel, goTo, previous, next } = Astro.props;
 					paneElements[index].scrollIntoView({
 						behavior: 'smooth',
 						block: 'nearest',
+						inline: 'start',
 					});
 				});
 			});
