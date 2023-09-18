@@ -59,6 +59,7 @@ interface Props {
 
 const { pageData, locale } = Astro.props;
 const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+console.log('pageData?.carousel?', pageData?.carousel);
 
 /**
  * Split tales into 2 groups

@@ -24,7 +24,7 @@ const locale = getLocaleFromURL(Astro.url.pathname);
 ---
 
 <Button
-	class={`classname${className ? ` | className` : ''}`}
+	class={`classname${className ? ` | ${className}` : ''}`}
 	href={slugCollection?.asset
 		? slugCollection.asset
 		: parseLink(getFullPageUrl(slugCollection), locale)}

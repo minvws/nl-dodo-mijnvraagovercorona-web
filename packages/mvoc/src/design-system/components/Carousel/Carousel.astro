@@ -8,6 +8,8 @@ import { CarouselProps } from 'src/utilities/api/queries';
 import { Modal } from '../Modal';
 import { Stack } from '../Layout/Stack';
 import { Icon } from '@design-system/elements/Icon';
+import CarouselItem from './CarouselItem.astro';
+import { Image } from 'astro:assets';
 
 interface Props extends HTMLAttributes<'div'> {
 	title: string;
@@ -19,16 +21,6 @@ interface Props extends HTMLAttributes<'div'> {
 
 const { title, carousel, goTo, previous, next } = Astro.props;
 ---
-
-{
-	carousel.map((item) => (
-		<Modal title={item.title} id={`info-modal-${item.id}`}>
-			{item.multiContentBlocks ? (
-				<MultiContentBlock multiContentBlocks={item.multiContentBlocks} />
-			) : null}
-		</Modal>
-	))
-}
 
 <Layer>
 	<c-carousel class="c-carousel">
@@ -64,23 +56,7 @@ const { title, carousel, goTo, previous, next } = Astro.props;
 						carousel.map((item, index) => (
 							<li class="c-carousel__pane" data-module-bind="c-carousel__pane">
 								{item.image && item.image.src ? (
-									<button
-										class="c-carousel__card"
-										id={`info-modal-${item.id}`}
-										aria-label={item.title}
-										data-slide={index}
-										tabindex="0"
-									>
-										<img src={item.image.src} alt="" loading="lazy" />
-										<div class="c-carousel__card-text">
-											<span class="c-carousel__card-text-title">
-												{item.title}
-											</span>
-											{item.openItem ? (
-												<span role="presentation">{item.openItem}</span>
-											) : null}
-										</div>
-									</button>
+									<CarouselItem {...item} />
 								) : null}
 							</li>
 						))
@@ -93,7 +69,7 @@ const { title, carousel, goTo, previous, next } = Astro.props;
 					carousel.map((item, index) => (
 						<button
 							class="c-carousel__indicator"
-							aria-label={`${item.title}`}
+							aria-label={`${item.headline}`}
 							data-module-bind="c-carousel__indicator"
 						>
 							<span class="u-visually-hidden">
@@ -164,77 +140,6 @@ const { title, carousel, goTo, previous, next } = Astro.props;
 		scroll-snap-align: start;
 		@media --mq-medium-until {
 			scroll-margin-inline-start: var(--carousel__inline-padding);
-		}
-	}
-
-	/**
-	 * 1. Height of a slide is always 100% of the viewport minus the spacing
-	 *    between top track and indicators. With a max of 520px height
-	 */
-	.c-carousel__card {
-		position: relative;
-		display: block;
-		block-size: calc(
-			var(--body-block-size) -
-				(
-					var(--carousel-component-spacing) * 3 +
-						var(--carousel__indicator-size) +
-						var(--carousel__track-focus-outline-correction)
-				)
-		); /* [1] */
-		max-block-size: #{rem.convert(520px)}; /* [1] */
-		border-radius: var(--radii-large);
-		overflow: hidden;
-		cursor: pointer;
-
-		img {
-			height: 100%;
-			object-fit: cover;
-		}
-
-		&:focus {
-			@include a11y.focusring;
-		}
-
-		&.is-visible {
-		}
-	}
-
-	.c-carousel__card::before {
-		position: absolute;
-		inset-block-start: 0;
-		inset-inline-start: 0;
-		inline-size: 100%;
-		block-size: 100%;
-		background: linear-gradient(
-			rgba(0, 0, 0, 0) 32.29%,
-			rgba(0, 0, 0, 0.55) 59.9%
-		);
-		content: '';
-		pointer-events: none;
-	}
-
-	.c-carousel__card-text {
-		position: absolute;
-		inset-block-end: 0;
-		display: flex;
-		flex-direction: column;
-		gap: var(--space-3);
-		padding-block: var(--carousel__block-padding);
-		padding-inline: var(--carousel__inline-padding);
-		text-align: start;
-		font-weight: bold;
-		color: var(--carousel__card-color);
-
-		.c-carousel__card-text-title {
-			font-size: var(--font-size-beta);
-			line-height: var(--line-height-delta);
-			text-decoration: none;
-		}
-
-		span {
-			font-size: var(--font-size-gamma);
-			text-decoration: underline;
 		}
 	}
 

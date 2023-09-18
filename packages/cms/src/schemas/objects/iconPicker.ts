@@ -40,6 +40,7 @@ export default defineType({
 			{ title: 'Cookie', value: 'cookie' },
 			{ title: 'Digid', value: 'digid' },
 			{ title: 'Info', value: 'info' },
+			{ title: 'Download', value: 'download' },
 		],
 	},
 });
