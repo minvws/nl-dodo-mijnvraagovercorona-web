@@ -39,7 +39,7 @@ export const carouselQuery = (): string => {
 			"slugCollection": select(
 				${internalPageReferenceInSelectQuery()},
 				asset._type match "file" => {
-					"asset": "/assets/sanity/" + asset.asset->sha1hash + "-" + asset.asset->originalFilename,
+					"asset": "/assets/sanity/" + asset.asset->sha1hash + "." + asset.asset->extension,
 				},
 				{
 					"slug": href
