@@ -18,9 +18,9 @@ export const imageQuery = ({
 	path?: string;
 }): string => {
 	return `"${name}": {
-			"src": "/assets/sanity/" + ${path || name}.asset->sha1hash + "-" + ${
+			"src": "/assets/sanity/" + ${path || name}.asset->sha1hash + "." + ${
 		path || name
-	}.asset->originalFilename,
+	}.asset->extension,
 			"dimensions": {
 				"aspectRatio": ${path || name}.asset->metadata.dimensions.aspectRatio,
 				"width": ${path || name}.asset->metadata.dimensions.width,
