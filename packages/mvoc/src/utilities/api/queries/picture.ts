@@ -11,7 +11,7 @@ export const pictureQuery = ({
 		"type": _type,
 		alt,
 		image{
-			"src": "/assets/sanity/" + asset->sha1hash + "-" + asset->originalFilename,
+			"src": "/assets/sanity/" + asset->sha1hash + "." + asset->extension,
 			"metaData": asset->metadata
 		},
 	}`;

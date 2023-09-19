@@ -25,7 +25,7 @@ console.log(`ENVIRONMENT: ${ENV}`);
 (async () => {
 	try {
 		const { result } = await got(
-			`https://${process.env.PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/v1/data/query/${process.env.PUBLIC_SANITY_DATASET}?query=*%5B_type+in+%5B%22sanity.fileAsset%22%2C+%22sanity.imageAsset%22%5D%5D%7B%0A++url%2C%0A++sha1hash%2C%0A++originalFilename%0A%7D`,
+			`https://${process.env.PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/v1/data/query/${process.env.PUBLIC_SANITY_DATASET}?query=*%5B_type+in+%5B%22sanity.fileAsset%22%2C+%22sanity.imageAsset%22%5D%5D%7B%0A++url%2C%0A++sha1hash%2C%0A++originalFilename%2C%0A++extension%0A%7D`,
 			{
 				headers: {
 					'user-agent': undefined,
@@ -47,8 +47,8 @@ console.log(`ENVIRONMENT: ${ENV}`);
 			.map((item) => item.name);
 
 		// loop over result from sanity
-		for (const { url, sha1hash, originalFilename } of result) {
-			const fileName = `${sha1hash}-${originalFilename}`;
+		for (const { url, sha1hash, extension } of result) {
+			const fileName = `${sha1hash}.${extension}`;
 			const filePath = `${folder}/${fileName}`;
 
 			// Remove item from diskfiles if its present in sanity
