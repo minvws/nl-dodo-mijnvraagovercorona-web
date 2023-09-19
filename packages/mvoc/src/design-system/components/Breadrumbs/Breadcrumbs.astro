@@ -122,6 +122,9 @@ const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 		}
 	}
 	@media --mq-large-until {
+		.c-breadcrumbs {
+			--c-breadcrumbs-color: var(--color-diepblauw);
+		}
 		.c-breadcrumbs-full {
 			display: none;
 		}
