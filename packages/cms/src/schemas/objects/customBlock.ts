@@ -39,14 +39,22 @@ const generate = (
 						type: 'object',
 						title: 'Link',
 						icon: FiLink,
+						validation: (Rule) =>
+							Rule.custom((fields: any) =>
+								fields?.pageReference || fields?.href
+									? true
+									: 'Vul "Pagina link" of "href" in',
+							),
 						fields: [
 							defineField({
 								title: 'Pagina link',
+								description: 'Creëert een interne link naar een andere pagina.',
 								name: 'pageReference',
 								type: 'pageSourceSelector',
 								readOnly: ({ parent }) => !!parent?.href,
 							}),
 							{
+								title: 'href',
 								name: 'href',
 								type: 'string',
 								readOnly: ({ parent }) => !!parent?.pageReference,
