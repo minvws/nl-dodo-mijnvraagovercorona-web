@@ -107,6 +107,7 @@ export default defineType({
 									title: 'Content',
 									name: 'content',
 									type: 'customBlock',
+									validation: (Rule) => Rule.required(),
 								}),
 								defineField({
 									title: 'Volgende',
@@ -116,6 +117,14 @@ export default defineType({
 									options: {
 										filter: filterReferenceByLanguage,
 									},
+									validation: (Rule) =>
+										Rule.custom((next: any, context: any) =>
+											['radio', 'button'].includes(
+												context.document?.question?.type,
+											) && next
+												? true
+												: 'Volgende verplicht',
+										),
 								}),
 								defineField({
 									title: 'Gewicht',
@@ -123,11 +132,7 @@ export default defineType({
 									type: 'number',
 									description:
 										'Hoe hoger het getal hoe zwaarder het antwoord weegt',
-									hidden: ({
-										document,
-									}: {
-										document: { question: { type: string } };
-									}) =>
+									hidden: ({ document }: { document: any }) =>
 										document?.question?.type
 											? !['checkbox'].includes(document?.question?.type)
 											: true,
@@ -140,11 +145,7 @@ export default defineType({
 									options: {
 										filter: filterReferenceByLanguage,
 									},
-									hidden: ({
-										document,
-									}: {
-										document: { question: { type: string } };
-									}) =>
+									hidden: ({ document }: { document: any }) =>
 										document?.question?.type
 											? !['checkbox', 'radio'].includes(
 													document?.question?.type,
@@ -160,11 +161,7 @@ export default defineType({
 							},
 						}),
 					],
-					hidden: ({
-						document,
-					}: {
-						document: { question: { type: string } };
-					}) =>
+					hidden: ({ document }: { document: any }) =>
 						document?.question?.type
 							? !['checkbox', 'radio', 'button'].includes(
 									document?.question?.type,
@@ -190,11 +187,7 @@ export default defineType({
 							type: 'thisOrThatString',
 						}),
 					],
-					hidden: ({
-						document,
-					}: {
-						document: { question: { type: string } };
-					}) =>
+					hidden: ({ document }: { document: any }) =>
 						document?.question?.type
 							? !['checkbox', 'radio'].includes(document?.question?.type)
 							: true,
