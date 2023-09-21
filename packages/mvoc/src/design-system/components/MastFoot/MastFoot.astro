@@ -1,9 +1,9 @@
 ---
-import Sprite from 'astro-icon';
 import { Heading } from '@design-system/elements/Heading';
 import { ContentBlock } from '@design-system/components/ContentBlock';
-import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
-import { Locale } from 'src/utilities/locale/translation';
+import type { SiteSettingsProps } from 'src/utilities/api/queries';
+import { useSiteSettings } from 'src/utilities/api/queries';
+import type { Locale } from 'src/utilities/locale/translation';
 import { Layer } from '@design-system/components/Layout/Layer';
 import { Retain } from '@design-system/components/Layout/Retain';
 import { Stack } from '@design-system/components/Layout/Stack';
@@ -71,7 +71,7 @@ const siteSettingsTranslated: SiteSettingsProps = await useSiteSettings({
 	.c-mastfoot__layer {
 		--layer-padding-block-start: var(--space-10);
 
-		@media --mq-large {
+		@media (--mq-large) {
 			--layer-padding-block-start: var(--space-8);
 		}
 	}
@@ -80,7 +80,7 @@ const siteSettingsTranslated: SiteSettingsProps = await useSiteSettings({
 		--grid-fluid-min-item-size: var(--space-100);
 		--grid-fluid-gap: var(--space-10);
 
-		@media --mq-large {
+		@media (--mq-large) {
 			--grid-fluid-gap: var(--space-14);
 		}
 	}

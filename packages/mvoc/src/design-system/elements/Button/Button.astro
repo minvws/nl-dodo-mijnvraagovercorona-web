@@ -1,8 +1,9 @@
 ---
-import { HTMLAttributes } from 'astro/types';
-import { Icon, IconProps } from '@design-system/elements/Icon';
-import { Animations } from '@design-system/primitives/animation';
-import { ButtonVariants, IconPositions } from './';
+import type { HTMLAttributes } from 'astro/types';
+import type { IconProps } from '@design-system/elements/Icon';
+import { Icon } from '@design-system/elements/Icon';
+import type { Animations } from '@design-system/primitives/animation';
+import type { ButtonVariants, IconPositions } from './';
 import { isExternalUrl } from 'src/utilities/helpers/external-url';
 
 // Interfaces
@@ -207,7 +208,7 @@ const trailingIcon = isExternal
 			cursor: not-allowed;
 		}
 
-		@media --mq-large {
+		@media (--mq-large) {
 			& {
 				min-inline-size: auto;
 			}

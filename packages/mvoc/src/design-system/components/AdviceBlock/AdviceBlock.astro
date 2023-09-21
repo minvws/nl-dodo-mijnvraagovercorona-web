@@ -1,15 +1,12 @@
 ---
-import { Locale } from 'src/utilities/locale/translation';
-import { HTMLAttributes } from 'astro/types';
+import type { HTMLAttributes } from 'astro/types';
 import { Card } from '@design-system/components/Card';
 import { MediaBlock } from '@design-system/components/MediaBlock';
-import {
-	ContentBlock,
-	ContentBlockProps,
-} from '@design-system/components/ContentBlock';
+import type { ContentBlockProps } from '@design-system/components/ContentBlock';
+import { ContentBlock } from '@design-system/components/ContentBlock';
 import { Stack } from '../Layout/Stack';
-import { ButtonProps } from 'src/utilities/api/queries/buttons';
-import { ImageProps } from 'src/utilities/api/queries';
+import type { ButtonProps } from 'src/utilities/api/queries/buttons';
+import type { ImageProps } from 'src/utilities/api/queries';
 import { Disclosure, DisclosureItem } from '../Disclosure';
 import { FlexibleButton } from '@modules/elements/FlexibleButton';
 
@@ -18,14 +15,13 @@ interface Props extends HTMLAttributes<'div'> {
 	image?: ImageProps;
 	content: ContentBlockProps['value'];
 	button?: ButtonProps;
-	locale: Locale;
 	items?: {
 		image?: ImageProps;
 		content: ContentBlockProps['value'];
 	}[];
 }
 
-const { title, image, content, button, items, locale } = Astro.props;
+const { title, image, content, button, items } = Astro.props;
 ---
 
 <Card variant="filled" class="c-advice-block">
@@ -80,7 +76,7 @@ const { title, image, content, button, items, locale } = Astro.props;
 		&:nth-of-type(even) {
 			--card-border-color: var(--color-accent-robijnrood);
 		}
-		@media --mq-large {
+		@media (--mq-large) {
 			:global(.disclosure__item--accordeon .disclosure__panel-inner) {
 				padding-block-start: 0;
 			}
@@ -88,7 +84,7 @@ const { title, image, content, button, items, locale } = Astro.props;
 	}
 
 	.c-advice-block__media-item {
-		@media --mq-large {
+		@media (--mq-large) {
 			margin-inline-start: var(--space-3);
 		}
 	}

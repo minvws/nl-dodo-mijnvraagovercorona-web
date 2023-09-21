@@ -33,8 +33,8 @@ export const initAnswersMulti = () => {
 	};
 
 	// Handle control select
-	const handleChange = (event) => {
-		const input = event.target;
+	const handleChange = (event: Event) => {
+		const input = event.target as HTMLElement;
 		const maxDays = parseInt(input.getAttribute('data-max-days'));
 		if (diff && maxDays) day = calculateDay(diff, maxDays);
 		toggleSubmitButtons();

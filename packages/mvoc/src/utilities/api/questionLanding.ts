@@ -1,16 +1,19 @@
 import { useSanityClient } from 'astro-sanity';
-import {
+import type {
 	PageProps,
-	pageQuery,
-	heroQuery,
 	HeroProps,
 	AssistanceProps,
-	assistanceQuery,
-	supportBlockQuery,
 	CardsProps,
 } from './queries';
+import {
+	pageQuery,
+	heroQuery,
+	assistanceQuery,
+	supportBlockQuery,
+} from './queries';
 import { getAdditionalPageData } from 'src/utilities/helpers/getAdditionalPageData';
-import { QuestionPageProps, questionPageProjection } from './question';
+import type { QuestionPageProps } from './question';
+import { questionPageProjection } from './question';
 
 export interface QuestionLandingPageProps extends PageProps {
 	hero: HeroProps;

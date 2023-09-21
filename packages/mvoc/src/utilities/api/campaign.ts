@@ -1,19 +1,23 @@
 import { useSanityClient } from 'astro-sanity';
-import {
+import type {
 	PageProps,
-	pageQuery,
-	heroQuery,
 	HeroProps,
 	AssistanceProps,
-	assistanceQuery,
-	supportBlockQuery,
 	CardsProps,
 	TaleCollectionProps,
+	TabsProps,
+	CarouselProps,
+} from './queries';
+import {
+	pageQuery,
+	heroQuery,
+	assistanceQuery,
+	supportBlockQuery,
 	taleReferenceQuery,
+	tabsQuery,
+	carouselQuery,
 } from './queries';
 import { getAdditionalPageData } from 'src/utilities/helpers/getAdditionalPageData';
-import { TabsProps, tabsQuery } from './queries/tabs';
-import { CarouselProps, carouselQuery } from './queries/carousel';
 
 export interface CampaignPageProps extends PageProps {
 	hero: HeroProps;

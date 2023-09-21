@@ -1,22 +1,24 @@
-import { ContentBlockProps } from '@design-system/components/ContentBlock';
+import type { ContentBlockProps } from '@design-system/components/ContentBlock';
 import { useSanityClient } from 'astro-sanity';
-import {
+import type {
 	HeroProps,
 	PageProps,
 	PictureProps,
 	SubFolderReferenceProps,
+	AssistanceProps,
+	ImageProps,
+} from './queries';
+import {
 	customBlockQuery,
 	heroQuery,
 	pageQuery,
 	pictureQuery,
 	subFolderReferenceQuery,
-	AssistanceProps,
 	assistanceQuery,
 	imageQuery,
-	ImageProps,
 } from './queries';
 import { getAdditionalPageData } from '../helpers/getAdditionalPageData';
-import { ButtonVariants } from '@design-system/elements/Button';
+import type { ButtonVariants } from '@design-system/elements/Button';
 
 export interface QuestionPageProps extends PageProps {
 	hero: HeroProps;

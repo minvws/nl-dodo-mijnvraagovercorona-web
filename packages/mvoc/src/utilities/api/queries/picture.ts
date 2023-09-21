@@ -1,4 +1,4 @@
-import { PictureProps as PicturePropsElement } from '@design-system/components/Picture';
+import type { PictureProps as PicturePropsElement } from '@design-system/components/Picture';
 
 export interface PictureProps extends PicturePropsElement {}
 

@@ -1,9 +1,9 @@
 ---
-import { HTMLAttributes } from 'astro/types';
+import type { HTMLAttributes } from 'astro/types';
 import { Layer } from '../Layout/Layer';
 import { Retain } from '../Layout/Retain';
 import { Heading } from '@design-system/elements/Heading';
-import { CarouselProps } from 'src/utilities/api/queries';
+import type { CarouselProps } from 'src/utilities/api/queries';
 import { Stack } from '../Layout/Stack';
 import { Icon } from '@design-system/elements/Icon';
 import CarouselItem from './CarouselItem.astro';
@@ -50,7 +50,7 @@ const { title, carousel, goTo, previous, next } = Astro.props;
 					role="list"
 				>
 					{
-						carousel.map((item, index) => (
+						carousel.map((item) => (
 							<li class="c-carousel__pane" data-module-bind="c-carousel__pane">
 								{item.image && item.image.src ? (
 									<CarouselItem {...item} />
@@ -103,7 +103,7 @@ const { title, carousel, goTo, previous, next } = Astro.props;
 	.c-carousel__wrap-track {
 		--carousel-component-spacing: var(--stack-gap);
 
-		@media --mq-medium-until {
+		@media (--mq-medium-until) {
 			--retain-padding: 0;
 		}
 	}
@@ -122,7 +122,7 @@ const { title, carousel, goTo, previous, next } = Astro.props;
 			display: none;
 		}
 
-		@media --mq-medium-until {
+		@media (--mq-medium-until) {
 			padding-inline: var(--carousel__inline-padding);
 		}
 	}
@@ -135,7 +135,7 @@ const { title, carousel, goTo, previous, next } = Astro.props;
 		flex-basis: #{rem.convert(288px)}; /* [1] */
 		flex-shrink: 0;
 		scroll-snap-align: start;
-		@media --mq-medium-until {
+		@media (--mq-medium-until) {
 			scroll-margin-inline-start: var(--carousel__inline-padding);
 		}
 	}
@@ -197,7 +197,7 @@ const { title, carousel, goTo, previous, next } = Astro.props;
 		gap: var(--space-4);
 		justify-content: center;
 
-		@media --mq-large {
+		@media (--mq-large) {
 			visibility: hidden;
 		}
 	}

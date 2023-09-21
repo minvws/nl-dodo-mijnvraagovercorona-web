@@ -1,12 +1,12 @@
 const DATE_FORMAT = /^(\d{1,2})\-(\d{1,2})\-(\d{4})$/;
 export const adapter = {
-	parse(value = '', createDate) {
+	parse(value = '', createDate: any) {
 		const matches = value.match(DATE_FORMAT);
 		if (matches) {
 			return createDate(matches[3], matches[2], matches[1]);
 		}
 	},
-	format(date) {
+	format(date: Date) {
 		return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
 	},
 };

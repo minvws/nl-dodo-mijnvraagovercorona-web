@@ -2,9 +2,10 @@
 import { Mark } from 'astro-portabletext/components';
 import { Modal } from '@design-system/components/Modal';
 import { Link } from '@design-system/elements/Link';
-import { ImageProps } from 'src/utilities/api/queries';
-import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
-import { ContentBlockProps } from '..';
+import type { ImageProps } from 'src/utilities/api/queries';
+import type { SiteSettingsProps } from 'src/utilities/api/queries';
+import { useSiteSettings } from 'src/utilities/api/queries';
+import type { ContentBlockProps } from '..';
 import ContentBlock from '../ContentBlock.astro';
 import { Stack } from '@design-system/components/Layout/Stack';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';

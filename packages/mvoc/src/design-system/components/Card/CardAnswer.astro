@@ -1,6 +1,6 @@
 ---
 import { Heading } from '@design-system/elements/Heading';
-import { ButtonsProps, ImageProps } from 'src/utilities/api/queries';
+import type { ButtonsProps, ImageProps } from 'src/utilities/api/queries';
 import { MediaBlock } from '@design-system/components/MediaBlock';
 import Card from '../Card/Card.astro';
 import { FlexibleButton } from '@modules/elements/FlexibleButton';
@@ -82,7 +82,7 @@ const { title, image, buttons } = Astro.props;
 	}
 
 	// Variants
-	@media --mq-large-until {
+	@media (--mq-large-until) {
 		.c-answers-card--with-buttons {
 			margin-block-end: calc(var(--card-button-size) / 2);
 		}

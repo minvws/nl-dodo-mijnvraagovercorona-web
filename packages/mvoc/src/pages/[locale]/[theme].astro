@@ -1,9 +1,11 @@
 ---
-import { availableLocales, Locale } from 'src/utilities/locale/translation';
+import type { Locale } from 'src/utilities/locale/translation';
+import { availableLocales } from 'src/utilities/locale/translation';
 
 import Layout from '@layouts/Layout.astro';
 import { Hero } from '@design-system/components/Hero';
-import { getDataThemes, ThemePageProps } from 'src/utilities/api/theme';
+import type { ThemePageProps } from 'src/utilities/api/theme';
+import { getDataThemes } from 'src/utilities/api/theme';
 import { ContentBlock } from '@design-system/components/ContentBlock';
 import { Layer } from '@design-system/components/Layout/Layer';
 import { Retain } from '@design-system/components/Layout/Retain';
@@ -36,6 +38,7 @@ export async function getStaticPaths() {
 					)[0],
 				},
 			}))
+			.flat(Infinity)
 	);
 }
 
