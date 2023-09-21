@@ -1,6 +1,6 @@
 import { mqLarge } from '@design-system/primitives/responsive';
 import copy from 'copy-to-clipboard';
-import { FeatureProps } from 'src/utilities/helpers/features';
+import type { FeatureProps } from 'src/utilities/helpers/features';
 import { replaceAll, replaceTimeTable } from './replacement-helpers';
 import { isOpenNow } from './timetable-helpers';
 

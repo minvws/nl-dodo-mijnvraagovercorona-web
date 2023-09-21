@@ -1,13 +1,11 @@
+import type { ButtonsProps, ImageProps, MultiContentBlocksProps } from './';
 import {
-	ButtonsProps,
 	buttonsQuery,
 	customBlockQuery,
-	ImageProps,
 	imageQuery,
-	MultiContentBlocksProps,
 	multiContentBlocksQuery,
 } from './';
-import { ContentBlockProps } from '@design-system/components/ContentBlock';
+import type { ContentBlockProps } from '@design-system/components/ContentBlock';
 
 interface CardProps {
 	title: string;

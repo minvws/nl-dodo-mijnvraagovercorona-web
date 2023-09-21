@@ -16,7 +16,7 @@ export const getKeyboardFocusableElements = (element) => {
  * @param element
  * @param event
  */
-export const trapFocus = (element, event) => {
+export const trapFocus = (element, event: KeyboardEvent) => {
 	const focusables = getKeyboardFocusableElements(element);
 	const firstFocusable = focusables[0];
 	const lastFocusable = focusables[focusables.length - 1];

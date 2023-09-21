@@ -1,10 +1,10 @@
 ---
 import { Button } from '@design-system/elements/Button';
 import { Icon } from '@design-system/elements/Icon';
-import { HTMLAttributes } from 'astro/types';
+import type { HTMLAttributes } from 'astro/types';
 import { MediaBlock } from '../MediaBlock';
 import { Heading } from '@design-system/elements/Heading';
-import { ImageProps } from 'src/utilities/api/queries';
+import type { ImageProps } from 'src/utilities/api/queries';
 
 interface Props extends HTMLAttributes<'li'> {
 	label: string;

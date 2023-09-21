@@ -1,11 +1,11 @@
 import mapboxgl from 'mapbox-gl';
 import WebMercatorViewport from '@math.gl/web-mercator';
-import { FeatureProps } from 'src/utilities/helpers/features';
+import type { FeatureProps } from 'src/utilities/helpers/features';
 import { isOpenNow } from './timetable-helpers';
 
 export class Map {
 	mapElement: HTMLDivElement;
-	map;
+	map: any;
 	markerTemplateElement: HTMLTemplateElement;
 	markers: any[] = [];
 

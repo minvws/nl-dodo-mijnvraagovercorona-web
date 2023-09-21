@@ -241,7 +241,7 @@ const { tabs } = Astro.props;
 			border-radius: var(--radii-nano);
 			background-color: var(--tablink-bg-color-selected);
 		}
-		@media --mq-medium-until {
+		@media (--mq-medium-until) {
 			&[aria-selected='true'] {
 				color: var(--color-white);
 				background-color: var(--tablink-bg-color-selected-mobile);

@@ -1,7 +1,9 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
-import { availableLocales, Locale } from 'src/utilities/locale/translation';
-import { PZALandingPageProps, getDataPZALandingPages } from 'src/utilities/api';
+import type { Locale } from 'src/utilities/locale/translation';
+import { availableLocales } from 'src/utilities/locale/translation';
+import type { PZALandingPageProps } from 'src/utilities/api';
+import { getDataPZALandingPages } from 'src/utilities/api';
 import { Hero } from '@design-system/components/Hero';
 import { ContentBlock } from '@design-system/components/ContentBlock';
 import Stack from '@design-system/components/Layout/Stack/Stack.astro';
@@ -14,13 +16,15 @@ import { Assistance } from '@design-system/components/Assistance';
 import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
 import { Feedback } from '@design-system/components/Feedback';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
-import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
+import type { SiteSettingsProps } from 'src/utilities/api/queries';
+import { useSiteSettings } from 'src/utilities/api/queries';
 import { Breadcrumbs } from '@design-system/components/Breadrumbs';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { FlexibleButton } from '@modules/elements/FlexibleButton';
 
 export async function getStaticPaths() {
 	const collection = await getDataPZALandingPages();
+
 	return (
 		collection
 			// filter out unavailable locales
@@ -42,6 +46,7 @@ export async function getStaticPaths() {
 					)[0],
 				},
 			}))
+			.flat(Infinity)
 	);
 }
 

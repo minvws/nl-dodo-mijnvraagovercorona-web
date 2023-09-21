@@ -14,7 +14,7 @@
 	--radii-large: var(--space-8);
 	--radii-huge: var(--space-4);
 
-	@media --mq-large {
+	@media (--mq-large) {
 		--radii-huge: var(--space-8);
 	}
 }

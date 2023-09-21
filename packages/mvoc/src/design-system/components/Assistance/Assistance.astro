@@ -1,19 +1,11 @@
 ---
-import { Button } from '@design-system/elements/Button';
 import { Heading } from '@design-system/elements/Heading';
 import { Link } from '@design-system/elements/Link';
-import { HTMLAttributes } from 'astro/types';
-import {
-	ButtonProps,
-	ImageProps,
-	SiteSettingsProps,
-	useSiteSettings,
-} from 'src/utilities/api/queries';
+import type { HTMLAttributes } from 'astro/types';
+import type { ButtonProps, ImageProps } from 'src/utilities/api/queries';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import GridFluid from '../Layout/Grid/GridFluid.astro';
 import { Stack } from '../Layout/Stack';
-import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
-import { parseLink } from 'src/utilities/helpers/link';
 import { FlexibleButton } from '@modules/elements/FlexibleButton';
 
 interface Props extends HTMLAttributes<'div'> {
@@ -206,7 +198,7 @@ const closingHour = phone.closingHour;
 		--grid-fluid-gap: var(--space-14);
 	}
 
-	@media --mq-large {
+	@media (--mq-large) {
 		.c-assistance--feedback {
 			.c-assistance__img-container {
 				display: none;
@@ -230,12 +222,12 @@ const closingHour = phone.closingHour;
 		margin-block-start: var(--_assistance__image-pull-up);
 		margin-block-end: var(--space-6);
 
-		@media --mq-large-until {
+		@media (--mq-large-until) {
 			margin-inline: auto;
 		}
 	}
 
-	@media --mq-large-until {
+	@media (--mq-large-until) {
 		.c-assistance--feedback .c-assistance__img-feedback-container {
 			display: none;
 		}
