@@ -143,6 +143,8 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		outline: none;
 		color: var(--color-diepblauw);
 		align-self: center;
+		border-radius: var(--radii-nano);
+		background: var(--color-white);
 
 		&:focus {
 			@include a11y.focusring();
@@ -153,6 +155,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		}
 
 		&[aria-expanded='true'] {
+			background: none;
 			.hide-expanded {
 				display: none;
 			}

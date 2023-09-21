@@ -164,12 +164,15 @@ const translationsOrder = alternativeTranslations
 		--c-locale-selector-duration: 0.2s;
 		--c-locale-selector-inset-block: var(--space-4);
 		position: absolute;
-		inset-block-start: calc(
-			var(--c-locale-selector-inset-block) + (var(--masthead-logo-spacer) / 2)
-		);
+		// inset-block-start: calc(
+		// 	var(--c-locale-selector-inset-block) + (var(--masthead-logo-spacer) / 2)
+		// );
 		margin-inline-start: auto;
-		padding-block: calc(var(--space-3) - 1px);
-		padding-inline: calc(var(--space-4) - 1px);
+		inset-block-start: calc(var(--theme__masthead-top-block-size) / 4);
+		// padding-block: calc(var(--space-3) - 1px);
+		// padding-inline: calc(var(--space-4) - 1px);
+		padding-block: calc(8px - 1px);
+		padding-inline: calc(12px - 1px);
 		border-radius: var(--radii-milli);
 		background-color: var(--c-locale-selector-background-color);
 		transition-property: background-color, color, border;
