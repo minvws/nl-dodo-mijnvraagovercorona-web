@@ -1,7 +1,7 @@
 ---
 import { Chapeau } from '@design-system/elements/Chapeau';
 import { Heading } from '@design-system/elements/Heading';
-import { ImageProps } from 'src/utilities/api/queries';
+import type { ImageProps } from 'src/utilities/api/queries';
 import { Retain } from '@design-system/components/Layout/Retain';
 import { Stack } from '@design-system/components/Layout/Stack';
 import { Switcher } from '@design-system/components/Layout/Grid';
@@ -104,13 +104,13 @@ const {
 			--switcher-align-items: center;
 		}
 
-		@media --mq-huge {
+		@media (--mq-huge) {
 			--hero-masthead-offset: 0px;
 		}
 	}
 
 	.c-hero__wrap-image {
-		@media --mq-large {
+		@media (--mq-large) {
 			order: 2;
 		}
 	}
@@ -121,7 +121,7 @@ const {
 		margin-inline: auto;
 		object-fit: contain;
 
-		@media --mq-large {
+		@media (--mq-large) {
 			block-size: rem.convert(224px);
 			max-inline-size: 100%;
 		}
@@ -173,7 +173,7 @@ const {
 		.c-hero__image {
 			block-size: rem.convert(240px);
 
-			@media --mq-large {
+			@media (--mq-large) {
 				block-size: rem.convert(400px);
 			}
 		}
@@ -182,7 +182,7 @@ const {
 	.c-hero--cards {
 		--hero-padding-block-end: calc(var(--hero-padding) * 2);
 
-		@media --mq-large {
+		@media (--mq-large) {
 			--hero-padding-block-end: calc(var(--hero-padding) * 3);
 		}
 	}
@@ -201,13 +201,13 @@ const {
 			font-weight: normal;
 		}
 
-		@media --mq-medium-until {
+		@media (--mq-medium-until) {
 			.c-hero__wrap-image {
 				margin-inline-end: -40%;
 			}
 		}
 
-		@media --mq-large-until {
+		@media (--mq-large-until) {
 			.c-hero__switcher {
 				--switcher-threshold: 0px;
 			}

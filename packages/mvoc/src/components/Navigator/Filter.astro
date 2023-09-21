@@ -3,9 +3,10 @@ import { FieldInputText } from '@design-system/components/Form/FieldInputText';
 import { Stack } from '@design-system/components/Layout/Stack';
 import { Control } from '@design-system/elements/Control';
 import { Icon } from '@design-system/elements/Icon';
-import { HTMLAttributes } from 'astro/types';
-import { LocationsPageProps } from 'src/utilities/api';
-import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
+import type { HTMLAttributes } from 'astro/types';
+import type { LocationsPageProps } from 'src/utilities/api';
+import type { SiteSettingsProps } from 'src/utilities/api/queries';
+import { useSiteSettings } from 'src/utilities/api/queries';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
 
 interface Props extends HTMLAttributes<'form'> {
@@ -110,7 +111,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 			gap: var(--space-2);
 		}
 
-		@media --mq-large {
+		@media (--mq-large) {
 			display: none;
 		}
 	}

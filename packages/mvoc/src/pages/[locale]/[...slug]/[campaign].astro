@@ -1,6 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
-import { availableLocales, Locale } from 'src/utilities/locale/translation';
+import type { Locale } from 'src/utilities/locale/translation';
+import { availableLocales } from 'src/utilities/locale/translation';
 import { Hero } from '@design-system/components/Hero';
 import { ContentBlock } from '@design-system/components/ContentBlock';
 import { Stack } from '@design-system/components/Layout/Stack';
@@ -10,10 +11,8 @@ import { Assistance } from '@design-system/components/Assistance';
 import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
 import { Breadcrumbs } from '@design-system/components/Breadrumbs';
 import { SupportBlock } from '@design-system/components/SupportBlock';
-import {
-	CampaignPageProps,
-	getDataCampaignPages,
-} from 'src/utilities/api/campaign';
+import type { CampaignPageProps } from 'src/utilities/api/campaign';
+import { getDataCampaignPages } from 'src/utilities/api/campaign';
 import {
 	Disclosure,
 	DisclosureItemCampaign,
@@ -22,7 +21,8 @@ import { Tale } from '@design-system/components/Tale';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { TabsBlock } from '@design-system/components/TabsBlock';
 import { Carousel } from '@design-system/components/Carousel';
-import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
+import type { SiteSettingsProps } from 'src/utilities/api/queries';
+import { useSiteSettings } from 'src/utilities/api/queries';
 import { GridFluid } from '@design-system/components/Layout/Grid';
 
 export async function getStaticPaths() {
@@ -49,6 +49,7 @@ export async function getStaticPaths() {
 					)[0],
 				},
 			}))
+			.flat(Infinity)
 	);
 }
 

@@ -1,7 +1,9 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { availableLocales, Locale } from 'src/utilities/locale/translation';
-import { getDataHome, PageHomeProps } from 'src/utilities/api';
+import type { Locale } from 'src/utilities/locale/translation';
+import { availableLocales } from 'src/utilities/locale/translation';
+import type { PageHomeProps } from 'src/utilities/api';
+import { getDataHome } from 'src/utilities/api';
 import { Hero } from '@design-system/components/Hero';
 import { Layer } from '@design-system/components/Layout/Layer';
 import { Retain } from '@design-system/components/Layout/Retain';
@@ -42,6 +44,7 @@ export async function getStaticPaths() {
 					)[0],
 				},
 			}))
+			.flat(Infinity)
 	);
 }
 
@@ -169,7 +172,6 @@ const themesWithAssistance = pageData.themes.filter(
 						pageData.currentAdvice.adviceYes ? (
 							<AdviceBlock
 								{...pageData.currentAdvice.adviceYes}
-								locale={locale}
 							/>
 						) : null
 					}
@@ -177,7 +179,6 @@ const themesWithAssistance = pageData.themes.filter(
 						pageData.currentAdvice.adviceNo ? (
 							<AdviceBlock
 								{...pageData.currentAdvice.adviceNo}
-								locale={locale}
 							/>
 						) : null
 					}

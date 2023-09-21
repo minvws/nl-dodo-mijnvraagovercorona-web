@@ -1,9 +1,6 @@
 ---
-import { Label } from '@design-system/components/Label';
-import { HTMLAttributes } from 'astro/types';
-import { LocationsPageProps } from 'src/utilities/api';
-import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
-import { getLocaleFromURL } from 'src/utilities/locale/translation';
+import type { HTMLAttributes } from 'astro/types';
+import type { LocationsPageProps } from 'src/utilities/api';
 
 interface Props extends HTMLAttributes<'li'> {
 	isTemplate?: boolean;
@@ -11,10 +8,6 @@ interface Props extends HTMLAttributes<'li'> {
 }
 
 const { class: className, pageData, isTemplate, ...attrs } = Astro.props;
-const locale = getLocaleFromURL(Astro.url.pathname);
-const siteSettings: SiteSettingsProps = await useSiteSettings({
-	locale,
-});
 ---
 
 <li

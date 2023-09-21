@@ -17,7 +17,7 @@ Variables
 	--density-hero: var(--density-normal);
 	--density-layer: var(--density-spacious);
 
-	@media --mq-large {
+	@media (--mq-large) {
 		--density-normal: var(--space-10);
 		--density-spacious: var(--space-16);
 	}

@@ -1,6 +1,7 @@
 ---
-import { HTMLAttributes } from 'astro/types';
-import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
+import type { HTMLAttributes } from 'astro/types';
+import type { SiteSettingsProps } from 'src/utilities/api/queries';
+import { useSiteSettings } from 'src/utilities/api/queries';
 import { formatLongDate } from 'src/utilities/locale/date';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
 

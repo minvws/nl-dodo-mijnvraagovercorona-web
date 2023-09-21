@@ -1,6 +1,10 @@
-import { ButtonVariants, IconPositions } from '@design-system/elements/Button';
-import { IconProps } from '@design-system/elements/Icon';
-import { SubFolderReferenceProps, internalPageReferenceInSelectQuery } from '.';
+import type {
+	ButtonVariants,
+	IconPositions,
+} from '@design-system/elements/Button';
+import type { IconProps } from '@design-system/elements/Icon';
+import type { SubFolderReferenceProps } from '.';
+import { internalPageReferenceInSelectQuery } from '.';
 
 export interface ButtonProps {
 	type: 'button';

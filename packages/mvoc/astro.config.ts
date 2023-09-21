@@ -9,14 +9,16 @@ dotenv.config({ path: `.env.${ENV}` });
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import sanity from 'astro-sanity';
-import compress from '@otterlord/astro-compress';
+import Compress from 'astro-compress';
 import browserslistToEsbuild from 'browserslist-to-esbuild';
 
 console.log(`ENVIRONMENT: ${ENV}`);
 
 export default defineConfig({
 	site: 'https://mijnvraagovercorona.nl/',
+	scopedStyleStrategy: 'where',
 	integrations: [
+		// @ts-expect-error
 		sitemap(),
 		// @ts-expect-error
 		sanity({
@@ -25,7 +27,12 @@ export default defineConfig({
 			apiVersion: 'v2023-03-21',
 			useCdn: process.env.NODE_ENV === 'production',
 		}),
-		compress(),
+		// @ts-expect-error
+		Compress({
+			CSS: false,
+			HTML: false,
+			JavaScript: false,
+		}),
 	],
 	vite: {
 		build: {

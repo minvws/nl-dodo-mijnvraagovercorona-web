@@ -29,11 +29,27 @@ export default defineType({
 			};
 		},
 	},
+	fieldsets: [
+		{
+			name: 'linkTo',
+			title: 'Linkt naar',
+			description: 'Vul éen van de typen links in.',
+		},
+	],
+	validation: (Rule) =>
+		Rule.custom((fields: any) =>
+			!fields?.label
+				? true
+				: fields?.href || fields?.pageReference
+				? true
+				: '"Linkt naar" is verplicht',
+		),
 	fields: [
 		defineField({
 			title: 'Label',
 			name: 'label',
 			type: 'customBlock',
+			validation: (Rule) => Rule.required(),
 		}),
 
 		defineField({
@@ -41,12 +57,14 @@ export default defineType({
 			name: 'pageReference',
 			type: 'pageSourceSelector',
 			readOnly: ({ parent }) => !!parent?.href,
+			fieldset: 'linkTo',
 		}),
 
 		defineField({
 			name: 'deepLink',
 			type: 'taleDeeplink',
 			hidden: ({ parent }) => !parent?.pageReference,
+			fieldset: 'linkTo',
 		}),
 
 		defineField({
@@ -54,6 +72,7 @@ export default defineType({
 			name: 'href',
 			type: 'string',
 			readOnly: ({ parent }) => !!parent?.pageReference,
+			fieldset: 'linkTo',
 		}),
 	],
 });

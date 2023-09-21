@@ -12,12 +12,28 @@ export default defineType({
 			description: 'Vul éen van de drie typen links in.',
 		},
 	],
+	validation: (Rule) =>
+		Rule.custom((fields: any) =>
+			!fields?.label
+				? true
+				: fields?.href || fields?.pageReference || fields?.asset
+				? true
+				: '"Linkt naar" is verplicht',
+		),
 	fields: [
 		defineField({
 			title: 'Label',
 			name: 'label',
 			type: 'string',
-			// validation: (Rule) => Rule.required(),
+			validation: (Rule) =>
+				Rule.custom((label: any, context: any) =>
+					!label?.length &&
+					(context?.parent?.pageReference ||
+						context?.parent?.href ||
+						context?.parent?.asset)
+						? 'Label verplicht'
+						: true,
+				),
 		}),
 		defineField({
 			title: 'Interne link',
@@ -51,7 +67,6 @@ export default defineType({
 			title: 'Variant',
 			name: 'variant',
 			type: 'string',
-			initialValue: 'primary',
 			options: {
 				layout: 'dropdown',
 				list: [
@@ -78,7 +93,6 @@ export default defineType({
 			title: 'Icoon positionering',
 			name: 'iconPosition',
 			type: 'string',
-			initialValue: 'trailing',
 			options: {
 				layout: 'dropdown',
 				list: [

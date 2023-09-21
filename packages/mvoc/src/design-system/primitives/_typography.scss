@@ -26,7 +26,7 @@
 	--font-size-milli: #{rem.convert(16px)};
 	--line-height-milli: 1.25; // 20px
 
-	@media --mq-large {
+	@media (--mq-large) {
 		& {
 			// Sizes
 			--font-size-alpha: #{rem.convert(40px)};

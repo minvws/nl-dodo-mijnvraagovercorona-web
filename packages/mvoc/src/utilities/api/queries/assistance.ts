@@ -1,4 +1,5 @@
-import { ButtonProps, buttonsQuery, ImageProps, imageQuery } from '.';
+import type { ButtonProps, ImageProps } from '.';
+import { buttonsQuery, imageQuery } from '.';
 
 export interface AssistanceProps {
 	title: string;

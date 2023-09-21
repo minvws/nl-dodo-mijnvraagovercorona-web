@@ -1,13 +1,6 @@
-import { ContentBlockProps } from '@design-system/components/ContentBlock';
-import {
-	PictureProps,
-	pictureQuery,
-	VideoProps,
-	videoQuery,
-	customBlockQuery,
-	ButtonProps,
-	buttonsQuery,
-} from '.';
+import type { ContentBlockProps } from '@design-system/components/ContentBlock';
+import type { PictureProps, VideoProps, ButtonProps } from '.';
+import { pictureQuery, videoQuery, customBlockQuery, buttonsQuery } from '.';
 
 type ContentProps = { type: 'content'; content: ContentBlockProps['value'] };
 

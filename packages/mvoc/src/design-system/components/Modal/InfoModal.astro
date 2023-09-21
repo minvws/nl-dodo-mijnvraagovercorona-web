@@ -1,9 +1,10 @@
 ---
 import { Icon } from '@design-system/elements/Icon';
-import { HTMLAttributes } from 'astro/types';
+import type { HTMLAttributes } from 'astro/types';
 import { Modal } from '.';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
-import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
+import type { SiteSettingsProps } from 'src/utilities/api/queries';
+import { useSiteSettings } from 'src/utilities/api/queries';
 
 interface Props extends HTMLAttributes<'button'> {
 	id: string;

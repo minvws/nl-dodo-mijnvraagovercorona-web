@@ -1,6 +1,6 @@
 ---
-import { HTMLAttributes } from 'astro/types';
-import { ImageProps } from 'src/utilities/api/queries';
+import type { HTMLAttributes } from 'astro/types';
+import type { ImageProps } from 'src/utilities/api/queries';
 import { Stack } from '@design-system/components/Layout/Stack';
 
 interface Props extends HTMLAttributes<'div'> {
@@ -37,7 +37,7 @@ const { icon, class: className, ...attrs } = Astro.props;
 		align-items: var(--c-media-block-icon-alignment);
 		gap: var(--c-media-block-gap);
 
-		@media --mq-large {
+		@media (--mq-large) {
 			--c-media-block-icon-size: var(--space-10);
 		}
 	}

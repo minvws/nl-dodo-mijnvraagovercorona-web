@@ -50,6 +50,7 @@
 	},
 	"devDependencies": {
 		"@sanity/cli": "^3.10.1",
+		"vercel": "^32.2.5",
 		"vite": "^4.3.5"
 	}
 }

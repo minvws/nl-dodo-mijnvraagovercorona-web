@@ -1,13 +1,14 @@
 ---
 import { Icon } from '@design-system/elements/Icon';
 import { Link } from '@design-system/elements/Link';
-import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
+import type { SiteSettingsProps } from 'src/utilities/api/queries';
+import { useSiteSettings } from 'src/utilities/api/queries';
+import type { Locale } from 'src/utilities/locale/translation';
 import {
 	availableLocales,
 	getLocaleFromURL,
-	Locale,
 } from 'src/utilities/locale/translation';
-import { AlternativeTranslationsProps } from './types';
+import type { AlternativeTranslationsProps } from './types';
 
 interface Props {
 	alternativeTranslations?: AlternativeTranslationsProps[];
@@ -196,7 +197,7 @@ const translationsOrder = alternativeTranslations
 			--c-locale-selector-border-color: var(--color-donkerblauw);
 		}
 
-		@media --mq-huge {
+		@media (--mq-huge) {
 			--c-locale-selector-inset-block: var(--space-6);
 			inset-inline-end: var(--masthead-inline-padding);
 		}
@@ -215,7 +216,7 @@ const translationsOrder = alternativeTranslations
 
 	.c-locale-selector__full-name {
 		:where(.c-locale-selector:not(.is-active)) & {
-			@media --mq-huge-until {
+			@media (--mq-huge-until) {
 				@include a11y.visually-hidden;
 			}
 		}
@@ -230,7 +231,7 @@ const translationsOrder = alternativeTranslations
 		}
 
 		:where(.c-locale-selector:not(.c-locale-selector--compact)) & {
-			@media --mq-huge {
+			@media (--mq-huge) {
 				display: none;
 			}
 		}
@@ -261,7 +262,8 @@ const translationsOrder = alternativeTranslations
 		overflow: hidden;
 		block-size: 0;
 		inline-size: 0;
-		transition: block-size var(--c-locale-selector-duration) ease-in-out,
+		transition:
+			block-size var(--c-locale-selector-duration) ease-in-out,
 			visibility 0s var(--c-locale-selector-duration);
 	}
 
@@ -270,7 +272,8 @@ const translationsOrder = alternativeTranslations
 			visibility: visible;
 			block-size: auto;
 			inline-size: auto;
-			transition: block-size var(--c-locale-selector-duration) ease-in-out,
+			transition:
+				block-size var(--c-locale-selector-duration) ease-in-out,
 				visibility 0s 0s;
 		}
 	}

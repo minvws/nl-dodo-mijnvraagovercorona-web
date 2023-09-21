@@ -15,6 +15,7 @@ export interface Locale {
 	shortName: string;
 	urlPrefix: string;
 	locale: string;
+	hreflang: string;
 	direction: 'ltr' | 'rtl';
 }
 
@@ -25,6 +26,7 @@ export const locales: { [key: string]: Locale } = {
 		shortName: 'Nl',
 		urlPrefix: '/nl',
 		locale: 'nl_nl',
+		hreflang: 'nl',
 		direction: 'ltr',
 	},
 	english: {
@@ -33,6 +35,7 @@ export const locales: { [key: string]: Locale } = {
 		shortName: 'En',
 		urlPrefix: '/en',
 		locale: 'en_gb',
+		hreflang: 'en',
 		direction: 'ltr',
 	},
 	turkish: {
@@ -41,6 +44,7 @@ export const locales: { [key: string]: Locale } = {
 		shortName: 'TR',
 		urlPrefix: '/tr',
 		locale: 'tr_tr',
+		hreflang: 'tr',
 		direction: 'ltr',
 	},
 	polish: {
@@ -49,6 +53,7 @@ export const locales: { [key: string]: Locale } = {
 		shortName: 'Pl',
 		urlPrefix: '/pl',
 		locale: 'pl_pl',
+		hreflang: 'pl',
 		direction: 'ltr',
 	},
 	arabic: {
@@ -57,6 +62,7 @@ export const locales: { [key: string]: Locale } = {
 		shortName: 'AR',
 		urlPrefix: '/ar',
 		locale: 'ar',
+		hreflang: 'ar',
 		direction: 'rtl',
 	},
 	ukrainian: {
@@ -65,6 +71,7 @@ export const locales: { [key: string]: Locale } = {
 		shortName: 'UA',
 		urlPrefix: '/ua',
 		locale: 'ua',
+		hreflang: 'uk',
 		direction: 'ltr',
 	},
 };
