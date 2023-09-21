@@ -51,7 +51,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 <!doctype html>
 <html
 	{...attrs}
-	lang={locale.id}
+	lang={locale.hreflang}
 	dir={locale.direction}
 	data-page-type={type}
 	data-page-pathname={Astro.url.pathname}
