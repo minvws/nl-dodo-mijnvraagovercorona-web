@@ -17,8 +17,8 @@ export default defineType({
 			description: 'Vul volledige URL in, inclusief https://',
 			type: 'url',
 			validation: (Rule) =>
-				Rule.custom((internalVideoUrl, context) => {
-					const showInternalVideo = context.parent.showInternalVideo;
+				Rule.custom((internalVideoUrl, context: any) => {
+					const showInternalVideo = context?.parent?.showInternalVideo;
 					if (showInternalVideo && !internalVideoUrl) {
 						return 'Video mediatheek URL is verplicht';
 					}
@@ -31,9 +31,9 @@ export default defineType({
 			type: 'url',
 			description: 'Video opent op een externe website, bijvoorbeeld YouTube',
 			validation: (Rule) =>
-				Rule.custom((url, context) => {
-					const internalVideoUrl = context.parent.internalVideoUrl;
-					const showInternalVideo = context.parent.showInternalVideo;
+				Rule.custom((url, context: any) => {
+					const internalVideoUrl = context?.parent?.internalVideoUrl;
+					const showInternalVideo = context?.parent?.showInternalVideo;
 
 					if ((!internalVideoUrl && !url) || (!showInternalVideo && !url)) {
 						return 'Video embed URL is required';

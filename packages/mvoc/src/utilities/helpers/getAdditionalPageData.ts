@@ -1,7 +1,7 @@
-import { SubFolderReferenceProps } from '../api/queries';
+import type { SubFolderReferenceProps } from '../api/queries';
 import { availableLocales } from '../locale/translation';
 import { getPageSubfolder } from './page-subfolder';
-import { Locale } from 'src/utilities/locale/translation';
+import type { Locale } from 'src/utilities/locale/translation';
 
 export type BreadcrumbProps = {
 	slug: string;

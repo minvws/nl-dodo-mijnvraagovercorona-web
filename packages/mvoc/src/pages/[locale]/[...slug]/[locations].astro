@@ -1,7 +1,9 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
-import { availableLocales, Locale } from 'src/utilities/locale/translation';
-import { LocationsPageProps, getDataLocationPages } from 'src/utilities/api';
+import type { Locale } from 'src/utilities/locale/translation';
+import { availableLocales } from 'src/utilities/locale/translation';
+import type { LocationsPageProps } from 'src/utilities/api';
+import { getDataLocationPages } from 'src/utilities/api';
 import { Navigator } from '@modules/Navigator';
 import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
 
@@ -24,7 +26,8 @@ export async function getStaticPaths() {
 					(locale) => locale.id === page.localeID,
 				)[0],
 			},
-		}));
+		}))
+		.flat(Infinity);
 }
 
 interface Props {

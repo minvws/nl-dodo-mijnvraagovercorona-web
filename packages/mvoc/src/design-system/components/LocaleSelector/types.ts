@@ -1,4 +1,4 @@
-import { Locale } from 'src/utilities/locale/translation';
+import type { Locale } from 'src/utilities/locale/translation';
 
 export interface AlternativeTranslationsProps {
 	locale: Locale;

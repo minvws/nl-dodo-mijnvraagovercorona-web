@@ -1,4 +1,5 @@
-import { Locale, prefixUrlWithlocale } from '../locale/translation';
+import type { Locale } from '../locale/translation';
+import { prefixUrlWithlocale } from '../locale/translation';
 import { isExternalUrl } from './external-url';
 
 export const parseLink = (href: string, locale: Locale): string => {

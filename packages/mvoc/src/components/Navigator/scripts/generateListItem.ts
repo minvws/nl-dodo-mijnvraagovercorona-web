@@ -1,4 +1,4 @@
-import { FeatureProps } from 'src/utilities/helpers/features';
+import type { FeatureProps } from 'src/utilities/helpers/features';
 import { replaceAll } from './replacement-helpers';
 
 export const generateListItem = ({

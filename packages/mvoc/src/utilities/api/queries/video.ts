@@ -1,4 +1,4 @@
-import { PictureProps } from '@design-system/components/Picture';
+import type { PictureProps } from '@design-system/components/Picture';
 import { pictureQuery } from '.';
 
 export interface VideoProps {

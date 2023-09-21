@@ -1,7 +1,11 @@
-const { readFileSync, writeFileSync, existsSync, mkdirSync } = require('fs');
-const path = require('path');
-const got = require('got');
-const dotenv = require('dotenv');
+import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import got from 'got';
+import dotenv from 'dotenv';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /** Get the custom set environment */
 const ENV = process.env.ENVIRONMENT || 'development';

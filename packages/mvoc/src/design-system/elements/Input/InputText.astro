@@ -1,8 +1,10 @@
 ---
-import { HTMLAttributes } from 'astro/types';
-import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
+import type { HTMLAttributes } from 'astro/types';
+import type { SiteSettingsProps } from 'src/utilities/api/queries';
+import { useSiteSettings } from 'src/utilities/api/queries';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
-import { Icon, IconProps } from '../Icon';
+import type { IconProps } from '../Icon';
+import { Icon } from '../Icon';
 
 export interface Props extends HTMLAttributes<'div'> {
 	type?: 'text' | 'search' | 'email' | 'password' | 'url' | 'tel';

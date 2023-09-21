@@ -1,9 +1,6 @@
-import { ContentBlockProps } from '@design-system/components/ContentBlock';
-import {
-	customBlockQuery,
-	internalPageReferenceInSelectQuery,
-	SubFolderReferenceProps,
-} from '.';
+import type { ContentBlockProps } from '@design-system/components/ContentBlock';
+import type { SubFolderReferenceProps } from '.';
+import { customBlockQuery, internalPageReferenceInSelectQuery } from '.';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 
 export interface CtaButtonProps {

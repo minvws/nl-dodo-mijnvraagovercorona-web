@@ -1,28 +1,31 @@
-import { ContentBlockProps } from '@design-system/components/ContentBlock';
+import type { ContentBlockProps } from '@design-system/components/ContentBlock';
 import { useSanityClient } from 'astro-sanity';
-import {
+import type {
 	HeroProps,
-	heroQuery,
-	pageQuery,
 	PageProps,
-	customBlockQuery,
-	taleReferenceQuery,
 	TaleCollectionProps,
 	AssistanceProps,
-	assistanceQuery,
-	imageQuery,
 	ImageProps,
 	ButtonProps,
-	buttonsQuery,
-	ctaButtonCollectionQuery,
 	CardsProps,
-	cardQuery,
 	CtaButtonCollectionProps,
-	moreInfoQuery,
 	MoreInfoProps,
 } from './queries';
+import {
+	heroQuery,
+	pageQuery,
+	customBlockQuery,
+	taleReferenceQuery,
+	assistanceQuery,
+	imageQuery,
+	buttonsQuery,
+	ctaButtonCollectionQuery,
+	cardQuery,
+	moreInfoQuery,
+} from './queries';
 import { getAdditionalPageData } from '../helpers/getAdditionalPageData';
-import { ThemePageProps, themePageProjection } from './theme';
+import type { ThemePageProps } from './theme';
+import { themePageProjection } from './theme';
 
 export interface PageHomeProps extends PageProps {
 	hero: HeroProps;

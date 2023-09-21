@@ -1,4 +1,4 @@
-import { FeatureProps } from 'src/utilities/helpers/features';
+import type { FeatureProps } from 'src/utilities/helpers/features';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
 import {
 	getDatesWithOpeningHours,
@@ -201,7 +201,7 @@ export const replaceTimeTable = ({
 		element.remove();
 	});
 
-	datesWithOpeningHours.forEach((day, index) => {
+	datesWithOpeningHours.forEach((day) => {
 		const dateString = day.dateTime.setLocale(locale).toLocaleString({
 			weekday: 'long',
 			month: 'short',

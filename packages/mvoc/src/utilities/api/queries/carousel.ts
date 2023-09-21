@@ -1,7 +1,9 @@
-import {
+import type {
 	ImageProps,
 	MultiContentBlocksProps,
 	SubFolderReferenceProps,
+} from '.';
+import {
 	imageQuery,
 	internalPageReferenceInSelectQuery,
 	multiContentBlocksQuery,

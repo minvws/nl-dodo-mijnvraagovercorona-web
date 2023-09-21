@@ -1,7 +1,10 @@
 import { mqLarge } from '@design-system/primitives/responsive';
 import queryString from 'query-string';
 import { trapFocus } from 'src/utilities/helpers/a11y';
-import { FeatureProps, FeaturesProps } from 'src/utilities/helpers/features';
+import type {
+	FeatureProps,
+	FeaturesProps,
+} from 'src/utilities/helpers/features';
 import { generateDetail } from './generateDetail';
 import { generateListItem } from './generateListItem';
 import { Map } from './map';
@@ -215,7 +218,7 @@ export class Navigator {
 			event.preventDefault();
 		});
 
-		const onSearchChange = (event) => {
+		const onSearchChange = (event: Event) => {
 			event.preventDefault();
 			this.search = searchFieldElement.value;
 			this.onHistoryChange();

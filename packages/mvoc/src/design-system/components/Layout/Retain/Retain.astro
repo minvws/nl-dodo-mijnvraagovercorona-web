@@ -1,5 +1,5 @@
 ---
-import { HTMLAttributes } from 'astro/types';
+import type { HTMLAttributes } from 'astro/types';
 interface Props extends HTMLAttributes<'div' | 'section'> {
 	as?: 'div' | 'section';
 	variant?: 'base' | 'text';
@@ -39,7 +39,7 @@ const Component = as;
 		padding-inline-end: var(--retain-padding-end);
 		margin-inline: auto;
 
-		@media --mq-large {
+		@media (--mq-large) {
 			--retain-size: #{rem.convert(1264px)};
 			--retain-padding: var(--space-8);
 		}
@@ -50,7 +50,7 @@ const Component = as;
 		--retain-size: #{rem.convert(665px)};
 		margin-inline-start: 0;
 
-		@media --mq-large {
+		@media (--mq-large) {
 			--retain-padding: 0px;
 			--retain-size: #{rem.convert(665px)};
 		}
