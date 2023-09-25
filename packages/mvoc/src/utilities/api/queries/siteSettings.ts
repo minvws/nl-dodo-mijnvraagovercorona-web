@@ -1,12 +1,8 @@
 import { useSanityClient } from 'astro-sanity';
-import { Locale, locales } from 'src/utilities/locale/translation';
-import {
-	internalPageReferenceQuery,
-	InternalPageCollectionProps,
-	customBlockQuery,
-	ImageProps,
-	imageQuery,
-} from '.';
+import type { Locale } from 'src/utilities/locale/translation';
+import { locales } from 'src/utilities/locale/translation';
+import type { InternalPageCollectionProps, ImageProps } from '.';
+import { internalPageReferenceQuery, customBlockQuery, imageQuery } from '.';
 import type { ContentBlockProps } from '@design-system/components/ContentBlock';
 
 export interface SiteSettingsProps {

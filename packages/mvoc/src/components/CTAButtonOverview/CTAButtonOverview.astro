@@ -4,7 +4,7 @@ import { GridFluid } from '@design-system/components/Layout/Grid';
 import { Stack } from '@design-system/components/Layout/Stack';
 import { Button } from '@design-system/elements/Button';
 import { Link } from '@design-system/elements/Link';
-import { HTMLAttributes } from 'astro/types';
+import type { HTMLAttributes } from 'astro/types';
 import {
 	CtaButtonProps,
 	SiteSettingsProps,
@@ -110,8 +110,8 @@ const uniqueThemes = filterCategories.length
 					<p>
 						<small class="u-color--donkerblauw">
 							<span data-amount-filter hidden>
-								<span data-amount>{filteredItems.length}</span>
-								<span>{siteSettings.genericLabels.of}</span>
+								<span data-amount>{filteredItems.length}</span>{' '}
+								<span>{siteSettings.genericLabels.of} </span>
 							</span>
 							<span>
 								{filteredItems.length}{' '}

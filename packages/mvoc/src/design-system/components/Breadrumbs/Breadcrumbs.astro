@@ -1,8 +1,9 @@
 ---
 import { Icon } from '@design-system/elements/Icon';
 import { Link } from '@design-system/elements/Link';
-import { HTMLAttributes } from 'astro/types';
-import { Locale, getLocaleFromURL } from 'src/utilities/locale/translation';
+import type { HTMLAttributes } from 'astro/types';
+import type { Locale } from 'src/utilities/locale/translation';
+import { getLocaleFromURL } from 'src/utilities/locale/translation';
 
 interface Props extends HTMLAttributes<'div'> {
 	breadcrumbs: { slug: string; title: string }[];
@@ -116,12 +117,12 @@ const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 		color: var(--c-breadcrumbs-color);
 	}
 
-	@media --mq-large {
+	@media (--mq-large) {
 		.c-breadcrumbs-minimal {
 			display: none;
 		}
 	}
-	@media --mq-large-until {
+	@media (--mq-large-until) {
 		.c-breadcrumbs {
 			--c-breadcrumbs-color: var(--color-diepblauw);
 		}

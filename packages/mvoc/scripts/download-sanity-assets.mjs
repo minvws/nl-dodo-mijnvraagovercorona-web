@@ -1,14 +1,14 @@
-const stream = require('stream');
-const { promisify } = require('util');
-const {
+import stream from 'stream';
+import { promisify } from 'util';
+import {
 	mkdirSync,
 	createWriteStream,
 	rmSync,
 	existsSync,
 	readdirSync,
-} = require('fs');
-const got = require('got');
-const dotenv = require('dotenv');
+} from 'fs';
+import got from 'got';
+import dotenv from 'dotenv';
 
 /** Get the custom set environment */
 const ENV = process.env.ENVIRONMENT || 'development';

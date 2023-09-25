@@ -10,10 +10,12 @@ import {
 import { MastFoot } from '@design-system/components/MastFoot';
 import { CloseButton } from '@design-system/elements/CloseButton';
 import { Heading } from '@design-system/elements/Heading';
-import { HTMLAttributes } from 'astro/types';
-import { LocationsPageProps } from 'src/utilities/api';
-import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
-import { getLocaleFromURL, Locale } from 'src/utilities/locale/translation';
+import type { HTMLAttributes } from 'astro/types';
+import type { LocationsPageProps } from 'src/utilities/api';
+import type { SiteSettingsProps } from 'src/utilities/api/queries';
+import { useSiteSettings } from 'src/utilities/api/queries';
+import type { Locale } from 'src/utilities/locale/translation';
+import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import { Filter, LocationDetail, Marker } from '.';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -290,7 +292,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		border-block-end: 1px solid var(--color-grijs-2);
 		background-color: var(--color-white);
 
-		@media --mq-block-small {
+		@media (--mq-block-small) {
 			& {
 				position: sticky;
 				top: 0;
@@ -302,7 +304,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		padding-inline: var(--navigator__padding-inline);
 	}
 
-	@media --mq-large {
+	@media (--mq-large) {
 		.c-navigator {
 			--navigator__template-columns: 480px 1fr;
 			--navigator__padding: var(--space-6);

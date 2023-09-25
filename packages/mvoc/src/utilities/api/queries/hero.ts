@@ -1,5 +1,6 @@
-import { ContentBlockProps } from '@design-system/components/ContentBlock';
-import { customBlockQuery, ImageProps, imageQuery } from '.';
+import type { ContentBlockProps } from '@design-system/components/ContentBlock';
+import type { ImageProps } from '.';
+import { customBlockQuery, imageQuery } from '.';
 
 export interface HeroProps {
 	title: string;

@@ -1,5 +1,6 @@
-import { IconProps } from '@design-system/elements/Icon';
-import { SubFolderReferenceProps, subFolderReferenceQuery } from '.';
+import type { IconProps } from '@design-system/elements/Icon';
+import type { SubFolderReferenceProps } from '.';
+import { subFolderReferenceQuery } from '.';
 
 export interface InternalPageCollectionProps {
 	internalPageCollection: {

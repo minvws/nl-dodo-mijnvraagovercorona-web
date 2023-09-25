@@ -8,9 +8,12 @@
 		"mvoc:build:development": "ENVIRONMENT=development npm run build --workspace mvoc",
 		"mvoc:build:staging": "ENVIRONMENT=staging npm run build --workspace mvoc",
 		"mvoc:build:production": "ENVIRONMENT=production npm run build --workspace mvoc",
-		"mvoc:check-changed-documents:test": "ENVIRONMENT=development npm run check-changed-documents:test --workspace mvoc",
-		"mvoc:check-changed-documents:staging": "ENVIRONMENT=staging npm run check-changed-documents:staging --workspace mvoc",
-		"mvoc:check-changed-documents:production": "ENVIRONMENT=production npm run check-changed-documents:production --workspace mvoc",
+		"mvoc:preview:development": "ENVIRONMENT=development npm run preview --workspace mvoc",
+		"mvoc:preview:staging": "ENVIRONMENT=staging npm run preview --workspace mvoc",
+		"mvoc:preview:production": "ENVIRONMENT=production npm run preview --workspace mvoc",
+		"mvoc:check-changed-documents:test": "ENVIRONMENT=development npm run check-changed-documents --workspace mvoc",
+		"mvoc:check-changed-documents:staging": "ENVIRONMENT=staging npm run check-changed-documents --workspace mvoc",
+		"mvoc:check-changed-documents:production": "ENVIRONMENT=production npm run check-changed-documents --workspace mvoc",
 		"cms:dev": "npm run dev --workspace cms",
 		"cms:build:development": "npm run build-development --workspace cms",
 		"cms:build:staging": "npm run build-staging --workspace cms",
@@ -20,8 +23,5 @@
 	},
 	"workspaces": [
 		"./packages/*"
-	],
-	"devDependencies": {
-		"vercel": "^28.1.0"
-	}
+	]
 }

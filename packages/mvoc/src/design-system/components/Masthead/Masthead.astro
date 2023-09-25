@@ -2,7 +2,8 @@
 import { Sprite } from 'astro-icon';
 import { NavigationMain } from '../Navigation';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
-import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
+import type { SiteSettingsProps } from 'src/utilities/api/queries';
+import { useSiteSettings } from 'src/utilities/api/queries';
 import { Icon } from '@design-system/elements/Icon';
 
 type Props = {
@@ -88,7 +89,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		padding-inline: var(--masthead-inline-padding);
 		background-color: var(--masthead-background, var(--color-donkerblauw));
 
-		@media --mq-huge {
+		@media (--mq-huge) {
 			--masthead-position: relative;
 			--masthead-z-index: 50;
 			--masthead-block-size: auto;
@@ -166,7 +167,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 			}
 		}
 
-		@media --mq-huge {
+		@media (--mq-huge) {
 			display: none;
 		}
 	}

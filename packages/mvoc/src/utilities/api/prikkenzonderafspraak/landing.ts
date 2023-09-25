@@ -1,16 +1,18 @@
-import { ContentBlockProps } from '@design-system/components/ContentBlock';
+import type { ContentBlockProps } from '@design-system/components/ContentBlock';
 import { useSanityClient } from 'astro-sanity';
-import {
+import type {
 	PageProps,
-	pageQuery,
-	heroQuery,
 	HeroProps,
-	customBlockQuery,
-	taleReferenceQuery,
 	TaleCollectionProps,
 	ButtonsProps,
-	buttonsQuery,
 	AssistanceProps,
+} from '../queries';
+import {
+	pageQuery,
+	heroQuery,
+	customBlockQuery,
+	taleReferenceQuery,
+	buttonsQuery,
 	assistanceQuery,
 } from '../queries';
 import { getAdditionalPageData } from 'src/utilities/helpers/getAdditionalPageData';

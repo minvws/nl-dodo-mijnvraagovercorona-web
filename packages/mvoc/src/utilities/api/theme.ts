@@ -1,16 +1,18 @@
 import { useSanityClient } from 'astro-sanity';
-import {
+import type {
 	HeroProps,
-	heroQuery,
 	PageProps,
-	pageQuery,
 	TaleCollectionProps,
-	taleReferenceQuery,
 	CtaButtonCollectionProps,
-	ctaButtonCollectionQuery,
 	AssistanceProps,
-	assistanceQuery,
 	CardsProps,
+} from './queries';
+import {
+	heroQuery,
+	pageQuery,
+	taleReferenceQuery,
+	ctaButtonCollectionQuery,
+	assistanceQuery,
 	cardQuery,
 } from './queries';
 import { getAdditionalPageData } from '../helpers/getAdditionalPageData';

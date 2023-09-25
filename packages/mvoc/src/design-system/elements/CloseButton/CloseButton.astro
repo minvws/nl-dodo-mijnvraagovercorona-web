@@ -1,7 +1,9 @@
 ---
-import { HTMLAttributes } from 'astro/types';
-import { SiteSettingsProps, useSiteSettings } from 'src/utilities/api/queries';
-import { getLocaleFromURL, Locale } from 'src/utilities/locale/translation';
+import type { HTMLAttributes } from 'astro/types';
+import type { SiteSettingsProps } from 'src/utilities/api/queries';
+import { useSiteSettings } from 'src/utilities/api/queries';
+import type { Locale } from 'src/utilities/locale/translation';
+import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import { Icon } from '../Icon';
 
 interface Props extends HTMLAttributes<'button'> {}

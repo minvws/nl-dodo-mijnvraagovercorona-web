@@ -1,18 +1,14 @@
 ---
 import { Attribute } from '@design-system/components/Attribute';
 import { ContentBlock } from '@design-system/components/ContentBlock';
-import { Label } from '@design-system/components/Label';
 import { Stack } from '@design-system/components/Layout/Stack';
 import { Button } from '@design-system/elements/Button';
 import { Heading } from '@design-system/elements/Heading';
 import { Link } from '@design-system/elements/Link';
-import { HTMLAttributes } from 'astro/types';
-import { LocationsPageProps } from 'src/utilities/api';
-import {
-	useSiteSettings,
-	SiteSettingsProps,
-} from 'src/utilities/api/queries/siteSettings';
-import { getLocaleFromURL, Locale } from 'src/utilities/locale/translation';
+import type { HTMLAttributes } from 'astro/types';
+import type { LocationsPageProps } from 'src/utilities/api';
+import { getLocaleFromURL } from 'src/utilities/locale/translation';
+import type { Locale } from 'src/utilities/locale/translation';
 
 interface Props extends HTMLAttributes<'div'> {
 	pageData: LocationsPageProps;
@@ -21,7 +17,6 @@ interface Props extends HTMLAttributes<'div'> {
 const { class: className, pageData, ...attrs } = Astro.props;
 
 const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
-const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 ---
 
 <div
@@ -251,7 +246,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 			content: '';
 		}
 
-		@media --mq-block-small {
+		@media (--mq-block-small) {
 			& {
 				position: sticky;
 				top: 0;

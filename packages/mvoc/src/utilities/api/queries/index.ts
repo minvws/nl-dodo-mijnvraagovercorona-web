@@ -18,3 +18,4 @@ export * from './ctaButton';
 export * from './card';
 export * from './supportBlock';
 export * from './carousel';
+export * from './tabs';

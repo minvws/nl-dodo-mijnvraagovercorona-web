@@ -1,7 +1,8 @@
 ---
-import { HTMLAttributes } from 'astro/types';
+import type { HTMLAttributes } from 'astro/types';
 import { Heading } from '@design-system/elements/Heading';
-import { Picture, PictureProps } from '../Picture';
+import type { PictureProps } from '../Picture';
+import { Picture } from '../Picture';
 import { Stack } from '../Layout/Stack';
 import { Link } from '@design-system/elements/Link';
 
@@ -192,7 +193,7 @@ const {
 		right: 0;
 		top: -25px;
 		width: #{rem.convert(120px)};
-		@media --mq-large-until {
+		@media (--mq-large-until) {
 			position: relative;
 			right: -50px;
 			top: -30px;

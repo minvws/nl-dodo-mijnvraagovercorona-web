@@ -1,11 +1,7 @@
-import { Locale } from 'src/utilities/locale/translation';
-import {
-	MetaDataProps,
-	SubFolderReferenceProps,
-	metaDataQuery,
-	subFolderReferenceQuery,
-} from '.';
-import {
+import type { Locale } from 'src/utilities/locale/translation';
+import type { MetaDataProps, SubFolderReferenceProps } from '.';
+import { metaDataQuery, subFolderReferenceQuery } from '.';
+import type {
 	AlternativeTranslationsProps,
 	BreadcrumbProps,
 } from 'src/utilities/helpers/getAdditionalPageData';

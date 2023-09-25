@@ -1,15 +1,11 @@
-import { ContentBlockProps } from '@design-system/components/ContentBlock';
-import {
+import type { ContentBlockProps } from '@design-system/components/ContentBlock';
+import type {
 	ButtonProps,
-	buttonsQuery,
-	customBlockQuery,
 	ImageProps,
-	imageQuery,
 	MultiContentBlocksProps,
-	multiContentBlocksQuery,
 	VideoProps,
-	videoQuery,
 } from '.';
+import { buttonsQuery, customBlockQuery, imageQuery, videoQuery } from '.';
 
 export interface TabsProps {
 	tabTitle: string;
