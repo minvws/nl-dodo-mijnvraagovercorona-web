@@ -25,5 +25,5 @@ Custom properties
 	--space-90: #{rem.convert(90 * settings.$baseline)}; // 360px
 	--space-100: #{rem.convert(100 * settings.$baseline)}; // 400px
 
-	--space-menu-button: var(--space-10);
+	--space-menu-button: var(--space-8);
 }
