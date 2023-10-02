@@ -166,9 +166,12 @@ const translationsOrder = alternativeTranslations
 		--c-locale-selector-inset-block: var(--space-4);
 		position: absolute;
 		margin-inline-start: auto;
-		inset-block-start: calc(var(--theme__masthead-top-block-size) / 4);
+		inset-block-start: calc(
+			calc(var(--theme__masthead-top-block-size) / 4) +
+				var(--c-locale-selector-border-elevation-size)
+		);
 		padding-block: calc(var(--space-2) - 1px);
-		padding-inline: calc(var(--space-3) - 1px);
+		padding-inline: calc(var(--space-2) - 1px);
 		border-radius: var(--radii-milli);
 		background-color: var(--c-locale-selector-background-color);
 		transition-property: background-color, color, border;
@@ -204,6 +207,7 @@ const translationsOrder = alternativeTranslations
 		display: flex;
 		align-items: center;
 		justify-content: flex-end;
+		line-height: 0;
 		outline: none;
 		color: var(--color-diepblauw);
 		font-weight: bold;
@@ -258,8 +262,7 @@ const translationsOrder = alternativeTranslations
 		overflow: hidden;
 		block-size: 0;
 		inline-size: 0;
-		transition:
-			block-size var(--c-locale-selector-duration) ease-in-out,
+		transition: block-size var(--c-locale-selector-duration) ease-in-out,
 			visibility 0s var(--c-locale-selector-duration);
 	}
 
@@ -268,8 +271,7 @@ const translationsOrder = alternativeTranslations
 			visibility: visible;
 			block-size: auto;
 			inline-size: auto;
-			transition:
-				block-size var(--c-locale-selector-duration) ease-in-out,
+			transition: block-size var(--c-locale-selector-duration) ease-in-out,
 				visibility 0s 0s;
 		}
 	}
