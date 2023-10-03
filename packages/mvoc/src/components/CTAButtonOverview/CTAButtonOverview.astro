@@ -114,6 +114,7 @@ const uniqueThemes = filterCategories.length
 								<span>{siteSettings.genericLabels.of} </span>
 							</span>
 							<span>
+								{' '}
 								{filteredItems.length}{' '}
 								{filteredItems.length <= 1
 									? siteSettings.genericLabels.situationPlural.this
@@ -196,7 +197,6 @@ const uniqueThemes = filterCategories.length
 		position: relative;
 		z-index: 2;
 		display: flex;
-		transition: all 200ms ease-in-out;
 
 		> * {
 			inline-size: 100%;
@@ -217,10 +217,67 @@ const uniqueThemes = filterCategories.length
 			display: none;
 		}
 	}
+
+	/* Animation */
+
+	@keyframes fadeInUp {
+		from {
+			transform: translate3d(0, var(--space-8), 0);
+		}
+
+		to {
+			transform: translate3d(0, 0, 0);
+			opacity: 1;
+		}
+	}
+
+	@-webkit-keyframes fadeInUp {
+		from {
+			transform: translate3d(0, var(--space-8), 0);
+		}
+
+		to {
+			transform: translate3d(0, 0, 0);
+			opacity: 1;
+		}
+	}
+
+	@keyframes fadeOutDown {
+		from {
+			transform: translate3d(0, 0, 0);
+		}
+
+		to {
+			transform: translate3d(0, var(--space-8), 0);
+			opacity: 0;
+		}
+	}
+
+	.animated {
+		animation-duration: 0.3s;
+		animation-fill-mode: both;
+		-webkit-animation-duration: 0.3s;
+		-webkit-animation-fill-mode: both;
+	}
+
+	.fadeInUp {
+		opacity: 0;
+		animation-name: fadeInUp;
+		-webkit-animation-name: fadeInUp;
+	}
+
+	.fadeOutDown {
+		opacity: 1;
+		animation-name: fadeInUp;
+		-webkit-animation-name: fadeInUp;
+	}
 </style>
 
 <script>
 	import { trackEvent } from 'src/utilities/tracking/piwik';
+	import { mqLarge } from '@design-system/primitives/responsive';
+
+	const mql = window.matchMedia(mqLarge);
 
 	const parent = document.querySelector(
 		'[data-module="filter"]',
@@ -262,19 +319,38 @@ const uniqueThemes = filterCategories.length
 				}
 			}
 
+			// Scroll to amount filter when a filter button is clicked, only on mobile
+			if (!mql.matches) {
+				amountFilter.scrollIntoView({ behavior: 'smooth' });
+			}
+
+			// Add/remove 'animated' and 'fadeInUp' classes
+			items.forEach((item) => {
+				const shouldBeVisible =
+					activeFilters.length === 0 || checkItem(item.dataset.themes || '');
+
+				if (shouldBeVisible) {
+					// If the item should be visible, add the classes and listen for animation end
+					item.classList.add('animated', 'fadeInUp');
+					item.addEventListener(
+						'animationend',
+						() => {
+							item.classList.remove('animated', 'fadeInUp');
+						},
+						{ once: true },
+					); // { once: true } ensures the event handler runs only once
+				} else {
+					// If the item is not visible, remove the classes
+					item.classList.remove('animated', 'fadeInUp');
+				}
+
+				item.classList.toggle('is-hidden', !shouldBeVisible);
+			});
+
 			// if there are no filters left, add 'all'
 			if (activeFilters.length === 0) {
 				activeFilters.push('all');
 			}
-
-			items.forEach((item) => {
-				item.classList.toggle(
-					'is-hidden',
-					activeFilters.length === 0
-						? false
-						: !checkItem(item.dataset.themes || ''),
-				);
-			});
 
 			const activeItems = [...items].filter(
 				(item) => !item.classList.contains('is-hidden'),
