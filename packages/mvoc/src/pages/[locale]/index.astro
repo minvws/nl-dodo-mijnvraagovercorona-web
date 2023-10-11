@@ -170,16 +170,12 @@ const themesWithAssistance = pageData.themes.filter(
 				<GridFluid class="grid-advice">
 					{
 						pageData.currentAdvice.adviceYes ? (
-							<AdviceBlock
-								{...pageData.currentAdvice.adviceYes}
-							/>
+							<AdviceBlock {...pageData.currentAdvice.adviceYes} />
 						) : null
 					}
 					{
 						pageData.currentAdvice.adviceNo ? (
-							<AdviceBlock
-								{...pageData.currentAdvice.adviceNo}
-							/>
+							<AdviceBlock {...pageData.currentAdvice.adviceNo} />
 						) : null
 					}
 				</GridFluid>
