@@ -105,11 +105,6 @@ export default defineType({
 					name: 'title',
 					type: 'string',
 				}),
-				defineField({
-					title: 'Knop',
-					name: 'button',
-					type: 'flexibleButton',
-				}),
 			],
 		}),
 	],
