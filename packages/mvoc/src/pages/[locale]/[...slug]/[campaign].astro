@@ -24,6 +24,7 @@ import { Carousel } from '@design-system/components/Carousel';
 import type { SiteSettingsProps } from 'src/utilities/api/queries';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import { GridFluid } from '@design-system/components/Layout/Grid';
+import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
 
 export async function getStaticPaths() {
 	const collection = await getDataCampaignPages();
@@ -192,7 +193,13 @@ if (pageData?.taleCollection?.length) {
 				pushDownBy="assistance-image"
 			>
 				<Retain>
-					<Assistance feedback {...pageData.assistance} />
+					<Assistance
+						feedback={getFeedbackUrl(siteSettings.feedback.url, {
+							source: pageData.type,
+							advice: pageData.slug,
+						})}
+						{...pageData.assistance}
+					/>
 				</Retain>
 			</Layer>
 		) : null
