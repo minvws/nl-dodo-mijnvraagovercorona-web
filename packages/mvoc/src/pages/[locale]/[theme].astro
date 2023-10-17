@@ -16,8 +16,13 @@ import { TaleList } from '@design-system/components/Tale';
 import { CTAButtonOverview } from '@modules/CTAButtonOverview';
 import { CardAnswerOverview } from '@modules/CardAnswerOverview';
 import { Breadcrumbs } from '@design-system/components/Breadrumbs';
-import { getFiltersAndSituations } from 'src/utilities/api/queries';
+import {
+	getFiltersAndSituations,
+	useSiteSettings,
+	type SiteSettingsProps,
+} from 'src/utilities/api/queries';
 import { stringToSlug } from 'src/utilities/stringToSlug';
+import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
 
 export async function getStaticPaths() {
 	const collection = await getDataThemes();
@@ -52,6 +57,7 @@ const { pageData, locale } = Astro.props;
 const { filters, ctaButtons } = getFiltersAndSituations({
 	ctaButtonCollection: pageData.ctaButtonCollection,
 });
+const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 ---
 
 <Layout
@@ -128,7 +134,13 @@ const { filters, ctaButtons } = getFiltersAndSituations({
 				pushDownBy="assistance-image"
 			>
 				<Retain>
-					<Assistance feedback {...pageData.assistance} />
+					<Assistance
+						feedback={getFeedbackUrl(siteSettings.feedback.url, {
+							source: pageData.type,
+							advice: pageData.slug,
+						})}
+						{...pageData.assistance}
+					/>
 				</Retain>
 			</Layer>
 		) : null

@@ -22,6 +22,11 @@ import { FlexibleButton } from '@modules/elements/FlexibleButton';
 import { MoreInfoOverview } from '@design-system/components/MoreInfo';
 import { Heading } from '@design-system/elements/Heading';
 import { Card } from '@design-system/components/Card';
+import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
+import {
+	useSiteSettings,
+	type SiteSettingsProps,
+} from 'src/utilities/api/queries';
 
 export async function getStaticPaths() {
 	const collection = await getDataHome();
@@ -67,6 +72,7 @@ const { filters, ctaButtons } = getFiltersAndSituations({
 const themesWithAssistance = pageData.themes.filter(
 	(theme) => theme.assistance && theme.assistance.type === 'assistance-new',
 );
+const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 ---
 
 <Layout
@@ -193,7 +199,13 @@ const themesWithAssistance = pageData.themes.filter(
 					data-theme-slug="all"
 				>
 					<Retain>
-						<Assistance feedback {...pageData.assistance} />
+						<Assistance
+							feedback={getFeedbackUrl(siteSettings.feedback.url, {
+								source: pageData.type,
+								advice: pageData.slug,
+							})}
+							{...pageData.assistance}
+						/>
 					</Retain>
 				</Layer>
 
@@ -206,7 +218,13 @@ const themesWithAssistance = pageData.themes.filter(
 						hidden
 					>
 						<Retain>
-							<Assistance feedback {...theme.assistance} />
+							<Assistance
+								feedback={getFeedbackUrl(siteSettings.feedback.url, {
+									source: pageData.type,
+									advice: pageData.slug,
+								})}
+								{...theme.assistance}
+							/>
 						</Retain>
 					</Layer>
 				))}
