@@ -48,26 +48,36 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 				<div class="c-navigator__wrap-hero">
 					<Stack>
 						<Breadcrumbs breadcrumbs={pageData.breadcrumbs} />
-						<Heading>{pageData.hero.title}</Heading>
+						<Heading level={1} styledAs={2}>
+							{pageData.hero.title}
+						</Heading>
 						<ContentBlock value={pageData.hero.content} />
+						<img
+							data-pagefind-meta="image[src]"
+							src={pageData.hero.image.src}
+							alt=""
+							class="c-navigator__hero-image"
+						/>
 					</Stack>
 				</div>
 			) : null
 		}
-		<div class="c-navigator__wrap-filter-list">
+		<div class="c-navigator__wrap-filter-list" data-pagefind-ignore="all">
 			<div class="c-navigator__wrap-filter">
 				<Filter pageData={pageData} />
 			</div>
 			<div class="c-navigator__wrap-list">
 				<LocationList data-module-bind="navigator__list">
 					<li data-loading>{pageData.result.loading}</li>
-					<li data-no-result hidden>{pageData.result.noResult}</li>
+					<li data-no-result hidden>
+						{pageData.result.noResult}
+					</li>
 				</LocationList>
 			</div>
 		</div>
 	</div>
 
-	<div class="c-navigator__wrap-map">
+	<div class="c-navigator__wrap-map" data-pagefind-ignore="all">
 		<CloseButton
 			class="c-navigator__map-close"
 			data-module-bind="navigator__map-close"
@@ -84,6 +94,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 	<div
 		class="c-navigator__wrap-detail"
 		data-module-bind="navigator__detail-pane"
+		data-pagefind-ignore="all"
 	>
 		<div class="c-navigator__detail" data-module-bind="navigator__detail">
 			<CloseButton
@@ -166,6 +177,10 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		padding-block: var(--navigator__padding-block);
 		padding-inline: var(--navigator__padding-inline);
 		background-color: var(--theme-bg-base);
+	}
+
+	.c-navigator__hero-image {
+		display: none;
 	}
 
 	.c-navigator__wrap-sidebar {

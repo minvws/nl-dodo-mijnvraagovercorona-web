@@ -5,6 +5,8 @@ import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import type { SiteSettingsProps } from 'src/utilities/api/queries';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import { Icon } from '@design-system/elements/Icon';
+import { ButtonTool } from '@design-system/elements/Button';
+import { Retain } from '../Layout/Retain';
 
 type Props = {
 	highlight?: boolean;
@@ -28,38 +30,47 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 	data-module="masthead"
 >
 	<div class="c-masthead__top" data-module-bind="masthead__top">
-		<div>
-			<slot name="start" />
-		</div>
+		<Retain class="c-masthead__top__inner">
+			<div>
+				<slot name="start" />
+			</div>
 
-		<a class="c-masthead__logo" href={logoUrl}>
-			<Sprite class="c-masthead__logo-visual" name="ro-logo" optimize={true} />
-			<span class="u-visually-hidden">{logoAlt}</span>
-		</a>
+			<a class="c-masthead__logo" href={logoUrl}>
+				<Sprite
+					class="c-masthead__logo-visual"
+					name="ro-logo"
+					optimize={true}
+				/>
+				<span class="u-visually-hidden">{logoAlt}</span>
+			</a>
 
-		<div class="c-masthead__end">
-			{
-				siteSettings.masthead?.menu?.menuButtonLabel ? (
-					<button
-						class="c-masthead__button"
-						type="button"
-						aria-expanded="false"
-						aria-label={siteSettings.masthead.menu.menuButtonLabel}
-						aria-controls="nav-main"
-						data-module-bind="masthead__button"
-					>
-						<Icon
-							name="mobile"
-							class="c-masthead__button-icon | hide-expanded"
-						/>
-						<Icon
-							name="cross"
-							class="c-masthead__button-icon | show-expanded"
-						/>
-					</button>
-				) : null
-			}
-		</div>
+			<div class="c-masthead__end">
+				<slot name="end" />
+				{
+					siteSettings.masthead?.menu?.menuButtonLabel ? (
+						<>
+							<ButtonTool
+								class="c-masthead__button"
+								type="button"
+								aria-expanded="false"
+								aria-label={siteSettings.masthead.menu.menuButtonLabel}
+								aria-controls="nav-main"
+								data-module-bind="masthead__button"
+							>
+								<Icon
+									name="mobile"
+									class="c-masthead__button-icon | hide-expanded"
+								/>
+								<Icon
+									name="cross"
+									class="c-masthead__button-icon | show-expanded"
+								/>
+							</ButtonTool>
+						</>
+					) : null
+				}
+			</div>
+		</Retain>
 	</div>
 	{locale.id === 'nl' || locale.id === 'en' ? <NavigationMain /> : null}
 </header>
@@ -86,7 +97,6 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		grid-template-columns: 1fr var(--theme-main-menu-open-size);
 		inline-size: 100%;
 		block-size: var(--masthead-block-size, var(--body-block-size));
-		padding-inline: var(--masthead-inline-padding);
 		background-color: var(--masthead-background, var(--color-donkerblauw));
 
 		@media (--mq-huge) {
@@ -107,24 +117,30 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 	.c-masthead__top {
 		position: relative;
 		z-index: 3;
-		display: grid;
 		grid-area: top;
+	}
+
+	.c-masthead__top__inner {
+		display: grid;
 		grid-template-columns: 1fr auto 1fr;
-		padding-block-end: var(--masthead-logo-spacer);
 	}
 
 	.c-masthead__end {
 		display: flex;
+		align-items: center;
+		justify-content: end;
+		gap: var(--space-4);
 	}
 
 	.c-masthead__logo {
-		block-size: var(--masthead-logo-block-size);
+		padding-block-end: var(--masthead-logo-spacer);
 
 		&:focus {
 			outline: var(--elevation-focusring);
 			outline-offset: 2px;
 		}
 	}
+
 	.c-masthead__logo-visual {
 		display: block;
 		block-size: var(--masthead-logo-block-size);
@@ -135,40 +151,26 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 	 * Button
 	 */
 	.c-masthead__button {
-		margin-inline-start: auto;
-		display: var(--c-masthead__button-display, flex);
-		align-items: center;
-		justify-content: center;
-		inline-size: var(--space-menu-button);
-		aspect-ratio: 1/1;
-		outline: none;
-		color: var(--color-diepblauw);
-		align-self: center;
-		border-radius: var(--radii-nano);
-		background: var(--color-white);
-
-		&:focus {
-			@include a11y.focusring();
-		}
-
 		.show-expanded {
 			display: none;
 		}
 
 		&[aria-expanded='true'] {
-			background: none;
+			--button-tool-color: var(--color-white);
+			--button-tool-border-color: transparent;
+			--button-tool-background-color: transparent;
+
 			.hide-expanded {
 				display: none;
 			}
 
 			.show-expanded {
 				display: block;
-				color: var(--color-white);
 			}
 		}
 
 		@media (--mq-huge) {
-			display: none;
+			--button-tool-display: none;
 		}
 	}
 

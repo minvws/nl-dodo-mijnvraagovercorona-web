@@ -433,6 +433,12 @@ export default defineType({
 					name: 'next',
 					type: 'string',
 				}),
+				defineField({
+					title: 'Zoeken',
+					name: 'search',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
 			],
 		}),
 

@@ -88,6 +88,7 @@ export interface SiteSettingsProps {
 			this: string;
 			that: string;
 		};
+		search: string;
 	};
 	logo: {
 		alt: string;
@@ -180,6 +181,7 @@ export const siteSettingsQuery = ({ locale }: { locale: Locale }): string => `
 				this,
 				that,
 			},
+			search,
 		},
 		logo{
 			alt,

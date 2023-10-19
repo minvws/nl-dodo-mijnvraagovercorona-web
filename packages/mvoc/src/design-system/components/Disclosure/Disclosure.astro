@@ -167,16 +167,26 @@
 	 * When an item is targetted from a hash in the url, it will be
 	 * automatically expanded
 	 */
-	if (window.location.hash) {
+	const openWithHash = () => {
 		const hash = window.location.hash.substring(1);
 		const element = document.getElementById(hash);
 		if (element) {
-			const item = element.closest('.disclosure__item') as HTMLElement;
+			const item = element.closest(
+				'[data-module-bind="disclosure__item"]',
+			) as HTMLElement;
 			if (item) {
 				openItem(item);
 			}
 		}
+	};
+
+	if (window.location.hash) {
+		openWithHash();
 	}
+
+	window.addEventListener('hashchange', () => {
+		openWithHash();
+	});
 </script>
 
 <style lang="scss">

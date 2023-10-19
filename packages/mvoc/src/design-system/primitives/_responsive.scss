@@ -1,6 +1,10 @@
 /* ==========================================================================
 		primitives.responsive
 / =========================================================================== */
+
+@custom-media --mq-small (min-width: 30em); // 480px
+@custom-media --mq-small-until (max-width: 29.9375em); // 479px
+
 @custom-media --mq-medium (min-width: 44.5em); // 712px
 @custom-media --mq-medium-until (max-width: 44.4375em); // 711px
 
