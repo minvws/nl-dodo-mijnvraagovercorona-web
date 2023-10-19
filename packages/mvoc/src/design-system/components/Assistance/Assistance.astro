@@ -7,9 +7,9 @@ import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import GridFluid from '../Layout/Grid/GridFluid.astro';
 import { Stack } from '../Layout/Stack';
 import { FlexibleButton } from '@modules/elements/FlexibleButton';
+import { Button } from '@design-system/elements/Button';
 
 interface Props extends HTMLAttributes<'div'> {
-	feedback?: boolean;
 	inDialog?: boolean;
 	title: string;
 	image?: ImageProps;
@@ -25,6 +25,7 @@ interface Props extends HTMLAttributes<'div'> {
 		title: string;
 		button: ButtonProps;
 	};
+	feedback: string;
 }
 
 const {
@@ -119,7 +120,9 @@ const closingHour = phone.closingHour;
 						<Heading class="c-assistance__heading-humble" level={3}>
 							{getHelp.title}
 						</Heading>
-						<FlexibleButton {...getHelp.button} />
+						<Button href={feedback} forceExternal>
+							{getHelp.button.label}
+						</Button>
 					</Stack>
 				</div>
 			) : (
