@@ -44,7 +44,12 @@ const {
 			{
 				image && image.src ? (
 					<div class="c-hero__wrap-image">
-						<img class="c-hero__image" src={image.src} alt="" />
+						<img
+							class="c-hero__image"
+							src={image.src}
+							alt=""
+							data-pagefind-meta="image[src]"
+						/>
 					</div>
 				) : null
 			}

@@ -24,7 +24,13 @@ const { title, chapeau, buttons, multiContentBlocks } = Astro.props;
 	<Stack gap={4}>
 		<hgroup class="c-card-block__hgroup">
 			<Heading level={3} styledAs={2}>{title}</Heading>
-			{chapeau && <Chapeau role="presentation">{chapeau}</Chapeau>}
+			{
+				chapeau && (
+					<Chapeau role="presentation" data-pagefind-ignore>
+						{chapeau}
+					</Chapeau>
+				)
+			}
 		</hgroup>
 
 		<slot />

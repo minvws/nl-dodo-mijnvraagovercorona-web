@@ -118,12 +118,9 @@ const trailingIcon = isExternal
 	}
 </Element>
 
-<style lang="scss">
-	@use '@design-system-styles/primitives/_responsive.scss';
-	@use '@design-system-styles/tools/_a11y.scss';
+<style lang="scss" is:global>
 	@use '@design-system-styles/tools/_rem.scss';
-
-	.e-button {
+	:where(html) {
 		--button-border-size: 1px;
 		--button-border-color: transparent;
 		--button-border-elevation-color: transparent;
@@ -139,74 +136,17 @@ const trailingIcon = isExternal
 		--button-color: var(--color-white);
 		--button-icon-color: currentColor;
 		--button-inset-color: var(--color-accent-wijnrood);
+	}
+</style>
 
-		position: relative;
-		display: inline-flex;
-		align-items: center;
-		gap: var(--space-4);
-		min-inline-size: 100%;
-		padding-block: calc(
-			var(--button-padding-block) - var(--button-border-size)
-		);
-		padding-inline: calc(
-			var(--button-padding-inline) - var(--button-border-size)
-		);
-		border: var(--button-border-size) solid var(--button-border-color);
-		border-radius: var(--button-border-radius);
-		font-size: var(--button-font-size);
-		line-height: var(--button-line-height);
-		text-align: center;
-		text-decoration: none;
-		background-color: var(--button-background-color);
-		color: var(--button-color);
-		cursor: pointer;
+<style lang="scss">
+	@use '@design-system-styles/primitives/_responsive.scss';
+	@use '@design-system-styles/tools/_a11y.scss';
+	@use '@design-system-styles/tools/_rem.scss';
+	@use '@design-system-styles/tools/_button.scss';
 
-		&,
-		&::after {
-			transition-property: background-color, color, border, box-shadow;
-			transition-duration: 200ms;
-			transition-timing-function: ease-in-out;
-		}
-
-		&::after {
-			position: absolute;
-			border-radius: var(--button-border-radius);
-			inset: calc(var(--button-border-size) * -1);
-			content: '';
-			box-shadow: inset 0 calc(var(--button-elevation-size) * -1) 0
-				var(--button-elevation-color);
-			pointer-events: none;
-		}
-
-		&[hidden] {
-			display: none;
-		}
-
-		:global(> .e-icon) {
-			color: var(--button-icon-color);
-			animation: var(--u-animation-subscribe);
-		}
-
-		&:hover {
-			--button-background-color: var(--color-accent-violet);
-			--button-elevation-color: var(--color-accent-dieprood);
-		}
-
-		&:active {
-			--button-elevation-size: 0px;
-		}
-
-		&:focus {
-			@include a11y.focusring;
-		}
-
-		&:disabled,
-		&[data-disabled] {
-			--button-background-color: var(--color-grijs-4);
-			--button-border-color: var(--color-grijs-4);
-			--button-elevation-color: var(--color-grijs-5);
-			cursor: not-allowed;
-		}
+	.e-button {
+		@include button.scaffold();
 
 		@media (--mq-large) {
 			& {

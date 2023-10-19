@@ -14,4 +14,12 @@ const debounce = (func: any, wait = 10, immediate = true) => {
 	};
 };
 
+export const debounceQuick = (fn, wait = 10) => {
+	let timeout = null;
+	return (...args) => {
+		clearTimeout(timeout);
+		timeout = setTimeout(() => fn(...args), wait);
+	};
+};
+
 export default debounce;

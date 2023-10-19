@@ -1,0 +1,57 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+export interface ButtonToolProps extends HTMLAttributes<'button'> {}
+
+interface Props extends ButtonToolProps {}
+
+const { class: className, ...attrs } = Astro.props;
+---
+
+<button class={`c-button-tool${className ? ` | ${className}` : ''}`} {...attrs}>
+	<slot />
+</button>
+
+<style lang="scss">
+	@use '@design-system-styles/tools/_a11y.scss';
+
+	.c-button-tool {
+		--_button-tool-display: var(--button-tool-display, flex);
+		--_button-tool-size: var(--button-tool-size, var(--space-8));
+		--_button-tool-border-width: var(--button-tool-border-width, 3px);
+		--_button-tool-background-color: var(
+			--button-tool-background-color,
+			var(--color-white)
+		);
+		--_button-tool-color: var(--button-tool-color, var(--color-diepblauw));
+		--_button-tool-border-color: var(
+			--button-tool-border-color,
+			var(--color-poolblauw)
+		);
+		display: var(--_button-tool-display);
+		padding-block: var(--space-2);
+		padding-inline: var(--space-2);
+		border: 0px solid var(--_button-tool-border-color);
+		border-block-end-width: var(--_button-tool-border-width);
+		border-radius: var(--radii-milli);
+		color: var(--_button-tool-color);
+		background-color: var(--_button-tool-background-color);
+		outline: none;
+		cursor: pointer;
+		transition-property: background-color, color, border;
+		transition-duration: 300ms;
+		transition-timing-function: ease-in-out;
+
+		:global(.e-icon) {
+			--icon-size: 1em;
+		}
+
+		&:focus {
+			@include a11y.focusring();
+		}
+
+		&:hover {
+			--_button-tool-border-color: var(--color-donkerblauw);
+		}
+	}
+</style>
