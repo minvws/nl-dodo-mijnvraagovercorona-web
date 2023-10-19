@@ -62,7 +62,7 @@ before_script:
 
 check changes mvoc:
   stage: check-changes
-  image: harbor.cicd.s15m.nl/vws-reis-docker-hub/library/node:18-alpine
+  image: harbor.cicd.s15m.nl/docker-hub-proxy/library/node:18-alpine
   cache:
     key: ${CD_ENVIRONMENT}-last-update-timestamp
     paths:
@@ -85,7 +85,7 @@ check changes mvoc:
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
 
 test mvoc:
-  image: harbor.cicd.s15m.nl/vws-reis-docker-hub/library/node:18-alpine
+  image: harbor.cicd.s15m.nl/docker-hub-proxy/library/node:18-alpine
   stage: test
   script:
     - *check-changes-skip-stage
@@ -98,7 +98,7 @@ test mvoc:
     - alternative
 
 build mvoc website development:
-  image: harbor.cicd.s15m.nl/vws-reis-docker-hub/library/node:18-alpine
+  image: harbor.cicd.s15m.nl/docker-hub-proxy/library/node:18-alpine
   stage: build
   script:
     - *check-changes-skip-stage
@@ -113,7 +113,7 @@ build mvoc website development:
     - develop
 
 build mvoc website staging:
-  image: harbor.cicd.s15m.nl/vws-reis-docker-hub/library/node:18-alpine
+  image: harbor.cicd.s15m.nl/docker-hub-proxy/library/node:18-alpine
   stage: build
   script:
     - *check-changes-skip-stage
@@ -128,7 +128,7 @@ build mvoc website staging:
     - staging
 
 build mvoc website main:
-  image: harbor.cicd.s15m.nl/vws-reis-docker-hub/library/node:18-alpine
+  image: harbor.cicd.s15m.nl/docker-hub-proxy/library/node:18-alpine
   stage: build
   script:
     - *check-changes-skip-stage
@@ -159,7 +159,7 @@ build mvoc image:
     - staging
 
 build mvoc cms develop:
-  image: harbor.cicd.s15m.nl/vws-reis-docker-hub/library/node:18-alpine
+  image: harbor.cicd.s15m.nl/docker-hub-proxy/library/node:18-alpine
   stage: build
   script:
     - npm ci
@@ -173,7 +173,7 @@ build mvoc cms develop:
     - develop
 
 build mvoc cms staging:
-  image: harbor.cicd.s15m.nl/vws-reis-docker-hub/library/node:18-alpine
+  image: harbor.cicd.s15m.nl/docker-hub-proxy/library/node:18-alpine
   stage: build
   script:
     - npm ci
@@ -187,7 +187,7 @@ build mvoc cms staging:
     - staging
 
 build mvoc cms main:
-  image: harbor.cicd.s15m.nl/vws-reis-docker-hub/library/node:18-alpine
+  image: harbor.cicd.s15m.nl/docker-hub-proxy/library/node:18-alpine
   stage: build
   script:
     - npm ci
@@ -201,7 +201,7 @@ build mvoc cms main:
     - main
 
 build mvoc cms alternative:
-  image: harbor.cicd.s15m.nl/vws-reis-docker-hub/library/node:18-alpine
+  image: harbor.cicd.s15m.nl/docker-hub-proxy/library/node:18-alpine
   stage: build
   script:
     - npm ci
