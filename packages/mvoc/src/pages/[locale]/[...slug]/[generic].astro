@@ -63,6 +63,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 	metaData={pageData.metaData}
 	alternativeTranslations={pageData.alternatives}
 	type={pageData.type}
+	includeinSearch
 	itemscope
 	itemtype="https://schema.org/FAQPage"
 >
@@ -102,7 +103,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 
 					{
 						pageData?.moreInfo?.items?.filter((item) => item?.slug)?.length ? (
-							<section>
+							<section data-pagefind-ignore="all">
 								<Stack>
 									<Heading level={2}>
 										{pageData.moreInfo.title

@@ -19,6 +19,7 @@ import { Masthead, SkipLink } from '@design-system/components/Masthead';
 import type { AlternativeTranslationsProps } from '@design-system/components/LocaleSelector';
 import { LocaleSelector } from '@design-system/components/LocaleSelector';
 import { MastFoot } from '@design-system/components/MastFoot';
+import { Finder } from '@modules/forms/finder';
 import type { HTMLAttributes } from 'astro/types';
 
 export interface Props extends HTMLAttributes<'html'> {
@@ -30,6 +31,7 @@ export interface Props extends HTMLAttributes<'html'> {
 	mastheadHighlight?: boolean;
 	disableMasthead?: boolean;
 	disableMastfoot?: boolean;
+	includeinSearch?: boolean;
 }
 
 const {
@@ -41,6 +43,7 @@ const {
 	alternativeTranslations,
 	disableMasthead,
 	disableMastfoot,
+	includeinSearch,
 	...attrs
 } = Astro.props;
 const siteSettings: SiteSettingsProps = await useSiteSettings({
@@ -152,10 +155,16 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 							slot="start"
 							alternativeTranslations={alternativeTranslations}
 						/>
+						{locale.id === 'nl' || locale.id === 'en' ? (
+							<Finder slot="end" />
+						) : null}
 					</Masthead>
 				) : null
 			}
-			<main id="content">
+			<main
+				id="content"
+				data-pagefind-body={includeinSearch ? true : undefined}
+			>
 				<slot />
 				{!disableMastfoot ? <MastFoot locale={locale} /> : null}
 			</main>

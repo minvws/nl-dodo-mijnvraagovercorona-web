@@ -110,6 +110,7 @@ const plan =
 	metaData={pageData.metaData}
 	alternativeTranslations={pageData.alternatives}
 	type={pageData.type}
+	includeinSearch
 >
 	<Hero
 		title={pageData.hero.title}
@@ -200,7 +201,7 @@ const plan =
 
 						{
 							pageData?.moreInfo?.items?.length ? (
-								<section>
+								<section data-pagefind-ignore="all">
 									<Stack>
 										{pageData.moreInfo.title && (
 											<Heading level={2}>{pageData.moreInfo.title}</Heading>

@@ -11,6 +11,7 @@ import sitemap from '@astrojs/sitemap';
 import sanity from 'astro-sanity';
 import Compress from 'astro-compress';
 import browserslistToEsbuild from 'browserslist-to-esbuild';
+import pagefind from 'astro-pagefind';
 
 console.log(`ENVIRONMENT: ${ENV}`);
 
@@ -33,6 +34,8 @@ export default defineConfig({
 			HTML: false,
 			JavaScript: false,
 		}),
+		// @ts-expect-error
+		pagefind(),
 	],
 	vite: {
 		build: {

@@ -17,6 +17,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 <small
 	class={`e-updated-at | u-color--grijs-6${className ? ` | ${className}` : ''}`}
 	{...attrs}
+	data-pagefind-ignore
 >
 	{siteSettings.genericLabels.updatedAt}{' '}
 	<time datetime={time}>
