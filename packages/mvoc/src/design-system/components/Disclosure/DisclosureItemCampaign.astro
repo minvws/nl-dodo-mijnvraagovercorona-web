@@ -5,6 +5,7 @@ import type { PictureProps } from '../Picture';
 import { Picture } from '../Picture';
 import { Stack } from '../Layout/Stack';
 import { Link } from '@design-system/elements/Link';
+import { stringToSlug } from 'src/utilities/stringToSlug';
 
 interface Props extends HTMLAttributes<'li'> {
 	label: string;
@@ -39,6 +40,7 @@ const {
 			styledAs={headingStyledAs}
 			class="disclosure__heading"
 			itemprop="name"
+			id={stringToSlug(label)}
 		>
 			{label}
 		</Heading>
@@ -61,13 +63,14 @@ const {
 			data-module-bind="disclosure__toggle"
 			icon="chevron-small-down"
 			iconPosition="trailing"
+			data-pagefind-ignore="all"
 		>
-			<span class={readMore ? 'disclosure__show-inactive' : undefined}
-				>{readMore}</span
-			>
-			<span class={readLess ? 'disclosure__show-active' : undefined}
-				>{readLess}</span
-			>
+			<span class={readMore ? 'disclosure__show-inactive' : undefined}>
+				{readMore}
+			</span>
+			<span class={readLess ? 'disclosure__show-active' : undefined}>
+				{readLess}
+			</span>
 		</Link>
 	</Stack>
 
