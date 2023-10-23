@@ -19,7 +19,7 @@ interface Props extends HTMLAttributes<'div'> {
 const { title, carousel, goTo, previous, next } = Astro.props;
 ---
 
-<Layer>
+<Layer data-pagefind-ignore="all">
 	<c-carousel class="c-carousel">
 		<Stack>
 			<Retain class="c-carousel__top">
