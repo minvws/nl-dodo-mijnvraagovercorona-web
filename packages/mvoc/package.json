@@ -1,6 +1,6 @@
 {
 	"name": "mvoc",
-	"version": "2.4.2-231003",
+	"version": "2.5.0",
 	"private": true,
 	"scripts": {
 		"dev": "ENVIRONMENT=development npm run download-sanity-assets && astro telemetry disable && astro dev",
@@ -35,6 +35,7 @@
 		"@duetds/date-picker": "^1.4.0",
 		"@math.gl/web-mercator": "^3.6.3",
 		"astro-compress": "^2.0.15",
+		"astro-pagefind": "^1.3.0",
 		"copy-to-clipboard": "^3.3.3",
 		"luxon": "^3.4.3",
 		"mapbox-gl": "^2.15.0",

@@ -1,16 +1,20 @@
 ---
-import { TaleCollectionProps } from 'src/utilities/api/queries';
+import type { TaleCollectionProps } from 'src/utilities/api/queries';
 import { Tale } from '.';
 import { Stack } from '../Layout/Stack';
 import { Disclosure, DisclosureItem } from '../Disclosure';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { Retain } from '../Layout/Retain';
+import { MediaBlock } from '../MediaBlock';
+import { Heading } from '@design-system/elements/Heading';
 
 interface Props extends TaleCollectionProps {
 	asDisclosure?: boolean;
 }
 
 const { taleCollection, asDisclosure } = Astro.props;
+
+let headingLevel = 2 as 1 | 2 | 3 | 4 | 5 | 6;
 ---
 
 <>
@@ -18,28 +22,42 @@ const { taleCollection, asDisclosure } = Astro.props;
 		asDisclosure ? (
 			<Retain variant="text">
 				<Disclosure>
-					{taleCollection.map((tale) => (
-						<DisclosureItem
-							headingLevel={2}
-							headingStyledAs={4}
-							accordeon
-							label={tale.title}
-							id={stringToSlug(tale.title)}
-							itemscope
-							itemprop="mainEntity"
-							itemtype="https://schema.org/Question"
-						>
-							<Tale {...tale} renderTitle={false} anchorable={false} />
-						</DisclosureItem>
-					))}
+					{taleCollection.map((tale) => {
+						if (tale._type === 'taleSection') {
+							headingLevel = 3;
+							return (
+								<MediaBlock icon={tale.image} class="c-tale-section">
+									<Heading id={stringToSlug(tale.title)} level={2} styledAs={3}>
+										{tale.title}
+									</Heading>
+								</MediaBlock>
+							);
+						} else {
+							return (
+								<DisclosureItem
+									headingStyledAs={4}
+									accordeon
+									headingLevel={headingLevel}
+									label={tale.title}
+									id={stringToSlug(tale.title)}
+									itemscope
+									itemprop="mainEntity"
+									itemtype="https://schema.org/Question"
+								>
+									<Tale {...tale} renderTitle={false} anchorable={false} />
+								</DisclosureItem>
+							);
+						}
+					})}
 				</Disclosure>
 			</Retain>
-		) : (
-			<Stack class="c-tale" gap={14}>
-				{taleCollection.map((tale) => (
-					<Tale {...tale} />
-				))}
-			</Stack>
-		)
+		) : null
 	}
 </>
+
+<style lang="scss">
+	.c-tale-section {
+		margin-block-start: var(--space-16);
+		margin-block-end: var(--space-6);
+	}
+</style>

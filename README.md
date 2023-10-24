@@ -25,6 +25,8 @@ npm run mvoc:build
 npm run mvoc:test
 ```
 
+**Note**: If you want to enable search in your dev environment you need to run `npm run mvoc:build:development` prior to running `npm run mvoc:dev`.
+
 For the `cms` package you can run the following commands:
 
 ```bash

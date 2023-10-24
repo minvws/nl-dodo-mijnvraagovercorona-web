@@ -24,6 +24,7 @@ const {
 	image,
 	headingLevel = 3,
 	headingStyledAs = 3,
+	id,
 	...attrs
 } = Astro.props;
 ---
@@ -38,6 +39,7 @@ const {
 		styledAs={headingStyledAs}
 		class="disclosure__heading"
 		itemprop="name"
+		id={id}
 	>
 		{
 			accordeon ? (
