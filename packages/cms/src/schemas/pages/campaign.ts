@@ -43,6 +43,12 @@ export default defineType({
 			type: 'string',
 			description: 'Verkorte kruimelpad titel (optioneel)',
 		}),
+		defineField({
+			title: 'Toon het feedback blok',
+			name: 'showFeedback',
+			type: 'boolean',
+			description: 'Als deze toggle aan staat genereren we een feedback blok.',
+		}),
 
 		defineField({
 			title: 'Hero',
