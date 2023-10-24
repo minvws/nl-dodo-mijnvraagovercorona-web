@@ -1,6 +1,6 @@
 {
 	"name": "mvoc",
-	"version": "2.4.2-231003",
+	"version": "2.5.0",
 	"private": true,
 	"scripts": {
 		"dev": "ENVIRONMENT=development npm run download-sanity-assets && astro telemetry disable && astro dev",
