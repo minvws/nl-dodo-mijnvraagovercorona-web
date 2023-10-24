@@ -15,5 +15,22 @@ export default defineType({
 				filter: filterReferenceByLanguage,
 			},
 		}),
+		defineField({
+			title: 'Section title',
+			name: 'taleSection',
+			type: 'object',
+			fields: [
+				defineField({
+					title: 'Titel',
+					name: 'title',
+					type: 'string',
+				}),
+				defineField({
+					title: 'Icoon',
+					name: 'image',
+					type: 'image',
+				}),
+			],
+		}),
 	],
 });

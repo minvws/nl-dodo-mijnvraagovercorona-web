@@ -22,6 +22,7 @@ import { getAdditionalPageData } from 'src/utilities/helpers/getAdditionalPageDa
 export interface CampaignPageProps extends PageProps {
 	hero: HeroProps;
 	breadcrumbTitle: string;
+	showFeedback?: boolean;
 	assistance: AssistanceProps;
 	taleCollection: TaleCollectionProps['taleCollection'];
 	support: {
@@ -45,6 +46,7 @@ export async function getDataCampaignPages() {
 		${tabsQuery()},
 		${carouselQuery()},
 		"slug": slug.current,
+		showFeedback,
 	}`;
 
 	const query = pageQuery({
