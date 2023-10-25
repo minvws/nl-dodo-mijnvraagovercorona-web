@@ -51,7 +51,13 @@ let headingLevel = 2 as 1 | 2 | 3 | 4 | 5 | 6;
 					})}
 				</Disclosure>
 			</Retain>
-		) : null
+		) : (
+			<Stack class="c-tale" gap={14}>
+				{taleCollection.map((tale) => (
+					<Tale {...tale} />
+				))}
+			</Stack>
+		)
 	}
 </>
 
