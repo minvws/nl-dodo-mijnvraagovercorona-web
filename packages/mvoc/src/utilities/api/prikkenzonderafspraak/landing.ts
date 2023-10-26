@@ -26,11 +26,13 @@ export interface PZALandingPageProps extends PageProps {
 	taleCollection: TaleCollectionProps['taleCollection'];
 	locale: string;
 	slug: string;
+	showFeedback?: boolean;
 }
 
 export async function getDataPZALandingPages() {
 	const projection = `{
 		breadcrumbTitle,
+		showFeedback,
 		${heroQuery()},
 		${buttonsQuery({ array: true })},
 		${customBlockQuery({ name: 'contentSecondary' })},

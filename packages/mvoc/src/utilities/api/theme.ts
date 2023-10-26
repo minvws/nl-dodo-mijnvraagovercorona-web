@@ -20,6 +20,7 @@ import { getAdditionalPageData } from '../helpers/getAdditionalPageData';
 export interface ThemePageProps extends PageProps {
 	hero: HeroProps;
 	breadcrumbTitle: string;
+	showFeedback?: boolean;
 	overview: {
 		title: string;
 	};
@@ -46,7 +47,8 @@ export const themePageProjection = `{
 	talesAsDisclosure,
 	${taleReferenceQuery()},
 	"updatedAt": _updatedAt,
-	"slug": slug.current
+	"slug": slug.current,
+	showFeedback,
 }`;
 
 export async function getDataThemes() {
