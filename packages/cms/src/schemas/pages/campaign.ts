@@ -43,6 +43,7 @@ export default defineType({
 			type: 'string',
 			description: 'Verkorte kruimelpad titel (optioneel)',
 		}),
+
 		defineField({
 			title: 'Toon het feedback blok',
 			name: 'showFeedback',

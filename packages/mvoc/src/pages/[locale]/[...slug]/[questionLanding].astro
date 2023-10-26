@@ -22,6 +22,7 @@ import {
 	useSiteSettings,
 	type SiteSettingsProps,
 } from 'src/utilities/api/queries';
+import { Feedback } from '@design-system/components/Feedback';
 
 export async function getStaticPaths() {
 	const collection = await getDataQuestionLandingPages();
@@ -114,6 +115,25 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 			/>
 		)
 	}
+
+	{
+		pageData?.showFeedback ? (
+			<Layer>
+				<Retain>
+					<Stack>
+						<Feedback
+							name="Vraag Landing"
+							url={getFeedbackUrl(siteSettings.feedback.url, {
+								source: pageData.type,
+								advice: pageData.slug,
+							})}
+						/>
+					</Stack>
+				</Retain>
+			</Layer>
+		) : null
+	}
+
 	{
 		pageData.assistance && pageData.assistance.type === 'assistance-new' ? (
 			<Layer
