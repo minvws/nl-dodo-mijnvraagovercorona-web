@@ -110,12 +110,15 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 					<Sidebar>
 						<Stack gap={14}>
 							<TaleList taleCollection={pageData.taleCollection} />
-							<Feedback
-								name="Prikken Home"
-								url={getFeedbackUrl(siteSettings.feedback.url, {
-									source: 'Prikken Home',
-								})}
-							/>
+							{pageData?.showFeedback ? (
+								<Feedback
+									name="Prikken Home"
+									url={getFeedbackUrl(siteSettings.feedback.url, {
+										source: pageData.type,
+										advice: pageData.slug,
+									})}
+								/>
+							) : null}
 						</Stack>
 						<Stack slot="aside">
 							<CardPrivacy />
