@@ -28,6 +28,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 				data-module="feedback"
 				data-name={name}
 				id="feedback"
+				pagefind-ignore="all"
 			>
 				<Stack>
 					<Heading>{siteSettings.feedback.title}</Heading>

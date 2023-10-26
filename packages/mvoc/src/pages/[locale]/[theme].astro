@@ -23,6 +23,7 @@ import {
 } from 'src/utilities/api/queries';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
+import { Feedback } from '@design-system/components/Feedback';
 
 export async function getStaticPaths() {
 	const collection = await getDataThemes();
@@ -126,6 +127,25 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 			</Layer>
 		) : null
 	}
+
+	{
+		pageData?.showFeedback ? (
+			<Layer>
+				<Retain>
+					<Stack>
+						<Feedback
+							name="Thema"
+							url={getFeedbackUrl(siteSettings.feedback.url, {
+								source: pageData.type,
+								advice: pageData.slug,
+							})}
+						/>
+					</Stack>
+				</Retain>
+			</Layer>
+		) : null
+	}
+
 	{
 		pageData.assistance && pageData.assistance.type === 'assistance-new' ? (
 			<Layer

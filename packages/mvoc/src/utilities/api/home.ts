@@ -33,6 +33,7 @@ export interface PageHomeProps extends PageProps {
 	button?: ButtonProps;
 	locale: string;
 	assistance: AssistanceProps;
+	showFeedback?: boolean;
 	important: {
 		title: string;
 		content: ContentBlockProps['value'];
@@ -78,6 +79,7 @@ export async function getDataHome() {
 		${cardQuery()},
 		${assistanceQuery()},
 		${buttonsQuery({ array: false })},
+		showFeedback,
 		important{
 			title,
 			${customBlockQuery({ name: 'content' })},

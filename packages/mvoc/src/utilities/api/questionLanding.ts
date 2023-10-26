@@ -20,6 +20,7 @@ export interface QuestionLandingPageProps extends PageProps {
 	breadcrumbTitle: string;
 	questionReference: QuestionPageProps;
 	assistance: AssistanceProps;
+	showFeedback?: boolean;
 	support: {
 		cards: CardsProps;
 	};
@@ -33,6 +34,7 @@ export async function getDataQuestionLandingPages() {
 		questionReference->${questionPageProjection},
 		${assistanceQuery()},
 		${supportBlockQuery()},
+		showFeedback,
 		"slug": slug.current,
 	}`;
 
