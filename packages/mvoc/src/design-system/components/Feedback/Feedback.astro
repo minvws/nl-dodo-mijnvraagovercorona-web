@@ -127,7 +127,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 		form.addEventListener('change', () => {
 			const formData = new FormData(form);
 			const choice = formData.get('feedback-choice');
-			const pagePathName = document.querySelector('html').dataset.pagePathName;
+			const pagePathName = document.querySelector('html').dataset.pagePathname;
 			const pageType = document.querySelector('html').dataset.pageType;
 			// update feedback button with feedback url parameter containing our choice
 			const urlPart = `&feedback=${choice.toString().toLowerCase()}`;
