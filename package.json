@@ -18,6 +18,8 @@
 		"cms:build:development": "npm run build-development --workspace cms",
 		"cms:build:staging": "npm run build-staging --workspace cms",
 		"cms:build:main": "npm run build-main --workspace cms",
+		"cms-pza:dev": "npm run dev --workspace cms-pza",
+		"cms-pza:deploy": "npm run deploy --workspace cms-pza",
 		"format": "npm run format:prettier",
 		"format:prettier": "prettier --write ."
 	},
