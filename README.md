@@ -32,9 +32,16 @@ For the `cms` package you can run the following commands:
 ```bash
 # Run Sanity cms locally
 npm run cms:dev
+```
+
+For the `cms-pza` package you can run the following commands:
+
+```bash
+# Run Sanity cms locally
+npm run cms-pza:dev
 
 # Deploy Sanity cms
-npm run cms:deploy
+npm run cms-pza:deploy
 ```
 
 ## Learn More
