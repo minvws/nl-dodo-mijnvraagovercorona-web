@@ -33,15 +33,27 @@ export interface LocationsPageProps extends PageProps {
 			copy: string;
 			copied: string;
 		};
+		appointmentButton: {
+			label: string;
+		};
 		instructions: ContentBlockProps['value'];
-		note: ContentBlockProps['value'];
+		note: {
+			title: string;
+			pzaInfo: {
+				label: ContentBlockProps['value'];
+				icon: IconProps['name'];
+			};
+			pmaInfo: {
+				label: ContentBlockProps['value'];
+				icon: IconProps['name'];
+			};
+		};
 	};
 	about: {
 		title: string;
 		items: {
 			label: ContentBlockProps['value'];
 			icon: IconProps['name'];
-			vaccinationSeries?: string;
 		}[];
 	};
 	bring: {
@@ -88,15 +100,27 @@ export async function getDataLocationPages() {
 				copy,
 				copied,
 			},
+			appointmentButton{
+				label,
+			},
 			${customBlockQuery({ name: 'instructions' })},
-			${customBlockQuery({ name: 'note' })},
+			note{
+				title,
+				pzaInfo{
+					${customBlockQuery({ name: 'label' })},
+					icon,
+				},
+				pmaInfo{
+					${customBlockQuery({ name: 'label' })},
+					icon,
+				},
+			},
 		},
 		about{
 			title,
 			items[]{
 				${customBlockQuery({ name: 'label' })},
 				icon,
-				vaccinationSeries,
 			},
 		},
 		bring{

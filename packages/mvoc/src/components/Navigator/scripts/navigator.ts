@@ -1,4 +1,4 @@
-import { mqLarge } from '@design-system/primitives/responsive';
+import { mqWide } from '@design-system/primitives/responsive';
 import queryString from 'query-string';
 import { trapFocus } from 'src/utilities/helpers/a11y';
 import type {
@@ -73,9 +73,7 @@ export class Navigator {
 	 * Get locations
 	 */
 	async getLocations() {
-		const featuresData = await fetch(
-			'https://mijnvraagovercorona.nl/data/v3/features.json',
-		);
+		const featuresData = await fetch('/data/v3/features.json');
 		const features: FeaturesProps = await featuresData.json();
 		this.locations = features.features;
 	}
@@ -192,6 +190,32 @@ export class Navigator {
 			'[data-module-bind="input-text__clear-button"]',
 		) as HTMLButtonElement;
 		const parsedQueryString = queryString.parse(window.location.search);
+
+		const filterTogglesWrapElement =
+			this.formElement.querySelector<HTMLFieldSetElement>(
+				'[data-filter-toggles]',
+			);
+
+		const appointmentTypeFilters = [
+			...filterTogglesWrapElement.querySelectorAll<HTMLElement>('#pza, #pma'),
+		];
+
+		const hasPzaLocations = this.locations.some(
+			(location) => location.properties?.appointmentType?.includes('pza'),
+		);
+		const hasPmaLocations = this.locations.some(
+			(location) => location.properties?.appointmentType?.includes('pma'),
+		);
+
+		if (hasPzaLocations && hasPmaLocations) {
+			appointmentTypeFilters.forEach(
+				(filter) => (filter.closest<HTMLElement>('.e-control').hidden = false),
+			);
+		}
+
+		if (hasPzaLocations) {
+			filterTogglesWrapElement.hidden = false;
+		}
 
 		// Set initial filters
 		if (parsedQueryString.filter) {
@@ -360,23 +384,22 @@ export class Navigator {
 				show = !!isOpenNow(location.properties.openingHours);
 			}
 
-			// series filter
-			if (seriesFilter.length && show) {
-				const locationSeries = location.properties.vaccinationSeries;
-
-				const hasSeries = seriesFilter.some((s) => {
-					if (locationSeries.length === 1) {
-						return locationSeries.startsWith(s);
-					}
-					if (locationSeries.length === 2 && s.length === 1) {
-						return false;
-					}
-					if (locationSeries.length === s.length) {
-						return locationSeries === s;
-					}
-					return locationSeries.includes(s);
-				});
-				show = hasSeries;
+			// Add logic to filter based on "appointmentType" ('pma', 'pza', etc.)
+			if (filter.includes('pza') && filter.includes('pma')) {
+				if (
+					!location.properties?.appointmentType?.includes('pza') &&
+					!location.properties?.appointmentType?.includes('pma')
+				) {
+					show = false;
+				}
+			} else if (filter.includes('pza')) {
+				if (!location.properties?.appointmentType?.includes('pza')) {
+					show = false;
+				}
+			} else if (filter.includes('pma')) {
+				if (!location.properties?.appointmentType?.includes('pma')) {
+					show = false;
+				}
 			}
 
 			// search query filter
@@ -420,10 +443,14 @@ export class Navigator {
 				this.detailPaneElement.classList.add('is-active');
 				this.detailPaneElement.classList.add('is-visible');
 
+				// calulate the zoomToFeature offset by dividing the detailPaneElement by 2 only for wide screens
+				const offset = this.detailPaneElement.offsetWidth / 2;
+
 				// zoom map
-				if (window.matchMedia(mqLarge).matches) {
-					this.map.zoomToFeature({ feature: newLocation });
-				}
+				this.map.zoomToFeature({
+					feature: newLocation,
+					offset: window.matchMedia(mqWide).matches ? offset : 0,
+				});
 			}
 		} else {
 			this.detailPaneElement.classList.remove('is-active');

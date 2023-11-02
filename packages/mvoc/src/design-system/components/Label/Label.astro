@@ -20,8 +20,13 @@ const { class: className, ...attrs } = Astro.props;
 		line-height: var(--line-height-milli);
 		background-color: var(--color-poolblauw);
 		color: var(--color-diepblauw);
+		font-weight: bold;
 		&::first-letter {
 			text-transform: uppercase;
+		}
+
+		&[hidden] {
+			display: none;
 		}
 	}
 </style>

@@ -1,3 +1,6 @@
+type AppointmentType = 'pza' | 'pma';
+export type AppointmentTypeProps = AppointmentType[];
+
 export interface FeatureProps {
 	type: 'feature';
 	element: HTMLLIElement;
@@ -6,6 +9,7 @@ export interface FeatureProps {
 		coordinates: [number, number];
 	};
 	properties: {
+		isTestLocation?: boolean;
 		slug: string;
 		ggdData: {
 			name: string;
@@ -44,7 +48,7 @@ export interface FeatureProps {
 			start?: string;
 			end?: string;
 		};
-		vaccinationSeries: 'b' | 'b1' | 'bb1';
+		appointmentType?: AppointmentTypeProps;
 	};
 }
 

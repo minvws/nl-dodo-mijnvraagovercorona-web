@@ -145,6 +145,22 @@ export default defineType({
 						}),
 					],
 				}),
+
+				defineField({
+					title: '"Maak afspraak" knop',
+					name: 'appointmentButton',
+					type: 'object',
+					validation: (Rule) => Rule.required(),
+					fields: [
+						defineField({
+							title: 'Label',
+							name: 'label',
+							type: 'string',
+							validation: (Rule) => Rule.required(),
+						}),
+					],
+				}),
+
 				defineField({
 					title: 'Kopieer knop',
 					name: 'copyButton',
@@ -174,8 +190,61 @@ export default defineType({
 				defineField({
 					title: 'Notitie',
 					name: 'note',
-					type: 'customBlock',
-					validation: (Rule) => Rule.required(),
+					type: 'object',
+					fields: [
+						defineField({
+							title: 'Let op',
+							name: 'title',
+							type: 'string',
+							validation: (Rule) => Rule.required(),
+						}),
+						defineField({
+							title: 'Infoblok Zonder afspraak',
+							name: 'pzaInfo',
+							type: 'object',
+							validation: (Rule) => Rule.required(),
+							preview: {
+								select: {
+									title: 'label',
+								},
+							},
+							fields: [
+								defineField({
+									title: 'Label',
+									name: 'label',
+									type: 'customBlock',
+								}),
+								defineField({
+									title: 'Icoon',
+									name: 'icon',
+									type: 'iconPicker',
+								}),
+							],
+						}),
+						defineField({
+							title: 'Infoblok Met afspraak',
+							name: 'pmaInfo',
+							type: 'object',
+							validation: (Rule) => Rule.required(),
+							preview: {
+								select: {
+									title: 'label',
+								},
+							},
+							fields: [
+								defineField({
+									title: 'Label',
+									name: 'label',
+									type: 'customBlock',
+								}),
+								defineField({
+									title: 'Icoon',
+									name: 'icon',
+									type: 'iconPicker',
+								}),
+							],
+						}),
+					],
 				}),
 			],
 		}),
@@ -202,31 +271,9 @@ export default defineType({
 							preview: {
 								select: {
 									title: 'label',
-									subtitle: 'vaccinationSeries',
 								},
 							},
 							fields: [
-								defineField({
-									title: 'Vaccinatie series',
-									name: 'vaccinationSeries',
-									type: 'string',
-									options: {
-										list: [
-											{
-												title: 'Basis (1e & 2e prik)',
-												value: 'b',
-											},
-											{
-												title: 'Alleen herhaalprik',
-												value: 'b1',
-											},
-											{
-												title: 'Basis + herhaalprik',
-												value: 'bb1',
-											},
-										],
-									},
-								}),
 								defineField({
 									title: 'Label',
 									name: 'label',

@@ -14,5 +14,8 @@
 @custom-media --mq-huge (min-width: 80em); // 1280px
 @custom-media --mq-huge-until (max-width: 79.9375em); // 1279px
 
+@custom-media --mq-wide (min-width: 90em); // 1440px
+@custom-media --mq-wide-until (max-width: 89.9375em); // 1439px
+
 // vertical
 @custom-media --mq-block-small (min-height: 41em); // 656px

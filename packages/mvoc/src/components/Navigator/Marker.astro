@@ -48,6 +48,10 @@ const { class: className, ...attrs } = Astro.props;
 		&:hover {
 			transform: var(--marker-adjustment) scale(1.1);
 		}
+
+		.is-test & {
+			outline: 1px solid red;
+		}
 	}
 
 	.c-marker__image {
