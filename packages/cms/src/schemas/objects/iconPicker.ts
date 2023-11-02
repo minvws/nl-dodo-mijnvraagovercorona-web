@@ -41,6 +41,7 @@ export default defineType({
 			{ title: 'Digid', value: 'digid' },
 			{ title: 'Info', value: 'info' },
 			{ title: 'Download', value: 'download' },
+			{ title: 'Informatie i', value: 'informatie-i' },
 		],
 	},
 });

@@ -333,8 +333,15 @@ export default defineType({
 				}),
 				defineField({
 					title: 'Van',
-					description: 'Bijvoorbeeld: 1 van 5 situaties',
+					description: 'Bijvoorbeeld: 1 `van` 5 situaties',
 					name: 'of',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
+				defineField({
+					title: 'Of',
+					description: 'Het een `of` het ander',
+					name: 'or',
 					type: 'string',
 					validation: (Rule) => Rule.required(),
 				}),
@@ -587,35 +594,23 @@ export default defineType({
 			],
 		}),
 
-		/**
-		 * Vaccinations
-		 */
 		defineField({
-			title: 'Vaccinaties',
-			name: 'vaccinations',
+			title: 'Apspraak types',
+			name: 'appointmentTypes',
 			type: 'object',
 			validation: (Rule) => Rule.required(),
-			options: { collapsible: true },
 			fields: [
 				defineField({
-					title: 'Series',
-					name: 'series',
-					type: 'object',
+					title: 'Zonder afspraak',
+					name: 'pza',
+					type: 'string',
 					validation: (Rule) => Rule.required(),
-					fields: [
-						defineField({
-							title: 'Basis',
-							name: 'b',
-							type: 'string',
-							validation: (Rule) => Rule.required(),
-						}),
-						defineField({
-							title: 'Herhaalprik',
-							name: 'b1',
-							type: 'string',
-							validation: (Rule) => Rule.required(),
-						}),
-					],
+				}),
+				defineField({
+					title: 'Met afspraak',
+					name: 'pma',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
 				}),
 			],
 		}),

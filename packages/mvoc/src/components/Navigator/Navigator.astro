@@ -158,7 +158,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		--navigator__block-size: 100vh;
 		--navigator__block-size: 100svh;
 		--navigator__max-block-size: var(--navigator__block-size);
-		--navigator__popover-spacing: var(--space-2);
+		--navigator__popover-spacing: var(--space-4);
 		--navigator__popover-radii: var(--radii-milli);
 		--navigator__popover-elevation: var(--elevation-frost);
 		display: grid;
@@ -195,6 +195,10 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		:global(.has-open-menu) & {
 			overflow: hidden;
 		}
+
+		@media (--mq-wide) {
+			z-index: 3;
+		}
 	}
 
 	.c-navigator__wrap-detail {
@@ -206,9 +210,15 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		pointer-events: none;
 		overflow: hidden;
 		// background-color: red;
-
+		@media (--mq-wide) {
+			z-index: 2;
+		}
 		&.is-active {
 			pointer-events: auto;
+			@media (--mq-wide) {
+				z-index: 2;
+				overflow: unset;
+			}
 		}
 	}
 
@@ -226,8 +236,17 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		visibility: hidden;
 		background-color: var(--theme-bg-base);
 
+		@media (--mq-wide) {
+			transform: translateX(0%);
+		}
+
 		.is-active & {
 			transform: translateY(0);
+			@media (--mq-wide) {
+				transform: translateX(100%);
+				background-color: revert;
+				box-shadow: unset;
+			}
 		}
 
 		.is-visible & {
@@ -242,6 +261,14 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		z-index: 1;
 		background-color: var(--color-white);
 		border-radius: var(--navigator__popover-radii);
+
+		@media (--mq-wide) {
+			box-shadow: var(--elevation-frost-medium);
+		}
+
+		@media (--mq-large-until) {
+			box-shadow: var(--elevation-frost-medium);
+		}
 	}
 
 	.c-navigator__detail-inner {
