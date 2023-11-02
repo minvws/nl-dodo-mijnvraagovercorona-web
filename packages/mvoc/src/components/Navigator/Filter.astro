@@ -52,19 +52,27 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 			</button>
 		</fieldset>
 
-		<fieldset>
+		<fieldset data-filter-toggles hidden>
 			<Stack gap={2}>
 				<div class="c-filter__wrap-controls">
 					<legend class="c-filter__legend">{siteSettings.forms.filterOn}</legend
 					>
-					<Control
-						type="checkbox"
-						name="filter"
-						value="status-open"
-						id="status-open"
-					>
-						{pageData.location.openingHours.openNow}
-					</Control>
+					<div class="c-filter__controls">
+						<Control
+							type="checkbox"
+							name="filter"
+							value="status-open"
+							id="status-open"
+						>
+							{pageData.location.openingHours.openNow}
+						</Control>
+						<Control type="checkbox" name="filter" value="pma" id="pma" hidden>
+							{siteSettings.appointmentTypes.pma}
+						</Control>
+						<Control type="checkbox" name="filter" value="pza" id="pza" hidden>
+							{siteSettings.appointmentTypes.pza}
+						</Control>
+					</div>
 				</div>
 			</Stack>
 		</fieldset>
@@ -87,7 +95,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		}
 	}
 
-	.c-filter__wrap-controls {
+	.c-filter__controls {
 		display: flex;
 		flex-wrap: wrap;
 		gap: var(--space-4);

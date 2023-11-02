@@ -53,25 +53,28 @@ export const generateDetail = ({
 	const copyButtonElement = clone.querySelector(
 		'[data-module-bind="location__button-copy"]',
 	) as HTMLButtonElement;
-	const copyButtonContentElement = copyButtonElement.querySelector(
-		'[data-button-content]',
-	);
-	const address = `${location.properties.location.address}, ${location.properties.location.city}`;
 
-	copyButtonElement.addEventListener('click', (event) => {
-		event.preventDefault();
-		if (copy(address)) {
-			copyButtonContentElement.innerHTML = copyButtonElement.dataset
-				.labelCopied as string;
+	if (copyButtonElement) {
+		const copyButtonContentElement = copyButtonElement.querySelector(
+			'[data-button-content]',
+		);
+		const address = `${location.properties.location.address}, ${location.properties.location.city}`;
 
-			// re-instate original label after a couple of seconds
-			setTimeout(() => {
-				if (copyButtonContentElement)
-					copyButtonContentElement.innerHTML = copyButtonElement.dataset
-						.labelCopy as string;
-			}, 1500);
-		}
-	});
+		copyButtonElement.addEventListener('click', (event) => {
+			event.preventDefault();
+			if (copy(address)) {
+				copyButtonContentElement.innerHTML = copyButtonElement.dataset
+					.labelCopied as string;
+
+				// re-instate original label after a couple of seconds
+				setTimeout(() => {
+					if (copyButtonContentElement)
+						copyButtonContentElement.innerHTML = copyButtonElement.dataset
+							.labelCopy as string;
+				}, 1500);
+			}
+		});
+	}
 
 	return clone;
 };

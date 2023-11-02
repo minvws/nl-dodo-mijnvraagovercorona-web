@@ -21,10 +21,11 @@ const { class: className, icon, ...attrs } = Astro.props;
 <style lang="scss">
 	.c-attribute {
 		display: flex;
-		gap: var(--stack-3);
+		gap: var(--space-3);
 	}
 
 	.c-attribute__icon {
+		--icon-size: var(--space-6);
 		color: var(--attribute-icon-color, var(--color-accent-robijnrood));
 	}
 </style>

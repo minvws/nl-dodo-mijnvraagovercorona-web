@@ -1,4 +1,5 @@
 import mapboxgl from 'mapbox-gl';
+import { mqWide } from '@design-system/primitives/responsive';
 import WebMercatorViewport from '@math.gl/web-mercator';
 import type { FeatureProps } from 'src/utilities/helpers/features';
 import { isOpenNow } from './timetable-helpers';
@@ -51,6 +52,10 @@ export class Map {
 				markerIconElement.src = markerIconElement.dataset.srcOpen;
 			}
 
+			if (feature.properties?.isTestLocation) {
+				clone.classList.add('is-test');
+			}
+
 			this.markers.push(
 				new mapboxgl.Marker(clone)
 					.setLngLat(feature.geometry.coordinates)
@@ -65,13 +70,21 @@ export class Map {
 		return newFeatures;
 	}
 
-	zoomToFeature({ feature }: { feature: FeatureProps }) {
+	zoomToFeature({
+		feature,
+		offset = 0,
+	}: {
+		feature: FeatureProps;
+		offset: number;
+	}) {
 		const [longitude, latitude] = feature.geometry.coordinates;
+
 		this.map.flyTo({
 			center: [longitude, latitude],
 			zoom: 16,
 			speed: 2,
 			essential: false,
+			offset: [offset, 0],
 		});
 	}
 

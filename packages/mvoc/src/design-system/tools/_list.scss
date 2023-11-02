@@ -8,8 +8,8 @@
 	ol,
 	ul {
 		--list-item-gap: var(--space-4);
-		--list-item-icon-gap: var(--space-4);
-		--list-item-icon-size: #{rem.convert(28px)};
+		--list-item-icon-gap: var(--space-3);
+		--list-item-icon-size: var(--space-6);
 		--list-item-icon-font-size: var(--font-size-milli);
 		--list-item-icon-line-height: var(--line-height-milli);
 		--list-item-icon-color: var(--color-white);

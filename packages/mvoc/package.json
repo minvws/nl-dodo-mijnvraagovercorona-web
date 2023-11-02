@@ -3,12 +3,13 @@
 	"version": "2.5.2",
 	"private": true,
 	"scripts": {
-		"dev": "ENVIRONMENT=development npm run download-sanity-assets && astro telemetry disable && astro dev",
+		"dev": "ENVIRONMENT=development npm run download-pza-features && npm run download-sanity-assets && astro telemetry disable && astro dev",
 		"start": "npm run dev",
-		"build": "npm run download-sanity-assets && astro telemetry disable && astro build",
+		"build": "npm run download-pza-features && npm run download-sanity-assets && astro telemetry disable && astro build",
 		"preview": "npm run build && astro telemetry disable && astro preview",
 		"test": "astro telemetry disable && astro check",
 		"download-sanity-assets": "node ./scripts/download-sanity-assets.mjs",
+		"download-pza-features": "node ./scripts/download-pza-features.mjs",
 		"check-changed-documents": "node ./scripts/check-changed-documents.mjs"
 	},
 	"devDependencies": {
