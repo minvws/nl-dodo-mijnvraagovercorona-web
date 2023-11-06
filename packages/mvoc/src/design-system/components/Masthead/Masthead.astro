@@ -139,25 +139,29 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		row-gap: var(--space-1);
 		column-gap: var(--space-4);
 		container: layout-container / inline-size;
+
+		:global(.c-button-tool__label) {
+			display: none;
+		}
 	}
 
 	/**
 	 * Hide the button labels visually when the inline size hit certain tresholds
 	 */
-	@container layout-container (inline-size < #{rem.convert(140px)}) {
+	@container layout-container (inline-size > #{rem.convert(140px)}) and (inline-size < #{rem.convert(192px)}) {
 		.c-masthead__end {
-			:global(.c-button-tool__label) {
-				display: none;
+			:global(> :last-child) {
+				:global(.c-button-tool__label) {
+					display: block;
+				}
 			}
 		}
 	}
 
-	@container layout-container (inline-size > #{rem.convert(140px)}) and (inline-size < #{rem.convert(192px)}) {
+	@container layout-container (inline-size > #{rem.convert(192px)}) {
 		.c-masthead__end {
-			:global(> :first-child) {
-				:global(.c-button-tool__label) {
-					display: none;
-				}
+			:global(.c-button-tool__label) {
+				display: block;
 			}
 		}
 	}
