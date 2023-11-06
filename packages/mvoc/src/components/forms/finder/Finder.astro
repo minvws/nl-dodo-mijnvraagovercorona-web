@@ -7,7 +7,6 @@ import { ButtonTool } from '@design-system/elements/Button';
 import { Icon } from '@design-system/elements/Icon';
 import type { SiteSettingsProps } from 'src/utilities/api/queries';
 import { useSiteSettings } from 'src/utilities/api/queries';
-import { Locale } from 'src/utilities/locale/translation';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
 
 interface Props extends HTMLAttributes<'div'> {}
@@ -21,7 +20,8 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 	<ButtonTool
 		type="button"
 		id="finder-modal"
-		aria-label={siteSettings.genericLabels.search}
+		label={siteSettings.genericLabels.search}
+		showLabel
 	>
 		<Icon name="looking-glass" />
 	</ButtonTool>

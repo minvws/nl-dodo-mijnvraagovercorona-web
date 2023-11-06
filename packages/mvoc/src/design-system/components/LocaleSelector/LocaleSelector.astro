@@ -156,6 +156,7 @@ const translationsOrder = alternativeTranslations
 <style lang="scss">
 	@use '@design-system-styles/primitives/_responsive.scss';
 	@use '@design-system-styles/tools/_a11y.scss';
+	@use '@design-system-styles/tools/_rem.scss';
 
 	/**
 	 * 1. Weird calculation to put the localeselector exactly in the middle
@@ -207,25 +208,54 @@ const translationsOrder = alternativeTranslations
 		cursor: pointer;
 	}
 
-	.c-locale-selector__full-name {
-		:where(.c-locale-selector:not(.is-active)) & {
-			@media (--mq-huge-until) {
+	/**
+	 * Container query to check if the longest language fits
+	 * the container, then expand the name
+	 */
+	@container layout-container (inline-size < #{rem.convert(144px)}) {
+		.c-locale-selector__full-name {
+			:where(.c-locale-selector:not(.is-active)) & {
 				@include a11y.visually-hidden;
 			}
 		}
-		:where(.c-locale-selector.c-locale-selector--compact:not(.is-active)) & {
-			@include a11y.visually-hidden;
+
+		.c-locale-selector__short-name {
+			:where(.c-locale-selector.is-active) & {
+				display: none;
+			}
 		}
 	}
 
-	.c-locale-selector__short-name {
-		:where(.c-locale-selector.is-active) & {
+	@container layout-container not (inline-size < #{rem.convert(144px)}) {
+		.c-locale-selector__short-name {
 			display: none;
 		}
+	}
 
-		:where(.c-locale-selector:not(.c-locale-selector--compact)) & {
-			@media (--mq-huge) {
+	/**
+	 * When container queries are not supported fall back to old mq solution
+	 */
+	@supports not (contain: inline-size) {
+		.c-locale-selector__full-name {
+			:where(.c-locale-selector:not(.is-active)) & {
+				@media (--mq-huge-until) {
+					@include a11y.visually-hidden;
+				}
+			}
+			:where(.c-locale-selector.c-locale-selector--compact:not(.is-active)) & {
+				@include a11y.visually-hidden;
+			}
+		}
+
+		.c-locale-selector__short-name {
+			:where(.c-locale-selector.is-active) & {
 				display: none;
+			}
+
+			:where(.c-locale-selector:not(.c-locale-selector--compact)) & {
+				@media (--mq-huge) {
+					display: none;
+				}
 			}
 		}
 	}
