@@ -147,7 +147,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 	@container layout-container (inline-size < #{rem.convert(140px)}) {
 		.c-masthead__end {
 			:global(.c-button-tool__label) {
-				@include a11y.visually-hidden;
+				display: none;
 			}
 		}
 	}
@@ -156,7 +156,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		.c-masthead__end {
 			:global(> :first-child) {
 				:global(.c-button-tool__label) {
-					@include a11y.visually-hidden;
+					display: none;
 				}
 			}
 		}
