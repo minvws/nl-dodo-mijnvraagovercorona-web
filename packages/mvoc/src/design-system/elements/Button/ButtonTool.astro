@@ -1,14 +1,23 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
+import type { IconProps } from '../Icon';
 
 export interface ButtonToolProps extends HTMLAttributes<'button'> {}
 
-interface Props extends ButtonToolProps {}
+interface Props extends ButtonToolProps {
+	label: string;
+	showLabel?: boolean;
+}
 
-const { class: className, ...attrs } = Astro.props;
+const { class: className, label, showLabel, ...attrs } = Astro.props;
 ---
 
-<button class={`c-button-tool${className ? ` | ${className}` : ''}`} {...attrs}>
+<button
+	class={`c-button-tool${className ? ` | ${className}` : ''}`}
+	aria-label={showLabel ? undefined : label}
+	{...attrs}
+>
+	{showLabel ? <span class="c-button-tool__label">{label}</span> : null}
 	<slot />
 </button>
 
@@ -29,11 +38,16 @@ const { class: className, ...attrs } = Astro.props;
 			var(--color-poolblauw)
 		);
 		display: var(--_button-tool-display);
+		gap: var(--space-2);
+		align-items: center;
 		padding-block: var(--space-2);
 		padding-inline: var(--space-2);
 		border: 0px solid var(--_button-tool-border-color);
 		border-block-end-width: var(--_button-tool-border-width);
 		border-radius: var(--radii-milli);
+		font-size: var(--font-size-milli);
+		line-height: 1em;
+		font-weight: bold;
 		color: var(--_button-tool-color);
 		background-color: var(--_button-tool-background-color);
 		outline: none;
@@ -52,6 +66,12 @@ const { class: className, ...attrs } = Astro.props;
 
 		&:hover {
 			--_button-tool-border-color: var(--color-donkerblauw);
+		}
+	}
+
+	.c-button-tool__label {
+		&::first-letter {
+			text-transform: uppercase;
 		}
 	}
 </style>

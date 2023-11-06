@@ -54,7 +54,7 @@ const {
 				) : null
 			}
 			<Retain variant="text">
-				<Stack gap={6}>
+				<Stack class="c-hero__body" gap={6}>
 					<hgroup class="c-hero__hgroup">
 						<Heading class="c-hero__title" level={1}>
 							{title}{
@@ -129,6 +129,21 @@ const {
 		@media (--mq-large) {
 			block-size: rem.convert(224px);
 			max-inline-size: 100%;
+		}
+	}
+
+	/**
+	 * Style all subsequent headings and adjust the spacing between them and
+	 * their next sibling.
+	 */
+	.c-hero__body {
+		:global(:is(h2, h3, h4, h5, h6)) {
+			--heading-font-size: var(--font-size-delta);
+			--heading-line-height: var(--line-height-delta);
+
+			:global(+ *) {
+				--stack-gap: var(--space-2);
+			}
 		}
 	}
 
