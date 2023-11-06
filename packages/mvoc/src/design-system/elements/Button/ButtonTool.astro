@@ -14,7 +14,7 @@ const { class: className, label, showLabel, ...attrs } = Astro.props;
 
 <button
 	class={`c-button-tool${className ? ` | ${className}` : ''}`}
-	aria-label={showLabel ? undefined : label}
+	aria-label={label}
 	{...attrs}
 >
 	{showLabel ? <span class="c-button-tool__label">{label}</span> : null}
