@@ -70,9 +70,6 @@ const { filters, ctaButtons } = getFiltersAndSituations({
 	ctaButtonCollection: pageData.important.ctaButtonCollection,
 });
 
-const themesWithAssistance = pageData.themes.filter(
-	(theme) => theme.assistance && theme.assistance.type === 'assistance-new',
-);
 const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 ---
 
@@ -211,44 +208,21 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 
 	{
 		pageData.assistance && pageData.assistance.type === 'assistance-new' ? (
-			<div aria-live="polite" data-module-bind="filter__switch-on-filter-theme">
-				<Layer
-					id={stringToSlug(pageData.assistance.title)}
-					background="ijsblauw"
-					pushDownBy="assistance-image"
-					data-theme-slug="all"
-				>
-					<Retain>
-						<Assistance
-							feedback={getFeedbackUrl(siteSettings.feedback.url, {
-								source: pageData.type,
-								advice: pageData.slug,
-							})}
-							{...pageData.assistance}
-						/>
-					</Retain>
-				</Layer>
-
-				{themesWithAssistance.map((theme) => (
-					<Layer
-						id={stringToSlug(theme.assistance.title)}
-						background="ijsblauw"
-						pushDownBy="assistance-image"
-						data-theme-slug={theme.slug}
-						hidden
-					>
-						<Retain>
-							<Assistance
-								feedback={getFeedbackUrl(siteSettings.feedback.url, {
-									source: pageData.type,
-									advice: pageData.slug,
-								})}
-								{...theme.assistance}
-							/>
-						</Retain>
-					</Layer>
-				))}
-			</div>
+			<Layer
+				id={stringToSlug(pageData.assistance.title)}
+				background="ijsblauw"
+				pushDownBy="assistance-image"
+			>
+				<Retain>
+					<Assistance
+						feedback={getFeedbackUrl(siteSettings.feedback.url, {
+							source: pageData.type,
+							advice: pageData.slug,
+						})}
+						{...pageData.assistance}
+					/>
+				</Retain>
+			</Layer>
 		) : null
 	}
 </Layout>
