@@ -34,6 +34,12 @@ export class Map {
 			center: [5.180700346741352, 52.33146823204307], // Center of the netherlands
 			zoom: boundedViewport.zoom,
 		});
+
+		this.map.on('zoomend', (event) => {
+			if (event.originalEvent) {
+				this.storeCurrentBounds();
+			}
+		});
 	}
 
 	generateMarkers({ features }: { features: FeatureProps[] }) {
@@ -94,9 +100,11 @@ export class Map {
 	}
 
 	restorePreviousBounds() {
-		this.map.fitBounds(this.previousBounds, {
-			speed: 2,
-		});
+		if (this.previousBounds) {
+			this.map.fitBounds(this.previousBounds, {
+				speed: 2,
+			});
+		}
 	}
 
 	init() {
