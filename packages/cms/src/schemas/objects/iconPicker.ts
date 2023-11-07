@@ -42,6 +42,7 @@ export default defineType({
 			{ title: 'Info', value: 'info' },
 			{ title: 'Download', value: 'download' },
 			{ title: 'Informatie i', value: 'informatie-i' },
+			{ title: 'Brief', value: 'brief' },
 		],
 	},
 });
