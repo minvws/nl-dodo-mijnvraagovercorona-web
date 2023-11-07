@@ -9,6 +9,7 @@ import { generateDetail } from './generateDetail';
 import { generateListItem } from './generateListItem';
 import { Map } from './map';
 import { isOpenNow } from './timetable-helpers';
+import debounce from 'src/utilities/helpers/debounce';
 
 export class Navigator {
 	// element cache
@@ -35,6 +36,9 @@ export class Navigator {
 	locale: string;
 	pathname: string;
 	locations: FeatureProps[];
+	hasBothAppointmentTypes: boolean = false;
+	hasPzaAppointmentTypes: boolean = false;
+	hasPmaAppointmentTypes: boolean = false;
 	search: string = '';
 	activeLocationSlug: string = '';
 	activeDetailPage: HTMLDivElement;
@@ -76,6 +80,34 @@ export class Navigator {
 		const featuresData = await fetch('/data/v3/features.json');
 		const features: FeaturesProps = await featuresData.json();
 		this.locations = features.features;
+
+		this.hasPmaAppointmentTypes = this.locations.some(
+			(location) => location.properties?.appointmentType?.includes('pma'),
+		);
+		this.hasPzaAppointmentTypes = this.locations.some(
+			(location) => location.properties?.appointmentType?.includes('pza'),
+		);
+		this.hasBothAppointmentTypes =
+			this.hasPmaAppointmentTypes && this.hasPzaAppointmentTypes;
+	}
+
+	initView() {
+		const heroElement = this.navigatorElement.querySelector(
+			'[data-module-bind="navigator__hero"]',
+		) as HTMLDivElement;
+
+		if (heroElement) {
+			const checkSize = () => {
+				const heroRect = heroElement.getBoundingClientRect();
+				this.navigatorElement.style.setProperty(
+					'--navigator__hero-size',
+					`${heroRect.height}px`,
+				);
+			};
+			window.addEventListener('resize', debounce(checkSize));
+
+			checkSize();
+		}
 	}
 
 	/**
@@ -96,6 +128,14 @@ export class Navigator {
 				template: listItemTemplate,
 				locale: this.locale,
 			});
+
+			const labelContainerElement = listItem.querySelector(
+				'[data-labels]',
+			) as HTMLSpanElement;
+
+			if (labelContainerElement && !this.hasBothAppointmentTypes) {
+				labelContainerElement.remove();
+			}
 			// Get the newly created button in the list item
 			const button = listItem.querySelector('button') as HTMLButtonElement;
 			// Add eventlistener to update history without refresh
@@ -200,20 +240,13 @@ export class Navigator {
 			...filterTogglesWrapElement.querySelectorAll<HTMLElement>('#pza, #pma'),
 		];
 
-		const hasPzaLocations = this.locations.some(
-			(location) => location.properties?.appointmentType?.includes('pza'),
-		);
-		const hasPmaLocations = this.locations.some(
-			(location) => location.properties?.appointmentType?.includes('pma'),
-		);
-
-		if (hasPzaLocations && hasPmaLocations) {
+		if (this.hasBothAppointmentTypes) {
 			appointmentTypeFilters.forEach(
 				(filter) => (filter.closest<HTMLElement>('.e-control').hidden = false),
 			);
 		}
 
-		if (hasPzaLocations) {
+		if (this.hasPzaAppointmentTypes) {
 			filterTogglesWrapElement.hidden = false;
 		}
 
@@ -465,6 +498,7 @@ export class Navigator {
 		await this.getLocations();
 
 		// Initialise sections
+		this.initView();
 		this.initList();
 		this.initMap();
 		this.initDetailPane();
