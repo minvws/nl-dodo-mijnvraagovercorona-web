@@ -9,6 +9,7 @@ export class Map {
 	map: any;
 	markerTemplateElement: HTMLTemplateElement;
 	markers: any[] = [];
+	previousBounds: any;
 
 	constructor({ element }: { element: HTMLDivElement }) {
 		this.mapElement = element;
@@ -85,6 +86,16 @@ export class Map {
 			speed: 2,
 			essential: false,
 			offset: [offset, 0],
+		});
+	}
+
+	storeCurrentBounds() {
+		this.previousBounds = this.map.getBounds();
+	}
+
+	restorePreviousBounds() {
+		this.map.fitBounds(this.previousBounds, {
+			speed: 2,
 		});
 	}
 

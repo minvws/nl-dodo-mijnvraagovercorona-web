@@ -216,6 +216,7 @@ export class Navigator {
 		detailCloseButton.addEventListener('click', () => {
 			this.updateHistory({ locatie: '', ggd: '' });
 			this.onHistoryChange();
+			this.map.restorePreviousBounds();
 		});
 	}
 
@@ -461,6 +462,7 @@ export class Navigator {
 				(location) => location.properties.slug === this.activeLocationSlug,
 			)[0];
 			if (newLocation) {
+				this.map.storeCurrentBounds();
 				const newDetailElement = generateDetail({
 					location: newLocation,
 					template: this.detailTemplateElement,
