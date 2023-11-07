@@ -309,14 +309,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 	 * 1. mapbox sets a hard height on the container so we need to override it
 	 */
 	.c-navigator__map {
-		position: absolute !important; /* [1] */
-		block-size: calc(
-			100% - var(--navigator__map-spacing) * 2
-		) !important; /* [1] */
-		inline-size: calc(
-			100% - var(--navigator__map-spacing) * 2
-		) !important; /* [1] */
-		overflow: hidden;
+		block-size: 100% !important; /* [1] */
 		border-radius: var(--navigator__map-radii);
 		box-shadow: var(--navigator__map-elevation);
 	}
