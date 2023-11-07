@@ -45,7 +45,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 	<div class="c-navigator__wrap-sidebar">
 		{
 			pageData.hero ? (
-				<div class="c-navigator__wrap-hero">
+				<div class="c-navigator__wrap-hero" data-module-bind="navigator__hero">
 					<Stack>
 						<Breadcrumbs breadcrumbs={pageData.breadcrumbs} />
 						<Heading level={1} styledAs={2}>
@@ -75,6 +75,8 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 				</LocationList>
 			</div>
 		</div>
+
+		<MastFoot locale={locale} />
 	</div>
 
 	<div class="c-navigator__wrap-map" data-pagefind-ignore="all">
@@ -113,9 +115,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 						>
 						</div>
 						<Feedback url={siteSettings.feedback.url} name="Prikken detail" />
-						<CardPrivacy />
 					</Stack>
-					<MastFoot locale={locale} />
 				</Stack>
 			</div>
 		</div>
@@ -150,6 +150,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 
 <style lang="scss">
 	@use '@design-system-styles/primitives/_responsive.scss';
+	@use '@design-system-styles/tools/_rem.scss';
 
 	.c-navigator {
 		--navigator__padding: var(--space-4);
@@ -161,6 +162,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		--navigator__popover-spacing: var(--space-4);
 		--navigator__popover-radii: var(--radii-milli);
 		--navigator__popover-elevation: var(--elevation-frost);
+		--navigator__masthead-offset: var(--theme__masthead-top-block-size);
 		display: grid;
 		grid-template-rows: var(--navigator__template-rows, 1fr);
 		grid-template-columns: var(--navigator__template-columns, 1fr);
@@ -185,10 +187,10 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 
 	.c-navigator__wrap-sidebar {
 		position: relative;
-		overflow: auto;
-		padding-block-end: env(safe-area-inset-bottom);
-		grid-area: 1 / 1 / 2 / 2;
 		z-index: 2;
+		grid-area: 1 / 1 / 2 / 2;
+		padding-block-end: env(safe-area-inset-bottom);
+		overflow: auto;
 		background-color: var(--color-white);
 
 		// prevent scrolling when menu is open
@@ -318,6 +320,15 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		z-index: 3;
 	}
 
+	.c-navigator__wrap-filter-list {
+		min-height: calc(
+			var(--navigator__block-size) - var(--navigator__masthead-offset) - var(
+					--navigator__hero-size,
+					0px
+				)
+		);
+	}
+
 	.c-navigator__wrap-filter {
 		padding-block: var(--navigator__padding-block);
 		padding-inline: var(--navigator__padding-inline);
@@ -345,6 +356,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 				var(--navigator__block-size) - var(--theme__masthead-block-size)
 			);
 			--navigator__padding-block-start: 0px;
+			--navigator__masthead-offset: var(--theme__masthead-block-size);
 		}
 
 		.c-navigator__wrap-map {

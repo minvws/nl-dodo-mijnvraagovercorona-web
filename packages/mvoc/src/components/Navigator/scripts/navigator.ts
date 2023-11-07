@@ -9,6 +9,7 @@ import { generateDetail } from './generateDetail';
 import { generateListItem } from './generateListItem';
 import { Map } from './map';
 import { isOpenNow } from './timetable-helpers';
+import debounce from 'src/utilities/helpers/debounce';
 
 export class Navigator {
 	// element cache
@@ -76,6 +77,25 @@ export class Navigator {
 		const featuresData = await fetch('/data/v3/features.json');
 		const features: FeaturesProps = await featuresData.json();
 		this.locations = features.features;
+	}
+
+	initView() {
+		const heroElement = this.navigatorElement.querySelector(
+			'[data-module-bind="navigator__hero"]',
+		) as HTMLDivElement;
+
+		if (heroElement) {
+			const checkSize = () => {
+				const heroRect = heroElement.getBoundingClientRect();
+				this.navigatorElement.style.setProperty(
+					'--navigator__hero-size',
+					`${heroRect.height}px`,
+				);
+			};
+			window.addEventListener('resize', debounce(checkSize));
+
+			checkSize();
+		}
 	}
 
 	/**
@@ -465,6 +485,7 @@ export class Navigator {
 		await this.getLocations();
 
 		// Initialise sections
+		this.initView();
 		this.initList();
 		this.initMap();
 		this.initDetailPane();
