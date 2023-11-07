@@ -455,6 +455,20 @@ export class Navigator {
 		} else {
 			this.detailPaneElement.classList.remove('is-active');
 		}
+
+		// open the map overview if map in detail pane is clicked
+		const mapOverviewButton = this.detailScrollerElement.querySelector(
+			'[data-module-bind="navigator__detail-map"]',
+		) as HTMLButtonElement;
+
+		if (mapOverviewButton) {
+			mapOverviewButton.addEventListener('click', () => {
+				if (!this.mapShown) {
+					this.navigatorElement.classList.add('show-map');
+					this.detailPaneElement.classList.remove('is-active');
+				}
+			});
+		}
 	}
 
 	/**

@@ -62,14 +62,19 @@ const note = pageData.location.note;
 			<div>
 				<Stack gap={3}>
 					<div class="c-location-detail__wrap-image" data-wrap-image>
-						<img class="c-location-detail__image" alt="" data-image-map />
-						<img
-							class="c-location-detail__marker-icon"
-							src="/images/map/marker.svg"
-							data-src-open="/images/map/marker-open.svg"
-							alt=""
-							data-marker-icon
-						/>
+						<button
+							class="c-location-detail__map-overview"
+							type="button"
+							data-module-bind="navigator__detail-map"
+							><img class="c-location-detail__image" alt="" data-image-map />
+							<img
+								class="c-location-detail__marker-icon"
+								src="/images/map/marker.svg"
+								data-src-open="/images/map/marker-open.svg"
+								alt=""
+								data-marker-icon
+							/>
+						</button>
 					</div>
 
 					<Attribute
@@ -396,5 +401,9 @@ const note = pageData.location.note;
 				display: block;
 			}
 		}
+	}
+
+	.c-location-detail__map-overview {
+		cursor: pointer;
 	}
 </style>
