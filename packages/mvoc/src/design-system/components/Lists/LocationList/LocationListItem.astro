@@ -34,7 +34,11 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 		<strong data-city={isTemplate}></strong>
 		<span data-name={isTemplate}></span>
 
-		<span data-appointment-type="pza|pma" class="c-location-list__labels">
+		<span
+			data-appointment-type="pza|pma"
+			class="c-location-list__labels"
+			data-labels
+		>
 			<Label class="c-location-list__label" data-appointment-type="pza">
 				{siteSettings.appointmentTypes.pza}
 			</Label>
