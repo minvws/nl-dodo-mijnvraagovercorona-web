@@ -51,7 +51,9 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 						<Heading level={1} styledAs={2}>
 							{pageData.hero.title}
 						</Heading>
-						<ContentBlock value={pageData.hero.content} />
+						<Stack class="has__list-styled">
+							<ContentBlock value={pageData.hero.content} />
+						</Stack>
 						<img
 							data-pagefind-meta="image[src]"
 							src={pageData.hero.image.src}
