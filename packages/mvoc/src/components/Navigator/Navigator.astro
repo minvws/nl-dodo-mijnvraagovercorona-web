@@ -351,11 +351,6 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		.c-navigator {
 			--navigator__template-columns: 480px 1fr;
 			--navigator__padding: var(--space-6);
-			--navigator__padding-block-start: var(--navigator__padding);
-			--navigator__max-block-size: calc(
-				var(--navigator__block-size) - var(--theme__masthead-block-size)
-			);
-			--navigator__padding-block-start: 0px;
 			--navigator__masthead-offset: var(--theme__masthead-block-size);
 		}
 
@@ -370,6 +365,15 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		// Increase specificity by 1,
 		.c-navigator__map-close.c-navigator__map-close {
 			display: none;
+		}
+	}
+
+	@media (--mq-huge) {
+		.c-navigator {
+			--navigator__max-block-size: calc(
+				var(--navigator__block-size) - var(--theme__masthead-block-size)
+			);
+			--navigator__padding-block-start: 0px;
 		}
 	}
 </style>
