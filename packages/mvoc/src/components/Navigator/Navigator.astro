@@ -212,13 +212,10 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		// background-color: red;
 		@media (--mq-wide) {
 			z-index: 2;
+			overflow: unset;
 		}
 		&.is-active {
 			pointer-events: auto;
-			@media (--mq-wide) {
-				z-index: 2;
-				overflow: unset;
-			}
 		}
 	}
 
@@ -238,14 +235,14 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 
 		@media (--mq-wide) {
 			transform: translateX(0%);
+			background-color: revert;
+			box-shadow: unset;
 		}
 
 		.is-active & {
 			transform: translateY(0);
 			@media (--mq-wide) {
 				transform: translateX(100%);
-				background-color: revert;
-				box-shadow: unset;
 			}
 		}
 
