@@ -42,7 +42,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 	data-locale={locale.id}
 	data-access-token={process.env.MAPBOX_ACCESS_TOKEN}
 >
-	<div class="c-navigator__wrap-sidebar">
+	<div class="c-navigator__wrap-sidebar" data-module-bind="navigator__sidebar">
 		{
 			pageData.hero ? (
 				<div class="c-navigator__wrap-hero" data-module-bind="navigator__hero">
@@ -303,6 +303,9 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 
 		.c-navigator.show-map & {
 			z-index: 2;
+		}
+		.c-navigator.elevate-map & {
+			z-index: 5;
 		}
 	}
 
