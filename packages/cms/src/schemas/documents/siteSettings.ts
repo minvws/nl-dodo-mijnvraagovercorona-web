@@ -446,6 +446,12 @@ export default defineType({
 					type: 'string',
 					validation: (Rule) => Rule.required(),
 				}),
+				defineField({
+					title: 'Kilometer afkorting (km)',
+					name: 'kilometerAbbr',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
 			],
 		}),
 

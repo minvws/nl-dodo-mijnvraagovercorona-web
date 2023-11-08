@@ -24,12 +24,13 @@ const { class: className, ...attrs } = Astro.props;
 
 	.c-marker {
 		pointer-events: none;
+		z-index: 2;
 		&:global(.is-open) {
-			z-index: 2;
+			z-index: 3;
 		}
 		&:focus-within,
 		&:has(button:hover) {
-			z-index: 3;
+			z-index: 4;
 		}
 	}
 

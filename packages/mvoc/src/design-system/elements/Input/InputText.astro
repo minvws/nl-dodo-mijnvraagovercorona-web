@@ -90,6 +90,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 
 <style lang="scss">
 	@use '@design-system-styles/tools/_a11y.scss';
+	@use '@design-system-styles/tools/_input.scss';
 
 	.c-input-text {
 		position: relative;
@@ -97,25 +98,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 	}
 
 	.c-input-text__input {
-		inline-size: 100%;
-		appearance: none;
-		padding: calc(var(--space-4) - 1px);
-		border-radius: var(--radii-nano);
-		border: 1px solid var(--color-grijs-4);
-		background-color: var(--color-white);
-
-		&[type='search'] {
-			&::-webkit-search-decoration,
-			&::-webkit-search-cancel-button,
-			&::-webkit-search-results-button,
-			&::-webkit-search-results-decoration {
-				display: none;
-			}
-		}
-
-		&:focus {
-			@include a11y.focusring;
-		}
+		@include input.scaffold();
 	}
 
 	.c-input-text__input--has-icon {
