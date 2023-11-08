@@ -192,6 +192,7 @@ export class Navigator {
 				const previouslyActiveLocation = this.locations.filter(
 					(location) => location.properties.slug === this.activeLocationSlug,
 				)[0];
+
 				if (this.interactionInitiator === 'map') {
 					previouslyActiveLocation.markerElement
 						.querySelector('button')
@@ -330,6 +331,7 @@ export class Navigator {
 			) as HTMLButtonElement;
 			button.addEventListener('click', () => {
 				this.interactionInitiator = 'map';
+				this.lowerMap();
 				this.updateHistory({
 					locatie: location.properties.slug,
 					ggd: location.properties.ggdData.slug,
