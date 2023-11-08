@@ -343,10 +343,11 @@ export class Navigator {
 			) as HTMLButtonElement;
 			button.addEventListener('click', () => {
 				this.interactionInitiator = 'map';
-				this.lowerMap();
 				if (!this.mapIsElevated) {
 					this.map.storeCurrentBounds();
 				}
+				this.lowerMap();
+
 				this.updateHistory({
 					locatie: location.properties.slug,
 					ggd: location.properties.ggdData.slug,
