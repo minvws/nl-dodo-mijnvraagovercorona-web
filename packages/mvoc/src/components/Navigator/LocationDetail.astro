@@ -129,17 +129,6 @@ const note = pageData.location.note;
 								<ContentBlock value={pageData.location.instructions} />
 							</div>
 						</Stack>
-
-						<Stack gap={1} data-appointment-type="!pma">
-							<Button
-								href="https://planjeprik.nl/afspraak-maken"
-								icon="external"
-								iconPosition="trailing"
-								full
-							>
-								{pageData.location.appointmentButton.label}
-							</Button>
-						</Stack>
 					</section>
 					{
 						note ? (
@@ -151,7 +140,10 @@ const note = pageData.location.note;
 											<li data-appointment-type="pza">
 												<Attribute icon={note.pzaInfo.icon}>
 													<Stack gap={2}>
-														<span class="c-location-detail__wrap-labels">
+														<span
+															class="c-location-detail__wrap-labels"
+															data-appointment-type="pza&pma"
+														>
 															<Label>{siteSettings.appointmentTypes.pza}</Label>
 														</span>
 														<ContentBlock value={note.pzaInfo.label} />
@@ -163,7 +155,10 @@ const note = pageData.location.note;
 											<li data-appointment-type="pma">
 												<Attribute icon={note.pmaInfo.icon}>
 													<Stack gap={2}>
-														<span class="c-location-detail__wrap-labels">
+														<span
+															class="c-location-detail__wrap-labels"
+															data-appointment-type="pza&pma"
+														>
 															<Label>{siteSettings.appointmentTypes.pma}</Label>
 														</span>
 														<ContentBlock value={note.pmaInfo.label} />
