@@ -299,6 +299,7 @@ const note = pageData.location.note;
 
 <style lang="scss">
 	@use '@design-system-styles/primitives/_responsive.scss';
+	@use '@design-system-styles/tools/_a11y.scss';
 
 	.c-location-detail {
 		block-size: 100%;
@@ -348,6 +349,10 @@ const note = pageData.location.note;
 		border-radius: var(--radii-milli);
 		background-color: var(--color-grijs-2);
 		cursor: pointer;
+
+		&:focus-visible {
+			@include a11y.focusring;
+		}
 	}
 
 	.c-location-detail__image {
