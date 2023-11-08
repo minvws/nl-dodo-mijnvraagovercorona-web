@@ -1,4 +1,4 @@
-import { mqWide } from '@design-system/primitives/responsive';
+import { mqWide, mqLargeUntil } from '@design-system/primitives/responsive';
 import queryString from 'query-string';
 import { trapFocus } from 'src/utilities/helpers/a11y';
 import type {
@@ -10,10 +10,12 @@ import { generateListItem } from './generateListItem';
 import { Map } from './map';
 import { isOpenNow } from './timetable-helpers';
 import debounce from 'src/utilities/helpers/debounce';
+import isVisibleInScrollContainer from 'src/utilities/helpers/visible-in-scrollcontainer';
 
 export class Navigator {
 	// element cache
 	navigatorElement: HTMLDivElement;
+	sidebarElement: HTMLDivElement;
 	detailPaneElement: HTMLDivElement;
 	detailElement: HTMLDivElement;
 	detailTargetElement: HTMLDivElement;
@@ -25,12 +27,16 @@ export class Navigator {
 	loggerElement: HTMLSpanElement;
 	interactionInitiator: 'list' | 'map' = 'list';
 
-	// Mabox instance, TODO: fix any
+	// Mapbox instance, TODO: fix any
+	token: string;
 	map: any;
 	mapElement: HTMLDivElement;
 	mapInitialised: boolean = false;
-	mapShown: boolean = false;
-	token: string;
+	mapIsOpen: boolean = false;
+	mapIsElevated: boolean = false;
+	mapToggleButtonElement: HTMLButtonElement;
+	mapToggleButtonListElement: HTMLSpanElement;
+	mapToggleButtonMapElement: HTMLSpanElement;
 
 	// state
 	locale: string;
@@ -45,6 +51,9 @@ export class Navigator {
 
 	constructor(parent: HTMLDivElement) {
 		this.navigatorElement = parent;
+		this.sidebarElement = this.navigatorElement.querySelector(
+			'[data-module-bind="navigator__sidebar"]',
+		);
 		this.loggerElement = parent.querySelector('[data-logger]');
 		this.detailPaneElement = parent.querySelector(
 			'[data-module-bind="navigator__detail-pane"]',
@@ -67,6 +76,13 @@ export class Navigator {
 		this.listNoResultElement =
 			this.listElement.querySelector('[data-no-result]');
 		this.mapElement = parent.querySelector<HTMLDivElement>('#map');
+		this.mapToggleButtonElement = this.navigatorElement.querySelector(
+			'[data-module-bind="navigator__map-toggle"]',
+		);
+		this.mapToggleButtonListElement =
+			this.mapToggleButtonElement.querySelector('[data-list]');
+		this.mapToggleButtonMapElement =
+			this.mapToggleButtonElement.querySelector('[data-map]');
 		this.token = parent.dataset.accessToken;
 		this.formElement = parent.querySelector('[data-module="filter"]');
 		this.locale = parent.dataset.locale;
@@ -176,11 +192,8 @@ export class Navigator {
 				const previouslyActiveLocation = this.locations.filter(
 					(location) => location.properties.slug === this.activeLocationSlug,
 				)[0];
+
 				if (this.interactionInitiator === 'map') {
-					previouslyActiveLocation.element.scrollIntoView({
-						block: 'center',
-						inline: 'nearest',
-					});
 					previouslyActiveLocation.markerElement
 						.querySelector('button')
 						.focus();
@@ -304,16 +317,6 @@ export class Navigator {
 	}
 
 	initMap() {
-		const mapToggleButtonElement = this.navigatorElement.querySelector(
-			'[data-module-bind="navigator__map-toggle"]',
-		) as HTMLButtonElement;
-		const mapToggleButtonListElement = mapToggleButtonElement.querySelector(
-			'[data-list]',
-		) as HTMLSpanElement;
-		const mapToggleButtonMapElement = mapToggleButtonElement.querySelector(
-			'[data-map]',
-		) as HTMLSpanElement;
-
 		const mapCloseButton = this.navigatorElement.querySelector(
 			'[data-module-bind="navigator__map-close"]',
 		) as HTMLButtonElement;
@@ -328,6 +331,7 @@ export class Navigator {
 			) as HTMLButtonElement;
 			button.addEventListener('click', () => {
 				this.interactionInitiator = 'map';
+				this.lowerMap();
 				this.updateHistory({
 					locatie: location.properties.slug,
 					ggd: location.properties.ggdData.slug,
@@ -335,31 +339,52 @@ export class Navigator {
 			});
 		});
 
-		mapToggleButtonElement.addEventListener('click', () => {
-			if (this.mapShown) {
-				this.mapShown = false;
-				this.navigatorElement.classList.remove('show-map');
-				mapToggleButtonListElement.hidden = true;
-				mapToggleButtonMapElement.hidden = false;
-				mapToggleButtonElement.focus();
-			} else {
-				this.mapShown = true;
-				this.navigatorElement.classList.add('show-map');
-				mapToggleButtonListElement.hidden = false;
-				mapToggleButtonMapElement.hidden = true;
-				this.mapElement.focus();
-			}
-		});
-
+		this.mapToggleButtonElement.addEventListener(
+			'click',
+			this.toggleMap.bind(this),
+		);
 		mapCloseButton.addEventListener('click', () => {
-			this.mapShown = false;
-			this.navigatorElement.classList.remove('show-map');
-			mapToggleButtonListElement.hidden = true;
-			mapToggleButtonMapElement.hidden = false;
-			mapToggleButtonElement.focus();
+			this.mapIsElevated && this.interactionInitiator === 'map'
+				? this.lowerMap()
+				: this.closeMap();
 		});
 
 		this.mapInitialised = true;
+	}
+
+	toggleMap() {
+		this.mapIsOpen ? this.closeMap() : this.openMap();
+	}
+
+	closeMap() {
+		this.mapIsOpen = false;
+		this.lowerMap();
+		this.navigatorElement.classList.remove('show-map');
+		this.mapToggleButtonListElement.hidden = true;
+		this.mapToggleButtonMapElement.hidden = false;
+		this.mapToggleButtonElement.focus();
+	}
+
+	openMap() {
+		this.mapIsOpen = true;
+		this.navigatorElement.classList.add('show-map');
+		this.mapToggleButtonListElement.hidden = false;
+		this.mapToggleButtonMapElement.hidden = true;
+		this.mapElement.focus();
+	}
+
+	toggleMapElevation() {
+		this.mapIsElevated ? this.lowerMap() : this.elevateMap();
+	}
+
+	elevateMap() {
+		this.mapIsElevated = true;
+		this.navigatorElement.classList.add('elevate-map');
+	}
+
+	lowerMap() {
+		this.mapIsElevated = false;
+		this.navigatorElement.classList.remove('elevate-map');
 	}
 
 	/**
@@ -407,10 +432,6 @@ export class Navigator {
 				: [parsedQueryString.filter]
 			: [];
 
-		const seriesFilter = filter
-			.filter((item) => item.startsWith('series-'))
-			.map((item) => item.replace('series-', ''));
-
 		this.locations.forEach((location) => {
 			let show = true;
 			if (filter.includes('status-open')) {
@@ -454,6 +475,10 @@ export class Navigator {
 			(location) => !location.element.hidden,
 		).length;
 
+		this.locations.forEach((location) => {
+			location.element.classList.remove('is-active');
+		});
+
 		// hide/show detail pane
 		if (parsedQueryString.locatie) {
 			this.activeLocationSlug = parsedQueryString.locatie as string;
@@ -461,12 +486,39 @@ export class Navigator {
 				(location) => location.properties.slug === this.activeLocationSlug,
 			)[0];
 			if (newLocation) {
+				if (
+					!isVisibleInScrollContainer(newLocation.element, this.sidebarElement)
+				) {
+					newLocation.element.scrollIntoView({
+						block: 'center',
+						inline: 'nearest',
+					});
+				}
+
+				newLocation.element.classList.add('is-active');
+
 				const newDetailElement = generateDetail({
 					location: newLocation,
 					template: this.detailTemplateElement,
 					locale: this.locale,
 					accessToken: this.token,
 				});
+
+				// show the map overview after map preview is clicked by overriding z-indexes
+				const mapOverviewButton = newDetailElement.querySelector(
+					'[data-module-bind="navigator__map-preview"]',
+				) as HTMLButtonElement;
+
+				if (window.matchMedia(mqLargeUntil).matches) {
+					if (mapOverviewButton) {
+						mapOverviewButton.addEventListener('click', () => {
+							if (!this.mapIsOpen) {
+								this.openMap();
+							}
+							this.elevateMap();
+						});
+					}
+				}
 
 				this.activeDetailPage?.remove();
 				this.activeDetailPage = newDetailElement;

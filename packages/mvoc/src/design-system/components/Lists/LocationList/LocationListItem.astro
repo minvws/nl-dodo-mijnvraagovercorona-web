@@ -95,7 +95,8 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 		cursor: pointer;
 		outline: none;
 
-		&:hover {
+		&:hover,
+		.c-location-list__item.is-active & {
 			background-color: var(--color-poolblauw);
 
 			.c-location-list__label {
