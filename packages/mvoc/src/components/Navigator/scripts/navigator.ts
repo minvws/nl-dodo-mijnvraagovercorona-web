@@ -166,6 +166,7 @@ export class Navigator {
 			// Add eventlistener to update history without refresh
 			button.addEventListener('click', () => {
 				this.interactionInitiator = 'list';
+				this.map.storeCurrentBounds();
 				this.updateHistory({
 					locatie: location.properties.slug,
 					ggd: location.properties.ggdData.slug,
@@ -236,6 +237,7 @@ export class Navigator {
 		});
 
 		detailCloseButton.addEventListener('click', () => {
+			this.map.restorePreviousBounds();
 			this.updateHistory({ locatie: '', ggd: '' });
 			this.onHistoryChange();
 		});
@@ -342,6 +344,9 @@ export class Navigator {
 			button.addEventListener('click', () => {
 				this.interactionInitiator = 'map';
 				this.lowerMap();
+				if (!this.mapIsElevated) {
+					this.map.storeCurrentBounds();
+				}
 				this.updateHistory({
 					locatie: location.properties.slug,
 					ggd: location.properties.ggdData.slug,

@@ -2,6 +2,7 @@ import mapboxgl from 'mapbox-gl';
 import { bbox, lineString, type Position } from '@turf/turf';
 import type { FeatureProps } from 'src/utilities/helpers/features';
 import { isOpenNow } from './timetable-helpers';
+import { mqLarge } from '@design-system/primitives/responsive';
 
 export class Map {
 	mapElement: HTMLDivElement;
@@ -35,12 +36,6 @@ export class Map {
 			center: this.centerMap,
 		}).fitBounds(this.boundsFull, {
 			duration: 0,
-		});
-
-		this.map.on('zoomend', (event) => {
-			if (event.originalEvent) {
-				this.storeCurrentBounds();
-			}
 		});
 	}
 
@@ -105,7 +100,7 @@ export class Map {
 		this.map.flyTo({
 			center: [longitude, latitude],
 			zoom: 16,
-			speed: 2,
+			speed: 3,
 			essential: false,
 			offset: [offset, 0],
 		});
@@ -132,8 +127,9 @@ export class Map {
 
 	restorePreviousBounds() {
 		if (this.previousBounds) {
+			const speed = window.matchMedia(mqLarge).matches ? 1000 : 0;
 			this.map.fitBounds(this.previousBounds, {
-				speed: 2,
+				duration: speed,
 			});
 		}
 	}
