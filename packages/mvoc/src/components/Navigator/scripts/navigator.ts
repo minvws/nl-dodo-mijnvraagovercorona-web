@@ -587,7 +587,8 @@ export class Navigator {
 		).length;
 
 		this.locations.forEach((location) => {
-			location.element.classList.remove('is-active');
+			location.element.classList.remove('is-active-location');
+			location.markerElement.classList.remove('is-active-location');
 		});
 
 		// hide/show detail pane
@@ -606,7 +607,8 @@ export class Navigator {
 					});
 				}
 
-				newLocation.element.classList.add('is-active');
+				newLocation.element.classList.add('is-active-location');
+				newLocation.markerElement.classList.add('is-active-location');
 
 				const newDetailElement = generateDetail({
 					location: newLocation,

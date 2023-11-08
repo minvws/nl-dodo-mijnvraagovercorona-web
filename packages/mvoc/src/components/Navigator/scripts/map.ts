@@ -54,11 +54,11 @@ export class Map {
 
 			nameElement.innerHTML = `${feature.properties.name}, ${feature.properties.location.city}`;
 			if (isOpenNow(feature.properties.openingHours)) {
-				clone.classList.add('is-open');
+				clone.classList.add('is-open-location');
 			}
 
 			if (feature.properties?.isTestLocation) {
-				clone.classList.add('is-test');
+				clone.classList.add('is-test-location');
 			}
 
 			this.markers.push(

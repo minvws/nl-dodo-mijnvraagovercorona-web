@@ -85,7 +85,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 		border-block-end: 1px solid var(--color-grijs-2);
 
 		// add outline to the list when the location is a test location
-		&.is-test {
+		&.is-test-location {
 			outline: 1px solid red;
 		}
 	}
@@ -103,7 +103,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 		outline: none;
 
 		&:hover,
-		.c-location-list__item.is-active & {
+		.c-location-list__item.is-active-location & {
 			background-color: var(--color-poolblauw);
 
 			.c-location-list__label {

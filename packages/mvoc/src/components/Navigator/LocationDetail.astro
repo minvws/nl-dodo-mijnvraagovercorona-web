@@ -5,7 +5,9 @@ import { Label } from '@design-system/components/Label';
 import { Stack } from '@design-system/components/Layout/Stack';
 import { Button } from '@design-system/elements/Button';
 import { Heading } from '@design-system/elements/Heading';
+import { MarkerIcon } from '@design-system/elements/Icon';
 import { Link } from '@design-system/elements/Link';
+import { Sprite } from 'astro-icon';
 import type { HTMLAttributes } from 'astro/types';
 import type { LocationsPageProps } from 'src/utilities/api';
 import {
@@ -68,13 +70,7 @@ const note = pageData.location.note;
 						data-module-bind="navigator__map-preview"
 					>
 						<img class="c-location-detail__image" alt="" data-image-map />
-						<img
-							class="c-location-detail__marker-icon"
-							src="/images/map/marker.svg"
-							data-src-open="/images/map/marker-open.svg"
-							alt=""
-							data-marker-icon
-						/>
+						<MarkerIcon class="c-location-detail__marker-icon" />
 					</button>
 
 					<Attribute
