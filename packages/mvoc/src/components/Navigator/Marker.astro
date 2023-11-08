@@ -1,4 +1,5 @@
 ---
+import Sprite from 'astro-icon';
 import type { HTMLAttributes } from 'astro/types';
 
 interface Props extends HTMLAttributes<'div'> {}
@@ -9,39 +10,41 @@ const { class: className, ...attrs } = Astro.props;
 <div class={`c-marker${className ? ` | ${className}` : ''}`} {...attrs}>
 	<button class="c-marker__button" type="button">
 		<span class="u-visually-hidden" data-name></span>
-		<img
-			class="c-marker__image"
-			src="/images/map/marker.svg"
-			data-src-open="/images/map/marker-open.svg"
-			alt=""
-			data-marker-icon
-		/>
+		<Sprite class="c-marker__image" name={'map-marker'} optimize={true} />
 	</button>
 </div>
 
 <style lang="scss">
 	@use '@design-system-styles/tools/_a11y.scss';
+	@use '@design-system-styles/tools/_rem.scss';
+	@use '@design-system-styles/tools/_marker.scss';
 
 	.c-marker {
 		pointer-events: none;
 		z-index: 2;
-		&:global(.is-open) {
+		&.is-open,
+		&.is-test {
 			z-index: 3;
+		}
+		&.is-active {
+			z-index: 4;
 		}
 		&:focus-within,
 		&:has(button:hover) {
-			z-index: 4;
+			z-index: 5;
 		}
 	}
 
 	.c-marker__button {
 		--marker-adjustment: translateY(-40%);
+		--marker-color: var(--color-diepblauw);
 		cursor: pointer;
 		outline: none;
 		transform-origin: bottom center;
 		transform: var(--marker-adjustment);
 		transition: transform 100ms ease-in-out;
 		pointer-events: auto;
+		color: var(--marker-color);
 
 		&:focus {
 			@include a11y.focusring;
@@ -51,11 +54,20 @@ const { class: className, ...attrs } = Astro.props;
 		}
 
 		.is-test & {
-			outline: 1px solid red;
+			--marker-color: red;
+		}
+
+		.is-open & {
+			--marker-color: var(--color-accent-safarigroen);
+		}
+
+		.is-active & {
+			--marker-color: var(--color-hemelblauw);
 		}
 	}
 
 	.c-marker__image {
 		display: block;
+		@include marker.dimensions;
 	}
 </style>

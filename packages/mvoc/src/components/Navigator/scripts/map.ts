@@ -51,14 +51,10 @@ export class Map {
 					true,
 				) as HTMLButtonElement;
 			const nameElement = clone.querySelector('[data-name]');
-			const markerIconElement = clone.querySelector(
-				'[data-marker-icon]',
-			) as HTMLImageElement;
 
 			nameElement.innerHTML = `${feature.properties.name}, ${feature.properties.location.city}`;
 			if (isOpenNow(feature.properties.openingHours)) {
 				clone.classList.add('is-open');
-				markerIconElement.src = markerIconElement.dataset.srcOpen;
 			}
 
 			if (feature.properties?.isTestLocation) {
