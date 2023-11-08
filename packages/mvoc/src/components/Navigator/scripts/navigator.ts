@@ -1,4 +1,4 @@
-import { mqWide } from '@design-system/primitives/responsive';
+import { mqWide, mqLargeUntil } from '@design-system/primitives/responsive';
 import queryString from 'query-string';
 import { trapFocus } from 'src/utilities/helpers/a11y';
 import type {
@@ -299,6 +299,10 @@ export class Navigator {
 					locatie: location.properties.slug,
 					ggd: location.properties.ggdData.slug,
 				});
+				// on mobile show detailPaneElement first when a marker has been clicked
+				if (window.matchMedia(mqLargeUntil).matches) {
+					this.detailPaneElement.style.zIndex = '3';
+				}
 			});
 		});
 
@@ -456,17 +460,29 @@ export class Navigator {
 			this.detailPaneElement.classList.remove('is-active');
 		}
 
-		// open the map overview if map in detail pane is clicked
+		// show the map overview after map preview is clicked by overriding z-indexes
 		const mapOverviewButton = this.detailScrollerElement.querySelector(
-			'[data-module-bind="navigator__detail-map"]',
+			'[data-module-bind="navigator__map-preview"]',
+		) as HTMLButtonElement;
+		const navigatorWrapMap = this.navigatorElement.querySelector(
+			'.c-navigator__wrap-map',
+		) as HTMLDivElement;
+		const mapOverviewCloseButton = this.navigatorElement.querySelector(
+			'[data-module-bind="navigator__map-close"]',
 		) as HTMLButtonElement;
 
-		if (mapOverviewButton) {
-			mapOverviewButton.addEventListener('click', () => {
-				if (!this.mapShown) {
-					this.navigatorElement.classList.add('show-map');
-					this.detailPaneElement.classList.remove('is-active');
-				}
+		if (window.matchMedia(mqLargeUntil).matches) {
+			if (mapOverviewButton) {
+				mapOverviewButton.addEventListener('click', () => {
+					navigatorWrapMap.style.zIndex = '3';
+					this.detailPaneElement.style.zIndex = '2';
+				});
+			}
+
+			// reset z-index style overrides when map overview close button has been clicked
+			mapOverviewCloseButton.addEventListener('click', () => {
+				navigatorWrapMap.removeAttribute('style');
+				this.detailPaneElement.removeAttribute('style');
 			});
 		}
 	}

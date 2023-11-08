@@ -63,9 +63,9 @@ const note = pageData.location.note;
 				<Stack gap={3}>
 					<div class="c-location-detail__wrap-image" data-wrap-image>
 						<button
-							class="c-location-detail__map-overview"
+							class="c-location-detail__map-preview"
 							type="button"
-							data-module-bind="navigator__detail-map"
+							data-module-bind="navigator__map-preview"
 							><img class="c-location-detail__image" alt="" data-image-map />
 							<img
 								class="c-location-detail__marker-icon"
@@ -403,7 +403,8 @@ const note = pageData.location.note;
 		}
 	}
 
-	.c-location-detail__map-overview {
+	.c-location-detail__map-preview {
 		cursor: pointer;
+		display: block;
 	}
 </style>
