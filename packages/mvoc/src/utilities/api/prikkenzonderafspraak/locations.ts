@@ -24,6 +24,9 @@ export interface LocationsPageProps extends PageProps {
 			openToday: string;
 			openFrom: string;
 			closed: string;
+			pma: string;
+			pza: string;
+			or: string;
 			feedback: {
 				content: string;
 				label: string;
@@ -91,6 +94,9 @@ export async function getDataLocationPages() {
 				openToday,
 				openFrom,
 				closed,
+				pma,
+				pza,
+				or,
 				feedback{
 					content,
 					label

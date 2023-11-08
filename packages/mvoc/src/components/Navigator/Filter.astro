@@ -27,6 +27,12 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 >
 	<Stack>
 		<fieldset class="c-filter__wrap-search">
+			<!-- <div
+				class="c-filter__geocoder"
+				data-placeholder={`${pageData.filter.searchLabel}…`}
+				data-module-bind="navigator__geocoder"
+			>
+			</div> -->
 			<FieldInputText
 				type="search"
 				id="search"
@@ -36,6 +42,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 				clearable
 				hideLabel
 			/>
+
 			<button
 				class="c-filter__map-toggle"
 				type="button"
@@ -82,6 +89,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 <style lang="scss">
 	@use '@design-system-styles/primitives/_responsive.scss';
 	@use '@design-system-styles/tools/_a11y.scss';
+	@use '@design-system-styles/tools/_input.scss';
 
 	.c-filter {
 	}
@@ -92,6 +100,141 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 
 		:global(.c-field-wrapper) {
 			flex: auto;
+		}
+	}
+
+	.c-filter__geocoder {
+		--c-filter__geocoder-padding: var(--space-4);
+		--c-filter__geocoder-padding-with-icon: calc(
+			var(--c-filter__geocoder-padding) * 2 +
+				var(--c-filter__geocoder-icon-size)
+		);
+		--c-filter__geocoder-center: calc(
+			(var(--font-lineheight-root) * 0.5rem) + var(--c-filter__geocoder-padding)
+		);
+		--c-filter__geocoder-icon-size: var(--space-6);
+
+		inline-size: 100%;
+
+		:global(.mapboxgl-ctrl-geocoder) {
+			// unset mapbox styles
+			width: unset;
+			min-width: unset;
+			max-width: unset;
+			border-radius: unset;
+			box-shadow: unset;
+			font: unset;
+			background-color: unset;
+			transition: unset;
+			//! unset mapbox styles
+
+			&::before {
+				position: absolute;
+				z-index: 1;
+				inset-block-start: var(--c-filter__geocoder-center);
+				inset-inline-start: var(--c-filter__geocoder-padding);
+				inline-size: var(--c-filter__geocoder-icon-size);
+				aspect-ratio: 1/1;
+				transform: translateY(-50%);
+				background-color: var(--color-diepblauw);
+				-webkit-mask-image: url('../../icons/looking-glass.svg');
+				mask-image: url('../../icons/looking-glass.svg');
+				-webkit-mask-size: contain;
+				mask-size: contain;
+				content: '';
+			}
+
+			&:global(:has(.mapboxgl-ctrl-geocoder--button[style='display: block;'])) {
+				:global(.mapboxgl-ctrl-geocoder--input) {
+					padding-inline-end: var(--c-filter__geocoder-padding-with-icon);
+				}
+			}
+		}
+
+		:global(.mapboxgl-ctrl-geocoder .suggestions) {
+			// unset mapbox styles
+			box-shadow: unset;
+			background-color: unset;
+			border-radius: unset;
+			left: unset;
+			width: unset;
+			top: unset;
+			font-size: unset;
+			//! unset mapbox styles
+
+			inset-block-start: calc(100% + var(--space-2));
+			inset-inline-start: 0;
+			inline-size: 100%;
+			border-radius: var(--radii-nano);
+			box-shadow: var(--elevation-frost);
+			font-size: var(--font-size-milli);
+			line-height: var(--font-lineheight-milli);
+			background-color: var(--color-ijsblauw);
+
+			&:global(> li > a) {
+				padding-block: var(--space-2);
+				padding-inline: var(--space-4);
+				color: inherit;
+			}
+
+			&:global(> .active > a) {
+				color: inherit;
+				background-color: var(--color-poolblauw);
+			}
+		}
+
+		:global(.mapboxgl-ctrl-geocoder--powered-by) {
+			display: none !important;
+		}
+
+		:global(.mapboxgl-ctrl-geocoder--icon) {
+			display: none;
+		}
+
+		:global(.mapboxgl-ctrl-geocoder--input) {
+			// unset mapbox styles
+			font: unset;
+			width: unset;
+			border: unset;
+			background-color: unset;
+			margin: unset;
+			height: unset;
+			color: unset;
+			color: unset;
+			padding: unset;
+			//! unset mapbox styles
+
+			@include input.scaffold();
+
+			padding-inline-start: var(--c-filter__geocoder-padding-with-icon);
+		}
+
+		:global(
+				.mapboxgl-ctrl-geocoder--pin-right .mapboxgl-ctrl-geocoder--button
+			) {
+			// unset mapbox styles
+			// display: block !important;
+			right: unset;
+			top: unset;
+			//! unset mapbox styles
+			inset-block-start: var(--c-filter__geocoder-center);
+			inset-inline-end: var(--space-6);
+			inline-size: var(--space-6);
+			aspect-ratio: 1/1;
+			transform: translateY(-50%);
+			background-color: currentColor;
+			-webkit-mask-image: url('../../icons/cross.svg');
+			mask-image: url('../../icons/cross.svg');
+			-webkit-mask-size: contain;
+			mask-size: contain;
+
+			&:hover {
+				background-color: var(--color-donkerblauw);
+			}
+		}
+
+		:global(.mapboxgl-ctrl-geocoder--icon-loading) {
+			display: none !important;
 		}
 	}
 

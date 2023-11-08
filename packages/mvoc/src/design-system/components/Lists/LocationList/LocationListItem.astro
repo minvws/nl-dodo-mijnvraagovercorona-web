@@ -31,7 +31,14 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 		data-button={isTemplate}
 		type="button"
 	>
-		<strong data-city={isTemplate}></strong>
+		<span class="c-location-list__title">
+			<strong data-city={isTemplate}></strong>
+			<small class="c-location-list__distance | u-color--grijs-6">
+				<span class="c-location-list__distance-label" data-distance></span>{
+					siteSettings.genericLabels.kilometerAbbr
+				}
+			</small>
+		</span>
 		<span data-name={isTemplate}></span>
 
 		<span
@@ -106,6 +113,22 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 
 		&:focus {
 			@include a11y.focusring;
+		}
+	}
+
+	.c-location-list__title {
+		display: flex;
+		align-items: center;
+		flex-flow: row wrap;
+		gap: var(--space-2);
+		inline-size: 100%;
+	}
+
+	.c-location-list__distance {
+		display: none;
+
+		.c-location-list__item.has-distance & {
+			display: block;
 		}
 	}
 

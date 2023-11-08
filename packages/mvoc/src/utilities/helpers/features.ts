@@ -4,11 +4,12 @@ export type AppointmentTypeProps = AppointmentType[];
 export interface FeatureProps {
 	type: 'feature';
 	element: HTMLLIElement;
-	markerElement: HTMLDivElement;
+	markerElement: HTMLButtonElement;
 	geometry: {
 		coordinates: [number, number];
 	};
 	properties: {
+		distance?: number;
 		isTestLocation?: boolean;
 		slug: string;
 		ggdData: {

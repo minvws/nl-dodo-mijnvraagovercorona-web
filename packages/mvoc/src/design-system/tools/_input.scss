@@ -1,0 +1,23 @@
+@use './a11y';
+
+@mixin scaffold {
+	inline-size: 100%;
+	appearance: none;
+	padding: calc(var(--space-4) - 1px);
+	border-radius: var(--radii-nano);
+	border: 1px solid var(--color-grijs-4);
+	background-color: var(--color-white);
+
+	&[type='search'] {
+		&::-webkit-search-decoration,
+		&::-webkit-search-cancel-button,
+		&::-webkit-search-results-button,
+		&::-webkit-search-results-decoration {
+			display: none;
+		}
+	}
+
+	&:focus {
+		@include a11y.focusring;
+	}
+}

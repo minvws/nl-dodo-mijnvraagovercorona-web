@@ -17,9 +17,10 @@ import { useSiteSettings } from 'src/utilities/api/queries';
 import type { Locale } from 'src/utilities/locale/translation';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import { Filter, LocationDetail, Marker } from '.';
+import { Breadcrumbs } from '@design-system/components/Breadrumbs';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { Breadcrumbs } from '@design-system/components/Breadrumbs';
+import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 interface Props extends HTMLAttributes<'div'> {
 	pageData: LocationsPageProps;
@@ -133,6 +134,14 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 
 	<template data-module-bind="map__marker">
 		<Marker />
+	</template>
+
+	<template data-module-bind="map__marker-user">
+		<img
+			class="c-navigator__marker-user"
+			src="/images/map/marker-user.svg"
+			alt=""
+		/>
 	</template>
 </div>
 
