@@ -40,12 +40,8 @@ export const generateDetail = ({
 			element.src = `https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/${location.geometry.coordinates[0]},${location.geometry.coordinates[1]},17,0.00,0.00/768x460@2x?access_token=${accessToken}`;
 		});
 
-		const mapMarkerIconElements =
-			clone.querySelectorAll<HTMLImageElement>('[data-marker-icon]');
 		if (isOpenNow(location.properties.openingHours)) {
-			mapMarkerIconElements.forEach((element) => {
-				element.src = element.dataset.srcOpen;
-			});
+			clone.classList.add('is-open-location');
 		}
 	}
 

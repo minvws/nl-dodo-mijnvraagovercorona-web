@@ -80,13 +80,33 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 </li>
 
 <style lang="scss">
+	@use '@design-system-styles/primitives/_responsive.scss';
 	@use '@design-system-styles/tools/_a11y.scss';
+	@use '@design-system-styles/tools/_rem.scss';
+
+	/**
+	 * 1. When we auto-scroll to a location we want to make sure the location is
+	 *    in view and not hidden by the fixed filter header.
+	 */
 	.c-location-list__item {
+		--location-list__item-filter-offset: 0px;
 		border-block-end: 1px solid var(--color-grijs-2);
+		scroll-margin-block-start: var(
+			--location-list__item-filter-offset
+		); /* [1] */
 
 		// add outline to the list when the location is a test location
-		&.is-test {
+		&.is-test-location {
 			outline: 1px solid red;
+		}
+
+		@media (--mq-block-small) {
+			& {
+				--location-list__item-filter-offset: var(
+					--navigator__filter-size,
+					#{rem.convert(200px)}
+				); /* [1] */
+			}
 		}
 	}
 
@@ -103,7 +123,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 		outline: none;
 
 		&:hover,
-		.c-location-list__item.is-active & {
+		.c-location-list__item.is-active-location & {
 			background-color: var(--color-poolblauw);
 
 			.c-location-list__label {

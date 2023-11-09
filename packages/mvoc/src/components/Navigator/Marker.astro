@@ -1,4 +1,6 @@
 ---
+import { MarkerIcon } from '@design-system/elements/Icon';
+import Sprite from 'astro-icon';
 import type { HTMLAttributes } from 'astro/types';
 
 interface Props extends HTMLAttributes<'div'> {}
@@ -9,13 +11,7 @@ const { class: className, ...attrs } = Astro.props;
 <div class={`c-marker${className ? ` | ${className}` : ''}`} {...attrs}>
 	<button class="c-marker__button" type="button">
 		<span class="u-visually-hidden" data-name></span>
-		<img
-			class="c-marker__image"
-			src="/images/map/marker.svg"
-			data-src-open="/images/map/marker-open.svg"
-			alt=""
-			data-marker-icon
-		/>
+		<MarkerIcon />
 	</button>
 </div>
 
@@ -25,12 +21,16 @@ const { class: className, ...attrs } = Astro.props;
 	.c-marker {
 		pointer-events: none;
 		z-index: 2;
-		&:global(.is-open) {
+		&.is-open-location,
+		&.is-test-location {
 			z-index: 3;
+		}
+		&.is-active-location {
+			z-index: 4;
 		}
 		&:focus-within,
 		&:has(button:hover) {
-			z-index: 4;
+			z-index: 5;
 		}
 	}
 
@@ -49,13 +49,5 @@ const { class: className, ...attrs } = Astro.props;
 		&:hover {
 			transform: var(--marker-adjustment) scale(1.1);
 		}
-
-		.is-test & {
-			outline: 1px solid red;
-		}
-	}
-
-	.c-marker__image {
-		display: block;
 	}
 </style>

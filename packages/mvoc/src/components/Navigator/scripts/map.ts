@@ -2,6 +2,7 @@ import mapboxgl from 'mapbox-gl';
 import { bbox, lineString, type Position } from '@turf/turf';
 import type { FeatureProps } from 'src/utilities/helpers/features';
 import { isOpenNow } from './timetable-helpers';
+import { mqLarge } from '@design-system/primitives/responsive';
 
 export class Map {
 	mapElement: HTMLDivElement;
@@ -36,12 +37,6 @@ export class Map {
 		}).fitBounds(this.boundsFull, {
 			duration: 0,
 		});
-
-		this.map.on('zoomend', (event) => {
-			if (event.originalEvent) {
-				this.storeCurrentBounds();
-			}
-		});
 	}
 
 	generateMarkers({ features }: { features: FeatureProps[] }) {
@@ -51,18 +46,14 @@ export class Map {
 					true,
 				) as HTMLButtonElement;
 			const nameElement = clone.querySelector('[data-name]');
-			const markerIconElement = clone.querySelector(
-				'[data-marker-icon]',
-			) as HTMLImageElement;
 
 			nameElement.innerHTML = `${feature.properties.name}, ${feature.properties.location.city}`;
 			if (isOpenNow(feature.properties.openingHours)) {
-				clone.classList.add('is-open');
-				markerIconElement.src = markerIconElement.dataset.srcOpen;
+				clone.classList.add('is-open-location');
 			}
 
 			if (feature.properties?.isTestLocation) {
-				clone.classList.add('is-test');
+				clone.classList.add('is-test-location');
 			}
 
 			this.markers.push(
@@ -109,7 +100,7 @@ export class Map {
 		this.map.flyTo({
 			center: [longitude, latitude],
 			zoom: 16,
-			speed: 2,
+			speed: 3,
 			essential: false,
 			offset: [offset, 0],
 		});
@@ -136,8 +127,9 @@ export class Map {
 
 	restorePreviousBounds() {
 		if (this.previousBounds) {
+			const speed = window.matchMedia(mqLarge).matches ? 1000 : 0;
 			this.map.fitBounds(this.previousBounds, {
-				speed: 2,
+				duration: speed,
 			});
 		}
 	}

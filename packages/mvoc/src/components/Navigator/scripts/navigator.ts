@@ -27,7 +27,8 @@ export class Navigator {
 	listElement: HTMLUListElement;
 	listNoResultElement: HTMLLIElement;
 	loggerElement: HTMLSpanElement;
-	interactionInitiator: 'list' | 'map' = 'list';
+	heroElement: HTMLDivElement;
+	wrapFilterElement: HTMLDivElement;
 
 	// Mabox instance
 	token: string;
@@ -54,6 +55,7 @@ export class Navigator {
 	search: string = '';
 	activeLocationSlug: string = '';
 	activeDetailPage: HTMLDivElement;
+	interactionInitiator: 'list' | 'map' = 'list';
 
 	constructor(parent: HTMLDivElement) {
 		this.navigatorElement = parent;
@@ -92,6 +94,12 @@ export class Navigator {
 			this.mapToggleButtonElement.querySelector('[data-list]');
 		this.mapToggleButtonMapElement =
 			this.mapToggleButtonElement.querySelector('[data-map]');
+		this.heroElement = this.navigatorElement.querySelector(
+			'[data-module-bind="navigator__hero"]',
+		);
+		this.wrapFilterElement = this.navigatorElement.querySelector(
+			'[data-module-bind="navigator__wrap-filter"]',
+		);
 		this.token = parent.dataset.accessToken;
 		this.formElement = parent.querySelector('[data-module="filter"]');
 		this.locale = parent.dataset.locale;
@@ -116,22 +124,25 @@ export class Navigator {
 			this.hasPmaAppointmentTypes && this.hasPzaAppointmentTypes;
 	}
 
+	checkView() {
+		const heroRect = this.heroElement.getBoundingClientRect();
+		this.navigatorElement.style.setProperty(
+			'--navigator__hero-size',
+			`${heroRect.height}px`,
+		);
+
+		const wrapfilterRect = this.wrapFilterElement.getBoundingClientRect();
+		this.navigatorElement.style.setProperty(
+			'--navigator__filter-size',
+			`${wrapfilterRect.height}px`,
+		);
+	}
+
 	initView() {
-		const heroElement = this.navigatorElement.querySelector(
-			'[data-module-bind="navigator__hero"]',
-		) as HTMLDivElement;
+		if (this.heroElement && this.wrapFilterElement) {
+			window.addEventListener('resize', debounce(this.checkView));
 
-		if (heroElement) {
-			const checkSize = () => {
-				const heroRect = heroElement.getBoundingClientRect();
-				this.navigatorElement.style.setProperty(
-					'--navigator__hero-size',
-					`${heroRect.height}px`,
-				);
-			};
-			window.addEventListener('resize', debounce(checkSize));
-
-			checkSize();
+			this.checkView();
 		}
 	}
 
@@ -166,6 +177,7 @@ export class Navigator {
 			// Add eventlistener to update history without refresh
 			button.addEventListener('click', () => {
 				this.interactionInitiator = 'list';
+				this.map.storeCurrentBounds();
 				this.updateHistory({
 					locatie: location.properties.slug,
 					ggd: location.properties.ggdData.slug,
@@ -236,6 +248,7 @@ export class Navigator {
 		});
 
 		detailCloseButton.addEventListener('click', () => {
+			this.map.restorePreviousBounds();
 			this.updateHistory({ locatie: '', ggd: '' });
 			this.onHistoryChange();
 		});
@@ -341,7 +354,11 @@ export class Navigator {
 			) as HTMLButtonElement;
 			button.addEventListener('click', () => {
 				this.interactionInitiator = 'map';
+				if (!this.mapIsElevated) {
+					this.map.storeCurrentBounds();
+				}
 				this.lowerMap();
+
 				this.updateHistory({
 					locatie: location.properties.slug,
 					ggd: location.properties.ggdData.slug,
@@ -587,7 +604,8 @@ export class Navigator {
 		).length;
 
 		this.locations.forEach((location) => {
-			location.element.classList.remove('is-active');
+			location.element.classList.remove('is-active-location');
+			location.markerElement.classList.remove('is-active-location');
 		});
 
 		// hide/show detail pane
@@ -601,12 +619,13 @@ export class Navigator {
 					!isVisibleInScrollContainer(newLocation.element, this.sidebarElement)
 				) {
 					newLocation.element.scrollIntoView({
-						block: 'center',
+						block: 'nearest',
 						inline: 'nearest',
 					});
 				}
 
-				newLocation.element.classList.add('is-active');
+				newLocation.element.classList.add('is-active-location');
+				newLocation.markerElement.classList.add('is-active-location');
 
 				const newDetailElement = generateDetail({
 					location: newLocation,
@@ -660,13 +679,17 @@ export class Navigator {
 		// Get locations
 		await this.getLocations();
 
-		// Initialise sections
-		this.initView();
+		/**
+		 * Initialise all the things
+		 * 1. Initialise view twice, once before for initial state and once after the rest is initialised
+		 */
+		this.initView(); /* [1] */
 		this.initList();
 		this.initMap();
 		this.initGeocoder();
 		this.initDetailPane();
 		this.initFilter();
+		this.checkView(); /* [1] */
 
 		// Initialise onHistoryChange
 		window.onpopstate = () => {
