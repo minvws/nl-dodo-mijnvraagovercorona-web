@@ -100,13 +100,16 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		block-size: var(--masthead-block-size, var(--body-block-size));
 		background-color: var(--masthead-background, var(--color-donkerblauw));
 
+		@media (--mq-large) {
+			--masthead-logo-spacer: var(--masthead-inline-padding);
+		}
+
 		@media (--mq-huge) {
 			--masthead-position: relative;
 			--masthead-z-index: 50;
 			--masthead-block-size: auto;
 			--masthead-template-areas: 'top top' 'drawer drawer';
 			--masthead-background: var(--color-poolblauw);
-			--masthead-logo-spacer: var(--masthead-inline-padding);
 			padding: 0;
 
 			& {
