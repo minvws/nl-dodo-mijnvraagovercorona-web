@@ -14,7 +14,7 @@ const locale = getLocaleFromURL(Astro.url.pathname);
 const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 ---
 
-<Card variant="frost" class="c-card-privacy">
+<Card variant="frost" class="c-card-privacy" data-pagefind-ignore="all">
 	<Stack>
 		<Heading>{siteSettings.privacy.title}</Heading>
 		<ul class="c-card-privacy__list" role="list">

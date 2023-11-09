@@ -48,7 +48,9 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 			pageData.hero ? (
 				<div class="c-navigator__wrap-hero" data-module-bind="navigator__hero">
 					<Stack>
-						<Breadcrumbs breadcrumbs={pageData.breadcrumbs} />
+						<div>
+							<Breadcrumbs breadcrumbs={pageData.breadcrumbs} />
+						</div>
 						<Heading level={1} styledAs={2}>
 							{pageData.hero.title}
 						</Heading>
