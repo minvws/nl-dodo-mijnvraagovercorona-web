@@ -1,5 +1,4 @@
 ---
-import { CardPrivacy } from '@design-system/components/Card';
 import { ContentBlock } from '@design-system/components/ContentBlock';
 import { Feedback } from '@design-system/components/Feedback';
 import { Stack } from '@design-system/components/Layout/Stack';
@@ -21,6 +20,7 @@ import { Breadcrumbs } from '@design-system/components/Breadrumbs';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
+import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
 
 interface Props extends HTMLAttributes<'div'> {
 	pageData: LocationsPageProps;
@@ -120,7 +120,13 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 							data-module-bind="navigator__detail-target"
 						>
 						</div>
-						<Feedback url={siteSettings.feedback.url} name="Prikken detail" />
+						<Feedback
+							url={getFeedbackUrl(siteSettings.feedback.url, {
+								source: pageData.type,
+								advice: pageData.slug,
+							})}
+							name="Prikken detail"
+						/>
 					</Stack>
 				</Stack>
 			</div>
