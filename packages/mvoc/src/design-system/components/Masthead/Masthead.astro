@@ -100,13 +100,16 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		block-size: var(--masthead-block-size, var(--body-block-size));
 		background-color: var(--masthead-background, var(--color-donkerblauw));
 
+		@media (--mq-large) {
+			--masthead-logo-spacer: var(--masthead-inline-padding);
+		}
+
 		@media (--mq-huge) {
 			--masthead-position: relative;
 			--masthead-z-index: 50;
 			--masthead-block-size: auto;
 			--masthead-template-areas: 'top top' 'drawer drawer';
 			--masthead-background: var(--color-poolblauw);
-			--masthead-logo-spacer: var(--masthead-inline-padding);
 			padding: 0;
 
 			& {
@@ -119,6 +122,12 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		position: relative;
 		z-index: 3;
 		grid-area: top;
+
+		.c-masthead--compact & {
+			@media (--mq-large) and (--mq-huge-until) {
+				box-shadow: var(--elevation-frost);
+			}
+		}
 	}
 
 	.c-masthead__top__inner {
@@ -237,10 +246,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 	const navElement = mastheadElement.querySelector('[data-module="nav-main"]');
 
 	// Store masthead spacing in a variable which can be used by other modules
-	if (
-		topElement &&
-		!mastheadElement.classList.contains('c-masthead--compact')
-	) {
+	if (topElement) {
 		const checkSize = () => {
 			const mastheadRect = mastheadElement.getBoundingClientRect();
 			const mastheadTopRect = topElement.getBoundingClientRect();

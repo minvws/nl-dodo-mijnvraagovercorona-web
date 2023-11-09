@@ -5,7 +5,9 @@ import { Label } from '@design-system/components/Label';
 import { Stack } from '@design-system/components/Layout/Stack';
 import { Button } from '@design-system/elements/Button';
 import { Heading } from '@design-system/elements/Heading';
+import { MarkerIcon } from '@design-system/elements/Icon';
 import { Link } from '@design-system/elements/Link';
+import { Sprite } from 'astro-icon';
 import type { HTMLAttributes } from 'astro/types';
 import type { LocationsPageProps } from 'src/utilities/api';
 import {
@@ -61,16 +63,15 @@ const note = pageData.location.note;
 		<Stack gap={10}>
 			<div>
 				<Stack gap={3}>
-					<div class="c-location-detail__wrap-image" data-wrap-image>
+					<button
+						type="button"
+						class="c-location-detail__wrap-image"
+						data-wrap-image
+						data-module-bind="navigator__map-preview"
+					>
 						<img class="c-location-detail__image" alt="" data-image-map />
-						<img
-							class="c-location-detail__marker-icon"
-							src="/images/map/marker.svg"
-							data-src-open="/images/map/marker-open.svg"
-							alt=""
-							data-marker-icon
-						/>
-					</div>
+						<MarkerIcon class="c-location-detail__marker-icon" />
+					</button>
 
 					<Attribute
 						icon="marker"
@@ -294,6 +295,7 @@ const note = pageData.location.note;
 
 <style lang="scss">
 	@use '@design-system-styles/primitives/_responsive.scss';
+	@use '@design-system-styles/tools/_a11y.scss';
 
 	.c-location-detail {
 		block-size: 100%;
@@ -335,14 +337,23 @@ const note = pageData.location.note;
 
 	.c-location-detail__wrap-image {
 		position: relative;
+		display: block;
 		block-size: var(--space-40);
-		background-color: var(--color-grijs-2);
+		inline-size: 100%;
+		padding: 0;
 		overflow: hidden;
 		border-radius: var(--radii-milli);
+		background-color: var(--color-grijs-2);
+		cursor: pointer;
+
+		&:focus-visible {
+			@include a11y.focusring;
+		}
 	}
 
 	.c-location-detail__image {
 		position: absolute;
+		inset: 0;
 		block-size: 100%;
 		inline-size: 100%;
 		object-fit: cover;

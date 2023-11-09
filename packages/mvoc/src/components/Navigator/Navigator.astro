@@ -1,5 +1,4 @@
 ---
-import { CardPrivacy } from '@design-system/components/Card';
 import { ContentBlock } from '@design-system/components/ContentBlock';
 import { Feedback } from '@design-system/components/Feedback';
 import { Stack } from '@design-system/components/Layout/Stack';
@@ -17,9 +16,11 @@ import { useSiteSettings } from 'src/utilities/api/queries';
 import type { Locale } from 'src/utilities/locale/translation';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import { Filter, LocationDetail, Marker } from '.';
+import { Breadcrumbs } from '@design-system/components/Breadrumbs';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { Breadcrumbs } from '@design-system/components/Breadrumbs';
+import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
+import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
 
 interface Props extends HTMLAttributes<'div'> {
 	pageData: LocationsPageProps;
@@ -42,7 +43,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 	data-locale={locale.id}
 	data-access-token={process.env.MAPBOX_ACCESS_TOKEN}
 >
-	<div class="c-navigator__wrap-sidebar">
+	<div class="c-navigator__wrap-sidebar" data-module-bind="navigator__sidebar">
 		{
 			pageData.hero ? (
 				<div class="c-navigator__wrap-hero" data-module-bind="navigator__hero">
@@ -65,7 +66,10 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 			) : null
 		}
 		<div class="c-navigator__wrap-filter-list" data-pagefind-ignore="all">
-			<div class="c-navigator__wrap-filter">
+			<div
+				class="c-navigator__wrap-filter"
+				data-module-bind="navigator__wrap-filter"
+			>
 				<Filter pageData={pageData} />
 			</div>
 			<div class="c-navigator__wrap-list">
@@ -116,7 +120,13 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 							data-module-bind="navigator__detail-target"
 						>
 						</div>
-						<Feedback url={siteSettings.feedback.url} name="Prikken detail" />
+						<Feedback
+							url={getFeedbackUrl(siteSettings.feedback.url, {
+								source: pageData.type,
+								advice: pageData.slug,
+							})}
+							name="Prikken detail"
+						/>
 					</Stack>
 				</Stack>
 			</div>
@@ -133,6 +143,14 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 
 	<template data-module-bind="map__marker">
 		<Marker />
+	</template>
+
+	<template data-module-bind="map__marker-user">
+		<img
+			class="c-navigator__marker-user"
+			src="/images/map/marker-user.svg"
+			alt=""
+		/>
 	</template>
 </div>
 
@@ -303,6 +321,9 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 
 		.c-navigator.show-map & {
 			z-index: 2;
+		}
+		.c-navigator.elevate-map & {
+			z-index: 5;
 		}
 	}
 

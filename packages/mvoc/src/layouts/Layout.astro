@@ -31,6 +31,7 @@ export interface Props extends HTMLAttributes<'html'> {
 	mastheadHighlight?: boolean;
 	disableMasthead?: boolean;
 	disableMastfoot?: boolean;
+	mastheadCompact?: boolean;
 	includeinSearch?: boolean;
 }
 
@@ -43,6 +44,7 @@ const {
 	alternativeTranslations,
 	disableMasthead,
 	disableMastfoot,
+	mastheadCompact,
 	includeinSearch,
 	...attrs
 } = Astro.props;
@@ -148,6 +150,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 						logoUrl={locale.urlPrefix}
 						logoAlt={siteSettings.logo.alt}
 						highlight={mastheadHighlight}
+						forceCompact={mastheadCompact}
 					>
 						<slot name="back" slot="start" />
 

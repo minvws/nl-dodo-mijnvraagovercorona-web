@@ -90,6 +90,7 @@ export interface SiteSettingsProps {
 			that: string;
 		};
 		search: string;
+		kilometerAbbr: string;
 	};
 	logo: {
 		alt: string;
@@ -182,6 +183,7 @@ export const siteSettingsQuery = ({ locale }: { locale: Locale }): string => `
 				that,
 			},
 			search,
+			kilometerAbbr,
 		},
 		logo{
 			alt,
