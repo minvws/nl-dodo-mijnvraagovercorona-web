@@ -315,8 +315,6 @@ export class Navigator {
 			event.preventDefault();
 			this.search = searchFieldElement.value;
 			this.onHistoryChange();
-			// this.sidebarElement.scrollTop = 0;
-			// this.sidebarElement.animate({ scrollTop: 0 }, 1000);
 		};
 
 		searchFieldElement.addEventListener('input', onSearchChange);
@@ -338,7 +336,6 @@ export class Navigator {
 			this.updateHistory({
 				filter: parsedQueryString.filter,
 			});
-			// this.sidebarElement.scrollTop = 0;
 		});
 	}
 
