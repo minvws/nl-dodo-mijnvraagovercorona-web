@@ -66,7 +66,10 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 			) : null
 		}
 		<div class="c-navigator__wrap-filter-list" data-pagefind-ignore="all">
-			<div class="c-navigator__wrap-filter">
+			<div
+				class="c-navigator__wrap-filter"
+				data-module-bind="navigator__wrap-filter"
+			>
 				<Filter pageData={pageData} />
 			</div>
 			<div class="c-navigator__wrap-list">

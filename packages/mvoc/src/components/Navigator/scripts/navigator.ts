@@ -27,7 +27,8 @@ export class Navigator {
 	listElement: HTMLUListElement;
 	listNoResultElement: HTMLLIElement;
 	loggerElement: HTMLSpanElement;
-	interactionInitiator: 'list' | 'map' = 'list';
+	heroElement: HTMLDivElement;
+	wrapFilterElement: HTMLDivElement;
 
 	// Mabox instance
 	token: string;
@@ -54,6 +55,7 @@ export class Navigator {
 	search: string = '';
 	activeLocationSlug: string = '';
 	activeDetailPage: HTMLDivElement;
+	interactionInitiator: 'list' | 'map' = 'list';
 
 	constructor(parent: HTMLDivElement) {
 		this.navigatorElement = parent;
@@ -92,6 +94,12 @@ export class Navigator {
 			this.mapToggleButtonElement.querySelector('[data-list]');
 		this.mapToggleButtonMapElement =
 			this.mapToggleButtonElement.querySelector('[data-map]');
+		this.heroElement = this.navigatorElement.querySelector(
+			'[data-module-bind="navigator__hero"]',
+		);
+		this.wrapFilterElement = this.navigatorElement.querySelector(
+			'[data-module-bind="navigator__wrap-filter"]',
+		);
 		this.token = parent.dataset.accessToken;
 		this.formElement = parent.querySelector('[data-module="filter"]');
 		this.locale = parent.dataset.locale;
@@ -116,22 +124,25 @@ export class Navigator {
 			this.hasPmaAppointmentTypes && this.hasPzaAppointmentTypes;
 	}
 
+	checkView() {
+		const heroRect = this.heroElement.getBoundingClientRect();
+		this.navigatorElement.style.setProperty(
+			'--navigator__hero-size',
+			`${heroRect.height}px`,
+		);
+
+		const wrapfilterRect = this.wrapFilterElement.getBoundingClientRect();
+		this.navigatorElement.style.setProperty(
+			'--navigator__filter-size',
+			`${wrapfilterRect.height}px`,
+		);
+	}
+
 	initView() {
-		const heroElement = this.navigatorElement.querySelector(
-			'[data-module-bind="navigator__hero"]',
-		) as HTMLDivElement;
+		if (this.heroElement && this.wrapFilterElement) {
+			window.addEventListener('resize', debounce(this.checkView));
 
-		if (heroElement) {
-			const checkSize = () => {
-				const heroRect = heroElement.getBoundingClientRect();
-				this.navigatorElement.style.setProperty(
-					'--navigator__hero-size',
-					`${heroRect.height}px`,
-				);
-			};
-			window.addEventListener('resize', debounce(checkSize));
-
-			checkSize();
+			this.checkView();
 		}
 	}
 
@@ -304,6 +315,8 @@ export class Navigator {
 			event.preventDefault();
 			this.search = searchFieldElement.value;
 			this.onHistoryChange();
+			// this.sidebarElement.scrollTop = 0;
+			// this.sidebarElement.animate({ scrollTop: 0 }, 1000);
 		};
 
 		searchFieldElement.addEventListener('input', onSearchChange);
@@ -325,6 +338,7 @@ export class Navigator {
 			this.updateHistory({
 				filter: parsedQueryString.filter,
 			});
+			// this.sidebarElement.scrollTop = 0;
 		});
 	}
 
@@ -608,7 +622,7 @@ export class Navigator {
 					!isVisibleInScrollContainer(newLocation.element, this.sidebarElement)
 				) {
 					newLocation.element.scrollIntoView({
-						block: 'center',
+						block: 'nearest',
 						inline: 'nearest',
 					});
 				}
@@ -668,13 +682,17 @@ export class Navigator {
 		// Get locations
 		await this.getLocations();
 
-		// Initialise sections
-		this.initView();
+		/**
+		 * Initialise all the things
+		 * 1. Initialise view twice, once before for initial state and once after the rest is initialised
+		 */
+		this.initView(); /* [1] */
 		this.initList();
 		this.initMap();
 		this.initGeocoder();
 		this.initDetailPane();
 		this.initFilter();
+		this.checkView(); /* [1] */
 
 		// Initialise onHistoryChange
 		window.onpopstate = () => {
