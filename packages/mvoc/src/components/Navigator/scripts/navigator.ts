@@ -54,6 +54,7 @@ export class Navigator {
 	search: string = '';
 	activeLocationSlug: string = '';
 	activeDetailPage: HTMLDivElement;
+	detailPageIsOpen: boolean = false;
 	interactionInitiator: 'list' | 'map' = 'list';
 	canFocusOnItemOrMarker: boolean = true;
 
@@ -177,7 +178,9 @@ export class Navigator {
 			// Add eventlistener to update history without refresh
 			button.addEventListener('click', () => {
 				this.interactionInitiator = 'list';
-				this.map.storeCurrentBounds();
+				if (this.activeLocationSlug === '') {
+					this.map.storeCurrentBounds();
+				}
 				this.updateHistory({
 					locatie: location.properties.slug,
 					ggd: location.properties.ggdData.slug,
@@ -438,7 +441,7 @@ export class Navigator {
 			) as HTMLButtonElement;
 			button.addEventListener('click', () => {
 				this.interactionInitiator = 'map';
-				if (!this.mapIsElevated) {
+				if (!this.mapIsElevated && this.activeLocationSlug === '') {
 					this.map.storeCurrentBounds();
 				}
 				this.lowerMap();
@@ -665,6 +668,7 @@ export class Navigator {
 				});
 			}
 		} else {
+			this.activeLocationSlug === '';
 			this.detailPaneElement.classList.remove('is-active');
 		}
 	}
