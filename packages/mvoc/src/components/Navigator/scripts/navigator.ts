@@ -9,10 +9,10 @@ import { generateDetail } from './generateDetail';
 import { generateListItem } from './generateListItem';
 import { Map } from './map';
 import { isOpenNow } from './timetable-helpers';
-import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import { distance } from '@turf/turf';
 import debounce from 'src/utilities/helpers/debounce';
 import isVisibleInScrollContainer from 'src/utilities/helpers/visible-in-scrollcontainer';
+import { Geocoder } from './geocoder';
 
 export class Navigator {
 	// element cache
@@ -42,7 +42,6 @@ export class Navigator {
 	mapToggleButtonMapElement: HTMLSpanElement;
 
 	// Geocoder instance
-	geocoder: MapboxGeocoder;
 	geocoderElement: HTMLDivElement;
 
 	// state
@@ -56,6 +55,7 @@ export class Navigator {
 	activeLocationSlug: string = '';
 	activeDetailPage: HTMLDivElement;
 	interactionInitiator: 'list' | 'map' = 'list';
+	canFocusOnItemOrMarker: boolean = true;
 
 	constructor(parent: HTMLDivElement) {
 		this.navigatorElement = parent;
@@ -207,7 +207,8 @@ export class Navigator {
 		this.detailElement.addEventListener('transitionstart', (event) => {
 			if (
 				event.target === this.detailElement &&
-				!this.detailPaneElement.classList.contains('is-active')
+				!this.detailPaneElement.classList.contains('is-active') &&
+				this.canFocusOnItemOrMarker
 			) {
 				// focus on active list item
 				const previouslyActiveLocation = this.locations.filter(
@@ -254,6 +255,92 @@ export class Navigator {
 		});
 	}
 
+	onGeoCoderSelection(position: [number, number]) {
+		this.canFocusOnItemOrMarker = false;
+		this.updateHistory({ locatie: '', ggd: '' });
+		this.onHistoryChange();
+		this.locations[0].element.scrollIntoView({
+			block: 'start',
+			inline: 'start',
+			// behavior: 'smooth',
+		});
+
+		this.locations = this.locations.map((location) => {
+			return {
+				...location,
+				properties: {
+					...location.properties,
+					distance: distance(position, location.geometry.coordinates),
+				},
+			};
+		});
+
+		// sort locations by distance from geolocation
+		this.locations.sort((a, b) => {
+			if (a.properties.distance > b.properties.distance) {
+				return 1;
+			}
+			if (a.properties.distance < b.properties.distance) {
+				return -1;
+			}
+			return 0;
+		});
+
+		// Remove old and add new user location marker
+		this.map.generateUserMarker({ position });
+
+		const visibleLocations = this.locations.filter(
+			(location) => location.element.hidden === false,
+		);
+
+		if (visibleLocations.length) {
+			// Fit map to boundingbox
+			this.map.setBoundingBox({
+				collection: [
+					...visibleLocations
+						.slice(0, 3)
+						.map((location) => location.geometry.coordinates),
+					position,
+				],
+			});
+		}
+
+		// trigger history change
+		this.onHistoryChange();
+
+		// quick hack to prevent focus on item or marker
+		// TODO: find a better way to do this
+		setTimeout(() => {
+			this.canFocusOnItemOrMarker = true;
+		}, 100);
+	}
+
+	onGeoCoderClear() {
+		this.map.removeUserMarker();
+
+		this.locations = this.locations.map((location) => {
+			return {
+				...location,
+				properties: {
+					...location.properties,
+					distance: undefined,
+				},
+			};
+		});
+
+		// Sort locations again by city name
+		this.locations.sort((a, b) => {
+			var textA = a.properties.location.city.toUpperCase();
+			var textB = b.properties.location.city.toUpperCase();
+			return textA < textB ? -1 : textA > textB ? 1 : 0;
+		});
+
+		this.map.zoomToFull();
+
+		// trigger history change
+		this.onHistoryChange();
+	}
+
 	/**
 	 * Initialise filter form
 	 */
@@ -261,9 +348,16 @@ export class Navigator {
 		const searchFieldElement = this.formElement.querySelector(
 			'#search',
 		) as HTMLInputElement;
-		const clearButtonElement = this.formElement.querySelector(
-			'[data-module-bind="input-text__clear-button"]',
-		) as HTMLButtonElement;
+		const geocoderElement = searchFieldElement.closest(
+			'[data-module="field-wrapper"]',
+		) as HTMLDivElement;
+
+		const geoCoder = new Geocoder({
+			element: geocoderElement,
+			onSelection: this.onGeoCoderSelection.bind(this),
+			onClear: this.onGeoCoderClear.bind(this),
+		});
+		geoCoder.init();
 
 		const parsedQueryString = queryString.parse(window.location.search);
 
@@ -310,16 +404,6 @@ export class Navigator {
 		this.formElement.addEventListener('submit', (event) => {
 			event.preventDefault();
 		});
-
-		const onSearchChange = (event: Event) => {
-			event.preventDefault();
-			this.search = searchFieldElement.value;
-			this.onHistoryChange();
-		};
-
-		searchFieldElement.addEventListener('input', onSearchChange);
-		searchFieldElement.addEventListener('change', onSearchChange);
-		clearButtonElement.addEventListener('click', onSearchChange);
 
 		// listen for change in the form to update filters
 		this.formElement.addEventListener('change', () => {
@@ -377,93 +461,6 @@ export class Navigator {
 		});
 
 		this.mapInitialised = true;
-	}
-
-	initGeocoder() {
-		if (!this.geocoderElement) return;
-		this.geocoder = new MapboxGeocoder({ accessToken: this.token });
-		this.geocoder.setLanguage(this.locale);
-		this.geocoder.setCountries(this.locale);
-		this.geocoder.addTo(this.geocoderElement);
-
-		this.geocoder.on('result', (event) => {
-			const searchResult = event.result.geometry as {
-				coordinates: [number, number];
-			};
-
-			this.locations = this.locations.map((location) => {
-				return {
-					...location,
-					properties: {
-						...location.properties,
-						distance: distance(
-							searchResult.coordinates,
-							location.geometry.coordinates,
-						),
-					},
-				};
-			});
-
-			// sort locations by distance from geolocation
-			this.locations.sort((a, b) => {
-				if (a.properties.distance > b.properties.distance) {
-					return 1;
-				}
-				if (a.properties.distance < b.properties.distance) {
-					return -1;
-				}
-				return 0;
-			});
-
-			// Remove old and add new user location marker
-			this.map.generateUserMarker({ position: searchResult.coordinates });
-
-			const visibleLocations = this.locations.filter(
-				(location) => location.element.hidden === false,
-			);
-
-			if (visibleLocations.length) {
-				// Fit map to boundingbox
-				this.map.setBoundingBox({
-					collection: [
-						...visibleLocations
-							.slice(0, 3)
-							.map((location) => location.geometry.coordinates),
-						searchResult.coordinates,
-					],
-				});
-			}
-
-			// trigger history change
-			this.onHistoryChange();
-		});
-
-		// Remove user marker when geocoder is cleared and remove distance from locations
-		this.geocoder.on('clear', (event) => {
-			this.map.removeUserMarker();
-
-			this.locations = this.locations.map((location) => {
-				return {
-					...location,
-					properties: {
-						...location.properties,
-						distance: undefined,
-					},
-				};
-			});
-
-			// Sort locations again by city name
-			this.locations.sort((a, b) => {
-				var textA = a.properties.location.city.toUpperCase();
-				var textB = b.properties.location.city.toUpperCase();
-				return textA < textB ? -1 : textA > textB ? 1 : 0;
-			});
-
-			this.map.zoomToFull();
-
-			// trigger history change
-			this.onHistoryChange();
-		});
 	}
 
 	toggleMap() {
@@ -686,7 +683,6 @@ export class Navigator {
 		this.initView(); /* [1] */
 		this.initList();
 		this.initMap();
-		this.initGeocoder();
 		this.initDetailPane();
 		this.initFilter();
 		this.checkView(); /* [1] */
