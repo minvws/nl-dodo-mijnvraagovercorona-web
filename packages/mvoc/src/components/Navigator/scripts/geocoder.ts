@@ -172,10 +172,12 @@ export class Geocoder {
 	/**
 	 * Check if there's only one option and press it
 	 */
-	pressOnlyOption() {
+	pressOnlyOptionIfAvailable() {
 		const allOptions = this.getAllOptions();
 		if (allOptions.length === 1) {
 			allOptions[0].click();
+		} else {
+			this.onInputPressedDownKey();
 		}
 	}
 
@@ -254,7 +256,8 @@ export class Geocoder {
 					break;
 				case 'Enter':
 					event.preventDefault();
-					this.pressOnlyOption();
+					this.pressOnlyOptionIfAvailable();
+					break;
 				case 'Escape':
 				case 'Tab':
 					this.hideMenu();
