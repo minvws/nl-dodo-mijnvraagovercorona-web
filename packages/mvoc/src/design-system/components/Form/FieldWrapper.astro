@@ -10,7 +10,11 @@ interface Props extends HTMLAttributes<'div'> {
 const { class: className, label, id, hideLabel, ...attrs } = Astro.props;
 ---
 
-<div class={`c-field-wrapper${className ? ` | ${className}` : ''}`} {...attrs}>
+<div
+	class={`c-field-wrapper${className ? ` | ${className}` : ''}`}
+	{...attrs}
+	data-module="field-wrapper"
+>
 	<label
 		class={`c-field-wrapper__label${hideLabel ? ` | u-visually-hidden` : ''}`}
 		for={id}>{label}</label

@@ -66,7 +66,7 @@
 :where(ul, ol) {
 	padding-inline-start: var(--space-base, 1.5em); /* [1] */
 
-	&:where([role='list']) {
+	&:where([role='list'], [role='listbox']) {
 		padding-inline-start: 0; /* [2] */
 		list-style: none; /* [2] */
 	}
