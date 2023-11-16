@@ -118,6 +118,7 @@ export class Map {
 	setBoundingBox({ collection }: { collection: Position[] }) {
 		this.map.fitBounds(this.getBoundingBox({ collection }), {
 			padding: 72,
+			duration: 1500,
 		});
 	}
 
@@ -127,7 +128,7 @@ export class Map {
 
 	restorePreviousBounds() {
 		if (this.previousBounds) {
-			const speed = window.matchMedia(mqLarge).matches ? 1000 : 0;
+			const speed = window.matchMedia(mqLarge).matches ? 1500 : 0;
 			this.map.fitBounds(this.previousBounds, {
 				duration: speed,
 			});
