@@ -395,7 +395,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 	@media (--mq-huge) {
 		.c-navigator {
 			--navigator__max-block-size: calc(
-				var(--navigator__block-size) - var(--theme__masthead-block-size)
+				var(--navigator__block-size) - var(--theme__masthead-block-size, 0px)
 			);
 			--navigator__padding-block-start: 0px;
 		}
