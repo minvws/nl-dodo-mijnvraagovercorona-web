@@ -141,7 +141,7 @@ export class Navigator {
 
 	initView() {
 		if (this.heroElement && this.wrapFilterElement) {
-			window.addEventListener('resize', debounce(this.checkView));
+			window.addEventListener('resize', debounce(this.checkView).bind(this));
 
 			this.checkView();
 		}
@@ -188,6 +188,24 @@ export class Navigator {
 			});
 
 			this.listElement.appendChild(listItem);
+
+			// If a list item is hovered, highlight the corresponding marker
+			button.addEventListener('mouseenter', () => {
+				this.locations.forEach((loc) => {
+					if (loc.element !== listItem) {
+						loc.markerElement.classList.remove('is-hovered');
+					} else {
+						loc.markerElement.classList.add('is-hovered');
+					}
+				});
+			});
+
+			// And unhighlight the marker when the mouse leaves the list item
+			button.addEventListener('mouseleave', () => {
+				this.locations.forEach((loc) => {
+					loc.markerElement.classList.remove('is-hovered');
+				});
+			});
 
 			return {
 				...location,
