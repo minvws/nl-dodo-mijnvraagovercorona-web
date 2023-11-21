@@ -346,7 +346,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 
 	.c-navigator__wrap-filter-list {
 		min-height: calc(
-			var(--navigator__block-size) - var(--navigator__masthead-offset) - var(
+			var(--navigator__block-size) - var(--navigator__masthead-offset, 0px) - var(
 					--navigator__hero-size,
 					0px
 				)
