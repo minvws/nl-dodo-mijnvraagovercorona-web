@@ -28,7 +28,8 @@ const { class: className, ...attrs } = Astro.props;
 			z-index: 4;
 		}
 		&:focus-within,
-		&:has(button:hover) {
+		&:has(button:hover),
+		&.is-hovered {
 			z-index: 5;
 		}
 	}
