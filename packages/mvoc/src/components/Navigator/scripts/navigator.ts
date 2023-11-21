@@ -47,7 +47,7 @@ export class Navigator {
 	// state
 	locale: string;
 	pathname: string;
-	locations: FeatureProps[];
+	locations: FeatureProps[] = [];
 	hasBothAppointmentTypes: boolean = false;
 	hasPzaAppointmentTypes: boolean = false;
 	hasPmaAppointmentTypes: boolean = false;
@@ -178,7 +178,7 @@ export class Navigator {
 			// Add eventlistener to update history without refresh
 			button.addEventListener('click', () => {
 				this.interactionInitiator = 'list';
-				if (this.activeLocationSlug === '') {
+				if (!this.detailPageIsOpen) {
 					this.map.storeCurrentBounds();
 				}
 				this.updateHistory({
@@ -441,7 +441,7 @@ export class Navigator {
 			) as HTMLButtonElement;
 			button.addEventListener('click', () => {
 				this.interactionInitiator = 'map';
-				if (!this.mapIsElevated && this.activeLocationSlug === '') {
+				if (!this.mapIsElevated && !this.detailPageIsOpen) {
 					this.map.storeCurrentBounds();
 				}
 				this.lowerMap();
@@ -657,6 +657,7 @@ export class Navigator {
 
 				this.detailPaneElement.classList.add('is-active');
 				this.detailPaneElement.classList.add('is-visible');
+				this.detailPageIsOpen = true;
 
 				// calulate the zoomToFeature offset by dividing the detailPaneElement by 2 only for wide screens
 				const offset = this.detailPaneElement.offsetWidth / 2;
@@ -670,6 +671,7 @@ export class Navigator {
 		} else {
 			this.activeLocationSlug === '';
 			this.detailPaneElement.classList.remove('is-active');
+			this.detailPageIsOpen = false;
 		}
 	}
 
