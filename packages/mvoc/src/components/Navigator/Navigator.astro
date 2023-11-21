@@ -345,7 +345,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 	}
 
 	.c-navigator__wrap-filter-list {
-		min-height: calc(
+		min-block-size: calc(
 			var(--navigator__block-size) - var(--navigator__masthead-offset, 0px) - var(
 					--navigator__hero-size,
 					0px
@@ -375,7 +375,6 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		.c-navigator {
 			--navigator__template-columns: 480px 1fr;
 			--navigator__padding: var(--space-6);
-			--navigator__masthead-offset: var(--theme__masthead-block-size);
 		}
 
 		.c-navigator__wrap-map {
@@ -394,6 +393,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 
 	@media (--mq-huge) {
 		.c-navigator {
+			--navigator__masthead-offset: var(--theme__masthead-top-block-size);
 			--navigator__max-block-size: calc(
 				var(--navigator__block-size) - var(--theme__masthead-block-size, 0px)
 			);
