@@ -30,7 +30,8 @@
 		"postcss-custom-media": "^10.0.1",
 		"sass": "^1.67.0",
 		"slugify": "^1.6.6",
-		"typescript": "^5.2.2"
+		"typescript": "^5.2.2",
+		"uuid": "^9.0.1"
 	},
 	"dependencies": {
 		"@astrojs/check": "^0.2.0",
