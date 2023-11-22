@@ -12,6 +12,7 @@ import sanity from 'astro-sanity';
 import Compress from 'astro-compress';
 import browserslistToEsbuild from 'browserslist-to-esbuild';
 import pagefind from 'astro-pagefind';
+import icon from 'astro-icon';
 
 console.log(`ENVIRONMENT: ${ENV}`);
 
@@ -34,6 +35,8 @@ export default defineConfig({
 			HTML: false,
 			JavaScript: false,
 		}),
+		// @ts-expect-error
+		icon(),
 		// @ts-expect-error
 		pagefind(),
 	],

@@ -3,3 +3,4 @@
 /data
 /public/data/v3/features.json
 /scripts/export.json
+.astro
