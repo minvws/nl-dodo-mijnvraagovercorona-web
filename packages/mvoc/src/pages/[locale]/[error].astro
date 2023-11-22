@@ -49,7 +49,7 @@ interface Props {
 	locale: Locale;
 }
 
-const { pageData, locale } = Astro.props;
+const { pageData, locale } = Astro.props as Props;
 
 const homeCollection = await getDataHome();
 const homePageData = homeCollection.filter(
