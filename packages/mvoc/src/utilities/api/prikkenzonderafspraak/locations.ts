@@ -1,7 +1,7 @@
 import type { ContentBlockProps } from '@design-system/components/ContentBlock';
 import type { IconProps } from '@design-system/elements/Icon';
 import { useSanityClient } from 'astro-sanity';
-import type { PageProps, HeroProps } from '../queries';
+import type { PageProps, HeroProps, AssistanceProps } from '../queries';
 import { pageQuery, heroQuery, customBlockQuery } from '../queries';
 import { getAdditionalPageData } from 'src/utilities/helpers/getAdditionalPageData';
 
@@ -15,6 +15,7 @@ export interface LocationsPageProps extends PageProps {
 		searchLabel: string;
 		noResult: string;
 	};
+	showFeedback?: boolean;
 	location: {
 		openingHours: {
 			title: string;
@@ -85,6 +86,7 @@ export async function getDataLocationPages() {
 		filter{
 			searchLabel
 		},
+		showFeedback,
 		location{
 			openingHours{
 				title,

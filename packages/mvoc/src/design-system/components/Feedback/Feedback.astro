@@ -8,6 +8,7 @@ import { useSiteSettings } from 'src/utilities/api/queries';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import { Card } from '../Card';
 import { Stack } from '../Layout/Stack';
+import { v4 as uuidv4 } from 'uuid';
 
 interface Props extends HTMLAttributes<'section'> {
 	url: string;
@@ -17,6 +18,7 @@ interface Props extends HTMLAttributes<'section'> {
 const { class: className, url, name, ...attrs } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
 const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+const formId = `form-${uuidv4()}`;
 ---
 
 <>
@@ -49,7 +51,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 									type="radio"
 									value="Like"
 									name="feedback-choice"
-									id="feedback-choice-yes"
+									id={`feedback-choice-yes-${formId}`}
 									required
 								>
 									{siteSettings.feedback.labels.like}
@@ -58,7 +60,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 									type="radio"
 									value="Dislike"
 									name="feedback-choice"
-									id="feedback-choice-no"
+									id={`feedback-choice-no-${formId}`}
 								>
 									{siteSettings.feedback.labels.dislike}
 								</Control>
