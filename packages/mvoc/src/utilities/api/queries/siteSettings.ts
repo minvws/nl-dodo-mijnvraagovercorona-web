@@ -70,6 +70,7 @@ export interface SiteSettingsProps {
 		today: string;
 		ago: string;
 		of: string;
+		or: string;
 		previous: string;
 		next: string;
 		dayPlural: {
@@ -89,6 +90,7 @@ export interface SiteSettingsProps {
 			that: string;
 		};
 		search: string;
+		kilometerAbbr: string;
 	};
 	logo: {
 		alt: string;
@@ -106,11 +108,9 @@ export interface SiteSettingsProps {
 		filterOn: string;
 		clearField: string;
 	};
-	vaccinations: {
-		series: {
-			b: string;
-			b1: string;
-		};
+	appointmentTypes: {
+		pza: string;
+		pma: string;
 	};
 	accessibility: {
 		labelExternalLink: string;
@@ -163,6 +163,7 @@ export const siteSettingsQuery = ({ locale }: { locale: Locale }): string => `
 			ago,
 			in,
 			of,
+			or,
 			previous,
 			next,
 			dayPlural{
@@ -182,6 +183,7 @@ export const siteSettingsQuery = ({ locale }: { locale: Locale }): string => `
 				that,
 			},
 			search,
+			kilometerAbbr,
 		},
 		logo{
 			alt,
@@ -190,11 +192,9 @@ export const siteSettingsQuery = ({ locale }: { locale: Locale }): string => `
 			filterOn,
 			clearField,
 		},
-		vaccinations{
-			series{
-				b,
-				b1,
-			},
+		appointmentTypes{
+			pza,
+			pma,
 		},
 		privacy{
 			id,

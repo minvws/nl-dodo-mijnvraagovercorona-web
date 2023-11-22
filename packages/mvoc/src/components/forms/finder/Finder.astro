@@ -7,7 +7,6 @@ import { ButtonTool } from '@design-system/elements/Button';
 import { Icon } from '@design-system/elements/Icon';
 import type { SiteSettingsProps } from 'src/utilities/api/queries';
 import { useSiteSettings } from 'src/utilities/api/queries';
-import { Locale } from 'src/utilities/locale/translation';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
 
 interface Props extends HTMLAttributes<'div'> {}
@@ -21,7 +20,8 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 	<ButtonTool
 		type="button"
 		id="finder-modal"
-		aria-label={siteSettings.genericLabels.search}
+		label={siteSettings.genericLabels.search}
+		showLabel
 	>
 		<Icon name="looking-glass" />
 	</ButtonTool>
@@ -75,6 +75,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 
 <style is:global lang="scss">
 	@use '@design-system-styles/tools/_a11y.scss';
+	@use '@design-system-styles/tools/_input.scss';
 	@use '@design-system-styles/primitives/_responsive.scss';
 	@use '@design-system-styles/tools/_button.scss';
 
@@ -143,30 +144,11 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 			font-weight: unset;
 			/* !unset pagefind stuff */
 
-			inline-size: 100%;
-			padding-block: calc(var(--c-search__input-padding) - 1px);
+			@include input.scaffold();
+
 			padding-inline-start: calc(
 				var(--c-search__input-padding) * 2 + var(--c-search__input-icon-size)
 			);
-			padding-inline-end: var(--c-search__input-padding);
-			border: 1px solid var(--color-grijs-4);
-			border-radius: var(--radii-nano);
-			font: inherit;
-			background-color: var(--color-white);
-			appearance: none;
-
-			&[type='search'] {
-				&::-webkit-search-decoration,
-				&::-webkit-search-cancel-button,
-				&::-webkit-search-results-button,
-				&::-webkit-search-results-decoration {
-					display: none;
-				}
-			}
-
-			&:focus {
-				@include a11y.focusring;
-			}
 		}
 
 		/**

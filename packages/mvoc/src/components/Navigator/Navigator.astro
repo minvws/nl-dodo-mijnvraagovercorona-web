@@ -1,5 +1,4 @@
 ---
-import { CardPrivacy } from '@design-system/components/Card';
 import { ContentBlock } from '@design-system/components/ContentBlock';
 import { Feedback } from '@design-system/components/Feedback';
 import { Stack } from '@design-system/components/Layout/Stack';
@@ -17,9 +16,10 @@ import { useSiteSettings } from 'src/utilities/api/queries';
 import type { Locale } from 'src/utilities/locale/translation';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import { Filter, LocationDetail, Marker } from '.';
+import { Breadcrumbs } from '@design-system/components/Breadrumbs';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { Breadcrumbs } from '@design-system/components/Breadrumbs';
+import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
 
 interface Props extends HTMLAttributes<'div'> {
 	pageData: LocationsPageProps;
@@ -42,16 +42,20 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 	data-locale={locale.id}
 	data-access-token={process.env.MAPBOX_ACCESS_TOKEN}
 >
-	<div class="c-navigator__wrap-sidebar">
+	<div class="c-navigator__wrap-sidebar" data-module-bind="navigator__sidebar">
 		{
 			pageData.hero ? (
-				<div class="c-navigator__wrap-hero">
+				<div class="c-navigator__wrap-hero" data-module-bind="navigator__hero">
 					<Stack>
-						<Breadcrumbs breadcrumbs={pageData.breadcrumbs} />
+						<div>
+							<Breadcrumbs breadcrumbs={pageData.breadcrumbs} />
+						</div>
 						<Heading level={1} styledAs={2}>
 							{pageData.hero.title}
 						</Heading>
-						<ContentBlock value={pageData.hero.content} />
+						<Stack class="has__list-styled">
+							<ContentBlock value={pageData.hero.content} />
+						</Stack>
 						<img
 							data-pagefind-meta="image[src]"
 							src={pageData.hero.image.src}
@@ -63,7 +67,10 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 			) : null
 		}
 		<div class="c-navigator__wrap-filter-list" data-pagefind-ignore="all">
-			<div class="c-navigator__wrap-filter">
+			<div
+				class="c-navigator__wrap-filter"
+				data-module-bind="navigator__wrap-filter"
+			>
 				<Filter pageData={pageData} />
 			</div>
 			<div class="c-navigator__wrap-list">
@@ -75,6 +82,8 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 				</LocationList>
 			</div>
 		</div>
+
+		<MastFoot locale={locale} />
 	</div>
 
 	<div class="c-navigator__wrap-map" data-pagefind-ignore="all">
@@ -112,10 +121,14 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 							data-module-bind="navigator__detail-target"
 						>
 						</div>
-						<Feedback url={siteSettings.feedback.url} name="Prikken detail" />
-						<CardPrivacy />
+						<Feedback
+							url={getFeedbackUrl(siteSettings.feedback.url, {
+								source: pageData.type,
+								advice: pageData.slug,
+							})}
+							name="Prikken detail"
+						/>
 					</Stack>
-					<MastFoot locale={locale} />
 				</Stack>
 			</div>
 		</div>
@@ -131,6 +144,14 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 
 	<template data-module-bind="map__marker">
 		<Marker />
+	</template>
+
+	<template data-module-bind="map__marker-user">
+		<img
+			class="c-navigator__marker-user"
+			src="/images/map/marker-user.svg"
+			alt=""
+		/>
 	</template>
 </div>
 
@@ -150,6 +171,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 
 <style lang="scss">
 	@use '@design-system-styles/primitives/_responsive.scss';
+	@use '@design-system-styles/tools/_rem.scss';
 
 	.c-navigator {
 		--navigator__padding: var(--space-4);
@@ -158,9 +180,10 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		--navigator__block-size: 100vh;
 		--navigator__block-size: 100svh;
 		--navigator__max-block-size: var(--navigator__block-size);
-		--navigator__popover-spacing: var(--space-2);
+		--navigator__popover-spacing: var(--space-4);
 		--navigator__popover-radii: var(--radii-milli);
 		--navigator__popover-elevation: var(--elevation-frost);
+		--navigator__masthead-offset: var(--theme__masthead-top-block-size);
 		display: grid;
 		grid-template-rows: var(--navigator__template-rows, 1fr);
 		grid-template-columns: var(--navigator__template-columns, 1fr);
@@ -185,15 +208,19 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 
 	.c-navigator__wrap-sidebar {
 		position: relative;
-		overflow: auto;
-		padding-block-end: env(safe-area-inset-bottom);
-		grid-area: 1 / 1 / 2 / 2;
 		z-index: 2;
+		grid-area: 1 / 1 / 2 / 2;
+		padding-block-end: env(safe-area-inset-bottom);
+		overflow: auto;
 		background-color: var(--color-white);
 
 		// prevent scrolling when menu is open
 		:global(.has-open-menu) & {
 			overflow: hidden;
+		}
+
+		@media (--mq-wide) {
+			z-index: 3;
 		}
 	}
 
@@ -206,7 +233,10 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		pointer-events: none;
 		overflow: hidden;
 		// background-color: red;
-
+		@media (--mq-wide) {
+			z-index: 2;
+			overflow: unset;
+		}
 		&.is-active {
 			pointer-events: auto;
 		}
@@ -226,8 +256,17 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		visibility: hidden;
 		background-color: var(--theme-bg-base);
 
+		@media (--mq-wide) {
+			transform: translateX(0%);
+			background-color: revert;
+			box-shadow: unset;
+		}
+
 		.is-active & {
 			transform: translateY(0);
+			@media (--mq-wide) {
+				transform: translateX(100%);
+			}
 		}
 
 		.is-visible & {
@@ -242,6 +281,14 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		z-index: 1;
 		background-color: var(--color-white);
 		border-radius: var(--navigator__popover-radii);
+
+		@media (--mq-wide) {
+			box-shadow: var(--elevation-frost-medium);
+		}
+
+		@media (--mq-large-until) {
+			box-shadow: var(--elevation-frost-medium);
+		}
 	}
 
 	.c-navigator__detail-inner {
@@ -276,20 +323,16 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		.c-navigator.show-map & {
 			z-index: 2;
 		}
+		.c-navigator.elevate-map & {
+			z-index: 5;
+		}
 	}
 
 	/**
 	 * 1. mapbox sets a hard height on the container so we need to override it
 	 */
 	.c-navigator__map {
-		position: absolute;
-		block-size: calc(
-			100% - var(--navigator__map-spacing) * 2
-		) !important; /* [1] */
-		inline-size: calc(
-			100% - var(--navigator__map-spacing) * 2
-		) !important; /* [1] */
-		overflow: hidden;
+		block-size: 100% !important; /* [1] */
 		border-radius: var(--navigator__map-radii);
 		box-shadow: var(--navigator__map-elevation);
 	}
@@ -299,6 +342,15 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		inset-block-start: calc(var(--space-4) + var(--navigator__map-spacing));
 		inset-inline-end: calc(var(--space-4) + var(--navigator__map-spacing));
 		z-index: 3;
+	}
+
+	.c-navigator__wrap-filter-list {
+		min-block-size: calc(
+			var(--navigator__block-size) - var(--navigator__masthead-offset, 0px) - var(
+					--navigator__hero-size,
+					0px
+				)
+		);
 	}
 
 	.c-navigator__wrap-filter {
@@ -323,11 +375,6 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		.c-navigator {
 			--navigator__template-columns: 480px 1fr;
 			--navigator__padding: var(--space-6);
-			--navigator__padding-block-start: var(--navigator__padding);
-			--navigator__max-block-size: calc(
-				var(--navigator__block-size) - var(--theme__masthead-block-size)
-			);
-			--navigator__padding-block-start: 0px;
 		}
 
 		.c-navigator__wrap-map {
@@ -341,6 +388,16 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		// Increase specificity by 1,
 		.c-navigator__map-close.c-navigator__map-close {
 			display: none;
+		}
+	}
+
+	@media (--mq-huge) {
+		.c-navigator {
+			--navigator__masthead-offset: var(--theme__masthead-top-block-size);
+			--navigator__max-block-size: calc(
+				var(--navigator__block-size) - var(--theme__masthead-block-size, 0px)
+			);
+			--navigator__padding-block-start: 0px;
 		}
 	}
 </style>

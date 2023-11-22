@@ -28,6 +28,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 	<Stack>
 		<fieldset class="c-filter__wrap-search">
 			<FieldInputText
+				class="c-filter__geocoder"
 				type="search"
 				id="search"
 				label={pageData.filter.searchLabel}
@@ -35,7 +36,31 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 				icon="looking-glass"
 				clearable
 				hideLabel
-			/>
+			>
+				<ol
+					data-module-bind="geocoder__list"
+					aria-live="polite"
+					role="list"
+					class="c-filter__geocoder-list"
+				>
+				</ol>
+
+				<template data-module-bind="geocoder__list-item">
+					<li>
+						<button
+							class="c-filter__geocoder-button"
+							type="button"
+							data-module-bind="geocoder__button"
+							role="option"
+							aria-selected="false"
+						>
+							<span data-label></span>
+							<small class="c-filter__geocoder-meta" data-meta></small>
+						</button>
+					</li>
+				</template>
+			</FieldInputText>
+
 			<button
 				class="c-filter__map-toggle"
 				type="button"
@@ -52,19 +77,27 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 			</button>
 		</fieldset>
 
-		<fieldset>
+		<fieldset data-filter-toggles hidden>
 			<Stack gap={2}>
 				<div class="c-filter__wrap-controls">
 					<legend class="c-filter__legend">{siteSettings.forms.filterOn}</legend
 					>
-					<Control
-						type="checkbox"
-						name="filter"
-						value="status-open"
-						id="status-open"
-					>
-						{pageData.location.openingHours.openNow}
-					</Control>
+					<div class="c-filter__controls">
+						<Control
+							type="checkbox"
+							name="filter"
+							value="status-open"
+							id="status-open"
+						>
+							{pageData.location.openingHours.openNow}
+						</Control>
+						<Control type="checkbox" name="filter" value="pma" id="pma" hidden>
+							{siteSettings.appointmentTypes.pma}
+						</Control>
+						<Control type="checkbox" name="filter" value="pza" id="pza" hidden>
+							{siteSettings.appointmentTypes.pza}
+						</Control>
+					</div>
 				</div>
 			</Stack>
 		</fieldset>
@@ -74,6 +107,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 <style lang="scss">
 	@use '@design-system-styles/primitives/_responsive.scss';
 	@use '@design-system-styles/tools/_a11y.scss';
+	@use '@design-system-styles/tools/_input.scss';
 
 	.c-filter {
 	}
@@ -87,7 +121,47 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		}
 	}
 
-	.c-filter__wrap-controls {
+	/**
+	 * Geocoder
+	 */
+	.c-filter__geocoder {
+		position: relative;
+	}
+	.c-filter__geocoder-list {
+		position: absolute;
+		inset-block-start: calc(100% + var(--space-2));
+		inline-size: 100%;
+		border-radius: var(--radii-nano);
+		box-shadow: var(--elevation-frost);
+		font-size: var(--font-size-root);
+		line-height: var(--font-lineheight-root);
+		background-color: var(--color-ijsblauw);
+		z-index: 3;
+	}
+	.c-filter__geocoder-button {
+		display: flex;
+		flex-direction: column;
+		inline-size: 100%;
+		text-align: start;
+		padding-block: var(--space-2);
+		padding-inline: var(--space-4);
+		cursor: pointer;
+
+		&:focus {
+			@include a11y.focusring;
+		}
+
+		&:hover,
+		&:focus {
+			background-color: var(--color-poolblauw);
+		}
+	}
+
+	.c-filter__geocoder-meta {
+		color: var(--color-grijs-6);
+	}
+
+	.c-filter__controls {
 		display: flex;
 		flex-wrap: wrap;
 		gap: var(--space-4);

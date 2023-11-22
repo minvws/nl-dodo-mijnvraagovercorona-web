@@ -31,7 +31,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 >
 	<div class="c-masthead__top" data-module-bind="masthead__top">
 		<Retain class="c-masthead__top__inner">
-			<div>
+			<div class="c-masthead__start">
 				<slot name="start" />
 			</div>
 
@@ -52,8 +52,9 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 							<ButtonTool
 								class="c-masthead__button"
 								type="button"
+								label={siteSettings.masthead.menu.menuButtonLabel}
+								showLabel
 								aria-expanded="false"
-								aria-label={siteSettings.masthead.menu.menuButtonLabel}
 								aria-controls="nav-main"
 								data-module-bind="masthead__button"
 							>
@@ -99,13 +100,16 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		block-size: var(--masthead-block-size, var(--body-block-size));
 		background-color: var(--masthead-background, var(--color-donkerblauw));
 
+		@media (--mq-large) {
+			--masthead-logo-spacer: var(--masthead-inline-padding);
+		}
+
 		@media (--mq-huge) {
 			--masthead-position: relative;
 			--masthead-z-index: 50;
 			--masthead-block-size: auto;
 			--masthead-template-areas: 'top top' 'drawer drawer';
 			--masthead-background: var(--color-poolblauw);
-			--masthead-logo-spacer: var(--masthead-inline-padding);
 			padding: 0;
 
 			& {
@@ -118,18 +122,57 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		position: relative;
 		z-index: 3;
 		grid-area: top;
+
+		.c-masthead--compact & {
+			@media (--mq-large) and (--mq-huge-until) {
+				box-shadow: var(--elevation-frost);
+			}
+		}
 	}
 
 	.c-masthead__top__inner {
 		display: grid;
+		gap: var(--space-4);
 		grid-template-columns: 1fr auto 1fr;
+	}
+
+	.c-masthead__start {
+		container: layout-container / inline-size;
 	}
 
 	.c-masthead__end {
 		display: flex;
+		flex-wrap: wrap;
 		align-items: center;
 		justify-content: end;
-		gap: var(--space-4);
+		row-gap: var(--space-1);
+		column-gap: var(--space-4);
+		container: layout-container / inline-size;
+
+		:global(.c-button-tool__label) {
+			display: none;
+		}
+	}
+
+	/**
+	 * Hide the button labels visually when the inline size hit certain tresholds
+	 */
+	@container layout-container (inline-size > #{rem.convert(140px)}) and (inline-size < #{rem.convert(192px)}) {
+		.c-masthead__end {
+			:global(> :last-child) {
+				:global(.c-button-tool__label) {
+					display: block;
+				}
+			}
+		}
+	}
+
+	@container layout-container (inline-size > #{rem.convert(192px)}) {
+		.c-masthead__end {
+			:global(.c-button-tool__label) {
+				display: block;
+			}
+		}
 	}
 
 	.c-masthead__logo {
@@ -203,10 +246,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 	const navElement = mastheadElement.querySelector('[data-module="nav-main"]');
 
 	// Store masthead spacing in a variable which can be used by other modules
-	if (
-		topElement &&
-		!mastheadElement.classList.contains('c-masthead--compact')
-	) {
+	if (topElement) {
 		const checkSize = () => {
 			const mastheadRect = mastheadElement.getBoundingClientRect();
 			const mastheadTopRect = topElement.getBoundingClientRect();

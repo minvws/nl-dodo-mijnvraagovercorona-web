@@ -14,8 +14,9 @@ export default defineType({
 			address: 'location.address',
 			appointmentType: 'appointmentType',
 			show: 'show',
+			test: 'isTestLocation',
 		},
-		prepare({ name, city, address, appointmentType, show }) {
+		prepare({ name, city, address, appointmentType, show, test }) {
 			const end = show?.end;
 			const start = show?.start;
 
@@ -30,7 +31,7 @@ export default defineType({
 			}
 
 			return {
-				title: `${name ? `${name} - ` : ''}${address}`,
+				title: `${test ? 'TEST - ' : ''}${name ? `${name} - ` : ''}${address}`,
 				subtitle: `${city} (${closed ? 'Gesloten' : 'Open'})${
 					appointmentType
 						? ` (${appointmentType
@@ -45,6 +46,14 @@ export default defineType({
 	},
 
 	fields: [
+		defineField({
+			title: 'Test locatie',
+			name: 'isTestLocation',
+			type: 'boolean',
+			description:
+				'Als deze toggle aan staat zal de locatie niet getoond worden op productie.',
+		}),
+
 		defineField({
 			title: 'Naam',
 			name: 'name',
@@ -210,11 +219,15 @@ export default defineType({
 				source: ({
 					name,
 					location,
+					isTestLocation,
 				}: {
 					name: string;
 					location: { city: string; address: string };
+					isTestLocation?: boolean;
 				}): string =>
-					`${name ? `${name}-` : ''}${location.city}-${location.address}`,
+					`${isTestLocation ? 'test-' : ''}${name ? `${name}-` : ''}${
+						location.city
+					}-${location.address}`,
 			},
 
 			validation: (Rule) => Rule.required(),

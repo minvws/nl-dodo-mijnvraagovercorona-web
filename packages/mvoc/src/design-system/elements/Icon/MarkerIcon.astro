@@ -1,0 +1,40 @@
+---
+import { Sprite } from 'astro-icon';
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'svg'> {}
+
+const { class: className, ...attrs } = Astro.props;
+---
+
+<Sprite
+	class={`c-marker-icon${className ? ` | ${className}` : ''}`}
+	{...attrs}
+	name={'map-marker'}
+	optimize={true}
+/>
+
+<style lang="scss">
+	@use '@design-system-styles/tools/_marker.scss';
+
+	.c-marker-icon {
+		--marker-icon-color: var(--color-diepblauw);
+		@include marker.dimensions;
+
+		display: block;
+		color: var(--marker-icon-color);
+
+		:global(.is-test-location) & {
+			--marker-icon-color: red;
+		}
+
+		:global(.is-open-location) & {
+			--marker-icon-color: var(--color-accent-safarigroen);
+		}
+
+		:global(.is-active-location) &,
+		:global(.is-hovered) & {
+			--marker-icon-color: var(--color-hemelblauw);
+		}
+	}
+</style>

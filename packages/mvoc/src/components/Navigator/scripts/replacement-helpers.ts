@@ -1,4 +1,7 @@
-import type { FeatureProps } from 'src/utilities/helpers/features';
+import type {
+	AppointmentTypeProps,
+	FeatureProps,
+} from 'src/utilities/helpers/features';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
 import {
 	getDatesWithOpeningHours,
@@ -7,6 +10,8 @@ import {
 	isOpenThisWeek,
 	isOpenToday,
 } from './timetable-helpers';
+
+const compareArrays = (arr, target) => target.every((v) => arr.includes(v));
 
 /**
  * Replace openinghours in list & detail view
@@ -29,9 +34,11 @@ export const replaceOpeningHoursElement = ({
 	const openingHoursOpenFromElement = container.querySelector(
 		'[data-openinghours-openfrom]',
 	) as HTMLSpanElement;
-	const openingHoursFromElement = openingHoursOpenFromElement.querySelector(
-		'[data-openinghours-from]',
-	) as HTMLSpanElement;
+	const openingHoursFromElement = openingHoursOpenFromElement
+		? (openingHoursOpenFromElement.querySelector(
+				'[data-openinghours-from]',
+		  ) as HTMLSpanElement)
+		: null;
 	const openingHoursClosedElement = container.querySelector(
 		'[data-openinghours-closed]',
 	) as HTMLSpanElement;
@@ -41,15 +48,31 @@ export const replaceOpeningHoursElement = ({
 		show: location.properties.show,
 	});
 
-	if (isOpenNow(location.properties.openingHours)) {
+	if (
+		isOpenNow(location.properties.openingHours) &&
+		openingHoursOpenTodayElement &&
+		openingHoursOpenFromElement &&
+		openingHoursClosedElement
+	) {
 		openingHoursOpenTodayElement.remove();
 		openingHoursOpenFromElement.remove();
 		openingHoursClosedElement.remove();
-	} else if (isOpenToday(location.properties.openingHours)) {
+	} else if (
+		isOpenToday(location.properties.openingHours) &&
+		openingHoursOpenNowElement &&
+		openingHoursOpenFromElement &&
+		openingHoursClosedElement
+	) {
 		openingHoursOpenNowElement.remove();
 		openingHoursOpenFromElement.remove();
 		openingHoursClosedElement.remove();
-	} else if (firstDayOpen) {
+	} else if (
+		firstDayOpen &&
+		openingHoursFromElement &&
+		openingHoursOpenNowElement &&
+		openingHoursOpenTodayElement &&
+		openingHoursClosedElement
+	) {
 		const dateString = firstDayOpen.dateTime.setLocale(locale).toLocaleString({
 			weekday: 'long',
 			month: 'long',
@@ -60,7 +83,11 @@ export const replaceOpeningHoursElement = ({
 		openingHoursOpenNowElement.remove();
 		openingHoursOpenTodayElement.remove();
 		openingHoursClosedElement.remove();
-	} else {
+	} else if (
+		openingHoursOpenNowElement &&
+		openingHoursOpenTodayElement &&
+		openingHoursOpenFromElement
+	) {
 		openingHoursOpenNowElement.remove();
 		openingHoursOpenTodayElement.remove();
 		openingHoursOpenFromElement.remove();
@@ -68,33 +95,55 @@ export const replaceOpeningHoursElement = ({
 };
 
 /**
- * Replace vaccination series labels
+ * Replace appointment elements
  */
-export const replaceVaccinationSeriesElement = ({
+
+export const replaceAppointmentElement = ({
 	location,
 	container,
 }: {
 	location: FeatureProps;
 	container: HTMLDivElement | HTMLLIElement;
 }) => {
-	const series = location.properties.vaccinationSeries;
-	const seriesBElement = container.querySelector('[data-series="b"]');
-	const seriesB1Element = container.querySelector('[data-series="b1"]');
-	const dynamicAttributes = container.querySelectorAll<HTMLDivElement>(
-		'[data-dynamic-attribute][data-vaccination-series]',
-	);
+	const elements = [
+		...container.querySelectorAll<HTMLSpanElement>('[data-appointment-type]'),
+	];
 
-	if (series.length === 1 && series.startsWith('b') && seriesB1Element) {
-		seriesB1Element.remove();
-	} else if (series.length === 2 && series.startsWith('b1') && seriesBElement) {
-		seriesBElement.remove();
-	}
-
-	dynamicAttributes.forEach((attribute) => {
-		if (attribute.dataset.vaccinationSeries !== series) {
-			attribute.closest('li').remove();
+	// compare types and remove elements if condition is not met
+	if (location.properties?.appointmentType?.length) {
+		// Remove AND elements if not all types are available
+		if (location.properties.appointmentType.length === 1) {
+			elements.forEach((element) =>
+				element.dataset.appointmentType.includes('&') ? element.remove() : null,
+			);
 		}
-	});
+
+		elements.forEach((element) => {
+			// split types into array based on & or |
+			const types = element.dataset.appointmentType
+				.replace(' ', '')
+				.replace('!', '')
+				.split(/(?:\&|\|)+/) as AppointmentTypeProps;
+
+			if (
+				element.dataset.appointmentType.includes('!') &&
+				location.properties.appointmentType.length === 2
+			) {
+				element.remove();
+			}
+
+			const typesAreTheSame = compareArrays(
+				location.properties.appointmentType,
+				types,
+			);
+			if (types.length === 1 && !typesAreTheSame) {
+				element.remove();
+			}
+		});
+	} else {
+		// Remove all elements if no appointment types are available
+		elements.forEach((element) => element.remove());
+	}
 };
 
 export const replaceVariables = ({
@@ -115,7 +164,8 @@ export const replaceVariables = ({
 		HTMLParagraphElement | HTMLSpanElement
 	>('[data-name]');
 	nameElements.forEach((element) => {
-		element.innerHTML = location.properties.name;
+		element.innerHTML =
+			location.properties.name || location.properties.location.address;
 	});
 
 	const addressShortElements = container.querySelectorAll<
@@ -144,6 +194,8 @@ export const replaceTimeTable = ({
 }) => {
 	const timeTableElement =
 		container.querySelector<HTMLDivElement>('[data-timetable]');
+	if (!timeTableElement) return false;
+
 	const tableBodyElement =
 		timeTableElement.querySelector<HTMLTableSectionElement>(
 			'[data-module-bind="location__timetable-row"]',
@@ -250,8 +302,8 @@ export const replaceAll = ({
 	// populate template with location data
 	replaceVariables({ location, container });
 
-	// hide/show vaccination series blocks
-	replaceVaccinationSeriesElement({ location, container });
+	// hide/show PZA/PMA fields
+	replaceAppointmentElement({ location, container });
 
 	// openinghours
 	replaceOpeningHoursElement({ location, container, locale });

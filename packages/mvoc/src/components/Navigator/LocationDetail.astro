@@ -1,12 +1,18 @@
 ---
 import { Attribute } from '@design-system/components/Attribute';
 import { ContentBlock } from '@design-system/components/ContentBlock';
+import { Label } from '@design-system/components/Label';
 import { Stack } from '@design-system/components/Layout/Stack';
 import { Button } from '@design-system/elements/Button';
 import { Heading } from '@design-system/elements/Heading';
+import { MarkerIcon } from '@design-system/elements/Icon';
 import { Link } from '@design-system/elements/Link';
 import type { HTMLAttributes } from 'astro/types';
 import type { LocationsPageProps } from 'src/utilities/api';
+import {
+	useSiteSettings,
+	type SiteSettingsProps,
+} from 'src/utilities/api/queries';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import type { Locale } from 'src/utilities/locale/translation';
 
@@ -17,6 +23,9 @@ interface Props extends HTMLAttributes<'div'> {
 const { class: className, pageData, ...attrs } = Astro.props;
 
 const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
+const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+
+const note = pageData.location.note;
 ---
 
 <div
@@ -32,6 +41,20 @@ const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 				<span data-city>replace city</span>
 				<span class="c-location-detail__name" data-name></span>
 			</Heading>
+			<div
+				class="c-location-detail__wrap-labels"
+				data-appointment-type="pza|pma"
+			>
+				<Label data-appointment-type="pza">
+					{siteSettings.appointmentTypes.pza}
+				</Label>
+				<span class="u-color--black" data-appointment-type="pza&pma">
+					{siteSettings.genericLabels.or}
+				</span>
+				<Label data-appointment-type="pma">
+					{siteSettings.appointmentTypes.pma}
+				</Label>
+			</div>
 		</Stack>
 	</hgroup>
 
@@ -39,16 +62,15 @@ const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 		<Stack gap={10}>
 			<div>
 				<Stack gap={3}>
-					<div class="c-location-detail__wrap-image" data-wrap-image>
+					<button
+						type="button"
+						class="c-location-detail__wrap-image"
+						data-wrap-image
+						data-module-bind="navigator__map-preview"
+					>
 						<img class="c-location-detail__image" alt="" data-image-map />
-						<img
-							class="c-location-detail__marker-icon"
-							src="/images/map/marker.svg"
-							data-src-open="/images/map/marker-open.svg"
-							alt=""
-							data-marker-icon
-						/>
-					</div>
+						<MarkerIcon class="c-location-detail__marker-icon" />
+					</button>
 
 					<Attribute
 						icon="marker"
@@ -67,7 +89,25 @@ const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 					</Attribute>
 
 					<section>
-						<Stack gap={1}>
+						<Stack gap={1} data-appointment-type="!pza">
+							<Button
+								type="button"
+								data-module-bind="location__button-copy"
+								icon="copy"
+								iconPosition="leading"
+								data-label-copy={pageData.location.copyButton.copy}
+								data-label-copied={pageData.location.copyButton.copied}
+								full
+							>
+								{pageData.location.copyButton.copy}
+							</Button>
+
+							<div class="u-color--grijs-6">
+								<ContentBlock value={pageData.location.instructions} />
+							</div>
+						</Stack>
+
+						<Stack gap={1} data-appointment-type="pza&pma">
 							<Button
 								type="button"
 								data-module-bind="location__button-copy"
@@ -85,19 +125,54 @@ const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 							</div>
 						</Stack>
 					</section>
-
-					<section class="has__list-styled">
-						<Stack>
-							<ContentBlock value={pageData.location.note} />
-						</Stack>
-					</section>
+					{
+						note ? (
+							<section>
+								<Stack>
+									<b data-appointment-type="pza|pma">{note.title}</b>
+									<Stack gap={4} as="ul" role="list">
+										{note.pzaInfo && (
+											<li data-appointment-type="pza">
+												<Attribute icon={note.pzaInfo.icon}>
+													<Stack gap={2}>
+														<span
+															class="c-location-detail__wrap-labels"
+															data-appointment-type="pza&pma"
+														>
+															<Label>{siteSettings.appointmentTypes.pza}</Label>
+														</span>
+														<ContentBlock value={note.pzaInfo.label} />
+													</Stack>
+												</Attribute>
+											</li>
+										)}
+										{note.pmaInfo && (
+											<li data-appointment-type="pma">
+												<Attribute icon={note.pmaInfo.icon}>
+													<Stack gap={2}>
+														<span
+															class="c-location-detail__wrap-labels"
+															data-appointment-type="pza&pma"
+														>
+															<Label>{siteSettings.appointmentTypes.pma}</Label>
+														</span>
+														<ContentBlock value={note.pmaInfo.label} />
+													</Stack>
+												</Attribute>
+											</li>
+										)}
+									</Stack>
+								</Stack>
+							</section>
+						) : null
+					}
 				</Stack>
 			</div>
 
-			<section>
+			<section data-appointment-type="pza">
 				<Stack>
 					<div class="c-location-detail__heading-openinghours">
-						<Heading level={3} styledAs={2}>
+						<Heading level={3}>
 							{pageData.location.openingHours.title}
 						</Heading>
 						<div class="opening-hours" data-openinghours>
@@ -114,7 +189,7 @@ const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 								{pageData.location.openingHours.openToday}
 							</span>
 							<span class="u-color--grijs-6" data-openinghours-openfrom>
-								{pageData.location.openingHours.openFrom}
+								{pageData.location.openingHours.openFrom}{' '}
 								<span data-openinghours-from></span>
 							</span>
 							<span class="u-color--grijs-6" data-openinghours-closed>
@@ -162,20 +237,14 @@ const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 				pageData.about && pageData.about.items ? (
 					<section>
 						<Stack>
-							<Heading level={3} styledAs={2}>
-								{pageData.about.title}
-							</Heading>
+							<Heading level={3}>{pageData.about.title}</Heading>
 							<div>
 								<Stack gap={2} as="ul" role="list">
 									{pageData.about.items
 										.filter((item) => item.label)
 										.map((item) => (
 											<li>
-												<Attribute
-													icon={item.icon}
-													data-dynamic-attribute
-													data-vaccination-series={item.vaccinationSeries}
-												>
+												<Attribute icon={item.icon}>
 													<ContentBlock value={item.label} />
 												</Attribute>
 											</li>
@@ -191,9 +260,7 @@ const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 				pageData.bring && pageData.bring.items ? (
 					<section>
 						<Stack>
-							<Heading level={3} styledAs={2}>
-								{pageData.bring.title}
-							</Heading>
+							<Heading level={3}>{pageData.bring.title}</Heading>
 							<div>
 								<Stack gap={2} as="ul" role="list">
 									{pageData.bring.items
@@ -215,9 +282,7 @@ const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 				pageData.expectations ? (
 					<section>
 						<Stack class="has__list-styled">
-							<Heading level={3} styledAs={2}>
-								{pageData.expectations.title}
-							</Heading>
+							<Heading level={3}>{pageData.expectations.title}</Heading>
 							<ContentBlock value={pageData.expectations.content} />
 						</Stack>
 					</section>
@@ -229,6 +294,7 @@ const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 
 <style lang="scss">
 	@use '@design-system-styles/primitives/_responsive.scss';
+	@use '@design-system-styles/tools/_a11y.scss';
 
 	.c-location-detail {
 		block-size: 100%;
@@ -262,7 +328,7 @@ const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 
 	.c-location-detail__wrap-labels {
 		display: flex;
-		gap: var(--space-4);
+		gap: var(--space-2);
 	}
 
 	.c-location-detail__body {
@@ -270,14 +336,23 @@ const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 
 	.c-location-detail__wrap-image {
 		position: relative;
+		display: block;
 		block-size: var(--space-40);
-		background-color: var(--color-grijs-2);
+		inline-size: 100%;
+		padding: 0;
 		overflow: hidden;
 		border-radius: var(--radii-milli);
+		background-color: var(--color-grijs-2);
+		cursor: pointer;
+
+		&:focus-visible {
+			@include a11y.focusring;
+		}
 	}
 
 	.c-location-detail__image {
 		position: absolute;
+		inset: 0;
 		block-size: 100%;
 		inline-size: 100%;
 		object-fit: cover;

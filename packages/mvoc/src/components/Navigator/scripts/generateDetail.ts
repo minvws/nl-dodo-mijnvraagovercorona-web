@@ -40,12 +40,8 @@ export const generateDetail = ({
 			element.src = `https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/${location.geometry.coordinates[0]},${location.geometry.coordinates[1]},17,0.00,0.00/768x460@2x?access_token=${accessToken}`;
 		});
 
-		const mapMarkerIconElements =
-			clone.querySelectorAll<HTMLImageElement>('[data-marker-icon]');
 		if (isOpenNow(location.properties.openingHours)) {
-			mapMarkerIconElements.forEach((element) => {
-				element.src = element.dataset.srcOpen;
-			});
+			clone.classList.add('is-open-location');
 		}
 	}
 
@@ -53,25 +49,28 @@ export const generateDetail = ({
 	const copyButtonElement = clone.querySelector(
 		'[data-module-bind="location__button-copy"]',
 	) as HTMLButtonElement;
-	const copyButtonContentElement = copyButtonElement.querySelector(
-		'[data-button-content]',
-	);
-	const address = `${location.properties.location.address}, ${location.properties.location.city}`;
 
-	copyButtonElement.addEventListener('click', (event) => {
-		event.preventDefault();
-		if (copy(address)) {
-			copyButtonContentElement.innerHTML = copyButtonElement.dataset
-				.labelCopied as string;
+	if (copyButtonElement) {
+		const copyButtonContentElement = copyButtonElement.querySelector(
+			'[data-button-content]',
+		);
+		const address = `${location.properties.location.address}, ${location.properties.location.city}`;
 
-			// re-instate original label after a couple of seconds
-			setTimeout(() => {
-				if (copyButtonContentElement)
-					copyButtonContentElement.innerHTML = copyButtonElement.dataset
-						.labelCopy as string;
-			}, 1500);
-		}
-	});
+		copyButtonElement.addEventListener('click', (event) => {
+			event.preventDefault();
+			if (copy(address)) {
+				copyButtonContentElement.innerHTML = copyButtonElement.dataset
+					.labelCopied as string;
+
+				// re-instate original label after a couple of seconds
+				setTimeout(() => {
+					if (copyButtonContentElement)
+						copyButtonContentElement.innerHTML = copyButtonElement.dataset
+							.labelCopy as string;
+				}, 1500);
+			}
+		});
+	}
 
 	return clone;
 };
