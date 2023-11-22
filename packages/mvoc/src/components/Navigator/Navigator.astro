@@ -20,6 +20,9 @@ import { Breadcrumbs } from '@design-system/components/Breadrumbs';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
+import { Layer } from '@design-system/components/Layout/Layer';
+import { Retain } from '@design-system/components/Layout/Retain';
+import { stringToSlug } from 'src/utilities/stringToSlug';
 
 interface Props extends HTMLAttributes<'div'> {
 	pageData: LocationsPageProps;
@@ -82,7 +85,21 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 				</LocationList>
 			</div>
 		</div>
-
+		{
+			pageData?.showFeedback ? (
+				<Layer>
+					<Retain>
+						<Feedback
+							name="Prikken locations list"
+							url={getFeedbackUrl(siteSettings.feedback.url, {
+								source: pageData.type,
+								advice: pageData.slug,
+							})}
+						/>
+					</Retain>
+				</Layer>
+			) : null
+		}
 		<MastFoot locale={locale} />
 	</div>
 
