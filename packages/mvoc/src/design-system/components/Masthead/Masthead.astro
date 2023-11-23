@@ -1,5 +1,5 @@
 ---
-import { Sprite } from 'astro-icon';
+import { Icon as AstroIcon } from 'astro-icon/components';
 import { NavigationMain } from '../Navigation';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import type { SiteSettingsProps } from 'src/utilities/api/queries';
@@ -36,11 +36,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 			</div>
 
 			<a class="c-masthead__logo" href={logoUrl}>
-				<Sprite
-					class="c-masthead__logo-visual"
-					name="ro-logo"
-					optimize={true}
-				/>
+				<AstroIcon class="c-masthead__logo-visual" name="ro-logo" />
 				<span class="u-visually-hidden">{logoAlt}</span>
 			</a>
 
@@ -187,7 +183,8 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 	.c-masthead__logo-visual {
 		display: block;
 		block-size: var(--masthead-logo-block-size);
-		aspect-ratio: 54/81;
+		inline-size: auto;
+		aspect-ratio: 54 / 81;
 	}
 
 	/**

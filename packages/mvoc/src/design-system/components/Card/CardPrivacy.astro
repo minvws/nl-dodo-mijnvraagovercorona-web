@@ -5,7 +5,7 @@ import { Card } from '.';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import type { SiteSettingsProps } from 'src/utilities/api/queries';
 import { useSiteSettings } from 'src/utilities/api/queries';
-import { Sprite } from 'astro-icon';
+import { Icon as AstroIcon } from 'astro-icon/components';
 
 interface Props {}
 
@@ -21,11 +21,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 			{
 				siteSettings.privacy.beloftes.map((belofte) => (
 					<li>
-						<Sprite
-							class="c-card-privacy__icon"
-							name="privacy-shield"
-							optimize={true}
-						/>
+						<AstroIcon class="c-card-privacy__icon" name="privacy-shield" />
 						<span class="c-card-privacy__label">{belofte}</span>
 					</li>
 				))
