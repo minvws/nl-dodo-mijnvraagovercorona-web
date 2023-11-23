@@ -1,17 +1,15 @@
 ---
-import { Sprite } from 'astro-icon';
+import { Icon as AstroIcon } from 'astro-icon/components';
 import type { HTMLAttributes } from 'astro/types';
 
 interface Props extends HTMLAttributes<'svg'> {}
 
-const { class: className, ...attrs } = Astro.props;
+const { class: className } = Astro.props;
 ---
 
-<Sprite
+<AstroIcon
 	class={`c-marker-icon${className ? ` | ${className}` : ''}`}
-	{...attrs}
 	name={'map-marker'}
-	optimize={true}
 />
 
 <style lang="scss">

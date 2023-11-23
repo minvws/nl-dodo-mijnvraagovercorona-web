@@ -1,11 +1,11 @@
 ---
-import { AlternativeTranslationsProps } from '@design-system/components/LocaleSelector';
+import { type AlternativeTranslationsProps } from '@design-system/components/LocaleSelector';
 import {
-	MetaDataProps,
-	SiteSettingsProps,
+	type MetaDataProps,
+	type SiteSettingsProps,
 	useSiteSettings,
 } from 'src/utilities/api/queries';
-import { Locale } from 'src/utilities/locale/translation';
+import { type Locale } from 'src/utilities/locale/translation';
 
 export interface Props extends MetaDataProps {
 	locale: Locale;

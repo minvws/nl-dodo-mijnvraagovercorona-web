@@ -1,6 +1,6 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
-import { Sprite } from 'astro-icon';
+import { Icon as AstroIcon } from 'astro-icon/components';
 
 export interface Props extends HTMLAttributes<'span'> {
 	name:
@@ -45,7 +45,7 @@ export interface Props extends HTMLAttributes<'span'> {
 		| 'paper'
 		| 'brief';
 	description?: string;
-	size?: string | number;
+	size?: number;
 }
 
 const { name, size, description, class: className, ...attrs } = Astro.props;
@@ -70,5 +70,5 @@ const { name, size, description, class: className, ...attrs } = Astro.props;
 
 <span class={`e-icon${className ? ` | ${className}` : ''}`} {...attrs}>
 	{description ? <span class="u-visually-hidden">{description}</span> : null}
-	<Sprite class="e-icon__visual" name={name} size={size} optimize={true} />
+	<AstroIcon class="e-icon__visual" name={name} size={size} />
 </span>
