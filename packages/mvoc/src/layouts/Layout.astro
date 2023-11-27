@@ -13,7 +13,7 @@ import type { SiteSettingsProps } from 'src/utilities/api/queries';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import type { Locale } from 'src/utilities/locale/translation';
 
-import '@design-system/globals.scss';
+import '@mvoc/ui/styles/globals.scss';
 import { Masthead, SkipLink } from '@design-system/components/Masthead';
 import type { AlternativeTranslationsProps } from '@design-system/components/LocaleSelector';
 import { LocaleSelector } from '@design-system/components/LocaleSelector';
@@ -68,8 +68,8 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 			alternativeTranslations={alternativeTranslations}
 		/>
 		<style lang="scss" is:global>
-			@use '@design-system-styles/primitives/_responsive.scss';
-			@use '@design-system-styles/tools/_a11y.scss';
+			@use '@mvoc/ui/styles/primitives/responsive';
+			@use '@mvoc/ui/styles/tools/a11y';
 
 			:where(body) {
 				display: flex;

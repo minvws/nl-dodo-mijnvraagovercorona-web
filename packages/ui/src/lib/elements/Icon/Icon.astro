@@ -1,49 +1,10 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
 import { Icon as AstroIcon } from 'astro-icon/components';
+import type { Icons } from './icons/types';
 
 export interface Props extends HTMLAttributes<'span'> {
-	name:
-		| 'home'
-		| 'refresh'
-		| 'plus'
-		| 'minus'
-		| 'cross'
-		| 'external'
-		| 'tooltip'
-		| 'chevron-large-left'
-		| 'chevron-large-right'
-		| 'chevron-small-left'
-		| 'chevron-small-right'
-		| 'chevron-small-down'
-		| 'arrow-right'
-		| 'world'
-		| 'phone'
-		| 'chat'
-		| 'video'
-		| 'burger'
-		| 'looking-glass'
-		| 'copy'
-		| 'facemask'
-		| 'heart'
-		| 'passport'
-		| 'car'
-		| 'vaccin-shot'
-		| 'marker'
-		| 'list'
-		| 'mobile'
-		| 'kwetsbare-gezondheid'
-		| 'post-covid'
-		| 'reizen'
-		| 'vaccineren'
-		| 'zelftest-en-klachten'
-		| 'cookie'
-		| 'digid'
-		| 'info'
-		| 'download'
-		| 'informatie-i'
-		| 'paper'
-		| 'brief';
+	name: Icons;
 	description?: string;
 	size?: number;
 }

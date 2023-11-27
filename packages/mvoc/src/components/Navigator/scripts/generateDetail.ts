@@ -1,4 +1,4 @@
-import { mqLarge } from '@design-system/primitives/responsive';
+import { mqLarge } from '@mvoc/ui/primitives';
 import copy from 'copy-to-clipboard';
 import type { FeatureProps } from 'src/utilities/helpers/features';
 import { replaceAll, replaceTimeTable } from './replacement-helpers';

@@ -1,4 +1,4 @@
-import { mqWide, mqLargeUntil } from '@design-system/primitives/responsive';
+import { mqWide, mqLargeUntil } from '@mvoc/ui/primitives';
 import queryString from 'query-string';
 import { trapFocus } from 'src/utilities/helpers/a11y';
 import type {
@@ -113,22 +113,7 @@ export class Navigator {
 	async getLocations() {
 		const featuresData = await fetch('/data/v3/features.json');
 		const features: FeaturesProps = await featuresData.json();
-		this.locations = features.features
-			/**
-			 * !NOTE: this is a temporary fix for the appointmentType to prevent
-			 * accidental PZA on production
-			 */
-			.map((feature) => {
-				return {
-					...feature,
-					properties: {
-						...feature.properties,
-						appointmentType: !feature.properties.isTestLocation
-							? ['pma']
-							: feature.properties.appointmentType,
-					},
-				};
-			});
+		this.locations = features.features;
 
 		this.hasPmaAppointmentTypes = this.locations.some((location) =>
 			location.properties?.appointmentType?.includes('pma'),
@@ -582,7 +567,9 @@ export class Navigator {
 		this.locations.forEach((location) => {
 			let show = true;
 			if (filter.includes('status-open')) {
-				show = !!isOpenNow(location.properties.openingHours);
+				show =
+					location.properties?.appointmentType?.includes('pza') &&
+					!!isOpenNow(location.properties.openingHours);
 			}
 
 			// Add logic to filter based on "appointmentType" ('pma', 'pza', etc.)

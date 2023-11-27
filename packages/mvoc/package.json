@@ -1,6 +1,6 @@
 {
 	"name": "mvoc",
-	"version": "2.6.1",
+	"version": "2.6.2",
 	"private": true,
 	"scripts": {
 		"dev": "ENVIRONMENT=development npm run download-pza-features && npm run download-sanity-assets && astro telemetry disable && astro dev",
@@ -38,6 +38,7 @@
 		"uuid": "^9.0.1"
 	},
 	"dependencies": {
+		"@mvoc/ui": "^0.0.1",
 		"@astrojs/check": "^0.3.1",
 		"@duetds/date-picker": "^1.4.0",
 		"@turf/turf": "^6.5.0",

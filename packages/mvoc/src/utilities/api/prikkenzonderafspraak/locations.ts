@@ -1,5 +1,5 @@
 import type { ContentBlockProps } from '@design-system/components/ContentBlock';
-import type { IconProps } from '@design-system/elements/Icon';
+import type { IconProps } from '@mvoc/ui/elements';
 import { useSanityClient } from 'astro-sanity';
 import type { PageProps, HeroProps } from '../queries';
 import { pageQuery, heroQuery, customBlockQuery } from '../queries';

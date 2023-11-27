@@ -1,5 +1,5 @@
 ---
-import { Icon } from '@design-system/elements/Icon';
+import { Icon } from '@mvoc/ui/elements';
 import type { HTMLAttributes } from 'astro/types';
 import type { ImageProps } from 'src/utilities/api/queries';
 import type { SiteSettingsProps } from 'src/utilities/api/queries';
@@ -151,7 +151,7 @@ const embedUrl = getVideoEmbedUrl({
 </>
 
 <style lang="scss">
-	@use '@design-system-styles/tools/_a11y.scss';
+	@use '@mvoc/ui/styles/tools/a11y';
 
 	.c-video {
 		--_video-aspect-ratio: var(--video-aspect-ratio, 16/9);

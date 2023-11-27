@@ -20,7 +20,6 @@ export default defineConfig({
 	site: 'https://mijnvraagovercorona.nl/',
 	scopedStyleStrategy: 'where',
 	integrations: [
-		// @ts-expect-error
 		sitemap(),
 		// @ts-expect-error
 		sanity({
@@ -29,15 +28,15 @@ export default defineConfig({
 			apiVersion: 'v2023-03-21',
 			useCdn: process.env.NODE_ENV === 'production',
 		}),
-		// @ts-expect-error
 		Compress({
 			CSS: false,
 			HTML: false,
 			JavaScript: false,
 		}),
-		// @ts-expect-error
-		icon(),
-		// @ts-expect-error
+		icon({
+			// Icon dir of UI package
+			iconDir: '../ui/src/lib/elements/Icon/icons',
+		}),
 		pagefind(),
 	],
 	vite: {

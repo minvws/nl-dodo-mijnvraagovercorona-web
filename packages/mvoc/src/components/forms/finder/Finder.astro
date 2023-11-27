@@ -4,7 +4,7 @@ import type { HTMLAttributes } from 'astro/types';
 import Search from 'astro-pagefind/components/Search';
 import { Modal } from '@design-system/components/Modal';
 import { ButtonTool } from '@design-system/elements/Button';
-import { Icon } from '@design-system/elements/Icon';
+import { Icon } from '@mvoc/ui/elements';
 import type { SiteSettingsProps } from 'src/utilities/api/queries';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
@@ -74,10 +74,10 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 </style>
 
 <style is:global lang="scss">
-	@use '@design-system-styles/tools/_a11y.scss';
-	@use '@design-system-styles/tools/_input.scss';
-	@use '@design-system-styles/primitives/_responsive.scss';
-	@use '@design-system-styles/tools/_button.scss';
+	@use '@mvoc/ui/styles/tools/a11y';
+	@use '@mvoc/ui/styles/tools/input';
+	@use '@mvoc/ui/styles/primitives/responsive';
+	@use '@mvoc/ui/styles/tools/button';
 
 	.pagefind-ui {
 		--pagefind-ui-font: var(--font-family);

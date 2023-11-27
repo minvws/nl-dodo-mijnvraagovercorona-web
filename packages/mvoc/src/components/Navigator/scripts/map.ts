@@ -2,7 +2,7 @@ import mapboxgl from 'mapbox-gl';
 import { bbox, lineString, type Position } from '@turf/turf';
 import type { FeatureProps } from 'src/utilities/helpers/features';
 import { isOpenNow } from './timetable-helpers';
-import { mqLarge } from '@design-system/primitives/responsive';
+import { mqLarge } from '@mvoc/ui/primitives';
 
 export class Map {
 	mapElement: HTMLDivElement;
@@ -48,7 +48,10 @@ export class Map {
 			const nameElement = clone.querySelector('[data-name]');
 
 			nameElement.innerHTML = `${feature.properties.name}, ${feature.properties.location.city}`;
-			if (isOpenNow(feature.properties.openingHours)) {
+			if (
+				feature.properties?.appointmentType?.includes('pza') &&
+				isOpenNow(feature.properties.openingHours)
+			) {
 				clone.classList.add('is-open-location');
 			}
 

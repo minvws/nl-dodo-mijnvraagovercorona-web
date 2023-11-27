@@ -3,8 +3,7 @@ import type { HTMLAttributes } from 'astro/types';
 import type { SiteSettingsProps } from 'src/utilities/api/queries';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
-import type { IconProps } from '../Icon';
-import { Icon } from '../Icon';
+import { Icon, type IconProps } from '@mvoc/ui/elements';
 
 export interface Props extends HTMLAttributes<'div'> {
 	type?: 'text' | 'search' | 'email' | 'password' | 'url' | 'tel';
@@ -89,8 +88,8 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 </script>
 
 <style lang="scss">
-	@use '@design-system-styles/tools/_a11y.scss';
-	@use '@design-system-styles/tools/_input.scss';
+	@use '@mvoc/ui/styles/tools/a11y';
+	@use '@mvoc/ui/styles/tools/input';
 
 	.c-input-text {
 		position: relative;
