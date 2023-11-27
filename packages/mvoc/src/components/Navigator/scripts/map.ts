@@ -48,7 +48,10 @@ export class Map {
 			const nameElement = clone.querySelector('[data-name]');
 
 			nameElement.innerHTML = `${feature.properties.name}, ${feature.properties.location.city}`;
-			if (isOpenNow(feature.properties.openingHours)) {
+			if (
+				feature.properties?.appointmentType?.includes('pza') &&
+				isOpenNow(feature.properties.openingHours)
+			) {
 				clone.classList.add('is-open-location');
 			}
 

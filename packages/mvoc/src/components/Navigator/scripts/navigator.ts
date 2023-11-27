@@ -582,7 +582,9 @@ export class Navigator {
 		this.locations.forEach((location) => {
 			let show = true;
 			if (filter.includes('status-open')) {
-				show = !!isOpenNow(location.properties.openingHours);
+				show =
+					location.properties?.appointmentType?.includes('pza') &&
+					!!isOpenNow(location.properties.openingHours);
 			}
 
 			// Add logic to filter based on "appointmentType" ('pma', 'pza', etc.)
