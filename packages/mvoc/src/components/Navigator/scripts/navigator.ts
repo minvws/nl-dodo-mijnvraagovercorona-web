@@ -1,4 +1,4 @@
-import { mqWide, mqLargeUntil } from '@design-system/primitives/responsive';
+import { mqWide, mqLargeUntil } from '@mvoc/ui/primitives';
 import queryString from 'query-string';
 import { trapFocus } from 'src/utilities/helpers/a11y';
 import type {

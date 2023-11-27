@@ -1,8 +1,8 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
-import type { IconProps } from '@design-system/elements/Icon';
-import { Icon } from '@design-system/elements/Icon';
-import type { Animations } from '@design-system/primitives/animation';
+import type { IconProps } from '@mvoc/ui/elements';
+import { Icon } from '@mvoc/ui/elements';
+import type { Animations } from '@mvoc/ui/primitives';
 import { isExternalUrl } from 'src/utilities/helpers/external-url';
 
 // Interfaces
@@ -96,7 +96,7 @@ const selectedIcon =
 </Element>
 
 <style lang="scss">
-	@use '@design-system-styles/tools/_a11y.scss';
+	@use '@mvoc/ui/styles/tools/a11y';
 
 	.e-link {
 		--link-interactive-outline: var(--color-donkerblauw);
