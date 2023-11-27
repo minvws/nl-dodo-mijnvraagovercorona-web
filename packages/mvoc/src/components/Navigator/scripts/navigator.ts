@@ -113,22 +113,7 @@ export class Navigator {
 	async getLocations() {
 		const featuresData = await fetch('/data/v3/features.json');
 		const features: FeaturesProps = await featuresData.json();
-		this.locations = features.features
-			/**
-			 * !NOTE: this is a temporary fix for the appointmentType to prevent
-			 * accidental PZA on production
-			 */
-			.map((feature) => {
-				return {
-					...feature,
-					properties: {
-						...feature.properties,
-						appointmentType: !feature.properties.isTestLocation
-							? ['pma']
-							: feature.properties.appointmentType,
-					},
-				};
-			});
+		this.locations = features.features;
 
 		this.hasPmaAppointmentTypes = this.locations.some((location) =>
 			location.properties?.appointmentType?.includes('pma'),
