@@ -5,7 +5,7 @@ import { Retain } from '../Layout/Retain';
 import { Heading } from '@design-system/elements/Heading';
 import type { CarouselProps } from 'src/utilities/api/queries';
 import { Stack } from '../Layout/Stack';
-import { Icon } from '@design-system/elements/Icon';
+import { Icon } from '@mvoc/ui/elements';
 import CarouselItem from './CarouselItem.astro';
 
 interface Props extends HTMLAttributes<'div'> {
@@ -81,9 +81,9 @@ const { title, carousel, goTo, previous, next } = Astro.props;
 </Layer>
 
 <style lang="scss">
-	@use '@design-system-styles/primitives/_responsive.scss';
-	@use '@design-system-styles/tools/_rem.scss';
-	@use '@design-system-styles/tools/_a11y.scss';
+	@use '@mvoc/ui/styles/primitives/responsive';
+	@use '@mvoc/ui/styles/tools/rem';
+	@use '@mvoc/ui/styles/tools/a11y';
 
 	.c-carousel {
 		--carousel__block-padding: var(--space-8);

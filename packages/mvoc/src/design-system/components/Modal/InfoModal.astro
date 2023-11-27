@@ -1,5 +1,5 @@
 ---
-import { Icon } from '@design-system/elements/Icon';
+import { Icon } from '@mvoc/ui/elements';
 import type { HTMLAttributes } from 'astro/types';
 import { Modal } from '.';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
@@ -40,7 +40,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 </>
 
 <style lang="scss">
-	@use '@design-system-styles/tools/_a11y.scss';
+	@use '@mvoc/ui/styles/tools/a11y';
 
 	.c-info-modal {
 		display: block;

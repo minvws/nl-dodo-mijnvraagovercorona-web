@@ -1,0 +1,56 @@
+---
+import { type HTMLAttributes } from 'astro/types';
+import { Icon, type IconProps } from '@lib/elements/Icon';
+
+interface Props extends HTMLAttributes<'div'> {
+	icons: IconProps['name'][];
+}
+
+const { class: className, icons, ...attrs } = Astro.props;
+---
+
+<div class={`c-icon-grid ${className ? ` | ${className}` : ''}`} {...attrs}>
+	{
+		icons.map((icon) => (
+			<div class="c-icon-grid__item">
+				<div class="c-icon-grid__wrap-icon">
+					<Icon name={icon} />
+				</div>
+				<span>{icon}</span>
+			</div>
+		))
+	}
+</div>
+
+<style lang="scss">
+	.c-icon-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(min(6rem, 100%), 1fr));
+		gap: var(--space-6);
+	}
+
+	.c-icon-grid__item {
+		display: flex;
+		flex-direction: column;
+		// justify-content: center;
+		align-items: center;
+		margin-block-start: 0;
+		gap: var(--space-1);
+
+		> span {
+			padding-inline: var(--space-2);
+			font-size: var(--font-size-milli);
+			line-height: var(--line-height-milli);
+		}
+	}
+
+	.c-icon-grid__wrap-icon {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		inline-size: var(--space-27);
+		aspect-ratio: 4 / 3;
+		border: 1px solid;
+		border-radius: var(--radii-milli, 8px);
+	}
+</style>

@@ -106,9 +106,9 @@ const urlIsNajaarsRonde = (url: string) => {
 </div>
 
 <style lang="scss">
-	@use '@design-system-styles/primitives/_responsive.scss';
-	@use '@design-system-styles/tools/_a11y.scss';
-	@use '@design-system-styles/tools/_rem.scss';
+	@use '@mvoc/ui/styles/primitives/responsive';
+	@use '@mvoc/ui/styles/tools/a11y';
+	@use '@mvoc/ui/styles/tools/rem';
 
 	.c-nav-main {
 		--nav-main--padding-inline: var(--space-4);
@@ -172,9 +172,8 @@ const urlIsNajaarsRonde = (url: string) => {
 			gap: var(--space-6);
 			height: calc(100vh - 152px);
 			block-size: calc(
-				var(--body-block-size) - var(--theme__masthead-top-block-size) - var(
-						--space-menu-button
-					)
+				var(--body-block-size) - var(--theme__masthead-top-block-size) -
+					var(--space-menu-button)
 			);
 			margin-block-start: var(--space-menu-button);
 			overflow: auto;

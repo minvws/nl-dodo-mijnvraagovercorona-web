@@ -1,8 +1,8 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
-import type { IconProps } from '@design-system/elements/Icon';
-import { Icon } from '@design-system/elements/Icon';
-import type { Animations } from '@design-system/primitives/animation';
+import type { IconProps } from '@mvoc/ui/elements';
+import { Icon } from '@mvoc/ui/elements';
+import type { Animations } from '@mvoc/ui/primitives';
 import type { ButtonVariants, IconPositions } from './';
 import { isExternalUrl } from 'src/utilities/helpers/external-url';
 
@@ -119,7 +119,7 @@ const trailingIcon = isExternal
 </Element>
 
 <style lang="scss" is:global>
-	@use '@design-system-styles/tools/_rem.scss';
+	@use '@mvoc/ui/styles/tools/rem';
 	:where(html) {
 		--button-border-size: 1px;
 		--button-border-color: transparent;
@@ -140,10 +140,10 @@ const trailingIcon = isExternal
 </style>
 
 <style lang="scss">
-	@use '@design-system-styles/primitives/_responsive.scss';
-	@use '@design-system-styles/tools/_a11y.scss';
-	@use '@design-system-styles/tools/_rem.scss';
-	@use '@design-system-styles/tools/_button.scss';
+	@use '@mvoc/ui/styles/primitives/responsive';
+	@use '@mvoc/ui/styles/tools/a11y';
+	@use '@mvoc/ui/styles/tools/rem';
+	@use '@mvoc/ui/styles/tools/button';
 
 	.e-button {
 		@include button.scaffold();

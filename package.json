@@ -1,5 +1,5 @@
 {
-	"name": "quarantaine",
+	"name": "mvoc",
 	"private": true,
 	"scripts": {
 		"test": "npm run test --workspaces",
@@ -14,6 +14,8 @@
 		"mvoc:check-changed-documents:test": "ENVIRONMENT=development npm run check-changed-documents --workspace mvoc",
 		"mvoc:check-changed-documents:staging": "ENVIRONMENT=staging npm run check-changed-documents --workspace mvoc",
 		"mvoc:check-changed-documents:production": "ENVIRONMENT=production npm run check-changed-documents --workspace mvoc",
+		"ui:test": "npm run test --workspace @mvoc/ui",
+		"ui:dev": "npm run dev --workspace @mvoc/ui",
 		"cms:dev": "npm run dev --workspace cms",
 		"cms:build:development": "npm run build-development --workspace cms",
 		"cms:build:staging": "npm run build-staging --workspace cms",
@@ -25,5 +27,9 @@
 	},
 	"workspaces": [
 		"./packages/*"
-	]
+	],
+	"dependencies": {
+		"@mvoc/ui": "^0.0.1",
+		"typescript": "^5.3.2"
+	}
 }
