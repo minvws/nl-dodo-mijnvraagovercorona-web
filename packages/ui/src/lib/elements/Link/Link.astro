@@ -1,9 +1,7 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
-import type { IconProps } from '@mvoc/ui/elements';
-import { Icon } from '@mvoc/ui/elements';
+import { Icon, type IconProps } from '@mvoc/ui/elements';
 import type { Animations } from '@mvoc/ui/primitives';
-import { isExternalUrl } from 'src/utilities/helpers/external-url';
 
 // Interfaces
 interface Shared {
@@ -13,7 +11,7 @@ interface Shared {
 	interactionIconAnimation?: Animations;
 	hiddenLabel?: string;
 	href?: string | URL | undefined | null;
-	formaction?: string;
+	isExternal?: boolean;
 }
 
 interface Button extends HTMLAttributes<'button'>, Shared {}
@@ -32,6 +30,7 @@ const {
 	iconPosition,
 	interactionIconAnimation,
 	type,
+	isExternal,
 	class: className,
 	...attrs
 } = Astro.props;
@@ -51,7 +50,7 @@ const iconPositionCalculated =
 		? 'leading'
 		: 'trailing';
 
-const isExternal = attrs.href && isExternalUrl(attrs.href as string);
+const isExternalUrl = attrs.href && isExternal;
 
 const selectedIcon =
 	variant === 'tooltip'
@@ -62,7 +61,7 @@ const selectedIcon =
 		? 'chevron-large-left'
 		: icon
 		? icon
-		: isExternal
+		: isExternalUrl
 		? 'external'
 		: undefined;
 ---
@@ -74,8 +73,8 @@ const selectedIcon =
 	data-disabled={attrs.href && disabled ? disabled : undefined}
 	formaction={!attrs.href && attrs.formaction ? attrs.formaction : undefined}
 	href={attrs.href}
-	target={isExternal ? '_blank' : undefined}
-	rel={isExternal ? 'noopener noreferrer' : undefined}
+	target={isExternalUrl ? '_blank' : undefined}
+	rel={isExternalUrl ? 'noopener noreferrer' : undefined}
 	lang={attrs.href ? attrs.lang : undefined}
 	hreflang={attrs.href ? attrs.lang : undefined}
 	{...attrs}
