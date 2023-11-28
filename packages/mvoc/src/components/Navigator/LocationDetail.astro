@@ -3,7 +3,7 @@ import { Attribute } from '@design-system/components/Attribute';
 import { ContentBlock } from '@design-system/components/ContentBlock';
 import { Label } from '@design-system/components/Label';
 import { Stack } from '@design-system/components/Layout/Stack';
-import { MarkerIcon, Button } from '@mvoc/ui/elements';
+import { MarkerIcon, Button, Icon } from '@mvoc/ui/elements';
 import { Heading } from '@mvoc/ui/elements';
 import { Link } from '@mvoc/ui/elements';
 import type { HTMLAttributes } from 'astro/types';
@@ -48,7 +48,7 @@ const note = pageData.location.note;
 					{siteSettings.appointmentTypes.pza}
 				</Label>
 				<span class="u-color--black" data-appointment-type="pza&pma">
-					{siteSettings.genericLabels.or}
+					{siteSettings.genericLabels.and}
 				</span>
 				<Label data-appointment-type="pma">
 					{siteSettings.appointmentTypes.pma}
@@ -129,33 +129,37 @@ const note = pageData.location.note;
 							<section>
 								<Stack>
 									<b data-appointment-type="pza|pma">{note.title}</b>
+									<div class="u-visually-hidden">
+										{note.pzaInfo ? <Icon name={note.pzaInfo.icon} /> : null}
+										{note.pmaInfo ? <Icon name={note.pmaInfo.icon} /> : null}
+										{note.pzaPmaInfo ? (
+											<Icon name={note.pzaPmaInfo.icon} />
+										) : null}
+									</div>
 									<Stack gap={4} as="ul" role="list">
 										{note.pzaInfo && (
-											<li data-appointment-type="pza">
-												<Attribute icon={note.pzaInfo.icon}>
+											<li data-appointment-type="!pza">
+												<Attribute icon={note.pzaInfo.icon} variant="humble">
 													<Stack gap={2}>
-														<span
-															class="c-location-detail__wrap-labels"
-															data-appointment-type="pza&pma"
-														>
-															<Label>{siteSettings.appointmentTypes.pza}</Label>
-														</span>
 														<ContentBlock value={note.pzaInfo.label} />
 													</Stack>
 												</Attribute>
 											</li>
 										)}
 										{note.pmaInfo && (
-											<li data-appointment-type="pma">
-												<Attribute icon={note.pmaInfo.icon}>
+											<li data-appointment-type="!pma">
+												<Attribute icon={note.pmaInfo.icon} variant="humble">
 													<Stack gap={2}>
-														<span
-															class="c-location-detail__wrap-labels"
-															data-appointment-type="pza&pma"
-														>
-															<Label>{siteSettings.appointmentTypes.pma}</Label>
-														</span>
 														<ContentBlock value={note.pmaInfo.label} />
+													</Stack>
+												</Attribute>
+											</li>
+										)}
+										{note.pzaPmaInfo && (
+											<li data-appointment-type="pza&pma">
+												<Attribute icon={note.pzaPmaInfo.icon} variant="humble">
+													<Stack gap={2}>
+														<ContentBlock value={note.pzaPmaInfo.label} />
 													</Stack>
 												</Attribute>
 											</li>
