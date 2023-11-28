@@ -1,0 +1,116 @@
+---
+title: 'Element: Control'
+---
+
+import { Control } from '@lib/elements/Control';
+
+`Control` is used to render radio and checkbox elements. I can be styled as a `tile` variant.
+
+## Usage
+```jsx
+import { Control } from '@mvoc/ui/elements';
+
+<Control
+	type="radio"
+	id="radio"
+	name="name"
+	value="value"
+>
+	Control element with type radio
+</Control>
+```
+## Control type radio
+Pass the `type` variable with value `radio` or `checkbox`:
+
+<Control
+	type="radio"
+	id="radio"
+	name="name"
+	value="value"
+>
+	Choice A
+</Control>
+<Control
+	type="radio"
+	id="radio2"
+	name="name"
+	value="value"
+>
+	Choice B
+</Control>
+<Control
+	type="radio"
+	id="radio3"
+	name="name"
+	value="value"
+>
+	Choice C
+</Control>
+```jsx
+
+<Control type="radio">
+	This is a control with type radio
+</Control>
+```
+
+## Control type checkbox
+
+<Control
+	type="checkbox"
+	id="checkbox"
+	name="name"
+	value="value"
+>
+	Checkbox A
+</Control>
+<Control
+	type="checkbox"
+	id="checkbox2"
+	name="name"
+	value="value"
+>
+	Checkbox B
+</Control>
+<Control
+	type="checkbox"
+	id="checkbox3"
+	name="name"
+	value="value"
+>
+	Checkbox C
+</Control>
+```jsx
+
+<Control type="checkbox">
+	This is a checkbox
+</Control>
+```
+
+## Variants
+Pass the `variant` variable with `"tile"` to style the `control` as a tile.
+
+<Control
+	type="checkbox"
+	id="tile"
+	name="name"
+	value="value"
+	variant="tile"
+>
+	This is a tile variant of the checkbox type
+</Control>
+
+<Control
+	type="radio"
+	id="tile2"
+	name="name"
+	value="value"
+	variant="tile"
+>
+	This is a tile variant of the radio type
+</Control>
+```jsx
+
+<Control type="checkbox" variant="tile">
+	This is a tile variant of the checkbox type
+</Control>
+```
