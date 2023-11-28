@@ -1,5 +1,5 @@
 ---
-import { Button } from '@mvoc/ui/elements';
+import { Button } from '@design-system/elements/Button';
 import { Control } from '@design-system/elements/Control';
 import { Heading } from '@design-system/elements/Heading';
 import type { HTMLAttributes } from 'astro/types';
@@ -9,7 +9,6 @@ import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import { Card } from '../Card';
 import { Stack } from '../Layout/Stack';
 import { v4 as uuidv4 } from 'uuid';
-import { isExternalUrl } from 'src/utilities/helpers/external-url';
 
 interface Props extends HTMLAttributes<'section'> {
 	url: string;
@@ -20,7 +19,6 @@ const { class: className, url, name, ...attrs } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
 const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 const formId = `form-${uuidv4()}`;
-const isExternal = isExternalUrl(url);
 ---
 
 <>
@@ -77,11 +75,7 @@ const isExternal = isExternalUrl(url);
 							>
 								<Stack>
 									<p>{siteSettings.feedback.thanks}</p>
-									<Button
-										href={url}
-										data-module-bind="feedback__button"
-										isExternal={isExternal}
-									>
+									<Button href={url} data-module-bind="feedback__button">
 										{siteSettings.feedback.button}
 									</Button>
 								</Stack>

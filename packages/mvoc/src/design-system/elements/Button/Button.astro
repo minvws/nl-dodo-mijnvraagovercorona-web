@@ -1,20 +1,23 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
-import { type IconProps, Icon } from '@mvoc/ui/elements';
+import type { IconProps } from '@mvoc/ui/elements';
+import { Icon } from '@mvoc/ui/elements';
 import type { Animations } from '@mvoc/ui/primitives';
 import type { ButtonVariants, IconPositions } from './';
+import { isExternalUrl } from 'src/utilities/helpers/external-url';
 
 // Interfaces
 interface Shared {
 	variant?: ButtonVariants;
 	icon?: IconProps['name'];
+	// iconPosition?: 'leading' | 'trailing';
 	iconPosition?: IconPositions;
 	interactionIconAnimation?: Animations;
 	full?: boolean;
 	href?: string | URL | undefined | null;
-	formaction?: string | undefined | null;
+	formaction?: string;
 	hiddenLabel?: string;
-	isExternal?: boolean;
+	forceExternal?: boolean;
 }
 
 interface Button extends HTMLAttributes<'button'>, Shared {}
@@ -34,9 +37,9 @@ const {
 	iconPosition,
 	interactionIconAnimation,
 	full,
-	type,
-	isExternal,
 	class: className,
+	type,
+	forceExternal,
 	...attrs
 } = Astro.props;
 
@@ -55,7 +58,8 @@ const combinedClasses = `e-button${variant ? ` e-button--${variant}` : ''}${
 const iconPositionCalculated =
 	iconPosition === 'leading' ? 'leading' : 'trailing';
 
-const isExternalUrl = attrs.href && isExternal;
+const isExternal =
+	forceExternal || (attrs.href && isExternalUrl(attrs.href as string));
 
 /**
  * Leading icon
@@ -71,7 +75,7 @@ const leadingIcon =
  * 2. If there is an icon and position is trailing show the icon
  * 3. Otherwise omit the icon
  */
-const trailingIcon = isExternalUrl
+const trailingIcon = isExternal
 	? 'external'
 	: icon && iconPositionCalculated === 'trailing'
 	? icon
@@ -85,8 +89,8 @@ const trailingIcon = isExternalUrl
 	data-disabled={attrs.href && disabled ? disabled : undefined}
 	formaction={!attrs.href && attrs.formaction ? attrs.formaction : undefined}
 	href={attrs.href}
-	target={attrs.href && isExternalUrl ? '_blank' : undefined}
-	rel={attrs.href && isExternalUrl ? 'noopener noreferrer' : undefined}
+	target={attrs.href && isExternal ? '_blank' : undefined}
+	rel={attrs.href && isExternal ? 'noopener noreferrer' : undefined}
 	lang={attrs.href ? attrs.lang : undefined}
 	hreflang={attrs.href ? attrs.lang : undefined}
 	{...attrs}

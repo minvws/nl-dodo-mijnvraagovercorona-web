@@ -1,8 +1,7 @@
 ---
-import { Button } from '@mvoc/ui/elements';
+import { Button } from '@design-system/elements/Button';
 import type { HTMLAttributes } from 'astro/types';
 import type { ImageProps } from 'src/utilities/api/queries';
-import { isExternalUrl } from 'src/utilities/helpers/external-url';
 
 interface Props extends HTMLAttributes<'div'> {
 	label: string;
@@ -11,7 +10,6 @@ interface Props extends HTMLAttributes<'div'> {
 }
 
 const { label, href, icon } = Astro.props;
-const isExternal = isExternalUrl(href);
 ---
 
 <Button
@@ -21,7 +19,6 @@ const isExternal = isExternalUrl(href);
 	icon="chevron-small-right"
 	interactionIconAnimation="swing"
 	full
-	isExternal={isExternal}
 >
 	<span class="c-more-info-button__inner">
 		{
