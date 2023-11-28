@@ -51,6 +51,10 @@ export interface LocationsPageProps extends PageProps {
 				label: ContentBlockProps['value'];
 				icon: IconProps['name'];
 			};
+			pzaPmaInfo: {
+				label: ContentBlockProps['value'];
+				icon: IconProps['name'];
+			};
 		};
 	};
 	about: {
@@ -119,6 +123,10 @@ export async function getDataLocationPages() {
 					icon,
 				},
 				pmaInfo{
+					${customBlockQuery({ name: 'label' })},
+					icon,
+				},
+				pzaPmaInfo{
 					${customBlockQuery({ name: 'label' })},
 					icon,
 				},

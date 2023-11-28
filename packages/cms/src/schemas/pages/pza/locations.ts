@@ -251,6 +251,29 @@ export default defineType({
 								}),
 							],
 						}),
+						defineField({
+							title: 'Infoblok Zonder afspraak & Met afspraak',
+							name: 'pzaPmaInfo',
+							type: 'object',
+							validation: (Rule) => Rule.required(),
+							preview: {
+								select: {
+									title: 'label',
+								},
+							},
+							fields: [
+								defineField({
+									title: 'Label',
+									name: 'label',
+									type: 'customBlock',
+								}),
+								defineField({
+									title: 'Icoon',
+									name: 'icon',
+									type: 'iconPicker',
+								}),
+							],
+						}),
 					],
 				}),
 			],
