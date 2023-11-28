@@ -3,8 +3,7 @@ import type { HTMLAttributes } from 'astro/types';
 // @ts-ignore
 import Search from 'astro-pagefind/components/Search';
 import { Modal } from '@design-system/components/Modal';
-import { ButtonTool } from '@design-system/elements/Button';
-import { Icon } from '@mvoc/ui/elements';
+import { Icon, ButtonTool } from '@mvoc/ui/elements';
 import type { SiteSettingsProps } from 'src/utilities/api/queries';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
@@ -122,8 +121,8 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 				aspect-ratio: 1/1;
 				transform: translateY(-50%);
 				background-color: var(--color-diepblauw);
-				-webkit-mask-image: url('../../../icons/looking-glass.svg');
-				mask-image: url('../../../icons/looking-glass.svg');
+				-webkit-mask-image: url('/images/icons/looking-glass.svg');
+				mask-image: url('/images/icons/looking-glass.svg');
 			}
 		}
 

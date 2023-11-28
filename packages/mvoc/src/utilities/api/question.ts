@@ -18,7 +18,7 @@ import {
 	imageQuery,
 } from './queries';
 import { getAdditionalPageData } from '../helpers/getAdditionalPageData';
-import type { ButtonVariants } from '@design-system/elements/Button';
+import type { ButtonVariants } from '@mvoc/ui/elements';
 
 export interface QuestionPageProps extends PageProps {
 	hero: HeroProps;
