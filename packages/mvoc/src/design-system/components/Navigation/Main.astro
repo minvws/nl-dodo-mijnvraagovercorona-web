@@ -3,8 +3,9 @@ import type { HTMLAttributes } from 'astro/types';
 import type { SiteSettingsProps } from 'src/utilities/api/queries';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
-import { Link } from '@design-system/elements/Link';
+import { Link } from '@mvoc/ui/elements';
 import { parseLink } from 'src/utilities/helpers/link';
+import { isExternalUrl } from 'src/utilities/helpers/external-url';
 import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
 
 interface Props extends HTMLAttributes<'div'> {}
@@ -59,6 +60,7 @@ const urlIsNajaarsRonde = (url: string) => {
 				{
 					masthead.menu.internalPageCollection.map((page) => {
 						const url = parseLink(getFullPageUrl(page.link), locale);
+						const isExternal = isExternalUrl(url);
 						const currentPageInNajaarsRonde =
 							urlIsNajaarsRonde(currentPathname);
 
@@ -77,6 +79,7 @@ const urlIsNajaarsRonde = (url: string) => {
 									}
 									icon={page.icon}
 									iconPosition="leading"
+									isExternal={isExternal}
 								>
 									{page.label ? page.label : page.link.label}
 								</Link>
@@ -96,6 +99,7 @@ const urlIsNajaarsRonde = (url: string) => {
 						href={feedbackMobile.url}
 						icon={'external'}
 						iconPosition={'trailing'}
+						isExternal
 					>
 						{feedbackMobile.label}
 					</Link>
