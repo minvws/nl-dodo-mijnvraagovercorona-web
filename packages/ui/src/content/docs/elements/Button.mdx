@@ -1,0 +1,132 @@
+---
+title: 'Element: Button'
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Button } from '@lib/elements/Button';
+
+`Buttons` are used for interface actions. The `primary` variant should be used only once per section for main call-to-action, while other styles can appear more frequently.
+
+## Usage
+
+```jsx
+import { Button } from '@mvoc/ui/elements';
+
+<Button type="button">Button label</Button>
+```
+
+## Primary Button
+<div class="not-content">
+	<Button type="button">button label</Button>
+</div>
+
+```jsx
+<Button type="button">button label</Button>
+```
+
+## Button as anchor
+Buttons can be used as a link by passing the `href` prop. This will render an `<a>` tag instead of a `<button>` tag.
+The `href` can be an external link by passing the `isExternal` prop.
+
+<div class="not-content">
+	<Button href="#" isExternal>button label</Button>
+</div>
+
+```jsx
+<Button href="#" isExternal>button label</Button>
+```
+
+## Variants
+
+<Tabs>
+  <TabItem label="Primary">
+		<div class="not-content">
+			<Button variant="primary">Primary button label</Button>
+		</div>
+		```jsx
+		<Button variant="primary">Primary button label</Button>
+		```
+	</TabItem>
+
+	<TabItem label="Secondary">
+		<div class="not-content">
+			<Button variant="secondary">Secondary button label</Button>
+		</div>
+		```jsx
+		<Button variant="secondary">Secondary button label</Button>
+		```
+	</TabItem>
+
+	<TabItem label="Tertiary">
+		<div class="not-content">
+			<Button variant="tertiary">Tertiary button label</Button>
+		</div>
+		```jsx
+		<Button variant="tertiary">Tertiary button label</Button>
+		```
+	</TabItem>
+
+	<TabItem label="Quaternary">
+		<div class="not-content">
+			<Button variant="quaternary">Quaternary button label</Button>
+		</div>
+		```jsx
+		<Button variant="quaternary">Quaternary button label</Button>
+		```
+	</TabItem>
+
+	<TabItem label="Quinary">
+		<div class="not-content">
+			<Button variant="quinary">Quinary button label</Button>
+		</div>
+		```jsx
+		<Button variant="quinary">Quinary button label</Button>
+		```
+	</TabItem>
+</Tabs>
+
+## With icon
+You can add an icon to the button by passing the `icon` prop. The icon will be placed after the button label.
+
+<div class="not-content">
+	<Button icon="arrow-right">button label</Button>
+</div>
+
+```jsx
+<Button icon="arrow-right">button label</Button>
+```
+
+### Icon position
+You can also change the position of the icon by passing the `iconPosition` prop. `leading` will place the icon before the button label, `trailing` will place the icon after the button label.
+
+<div class="not-content">
+	<Button icon="copy" iconPosition="leading">button label</Button>
+</div>
+
+```jsx
+<Button icon="copy" iconPosition="leading">button label</Button>
+```
+
+### Icon animation
+
+You can add an animation to the icon by passing the `interactionIconAnimation` prop. The animation will be triggered when the user hovers over the button.
+
+<div class="not-content">
+	<Button icon="arrow-right" interactionIconAnimation="swing">button label</Button>
+</div>
+
+```jsx
+<Button icon="arrow-right" interactionIconAnimation="swing">button label</Button>
+```
+
+## Full width
+
+You can make the button full width by passing the `full` prop.
+
+<div class="not-content">
+	<Button full>button label</Button>
+</div>
+
+```jsx
+<Button full>button label</Button>
+```
