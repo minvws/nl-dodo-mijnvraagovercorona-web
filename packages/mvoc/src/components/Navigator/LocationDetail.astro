@@ -130,9 +130,13 @@ const note = pageData.location.note;
 								<Stack>
 									<b data-appointment-type="pza|pma">{note.title}</b>
 									<div class="u-visually-hidden">
-										{note.pzaInfo ? <Icon name={note.pzaInfo.icon} /> : null}
-										{note.pmaInfo ? <Icon name={note.pmaInfo.icon} /> : null}
-										{note.pzaPmaInfo ? (
+										{note?.pzaInfo?.icon ? (
+											<Icon name={note.pzaInfo.icon} />
+										) : null}
+										{note?.pmaInfo?.icon ? (
+											<Icon name={note.pmaInfo.icon} />
+										) : null}
+										{note?.pzaPmaInfo?.icon ? (
 											<Icon name={note.pzaPmaInfo.icon} />
 										) : null}
 									</div>
