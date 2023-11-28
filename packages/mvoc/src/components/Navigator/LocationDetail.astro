@@ -34,6 +34,12 @@ const note = pageData.location.note;
 	itemtype="https://schema.org/Place"
 	data-label-closed={pageData.location.openingHours.closed}
 >
+	<div class="u-visually-hidden">
+		{note?.pzaInfo?.icon ? <Icon name={note.pzaInfo.icon} /> : null}
+		{note?.pmaInfo?.icon ? <Icon name={note.pmaInfo.icon} /> : null}
+		{note?.pzaPmaInfo?.icon ? <Icon name={note.pzaPmaInfo.icon} /> : null}
+		<Icon name="copy" />
+	</div>
 	<hgroup class="c-location-detail__hgroup">
 		<Stack gap={3}>
 			<Heading level={2} styledAs={3} tabindex="-1">
@@ -129,17 +135,6 @@ const note = pageData.location.note;
 							<section>
 								<Stack>
 									<b data-appointment-type="pza|pma">{note.title}</b>
-									<div class="u-visually-hidden">
-										{note?.pzaInfo?.icon ? (
-											<Icon name={note.pzaInfo.icon} />
-										) : null}
-										{note?.pmaInfo?.icon ? (
-											<Icon name={note.pmaInfo.icon} />
-										) : null}
-										{note?.pzaPmaInfo?.icon ? (
-											<Icon name={note.pzaPmaInfo.icon} />
-										) : null}
-									</div>
 									<Stack gap={4} as="ul" role="list">
 										{note.pzaInfo && (
 											<li data-appointment-type="!pza">
@@ -210,10 +205,14 @@ const note = pageData.location.note;
 							<p data-unknown-openinghours>
 								{pageData.location.openingHours.unknownOpeningHours}
 							</p>
-							<ContentBlock
-								value={pageData.location.openingHours.content}
-								data-known-openinghours
-							/>
+							{
+								pageData?.location?.openingHours?.content ? (
+									<ContentBlock
+										value={pageData.location.openingHours.content}
+										data-known-openinghours
+									/>
+								) : null
+							}
 							<table class="c-location-detail__table">
 								<tbody
 									data-module-bind="location__timetable-row"

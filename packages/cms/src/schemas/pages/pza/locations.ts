@@ -98,7 +98,7 @@ export default defineType({
 							title: 'Tekst boven openingstijden tabel',
 							name: 'content',
 							type: 'customBlock',
-							validation: (Rule) => Rule.required(),
+							// validation: (Rule) => Rule.required(),
 						}),
 						defineField({
 							title: 'Onbekende tijden',
