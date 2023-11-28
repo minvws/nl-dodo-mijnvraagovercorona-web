@@ -346,6 +346,13 @@ export default defineType({
 					validation: (Rule) => Rule.required(),
 				}),
 				defineField({
+					title: 'En',
+					description: 'Het een `&` het ander',
+					name: 'and',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
+				defineField({
 					title: 'Dag',
 					name: 'dayPlural',
 					type: 'thisOrThatString',
