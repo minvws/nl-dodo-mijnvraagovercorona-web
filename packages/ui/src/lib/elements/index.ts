@@ -4,3 +4,4 @@ export * from './Link';
 export * from './Control';
 export * from './Button';
 export * from './Chapeau';
+export * from './Input';

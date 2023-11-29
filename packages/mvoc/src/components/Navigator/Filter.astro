@@ -34,7 +34,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 				label={pageData.filter.searchLabel}
 				placeholder={`${pageData.filter.searchLabel}…`}
 				icon="looking-glass"
-				clearable
+				clearable={siteSettings.forms.clearField}
 				hideLabel
 			>
 				<ol

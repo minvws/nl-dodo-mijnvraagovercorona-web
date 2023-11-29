@@ -1,0 +1,79 @@
+---
+title: 'Element: InputText'
+---
+
+import { InputText } from '@lib/elements/Input';
+
+## Usage
+
+```jsx
+import { InputText } from '@mvoc/ui/elements';
+
+<InputText
+	type={'search'}
+	id={'search-field'}
+	placeholder={'Zoek op plaatsnaam...'}
+	icon={'looking-glass'}
+	clearable={'Clear Field'}
+/>
+```
+
+## Base InputText
+
+<div class="not-content">
+	<InputText
+		type={'text'}
+		id={'input-field'}
+		placeholder={'Input text here...'}
+	/>
+</div>
+
+```jsx
+<InputText
+	type={'text'}
+	id={'input-field'}
+	placeholder={'Input text here...'}
+/>
+```
+
+## With icon
+
+<div class="not-content">
+	<InputText
+		type={'search'}
+		id={'search-field'}
+		placeholder={'Search here...'}
+		icon={'looking-glass'}
+	/>
+</div>
+
+```jsx
+<InputText
+	type={'search'}
+	id={'search-field'}
+	placeholder={'Search here...'}
+	icon={'looking-glass'}
+/>
+```
+
+## Clearable
+You can add a clear button to the input field by providing a string with the accessible name in the `clearable` prop.
+When you type something in the input field, the clear button will appear.
+
+<div class="not-content">
+	<InputText
+		type={'text'}
+		id={'text-field'}
+		placeholder={'Input Text here'}
+		clearable={'Clear Field'}
+	/>
+</div>
+
+```jsx
+<InputText
+	type={'text'}
+	id={'text-field'}
+	placeholder={'Input Text here'}
+	clearable={'Clear Field'}
+/>
+```
