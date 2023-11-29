@@ -52,11 +52,11 @@ const {
 </div>
 
 <script>
-	const field = document.querySelector(
-		'[data-module="input-text"]',
-	) as HTMLDivElement;
+	const fields = [
+		...document.querySelectorAll<HTMLDivElement>('[data-module="input-text"]'),
+	];
 
-	if (field) {
+	fields.forEach((field) => {
 		const input = field.querySelector(
 			'[data-module-bind="input-text__input"]',
 		) as HTMLInputElement;
@@ -76,7 +76,7 @@ const {
 				input.focus();
 			});
 		}
-	}
+	});
 </script>
 
 <style lang="scss">
