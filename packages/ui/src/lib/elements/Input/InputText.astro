@@ -1,8 +1,5 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
-import type { SiteSettingsProps } from 'src/utilities/api/queries';
-import { useSiteSettings } from 'src/utilities/api/queries';
-import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import { Icon, type IconProps } from '@mvoc/ui/elements';
 
 export interface Props extends HTMLAttributes<'div'> {
@@ -10,7 +7,7 @@ export interface Props extends HTMLAttributes<'div'> {
 	id: string;
 	placeholder?: string;
 	icon?: IconProps['name'];
-	clearable?: boolean;
+	clearable?: string;
 }
 
 const {
@@ -22,11 +19,6 @@ const {
 	clearable,
 	...attrs
 } = Astro.props;
-
-const locale = getLocaleFromURL(Astro.url.pathname);
-const siteSettings: SiteSettingsProps = await useSiteSettings({
-	locale,
-});
 ---
 
 <div
@@ -53,7 +45,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 				type="button"
 			>
 				<Icon class="c-input-text__icon-clear" name="cross" />
-				<span class="u-visually-hidden">{siteSettings.forms.clearField}</span>
+				<span class="u-visually-hidden">{clearable}</span>
 			</button>
 		) : null
 	}
