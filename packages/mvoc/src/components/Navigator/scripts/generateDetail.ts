@@ -27,6 +27,23 @@ export const generateDetail = ({
 		locale,
 	});
 
+	// Remove markers based on appointment type
+	const markerVisualPZA = clone.querySelector(
+		'[data-marker-name="map-marker-pza"]',
+	);
+	const markerVisualPMA = clone.querySelector(
+		'[data-marker-name="map-marker-pma"]',
+	);
+	if (markerVisualPZA && markerVisualPMA) {
+		if (location.properties?.appointmentType.length === 0) {
+			markerVisualPZA.remove();
+		} else if (location.properties?.appointmentType?.includes('pza')) {
+			markerVisualPMA.remove();
+		} else {
+			markerVisualPZA.remove();
+		}
+	}
+
 	// Add/remove/replace static map on larger viewports
 	const imageWrapElements =
 		clone.querySelectorAll<HTMLDivElement>('[data-wrap-image]');

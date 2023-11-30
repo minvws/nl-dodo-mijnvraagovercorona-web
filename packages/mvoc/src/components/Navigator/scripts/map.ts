@@ -40,35 +40,69 @@ export class Map {
 	}
 
 	generateMarkers({ features }: { features: FeatureProps[] }) {
-		const newFeatures = features.map((feature) => {
-			const clone =
-				this.markerTemplateElement.content.firstElementChild.cloneNode(
-					true,
-				) as HTMLButtonElement;
-			const nameElement = clone.querySelector('[data-name]');
+		const newFeatures = features
+			// Sort by longitude
+			.sort((a, b) => b.geometry.coordinates[1] - a.geometry.coordinates[1])
+			// Create markers
+			.map((feature) => {
+				const clone =
+					this.markerTemplateElement.content.firstElementChild.cloneNode(
+						true,
+					) as HTMLButtonElement;
+				const nameElement = clone.querySelector('[data-name]');
+				const openElement = clone.querySelector('[data-is-open]');
+				const markerVisualPZA = clone.querySelector(
+					'[data-marker-name="map-marker-pza"]',
+				);
+				const markerVisualPMA = clone.querySelector(
+					'[data-marker-name="map-marker-pma"]',
+				);
 
-			nameElement.innerHTML = `${feature.properties.name}, ${feature.properties.location.city}`;
-			if (
-				feature.properties?.appointmentType?.includes('pza') &&
-				isOpenNow(feature.properties.openingHours)
-			) {
-				clone.classList.add('is-open-location');
-			}
+				if (markerVisualPZA && markerVisualPMA) {
+					if (feature.properties?.appointmentType.length === 0) {
+						markerVisualPZA.remove();
+					} else if (feature.properties?.appointmentType?.includes('pza')) {
+						markerVisualPMA.remove();
+					} else {
+						markerVisualPZA.remove();
+					}
+				}
 
-			if (feature.properties?.isTestLocation) {
-				clone.classList.add('is-test-location');
-			}
+				nameElement.innerHTML = `${
+					feature.properties?.name
+						? feature.properties.name
+						: feature.properties.location.address
+				}, ${feature.properties.location.city}`;
+				if (
+					feature.properties?.appointmentType?.includes('pza') &&
+					isOpenNow(feature.properties.openingHours)
+				) {
+					clone.classList.add('is-open-location');
+				} else if (openElement) {
+					openElement.remove();
+				}
 
-			this.markers.push(
-				new mapboxgl.Marker(clone)
-					.setLngLat(feature.geometry.coordinates)
-					.addTo(this.map),
+				if (feature.properties?.isTestLocation) {
+					clone.classList.add('is-test-location');
+				}
+
+				this.markers.push(
+					new mapboxgl.Marker(clone)
+						.setLngLat(feature.geometry.coordinates)
+						.addTo(this.map),
+				);
+				return {
+					...feature,
+					markerElement: clone,
+				};
+			})
+			// resort by city
+			.sort((a, b) =>
+				a.properties.location.city
+					.trim()
+					.toLowerCase()
+					.localeCompare(b.properties.location.city.trim().toLowerCase()),
 			);
-			return {
-				...feature,
-				markerElement: clone,
-			};
-		});
 
 		return newFeatures;
 	}

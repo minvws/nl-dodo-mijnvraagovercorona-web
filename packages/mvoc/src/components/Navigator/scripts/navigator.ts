@@ -113,7 +113,12 @@ export class Navigator {
 	async getLocations() {
 		const featuresData = await fetch('/data/v3/features.json');
 		const features: FeaturesProps = await featuresData.json();
-		this.locations = features.features;
+		this.locations = features.features.sort((a, b) =>
+			a.properties.location.city
+				.trim()
+				.toLowerCase()
+				.localeCompare(b.properties.location.city.trim().toLowerCase()),
+		);
 
 		this.hasPmaAppointmentTypes = this.locations.some((location) =>
 			location.properties?.appointmentType?.includes('pma'),

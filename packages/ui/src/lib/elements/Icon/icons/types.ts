@@ -1,4 +1,5 @@
 export const icons = [
+	'appointment',
 	'arrow-right',
 	'brief',
 	'burger',
@@ -37,6 +38,7 @@ export const icons = [
 	'vaccin-shot',
 	'vaccineren',
 	'video',
+	'walking',
 	'world',
 	'zelftest-en-klachten',
 ] as const;

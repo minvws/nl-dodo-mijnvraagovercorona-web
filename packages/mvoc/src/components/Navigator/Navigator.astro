@@ -160,7 +160,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 	</template>
 
 	<template data-module-bind="map__marker">
-		<Marker />
+		<Marker openLabel={pageData.location.openingHours.openNow} />
 	</template>
 
 	<template data-module-bind="map__marker-user">
