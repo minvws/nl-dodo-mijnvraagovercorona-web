@@ -2,14 +2,17 @@
 import { Icon as AstroIcon } from 'astro-icon/components';
 import type { HTMLAttributes } from 'astro/types';
 
-interface Props extends HTMLAttributes<'svg'> {}
+interface Props extends HTMLAttributes<'svg'> {
+	name?: 'map-marker' | 'map-marker-pma' | 'map-marker-pza';
+}
 
-const { class: className } = Astro.props;
+const { name = 'map-marker', class: className } = Astro.props;
 ---
 
 <AstroIcon
 	class={`c-marker-icon${className ? ` | ${className}` : ''}`}
-	name={'map-marker'}
+	name={name}
+	data-marker-name={name}
 />
 
 <style lang="scss">

@@ -46,13 +46,21 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 			class="c-location-list__labels"
 			data-labels
 		>
-			<Label class="c-location-list__label" data-appointment-type="pza">
+			<Label
+				class="c-location-list__label"
+				data-appointment-type="pza"
+				icon="walking"
+			>
 				{siteSettings.appointmentTypes.pza}
 			</Label>
 			<span class="u-color--black" data-appointment-type="pza&pma">
 				{siteSettings.genericLabels.and}
 			</span>
-			<Label class="c-location-list__label" data-appointment-type="pma">
+			<Label
+				class="c-location-list__label"
+				data-appointment-type="pma"
+				icon="appointment"
+			>
 				{siteSettings.appointmentTypes.pma}
 			</Label>
 		</span>
