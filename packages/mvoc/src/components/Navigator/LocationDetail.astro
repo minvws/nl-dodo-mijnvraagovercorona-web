@@ -50,13 +50,13 @@ const note = pageData.location.note;
 				class="c-location-detail__wrap-labels"
 				data-appointment-type="pza|pma"
 			>
-				<Label data-appointment-type="pza">
+				<Label data-appointment-type="pza" icon="walking">
 					{siteSettings.appointmentTypes.pza}
 				</Label>
 				<span class="u-color--black" data-appointment-type="pza&pma">
 					{siteSettings.genericLabels.and}
 				</span>
-				<Label data-appointment-type="pma">
+				<Label data-appointment-type="pma" icon="appointment">
 					{siteSettings.appointmentTypes.pma}
 				</Label>
 			</div>
@@ -74,7 +74,14 @@ const note = pageData.location.note;
 						data-module-bind="navigator__map-preview"
 					>
 						<img class="c-location-detail__image" alt="" data-image-map />
-						<MarkerIcon class="c-location-detail__marker-icon" />
+						<MarkerIcon
+							class="c-location-detail__marker-icon"
+							name="map-marker-pza"
+						/>
+						<MarkerIcon
+							class="c-location-detail__marker-icon"
+							name="map-marker-pma"
+						/>
 					</button>
 
 					<Attribute

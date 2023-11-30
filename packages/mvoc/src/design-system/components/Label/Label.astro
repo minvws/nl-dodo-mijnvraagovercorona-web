@@ -1,18 +1,24 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
+import { Icon, type Icons } from '@mvoc/ui/elements';
 
-interface Props extends HTMLAttributes<'span'> {}
+interface Props extends HTMLAttributes<'span'> {
+	icon?: Icons;
+}
 
-const { class: className, ...attrs } = Astro.props;
+const { icon, class: className, ...attrs } = Astro.props;
 ---
 
 <span class={`c-label${className ? ` | ${className}` : ''}`} {...attrs}>
+	{icon ? <Icon name={icon} /> : null}
 	<slot />
 </span>
 
 <style lang="scss">
 	.c-label {
-		display: inline-block;
+		display: inline-flex;
+		align-items: center;
+		gap: var(--space-2);
 		padding-block: var(--space-1);
 		padding-inline: var(--space-2);
 		border-radius: var(--radii-nano);
