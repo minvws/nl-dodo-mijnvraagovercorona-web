@@ -1,0 +1,49 @@
+---
+title: 'Element: Chapeau'
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Chapeau } from '@lib/elements/Chapeau';
+import { Heading } from '@lib/elements/Heading';
+
+`Chapeaus` are words or short phrases that precedes a heading.
+
+## Usage
+
+```jsx
+import { Chapeau } from '@mvoc/ui/elements';
+
+<Chapeau>This is a Chapeau title</Chapeau>
+```
+
+## Example
+
+<div class="not-content">
+    <Chapeau>This is a Chapeau title</Chapeau>
+    <Heading level={1}>This is a heading</Heading>
+</div>
+
+## Variants
+
+<Tabs>
+  <TabItem label="Base (Default)">
+		<div class="not-content">
+			<Chapeau variant={'base'}>This is a Chapeau title base variant (default)</Chapeau>
+		</div>
+
+		```jsx
+		<Chapeau variant={'base'}>This is a Chapeau title (default)</Chapeau>
+		```
+
+	</TabItem>
+	<TabItem label="Highlight">
+		<div class="not-content">
+			<Chapeau variant={'highlight'}>This is a Chapeau title highlight variant</Chapeau>
+		</div>
+
+		```jsx
+		<Chapeau variant={'highlight'}>This is a Chapeau title</Chapeau>
+		```
+
+	</TabItem>
+</Tabs>
