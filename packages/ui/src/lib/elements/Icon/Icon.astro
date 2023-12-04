@@ -1,0 +1,35 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { Icon as AstroIcon } from 'astro-icon/components';
+import type { Icons } from './icons/types';
+
+export interface Props extends HTMLAttributes<'span'> {
+	name: Icons;
+	description?: string;
+	size?: number;
+}
+
+const { name, size, description, class: className, ...attrs } = Astro.props;
+---
+
+<style lang="scss">
+	.e-icon {
+		--icon-size: 1.2em; // 24px
+		display: inline-block;
+	}
+
+	.e-icon,
+	.e-icon__visual {
+		block-size: var(--icon-size);
+		inline-size: var(--icon-size);
+	}
+
+	.e-icon__visual {
+		display: block;
+	}
+</style>
+
+<span class={`e-icon${className ? ` | ${className}` : ''}`} {...attrs}>
+	{description ? <span class="u-visually-hidden">{description}</span> : null}
+	<AstroIcon class="e-icon__visual" name={name} size={size} />
+</span>

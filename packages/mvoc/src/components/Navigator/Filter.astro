@@ -1,8 +1,8 @@
 ---
 import { FieldInputText } from '@design-system/components/Form/FieldInputText';
 import { Stack } from '@design-system/components/Layout/Stack';
-import { Control } from '@design-system/elements/Control';
-import { Icon } from '@design-system/elements/Icon';
+import { Control } from '@mvoc/ui/elements';
+import { Icon } from '@mvoc/ui/elements';
 import type { HTMLAttributes } from 'astro/types';
 import type { LocationsPageProps } from 'src/utilities/api';
 import type { SiteSettingsProps } from 'src/utilities/api/queries';
@@ -34,7 +34,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 				label={pageData.filter.searchLabel}
 				placeholder={`${pageData.filter.searchLabel}…`}
 				icon="looking-glass"
-				clearable
+				clearable={siteSettings.forms.clearField}
 				hideLabel
 			>
 				<ol
@@ -105,9 +105,9 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 </form>
 
 <style lang="scss">
-	@use '@design-system-styles/primitives/_responsive.scss';
-	@use '@design-system-styles/tools/_a11y.scss';
-	@use '@design-system-styles/tools/_input.scss';
+	@use '@mvoc/ui/styles/primitives/responsive';
+	@use '@mvoc/ui/styles/tools/a11y';
+	@use '@mvoc/ui/styles/tools/input';
 
 	.c-filter {
 	}

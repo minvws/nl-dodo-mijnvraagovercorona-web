@@ -1,8 +1,8 @@
 import type {
+	IconProps,
 	ButtonVariants,
 	IconPositions,
-} from '@design-system/elements/Button';
-import type { IconProps } from '@design-system/elements/Icon';
+} from '@mvoc/ui/elements';
 import type { SubFolderReferenceProps } from '.';
 import { internalPageReferenceInSelectQuery } from '.';
 

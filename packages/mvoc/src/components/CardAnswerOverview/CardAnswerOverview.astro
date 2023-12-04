@@ -4,7 +4,7 @@ import { ContentBlock } from '@design-system/components/ContentBlock';
 import { GridFluid } from '@design-system/components/Layout/Grid';
 import { Layer } from '@design-system/components/Layout/Layer';
 import { Retain } from '@design-system/components/Layout/Retain';
-import { Heading } from '@design-system/elements/Heading';
+import { Heading } from '@mvoc/ui/elements';
 import type { HTMLAttributes } from 'astro/types';
 import type { CardsProps } from 'src/utilities/api/queries';
 import { stringToSlug } from 'src/utilities/stringToSlug';
@@ -50,7 +50,7 @@ const cardsHaveButtons = cards.items.some((card) => card.buttons.length);
 </Layer>
 
 <style lang="scss">
-	@use '@design-system-styles/primitives/_responsive.scss';
+	@use '@mvoc/ui/styles/primitives/responsive';
 
 	.c-card-answer-overview {
 		--card-button-size: calc(

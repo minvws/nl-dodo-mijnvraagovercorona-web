@@ -71,6 +71,7 @@ export interface SiteSettingsProps {
 		ago: string;
 		of: string;
 		or: string;
+		and: string;
 		previous: string;
 		next: string;
 		dayPlural: {
@@ -164,6 +165,7 @@ export const siteSettingsQuery = ({ locale }: { locale: Locale }): string => `
 			in,
 			of,
 			or,
+			and,
 			previous,
 			next,
 			dayPlural{

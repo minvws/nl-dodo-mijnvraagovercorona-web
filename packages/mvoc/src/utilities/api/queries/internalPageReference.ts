@@ -1,4 +1,4 @@
-import type { IconProps } from '@design-system/elements/Icon';
+import type { IconProps } from '@mvoc/ui/elements';
 import type { SubFolderReferenceProps } from '.';
 import { subFolderReferenceQuery } from '.';
 

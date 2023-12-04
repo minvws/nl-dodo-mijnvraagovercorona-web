@@ -1,0 +1,31 @@
+---
+title: 'Element: Icon'
+---
+
+import { IconGrid } from '@components/IconGrid';
+import { icons } from '@lib/elements/Icon';
+
+Icons are used to provide additional meaning or in places where text label doesn’t fit. The `Icon` component allows you to display an icon from the MVOC icon library.
+
+## Usage
+
+```jsx
+import { Icon } from '@mvoc/ui/elements';
+
+<Icon name="ICON-NAME" />
+```
+
+## Custom properties
+
+If you want to adjust the size of the icon you can use the `--icon-size` custom property from your own component. By default the size is set to `1.2em` which translates to 24px on an element of our base font size.
+
+```css
+.your-component {
+	.e-icon {
+		--icon-size: 2em;
+	}
+}
+```
+
+## Available Icons
+<IconGrid icons={icons} class="not-content" />

@@ -2,8 +2,7 @@
 import { ContentBlock } from '@design-system/components/ContentBlock';
 import { GridFluid } from '@design-system/components/Layout/Grid';
 import { Stack } from '@design-system/components/Layout/Stack';
-import { Button } from '@design-system/elements/Button';
-import { Link } from '@design-system/elements/Link';
+import { Link, Button } from '@mvoc/ui/elements';
 import type { HTMLAttributes } from 'astro/types';
 import {
 	type CtaButtonProps,
@@ -275,7 +274,7 @@ const uniqueThemes = filterCategories.length
 
 <script>
 	import { trackEvent } from 'src/utilities/tracking/piwik';
-	import { mqLarge } from '@design-system/primitives/responsive';
+	import { mqLarge } from '@mvoc/ui/primitives';
 
 	const mql = window.matchMedia(mqLarge);
 

@@ -1,6 +1,5 @@
 ---
-import { Icon } from '@design-system/elements/Icon';
-import { Link } from '@design-system/elements/Link';
+import { Icon, Link } from '@mvoc/ui/elements';
 import type { HTMLAttributes } from 'astro/types';
 import type { Locale } from 'src/utilities/locale/translation';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
@@ -105,7 +104,7 @@ const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 </script>
 
 <style lang="scss">
-	@use '@design-system-styles/primitives/_responsive.scss';
+	@use '@mvoc/ui/styles/primitives/responsive';
 
 	.c-breadcrumbs {
 		--c-breadcrumbs-color: var(--breadcrumbs-color, var(--color-grijs-8));

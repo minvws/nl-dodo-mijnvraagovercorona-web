@@ -1,9 +1,8 @@
 ---
-import { Button } from '@design-system/elements/Button';
-import { Icon } from '@design-system/elements/Icon';
+import { Icon, Button } from '@mvoc/ui/elements';
 import type { HTMLAttributes } from 'astro/types';
 import { MediaBlock } from '../MediaBlock';
-import { Heading } from '@design-system/elements/Heading';
+import { Heading } from '@mvoc/ui/elements';
 import type { ImageProps } from 'src/utilities/api/queries';
 
 interface Props extends HTMLAttributes<'li'> {
@@ -108,7 +107,7 @@ const {
 </li>
 
 <style lang="scss">
-	@use '@design-system-styles/tools/_a11y.scss';
+	@use '@mvoc/ui/styles/tools/a11y';
 
 	.disclosure__heading {
 	}

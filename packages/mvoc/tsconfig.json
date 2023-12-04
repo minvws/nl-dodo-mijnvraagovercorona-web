@@ -1,14 +1,14 @@
 {
-	"extends": "astro/tsconfigs/base",
+	"extends": ["../../tsconfig.json", "astro/tsconfigs/base"],
 	"compilerOptions": {
+		"composite": true,
 		"baseUrl": ".",
-		"moduleResolution": "node",
-		"experimentalDecorators": true,
+		"rootDir": ".",
 		"paths": {
 			"@design-system/*": ["./src/design-system/*"],
 			"@modules/*": ["./src/components/*"],
-			"@layouts/*": ["./src/layouts/*"]
+			"@layouts/*": ["./src/layouts/*"],
+			"@mvoc/ui/*": ["@mvoc/ui/src/*"]
 		}
-	},
-	"exclude": ["**/node_modules", "**/dist"]
+	}
 }

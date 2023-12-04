@@ -1,10 +1,10 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
-import { Heading } from '@design-system/elements/Heading';
+import { Heading } from '@mvoc/ui/elements';
 import type { PictureProps } from '../Picture';
 import { Picture } from '../Picture';
 import { Stack } from '../Layout/Stack';
-import { Link } from '@design-system/elements/Link';
+import { Link } from '@mvoc/ui/elements';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 
 interface Props extends HTMLAttributes<'li'> {
@@ -95,9 +95,9 @@ const {
 </li>
 
 <style lang="scss">
-	@use '@design-system-styles/tools/_a11y.scss';
-	@use '@design-system-styles/primitives/_responsive.scss';
-	@use '@design-system-styles/tools/_rem.scss';
+	@use '@mvoc/ui/styles/tools/a11y';
+	@use '@mvoc/ui/styles/primitives/responsive';
+	@use '@mvoc/ui/styles/tools/rem';
 
 	.disclosure__panel {
 		--_disclosure__panel-padding: var(

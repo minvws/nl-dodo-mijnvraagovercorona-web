@@ -8,7 +8,7 @@ import {
 } from '@design-system/components/Lists';
 import { MastFoot } from '@design-system/components/MastFoot';
 import { CloseButton } from '@design-system/elements/CloseButton';
-import { Heading } from '@design-system/elements/Heading';
+import { Heading } from '@mvoc/ui/elements';
 import type { HTMLAttributes } from 'astro/types';
 import type { LocationsPageProps } from 'src/utilities/api';
 import type { SiteSettingsProps } from 'src/utilities/api/queries';
@@ -160,7 +160,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 	</template>
 
 	<template data-module-bind="map__marker">
-		<Marker />
+		<Marker openLabel={pageData.location.openingHours.openNow} />
 	</template>
 
 	<template data-module-bind="map__marker-user">
@@ -187,8 +187,8 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 </script>
 
 <style lang="scss">
-	@use '@design-system-styles/primitives/_responsive.scss';
-	@use '@design-system-styles/tools/_rem.scss';
+	@use '@mvoc/ui/styles/primitives/responsive';
+	@use '@mvoc/ui/styles/tools/rem';
 
 	.c-navigator {
 		--navigator__padding: var(--space-4);
@@ -363,10 +363,8 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 
 	.c-navigator__wrap-filter-list {
 		min-block-size: calc(
-			var(--navigator__block-size) - var(--navigator__masthead-offset, 0px) - var(
-					--navigator__hero-size,
-					0px
-				)
+			var(--navigator__block-size) - var(--navigator__masthead-offset, 0px) -
+				var(--navigator__hero-size, 0px)
 		);
 	}
 

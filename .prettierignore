@@ -4,3 +4,6 @@ packages/**/dist
 
 # public
 packages/cms/static/world.topojson.json
+
+# mdx files
+*.mdx

@@ -1,7 +1,8 @@
 ---
-import { Button } from '@design-system/elements/Button';
+import { Button } from '@mvoc/ui/elements';
 import type { HTMLAttributes } from 'astro/types';
 import type { ImageProps } from 'src/utilities/api/queries';
+import { isExternalUrl } from 'src/utilities/helpers/external-url';
 
 interface Props extends HTMLAttributes<'div'> {
 	label: string;
@@ -10,6 +11,7 @@ interface Props extends HTMLAttributes<'div'> {
 }
 
 const { label, href, icon } = Astro.props;
+const isExternal = isExternalUrl(href);
 ---
 
 <Button
@@ -19,6 +21,7 @@ const { label, href, icon } = Astro.props;
 	icon="chevron-small-right"
 	interactionIconAnimation="swing"
 	full
+	isExternal={isExternal}
 >
 	<span class="c-more-info-button__inner">
 		{
@@ -36,8 +39,8 @@ const { label, href, icon } = Astro.props;
 </Button>
 
 <style lang="scss">
-	@use '@design-system-styles/tools/_rem.scss';
-	@use '@design-system-styles/primitives/_responsive.scss';
+	@use '@mvoc/ui/styles/tools/rem';
+	@use '@mvoc/ui/styles/primitives/responsive';
 
 	.c-more-info-button {
 		--button-padding-block: var(--space-6);

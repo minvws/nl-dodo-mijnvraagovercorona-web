@@ -1,5 +1,5 @@
 ---
-import { Heading } from '@design-system/elements/Heading';
+import { Heading } from '@mvoc/ui/elements';
 import { ContentBlock } from '@design-system/components/ContentBlock';
 import type { SiteSettingsProps } from 'src/utilities/api/queries';
 import { useSiteSettings } from 'src/utilities/api/queries';
@@ -50,8 +50,8 @@ const siteSettingsTranslated: SiteSettingsProps = await useSiteSettings({
 </footer>
 
 <style lang="scss">
-	@use '@design-system-styles/tools/_rem.scss';
-	@use '@design-system-styles/primitives/_responsive.scss';
+	@use '@mvoc/ui/styles/tools/rem';
+	@use '@mvoc/ui/styles/primitives/responsive';
 
 	.c-mastfoot {
 		margin-block-start: auto;

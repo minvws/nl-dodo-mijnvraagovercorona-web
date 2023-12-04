@@ -1,4 +1,4 @@
-import { mqLarge } from '@design-system/primitives/responsive';
+import { mqLarge } from '@mvoc/ui/primitives';
 import copy from 'copy-to-clipboard';
 import type { FeatureProps } from 'src/utilities/helpers/features';
 import { replaceAll, replaceTimeTable } from './replacement-helpers';
@@ -26,6 +26,23 @@ export const generateDetail = ({
 		container: clone,
 		locale,
 	});
+
+	// Remove markers based on appointment type
+	const markerVisualPZA = clone.querySelector(
+		'[data-marker-name="map-marker-pza"]',
+	);
+	const markerVisualPMA = clone.querySelector(
+		'[data-marker-name="map-marker-pma"]',
+	);
+	if (markerVisualPZA && markerVisualPMA) {
+		if (location.properties?.appointmentType.length === 0) {
+			markerVisualPZA.remove();
+		} else if (location.properties?.appointmentType?.includes('pza')) {
+			markerVisualPMA.remove();
+		} else {
+			markerVisualPZA.remove();
+		}
+	}
 
 	// Add/remove/replace static map on larger viewports
 	const imageWrapElements =

@@ -3,8 +3,7 @@ import type { HTMLAttributes } from 'astro/types';
 // @ts-ignore
 import Search from 'astro-pagefind/components/Search';
 import { Modal } from '@design-system/components/Modal';
-import { ButtonTool } from '@design-system/elements/Button';
-import { Icon } from '@design-system/elements/Icon';
+import { Icon, ButtonTool } from '@mvoc/ui/elements';
 import type { SiteSettingsProps } from 'src/utilities/api/queries';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
@@ -74,10 +73,10 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 </style>
 
 <style is:global lang="scss">
-	@use '@design-system-styles/tools/_a11y.scss';
-	@use '@design-system-styles/tools/_input.scss';
-	@use '@design-system-styles/primitives/_responsive.scss';
-	@use '@design-system-styles/tools/_button.scss';
+	@use '@mvoc/ui/styles/tools/a11y';
+	@use '@mvoc/ui/styles/tools/input';
+	@use '@mvoc/ui/styles/primitives/responsive';
+	@use '@mvoc/ui/styles/tools/button';
 
 	.pagefind-ui {
 		--pagefind-ui-font: var(--font-family);
@@ -122,8 +121,8 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 				aspect-ratio: 1/1;
 				transform: translateY(-50%);
 				background-color: var(--color-diepblauw);
-				-webkit-mask-image: url('../../../icons/looking-glass.svg');
-				mask-image: url('../../../icons/looking-glass.svg');
+				-webkit-mask-image: url('/images/icons/looking-glass.svg');
+				mask-image: url('/images/icons/looking-glass.svg');
 			}
 		}
 

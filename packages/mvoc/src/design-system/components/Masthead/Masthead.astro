@@ -4,8 +4,7 @@ import { NavigationMain } from '../Navigation';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import type { SiteSettingsProps } from 'src/utilities/api/queries';
 import { useSiteSettings } from 'src/utilities/api/queries';
-import { Icon } from '@design-system/elements/Icon';
-import { ButtonTool } from '@design-system/elements/Button';
+import { Icon, ButtonTool } from '@mvoc/ui/elements';
 import { Retain } from '../Layout/Retain';
 
 type Props = {
@@ -73,9 +72,9 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 </header>
 
 <style lang="scss">
-	@use '@design-system-styles/primitives/_responsive.scss';
-	@use '@design-system-styles/tools/_a11y.scss';
-	@use '@design-system-styles/tools/_rem.scss';
+	@use '@mvoc/ui/styles/primitives/responsive';
+	@use '@mvoc/ui/styles/tools/a11y';
+	@use '@mvoc/ui/styles/tools/rem';
 
 	.c-masthead {
 		--masthead-logo-block-size: #{rem.convert(80px)};
@@ -229,7 +228,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		getKeyboardFocusableElements,
 		trapFocus,
 	} from 'src/utilities/helpers/a11y';
-	import { mqHuge } from '@design-system/primitives/responsive';
+	import { mqHuge } from '@mvoc/ui/primitives';
 
 	// select dom nodes
 	const mastheadElement = document.querySelector('[data-module="masthead"]');

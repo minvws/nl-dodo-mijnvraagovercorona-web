@@ -1,6 +1,5 @@
 ---
-import { Icon } from '@design-system/elements/Icon';
-import { Link } from '@design-system/elements/Link';
+import { Icon, Link } from '@mvoc/ui/elements';
 import type { SiteSettingsProps } from 'src/utilities/api/queries';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import type { Locale } from 'src/utilities/locale/translation';
@@ -154,9 +153,9 @@ const translationsOrder = alternativeTranslations
 </script>
 
 <style lang="scss">
-	@use '@design-system-styles/primitives/_responsive.scss';
-	@use '@design-system-styles/tools/_a11y.scss';
-	@use '@design-system-styles/tools/_rem.scss';
+	@use '@mvoc/ui/styles/primitives/responsive';
+	@use '@mvoc/ui/styles/tools/a11y';
+	@use '@mvoc/ui/styles/tools/rem';
 
 	/**
 	 * 1. Weird calculation to put the localeselector exactly in the middle
@@ -171,9 +170,8 @@ const translationsOrder = alternativeTranslations
 		position: absolute;
 		margin-inline-start: auto;
 		inset-block-start: calc(
-			var(--theme__masthead-top-block-size) / 2 - var(
-					--c-locale-selector-block-size
-				)
+			var(--theme__masthead-top-block-size) / 2 -
+				var(--c-locale-selector-block-size)
 		); /* [1] */
 		padding-block: var(--space-2);
 		padding-inline: var(--space-2);
@@ -287,8 +285,7 @@ const translationsOrder = alternativeTranslations
 		overflow: hidden;
 		block-size: 0;
 		inline-size: 0;
-		transition:
-			block-size var(--c-locale-selector-duration) ease-in-out,
+		transition: block-size var(--c-locale-selector-duration) ease-in-out,
 			visibility 0s var(--c-locale-selector-duration);
 	}
 
@@ -297,8 +294,7 @@ const translationsOrder = alternativeTranslations
 			visibility: visible;
 			block-size: auto;
 			inline-size: auto;
-			transition:
-				block-size var(--c-locale-selector-duration) ease-in-out,
+			transition: block-size var(--c-locale-selector-duration) ease-in-out,
 				visibility 0s 0s;
 		}
 	}

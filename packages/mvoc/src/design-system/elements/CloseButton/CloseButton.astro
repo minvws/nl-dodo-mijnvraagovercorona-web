@@ -4,7 +4,7 @@ import type { SiteSettingsProps } from 'src/utilities/api/queries';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import type { Locale } from 'src/utilities/locale/translation';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
-import { Icon } from '../Icon';
+import { Icon } from '@mvoc/ui/elements';
 
 interface Props extends HTMLAttributes<'button'> {}
 
@@ -25,7 +25,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 </button>
 
 <style lang="scss">
-	@use '@design-system-styles/tools/_a11y.scss';
+	@use '@mvoc/ui/styles/tools/a11y';
 
 	.e-close-button,
 	.e-close-button__icon.e-close-button__icon {

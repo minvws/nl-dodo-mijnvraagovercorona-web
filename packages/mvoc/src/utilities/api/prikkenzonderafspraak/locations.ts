@@ -1,5 +1,5 @@
 import type { ContentBlockProps } from '@design-system/components/ContentBlock';
-import type { IconProps } from '@design-system/elements/Icon';
+import type { IconProps } from '@mvoc/ui/elements';
 import { useSanityClient } from 'astro-sanity';
 import type { PageProps, HeroProps } from '../queries';
 import { pageQuery, heroQuery, customBlockQuery } from '../queries';
@@ -48,6 +48,10 @@ export interface LocationsPageProps extends PageProps {
 				icon: IconProps['name'];
 			};
 			pmaInfo: {
+				label: ContentBlockProps['value'];
+				icon: IconProps['name'];
+			};
+			pzaPmaInfo: {
 				label: ContentBlockProps['value'];
 				icon: IconProps['name'];
 			};
@@ -119,6 +123,10 @@ export async function getDataLocationPages() {
 					icon,
 				},
 				pmaInfo{
+					${customBlockQuery({ name: 'label' })},
+					icon,
+				},
+				pzaPmaInfo{
 					${customBlockQuery({ name: 'label' })},
 					icon,
 				},

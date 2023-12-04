@@ -1,5 +1,5 @@
 ---
-import { Heading } from '@design-system/elements/Heading';
+import { Heading } from '@mvoc/ui/elements';
 import { type ButtonsProps, type ImageProps } from 'src/utilities/api/queries';
 import Card from './Card.astro';
 import { FlexibleButton } from '@modules/elements/FlexibleButton';
@@ -48,8 +48,8 @@ const { title, image, buttons } = Astro.props;
 </Card>
 
 <style lang="scss">
-	@use '@design-system-styles/primitives/_responsive.scss';
-	@use '@design-system-styles/tools/_rem.scss';
+	@use '@mvoc/ui/styles/primitives/responsive';
+	@use '@mvoc/ui/styles/tools/rem';
 
 	.c-support-card {
 		--card-padding: 0;

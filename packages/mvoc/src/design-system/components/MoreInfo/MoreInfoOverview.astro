@@ -35,8 +35,8 @@ const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
 </GridFluid>
 
 <style lang="scss">
-	@use '@design-system-styles/primitives/_responsive.scss';
-	@use '@design-system-styles/tools/_rem.scss';
+	@use '@mvoc/ui/styles/primitives/responsive';
+	@use '@mvoc/ui/styles/tools/rem';
 
 	.c-more-info-overview {
 		--grid-fluid-min-item-size: #{rem.convert(324px)};
