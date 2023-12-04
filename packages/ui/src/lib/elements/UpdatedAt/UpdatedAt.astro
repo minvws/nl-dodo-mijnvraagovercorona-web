@@ -1,0 +1,22 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { formatLongDate } from '@mvoc/ui/helpers';
+
+interface Props extends HTMLAttributes<'small'> {
+	time: string;
+	locale: string;
+}
+
+const { time, locale, class: className, ...attrs } = Astro.props;
+---
+
+<small
+	class={`e-updated-at | u-color--grijs-6${className ? ` | ${className}` : ''}`}
+	{...attrs}
+	data-pagefind-ignore
+>
+	<slot />
+	<time datetime={time}>
+		{formatLongDate(new Date(time), locale)}
+	</time>
+</small>

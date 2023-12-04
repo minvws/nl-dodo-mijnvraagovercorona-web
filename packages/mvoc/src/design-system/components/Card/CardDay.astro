@@ -60,7 +60,8 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 
 <script>
 	import { subDays, addDays } from 'date-fns';
-	import { formatDate } from 'src/utilities/locale/date';
+	import { formatDate } from '@mvoc/ui/helpers';
+
 	const today = new Date();
 	const parents = document.querySelectorAll('[data-module="dynamic-day"]');
 	if (parents && parents.length) {
