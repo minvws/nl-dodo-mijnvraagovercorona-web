@@ -1,7 +1,11 @@
 ---
 import { Heading } from '@mvoc/ui/elements';
 import { Stack } from '@design-system/components/Layout/Stack';
-import { CloseButton } from '@design-system/elements/CloseButton';
+import { CloseButton } from '@mvoc/ui/elements';
+import type { SiteSettingsProps } from 'src/utilities/api/queries';
+import { useSiteSettings } from 'src/utilities/api/queries';
+import { getLocaleFromURL } from 'src/utilities/locale/translation';
+import type { Locale } from 'src/utilities/locale/translation';
 
 export interface Props {
 	id: string;
@@ -10,6 +14,8 @@ export interface Props {
 }
 
 const { id, title, variant = 'default' } = Astro.props;
+const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
+const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 ---
 
 <template data-module-bind="modal-root">
@@ -33,6 +39,7 @@ const { id, title, variant = 'default' } = Astro.props;
 			<CloseButton
 				class="modal__close-button"
 				data-module-bind="modal__close-button"
+				label={siteSettings.genericLabels.close}
 			/>
 		</div>
 	</div>

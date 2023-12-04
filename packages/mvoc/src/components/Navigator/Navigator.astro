@@ -7,7 +7,7 @@ import {
 	LocationListItem,
 } from '@design-system/components/Lists';
 import { MastFoot } from '@design-system/components/MastFoot';
-import { CloseButton } from '@design-system/elements/CloseButton';
+import { CloseButton } from '@mvoc/ui/elements';
 import { Heading } from '@mvoc/ui/elements';
 import type { HTMLAttributes } from 'astro/types';
 import type { LocationsPageProps } from 'src/utilities/api';
@@ -107,6 +107,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		<CloseButton
 			class="c-navigator__map-close"
 			data-module-bind="navigator__map-close"
+			label={siteSettings.genericLabels.close}
 		/>
 		<div
 			class="c-navigator__map"
@@ -126,6 +127,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 			<CloseButton
 				class="c-navigator__detail-close"
 				data-module-bind="navigator__detail-close"
+				label={siteSettings.genericLabels.close}
 			/>
 			<div
 				class="c-navigator__detail-scroller"

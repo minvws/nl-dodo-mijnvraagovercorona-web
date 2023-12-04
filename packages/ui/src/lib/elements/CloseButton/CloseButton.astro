@@ -1,16 +1,13 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
-import type { SiteSettingsProps } from 'src/utilities/api/queries';
-import { useSiteSettings } from 'src/utilities/api/queries';
-import type { Locale } from 'src/utilities/locale/translation';
-import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import { Icon } from '@mvoc/ui/elements';
+import type { string } from 'astro/zod';
 
-interface Props extends HTMLAttributes<'button'> {}
+interface Props extends HTMLAttributes<'button'> {
+	label: string;
+}
 
-const { class: className, ...attrs } = Astro.props;
-const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
-const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+const { label, class: className, ...attrs } = Astro.props;
 ---
 
 <button
@@ -20,7 +17,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 >
 	<Icon name="cross" class="e-close-button__icon" />
 	<span class="u-visually-hidden">
-		{siteSettings.genericLabels.close}
+		{label}
 	</span>
 </button>
 
