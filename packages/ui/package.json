@@ -16,6 +16,7 @@
 		"./primitives": "./src/lib/primitives/index.ts",
 		"./elements": "./src/lib/elements/index.ts",
 		"./utilities": "./src/lib/utilities/index.ts",
+		"./helpers": "./src/lib/helpers/index.ts",
 		"./styles/*": "./src/lib/*.scss",
 		"./styles/*.scss": "./src/lib/*.scss"
 	},

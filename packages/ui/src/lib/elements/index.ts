@@ -5,3 +5,4 @@ export * from './Control';
 export * from './Button';
 export * from './Chapeau';
 export * from './Input';
+export * from './UpdatedAt';
