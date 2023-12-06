@@ -3,11 +3,11 @@ import type { HTMLAttributes } from 'astro/types';
 import { CardSupport } from '@design-system/components/Card';
 import { ContentBlock } from '@design-system/components/ContentBlock';
 import type { CardsProps } from 'src/utilities/api/queries';
-import { Layer } from '../Layout/Layer';
+import { Layer } from '@mvoc/ui/components';
 import { Heading } from '@mvoc/ui/elements';
-import { GridFluid } from '../Layout/Grid';
-import { Retain } from '../Layout/Retain';
-import { Stack } from '../Layout/Stack';
+import { GridFluid } from '@mvoc/ui/components';
+import { Retain } from '@mvoc/ui/components';
+import { Stack } from '@mvoc/ui/components';
 
 interface Props extends HTMLAttributes<'div'> {
 	label: string;

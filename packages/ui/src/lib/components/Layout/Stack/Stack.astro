@@ -22,7 +22,8 @@ const Component = as;
 
 <style lang="scss">
 	.c-stack {
-		--stack-gap: var(--stack, var(--space-7));
+		--stack-gap: var(--stack, var(--space-6));
+
 		:global(> * + *) {
 			margin-block-start: var(--stack-gap);
 		}

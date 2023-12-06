@@ -10,31 +10,32 @@ const { class: className, ...attrs } = Astro.props;
 	<div class="c-sidebar__body">
 		<slot />
 	</div>
-	<aside class="c-sidebar__side">
-		<slot name="aside" />
-	</aside>
+	{
+		Astro.slots.has('aside') ? (
+			<aside class="c-sidebar__side">
+				<slot name="aside" />
+			</aside>
+		) : null
+	}
 </div>
 
 <style lang="scss">
 	@use '@mvoc/ui/styles/tools/rem';
 
 	.c-sidebar {
-		--sidebar-gap: var(--space-8);
-		--sidebar-side-inline-size: #{rem.convert(342px)};
-		--sidebar-body-minimum-inline-size: 50%;
 		display: flex;
 		flex-wrap: wrap;
-		gap: var(--sidebar-gap);
+		gap: var(--sidebar-gap, var(--space-8));
 	}
 
 	.c-sidebar__side {
-		flex-basis: var(--sidebar-side-inline-size);
+		flex-basis: var(--sidebar-side-inline-size, #{rem.convert(342px)});
 		flex-grow: 1;
 	}
 
 	.c-sidebar__body {
 		flex-basis: 0;
 		flex-grow: 999;
-		min-inline-size: var(--sidebar-body-minimum-inline-size);
+		min-inline-size: var(--sidebar-body-minimum-inline-size, 50%);
 	}
 </style>

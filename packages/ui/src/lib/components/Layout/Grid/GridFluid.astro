@@ -13,7 +13,7 @@ const Element = as;
 <Element
 	class={`c-grid-fluid${className ? ` | ${className}` : ''}`}
 	{...attrs}
-	role={as === 'ul' || as === 'ol' ? 'list' : undefined}
+	role={['ul', 'ol'].includes(as) ? 'list' : undefined}
 >
 	<slot />
 </Element>

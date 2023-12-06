@@ -15,6 +15,7 @@
 		"./settings": "./src/lib/settings/index.ts",
 		"./primitives": "./src/lib/primitives/index.ts",
 		"./elements": "./src/lib/elements/index.ts",
+		"./components": "./src/lib/components/index.ts",
 		"./utilities": "./src/lib/utilities/index.ts",
 		"./helpers": "./src/lib/helpers/index.ts",
 		"./styles/*": "./src/lib/*.scss",

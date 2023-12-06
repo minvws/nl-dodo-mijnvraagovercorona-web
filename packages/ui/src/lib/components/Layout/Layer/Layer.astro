@@ -24,8 +24,9 @@ const Component = as;
 
 <Component
 	id={id}
-	class={`c-layer${pullUpBy ? ` c-layer--pull-up-by-${pullUpBy}` : ''}
-	c-layer${pushDownBy ? ` c-layer--push-down-by-${pushDownBy}` : ''}${
+	class={`c-layer${pullUpBy ? ` c-layer--pull-up-by-${pullUpBy}` : ''}${
+		pushDownBy ? ` c-layer--push-down-by-${pushDownBy}` : ''
+	}${
 		background
 			? background === 'zebra'
 				? ' c-layer--zebra'

@@ -24,6 +24,13 @@ export default defineConfig({
 						collapsed: true,
 					},
 				},
+				{
+					label: 'Components',
+					autogenerate: {
+						directory: '/components',
+						collapsed: true,
+					},
+				},
 			],
 		}),
 		icon({
