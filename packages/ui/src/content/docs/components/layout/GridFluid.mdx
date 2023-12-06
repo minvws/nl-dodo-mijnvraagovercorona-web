@@ -1,0 +1,75 @@
+---
+title: 'Grid Fluid'
+---
+
+import { GridFluid } from '@lib/components/Layout/Grid';
+
+The `GridFluid` element aligns its children in a grid-like fashion. It will display its children horizontally until the children get smaller than the given threshold. Then it will wrap the children on a new row.
+
+## Usage
+
+```jsx
+import { GridFluid } from '@mvoc/ui/components';
+
+<GridFluid>
+	// columns
+</GridFluid>
+```
+
+## Default
+By default, `GridFluid` will display its items horizontally until the items get smaller than `16rem`.
+
+<div class="not-content">
+	<GridFluid>
+		<div>
+		column 1
+		</div>
+		<div>
+			column 2
+		</div>
+		<div>
+			column 3
+		</div>
+		<div>
+			column 4
+		</div>
+		<div>
+			column 5
+		</div>
+	</GridFluid>
+</div>
+
+```jsx
+<GridFluid>
+	<div>
+	column 1
+	</div>
+	<div>
+		column 2
+	</div>
+	<div>
+		column 3
+	</div>
+	<div>
+		column 4
+	</div>
+	<div>
+		column 5
+	</div>
+</GridFluid>
+```
+
+## Custom properties
+
+```css
+/**
+ * 1. The minimum `inline-size` of an item, defaults to `16rem`.
+ * 2. The gap between the items, defaults to `var(--space-6)`.
+ * 3. The grid `repeat count` placement property, defaults to `auto-fill`.
+ */
+.your-component-extending-switcher {
+	--grid-fluid-min-item-siz: 45ch; /* [1] */
+	--grid-fluid-gap: 1rem; /* [2] */
+	--grid-fluid-placement: auto-fit; /* [3] */
+}
+```

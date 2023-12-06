@@ -1,0 +1,88 @@
+---
+title: 'Sidebar'
+---
+
+import { Sidebar } from '@lib/components/Layout';
+
+The `Sidebar` component switches between a horizontal and a vertical layout at a given, container-based breakpoint.
+
+## Usage
+
+```jsx
+import { Sidebar } from '@mvoc/ui/components';
+
+<Sidebar>
+	<div>
+		column 1
+	</div>
+	<div slot="aside">
+		column 2
+	</div>
+</Sidebar>
+```
+
+## Default
+By default, `Sidebar` will stack the items vertically. When the body (main column) `inline-size` can get bigger than `50%` of the parent the items will be displayed horizontally.
+
+<div class="not-content">
+	<Sidebar>
+		<div>
+			content for main column 1
+		</div>
+		<div>
+			content for main column 2
+		</div>
+		<div slot="aside">
+			content for aside column 1
+		</div>
+	</Sidebar>
+</div>
+
+```jsx
+<Sidebar>
+	<div>
+		content for main column 1
+	</div>
+	<div>
+		content for main column 2
+	</div>
+	<div slot="aside">
+		content for aside column 1
+	</div>
+</Sidebar>
+```
+
+## No Aside content
+
+When there is no content for the aside column, the main column will take up the full width.
+
+<div class="not-content">
+	<Sidebar>
+		<div>
+			content for main column 1
+		</div>
+	</Sidebar>
+</div>
+
+```jsx
+<Sidebar>
+	<div>
+		content for main column 1
+	</div>
+</Sidebar>
+```
+
+## Custom properties
+
+```css
+/**
+ * 1. The inline size of the aside, defaults to `342px` (converted to `rem`)
+ * 2. The gap between the body and the aside, defaults to `var(--space-8)`.
+ * 3. The minimum inline size of the body, defaults to `50%`.
+ */
+.your-component-extending-switcher {
+	--sidebar-side-inline-size: 16rem; /* [1] */
+	--sidebar-gap: 1rem; /* [2] */
+	--sidebar-body-minimum-inline-size: 60%; /* [3] */
+}
+```

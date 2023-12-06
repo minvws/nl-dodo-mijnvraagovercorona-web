@@ -1,0 +1,86 @@
+---
+title: 'Stack'
+---
+
+import { Stack } from '@lib/components/Layout/Stack';
+
+Flow elements require space (sometimes referred to as white space) to physically and conceptually separate them from the elements that come before and after them. The `Stack` layout component injects margin between elements via their common parent.
+
+## Usage
+
+```jsx
+import { Stack } from '@mvoc/ui/components';
+
+<Stack>
+	<p>content</p>
+	<ul>
+		<li>content</li>
+		<li>content</li>
+	</ul>
+	<p>content</p>
+</Stack>
+```
+
+## Default
+By default the `Stack` component will inject a margin of `--space-6` between elements:
+
+<div class="not-content">
+	<Stack>
+		<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis est voluptate deleniti atque molestiae, consectetur temporibus labore autem illo sequi dolorum veniam et voluptatem distinctio numquam perspiciatis eum iste! Quo?</p>
+		<ul>
+			<li>Labore autem illo sequi dolorum veniam</li>
+			<li>Voluptatem distinctio numquam perspiciatis eum iste</li>
+		</ul>
+		<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis est voluptate deleniti atque molestiae.</p>
+	</Stack>
+</div>
+
+```jsx
+<Stack>
+	<p>content</p>
+	<ul>
+		<li>content</li>
+		<li>content</li>
+	</ul>
+	<p>content</p>
+</Stack>
+```
+
+## Gap
+
+The `gap` prop can be used to change the amount of space between elements. The `gap` prop accepts a number which correspondents to our spacing variables.
+
+<div class="not-content">
+	<Stack gap={2}>
+		<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis est voluptate deleniti atque molestiae, consectetur temporibus labore autem illo sequi dolorum veniam et voluptatem distinctio numquam perspiciatis eum iste! Quo?</p>
+		<ul>
+			<li>Labore autem illo sequi dolorum veniam</li>
+			<li>Voluptatem distinctio numquam perspiciatis eum iste</li>
+		</ul>
+		<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis est voluptate deleniti atque molestiae.</p>
+	</Stack>
+</div>
+
+```jsx
+<Stack gap={2}>
+	<p>content</p>
+	<ul>
+		<li>content</li>
+		<li>content</li>
+	</ul>
+	<p>content</p>
+</Stack>
+```
+
+## Custom properties
+
+You can also set the `--stack-gap` custom property on the parent element to change the amount of space between elements.
+
+```css
+.your-component-containing-stack {
+	--stack-gap: var(--space-2);
+}
+```
+
+
+
