@@ -1,0 +1,105 @@
+---
+title: 'Modal'
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Modal } from '@lib/components/Modal';
+import { Button } from '@lib/elements/Button';
+import { InputText } from '@lib/elements/Input';
+
+The `Modal` component is used to display content in a overlay and is used to display content that is not part of the main flow of the page.
+
+## Usage
+
+```jsx
+import { Modal } from '@mvoc/ui/components';
+
+<button type="button" id="modal-ID">Open Modal</button>
+
+<Modal id="modal-ID" title="Modal title">
+	Modal content
+</Modal>
+```
+
+## Default
+
+<div class="not-content">
+	<Button type="button" id="modal-ID">Open Modal</Button>
+
+	<Modal id="modal-ID" title="Modal title">
+		Modal content
+	</Modal>
+</div>
+
+```jsx
+<Button type="button" id="modal-ID">Open Modal</Button>
+
+<Modal id="modal-ID" title="Modal title">
+	Modal content
+</Modal>
+```
+
+## Variants
+
+<Tabs>
+	<TabItem label="Default">
+		<div class="not-content">
+			<Button type="button" id="modal-default">Open Modal</Button>
+
+			<Modal id="modal-default" title="Modal title">
+				Modal content
+			</Modal>
+		</div>
+```jsx
+<Button type="button" id="modal-default">Open Modal</Button>
+
+<Modal id="modal-default" title="Modal title">
+	Modal content
+</Modal>
+```
+	</TabItem>
+
+	<TabItem label="Full">
+		<div class="not-content">
+			<Button type="button" id="modal-full">Open full modal</Button>
+
+			<Modal id="modal-full" title="Modal title" variant="full">
+				Modal content
+			</Modal>
+		</div>
+```jsx
+<Button type="button" id="modal-full">Open full modal</Button>
+
+<Modal id="modal-full" title="Modal title" variant="full">
+	Modal content
+</Modal>
+```
+	</TabItem>
+</Tabs>
+
+
+## Focus
+
+By default the modal will focus on the first focusable element inside the modal. If there is no focusable element, the modal will focus on the modal title.
+
+<div class="not-content">
+	<Button type="button" id="modal-search">Open search modal</Button>
+
+	<Modal id="modal-search" title="Modal title">
+		<InputText
+			type={'search'}
+			id={'search-field'}
+			placeholder={'Zoek op plaatsnaam...'}
+			icon={'looking-glass'}
+			clearable={'Clear Field'}
+		/>
+	</Modal>
+</div>
+
+```jsx
+<Button type="button" id="modal-search">Open search modal</Button>
+
+<Modal id="modal-search" title="Modal title">
+	Modal content
+</Modal>
+```

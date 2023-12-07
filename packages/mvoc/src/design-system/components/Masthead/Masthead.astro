@@ -224,10 +224,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 
 <script>
 	import debounce from 'src/utilities/helpers/debounce';
-	import {
-		getKeyboardFocusableElements,
-		trapFocus,
-	} from 'src/utilities/helpers/a11y';
+	import { getKeyboardFocusableElements, trapFocus } from '@mvoc/ui/helpers';
 	import { mqHuge } from '@mvoc/ui/primitives';
 
 	// select dom nodes

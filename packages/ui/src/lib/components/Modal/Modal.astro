@@ -1,21 +1,15 @@
 ---
-import { Heading } from '@mvoc/ui/elements';
+import { Heading, CloseButton } from '@mvoc/ui/elements';
 import { Stack } from '@mvoc/ui/components';
-import { CloseButton } from '@mvoc/ui/elements';
-import type { SiteSettingsProps } from 'src/utilities/api/queries';
-import { useSiteSettings } from 'src/utilities/api/queries';
-import { getLocaleFromURL } from 'src/utilities/locale/translation';
-import type { Locale } from 'src/utilities/locale/translation';
 
 export interface Props {
 	id: string;
 	title: string;
+	labelClose: string;
 	variant?: 'default' | 'full';
 }
 
-const { id, title, variant = 'default' } = Astro.props;
-const locale = getLocaleFromURL(Astro.url.pathname) as Locale;
-const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+const { id, title, labelClose, variant = 'default' } = Astro.props;
 ---
 
 <template data-module-bind="modal-root">
@@ -39,16 +33,14 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 			<CloseButton
 				class="modal__close-button"
 				data-module-bind="modal__close-button"
-				label={siteSettings.genericLabels.close}
+				label={labelClose}
 			/>
 		</div>
 	</div>
 </template>
 
 <script>
-	import { trapFocus } from 'src/utilities/helpers/a11y';
-
-	// Functions
+	import { trapFocus } from '@mvoc/ui/helpers';
 
 	// Clone templates to the body element and then remove the template
 	const transferModalToRoot = (element: HTMLTemplateElement) => {
@@ -63,7 +55,14 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 		const firstInput = modal.querySelector('input') as HTMLInputElement;
 		modal.classList.add('is-visible');
 		document.body.classList.add('modal-is-visible');
-		firstInput ? firstInput.focus() : modalTitle.focus();
+
+		// Focus on the first input or the modal title
+		if (firstInput) {
+			firstInput.focus();
+		} else if (modalTitle) {
+			modalTitle.focus();
+		}
+
 		document.addEventListener('keydown', trapFocus.bind(null, modal), false);
 		modal.addEventListener('keydown', (event) => {
 			if (event.key === 'Escape') {
@@ -101,10 +100,10 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 		const modalID = modal.getAttribute('aria-labelledby');
 		const modalCloseButton = modal.querySelector(
 			'[data-module-bind="modal__close-button"]',
-		);
+		) as HTMLButtonElement;
 		const modalInner = modal.querySelector<HTMLDivElement>(
 			'[data-module-bind="modal__inner"]',
-		);
+		) as HTMLDivElement;
 		const modalTrigger = document.querySelector(`#${modalID}`) as HTMLElement;
 
 		// event listeners
