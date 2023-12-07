@@ -1,12 +1,16 @@
 ---
 // @ts-nocheck
 import type { HTMLAttributes } from 'astro/types';
-import { CarouselItemProps } from 'src/utilities/api/queries';
+import {
+	CarouselItemProps,
+	useSiteSettings,
+	type SiteSettingsProps,
+} from 'src/utilities/api/queries';
 import { parseLink } from 'src/utilities/helpers/link';
 import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import { MultiContentBlock } from '../ContentBlock';
-import { Modal } from '../Modal';
+import { Modal } from '@mvoc/ui/components';
 
 interface Button extends HTMLAttributes<'button'>, CarouselItemProps {}
 interface Link extends HTMLAttributes<'a'>, CarouselItemProps {}
@@ -23,6 +27,7 @@ const {
 	...attrs
 } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
+const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 
 const href = slugCollection?.slug
 	? parseLink(getFullPageUrl(slugCollection), locale)
@@ -51,7 +56,11 @@ const Element = href ? 'a' : 'button';
 	</Element>
 	{
 		!href ? (
-			<Modal title={headline} id={`info-modal-${id}`}>
+			<Modal
+				title={headline}
+				id={`info-modal-${id}`}
+				labelClose={siteSettings.genericLabels.close}
+			>
 				{multiContentBlocks ? (
 					<MultiContentBlock multiContentBlocks={multiContentBlocks} />
 				) : null}

@@ -1,6 +1,6 @@
 ---
 import { Mark } from 'astro-portabletext/components';
-import { Modal } from '@design-system/components/Modal';
+import { Modal } from '@mvoc/ui/components';
 import { Link } from '@mvoc/ui/elements';
 import type { ImageProps } from 'src/utilities/api/queries';
 import type { SiteSettingsProps } from 'src/utilities/api/queries';
@@ -41,7 +41,11 @@ const { children, mark } = {
 	<ContentBlock value={children} />
 </Link>
 
-<Modal id={`inline-modal-${mark._key}`} title={mark.title}>
+<Modal
+	id={`inline-modal-${mark._key}`}
+	title={mark.title}
+	labelClose={siteSettings.genericLabels.close}
+>
 	<Stack>
 		{
 			mark.image?.src ? (

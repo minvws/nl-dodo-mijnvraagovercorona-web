@@ -1,20 +1,24 @@
 ---
 import { Icon } from '@mvoc/ui/elements';
 import type { HTMLAttributes } from 'astro/types';
-import { Modal } from '.';
-import { getLocaleFromURL } from 'src/utilities/locale/translation';
-import type { SiteSettingsProps } from 'src/utilities/api/queries';
-import { useSiteSettings } from 'src/utilities/api/queries';
+import { Modal, type ModalProps } from '.';
 
-interface Props extends HTMLAttributes<'button'> {
-	id: string;
-	title: string;
+type StrippedButtonProps = Omit<HTMLAttributes<'button'>, 'id' | 'title'>;
+
+interface Props extends StrippedButtonProps, ModalProps {
 	label: string;
+	iconDescription?: string;
 }
 
-const { class: className, id, title, label, ...attrs } = Astro.props;
-const locale = getLocaleFromURL(Astro.url.pathname);
-const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+const {
+	class: className,
+	id,
+	title,
+	label,
+	labelClose,
+	iconDescription,
+	...attrs
+} = Astro.props;
 ---
 
 <>
@@ -30,11 +34,11 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 		<Icon
 			class="c-info-modal__icon"
 			name="info"
-			description={siteSettings.accessibility.labelModal}
+			description={iconDescription}
 		/>
 	</button>
 
-	<Modal id={`info-modal-${id}`} title={title}>
+	<Modal id={`info-modal-${id}`} title={title} labelClose={labelClose}>
 		<slot />
 	</Modal>
 </>

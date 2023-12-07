@@ -1,6 +1,6 @@
 import { mqWide, mqLargeUntil } from '@mvoc/ui/primitives';
 import queryString from 'query-string';
-import { trapFocus } from 'src/utilities/helpers/a11y';
+import { trapFocus } from '@mvoc/ui/helpers';
 import type {
 	FeatureProps,
 	FeaturesProps,
