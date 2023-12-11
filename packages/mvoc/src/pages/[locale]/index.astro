@@ -23,10 +23,7 @@ import { MoreInfoOverview } from '@design-system/components/MoreInfo';
 import { Heading } from '@mvoc/ui/elements';
 import { Card } from '@design-system/components/Card';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
-import {
-	useSiteSettings,
-	type SiteSettingsProps,
-} from 'src/utilities/api/queries';
+import { useSiteSettings } from 'src/utilities/api/queries';
 import { Feedback } from '@design-system/components/Feedback';
 
 export async function getStaticPaths() {
@@ -70,7 +67,7 @@ const { filters, ctaButtons } = getFiltersAndSituations({
 	ctaButtonCollection: pageData.important.ctaButtonCollection,
 });
 
-const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+const siteSettings = await useSiteSettings({ locale });
 ---
 
 <Layout

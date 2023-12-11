@@ -3,7 +3,6 @@ import { Heading } from '@mvoc/ui/elements';
 import { Stack } from '@mvoc/ui/components';
 import { Card } from '.';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
-import type { SiteSettingsProps } from 'src/utilities/api/queries';
 import { useSiteSettings } from 'src/utilities/api/queries';
 
 interface Props {
@@ -13,7 +12,7 @@ interface Props {
 
 const { title, day } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
-const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+const siteSettings = await useSiteSettings({ locale });
 ---
 
 <Card data-module="dynamic-day" data-locale={locale.locale}>

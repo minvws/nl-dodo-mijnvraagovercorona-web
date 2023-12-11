@@ -1,10 +1,6 @@
 ---
 import { type AlternativeTranslationsProps } from '@design-system/components/LocaleSelector';
-import {
-	type MetaDataProps,
-	type SiteSettingsProps,
-	useSiteSettings,
-} from 'src/utilities/api/queries';
+import { type MetaDataProps, useSiteSettings } from 'src/utilities/api/queries';
 import { type Locale } from 'src/utilities/locale/translation';
 
 export interface Props extends MetaDataProps {
@@ -22,7 +18,7 @@ const {
 	noIndex,
 	alternativeTranslations,
 } = Astro.props;
-const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+const siteSettings = await useSiteSettings({ locale });
 
 const currentUrl = Astro.url.toString();
 const urlWithLocale = currentUrl.includes(locale.urlPrefix)

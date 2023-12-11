@@ -19,7 +19,6 @@ import { Breadcrumbs } from '@design-system/components/Breadrumbs';
 import {
 	getFiltersAndSituations,
 	useSiteSettings,
-	type SiteSettingsProps,
 } from 'src/utilities/api/queries';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
@@ -58,7 +57,7 @@ const { pageData, locale } = Astro.props;
 const { filters, ctaButtons } = getFiltersAndSituations({
 	ctaButtonCollection: pageData.ctaButtonCollection,
 });
-const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+const siteSettings = await useSiteSettings({ locale });
 ---
 
 <Layout

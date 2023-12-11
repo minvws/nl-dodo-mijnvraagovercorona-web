@@ -6,8 +6,6 @@ import { Retain } from '@mvoc/ui/components';
 import { Stack } from '@mvoc/ui/components';
 import { Switcher } from '@mvoc/ui/components';
 import { UpdatedAt } from '@mvoc/ui/elements';
-
-import type { SiteSettingsProps } from 'src/utilities/api/queries';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
 
@@ -36,7 +34,7 @@ const {
 } = Astro.props;
 
 const locale = getLocaleFromURL(Astro.url.pathname);
-const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+const siteSettings = await useSiteSettings({ locale });
 ---
 
 <header
@@ -74,14 +72,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 								)
 							}
 						</Heading>
-						{
-							updatedAt ? (
-								<UpdatedAt time={updatedAt} locale={locale.locale}>
-									{siteSettings.genericLabels.updatedAt}
-									{''}
-								</UpdatedAt>
-							) : null
-						}
+						{updatedAt ? <UpdatedAt time={updatedAt} /> : null}
 						{
 							chapeau ? (
 								<Chapeau

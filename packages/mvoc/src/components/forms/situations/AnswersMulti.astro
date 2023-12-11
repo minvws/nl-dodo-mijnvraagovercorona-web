@@ -15,10 +15,7 @@ import { parseLink } from 'src/utilities/helpers/link';
 import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import { InfoModal } from '@mvoc/ui/components';
-import {
-	useSiteSettings,
-	type SiteSettingsProps,
-} from 'src/utilities/api/queries';
+import { useSiteSettings } from 'src/utilities/api/queries';
 
 export interface Props {
 	answers: QuestionPageProps['question']['multi'];
@@ -40,7 +37,7 @@ const {
 	hideLabel = true,
 } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
-const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+const siteSettings = await useSiteSettings({ locale });
 
 const split = showMore?.max || 6;
 
@@ -109,7 +106,6 @@ const parsedButtons = buttons?.map((button, index) => {
 											label={modalReference.title}
 											slot="after-label"
 											iconDescription={siteSettings.accessibility.labelModal}
-											labelClose={siteSettings.genericLabels.close}
 										>
 											<ContentBlock value={modalReference.content} />
 										</InfoModal>
@@ -158,7 +154,6 @@ const parsedButtons = buttons?.map((button, index) => {
 														iconDescription={
 															siteSettings.accessibility.labelModal
 														}
-														labelClose={siteSettings.genericLabels.close}
 													>
 														<ContentBlock value={modalReference.content} />
 													</InfoModal>

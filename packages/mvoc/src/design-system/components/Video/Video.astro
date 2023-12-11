@@ -2,7 +2,6 @@
 import { Icon, Link, Button } from '@mvoc/ui/elements';
 import type { HTMLAttributes } from 'astro/types';
 import type { ImageProps } from 'src/utilities/api/queries';
-import type { SiteSettingsProps } from 'src/utilities/api/queries';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import type { PictureProps } from '../Picture';
@@ -33,7 +32,7 @@ const {
 	...attrs
 } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
-const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+const siteSettings = await useSiteSettings({ locale });
 const embedUrl = getVideoEmbedUrl({
 	url,
 	options: {

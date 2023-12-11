@@ -21,7 +21,6 @@ import { Tale } from '@design-system/components/Tale';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { TabsBlock } from '@design-system/components/TabsBlock';
 import { Carousel } from '@design-system/components/Carousel';
-import type { SiteSettingsProps } from 'src/utilities/api/queries';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import { GridFluid } from '@mvoc/ui/components';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
@@ -61,7 +60,7 @@ interface Props {
 }
 
 const { pageData, locale } = Astro.props;
-const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+const siteSettings = await useSiteSettings({ locale });
 
 /**
  * Split tales into 2 groups

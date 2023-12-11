@@ -1,11 +1,7 @@
 ---
 // @ts-nocheck
 import type { HTMLAttributes } from 'astro/types';
-import {
-	CarouselItemProps,
-	useSiteSettings,
-	type SiteSettingsProps,
-} from 'src/utilities/api/queries';
+import { CarouselItemProps } from 'src/utilities/api/queries';
 import { parseLink } from 'src/utilities/helpers/link';
 import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
@@ -27,7 +23,6 @@ const {
 	...attrs
 } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
-const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 
 const href = slugCollection?.slug
 	? parseLink(getFullPageUrl(slugCollection), locale)
@@ -56,11 +51,7 @@ const Element = href ? 'a' : 'button';
 	</Element>
 	{
 		!href ? (
-			<Modal
-				title={headline}
-				id={`info-modal-${id}`}
-				labelClose={siteSettings.genericLabels.close}
-			>
+			<Modal title={headline} id={`info-modal-${id}`}>
 				{multiContentBlocks ? (
 					<MultiContentBlock multiContentBlocks={multiContentBlocks} />
 				) : null}

@@ -1,13 +1,18 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
-import { formatLongDate } from '@mvoc/ui/helpers';
+import {
+	formatLongDate,
+	getLocaleFromURL,
+	useGlobalData,
+} from '@mvoc/ui/helpers';
 
 interface Props extends HTMLAttributes<'small'> {
 	time: string;
-	locale: string;
 }
 
-const { time, locale, class: className, ...attrs } = Astro.props;
+const { time, class: className, ...attrs } = Astro.props;
+const locale = getLocaleFromURL(Astro.url.pathname);
+const globalData = useGlobalData({ locale });
 ---
 
 <small
@@ -16,7 +21,8 @@ const { time, locale, class: className, ...attrs } = Astro.props;
 	data-pagefind-ignore
 >
 	<slot />
+	{globalData.updatedAt}{' '}
 	<time datetime={time}>
-		{formatLongDate(new Date(time), locale)}
+		{formatLongDate(new Date(time), locale.locale)}
 	</time>
 </small>

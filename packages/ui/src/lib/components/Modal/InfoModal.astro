@@ -15,7 +15,6 @@ const {
 	id,
 	title,
 	label,
-	labelClose,
 	iconDescription,
 	...attrs
 } = Astro.props;
@@ -38,7 +37,7 @@ const {
 		/>
 	</button>
 
-	<Modal id={`info-modal-${id}`} title={title} labelClose={labelClose}>
+	<Modal id={`info-modal-${id}`} title={title}>
 		<slot />
 	</Modal>
 </>
