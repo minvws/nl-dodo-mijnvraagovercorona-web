@@ -1,13 +1,13 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
 import { Icon } from '@mvoc/ui/elements';
-import type { string } from 'astro/zod';
+import { useGlobalData, getLocaleFromURL } from '@mvoc/ui/helpers';
 
-interface Props extends HTMLAttributes<'button'> {
-	label: string;
-}
+interface Props extends HTMLAttributes<'button'> {}
 
-const { label, class: className, ...attrs } = Astro.props;
+const { class: className, ...attrs } = Astro.props;
+const locale = getLocaleFromURL(Astro.url.pathname);
+const globalData = useGlobalData({ locale });
 ---
 
 <button
@@ -17,7 +17,7 @@ const { label, class: className, ...attrs } = Astro.props;
 >
 	<Icon name="cross" class="e-close-button__icon" />
 	<span class="u-visually-hidden">
-		{label}
+		{globalData.close}
 	</span>
 </button>
 

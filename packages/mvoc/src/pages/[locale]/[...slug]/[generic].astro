@@ -13,7 +13,6 @@ import { Stack } from '@mvoc/ui/components';
 import { TaleList } from '@design-system/components/Tale';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { Assistance } from '@design-system/components/Assistance';
-import type { SiteSettingsProps } from 'src/utilities/api/queries';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import { Heading } from '@mvoc/ui/elements';
 import { MoreInfoOverview } from '@design-system/components/MoreInfo';
@@ -55,7 +54,7 @@ interface Props {
 }
 
 const { pageData, locale } = Astro.props;
-const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+const siteSettings = await useSiteSettings({ locale });
 ---
 
 <Layout

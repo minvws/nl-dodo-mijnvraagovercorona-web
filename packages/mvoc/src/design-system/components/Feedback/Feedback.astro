@@ -1,7 +1,6 @@
 ---
 import { Control, Heading, Button } from '@mvoc/ui/elements';
 import type { HTMLAttributes } from 'astro/types';
-import type { SiteSettingsProps } from 'src/utilities/api/queries';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import { Card } from '../Card';
@@ -16,7 +15,7 @@ interface Props extends HTMLAttributes<'section'> {
 
 const { class: className, url, name, ...attrs } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
-const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+const siteSettings = await useSiteSettings({ locale });
 const formId = `form-${uuidv4()}`;
 const isExternal = isExternalUrl(url);
 ---

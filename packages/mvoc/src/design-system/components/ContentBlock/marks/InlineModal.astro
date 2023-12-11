@@ -3,7 +3,6 @@ import { Mark } from 'astro-portabletext/components';
 import { Modal } from '@mvoc/ui/components';
 import { Link } from '@mvoc/ui/elements';
 import type { ImageProps } from 'src/utilities/api/queries';
-import type { SiteSettingsProps } from 'src/utilities/api/queries';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import type { ContentBlockProps } from '..';
 import ContentBlock from '../ContentBlock.astro';
@@ -25,7 +24,7 @@ interface DialogProps {
 const props = Astro.props;
 
 const locale = getLocaleFromURL(Astro.url.pathname);
-const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+const siteSettings = await useSiteSettings({ locale });
 
 const { children, mark } = {
 	children: props.node.children,
@@ -41,11 +40,7 @@ const { children, mark } = {
 	<ContentBlock value={children} />
 </Link>
 
-<Modal
-	id={`inline-modal-${mark._key}`}
-	title={mark.title}
-	labelClose={siteSettings.genericLabels.close}
->
+<Modal id={`inline-modal-${mark._key}`} title={mark.title}>
 	<Stack>
 		{
 			mark.image?.src ? (

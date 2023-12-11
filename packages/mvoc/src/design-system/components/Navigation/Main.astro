@@ -1,6 +1,5 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
-import type { SiteSettingsProps } from 'src/utilities/api/queries';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import { Link } from '@mvoc/ui/elements';
@@ -12,7 +11,7 @@ interface Props extends HTMLAttributes<'div'> {}
 
 const { class: className, ...attrs } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
-const { masthead, feedback }: SiteSettingsProps = await useSiteSettings({
+const { masthead, feedback } = await useSiteSettings({
 	locale,
 });
 

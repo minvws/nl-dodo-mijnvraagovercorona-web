@@ -5,11 +5,10 @@ import { Stack } from '@mvoc/ui/components';
 export interface Props {
 	id: string;
 	title: string;
-	labelClose: string;
 	variant?: 'default' | 'full';
 }
 
-const { id, title, labelClose, variant = 'default' } = Astro.props;
+const { id, title, variant = 'default' } = Astro.props;
 ---
 
 <template data-module-bind="modal-root">
@@ -33,7 +32,6 @@ const { id, title, labelClose, variant = 'default' } = Astro.props;
 			<CloseButton
 				class="modal__close-button"
 				data-module-bind="modal__close-button"
-				label={labelClose}
 			/>
 		</div>
 	</div>

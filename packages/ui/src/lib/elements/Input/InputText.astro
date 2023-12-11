@@ -1,13 +1,14 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
 import { Icon, type IconProps } from '@mvoc/ui/elements';
+import { getLocaleFromURL, useGlobalData } from '@mvoc/ui/helpers';
 
 export interface Props extends HTMLAttributes<'div'> {
 	type?: 'text' | 'search' | 'email' | 'password' | 'url' | 'tel';
 	id: string;
 	placeholder?: string;
 	icon?: IconProps['name'];
-	clearable?: string;
+	clearable?: boolean;
 }
 
 const {
@@ -19,6 +20,9 @@ const {
 	clearable,
 	...attrs
 } = Astro.props;
+
+const locale = getLocaleFromURL(Astro.url.pathname);
+const globalData = useGlobalData({ locale });
 ---
 
 <div
@@ -45,7 +49,7 @@ const {
 				type="button"
 			>
 				<Icon class="c-input-text__icon-clear" name="cross" />
-				<span class="u-visually-hidden">{clearable}</span>
+				<span class="u-visually-hidden">{globalData.clearField}</span>
 			</button>
 		) : null
 	}

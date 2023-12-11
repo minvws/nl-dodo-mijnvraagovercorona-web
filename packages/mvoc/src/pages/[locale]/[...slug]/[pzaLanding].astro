@@ -16,7 +16,6 @@ import { Assistance } from '@design-system/components/Assistance';
 import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
 import { Feedback } from '@design-system/components/Feedback';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
-import type { SiteSettingsProps } from 'src/utilities/api/queries';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import { Breadcrumbs } from '@design-system/components/Breadrumbs';
 import { stringToSlug } from 'src/utilities/stringToSlug';
@@ -56,7 +55,7 @@ interface Props {
 }
 
 const { pageData, locale } = Astro.props;
-const siteSettings: SiteSettingsProps = await useSiteSettings({
+const siteSettings = await useSiteSettings({
 	locale,
 });
 ---

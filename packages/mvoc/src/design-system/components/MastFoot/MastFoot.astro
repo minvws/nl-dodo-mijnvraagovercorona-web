@@ -1,7 +1,6 @@
 ---
 import { Heading } from '@mvoc/ui/elements';
 import { ContentBlock } from '@design-system/components/ContentBlock';
-import type { SiteSettingsProps } from 'src/utilities/api/queries';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import type { Locale } from 'src/utilities/locale/translation';
 import { Layer } from '@mvoc/ui/components';
@@ -16,7 +15,7 @@ interface Props {
 }
 
 const { locale } = Astro.props;
-const siteSettingsTranslated: SiteSettingsProps = await useSiteSettings({
+const siteSettings = await useSiteSettings({
 	locale,
 });
 ---
@@ -25,11 +24,11 @@ const siteSettingsTranslated: SiteSettingsProps = await useSiteSettings({
 	<Layer as="div" class="c-mastfoot__layer">
 		<Retain>
 			<Heading class="u-visually-hidden">
-				{siteSettingsTranslated.mastfoot.title}
+				{siteSettings.mastfoot.title}
 			</Heading>
 			<GridFluid class="c-mastfoot__grid">
 				{
-					siteSettingsTranslated.mastfoot.columns.map((column) => (
+					siteSettings.mastfoot.columns.map((column) => (
 						<Stack gap={4}>
 							<Heading level={3}>{column.title}</Heading>
 							{column.content ? <ContentBlock value={column.content} /> : null}

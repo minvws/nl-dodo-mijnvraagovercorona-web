@@ -4,7 +4,6 @@ import type { HTMLAttributes } from 'astro/types';
 import Search from 'astro-pagefind/components/Search';
 import { Modal } from '@mvoc/ui/components';
 import { Icon, ButtonTool } from '@mvoc/ui/elements';
-import type { SiteSettingsProps } from 'src/utilities/api/queries';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
 
@@ -12,7 +11,7 @@ interface Props extends HTMLAttributes<'div'> {}
 
 const { class: className, ...attrs } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
-const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+const siteSettings = await useSiteSettings({ locale });
 ---
 
 <c-finder class={`c-finder${className ? ` | ${className}` : ''}`} {...attrs}>
@@ -29,7 +28,6 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 		id="finder-modal"
 		title={siteSettings.genericLabels.search}
 		variant="full"
-		labelClose={siteSettings.genericLabels.close}
 	>
 		<Search id="c-search__pagefind" uiOptions={{ showSubResults: true }} />
 	</Modal>

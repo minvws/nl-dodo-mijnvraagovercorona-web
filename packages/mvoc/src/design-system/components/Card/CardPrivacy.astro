@@ -3,7 +3,6 @@ import { Heading } from '@mvoc/ui/elements';
 import { Stack } from '@mvoc/ui/components';
 import { Card } from '.';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
-import type { SiteSettingsProps } from 'src/utilities/api/queries';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import { Icon as AstroIcon } from 'astro-icon/components';
 
@@ -11,7 +10,7 @@ interface Props {}
 
 const {} = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
-const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+const siteSettings = await useSiteSettings({ locale });
 ---
 
 <Card variant="frost" class="c-card-privacy" data-pagefind-ignore="all">

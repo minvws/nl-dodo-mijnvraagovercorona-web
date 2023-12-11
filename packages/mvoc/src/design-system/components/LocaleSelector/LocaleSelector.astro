@@ -1,6 +1,5 @@
 ---
 import { Icon, Link } from '@mvoc/ui/elements';
-import type { SiteSettingsProps } from 'src/utilities/api/queries';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import type { Locale } from 'src/utilities/locale/translation';
 import {
@@ -16,7 +15,7 @@ interface Props {
 
 const { alternativeTranslations, compact } = Astro.props;
 const currentLocale = getLocaleFromURL(Astro.url.pathname) as Locale;
-const siteSettings: SiteSettingsProps = await useSiteSettings({
+const siteSettings = await useSiteSettings({
 	locale: currentLocale,
 });
 

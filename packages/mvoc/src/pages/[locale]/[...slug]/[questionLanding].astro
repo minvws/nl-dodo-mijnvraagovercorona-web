@@ -18,10 +18,7 @@ import { CardPrivacy } from '@design-system/components/Card';
 import { SupportBlock } from '@design-system/components/SupportBlock';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
-import {
-	useSiteSettings,
-	type SiteSettingsProps,
-} from 'src/utilities/api/queries';
+import { useSiteSettings } from 'src/utilities/api/queries';
 import { Feedback } from '@design-system/components/Feedback';
 
 export async function getStaticPaths() {
@@ -58,7 +55,7 @@ interface Props {
 }
 
 const { pageData, locale } = Astro.props;
-const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+const siteSettings = await useSiteSettings({ locale });
 ---
 
 <Layout

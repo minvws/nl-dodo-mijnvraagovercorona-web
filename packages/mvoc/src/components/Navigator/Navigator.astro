@@ -11,7 +11,6 @@ import { CloseButton } from '@mvoc/ui/elements';
 import { Heading } from '@mvoc/ui/elements';
 import type { HTMLAttributes } from 'astro/types';
 import type { LocationsPageProps } from 'src/utilities/api';
-import type { SiteSettingsProps } from 'src/utilities/api/queries';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import type { Locale } from 'src/utilities/locale/translation';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
@@ -32,7 +31,7 @@ const { class: className, pageData, ...attrs } = Astro.props;
 const currentPathName = Astro.url.pathname;
 const locale = getLocaleFromURL(currentPathName) as Locale;
 
-const siteSettings: SiteSettingsProps = await useSiteSettings({
+const siteSettings = await useSiteSettings({
 	locale,
 });
 ---
@@ -107,7 +106,6 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		<CloseButton
 			class="c-navigator__map-close"
 			data-module-bind="navigator__map-close"
-			label={siteSettings.genericLabels.close}
 		/>
 		<div
 			class="c-navigator__map"
@@ -127,7 +125,6 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 			<CloseButton
 				class="c-navigator__detail-close"
 				data-module-bind="navigator__detail-close"
-				label={siteSettings.genericLabels.close}
 			/>
 			<div
 				class="c-navigator__detail-scroller"

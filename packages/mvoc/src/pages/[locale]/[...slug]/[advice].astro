@@ -7,7 +7,6 @@ import { ContentBlock } from '@design-system/components/ContentBlock';
 import type { AdvicePageProps } from 'src/utilities/api/advice';
 import { getDataAdvicePages } from 'src/utilities/api/advice';
 import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
-import type { SiteSettingsProps } from 'src/utilities/api/queries';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import { Advice } from '@design-system/components/Advice';
 import { Layer } from '@mvoc/ui/components';
@@ -79,7 +78,7 @@ interface Props {
 }
 
 const { pageData, pageDay, locale } = Astro.props;
-const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+const siteSettings = await useSiteSettings({ locale });
 
 // Get most relevant answer
 const answer = pageData?.answer
