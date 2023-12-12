@@ -1,60 +1,53 @@
 ---
-// @ts-nocheck
-import type { HTMLAttributes } from 'astro/types';
-import { CarouselItemProps } from 'src/utilities/api/queries';
-import { parseLink } from 'src/utilities/helpers/link';
-import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
-import { getLocaleFromURL } from 'src/utilities/locale/translation';
-import { MultiContentBlock } from '../ContentBlock';
+import { type HTMLAttributes } from 'astro/types';
 import { Modal } from '@mvoc/ui/components';
 
-interface Button extends HTMLAttributes<'button'>, CarouselItemProps {}
-interface Link extends HTMLAttributes<'a'>, CarouselItemProps {}
-type Props = Button | Link;
+interface Props extends HTMLAttributes<'li'> {
+	id: string;
+	headline: string;
+	src: string;
+	suffix?: string;
+	href?: string;
+}
 
 const {
-	class: className,
 	id,
 	headline,
-	openItem,
-	image,
-	slugCollection,
-	multiContentBlocks,
+	src,
+	suffix,
+	href,
+	class: className,
 	...attrs
 } = Astro.props;
-const locale = getLocaleFromURL(Astro.url.pathname);
 
-const href = slugCollection?.slug
-	? parseLink(getFullPageUrl(slugCollection), locale)
-	: slugCollection?.asset
-	? slugCollection.asset
-	: null;
-
-const Element = href ? 'a' : 'button';
+const InteractiveElement = href ? 'a' : 'button';
 ---
 
 <>
-	<Element
-		type={Element === 'button' ? 'button' : undefined}
-		class={`c-carousel-item${className ? ` | ${className}` : ''}`}
-		href={href ? href : undefined}
-		id={!href ? `info-modal-${id}` : undefined}
+	<li
+		class={`c-carousel__pane${className ? ` | ${className}` : ''}`}
 		{...attrs}
+		data-module-bind="c-carousel__pane"
 	>
-		<img src={image.src} alt="" loading="lazy" />
-		<div class="c-carousel-item__body">
-			<span class="c-carousel-item__headline">
-				{headline}
-			</span>
-			{openItem ? <span role="presentation">{openItem}</span> : null}
-		</div>
-	</Element>
+		<InteractiveElement
+			class="c-carousel__pane__control"
+			type={InteractiveElement === 'button' ? 'button' : undefined}
+			href={href ? href : undefined}
+			id={!href ? `info-modal-${id}` : undefined}
+		>
+			<img src={src} alt="" loading="lazy" />
+			<div class="c-carousel__pane__body">
+				<span class="c-carousel__pane__headline">
+					{headline}
+				</span>
+				{suffix ? <span role="presentation">{suffix}</span> : null}
+			</div>
+		</InteractiveElement>
+	</li>
 	{
 		!href ? (
 			<Modal title={headline} id={`info-modal-${id}`}>
-				{multiContentBlocks ? (
-					<MultiContentBlock multiContentBlocks={multiContentBlocks} />
-				) : null}
+				<slot />
 			</Modal>
 		) : null
 	}
@@ -69,7 +62,7 @@ const Element = href ? 'a' : 'button';
 	 * 1. Height of a slide is always 100% of the viewport minus the spacing
 	 *    between top track and indicators. With a max of 520px height
 	 */
-	.c-carousel-item {
+	.c-carousel__pane__control {
 		position: relative;
 		display: block;
 		block-size: calc(
@@ -113,7 +106,7 @@ const Element = href ? 'a' : 'button';
 		}
 	}
 
-	.c-carousel-item__body {
+	.c-carousel__pane__body {
 		position: absolute;
 		inset-block-end: 0;
 		display: flex;
@@ -125,7 +118,7 @@ const Element = href ? 'a' : 'button';
 		font-weight: bold;
 		color: var(--carousel__card-color);
 
-		.c-carousel-item__headline {
+		.c-carousel__pane__headline {
 			font-size: var(--font-size-beta);
 			line-height: var(--line-height-delta);
 			text-decoration: none;

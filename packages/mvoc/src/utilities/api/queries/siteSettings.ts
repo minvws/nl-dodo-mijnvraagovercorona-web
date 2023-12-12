@@ -282,6 +282,9 @@ export async function setUIGlobalDataFromSiteSettings() {
 				close: siteSettingsTranslated[locale.id].genericLabels.close,
 				updatedAt: siteSettingsTranslated[locale.id].genericLabels.updatedAt,
 				clearField: siteSettingsTranslated[locale.id].forms.clearField,
+				previous: siteSettingsTranslated[locale.id].genericLabels.previous,
+				next: siteSettingsTranslated[locale.id].genericLabels.next,
+				goTo: siteSettingsTranslated[locale.id].genericLabels.goTo,
 			},
 		};
 	}, {} as GlobalDataByLocale);

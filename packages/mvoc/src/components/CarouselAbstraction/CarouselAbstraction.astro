@@ -1,0 +1,47 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { Layer } from '@mvoc/ui/components';
+import { Retain } from '@mvoc/ui/components';
+import type { CarouselProps } from 'src/utilities/api/queries';
+import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
+import { getLocaleFromURL } from 'src/utilities/locale/translation';
+import { parseLink } from 'src/utilities/helpers/link';
+import { Carousel, CarouselPane } from '@mvoc/ui/components';
+import { MultiContentBlock } from '@design-system/components/ContentBlock';
+
+interface Props extends HTMLAttributes<'div'> {
+	title: string;
+	items: CarouselProps['carouselItems'];
+}
+
+const { title, items } = Astro.props;
+const locale = getLocaleFromURL(Astro.url.pathname);
+---
+
+<Layer data-pagefind-ignore="all">
+	<Retain>
+		<Carousel title={title}>
+			{
+				items.map((item) => (
+					<CarouselPane
+						id={item.id}
+						headline={item.headline}
+						suffix={item.openItem}
+						src={item.image.src}
+						href={
+							item.slugCollection?.slug
+								? parseLink(getFullPageUrl(item.slugCollection), locale)
+								: item.slugCollection?.asset
+								? item.slugCollection.asset
+								: null
+						}
+					>
+						{item.multiContentBlocks ? (
+							<MultiContentBlock multiContentBlocks={item.multiContentBlocks} />
+						) : null}
+					</CarouselPane>
+				))
+			}
+		</Carousel>
+	</Retain>
+</Layer>

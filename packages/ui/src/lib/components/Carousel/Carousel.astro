@@ -1,84 +1,74 @@
 ---
-import type { HTMLAttributes } from 'astro/types';
-import { Layer } from '@mvoc/ui/components';
-import { Retain } from '@mvoc/ui/components';
-import { Heading } from '@mvoc/ui/elements';
-import type { CarouselProps } from 'src/utilities/api/queries';
+import { type HTMLAttributes } from 'astro/types';
+import { getLocaleFromURL, useGlobalData } from '@mvoc/ui/helpers';
 import { Stack } from '@mvoc/ui/components';
-import { Icon } from '@mvoc/ui/elements';
-import CarouselItem from './CarouselItem.astro';
+import { Heading, Icon } from '@mvoc/ui/elements';
 
 interface Props extends HTMLAttributes<'div'> {
 	title: string;
-	carousel: CarouselProps['carouselItems'];
-	goTo?: string;
-	previous?: string;
-	next?: string;
 }
 
-const { title, carousel, goTo, previous, next } = Astro.props;
+const { title, class: className, ...attrs } = Astro.props;
+
+const locale = getLocaleFromURL(Astro.url.pathname);
+const globalData = useGlobalData({ locale });
 ---
 
-<Layer data-pagefind-ignore="all">
-	<c-carousel class="c-carousel">
-		<Stack>
-			<Retain class="c-carousel__top">
-				<Heading level={2}>{title}</Heading>
-				<div class="c-carousel__nav">
-					<button
-						class="c-carousel__nav__button c-carousel__nav__button--prev"
-						type="button"
-						aria-label={previous}
-						data-module-bind="c-carousel__nav__prev"
-					>
-						<Icon name={'chevron-small-left'} />
-					</button>
-					<button
-						class="c-carousel__nav__button c-carousel__nav__button--next"
-						type="button"
-						aria-label={next}
-						data-module-bind="c-carousel__nav__next"
-					>
-						<Icon name={'chevron-small-right'} />
-					</button>
-				</div>
-			</Retain>
-			<Retain class="c-carousel__wrap-track">
-				<ul
-					class="c-carousel__track"
-					data-module-bind="c-carousel__track"
-					role="list"
+<c-carousel
+	class={`c-carousel${className ? ` | ${className}` : ''}`}
+	{...attrs}
+>
+	<Stack>
+		<div class="c-carousel__top">
+			<Heading level={2}>{title}</Heading>
+			<div class="c-carousel__nav">
+				<button
+					class="c-carousel__nav__button c-carousel__nav__button--prev"
+					type="button"
+					aria-label={globalData.previous}
+					data-module-bind="c-carousel__nav__prev"
 				>
-					{
-						carousel.map((item) => (
-							<li class="c-carousel__pane" data-module-bind="c-carousel__pane">
-								{item.image && item.image.src ? (
-									<CarouselItem {...item} />
-								) : null}
-							</li>
-						))
-					}
-				</ul>
-			</Retain>
-
-			<div class="c-carousel__wrap-indicators">
-				{
-					carousel.map((item, index) => (
-						<button
-							class="c-carousel__indicator"
-							aria-label={`${item.headline}`}
-							data-module-bind="c-carousel__indicator"
-						>
-							<span class="u-visually-hidden">
-								{goTo} item {index + 1}
-							</span>
-						</button>
-					))
-				}
+					<Icon name="chevron-small-left" />
+				</button>
+				<button
+					class="c-carousel__nav__button c-carousel__nav__button--next"
+					type="button"
+					aria-label={globalData.next}
+					data-module-bind="c-carousel__nav__next"
+				>
+					<Icon name={'chevron-small-right'} />
+				</button>
 			</div>
-		</Stack>
-	</c-carousel>
-</Layer>
+		</div>
+		<div class="c-carousel__wrap-track">
+			<ul
+				class="c-carousel__track"
+				data-module-bind="c-carousel__track"
+				role="list"
+			>
+				<slot />
+			</ul>
+		</div>
+
+		<div
+			class="c-carousel__wrap-indicators"
+			data-module-bind="c-carousel__indicators"
+		>
+		</div>
+	</Stack>
+	<template data-module-bind="c-carousel__indicator-template">
+		<button
+			class="c-carousel__indicator"
+			aria-label={'TODO'}
+			data-module-bind="c-carousel__indicator"
+		>
+			<span class="u-visually-hidden">
+				<span>{globalData.goTo}</span>
+				<span data-module-bind="c-carousel__indicator-item-label"></span>
+			</span>
+		</button>
+	</template>
+</c-carousel>
 
 <style lang="scss">
 	@use '@mvoc/ui/styles/primitives/responsive';
@@ -125,18 +115,19 @@ const { title, carousel, goTo, previous, next } = Astro.props;
 		@media (--mq-medium-until) {
 			padding-inline: var(--carousel__inline-padding);
 		}
-	}
 
-	/**
-	 * 1. Looks like a magic number, but 4 panes + their gaps exactly
-	 *    matches 1200px (retain size)
-	 */
-	.c-carousel__pane {
-		flex-basis: #{rem.convert(288px)}; /* [1] */
-		flex-shrink: 0;
-		scroll-snap-align: start;
-		@media (--mq-medium-until) {
-			scroll-margin-inline-start: var(--carousel__inline-padding);
+		/**
+		 * 1. Looks like a magic number, but 4 panes + their gaps exactly
+		 *    matches 1200px (retain size)
+		 */
+		&:global(> *) {
+			flex-basis: #{rem.convert(288px)}; /* [1] */
+			flex-shrink: 0;
+			scroll-snap-align: start;
+
+			@media (--mq-medium-until) {
+				scroll-margin-inline-start: var(--carousel__inline-padding);
+			}
 		}
 	}
 
@@ -240,11 +231,6 @@ const { title, carousel, goTo, previous, next } = Astro.props;
 					'[data-module-bind="c-carousel__pane"]',
 				),
 			];
-			const indicatorElements = [
-				...this.querySelectorAll<HTMLButtonElement>(
-					'[data-module-bind="c-carousel__indicator"]',
-				),
-			];
 			const trackElement = this.querySelector<HTMLDivElement>(
 				'[data-module-bind="c-carousel__track"]',
 			);
@@ -254,6 +240,30 @@ const { title, carousel, goTo, previous, next } = Astro.props;
 			const navNextElement = this.querySelector<HTMLButtonElement>(
 				'[data-module-bind="c-carousel__nav__next"]',
 			);
+			const indicatorWrapElement = this.querySelector<HTMLDivElement>(
+				'[data-module-bind="c-carousel__indicators"]',
+			);
+			const indicatorTemplate = this.querySelector<HTMLTemplateElement>(
+				'[data-module-bind="c-carousel__indicator-template"]',
+			);
+			const indicatorElements: HTMLButtonElement[] = [];
+
+			/**
+			 * Create indicators
+			 */
+			paneElements.forEach((pane, index) => {
+				if (indicatorTemplate && indicatorWrapElement) {
+					const clone = indicatorTemplate.content.firstElementChild?.cloneNode(
+						true,
+					) as HTMLButtonElement;
+					const indicatorItemLabel = clone.querySelector(
+						'[data-module-bind="c-carousel__indicator-item-label"]',
+					) as HTMLSpanElement;
+					indicatorItemLabel.textContent = ` ${index + 1}`;
+					indicatorElements.push(clone);
+					indicatorWrapElement.appendChild(clone);
+				}
+			});
 
 			/**
 			 * Check active slides based on intersection
@@ -289,7 +299,7 @@ const { title, carousel, goTo, previous, next } = Astro.props;
 			});
 
 			// Iterate over the panes and observe each one.
-			paneElements.forEach((pane) => {
+			paneElements.forEach((pane, index) => {
 				observer.observe(pane);
 			});
 
