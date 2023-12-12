@@ -4,6 +4,9 @@ export interface GlobalData {
 	close: string;
 	updatedAt: string;
 	clearField: string;
+	previous: string;
+	next: string;
+	goTo: string;
 }
 
 export type GlobalDataByLocale = {
@@ -14,6 +17,9 @@ const defaults = {
 	close: 'Sluiten',
 	updatedAt: 'Laatst bijgewerkt:',
 	clearField: 'Veld leegmaken',
+	previous: 'Vorige',
+	next: 'Volgende',
+	goTo: 'Ga naar',
 } as GlobalData;
 
 let globalDataTranslated: GlobalDataByLocale;

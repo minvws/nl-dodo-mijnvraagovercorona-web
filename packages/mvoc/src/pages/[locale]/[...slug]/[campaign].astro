@@ -20,11 +20,11 @@ import {
 import { Tale } from '@design-system/components/Tale';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { TabsBlock } from '@design-system/components/TabsBlock';
-import { Carousel } from '@design-system/components/Carousel';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import { GridFluid } from '@mvoc/ui/components';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
 import { Feedback } from '@design-system/components/Feedback';
+import { CarouselAbstraction } from '@modules/CarouselAbstraction';
 
 export async function getStaticPaths() {
 	const collection = await getDataCampaignPages();
@@ -168,16 +168,12 @@ if (pageData?.taleCollection?.length) {
 
 	{
 		pageData?.carousel?.title && !!pageData?.carousel?.carouselItems && (
-			<Carousel
+			<CarouselAbstraction
 				title={pageData.carousel.title}
-				carousel={pageData.carousel.carouselItems}
-				goTo={siteSettings.genericLabels.goTo}
-				previous={siteSettings.genericLabels.previous}
-				next={siteSettings.genericLabels.next}
+				items={pageData.carousel.carouselItems}
 			/>
 		)
 	}
-
 	{
 		pageData?.support?.cards?.label && !!pageData?.support?.cards?.items && (
 			<SupportBlock
