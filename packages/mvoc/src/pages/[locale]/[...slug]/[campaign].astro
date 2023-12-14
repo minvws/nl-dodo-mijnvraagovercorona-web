@@ -17,7 +17,7 @@ import {
 	Disclosure,
 	DisclosureItemCampaign,
 } from '@design-system/components/Disclosure';
-import { Tale } from '@design-system/components/Tale';
+import { TaleAbstraction } from '@modules/Tale';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { TabsBlock } from '@design-system/components/TabsBlock';
 import { useSiteSettings } from 'src/utilities/api/queries';
@@ -121,7 +121,7 @@ if (pageData?.taleCollection?.length) {
 											itemprop="mainEntity"
 											itemtype="https://schema.org/Question"
 										>
-											<Tale
+											<TaleAbstraction
 												{...tale}
 												isCampaign={true}
 												renderTitle={false}
@@ -147,7 +147,7 @@ if (pageData?.taleCollection?.length) {
 											itemprop="mainEntity"
 											itemtype="https://schema.org/Question"
 										>
-											<Tale
+											<TaleAbstraction
 												{...tale}
 												isCampaign={true}
 												renderTitle={false}
