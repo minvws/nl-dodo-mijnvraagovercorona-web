@@ -1,0 +1,28 @@
+---
+import { type HTMLAttributes } from 'astro/types';
+import { Box } from '@components/Box';
+import { spacings } from '@lib/primitives';
+
+interface Props extends HTMLAttributes<'div'> {}
+
+const { class: className, ...attrs } = Astro.props;
+---
+
+<>
+	{
+		Object.entries(spacings).map(([, value]) => (
+			<div class="c-spacing-grid__item">
+				<Box style={`--box-block-size: var(--space-${value})`} {...attrs} />
+				<span>--space-{value}</span>
+			</div>
+		))
+	}
+</>
+
+<style lang="scss">
+	.c-spacing-grid__item {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-1);
+	}
+</style>

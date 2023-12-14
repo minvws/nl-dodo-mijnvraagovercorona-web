@@ -18,6 +18,12 @@ export default defineConfig({
 					link: '/docs/',
 				},
 				{
+					label: 'Primitives',
+					autogenerate: {
+						directory: '/primitives',
+					},
+				},
+				{
 					label: 'Elements',
 					autogenerate: {
 						directory: '/elements',

@@ -1,0 +1,26 @@
+---
+import { type HTMLAttributes } from 'astro/types';
+import { radii } from '@lib/primitives/radii';
+import { Box } from '@components/Box';
+
+interface Props extends HTMLAttributes<'div'> {}
+
+const { class: className, ...attrs } = Astro.props;
+---
+
+{
+	radii.map((item) => (
+		<div class="c-radii-grid__item">
+			<Box class={`u-radii--${item}`} {...attrs} />
+			<span>--radii-{item}</span>
+		</div>
+	))
+}
+
+<style lang="scss">
+	.c-radii-grid__item {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-1);
+	}
+</style>
