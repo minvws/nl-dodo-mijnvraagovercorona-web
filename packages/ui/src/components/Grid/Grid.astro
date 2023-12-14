@@ -1,0 +1,19 @@
+---
+import { type HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'div'> {}
+
+const { class: className, ...attrs } = Astro.props;
+---
+
+<div class="c-grid not-content" {...attrs}>
+	<slot />
+</div>
+
+<style lang="scss">
+	.c-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(min(6rem, 100%), 1fr));
+		gap: var(--space-6);
+	}
+</style>

@@ -1,0 +1,50 @@
+---
+title: 'Primitives: Spacings'
+---
+
+import { Spacings } from '@components/Spacings';
+import { Grid } from '@components/Grid';
+
+Spacing variables used for padding, margin etc. Spacing sizes are calculated by multiplying a `$value` with the `$baseline` value from the primitives/spacings.ts.
+
+```css
+:where(html) {
+	@each $name, $value in settings.$spacings {
+		--space-#{$name}: #{rem.convert($value * settings.$baseline)};
+	}
+
+	// One offs
+	--space-27: #{rem.convert(27 * settings.$baseline)}; // 108px
+	--space-40: #{rem.convert(40 * settings.$baseline)}; // 160px
+	--space-56: #{rem.convert(56 * settings.$baseline)}; // 224px
+	--space-60: #{rem.convert(60 * settings.$baseline)}; // 240px
+	--space-68: #{rem.convert(68 * settings.$baseline)}; // 272px
+	--space-75: #{rem.convert(75 * settings.$baseline)}; // 300px
+	--space-90: #{rem.convert(90 * settings.$baseline)}; // 360px
+	--space-100: #{rem.convert(100 * settings.$baseline)}; // 400px
+
+	--space-menu-button: var(--space-8);
+}
+```
+## Example
+
+Adjust a component's spacing by setting the  `--space-[name]` value. In this case we use it for
+width, but it's possible for any spacing property.
+
+```css
+.your-component {
+    width: var(--space-8);
+}
+```
+
+Or use a one-off:
+
+```css
+.your-component {
+    width: var(--space-27);
+}
+```
+
+<Grid>
+	<Spacings/>
+</Grid>

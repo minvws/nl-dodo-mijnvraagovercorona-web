@@ -1,14 +1,10 @@
 /* ==========================================================================
-		utilitities.color
+		utilities.radii
 / =========================================================================== */
-
 @use '../settings';
 
-@each $key, $value in settings.$colors {
-	.u-background--#{$key} {
-		background-color: var(--color-#{$key});
-	}
-	.u-color--#{$key} {
-		color: var(--color-#{$key});
+@each $size in settings.$radii {
+	.u-radii--#{$size} {
+		border-radius: var(--radii-#{$size});
 	}
 }
