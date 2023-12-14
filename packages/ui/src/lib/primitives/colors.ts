@@ -31,4 +31,4 @@ export const colors = [
 	'accent-visited',
 ] as const;
 
-export type Colors = keyof typeof colors;
+export type Colors = (typeof colors)[number];
