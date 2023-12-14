@@ -1,11 +1,14 @@
 ---
 import type { TaleCollectionProps } from 'src/utilities/api/queries';
-import { Tale } from '.';
+import { TaleAbstraction } from '.';
 import { Stack } from '@mvoc/ui/components';
-import { Disclosure, DisclosureItem } from '../Disclosure';
+import {
+	Disclosure,
+	DisclosureItem,
+} from '@design-system/components/Disclosure';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { Retain } from '@mvoc/ui/components';
-import { MediaBlock } from '../MediaBlock';
+import { MediaBlock } from '@design-system/components/MediaBlock';
 import { Heading } from '@mvoc/ui/elements';
 
 interface Props extends TaleCollectionProps {
@@ -44,7 +47,11 @@ let headingLevel = 2 as 1 | 2 | 3 | 4 | 5 | 6;
 									itemprop="mainEntity"
 									itemtype="https://schema.org/Question"
 								>
-									<Tale {...tale} renderTitle={false} anchorable={false} />
+									<TaleAbstraction
+										{...tale}
+										renderTitle={false}
+										anchorable={false}
+									/>
 								</DisclosureItem>
 							);
 						}
@@ -54,7 +61,7 @@ let headingLevel = 2 as 1 | 2 | 3 | 4 | 5 | 6;
 		) : (
 			<Stack class="c-tale" gap={14}>
 				{taleCollection.map((tale) => (
-					<Tale {...tale} />
+					<TaleAbstraction {...tale} />
 				))}
 			</Stack>
 		)

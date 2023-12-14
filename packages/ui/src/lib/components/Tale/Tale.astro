@@ -1,43 +1,45 @@
 ---
+import { type HTMLAttributes } from 'astro/types';
+import {
+	Retain,
+	Stack,
+	Switcher,
+	Picture,
+	type PictureProps,
+} from '@mvoc/ui/components';
 import { Heading } from '@mvoc/ui/elements';
-import { type Tale } from 'src/utilities/api/queries';
-import { MultiContentBlock } from '../ContentBlock';
-import { Switcher } from '@mvoc/ui/components';
-import { Retain } from '@mvoc/ui/components';
-import { Stack } from '@mvoc/ui/components';
-import { Picture } from '../Picture';
-import { stringToSlug } from 'src/utilities/stringToSlug';
 
-interface Props extends Tale {
-	anchorable?: boolean;
+export interface Props extends HTMLAttributes<'section'> {
+	title: string;
+	picture?: PictureProps;
+	id?: string;
 	renderTitle?: boolean;
-	isCampaign?: boolean;
 }
 
 const {
 	title,
-	multiContentBlocks,
 	picture,
+	id,
 	renderTitle = true,
-	anchorable = true,
-	isCampaign,
+	class: className,
+	...attrs
 } = Astro.props;
 ---
 
-<section class="c-tale" id={anchorable ? stringToSlug(title) : undefined}>
+<section
+	class={`c-tale${className ? ` | ${className}` : ''}`}
+	id={id}
+	{...attrs}
+>
 	<Switcher class="c-tale__switcher">
 		<Retain variant={'text'}>
 			<Stack class="c-tale__body">
 				{renderTitle ? <Heading>{title}</Heading> : undefined}
-				{
-					multiContentBlocks ? (
-						<MultiContentBlock multiContentBlocks={multiContentBlocks} />
-					) : null
-				}
+				<slot />
 			</Stack>
 		</Retain>
 		{
-			picture && !isCampaign ? (
+			picture?.image?.src ? (
 				<Picture class="c-tale__picture" {...picture} />
 			) : null
 		}
