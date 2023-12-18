@@ -4,7 +4,7 @@ import type { Locale } from 'src/utilities/locale/translation';
 import { availableLocales } from 'src/utilities/locale/translation';
 import { Hero } from '@design-system/components/Hero';
 import { ContentBlock } from '@design-system/components/ContentBlock';
-import { Stack } from '@mvoc/ui/components';
+import { DisclosureQuote, Stack } from '@mvoc/ui/components';
 import { Retain } from '@mvoc/ui/components';
 import { Layer } from '@mvoc/ui/components';
 import { Assistance } from '@design-system/components/Assistance';
@@ -13,10 +13,6 @@ import { Breadcrumbs } from '@design-system/components/Breadrumbs';
 import { SupportBlock } from '@design-system/components/SupportBlock';
 import type { CampaignPageProps } from 'src/utilities/api/campaign';
 import { getDataCampaignPages } from 'src/utilities/api/campaign';
-import {
-	Disclosure,
-	DisclosureItemCampaign,
-} from '@design-system/components/Disclosure';
 import { TaleAbstraction } from '@modules/Tale';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { TabsBlock } from '@design-system/components/TabsBlock';
@@ -106,56 +102,52 @@ if (pageData?.taleCollection?.length) {
 					<Stack gap={14}>
 						<GridFluid class="campaign-tale-grid">
 							<Stack>
-								<Disclosure>
-									{taleCollection.first.map((tale) => (
-										<DisclosureItemCampaign
-											headingLevel={2}
-											headingStyledAs={3}
-											label={tale.title}
-											picture={tale.picture}
-											quote={tale.quote}
-											readMore={tale.readMore}
-											readLess={tale.readLess}
-											id={stringToSlug(tale.title)}
-											itemscope
-											itemprop="mainEntity"
-											itemtype="https://schema.org/Question"
-										>
-											<TaleAbstraction
-												{...tale}
-												isCampaign={true}
-												renderTitle={false}
-												anchorable={false}
-											/>
-										</DisclosureItemCampaign>
-									))}
-								</Disclosure>
+								{taleCollection.first.map((tale) => (
+									<DisclosureQuote
+										headingLevel={2}
+										headingStyledAs={3}
+										label={tale.title}
+										picture={tale.picture}
+										quote={tale.quote}
+										readMore={tale.readMore}
+										readLess={tale.readLess}
+										id={stringToSlug(tale.title)}
+										itemscope
+										itemprop="mainEntity"
+										itemtype="https://schema.org/Question"
+									>
+										<TaleAbstraction
+											{...tale}
+											isCampaign={true}
+											renderTitle={false}
+											anchorable={false}
+										/>
+									</DisclosureQuote>
+								))}
 							</Stack>
 							<Stack>
-								<Disclosure>
-									{taleCollection.second.map((tale) => (
-										<DisclosureItemCampaign
-											headingLevel={2}
-											headingStyledAs={3}
-											label={tale.title}
-											picture={tale.picture}
-											quote={tale.quote}
-											readMore={tale.readMore}
-											readLess={tale.readLess}
-											id={stringToSlug(tale.title)}
-											itemscope
-											itemprop="mainEntity"
-											itemtype="https://schema.org/Question"
-										>
-											<TaleAbstraction
-												{...tale}
-												isCampaign={true}
-												renderTitle={false}
-												anchorable={false}
-											/>
-										</DisclosureItemCampaign>
-									))}
-								</Disclosure>
+								{taleCollection.second.map((tale) => (
+									<DisclosureQuote
+										headingLevel={2}
+										headingStyledAs={3}
+										label={tale.title}
+										picture={tale.picture}
+										quote={tale.quote}
+										readMore={tale.readMore}
+										readLess={tale.readLess}
+										id={stringToSlug(tale.title)}
+										itemscope
+										itemprop="mainEntity"
+										itemtype="https://schema.org/Question"
+									>
+										<TaleAbstraction
+											{...tale}
+											isCampaign={true}
+											renderTitle={false}
+											anchorable={false}
+										/>
+									</DisclosureQuote>
+								))}
 							</Stack>
 						</GridFluid>
 					</Stack>

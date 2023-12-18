@@ -1,0 +1,51 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import type { PictureProps } from '@mvoc/ui/components';
+import { Stack } from '@mvoc/ui/components';
+
+interface Props extends HTMLAttributes<'div'> {
+	image?: PictureProps['image'];
+}
+
+const { image, class: className, ...attrs } = Astro.props;
+---
+
+<div
+	class={`c-media${image ? ' c-media--has-image' : ''}${
+		className ? ` | ${className}` : ''
+	}`}
+	{...attrs}
+>
+	{
+		image && image.src ? (
+			<img class="c-media__image" src={image.src} alt="" loading="lazy" />
+		) : null
+	}
+	<Stack gap={4}>
+		<slot />
+	</Stack>
+</div>
+
+<style lang="scss">
+	@use '@mvoc/ui/styles/primitives/responsive';
+
+	.c-media {
+		--c-media-image-size: var(--space-8);
+		--c-media-image-alignment: center;
+		--c-media-gap: var(--space-6);
+		display: flex;
+		align-items: var(--c-media-image-alignment);
+		gap: var(--c-media-gap);
+
+		@media (--mq-large) {
+			--c-media-image-size: var(--space-10);
+		}
+	}
+
+	.c-media__image {
+		flex: 0 0 var(--c-media-image-size);
+		max-inline-size: var(--c-media-image-size);
+		aspect-ratio: 1/1;
+		object-fit: contain;
+	}
+</style>

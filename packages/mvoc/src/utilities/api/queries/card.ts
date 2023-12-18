@@ -1,4 +1,4 @@
-import type { ButtonsProps, ImageProps, MultiContentBlocksProps } from './';
+import type { ButtonsProps, MultiContentBlocksProps, PictureProps } from './';
 import {
 	buttonsQuery,
 	customBlockQuery,
@@ -9,7 +9,7 @@ import type { ContentBlockProps } from '@design-system/components/ContentBlock';
 
 interface CardProps {
 	title: string;
-	image: ImageProps;
+	image: PictureProps['image'];
 	chapeau: string;
 	content: ContentBlockProps['value'];
 	buttons: ButtonsProps;

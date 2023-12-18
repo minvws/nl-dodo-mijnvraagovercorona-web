@@ -1,14 +1,9 @@
 ---
 import type { TaleCollectionProps } from 'src/utilities/api/queries';
 import { TaleAbstraction } from '.';
-import { Stack } from '@mvoc/ui/components';
-import {
-	Disclosure,
-	DisclosureItem,
-} from '@design-system/components/Disclosure';
+import { Stack, Disclosure } from '@mvoc/ui/components';
 import { stringToSlug } from 'src/utilities/stringToSlug';
-import { Retain } from '@mvoc/ui/components';
-import { MediaBlock } from '@design-system/components/MediaBlock';
+import { Retain, Media } from '@mvoc/ui/components';
 import { Heading } from '@mvoc/ui/elements';
 
 interface Props extends TaleCollectionProps {
@@ -24,39 +19,37 @@ let headingLevel = 2 as 1 | 2 | 3 | 4 | 5 | 6;
 	{
 		asDisclosure ? (
 			<Retain variant="text">
-				<Disclosure>
-					{taleCollection.map((tale) => {
-						if (tale._type === 'taleSection') {
-							headingLevel = 3;
-							return (
-								<MediaBlock icon={tale.image} class="c-tale-section">
-									<Heading id={stringToSlug(tale.title)} level={2} styledAs={3}>
-										{tale.title}
-									</Heading>
-								</MediaBlock>
-							);
-						} else {
-							return (
-								<DisclosureItem
-									headingStyledAs={4}
-									accordeon
-									headingLevel={headingLevel}
-									label={tale.title}
-									id={stringToSlug(tale.title)}
-									itemscope
-									itemprop="mainEntity"
-									itemtype="https://schema.org/Question"
-								>
-									<TaleAbstraction
-										{...tale}
-										renderTitle={false}
-										anchorable={false}
-									/>
-								</DisclosureItem>
-							);
-						}
-					})}
-				</Disclosure>
+				{taleCollection.map((tale) => {
+					if (tale._type === 'taleSection') {
+						headingLevel = 3;
+						return (
+							<Media image={tale.image} class="c-tale-section">
+								<Heading id={stringToSlug(tale.title)} level={2} styledAs={3}>
+									{tale.title}
+								</Heading>
+							</Media>
+						);
+					} else {
+						return (
+							<Disclosure
+								headingStyledAs={4}
+								accordeon
+								headingLevel={headingLevel}
+								label={tale.title}
+								id={stringToSlug(tale.title)}
+								itemscope
+								itemprop="mainEntity"
+								itemtype="https://schema.org/Question"
+							>
+								<TaleAbstraction
+									{...tale}
+									renderTitle={false}
+									anchorable={false}
+								/>
+							</Disclosure>
+						);
+					}
+				})}
 			</Retain>
 		) : (
 			<Stack class="c-tale" gap={14}>

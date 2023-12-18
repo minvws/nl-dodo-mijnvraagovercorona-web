@@ -1,7 +1,7 @@
 ---
 import { Heading } from '@mvoc/ui/elements';
-import type { ButtonsProps, ImageProps } from 'src/utilities/api/queries';
-import { MediaBlock } from '@design-system/components/MediaBlock';
+import type { ButtonsProps, PictureProps } from 'src/utilities/api/queries';
+import { Media } from '@mvoc/ui/components';
 import Card from '../Card/Card.astro';
 import { FlexibleButton } from '@modules/elements/FlexibleButton';
 
@@ -9,7 +9,7 @@ interface Props {
 	title: string;
 	chapeau?: string;
 	buttons?: ButtonsProps;
-	image?: ImageProps;
+	image?: PictureProps['image'];
 }
 
 const { title, image, buttons } = Astro.props;
@@ -21,11 +21,11 @@ const { title, image, buttons } = Astro.props;
 		!!buttons?.length ? ' c-answers-card--with-buttons' : ''
 	}`}
 >
-	<MediaBlock icon={image} class="c-advice-card__media">
+	<Media image={image} class="c-advice-card__media">
 		<Heading class="c-advice-card__heading" level={3} styledAs={4}>
 			{title}
 		</Heading>
-	</MediaBlock>
+	</Media>
 
 	<slot />
 
@@ -61,10 +61,10 @@ const { title, image, buttons } = Astro.props;
 	 * 1. Align first line of heading with the icon
 	 */
 	.c-advice-card__media.c-advice-card__media {
-		--c-media-block-icon-alignment: flex-start;
-		--c-media-block-gap: var(--space-2);
+		--c-media-image-alignment: flex-start;
+		--c-media-gap: var(--space-2);
 
-		&.c-media-block--has-icon {
+		&.c-media--has-image {
 			.c-advice-card__heading {
 				margin-block-start: 0.25em; /* [1] */
 			}
