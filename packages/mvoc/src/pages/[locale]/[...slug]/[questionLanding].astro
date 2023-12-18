@@ -11,7 +11,7 @@ import { Retain } from '@mvoc/ui/components';
 import { Layer } from '@mvoc/ui/components';
 import { Assistance } from '@design-system/components/Assistance';
 import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
-import { Breadcrumbs } from '@design-system/components/Breadrumbs';
+import { Breadcrumbs } from '@mvoc/ui/components';
 import { Sidebar } from '@mvoc/ui/components';
 import FormSwitch from '@modules/forms/situations/FormSwitch.astro';
 import { CardPrivacy } from '@design-system/components/Card';
@@ -73,7 +73,7 @@ const siteSettings = await useSiteSettings({ locale });
 		highlight
 		isPhoto={pageData.hero.isPhoto}
 	>
-		<Breadcrumbs breadcrumbs={pageData.breadcrumbs} slot="prefix" />
+		<Breadcrumbs items={pageData.breadcrumbs} slot="prefix" />
 		<Stack class="c-hero__content">
 			<ContentBlock value={pageData.hero.content} />
 		</Stack>

@@ -15,7 +15,7 @@ import { Assistance } from '@design-system/components/Assistance';
 import { TaleList } from '@modules/Tale';
 import { CTAButtonOverview } from '@modules/CTAButtonOverview';
 import { CardAnswerOverview } from '@modules/CardAnswerOverview';
-import { Breadcrumbs } from '@design-system/components/Breadrumbs';
+import { Breadcrumbs } from '@mvoc/ui/components';
 import {
 	getFiltersAndSituations,
 	useSiteSettings,
@@ -80,7 +80,7 @@ const siteSettings = await useSiteSettings({ locale });
 		variant={'theme'}
 		isPhoto={pageData.hero.isPhoto}
 	>
-		<Breadcrumbs breadcrumbs={pageData.breadcrumbs} slot="prefix" />
+		<Breadcrumbs items={pageData.breadcrumbs} slot="prefix" />
 		<ContentBlock value={pageData.hero.content} />
 	</Hero>
 

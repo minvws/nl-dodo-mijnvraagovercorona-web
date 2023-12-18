@@ -15,7 +15,7 @@ import { useSiteSettings } from 'src/utilities/api/queries';
 import type { Locale } from 'src/utilities/locale/translation';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import { Filter, LocationDetail, Marker } from '.';
-import { Breadcrumbs } from '@design-system/components/Breadrumbs';
+import { Breadcrumbs } from '@mvoc/ui/components';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
@@ -49,9 +49,7 @@ const siteSettings = await useSiteSettings({
 			pageData.hero ? (
 				<div class="c-navigator__wrap-hero" data-module-bind="navigator__hero">
 					<Stack>
-						<div>
-							<Breadcrumbs breadcrumbs={pageData.breadcrumbs} />
-						</div>
+						<Breadcrumbs items={pageData.breadcrumbs} />
 						<Heading level={1} styledAs={2}>
 							{pageData.hero.title}
 						</Heading>
