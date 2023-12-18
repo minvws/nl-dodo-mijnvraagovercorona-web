@@ -9,7 +9,7 @@ import { Retain } from '@mvoc/ui/components';
 import { Layer } from '@mvoc/ui/components';
 import { Assistance } from '@design-system/components/Assistance';
 import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
-import { Breadcrumbs } from '@design-system/components/Breadrumbs';
+import { Breadcrumbs } from '@mvoc/ui/components';
 import { SupportBlock } from '@design-system/components/SupportBlock';
 import type { CampaignPageProps } from 'src/utilities/api/campaign';
 import { getDataCampaignPages } from 'src/utilities/api/campaign';
@@ -89,7 +89,7 @@ if (pageData?.taleCollection?.length) {
 		highlight
 		isPhoto={pageData.hero.isPhoto}
 	>
-		<Breadcrumbs breadcrumbs={pageData.breadcrumbs} slot="prefix" />
+		<Breadcrumbs items={pageData.breadcrumbs} slot="prefix" />
 		<Stack class="c-hero__content">
 			<ContentBlock value={pageData.hero.content} />
 		</Stack>

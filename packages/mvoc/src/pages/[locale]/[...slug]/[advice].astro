@@ -30,7 +30,7 @@ import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
 import { Assistance } from '@design-system/components/Assistance';
 import { Heading } from '@mvoc/ui/elements';
 import { MoreInfoOverview } from '@design-system/components/MoreInfo';
-import { Breadcrumbs } from '@design-system/components/Breadrumbs';
+import { Breadcrumbs } from '@mvoc/ui/components';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 
 export async function getStaticPaths() {
@@ -118,7 +118,7 @@ const plan =
 		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
 		isPhoto={pageData.hero.isPhoto}
 	>
-		<Breadcrumbs breadcrumbs={pageData.breadcrumbs} slot="prefix" />
+		<Breadcrumbs items={pageData.breadcrumbs} slot="prefix" />
 		<ContentBlock value={pageData.hero.content} />
 		{
 			pageData.showSeriousSymptoms ? (

@@ -5,3 +5,4 @@ export * from './Carousel';
 export * from './Tale';
 export * from './Disclosure';
 export * from './Media';
+export * from './Breadcrumbs';

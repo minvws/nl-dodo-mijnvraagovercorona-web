@@ -19,7 +19,7 @@ import { MoreInfoOverview } from '@design-system/components/MoreInfo';
 import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
 import { Feedback } from '@design-system/components/Feedback';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
-import { Breadcrumbs } from '@design-system/components/Breadrumbs';
+import { Breadcrumbs } from '@mvoc/ui/components';
 
 export async function getStaticPaths() {
 	const collection = await getDataGenericPages();
@@ -73,7 +73,7 @@ const siteSettings = await useSiteSettings({ locale });
 		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
 		isPhoto={pageData.hero.isPhoto}
 	>
-		<Breadcrumbs breadcrumbs={pageData.breadcrumbs} slot="prefix" />
+		<Breadcrumbs items={pageData.breadcrumbs} slot="prefix" />
 		<ContentBlock value={pageData.hero.content} />
 	</Hero>
 
