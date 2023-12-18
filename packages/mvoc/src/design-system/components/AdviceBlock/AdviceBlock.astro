@@ -1,22 +1,23 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
 import { Card } from '@design-system/components/Card';
-import { MediaBlock } from '@design-system/components/MediaBlock';
+import { Media } from '@mvoc/ui/components';
 import type { ContentBlockProps } from '@design-system/components/ContentBlock';
 import { ContentBlock } from '@design-system/components/ContentBlock';
 import { Stack } from '@mvoc/ui/components';
 import type { ButtonProps } from 'src/utilities/api/queries/buttons';
-import type { ImageProps } from 'src/utilities/api/queries';
-import { Disclosure, DisclosureItem } from '../Disclosure';
+import { Disclosure } from '@mvoc/ui/components';
 import { FlexibleButton } from '@modules/elements/FlexibleButton';
+import type { PictureProps } from 'src/utilities/api/queries';
+import { stringToSlug } from 'src/utilities/stringToSlug';
 
 interface Props extends HTMLAttributes<'div'> {
 	title: string;
-	image?: ImageProps;
+	image?: PictureProps['image'];
 	content: ContentBlockProps['value'];
 	button?: ButtonProps;
 	items?: {
-		image?: ImageProps;
+		image?: PictureProps['image'];
 		content: ContentBlockProps['value'];
 	}[];
 }
@@ -26,34 +27,32 @@ const { title, image, content, button, items } = Astro.props;
 
 <Card variant="filled" class="c-advice-block">
 	<Stack gap={4}>
-		<Disclosure>
-			<DisclosureItem
-				headingLevel={3}
-				label={title}
-				id={title}
-				accordeon
-				adviceBlock
-				itemscope
-				itemprop="mainEntity"
-				itemtype="https://schema.org/Question"
-				image={image}
-			>
-				<Stack gap={8}>
-					<ContentBlock value={content} />
-					{
-						items.map((item) => (
-							<MediaBlock icon={item.image} class="c-advice-block__media-item">
-								<ContentBlock value={item.content} />
-							</MediaBlock>
-						))
-					}
-					{
-						button?.label ? (
-							<FlexibleButton {...button} interactionIconAnimation="swing" />
-						) : null
-					}
-				</Stack>
-			</DisclosureItem>
+		<Disclosure
+			headingLevel={3}
+			label={title}
+			id={stringToSlug(title)}
+			accordeon
+			adviceBlock
+			itemscope
+			itemprop="mainEntity"
+			itemtype="https://schema.org/Question"
+			image={image}
+		>
+			<Stack gap={8}>
+				<ContentBlock value={content} />
+				{
+					items.map((item) => (
+						<Media image={item.image} class="c-advice-block__media-item">
+							<ContentBlock value={item.content} />
+						</Media>
+					))
+				}
+				{
+					button?.label ? (
+						<FlexibleButton {...button} interactionIconAnimation="swing" />
+					) : null
+				}
+			</Stack>
 		</Disclosure>
 	</Stack>
 </Card>

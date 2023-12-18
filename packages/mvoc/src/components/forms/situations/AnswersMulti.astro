@@ -2,11 +2,7 @@
 import Submit from './Submit.astro';
 import { moduleName as AnswersMultiModuleName } from './AnswersMulti';
 import { Control } from '@mvoc/ui/elements';
-import { Stack } from '@mvoc/ui/components';
-import {
-	Disclosure,
-	DisclosureItem,
-} from '@design-system/components/Disclosure';
+import { Stack, Disclosure } from '@mvoc/ui/components';
 import { getDaysToGenerate } from 'src/utilities/helpers/advice-helpers';
 import { type QuestionPageProps } from 'src/utilities/api';
 import { DuoColumnContent } from '@design-system/components/DuoColumnContent';
@@ -117,52 +113,51 @@ const parsedButtons = buttons?.map((button, index) => {
 				</Stack>
 				{
 					secondGroup.length ? (
-						<Disclosure>
-							<DisclosureItem
-								label={showMore.label.this}
-								labelActive={showMore.label.that}
-								headingStyledAs={5}
-							>
-								<Stack gap={4}>
-									{secondGroup.map(
-										({ content, next, weight, modalReference, _key }) => (
-											<Control
-												type={type}
-												variant="tile"
-												name={AnswersMultiModuleName}
-												id={_key}
-												value={
-													next ? parseLink(getFullPageUrl(next), locale) : _key
-												}
-												data-next={
-													next
-														? parseLink(getFullPageUrl(next), locale)
-														: undefined
-												}
-												data-max-days={
-													next ? getDaysToGenerate(next).length : undefined
-												}
-												data-weight={weight || undefined}
-											>
-												<ContentBlock value={content} />
-												{modalReference ? (
-													<InfoModal
-														id={_key}
-														title={modalReference.title}
-														label={modalReference.title}
-														slot="after-label"
-														iconDescription={
-															siteSettings.accessibility.labelModal
-														}
-													>
-														<ContentBlock value={modalReference.content} />
-													</InfoModal>
-												) : null}
-											</Control>
-										),
-									)}
-								</Stack>
-							</DisclosureItem>
+						<Disclosure
+							label={showMore.label.this}
+							labelActive={showMore.label.that}
+							headingStyledAs={5}
+							id="show-more-controls"
+						>
+							<Stack gap={4}>
+								{secondGroup.map(
+									({ content, next, weight, modalReference, _key }) => (
+										<Control
+											type={type}
+											variant="tile"
+											name={AnswersMultiModuleName}
+											id={_key}
+											value={
+												next ? parseLink(getFullPageUrl(next), locale) : _key
+											}
+											data-next={
+												next
+													? parseLink(getFullPageUrl(next), locale)
+													: undefined
+											}
+											data-max-days={
+												next ? getDaysToGenerate(next).length : undefined
+											}
+											data-weight={weight || undefined}
+										>
+											<ContentBlock value={content} />
+											{modalReference ? (
+												<InfoModal
+													id={_key}
+													title={modalReference.title}
+													label={modalReference.title}
+													slot="after-label"
+													iconDescription={
+														siteSettings.accessibility.labelModal
+													}
+												>
+													<ContentBlock value={modalReference.content} />
+												</InfoModal>
+											) : null}
+										</Control>
+									),
+								)}
+							</Stack>
 						</Disclosure>
 					) : null
 				}

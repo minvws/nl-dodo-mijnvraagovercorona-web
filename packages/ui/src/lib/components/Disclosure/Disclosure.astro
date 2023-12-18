@@ -1,19 +1,21 @@
 ---
-import { Icon, Button } from '@mvoc/ui/elements';
-import type { HTMLAttributes } from 'astro/types';
-import { MediaBlock } from '../MediaBlock';
-import { Heading } from '@mvoc/ui/elements';
-import type { ImageProps } from 'src/utilities/api/queries';
+import { type HTMLAttributes } from 'astro/types';
+import { type PictureProps } from '@mvoc/ui/components';
+import { Media } from '@mvoc/ui/components';
+import { Button, Heading, Icon } from '@mvoc/ui/elements';
 
-interface Props extends HTMLAttributes<'li'> {
+export interface DisclosureProps {
 	label: string;
+	id: string;
 	labelActive?: string;
 	headingLevel?: 1 | 2 | 3 | 4 | 5 | 6;
 	headingStyledAs?: 1 | 2 | 3 | 4 | 5 | 6;
 	accordeon?: boolean;
 	adviceBlock?: boolean;
-	image?: ImageProps;
+	image?: PictureProps['image'];
 }
+
+interface Props extends DisclosureProps, Omit<HTMLAttributes<'div'>, 'id'> {}
 
 const {
 	label,
@@ -24,19 +26,21 @@ const {
 	headingLevel = 3,
 	headingStyledAs = 3,
 	id,
+	class: className,
 	...attrs
 } = Astro.props;
 ---
 
-<li
-	class={`disclosure__item ${accordeon ? 'disclosure__item--accordeon' : ''}`}
-	data-module-bind="disclosure__item"
+<c-disclosure
+	class={`c-disclosure${accordeon ? ' c-disclosure--accordeon' : ''}${
+		adviceBlock ? ' c-disclosure--advice' : ''
+	}${className ? ` | ${className}` : ''}`}
 	{...attrs}
 >
 	<Heading
 		level={headingLevel}
 		styledAs={headingStyledAs}
-		class="disclosure__heading"
+		class="c-disclosure__heading"
 		itemprop="name"
 		id={id}
 	>
@@ -44,12 +48,10 @@ const {
 			accordeon ? (
 				<>
 					<Button
-						id="disclosure-header-1"
-						class={`disclosure__toggle--button${
-							adviceBlock ? ' advice-block__button' : ''
-						}`}
+						id={`header-${id}`}
+						class="c-disclosure__toggle--button"
 						aria-expanded="false"
-						aria-controls="disclosure-panel-1"
+						aria-controls={`panel-${id}`}
 						data-module-bind="disclosure__toggle"
 						variant={adviceBlock ? 'tertiary' : 'quaternary'}
 						icon="chevron-small-down"
@@ -57,66 +59,92 @@ const {
 						iconPosition="trailing"
 					>
 						{adviceBlock ? (
-							<MediaBlock icon={image} class="c-advice-block__media-heading">
-								{label}
-							</MediaBlock>
+							<Media image={image} class="c-disclosure__media">
+								<span
+									class={
+										labelActive ? 'c-disclosure__show-inactive' : undefined
+									}
+								>
+									{label}
+								</span>
+								{labelActive ? (
+									<span class="c-disclosure__show-active">{labelActive}</span>
+								) : null}
+							</Media>
 						) : (
-							<span>{label}</span>
+							<>
+								<span
+									class={
+										labelActive ? 'c-disclosure__show-inactive' : undefined
+									}
+								>
+									{label}
+								</span>
+								{labelActive ? (
+									<span class="c-disclosure__show-active">{labelActive}</span>
+								) : null}
+							</>
 						)}
 					</Button>
 				</>
 			) : (
 				<button
 					type="button"
-					id="disclosure-header-1"
-					class="disclosure__toggle"
+					id={`header-${id}`}
+					class="c-disclosure__toggle"
 					aria-expanded="false"
-					aria-controls="disclosure-panel-1"
+					aria-controls={`panel-${id}`}
 					data-module-bind="disclosure__toggle"
 				>
-					<Icon name="plus" class="disclosure__show-inactive" />
-					<Icon name="minus" class="disclosure__show-active" />
-					<span class={labelActive ? 'disclosure__show-inactive' : undefined}>
+					<Icon name="plus" class="c-disclosure__show-inactive" />
+					<Icon name="minus" class="c-disclosure__show-active" />
+					<span class={labelActive ? 'c-disclosure__show-inactive' : undefined}>
 						{label}
 					</span>
 					{labelActive ? (
-						<span class="disclosure__show-active">{labelActive}</span>
+						<span class="c-disclosure__show-active">{labelActive}</span>
 					) : null}
 				</button>
 			)
 		}
 	</Heading>
+
 	<div
-		id="disclosure-panel-1"
+		id={`panel-${id}`}
+		aria-labelledby={`header-${id}`}
 		role="region"
-		class="disclosure__panel"
+		class="c-disclosure__panel"
 		data-module-bind="disclosure__panel"
-		aria-labelledby="disclosure-header-1"
 		itemscope
 		itemprop="acceptedAnswer"
 		itemtype="https://schema.org/Answer"
 	>
 		<div
-			class="disclosure__panel-inner"
+			class="c-disclosure__panel-inner"
 			data-module-bind="disclosure__panel-inner"
 			itemprop="text"
 		>
 			<slot />
 		</div>
 	</div>
-</li>
+</c-disclosure>
+
+<script>
+	import './disclosure';
+</script>
 
 <style lang="scss">
 	@use '@mvoc/ui/styles/tools/a11y';
 
-	.disclosure__heading {
+	.c-disclosure {
+		display: block;
 	}
-	.disclosure__item,
-	.disclosure__toggle {
+	.c-disclosure,
+	.c-disclosure__toggle {
 		width: 100%;
 	}
 
-	.disclosure__toggle {
+	.c-disclosure__toggle {
 		display: flex;
 		align-items: center;
 		gap: var(--space-3);
@@ -128,17 +156,17 @@ const {
 		}
 	}
 
-	.disclosure__show-inactive {
+	.c-disclosure__show-inactive {
 	}
 
 	/**
 	 * TODO: increased specificity by 0,1,0 to battle loading order issues in Astro
 	 */
-	.disclosure__show-active.disclosure__show-active {
+	.c-disclosure__show-active.c-disclosure__show-active {
 		display: none;
 	}
 
-	.disclosure__panel {
+	.c-disclosure__panel {
 		--_disclosure__panel-padding: var(
 			--disclosure__panel-padding,
 			var(--space-6)
@@ -154,33 +182,33 @@ const {
 		transition: all 0.3s ease-in-out;
 	}
 
-	.disclosure__panel-inner {
+	.c-disclosure__panel-inner {
 		padding-block-start: var(--space-4);
 	}
 
-	.disclosure__item.is-active {
-		.disclosure__panel {
+	.c-disclosure.is-active {
+		.c-disclosure__panel {
 			opacity: 1;
 			visibility: visible;
 		}
-		.disclosure__show-inactive {
+		.c-disclosure__show-inactive {
 			display: none;
 		}
-		.disclosure__show-active {
+		.c-disclosure__show-active {
 			display: block;
 		}
 	}
 
-	.disclosure__item--accordeon {
+	.c-disclosure--accordeon {
 		& + & {
 			margin-block-start: var(--space-4);
 		}
 
-		.disclosure__panel-inner {
+		.c-disclosure__panel-inner {
 			padding-block-end: var(--_disclosure__panel-padding);
 		}
 
-		.disclosure__toggle--button {
+		.c-disclosure__toggle--button {
 			--button-color: var(--color-diepblauw);
 			&:hover {
 				--button-background-color: var(--color-poolblauw);
@@ -201,8 +229,10 @@ const {
 				}
 			}
 		}
+	}
 
-		.advice-block__button {
+	.c-disclosure--advice {
+		.c-disclosure__toggle--button {
 			--button-border-color: none;
 			--button-font-size: inherit;
 			--button-line-height: inherit;

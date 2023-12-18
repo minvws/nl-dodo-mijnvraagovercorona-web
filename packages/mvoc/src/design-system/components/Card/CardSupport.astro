@@ -1,6 +1,9 @@
 ---
 import { Heading } from '@mvoc/ui/elements';
-import { type ButtonsProps, type ImageProps } from 'src/utilities/api/queries';
+import {
+	type ButtonsProps,
+	type PictureProps,
+} from 'src/utilities/api/queries';
 import Card from './Card.astro';
 import { FlexibleButton } from '@modules/elements/FlexibleButton';
 
@@ -8,7 +11,7 @@ interface Props {
 	title: string;
 	chapeau?: string;
 	buttons?: ButtonsProps;
-	image?: ImageProps;
+	image?: PictureProps['image'];
 }
 
 const { title, image, buttons } = Astro.props;
@@ -16,16 +19,7 @@ const { title, image, buttons } = Astro.props;
 
 <Card variant={'image'} class={`c-support-card`}>
 	<div class="c-support-card__wrap-image">
-		{
-			image && image.src ? (
-				<img
-					class="c-media-block__icon"
-					src={image.src}
-					alt=""
-					loading="lazy"
-				/>
-			) : null
-		}
+		{image && image.src ? <img src={image.src} alt="" loading="lazy" /> : null}
 	</div>
 	<div class="c-support-card__wrap-content">
 		<Heading class="c-support-card__heading" level={3} styledAs={4}>
