@@ -17,14 +17,14 @@ interface Shared {
 	isExternal?: boolean;
 }
 
-interface Button extends HTMLAttributes<'button'>, Shared {}
+interface ButtonProps extends HTMLAttributes<'button'>, Shared {}
 
-interface Link extends HTMLAttributes<'a'>, Shared {
+interface LinkProps extends HTMLAttributes<'a'>, Shared {
 	disabled?: boolean;
 	hiddenLabel?: string;
 }
 
-type Props = Button | Link;
+type Props = ButtonProps | LinkProps;
 
 const {
 	disabled,
