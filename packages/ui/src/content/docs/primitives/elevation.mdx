@@ -1,0 +1,44 @@
+---
+title: 'Primitives: Elevation'
+---
+
+import { Grid } from '@components/Grid';
+import { Elevation } from '@components/Elevation';
+
+
+`Elevations` are used to elevate elements with either an outline or box-shadow
+
+```css
+:where(html) {
+	// focusring
+	--elevation-focusring: 2px dashed var(--theme-focusring);
+	--elevation-frost: 0px 4px 6px 0px rgba(0, 0, 0, 0.05);
+	--elevation-frost--medium: 0px 0px 12px 0px rgba(0, 0, 0, 0.25);
+	--elevation-frost--large: 0px 0px 27px rgba(0, 0, 0, 0.26);
+}
+```
+
+## Examples
+
+Adjust the outline radius of a component with the `outline` property and a `--elevation-focusring` value.
+Adjust the boxshadow of a component with the `box-shadow` property and a `--elevation-frost-[size]` value.
+
+```css
+.your-component {
+	box-shadow: var(--elevation-frost);
+}
+
+.your-component {
+	outline: var(--elevation-focusring);
+}
+```
+
+<div class="not-content">
+    <Grid>
+        <Elevation/>
+    </Grid>
+</div>
+
+
+
+

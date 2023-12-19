@@ -1,0 +1,26 @@
+---
+import { type HTMLAttributes } from 'astro/types';
+import { Button } from '@lib/elements/Button';
+import { animations } from '@lib/primitives/animation';
+
+interface Props extends HTMLAttributes<'div'> {}
+console.log(animations);
+
+const animationsWithIcons = animations.map((animation) => ({
+	name: animation,
+	icon:
+		animation === 'rotate' || animation === 'rotate-reverse'
+			? 'refresh'
+			: animation === 'bounce'
+			? 'chevron-small-down'
+			: 'arrow-right',
+}));
+---
+
+{
+	animationsWithIcons.map((item) => (
+		<Button interactionIconAnimation={`${item.name}`} icon={item.icon}>
+			Animation: {item.name}
+		</Button>
+	))
+}
