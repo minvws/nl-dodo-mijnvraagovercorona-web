@@ -1,0 +1,31 @@
+---
+import { type HTMLAttributes } from 'astro/types';
+import { Box } from '@components/Box';
+import { density } from '@lib/primitives';
+
+interface Props extends HTMLAttributes<'div'> {}
+
+const { class: className, ...attrs } = Astro.props;
+---
+
+{
+	density.map((densitySize) => (
+		<div class="c-density-grid__item">
+			<Box
+				variant="tile"
+				style={`--box-density: var(--${densitySize});`}
+				{...attrs}
+			>
+				<span>{densitySize}</span>
+			</Box>
+		</div>
+	))
+}
+
+<style lang="scss">
+	.c-density-grid__item {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-1);
+	}
+</style>
