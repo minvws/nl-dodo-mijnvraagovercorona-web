@@ -5,10 +5,9 @@ import { availableLocales } from 'src/utilities/locale/translation';
 import type { PageHomeProps } from 'src/utilities/api';
 import { getDataHome } from 'src/utilities/api';
 import { Hero } from '@design-system/components/Hero';
-import { Layer } from '@mvoc/ui/components';
+import { Layer, SectionHeading } from '@mvoc/ui/components';
 import { Retain } from '@mvoc/ui/components';
 import { Stack } from '@mvoc/ui/components';
-import { SectionHeadingGroup } from '@design-system/components/SectionHeadingGroup';
 import { ContentBlock } from '@design-system/components/ContentBlock';
 import { GridFluid } from '@mvoc/ui/components';
 import { stringToSlug } from 'src/utilities/stringToSlug';
@@ -20,7 +19,6 @@ import { CardAnswerOverview } from '@modules/CardAnswerOverview';
 import { getFiltersAndSituations } from 'src/utilities/api/queries/ctaButton';
 import { FlexibleButton } from '@modules/elements/FlexibleButton';
 import { MoreInfoOverview } from '@design-system/components/MoreInfo';
-import { Heading } from '@mvoc/ui/elements';
 import { Card } from '@design-system/components/Card';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
 import { useSiteSettings } from 'src/utilities/api/queries';
@@ -109,12 +107,12 @@ const siteSettings = await useSiteSettings({ locale });
 			>
 				<Retain>
 					<Stack gap={8}>
-						<SectionHeadingGroup
+						<SectionHeading
 							title={pageData.important.title}
-							icon={pageData.important.icon}
+							image={pageData.important.icon}
 						>
 							<ContentBlock value={pageData.important.content} />
-						</SectionHeadingGroup>
+						</SectionHeading>
 						<CTAButtonOverview
 							name="homepage"
 							categories={filters}
@@ -141,7 +139,7 @@ const siteSettings = await useSiteSettings({ locale });
 					<section>
 						<Stack>
 							{pageData?.moreInfo?.title ? (
-								<Heading level={2}>{pageData.moreInfo.title}</Heading>
+								<SectionHeading title={pageData?.moreInfo?.title} />
 							) : null}
 							<Card variant="filled">
 								<MoreInfoOverview items={pageData.moreInfo.items} />
@@ -166,9 +164,9 @@ const siteSettings = await useSiteSettings({ locale });
 	<Layer id={stringToSlug(pageData.currentAdvice.title)}>
 		<Retain>
 			<Stack gap={8}>
-				<SectionHeadingGroup title={pageData.currentAdvice.title}>
+				<SectionHeading title={pageData.currentAdvice.title}>
 					<ContentBlock value={pageData.currentAdvice.content} />
-				</SectionHeadingGroup>
+				</SectionHeading>
 				<GridFluid class="grid-advice">
 					{
 						pageData.currentAdvice.adviceYes ? (

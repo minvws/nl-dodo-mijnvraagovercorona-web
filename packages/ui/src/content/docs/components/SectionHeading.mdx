@@ -1,0 +1,60 @@
+---
+title: 'SectionHeading'
+---
+
+import { SectionHeading } from '@lib/components/SectionHeading';
+
+`SectionHeading` is a component that displays a heading with an optional image and body content. Predominantly used within sections of the page.
+
+## Usage
+```jsx
+import { SectionHeading } from '@mvoc/ui/components';
+
+<SectionHeading title="Section Heading 1" image={{ src: 'https://placehold.co/32x32' }}>
+	<p>Some content</p>
+</SectionHeading>
+```
+
+## Example
+
+<div class="not-content">
+	<SectionHeading title="Section Heading 1" image={{ src: 'https://placehold.co/32x32' }}>
+		<p>Some content</p>
+	</SectionHeading>
+</div>
+
+```jsx
+	<SectionHeading title="Section Heading 1" image={{ src: 'https://placehold.co/32x32' }}>
+		<p>Some content</p>
+	</SectionHeading>
+```
+
+## Without image
+
+<div class="not-content">
+	<SectionHeading title="Section Heading 1">
+		<p>Some content</p>
+	</SectionHeading>
+</div>
+
+```jsx
+	<SectionHeading title="Section Heading 1">
+		<p>Some content</p>
+	</SectionHeading>
+```
+
+## Heading `level` & `styledAs`
+Under the hood `SectionHeading` uses the [`Heading`](/elements/heading) component. You can pass the `level` and `styledAs` props to change the heading level and style.
+By default the `level` is `2` and the `styledAs` is `1`.
+
+<div class="not-content">
+	<SectionHeading title="Section Heading 1" level={3} styledAs={4} image={{ src: 'https://placehold.co/32x32' }}>
+		<p>Some content</p>
+	</SectionHeading>
+</div>
+
+```jsx
+	<SectionHeading title="Section Heading 1" level={3} styledAs={4} image={{ src: 'https://placehold.co/32x32' }}>
+		<p>Some content</p>
+	</SectionHeading>
+```
