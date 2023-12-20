@@ -1,0 +1,102 @@
+---
+import { type HTMLAttributes } from 'astro/types';
+import { type PictureProps } from '@mvoc/ui/components';
+import {
+	getLocaleFromURL,
+	getVideoEmbedUrl,
+	useGlobalData,
+} from '@mvoc/ui/helpers';
+import { Icon } from '@mvoc/ui/elements';
+
+interface Props extends HTMLAttributes<'div'> {
+	title: string;
+	url: string;
+	image: PictureProps['image'];
+}
+
+const { title, url, image, class: className, ...attrs } = Astro.props;
+
+const locale = getLocaleFromURL(Astro.url.pathname);
+const globalData = useGlobalData({ locale });
+
+const embedUrl = getVideoEmbedUrl({
+	url,
+	options: {
+		autoplay: true,
+	},
+});
+---
+
+<div
+	class={`c-video${className ? ` | ${className}` : ''}`}
+	{...attrs}
+	data-module="video"
+>
+	<a
+		class="c-video__cover"
+		href={url}
+		data-embed={embedUrl}
+		target="_blank"
+		rel="noopener noreferrer"
+		data-module-bind="video__cover"
+	>
+		<img class="c-video__image" src={image.src} alt="" loading="lazy" />
+		<span class="u-visually-hidden">
+			{globalData.openVideo} "{title}"
+		</span>
+		<Icon class="c-video__icon" name="video" />
+	</a>
+</div>
+
+<style lang="scss">
+	@use '@mvoc/ui/styles/tools/a11y';
+
+	.c-video {
+		--_video-aspect-ratio: var(--video-aspect-ratio, 16/9);
+		--_video-color: var(--video-color, var(--color-diepblauw));
+		position: relative;
+	}
+
+	.c-video__cover {
+		position: relative;
+		display: block;
+		color: var(--_video-color);
+
+		&::after {
+			position: absolute;
+			inset-block: 0;
+			inset-inline: 0;
+			background-image: linear-gradient(
+				180deg,
+				rgba(0, 0, 0, 0.3) 0%,
+				rgba(0, 0, 0, 0) 100%
+			);
+			content: '';
+		}
+
+		&:focus {
+			@include a11y.focusring;
+		}
+
+		&:hover,
+		&:focus {
+			--_video-color: var(--color-accent-robijnrood);
+		}
+	}
+
+	.c-video__image {
+		display: block;
+		inline-size: 100%;
+		block-size: auto;
+		object-fit: cover;
+		aspect-ratio: var(--_video-aspect-ratio);
+	}
+
+	.c-video__icon.c-video__icon {
+		--icon-size: var(--space-16);
+		position: absolute;
+		inset: 50% 50%;
+		translate: -50% -50%;
+		z-index: 1;
+	}
+</style>
