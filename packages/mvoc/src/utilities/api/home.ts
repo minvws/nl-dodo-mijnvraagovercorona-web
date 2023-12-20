@@ -38,7 +38,7 @@ export interface PageHomeProps extends PageProps {
 	important: {
 		title: string;
 		content: ContentBlockProps['value'];
-		icon: ImageProps;
+		icon: PictureProps['image'];
 		filter?: boolean;
 		ctaButtonCollection: CtaButtonCollectionProps['ctaButtonCollection'];
 	};

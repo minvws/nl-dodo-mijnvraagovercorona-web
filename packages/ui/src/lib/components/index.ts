@@ -7,3 +7,4 @@ export * from './Disclosure';
 export * from './Media';
 export * from './Breadcrumbs';
 export * from './Video';
+export * from './SectionHeading';

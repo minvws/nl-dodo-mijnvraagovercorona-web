@@ -1,10 +1,14 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
-interface Props
-	extends HTMLAttributes<'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'> {
+
+export interface HeadingProps {
 	level?: 1 | 2 | 3 | 4 | 5 | 6;
 	styledAs?: 1 | 2 | 3 | 4 | 5 | 6;
 }
+interface Props
+	extends HeadingProps,
+		HTMLAttributes<'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'> {}
+
 const { level = 2, styledAs, class: className, ...attrs } = Astro.props;
 
 const Element =
