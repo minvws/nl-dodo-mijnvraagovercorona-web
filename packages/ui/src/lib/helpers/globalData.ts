@@ -7,6 +7,7 @@ export interface GlobalData {
 	previous: string;
 	next: string;
 	goTo: string;
+	openVideo: string;
 }
 
 export type GlobalDataByLocale = {
@@ -20,6 +21,7 @@ const defaults = {
 	previous: 'Vorige',
 	next: 'Volgende',
 	goTo: 'Ga naar',
+	openVideo: 'Open video',
 } as GlobalData;
 
 let globalDataTranslated: GlobalDataByLocale;
