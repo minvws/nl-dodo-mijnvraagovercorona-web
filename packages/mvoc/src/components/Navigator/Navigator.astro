@@ -2,10 +2,6 @@
 import { ContentBlock } from '@design-system/components/ContentBlock';
 import { Feedback } from '@design-system/components/Feedback';
 import { Stack } from '@mvoc/ui/components';
-import {
-	LocationList,
-	LocationListItem,
-} from '@design-system/components/Lists';
 import { MastFoot } from '@design-system/components/MastFoot';
 import { CloseButton } from '@mvoc/ui/elements';
 import { Heading } from '@mvoc/ui/elements';
@@ -14,7 +10,13 @@ import type { LocationsPageProps } from 'src/utilities/api';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import type { Locale } from 'src/utilities/locale/translation';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
-import { Filter, LocationDetail, Marker } from '.';
+import {
+	Filter,
+	LocationDetail,
+	Marker,
+	LocationList,
+	LocationListItem,
+} from '.';
 import { Breadcrumbs } from '@mvoc/ui/components';
 
 import 'mapbox-gl/dist/mapbox-gl.css';

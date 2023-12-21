@@ -6,7 +6,10 @@ import { Hero } from '@design-system/components/Hero';
 import { ContentBlock } from '@design-system/components/ContentBlock';
 import type { AdvicePageProps } from 'src/utilities/api/advice';
 import { getDataAdvicePages } from 'src/utilities/api/advice';
-import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
+import {
+	getFullPageUrl,
+	getPageSubfolder,
+} from 'src/utilities/helpers/page-subfolder';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import { Advice } from '@design-system/components/Advice';
 import { Layer } from '@mvoc/ui/components';
@@ -29,9 +32,11 @@ import { Feedback } from '@design-system/components/Feedback';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
 import { Assistance } from '@design-system/components/Assistance';
 import { Heading } from '@mvoc/ui/elements';
-import { MoreInfoOverview } from '@design-system/components/MoreInfo';
+import { MoreInfoOverview } from '@mvoc/ui/components';
 import { Breadcrumbs } from '@mvoc/ui/components';
 import { stringToSlug } from 'src/utilities/stringToSlug';
+import { parseLink } from 'src/utilities/helpers/link';
+import { isExternalUrl } from 'src/utilities/helpers/external-url';
 
 export async function getStaticPaths() {
 	const collection = await getDataAdvicePages();
@@ -205,7 +210,17 @@ const plan =
 										{pageData.moreInfo.title && (
 											<Heading level={2}>{pageData.moreInfo.title}</Heading>
 										)}
-										<MoreInfoOverview items={pageData.moreInfo.items} />
+										<MoreInfoOverview
+											items={pageData.moreInfo.items.map((item) => {
+												const href = parseLink(getFullPageUrl(item), locale);
+												return {
+													label: item?.overview?.title || item.title,
+													image: item?.overview?.icon || item.icon,
+													href: href,
+													isExternal: isExternalUrl(href),
+												};
+											})}
+										/>
 									</Stack>
 								</section>
 							) : null

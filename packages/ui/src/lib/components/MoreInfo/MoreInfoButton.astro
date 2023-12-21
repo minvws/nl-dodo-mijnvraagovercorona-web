@@ -1,34 +1,35 @@
 ---
+import { type HTMLAttributes } from 'astro/types';
 import { Button } from '@mvoc/ui/elements';
-import type { HTMLAttributes } from 'astro/types';
-import type { ImageProps } from 'src/utilities/api/queries';
-import { isExternalUrl } from 'src/utilities/helpers/external-url';
+import type { PictureProps } from '@mvoc/ui/components';
 
-interface Props extends HTMLAttributes<'div'> {
+export interface MoreInfoButtonProps {
 	label: string;
 	href: string;
-	icon: ImageProps;
+	image?: PictureProps['image'];
+	isExternal?: boolean;
 }
 
-const { label, href, icon } = Astro.props;
-const isExternal = isExternalUrl(href);
+interface Props extends MoreInfoButtonProps, HTMLAttributes<'div'> {}
+
+const { label, href, image, isExternal, class: className } = Astro.props;
 ---
 
 <Button
-	class="c-more-info-button"
+	class={`c-more-info-button${className ? ` | ${className}` : ''}`}
 	variant="quaternary"
 	href={href}
 	icon="chevron-small-right"
-	interactionIconAnimation="swing"
+	interactionIconAnimation={'swing'}
 	full
 	isExternal={isExternal}
 >
 	<span class="c-more-info-button__inner">
 		{
-			icon.src ? (
+			image?.src ? (
 				<img
-					class="c-more-info-button__icon"
-					src={icon.src}
+					class="c-more-info-button__image"
+					src={image.src}
 					alt=""
 					loading="lazy"
 				/>
@@ -44,7 +45,7 @@ const isExternal = isExternalUrl(href);
 
 	.c-more-info-button {
 		--button-padding-block: var(--space-6);
-		--c-more-info-button__icon-size: #{rem.convert(44px)};
+		--c-more-info-button__image-size: #{rem.convert(44px)};
 	}
 
 	.c-more-info-button__inner {
@@ -53,8 +54,8 @@ const isExternal = isExternalUrl(href);
 		gap: var(--space-3);
 	}
 
-	.c-more-info-button__icon {
-		inline-size: var(--c-more-info-button__icon-size);
+	.c-more-info-button__image {
+		inline-size: var(--c-more-info-button__image-size);
 		aspect-ratio: 1 / 1;
 		object-fit: contain;
 		object-position: center center;
