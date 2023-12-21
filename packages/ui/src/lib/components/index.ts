@@ -10,3 +10,4 @@ export * from './Video';
 export * from './SectionHeading';
 export * from './MoreInfo';
 export * from './Lists';
+export * from './Attribute';
