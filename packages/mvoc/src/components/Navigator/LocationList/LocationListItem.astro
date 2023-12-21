@@ -1,5 +1,5 @@
 ---
-import { Label } from '@design-system/components/Label';
+import { Tag } from '@mvoc/ui/elements';
 import type { HTMLAttributes } from 'astro/types';
 import type { LocationsPageProps } from 'src/utilities/api';
 import { useSiteSettings } from 'src/utilities/api/queries';
@@ -43,23 +43,23 @@ const siteSettings = await useSiteSettings({ locale });
 			class="c-location-list__labels"
 			data-labels
 		>
-			<Label
+			<Tag
 				class="c-location-list__label"
 				data-appointment-type="pza"
 				icon="walking"
 			>
 				{siteSettings.appointmentTypes.pza}
-			</Label>
+			</Tag>
 			<span class="u-color--black" data-appointment-type="pza&pma">
 				{siteSettings.genericLabels.and}
 			</span>
-			<Label
+			<Tag
 				class="c-location-list__label"
 				data-appointment-type="pma"
 				icon="appointment"
 			>
 				{siteSettings.appointmentTypes.pma}
-			</Label>
+			</Tag>
 		</span>
 
 		<small
