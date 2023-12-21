@@ -7,3 +7,4 @@ export * from './Chapeau';
 export * from './Input';
 export * from './CloseButton';
 export * from './UpdatedAt';
+export * from './Tag';

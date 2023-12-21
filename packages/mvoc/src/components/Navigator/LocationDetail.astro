@@ -1,11 +1,15 @@
 ---
 import { Attribute } from '@design-system/components/Attribute';
 import { ContentBlock } from '@design-system/components/ContentBlock';
-import { Label } from '@design-system/components/Label';
 import { Stack } from '@mvoc/ui/components';
-import { MarkerIcon, Button, Icon } from '@mvoc/ui/elements';
-import { Heading } from '@mvoc/ui/elements';
-import { Link } from '@mvoc/ui/elements';
+import {
+	MarkerIcon,
+	Button,
+	Icon,
+	Tag,
+	Heading,
+	Link,
+} from '@mvoc/ui/elements';
 import type { HTMLAttributes } from 'astro/types';
 import type { LocationsPageProps } from 'src/utilities/api';
 import { useSiteSettings } from 'src/utilities/api/queries';
@@ -47,15 +51,15 @@ const note = pageData.location.note;
 				class="c-location-detail__wrap-labels"
 				data-appointment-type="pza|pma"
 			>
-				<Label data-appointment-type="pza" icon="walking">
+				<Tag data-appointment-type="pza" icon="walking">
 					{siteSettings.appointmentTypes.pza}
-				</Label>
+				</Tag>
 				<span class="u-color--black" data-appointment-type="pza&pma">
 					{siteSettings.genericLabels.and}
 				</span>
-				<Label data-appointment-type="pma" icon="appointment">
+				<Tag data-appointment-type="pma" icon="appointment">
 					{siteSettings.appointmentTypes.pma}
-				</Label>
+				</Tag>
 			</div>
 		</Stack>
 	</hgroup>

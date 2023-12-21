@@ -9,13 +9,13 @@ interface Props extends HTMLAttributes<'span'> {
 const { icon, class: className, ...attrs } = Astro.props;
 ---
 
-<span class={`c-label${className ? ` | ${className}` : ''}`} {...attrs}>
+<span class={`c-tag${className ? ` | ${className}` : ''}`} {...attrs}>
 	{icon ? <Icon name={icon} /> : null}
 	<slot />
 </span>
 
 <style lang="scss">
-	.c-label {
+	.c-tag {
 		display: inline-flex;
 		align-items: center;
 		gap: var(--space-2);
