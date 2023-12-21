@@ -43,19 +43,19 @@ const {
 // Which element should we render?
 const Element = attrs.href || attrs.href === '' ? 'a' : 'button';
 
+const isExternalUrl = attrs.href && isExternal;
+
 // Create class based on props
 const combinedClasses = `e-button${variant ? ` e-button--${variant}` : ''}${
 	full ? ` e-button--full` : ''
 }${
-	interactionIconAnimation
+	!isExternalUrl && interactionIconAnimation
 		? ` | u-animation-interaction--${interactionIconAnimation}`
 		: ''
 }${className ? ` | ${className}` : ''}`;
 
 const iconPositionCalculated =
 	iconPosition === 'leading' ? 'leading' : 'trailing';
-
-const isExternalUrl = attrs.href && isExternal;
 
 /**
  * Leading icon

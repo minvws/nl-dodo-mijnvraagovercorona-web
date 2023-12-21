@@ -1,4 +1,4 @@
-import type { SubFolderReferenceProps, ImageProps } from '.';
+import type { SubFolderReferenceProps, PictureProps } from '.';
 import { subFolderReferenceQuery, imageQuery } from '.';
 
 export interface MoreInfoProps {
@@ -6,10 +6,10 @@ export interface MoreInfoProps {
 	items: {
 		overview?: {
 			title?: string;
-			icon?: ImageProps;
+			icon?: PictureProps['image'];
 		};
 		title: string;
-		icon?: ImageProps;
+		icon?: PictureProps['image'];
 		slug: string;
 		subFolderReference: SubFolderReferenceProps;
 	}[];

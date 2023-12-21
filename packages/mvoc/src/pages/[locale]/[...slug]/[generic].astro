@@ -15,11 +15,16 @@ import { stringToSlug } from 'src/utilities/stringToSlug';
 import { Assistance } from '@design-system/components/Assistance';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import { Heading } from '@mvoc/ui/elements';
-import { MoreInfoOverview } from '@design-system/components/MoreInfo';
-import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
+import { MoreInfoOverview } from '@mvoc/ui/components';
+import {
+	getFullPageUrl,
+	getPageSubfolder,
+} from 'src/utilities/helpers/page-subfolder';
 import { Feedback } from '@design-system/components/Feedback';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
 import { Breadcrumbs } from '@mvoc/ui/components';
+import { parseLink } from 'src/utilities/helpers/link';
+import { isExternalUrl } from 'src/utilities/helpers/external-url';
 
 export async function getStaticPaths() {
 	const collection = await getDataGenericPages();
@@ -110,7 +115,15 @@ const siteSettings = await useSiteSettings({ locale });
 											: siteSettings.genericLabels.moreInfo}
 									</Heading>
 									<MoreInfoOverview
-										items={pageData.moreInfo.items.filter((item) => item?.slug)}
+										items={pageData.moreInfo.items.map((item) => {
+											const href = parseLink(getFullPageUrl(item), locale);
+											return {
+												label: item?.overview?.title || item.title,
+												image: item?.overview?.icon || item.icon,
+												href: href,
+												isExternal: isExternalUrl(href),
+											};
+										})}
 									/>
 								</Stack>
 							</section>

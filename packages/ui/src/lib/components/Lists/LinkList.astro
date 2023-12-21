@@ -1,25 +1,31 @@
 ---
 import { Link } from '@mvoc/ui/elements';
+import { type HTMLAttributes } from 'astro/types';
 
-type Props = {
-	links: {
+interface Props extends HTMLAttributes<'ul'> {
+	items: {
 		label: string;
 		href: string;
-		external?: boolean;
+		isExternal?: boolean;
 	}[];
-};
+}
 
-const { links } = Astro.props;
+const { items, class: className, ...attrs } = Astro.props;
 ---
 
-<ul class="c-link-list" role="list">
+<ul
+	class={`c-list-link${className ? ` | ${className}` : ''}`}
+	{...attrs}
+	role="list"
+>
 	{
-		links.map((link) => (
+		items.map((link) => (
 			<li>
 				<Link
 					href={link.href}
 					icon={'chevron-small-right'}
 					iconPosition={'leading'}
+					isExternal={link.isExternal}
 				>
 					{link.label}
 				</Link>
@@ -29,10 +35,11 @@ const { links } = Astro.props;
 </ul>
 
 <style lang="scss">
-	.c-link-list {
+	.c-list-link {
 		> li {
 			display: flex;
 			gap: var(--space-1);
+
 			&:not(:first-of-type) {
 				margin-block-start: var(--space-4);
 			}

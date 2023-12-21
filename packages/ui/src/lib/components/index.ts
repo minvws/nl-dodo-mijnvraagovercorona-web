@@ -8,3 +8,5 @@ export * from './Media';
 export * from './Breadcrumbs';
 export * from './Video';
 export * from './SectionHeading';
+export * from './MoreInfo';
+export * from './Lists';

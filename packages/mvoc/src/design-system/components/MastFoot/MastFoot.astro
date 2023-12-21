@@ -6,9 +6,9 @@ import type { Locale } from 'src/utilities/locale/translation';
 import { Layer } from '@mvoc/ui/components';
 import { Retain } from '@mvoc/ui/components';
 import { Stack } from '@mvoc/ui/components';
-import { LinkList } from '@design-system/components/Lists';
-import { GridFluid } from '@mvoc/ui/components';
+import { GridFluid, LinkList } from '@mvoc/ui/components';
 import { parseLink } from 'src/utilities/helpers/link';
+import { isExternalUrl } from 'src/utilities/helpers/external-url';
 
 interface Props {
 	locale: Locale;
@@ -34,9 +34,10 @@ const siteSettings = await useSiteSettings({
 							{column.content ? <ContentBlock value={column.content} /> : null}
 							{column.internalPageCollection ? (
 								<LinkList
-									links={column.internalPageCollection.map((item) => ({
+									items={column.internalPageCollection.map((item) => ({
 										label: item.label ? item.label : item.link.label,
 										href: parseLink(item.link.slug, locale),
+										external: isExternalUrl(item.link.slug),
 									}))}
 								/>
 							) : null}
@@ -53,6 +54,7 @@ const siteSettings = await useSiteSettings({
 	@use '@mvoc/ui/styles/primitives/responsive';
 
 	.c-mastfoot {
+		--elevation-focusring: 2px dashed var(--color-white);
 		margin-block-start: auto;
 		background-color: var(--color-donkerblauw);
 		color: var(--color-white);
