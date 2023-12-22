@@ -2,10 +2,12 @@
 import { Chapeau } from '@mvoc/ui/elements';
 import { Heading } from '@mvoc/ui/elements';
 import type { ImageProps } from 'src/utilities/api/queries';
-import { Retain } from '@design-system/components/Layout/Retain';
-import { Stack } from '@design-system/components/Layout/Stack';
-import { Switcher } from '@design-system/components/Layout/Grid';
-import { UpdatedAt } from '@design-system/elements/UpdatedAt';
+import { Retain } from '@mvoc/ui/components';
+import { Stack } from '@mvoc/ui/components';
+import { Switcher } from '@mvoc/ui/components';
+import { UpdatedAt } from '@mvoc/ui/elements';
+import { useSiteSettings } from 'src/utilities/api/queries';
+import { getLocaleFromURL } from 'src/utilities/locale/translation';
 
 interface Props {
 	title: string;
@@ -30,6 +32,9 @@ const {
 	isPhoto,
 	cards,
 } = Astro.props;
+
+const locale = getLocaleFromURL(Astro.url.pathname);
+const siteSettings = await useSiteSettings({ locale });
 ---
 
 <header

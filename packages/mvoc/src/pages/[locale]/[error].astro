@@ -1,22 +1,16 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import type {Locale} from 'src/utilities/locale/translation'
+import type { Locale } from 'src/utilities/locale/translation';
 import { availableLocales } from 'src/utilities/locale/translation';
-import type {
-	ErrorPageProps,
-	PageHomeProps,
-} from 'src/utilities/api';
-import {
-	getDataErrorPages,
-	getDataHome,
-} from 'src/utilities/api';
+import type { ErrorPageProps, PageHomeProps } from 'src/utilities/api';
+import { getDataErrorPages, getDataHome } from 'src/utilities/api';
 import { Hero } from '@design-system/components/Hero';
-import { Retain } from '@design-system/components/Layout/Retain';
+import { Retain } from '@mvoc/ui/components';
 import { ContentBlock } from '@design-system/components/ContentBlock';
-import { Layer } from '@design-system/components/Layout/Layer';
-import { Stack } from '@design-system/components/Layout/Stack';
+import { Layer } from '@mvoc/ui/components';
+import { Stack } from '@mvoc/ui/components';
 import { stringToSlug } from 'src/utilities/stringToSlug';
-import { Breadcrumbs } from '@design-system/components/Breadrumbs';
+import { Breadcrumbs } from '@mvoc/ui/components';
 import { getFiltersAndSituations } from 'src/utilities/api/queries';
 import { CTAButtonOverview } from '@modules/CTAButtonOverview';
 import { FlexibleButton } from '@modules/elements/FlexibleButton';
@@ -74,7 +68,7 @@ const { filters, ctaButtons } = getFiltersAndSituations({
 		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
 		isPhoto={pageData.hero.isPhoto}
 	>
-		<Breadcrumbs breadcrumbs={pageData.breadcrumbs} slot="prefix" />
+		<Breadcrumbs items={pageData.breadcrumbs} slot="prefix" />
 		<ContentBlock value={pageData.hero.content} />
 	</Hero>
 

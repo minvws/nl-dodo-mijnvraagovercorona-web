@@ -1,0 +1,44 @@
+---
+title: 'Primitives: Density'
+---
+
+import { Grid } from '@components/Grid';
+import { Density } from '@components/Density';
+
+
+`Density` is used to adjust the density (for example padding spacing) of an element.
+
+```css
+:where(html) {
+	--density-compact: var(--space-6);
+	--density-normal: var(--space-8);
+	--density-spacious: var(--space-10);
+
+	// One offs
+	--density-hero: var(--density-normal);
+	--density-layer: var(--density-spacious);
+
+	@media (--mq-large) {
+		--density-normal: var(--space-10);
+		--density-spacious: var(--space-16);
+	}
+}
+
+```
+
+## Examples
+
+Adjust the density of a component with the `padding` property and a `--density-[size]` variable.
+
+```css
+.your-component {
+	padding: var(--density-compact);
+}
+
+```
+
+<div class="not-content">
+    <Grid>
+        <Density/>
+    </Grid>
+</div>

@@ -7,19 +7,18 @@ import { Hero } from '@design-system/components/Hero';
 import type { ThemePageProps } from 'src/utilities/api/theme';
 import { getDataThemes } from 'src/utilities/api/theme';
 import { ContentBlock } from '@design-system/components/ContentBlock';
-import { Layer } from '@design-system/components/Layout/Layer';
-import { Retain } from '@design-system/components/Layout/Retain';
+import { Layer } from '@mvoc/ui/components';
+import { Retain } from '@mvoc/ui/components';
 import { Heading } from '@mvoc/ui/elements';
-import { Stack } from '@design-system/components/Layout/Stack';
+import { Stack } from '@mvoc/ui/components';
 import { Assistance } from '@design-system/components/Assistance';
-import { TaleList } from '@design-system/components/Tale';
+import { TaleList } from '@modules/Tale';
 import { CTAButtonOverview } from '@modules/CTAButtonOverview';
 import { CardAnswerOverview } from '@modules/CardAnswerOverview';
-import { Breadcrumbs } from '@design-system/components/Breadrumbs';
+import { Breadcrumbs } from '@mvoc/ui/components';
 import {
 	getFiltersAndSituations,
 	useSiteSettings,
-	type SiteSettingsProps,
 } from 'src/utilities/api/queries';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
@@ -58,7 +57,7 @@ const { pageData, locale } = Astro.props;
 const { filters, ctaButtons } = getFiltersAndSituations({
 	ctaButtonCollection: pageData.ctaButtonCollection,
 });
-const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+const siteSettings = await useSiteSettings({ locale });
 ---
 
 <Layout
@@ -81,7 +80,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 		variant={'theme'}
 		isPhoto={pageData.hero.isPhoto}
 	>
-		<Breadcrumbs breadcrumbs={pageData.breadcrumbs} slot="prefix" />
+		<Breadcrumbs items={pageData.breadcrumbs} slot="prefix" />
 		<ContentBlock value={pageData.hero.content} />
 	</Hero>
 

@@ -1,0 +1,30 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'div' | 'ul' | 'ol'> {
+	as?: 'div' | 'ul' | 'ol';
+}
+
+const { class: className, as = 'div', ...attrs } = Astro.props;
+
+const Element = as;
+---
+
+<Element
+	class={`c-grid-fluid${className ? ` | ${className}` : ''}`}
+	{...attrs}
+	role={['ul', 'ol'].includes(as) ? 'list' : undefined}
+>
+	<slot />
+</Element>
+
+<style lang="scss">
+	.c-grid-fluid {
+		display: grid;
+		grid-template-columns: repeat(
+			var(--grid-fluid-placement, auto-fill),
+			minmax(min(var(--grid-fluid-min-item-size, 16rem), 100%), 1fr)
+		);
+		gap: var(--grid-fluid-gap, var(--space-6));
+	}
+</style>

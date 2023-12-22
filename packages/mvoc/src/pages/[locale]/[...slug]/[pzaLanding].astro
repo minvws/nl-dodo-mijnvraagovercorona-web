@@ -6,19 +6,18 @@ import type { PZALandingPageProps } from 'src/utilities/api';
 import { getDataPZALandingPages } from 'src/utilities/api';
 import { Hero } from '@design-system/components/Hero';
 import { ContentBlock } from '@design-system/components/ContentBlock';
-import Stack from '@design-system/components/Layout/Stack/Stack.astro';
-import { Retain } from '@design-system/components/Layout/Retain';
-import { Layer } from '@design-system/components/Layout/Layer';
-import { Sidebar } from '@design-system/components/Layout/Sidebar';
+import { Stack } from '@mvoc/ui/components';
+import { Retain } from '@mvoc/ui/components';
+import { Layer } from '@mvoc/ui/components';
+import { Sidebar } from '@mvoc/ui/components';
 import { CardPrivacy } from '@design-system/components/Card';
-import { TaleList } from '@design-system/components/Tale';
+import { TaleList } from '@modules/Tale';
 import { Assistance } from '@design-system/components/Assistance';
 import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
 import { Feedback } from '@design-system/components/Feedback';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
-import type { SiteSettingsProps } from 'src/utilities/api/queries';
 import { useSiteSettings } from 'src/utilities/api/queries';
-import { Breadcrumbs } from '@design-system/components/Breadrumbs';
+import { Breadcrumbs } from '@mvoc/ui/components';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { FlexibleButton } from '@modules/elements/FlexibleButton';
 
@@ -56,7 +55,7 @@ interface Props {
 }
 
 const { pageData, locale } = Astro.props;
-const siteSettings: SiteSettingsProps = await useSiteSettings({
+const siteSettings = await useSiteSettings({
 	locale,
 });
 ---
@@ -77,7 +76,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		highlight
 		isPhoto={pageData.hero.isPhoto}
 	>
-		<Breadcrumbs breadcrumbs={pageData.breadcrumbs} slot="prefix" />
+		<Breadcrumbs items={pageData.breadcrumbs} slot="prefix" />
 		<Stack class="c-hero__content">
 			<Stack class="has__list-styled">
 				<ContentBlock value={pageData.hero.content} />

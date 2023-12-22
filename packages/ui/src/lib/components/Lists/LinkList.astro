@@ -1,0 +1,48 @@
+---
+import { Link } from '@mvoc/ui/elements';
+import { type HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'ul'> {
+	items: {
+		label: string;
+		href: string;
+		isExternal?: boolean;
+	}[];
+}
+
+const { items, class: className, ...attrs } = Astro.props;
+---
+
+<ul
+	class={`c-list-link${className ? ` | ${className}` : ''}`}
+	{...attrs}
+	role="list"
+>
+	{
+		items.map((link) => (
+			<li>
+				<Link
+					href={link.href}
+					icon={'chevron-small-right'}
+					iconPosition={'leading'}
+					isExternal={link.isExternal}
+				>
+					{link.label}
+				</Link>
+			</li>
+		))
+	}
+</ul>
+
+<style lang="scss">
+	.c-list-link {
+		> li {
+			display: flex;
+			gap: var(--space-1);
+
+			&:not(:first-of-type) {
+				margin-block-start: var(--space-4);
+			}
+		}
+	}
+</style>

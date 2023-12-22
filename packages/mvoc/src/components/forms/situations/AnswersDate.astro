@@ -1,13 +1,12 @@
 ---
-import { GridFluid } from '@design-system/components/Layout/Grid';
-import { Stack } from '@design-system/components/Layout/Stack';
+import { GridFluid } from '@mvoc/ui/components';
+import { Stack } from '@mvoc/ui/components';
 import { Button } from '@mvoc/ui/elements';
 import type { HTMLAttributes } from 'astro/types';
 import {
 	getDaySlug,
 	getDaysToGenerate,
 } from 'src/utilities/helpers/advice-helpers';
-import type { SiteSettingsProps } from 'src/utilities/api/queries';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import Submit from './Submit.astro';
@@ -23,7 +22,7 @@ interface Props extends HTMLAttributes<'form'> {
 
 const { class: className, label, buttons, ...attrs } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
-const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+const siteSettings = await useSiteSettings({ locale });
 
 let daysToGenerate = [] as number[];
 let standardSlug = '';
@@ -98,7 +97,7 @@ const parsedButtons = buttons?.map((button, index) => {
 		calculateDay,
 		getDaySlug,
 	} from 'src/utilities/helpers/advice-helpers';
-	import { formatDate, formatToISO } from 'src/utilities/locale/date';
+	import { formatDate, formatDateToISO } from '@mvoc/ui/helpers';
 	import {
 		removeDatePickerValue,
 		setDatePickerValue,
@@ -131,10 +130,10 @@ const parsedButtons = buttons?.map((button, index) => {
 
 			const picker = document.querySelector('duet-date-picker');
 
-			picker.setAttribute('max', formatToISO(today));
+			picker.setAttribute('max', formatDateToISO(today));
 
 			picker.addEventListener('duetChange', (event: any) => {
-				setDatePickerValue(formatToISO(event.detail.valueAsDate));
+				setDatePickerValue(formatDateToISO(event.detail.valueAsDate));
 				const diff = differenceInCalendarDays(event.detail.valueAsDate, today);
 				day = calculateDay(diff, maxDays);
 				diff < 1

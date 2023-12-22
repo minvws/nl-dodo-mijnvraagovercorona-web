@@ -1,6 +1,8 @@
-import type { PictureProps as PicturePropsElement } from '@design-system/components/Picture';
+import type { PictureProps as PicturePropsElement } from '@mvoc/ui/components';
 
-export interface PictureProps extends PicturePropsElement {}
+export interface PictureProps extends PicturePropsElement {
+	type: 'picture';
+}
 
 export const pictureQuery = ({
 	omitProperty = false,

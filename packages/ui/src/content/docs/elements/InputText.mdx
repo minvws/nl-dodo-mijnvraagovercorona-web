@@ -14,7 +14,7 @@ import { InputText } from '@mvoc/ui/elements';
 	id={'search-field'}
 	placeholder={'Zoek op plaatsnaam...'}
 	icon={'looking-glass'}
-	clearable={'Clear Field'}
+	clearable
 />
 ```
 
@@ -57,7 +57,7 @@ import { InputText } from '@mvoc/ui/elements';
 ```
 
 ## Clearable
-You can add a clear button to the input field by providing a string with the accessible name in the `clearable` prop.
+You can add a clear button to the input field by providing the `clearable` boolean prop.
 When you type something in the input field, the clear button will appear.
 
 <div class="not-content">
@@ -65,7 +65,7 @@ When you type something in the input field, the clear button will appear.
 		type={'text'}
 		id={'text-field'}
 		placeholder={'Input Text here'}
-		clearable={'Clear Field'}
+		clearable
 	/>
 </div>
 
@@ -74,6 +74,6 @@ When you type something in the input field, the clear button will appear.
 	type={'text'}
 	id={'text-field'}
 	placeholder={'Input Text here'}
-	clearable={'Clear Field'}
+	clearable
 />
 ```

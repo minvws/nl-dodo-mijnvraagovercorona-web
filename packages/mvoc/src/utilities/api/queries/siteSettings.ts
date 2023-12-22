@@ -4,8 +4,13 @@ import { locales } from 'src/utilities/locale/translation';
 import type { InternalPageCollectionProps, ImageProps } from '.';
 import { internalPageReferenceQuery, customBlockQuery, imageQuery } from '.';
 import type { ContentBlockProps } from '@design-system/components/ContentBlock';
+import {
+	setGlobalData,
+	type GlobalDataByLocale,
+	availableLocales,
+} from '@mvoc/ui/helpers';
 
-export interface SiteSettingsProps {
+interface SiteSettings {
 	baseUrl: string;
 	pageTitleSuffix: string;
 	socialShareImage: ImageProps;
@@ -232,17 +237,9 @@ export const siteSettingsQuery = ({ locale }: { locale: Locale }): string => `
 		}
 	}`;
 
-/**
- * Function to use global siteSettings inside components
- *
- * Usage:
- * const siteSettingsTranslated: SiteSettingsProps = await useSiteSettings({ locale });
- */
 let siteSettingsTranslated;
-export async function useSiteSettings({ locale }: { locale: Locale }) {
-	if (siteSettingsTranslated) {
-		return siteSettingsTranslated[locale.id] || siteSettingsTranslated['en'];
-	}
+async function storeSiteSettings() {
+	if (siteSettingsTranslated) return;
 
 	siteSettingsTranslated = await Object.entries(locales).reduce(
 		async (acc, [, value]) => ({
@@ -253,6 +250,45 @@ export async function useSiteSettings({ locale }: { locale: Locale }) {
 		}),
 		{},
 	);
+}
+
+/**
+ * Function to use global siteSettings inside components
+ *
+ * Usage:
+ * const sitesettings = await useSiteSettings({ locale });
+ */
+export async function useSiteSettings({
+	locale,
+}: {
+	locale: Locale;
+}): Promise<SiteSettings> {
+	await storeSiteSettings();
 
 	return siteSettingsTranslated[locale.id] || siteSettingsTranslated['en'];
+}
+
+/**
+ * Pass siteSettings to UI global data
+ */
+export async function setUIGlobalDataFromSiteSettings() {
+	await storeSiteSettings();
+
+	// Map our siteSettings to the global data in UI
+	const data = availableLocales.reduce((acc, locale) => {
+		return {
+			...acc,
+			[locale.id]: {
+				close: siteSettingsTranslated[locale.id].genericLabels.close,
+				updatedAt: siteSettingsTranslated[locale.id].genericLabels.updatedAt,
+				clearField: siteSettingsTranslated[locale.id].forms.clearField,
+				previous: siteSettingsTranslated[locale.id].genericLabels.previous,
+				next: siteSettingsTranslated[locale.id].genericLabels.next,
+				goTo: siteSettingsTranslated[locale.id].genericLabels.goTo,
+				openVideo: siteSettingsTranslated[locale.id].videoPlayer?.openVideo,
+			},
+		};
+	}, {} as GlobalDataByLocale);
+
+	setGlobalData(data);
 }

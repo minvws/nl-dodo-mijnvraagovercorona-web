@@ -1,0 +1,33 @@
+---
+import { type HTMLAttributes } from 'astro/types';
+import { MoreInfoButton, type MoreInfoButtonProps } from '.';
+import { GridFluid } from '@mvoc/ui/components';
+
+interface Props extends HTMLAttributes<'ul'> {
+	items: MoreInfoButtonProps[];
+}
+
+const { items, class: className, ...attrs } = Astro.props;
+---
+
+<GridFluid
+	class={`c-more-info-overview${className ? ` | ${className}` : ''}`}
+	as="ul"
+	{...attrs}
+>
+	{
+		items.map((item) => (
+			<li>
+				<MoreInfoButton {...item} />
+			</li>
+		))
+	}
+</GridFluid>
+
+<style lang="scss">
+	@use '@mvoc/ui/styles/tools/rem';
+
+	.c-more-info-overview {
+		--grid-fluid-min-item-size: #{rem.convert(324px)};
+	}
+</style>

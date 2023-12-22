@@ -1,0 +1,67 @@
+---
+import { Icon } from '@mvoc/ui/elements';
+import type { HTMLAttributes } from 'astro/types';
+import { Modal, type ModalProps } from '.';
+
+type StrippedButtonProps = Omit<HTMLAttributes<'button'>, 'id' | 'title'>;
+
+interface Props extends StrippedButtonProps, ModalProps {
+	label: string;
+	iconDescription?: string;
+}
+
+const {
+	class: className,
+	id,
+	title,
+	label,
+	iconDescription,
+	...attrs
+} = Astro.props;
+---
+
+<>
+	<button
+		type="button"
+		id={`info-modal-${id}`}
+		class={`c-info-modal${className ? ` | ${className}` : ''}`}
+		{...attrs}
+	>
+		<span class="u-visually-hidden">
+			{label}
+		</span>
+		<Icon
+			class="c-info-modal__icon"
+			name="info"
+			description={iconDescription}
+		/>
+	</button>
+
+	<Modal id={`info-modal-${id}`} title={title}>
+		<slot />
+	</Modal>
+</>
+
+<style lang="scss">
+	@use '@mvoc/ui/styles/tools/a11y';
+
+	.c-info-modal {
+		display: block;
+		color: var(--color-donkerblauw);
+		padding: var(--space-2);
+		cursor: pointer;
+
+		&:hover {
+			color: var(--color-accent-robijnrood);
+		}
+
+		&:focus-visible {
+			@include a11y.focusring;
+		}
+	}
+
+	.c-info-modal__icon {
+		--icon-size: 0.8888888889em;
+		display: block;
+	}
+</style>

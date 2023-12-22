@@ -1,0 +1,26 @@
+---
+title: 'Primitives: Colors'
+---
+
+import { Colors } from '@components/Colors';
+import { Grid } from '@components/Grid';
+
+`Colors` are various colors & gradients used in the project.
+
+## Example
+
+Adjust the color of a component with the `color` property and a `--color-[COLOR_NAME]` value.
+
+```css
+.your-component {
+	color: var(--color-ijsblauw);
+}
+```
+It is also possible to adjust the background color of an element by adding a utility class `u-background--[color]` to change the background color or `u-color--[color]` to change the color.
+```html
+<div class="u-background--diepblauw">Some content</div>
+<div class="u-color--black">Some content</div>
+```
+<Grid>
+	<Colors/>
+</Grid>

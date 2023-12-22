@@ -1,0 +1,35 @@
+---
+import { type HTMLAttributes } from 'astro/types';
+import { Box } from '@components/Box';
+
+interface Props extends HTMLAttributes<'div'> {}
+
+const { class: className, ...attrs } = Astro.props;
+---
+
+<div class="c-elevation-grid__item">
+	<Box
+		style={`outline: var(--elevation-focusring); outline-offset: 2px;`}
+		{...attrs}
+	/>
+	<span>--elevation-focusring</span>
+</div>
+<div class="c-elevation-grid__item">
+	<Box style={`box-shadow: var(--elevation-frost);`} />
+	<span>--elevation-frost</span>
+</div>
+<div class="c-elevation-grid__item">
+	<Box style={`box-shadow: var(--elevation-frost--medium);`} />
+	<span>--elevation-frost--medium</span>
+</div>
+<div class="c-elevation-grid__item">
+	<Box style={`box-shadow: var(--elevation-frost--large);`} />
+	<span>--elevation-frost--large</span>
+</div>
+
+<style lang="scss">
+	.c-elevation-grid__item {
+		display: grid;
+		gap: var(--space-4);
+	}
+</style>
