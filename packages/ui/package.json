@@ -15,15 +15,17 @@
 		"./settings": "./src/lib/settings/index.ts",
 		"./primitives": "./src/lib/primitives/index.ts",
 		"./elements": "./src/lib/elements/index.ts",
+		"./components": "./src/lib/components/index.ts",
 		"./utilities": "./src/lib/utilities/index.ts",
+		"./helpers": "./src/lib/helpers/index.ts",
 		"./styles/*": "./src/lib/*.scss",
 		"./styles/*.scss": "./src/lib/*.scss"
 	},
 	"dependencies": {
-		"@astrojs/starlight": "^0.13.0",
+		"@astrojs/starlight": "^0.15.0",
 		"astro-icon": "1.0.0-next.2",
-		"astro": "^3.6.0",
+		"astro": "^4.0.4",
 		"postcss-custom-media": "^10.0.2",
-		"sharp": "^0.32.6"
+		"sharp": "^0.33.0"
 	}
 }

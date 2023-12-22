@@ -1,13 +1,12 @@
 ---
 import { Mark } from 'astro-portabletext/components';
-import { Modal } from '@design-system/components/Modal';
+import { Modal } from '@mvoc/ui/components';
 import { Link } from '@mvoc/ui/elements';
 import type { ImageProps } from 'src/utilities/api/queries';
-import type { SiteSettingsProps } from 'src/utilities/api/queries';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import type { ContentBlockProps } from '..';
 import ContentBlock from '../ContentBlock.astro';
-import { Stack } from '@design-system/components/Layout/Stack';
+import { Stack } from '@mvoc/ui/components';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
 
 type Props = Parameters<typeof Mark>[0];
@@ -25,7 +24,7 @@ interface DialogProps {
 const props = Astro.props;
 
 const locale = getLocaleFromURL(Astro.url.pathname);
-const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+const siteSettings = await useSiteSettings({ locale });
 
 const { children, mark } = {
 	children: props.node.children,

@@ -6,22 +6,19 @@ import type { QuestionLandingPageProps } from 'src/utilities/api';
 import { getDataQuestionLandingPages } from 'src/utilities/api';
 import { Hero } from '@design-system/components/Hero';
 import { ContentBlock } from '@design-system/components/ContentBlock';
-import { Stack } from '@design-system/components/Layout/Stack';
-import { Retain } from '@design-system/components/Layout/Retain';
-import { Layer } from '@design-system/components/Layout/Layer';
+import { Stack } from '@mvoc/ui/components';
+import { Retain } from '@mvoc/ui/components';
+import { Layer } from '@mvoc/ui/components';
 import { Assistance } from '@design-system/components/Assistance';
 import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
-import { Breadcrumbs } from '@design-system/components/Breadrumbs';
-import { Sidebar } from '@design-system/components/Layout/Sidebar';
+import { Breadcrumbs } from '@mvoc/ui/components';
+import { Sidebar } from '@mvoc/ui/components';
 import FormSwitch from '@modules/forms/situations/FormSwitch.astro';
 import { CardPrivacy } from '@design-system/components/Card';
 import { SupportBlock } from '@design-system/components/SupportBlock';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
-import {
-	useSiteSettings,
-	type SiteSettingsProps,
-} from 'src/utilities/api/queries';
+import { useSiteSettings } from 'src/utilities/api/queries';
 import { Feedback } from '@design-system/components/Feedback';
 
 export async function getStaticPaths() {
@@ -58,7 +55,7 @@ interface Props {
 }
 
 const { pageData, locale } = Astro.props;
-const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+const siteSettings = await useSiteSettings({ locale });
 ---
 
 <Layout
@@ -76,7 +73,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 		highlight
 		isPhoto={pageData.hero.isPhoto}
 	>
-		<Breadcrumbs breadcrumbs={pageData.breadcrumbs} slot="prefix" />
+		<Breadcrumbs items={pageData.breadcrumbs} slot="prefix" />
 		<Stack class="c-hero__content">
 			<ContentBlock value={pageData.hero.content} />
 		</Stack>

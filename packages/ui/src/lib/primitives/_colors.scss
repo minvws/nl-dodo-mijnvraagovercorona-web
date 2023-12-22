@@ -3,39 +3,12 @@
 		All colors & gradients used in the project
 / =========================================================================== */
 
+@use '../settings';
+
 :where(html) {
-	// Grayscale
-	--color-white: #ffffff;
-	--color-grijs-1: #f3f3f3;
-	--color-grijs-2: #e6e6e6;
-	--color-grijs-3: #cccccc;
-	--color-grijs-4: #b4b4b4;
-	--color-grijs-5: #999999;
-	--color-grijs-6: #696969;
-	--color-grijs-7: #535353;
-	--color-grijs-8: #4f4f4f;
-	--color-black: #222222;
-	// Bluescale
-
-	--color-ijsblauw: #eef7fb;
-	--color-poolblauw: #ddeff8;
-	--color-lichtblauw: #8fcae7;
-	--color-hemelblauw: #007bc7;
-	--color-donkerblauw: #01689b;
-	--color-diepblauw: #154273;
-	--color-nachtblauw: #10345a;
-
-	// Accent
-	--color-accent-okergeel: #ffb612;
-	--color-accent-robijnrood: #ca005d;
-	--color-accent-wijnrood: #b00052;
-	--color-accent-dieprood: #900051;
-	--color-accent-violet: #a90061;
-	--color-accent-safarigroen: #367f0b;
-	--color-accent-gifgroen: #34c759;
-	--color-accent-grasgroen: #1fb573;
-	--color-accent-vuurrood: #d52b1e;
-	--color-accent-visited: #884488;
+	@each $name, $value in settings.$colors {
+		--color-#{$name}: #{$value};
+	}
 
 	// Gradients
 	--gradient-lichtblauw: linear-gradient(

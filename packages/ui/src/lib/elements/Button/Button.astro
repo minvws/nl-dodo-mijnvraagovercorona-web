@@ -17,14 +17,14 @@ interface Shared {
 	isExternal?: boolean;
 }
 
-interface Button extends HTMLAttributes<'button'>, Shared {}
+interface ButtonProps extends HTMLAttributes<'button'>, Shared {}
 
-interface Link extends HTMLAttributes<'a'>, Shared {
+interface LinkProps extends HTMLAttributes<'a'>, Shared {
 	disabled?: boolean;
 	hiddenLabel?: string;
 }
 
-type Props = Button | Link;
+type Props = ButtonProps | LinkProps;
 
 const {
 	disabled,
@@ -43,19 +43,19 @@ const {
 // Which element should we render?
 const Element = attrs.href || attrs.href === '' ? 'a' : 'button';
 
+const isExternalUrl = attrs.href && isExternal;
+
 // Create class based on props
 const combinedClasses = `e-button${variant ? ` e-button--${variant}` : ''}${
 	full ? ` e-button--full` : ''
 }${
-	interactionIconAnimation
+	!isExternalUrl && interactionIconAnimation
 		? ` | u-animation-interaction--${interactionIconAnimation}`
 		: ''
 }${className ? ` | ${className}` : ''}`;
 
 const iconPositionCalculated =
 	iconPosition === 'leading' ? 'leading' : 'trailing';
-
-const isExternalUrl = attrs.href && isExternal;
 
 /**
  * Leading icon

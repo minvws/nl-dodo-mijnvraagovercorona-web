@@ -46,3 +46,46 @@ $spacings: (
 	16: 16,
 	// 64px
 ) !default;
+
+/* --------------------------------------------------------------------------
+Radii
+/  -------------------------------------------------------------------------- */
+
+$radii: ('nano', 'milli', 'tiny', 'small', 'base', 'large', 'huge');
+
+/* --------------------------------------------------------------------------
+Colors
+/  -------------------------------------------------------------------------- */
+
+$colors: (
+	// Grayscale
+	'white': #ffffff,
+	'grijs-1': #f3f3f3,
+	'grijs-2': #e6e6e6,
+	'grijs-3': #cccccc,
+	'grijs-4': #b4b4b4,
+	'grijs-5': #999999,
+	'grijs-6': #696969,
+	'grijs-7': #535353,
+	'grijs-8': #4f4f4f,
+	'black': #222222,
+	// Bluescale
+	'ijsblauw': #eef7fb,
+	'poolblauw': #ddeff8,
+	'lichtblauw': #8fcae7,
+	'hemelblauw': #007bc7,
+	'donkerblauw': #01689b,
+	'diepblauw': #154273,
+	'nachtblauw': #10345a,
+	// Accent
+	'accent-okergeel': #ffb612,
+	'accent-robijnrood': #ca005d,
+	'accent-wijnrood': #b00052,
+	'accent-dieprood': #900051,
+	'accent-violet': #a90061,
+	'accent-safarigroen': #367f0b,
+	'accent-gifgroen': #34c759,
+	'accent-grasgroen': #1fb573,
+	'accent-vuurrood': #d52b1e,
+	'accent-visited': #884488
+);

@@ -1,0 +1,31 @@
+---
+import { type HTMLAttributes } from 'astro/types';
+import { typography } from '@lib/primitives/typography';
+import { Box } from '@components/Box';
+
+interface Props extends HTMLAttributes<'div'> {}
+---
+
+{
+	typography.map((item) => (
+		<div class="c-typography-grid__item">
+			<Box style="text-align: left;" variant="tile">
+				<p
+					style={`font-size: var(--font-size-${item}); line-height: var(--line-height-${item})`}
+				>
+					<slot />
+				</p>
+			</Box>
+			<span>--font-size-{item}</span>
+			<span>--line-height-{item}</span>
+		</div>
+	))
+}
+
+<style lang="scss">
+	.c-typography-grid__item {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-1);
+	}
+</style>

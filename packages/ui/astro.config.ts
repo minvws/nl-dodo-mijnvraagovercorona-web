@@ -18,9 +18,22 @@ export default defineConfig({
 					link: '/docs/',
 				},
 				{
+					label: 'Primitives',
+					autogenerate: {
+						directory: '/primitives',
+					},
+				},
+				{
 					label: 'Elements',
 					autogenerate: {
 						directory: '/elements',
+						collapsed: true,
+					},
+				},
+				{
+					label: 'Components',
+					autogenerate: {
+						directory: '/components',
 						collapsed: true,
 					},
 				},

@@ -10,6 +10,7 @@ import type {
 	CardsProps,
 	CtaButtonCollectionProps,
 	MoreInfoProps,
+	PictureProps,
 } from './queries';
 import {
 	heroQuery,
@@ -37,7 +38,7 @@ export interface PageHomeProps extends PageProps {
 	important: {
 		title: string;
 		content: ContentBlockProps['value'];
-		icon: ImageProps;
+		icon: PictureProps['image'];
 		filter?: boolean;
 		ctaButtonCollection: CtaButtonCollectionProps['ctaButtonCollection'];
 	};
@@ -48,22 +49,22 @@ export interface PageHomeProps extends PageProps {
 		adviceYes: {
 			title: string;
 			content: ContentBlockProps['value'];
-			image: ImageProps;
+			image: PictureProps['image'];
 			items: {
 				label: string;
 				content: ContentBlockProps['value'];
-				image: ImageProps;
+				image: PictureProps['image'];
 			}[];
 			button: ButtonProps;
 		};
 		adviceNo: {
 			title: string;
 			content: ContentBlockProps['value'];
-			image: ImageProps;
+			image: PictureProps['image'];
 			items: {
 				label: string;
 				content: ContentBlockProps['value'];
-				image: ImageProps;
+				image: PictureProps['image'];
 			}[];
 			button: ButtonProps;
 		};

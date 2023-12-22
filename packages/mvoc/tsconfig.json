@@ -4,11 +4,11 @@
 		"composite": true,
 		"baseUrl": ".",
 		"rootDir": ".",
+		"module": "esnext",
 		"paths": {
 			"@design-system/*": ["./src/design-system/*"],
 			"@modules/*": ["./src/components/*"],
-			"@layouts/*": ["./src/layouts/*"],
-			"@mvoc/ui/*": ["@mvoc/ui/src/*"]
+			"@layouts/*": ["./src/layouts/*"]
 		}
 	}
 }

@@ -1,27 +1,28 @@
 ---
 import { ContentBlock } from '@design-system/components/ContentBlock';
 import { Feedback } from '@design-system/components/Feedback';
-import { Stack } from '@design-system/components/Layout/Stack';
-import {
-	LocationList,
-	LocationListItem,
-} from '@design-system/components/Lists';
+import { Stack } from '@mvoc/ui/components';
 import { MastFoot } from '@design-system/components/MastFoot';
-import { CloseButton } from '@design-system/elements/CloseButton';
+import { CloseButton } from '@mvoc/ui/elements';
 import { Heading } from '@mvoc/ui/elements';
 import type { HTMLAttributes } from 'astro/types';
 import type { LocationsPageProps } from 'src/utilities/api';
-import type { SiteSettingsProps } from 'src/utilities/api/queries';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import type { Locale } from 'src/utilities/locale/translation';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
-import { Filter, LocationDetail, Marker } from '.';
-import { Breadcrumbs } from '@design-system/components/Breadrumbs';
+import {
+	Filter,
+	LocationDetail,
+	Marker,
+	LocationList,
+	LocationListItem,
+} from '.';
+import { Breadcrumbs } from '@mvoc/ui/components';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
-import { Layer } from '@design-system/components/Layout/Layer';
-import { Retain } from '@design-system/components/Layout/Retain';
+import { Layer } from '@mvoc/ui/components';
+import { Retain } from '@mvoc/ui/components';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 
 interface Props extends HTMLAttributes<'div'> {
@@ -32,7 +33,7 @@ const { class: className, pageData, ...attrs } = Astro.props;
 const currentPathName = Astro.url.pathname;
 const locale = getLocaleFromURL(currentPathName) as Locale;
 
-const siteSettings: SiteSettingsProps = await useSiteSettings({
+const siteSettings = await useSiteSettings({
 	locale,
 });
 ---
@@ -50,9 +51,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 			pageData.hero ? (
 				<div class="c-navigator__wrap-hero" data-module-bind="navigator__hero">
 					<Stack>
-						<div>
-							<Breadcrumbs breadcrumbs={pageData.breadcrumbs} />
-						</div>
+						<Breadcrumbs items={pageData.breadcrumbs} />
 						<Heading level={1} styledAs={2}>
 							{pageData.hero.title}
 						</Heading>
@@ -300,11 +299,11 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 		border-radius: var(--navigator__popover-radii);
 
 		@media (--mq-wide) {
-			box-shadow: var(--elevation-frost-medium);
+			box-shadow: var(--elevation-frost--medium);
 		}
 
 		@media (--mq-large-until) {
-			box-shadow: var(--elevation-frost-medium);
+			box-shadow: var(--elevation-frost--medium);
 		}
 	}
 

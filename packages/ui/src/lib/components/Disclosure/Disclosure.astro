@@ -1,0 +1,256 @@
+---
+import { type HTMLAttributes } from 'astro/types';
+import { type PictureProps } from '@mvoc/ui/components';
+import { Media } from '@mvoc/ui/components';
+import { Button, Heading, Icon } from '@mvoc/ui/elements';
+
+export interface DisclosureProps {
+	label: string;
+	id: string;
+	labelActive?: string;
+	headingLevel?: 1 | 2 | 3 | 4 | 5 | 6;
+	headingStyledAs?: 1 | 2 | 3 | 4 | 5 | 6;
+	accordeon?: boolean;
+	adviceBlock?: boolean;
+	image?: PictureProps['image'];
+}
+
+interface Props extends DisclosureProps, Omit<HTMLAttributes<'div'>, 'id'> {}
+
+const {
+	label,
+	labelActive,
+	accordeon,
+	adviceBlock,
+	image,
+	headingLevel = 3,
+	headingStyledAs = 3,
+	id,
+	class: className,
+	...attrs
+} = Astro.props;
+---
+
+<c-disclosure
+	class={`c-disclosure${accordeon ? ' c-disclosure--accordeon' : ''}${
+		adviceBlock ? ' c-disclosure--advice' : ''
+	}${className ? ` | ${className}` : ''}`}
+	{...attrs}
+>
+	<Heading
+		level={headingLevel}
+		styledAs={headingStyledAs}
+		class="c-disclosure__heading"
+		itemprop="name"
+		id={id}
+	>
+		{
+			accordeon ? (
+				<>
+					<Button
+						id={`header-${id}`}
+						class="c-disclosure__toggle--button"
+						aria-expanded="false"
+						aria-controls={`panel-${id}`}
+						data-module-bind="disclosure__toggle"
+						variant={adviceBlock ? 'tertiary' : 'quaternary'}
+						icon="chevron-small-down"
+						full
+						iconPosition="trailing"
+					>
+						{adviceBlock ? (
+							<Media image={image} class="c-disclosure__media">
+								<span
+									class={
+										labelActive ? 'c-disclosure__show-inactive' : undefined
+									}
+								>
+									{label}
+								</span>
+								{labelActive ? (
+									<span class="c-disclosure__show-active">{labelActive}</span>
+								) : null}
+							</Media>
+						) : (
+							<>
+								<span
+									class={
+										labelActive ? 'c-disclosure__show-inactive' : undefined
+									}
+								>
+									{label}
+								</span>
+								{labelActive ? (
+									<span class="c-disclosure__show-active">{labelActive}</span>
+								) : null}
+							</>
+						)}
+					</Button>
+				</>
+			) : (
+				<button
+					type="button"
+					id={`header-${id}`}
+					class="c-disclosure__toggle"
+					aria-expanded="false"
+					aria-controls={`panel-${id}`}
+					data-module-bind="disclosure__toggle"
+				>
+					<Icon name="plus" class="c-disclosure__show-inactive" />
+					<Icon name="minus" class="c-disclosure__show-active" />
+					<span class={labelActive ? 'c-disclosure__show-inactive' : undefined}>
+						{label}
+					</span>
+					{labelActive ? (
+						<span class="c-disclosure__show-active">{labelActive}</span>
+					) : null}
+				</button>
+			)
+		}
+	</Heading>
+
+	<div
+		id={`panel-${id}`}
+		aria-labelledby={`header-${id}`}
+		role="region"
+		class="c-disclosure__panel"
+		data-module-bind="disclosure__panel"
+		itemscope
+		itemprop="acceptedAnswer"
+		itemtype="https://schema.org/Answer"
+	>
+		<div
+			class="c-disclosure__panel-inner"
+			data-module-bind="disclosure__panel-inner"
+			itemprop="text"
+		>
+			<slot />
+		</div>
+	</div>
+</c-disclosure>
+
+<script>
+	import './disclosure';
+</script>
+
+<style lang="scss">
+	@use '@mvoc/ui/styles/tools/a11y';
+
+	.c-disclosure {
+		display: block;
+	}
+	.c-disclosure,
+	.c-disclosure__toggle {
+		width: 100%;
+	}
+
+	.c-disclosure__toggle {
+		display: flex;
+		align-items: center;
+		gap: var(--space-3);
+		color: var(--color-accent-robijnrood);
+		cursor: pointer;
+
+		&:focus {
+			@include a11y.focusring;
+		}
+	}
+
+	.c-disclosure__show-inactive {
+	}
+
+	/**
+	 * TODO: increased specificity by 0,1,0 to battle loading order issues in Astro
+	 */
+	.c-disclosure__show-active.c-disclosure__show-active {
+		display: none;
+	}
+
+	.c-disclosure__panel {
+		--_disclosure__panel-padding: var(
+			--disclosure__panel-padding,
+			var(--space-6)
+		);
+		--disclosure__panel--spacing: calc(
+			var(--_disclosure__panel-padding) - var(--card-border-width)
+		);
+		block-size: 0;
+		padding-inline: var(--disclosure__panel--spacing);
+		overflow: hidden;
+		opacity: 0;
+		visibility: hidden;
+		transition: all 0.3s ease-in-out;
+	}
+
+	.c-disclosure__panel-inner {
+		padding-block-start: var(--space-4);
+	}
+
+	.c-disclosure.is-active {
+		.c-disclosure__panel {
+			opacity: 1;
+			visibility: visible;
+		}
+		.c-disclosure__show-inactive {
+			display: none;
+		}
+		.c-disclosure__show-active {
+			display: block;
+		}
+	}
+
+	.c-disclosure--accordeon {
+		& + & {
+			margin-block-start: var(--space-4);
+		}
+
+		.c-disclosure__panel-inner {
+			padding-block-end: var(--_disclosure__panel-padding);
+		}
+
+		.c-disclosure__toggle--button {
+			--button-color: var(--color-diepblauw);
+			&:hover {
+				--button-background-color: var(--color-poolblauw);
+			}
+
+			&:active {
+				--button-border-color: var(--color-poolblauw);
+			}
+
+			:global(.e-icon) {
+				transition: transform 0.3s;
+			}
+
+			&[aria-expanded='true'] {
+				--button-background-color: var(--color-poolblauw);
+				:global(.e-icon) {
+					transform: rotate(180deg);
+				}
+			}
+		}
+	}
+
+	.c-disclosure--advice {
+		.c-disclosure__toggle--button {
+			--button-border-color: none;
+			--button-font-size: inherit;
+			--button-line-height: inherit;
+			--button-background-color: transparent;
+			&[aria-expanded='true'] {
+				--button-background-color: none;
+			}
+			&[tabindex='-1'] {
+				pointer-events: none;
+				:global(.e-icon) {
+					display: none;
+				}
+			}
+			&:active,
+			&:hover {
+				--button-border-color: none;
+				--button-background-color: none;
+			}
+		}
+	}
+</style>

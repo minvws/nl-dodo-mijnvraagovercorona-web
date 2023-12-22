@@ -1,11 +1,10 @@
 ---
 import { FieldInputText } from '@design-system/components/Form/FieldInputText';
-import { Stack } from '@design-system/components/Layout/Stack';
+import { Stack } from '@mvoc/ui/components';
 import { Control } from '@mvoc/ui/elements';
 import { Icon } from '@mvoc/ui/elements';
 import type { HTMLAttributes } from 'astro/types';
 import type { LocationsPageProps } from 'src/utilities/api';
-import type { SiteSettingsProps } from 'src/utilities/api/queries';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
 
@@ -15,7 +14,7 @@ interface Props extends HTMLAttributes<'form'> {
 
 const { class: className, pageData, ...attrs } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
-const siteSettings: SiteSettingsProps = await useSiteSettings({
+const siteSettings = await useSiteSettings({
 	locale,
 });
 ---
@@ -34,7 +33,7 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({
 				label={pageData.filter.searchLabel}
 				placeholder={`${pageData.filter.searchLabel}…`}
 				icon="looking-glass"
-				clearable={siteSettings.forms.clearField}
+				clearable
 				hideLabel
 			>
 				<ol

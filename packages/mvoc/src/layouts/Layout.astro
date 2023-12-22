@@ -9,8 +9,10 @@ dotenv.config({ path: `.env.${ENV}` });
 
 import MetaData from 'src/components/MetaData.astro';
 import type { MetaDataProps } from 'src/utilities/api/queries';
-import type { SiteSettingsProps } from 'src/utilities/api/queries';
-import { useSiteSettings } from 'src/utilities/api/queries';
+import {
+	setUIGlobalDataFromSiteSettings,
+	useSiteSettings,
+} from 'src/utilities/api/queries';
 import type { Locale } from 'src/utilities/locale/translation';
 
 import '@mvoc/ui/styles/globals.scss';
@@ -20,6 +22,8 @@ import { LocaleSelector } from '@design-system/components/LocaleSelector';
 import { MastFoot } from '@design-system/components/MastFoot';
 import { Finder } from '@modules/forms/finder';
 import type { HTMLAttributes } from 'astro/types';
+
+await setUIGlobalDataFromSiteSettings();
 
 export interface Props extends HTMLAttributes<'html'> {
 	type?: string;
@@ -47,7 +51,7 @@ const {
 	includeinSearch,
 	...attrs
 } = Astro.props;
-const siteSettings: SiteSettingsProps = await useSiteSettings({
+const siteSettings = await useSiteSettings({
 	locale,
 });
 ---

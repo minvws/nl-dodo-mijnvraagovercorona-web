@@ -5,29 +5,27 @@ import { availableLocales } from 'src/utilities/locale/translation';
 import type { PageHomeProps } from 'src/utilities/api';
 import { getDataHome } from 'src/utilities/api';
 import { Hero } from '@design-system/components/Hero';
-import { Layer } from '@design-system/components/Layout/Layer';
-import { Retain } from '@design-system/components/Layout/Retain';
-import { Stack } from '@design-system/components/Layout/Stack';
-import { SectionHeadingGroup } from '@design-system/components/SectionHeadingGroup';
+import { Layer, SectionHeading } from '@mvoc/ui/components';
+import { Retain } from '@mvoc/ui/components';
+import { Stack } from '@mvoc/ui/components';
 import { ContentBlock } from '@design-system/components/ContentBlock';
-import { GridFluid } from '@design-system/components/Layout/Grid';
+import { GridFluid } from '@mvoc/ui/components';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { Assistance } from '@design-system/components/Assistance';
 import { AdviceBlock } from '@design-system/components/AdviceBlock';
-import { TaleList } from '@design-system/components/Tale';
+import { TaleList } from '@modules/Tale';
 import { CTAButtonOverview } from '@modules/CTAButtonOverview';
 import { CardAnswerOverview } from '@modules/CardAnswerOverview';
 import { getFiltersAndSituations } from 'src/utilities/api/queries/ctaButton';
 import { FlexibleButton } from '@modules/elements/FlexibleButton';
-import { MoreInfoOverview } from '@design-system/components/MoreInfo';
-import { Heading } from '@mvoc/ui/elements';
+import { MoreInfoOverview } from '@mvoc/ui/components';
 import { Card } from '@design-system/components/Card';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
-import {
-	useSiteSettings,
-	type SiteSettingsProps,
-} from 'src/utilities/api/queries';
+import { useSiteSettings } from 'src/utilities/api/queries';
 import { Feedback } from '@design-system/components/Feedback';
+import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
+import { parseLink } from 'src/utilities/helpers/link';
+import { isExternalUrl } from 'src/utilities/helpers/external-url';
 
 export async function getStaticPaths() {
 	const collection = await getDataHome();
@@ -70,7 +68,7 @@ const { filters, ctaButtons } = getFiltersAndSituations({
 	ctaButtonCollection: pageData.important.ctaButtonCollection,
 });
 
-const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+const siteSettings = await useSiteSettings({ locale });
 ---
 
 <Layout
@@ -112,12 +110,12 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 			>
 				<Retain>
 					<Stack gap={8}>
-						<SectionHeadingGroup
+						<SectionHeading
 							title={pageData.important.title}
-							icon={pageData.important.icon}
+							image={pageData.important.icon}
 						>
 							<ContentBlock value={pageData.important.content} />
-						</SectionHeadingGroup>
+						</SectionHeading>
 						<CTAButtonOverview
 							name="homepage"
 							categories={filters}
@@ -144,10 +142,20 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 					<section>
 						<Stack>
 							{pageData?.moreInfo?.title ? (
-								<Heading level={2}>{pageData.moreInfo.title}</Heading>
+								<SectionHeading title={pageData?.moreInfo?.title} />
 							) : null}
 							<Card variant="filled">
-								<MoreInfoOverview items={pageData.moreInfo.items} />
+								<MoreInfoOverview
+									items={pageData.moreInfo.items.map((item) => {
+										const href = parseLink(getFullPageUrl(item), locale);
+										return {
+											label: item?.overview?.title || item.title,
+											image: item?.overview?.icon || item.icon,
+											href: href,
+											isExternal: isExternalUrl(href),
+										};
+									})}
+								/>
 							</Card>
 						</Stack>
 					</section>
@@ -169,9 +177,9 @@ const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
 	<Layer id={stringToSlug(pageData.currentAdvice.title)}>
 		<Retain>
 			<Stack gap={8}>
-				<SectionHeadingGroup title={pageData.currentAdvice.title}>
+				<SectionHeading title={pageData.currentAdvice.title}>
 					<ContentBlock value={pageData.currentAdvice.content} />
-				</SectionHeadingGroup>
+				</SectionHeading>
 				<GridFluid class="grid-advice">
 					{
 						pageData.currentAdvice.adviceYes ? (

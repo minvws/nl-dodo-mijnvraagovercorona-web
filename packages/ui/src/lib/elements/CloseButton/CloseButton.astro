@@ -1,0 +1,47 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { Icon } from '@mvoc/ui/elements';
+import { useGlobalData, getLocaleFromURL } from '@mvoc/ui/helpers';
+
+interface Props extends HTMLAttributes<'button'> {}
+
+const { class: className, ...attrs } = Astro.props;
+const locale = getLocaleFromURL(Astro.url.pathname);
+const globalData = useGlobalData({ locale });
+---
+
+<button
+	type="button"
+	class={`e-close-button${className ? ` | ${className}` : ''}`}
+	{...attrs}
+>
+	<Icon name="cross" class="e-close-button__icon" />
+	<span class="u-visually-hidden">
+		{globalData.close}
+	</span>
+</button>
+
+<style lang="scss">
+	@use '@mvoc/ui/styles/tools/a11y';
+
+	.e-close-button,
+	.e-close-button__icon.e-close-button__icon {
+		display: block;
+	}
+
+	.e-close-button {
+		padding: var(--space-1);
+		border-radius: 50%;
+		border: 1px solid var(--color-grijs-3);
+		color: var(--color-diepblauw);
+		background-color: var(--color-white);
+		cursor: pointer;
+
+		&:hover {
+			color: var(--color-accent-robijnrood);
+		}
+		&:focus {
+			@include a11y.focusring;
+		}
+	}
+</style>

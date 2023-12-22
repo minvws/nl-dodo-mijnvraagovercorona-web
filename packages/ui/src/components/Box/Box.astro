@@ -1,0 +1,43 @@
+---
+import { type HTMLAttributes } from 'astro/types';
+import type { BoxVariants } from './';
+
+interface Props extends HTMLAttributes<'div'> {
+	variant?: BoxVariants;
+}
+
+const { class: className, variant, ...attrs } = Astro.props;
+
+// Create class based on props
+const combinedClasses = `c-box${variant ? ` c-box--${variant}` : ''}
+${className ? ` | ${className}` : ''}`;
+---
+
+<div class={combinedClasses} {...attrs}>
+	<span class="c-box__label"><slot /></span>
+</div>
+
+<style lang="scss">
+	.c-box {
+		aspect-ratio: 4/3;
+		block-size: var(--box-block-size, auto);
+		border: 1px solid;
+	}
+
+	.c-box--square {
+		aspect-ratio: 4/4;
+	}
+
+	.c-box--tile {
+		text-align: center;
+		display: inline-block;
+		inline-size: fit-content;
+		padding: var(--box-density, var(--space-4));
+		aspect-ratio: unset;
+	}
+
+	.c-box__label {
+		word-wrap: break-word;
+		hyphens: auto;
+	}
+</style>

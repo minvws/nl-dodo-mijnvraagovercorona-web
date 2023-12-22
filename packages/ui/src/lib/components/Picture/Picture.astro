@@ -1,0 +1,37 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+export interface PictureProps {
+	type?: 'picture';
+	alt?: string;
+	image: {
+		src: string;
+		metaData?: {
+			lqip: string;
+			dimensions: {
+				aspectRatio: number;
+				height: number;
+				width: number;
+			};
+		};
+	};
+}
+
+interface Props extends HTMLAttributes<'picture'>, PictureProps {}
+
+const { class: className, image, alt, ...attrs } = Astro.props;
+---
+
+<picture class={`c-picture${className ? ` | ${className}` : ''}`} {...attrs}>
+	<source srcset={image.src} />
+	<img
+		src={image?.metaData?.lqip || image.src}
+		alt={alt || ''}
+		loading="lazy"
+	/>
+</picture>
+
+<style lang="scss">
+	.c-picture {
+	}
+</style>

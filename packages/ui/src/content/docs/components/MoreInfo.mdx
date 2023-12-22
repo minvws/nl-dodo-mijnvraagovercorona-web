@@ -1,0 +1,52 @@
+---
+title: "MoreInfo"
+---
+
+import { MoreInfoButton } from '@lib/components/MoreInfo';
+import { MoreInfoOverview } from '@lib/components/MoreInfo';
+
+
+## Usage
+
+```jsx
+import { MoreInfoButton } from '@mvoc/ui/components';
+
+<MoreInfoButton label="Button label" href="#" isExternal={false} image={{src: 'https://placehold.co/44x44'}} />
+```
+
+## Default
+
+<div class="not-content">
+	<MoreInfoButton label="Button label" href="#" isExternal={false} image={{src: 'https://placehold.co/44x44'}} />
+</div>
+
+```jsx
+<MoreInfoButton label="Button label" href="#" isExternal={false} image={{src: 'https://placehold.co/44x44'}} />
+```
+
+## External
+
+<div class="not-content">
+	<MoreInfoButton label="Button label" href="#" isExternal={true} image={{src: 'https://placehold.co/44x44'}} />
+</div>
+
+```jsx
+<MoreInfoButton label="Button label" href="#" isExternal={true} image={{src: 'https://placehold.co/44x44'}} />
+```
+
+## Overview
+
+You can also autogenerate a list of buttons with the `MoreInfoOverview` component.
+
+<div class="not-content">
+	<MoreInfoOverview items={[{label: "Button label", href: "#", isExternal: false, image:{src: 'https://placehold.co/44x44'} }, {label: "Button label", href: "#", isExternal: true, image:{src: 'https://placehold.co/44x44'} }, {label: "Button label", href: "#", isExternal: false, image:{src: 'https://placehold.co/44x44'} }]} />
+</div>
+
+```jsx
+<MoreInfoOverview items={[
+	{label: "Button label", href: "#", isExternal: false, image:{src: 'https://placehold.co/44x44'} },
+	{label: "Button label", href: "#", isExternal: true, image:{src: 'https://placehold.co/44x44'} },
+	{label: "Button label", href: "#", isExternal: false, image:{src: 'https://placehold.co/44x44'} }
+]} />
+```
+

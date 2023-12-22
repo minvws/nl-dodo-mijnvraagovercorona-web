@@ -4,28 +4,23 @@ import type { Locale } from 'src/utilities/locale/translation';
 import { availableLocales } from 'src/utilities/locale/translation';
 import { Hero } from '@design-system/components/Hero';
 import { ContentBlock } from '@design-system/components/ContentBlock';
-import { Stack } from '@design-system/components/Layout/Stack';
-import { Retain } from '@design-system/components/Layout/Retain';
-import { Layer } from '@design-system/components/Layout/Layer';
+import { DisclosureQuote, Stack } from '@mvoc/ui/components';
+import { Retain } from '@mvoc/ui/components';
+import { Layer } from '@mvoc/ui/components';
 import { Assistance } from '@design-system/components/Assistance';
 import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
-import { Breadcrumbs } from '@design-system/components/Breadrumbs';
+import { Breadcrumbs } from '@mvoc/ui/components';
 import { SupportBlock } from '@design-system/components/SupportBlock';
 import type { CampaignPageProps } from 'src/utilities/api/campaign';
 import { getDataCampaignPages } from 'src/utilities/api/campaign';
-import {
-	Disclosure,
-	DisclosureItemCampaign,
-} from '@design-system/components/Disclosure';
-import { Tale } from '@design-system/components/Tale';
+import { TaleAbstraction } from '@modules/Tale';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { TabsBlock } from '@design-system/components/TabsBlock';
-import { Carousel } from '@design-system/components/Carousel';
-import type { SiteSettingsProps } from 'src/utilities/api/queries';
 import { useSiteSettings } from 'src/utilities/api/queries';
-import { GridFluid } from '@design-system/components/Layout/Grid';
+import { GridFluid } from '@mvoc/ui/components';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
 import { Feedback } from '@design-system/components/Feedback';
+import { CarouselAbstraction } from '@modules/CarouselAbstraction';
 
 export async function getStaticPaths() {
 	const collection = await getDataCampaignPages();
@@ -61,7 +56,7 @@ interface Props {
 }
 
 const { pageData, locale } = Astro.props;
-const siteSettings: SiteSettingsProps = await useSiteSettings({ locale });
+const siteSettings = await useSiteSettings({ locale });
 
 /**
  * Split tales into 2 groups
@@ -94,7 +89,7 @@ if (pageData?.taleCollection?.length) {
 		highlight
 		isPhoto={pageData.hero.isPhoto}
 	>
-		<Breadcrumbs breadcrumbs={pageData.breadcrumbs} slot="prefix" />
+		<Breadcrumbs items={pageData.breadcrumbs} slot="prefix" />
 		<Stack class="c-hero__content">
 			<ContentBlock value={pageData.hero.content} />
 		</Stack>
@@ -107,56 +102,52 @@ if (pageData?.taleCollection?.length) {
 					<Stack gap={14}>
 						<GridFluid class="campaign-tale-grid">
 							<Stack>
-								<Disclosure>
-									{taleCollection.first.map((tale) => (
-										<DisclosureItemCampaign
-											headingLevel={2}
-											headingStyledAs={3}
-											label={tale.title}
-											picture={tale.picture}
-											quote={tale.quote}
-											readMore={tale.readMore}
-											readLess={tale.readLess}
-											id={stringToSlug(tale.title)}
-											itemscope
-											itemprop="mainEntity"
-											itemtype="https://schema.org/Question"
-										>
-											<Tale
-												{...tale}
-												isCampaign={true}
-												renderTitle={false}
-												anchorable={false}
-											/>
-										</DisclosureItemCampaign>
-									))}
-								</Disclosure>
+								{taleCollection.first.map((tale) => (
+									<DisclosureQuote
+										headingLevel={2}
+										headingStyledAs={3}
+										label={tale.title}
+										picture={tale.picture}
+										quote={tale.quote}
+										readMore={tale.readMore}
+										readLess={tale.readLess}
+										id={stringToSlug(tale.title)}
+										itemscope
+										itemprop="mainEntity"
+										itemtype="https://schema.org/Question"
+									>
+										<TaleAbstraction
+											{...tale}
+											isCampaign={true}
+											renderTitle={false}
+											anchorable={false}
+										/>
+									</DisclosureQuote>
+								))}
 							</Stack>
 							<Stack>
-								<Disclosure>
-									{taleCollection.second.map((tale) => (
-										<DisclosureItemCampaign
-											headingLevel={2}
-											headingStyledAs={3}
-											label={tale.title}
-											picture={tale.picture}
-											quote={tale.quote}
-											readMore={tale.readMore}
-											readLess={tale.readLess}
-											id={stringToSlug(tale.title)}
-											itemscope
-											itemprop="mainEntity"
-											itemtype="https://schema.org/Question"
-										>
-											<Tale
-												{...tale}
-												isCampaign={true}
-												renderTitle={false}
-												anchorable={false}
-											/>
-										</DisclosureItemCampaign>
-									))}
-								</Disclosure>
+								{taleCollection.second.map((tale) => (
+									<DisclosureQuote
+										headingLevel={2}
+										headingStyledAs={3}
+										label={tale.title}
+										picture={tale.picture}
+										quote={tale.quote}
+										readMore={tale.readMore}
+										readLess={tale.readLess}
+										id={stringToSlug(tale.title)}
+										itemscope
+										itemprop="mainEntity"
+										itemtype="https://schema.org/Question"
+									>
+										<TaleAbstraction
+											{...tale}
+											isCampaign={true}
+											renderTitle={false}
+											anchorable={false}
+										/>
+									</DisclosureQuote>
+								))}
 							</Stack>
 						</GridFluid>
 					</Stack>
@@ -169,16 +160,12 @@ if (pageData?.taleCollection?.length) {
 
 	{
 		pageData?.carousel?.title && !!pageData?.carousel?.carouselItems && (
-			<Carousel
+			<CarouselAbstraction
 				title={pageData.carousel.title}
-				carousel={pageData.carousel.carouselItems}
-				goTo={siteSettings.genericLabels.goTo}
-				previous={siteSettings.genericLabels.previous}
-				next={siteSettings.genericLabels.next}
+				items={pageData.carousel.carouselItems}
 			/>
 		)
 	}
-
 	{
 		pageData?.support?.cards?.label && !!pageData?.support?.cards?.items && (
 			<SupportBlock

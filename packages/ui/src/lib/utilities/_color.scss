@@ -2,24 +2,13 @@
 		utilitities.color
 / =========================================================================== */
 
-$colors: (
-	'ijsblauw',
-	'poolblauw',
-	'lichtblauw',
-	'hemelblauw',
-	'donkerblauw',
-	'diepblauw',
-	'grijs-6',
-	'black',
-	'accent-robijnrood',
-	'accent-safarigroen'
-);
+@use '../settings';
 
-@each $color in $colors {
-	.u-background--#{$color} {
-		background-color: var(--color-#{$color});
+@each $key, $value in settings.$colors {
+	.u-background--#{$key} {
+		background-color: var(--color-#{$key});
 	}
-	.u-color--#{$color} {
-		color: var(--color-#{$color});
+	.u-color--#{$key} {
+		color: var(--color-#{$key});
 	}
 }

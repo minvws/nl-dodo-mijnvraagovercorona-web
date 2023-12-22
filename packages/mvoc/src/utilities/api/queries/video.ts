@@ -1,11 +1,7 @@
-import type { PictureProps } from '@design-system/components/Picture';
-import { pictureQuery } from '.';
+import { pictureQuery, type PictureProps } from '.';
 
 export interface VideoProps {
 	type: 'video';
-	internalVideoUrl: string;
-	showInternalVideo?: boolean;
-	subtitle?: string;
 	url: string;
 	title: string;
 	picture?: PictureProps;
@@ -19,9 +15,6 @@ export const videoQuery = ({
 	return `${omitProperty ? '' : `video`}{
 		"type": _type,
 		title,
-		showInternalVideo,
-		internalVideoUrl,
-		subtitle,
 		url,
 		${pictureQuery({})},
 	}`;

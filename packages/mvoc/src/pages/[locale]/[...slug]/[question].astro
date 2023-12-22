@@ -5,14 +5,14 @@ import { availableLocales } from 'src/utilities/locale/translation';
 import type { QuestionPageProps } from 'src/utilities/api';
 import { getDataQuestionPages } from 'src/utilities/api';
 import { Hero } from '@design-system/components/Hero';
-import { Retain } from '@design-system/components/Layout/Retain';
+import { Retain } from '@mvoc/ui/components';
 import { ContentBlock } from '@design-system/components/ContentBlock';
-import { Layer } from '@design-system/components/Layout/Layer';
+import { Layer } from '@mvoc/ui/components';
 import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
 import FormSwitch from '@modules/forms/situations/FormSwitch.astro';
-import { Sidebar } from '@design-system/components/Layout/Sidebar';
+import { Sidebar } from '@mvoc/ui/components';
 import { CardPrivacy } from '@design-system/components/Card';
-import { Breadcrumbs } from '@design-system/components/Breadrumbs';
+import { Breadcrumbs } from '@mvoc/ui/components';
 
 export async function getStaticPaths() {
 	const collection = await getDataQuestionPages();
@@ -62,7 +62,7 @@ const { pageData, locale } = Astro.props;
 		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
 		isPhoto={pageData.hero.isPhoto}
 	>
-		<Breadcrumbs breadcrumbs={pageData.breadcrumbs} slot="prefix" />
+		<Breadcrumbs items={pageData.breadcrumbs} slot="prefix" />
 		<ContentBlock value={pageData.hero.content} />
 	</Hero>
 	<Layer>

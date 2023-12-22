@@ -1,10 +1,6 @@
 ---
 import Submit from './Submit.astro';
-import { Stack } from '@design-system/components/Layout/Stack';
-import {
-	Disclosure,
-	DisclosureItem,
-} from '@design-system/components/Disclosure';
+import { Stack, Disclosure } from '@mvoc/ui/components';
 import { getDaysToGenerate } from 'src/utilities/helpers/advice-helpers';
 import { type QuestionPageProps } from 'src/utilities/api';
 import { DuoColumnContent } from '@design-system/components/DuoColumnContent';
@@ -92,26 +88,25 @@ const parsedButtons = buttons?.map((button, index) => {
 			</Stack>
 			{
 				secondGroup.length ? (
-					<Disclosure>
-						<DisclosureItem
-							label={showMore.label.this}
-							labelActive={showMore.label.that}
-							headingStyledAs={5}
-						>
-							<Stack gap={4}>
-								{secondGroup.map(({ content, next }) => (
-									<Button
-										variant="tertiary"
-										href={parseLink(getFullPageUrl(next), locale)}
-										icon="chevron-small-right"
-										interactionIconAnimation="swing"
-										full
-									>
-										<ContentBlock value={content} />
-									</Button>
-								))}
-							</Stack>
-						</DisclosureItem>
+					<Disclosure
+						label={showMore.label.this}
+						labelActive={showMore.label.that}
+						headingStyledAs={5}
+						id="show-more-buttons"
+					>
+						<Stack gap={4}>
+							{secondGroup.map(({ content, next }) => (
+								<Button
+									variant="tertiary"
+									href={parseLink(getFullPageUrl(next), locale)}
+									icon="chevron-small-right"
+									interactionIconAnimation="swing"
+									full
+								>
+									<ContentBlock value={content} />
+								</Button>
+							))}
+						</Stack>
 					</Disclosure>
 				) : null
 			}
