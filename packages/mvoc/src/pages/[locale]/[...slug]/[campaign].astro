@@ -15,7 +15,6 @@ import type { CampaignPageProps } from 'src/utilities/api/campaign';
 import { getDataCampaignPages } from 'src/utilities/api/campaign';
 import { TaleAbstraction } from '@modules/Tale';
 import { stringToSlug } from 'src/utilities/stringToSlug';
-import { TabsBlock } from '@design-system/components/TabsBlock';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import { GridFluid } from '@mvoc/ui/components';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
@@ -156,8 +155,6 @@ if (pageData?.taleCollection?.length) {
 		) : null
 	}
 
-	{pageData?.tabs && <TabsBlock tabs={pageData.tabs} />}
-
 	{
 		pageData?.carousel?.title && !!pageData?.carousel?.carouselItems && (
 			<CarouselAbstraction
@@ -166,6 +163,7 @@ if (pageData?.taleCollection?.length) {
 			/>
 		)
 	}
+
 	{
 		pageData?.support?.cards?.label && !!pageData?.support?.cards?.items && (
 			<SupportBlock

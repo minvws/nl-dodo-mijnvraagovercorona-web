@@ -18,7 +18,6 @@ import {
 	BsFileText,
 	BsArrowRightSquare,
 	BsMegaphone,
-	BsClipboardPlusFill,
 	BsShuffle,
 } from 'react-icons/bs';
 
@@ -136,11 +135,6 @@ export default (S) =>
 						schemaType: 'support',
 						title: 'Hulpblokken',
 						icon: BsClipboardCheck,
-					}),
-					getTranslatedDocumentList(S, {
-						schemaType: 'tab',
-						title: 'Tabbladen',
-						icon: BsClipboardPlusFill,
 					}),
 					getTranslatedDocumentList(S, {
 						schemaType: 'carousel',
