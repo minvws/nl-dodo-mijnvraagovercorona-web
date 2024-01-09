@@ -1,9 +1,9 @@
 ---
-import '@duetds/date-picker/dist/collection/themes/default.css';
-
 import type { HTMLAttributes } from 'astro/types';
-import { getLocaleFromURL } from 'src/utilities/locale/translation';
+import { getLocaleFromURL } from '@mvoc/ui/helpers';
 import { FieldWrapper } from '..';
+
+import '@duetds/date-picker/dist/collection/themes/default.css';
 
 interface Props extends HTMLAttributes<'div'> {
 	label: string;
@@ -39,18 +39,20 @@ const locale = getLocaleFromURL(Astro.url.pathname);
 	) as HTMLDivElement;
 
 	if (wrapper) {
-		const alternativeWrapper = wrapper.querySelector(
+		const alternativeWrapper = wrapper.querySelector<HTMLDivElement>(
 			'[data-module-bind="date-picker__alternative"]',
 		);
 		const picker = document.querySelector('duet-date-picker');
-		const locale = picker.getAttribute('data-locale');
+		if (picker && alternativeWrapper) {
+			const locale = picker.getAttribute('data-locale') || 'nl-NL';
 
-		if ('customElements' in window) {
-			alternativeWrapper.remove();
-			customElements.define('duet-date-picker', DuetDatePicker);
+			if ('customElements' in window) {
+				alternativeWrapper.remove();
+				customElements.define('duet-date-picker', DuetDatePicker);
 
-			picker.dateAdapter = adapter;
-			picker.localization = datepickerTranslations[locale];
+				picker.dateAdapter = adapter;
+				picker.localization = datepickerTranslations[locale];
+			}
 		}
 	}
 </script>

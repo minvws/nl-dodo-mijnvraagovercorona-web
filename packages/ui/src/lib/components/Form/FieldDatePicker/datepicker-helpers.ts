@@ -1,3 +1,5 @@
+import type { DuetLocalizedText } from '@duetds/date-picker/dist/types/components/duet-date-picker/date-localization';
+
 const DATE_FORMAT = /^(\d{1,2})\-(\d{1,2})\-(\d{4})$/;
 export const adapter = {
 	parse(value = '', createDate: any) {
@@ -108,4 +110,6 @@ export const datepickerTranslations = {
 			'Dec',
 		],
 	},
+} as unknown as {
+	[key: string]: DuetLocalizedText;
 };
