@@ -1,12 +1,10 @@
 ---
-import { FieldInputText } from '@design-system/components/Form/FieldInputText';
-import { Stack } from '@mvoc/ui/components';
-import { Control } from '@mvoc/ui/elements';
-import { Icon } from '@mvoc/ui/elements';
+import { Stack, FieldInputText } from '@mvoc/ui/components';
+import { Control, Icon } from '@mvoc/ui/elements';
 import type { HTMLAttributes } from 'astro/types';
 import type { LocationsPageProps } from 'src/utilities/api';
 import { useSiteSettings } from 'src/utilities/api/queries';
-import { getLocaleFromURL } from 'src/utilities/locale/translation';
+import { getLocaleFromURL } from '@mvoc/ui/helpers';
 
 interface Props extends HTMLAttributes<'form'> {
 	pageData: LocationsPageProps;

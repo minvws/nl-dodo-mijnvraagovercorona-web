@@ -1,0 +1,35 @@
+---
+title: "FieldInputText"
+---
+
+import { FieldInputText } from '@lib/components/Form';
+
+FieldInputText is a component that renders a [InputText](/elements/inputtext) element including a corresponding label.
+
+```jsx
+import { FieldInputText } from '@mvoc/ui/components';
+
+<FieldInputText label="Field label" id="unique-id">[optional content below field]</FieldInputText>
+```
+
+## Base
+
+<div class="not-content">
+	<FieldInputText label="Field label" id="unique-id"/ >
+</div>
+
+```jsx
+<FieldInputText label="Field label" id="unique-id" />
+```
+
+## Props from `InputText`
+
+All the props from [InputText](/elements/inputtext) are available.
+
+<div class="not-content">
+	<FieldInputText label="Search" id="unique-id-2" type="search" placeholder="Zoeken..." icon="looking-glass" clearable />
+</div>
+
+```jsx
+<FieldInputText label="Search" id="unique-id-2" type="search" placeholder="Zoeken..." icon="looking-glass" clearable />
+```
