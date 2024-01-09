@@ -1,20 +1,15 @@
 ---
 import { Heading } from '@mvoc/ui/elements';
-import {
-	type ButtonsProps,
-	type PictureProps,
-} from 'src/utilities/api/queries';
-import Card from './Card.astro';
-import { FlexibleButton } from '@modules/elements/FlexibleButton';
+import { Card } from '@mvoc/ui/components';
+import type { PictureProps } from '../Picture';
 
 interface Props {
 	title: string;
 	chapeau?: string;
-	buttons?: ButtonsProps;
 	image?: PictureProps['image'];
 }
 
-const { title, image, buttons } = Astro.props;
+const { title, image } = Astro.props;
 ---
 
 <Card variant={'image'} class={`c-support-card`}>
@@ -27,20 +22,8 @@ const { title, image, buttons } = Astro.props;
 		</Heading>
 		<slot />
 	</div>
-
-	{
-		!!buttons?.length ? (
-			<ul class="c-support-card__wrap-buttons" role="list">
-				{buttons.map((button) => (
-					<li>
-						<FlexibleButton {...button} />
-					</li>
-				))}
-			</ul>
-		) : null
-	}
+	<slot name="appendix" />
 </Card>
-
 <style lang="scss">
 	@use '@mvoc/ui/styles/primitives/responsive';
 	@use '@mvoc/ui/styles/tools/rem';
@@ -68,10 +51,5 @@ const { title, image, buttons } = Astro.props;
 		flex-direction: column;
 		padding-inline: var(--space-6);
 		gap: var(--space-4);
-	}
-
-	.c-support-card__wrap-buttons {
-		margin-block-start: auto;
-		padding-inline: var(--space-6);
 	}
 </style>

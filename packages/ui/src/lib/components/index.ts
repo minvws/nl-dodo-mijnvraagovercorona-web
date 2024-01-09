@@ -6,6 +6,7 @@ export * from './Tale';
 export * from './Disclosure';
 export * from './Media';
 export * from './Breadcrumbs';
+export * from './Card';
 export * from './Video';
 export * from './SectionHeading';
 export * from './MoreInfo';

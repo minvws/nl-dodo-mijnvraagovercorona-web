@@ -1,17 +1,20 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
-import { CardSupport } from '@design-system/components/Card';
+import { CardSupport, type PictureProps } from '@mvoc/ui/components';
 import { ContentBlock } from '@design-system/components/ContentBlock';
-import type { CardsProps } from 'src/utilities/api/queries';
+import type { ButtonsProps, CardsProps } from 'src/utilities/api/queries';
 import { Layer } from '@mvoc/ui/components';
 import { Heading } from '@mvoc/ui/elements';
 import { GridFluid } from '@mvoc/ui/components';
 import { Retain } from '@mvoc/ui/components';
 import { Stack } from '@mvoc/ui/components';
+import { FlexibleButton } from '@modules/elements/FlexibleButton';
 
 interface Props extends HTMLAttributes<'div'> {
 	label: string;
 	cards: CardsProps['items'];
+	buttons?: ButtonsProps;
+	image?: PictureProps['image'];
 }
 
 const { label, cards } = Astro.props;
@@ -28,8 +31,21 @@ const { label, cards } = Astro.props;
 			>
 				{
 					cards.map(({ title, image, content, buttons }) => (
-						<CardSupport title={title} image={image} buttons={buttons}>
+						<CardSupport title={title} image={image}>
 							<ContentBlock value={content} />
+							{!!buttons?.length ? (
+								<ul
+									class="c-support-block__wrap-buttons"
+									role="list"
+									slot="appendix"
+								>
+									{buttons.map((button) => (
+										<li>
+											<FlexibleButton {...button} />
+										</li>
+									))}
+								</ul>
+							) : null}{' '}
 						</CardSupport>
 					))
 				}
@@ -40,6 +56,7 @@ const { label, cards } = Astro.props;
 
 <style lang="scss">
 	@use '@mvoc/ui/styles/primitives/responsive';
+	@use '@mvoc/ui/styles/tools/rem';
 
 	.c-support-block__grid {
 		--grid-fluid-min-item-size: var(--space-100);
@@ -56,5 +73,10 @@ const { label, cards } = Astro.props;
 		@media (--mq-huge) {
 			--grid-fluid-min-item-size: 16rem;
 		}
+	}
+
+	.c-support-block__wrap-buttons {
+		margin-block-start: auto;
+		padding-inline: var(--space-6);
 	}
 </style>

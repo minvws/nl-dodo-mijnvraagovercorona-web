@@ -3,7 +3,10 @@ import Layout from '../../../layouts/Layout.astro';
 import type { Locale } from 'src/utilities/locale/translation';
 import { availableLocales } from 'src/utilities/locale/translation';
 import { Hero } from '@design-system/components/Hero';
-import { ContentBlock } from '@design-system/components/ContentBlock';
+import {
+	ContentBlock,
+	MultiContentBlock,
+} from '@design-system/components/ContentBlock';
 import type { AdvicePageProps } from 'src/utilities/api/advice';
 import { getDataAdvicePages } from 'src/utilities/api/advice';
 import {
@@ -17,13 +20,9 @@ import { Retain } from '@mvoc/ui/components';
 import { Sidebar } from '@mvoc/ui/components';
 import { Stack } from '@mvoc/ui/components';
 import { SupportBlock } from '@design-system/components/SupportBlock';
-import {
-	CardAdvice,
-	CardBlock,
-	CardDay,
-	CardPrivacy,
-	Steps,
-} from '@design-system/components/Card';
+import { CardBlock } from '@mvoc/ui/components';
+import { Steps, CardDay, CardPrivacy } from '@modules/Card';
+import { CardAdvice } from '@mvoc/ui/components';
 import {
 	getDaySlug,
 	getShowOnDays,
@@ -188,11 +187,29 @@ const plan =
 														<CardBlock
 															title={title}
 															chapeau={chapeau}
-															buttons={buttons}
-															multiContentBlocks={multiContentBlocks}
+															buttons={
+																buttons
+																	? buttons.map((button) => ({
+																			label: button.label,
+																			href: parseLink(
+																				getFullPageUrl(button.slugCollection),
+																				locale,
+																			),
+																			variant: button.variant,
+																			iconPosition: button.iconPosition,
+																			icon: button.icon,
+																	  }))
+																	: undefined
+															}
 														>
 															<ContentBlock value={content} />
-															{/* TODO: tips */}
+
+															{multiContentBlocks ? (
+																<MultiContentBlock
+																	multiContentBlocks={multiContentBlocks}
+																	slot="appendix"
+																/>
+															) : null}
 														</CardBlock>
 													),
 												)}
