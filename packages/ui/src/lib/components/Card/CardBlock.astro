@@ -1,23 +1,28 @@
 ---
-import { Heading } from '@mvoc/ui/elements';
-import { Stack } from '@mvoc/ui/components';
-import { Card } from '.';
-import { Chapeau } from '@mvoc/ui/elements';
 import {
-	type ButtonsProps,
-	type MultiContentBlocksProps,
-} from 'src/utilities/api/queries';
-import { MultiContentBlock } from '../ContentBlock';
-import { FlexibleButton } from '@modules/elements/FlexibleButton';
+	Button,
+	Heading,
+	type ButtonVariants,
+	type IconPositions,
+	type IconProps,
+} from '@mvoc/ui/elements';
+import { Stack } from '@mvoc/ui/components';
+import { Card } from '@mvoc/ui/components';
+import { Chapeau } from '@mvoc/ui/elements';
 
 interface Props {
 	title: string;
 	chapeau?: string;
-	buttons?: ButtonsProps;
-	multiContentBlocks?: MultiContentBlocksProps;
+	buttons?: {
+		label: string;
+		href: string;
+		variant?: ButtonVariants;
+		iconPosition?: IconPositions;
+		icon?: IconProps['name'];
+	}[];
 }
 
-const { title, chapeau, buttons, multiContentBlocks } = Astro.props;
+const { title, chapeau, buttons } = Astro.props;
 ---
 
 <Card>
@@ -38,17 +43,12 @@ const { title, chapeau, buttons, multiContentBlocks } = Astro.props;
 		{
 			!!buttons?.length ? (
 				<ul class="c-card-block__wrap-buttons" role="list">
-					{buttons.map((button) => (
+					{buttons.map(({ label, ...rest }) => (
 						<li>
-							<FlexibleButton {...button} />
+							<Button {...rest}>{label}</Button>
 						</li>
 					))}
 				</ul>
-			) : null
-		}
-		{
-			multiContentBlocks ? (
-				<MultiContentBlock multiContentBlocks={multiContentBlocks} />
 			) : null
 		}
 
