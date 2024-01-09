@@ -10,7 +10,6 @@ import cardDocument from './documents/card';
 import duoColumnContentDocument from './documents/duoColumnContent';
 import ctaButtonDocument from './documents/ctaButton';
 import supportDocument from './documents/support';
-import tabDocument from './documents/tab';
 import carouselDocument from './documents/carousel';
 
 // Pages
@@ -75,7 +74,6 @@ export default [
 	duoColumnContentDocument,
 	ctaButtonDocument,
 	supportDocument,
-	tabDocument,
 	carouselDocument,
 
 	// objects

@@ -52,7 +52,6 @@ export default defineConfig({
 			],
 			schemaTypes: [
 				'assistance-new',
-				'tab',
 				'support',
 				'card',
 				'cta-button-document',
