@@ -1,4 +1,4 @@
-import type { ContentBlockProps } from '@design-system/components/ContentBlock';
+import type { ContentBlockProps } from '@modules/ContentBlock';
 import type { IconProps } from '@mvoc/ui/elements';
 import { useSanityClient } from 'astro-sanity';
 import type { PageProps, HeroProps } from '../queries';

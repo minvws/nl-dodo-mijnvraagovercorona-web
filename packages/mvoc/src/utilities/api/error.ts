@@ -1,4 +1,4 @@
-import type { ContentBlockProps } from '@design-system/components/ContentBlock';
+import type { ContentBlockProps } from '@modules/ContentBlock';
 import { useSanityClient } from 'astro-sanity';
 import type { PageProps, ButtonProps, HeroProps } from './queries';
 import {
