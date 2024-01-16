@@ -5,7 +5,7 @@ import {
 	imageQuery,
 	multiContentBlocksQuery,
 } from './';
-import type { ContentBlockProps } from '@design-system/components/ContentBlock';
+import type { ContentBlockProps } from '@modules/ContentBlock';
 
 interface CardProps {
 	title: string;

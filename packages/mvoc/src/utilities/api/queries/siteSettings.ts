@@ -3,7 +3,7 @@ import type { Locale } from 'src/utilities/locale/translation';
 import { locales } from 'src/utilities/locale/translation';
 import type { InternalPageCollectionProps, ImageProps } from '.';
 import { internalPageReferenceQuery, customBlockQuery, imageQuery } from '.';
-import type { ContentBlockProps } from '@design-system/components/ContentBlock';
+import type { ContentBlockProps } from '@modules/ContentBlock';
 import {
 	setGlobalData,
 	type GlobalDataByLocale,

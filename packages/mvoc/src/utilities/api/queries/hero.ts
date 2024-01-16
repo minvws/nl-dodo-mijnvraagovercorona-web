@@ -1,4 +1,4 @@
-import type { ContentBlockProps } from '@design-system/components/ContentBlock';
+import type { ContentBlockProps } from '@modules/ContentBlock';
 import type { ImageProps } from '.';
 import { customBlockQuery, imageQuery } from '.';
 
