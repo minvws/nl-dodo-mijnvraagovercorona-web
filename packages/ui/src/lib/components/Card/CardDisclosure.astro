@@ -1,0 +1,64 @@
+---
+import { type HTMLAttributes } from 'astro/types';
+import {
+	Card,
+	Stack,
+	type PictureProps,
+	Disclosure,
+} from '@mvoc/ui/components';
+
+interface Props extends HTMLAttributes<'div'> {
+	id: string;
+	title: string;
+	image?: PictureProps['image'];
+}
+
+const { id, title, image } = Astro.props;
+---
+
+<Card variant="filled" class="c-card-disclosure">
+	<Stack gap={4}>
+		<Disclosure
+			headingLevel={3}
+			label={title}
+			id={id}
+			accordeon
+			adviceBlock
+			itemscope
+			itemprop="mainEntity"
+			itemtype="https://schema.org/Question"
+			image={image}
+		>
+			<Stack gap={8}>
+				<slot />
+			</Stack>
+		</Disclosure>
+	</Stack>
+</Card>
+
+<style lang="scss">
+	@use '@mvoc/ui/styles/primitives/responsive';
+
+	/**
+	 * 1. override specificity by 0,1,0 to battle Astro loading
+	 */
+	.c-card-disclosure.c-card-disclosure /* [1] */ {
+		--card-border-width: var(--space-1);
+		--card-border-color: var(--color-accent-grasgroen);
+		padding: 0;
+		border-block-start: 0;
+		border-block-end: 0;
+		border-inline-end: 0;
+		border-radius: var(--space-1);
+
+		&:nth-of-type(even) {
+			--card-border-color: var(--color-accent-robijnrood);
+		}
+
+		@media (--mq-large) {
+			:global(.disclosure__item--accordeon .disclosure__panel-inner) {
+				padding-block-start: 0;
+			}
+		}
+	}
+</style>
