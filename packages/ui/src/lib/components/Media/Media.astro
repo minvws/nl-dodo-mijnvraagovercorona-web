@@ -21,7 +21,7 @@ const { image, class: className, ...attrs } = Astro.props;
 			<img class="c-media__image" src={image.src} alt="" loading="lazy" />
 		) : null
 	}
-	<Stack gap={4}>
+	<Stack class="c-media__body">
 		<slot />
 	</Stack>
 </div>
@@ -47,5 +47,9 @@ const { image, class: className, ...attrs } = Astro.props;
 		max-inline-size: var(--c-media-image-size);
 		aspect-ratio: 1/1;
 		object-fit: contain;
+	}
+
+	.c-media__body {
+		--stack: var(--c-media-body-gap, var(--space-4));
 	}
 </style>

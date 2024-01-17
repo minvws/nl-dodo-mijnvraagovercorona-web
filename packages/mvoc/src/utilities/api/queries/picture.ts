@@ -1,6 +1,6 @@
-import type { PictureProps as PicturePropsElement } from '@mvoc/ui/components';
+import type { PictureProps as PicturePropsComponent } from '@mvoc/ui/components';
 
-export interface PictureProps extends PicturePropsElement {
+export interface PictureProps extends PicturePropsComponent {
 	type: 'picture';
 }
 
