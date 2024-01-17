@@ -1,0 +1,38 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { CardDisclosure, Media } from '@mvoc/ui/components';
+import { ContentBlock, type ContentBlockProps } from '@modules/ContentBlock';
+import type { ButtonProps } from 'src/utilities/api/queries/buttons';
+import { FlexibleButton } from '@modules/elements/FlexibleButton';
+import type { PictureProps } from 'src/utilities/api/queries';
+import { stringToSlug } from 'src/utilities/stringToSlug';
+
+interface Props extends HTMLAttributes<'div'> {
+	title: string;
+	image?: PictureProps['image'];
+	content: ContentBlockProps['value'];
+	button?: ButtonProps;
+	items?: {
+		image?: PictureProps['image'];
+		content: ContentBlockProps['value'];
+	}[];
+}
+
+const { title, image, content, button, items } = Astro.props;
+---
+
+<CardDisclosure id={stringToSlug(title)} title={title} image={image}>
+	<ContentBlock value={content} />
+	{
+		items.map((item) => (
+			<Media image={item.image} class="c-advice-block__media-item">
+				<ContentBlock value={item.content} />
+			</Media>
+		))
+	}
+	{
+		button?.label ? (
+			<FlexibleButton {...button} interactionIconAnimation="swing" />
+		) : null
+	}
+</CardDisclosure>
