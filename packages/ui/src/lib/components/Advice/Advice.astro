@@ -1,0 +1,34 @@
+---
+import { Heading } from '@mvoc/ui/elements';
+import type { HTMLAttributes } from 'astro/types';
+import type { PictureProps } from '@mvoc/ui/components';
+import { Media } from '../Media';
+
+interface Props extends HTMLAttributes<'div'> {
+	title: string;
+	subtitle?: string;
+	image?: PictureProps['image'];
+}
+
+const { title, subtitle, image, class: className, ...attrs } = Astro.props;
+---
+
+<Media class={`c-advice${className ? ` | ${className}` : ''}`} image={image}>
+	<Heading level={2} styledAs={3}>{title}</Heading>
+	{
+		subtitle ? (
+			<p class="c-advice__subtitle | u-color--accent-robijnrood">{subtitle}</p>
+		) : undefined
+	}
+</Media>
+
+<style lang="scss">
+	.c-advice {
+		--c-media-gap: var(--space-3);
+		--c-media-body-gap: 0;
+	}
+
+	.c-advice__subtitle {
+		font-weight: bold;
+	}
+</style>

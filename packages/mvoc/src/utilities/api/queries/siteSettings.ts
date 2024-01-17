@@ -1,7 +1,7 @@
 import { useSanityClient } from 'astro-sanity';
 import type { Locale } from 'src/utilities/locale/translation';
 import { locales } from 'src/utilities/locale/translation';
-import type { InternalPageCollectionProps, ImageProps } from '.';
+import type { InternalPageCollectionProps, ImageProps, PictureProps } from '.';
 import { internalPageReferenceQuery, customBlockQuery, imageQuery } from '.';
 import type { ContentBlockProps } from '@modules/ContentBlock';
 import {
@@ -108,7 +108,7 @@ interface SiteSettings {
 	severeSymptomsAdvice: {
 		title: string;
 		subtitle: string;
-		icon: ImageProps;
+		icon: PictureProps['image'];
 	};
 	forms: {
 		filterOn: string;

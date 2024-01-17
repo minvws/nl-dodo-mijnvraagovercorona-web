@@ -11,8 +11,7 @@ import {
 	getPageSubfolder,
 } from 'src/utilities/helpers/page-subfolder';
 import { useSiteSettings } from 'src/utilities/api/queries';
-import { Advice } from '@design-system/components/Advice';
-import { Layer } from '@mvoc/ui/components';
+import { Layer, Advice } from '@mvoc/ui/components';
 import { Retain } from '@mvoc/ui/components';
 import { Sidebar } from '@mvoc/ui/components';
 import { Stack } from '@mvoc/ui/components';
@@ -126,7 +125,7 @@ const plan =
 				<Advice
 					title={siteSettings.severeSymptomsAdvice.title}
 					subtitle={siteSettings.severeSymptomsAdvice.subtitle}
-					icon={siteSettings.severeSymptomsAdvice.icon}
+					image={siteSettings.severeSymptomsAdvice.icon}
 				/>
 			) : null
 		}
