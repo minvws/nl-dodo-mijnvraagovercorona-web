@@ -12,9 +12,7 @@ const { title } = Astro.props;
 
 <Card variant="filled">
 	<Stack gap={4}>
-		<Heading level={2}>
-			{title ? <span>{title}</span> : null}
-		</Heading>
+		{title ? <Heading level={2}>{title}</Heading> : null}
 		<slot />
 	</Stack>
 </Card>
