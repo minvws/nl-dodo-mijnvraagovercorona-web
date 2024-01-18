@@ -1,9 +1,9 @@
-import type { ButtonProps, ImageProps } from '.';
+import type { ButtonProps, PictureProps } from '.';
 import { buttonsQuery, imageQuery } from '.';
 
 export interface AssistanceProps {
 	title: string;
-	image?: ImageProps;
+	image?: PictureProps['image'];
 	text: string;
 	type: string;
 	phone: {
@@ -26,12 +26,12 @@ export const assistanceQuery = (): string => {
 		${imageQuery({ name: 'image' })},
 		text,
 		phone {
-            phoneNumber,
-            openingHourLabel,
-            openingHour,
-            closingHour,
-            nowOpen,
-        },
+			phoneNumber,
+			openingHourLabel,
+			openingHour,
+			closingHour,
+			nowOpen,
+		},
 		getHelp{
 			title,
 			${buttonsQuery({ array: false })},
