@@ -286,6 +286,9 @@ export async function setUIGlobalDataFromSiteSettings() {
 				next: siteSettingsTranslated[locale.id].genericLabels.next,
 				goTo: siteSettingsTranslated[locale.id].genericLabels.goTo,
 				openVideo: siteSettingsTranslated[locale.id].videoPlayer?.openVideo,
+				feedback: {
+					button: siteSettingsTranslated[locale.id].feedback.button,
+				},
 			},
 		};
 	}, {} as GlobalDataByLocale);

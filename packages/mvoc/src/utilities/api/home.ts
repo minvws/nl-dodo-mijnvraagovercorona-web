@@ -5,7 +5,6 @@ import type {
 	PageProps,
 	TaleCollectionProps,
 	AssistanceProps,
-	ImageProps,
 	ButtonProps,
 	CardsProps,
 	CtaButtonCollectionProps,

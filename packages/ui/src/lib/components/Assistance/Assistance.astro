@@ -1,20 +1,15 @@
 ---
 import { Heading } from '@mvoc/ui/elements';
-import { Link, Button } from '@mvoc/ui/elements';
+import { Link, Button, type ButtonProps } from '@mvoc/ui/elements';
 import type { HTMLAttributes } from 'astro/types';
-import {
-	useSiteSettings,
-	type ButtonProps,
-	type ImageProps,
-} from 'src/utilities/api/queries';
-import { getLocaleFromURL } from 'src/utilities/locale/translation';
-import { GridFluid } from '@mvoc/ui/components';
+import { GridFluid, type PictureProps } from '@mvoc/ui/components';
 import { Stack } from '@mvoc/ui/components';
+import { getLocaleFromURL, useGlobalData } from '@mvoc/ui/helpers';
 
 interface Props extends HTMLAttributes<'div'> {
 	inDialog?: boolean;
 	title: string;
-	image?: ImageProps;
+	image?: PictureProps['image'];
 	text: string;
 	phone: {
 		phoneNumber: string;
@@ -44,7 +39,7 @@ const {
 const locale = getLocaleFromURL(Astro.url.pathname);
 const openingHour = phone.openingHour;
 const closingHour = phone.closingHour;
-const siteSettings = await useSiteSettings({ locale });
+const globalData = useGlobalData({ locale });
 ---
 
 <div
@@ -121,11 +116,13 @@ const siteSettings = await useSiteSettings({ locale });
 						/>
 					</div>
 					<Stack>
-						<Heading class="c-assistance__heading-humble" level={3}>
-							{getHelp.title}
-						</Heading>
+						{getHelp ? (
+							<Heading class="c-assistance__heading-humble" level={3}>
+								{getHelp.title}
+							</Heading>
+						) : null}
 						<Button href={feedback} isExternal>
-							{siteSettings.feedback.button}
+							{globalData.feedback.button}
 						</Button>
 					</Stack>
 				</div>
@@ -151,13 +148,16 @@ const siteSettings = await useSiteSettings({ locale });
 			'[data-module-bind="assistance__openinghours"]',
 		);
 		if (!openingHourElement) return false;
+		const dataStarttime = openingHourElement.getAttribute(
+			'data-starttime',
+		) as string;
+		const dataEndtime = openingHourElement.getAttribute(
+			'data-endtime',
+		) as string;
+		if (!dataStarttime && !dataEndtime) return false;
 
-		const openingHour = parseInt(
-			openingHourElement.getAttribute('data-starttime'),
-		);
-		const closingHour = parseInt(
-			openingHourElement.getAttribute('data-endtime'),
-		);
+		const openingHour = parseInt(dataStarttime);
+		const closingHour = parseInt(dataEndtime);
 
 		const now = new Date();
 		const hours = now.getHours();
