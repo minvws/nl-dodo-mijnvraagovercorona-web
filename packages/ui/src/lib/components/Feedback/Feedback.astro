@@ -17,76 +17,64 @@ const formId = `form-${uuidv4()}`;
 const globalData = useGlobalData({ locale });
 ---
 
-<>
-	{
-		locale.id === 'nl' || locale.id === 'en' ? (
-			<section
-				class={`c-feedback${className ? ` | ${className}` : ''}`}
-				{...attrs}
-				data-module="feedback"
-				data-name={name}
-				id="feedback"
-				pagefind-ignore="all"
-			>
-				<Stack>
-					<Heading>{globalData.feedback.title}</Heading>
-					{globalData.feedback.content ? (
-						<p>{globalData.feedback.content}</p>
-					) : null}
-					<form
-						class="c-feedback__form"
-						action=""
-						data-module-bind="feedback__form"
+<section
+	class={`c-feedback${className ? ` | ${className}` : ''}`}
+	{...attrs}
+	data-module="feedback"
+	data-name={name}
+	id="feedback"
+	pagefind-ignore="all"
+>
+	<Stack>
+		<Heading>{globalData.feedback.title}</Heading>
+		{globalData.feedback.content ? <p>{globalData.feedback.content}</p> : null}
+		<form class="c-feedback__form" action="" data-module-bind="feedback__form">
+			<fieldset>
+				<legend class="u-visually-hidden">
+					{globalData.feedback.title}
+				</legend>
+				<div class="c-feedback__wrap-controls">
+					<Control
+						type="radio"
+						value="Like"
+						name="feedback-choice"
+						id={`feedback-choice-yes-${formId}`}
+						required
 					>
-						<fieldset>
-							<legend class="u-visually-hidden">
-								{globalData.feedback.title}
-							</legend>
-							<div class="c-feedback__wrap-controls">
-								<Control
-									type="radio"
-									value="Like"
-									name="feedback-choice"
-									id={`feedback-choice-yes-${formId}`}
-									required
-								>
-									{globalData.feedback.like}
-								</Control>
-								<Control
-									type="radio"
-									value="Dislike"
-									name="feedback-choice"
-									id={`feedback-choice-no-${formId}`}
-								>
-									{globalData.feedback.dislike}
-								</Control>
-							</div>
-						</fieldset>
+						{globalData.feedback.like}
+					</Control>
+					<Control
+						type="radio"
+						value="Dislike"
+						name="feedback-choice"
+						id={`feedback-choice-no-${formId}`}
+					>
+						{globalData.feedback.dislike}
+					</Control>
+				</div>
+			</fieldset>
 
-						<div role="status">
-							<Card
-								class="c-feedback__message"
-								variant="filled"
-								data-module-bind="feedback__message"
-							>
-								<Stack>
-									<p>{globalData.feedback.thanks}</p>
-									<Button
-										href={url}
-										data-module-bind="feedback__button"
-										isExternal={isExternal}
-									>
-										{globalData.feedback.button}
-									</Button>
-								</Stack>
-							</Card>
-						</div>
-					</form>
-				</Stack>
-			</section>
-		) : null
-	}
-</>
+			<div role="status">
+				<Card
+					class="c-feedback__message"
+					variant="filled"
+					data-module-bind="feedback__message"
+				>
+					<Stack>
+						<p>{globalData.feedback.thanks}</p>
+						<Button
+							href={url}
+							data-module-bind="feedback__button"
+							isExternal={isExternal}
+						>
+							{globalData.feedback.button}
+						</Button>
+					</Stack>
+				</Card>
+			</div>
+		</form>
+	</Stack>
+</section>
 
 <style lang="scss">
 	.c-feedback {

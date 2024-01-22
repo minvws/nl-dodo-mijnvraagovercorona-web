@@ -2,6 +2,7 @@
 import { type HTMLAttributes } from 'astro/types';
 import { Feedback } from '@mvoc/ui/components';
 import { isExternalUrl } from 'src/utilities/helpers/external-url';
+import { getLocaleFromURL } from '@mvoc/ui/helpers';
 
 interface Props extends HTMLAttributes<'div'> {
 	url: string;
@@ -10,15 +11,22 @@ interface Props extends HTMLAttributes<'div'> {
 
 const { class: className, url, name, ...attrs } = Astro.props;
 const isExternal = isExternalUrl(url);
+const locale = getLocaleFromURL(Astro.url.pathname);
 ---
 
-<Feedback
-	class={`${className ? ` | ${className}` : ''}`}
-	isExternal={isExternal}
-	url={url}
-	name={name}
-	{...attrs}
-/>
+<>
+	{
+		locale.id === 'nl' || locale.id === 'en' ? (
+			<Feedback
+				class={`${className ? ` | ${className}` : ''}`}
+				isExternal={isExternal}
+				url={url}
+				name={name}
+				{...attrs}
+			/>
+		) : null
+	}
+</>
 
 <script>
 	import { trackEvent } from 'src/utilities/tracking/piwik';
