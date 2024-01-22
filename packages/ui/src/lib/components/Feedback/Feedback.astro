@@ -1,23 +1,20 @@
 ---
-import { Control, Heading, Button } from '@mvoc/ui/elements';
+import { getLocaleFromURL, useGlobalData } from '@mvoc/ui/helpers';
 import type { HTMLAttributes } from 'astro/types';
-import { useSiteSettings } from 'src/utilities/api/queries';
-import { getLocaleFromURL } from 'src/utilities/locale/translation';
-import { Card } from '@mvoc/ui/components';
-import { Stack } from '@mvoc/ui/components';
 import { v4 as uuidv4 } from 'uuid';
-import { isExternalUrl } from 'src/utilities/helpers/external-url';
+import { Card, Stack } from '@mvoc/ui/components';
+import { Button, Control, Heading } from '@mvoc/ui/elements';
 
 interface Props extends HTMLAttributes<'section'> {
 	url: string;
+	isExternal: boolean;
 	name: string;
 }
 
-const { class: className, url, name, ...attrs } = Astro.props;
+const { class: className, url, isExternal, name, ...attrs } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
-const siteSettings = await useSiteSettings({ locale });
 const formId = `form-${uuidv4()}`;
-const isExternal = isExternalUrl(url);
+const globalData = useGlobalData({ locale });
 ---
 
 <>
@@ -32,9 +29,9 @@ const isExternal = isExternalUrl(url);
 				pagefind-ignore="all"
 			>
 				<Stack>
-					<Heading>{siteSettings.feedback.title}</Heading>
-					{siteSettings.feedback.content ? (
-						<p>{siteSettings.feedback.content}</p>
+					<Heading>{globalData.feedback.title}</Heading>
+					{globalData.feedback.content ? (
+						<p>{globalData.feedback.content}</p>
 					) : null}
 					<form
 						class="c-feedback__form"
@@ -43,7 +40,7 @@ const isExternal = isExternalUrl(url);
 					>
 						<fieldset>
 							<legend class="u-visually-hidden">
-								{siteSettings.feedback.title}
+								{globalData.feedback.title}
 							</legend>
 							<div class="c-feedback__wrap-controls">
 								<Control
@@ -53,7 +50,7 @@ const isExternal = isExternalUrl(url);
 									id={`feedback-choice-yes-${formId}`}
 									required
 								>
-									{siteSettings.feedback.labels.like}
+									{globalData.feedback.like}
 								</Control>
 								<Control
 									type="radio"
@@ -61,7 +58,7 @@ const isExternal = isExternalUrl(url);
 									name="feedback-choice"
 									id={`feedback-choice-no-${formId}`}
 								>
-									{siteSettings.feedback.labels.dislike}
+									{globalData.feedback.dislike}
 								</Control>
 							</div>
 						</fieldset>
@@ -73,13 +70,13 @@ const isExternal = isExternalUrl(url);
 								data-module-bind="feedback__message"
 							>
 								<Stack>
-									<p>{siteSettings.feedback.thanks}</p>
+									<p>{globalData.feedback.thanks}</p>
 									<Button
 										href={url}
 										data-module-bind="feedback__button"
 										isExternal={isExternal}
 									>
-										{siteSettings.feedback.button}
+										{globalData.feedback.button}
 									</Button>
 								</Stack>
 							</Card>
@@ -111,8 +108,6 @@ const isExternal = isExternalUrl(url);
 </style>
 
 <script>
-	import { trackEvent } from 'src/utilities/tracking/piwik';
-
 	const parent = document.querySelector(
 		'[data-module="feedback"]',
 	) as HTMLElement;
@@ -132,18 +127,16 @@ const isExternal = isExternalUrl(url);
 		form.addEventListener('change', () => {
 			const formData = new FormData(form);
 			const choice = formData.get('feedback-choice');
-			const pagePathName = document.querySelector('html').dataset.pagePathname;
-			const pageType = document.querySelector('html').dataset.pageType;
-			// update feedback button with feedback url parameter containing our choice
-			const urlPart = `&feedback=${choice.toString().toLowerCase()}`;
-			const buttonHref = buttonElement.href;
-			buttonElement.href = buttonHref.includes('&feedback=')
-				? buttonHref
-						.replace('&feedback=like', urlPart)
-						.replace('&feedback=dislike', urlPart)
-				: `${buttonHref}${urlPart}`;
-
-			trackEvent('Button', choice.toString(), `${pageType} - ${pagePathName}`);
+			if (choice) {
+				// update feedback button with feedback url parameter containing our choice
+				const urlPart = `&feedback=${choice.toString().toLowerCase()}`;
+				const buttonHref = buttonElement.href;
+				buttonElement.href = buttonHref.includes('&feedback=')
+					? buttonHref
+							.replace('&feedback=like', urlPart)
+							.replace('&feedback=dislike', urlPart)
+					: `${buttonHref}${urlPart}`;
+			}
 		});
 	}
 </script>

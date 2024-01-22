@@ -22,7 +22,7 @@ import {
 } from 'src/utilities/api/queries';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
-import { Feedback } from '@design-system/components/Feedback';
+import { FeedbackAbstraction } from '@modules/FeedbackAbstraction';
 
 export async function getStaticPaths() {
 	const collection = await getDataThemes();
@@ -132,7 +132,7 @@ const siteSettings = await useSiteSettings({ locale });
 			<Layer>
 				<Retain>
 					<Stack>
-						<Feedback
+						<FeedbackAbstraction
 							name="Thema"
 							url={getFeedbackUrl(siteSettings.feedback.url, {
 								source: pageData.type,

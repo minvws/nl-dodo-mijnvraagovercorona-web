@@ -14,12 +14,12 @@ import { CardPrivacy } from '@modules/Card';
 import { TaleList } from '@modules/Tale';
 import { Assistance } from '@mvoc/ui/components';
 import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
-import { Feedback } from '@design-system/components/Feedback';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import { Breadcrumbs } from '@mvoc/ui/components';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { FlexibleButton } from '@modules/elements/FlexibleButton';
+import { FeedbackAbstraction } from '@modules/FeedbackAbstraction';
 
 export async function getStaticPaths() {
 	const collection = await getDataPZALandingPages();
@@ -110,7 +110,7 @@ const siteSettings = await useSiteSettings({
 						<Stack gap={14}>
 							<TaleList taleCollection={pageData.taleCollection} />
 							{pageData?.showFeedback ? (
-								<Feedback
+								<FeedbackAbstraction
 									name="Prikken Home"
 									url={getFeedbackUrl(siteSettings.feedback.url, {
 										source: pageData.type,

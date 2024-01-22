@@ -15,3 +15,4 @@ export * from './Attribute';
 export * from './Form';
 export * from './Advice';
 export * from './Assistance';
+export * from './Feedback';

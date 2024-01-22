@@ -21,10 +21,10 @@ import { FlexibleButton } from '@modules/elements/FlexibleButton';
 import { MoreInfoOverview, Card } from '@mvoc/ui/components';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
 import { useSiteSettings } from 'src/utilities/api/queries';
-import { Feedback } from '@design-system/components/Feedback';
 import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
 import { parseLink } from 'src/utilities/helpers/link';
 import { isExternalUrl } from 'src/utilities/helpers/external-url';
+import { FeedbackAbstraction } from '@modules/FeedbackAbstraction';
 
 export async function getStaticPaths() {
 	const collection = await getDataHome();
@@ -200,7 +200,7 @@ const siteSettings = await useSiteSettings({ locale });
 			<Layer>
 				<Retain>
 					<Stack>
-						<Feedback
+						<FeedbackAbstraction
 							name="Home"
 							url={getFeedbackUrl(siteSettings.feedback.url, {
 								source: pageData.type,
