@@ -18,8 +18,8 @@ import { stringToSlug } from 'src/utilities/stringToSlug';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import { GridFluid } from '@mvoc/ui/components';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
-import { Feedback } from '@design-system/components/Feedback';
 import { CarouselAbstraction } from '@modules/CarouselAbstraction';
+import { FeedbackAbstraction } from '@modules/FeedbackAbstraction';
 
 export async function getStaticPaths() {
 	const collection = await getDataCampaignPages();
@@ -178,7 +178,7 @@ if (pageData?.taleCollection?.length) {
 			<Layer>
 				<Retain>
 					<Stack>
-						<Feedback
+						<FeedbackAbstraction
 							name="Campagne"
 							url={getFeedbackUrl(siteSettings.feedback.url, {
 								source: pageData.type,

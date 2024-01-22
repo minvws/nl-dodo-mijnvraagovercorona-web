@@ -1,6 +1,6 @@
 ---
 import { ContentBlock } from '@modules/ContentBlock';
-import { Feedback } from '@design-system/components/Feedback';
+import { FeedbackAbstraction } from '@modules/FeedbackAbstraction';
 import { Stack } from '@mvoc/ui/components';
 import { MastFoot } from '@design-system/components/MastFoot';
 import { CloseButton } from '@mvoc/ui/elements';
@@ -23,7 +23,6 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
 import { Layer } from '@mvoc/ui/components';
 import { Retain } from '@mvoc/ui/components';
-import { stringToSlug } from 'src/utilities/stringToSlug';
 
 interface Props extends HTMLAttributes<'div'> {
 	pageData: LocationsPageProps;
@@ -88,7 +87,7 @@ const siteSettings = await useSiteSettings({
 			pageData?.showFeedback ? (
 				<Layer>
 					<Retain>
-						<Feedback
+						<FeedbackAbstraction
 							name="Prikken locations list"
 							url={getFeedbackUrl(siteSettings.feedback.url, {
 								source: pageData.type,
@@ -137,7 +136,7 @@ const siteSettings = await useSiteSettings({
 							data-module-bind="navigator__detail-target"
 						>
 						</div>
-						<Feedback
+						<FeedbackAbstraction
 							url={getFeedbackUrl(siteSettings.feedback.url, {
 								source: pageData.type,
 								advice: pageData.slug,

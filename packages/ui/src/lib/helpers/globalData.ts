@@ -9,7 +9,12 @@ export interface GlobalData {
 	goTo: string;
 	openVideo: string;
 	feedback: {
+		title: string;
+		content?: string;
 		button: string;
+		like: string;
+		dislike: string;
+		thanks: string;
 	};
 }
 
@@ -26,7 +31,13 @@ const defaults = {
 	goTo: 'Ga naar',
 	openVideo: 'Open video',
 	feedback: {
+		title: 'Heeft deze informatie je voldoende geholpen?',
+		content: 'We zijn benieuwd naar je mening.',
 		button: 'Laat het ons weten',
+		like: 'Ja',
+		dislike: 'Nee',
+		thanks:
+			'Dank voor je reactie! Wil je anoniem delen hoe we verder kunnen verbeteren?',
 	},
 } as GlobalData;
 

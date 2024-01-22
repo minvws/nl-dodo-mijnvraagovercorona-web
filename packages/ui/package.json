@@ -27,6 +27,7 @@
 		"astro-icon": "1.0.0-next.2",
 		"astro": "^4.0.4",
 		"postcss-custom-media": "^10.0.2",
-		"sharp": "^0.33.0"
+		"sharp": "^0.33.0",
+		"uuid": "^9.0.1"
 	}
 }
