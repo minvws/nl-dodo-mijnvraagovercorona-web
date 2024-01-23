@@ -2,7 +2,7 @@
 import Layout from '../../../layouts/Layout.astro';
 import type { Locale } from 'src/utilities/locale/translation';
 import { availableLocales } from 'src/utilities/locale/translation';
-import { Hero } from '@design-system/components/Hero';
+import { Hero } from '@mvoc/ui/components';
 import { ContentBlock } from '@modules/ContentBlock';
 import { DisclosureQuote, Stack } from '@mvoc/ui/components';
 import { Retain } from '@mvoc/ui/components';
@@ -85,8 +85,8 @@ if (pageData?.taleCollection?.length) {
 		image={pageData.hero.image}
 		chapeau={pageData.hero.chapeau}
 		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
-		highlight
-		isPhoto={pageData.hero.isPhoto}
+		variant="highlight"
+		imageIsPhoto={pageData.hero.isPhoto}
 	>
 		<Breadcrumbs items={pageData.breadcrumbs} slot="prefix" />
 		<Stack class="c-hero__content">

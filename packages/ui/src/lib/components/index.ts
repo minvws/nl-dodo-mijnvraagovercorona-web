@@ -16,3 +16,4 @@ export * from './Form';
 export * from './Advice';
 export * from './Assistance';
 export * from './Feedback';
+export * from './Hero';

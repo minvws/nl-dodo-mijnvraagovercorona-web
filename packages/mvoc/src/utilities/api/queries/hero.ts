@@ -1,11 +1,11 @@
 import type { ContentBlockProps } from '@modules/ContentBlock';
-import type { ImageProps } from '.';
+import type { PictureProps } from '.';
 import { customBlockQuery, imageQuery } from '.';
 
 export interface HeroProps {
 	title: string;
 	chapeau?: string;
-	image?: ImageProps;
+	image?: PictureProps['image'];
 	content?: ContentBlockProps['value'];
 	showUpdatedAt?: boolean;
 	isPhoto?: boolean;

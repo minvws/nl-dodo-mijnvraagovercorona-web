@@ -1,24 +1,21 @@
 ---
-import { Chapeau } from '@mvoc/ui/elements';
-import { Heading } from '@mvoc/ui/elements';
-import type { ImageProps } from 'src/utilities/api/queries';
-import { Retain } from '@mvoc/ui/components';
-import { Stack } from '@mvoc/ui/components';
-import { Switcher } from '@mvoc/ui/components';
-import { UpdatedAt } from '@mvoc/ui/elements';
-import { useSiteSettings } from 'src/utilities/api/queries';
-import { getLocaleFromURL } from 'src/utilities/locale/translation';
+import { Chapeau, Heading, UpdatedAt } from '@mvoc/ui/elements';
+import {
+	Retain,
+	type PictureProps,
+	Switcher,
+	Stack,
+} from '@mvoc/ui/components';
 
 interface Props {
 	title: string;
 	titleSuffix?: string;
 	chapeau?: string;
-	image?: ImageProps;
-	highlight?: boolean;
-	variant?: 'theme' | 'default';
+	image?: PictureProps['image'];
+	variant?: 'highlight' | 'theme' | 'default';
 	updatedAt?: string;
-	isPhoto?: boolean;
-	cards?: boolean;
+	imageIsPhoto?: boolean;
+	adjustForCards?: boolean;
 }
 
 const {
@@ -26,22 +23,17 @@ const {
 	titleSuffix,
 	chapeau,
 	image,
-	highlight,
 	variant,
 	updatedAt,
-	isPhoto,
-	cards,
+	imageIsPhoto,
+	adjustForCards,
 } = Astro.props;
-
-const locale = getLocaleFromURL(Astro.url.pathname);
-const siteSettings = await useSiteSettings({ locale });
 ---
 
 <header
-	class={`c-hero${highlight ? ` c-hero--highlight` : ''}
-	${cards ? ` c-hero--cards` : ''}${variant ? ` c-hero--${variant}` : ''}${
-		isPhoto ? ` c-hero--photo` : ''
-	}`}
+	class={`c-hero${adjustForCards ? ` c-hero--adjust-for-cards` : ''}${
+		variant ? ` c-hero--${variant}` : ''
+	}${imageIsPhoto ? ` c-hero--image-is-photo` : ''}`}
 >
 	<Retain>
 		<slot name="prefix" />
@@ -77,7 +69,7 @@ const siteSettings = await useSiteSettings({ locale });
 							chapeau ? (
 								<Chapeau
 									class="c-hero__chapeau"
-									variant={highlight ? 'highlight' : 'base'}
+									variant={variant === 'highlight' ? 'highlight' : 'base'}
 									role="presentation"
 								>
 									{chapeau}
@@ -183,7 +175,8 @@ const siteSettings = await useSiteSettings({ locale });
 	}
 
 	// Variants
-	.c-hero--highlight {
+	.c-hero--highlight,
+	.c-hero--theme {
 		--hero-background: var(--theme-bg-highlight);
 		--hero-border-radius: var(--radii-huge);
 		// --hero-padding-block-start: 0px;
@@ -201,14 +194,6 @@ const siteSettings = await useSiteSettings({ locale });
 			@media (--mq-large) {
 				block-size: rem.convert(400px);
 			}
-		}
-	}
-
-	.c-hero--cards {
-		--hero-padding-block-end: calc(var(--hero-padding) * 2);
-
-		@media (--mq-large) {
-			--hero-padding-block-end: calc(var(--hero-padding) * 3);
 		}
 	}
 
@@ -242,7 +227,15 @@ const siteSettings = await useSiteSettings({ locale });
 		}
 	}
 
-	.c-hero--photo {
+	.c-hero--adjust-for-cards {
+		--hero-padding-block-end: calc(var(--hero-padding) * 2);
+
+		@media (--mq-large) {
+			--hero-padding-block-end: calc(var(--hero-padding) * 3);
+		}
+	}
+
+	.c-hero--image-is-photo {
 		.c-hero__wrap-image {
 			overflow: hidden;
 			border-radius: var(--radii-milli);

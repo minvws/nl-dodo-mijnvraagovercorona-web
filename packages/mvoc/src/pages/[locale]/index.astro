@@ -4,7 +4,7 @@ import type { Locale } from 'src/utilities/locale/translation';
 import { availableLocales } from 'src/utilities/locale/translation';
 import type { PageHomeProps } from 'src/utilities/api';
 import { getDataHome } from 'src/utilities/api';
-import { Hero } from '@design-system/components/Hero';
+import { Hero } from '@mvoc/ui/components';
 import { Layer, SectionHeading } from '@mvoc/ui/components';
 import { Retain } from '@mvoc/ui/components';
 import { Stack } from '@mvoc/ui/components';
@@ -83,9 +83,9 @@ const siteSettings = await useSiteSettings({ locale });
 		chapeau={pageData.hero.chapeau}
 		image={pageData.hero.image}
 		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
-		highlight
-		cards={!!pageData?.cards?.items}
-		isPhoto={pageData.hero.isPhoto}
+		variant="highlight"
+		adjustForCards={!!pageData?.cards?.items}
+		imageIsPhoto={pageData.hero.isPhoto}
 	>
 		<ContentBlock value={pageData.hero.content} />
 		{

@@ -3,7 +3,7 @@ import type { Locale } from 'src/utilities/locale/translation';
 import { availableLocales } from 'src/utilities/locale/translation';
 
 import Layout from '@layouts/Layout.astro';
-import { Hero } from '@design-system/components/Hero';
+import { Hero } from '@mvoc/ui/components';
 import type { ThemePageProps } from 'src/utilities/api/theme';
 import { getDataThemes } from 'src/utilities/api/theme';
 import { ContentBlock } from '@modules/ContentBlock';
@@ -75,10 +75,9 @@ const siteSettings = await useSiteSettings({ locale });
 		image={pageData.hero.image}
 		chapeau={pageData.hero.chapeau}
 		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
-		highlight
-		cards={!!pageData?.cards?.items}
+		adjustForCards={!!pageData?.cards?.items}
 		variant={'theme'}
-		isPhoto={pageData.hero.isPhoto}
+		imageIsPhoto={pageData.hero.isPhoto}
 	>
 		<Breadcrumbs items={pageData.breadcrumbs} slot="prefix" />
 		<ContentBlock value={pageData.hero.content} />
