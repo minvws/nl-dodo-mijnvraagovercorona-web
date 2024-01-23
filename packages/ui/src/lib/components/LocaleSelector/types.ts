@@ -1,4 +1,4 @@
-import type { Locale } from 'src/utilities/locale/translation';
+import type { Locale } from '@mvoc/ui/helpers';
 
 export interface AlternativeTranslationsProps {
 	locale: Locale;

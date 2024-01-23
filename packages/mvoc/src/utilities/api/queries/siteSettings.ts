@@ -286,6 +286,11 @@ export async function setUIGlobalDataFromSiteSettings() {
 				next: siteSettingsTranslated[locale.id].genericLabels.next,
 				goTo: siteSettingsTranslated[locale.id].genericLabels.goTo,
 				openVideo: siteSettingsTranslated[locale.id].videoPlayer?.openVideo,
+				localeSelector: {
+					title: siteSettingsTranslated[locale.id].localeSelector.title,
+					change: siteSettingsTranslated[locale.id].localeSelector.change,
+					current: siteSettingsTranslated[locale.id].localeSelector.current,
+				},
 				feedback: {
 					title: siteSettingsTranslated[locale.id].feedback.title,
 					content: siteSettingsTranslated[locale.id].feedback.content,

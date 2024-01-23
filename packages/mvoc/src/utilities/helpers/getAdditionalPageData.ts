@@ -1,12 +1,16 @@
 import type { SubFolderReferenceProps } from '../api/queries';
-import { availableLocales } from '../locale/translation';
+import { availableLocales } from '@mvoc/ui/helpers';
 import { getPageSubfolder } from './page-subfolder';
-import type { Locale } from 'src/utilities/locale/translation';
+import type { AlternativeTranslationsProps as AlternativeTranslationsPropsUI } from '@mvoc/ui/components';
 
 export type BreadcrumbProps = {
 	slug: string;
 	title: string;
 };
+
+export interface AlternativeTranslationsProps
+	extends AlternativeTranslationsPropsUI,
+		SubFolderReferenceProps {}
 
 const getPageBreadcrumbs = (pages) => {
 	return pages.map((page) => {
@@ -42,11 +46,6 @@ const getPageBreadcrumbs = (pages) => {
 		return { ...page, breadcrumbs };
 	});
 };
-
-export interface AlternativeTranslationsProps extends SubFolderReferenceProps {
-	locale: Locale;
-	href: string;
-}
 
 const getDataForAlternatives = (pages) =>
 	pages.map((page) => ({

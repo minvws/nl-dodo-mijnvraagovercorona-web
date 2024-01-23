@@ -266,11 +266,11 @@ const siteSettings = await useSiteSettings({
 			const isExpanded =
 				menuButtonElement.getAttribute('aria-expanded') === 'true';
 			navElementFocusableElements.forEach((element) => {
-				element.tabIndex = isExpanded
-					? null
-					: !window.matchMedia(mqHuge).matches
-					? -1
-					: null;
+				if (isExpanded || window.matchMedia(mqHuge).matches) {
+					element.removeAttribute('tabindex');
+				} else {
+					element.setAttribute('tabindex', '-1');
+				}
 			});
 		};
 

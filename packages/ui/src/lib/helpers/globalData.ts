@@ -8,6 +8,11 @@ export interface GlobalData {
 	next: string;
 	goTo: string;
 	openVideo: string;
+	localeSelector: {
+		title: string;
+		change: string;
+		current: string;
+	};
 	feedback: {
 		title: string;
 		content?: string;
@@ -30,6 +35,11 @@ const defaults = {
 	next: 'Volgende',
 	goTo: 'Ga naar',
 	openVideo: 'Open video',
+	localeSelector: {
+		title: 'Deze pagina in andere talen:',
+		change: 'Wissel van taal',
+		current: 'Huidige taal',
+	},
 	feedback: {
 		title: 'Heeft deze informatie je voldoende geholpen?',
 		content: 'We zijn benieuwd naar je mening.',

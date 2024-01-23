@@ -1,0 +1,57 @@
+---
+title: 'LocaleSelector'
+---
+
+import { LocaleSelector } from '@lib/components/LocaleSelector';
+import { availableLocales } from '@lib/helpers/locale';
+
+
+## Usage
+
+```jsx
+import { LocaleSelector } from '@mvoc/ui/components';
+
+<LocaleSelector alternativeTranslations={...alternativeTranslations} />
+```
+
+## Default
+
+<div class="not-content layout-container">
+	<LocaleSelector
+		isStatic
+		alternativeTranslations={[
+			{
+				locale: availableLocales[0],
+				href: '#'
+			},
+			{
+				locale: availableLocales[1],
+				href: '#'
+			},
+			{
+				locale: availableLocales[2],
+				href: '#'
+			}
+		]}
+	/>
+</div>
+
+```jsx
+<LocaleSelector
+	isStatic
+	alternativeTranslations={[
+		{
+			locale: availableLocales[0],
+			href: '#'
+		},
+		{
+			locale: availableLocales[1],
+			href: '#'
+		},
+		{
+			locale: availableLocales[2],
+			href: '#'
+		}
+	]}
+/>
+```

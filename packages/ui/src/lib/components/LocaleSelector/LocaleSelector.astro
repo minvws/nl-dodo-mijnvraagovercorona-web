@@ -1,23 +1,21 @@
 ---
-import { Icon, Link } from '@mvoc/ui/elements';
-import { useSiteSettings } from 'src/utilities/api/queries';
-import type { Locale } from 'src/utilities/locale/translation';
 import {
 	availableLocales,
 	getLocaleFromURL,
-} from 'src/utilities/locale/translation';
+	useGlobalData,
+} from '@mvoc/ui/helpers';
 import type { AlternativeTranslationsProps } from './types';
+import { Icon, Link } from '@mvoc/ui/elements';
 
 interface Props {
 	alternativeTranslations?: AlternativeTranslationsProps[];
 	compact?: boolean;
+	isStatic?: boolean;
 }
 
-const { alternativeTranslations, compact } = Astro.props;
-const currentLocale = getLocaleFromURL(Astro.url.pathname) as Locale;
-const siteSettings = await useSiteSettings({
-	locale: currentLocale,
-});
+const { alternativeTranslations, compact, isStatic } = Astro.props;
+const currentLocale = getLocaleFromURL(Astro.url.pathname);
+const globalData = useGlobalData({ locale: currentLocale });
 
 // Order alternativeTranslations based on our own order in availableLocales
 const translationsOrder = alternativeTranslations
@@ -29,12 +27,18 @@ const translationsOrder = alternativeTranslations
 					availableLocales.indexOf(b.locale),
 			)
 	: [];
+
+console.log('currentLocale', currentLocale);
+console.log('alternativeTranslations', alternativeTranslations);
+console.log('translationsOrder', translationsOrder);
 ---
 
 {
-	translationsOrder.length ? (
+	translationsOrder.length > 1 ? (
 		<div
-			class={`c-locale-selector${compact ? ' c-locale-selector--compact' : ''}`}
+			class={`c-locale-selector${compact ? ' c-locale-selector--compact' : ''}${
+				isStatic ? ' c-locale-selector--static' : ''
+			}`}
 			data-module="locale-selector"
 		>
 			<button
@@ -45,11 +49,9 @@ const translationsOrder = alternativeTranslations
 				aria-expanded="false"
 				data-module-bind="locale-selector__toggle"
 			>
+				<span class="u-visually-hidden">{globalData.localeSelector.title}</span>
 				<span class="u-visually-hidden">
-					{siteSettings.localeSelector.title}
-				</span>
-				<span class="u-visually-hidden">
-					{siteSettings.localeSelector.current}:
+					{globalData.localeSelector.current}:
 				</span>
 				<span class="c-locale-selector__short-name" aria-hidden="true">
 					{currentLocale.shortName.toUpperCase()}
@@ -204,6 +206,14 @@ const translationsOrder = alternativeTranslations
 		font-weight: bold;
 		line-height: 1em;
 		cursor: pointer;
+	}
+
+	// Variants
+	.c-locale-selector--static {
+		position: static;
+		margin-inline-start: 0;
+		inset-block-start: 0;
+		display: inline-block;
 	}
 
 	/**
