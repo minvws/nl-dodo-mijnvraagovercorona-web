@@ -4,7 +4,7 @@ import type { Locale } from 'src/utilities/locale/translation';
 import { availableLocales } from 'src/utilities/locale/translation';
 import type { QuestionLandingPageProps } from 'src/utilities/api';
 import { getDataQuestionLandingPages } from 'src/utilities/api';
-import { Hero } from '@design-system/components/Hero';
+import { Hero } from '@mvoc/ui/components';
 import { ContentBlock } from '@modules/ContentBlock';
 import { Stack } from '@mvoc/ui/components';
 import { Retain } from '@mvoc/ui/components';
@@ -70,8 +70,8 @@ const siteSettings = await useSiteSettings({ locale });
 		image={pageData.hero.image}
 		chapeau={pageData.hero.chapeau}
 		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
-		highlight
-		isPhoto={pageData.hero.isPhoto}
+		variant="highlight"
+		imageIsPhoto={pageData.hero.isPhoto}
 	>
 		<Breadcrumbs items={pageData.breadcrumbs} slot="prefix" />
 		<Stack class="c-hero__content">

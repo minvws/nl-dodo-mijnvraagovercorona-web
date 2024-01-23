@@ -4,7 +4,7 @@ import type { Locale } from 'src/utilities/locale/translation';
 import { availableLocales } from 'src/utilities/locale/translation';
 import type { ErrorPageProps, PageHomeProps } from 'src/utilities/api';
 import { getDataErrorPages, getDataHome } from 'src/utilities/api';
-import { Hero } from '@design-system/components/Hero';
+import { Hero } from '@mvoc/ui/components';
 import { Retain } from '@mvoc/ui/components';
 import { ContentBlock } from '@modules/ContentBlock';
 import { Layer } from '@mvoc/ui/components';
@@ -66,7 +66,7 @@ const { filters, ctaButtons } = getFiltersAndSituations({
 		chapeau={pageData.hero.chapeau}
 		image={pageData.hero.image}
 		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
-		isPhoto={pageData.hero.isPhoto}
+		imageIsPhoto={pageData.hero.isPhoto}
 	>
 		<Breadcrumbs items={pageData.breadcrumbs} slot="prefix" />
 		<ContentBlock value={pageData.hero.content} />

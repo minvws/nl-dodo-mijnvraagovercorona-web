@@ -1,0 +1,103 @@
+---
+title: 'Hero'
+---
+
+import { Hero } from '@lib/components/Hero';
+
+
+## Usage
+
+```jsx
+import { Hero } from '@mvoc/ui/components';
+
+<Hero title="Mijn vraag over corona" image={{src: 'https://placehold.co/460x400'}} />
+```
+
+## Default
+
+<div class="not-content">
+	<Hero title="Mijn vraag over corona" image={{src: 'https://placehold.co/460x400'}} />
+</div>
+
+```jsx
+<Hero title="Mijn vraag over corona" image={{src: 'https://placehold.co/460x400'}} />
+```
+
+You can also render children inside the Hero component:
+
+<div class="not-content">
+	<Hero title="Mijn vraag over corona" image={{src: 'https://placehold.co/460x400'}}>
+		<p>Antwoord op veelgestelde vragen over het virus, overzichtelijk op één plek.</p>
+	</Hero>
+</div>
+
+```jsx
+<Hero title="Mijn vraag over corona" image={{src: 'https://placehold.co/460x400'}}>
+	<p>Antwoord op veelgestelde vragen over het virus, overzichtelijk op één plek.</p>
+</Hero>
+```
+
+## With chapeau
+
+By passing a `chapeau` prop, you can add a "pretitle" to the Hero component:
+
+<div class="not-content">
+	<Hero title="Bescherm jezelf en anderen tegen corona" chapeau="mijnvraagovercorona.nl" image={{src: 'https://placehold.co/460x400'}} />
+</div>
+
+```jsx
+<Hero title="Bescherm jezelf en anderen tegen corona" chapeau="mijnvraagovercorona.nl" image={{src: 'https://placehold.co/460x400'}} />
+```
+
+## Variant: highlight
+
+Passing a `variant` prop with the value `highlight` will render the Hero component slightly darker and with more whitepsace. This is mainly used on the homepage and landingpages.
+
+<div class="not-content">
+	<Hero title="Bescherm jezelf en anderen tegen corona" chapeau="mijnvraagovercorona.nl" variant="highlight" image={{src: 'https://placehold.co/460x400'}} />
+</div>
+
+```jsx
+<Hero title="Bescherm jezelf en anderen tegen corona" chapeau="mijnvraagovercorona.nl" variant="highlight" image={{src: 'https://placehold.co/460x400'}} />
+```
+
+## Variant: theme
+
+A theme page uses the `theme` variant. This will render the Hero component with the `highlight` properties and a part of the title is highlighted.
+
+<div class="not-content">
+	<Hero title="Mijn vraag over" titleSuffix="Vaccineren" variant="theme" image={{src: 'https://placehold.co/460x400'}}>
+		<p>De laatste informatie over de coronaprik, overzichtelijk op één plek.</p>
+	</Hero>
+</div>
+
+```jsx
+<Hero title="Mijn vraag over" titleSuffix="Vaccineren" variant="theme" image={{src: 'https://placehold.co/460x400'}}>
+	<p>De laatste informatie over de coronaprik, overzichtelijk op één plek.</p>
+</Hero>
+```
+
+## Image is photo
+
+When the uploaded image is a photo instead of an illustration, you can pass the `imageIsPhoto` prop. This will render the image in a capped frame and with a 4/3 ratio.
+
+<div class="not-content">
+	<Hero title="Bescherm jezelf en anderen tegen corona" chapeau="mijnvraagovercorona.nl" imageIsPhoto image={{src: 'https://placehold.co/588x441'}} />
+</div>
+
+```jsx
+<Hero title="Bescherm jezelf en anderen tegen corona" chapeau="mijnvraagovercorona.nl" imageIsPhoto image={{src: 'https://placehold.co/588x441'}} />
+```
+
+
+## Updated at
+
+Some pages have a "last updated at" timestamp. You can pass this as a string to the `updatedAt` prop.
+
+<div class="not-content">
+	<Hero title="Bescherm jezelf en anderen tegen corona" updatedAt image={{src: 'https://placehold.co/460x400'}} />
+</div>
+
+```jsx
+<Hero title="Bescherm jezelf en anderen tegen corona" updatedAt image={{src: 'https://placehold.co/460x400'}} />
+```

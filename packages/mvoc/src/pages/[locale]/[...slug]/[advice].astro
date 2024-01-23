@@ -2,7 +2,7 @@
 import Layout from '../../../layouts/Layout.astro';
 import type { Locale } from 'src/utilities/locale/translation';
 import { availableLocales } from 'src/utilities/locale/translation';
-import { Hero } from '@design-system/components/Hero';
+import { Hero } from '@mvoc/ui/components';
 import { ContentBlock, MultiContentBlock } from '@modules/ContentBlock';
 import type { AdvicePageProps } from 'src/utilities/api/advice';
 import { getDataAdvicePages } from 'src/utilities/api/advice';
@@ -116,7 +116,7 @@ const plan =
 		chapeau={pageData.hero.chapeau}
 		image={pageData.hero.image}
 		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
-		isPhoto={pageData.hero.isPhoto}
+		imageIsPhoto={pageData.hero.isPhoto}
 	>
 		<Breadcrumbs items={pageData.breadcrumbs} slot="prefix" />
 		<ContentBlock value={pageData.hero.content} />
