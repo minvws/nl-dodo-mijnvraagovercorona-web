@@ -4,15 +4,17 @@ import type { Locale } from 'src/utilities/locale/translation';
 import { availableLocales } from 'src/utilities/locale/translation';
 import type { QuestionLandingPageProps } from 'src/utilities/api';
 import { getDataQuestionLandingPages } from 'src/utilities/api';
-import { Hero } from '@mvoc/ui/components';
+import {
+	Hero,
+	Stack,
+	Retain,
+	Layer,
+	Assistance,
+	Breadcrumbs,
+	Sidebar,
+} from '@mvoc/ui/components';
 import { ContentBlock } from '@modules/ContentBlock';
-import { Stack } from '@mvoc/ui/components';
-import { Retain } from '@mvoc/ui/components';
-import { Layer } from '@mvoc/ui/components';
-import { Assistance } from '@mvoc/ui/components';
 import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
-import { Breadcrumbs } from '@mvoc/ui/components';
-import { Sidebar } from '@mvoc/ui/components';
 import FormSwitch from '@modules/forms/situations/FormSwitch.astro';
 import { CardPrivacy } from '@modules/Card';
 import { SupportBlock } from '@modules/SupportBlock';

@@ -4,21 +4,25 @@ import type { Locale } from 'src/utilities/locale/translation';
 import { availableLocales } from 'src/utilities/locale/translation';
 import type { PageHomeProps } from 'src/utilities/api';
 import { getDataHome } from 'src/utilities/api';
-import { Hero } from '@mvoc/ui/components';
-import { Layer, SectionHeading } from '@mvoc/ui/components';
-import { Retain } from '@mvoc/ui/components';
-import { Stack } from '@mvoc/ui/components';
+import {
+	Hero,
+	Layer,
+	SectionHeading,
+	Retain,
+	Stack,
+	GridFluid,
+	Assistance,
+	MoreInfoOverview,
+	Card,
+} from '@mvoc/ui/components';
 import { ContentBlock } from '@modules/ContentBlock';
-import { GridFluid } from '@mvoc/ui/components';
 import { stringToSlug } from 'src/utilities/stringToSlug';
-import { Assistance } from '@mvoc/ui/components';
 import { AdviceBlock } from '@modules/AdviceBlock';
 import { TaleList } from '@modules/Tale';
 import { CTAButtonOverview } from '@modules/CTAButtonOverview';
 import { CardAnswerOverview } from '@modules/CardAnswer';
 import { getFiltersAndSituations } from 'src/utilities/api/queries/ctaButton';
 import { FlexibleButton } from '@modules/elements/FlexibleButton';
-import { MoreInfoOverview, Card } from '@mvoc/ui/components';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';

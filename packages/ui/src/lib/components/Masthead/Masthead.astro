@@ -229,8 +229,11 @@ const globalData = useGlobalData({ locale });
 </style>
 
 <script>
-	import { debounce } from '@mvoc/ui/helpers';
-	import { getKeyboardFocusableElements, trapFocus } from '@mvoc/ui/helpers';
+	import {
+		debounce,
+		getKeyboardFocusableElements,
+		trapFocus,
+	} from '@mvoc/ui/helpers';
 	import { mqHuge } from '@mvoc/ui/primitives';
 
 	const mastheadElement = document.querySelector('[data-module="masthead"]');

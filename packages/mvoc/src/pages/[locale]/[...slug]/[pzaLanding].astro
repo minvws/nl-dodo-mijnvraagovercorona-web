@@ -4,19 +4,21 @@ import type { Locale } from 'src/utilities/locale/translation';
 import { availableLocales } from 'src/utilities/locale/translation';
 import type { PZALandingPageProps } from 'src/utilities/api';
 import { getDataPZALandingPages } from 'src/utilities/api';
-import { Hero } from '@mvoc/ui/components';
+import {
+	Hero,
+	Stack,
+	Retain,
+	Layer,
+	Sidebar,
+	Assistance,
+	Breadcrumbs,
+} from '@mvoc/ui/components';
 import { ContentBlock } from '@modules/ContentBlock';
-import { Stack } from '@mvoc/ui/components';
-import { Retain } from '@mvoc/ui/components';
-import { Layer } from '@mvoc/ui/components';
-import { Sidebar } from '@mvoc/ui/components';
 import { CardPrivacy } from '@modules/Card';
 import { TaleList } from '@modules/Tale';
-import { Assistance } from '@mvoc/ui/components';
 import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
 import { useSiteSettings } from 'src/utilities/api/queries';
-import { Breadcrumbs } from '@mvoc/ui/components';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { FlexibleButton } from '@modules/elements/FlexibleButton';
 import { FeedbackAbstraction } from '@modules/FeedbackAbstraction';

@@ -2,21 +2,24 @@
 import Layout from '../../../layouts/Layout.astro';
 import type { Locale } from 'src/utilities/locale/translation';
 import { availableLocales } from 'src/utilities/locale/translation';
-import { Hero } from '@mvoc/ui/components';
+import {
+	Hero,
+	DisclosureQuote,
+	Stack,
+	Retain,
+	Layer,
+	Assistance,
+	Breadcrumbs,
+	GridFluid,
+} from '@mvoc/ui/components';
 import { ContentBlock } from '@modules/ContentBlock';
-import { DisclosureQuote, Stack } from '@mvoc/ui/components';
-import { Retain } from '@mvoc/ui/components';
-import { Layer } from '@mvoc/ui/components';
-import { Assistance } from '@mvoc/ui/components';
 import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
-import { Breadcrumbs } from '@mvoc/ui/components';
 import { SupportBlock } from '@modules/SupportBlock';
 import type { CampaignPageProps } from 'src/utilities/api/campaign';
 import { getDataCampaignPages } from 'src/utilities/api/campaign';
 import { TaleAbstraction } from '@modules/Tale';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { useSiteSettings } from 'src/utilities/api/queries';
-import { GridFluid } from '@mvoc/ui/components';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
 import { CarouselAbstraction } from '@modules/CarouselAbstraction';
 import { FeedbackAbstraction } from '@modules/FeedbackAbstraction';
