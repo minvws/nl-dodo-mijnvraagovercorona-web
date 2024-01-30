@@ -16,8 +16,7 @@ import { Retain } from '@mvoc/ui/components';
 import { Sidebar } from '@mvoc/ui/components';
 import { Stack } from '@mvoc/ui/components';
 import { SupportBlock } from '@modules/SupportBlock';
-import { CardBlock } from '@mvoc/ui/components';
-import { Steps, CardDay, CardPrivacy } from '@modules/Card';
+import { CardBlock, Steps } from '@mvoc/ui/components';
 import { CardAdvice } from '@mvoc/ui/components';
 import {
 	getDaySlug,
@@ -32,6 +31,7 @@ import { stringToSlug } from 'src/utilities/stringToSlug';
 import { parseLink } from 'src/utilities/helpers/link';
 import { isExternalUrl } from 'src/utilities/helpers/external-url';
 import { FeedbackAbstraction } from '@modules/FeedbackAbstraction';
+import { CardDay, CardPrivacy } from '@modules/Card';
 
 export async function getStaticPaths() {
 	const collection = await getDataAdvicePages();
