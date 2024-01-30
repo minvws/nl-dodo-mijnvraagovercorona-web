@@ -1,10 +1,9 @@
 ---
 import { ContentBlock } from '@modules/ContentBlock';
 import { FeedbackAbstraction } from '@modules/FeedbackAbstraction';
-import { Stack } from '@mvoc/ui/components';
+import { Stack, Breadcrumbs, Layer, Retain } from '@mvoc/ui/components';
 import { MastFoot } from '@modules/MastFoot';
-import { CloseButton } from '@mvoc/ui/elements';
-import { Heading } from '@mvoc/ui/elements';
+import { CloseButton, Heading } from '@mvoc/ui/elements';
 import type { HTMLAttributes } from 'astro/types';
 import type { LocationsPageProps } from 'src/utilities/api';
 import { useSiteSettings } from 'src/utilities/api/queries';
@@ -17,12 +16,9 @@ import {
 	LocationList,
 	LocationListItem,
 } from '.';
-import { Breadcrumbs } from '@mvoc/ui/components';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
-import { Layer } from '@mvoc/ui/components';
-import { Retain } from '@mvoc/ui/components';
 
 interface Props extends HTMLAttributes<'div'> {
 	pageData: LocationsPageProps;
