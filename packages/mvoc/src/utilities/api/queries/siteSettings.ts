@@ -26,8 +26,6 @@ interface SiteSettings {
 		};
 		feedbackMobile: {
 			title: string;
-			label: string;
-			url: string;
 		};
 	};
 	masthead: {
@@ -221,8 +219,6 @@ export const siteSettingsQuery = ({ locale }: { locale: Locale }): string => `
 			},
 			feedbackMobile{
 				title,
-				label,
-				url,
 			},
 		},
 		severeSymptomsAdvice{
@@ -279,6 +275,7 @@ export async function setUIGlobalDataFromSiteSettings() {
 		return {
 			...acc,
 			[locale.id]: {
+				logoAlt: siteSettingsTranslated[locale.id].logo.alt,
 				close: siteSettingsTranslated[locale.id].genericLabels.close,
 				updatedAt: siteSettingsTranslated[locale.id].genericLabels.updatedAt,
 				clearField: siteSettingsTranslated[locale.id].forms.clearField,
@@ -286,6 +283,12 @@ export async function setUIGlobalDataFromSiteSettings() {
 				next: siteSettingsTranslated[locale.id].genericLabels.next,
 				goTo: siteSettingsTranslated[locale.id].genericLabels.goTo,
 				openVideo: siteSettingsTranslated[locale.id].videoPlayer?.openVideo,
+				mainNavigation: {
+					landmark:
+						siteSettingsTranslated[locale.id]?.masthead?.menu?.landmarkLabel,
+					homeLabel:
+						siteSettingsTranslated[locale.id]?.masthead?.menu?.homeLabel,
+				},
 				localeSelector: {
 					title: siteSettingsTranslated[locale.id].localeSelector.title,
 					change: siteSettingsTranslated[locale.id].localeSelector.change,
@@ -293,8 +296,11 @@ export async function setUIGlobalDataFromSiteSettings() {
 				},
 				feedback: {
 					title: siteSettingsTranslated[locale.id].feedback.title,
+					titleMobile:
+						siteSettingsTranslated[locale.id].feedback?.feedbackMobile?.title,
 					content: siteSettingsTranslated[locale.id].feedback.content,
 					button: siteSettingsTranslated[locale.id].feedback.button,
+					href: siteSettingsTranslated[locale.id].feedback?.url,
 					like: siteSettingsTranslated[locale.id].feedback.labels.like,
 					dislike: siteSettingsTranslated[locale.id].feedback.labels.dislike,
 					thanks: siteSettingsTranslated[locale.id].feedback.thanks,

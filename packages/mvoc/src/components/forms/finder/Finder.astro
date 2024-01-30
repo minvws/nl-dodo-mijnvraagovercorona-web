@@ -34,7 +34,7 @@ const siteSettings = await useSiteSettings({ locale });
 </c-finder>
 
 <script>
-	import { debounceQuick } from 'src/utilities/helpers/debounce';
+	import { debounceQuick } from '@mvoc/ui/helpers';
 	import { trackEvent } from 'src/utilities/tracking/piwik';
 
 	class Finder extends HTMLElement {

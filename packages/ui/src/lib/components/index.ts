@@ -18,3 +18,4 @@ export * from './Assistance';
 export * from './Feedback';
 export * from './Hero';
 export * from './LocaleSelector';
+export * from './Masthead';

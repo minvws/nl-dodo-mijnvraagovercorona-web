@@ -1,6 +1,7 @@
 import { type Locale, availableLocales } from '@mvoc/ui/helpers';
 
 export interface GlobalData {
+	logoAlt: string;
 	close: string;
 	updatedAt: string;
 	clearField: string;
@@ -8,6 +9,10 @@ export interface GlobalData {
 	next: string;
 	goTo: string;
 	openVideo: string;
+	mainNavigation: {
+		landmark?: string;
+		homeLabel?: string;
+	};
 	localeSelector: {
 		title: string;
 		change: string;
@@ -15,8 +20,10 @@ export interface GlobalData {
 	};
 	feedback: {
 		title: string;
+		titleMobile?: string;
 		content?: string;
 		button: string;
+		href: string;
 		like: string;
 		dislike: string;
 		thanks: string;
@@ -28,6 +35,7 @@ export type GlobalDataByLocale = {
 };
 
 const defaults = {
+	logoAlt: 'Logo van de Rijksoverheid - terug naar homepage',
 	close: 'Sluiten',
 	updatedAt: 'Laatst bijgewerkt:',
 	clearField: 'Veld leegmaken',
@@ -35,6 +43,10 @@ const defaults = {
 	next: 'Volgende',
 	goTo: 'Ga naar',
 	openVideo: 'Open video',
+	mainNavigation: {
+		landmark: 'Hoofdnavigatie',
+		homeLabel: 'Home',
+	},
 	localeSelector: {
 		title: 'Deze pagina in andere talen:',
 		change: 'Wissel van taal',
@@ -42,8 +54,10 @@ const defaults = {
 	},
 	feedback: {
 		title: 'Heeft deze informatie je voldoende geholpen?',
+		titleMobile: 'Wat vind je van deze website?',
 		content: 'We zijn benieuwd naar je mening.',
 		button: 'Laat het ons weten',
+		href: '#',
 		like: 'Ja',
 		dislike: 'Nee',
 		thanks:
