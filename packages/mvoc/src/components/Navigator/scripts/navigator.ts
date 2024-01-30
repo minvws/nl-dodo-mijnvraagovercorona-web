@@ -10,7 +10,7 @@ import { generateListItem } from './generateListItem';
 import { Map } from './map';
 import { isOpenNow } from './timetable-helpers';
 import { distance } from '@turf/turf';
-import debounce from 'src/utilities/helpers/debounce';
+import { debounce } from '@mvoc/ui/helpers';
 import isVisibleInScrollContainer from 'src/utilities/helpers/visible-in-scrollcontainer';
 import { Geocoder } from './geocoder';
 

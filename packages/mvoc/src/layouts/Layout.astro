@@ -16,12 +16,15 @@ import {
 import type { Locale } from 'src/utilities/locale/translation';
 
 import '@mvoc/ui/styles/globals.scss';
-import { Masthead, SkipLink } from '@design-system/components/Masthead';
+import { Masthead, SkipLink } from '@mvoc/ui/components';
 import type { AlternativeTranslationsProps } from '@mvoc/ui/components';
 import { LocaleSelector } from '@mvoc/ui/components';
 import { MastFoot } from '@modules/MastFoot';
 import { Finder } from '@modules/forms/finder';
 import type { HTMLAttributes } from 'astro/types';
+import { parseLink } from 'src/utilities/helpers/link';
+import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
+import { isExternalUrl } from 'src/utilities/helpers/external-url';
 
 await setUIGlobalDataFromSiteSettings();
 
@@ -34,7 +37,6 @@ export interface Props extends HTMLAttributes<'html'> {
 	mastheadHighlight?: boolean;
 	disableMasthead?: boolean;
 	disableMastfoot?: boolean;
-	mastheadCompact?: boolean;
 	includeinSearch?: boolean;
 }
 
@@ -47,7 +49,6 @@ const {
 	alternativeTranslations,
 	disableMasthead,
 	disableMastfoot,
-	mastheadCompact,
 	includeinSearch,
 	...attrs
 } = Astro.props;
@@ -149,23 +150,35 @@ const siteSettings = await useSiteSettings({
 		{
 			!disableMasthead ? (
 				<Masthead
-					logoUrl={locale.urlPrefix}
-					logoAlt={siteSettings.logo.alt}
-					highlight={mastheadHighlight}
-					forceCompact={mastheadCompact}
+					navigation={{
+						label: siteSettings.masthead?.menu?.menuButtonLabel,
+						items: siteSettings.masthead?.menu?.internalPageCollection
+							? siteSettings.masthead?.menu?.internalPageCollection.map(
+									(page) => {
+										const href = parseLink(getFullPageUrl(page.link), locale);
+										return {
+											label: page.label ? page.label : page.link.label,
+											href,
+											icon: page.icon,
+											isExternal: isExternalUrl(href),
+										};
+									},
+							  )
+							: undefined,
+					}}
 				>
-					<slot name="back" slot="start" />
-
 					<LocaleSelector
 						slot="start"
 						alternativeTranslations={alternativeTranslations}
 					/>
+
 					{locale.id === 'nl' || locale.id === 'en' ? (
 						<Finder slot="end" />
 					) : null}
 				</Masthead>
 			) : null
 		}
+
 		<main id="content" data-pagefind-body={includeinSearch ? true : undefined}>
 			<slot />
 			{!disableMastfoot ? <MastFoot locale={locale} /> : null}
@@ -180,7 +193,7 @@ const siteSettings = await useSiteSettings({
 				style={{ border: '0', display: 'none', visibility: 'hidden' }}></iframe>
 		</noscript>
 		<script>
-			import debounce from 'src/utilities/helpers/debounce';
+			import { debounce } from '@mvoc/ui/helpers';
 			import checkSize from 'src/utilities/helpers/check-size';
 
 			window.addEventListener('resize', debounce(checkSize));

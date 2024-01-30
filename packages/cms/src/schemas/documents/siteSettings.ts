@@ -243,16 +243,6 @@ export default defineType({
 							name: 'title',
 							type: 'string',
 						}),
-						defineField({
-							title: 'Link label',
-							name: 'label',
-							type: 'string',
-						}),
-						defineField({
-							title: 'Link url',
-							name: 'url',
-							type: 'string',
-						}),
 					],
 				}),
 			],

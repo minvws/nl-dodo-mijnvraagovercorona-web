@@ -27,14 +27,14 @@ export default defineConfig({
 					label: 'Elements',
 					autogenerate: {
 						directory: '/elements',
-						collapsed: true,
+						collapsed: false,
 					},
 				},
 				{
 					label: 'Components',
 					autogenerate: {
 						directory: '/components',
-						collapsed: true,
+						collapsed: false,
 					},
 				},
 			],
