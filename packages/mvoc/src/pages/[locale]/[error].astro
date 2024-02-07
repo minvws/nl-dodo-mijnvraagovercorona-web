@@ -5,11 +5,11 @@ import { availableLocales } from 'src/utilities/locale/translation';
 import type { ErrorPageProps, PageHomeProps } from 'src/utilities/api';
 import { getDataErrorPages, getDataHome } from 'src/utilities/api';
 import { Hero, Stack, Retain, Layer, Breadcrumbs } from '@mvoc/ui/components';
-import { ContentBlock } from '@modules/ContentBlock';
+import { ContentBlock } from '@components/ContentBlock';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { getFiltersAndSituations } from 'src/utilities/api/queries';
-import { CTAButtonOverview } from '@modules/CTAButtonOverview';
-import { FlexibleButton } from '@modules/elements/FlexibleButton';
+import { CTAButtonOverview } from '@components/CTAButtonOverview';
+import { FlexibleButton } from '@components/elements/FlexibleButton';
 
 export async function getStaticPaths() {
 	const collection = await getDataErrorPages();

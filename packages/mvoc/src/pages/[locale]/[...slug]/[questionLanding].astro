@@ -13,15 +13,15 @@ import {
 	Breadcrumbs,
 	Sidebar,
 } from '@mvoc/ui/components';
-import { ContentBlock } from '@modules/ContentBlock';
+import { ContentBlock } from '@components/ContentBlock';
 import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
-import FormSwitch from '@modules/forms/situations/FormSwitch.astro';
-import { CardPrivacy } from '@modules/Card';
-import { SupportBlock } from '@modules/SupportBlock';
+import FormSwitch from '@components/forms/situations/FormSwitch.astro';
+import { CardPrivacy } from '@components/Card';
+import { SupportBlock } from '@components/SupportBlock';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
 import { useSiteSettings } from 'src/utilities/api/queries';
-import { FeedbackAbstraction } from '@modules/FeedbackAbstraction';
+import { FeedbackAbstraction } from '@components/FeedbackAbstraction';
 
 export async function getStaticPaths() {
 	const collection = await getDataQuestionLandingPages();

@@ -1,4 +1,4 @@
-import type { ContentBlockProps } from '@modules/ContentBlock';
+import type { ContentBlockProps } from '@components/ContentBlock';
 import type { SubFolderReferenceProps } from '.';
 import { customBlockQuery, internalPageReferenceInSelectQuery } from '.';
 import { stringToSlug } from 'src/utilities/stringToSlug';

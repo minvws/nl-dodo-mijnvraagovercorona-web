@@ -12,17 +12,17 @@ import {
 	Breadcrumbs,
 	GridFluid,
 } from '@mvoc/ui/components';
-import { ContentBlock } from '@modules/ContentBlock';
+import { ContentBlock } from '@components/ContentBlock';
 import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
-import { SupportBlock } from '@modules/SupportBlock';
+import { SupportBlock } from '@components/SupportBlock';
 import type { CampaignPageProps } from 'src/utilities/api/campaign';
 import { getDataCampaignPages } from 'src/utilities/api/campaign';
-import { TaleAbstraction } from '@modules/Tale';
+import { TaleAbstraction } from '@components/Tale';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
-import { CarouselAbstraction } from '@modules/CarouselAbstraction';
-import { FeedbackAbstraction } from '@modules/FeedbackAbstraction';
+import { CarouselAbstraction } from '@components/CarouselAbstraction';
+import { FeedbackAbstraction } from '@components/FeedbackAbstraction';
 
 export async function getStaticPaths() {
 	const collection = await getDataCampaignPages();

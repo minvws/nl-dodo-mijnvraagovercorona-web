@@ -5,10 +5,10 @@ import { availableLocales } from 'src/utilities/locale/translation';
 import type { QuestionPageProps } from 'src/utilities/api';
 import { getDataQuestionPages } from 'src/utilities/api';
 import { Hero, Retain, Layer, Sidebar, Breadcrumbs } from '@mvoc/ui/components';
-import { ContentBlock } from '@modules/ContentBlock';
+import { ContentBlock } from '@components/ContentBlock';
 import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
-import FormSwitch from '@modules/forms/situations/FormSwitch.astro';
-import { CardPrivacy } from '@modules/Card';
+import FormSwitch from '@components/forms/situations/FormSwitch.astro';
+import { CardPrivacy } from '@components/Card';
 
 export async function getStaticPaths() {
 	const collection = await getDataQuestionPages();

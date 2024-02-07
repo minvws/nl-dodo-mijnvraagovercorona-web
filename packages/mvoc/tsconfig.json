@@ -6,7 +6,7 @@
 		"rootDir": ".",
 		"module": "esnext",
 		"paths": {
-			"@modules/*": ["./src/components/*"],
+			"@components/*": ["./src/components/*"],
 			"@layouts/*": ["./src/layouts/*"]
 		}
 	}
