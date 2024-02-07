@@ -18,7 +18,7 @@ import {
 	supportBlockQuery,
 	multiContentBlocksQuery,
 } from './queries';
-import type { ContentBlockProps } from '@modules/ContentBlock';
+import type { ContentBlockProps } from '@components/ContentBlock';
 import { getAdditionalPageData } from '../helpers/getAdditionalPageData';
 
 interface CardProps {

@@ -13,15 +13,15 @@ import {
 	Assistance,
 	Breadcrumbs,
 } from '@mvoc/ui/components';
-import { ContentBlock } from '@modules/ContentBlock';
-import { CardPrivacy } from '@modules/Card';
-import { TaleList } from '@modules/Tale';
+import { ContentBlock } from '@components/ContentBlock';
+import { CardPrivacy } from '@components/Card';
+import { TaleList } from '@components/Tale';
 import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import { stringToSlug } from 'src/utilities/stringToSlug';
-import { FlexibleButton } from '@modules/elements/FlexibleButton';
-import { FeedbackAbstraction } from '@modules/FeedbackAbstraction';
+import { FlexibleButton } from '@components/elements/FlexibleButton';
+import { FeedbackAbstraction } from '@components/FeedbackAbstraction';
 
 export async function getStaticPaths() {
 	const collection = await getDataPZALandingPages();

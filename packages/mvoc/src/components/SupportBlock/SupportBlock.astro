@@ -1,6 +1,6 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
-import { ContentBlock } from '@modules/ContentBlock';
+import { ContentBlock } from '@components/ContentBlock';
 import type { ButtonsProps, CardsProps } from 'src/utilities/api/queries';
 import {
 	Layer,
@@ -11,7 +11,7 @@ import {
 	type PictureProps,
 } from '@mvoc/ui/components';
 import { Heading } from '@mvoc/ui/elements';
-import { FlexibleButton } from '@modules/elements/FlexibleButton';
+import { FlexibleButton } from '@components/elements/FlexibleButton';
 
 interface Props extends HTMLAttributes<'div'> {
 	label: string;

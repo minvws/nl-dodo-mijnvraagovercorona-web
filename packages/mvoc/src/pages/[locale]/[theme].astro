@@ -13,18 +13,18 @@ import {
 } from '@mvoc/ui/components';
 import type { ThemePageProps } from 'src/utilities/api/theme';
 import { getDataThemes } from 'src/utilities/api/theme';
-import { ContentBlock } from '@modules/ContentBlock';
+import { ContentBlock } from '@components/ContentBlock';
 import { Heading } from '@mvoc/ui/elements';
-import { TaleList } from '@modules/Tale';
-import { CTAButtonOverview } from '@modules/CTAButtonOverview';
-import { CardAnswerOverview } from '@modules/CardAnswer';
+import { TaleList } from '@components/Tale';
+import { CTAButtonOverview } from '@components/CTAButtonOverview';
+import { CardAnswerOverview } from '@components/CardAnswer';
 import {
 	getFiltersAndSituations,
 	useSiteSettings,
 } from 'src/utilities/api/queries';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
-import { FeedbackAbstraction } from '@modules/FeedbackAbstraction';
+import { FeedbackAbstraction } from '@components/FeedbackAbstraction';
 
 export async function getStaticPaths() {
 	const collection = await getDataThemes();

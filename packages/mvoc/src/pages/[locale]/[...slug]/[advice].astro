@@ -16,7 +16,7 @@ import {
 	MoreInfoOverview,
 	Breadcrumbs,
 } from '@mvoc/ui/components';
-import { ContentBlock, MultiContentBlock } from '@modules/ContentBlock';
+import { ContentBlock, MultiContentBlock } from '@components/ContentBlock';
 import type { AdvicePageProps } from 'src/utilities/api/advice';
 import { getDataAdvicePages } from 'src/utilities/api/advice';
 import {
@@ -24,7 +24,7 @@ import {
 	getPageSubfolder,
 } from 'src/utilities/helpers/page-subfolder';
 import { useSiteSettings } from 'src/utilities/api/queries';
-import { SupportBlock } from '@modules/SupportBlock';
+import { SupportBlock } from '@components/SupportBlock';
 import {
 	getDaySlug,
 	getShowOnDays,
@@ -34,8 +34,8 @@ import { Heading } from '@mvoc/ui/elements';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { parseLink } from 'src/utilities/helpers/link';
 import { isExternalUrl } from 'src/utilities/helpers/external-url';
-import { FeedbackAbstraction } from '@modules/FeedbackAbstraction';
-import { CardDay, CardPrivacy } from '@modules/Card';
+import { FeedbackAbstraction } from '@components/FeedbackAbstraction';
+import { CardDay, CardPrivacy } from '@components/Card';
 
 export async function getStaticPaths() {
 	const collection = await getDataAdvicePages();

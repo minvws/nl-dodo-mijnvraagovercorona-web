@@ -14,8 +14,8 @@ import {
 	MoreInfoOverview,
 	Breadcrumbs,
 } from '@mvoc/ui/components';
-import { ContentBlock } from '@modules/ContentBlock';
-import { TaleList } from '@modules/Tale';
+import { ContentBlock } from '@components/ContentBlock';
+import { TaleList } from '@components/Tale';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import { Heading } from '@mvoc/ui/elements';
@@ -26,7 +26,7 @@ import {
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
 import { parseLink } from 'src/utilities/helpers/link';
 import { isExternalUrl } from 'src/utilities/helpers/external-url';
-import { FeedbackAbstraction } from '@modules/FeedbackAbstraction';
+import { FeedbackAbstraction } from '@components/FeedbackAbstraction';
 
 export async function getStaticPaths() {
 	const collection = await getDataGenericPages();
