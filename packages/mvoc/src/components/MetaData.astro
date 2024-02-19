@@ -26,7 +26,7 @@ const urlWithLocale = currentUrl.includes(locale.urlPrefix)
 	: `${currentUrl}${locale.id}`;
 
 const pageTitle = `${title}${
-	skipPageSuffix ? '' : siteSettings.pageTitleSuffix
+	skipPageSuffix ? '' : ` | ${siteSettings.pageTitleSuffix}`
 }`;
 
 const ogImage = `${Astro.url.origin}${
