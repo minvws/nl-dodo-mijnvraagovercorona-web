@@ -33,9 +33,11 @@ const {
 >
 	<Switcher class="c-tale__switcher">
 		<Retain variant={'text'}>
-			<Stack class="c-tale__body">
+			<Stack>
 				{renderTitle ? <Heading>{title}</Heading> : undefined}
-				<slot />
+				<Stack class="c-tale__body">
+					<slot />
+				</Stack>
 			</Stack>
 		</Retain>
 		{

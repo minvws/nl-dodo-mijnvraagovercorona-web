@@ -19,10 +19,18 @@ interface Props extends HTMLAttributes<'header'> {
 const { navigation, class: className, ...attrs } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
 const globalData = useGlobalData({ locale });
+
+const hasNav =
+	navigation?.items &&
+	navigation.items.length &&
+	globalData.mainNavigation.homeLabel &&
+	globalData.mainNavigation.landmark;
 ---
 
 <header
-	class={`c-masthead${className ? ` | ${className}` : ''}`}
+	class={`c-masthead${hasNav ? ` c-masthead--with-nav` : ``}${
+		className ? ` | ${className}` : ''
+	}`}
 	data-module="masthead"
 	{...attrs}
 >
@@ -41,7 +49,7 @@ const globalData = useGlobalData({ locale });
 				<div class="c-masthead__end">
 					<slot name="end" />
 					{
-						navigation?.label ? (
+						hasNav && navigation?.label ? (
 							<ButtonTool
 								class="c-masthead__button"
 								type="button"
@@ -65,14 +73,7 @@ const globalData = useGlobalData({ locale });
 				</div>
 			</Retain>
 		</div>
-		{
-			navigation?.items &&
-			navigation.items.length &&
-			globalData.mainNavigation.homeLabel &&
-			globalData.mainNavigation.landmark ? (
-				<MainNavigation items={navigation?.items} />
-			) : null
-		}
+		{hasNav ? <MainNavigation items={navigation?.items} /> : null}
 	</div>
 </header>
 
@@ -82,17 +83,15 @@ const globalData = useGlobalData({ locale });
 
 	.c-masthead {
 		--masthead-inline-padding: var(--space-6);
+		--masthead-logo-block-size: #{rem.convert(80px)};
 		--masthead-logo-spacer: 0px;
 		position: var(--masthead-position, absolute);
 		z-index: var(--masthead-z-index, unset);
 		inline-size: 100%;
 		background-color: var(--masthead-background, var(--color-donkerblauw));
 
-		@media (--mq-large) {
-			--masthead-logo-spacer: var(--masthead-inline-padding);
-		}
-
 		@media (--mq-huge) {
+			--masthead-logo-block-size: #{rem.convert(102px)};
 			--masthead-position: relative;
 			--masthead-z-index: 50;
 			--masthead-block-size: auto;
@@ -121,13 +120,6 @@ const globalData = useGlobalData({ locale });
 		position: relative;
 		z-index: 3;
 		grid-area: top;
-		container: masthead-container / inline-size;
-
-		.c-masthead--compact & {
-			@media (--mq-large) and (--mq-huge-until) {
-				box-shadow: var(--elevation-frost);
-			}
-		}
 	}
 
 	.c-masthead__top__inner {
@@ -169,7 +161,7 @@ const globalData = useGlobalData({ locale });
 
 	.c-masthead__logo__visual {
 		display: block;
-		block-size: var(--masthead-logo-block-size, #{rem.convert(80px)});
+		block-size: var(--masthead-logo-block-size);
 		inline-size: auto;
 		aspect-ratio: 54 / 81;
 	}
@@ -200,15 +192,15 @@ const globalData = useGlobalData({ locale });
 		}
 	}
 
-	/**
-	 * Container queries
-	 */
-	@container masthead-container (inline-size > #{rem.convert(1024px)}) {
-		.c-masthead__logo {
-			--masthead-logo-block-size: #{rem.convert(102px)};
+	.c-masthead--with-nav {
+		@media (--mq-large) {
+			--masthead-logo-spacer: var(--masthead-inline-padding);
 		}
 	}
 
+	/**
+	 * Container queries
+	 */
 	@container layout-container (inline-size > #{rem.convert(140px)}) and (inline-size < #{rem.convert(192px)}) {
 		.c-masthead__end {
 			:global(> :last-child) {

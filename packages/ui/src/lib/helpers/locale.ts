@@ -11,6 +11,7 @@ export interface Locale {
 	id: Locales;
 	fullName: string;
 	shortName: string;
+	dutchName: string;
 	urlPrefix: string;
 	locale: string;
 	hreflang: string;
@@ -22,6 +23,7 @@ export const locales: { [key: string]: Locale } = {
 		id: Locales.Dutch,
 		fullName: 'Nederlands',
 		shortName: 'Nl',
+		dutchName: 'Nederlands',
 		urlPrefix: '/nl',
 		locale: 'nl_nl',
 		hreflang: 'nl',
@@ -31,6 +33,7 @@ export const locales: { [key: string]: Locale } = {
 		id: Locales.English,
 		fullName: 'English',
 		shortName: 'En',
+		dutchName: 'Engels',
 		urlPrefix: '/en',
 		locale: 'en_gb',
 		hreflang: 'en',
@@ -40,6 +43,7 @@ export const locales: { [key: string]: Locale } = {
 		id: Locales.Turkish,
 		fullName: 'Türkçe',
 		shortName: 'TR',
+		dutchName: 'Turks',
 		urlPrefix: '/tr',
 		locale: 'tr_tr',
 		hreflang: 'tr',
@@ -49,6 +53,7 @@ export const locales: { [key: string]: Locale } = {
 		id: Locales.Polish,
 		fullName: 'Polski',
 		shortName: 'Pl',
+		dutchName: 'Pools',
 		urlPrefix: '/pl',
 		locale: 'pl_pl',
 		hreflang: 'pl',
@@ -58,6 +63,7 @@ export const locales: { [key: string]: Locale } = {
 		id: Locales.Arabic,
 		fullName: 'العربية',
 		shortName: 'AR',
+		dutchName: 'Arabisch',
 		urlPrefix: '/ar',
 		locale: 'ar',
 		hreflang: 'ar',
@@ -67,6 +73,7 @@ export const locales: { [key: string]: Locale } = {
 		id: Locales.Ukrainian,
 		fullName: 'Українська',
 		shortName: 'UA',
+		dutchName: 'Oekraïens',
 		urlPrefix: '/ua',
 		locale: 'ua',
 		hreflang: 'uk',
