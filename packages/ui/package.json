@@ -3,6 +3,7 @@
 	"type": "module",
 	"version": "1.0.0",
 	"scripts": {
+		"test": "echo \"Warning: no test specified\" && exit 0",
 		"dev": "astro dev",
 		"start": "astro dev",
 		"build": "astro check && astro build",
