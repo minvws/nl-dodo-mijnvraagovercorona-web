@@ -32,7 +32,7 @@
 		"uuid": "^9.0.1"
 	},
 	"dependencies": {
-		"@dodo/ui": "^1.0.0",
+		"@dodo/ui": "git+https://github.com/minvws/nl-dodo-ui.git#de8bf23eb37f852f2c76a54c5f827acb6b0a3278",
 		"@astrojs/check": "^0.5.4",
 		"astro-compress": "^2.2.10",
 		"astro-pagefind": "^1.4.0",

@@ -35,7 +35,7 @@ export default defineConfig({
 		}),
 		icon({
 			// Icon dir of UI package
-			iconDir: '../ui/src/lib/elements/Icon/icons',
+			iconDir: '../../node_modules/@dodo/ui/src/lib/elements/Icon/icons',
 		}),
 		pagefind(),
 	],

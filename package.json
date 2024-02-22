@@ -7,8 +7,6 @@
 		"mvoc:build": "npm run build --workspace mvoc",
 		"mvoc:preview": "npm run preview --workspace mvoc",
 		"mvoc:test": "npm run test --workspace mvoc",
-		"ui:test": "npm run test --workspace @dodo/ui",
-		"ui:dev": "npm run dev --workspace @dodo/ui",
 		"cms:dev": "npm run dev --workspace cms",
 		"cms:deploy": "npm run deploy --workspace cms",
 		"cms:build": "npm run build-development --workspace cms",
@@ -26,7 +24,6 @@
 		"./packages/*"
 	],
 	"dependencies": {
-		"@dodo/ui": "^1.0.0",
 		"typescript": "^5.3.3"
 	}
 }
