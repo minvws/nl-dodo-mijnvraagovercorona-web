@@ -21,7 +21,6 @@ export default defineConfig({
 	scopedStyleStrategy: 'where',
 	integrations: [
 		sitemap(),
-		// @ts-expect-error
 		sanity({
 			projectId: process.env.PUBLIC_SANITY_PROJECT_ID,
 			dataset: process.env.PUBLIC_SANITY_DATASET,

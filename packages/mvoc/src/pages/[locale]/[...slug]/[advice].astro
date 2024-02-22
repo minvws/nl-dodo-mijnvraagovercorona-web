@@ -5,7 +5,7 @@ import { availableLocales } from 'src/utilities/locale/translation';
 import {
 	Hero,
 	Layer,
-	Advice,
+	Advice as AdviceComponent,
 	Retain,
 	Sidebar,
 	Stack,
@@ -126,7 +126,7 @@ const plan =
 		<ContentBlock value={pageData.hero.content} />
 		{
 			pageData.showSeriousSymptoms ? (
-				<Advice
+				<AdviceComponent
 					title={siteSettings.severeSymptomsAdvice.title}
 					subtitle={siteSettings.severeSymptomsAdvice.subtitle}
 					image={siteSettings.severeSymptomsAdvice.icon}
