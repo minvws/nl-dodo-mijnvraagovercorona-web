@@ -14,7 +14,6 @@ import {
 	BsBandaid,
 	BsExclamationCircle,
 	BsAirplane,
-	BsGlobe,
 	BsFileText,
 	BsArrowRightSquare,
 	BsMegaphone,
@@ -70,21 +69,10 @@ export default (S) =>
 						icon: BsClipboardCheck,
 					}),
 					S.divider(),
-					getFolder(S, {
-						title: 'Prikken zonder afspraak',
+					getTranslatedSingleton(S, {
+						title: 'Prikken Zonder Afspraak',
+						type: 'pza-landing-page',
 						icon: BsBandaid,
-						items: [
-							getTranslatedSingleton(S, {
-								title: 'Landing pagina',
-								type: 'pza-landing-page',
-								icon: BsAirplane,
-							}),
-							getTranslatedSingleton(S, {
-								title: 'Locaties pagina',
-								type: 'locations-page',
-								icon: BsGlobe,
-							}),
-						],
 					}),
 					S.divider(),
 					getTranslatedDocumentList(S, {

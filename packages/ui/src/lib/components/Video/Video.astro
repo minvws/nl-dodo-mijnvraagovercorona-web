@@ -1,12 +1,12 @@
 ---
 import { type HTMLAttributes } from 'astro/types';
-import { type PictureProps } from '@mvoc/ui/components';
+import { type PictureProps } from '@dodo/ui/components';
 import {
 	getLocaleFromURL,
 	getVideoEmbedUrl,
 	useGlobalData,
-} from '@mvoc/ui/helpers';
-import { Icon } from '@mvoc/ui/elements';
+} from '@dodo/ui/helpers';
+import { Icon } from '@dodo/ui/elements';
 
 interface Props extends HTMLAttributes<'div'> {
 	title: string;
@@ -49,7 +49,7 @@ const embedUrl = getVideoEmbedUrl({
 </div>
 
 <style lang="scss">
-	@use '@mvoc/ui/styles/tools/a11y';
+	@use '@dodo/ui/styles/tools/a11y';
 
 	.c-video {
 		--_video-aspect-ratio: var(--video-aspect-ratio, 16/9);

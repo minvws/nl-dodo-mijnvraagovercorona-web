@@ -9,8 +9,8 @@ import {
 	Stack,
 	CardSupport,
 	type PictureProps,
-} from '@mvoc/ui/components';
-import { Heading } from '@mvoc/ui/elements';
+} from '@dodo/ui/components';
+import { Heading } from '@dodo/ui/elements';
 import { FlexibleButton } from '@components/elements/FlexibleButton';
 
 interface Props extends HTMLAttributes<'div'> {
@@ -58,8 +58,8 @@ const { label, cards } = Astro.props;
 </Layer>
 
 <style lang="scss">
-	@use '@mvoc/ui/styles/primitives/responsive';
-	@use '@mvoc/ui/styles/tools/rem';
+	@use '@dodo/ui/styles/primitives/responsive';
+	@use '@dodo/ui/styles/tools/rem';
 
 	.c-support-block__grid {
 		--grid-fluid-min-item-size: var(--space-100);

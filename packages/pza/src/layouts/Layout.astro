@@ -15,13 +15,13 @@ import {
 } from 'src/utilities/api/queries';
 import type { Locale } from 'src/utilities/locale/translation';
 
-import '@mvoc/ui/styles/globals.scss';
+import '@dodo/ui/styles/globals.scss';
 import {
 	Masthead,
 	SkipLink,
 	type AlternativeTranslationsProps,
 	LocaleSelector,
-} from '@mvoc/ui/components';
+} from '@dodo/ui/components';
 import { MastFoot } from '@components/MastFoot';
 import { Finder } from '@components/Finder';
 import type { HTMLAttributes } from 'astro/types';
@@ -76,29 +76,14 @@ const siteSettings = await useSiteSettings({
 			alternativeTranslations={alternativeTranslations}
 		/>
 		<style lang="scss" is:global>
-			@use '@mvoc/ui/styles/primitives/responsive';
-			@use '@mvoc/ui/styles/tools/a11y';
+			@use '@dodo/ui/styles/primitives/responsive';
+			@use '@dodo/ui/styles/tools/a11y';
 
 			:where(body) {
 				display: flex;
 				flex-direction: column;
 				@media (--mq-huge-until) {
 					background-color: var(--color-donkerblauw);
-				}
-
-				&[data-environment]::after {
-					position: fixed;
-					inset-block-end: 0;
-					inset-inline-end: 0;
-					padding-block: 0.25em;
-					padding-inline: 0.5em;
-					content: attr(data-environment);
-					z-index: 1000;
-					background-color: #ff4013;
-				}
-
-				&[data-environment='staging']::after {
-					background-color: #fffc41;
 				}
 			}
 
@@ -143,12 +128,7 @@ const siteSettings = await useSiteSettings({
 			}
 		</style>
 	</head>
-	<body
-		data-environment={import.meta.env.MODE === 'production' &&
-		!['main', 'alternative'].includes(import.meta.env.PUBLIC_SANITY_DATASET)
-			? import.meta.env.WEBSITE_ENVIRONMENT
-			: undefined}
-	>
+	<body>
 		<SkipLink label={siteSettings.masthead.skiplink} />
 		{
 			!disableMasthead ? (
@@ -194,7 +174,7 @@ const siteSettings = await useSiteSettings({
 				style={{ border: '0', display: 'none', visibility: 'hidden' }}></iframe>
 		</noscript>
 		<script>
-			import { debounce } from '@mvoc/ui/helpers';
+			import { debounce } from '@dodo/ui/helpers';
 			import checkSize from 'src/utilities/helpers/check-size';
 
 			window.addEventListener('resize', debounce(checkSize));
@@ -211,4 +191,5 @@ const siteSettings = await useSiteSettings({
 			});
 		</script>
 	</body>
+	@dodo/ui
 </html>

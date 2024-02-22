@@ -2,8 +2,8 @@ import { isExternalUrl } from '../helpers/external-url';
 import {
 	availableLocales as availableLocalesUI,
 	type Locale,
-} from '@mvoc/ui/helpers';
-export { type Locale, getLocaleFromURL } from '@mvoc/ui/helpers';
+} from '@dodo/ui/helpers';
+export { type Locale, getLocaleFromURL } from '@dodo/ui/helpers';
 
 // PZA only needs to support Dutch and English so we filter the other languages out
 export const availableLocales = availableLocalesUI.filter((locale) =>

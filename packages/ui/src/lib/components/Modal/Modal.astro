@@ -1,6 +1,6 @@
 ---
-import { Heading, CloseButton } from '@mvoc/ui/elements';
-import { Stack } from '@mvoc/ui/components';
+import { Heading, CloseButton } from '@dodo/ui/elements';
+import { Stack } from '@dodo/ui/components';
 
 export interface Props {
 	id: string;
@@ -38,7 +38,7 @@ const { id, title, variant = 'default' } = Astro.props;
 </template>
 
 <script>
-	import { trapFocus } from '@mvoc/ui/helpers';
+	import { trapFocus } from '@dodo/ui/helpers';
 
 	// Clone templates to the body element and then remove the template
 	const transferModalToRoot = (element: HTMLTemplateElement) => {
@@ -131,8 +131,8 @@ const { id, title, variant = 'default' } = Astro.props;
 </script>
 
 <style lang="scss" is:global>
-	@use '@mvoc/ui/styles/primitives/responsive';
-	@use '@mvoc/ui/styles/tools/rem';
+	@use '@dodo/ui/styles/primitives/responsive';
+	@use '@dodo/ui/styles/tools/rem';
 
 	body.modal-is-visible > *:not(.modal) {
 		filter: blur(6px);

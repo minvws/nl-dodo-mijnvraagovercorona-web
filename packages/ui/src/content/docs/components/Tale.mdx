@@ -10,7 +10,7 @@ A `Tale` component is used to tell a story with a title and a optional picture.
 ## Usage
 
 ```jsx
-import { Tale } from '@mvoc/ui/components';
+import { Tale } from '@dodo/ui/components';
 
 <Tale title="Tale title">
 	<p>Some content</p>
@@ -26,7 +26,7 @@ import { Tale } from '@mvoc/ui/components';
 </div>
 
 ```jsx
-import { Tale } from '@mvoc/ui/components';
+import { Tale } from '@dodo/ui/components';
 
 <Tale title="Tel title">
 	<p>Some content</p>
@@ -43,7 +43,7 @@ Providing a [`Picture`](/components/picture) object will display the picture on 
 </div>
 
 ```jsx
-import { Tale } from '@mvoc/ui/components';
+import { Tale } from '@dodo/ui/components';
 
 <Tale title="Tel title" picture={{ alt: '', image: { src: 'https://placehold.co/280x280' }}}>
 	<p>Some content</p>
@@ -65,8 +65,8 @@ All Tales with images in consecutive order will be displayed in zig zag order.
 </div>
 
 ```jsx
-import { Tale } from '@mvoc/ui/components';
-import { Stack } from '@mvoc/ui/components';
+import { Tale } from '@dodo/ui/components';
+import { Stack } from '@dodo/ui/components';
 
 <Stack>
 	<Tale title="Tel title 1" picture={{ alt: '', image: { src: 'https://placehold.co/280x280' }}}>
@@ -93,7 +93,7 @@ You can use the `id` prop to make the tale linkable.
 </div>
 
 ```jsx
-import { Tale } from '@mvoc/ui/components';
+import { Tale } from '@dodo/ui/components';
 
 <a href="#tale-title">To tale</a>
 

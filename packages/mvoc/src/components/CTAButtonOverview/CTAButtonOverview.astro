@@ -1,7 +1,7 @@
 ---
 import { ContentBlock } from '@components/ContentBlock';
-import { GridFluid, Stack } from '@mvoc/ui/components';
-import { Link, Button } from '@mvoc/ui/elements';
+import { GridFluid, Stack } from '@dodo/ui/components';
+import { Link, Button } from '@dodo/ui/elements';
 import type { HTMLAttributes } from 'astro/types';
 import {
 	type CtaButtonProps,
@@ -272,7 +272,7 @@ const uniqueThemes = filterCategories.length
 
 <script>
 	import { trackEvent } from 'src/utilities/tracking/piwik';
-	import { mqLarge } from '@mvoc/ui/primitives';
+	import { mqLarge } from '@dodo/ui/primitives';
 
 	const mql = window.matchMedia(mqLarge);
 

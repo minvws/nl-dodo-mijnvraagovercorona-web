@@ -1,5 +1,5 @@
 ---
-import { MarkerIcon } from '@mvoc/ui/elements';
+import { MarkerIcon } from '@dodo/ui/elements';
 import type { HTMLAttributes } from 'astro/types';
 
 interface Props extends HTMLAttributes<'div'> {
@@ -25,7 +25,7 @@ const { openLabel, class: className, ...attrs } = Astro.props;
 </div>
 
 <style lang="scss">
-	@use '@mvoc/ui/styles/tools/a11y';
+	@use '@dodo/ui/styles/tools/a11y';
 
 	.c-marker {
 		pointer-events: none;

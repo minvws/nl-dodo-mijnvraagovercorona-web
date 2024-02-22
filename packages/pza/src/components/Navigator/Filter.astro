@@ -1,10 +1,10 @@
 ---
-import { Stack, FieldInputText } from '@mvoc/ui/components';
-import { Control, Icon } from '@mvoc/ui/elements';
+import { Stack, FieldInputText } from '@dodo/ui/components';
+import { Control, Icon } from '@dodo/ui/elements';
 import type { HTMLAttributes } from 'astro/types';
 import type { LocationsPageProps } from 'src/utilities/api';
 import { useSiteSettings } from 'src/utilities/api/queries';
-import { getLocaleFromURL } from '@mvoc/ui/helpers';
+import { getLocaleFromURL } from '@dodo/ui/helpers';
 
 interface Props extends HTMLAttributes<'form'> {
 	pageData: LocationsPageProps;
@@ -102,9 +102,9 @@ const siteSettings = await useSiteSettings({
 </form>
 
 <style lang="scss">
-	@use '@mvoc/ui/styles/primitives/responsive';
-	@use '@mvoc/ui/styles/tools/a11y';
-	@use '@mvoc/ui/styles/tools/input';
+	@use '@dodo/ui/styles/primitives/responsive';
+	@use '@dodo/ui/styles/tools/a11y';
+	@use '@dodo/ui/styles/tools/input';
 
 	.c-filter {
 	}

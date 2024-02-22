@@ -1,5 +1,5 @@
 ---
-import { Attribute, Stack } from '@mvoc/ui/components';
+import { Attribute, Stack } from '@dodo/ui/components';
 import { ContentBlock } from '@components/ContentBlock';
 import {
 	MarkerIcon,
@@ -8,7 +8,7 @@ import {
 	Tag,
 	Heading,
 	Link,
-} from '@mvoc/ui/elements';
+} from '@dodo/ui/elements';
 import type { HTMLAttributes } from 'astro/types';
 import type { LocationsPageProps } from 'src/utilities/api';
 import { useSiteSettings } from 'src/utilities/api/queries';
@@ -307,8 +307,8 @@ const note = pageData.location.note;
 </div>
 
 <style lang="scss">
-	@use '@mvoc/ui/styles/primitives/responsive';
-	@use '@mvoc/ui/styles/tools/a11y';
+	@use '@dodo/ui/styles/primitives/responsive';
+	@use '@dodo/ui/styles/tools/a11y';
 
 	.c-location-detail {
 		block-size: 100%;

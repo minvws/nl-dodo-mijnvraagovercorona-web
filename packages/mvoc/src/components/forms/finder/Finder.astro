@@ -2,8 +2,8 @@
 import type { HTMLAttributes } from 'astro/types';
 // @ts-ignore
 import Search from 'astro-pagefind/components/Search';
-import { Modal } from '@mvoc/ui/components';
-import { Icon, ButtonTool } from '@mvoc/ui/elements';
+import { Modal } from '@dodo/ui/components';
+import { Icon, ButtonTool } from '@dodo/ui/elements';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
 
@@ -34,7 +34,7 @@ const siteSettings = await useSiteSettings({ locale });
 </c-finder>
 
 <script>
-	import { debounceQuick } from '@mvoc/ui/helpers';
+	import { debounceQuick } from '@dodo/ui/helpers';
 	import { trackEvent } from 'src/utilities/tracking/piwik';
 
 	class Finder extends HTMLElement {
@@ -67,10 +67,10 @@ const siteSettings = await useSiteSettings({ locale });
 </script>
 
 <style is:global lang="scss">
-	@use '@mvoc/ui/styles/tools/a11y';
-	@use '@mvoc/ui/styles/tools/input';
-	@use '@mvoc/ui/styles/primitives/responsive';
-	@use '@mvoc/ui/styles/tools/button';
+	@use '@dodo/ui/styles/tools/a11y';
+	@use '@dodo/ui/styles/tools/input';
+	@use '@dodo/ui/styles/primitives/responsive';
+	@use '@dodo/ui/styles/tools/button';
 
 	.pagefind-ui {
 		--pagefind-ui-font: var(--font-family);

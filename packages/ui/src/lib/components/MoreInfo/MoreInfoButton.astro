@@ -1,7 +1,7 @@
 ---
 import { type HTMLAttributes } from 'astro/types';
-import { Button } from '@mvoc/ui/elements';
-import type { PictureProps } from '@mvoc/ui/components';
+import { Button } from '@dodo/ui/elements';
+import type { PictureProps } from '@dodo/ui/components';
 
 export interface MoreInfoButtonProps {
 	label: string;
@@ -40,8 +40,8 @@ const { label, href, image, isExternal, class: className } = Astro.props;
 </Button>
 
 <style lang="scss">
-	@use '@mvoc/ui/styles/tools/rem';
-	@use '@mvoc/ui/styles/primitives/responsive';
+	@use '@dodo/ui/styles/tools/rem';
+	@use '@dodo/ui/styles/primitives/responsive';
 
 	.c-more-info-button {
 		--button-padding-block: var(--space-6);

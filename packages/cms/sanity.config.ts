@@ -8,10 +8,8 @@ import { media } from 'sanity-plugin-media';
 import schemas from './src/schemas/schema';
 import deskStructure from './src/deskStructure';
 import { studioDataSet, studioProjectID, studioTitle } from './src/environment';
-import { theme } from './src/theme';
 
 export default defineConfig({
-	theme,
 	title: studioTitle,
 	projectId: studioProjectID,
 	dataset: studioDataSet,
@@ -61,7 +59,6 @@ export default defineConfig({
 				'siteSettings',
 				'tale',
 				'pza-landing-page',
-				'locations-page',
 				'advice-page',
 				'error-page',
 				'generic-page',

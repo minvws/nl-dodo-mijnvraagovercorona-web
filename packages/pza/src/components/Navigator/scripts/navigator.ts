@@ -1,6 +1,6 @@
-import { mqWide, mqLargeUntil } from '@mvoc/ui/primitives';
+import { mqWide, mqLargeUntil } from '@dodo/ui/primitives';
 import queryString from 'query-string';
-import { trapFocus } from '@mvoc/ui/helpers';
+import { trapFocus } from '@dodo/ui/helpers';
 import type {
 	FeatureProps,
 	FeaturesProps,
@@ -10,7 +10,7 @@ import { generateListItem } from './generateListItem';
 import { Map } from './map';
 import { isOpenNow } from './timetable-helpers';
 import { distance } from '@turf/turf';
-import { debounce } from '@mvoc/ui/helpers';
+import { debounce } from '@dodo/ui/helpers';
 import isVisibleInScrollContainer from 'src/utilities/helpers/visible-in-scrollcontainer';
 import { Geocoder } from './geocoder';
 

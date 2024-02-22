@@ -1,6 +1,6 @@
 ---
 import { type HTMLAttributes } from 'astro/types';
-import { Modal } from '@mvoc/ui/components';
+import { Modal } from '@dodo/ui/components';
 
 interface Props extends HTMLAttributes<'li'> {
 	id: string;
@@ -54,9 +54,9 @@ const InteractiveElement = href ? 'a' : 'button';
 </>
 
 <style lang="scss">
-	@use '@mvoc/ui/styles/primitives/responsive';
-	@use '@mvoc/ui/styles/tools/rem';
-	@use '@mvoc/ui/styles/tools/a11y';
+	@use '@dodo/ui/styles/primitives/responsive';
+	@use '@dodo/ui/styles/tools/rem';
+	@use '@dodo/ui/styles/tools/a11y';
 
 	/**
 	 * 1. Height of a slide is always 100% of the viewport minus the spacing

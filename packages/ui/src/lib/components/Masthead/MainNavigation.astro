@@ -1,7 +1,7 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
-import { Link, type IconProps } from '@mvoc/ui/elements';
-import { getLocaleFromURL, useGlobalData } from '@mvoc/ui/helpers';
+import { Link, type IconProps } from '@dodo/ui/elements';
+import { getLocaleFromURL, useGlobalData } from '@dodo/ui/helpers';
 
 export interface MainNavigationProps {
 	items: {
@@ -88,9 +88,9 @@ const isHome =
 </div>
 
 <style lang="scss">
-	@use '@mvoc/ui/styles/primitives/responsive';
-	@use '@mvoc/ui/styles/tools/a11y';
-	@use '@mvoc/ui/styles/tools/rem';
+	@use '@dodo/ui/styles/primitives/responsive';
+	@use '@dodo/ui/styles/tools/a11y';
+	@use '@dodo/ui/styles/tools/rem';
 
 	.c-nav-main {
 		--nav-main--padding-inline: var(--space-4);

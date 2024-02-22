@@ -1,6 +1,6 @@
 ---
-import { Heading } from '@mvoc/ui/elements';
-import { Card, Stack } from '@mvoc/ui/components';
+import { Heading } from '@dodo/ui/elements';
+import { Card, Stack } from '@dodo/ui/components';
 import { getLocaleFromURL } from 'src/utilities/locale/translation';
 import { useSiteSettings } from 'src/utilities/api/queries';
 
@@ -58,7 +58,7 @@ const siteSettings = await useSiteSettings({ locale });
 
 <script>
 	import { subDays, addDays } from 'date-fns';
-	import { formatDate } from '@mvoc/ui/helpers';
+	import { formatDate } from '@dodo/ui/helpers';
 
 	const today = new Date();
 	const parents = document.querySelectorAll('[data-module="dynamic-day"]');

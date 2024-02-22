@@ -1,5 +1,5 @@
 ---
-import { Tag } from '@mvoc/ui/elements';
+import { Tag } from '@dodo/ui/elements';
 import type { HTMLAttributes } from 'astro/types';
 import type { LocationsPageProps } from 'src/utilities/api';
 import { useSiteSettings } from 'src/utilities/api/queries';
@@ -85,9 +85,9 @@ const siteSettings = await useSiteSettings({ locale });
 </li>
 
 <style lang="scss">
-	@use '@mvoc/ui/styles/primitives/responsive';
-	@use '@mvoc/ui/styles/tools/a11y';
-	@use '@mvoc/ui/styles/tools/rem';
+	@use '@dodo/ui/styles/primitives/responsive';
+	@use '@dodo/ui/styles/tools/a11y';
+	@use '@dodo/ui/styles/tools/rem';
 
 	/**
 	 * 1. When we auto-scroll to a location we want to make sure the location is

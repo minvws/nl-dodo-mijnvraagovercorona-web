@@ -1,8 +1,8 @@
 ---
 import { CardAnswer } from '@components/CardAnswer';
 import { ContentBlock } from '@components/ContentBlock';
-import { GridFluid, Layer, Retain } from '@mvoc/ui/components';
-import { Heading } from '@mvoc/ui/elements';
+import { GridFluid, Layer, Retain } from '@dodo/ui/components';
+import { Heading } from '@dodo/ui/elements';
 import type { HTMLAttributes } from 'astro/types';
 import type { CardsProps } from 'src/utilities/api/queries';
 import { stringToSlug } from 'src/utilities/stringToSlug';
@@ -48,7 +48,7 @@ const cardsHaveButtons = cards.items.some((card) => card.buttons.length);
 </Layer>
 
 <style lang="scss">
-	@use '@mvoc/ui/styles/primitives/responsive';
+	@use '@dodo/ui/styles/primitives/responsive';
 
 	.c-card-answer-overview {
 		--card-button-size: calc(

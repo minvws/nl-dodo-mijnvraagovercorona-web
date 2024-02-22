@@ -46,7 +46,6 @@ image: harbor.cicd.s15m.nl/vws-reis/tool-box:1.2
 
 # Define the stages that will be used in the pipeline
 stages:
-  - check-changes
   - test
   - build
   - package
@@ -60,42 +59,16 @@ before_script:
   - echo "CHANGES_DETECTED - $CHANGES_DETECTED"
   - unset ${HISTFILE} # Disable shell cache for security purposes
 
-check changes mvoc:
-  stage: check-changes
-  image: harbor.cicd.s15m.nl/docker-hub-proxy/library/node:20-alpine
-  cache:
-    key: ${CD_ENVIRONMENT}-last-update-timestamp
-    paths:
-      - packages/mvoc/data/${CD_ENVIRONMENT}-last-update-timestamp.txt
-  script:
-    - npm ci
-    - NPM_OUTPUT=$(ENVIRONMENT=$CD_ENVIRONMENT npm run mvoc:check-changed-documents)
-    - echo "NPM script output:"
-    - echo "$NPM_OUTPUT"
-    - CHANGES_DETECTED=$(echo "$NPM_OUTPUT" | tail -1)
-    - echo "CHANGES_DETECTED=$CHANGES_DETECTED" > ${CD_ENVIRONMENT}-changes-detected.env
-    - echo $CHANGES_DETECTED
-  artifacts:
-    paths:
-      - ${CD_ENVIRONMENT}-changes-detected.env
-      - packages/mvoc/data/${CD_ENVIRONMENT}-last-update-timestamp.txt
-    reports:
-      dotenv: ${CD_ENVIRONMENT}-changes-detected.env
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
-
 test mvoc:
   image: harbor.cicd.s15m.nl/docker-hub-proxy/library/node:20-alpine
   stage: test
   script:
-    - *check-changes-skip-stage
     - npm ci
     - npm run mvoc:test
   only:
     - develop
     - staging
     - main
-    - alternative
 
 build mvoc website development:
   image: harbor.cicd.s15m.nl/docker-hub-proxy/library/node:20-alpine
@@ -158,77 +131,6 @@ build mvoc image:
     - main
     - staging
 
-build mvoc cms develop:
-  image: harbor.cicd.s15m.nl/docker-hub-proxy/library/node:20-alpine
-  stage: build
-  script:
-    - npm ci
-    - npm run cms:build:development
-    - mkdir -p artifacts/cms
-    - cp -r packages/cms/dist artifacts/cms/
-  artifacts:
-    paths:
-      - artifacts/cms/dist/
-  only:
-    - develop
-
-build mvoc cms staging:
-  image: harbor.cicd.s15m.nl/docker-hub-proxy/library/node:20-alpine
-  stage: build
-  script:
-    - npm ci
-    - npm run cms:build:staging
-    - mkdir -p artifacts/cms
-    - cp -r packages/cms/dist artifacts/cms/
-  artifacts:
-    paths:
-      - artifacts/cms/dist/
-  only:
-    - staging
-
-build mvoc cms main:
-  image: harbor.cicd.s15m.nl/docker-hub-proxy/library/node:20-alpine
-  stage: build
-  script:
-    - npm ci
-    - npm run cms:build:main
-    - mkdir -p artifacts/cms
-    - cp -r packages/cms/dist artifacts/cms/
-  artifacts:
-    paths:
-      - artifacts/cms/dist/
-  only:
-    - main
-
-build mvoc cms alternative:
-  image: harbor.cicd.s15m.nl/docker-hub-proxy/library/node:20-alpine
-  stage: build
-  script:
-    - npm ci
-    - npm run cms:build:alternative
-    - mkdir -p artifacts/cms
-    - cp -r packages/cms/dist artifacts/cms/
-  artifacts:
-    paths:
-      - artifacts/cms/dist/
-  only:
-    - alternative
-
-build mvoc cms image:
-  <<: *build-image
-  variables:
-    CD_APP_NAME: mijn-vraag-over-corona-cms
-    CD_APP_FOLDER: cms
-  before_script:
-    - export CD_APP_TAG=$(date -d "$(echo $CI_PIPELINE_CREATED_AT | sed 's/T/ /; s/Z//')" +%Y%m%d%H%M)
-    - mkdir -p packages/cms
-    - cp -r artifacts/cms/dist packages/cms/
-  only:
-    - develop
-    - staging
-    - main
-    - alternative
-
 deploy mvoc image development:
   variables:
     CD_APP_NAME: mijn-vraag-over-corona-frontend
@@ -265,15 +167,3 @@ deploy mvoc image production:
       pipeline_variables: true
   only:
     - main
-
-deploy mvoc image alternative:
-  variables:
-    CD_PIPELINE_CREATED_AT: $CI_PIPELINE_CREATED_AT
-    CD_ENVIRONMENT: alternative
-  stage: deploy
-  trigger:
-    project: vws/reis/nl-covid19-travel-during-corona-deploy
-    forward:
-      pipeline_variables: true
-  only:
-    - alternative

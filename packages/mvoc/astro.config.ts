@@ -13,6 +13,7 @@ import Compress from 'astro-compress';
 import browserslistToEsbuild from 'browserslist-to-esbuild';
 import pagefind from 'astro-pagefind';
 import icon from 'astro-icon';
+import { sanityDataSet, sanityProjectID } from './environment.mjs';
 
 console.log(`ENVIRONMENT: ${ENV}`);
 
@@ -22,10 +23,10 @@ export default defineConfig({
 	integrations: [
 		sitemap(),
 		sanity({
-			projectId: process.env.PUBLIC_SANITY_PROJECT_ID,
-			dataset: process.env.PUBLIC_SANITY_DATASET,
+			projectId: sanityProjectID,
+			dataset: sanityDataSet,
 			apiVersion: 'v2023-03-21',
-			useCdn: process.env.NODE_ENV === 'production',
+			useCdn: false,
 		}),
 		Compress({
 			CSS: false,

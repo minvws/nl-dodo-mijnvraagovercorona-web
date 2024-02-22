@@ -1,7 +1,7 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
-import { Icon, type IconProps } from '@mvoc/ui/elements';
-import { getLocaleFromURL, useGlobalData } from '@mvoc/ui/helpers';
+import { Icon, type IconProps } from '@dodo/ui/elements';
+import { getLocaleFromURL, useGlobalData } from '@dodo/ui/helpers';
 
 export interface Props extends HTMLAttributes<'div'> {
 	type?: 'text' | 'search' | 'email' | 'password' | 'url' | 'tel';
@@ -84,8 +84,8 @@ const globalData = useGlobalData({ locale });
 </script>
 
 <style lang="scss">
-	@use '@mvoc/ui/styles/tools/a11y';
-	@use '@mvoc/ui/styles/tools/input';
+	@use '@dodo/ui/styles/tools/a11y';
+	@use '@dodo/ui/styles/tools/input';
 
 	.c-input-text {
 		position: relative;

@@ -1,7 +1,7 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
-import { Icon } from '@mvoc/ui/elements';
-import { useGlobalData, getLocaleFromURL } from '@mvoc/ui/helpers';
+import { Icon } from '@dodo/ui/elements';
+import { useGlobalData, getLocaleFromURL } from '@dodo/ui/helpers';
 
 interface Props extends HTMLAttributes<'button'> {}
 
@@ -22,7 +22,7 @@ const globalData = useGlobalData({ locale });
 </button>
 
 <style lang="scss">
-	@use '@mvoc/ui/styles/tools/a11y';
+	@use '@dodo/ui/styles/tools/a11y';
 
 	.e-close-button,
 	.e-close-button__icon.e-close-button__icon {

@@ -1,7 +1,7 @@
 ---
 import { type HTMLAttributes } from 'astro/types';
-import { Heading, type HeadingProps } from '@mvoc/ui/elements';
-import { Media, type PictureProps } from '@mvoc/ui/components';
+import { Heading, type HeadingProps } from '@dodo/ui/elements';
+import { Media, type PictureProps } from '@dodo/ui/components';
 
 interface Props extends HeadingProps, HTMLAttributes<'hgroup'> {
 	title: string;
@@ -29,7 +29,7 @@ const {
 </hgroup>
 
 <style lang="scss">
-	@use '@mvoc/ui/styles/primitives/responsive';
+	@use '@dodo/ui/styles/primitives/responsive';
 
 	.c-section-heading__media.c-section-heading__media {
 		--c-media-image-alignment: start;

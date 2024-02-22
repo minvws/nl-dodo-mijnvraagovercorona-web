@@ -3,9 +3,9 @@ import {
 	availableLocales,
 	getLocaleFromURL,
 	useGlobalData,
-} from '@mvoc/ui/helpers';
+} from '@dodo/ui/helpers';
 import type { AlternativeTranslationsProps } from './types';
-import { Icon, Link } from '@mvoc/ui/elements';
+import { Icon, Link } from '@dodo/ui/elements';
 
 interface Props {
 	alternativeTranslations?: AlternativeTranslationsProps[];
@@ -150,9 +150,9 @@ const translationsOrder = alternativeTranslations
 </script>
 
 <style lang="scss">
-	@use '@mvoc/ui/styles/primitives/responsive';
-	@use '@mvoc/ui/styles/tools/a11y';
-	@use '@mvoc/ui/styles/tools/rem';
+	@use '@dodo/ui/styles/primitives/responsive';
+	@use '@dodo/ui/styles/tools/a11y';
+	@use '@dodo/ui/styles/tools/rem';
 
 	/**
 	 * 1. Weird calculation to put the localeselector exactly in the middle

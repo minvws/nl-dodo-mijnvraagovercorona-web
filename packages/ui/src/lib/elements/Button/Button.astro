@@ -1,7 +1,7 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
-import { type IconProps, Icon } from '@mvoc/ui/elements';
-import type { Animations } from '@mvoc/ui/primitives';
+import { type IconProps, Icon } from '@dodo/ui/elements';
+import type { Animations } from '@dodo/ui/primitives';
 import type { ButtonVariants, IconPositions } from './';
 
 // Interfaces
@@ -115,7 +115,7 @@ const trailingIcon = isExternalUrl
 </Element>
 
 <style lang="scss" is:global>
-	@use '@mvoc/ui/styles/tools/rem';
+	@use '@dodo/ui/styles/tools/rem';
 	:where(html) {
 		--button-border-size: 1px;
 		--button-border-color: transparent;
@@ -136,10 +136,10 @@ const trailingIcon = isExternalUrl
 </style>
 
 <style lang="scss">
-	@use '@mvoc/ui/styles/primitives/responsive';
-	@use '@mvoc/ui/styles/tools/a11y';
-	@use '@mvoc/ui/styles/tools/rem';
-	@use '@mvoc/ui/styles/tools/button';
+	@use '@dodo/ui/styles/primitives/responsive';
+	@use '@dodo/ui/styles/tools/a11y';
+	@use '@dodo/ui/styles/tools/rem';
+	@use '@dodo/ui/styles/tools/button';
 
 	.e-button {
 		@include button.scaffold();

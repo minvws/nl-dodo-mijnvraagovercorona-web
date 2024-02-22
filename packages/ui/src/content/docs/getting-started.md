@@ -4,12 +4,12 @@ title: Getting Started
 
 ## Prerequisites
 
-If you're installing MVOC-UI with a package manager you'll need to have Node.js installed. MVOC-UI is tested against the latest Long Term Support version of Node, currently at 20.
-The components in MVOC-UI are written in [Astro](https://astro.build) and the styling is taken care of by [Sass](https://sass-lang.com).
+If you're installing DODO-UI with a package manager you'll need to have Node.js installed. DODO-UI is tested against the latest Long Term Support version of Node, currently at 20.
+The components in DODO-UI are written in [Astro](https://astro.build) and the styling is taken care of by [Sass](https://sass-lang.com).
 
 ## Installation
 
-MVOC-UI is not distributed trough NPM so you have to install it directly via git:
+DODO-UI is not distributed trough NPM so you have to install it directly via git:
 
 ```javascript
 // package.json
@@ -17,7 +17,7 @@ MVOC-UI is not distributed trough NPM so you have to install it directly via git
 	"name": "your-project",
 	"private": true,
 	"dependencies": {
-		"@mvoc/ui": "git+https://github.com/minvws/nl-dodo-ui.git#semver:^1.0.0",
+		"@dodo/ui": "git+https://github.com/minvws/nl-dodo-ui.git#semver:^1.0.0",
 	}
 }
 ```
@@ -35,7 +35,7 @@ import icon from 'astro-icon';
 export default defineConfig({
 	integrations: [
 		icon({
-			iconDir: './node_modules/@mvoc/ui/src/lib/elements/Icon/icons',
+			iconDir: './node_modules/@dodo/ui/src/lib/elements/Icon/icons',
 		}),
 	],
 });
@@ -43,7 +43,7 @@ export default defineConfig({
 
 ### Configuring postcss
 
-MVOC-UI depends on [postcss-custom-media](https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-custom-media) for breakpoints.
+DODO-UI depends on [postcss-custom-media](https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-custom-media) for breakpoints.
 
 ```javascript
 // postcss.config.cjs
@@ -58,7 +58,7 @@ module.exports = {
 
 ```javascript
 // Layout.astro
-import '@mvoc/ui/styles/globals.scss';
+import '@dodo/ui/styles/globals.scss';
 ```
 
 ## Using `Elements` & `Components`
@@ -67,30 +67,30 @@ You can import any component from the [`Elements`](/elements) and [`Components`]
 
 ```javascript
 // YourTemplate.astro
-import '@mvoc/ui/elements/Heading';
+import '@dodo/ui/elements/Heading';
 
 <Heading>Your content</Heading>;
 ```
 
 ```javascript
 // YourTemplate.astro
-import '@mvoc/ui/components/Stack';
+import '@dodo/ui/components/Stack';
 
 <Stack>Your content</Stack>;
 ```
 
 ## Styling & (S)CSS
 
-MVOC-UI is built using the [Sass module system](https://css-tricks.com/introducing-sass-modules/) and it is advised to structure your application the same way.
-MVOC-UI comes with a couple of handy (S)CSS mixins & functions which you can use in your own components.
+DODO-UI is built using the [Sass module system](https://css-tricks.com/introducing-sass-modules/) and it is advised to structure your application the same way.
+DODO-UI comes with a couple of handy (S)CSS mixins & functions which you can use in your own components.
 
 ### Responsive breakpoints
 
-MVOC-UI depends on [postcss-custom-media](https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-custom-media) for breakpoints.
+DODO-UI depends on [postcss-custom-media](https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-custom-media) for breakpoints.
 
 ```scss
 // your-component.scss
-@use '@mvoc/ui/styles/primitives/responsive';
+@use '@dodo/ui/styles/primitives/responsive';
 
 .your-selector {
 	@media (--mq-large) {
@@ -108,7 +108,7 @@ MVOC-UI depends on [postcss-custom-media](https://github.com/csstools/postcss-pl
 </div>
 
 <style lang="scss">
-	@use '@mvoc/ui/styles/primitives/responsive';
+	@use '@dodo/ui/styles/primitives/responsive';
 
 	.your-astro-component {
 		@media (--mq-large) {
@@ -124,7 +124,7 @@ This way the custom-media query will be picked up by postcss and be polyfilled b
 
 ```scss
 // your-component.scss
-@use '@mvoc/ui/styles/tools/rem';
+@use '@dodo/ui/styles/tools/rem';
 
 .your-selector {
 	// If you want to use a rem value in a custom property you'll need to interpolate:
@@ -136,13 +136,13 @@ This way the custom-media query will be picked up by postcss and be polyfilled b
 
 ### Accessibility helpers
 
-MVOC-UI cares a lot about their users so we also expose 2 handy accessibility helpers to use in your components.
+DODO-UI cares a lot about their users so we also expose 2 handy accessibility helpers to use in your components.
 
 Interactive elements such as links and buttons should have a consistent focus style which you can include in your project like this:
 
 ```scss
 // your-component.scss
-@use '@mvoc/ui/styles/tools/a11y';
+@use '@dodo/ui/styles/tools/a11y';
 
 .your-selector {
 	&:focus {
@@ -155,7 +155,7 @@ Sometimes you want to hide an element visually but still communicate textual mea
 
 ```scss
 // your-component.scss
-@use '@mvoc/ui/styles/tools/a11y';
+@use '@dodo/ui/styles/tools/a11y';
 
 .your-selector {
 	// hide the span visually but maintain meaning for screenreader users

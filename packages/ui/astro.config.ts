@@ -6,7 +6,7 @@ import icon from 'astro-icon';
 export default defineConfig({
 	integrations: [
 		starlight({
-			title: 'MVOC Component library',
+			title: 'DODO-UI Component library',
 			logo: {
 				src: './src/assets/logo-vws.svg',
 				replacesTitle: true,

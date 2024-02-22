@@ -17,6 +17,7 @@
 		"ui:test": "npm run test --workspace @mvoc/ui",
 		"ui:dev": "npm run dev --workspace @mvoc/ui",
 		"cms:dev": "npm run dev --workspace cms",
+		"cms:deploy": "npm run deploy --workspace cms",
 		"cms:build:development": "npm run build-development --workspace cms",
 		"cms:build:staging": "npm run build-staging --workspace cms",
 		"cms:build:main": "npm run build-main --workspace cms",
@@ -33,7 +34,7 @@
 		"./packages/*"
 	],
 	"dependencies": {
-		"@mvoc/ui": "^0.0.1",
-		"typescript": "^5.3.2"
+		"@mvoc/ui": "^1.0.0",
+		"typescript": "^5.3.3"
 	}
 }

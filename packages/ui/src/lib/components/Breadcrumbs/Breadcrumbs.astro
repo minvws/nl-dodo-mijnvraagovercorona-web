@@ -1,7 +1,7 @@
 ---
 import { type HTMLAttributes } from 'astro/types';
-import { getLocaleFromURL } from '@mvoc/ui/helpers';
-import { Link, Icon } from '@mvoc/ui/elements';
+import { getLocaleFromURL } from '@dodo/ui/helpers';
+import { Link, Icon } from '@dodo/ui/elements';
 
 interface Props extends HTMLAttributes<'nav'> {
 	items: {
@@ -70,7 +70,7 @@ const locale = getLocaleFromURL(Astro.url.pathname);
 </nav>
 
 <style lang="scss">
-	@use '@mvoc/ui/styles/tools/rem';
+	@use '@dodo/ui/styles/tools/rem';
 
 	.c-breadcrumbs {
 		--c-breadcrumbs-gap: var(--breadcrumbs-gap, var(--space-1));

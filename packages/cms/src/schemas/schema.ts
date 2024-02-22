@@ -14,7 +14,6 @@ import carouselDocument from './documents/carousel';
 
 // Pages
 import genericPage from './pages/generic';
-import locationsPage from './pages/pza/locations';
 import pzaLandingPage from './pages/pza/landing';
 import themePage from './pages/theme';
 import errorPage from './pages/error';
@@ -55,7 +54,6 @@ export default [
 	 */
 	// pages
 	genericPage,
-	locationsPage,
 	pzaLandingPage,
 	themePage,
 	errorPage,

@@ -1,5 +1,5 @@
 import { defineType } from 'sanity';
-import { icons } from '@mvoc/ui/types';
+import { icons } from '@dodo/ui/types';
 
 export default defineType({
 	title: 'Icoon kiezer',
