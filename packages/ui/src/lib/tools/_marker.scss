@@ -1,6 +1,0 @@
-@use './rem';
-
-@mixin dimensions {
-	inline-size: rem.convert(47px);
-	block-size: rem.convert(54px);
-}
