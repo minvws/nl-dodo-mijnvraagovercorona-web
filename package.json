@@ -14,8 +14,8 @@
 		"mvoc:check-changed-documents:test": "ENVIRONMENT=development npm run check-changed-documents --workspace mvoc",
 		"mvoc:check-changed-documents:staging": "ENVIRONMENT=staging npm run check-changed-documents --workspace mvoc",
 		"mvoc:check-changed-documents:production": "ENVIRONMENT=production npm run check-changed-documents --workspace mvoc",
-		"ui:test": "npm run test --workspace @mvoc/ui",
-		"ui:dev": "npm run dev --workspace @mvoc/ui",
+		"ui:test": "npm run test --workspace @dodo/ui",
+		"ui:dev": "npm run dev --workspace @dodo/ui",
 		"cms:dev": "npm run dev --workspace cms",
 		"cms:deploy": "npm run deploy --workspace cms",
 		"cms:build:development": "npm run build-development --workspace cms",
@@ -34,7 +34,7 @@
 		"./packages/*"
 	],
 	"dependencies": {
-		"@mvoc/ui": "^1.0.0",
+		"@dodo/ui": "^1.0.0",
 		"typescript": "^5.3.3"
 	}
 }
