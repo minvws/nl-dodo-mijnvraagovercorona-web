@@ -11,8 +11,8 @@ const { class: className, ...attrs } = Astro.props;
 {
 	colors.map((item) => (
 		<div class="c-colors-grid__item">
-			<Box variant={'square'} class={`u-background--${item}`} {...attrs} />
-			<span>--color-{item}</span>
+			<Box class={`u-background--${item}`} {...attrs} />
+			<code>--color-{item}</code>
 		</div>
 	))
 }
@@ -22,5 +22,9 @@ const { class: className, ...attrs } = Astro.props;
 		display: flex;
 		flex-direction: column;
 		gap: var(--space-1);
+
+		:global(code) {
+			font-size: var(--font-size-micro);
+		}
 	}
 </style>

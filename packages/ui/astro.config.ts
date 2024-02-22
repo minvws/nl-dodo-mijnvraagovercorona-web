@@ -14,8 +14,8 @@ export default defineConfig({
 			customCss: ['./src/lib/globals.scss', './src/sl-override.css'],
 			sidebar: [
 				{
-					label: 'Documentation',
-					link: '/docs/',
+					label: 'Getting Started',
+					link: '/getting-started/',
 				},
 				{
 					label: 'Primitives',
@@ -38,6 +38,11 @@ export default defineConfig({
 					},
 				},
 			],
+			components: {
+				// Disable Theming
+				ThemeProvider: './src/components/Starlight/ThemeProvider.astro',
+				ThemeSelect: './src/components/Starlight/ThemeSelect.astro',
+			},
 		}),
 		icon({
 			iconDir: 'src/lib/elements/Icon/icons',

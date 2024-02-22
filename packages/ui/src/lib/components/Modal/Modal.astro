@@ -5,7 +5,7 @@ import { Stack } from '@mvoc/ui/components';
 export interface Props {
 	id: string;
 	title: string;
-	variant?: 'default' | 'full';
+	variant?: 'default' | 'highlight';
 }
 
 const { id, title, variant = 'default' } = Astro.props;
@@ -209,7 +209,7 @@ const { id, title, variant = 'default' } = Astro.props;
 	}
 
 	// Variants
-	.modal--full {
+	.modal--highlight {
 		&.is-visible {
 			place-items: start center;
 		}

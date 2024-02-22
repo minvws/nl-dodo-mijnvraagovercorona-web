@@ -98,7 +98,7 @@ By passing the `background="zebra"` prop, you can add a zebra striping effect to
 
 ### Colors
 
-You can also pass a color name to the `background` prop to change the background color of the `Layer`. You can select all colors present in `utilities/color.ts`.
+You can also pass a color name to the `background` prop to change the background color of the `Layer`. You can select all colors present in [`primitives/colors`](/primitives/colors).
 
 <div class="not-content">
 	<Layer background="ijsblauw">
@@ -137,6 +137,6 @@ The following custom properties are available on `Layer`:
 .your-component-extending-layer {
 	--layer-padding: 1rem; /* [1] */
 	--layer-padding-block-start: 1rem; /* [2] */
-	--layer-padding-block-start: 1rem; /* [3] */
+	--layer-padding-block-end: 1rem; /* [3] */
 }
 ```

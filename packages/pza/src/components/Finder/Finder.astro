@@ -24,7 +24,11 @@ const siteSettings = await useSiteSettings({ locale });
 		<Icon name="looking-glass" />
 	</ButtonTool>
 
-	<Modal id="finder-modal" title={siteSettings.forms.search} variant="full">
+	<Modal
+		id="finder-modal"
+		title={siteSettings.forms.search}
+		variant="highlight"
+	>
 		<Search id="c-search__pagefind" uiOptions={{ showSubResults: true }} />
 	</Modal>
 </c-finder>

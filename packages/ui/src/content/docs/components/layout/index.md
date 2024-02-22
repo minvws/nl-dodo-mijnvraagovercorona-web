@@ -1,6 +1,6 @@
 ---
 title: Layout
-sidebar: {
-	hidden: true
-}
+sidebar:
+  hidden: true
+  order: 1
 ---

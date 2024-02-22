@@ -5,5 +5,5 @@ export const radii = [
 	'small',
 	'base',
 	'large',
-	'huge',
+	'hero',
 ] as const;

@@ -1,5 +1,7 @@
 ---
 title: 'Grid Fluid'
+sidebar:
+  order: 0
 ---
 
 import { GridFluid } from '@lib/components/Layout/Grid';
@@ -61,14 +63,16 @@ By default, `GridFluid` will display its items horizontally until the items get 
 
 ## Custom properties
 
+You can override the default properties of the `GridFluid` component by setting the custom properties to your grid needs.
+
 ```css
 /**
  * 1. The minimum `inline-size` of an item, defaults to `16rem`.
  * 2. The gap between the items, defaults to `var(--space-6)`.
  * 3. The grid `repeat count` placement property, defaults to `auto-fill`.
  */
-.your-component-extending-switcher {
-	--grid-fluid-min-item-siz: 45ch; /* [1] */
+.your-component-extending-grid-fluid {
+	--grid-fluid-min-item-size: 45ch; /* [1] */
 	--grid-fluid-gap: 1rem; /* [2] */
 	--grid-fluid-placement: auto-fit; /* [3] */
 }

@@ -1,14 +1,14 @@
 ---
-title: 'Primitives: Animation'
+title: 'Animation'
+sidebar:
+  order: 6
 ---
 
 import { Animation } from '@components/Animation';
 
-`Animations` can be added to buttons to change the animation behaviour of icons in buttons.
+## Interaction (`:hover`, `:focus`) animations
 
-## Usage
-
-We have some predefined animation utility classes that can be used in your components:
+We have some predefined animation utility classes that can be used in your interactive components like `Button` & `Link`:
 
 ```css
 .u-animation-interaction--swing {
@@ -41,17 +41,18 @@ We have some predefined animation utility classes that can be used in your compo
 ```
 
 and can be used in your components like this:
+First you need to "subscribe" a (sub-)element to the animation by setting the `--u-animation-subscribe` custom property.
 
 ```css
-.your-component {
+.your-component .e-icon {
 	animation: var(--u-animation-subscribe);
 }
 ```
+...and then you can add the animation to your component:
 
 ```jsx
-<div className="your-component  u-animation--[ANIMATION-NAME]">your component</div>
+<div className="your-component  u-animation-interaction--[ANIMATION-NAME]"><Icon /></div>
 ```
-This way you can add animations to any component you want, also with javascript.
 
 Alternatively you can use the animation custom properties directly in your components:
 
@@ -61,15 +62,14 @@ Alternatively you can use the animation custom properties directly in your compo
 }
 ```
 
-
 ## Components using animations
-In the `Button` and  `Link` components you can add animations to the icon by providing the `interactionIconAnimation` prop.
+In the `Button` and  `Link` components already have support for these animations. You can add animations to the icon by providing the `interactionIconAnimation` prop.
 
 ```jsx
 <Button icon="arrow-right" interactionIconAnimation="swing">button label</Button>
 ```
 
 <div class="not-content">
-    <Animation/>
+  <Animation/>
 </div>
 

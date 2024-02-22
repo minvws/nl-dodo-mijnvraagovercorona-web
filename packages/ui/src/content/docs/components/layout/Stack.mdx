@@ -1,5 +1,7 @@
 ---
 title: 'Stack'
+sidebar:
+  order: 1
 ---
 
 import { Stack } from '@lib/components/Layout/Stack';
@@ -48,7 +50,7 @@ By default the `Stack` component will inject a margin of `--space-6` between ele
 
 ## Gap
 
-The `gap` prop can be used to change the amount of space between elements. The `gap` prop accepts a number which correspondents to our spacing variables.
+The `gap` prop can be used to change the amount of space between elements. The `gap` prop accepts a number which correspondents to our spacing variables in [`Primitives/Spacings`](/primitives/spacings).
 
 <div class="not-content">
 	<Stack gap={2}>
@@ -80,6 +82,22 @@ You can also set the `--stack-gap` custom property on the parent element to chan
 .your-component-containing-stack {
 	--stack-gap: var(--space-2);
 }
+```
+
+You can also control the space before an individual child of `Stack` by setting the `--stack-gap` custom property on the child element.
+
+```js
+<Stack>
+	<h1>Heading</h1>
+	<p>content</p>
+	<h2 class="heading-with-more-spacing">Heading 2</h2>
+</Stack>
+
+<style lang="scss">
+	.heading-with-more-spacing {
+		--stack-gap: var(--space-4);
+	}
+</style>
 ```
 
 
