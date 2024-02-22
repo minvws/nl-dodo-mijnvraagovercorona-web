@@ -14,16 +14,9 @@ cache:
   key: ${CI_COMMIT_REF_SLUG}
   paths:
     - node_modules/
-    - packages/mvoc/data/${CD_ENVIRONMENT}-last-update-timestamp.txt
 
 # Specify the Docker image that will be used to run the pipeline
 image: harbor.cicd.s15m.nl/vws-reis/tool-box:1.2
-
-.check-changes-skip-stage: &check-changes-skip-stage
-  - if [ "$CHANGES_DETECTED" != "true" ] && [ "$CI_PIPELINE_SOURCE" == "schedule" ]; then
-    echo "No changes detected and a scheduled pipeline, skipping stage";
-    exit 0;
-    fi
 
 .build-image: &build-image
   environment:
@@ -64,7 +57,7 @@ test mvoc:
   stage: test
   script:
     - npm ci
-    - npm run mvoc:test
+    - npm run test
   only:
     - develop
     - staging
@@ -74,9 +67,8 @@ build mvoc website development:
   image: harbor.cicd.s15m.nl/docker-hub-proxy/library/node:20-alpine
   stage: build
   script:
-    - *check-changes-skip-stage
     - npm ci
-    - npm run mvoc:build:development
+    - npm run mvoc:build
     - mkdir -p artifacts/mvoc
     - cp -r packages/mvoc/dist artifacts/mvoc/
   artifacts:
@@ -89,9 +81,8 @@ build mvoc website staging:
   image: harbor.cicd.s15m.nl/docker-hub-proxy/library/node:20-alpine
   stage: build
   script:
-    - *check-changes-skip-stage
     - npm ci
-    - npm run mvoc:build:staging
+    - npm run mvoc:build
     - mkdir -p artifacts/mvoc
     - cp -r packages/mvoc/dist artifacts/mvoc/
   artifacts:
@@ -104,9 +95,8 @@ build mvoc website main:
   image: harbor.cicd.s15m.nl/docker-hub-proxy/library/node:20-alpine
   stage: build
   script:
-    - *check-changes-skip-stage
     - npm ci
-    - npm run mvoc:build:production
+    - npm run mvoc:build
     - mkdir -p artifacts/mvoc
     - cp -r packages/mvoc/dist artifacts/mvoc/
   artifacts:
