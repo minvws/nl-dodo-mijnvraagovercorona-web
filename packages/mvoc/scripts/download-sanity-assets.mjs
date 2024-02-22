@@ -8,24 +8,18 @@ import {
 	readdirSync,
 } from 'fs';
 import got from 'got';
-import dotenv from 'dotenv';
-
-/** Get the custom set environment */
-const ENV = process.env.ENVIRONMENT || 'development';
-
-/** Use the env based on the passed env value */
-dotenv.config({ path: `.env.${ENV}` });
+import { sanityDataSet, sanityProjectID } from '../environment.mjs';
 
 const pipeline = promisify(stream.pipeline);
 
 const folder = './public/assets/sanity';
 
-console.log(`ENVIRONMENT: ${ENV}`);
+console.log(`Dataset: ${sanityDataSet}`);
 
 (async () => {
 	try {
 		const { result } = await got(
-			`https://${process.env.PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/v1/data/query/${process.env.PUBLIC_SANITY_DATASET}?query=*%5B_type+in+%5B%22sanity.fileAsset%22%2C+%22sanity.imageAsset%22%5D%5D%7B%0A++url%2C%0A++sha1hash%2C%0A++originalFilename%2C%0A++extension%0A%7D`,
+			`https://${sanityProjectID}.api.sanity.io/v1/data/query/${sanityDataSet}?query=*%5B_type+in+%5B%22sanity.fileAsset%22%2C+%22sanity.imageAsset%22%5D%5D%7B%0A++url%2C%0A++sha1hash%2C%0A++originalFilename%2C%0A++extension%0A%7D`,
 			{
 				headers: {
 					'user-agent': undefined,

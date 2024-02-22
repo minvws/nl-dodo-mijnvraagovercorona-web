@@ -1,8 +1,8 @@
 ---
 import { type HTMLAttributes } from 'astro/types';
-import { Stack, Picture, type PictureProps } from '@mvoc/ui/components';
+import { Stack, Picture, type PictureProps } from '@dodo/ui/components';
 import type { DisclosureProps } from '.';
-import { Heading, Link } from '@mvoc/ui/elements';
+import { Heading, Link } from '@dodo/ui/elements';
 
 interface Props extends DisclosureProps, Omit<HTMLAttributes<'div'>, 'id'> {
 	picture: PictureProps;
@@ -94,9 +94,9 @@ const {
 </script>
 
 <style lang="scss">
-	@use '@mvoc/ui/styles/tools/a11y';
-	@use '@mvoc/ui/styles/primitives/responsive';
-	@use '@mvoc/ui/styles/tools/rem';
+	@use '@dodo/ui/styles/tools/a11y';
+	@use '@dodo/ui/styles/primitives/responsive';
+	@use '@dodo/ui/styles/tools/rem';
 
 	.c-disclosure-quote {
 		display: block;

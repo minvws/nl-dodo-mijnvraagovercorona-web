@@ -1,8 +1,8 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
-import { Heading, Link, Button, type ButtonProps } from '@mvoc/ui/elements';
-import { GridFluid, type PictureProps, Stack } from '@mvoc/ui/components';
-import { getLocaleFromURL, useGlobalData } from '@mvoc/ui/helpers';
+import { Heading, Link, Button, type ButtonProps } from '@dodo/ui/elements';
+import { GridFluid, type PictureProps, Stack } from '@dodo/ui/components';
+import { getLocaleFromURL, useGlobalData } from '@dodo/ui/helpers';
 
 interface Props extends HTMLAttributes<'div'> {
 	inDialog?: boolean;
@@ -181,8 +181,8 @@ const globalData = useGlobalData({ locale });
 </script>
 
 <style lang="scss">
-	@use '@mvoc/ui/styles/primitives/responsive';
-	@use '@mvoc/ui/styles/tools/rem';
+	@use '@dodo/ui/styles/primitives/responsive';
+	@use '@dodo/ui/styles/tools/rem';
 
 	:global(:where(html)) {
 		--assistance__image-size: #{rem.convert(150px)};

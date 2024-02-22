@@ -1,13 +1,13 @@
 ---
-import { FieldDatePicker, GridFluid, Stack } from '@mvoc/ui/components';
-import { Button } from '@mvoc/ui/elements';
+import { FieldDatePicker, GridFluid, Stack } from '@dodo/ui/components';
+import { Button } from '@dodo/ui/elements';
 import type { HTMLAttributes } from 'astro/types';
 import {
 	getDaySlug,
 	getDaysToGenerate,
 } from 'src/utilities/helpers/advice-helpers';
 import { useSiteSettings } from 'src/utilities/api/queries';
-import { getLocaleFromURL } from '@mvoc/ui/helpers';
+import { getLocaleFromURL } from '@dodo/ui/helpers';
 import Submit from './Submit.astro';
 import type { QuestionPageProps } from 'src/utilities/api';
 import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
@@ -95,7 +95,7 @@ const parsedButtons = buttons?.map((button, index) => {
 		calculateDay,
 		getDaySlug,
 	} from 'src/utilities/helpers/advice-helpers';
-	import { formatDate, formatDateToISO } from '@mvoc/ui/helpers';
+	import { formatDate, formatDateToISO } from '@dodo/ui/helpers';
 	import {
 		removeDatePickerValue,
 		setDatePickerValue,

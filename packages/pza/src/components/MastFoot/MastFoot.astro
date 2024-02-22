@@ -1,9 +1,9 @@
 ---
-import { Heading } from '@mvoc/ui/elements';
+import { Heading } from '@dodo/ui/elements';
 import { ContentBlock } from '@components/ContentBlock';
 import { useSiteSettings } from 'src/utilities/api/queries';
 import type { Locale } from 'src/utilities/locale/translation';
-import { Layer, Stack, Retain, GridFluid, LinkList } from '@mvoc/ui/components';
+import { Layer, Stack, Retain, GridFluid, LinkList } from '@dodo/ui/components';
 import { parseLink } from 'src/utilities/helpers/link';
 import { isExternalUrl } from 'src/utilities/helpers/external-url';
 
@@ -47,8 +47,8 @@ const siteSettings = await useSiteSettings({
 </footer>
 
 <style lang="scss">
-	@use '@mvoc/ui/styles/tools/rem';
-	@use '@mvoc/ui/styles/primitives/responsive';
+	@use '@dodo/ui/styles/tools/rem';
+	@use '@dodo/ui/styles/primitives/responsive';
 
 	.c-mastfoot {
 		--elevation-focusring: 2px dashed var(--color-white);

@@ -9,7 +9,6 @@ export default defineField({
 	to: [
 		{ type: 'theme-page' },
 		{ type: 'generic-page' },
-		{ type: 'locations-page' },
 		{ type: 'advice-page' },
 		{ type: 'question-page' },
 		{ type: 'pza-landing-page' },

@@ -1,4 +1,4 @@
-import { type Locale, availableLocales } from '@mvoc/ui/helpers';
+import { type Locale, availableLocales } from '@dodo/ui/helpers';
 
 export interface GlobalData {
 	logoAlt: string;

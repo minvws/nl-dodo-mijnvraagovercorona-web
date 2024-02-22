@@ -2,7 +2,7 @@ import type {
 	IconProps,
 	ButtonVariants,
 	IconPositions,
-} from '@mvoc/ui/elements';
+} from '@dodo/ui/elements';
 import type { SubFolderReferenceProps } from '.';
 import { internalPageReferenceInSelectQuery } from '.';
 

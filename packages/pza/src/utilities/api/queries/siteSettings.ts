@@ -6,7 +6,7 @@ import {
 import type { InternalPageCollectionProps, ImageProps, PictureProps } from '.';
 import { internalPageReferenceQuery, customBlockQuery, imageQuery } from '.';
 import type { ContentBlockProps } from '@components/ContentBlock';
-import { setGlobalData, type GlobalDataByLocale } from '@mvoc/ui/helpers';
+import { setGlobalData, type GlobalDataByLocale } from '@dodo/ui/helpers';
 
 interface SiteSettings {
 	baseUrl: string;

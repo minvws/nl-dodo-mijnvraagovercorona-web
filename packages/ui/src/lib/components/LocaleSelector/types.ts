@@ -1,4 +1,4 @@
-import type { Locale } from '@mvoc/ui/helpers';
+import type { Locale } from '@dodo/ui/helpers';
 
 export interface AlternativeTranslationsProps {
 	locale: Locale;

@@ -1,4 +1,4 @@
-import type { IconProps } from '@mvoc/ui/elements';
+import type { IconProps } from '@dodo/ui/elements';
 import type { SubFolderReferenceProps } from '.';
 import { subFolderReferenceQuery } from '.';
 

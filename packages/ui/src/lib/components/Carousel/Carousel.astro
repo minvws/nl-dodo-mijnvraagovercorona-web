@@ -1,8 +1,8 @@
 ---
 import { type HTMLAttributes } from 'astro/types';
-import { getLocaleFromURL, useGlobalData } from '@mvoc/ui/helpers';
-import { Stack } from '@mvoc/ui/components';
-import { Heading, Icon } from '@mvoc/ui/elements';
+import { getLocaleFromURL, useGlobalData } from '@dodo/ui/helpers';
+import { Stack } from '@dodo/ui/components';
+import { Heading, Icon } from '@dodo/ui/elements';
 
 interface Props extends HTMLAttributes<'div'> {
 	title: string;
@@ -71,9 +71,9 @@ const globalData = useGlobalData({ locale });
 </c-carousel>
 
 <style lang="scss">
-	@use '@mvoc/ui/styles/primitives/responsive';
-	@use '@mvoc/ui/styles/tools/rem';
-	@use '@mvoc/ui/styles/tools/a11y';
+	@use '@dodo/ui/styles/primitives/responsive';
+	@use '@dodo/ui/styles/tools/rem';
+	@use '@dodo/ui/styles/tools/a11y';
 
 	.c-carousel {
 		--carousel__block-padding: var(--space-8);

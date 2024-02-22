@@ -1,6 +1,6 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
-import { Stack, type PictureProps } from '@mvoc/ui/components';
+import { Stack, type PictureProps } from '@dodo/ui/components';
 
 interface Props extends HTMLAttributes<'div'> {
 	image?: PictureProps['image'];
@@ -26,7 +26,7 @@ const { image, class: className, ...attrs } = Astro.props;
 </div>
 
 <style lang="scss">
-	@use '@mvoc/ui/styles/primitives/responsive';
+	@use '@dodo/ui/styles/primitives/responsive';
 
 	.c-media {
 		--c-media-image-size: var(--space-8);

@@ -1,4 +1,4 @@
-import type { PictureProps as PicturePropsComponent } from '@mvoc/ui/components';
+import type { PictureProps as PicturePropsComponent } from '@dodo/ui/components';
 
 export interface PictureProps extends PicturePropsComponent {
 	type: 'picture';

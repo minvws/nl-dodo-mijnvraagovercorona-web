@@ -5,7 +5,7 @@ import { availableLocales } from 'src/utilities/locale/translation';
 import {
 	Hero,
 	Layer,
-	Advice as AdviceComponent,
+	Advice as UIAdvice,
 	Retain,
 	Sidebar,
 	Stack,
@@ -15,7 +15,7 @@ import {
 	Assistance,
 	MoreInfoOverview,
 	Breadcrumbs,
-} from '@mvoc/ui/components';
+} from '@dodo/ui/components';
 import { ContentBlock, MultiContentBlock } from '@components/ContentBlock';
 import type { AdvicePageProps } from 'src/utilities/api/advice';
 import { getDataAdvicePages } from 'src/utilities/api/advice';
@@ -30,7 +30,7 @@ import {
 	getShowOnDays,
 } from 'src/utilities/helpers/advice-helpers';
 import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
-import { Heading } from '@mvoc/ui/elements';
+import { Heading } from '@dodo/ui/elements';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { parseLink } from 'src/utilities/helpers/link';
 import { isExternalUrl } from 'src/utilities/helpers/external-url';
@@ -126,7 +126,7 @@ const plan =
 		<ContentBlock value={pageData.hero.content} />
 		{
 			pageData.showSeriousSymptoms ? (
-				<AdviceComponent
+				<UIAdvice
 					title={siteSettings.severeSymptomsAdvice.title}
 					subtitle={siteSettings.severeSymptomsAdvice.subtitle}
 					image={siteSettings.severeSymptomsAdvice.icon}

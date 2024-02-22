@@ -1,4 +1,4 @@
-import { debounceQuick } from '@mvoc/ui/helpers';
+import { debounceQuick } from '@dodo/ui/helpers';
 import { trackEvent } from 'src/utilities/tracking/piwik';
 import Fuse, { type FuseResult } from 'fuse.js';
 

@@ -1,5 +1,5 @@
 ---
-import { type AlternativeTranslationsProps } from '@mvoc/ui/components';
+import { type AlternativeTranslationsProps } from '@dodo/ui/components';
 import { type MetaDataProps, useSiteSettings } from 'src/utilities/api/queries';
 import { type Locale } from 'src/utilities/locale/translation';
 
@@ -39,7 +39,6 @@ const ogImage = `${Astro.url.origin}${
 <meta name="generator" content={Astro.generator} />
 <meta name="version" content={process.env.npm_package_version} />
 <meta name="build-date" content={new Date().toLocaleString('nl-nl')} />
-<meta name="dataset" content={import.meta.env.PUBLIC_SANITY_DATASET} />
 
 <title>{pageTitle}</title>
 <meta property="og:title" content={pageTitle} />

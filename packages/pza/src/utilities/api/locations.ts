@@ -1,5 +1,5 @@
 import type { ContentBlockProps } from '@components/ContentBlock';
-import type { IconProps } from '@mvoc/ui/elements';
+import type { IconProps } from '@dodo/ui/elements';
 import { useSanityClient } from 'astro-sanity';
 import {
 	pageQuery,

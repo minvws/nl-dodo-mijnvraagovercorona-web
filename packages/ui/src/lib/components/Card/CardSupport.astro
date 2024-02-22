@@ -1,6 +1,6 @@
 ---
-import { Heading } from '@mvoc/ui/elements';
-import { Card } from '@mvoc/ui/components';
+import { Heading } from '@dodo/ui/elements';
+import { Card } from '@dodo/ui/components';
 import type { PictureProps } from '../Picture';
 
 interface Props {
@@ -25,8 +25,8 @@ const { title, image } = Astro.props;
 	<slot name="appendix" />
 </Card>
 <style lang="scss">
-	@use '@mvoc/ui/styles/primitives/responsive';
-	@use '@mvoc/ui/styles/tools/rem';
+	@use '@dodo/ui/styles/primitives/responsive';
+	@use '@dodo/ui/styles/tools/rem';
 
 	.c-support-card {
 		--card-padding: 0;

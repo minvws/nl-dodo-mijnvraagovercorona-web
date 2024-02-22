@@ -8,7 +8,7 @@
 		"target": "ESNext",
 		"types": ["vite/client"],
 		"paths": {
-			"@mvoc/ui/*": ["@mvoc/ui/src/*"]
+			"@dodo/ui/*": ["@dodo/ui/src/*"]
 		}
 	},
 	"include": [

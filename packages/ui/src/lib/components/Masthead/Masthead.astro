@@ -5,9 +5,9 @@ import {
 	Retain,
 	type MainNavigationProps,
 	MainNavigation,
-} from '@mvoc/ui/components';
-import { ButtonTool, Icon } from '@mvoc/ui/elements';
-import { getLocaleFromURL, useGlobalData } from '@mvoc/ui/helpers';
+} from '@dodo/ui/components';
+import { ButtonTool, Icon } from '@dodo/ui/elements';
+import { getLocaleFromURL, useGlobalData } from '@dodo/ui/helpers';
 
 interface Props extends HTMLAttributes<'header'> {
 	navigation?: {
@@ -78,8 +78,8 @@ const hasNav =
 </header>
 
 <style lang="scss">
-	@use '@mvoc/ui/styles/primitives/responsive';
-	@use '@mvoc/ui/styles/tools/rem';
+	@use '@dodo/ui/styles/primitives/responsive';
+	@use '@dodo/ui/styles/tools/rem';
 
 	.c-masthead {
 		--masthead-inline-padding: var(--space-6);
@@ -225,8 +225,8 @@ const hasNav =
 		debounce,
 		getKeyboardFocusableElements,
 		trapFocus,
-	} from '@mvoc/ui/helpers';
-	import { mqHuge } from '@mvoc/ui/primitives';
+	} from '@dodo/ui/helpers';
+	import { mqHuge } from '@dodo/ui/primitives';
 
 	const mastheadElement = document.querySelector('[data-module="masthead"]');
 	if (mastheadElement) {

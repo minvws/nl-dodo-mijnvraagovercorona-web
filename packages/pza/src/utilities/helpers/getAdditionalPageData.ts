@@ -1,7 +1,7 @@
 import type { SubFolderReferenceProps } from '../api/queries';
 import { availableLocales } from 'src/utilities/locale/translation';
 import { getPageSubfolder } from './page-subfolder';
-import type { AlternativeTranslationsProps as AlternativeTranslationsPropsUI } from '@mvoc/ui/components';
+import type { AlternativeTranslationsProps as AlternativeTranslationsPropsUI } from '@dodo/ui/components';
 
 export type BreadcrumbProps = {
 	slug: string;

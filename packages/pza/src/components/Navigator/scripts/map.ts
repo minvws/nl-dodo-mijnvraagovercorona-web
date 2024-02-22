@@ -2,7 +2,7 @@ import mapboxgl from 'mapbox-gl';
 import { bbox, lineString, type Position } from '@turf/turf';
 import type { FeatureProps } from 'src/utilities/helpers/features';
 import { isOpenNow } from './timetable-helpers';
-import { mqLarge } from '@mvoc/ui/primitives';
+import { mqLarge } from '@dodo/ui/primitives';
 
 export class Map {
 	mapElement: HTMLDivElement;

@@ -10,11 +10,11 @@ import {
 	Stack,
 	Assistance,
 	Breadcrumbs,
-} from '@mvoc/ui/components';
+} from '@dodo/ui/components';
 import type { ThemePageProps } from 'src/utilities/api/theme';
 import { getDataThemes } from 'src/utilities/api/theme';
 import { ContentBlock } from '@components/ContentBlock';
-import { Heading } from '@mvoc/ui/elements';
+import { Heading } from '@dodo/ui/elements';
 import { TaleList } from '@components/Tale';
 import { CTAButtonOverview } from '@components/CTAButtonOverview';
 import { CardAnswerOverview } from '@components/CardAnswer';
@@ -167,7 +167,7 @@ const siteSettings = await useSiteSettings({ locale });
 	}
 </Layout>
 <style lang="scss">
-	@use '@mvoc/ui/styles/primitives/responsive';
+	@use '@dodo/ui/styles/primitives/responsive';
 
 	.grid-questions {
 		--grid-fluid-min-item-size: var(--space-100);

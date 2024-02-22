@@ -1,9 +1,9 @@
 ---
 import { ContentBlock } from '@components/ContentBlock';
 import { FeedbackAbstraction } from '@components/FeedbackAbstraction';
-import { Stack, Breadcrumbs, Layer, Retain } from '@mvoc/ui/components';
+import { Stack, Breadcrumbs, Layer, Retain } from '@dodo/ui/components';
 import { MastFoot } from '@components/MastFoot';
-import { CloseButton, Heading } from '@mvoc/ui/elements';
+import { CloseButton, Heading } from '@dodo/ui/elements';
 import type { HTMLAttributes } from 'astro/types';
 import type { LocationsPageProps } from 'src/utilities/api';
 import { useSiteSettings } from 'src/utilities/api/queries';
@@ -181,8 +181,8 @@ const siteSettings = await useSiteSettings({
 </script>
 
 <style lang="scss">
-	@use '@mvoc/ui/styles/primitives/responsive';
-	@use '@mvoc/ui/styles/tools/rem';
+	@use '@dodo/ui/styles/primitives/responsive';
+	@use '@dodo/ui/styles/tools/rem';
 
 	.c-navigator {
 		--navigator__padding: var(--space-4);

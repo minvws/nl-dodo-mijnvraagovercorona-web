@@ -8,7 +8,7 @@ import {
 	setGlobalData,
 	type GlobalDataByLocale,
 	availableLocales,
-} from '@mvoc/ui/helpers';
+} from '@dodo/ui/helpers';
 
 interface SiteSettings {
 	baseUrl: string;

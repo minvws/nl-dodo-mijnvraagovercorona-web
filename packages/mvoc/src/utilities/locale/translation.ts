@@ -1,12 +1,12 @@
 import { isExternalUrl } from '../helpers/external-url';
-import { availableLocales, type Locale } from '@mvoc/ui/helpers';
+import { availableLocales, type Locale } from '@dodo/ui/helpers';
 export {
 	locales,
 	availableLocales,
 	type Locale,
 	Locales,
 	getLocaleFromURL,
-} from '@mvoc/ui/helpers';
+} from '@dodo/ui/helpers';
 
 /**
  * Small helper method that prefixes the requested url with a locale.

@@ -5,7 +5,7 @@ import {
 	Stack,
 	type PictureProps,
 	Disclosure,
-} from '@mvoc/ui/components';
+} from '@dodo/ui/components';
 
 interface Props extends HTMLAttributes<'div'> {
 	id: string;
@@ -37,7 +37,7 @@ const { id, title, image } = Astro.props;
 </Card>
 
 <style lang="scss">
-	@use '@mvoc/ui/styles/primitives/responsive';
+	@use '@dodo/ui/styles/primitives/responsive';
 
 	/**
 	 * 1. override specificity by 0,1,0 to battle Astro loading
