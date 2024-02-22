@@ -25,13 +25,16 @@ npm run mvoc:build
 npm run mvoc:test
 ```
 
-**Note**: If you want to enable search in your dev environment you need to run `npm run mvoc:build:development` prior to running `npm run mvoc:dev`.
+**Note**: If you want to enable search in your dev environment you need to run `npm run mvoc:build` prior to running `npm run mvoc:dev`.
 
 For the `cms` package you can run the following commands:
 
 ```bash
 # Run Sanity cms locally
 npm run cms:dev
+
+# Deploy Sanity cms
+npm run cms:deploy
 ```
 
 For the `cms-pza` package you can run the following commands:
