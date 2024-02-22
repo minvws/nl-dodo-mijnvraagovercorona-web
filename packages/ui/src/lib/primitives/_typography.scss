@@ -26,6 +26,9 @@
 	--font-size-milli: #{rem.convert(16px)};
 	--line-height-milli: 1.25; // 20px
 
+	--font-size-micro: #{rem.convert(14px)};
+	--line-height-micro: 1.42; // 20px
+
 	--font-size-nano: #{rem.convert(10px)};
 	--line-height-nano: 1.2; // 12px
 

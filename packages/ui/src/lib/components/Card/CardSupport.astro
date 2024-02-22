@@ -12,7 +12,7 @@ interface Props {
 const { title, image } = Astro.props;
 ---
 
-<Card variant={'image'} class={`c-support-card`}>
+<Card variant={'elevated'} class={`c-support-card`}>
 	<div class="c-support-card__wrap-image">
 		{image && image.src ? <img src={image.src} alt="" loading="lazy" /> : null}
 	</div>

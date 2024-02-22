@@ -1,5 +1,1 @@
-export const density = [
-	'density-compact',
-	'density-normal',
-	'density-spacious',
-] as const;
+export const density = ['compact', 'normal', 'spacious'] as const;

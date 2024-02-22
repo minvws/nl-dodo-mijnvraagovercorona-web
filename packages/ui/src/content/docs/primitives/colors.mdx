@@ -1,13 +1,22 @@
 ---
-title: 'Primitives: Colors'
+title: 'Colors'
+sidebar:
+  order: 1
 ---
 
 import { Colors } from '@components/Colors';
 import { Grid } from '@components/Grid';
 
-`Colors` are various colors & gradients used in the project.
+Maintaining consistent digital interfaces throughout MVOC is key, and color is a big part of that. The MVOC color palette is designed to be bold and vibrant, accessible and to provide a strong visual identity.
 
-## Example
+## Palette
+
+<Grid>
+	<Colors/>
+</Grid>
+
+
+## Utilities
 
 Adjust the color of a component with the `color` property and a `--color-[COLOR_NAME]` value.
 
@@ -21,6 +30,3 @@ It is also possible to adjust the background color of an element by adding a uti
 <div class="u-background--diepblauw">Some content</div>
 <div class="u-color--black">Some content</div>
 ```
-<Grid>
-	<Colors/>
-</Grid>

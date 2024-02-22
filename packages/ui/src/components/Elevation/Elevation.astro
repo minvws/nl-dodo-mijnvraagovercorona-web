@@ -12,24 +12,24 @@ const { class: className, ...attrs } = Astro.props;
 		style={`outline: var(--elevation-focusring); outline-offset: 2px;`}
 		{...attrs}
 	/>
-	<span>--elevation-focusring</span>
+	<code>--elevation-focusring</code>
 </div>
 <div class="c-elevation-grid__item">
 	<Box style={`box-shadow: var(--elevation-frost);`} />
-	<span>--elevation-frost</span>
+	<code>--elevation-frost</code>
 </div>
 <div class="c-elevation-grid__item">
 	<Box style={`box-shadow: var(--elevation-frost--medium);`} />
-	<span>--elevation-frost--medium</span>
-</div>
-<div class="c-elevation-grid__item">
-	<Box style={`box-shadow: var(--elevation-frost--large);`} />
-	<span>--elevation-frost--large</span>
+	<code>--elevation-frost--medium</code>
 </div>
 
 <style lang="scss">
 	.c-elevation-grid__item {
 		display: grid;
 		gap: var(--space-4);
+
+		:global(code) {
+			font-size: var(--font-size-micro);
+		}
 	}
 </style>

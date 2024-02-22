@@ -1,5 +1,7 @@
 ---
 title: "CardSupport"
+sidebar:
+  order: 2
 ---
 
 import { CardSupport } from '@lib/components/Card';
@@ -8,7 +10,7 @@ import { Button } from '@lib/elements/Button';
 The `CardSupport` component is used to display a card with an image in the card header, content and (optional) button(s).
 
 ## Usage
-Title, image props can be used to add title and image. 
+Title, image props can be used to add title and image.
 
 ```jsx
 import { CardSupport } from '@mvoc/ui/components';
@@ -20,10 +22,10 @@ import { CardSupport } from '@mvoc/ui/components';
 ## Example
 
 <div class="not-content">
-	<CardSupport title="This is a title" image={{src: 'https://placehold.co/44x44'}}>At vero eos et accusamus et iusto odio 
-	dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi 
+	<CardSupport title="This is a title" image={{src: 'https://placehold.co/44x44'}}>At vero eos et accusamus et iusto odio
+	dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi
 	sint occaecati cupiditate non provident
-	<Button variant="secondary">With button</Button></CardSupport>	
+	<Button variant="secondary">With button</Button></CardSupport>
 </div>
 ```jsx
 	<CardSupport title="This is a title" image={{src: 'https://placehold.co/44x44'}}> Some content

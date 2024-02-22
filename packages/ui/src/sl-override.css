@@ -1,7 +1,9 @@
-:root {
+:root[data-theme='light'] {
 	--sl-font: var(--font-family);
 	--sl-line-height: var(--font-lineheight-root);
 	--sl-color-text: var(--color-black);
+	--sl-color-accent: var(--color-hemelblauw);
+	--sl-content-width: 65rem;
 }
 
 .not-content:not(.tablist-wrapper, .c-icon-grid) {
@@ -12,4 +14,8 @@
 
 .layout-container {
 	container: layout-container / inline-size;
+}
+
+.social-icons::after {
+	display: none;
 }

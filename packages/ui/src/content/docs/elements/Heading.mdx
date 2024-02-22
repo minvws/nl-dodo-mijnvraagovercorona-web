@@ -1,21 +1,26 @@
 ---
-title: 'Element: Heading'
+title: 'Heading'
+sidebar:
+  order: 0
 ---
 
 import { Heading } from '@lib/elements/Heading';
 
-`Headings` are titles that describe the page content and/or sections of it.
+`Heading` components are used to generate titles that describe the page content and/or sections of it.
 They rank in order of importance, from H1 to H6, with H1s usually being the main title.
-Header tags improve the readability and SEO of a webpage.
+Heading elements improve the readability and SEO of a webpage.
 
 ## Usage
 ```jsx
 import { Heading } from '@mvoc/ui/elements';
 
-<Heading level={1}>h1 Heading</Heading>
+<Heading>h1 Heading</Heading>
 ```
 
-## Heading examples
+By default a Heading element will render as a `h2` element since `h1` is usually reserved for the main title of the page.
+
+
+## Examples
 Pass in number 1 - 6 in the `level` variable to adjust the semantic level of the heading:
 
 <div class="not-content">
@@ -28,7 +33,7 @@ Pass in number 1 - 6 in the `level` variable to adjust the semantic level of the
 </div>
 
 ```jsx
-	<Heading level={1}>This is a h1 heading</Heading>
+<Heading level={1}>This is a h1 heading</Heading>
 ```
 
 ## Visual style
@@ -40,5 +45,5 @@ You can also pass the `styledAs` variable to style the `Heading` to different he
 </div>
 
 ```jsx
-	<Heading level={1} styledAs={6}>Heading h1 styled as h6</Heading>
+<Heading level={1} styledAs={6}>Heading h1 styled as h6</Heading>
 ```
