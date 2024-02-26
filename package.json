@@ -10,13 +10,6 @@
 		"cms:dev": "npm run dev --workspace cms",
 		"cms:deploy": "npm run deploy --workspace cms",
 		"cms:build": "npm run build-development --workspace cms",
-		"pza:dev": "npm run dev --workspace pza",
-		"pza:build": "npm run build --workspace pza",
-		"pza:preview": "npm run preview --workspace pza",
-		"pza:test": "npm run test --workspace pza",
-		"cms-pza:dev": "npm run dev --workspace cms-pza",
-		"cms-pza:deploy": "npm run deploy --workspace cms-pza",
-		"cms-pza:build": "npm run build-development --workspace cms-pza",
 		"format": "npm run format:prettier",
 		"format:prettier": "prettier --write ."
 	},

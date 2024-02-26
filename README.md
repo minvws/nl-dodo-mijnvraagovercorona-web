@@ -37,16 +37,6 @@ npm run cms:dev
 npm run cms:deploy
 ```
 
-For the `cms-pza` package you can run the following commands:
-
-```bash
-# Run Sanity cms locally
-npm run cms-pza:dev
-
-# Deploy Sanity cms
-npm run cms-pza:deploy
-```
-
 ## Learn More
 
 To learn more about Astro, take a look at the following resources:
