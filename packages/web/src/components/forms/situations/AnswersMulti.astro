@@ -1,0 +1,173 @@
+---
+import Submit from './Submit.astro';
+import { moduleName as AnswersMultiModuleName } from './AnswersMulti';
+import { Control } from '@dodo/ui/elements';
+import { Stack, Disclosure, InfoModal } from '@dodo/ui/components';
+import { getDaysToGenerate } from 'src/utilities/helpers/advice-helpers';
+import { type QuestionPageProps } from 'src/utilities/api';
+import { DuoColumnContent } from '@components/DuoColumnContent';
+import { ContentBlock } from '@components/ContentBlock';
+import { parseLink } from 'src/utilities/helpers/link';
+import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
+import { getLocaleFromURL } from 'src/utilities/locale/translation';
+import { useSiteSettings } from 'src/utilities/api/queries';
+
+export interface Props {
+	answers: QuestionPageProps['question']['multi'];
+	buttons: QuestionPageProps['buttons'];
+	showMore: QuestionPageProps['question']['showMore'];
+	content?: QuestionPageProps['content'];
+	label?: string;
+	type?: 'checkbox' | 'radio';
+	hideLabel?: boolean;
+}
+
+const {
+	answers,
+	buttons,
+	showMore,
+	content,
+	label,
+	type,
+	hideLabel = true,
+} = Astro.props;
+const locale = getLocaleFromURL(Astro.url.pathname);
+const siteSettings = await useSiteSettings({ locale });
+
+const split = showMore?.max || 6;
+
+// Split items into 2 groups
+const firstGroup = answers.slice(0, split ? split : answers.length);
+const secondGroup = answers.slice(
+	split ? split : answers.length,
+	answers.length,
+);
+
+let daysToGenerate = [] as number[];
+
+const parsedButtons = buttons?.map((button, index) => {
+	if (index === 0 && button.standard) {
+		daysToGenerate = getDaysToGenerate(button.next);
+	}
+	return index === 0 && button.standard
+		? { ...button, disabled: true }
+		: {
+				...button,
+		  };
+});
+---
+
+<form
+	method="get"
+	data-module={AnswersMultiModuleName}
+	data-max-days={daysToGenerate.length}
+	data-type={type}
+>
+	<Stack>
+		{content ? <DuoColumnContent content={content} /> : null}
+		<fieldset>
+			<Stack gap={4}>
+				{
+					label ? (
+						<legend class={hideLabel ? 'u-visually-hidden' : undefined}>
+							{label}
+						</legend>
+					) : null
+				}
+				<slot name="after-label" />
+				<Stack gap={4}>
+					{
+						firstGroup.map(
+							({ content, next, weight, modalReference, _key }) => (
+								<Control
+									type={type}
+									variant="tile"
+									name={AnswersMultiModuleName}
+									id={_key}
+									value={next ? parseLink(getFullPageUrl(next), locale) : _key}
+									data-next={
+										next ? parseLink(getFullPageUrl(next), locale) : undefined
+									}
+									data-max-days={
+										next ? getDaysToGenerate(next).length : undefined
+									}
+									data-weight={weight || undefined}
+								>
+									<ContentBlock value={content} />
+									{modalReference ? (
+										<InfoModal
+											id={_key}
+											title={modalReference.title}
+											label={modalReference.title}
+											slot="after-label"
+											iconDescription={siteSettings.accessibility.labelModal}
+										>
+											<ContentBlock value={modalReference.content} />
+										</InfoModal>
+									) : null}
+								</Control>
+							),
+						)
+					}
+				</Stack>
+				{
+					secondGroup.length ? (
+						<Disclosure
+							label={showMore.label.this}
+							labelActive={showMore.label.that}
+							headingStyledAs={5}
+							id="show-more-controls"
+						>
+							<Stack gap={4}>
+								{secondGroup.map(
+									({ content, next, weight, modalReference, _key }) => (
+										<Control
+											type={type}
+											variant="tile"
+											name={AnswersMultiModuleName}
+											id={_key}
+											value={
+												next ? parseLink(getFullPageUrl(next), locale) : _key
+											}
+											data-next={
+												next
+													? parseLink(getFullPageUrl(next), locale)
+													: undefined
+											}
+											data-max-days={
+												next ? getDaysToGenerate(next).length : undefined
+											}
+											data-weight={weight || undefined}
+										>
+											<ContentBlock value={content} />
+											{modalReference ? (
+												<InfoModal
+													id={_key}
+													title={modalReference.title}
+													label={modalReference.title}
+													slot="after-label"
+													iconDescription={
+														siteSettings.accessibility.labelModal
+													}
+												>
+													<ContentBlock value={modalReference.content} />
+												</InfoModal>
+											) : null}
+										</Control>
+									),
+								)}
+							</Stack>
+						</Disclosure>
+					) : null
+				}
+			</Stack>
+		</fieldset>
+
+		<Submit buttons={parsedButtons} />
+	</Stack>
+</form>
+
+<script>
+	import { initAnswersMulti } from './AnswersMulti';
+	initAnswersMulti();
+</script>

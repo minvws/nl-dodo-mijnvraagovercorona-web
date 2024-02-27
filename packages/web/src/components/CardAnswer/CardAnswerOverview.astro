@@ -1,0 +1,82 @@
+---
+import { CardAnswer } from '@components/CardAnswer';
+import { ContentBlock } from '@components/ContentBlock';
+import { GridFluid, Layer, Retain } from '@dodo/ui/components';
+import { Heading } from '@dodo/ui/elements';
+import type { HTMLAttributes } from 'astro/types';
+import type { CardsProps } from 'src/utilities/api/queries';
+import { stringToSlug } from 'src/utilities/stringToSlug';
+
+interface Props extends HTMLAttributes<'div'> {
+	label: string;
+	cards: CardsProps;
+}
+
+const { label, cards, class: className, ...attrs } = Astro.props;
+const cardsHaveButtons = cards.items.some((card) => card.buttons.length);
+---
+
+<Layer
+	pullUpBy="hero"
+	background="ijsblauw"
+	id={stringToSlug(label)}
+	class={`c-card-answer-overview${
+		cardsHaveButtons ? ' c-card-answer-overview--has-buttons' : ''
+	}${className ? ` | ${className}` : ''}`}
+	{...attrs}
+>
+	<Retain>
+		<Heading level={2} class="u-visually-hidden">
+			{label}
+		</Heading>
+		<GridFluid
+			class={`c-card-answer-overview__grid ${
+				cards.items.length === 3
+					? 'c-card-answer-overview__grid--three-cards'
+					: ''
+			}`}
+		>
+			{
+				cards.items.map(({ title, image, content, buttons }) => (
+					<CardAnswer title={title} image={image} buttons={buttons}>
+						<ContentBlock value={content} />
+					</CardAnswer>
+				))
+			}
+		</GridFluid>
+	</Retain>
+</Layer>
+
+<style lang="scss">
+	@use '@dodo/ui/styles/primitives/responsive';
+
+	.c-card-answer-overview {
+		--card-button-size: calc(
+			var(--space-4) * 2 + (var(--font-lineheight-root) * 1rem)
+		); /* [1] */
+	}
+
+	.c-card-answer-overview__grid {
+		--grid-fluid-min-item-size: var(--space-100);
+		--grid-fluid-gap: var(--space-4);
+		--answers-stack-hero: var(--density-hero);
+
+		position: relative;
+		margin-block-start: calc(
+			(var(--layer-padding-block-start) + var(--answers-stack-hero)) * -1
+		);
+	}
+
+	// variants
+	.c-card-answer-overview--has-buttons {
+		padding-block-end: calc(
+			var(--layer-padding-block-end) + var(--card-button-size) / 2
+		);
+	}
+
+	@media (--mq-large) {
+		.c-card-answer-overview__grid--three-cards {
+			--grid-fluid-min-item-size: var(--space-75);
+		}
+	}
+</style>

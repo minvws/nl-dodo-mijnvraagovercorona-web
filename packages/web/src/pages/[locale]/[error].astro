@@ -1,0 +1,103 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import type { Locale } from 'src/utilities/locale/translation';
+import { availableLocales } from 'src/utilities/locale/translation';
+import type { ErrorPageProps, PageHomeProps } from 'src/utilities/api';
+import { getDataErrorPages, getDataHome } from 'src/utilities/api';
+import { Hero, Stack, Retain, Layer, Breadcrumbs } from '@dodo/ui/components';
+import { ContentBlock } from '@components/ContentBlock';
+import { stringToSlug } from 'src/utilities/stringToSlug';
+import { getFiltersAndSituations } from 'src/utilities/api/queries';
+import { CTAButtonOverview } from '@components/CTAButtonOverview';
+import { FlexibleButton } from '@components/elements/FlexibleButton';
+
+export async function getStaticPaths() {
+	const collection = await getDataErrorPages();
+	return (
+		collection
+			// filter out unavailable locales
+			.filter(
+				(page: ErrorPageProps) =>
+					availableLocales.filter((locale) => locale.id === page.localeID)
+						.length,
+			)
+			.map((page: ErrorPageProps) => ({
+				params: { error: page.slug, locale: page.localeID },
+				props: {
+					pageData: page,
+					locale: availableLocales.filter(
+						(locale) => locale.id === page.localeID,
+					)[0],
+				},
+			}))
+			.flat(Infinity)
+	);
+}
+
+interface Props {
+	pageData: ErrorPageProps;
+	locale: Locale;
+}
+
+const { pageData, locale } = Astro.props as Props;
+
+const homeCollection = await getDataHome();
+const homePageData = homeCollection.filter(
+	(page: PageHomeProps) => page.localeID === locale.id,
+)[0] as PageHomeProps;
+
+const { filters, ctaButtons } = getFiltersAndSituations({
+	ctaButtonCollection: homePageData.important.ctaButtonCollection,
+});
+---
+
+<Layout
+	locale={locale}
+	metaData={pageData.metaData}
+	alternativeTranslations={pageData.alternatives}
+	type={pageData.type}
+>
+	<Hero
+		title={pageData.hero.title}
+		chapeau={pageData.hero.chapeau}
+		image={pageData.hero.image}
+		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
+		imageIsPhoto={pageData.hero.isPhoto}
+	>
+		<Breadcrumbs items={pageData.breadcrumbs} slot="prefix" />
+		<ContentBlock value={pageData.hero.content} />
+	</Hero>
+
+	{
+		homePageData ? (
+			<Layer id={stringToSlug(homePageData.important.title)}>
+				<Retain>
+					<Stack gap={14}>
+						<FlexibleButton {...pageData.button} />
+						<div>
+							<Stack gap={4}>
+								<ContentBlock value={pageData.content} />
+								<CTAButtonOverview
+									name="homepage"
+									categories={filters}
+									items={ctaButtons}
+									enableFilter={true}
+								/>
+							</Stack>
+						</div>
+						<p>
+							<strong>{pageData.errormessage}</strong>
+						</p>
+					</Stack>
+				</Retain>
+			</Layer>
+		) : null
+	}
+</Layout>
+
+<style lang="scss">
+	.grid-important {
+		--grid-fluid-min-item-size: var(--space-100);
+		--grid-fluid-gap: var(--stack-4);
+	}
+</style>

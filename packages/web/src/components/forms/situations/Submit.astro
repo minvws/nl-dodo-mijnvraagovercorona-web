@@ -1,0 +1,78 @@
+---
+import { Button } from '@dodo/ui/elements';
+import { getLocaleFromURL } from 'src/utilities/locale/translation';
+import { type QuestionPageProps } from 'src/utilities/api';
+import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
+import { parseLink } from 'src/utilities/helpers/link';
+
+export interface Props {
+	buttons: QuestionPageProps['buttons'];
+}
+
+const { buttons } = Astro.props;
+const locale = getLocaleFromURL(Astro.url.pathname);
+---
+
+<div class="c-submit">
+	{
+		buttons.map((button, index) =>
+			button.standard ? (
+				<Button
+					type="submit"
+					disabled={button.disabled}
+					formaction={
+						button.next && button.next.slug
+							? parseLink(getFullPageUrl(button.next), locale)
+							: undefined
+					}
+					variant={
+						button?.variant
+							? button.variant
+							: index === 0
+							? 'primary'
+							: 'secondary'
+					}
+					full={button?.full || undefined}
+				>
+					{button.text}
+				</Button>
+			) : (
+				<Button
+					href={parseLink(getFullPageUrl(button.next), locale)}
+					variant={
+						button?.variant
+							? button.variant
+							: index === 0
+							? 'primary'
+							: 'secondary'
+					}
+					full={button?.full || undefined}
+				>
+					{button.text}
+				</Button>
+			),
+		)
+	}
+</div>
+
+<style lang="scss">
+	.c-submit {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-4);
+		justify-content: flex-start;
+		align-items: center;
+		flex-direction: row-reverse;
+
+		// adjust buttons
+		> *:not(.e-button--full) {
+			flex: 1;
+			max-inline-size: calc(50% - var(--space-4) / 2);
+			justify-content: center;
+		}
+
+		> .e-button--full {
+			justify-content: center;
+		}
+	}
+</style>

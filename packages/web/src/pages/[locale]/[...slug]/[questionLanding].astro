@@ -1,0 +1,155 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import type { Locale } from 'src/utilities/locale/translation';
+import { availableLocales } from 'src/utilities/locale/translation';
+import type { QuestionLandingPageProps } from 'src/utilities/api';
+import { getDataQuestionLandingPages } from 'src/utilities/api';
+import {
+	Hero,
+	Stack,
+	Retain,
+	Layer,
+	Assistance,
+	Breadcrumbs,
+	Sidebar,
+} from '@dodo/ui/components';
+import { ContentBlock } from '@components/ContentBlock';
+import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
+import FormSwitch from '@components/forms/situations/FormSwitch.astro';
+import { CardPrivacy } from '@components/Card';
+import { SupportBlock } from '@components/SupportBlock';
+import { stringToSlug } from 'src/utilities/stringToSlug';
+import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
+import { useSiteSettings } from 'src/utilities/api/queries';
+import { FeedbackAbstraction } from '@components/FeedbackAbstraction';
+
+export async function getStaticPaths() {
+	const collection = await getDataQuestionLandingPages();
+
+	return (
+		collection
+			// filter out unavailable locales
+			.filter(
+				(page: QuestionLandingPageProps) =>
+					availableLocales.filter((locale) => locale.id === page.localeID)
+						.length,
+			)
+			.map((page: QuestionLandingPageProps) => ({
+				params: {
+					slug: getPageSubfolder(page),
+					locale: page.localeID,
+					questionLanding: page.slug,
+				},
+				props: {
+					pageData: page,
+					locale: availableLocales.filter(
+						(locale) => locale.id === page.localeID,
+					)[0],
+				},
+			}))
+			.flat(Infinity)
+	);
+}
+
+interface Props {
+	pageData: QuestionLandingPageProps;
+	locale: Locale;
+}
+
+const { pageData, locale } = Astro.props;
+const siteSettings = await useSiteSettings({ locale });
+---
+
+<Layout
+	locale={locale}
+	metaData={pageData.metaData}
+	alternativeTranslations={pageData.alternatives}
+	mastheadHighlight
+	type={pageData.type}
+>
+	<Hero
+		title={pageData.hero.title}
+		image={pageData.hero.image}
+		chapeau={pageData.hero.chapeau}
+		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
+		variant="highlight"
+		imageIsPhoto={pageData.hero.isPhoto}
+	>
+		<Breadcrumbs items={pageData.breadcrumbs} slot="prefix" />
+		<Stack class="c-hero__content">
+			<ContentBlock value={pageData.hero.content} />
+		</Stack>
+	</Hero>
+
+	{
+		pageData?.questionReference?.question ? (
+			<Layer>
+				<Retain>
+					<Sidebar>
+						<Retain variant="text">
+							<FormSwitch
+								question={pageData.questionReference.question}
+								buttons={pageData.questionReference.buttons}
+								content={pageData.questionReference.content}
+								hideLabel={false}
+							>
+								<ContentBlock
+									value={pageData.questionReference.question.content}
+									slot="after-label"
+								/>
+							</FormSwitch>
+						</Retain>
+						<CardPrivacy slot="aside" />
+					</Sidebar>
+				</Retain>
+			</Layer>
+		) : null
+	}
+
+	{
+		pageData?.support?.cards?.label && !!pageData?.support?.cards?.items && (
+			<SupportBlock
+				label={pageData.support.cards.label}
+				cards={pageData.support.cards.items}
+			/>
+		)
+	}
+
+	{
+		pageData?.showFeedback ? (
+			<Layer>
+				<Retain>
+					<Stack>
+						<FeedbackAbstraction
+							name="Vraag Landing"
+							url={getFeedbackUrl(siteSettings.feedback.url, {
+								source: pageData.type,
+								advice: pageData.slug,
+							})}
+						/>
+					</Stack>
+				</Retain>
+			</Layer>
+		) : null
+	}
+
+	{
+		pageData.assistance && pageData.assistance.type === 'assistance-new' ? (
+			<Layer
+				id={stringToSlug(pageData.assistance.title)}
+				background={'ijsblauw'}
+				pushDownBy="assistance-image"
+			>
+				<Retain>
+					<Assistance
+						feedback={getFeedbackUrl(siteSettings.feedback.url, {
+							source: pageData.type,
+							advice: pageData.slug,
+						})}
+						{...pageData.assistance}
+					/>
+				</Retain>
+			</Layer>
+		) : null
+	}
+</Layout>

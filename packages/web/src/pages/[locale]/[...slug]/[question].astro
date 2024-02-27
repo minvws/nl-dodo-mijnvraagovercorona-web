@@ -1,0 +1,83 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import type { Locale } from 'src/utilities/locale/translation';
+import { availableLocales } from 'src/utilities/locale/translation';
+import type { QuestionPageProps } from 'src/utilities/api';
+import { getDataQuestionPages } from 'src/utilities/api';
+import { Hero, Retain, Layer, Sidebar, Breadcrumbs } from '@dodo/ui/components';
+import { ContentBlock } from '@components/ContentBlock';
+import { getPageSubfolder } from 'src/utilities/helpers/page-subfolder';
+import FormSwitch from '@components/forms/situations/FormSwitch.astro';
+import { CardPrivacy } from '@components/Card';
+
+export async function getStaticPaths() {
+	const collection = await getDataQuestionPages();
+	return (
+		collection
+			// filter out unavailable locales
+			.filter(
+				(page: QuestionPageProps) =>
+					availableLocales.filter((locale) => locale.id === page.localeID)
+						.length,
+			)
+			.map((page: QuestionPageProps) => ({
+				params: {
+					slug: getPageSubfolder(page),
+					question: page.slug,
+					locale: page.localeID,
+				},
+				props: {
+					pageData: page,
+					locale: availableLocales.filter(
+						(locale) => locale.id === page.localeID,
+					)[0],
+				},
+			}))
+			.flat(Infinity)
+	);
+}
+
+interface Props {
+	pageData: QuestionPageProps;
+	locale: Locale;
+}
+
+const { pageData, locale } = Astro.props;
+---
+
+<Layout
+	locale={locale}
+	metaData={pageData.metaData}
+	alternativeTranslations={pageData.alternatives}
+	type={pageData.type}
+>
+	<Hero
+		title={pageData.hero.title}
+		chapeau={pageData.hero.chapeau}
+		image={pageData.hero.image}
+		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
+		imageIsPhoto={pageData.hero.isPhoto}
+	>
+		<Breadcrumbs items={pageData.breadcrumbs} slot="prefix" />
+		<ContentBlock value={pageData.hero.content} />
+	</Hero>
+	<Layer>
+		<Retain>
+			<Sidebar>
+				<Retain variant="text">
+					<FormSwitch
+						question={pageData.question}
+						buttons={pageData.buttons}
+						content={pageData.content}
+					>
+						<ContentBlock
+							value={pageData.question.content}
+							slot="after-label"
+						/>
+					</FormSwitch>
+				</Retain>
+				<CardPrivacy slot="aside" />
+			</Sidebar>
+		</Retain>
+	</Layer>
+</Layout>

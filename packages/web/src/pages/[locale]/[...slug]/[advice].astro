@@ -1,0 +1,293 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import type { Locale } from 'src/utilities/locale/translation';
+import { availableLocales } from 'src/utilities/locale/translation';
+import {
+	Hero,
+	Layer,
+	Advice as UIAdvice,
+	Retain,
+	Sidebar,
+	Stack,
+	CardBlock,
+	Steps,
+	CardAdvice,
+	Assistance,
+	MoreInfoOverview,
+	Breadcrumbs,
+} from '@dodo/ui/components';
+import { ContentBlock, MultiContentBlock } from '@components/ContentBlock';
+import type { AdvicePageProps } from 'src/utilities/api/advice';
+import { getDataAdvicePages } from 'src/utilities/api/advice';
+import {
+	getFullPageUrl,
+	getPageSubfolder,
+} from 'src/utilities/helpers/page-subfolder';
+import { useSiteSettings } from 'src/utilities/api/queries';
+import { SupportBlock } from '@components/SupportBlock';
+import {
+	getDaySlug,
+	getShowOnDays,
+} from 'src/utilities/helpers/advice-helpers';
+import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
+import { Heading } from '@dodo/ui/elements';
+import { stringToSlug } from 'src/utilities/stringToSlug';
+import { parseLink } from 'src/utilities/helpers/link';
+import { isExternalUrl } from 'src/utilities/helpers/external-url';
+import { FeedbackAbstraction } from '@components/FeedbackAbstraction';
+import { CardDay, CardPrivacy } from '@components/Card';
+
+export async function getStaticPaths() {
+	const collection = await getDataAdvicePages();
+	return (
+		collection
+			// filter out unavailable locales
+			.filter(
+				(page: AdvicePageProps) =>
+					availableLocales.filter((locale) => locale.id === page.localeID)
+						.length,
+			)
+			.map((page: AdvicePageProps) => {
+				// Get days to generate
+				const answerShowOnDays = getShowOnDays(page.answer);
+				const planShowOnDays = getShowOnDays(page?.advice?.plan);
+				// combine answer & plan days
+				const daysToGenerate = [
+					...new Set(answerShowOnDays.concat(planShowOnDays)),
+				];
+
+				return daysToGenerate.map((day) => ({
+					params: {
+						slug: getPageSubfolder(page),
+						advice: getDaySlug({ slug: page.slug, day }),
+						locale: page.localeID,
+					},
+					props: {
+						pageData: page,
+						pageDay: day,
+						locale: availableLocales.filter(
+							(locale) => locale.id === page.localeID,
+						)[0],
+					},
+				}));
+			})
+			.flat(Infinity)
+	);
+}
+
+interface Props {
+	pageData: AdvicePageProps;
+	pageDay: number;
+	locale: Locale;
+}
+
+const { pageData, pageDay, locale } = Astro.props;
+const siteSettings = await useSiteSettings({ locale });
+
+// Get most relevant answer
+const answer = pageData?.answer
+	? pageData.answer.filter(
+			({ showOn }) => !showOn || showOn.includes(pageDay),
+	  )[0] || pageData.answer[pageData.answer.length - 1]
+	: null;
+
+// Filter advice plan based on current day
+const plan =
+	pageData?.advice?.plan &&
+	pageData.advice.plan
+		.filter(({ showOn }) => !showOn || showOn.includes(pageDay))
+		.map(({ content, day: planDay, title }) => ({
+			content,
+			title,
+			day:
+				planDay === null || planDay === undefined
+					? 0
+					: planDay > pageDay
+					? planDay - pageDay
+					: (pageDay - planDay) * -1,
+		}));
+---
+
+<Layout
+	locale={locale}
+	metaData={pageData.metaData}
+	alternativeTranslations={pageData.alternatives}
+	type={pageData.type}
+	includeinSearch
+>
+	<Hero
+		title={pageData.hero.title}
+		chapeau={pageData.hero.chapeau}
+		image={pageData.hero.image}
+		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
+		imageIsPhoto={pageData.hero.isPhoto}
+	>
+		<Breadcrumbs items={pageData.breadcrumbs} slot="prefix" />
+		<ContentBlock value={pageData.hero.content} />
+		{
+			pageData.showSeriousSymptoms ? (
+				<UIAdvice
+					title={siteSettings.severeSymptomsAdvice.title}
+					subtitle={siteSettings.severeSymptomsAdvice.subtitle}
+					image={siteSettings.severeSymptomsAdvice.icon}
+				/>
+			) : null
+		}
+	</Hero>
+
+	<Layer as="div">
+		<Retain>
+			<Sidebar>
+				<Retain variant="text">
+					<Stack gap={14}>
+						{
+							answer && (
+								<CardAdvice title={answer.title}>
+									<ContentBlock value={answer.content} />
+								</CardAdvice>
+							)
+						}
+
+						{
+							!!plan?.length && (
+								<section>
+									<Stack gap={4}>
+										<h2>{pageData.advice.title}</h2>
+										<Steps>
+											{plan.map(({ title, content, day }) => {
+												return (
+													<CardDay title={title} day={day}>
+														{content && <ContentBlock value={content} />}
+													</CardDay>
+												);
+											})}
+										</Steps>
+									</Stack>
+								</section>
+							)
+						}
+
+						{
+							!!pageData.advice?.cards?.items.length && (
+								<section>
+									<Stack gap={4}>
+										{pageData.advice.cards.title ? (
+											<h2>{pageData.advice.cards.title}</h2>
+										) : null}
+										<div>
+											<Stack gap={8}>
+												{pageData.advice.cards.items.map(
+													({
+														title,
+														chapeau,
+														content,
+														buttons,
+														multiContentBlocks,
+													}) => (
+														<CardBlock
+															title={title}
+															chapeau={chapeau}
+															buttons={
+																buttons
+																	? buttons.map((button) => ({
+																			label: button.label,
+																			href: parseLink(
+																				getFullPageUrl(button.slugCollection),
+																				locale,
+																			),
+																			variant: button.variant,
+																			iconPosition: button.iconPosition,
+																			icon: button.icon,
+																	  }))
+																	: undefined
+															}
+														>
+															<ContentBlock value={content} />
+
+															{multiContentBlocks ? (
+																<MultiContentBlock
+																	multiContentBlocks={multiContentBlocks}
+																	slot="appendix"
+																/>
+															) : null}
+														</CardBlock>
+													),
+												)}
+											</Stack>
+										</div>
+									</Stack>
+								</section>
+							)
+						}
+
+						{
+							pageData?.moreInfo?.items?.length ? (
+								<section data-pagefind-ignore="all">
+									<Stack>
+										{pageData.moreInfo.title && (
+											<Heading level={2}>{pageData.moreInfo.title}</Heading>
+										)}
+										<MoreInfoOverview
+											items={pageData.moreInfo.items.map((item) => {
+												const href = parseLink(getFullPageUrl(item), locale);
+												return {
+													label: item?.overview?.title || item.title,
+													image: item?.overview?.icon || item.icon,
+													href: href,
+													isExternal: isExternalUrl(href),
+												};
+											})}
+										/>
+									</Stack>
+								</section>
+							) : null
+						}
+					</Stack>
+				</Retain>
+
+				<CardPrivacy slot="aside" />
+			</Sidebar>
+		</Retain>
+	</Layer>
+
+	{
+		pageData?.support?.cards?.label && !!pageData?.support?.cards?.items && (
+			<SupportBlock
+				label={pageData.support.cards.label}
+				cards={pageData.support.cards.items}
+			/>
+		)
+	}
+
+	<Layer>
+		<Retain variant="base">
+			<FeedbackAbstraction
+				name="Situatie Advies"
+				url={getFeedbackUrl(siteSettings.feedback.url, {
+					source: 'situation-advice',
+					advice: pageData.slug,
+					day: `${pageDay}`,
+				})}
+			/>
+		</Retain>
+	</Layer>
+	{
+		pageData.assistance && pageData.assistance.type === 'assistance-new' ? (
+			<Layer
+				id={stringToSlug(pageData.assistance.title)}
+				background={'ijsblauw'}
+				pushDownBy="assistance-image"
+			>
+				<Retain>
+					<Assistance
+						feedback={getFeedbackUrl(siteSettings.feedback.url, {
+							source: pageData.type,
+							advice: pageData.slug,
+						})}
+						{...pageData.assistance}
+					/>
+				</Retain>
+			</Layer>
+		) : null
+	}
+</Layout>

@@ -1,0 +1,93 @@
+---
+import { Heading } from '@dodo/ui/elements';
+import { Card, Stack } from '@dodo/ui/components';
+import { getLocaleFromURL } from 'src/utilities/locale/translation';
+import { useSiteSettings } from 'src/utilities/api/queries';
+
+interface Props {
+	title: string;
+	day?: number;
+}
+
+const { title, day } = Astro.props;
+const locale = getLocaleFromURL(Astro.url.pathname);
+const siteSettings = await useSiteSettings({ locale });
+---
+
+<Card data-module="dynamic-day" data-locale={locale.locale}>
+	<Stack gap={4}>
+		{
+			title || day ? (
+				<Heading level={3} class="c-card-day__title">
+					{title ? <span>{title}</span> : null}
+					{day || day === 0 ? (
+						<span class="c-card-day__day">
+							<span class="u-visually-hidden">{'('}</span>
+							<span data-day-replace={day}>
+								{day < 0 ? (
+									<span>
+										{Math.abs(day)}{' '}
+										{Math.abs(day) === 1
+											? siteSettings.genericLabels.dayPlural.this
+											: siteSettings.genericLabels.dayPlural.that}{' '}
+										{siteSettings.genericLabels.ago}
+									</span>
+								) : day === 1 ? (
+									<span>
+										{siteSettings.genericLabels.in} {day}{' '}
+										{siteSettings.genericLabels.dayPlural.this}
+									</span>
+								) : day > 1 ? (
+									<span>
+										{siteSettings.genericLabels.in} {day}{' '}
+										{day === 1
+											? siteSettings.genericLabels.dayPlural.this
+											: siteSettings.genericLabels.dayPlural.that}
+									</span>
+								) : null}
+							</span>
+							<span class="u-visually-hidden">{')'}</span>
+						</span>
+					) : null}
+				</Heading>
+			) : null
+		}
+		<slot />
+	</Stack>
+</Card>
+
+<script>
+	import { subDays, addDays } from 'date-fns';
+	import { formatDate } from '@dodo/ui/helpers';
+
+	const today = new Date();
+	const parents = document.querySelectorAll('[data-module="dynamic-day"]');
+	if (parents && parents.length) {
+		[...parents].forEach((parent) => {
+			const locale = parent.getAttribute('data-locale');
+			const replaceDay = parent.querySelector('[data-day-replace]');
+			if (replaceDay) {
+				const day = parseInt(replaceDay.getAttribute('data-day-replace'));
+				replaceDay.innerHTML = formatDate(
+					day > 0 ? addDays(today, day) : subDays(today, Math.abs(day)),
+					locale,
+				);
+			}
+		});
+	}
+</script>
+
+<style lang="scss">
+	.c-card-day__title {
+		display: flex;
+		flex-flow: row wrap;
+		align-items: center;
+		justify-content: space-between;
+		column-gap: var(--space-1);
+		color: var(--color-accent-robijnrood);
+	}
+
+	.c-card-day__day {
+		color: var(--color-donkerblauw);
+	}
+</style>

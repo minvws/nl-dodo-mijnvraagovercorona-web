@@ -1,0 +1,159 @@
+# Default configuration for all pipelines
+default:
+  tags:
+    - default
+
+# Define environment variables that will be used throughout the pipeline
+variables:
+  CD_ENVIRONMENT: production
+  CD_NAMESPACE_BHR: vws-reis-bhr
+  CD_HARBOR_REGISTRY: harbor.cicd.s15m.nl
+
+# Define which directories should be cached between pipeline runs
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+
+# Specify the Docker image that will be used to run the pipeline
+image: harbor.cicd.s15m.nl/vws-reis/tool-box:1.2
+
+.build-image: &build-image
+  environment:
+    name: 'test-cluster'
+  stage: package
+  image:
+    name: gcr.io/kaniko-project/executor:v1.3.0-debug
+    entrypoint: ['']
+  script:
+    - echo "${DOCKER_AUTH_CONFIG}" > /kaniko/.docker/config.json
+    - cat /kaniko/.docker/config.json
+    - echo "CI_PROJECT_DIR ${CI_PROJECT_DIR}"
+    - pwd
+    - 'echo ${CD_HARBOR_REGISTRY}/vws-reis/${CD_APP_NAME}:${CD_APP_TAG}'
+    - /kaniko/executor
+      --context ${CI_PROJECT_DIR}
+      --dockerfile /packages/${CD_APP_FOLDER}/Dockerfile
+      --build-arg buildid=${CD_APP_TAG}
+      --destination ${CD_HARBOR_REGISTRY}/vws-reis/${CD_APP_NAME}:${CD_APP_TAG}
+
+# Define the stages that will be used in the pipeline
+stages:
+  - test
+  - build
+  - package
+  - deploy
+
+before_script:
+  - echo "Started by ${GITLAB_USER_LOGIN} at $(date +%Y-%m-%d'-'%H-%M-%S)"
+  - export CD_APP_TAG=$(date -d "$(echo $CI_PIPELINE_CREATED_AT | sed 's/T/ /; s/Z//')" +%Y%m%d%H%M)
+  - echo ${CI_PIPELINE_CREATED_AT}
+  - echo ${CD_APP_TAG}
+  - echo "CHANGES_DETECTED - $CHANGES_DETECTED"
+  - unset ${HISTFILE} # Disable shell cache for security purposes
+
+test web:
+  image: harbor.cicd.s15m.nl/docker-hub-proxy/library/node:20-alpine
+  stage: test
+  script:
+    - npm ci
+    - npm run test
+  only:
+    - develop
+    - staging
+    - main
+
+build web development:
+  image: harbor.cicd.s15m.nl/docker-hub-proxy/library/node:20-alpine
+  stage: build
+  script:
+    - npm ci
+    - npm run web:build
+    - mkdir -p artifacts/web
+    - cp -r packages/web/dist artifacts/web/
+  artifacts:
+    paths:
+      - artifacts/web/dist/
+  only:
+    - develop
+
+build web staging:
+  image: harbor.cicd.s15m.nl/docker-hub-proxy/library/node:20-alpine
+  stage: build
+  script:
+    - npm ci
+    - npm run web:build
+    - mkdir -p artifacts/web
+    - cp -r packages/web/dist artifacts/web/
+  artifacts:
+    paths:
+      - artifacts/web/dist/
+  only:
+    - staging
+
+build web main:
+  image: harbor.cicd.s15m.nl/docker-hub-proxy/library/node:20-alpine
+  stage: build
+  script:
+    - npm ci
+    - npm run web:build
+    - mkdir -p artifacts/web
+    - cp -r packages/web/dist artifacts/web/
+  artifacts:
+    paths:
+      - artifacts/web/dist/
+  only:
+    - main
+
+build web image:
+  <<: *build-image
+  variables:
+    CD_APP_NAME: mijn-vraag-over-corona-frontend
+    CD_APP_FOLDER: web
+  before_script:
+    - export CD_APP_TAG=$(date -d "$(echo $CI_PIPELINE_CREATED_AT | sed 's/T/ /; s/Z//')" +%Y%m%d%H%M)
+    - mkdir -p packages/web
+    - cp -r artifacts/web/dist packages/web/
+  # dependencies:
+  #   - build web
+  only:
+    - develop
+    - main
+    - staging
+
+deploy web image development:
+  variables:
+    CD_APP_NAME: mijn-vraag-over-corona-frontend
+    CD_PIPELINE_CREATED_AT: $CI_PIPELINE_CREATED_AT
+    CD_ENVIRONMENT: development
+  stage: deploy
+  trigger:
+    project: vws/reis/nl-covid19-travel-during-corona-deploy
+    forward:
+      pipeline_variables: true
+  only:
+    - develop
+
+deploy web image staging:
+  variables:
+    CD_PIPELINE_CREATED_AT: $CI_PIPELINE_CREATED_AT
+    CD_ENVIRONMENT: staging
+  stage: deploy
+  trigger:
+    project: vws/reis/nl-covid19-travel-during-corona-deploy
+    forward:
+      pipeline_variables: true
+  only:
+    - staging
+
+deploy web image production:
+  variables:
+    CD_PIPELINE_CREATED_AT: $CI_PIPELINE_CREATED_AT
+    CD_ENVIRONMENT: production
+  stage: deploy
+  trigger:
+    project: vws/reis/nl-covid19-travel-during-corona-deploy
+    forward:
+      pipeline_variables: true
+  only:
+    - main

@@ -1,0 +1,78 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { ContentBlock } from '@components/ContentBlock';
+import { Stack } from '@dodo/ui/components';
+import type { QuestionPageProps } from 'src/utilities/api';
+
+export interface ContentStreamProps {
+	content: QuestionPageProps['content'];
+}
+
+interface Props extends HTMLAttributes<'div'>, ContentStreamProps {}
+
+const { class: className, content, ...attrs } = Astro.props;
+
+const items = [];
+
+const hasImagePrimary = !!content.columnOne?.picture?.image?.src;
+const hasImageSecondary = !!content.columnTwo?.picture?.image?.src;
+
+// Only primary content
+if (
+	content.columnOne.content &&
+	!hasImagePrimary &&
+	!content?.columnTwo?.content &&
+	!hasImageSecondary
+)
+	items.push({ content: content.columnOne.content, image: null });
+
+// Primary content & image
+if (content?.columnOne?.content && hasImagePrimary)
+	items.push({
+		content: content.columnOne.content,
+		image: content.columnOne.picture.image,
+	});
+
+// Secondary content & image
+if (content?.columnTwo?.content && hasImageSecondary)
+	items.push({
+		content: content.columnTwo.content,
+		image: content.columnTwo.picture.image,
+	});
+---
+
+{
+	items.length ? (
+		<div
+			class={`c-content-stream${className ? ` | ${className}` : ''}`}
+			{...attrs}
+		>
+			{items.map((item) => (
+				<Stack>
+					<ContentBlock value={item.content} />
+					{item.image ? (
+						<img
+							class="c-content-stream__image"
+							src={item.image.src}
+							loading="lazy"
+						/>
+					) : null}
+				</Stack>
+			))}
+		</div>
+	) : null
+}
+
+<style lang="scss">
+	.c-content-stream {
+		display: flex;
+		justify-content: space-evenly;
+		gap: var(stack-base);
+	}
+
+	.c-content-stream__image {
+		display: block;
+		max-inline-size: 100%;
+		margin-inline: auto;
+	}
+</style>

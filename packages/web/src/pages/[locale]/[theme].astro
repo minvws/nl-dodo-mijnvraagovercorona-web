@@ -1,0 +1,176 @@
+---
+import type { Locale } from 'src/utilities/locale/translation';
+import { availableLocales } from 'src/utilities/locale/translation';
+
+import Layout from '@layouts/Layout.astro';
+import {
+	Hero,
+	Layer,
+	Retain,
+	Stack,
+	Assistance,
+	Breadcrumbs,
+} from '@dodo/ui/components';
+import type { ThemePageProps } from 'src/utilities/api/theme';
+import { getDataThemes } from 'src/utilities/api/theme';
+import { ContentBlock } from '@components/ContentBlock';
+import { Heading } from '@dodo/ui/elements';
+import { TaleList } from '@components/Tale';
+import { CTAButtonOverview } from '@components/CTAButtonOverview';
+import { CardAnswerOverview } from '@components/CardAnswer';
+import {
+	getFiltersAndSituations,
+	useSiteSettings,
+} from 'src/utilities/api/queries';
+import { stringToSlug } from 'src/utilities/stringToSlug';
+import { getFeedbackUrl } from 'src/utilities/tracking/feedback';
+import { FeedbackAbstraction } from '@components/FeedbackAbstraction';
+
+export async function getStaticPaths() {
+	const collection = await getDataThemes();
+	return (
+		collection
+			// filter out unavailable locales
+			.filter(
+				(page: ThemePageProps) =>
+					availableLocales.filter((locale) => locale.id === page.localeID)
+						.length,
+			)
+			.map((page: ThemePageProps) => ({
+				params: { theme: page.slug, locale: page.localeID },
+				props: {
+					pageData: page,
+					locale: availableLocales.filter(
+						(locale) => locale.id === page.localeID,
+					)[0],
+				},
+			}))
+			.flat(Infinity)
+	);
+}
+
+interface Props {
+	pageData: ThemePageProps;
+	locale: Locale;
+}
+
+const { pageData, locale } = Astro.props;
+
+const { filters, ctaButtons } = getFiltersAndSituations({
+	ctaButtonCollection: pageData.ctaButtonCollection,
+});
+const siteSettings = await useSiteSettings({ locale });
+---
+
+<Layout
+	locale={locale}
+	metaData={pageData.metaData}
+	mastheadHighlight
+	alternativeTranslations={pageData.alternatives}
+	type={pageData.type}
+	itemscope
+	itemtype="https://schema.org/FAQPage"
+>
+	<Hero
+		title={pageData.hero.title}
+		titleSuffix={pageData.overview.title}
+		image={pageData.hero.image}
+		chapeau={pageData.hero.chapeau}
+		updatedAt={pageData.hero.showUpdatedAt ? pageData.updatedAt : undefined}
+		adjustForCards={!!pageData?.cards?.items}
+		variant={'theme'}
+		imageIsPhoto={pageData.hero.isPhoto}
+	>
+		<Breadcrumbs items={pageData.breadcrumbs} slot="prefix" />
+		<ContentBlock value={pageData.hero.content} />
+	</Hero>
+
+	{
+		pageData?.cards?.label && !!pageData?.cards?.items ? (
+			<CardAnswerOverview label={pageData.cards.label} cards={pageData.cards} />
+		) : null
+	}
+
+	<Layer
+		pullUpBy={pageData?.cards?.label && !!pageData?.cards?.items
+			? undefined
+			: 'hero'}
+		id="situaties"
+	>
+		{
+			ctaButtons?.filter((item) => item.label).length ? (
+				<Retain>
+					<Stack>
+						<Heading>{pageData.titleFlow}</Heading>
+
+						<CTAButtonOverview
+							name={pageData.slug}
+							categories={filters}
+							items={ctaButtons}
+							enableFilter
+						/>
+					</Stack>
+				</Retain>
+			) : null
+		}
+	</Layer>
+
+	{
+		pageData?.taleCollection?.length ? (
+			<Layer>
+				<Retain>
+					<TaleList
+						taleCollection={pageData.taleCollection}
+						asDisclosure={pageData.talesAsDisclosure}
+					/>
+				</Retain>
+			</Layer>
+		) : null
+	}
+
+	{
+		pageData?.showFeedback ? (
+			<Layer>
+				<Retain>
+					<Stack>
+						<FeedbackAbstraction
+							name="Thema"
+							url={getFeedbackUrl(siteSettings.feedback.url, {
+								source: pageData.type,
+								advice: pageData.slug,
+							})}
+						/>
+					</Stack>
+				</Retain>
+			</Layer>
+		) : null
+	}
+
+	{
+		pageData.assistance && pageData.assistance.type === 'assistance-new' ? (
+			<Layer
+				id={stringToSlug(pageData.assistance.title)}
+				background={'ijsblauw'}
+				pushDownBy="assistance-image"
+			>
+				<Retain>
+					<Assistance
+						feedback={getFeedbackUrl(siteSettings.feedback.url, {
+							source: pageData.type,
+							advice: pageData.slug,
+						})}
+						{...pageData.assistance}
+					/>
+				</Retain>
+			</Layer>
+		) : null
+	}
+</Layout>
+<style lang="scss">
+	@use '@dodo/ui/styles/primitives/responsive';
+
+	.grid-questions {
+		--grid-fluid-min-item-size: var(--space-100);
+		--grid-fluid-gap: var(--stack-4);
+	}
+</style>

@@ -1,0 +1,395 @@
+---
+import { ContentBlock } from '@components/ContentBlock';
+import { GridFluid, Stack } from '@dodo/ui/components';
+import { Link, Button } from '@dodo/ui/elements';
+import type { HTMLAttributes } from 'astro/types';
+import {
+	type CtaButtonProps,
+	useSiteSettings,
+} from 'src/utilities/api/queries';
+import { parseLink } from 'src/utilities/helpers/link';
+import { getFullPageUrl } from 'src/utilities/helpers/page-subfolder';
+import { getLocaleFromURL } from 'src/utilities/locale/translation';
+
+interface Props extends HTMLAttributes<'div'> {
+	name: string;
+	categories?: {
+		label: string;
+		id: string;
+		theme?: {
+			overview: {
+				title: string;
+			};
+			slug: string;
+		};
+	}[];
+	items: CtaButtonProps[];
+	enableFilter?: boolean;
+}
+
+const {
+	name,
+	categories,
+	items,
+	enableFilter,
+	class: className,
+	...attrs
+} = Astro.props;
+const locale = getLocaleFromURL(Astro.url.pathname);
+const siteSettings = await useSiteSettings({ locale });
+
+const filterCategories = categories?.length
+	? categories.filter(
+			(category) =>
+				// Check if buttoncollection contains a button which is referenced from the current category
+				items.filter(
+					(button) =>
+						button.categories.filter(
+							(buttonCategory) => buttonCategory.slug === category.id,
+						).length,
+				).length,
+	  )
+	: [];
+
+const filteredItems =
+	items && items.length ? items?.filter((item) => item.label) : [];
+
+const uniqueThemes = filterCategories.length
+	? filterCategories.reduce((acc, category) => {
+			if (
+				category.theme &&
+				!acc.some((item) => item.slug === category.theme.slug)
+			) {
+				return [...acc, category.theme];
+			}
+			return [...acc];
+	  }, [])
+	: [];
+---
+
+<>
+	{
+		filteredItems ? (
+			<div
+				class={`c-cta-button-overview${className ? ` | ${className}` : ''}`}
+				data-module={
+					enableFilter && filterCategories.length ? 'filter' : undefined
+				}
+				data-name={name}
+				{...attrs}
+			>
+				<Stack>
+					{enableFilter && filterCategories.length ? (
+						<div class="c-cta-button-overview__wrap-buttons">
+							<Button
+								type="button"
+								variant="quinary"
+								data-id="all"
+								data-theme-slug="all"
+								data-module-bind="filter__toggle"
+							>
+								{siteSettings.genericLabels.all}
+							</Button>
+							{filterCategories.map((category) => (
+								<Button
+									type="button"
+									variant="quinary"
+									data-id={category.id}
+									data-theme-slug={category?.theme?.slug || 'all'}
+									data-module-bind="filter__toggle"
+								>
+									{category.label}
+								</Button>
+							))}
+						</div>
+					) : null}
+
+					<p>
+						<small class="u-color--donkerblauw">
+							<span data-amount-filter hidden>
+								<span data-amount>{filteredItems.length}</span>{' '}
+								<span>{siteSettings.genericLabels.of} </span>
+							</span>
+							<span>
+								{' '}
+								{filteredItems.length}{' '}
+								{filteredItems.length <= 1
+									? siteSettings.genericLabels.situationPlural.this
+									: siteSettings.genericLabels.situationPlural.that}
+							</span>
+						</small>
+					</p>
+					<GridFluid
+						class="c-cta-button-overview__grid"
+						as="ul"
+						aria-live="polite"
+					>
+						{filteredItems.map((item) => (
+							<li
+								class="c-cta-button-overview__item"
+								data-module-bind="filter__item"
+								data-themes={`all ${
+									item.categories.length
+										? item.categories
+												.map((category) => `${category.slug}`)
+												.join()
+										: undefined
+								}`}
+							>
+								<Button
+									variant="tertiary"
+									href={parseLink(getFullPageUrl(item.slugCollection), locale)}
+									icon="chevron-small-right"
+									interactionIconAnimation="swing"
+								>
+									<ContentBlock value={item.label} />
+								</Button>
+							</li>
+						))}
+					</GridFluid>
+					<div
+						aria-live="polite"
+						data-module-bind="filter__switch-on-filter-theme"
+					>
+						{enableFilter && uniqueThemes.length ? (
+							<>
+								{uniqueThemes.map((theme) => (
+									<Link
+										href={parseLink(theme.slug, locale)}
+										icon="arrow-right"
+										data-theme-slug={theme.slug}
+										hidden
+									>
+										{siteSettings.genericLabels.goTo}&#32;
+										{theme.overview.title.toLowerCase()}
+									</Link>
+								))}
+							</>
+						) : null}
+					</div>
+				</Stack>
+			</div>
+		) : null
+	}
+</>
+
+<style lang="scss">
+	.c-cta-button-overview__grid {
+		--grid-fluid-min-item-size: var(--space-100);
+		--grid-fluid-gap: var(--space-4);
+		--stack-gap: var(--space-3);
+	}
+
+	.c-cta-button-overview__wrap-buttons {
+		display: flex;
+		flex-flow: row wrap;
+		gap: var(--space-4);
+
+		> * {
+			min-inline-size: auto;
+		}
+	}
+
+	.c-cta-button-overview__item {
+		position: relative;
+		z-index: 2;
+		display: flex;
+
+		> * {
+			inline-size: 100%;
+		}
+
+		&.is-invisible {
+			opacity: 0.2;
+			z-index: 1;
+			order: 1;
+		}
+
+		&:focus-within,
+		&:hover {
+			opacity: 1;
+		}
+
+		&.is-hidden {
+			display: none;
+		}
+	}
+
+	/* Animation */
+
+	@keyframes fadeInUp {
+		from {
+			transform: translate3d(0, var(--space-8), 0);
+		}
+
+		to {
+			transform: translate3d(0, 0, 0);
+			opacity: 1;
+		}
+	}
+
+	@-webkit-keyframes fadeInUp {
+		from {
+			transform: translate3d(0, var(--space-8), 0);
+		}
+
+		to {
+			transform: translate3d(0, 0, 0);
+			opacity: 1;
+		}
+	}
+
+	@keyframes fadeOutDown {
+		from {
+			transform: translate3d(0, 0, 0);
+		}
+
+		to {
+			transform: translate3d(0, var(--space-8), 0);
+			opacity: 0;
+		}
+	}
+
+	.animated {
+		animation-duration: 0.3s;
+		animation-fill-mode: both;
+		-webkit-animation-duration: 0.3s;
+		-webkit-animation-fill-mode: both;
+	}
+
+	.fadeInUp {
+		opacity: 0;
+		animation-name: fadeInUp;
+		-webkit-animation-name: fadeInUp;
+	}
+
+	.fadeOutDown {
+		opacity: 1;
+		animation-name: fadeInUp;
+		-webkit-animation-name: fadeInUp;
+	}
+</style>
+
+<script>
+	import { trackEvent } from 'src/utilities/tracking/piwik';
+	import { mqLarge } from '@dodo/ui/primitives';
+
+	const mql = window.matchMedia(mqLarge);
+
+	const parent = document.querySelector(
+		'[data-module="filter"]',
+	) as HTMLDivElement;
+	if (parent) {
+		const name = `filter-${parent.dataset.name}`;
+		const toggles = parent.querySelectorAll<HTMLButtonElement>(
+			'[data-module-bind="filter__toggle"]',
+		);
+		const items = parent.querySelectorAll<HTMLLIElement>(
+			'[data-module-bind="filter__item"]',
+		);
+		const placeholderAmount =
+			parent.querySelector<HTMLSpanElement>('[data-amount]');
+		const amountFilter = parent.querySelector<HTMLSpanElement>(
+			'[data-amount-filter]',
+		);
+		const themeSwitchContainers = document.querySelectorAll<HTMLElement>(
+			'[data-module-bind="filter__switch-on-filter-theme"]',
+		);
+
+		// Get filters from session
+		const activeFilters = JSON.parse(sessionStorage.getItem(name)) || ['all'];
+
+		const checkItem = (value: string) =>
+			!!activeFilters.some((filter: string) => value.includes(filter));
+
+		const filterItems = ({ id }: { id?: string }) => {
+			if (id) {
+				if (activeFilters.includes(id)) {
+					// remove active item if exists
+					activeFilters.splice(activeFilters.indexOf(id), 1);
+				} else {
+					// Remove all items
+					// (remove this line when we want multiple filters active)
+					activeFilters.splice(0, activeFilters.length);
+					// Add active item
+					activeFilters.push(id);
+				}
+			}
+
+			// Scroll to amount filter when a filter button is clicked, only on mobile
+			if (!mql.matches) {
+				amountFilter.scrollIntoView({ behavior: 'smooth' });
+			}
+
+			// Add/remove 'animated' and 'fadeInUp' classes
+			items.forEach((item) => {
+				const shouldBeVisible =
+					activeFilters.length === 0 || checkItem(item.dataset.themes || '');
+
+				if (shouldBeVisible) {
+					// If the item should be visible, add the classes and listen for animation end
+					item.classList.add('animated', 'fadeInUp');
+					item.addEventListener(
+						'animationend',
+						() => {
+							item.classList.remove('animated', 'fadeInUp');
+						},
+						{ once: true },
+					); // { once: true } ensures the event handler runs only once
+				} else {
+					// If the item is not visible, remove the classes
+					item.classList.remove('animated', 'fadeInUp');
+				}
+
+				item.classList.toggle('is-hidden', !shouldBeVisible);
+			});
+
+			// if there are no filters left, add 'all'
+			if (activeFilters.length === 0) {
+				activeFilters.push('all');
+			}
+
+			const activeItems = [...items].filter(
+				(item) => !item.classList.contains('is-hidden'),
+			).length;
+
+			placeholderAmount.innerHTML = `${activeItems}`;
+			amountFilter.hidden = activeItems === items.length;
+
+			toggles.forEach((toggle) => {
+				toggle.classList.toggle(
+					'is-active',
+					activeFilters.includes(toggle.dataset.id),
+				);
+
+				if (activeFilters.includes(toggle.dataset.id)) {
+					themeSwitchContainers.forEach((container) => {
+						const items =
+							container.querySelectorAll<HTMLElement>('[data-theme-slug]');
+
+						items.forEach((item) => {
+							item.hidden = !(
+								item.dataset.themeSlug === toggle.dataset.themeSlug
+							);
+						});
+					});
+				}
+			});
+
+			// store filters in session
+			sessionStorage.setItem(name, JSON.stringify(activeFilters));
+		};
+
+		toggles.forEach((toggle) => {
+			toggle.addEventListener('click', (event) => {
+				event.preventDefault();
+				const id = toggle.dataset.id;
+				// Track click
+				trackEvent('Filter', name, id);
+				filterItems({ id });
+			});
+		});
+
+		filterItems({});
+	}
+</script>

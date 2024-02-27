@@ -1,0 +1,85 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { ContentBlock } from '@components/ContentBlock';
+import type { ButtonsProps, CardsProps } from 'src/utilities/api/queries';
+import {
+	Layer,
+	GridFluid,
+	Retain,
+	Stack,
+	CardSupport,
+	type PictureProps,
+} from '@dodo/ui/components';
+import { Heading } from '@dodo/ui/elements';
+import { FlexibleButton } from '@components/elements/FlexibleButton';
+
+interface Props extends HTMLAttributes<'div'> {
+	label: string;
+	cards: CardsProps['items'];
+	buttons?: ButtonsProps;
+	image?: PictureProps['image'];
+}
+
+const { label, cards } = Astro.props;
+---
+
+<Layer data-pagefind-ignore="all">
+	<Retain>
+		<Stack>
+			<Heading>{label}</Heading>
+			<GridFluid
+				class={`c-support-block__grid${
+					cards.length === 3 ? ' c-support-block__grid--three-cards' : ''
+				} ${cards.length === 4 ? ' c-support-block__grid--four-cards' : ''}`}
+			>
+				{
+					cards.map(({ title, image, content, buttons }) => (
+						<CardSupport title={title} image={image}>
+							<ContentBlock value={content} />
+							{!!buttons?.length ? (
+								<ul
+									class="c-support-block__wrap-buttons"
+									role="list"
+									slot="appendix"
+								>
+									{buttons.map((button) => (
+										<li>
+											<FlexibleButton {...button} />
+										</li>
+									))}
+								</ul>
+							) : null}{' '}
+						</CardSupport>
+					))
+				}
+			</GridFluid>
+		</Stack>
+	</Retain>
+</Layer>
+
+<style lang="scss">
+	@use '@dodo/ui/styles/primitives/responsive';
+	@use '@dodo/ui/styles/tools/rem';
+
+	.c-support-block__grid {
+		--grid-fluid-min-item-size: var(--space-100);
+		--grid-fluid-gap: var(--space-4);
+	}
+
+	.c-support-block__grid--three-cards {
+		@media (--mq-large) {
+			--grid-fluid-min-item-size: var(--space-75);
+		}
+	}
+
+	.c-support-block__grid--four-cards {
+		@media (--mq-huge) {
+			--grid-fluid-min-item-size: 16rem;
+		}
+	}
+
+	.c-support-block__wrap-buttons {
+		margin-block-start: auto;
+		padding-inline: var(--space-6);
+	}
+</style>
