@@ -3,22 +3,13 @@
 	"private": true,
 	"scripts": {
 		"test": "npm run test --workspaces",
-		"mvoc:dev": "npm run dev --workspace mvoc",
-		"mvoc:build": "npm run build --workspace mvoc",
-		"mvoc:preview": "npm run preview --workspace mvoc",
-		"mvoc:test": "npm run test --workspace mvoc",
-		"ui:test": "npm run test --workspace @dodo/ui",
-		"ui:dev": "npm run dev --workspace @dodo/ui",
+		"web:dev": "npm run dev --workspace web",
+		"web:build": "npm run build --workspace web",
+		"web:preview": "npm run preview --workspace web",
+		"web:test": "npm run test --workspace web",
 		"cms:dev": "npm run dev --workspace cms",
 		"cms:deploy": "npm run deploy --workspace cms",
 		"cms:build": "npm run build-development --workspace cms",
-		"pza:dev": "npm run dev --workspace pza",
-		"pza:build": "npm run build --workspace pza",
-		"pza:preview": "npm run preview --workspace pza",
-		"pza:test": "npm run test --workspace pza",
-		"cms-pza:dev": "npm run dev --workspace cms-pza",
-		"cms-pza:deploy": "npm run deploy --workspace cms-pza",
-		"cms-pza:build": "npm run build-development --workspace cms-pza",
 		"format": "npm run format:prettier",
 		"format:prettier": "prettier --write ."
 	},
@@ -26,7 +17,6 @@
 		"./packages/*"
 	],
 	"dependencies": {
-		"@dodo/ui": "^1.0.0",
 		"typescript": "^5.3.3"
 	}
 }

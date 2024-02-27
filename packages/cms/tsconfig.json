@@ -6,10 +6,7 @@
 		"outDir": "./dist",
 		"noEmit": false,
 		"target": "ESNext",
-		"types": ["vite/client"],
-		"paths": {
-			"@dodo/ui/*": ["@dodo/ui/src/*"]
-		}
+		"types": ["vite/client"]
 	},
 	"include": [
 		"./node_modules/@sanity/base/types/**/*.ts",

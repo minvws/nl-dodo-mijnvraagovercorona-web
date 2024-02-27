@@ -4,7 +4,7 @@ This is a [Astro](https://astro.build) project.
 
 ## Getting Started
 
-We're using NPM workspaces for our `cms` & `mvoc` packages.
+We're using NPM workspaces for our `cms` & `web` packages.
 First you'll need to install the dependencies:
 
 ```bash
@@ -12,20 +12,20 @@ First you'll need to install the dependencies:
 npm i
 ```
 
-Then you can run/build the `mvoc` website:
+Then you can run/build the website:
 
 ```bash
 # Run mvoc website locally
-npm run mvoc:dev
+npm run web:dev
 
 # Build mvoc website
-npm run mvoc:build
+npm run web:build
 
 # Test mvoc website
-npm run mvoc:test
+npm run web:test
 ```
 
-**Note**: If you want to enable search in your dev environment you need to run `npm run mvoc:build` prior to running `npm run mvoc:dev`.
+**Note**: If you want to enable search in your dev environment you need to run `npm run web:build` prior to running `npm run web:dev`.
 
 For the `cms` package you can run the following commands:
 
@@ -35,16 +35,6 @@ npm run cms:dev
 
 # Deploy Sanity cms
 npm run cms:deploy
-```
-
-For the `cms-pza` package you can run the following commands:
-
-```bash
-# Run Sanity cms locally
-npm run cms-pza:dev
-
-# Deploy Sanity cms
-npm run cms-pza:deploy
 ```
 
 ## Learn More
