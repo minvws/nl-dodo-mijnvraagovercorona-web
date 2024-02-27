@@ -52,7 +52,7 @@ before_script:
   - echo "CHANGES_DETECTED - $CHANGES_DETECTED"
   - unset ${HISTFILE} # Disable shell cache for security purposes
 
-test mvoc:
+test web:
   image: harbor.cicd.s15m.nl/docker-hub-proxy/library/node:20-alpine
   stage: test
   script:
@@ -63,65 +63,65 @@ test mvoc:
     - staging
     - main
 
-build mvoc website development:
+build web development:
   image: harbor.cicd.s15m.nl/docker-hub-proxy/library/node:20-alpine
   stage: build
   script:
     - npm ci
-    - npm run mvoc:build
-    - mkdir -p artifacts/mvoc
-    - cp -r packages/mvoc/dist artifacts/mvoc/
+    - npm run web:build
+    - mkdir -p artifacts/web
+    - cp -r packages/web/dist artifacts/web/
   artifacts:
     paths:
-      - artifacts/mvoc/dist/
+      - artifacts/web/dist/
   only:
     - develop
 
-build mvoc website staging:
+build web staging:
   image: harbor.cicd.s15m.nl/docker-hub-proxy/library/node:20-alpine
   stage: build
   script:
     - npm ci
-    - npm run mvoc:build
-    - mkdir -p artifacts/mvoc
-    - cp -r packages/mvoc/dist artifacts/mvoc/
+    - npm run web:build
+    - mkdir -p artifacts/web
+    - cp -r packages/web/dist artifacts/web/
   artifacts:
     paths:
-      - artifacts/mvoc/dist/
+      - artifacts/web/dist/
   only:
     - staging
 
-build mvoc website main:
+build web main:
   image: harbor.cicd.s15m.nl/docker-hub-proxy/library/node:20-alpine
   stage: build
   script:
     - npm ci
-    - npm run mvoc:build
-    - mkdir -p artifacts/mvoc
-    - cp -r packages/mvoc/dist artifacts/mvoc/
+    - npm run web:build
+    - mkdir -p artifacts/web
+    - cp -r packages/web/dist artifacts/web/
   artifacts:
     paths:
-      - artifacts/mvoc/dist/
+      - artifacts/web/dist/
   only:
     - main
 
-build mvoc image:
+build web image:
   <<: *build-image
   variables:
     CD_APP_NAME: mijn-vraag-over-corona-frontend
-    CD_APP_FOLDER: mvoc
+    CD_APP_FOLDER: web
   before_script:
     - export CD_APP_TAG=$(date -d "$(echo $CI_PIPELINE_CREATED_AT | sed 's/T/ /; s/Z//')" +%Y%m%d%H%M)
-    - mkdir -p packages/mvoc
-    - cp -r artifacts/mvoc/dist packages/mvoc/
+    - mkdir -p packages/web
+    - cp -r artifacts/web/dist packages/web/
   # dependencies:
-  #   - build mvoc
+  #   - build web
   only:
     - develop
     - main
     - staging
 
-deploy mvoc image development:
+deploy web image development:
   variables:
     CD_APP_NAME: mijn-vraag-over-corona-frontend
     CD_PIPELINE_CREATED_AT: $CI_PIPELINE_CREATED_AT
@@ -134,7 +134,7 @@ deploy mvoc image development:
   only:
     - develop
 
-deploy mvoc image staging:
+deploy web image staging:
   variables:
     CD_PIPELINE_CREATED_AT: $CI_PIPELINE_CREATED_AT
     CD_ENVIRONMENT: staging
@@ -146,7 +146,7 @@ deploy mvoc image staging:
   only:
     - staging
 
-deploy mvoc image production:
+deploy web image production:
   variables:
     CD_PIPELINE_CREATED_AT: $CI_PIPELINE_CREATED_AT
     CD_ENVIRONMENT: production
